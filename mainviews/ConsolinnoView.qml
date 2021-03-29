@@ -33,8 +33,8 @@ import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.2
 import Nymea 1.0
-import "../../components"
-import "../../delegates"
+import "../components"
+import "../delegates"
 
 MainViewBase {
     id: root
@@ -43,9 +43,9 @@ MainViewBase {
         anchors { left: parent.left; right: parent.right; margins: app.margins }
         anchors.verticalCenter: parent.verticalCenter
         visible: /*engine.thingManager.things.count === 0 &&*/ !engine.thingManager.fetchingData
-        title: qsTr("Welcome to %1!").arg(app.systemName)
+        title: qsTr("Welcome to %1!").arg(Configuration.systemName)
         text: qsTr("Start with adding your appliances.")
-        imageSource: "qrc:/ui/images/consolinno/leaf.svg"
+        imageSource: "qrc:/ui/images/leaf.svg"
         buttonText: qsTr("Configure your leaflet")
     }
 

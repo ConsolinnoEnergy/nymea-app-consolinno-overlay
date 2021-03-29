@@ -1,8 +1,10 @@
+pragma Singleton
 import QtQuick 2.0
-import QtQuick.Templates 2.2
-import QtQuick.Controls.Material 2.2
 
-ApplicationWindow {
+ConfigurationBase {
+    systemName: "Leaflet"
+    appName: "Consolinno energy"
+
     // Identifier used for branding (e.g. to register for push notifications)
     property string branding: "consolinno"
 
@@ -12,9 +14,10 @@ ApplicationWindow {
 
     // Additional MainViews
     property var additionalMainViews: ListModel {
-        ListElement { name: "acme"; source: "consolinno/EnergyView"; displayName: qsTr("Energy"); icon: "consolinno/leaf" }
+        ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Consolinno"); icon: "leaf" }
     }
 
     // Main views filter: Only those main views are enabled
-    property var mainViewsFilter: ["acme", "things"]
+    property var mainViewsFilter: ["consolinno", "energy", "things"]
+
 }

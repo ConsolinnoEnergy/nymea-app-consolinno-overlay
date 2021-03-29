@@ -11,7 +11,7 @@
    data-name="Ebene 1"
    viewBox="0 0 256 256"
    version="1.1"
-   sodipodi:docname="logo.svg"
+   sodipodi:docname="appicon.svg"
    width="256"
    height="256"
    inkscape:version="1.0.1 (1.0.1+r74)">
@@ -23,7 +23,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -39,14 +39,19 @@
      inkscape:window-width="1380"
      inkscape:window-height="873"
      id="namedview149"
-     showgrid="false"
-     inkscape:zoom="1.0631147"
-     inkscape:cx="199.95262"
-     inkscape:cy="32.149341"
+     showgrid="true"
+     inkscape:zoom="1.9114552"
+     inkscape:cx="123.19118"
+     inkscape:cy="126.76518"
      inkscape:window-x="60"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
-     inkscape:current-layer="Ebene_1" />
+     inkscape:current-layer="Ebene_1"
+     inkscape:document-rotation="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid885" />
+  </sodipodi:namedview>
   <defs
      id="defs4">
     <style
@@ -54,7 +59,7 @@
   </defs>
   <g
      id="g1030"
-     transform="matrix(1.3589057,0,0,1.3589057,-612.08722,58.315316)">
+     transform="matrix(0.71428553,0,0,0.71428553,-261.01419,91.371438)">
     <polygon
        class="cls-3"
        points="583.08,14.04 583.24,14.11 583.23,13.95 583.11,13.94 "
@@ -81,7 +86,7 @@
        id="path48" />
     <polygon
        class="cls-3"
-       points="520.37,51.91 524.54,50.55 520.87,46.3 "
+       points="524.54,50.55 520.87,46.3 520.37,51.91 "
        id="polygon50" />
     <path
        class="cls-3"
@@ -165,15 +170,15 @@
        id="path82" />
     <polygon
        class="cls-5"
-       points="558.22,26.03 558.35,26.01 557.4,24.22 "
+       points="558.35,26.01 557.4,24.22 558.22,26.03 "
        id="polygon84" />
     <polygon
        class="cls-5"
-       points="552.19,11.59 552.45,11.56 552.33,11.47 "
+       points="552.45,11.56 552.33,11.47 552.19,11.59 "
        id="polygon86" />
     <polygon
        class="cls-5"
-       points="544.22,59.13 543.52,57.84 543.43,57.86 "
+       points="543.52,57.84 543.43,57.86 544.22,59.13 "
        id="polygon88" />
     <path
        class="cls-5"
@@ -237,19 +242,19 @@
        id="path112" />
     <polygon
        class="cls-6"
-       points="455.7,85.69 456.14,94.61 469.17,82.26 "
+       points="456.14,94.61 469.17,82.26 455.7,85.69 "
        id="polygon114" />
     <polygon
        class="cls-6"
-       points="477.45,52.92 477.53,52.34 477.53,52.27 "
+       points="477.53,52.34 477.53,52.27 477.45,52.92 "
        id="polygon116" />
     <polygon
        class="cls-6"
-       points="477.51,52.17 477.52,52.2 477.52,52.15 "
+       points="477.52,52.2 477.52,52.15 477.51,52.17 "
        id="polygon118" />
     <polygon
        class="cls-6"
-       points="629.07,8.81 633.57,2.19 624.82,1.39 629,8.9 629.07,8.81 627.26,5.73 "
+       points="629.07,8.81 627.26,5.73 629.07,8.81 633.57,2.19 624.82,1.39 629,8.9 "
        id="polygon120" />
     <path
        class="cls-6"
@@ -308,7 +313,7 @@
        id="path142" />
     <polygon
        class="cls-7"
-       points="460.36,57.54 460.56,57.1 460.5,57 "
+       points="460.56,57.1 460.5,57 460.36,57.54 "
        id="polygon144" />
     <path
        class="cls-7"

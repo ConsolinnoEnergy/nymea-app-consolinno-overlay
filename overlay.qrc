@@ -1,18 +1,18 @@
 <RCC>
     <qresource prefix="/">
-        <file>styles/consolinno/ApplicationWindow.qml</file>
-        <file>styles/consolinno/Style.qml</file>
-        <file>styles/consolinno/Button.qml</file>
-        <file>styles/consolinno/logo.svg</file>
-        <file>styles/consolinno/logo-wide.svg</file>
-        <file>styles/consolinno_dark/ApplicationWindow.qml</file>
-        <file>styles/consolinno_dark/Style.qml</file>
-        <file>styles/consolinno_dark/Button.qml</file>
-        <file>styles/consolinno_dark/logo.svg</file>
-        <file>styles/consolinno_dark/logo-wide.svg</file>
+        <file>styles/light/Style.qml</file>
+        <file>styles/light/Button.qml</file>
+        <file>styles/light/logo.svg</file>
+        <file>styles/light/logo-wide.svg</file>
+        <file>styles/dark/Style.qml</file>
+        <file>styles/dark/Button.qml</file>
+        <file>styles/dark/logo.svg</file>
+        <file>styles/dark/logo-wide.svg</file>
+        <file>config.txt</file>
     </qresource>
     <qresource prefix="/ui">
-        <file>mainviews/consolinno/EnergyView.qml</file>
-        <file>images/consolinno/leaf.svg</file>
+        <file>mainviews/ConsolinnoView.qml</file>
+        <file>images/leaf.svg</file>
+        <file>Configuration.qml</file>
     </qresource>
 </RCC>
