@@ -1,0 +1,122 @@
+name: consolinno-energy
+summary: Control app for Leaflets
+description: | 
+  Consolinno energy is the control application for Leaflet devices.
+
+grade: stable
+base: core20
+confinement: strict
+adopt-info: consolinno-energy
+
+architectures:
+- build-on: amd64
+- build-on: arm64
+- build-on: armhf
+
+apps:
+  daemon:
+    daemon: simple
+    environment:
+      QT_IM_MODULE: qtvirtualkeyboard
+    restart-condition: always
+    command-chain:
+      - bin/run-daemon
+      - bin/desktop-launch
+      - bin/wayland-launch
+    command: usr/bin/nymea-app --kiosk
+    plugs:
+    - avahi-observe
+    - bluez
+    - network
+    - opengl
+    - wayland
+
+  consolinno-energy:
+    command-chain: [ bin/desktop-launch ]
+    command: usr/bin/consolinno-energy
+    desktop: usr/share/applications/consolinno-energy.desktop
+    plugs:
+    - avahi-observe
+    - bluez
+    - network
+    - opengl
+    - x11
+    - desktop
+    - desktop-legacy
+
+parts:
+  desktop-qt5:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: qt
+    plugin: make
+    make-parameters: ["FLAVOR=qt5"]
+    build-packages:
+      - build-essential
+      - qtbase5-dev
+      - dpkg-dev
+    stage-packages:
+      - libxkbcommon0
+      - ttf-ubuntu-font-family
+      - dmz-cursor-theme
+      - light-themes
+      - adwaita-icon-theme
+      - gnome-themes-standard
+      - shared-mime-info
+      - libqt5gui5
+      - libgdk-pixbuf2.0-0
+      - libqt5svg5 # for loading icon themes which are svg
+      - try: [appmenu-qt5] # not available on core18
+      - locales-all
+      - xdg-user-dirs
+      - fcitx-frontend-qt5
+
+  mir-kiosk-snap-launch:
+    plugin: dump
+    source: https://github.com/MirServer/mir-kiosk-snap-launch.git
+    override-build: |
+      ${SNAPCRAFT_PART_BUILD}/build-with-plugs.sh opengl wayland
+    stage-packages:
+      - inotify-tools
+
+  consolinno-energy:
+    plugin: qmake
+    options: OVERLAY_PATH=overlay
+    source: .
+    after: [desktop-qt5]
+    build-packages:
+      - execstack
+      - qt5-default
+      - qt5-qmake
+      - qtbase5-dev
+      - libavahi-client-dev
+      - libavahi-common-dev
+      - libqt5charts5-dev
+      - libqt5svg5-dev
+      - libqt5websockets5-dev
+      - libqt5webview5-dev
+      - qtconnectivity5-dev
+      - qtdeclarative5-dev
+      - qtquickcontrols2-5-dev
+      - qttools5-dev-tools
+    stage-packages:
+      - libqt5gui5
+      - libqt5websockets5
+      - libqt5bluetooth5
+      - libqt5nfc5
+      - libgl1-mesa-dri
+      - qml-module-qtcharts
+      - qml-module-qtgraphicaleffects
+      - qml-module-qtquick2
+      - qml-module-qtquick-controls2
+      - qml-module-qtquick-layouts
+      - qml-module-qtquick-window2
+      - qml-module-qt-labs-calendar
+      - qml-module-qt-labs-settings
+      - qml-module-qt-labs-folderlistmodel
+      - libavahi-client3
+      - libavahi-common3
+      - qtvirtualkeyboard-plugin
+      - qtwayland5
+    override-build: |
+      snapcraftctl set-version $( head -n 1 ${SNAPCRAFT_PART_SRC}/version.txt )
+      snapcraftctl build
