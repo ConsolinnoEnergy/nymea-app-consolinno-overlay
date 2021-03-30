@@ -15,7 +15,7 @@ Component.prototype.createOperations = function()
     component.createOperations();
 
     if (systemInfo.productType === "windows") {
-        component.addOperation("CreateShortcut", "@TargetDir@/nymea-app.exe", "@StartMenuDir@/nymea app.lnk",
+        component.addOperation("CreateShortcut", "@TargetDir@/consolinno-energy.exe", "@StartMenuDir@/Consolinno energy.lnk",
             "workingDirectory=@TargetDir@", "iconPath=@TargetDir@/logo.ico",
             "description=Consolinno energy - The Leaflet frontend");
     }
