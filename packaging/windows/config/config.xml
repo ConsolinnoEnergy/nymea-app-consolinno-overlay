@@ -5,5 +5,5 @@
     <Title>Consilinno energy Windows Installer</Title>
     <Publisher>nymea GmbH</Publisher>
     <StartMenuDir>Consolinno</StartMenuDir>
-    <TargetDir>@ApplicationsDirX64@/consolinno-energy</TargetDir>
+    <TargetDir>@ApplicationsDirX64@/Consolinno energy</TargetDir>
 </Installer>
