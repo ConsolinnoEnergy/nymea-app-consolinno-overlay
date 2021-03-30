@@ -1,3 +1,0 @@
-[General]
-organisation=consolinno
-app=energy

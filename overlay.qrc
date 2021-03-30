@@ -8,7 +8,6 @@
         <file>styles/dark/Button.qml</file>
         <file>styles/dark/logo.svg</file>
         <file>styles/dark/logo-wide.svg</file>
-        <file>config.txt</file>
     </qresource>
     <qresource prefix="/ui">
         <file>mainviews/ConsolinnoView.qml</file>
