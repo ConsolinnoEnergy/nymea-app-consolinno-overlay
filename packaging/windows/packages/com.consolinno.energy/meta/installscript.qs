@@ -13,7 +13,7 @@ changeLicenseLabels = function()
 Component.prototype.createOperations = function()
 {
     component.createOperations();
-
+    component.addOperation("Execute", "@TargetDir@/vc_redist.x64.exe", "/quiet", "/norestart");
     if (systemInfo.productType === "windows") {
         component.addOperation("CreateShortcut", "@TargetDir@/consolinno-energy.exe", "@StartMenuDir@/Consolinno energy.lnk",
             "workingDirectory=@TargetDir@", "iconPath=@TargetDir@/logo.ico",
