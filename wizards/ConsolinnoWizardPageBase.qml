@@ -21,8 +21,7 @@ Page {
     signal back();
     signal extraButtonPressed();
 
-    background: Rectangle {
-        color: "white"
+    background: Item {
 
         Rectangle {
             anchors.centerIn: topCircle
@@ -50,8 +49,6 @@ Page {
             color: "#dddddd"
         }
 
-
-
         Rectangle {
             anchors {
                 left: parent.left
@@ -60,7 +57,7 @@ Page {
             }
             height: 100
             gradient: Gradient {
-                GradientStop { position: 0; color: "white" }
+                GradientStop { position: 0; color: Style.backgroundColor }
                 GradientStop { position: 1; color: Style.consolinnoLight }
             }
         }
