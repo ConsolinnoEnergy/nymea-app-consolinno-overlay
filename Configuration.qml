@@ -4,6 +4,7 @@ import QtQuick 2.0
 ConfigurationBase {
     systemName: "Leaflet"
     appName: "Consolinno energy"
+    connectionWizard: "/ui/wizards/ConnectionWizard.qml"
 
     // Identifier used for branding (e.g. to register for push notifications)
     property string branding: "consolinno"
@@ -19,5 +20,6 @@ ConfigurationBase {
 
     // Main views filter: Only those main views are enabled
     property var mainViewsFilter: ["consolinno", "energy", "things"]
+
 
 }

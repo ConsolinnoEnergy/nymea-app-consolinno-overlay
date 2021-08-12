@@ -13,5 +13,10 @@
         <file>mainviews/ConsolinnoView.qml</file>
         <file>images/leaf.svg</file>
         <file>Configuration.qml</file>
+        <file>wizards/ConnectionWizard.qml</file>
+        <file>wizards/ConsolinnoWizardPageBase.qml</file>
+        <file>images/intro-bg-graphic.svg</file>
+        <file>images/intro-bg-graphic-2.svg</file>
+        <file>images/leaflet-connect.png</file>
     </qresource>
 </RCC>
