@@ -8,6 +8,8 @@ import QtQuick.Layouts 1.2
 Page {
     id: root
 
+    property alias headerBackgroundColor: topCircle.color
+
     property alias content: contentContainer.children
 
     property alias showNextButton: nextButton.visible
@@ -20,8 +22,11 @@ Page {
     signal next();
     signal back();
     signal extraButtonPressed();
+    signal done();
 
-    background: Item {
+    header: Item {
+
+        height: 105
 
         Rectangle {
             anchors.centerIn: topCircle
@@ -38,16 +43,33 @@ Page {
             anchors {
                 left: parent.left
                 right: parent.right
-                bottom: parent.top
+                bottom: parent.bottom
+                bottomMargin: 5
 
-                bottomMargin: -100
                 leftMargin: -parent.width / 2
                 rightMargin: -parent.width / 2
             }
             height: width
             radius: width/2
             color: "#dddddd"
+
         }
+        Image {
+            anchors {
+                fill: parent
+                topMargin: Style.margins
+                bottomMargin: Style.margins
+                leftMargin: Style.bigMargins
+                rightMargin: Style.bigMargins
+            }
+            fillMode: Image.PreserveAspectFit
+            source: "qrc:/styles/%1/logo-wide.svg".arg(styleController.currentStyle)
+        }
+
+    }
+
+    background: Item {
+
 
         Rectangle {
             anchors {
@@ -66,16 +88,6 @@ Page {
     ColumnLayout {
         anchors.fill: parent
         spacing: Style.margins
-
-
-        Image {
-            Layout.margins: Style.margins
-            Layout.preferredHeight: Style.hugeIconSize
-            sourceSize.height: Style.hugeIconSize
-            Layout.fillWidth: true
-            fillMode: Image.PreserveAspectFit
-            source: "qrc:/styles/%1/logo-wide.svg".arg(styleController.currentStyle)
-        }
 
         Item {
             id: contentContainer

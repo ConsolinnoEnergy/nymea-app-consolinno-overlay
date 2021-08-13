@@ -9,6 +9,7 @@ ConsolinnoWizardPageBase {
 
     showBackButton: false
 
+    nextButtonText: qsTr("Start EMS setup")
     onNext: pageStack.push(privacyPolicyComponent)
 
     function exitWizard() {
@@ -41,6 +42,7 @@ ConsolinnoWizardPageBase {
 
             showNextButton: policyCheckbox.checked
             onNext: pageStack.push(connectLeafletComponent)
+            onBack: pageStack.pop()
 
             content: ColumnLayout {
                 anchors.fill: parent
@@ -84,6 +86,7 @@ ConsolinnoWizardPageBase {
         ConsolinnoWizardPageBase {
 
             onNext: pageStack.push(findLeafletComponent)
+            onBack: pageStacl.pop()
 
             content: ColumnLayout {
                 anchors.fill: parent
@@ -92,7 +95,7 @@ ConsolinnoWizardPageBase {
                     Layout.fillWidth: true
                     Layout.margins: Style.margins
                     horizontalAlignment: Text.AlignHCenter
-                    text: qsTr("Stellen Sie sicher, dass das Leaflet mit dem Stromnetz und dem Netzwerk verbunden ist.")
+                    text: qsTr("Please make sure that your Leaflet is connected to the power source and the network.")
                     wrapMode: Text.WordWrap
                 }
 

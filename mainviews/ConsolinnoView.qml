@@ -39,6 +39,59 @@ import "../delegates"
 MainViewBase {
     id: root
 
+
+    readonly property bool loading: engine.thingManager.fetchingData
+
+    QtObject {
+        id: d
+        property var currentWizard: null
+
+        function setup(showFinalPage) {
+
+            print("Setup. Installed energy meters:", energyMetersProxy.count, "EV Chargers:", evChargersProxy.count)
+
+            if (energyMetersProxy.count === 0) {
+                d.currentWizard = pageStack.push("/ui/wizards/SetupEnergyMeterWizard.qml")
+                d.currentWizard.done.connect(function() {setup(true)})
+                return
+            }
+
+            if (evChargersProxy.count === 0) {
+                d.currentWizard = pageStack.push("/ui/wizards/SetupEVChargerWizard.qml")
+                d.currentWizard.done.connect(function() {setup(true)})
+                return
+            }
+
+            if (showFinalPage) {
+                var page = pageStack.push("/ui/wizards/WizardComplete.qml")
+                page.done.connect(function() {exitWizard()})
+            }
+        }
+
+        function exitWizard() {
+            pageStack.pop(d.currentWizard, StackView.Immediate)
+            pageStack.pop()
+        }
+    }
+
+    onLoadingChanged: {
+        if (!loading) {
+            d.setup(false)
+        }
+    }
+
+    ThingsProxy {
+        id: energyMetersProxy
+        engine: _engine
+        shownInterfaces: ["energymeter"]
+    }
+
+    ThingsProxy {
+        id: evChargersProxy
+        engine: _engine
+        shownInterfaces: ["evcharger"]
+    }
+
     EmptyViewPlaceholder {
         anchors { left: parent.left; right: parent.right; margins: app.margins }
         anchors.verticalCenter: parent.verticalCenter

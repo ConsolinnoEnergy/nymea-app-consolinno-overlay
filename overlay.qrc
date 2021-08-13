@@ -18,5 +18,9 @@
         <file>images/intro-bg-graphic.svg</file>
         <file>images/intro-bg-graphic-2.svg</file>
         <file>images/leaflet-connect.png</file>
+        <file>wizards/SetupEVChargerWizard.qml</file>
+        <file>wizards/WizardComplete.qml</file>
+        <file>images/wizard-done.png</file>
+        <file>wizards/SetupEnergyMeterWizard.qml</file>
     </qresource>
 </RCC>
