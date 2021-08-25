@@ -22,4 +22,8 @@ StyleBase {
 
     accentColor: consolinnoMedium
     iconColor: consolinnoExtraDark
+
+    gray: "#9c9d9d"
+    darkGray: "#717171"
+
 }

@@ -22,5 +22,6 @@
         <file>wizards/WizardComplete.qml</file>
         <file>images/wizard-done.png</file>
         <file>wizards/SetupEnergyMeterWizard.qml</file>
+        <file>mainviews/LegendTile.qml</file>
     </qresource>
 </RCC>
