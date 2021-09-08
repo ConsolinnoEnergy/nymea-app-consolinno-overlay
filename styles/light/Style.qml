@@ -13,9 +13,6 @@ StyleBase {
     backgroundColor: "white"
     foregroundColor: consolinnoExtraDark
 
-    headerBackgroundColor: backgroundColor
-    headerForegroundColor: foregroundColor
-
 //    tileBackgroundColor: "white"
 //    tileOverlayColor: "#DDE8B4"
     tileOverlayIconColor: consolinnoDark

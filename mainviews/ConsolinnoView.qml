@@ -108,95 +108,180 @@ MainViewBase {
     Item {
         id: lsdChart
         anchors.fill: parent
+        anchors.topMargin: root.topMargin
 
         property int hours: 12
 
         readonly property var colors: ["#5e9ede", "#f8eb45", "#b15c95", "#c1362f", "#b6c741"]
 
         Canvas {
-            id: canvas
-            x: chartView.plotArea.x - axisWidth
-            y: chartView.plotArea.y - axisWidth
+            id: linesCanvas
             anchors.fill: parent
-//            width: chartView.plotArea.width + axisWidth * 2
-//            height: chartView.plotArea.height + axisWidth * 2
+            renderTarget: Canvas.FramebufferObject
+            renderStrategy: Canvas.Cooperative
 
-            property int axisWidth: 20
-//            Component.onCompleted: requestPaint()
+            property real lineAnimationProgress: 0
+            NumberAnimation {
+                target: linesCanvas
+                property: "lineAnimationProgress"
+                duration: 1000
+                loops: Animation.Infinite
+                from: 0
+                to: 1
+                running: true
+            }
+            onLineAnimationProgressChanged: requestPaint()
 
             onPaint: {
                 var ctx = getContext("2d");
-
+                ctx.reset();
                 ctx.save();
+                var xTranslate = chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2
+                var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
+                ctx.translate(xTranslate, yTranslate)
 
-                ctx.translate(chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2, chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2)
+                var maxCurrentPower = rootMeter ? Math.abs(rootMeter.stateByName("currentPower").value) : 0;
+                for (var i = 0; i < producers.count; i++) {
+                    maxCurrentPower = Math.max(maxCurrentPower, Math.abs(producers.get(i).stateByName("currentPower").value))
+                }
+                for (var i = 0; i < consumers.count; i++) {
+                    maxCurrentPower = Math.max(maxCurrentPower, Math.abs(consumers.get(i).stateByName("currentPower").value))
+                }
 
-                ctx.lineWidth = canvas.axisWidth;
-
-                var sliceAngle = 2 * Math.PI / lsdChart.hours
-                var timeSinceFullHour = new Date().getMinutes()
-
-                // tSFH : 60 = x : sliceAngle
-                var timeDiffRotation = timeSinceFullHour * sliceAngle / 60
-
-                for (var i = 0; i < lsdChart.hours; i++) {
-                    ctx.save();
-
-                    ctx.rotate(i * sliceAngle - timeDiffRotation)
-
+                // dashed lines from rootMeter
+                if (rootMeter) {
                     ctx.beginPath();
-                    ctx.strokeStyle = i % 2 == 0 ? Style.gray : Style.darkGray;
-                    ctx.arc(0, 0, (chartView.plotArea.width + canvas.axisWidth) / 2, 0, sliceAngle);
+                    // rM : max = x : 5
+                    var currentPower = rootMeter.stateByName("currentPower").value
+                    ctx.lineWidth = currentPower * 5 / maxCurrentPower + 1
+                    ctx.setLineDash([5, 2])
+                    var rootmeterPosition = rootMeterTile.mapToItem(linesCanvas, rootMeterTile.width / 2, rootMeterTile.height)
+                    var startX = rootmeterPosition.x - xTranslate
+                    var startY = rootmeterPosition.y - yTranslate
+                    var endX = -((producers.count) * 5)
+                    var endY = - chartView.plotArea.height / 2
+                    var height = startY - endY
+
+                    var extensionLength = ctx.lineWidth * 7
+                    var progress = currentPower > 0 ? 1 - lineAnimationProgress : lineAnimationProgress
+                    var extensionStartY = startY - extensionLength * progress
+
+                    ctx.moveTo(startX, extensionStartY);
+                    ctx.lineTo(startX, startY);
+                    ctx.bezierCurveTo(startX, endY + height / 2, endX, startY - height / 2, endX, endY)
                     ctx.stroke();
                     ctx.closePath();
-
-                    ctx.restore()
                 }
 
-                var startHour = new Date().getHours() - lsdChart.hours + 1
-                for (var i = 0; i < lsdChart.hours; i++) {
-                    ctx.save();
+                for (var i = 0; i < producers.count; i++) {
+                    ctx.beginPath();
+                    // rM : max = x : 5
+                    var producer = producers.get(i)
+                    var currentPower = producer.stateByName("currentPower").value
+                    ctx.lineWidth = currentPower * 5 / maxCurrentPower + 1
+                    ctx.setLineDash([5, 2])
+                    var tile = legendProducersRepeater.itemAt(i)
+                    var position = tile.mapToItem(linesCanvas, tile.width / 2, tile.height)
+//                    print("consumer pos", consumer.name, consumerPosition)
+                    var startX = position.x - xTranslate
+                    var startY = position.y - yTranslate
+                    var endX = 10 * i - ((producers.count - 1) * 5)
+                    var endY = -chartView.plotArea.height / 2
+                    var height = startY - endY
 
-                    ctx.rotate(i * sliceAngle - timeDiffRotation + sliceAngle * 1.5)
+                    var extensionLength = ctx.lineWidth * 7 // 5 + 2 dash segments from setLineDash
+                    var progress = currentPower == 0 ? 0 : currentPower > 0 ? lineAnimationProgress : 1 - lineAnimationProgress
+                    var extensionStartY = startY - extensionLength * progress
 
-                    var tmpDate = new Date()
-                    tmpDate.setHours(startHour + i, 0, 0)
-                    ctx.textAlign = 'center';
-                    ctx.font = "" + Style.smallFont.pixelSize + "px " + Style.smallFont.family
-                    ctx.fillStyle = "white"
-                    var textY = -(chartView.plotArea.height + canvas.axisWidth) / 2 + Style.smallFont.pixelSize / 2
-                    // Just can't figure out where I'm missing thosw 2 pixels in the proper calculation (yet)...
-                    textY -= 2
-                    ctx.fillText(tmpDate.toLocaleTimeString(Qt.SystemLocaleShortDate), 0, textY)
-
-                    ctx.restore()
+                    ctx.moveTo(startX, extensionStartY);
+                    ctx.lineTo(startX, startY);
+                    ctx.bezierCurveTo(startX, endY + height / 2, endX, startY - height / 2, endX, endY)
+                    ctx.stroke();
+                    ctx.closePath();
                 }
 
 
+                for (var i = 0; i < consumers.count; i++) {
+                    ctx.beginPath();
+                    // rM : max = x : 5
+                    var consumer = consumers.get(i)
+                    var currentPower = consumer.stateByName("currentPower").value
+                    ctx.lineWidth = currentPower / maxCurrentPower + 1
+                    ctx.setLineDash([5, 2])
+                    var consumerTile = legendConsumersRepeater.itemAt(i)
+                    var consumerPosition = consumerTile.mapToItem(linesCanvas, consumerTile.width / 2, 0)
+//                    print("consumer pos", consumer.name, consumerPosition)
+                    var startX = consumerPosition.x - xTranslate
+                    var startY = consumerPosition.y - yTranslate
+                    var endX = 10 * i - ((consumers.count - 1) * 5)
+                    var endY = chartView.plotArea.height / 2
+                    var height = startY - endY
+
+                    var extensionLength = ctx.lineWidth * 7 // 5 + 2 dash segments from setLineDash
+                    var progress = currentPower == 0 ? 0 : currentPower > 0 ? lineAnimationProgress : 1 - lineAnimationProgress
+                    var extensionStartY = startY + extensionLength * progress
+
+                    ctx.moveTo(startX, extensionStartY);
+                    ctx.lineTo(startX, startY);
+                    ctx.bezierCurveTo(startX, endY + height / 2, endX, startY - height / 2, endX, endY)
+                    ctx.stroke();
+                    ctx.closePath();
+                }
+
+//                print("painting circle")
+
+                ctx.beginPath();
+                ctx.setLineDash([1,0])
+                ctx.lineWidth = 5
+                ctx.moveTo(0, -chartView.plotArea.height / 2)
+                ctx.lineTo(0, 0)
+                ctx.stroke();
                 ctx.closePath();
+
+                ctx.beginPath();
+                ctx.fillStyle = "black"
+                ctx.moveTo(-15, -chartView.plotArea.height / 2)
+                ctx.lineTo(15, -chartView.plotArea.height / 2)
+                ctx.lineTo(0, -chartView.plotArea.height / 2 + 20)
+                ctx.lineTo(-15, -chartView.plotArea.height / 2)
+                ctx.fill()
+                ctx.closePath();
+
                 ctx.restore();
             }
         }
 
+
         ColumnLayout {
+            id: layout
             anchors.fill: parent
 
 
             RowLayout {
+                id: topLegend
                 Layout.fillWidth: true
                 Layout.margins: Style.margins
+                Layout.alignment: Qt.AlignHCenter
 
                 LegendTile {
+                    id: rootMeterTile
                     thing: rootMeter
                     color: lsdChart.colors[0]
+                    onClicked: {
+                        pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
+                    }
                 }
 
                 Repeater {
+                    id: legendProducersRepeater
                     model: producers
 
                     delegate: LegendTile {
                         color: lsdChart.colors[index + 1]
                         thing: producers.get(index)
+                        onClicked: {
+                            pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
+                        }
                     }
                 }
             }
@@ -205,6 +290,7 @@ MainViewBase {
                 id: chartView
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                Layout.margins: Style.bigMargins
 
                 property int sampleRate: XYSeriesAdapter.SampleRate10Minutes
                 property int busyModels: 0
@@ -212,18 +298,23 @@ MainViewBase {
                 animationOptions: ChartView.SeriesAnimations
                 backgroundColor: "transparent"
 
+                onPlotAreaChanged: {
+                    linesCanvas.requestPaint()
+                    circleCanvas.requestPaint()
+                }
 
                 DateTimeAxis {
                     id: axisAngular
                     gridVisible: false
                     labelsVisible: false
+                    property date now: new Date()
                     min: {
-                        var date = new Date();
+                        var date = new Date(now);
                         date.setTime(date.getTime() - (1000 * 60 * 60 * 12) + 2000);
                         return date;
                     }
                     max: {
-                        var date = new Date();
+                        var date = new Date(now);
                         date.setTime(date.getTime() + 2000)
                         return date;
                     }
@@ -233,16 +324,22 @@ MainViewBase {
                     id: axisRadial
                     gridVisible: false
                     labelsVisible: false
-                    property double rawMax: rootMeter ? rootMeterSeriesAdapter.maxValue
-                                                      : 1
-                    property double rawMin: rootMeter ? rootMeterSeriesAdapter.minValue
-                                                      : 0
+                    lineVisible: false
+                    minorGridVisible: false
+                    shadesVisible: false
+                    color: "black"
+                    readonly property XYSeriesAdapter highestSeriesAdapter: consumersRepeater.count > 0 ? consumersRepeater.itemAt(consumersRepeater.count - 1).adapter : null
+
+                    property double rawMax: Math.max(rootMeter ? rootMeterSeriesAdapter.maxValue : 1, highestSeriesAdapter ? highestSeriesAdapter.maxValue : 1)
+                    property double rawMin: Math.min(rootMeter ? rootMeterSeriesAdapter.minValue : 0, highestSeriesAdapter ? highestSeriesAdapter.minValue : 0)
 
                     property double roundedMax: Math.ceil(rawMax)// Math.ceil(Math.max(rawMax * 0.9, rawMax * 1.1))
                     property double roundedMin: Math.floor(Math.min(rawMin * 0.9, rawMin * 1.1))
                     max: roundedMax
                     min: -roundedMax//roundedMin - (roundedMax - roundedMin)
                 }
+
+
 
                 LogsModel {
                     id: rootMeterLogsModel
@@ -261,6 +358,11 @@ MainViewBase {
                     xySeries: rootMeterSeries
                     Component.onCompleted: ensureSamples(axisAngular.min, axisAngular.max)
                 }
+                Connections {
+                    target: axisAngular
+//                    onMinChanged: rootMeterSeriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
+                    onMaxChanged: rootMeterSeriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
+                }
                 AreaSeries {
                     id: rootMeterAreaSeries
                     axisAngular: axisAngular
@@ -272,6 +374,7 @@ MainViewBase {
                     property bool ready: false
                     Component.onCompleted: ready = true
                     color: lsdChart.colors[0]
+                    borderColor: color
 
                     upperSeries: LineSeries {
                         id: rootMeterSeries
@@ -327,7 +430,7 @@ MainViewBase {
                         }
                         Connections {
                             target: axisAngular
-                            onMinChanged: seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
+//                            onMinChanged: seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
                             onMaxChanged: seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
                         }
                         property XYSeries lineSeries: LineSeries {
@@ -363,9 +466,8 @@ MainViewBase {
                                 areaSeries.lowerSeries = lowerSeries;
                             }
 
-                            print("color:", lsdChart.colors[indexInModel+1])
                             areaSeries.color = lsdChart.colors[indexInModel+1] //Qt.color(lsdChart.colors[i+1]);
-                            areaSeries.borderColor = color;
+                            areaSeries.borderColor = areaSeries.color;
                             areaSeries.borderWidth = 0;
                         }
                     }
@@ -381,19 +483,24 @@ MainViewBase {
                     border.width: 2
                     border.color: "white"
 
+                    BusyIndicator {
+                        running: periodConsumptionModel.busy
+                        anchors.centerIn: parent
+                    }
+
+
                     ColumnLayout {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.margins: Style.margins
+                        opacity: periodConsumptionModel.busy ? 0 : 1
+                        Behavior on opacity { NumberAnimation { duration: 150 } }
 
                         Label {
                             Layout.fillWidth: true
-                            // FIXME: totalEnergyConsumed isn't logged!
-        //                    text: totalPeriodConsumption
-
                             text: '<span style="font-size:' + Style.bigFont.pixelSize + 'px">' +
-                                  totalEnergyConsumedState.value.toFixed(1)
+                                  totalPeriodConsumption.toFixed(1)
                             + '</span> <span style="font-size:' + Style.smallFont.pixelSize + 'px">'
                                   + "kWh"
                             + '</span>'
@@ -411,15 +518,17 @@ MainViewBase {
                                 live: true
                             }
 
+
                             property LogEntry logEntryAtStart: periodConsumptionModel.busy ? periodConsumptionModel.findClosest(axisAngular.min) : periodConsumptionModel.findClosest(axisAngular.min)
                             property State totalEnergyConsumedState: rootMeter ? rootMeter.stateByName("totalEnergyConsumed") : null
-                            property double totalPeriodConsumption: logEntryAtStart && totalEnergyConsumedState ? totalEnergyConsumedState.value - logEntryAtStart.value : 66
+                            property double totalPeriodConsumption: logEntryAtStart && totalEnergyConsumedState ? totalEnergyConsumedState.value - logEntryAtStart.value : 0
                         }
 
                         Label {
                             Layout.fillWidth: true
-                            text: qsTr("Total consumption")
+                            text: qsTr("Total")
                             horizontalAlignment: Text.AlignHCenter
+                            elide: Text.ElideMiddle
                             color: "white"
                             font: Style.smallFont
                         }
@@ -435,19 +544,105 @@ MainViewBase {
                 }
             }
 
-            RowLayout {
-                Layout.fillWidth: true
+            Flickable {
+                Layout.preferredWidth: Math.min(implicitWidth, parent.width - Style.margins * 2)
+                implicitWidth: bottomLegend.implicitWidth
                 Layout.margins: Style.margins
+                Layout.preferredHeight: bottomLegend.implicitHeight
+                contentWidth: bottomLegend.implicitWidth
+                Layout.alignment: Qt.AlignHCenter
+                onContentXChanged: {
+                    linesCanvas.requestPaint()
+                }
 
-                Repeater {
-                    model: consumers
-                    delegate: LegendTile {
-                        color: lsdChart.colors[index + 1]
-                        thing: consumers.get(index)
+                RowLayout {
+                    id: bottomLegend
+
+                    Repeater {
+                        id: legendConsumersRepeater
+                        model: consumers
+                        delegate: LegendTile {
+                            color: lsdChart.colors[index + 1]
+                            thing: consumers.get(index)
+                            onClicked: {
+                                pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
+                            }
+                        }
                     }
                 }
             }
         }
+
+        Canvas {
+            id: circleCanvas
+            anchors.fill: parent
+
+            Timer {
+                running: true
+                repeat: true
+                interval: 15000
+                onTriggered: {
+                    axisAngular.now = new Date()
+                    circleCanvas.requestPaint()
+                }
+            }
+
+            property int circleWidth: 20
+
+            onPaint: {
+                var ctx = getContext("2d");
+                ctx.reset();
+                ctx.save();
+                var xTranslate = chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2
+                var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
+                ctx.translate(xTranslate, yTranslate)
+
+
+                // Outer circle
+                ctx.lineWidth = circleWidth;
+                var sliceAngle = 2 * Math.PI / lsdChart.hours
+                var timeSinceFullHour = new Date().getMinutes()
+                var timeDiffRotation = timeSinceFullHour * sliceAngle / 60
+
+                for (var i = 0; i < lsdChart.hours; i++) {
+                    ctx.save();
+
+                    ctx.rotate(i * sliceAngle - timeDiffRotation)
+
+                    ctx.beginPath();
+                    ctx.strokeStyle = i % 2 == 0 ? Style.gray : Style.darkGray;
+                    ctx.arc(0, 0, (chartView.plotArea.width + circleWidth) / 2, 0, sliceAngle);
+                    ctx.stroke();
+                    ctx.closePath();
+
+                    ctx.restore()
+                }
+
+                // Hour texts in outer circle
+                var startHour = new Date().getHours() - lsdChart.hours + 1
+                for (var i = 0; i < lsdChart.hours; i++) {
+                    ctx.save();
+
+                    ctx.rotate(i * sliceAngle - timeDiffRotation + sliceAngle * 1.5)
+
+                    var tmpDate = new Date()
+                    tmpDate.setHours(startHour + i, 0, 0)
+                    ctx.textAlign = 'center';
+                    ctx.font = "" + Style.smallFont.pixelSize + "px " + Style.smallFont.family
+                    ctx.fillStyle = "white"
+                    var textY = -(chartView.plotArea.height + circleWidth) / 2 + Style.smallFont.pixelSize / 2
+                    // Just can't figure out where I'm missing thosw 2 pixels in the proper calculation (yet)...
+                    textY -= 2
+                    ctx.fillText(tmpDate.toLocaleTimeString(Qt.SystemLocaleShortDate), 0, textY)
+
+                    ctx.restore()
+                }
+
+                ctx.restore();
+
+            }
+        }
+
     }
 
 //    EmptyViewPlaceholder {

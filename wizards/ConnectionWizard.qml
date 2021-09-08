@@ -86,7 +86,7 @@ ConsolinnoWizardPageBase {
         ConsolinnoWizardPageBase {
 
             onNext: pageStack.push(findLeafletComponent)
-            onBack: pageStacl.pop()
+            onBack: pageStack.pop()
 
             content: ColumnLayout {
                 anchors.fill: parent
@@ -117,22 +117,27 @@ ConsolinnoWizardPageBase {
 
         ConsolinnoWizardPageBase {
             id: findLeafletPage
+            onBack: pageStack.pop()
+            showNextButton: false
+
+            Timer {
+                id: timeoutTimer
+                interval: 15000
+                running: hostsProxy.count == 0
+                onTriggered: pageStack.pop()
+            }
 
             content: ColumnLayout {
                 anchors.fill: parent
+
 
                 Label {
                     Layout.fillWidth: true
                     Layout.margins: Style.margins
                     wrapMode: Text.WordWrap
                     text: hostsProxy.count === 0
-                          ? qsTr("Searching for your leaflet...")
+                          ? qsTr("Searching for your Leaflet...")
                           : qsTr("We've detected multiple Leaflets in your network. Please select the one you'd like to set up.")
-                }
-
-                BusyIndicator {
-                    Layout.alignment: Qt.AlignHCenter
-                    visible: hostsProxy.count === 0
                 }
 
                 ListView {
@@ -164,7 +169,7 @@ ConsolinnoWizardPageBase {
                         Label {
                             Layout.fillWidth: true
                             Layout.margins: Style.margins
-                            text: qsTr("Please wait while your nymea system is being discovered.")
+                            text: qsTr("Please wait while your Leaflet is being discovered.")
                             wrapMode: Text.WordWrap
                             horizontalAlignment: Text.AlignHCenter
                         }

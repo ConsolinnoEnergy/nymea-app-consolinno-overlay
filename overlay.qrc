@@ -4,10 +4,6 @@
         <file>styles/light/Button.qml</file>
         <file>styles/light/logo.svg</file>
         <file>styles/light/logo-wide.svg</file>
-        <file>styles/dark/Style.qml</file>
-        <file>styles/dark/Button.qml</file>
-        <file>styles/dark/logo.svg</file>
-        <file>styles/dark/logo-wide.svg</file>
     </qresource>
     <qresource prefix="/ui">
         <file>mainviews/ConsolinnoView.qml</file>
