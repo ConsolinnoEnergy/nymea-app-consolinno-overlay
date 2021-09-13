@@ -394,7 +394,6 @@ MainViewBase {
                         XYPoint { x: axisAngular.max.getTime(); y: 0 }
                         XYPoint { x: axisAngular.min.getTime(); y: 0 }
                     }
-
                 }
 
                 Repeater {
