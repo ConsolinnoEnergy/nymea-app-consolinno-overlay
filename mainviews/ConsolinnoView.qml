@@ -104,6 +104,11 @@ MainViewBase {
         engine: _engine
         shownInterfaces: ["smartmeterproducer"]
     }
+    ThingsProxy {
+        id: batteries
+        engine: _engine
+        shownInterfaces: ["energystorage"]
+    }
 
     Item {
         id: lsdChart
@@ -112,7 +117,12 @@ MainViewBase {
 
         property int hours: 12
 
-        readonly property var colors: ["#5e9ede", "#f8eb45", "#b15c95", "#c1362f", "#b6c741"]
+        readonly property color rootMeterColor: "#5e9ede"
+        readonly property color producersColor: "#f8eb45"
+        readonly property color batteriesColor: "#b6c741"
+        readonly property var consumersColors: [ "#b15c95", "#c1362f", "#731DD8", "#C4FFF9", "#C16200" ]
+
+
 
         Canvas {
             id: linesCanvas
@@ -128,7 +138,7 @@ MainViewBase {
                 loops: Animation.Infinite
                 from: 0
                 to: 1
-                running: true
+                running: linesCanvas.visible
             }
             onLineAnimationProgressChanged: requestPaint()
 
@@ -147,88 +157,34 @@ MainViewBase {
                 for (var i = 0; i < consumers.count; i++) {
                     maxCurrentPower = Math.max(maxCurrentPower, Math.abs(consumers.get(i).stateByName("currentPower").value))
                 }
+                for (var i = 0; i < batteries.count; i++) {
+                    maxCurrentPower = Math.max(maxCurrentPower, Math.abs(batteries.get(i).stateByName("currentPower").value))
+                }
 
                 // dashed lines from rootMeter
                 if (rootMeter) {
-                    ctx.beginPath();
-                    // rM : max = x : 5
-                    var currentPower = rootMeter.stateByName("currentPower").value
-                    ctx.lineWidth = currentPower * 5 / maxCurrentPower + 1
-                    ctx.setLineDash([5, 2])
-                    var rootmeterPosition = rootMeterTile.mapToItem(linesCanvas, rootMeterTile.width / 2, rootMeterTile.height)
-                    var startX = rootmeterPosition.x - xTranslate
-                    var startY = rootmeterPosition.y - yTranslate
-                    var endX = -((producers.count) * 5)
-                    var endY = - chartView.plotArea.height / 2
-                    var height = startY - endY
-
-                    var extensionLength = ctx.lineWidth * 7
-                    var progress = currentPower > 0 ? 1 - lineAnimationProgress : lineAnimationProgress
-                    var extensionStartY = startY - extensionLength * progress
-
-                    ctx.moveTo(startX, extensionStartY);
-                    ctx.lineTo(startX, startY);
-                    ctx.bezierCurveTo(startX, endY + height / 2, endX, startY - height / 2, endX, endY)
-                    ctx.stroke();
-                    ctx.closePath();
+                    drawAnimatedLine(ctx, rootMeter, rootMeterTile, false, 0, maxCurrentPower, true, xTranslate, yTranslate)
                 }
 
                 for (var i = 0; i < producers.count; i++) {
-                    ctx.beginPath();
-                    // rM : max = x : 5
                     var producer = producers.get(i)
-                    var currentPower = producer.stateByName("currentPower").value
-                    ctx.lineWidth = currentPower * 5 / maxCurrentPower + 1
-                    ctx.setLineDash([5, 2])
                     var tile = legendProducersRepeater.itemAt(i)
-                    var position = tile.mapToItem(linesCanvas, tile.width / 2, tile.height)
-//                    print("consumer pos", consumer.name, consumerPosition)
-                    var startX = position.x - xTranslate
-                    var startY = position.y - yTranslate
-                    var endX = 10 * i - ((producers.count - 1) * 5)
-                    var endY = -chartView.plotArea.height / 2
-                    var height = startY - endY
-
-                    var extensionLength = ctx.lineWidth * 7 // 5 + 2 dash segments from setLineDash
-                    var progress = currentPower == 0 ? 0 : currentPower > 0 ? lineAnimationProgress : 1 - lineAnimationProgress
-                    var extensionStartY = startY - extensionLength * progress
-
-                    ctx.moveTo(startX, extensionStartY);
-                    ctx.lineTo(startX, startY);
-                    ctx.bezierCurveTo(startX, endY + height / 2, endX, startY - height / 2, endX, endY)
-                    ctx.stroke();
-                    ctx.closePath();
+                    drawAnimatedLine(ctx, producer, tile, false, i + 1, maxCurrentPower, false, xTranslate, yTranslate)
                 }
 
 
                 for (var i = 0; i < consumers.count; i++) {
-                    ctx.beginPath();
-                    // rM : max = x : 5
                     var consumer = consumers.get(i)
-                    var currentPower = consumer.stateByName("currentPower").value
-                    ctx.lineWidth = currentPower / maxCurrentPower + 1
-                    ctx.setLineDash([5, 2])
-                    var consumerTile = legendConsumersRepeater.itemAt(i)
-                    var consumerPosition = consumerTile.mapToItem(linesCanvas, consumerTile.width / 2, 0)
-//                    print("consumer pos", consumer.name, consumerPosition)
-                    var startX = consumerPosition.x - xTranslate
-                    var startY = consumerPosition.y - yTranslate
-                    var endX = 10 * i - ((consumers.count - 1) * 5)
-                    var endY = chartView.plotArea.height / 2
-                    var height = startY - endY
-
-                    var extensionLength = ctx.lineWidth * 7 // 5 + 2 dash segments from setLineDash
-                    var progress = currentPower == 0 ? 0 : currentPower > 0 ? lineAnimationProgress : 1 - lineAnimationProgress
-                    var extensionStartY = startY + extensionLength * progress
-
-                    ctx.moveTo(startX, extensionStartY);
-                    ctx.lineTo(startX, startY);
-                    ctx.bezierCurveTo(startX, endY + height / 2, endX, startY - height / 2, endX, endY)
-                    ctx.stroke();
-                    ctx.closePath();
+                    var tile = legendConsumersRepeater.itemAt(i)
+                    drawAnimatedLine(ctx, consumer, tile, true, i, maxCurrentPower, false, xTranslate, yTranslate)
                 }
 
-//                print("painting circle")
+                for (var i = 0; i < batteries.count; i++) {
+                    var battery = batteries.get(i)
+                    var tile = legendBatteriesRepeater.itemAt(i)
+                    drawAnimatedLine(ctx, battery, tile, true, consumers.count + i, maxCurrentPower, false, xTranslate, yTranslate)
+                }
+
 
                 ctx.beginPath();
                 ctx.setLineDash([1,0])
@@ -249,6 +205,45 @@ MainViewBase {
 
                 ctx.restore();
             }
+
+            function drawAnimatedLine(ctx, thing, tile, bottom, index, relativeTo, inverted, xTranslate, yTranslate) {
+                ctx.beginPath();
+                // rM : max = x : 5
+                var currentPower = thing.stateByName("currentPower").value
+                ctx.lineWidth = Math.abs(currentPower) / Math.abs(relativeTo) * 5 + 1
+                ctx.setLineDash([5, 2])
+                var tilePosition = tile.mapToItem(linesCanvas, tile.width / 2, 0)
+                if (!bottom) {
+                    tilePosition.y = tile.height
+                }
+
+                var startX = tilePosition.x - xTranslate
+                var startY = tilePosition.y - yTranslate
+                var endX = 10 * index
+                var endY = -chartView.plotArea.height / 2
+                if (bottom) {
+                    endY = chartView.plotArea.height / 2
+                }
+
+                var height = startY - endY
+
+
+                var extensionLength = ctx.lineWidth * 7 // 5 + 2 dash segments from setLineDash
+                var progress = currentPower === 0 ? 0 : currentPower > 0 ? lineAnimationProgress : 1 - lineAnimationProgress
+                if (inverted) {
+                    progress = 1 - progress
+                }
+                var extensionStartY = startY - extensionLength * progress
+                if (bottom) {
+                    extensionStartY = startY + extensionLength * progress
+                }
+
+                ctx.moveTo(startX, extensionStartY);
+                ctx.lineTo(startX, startY);
+                ctx.bezierCurveTo(startX, endY + height / 2, endX, startY - height / 2, endX, endY)
+                ctx.stroke();
+                ctx.closePath();
+            }
         }
 
 
@@ -266,7 +261,7 @@ MainViewBase {
                 LegendTile {
                     id: rootMeterTile
                     thing: rootMeter
-                    color: lsdChart.colors[0]
+                    color: lsdChart.rootMeterColor
                     onClicked: {
                         pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                     }
@@ -277,7 +272,7 @@ MainViewBase {
                     model: producers
 
                     delegate: LegendTile {
-                        color: lsdChart.colors[index + 1]
+                        color: lsdChart.producersColor
                         thing: producers.get(index)
                         onClicked: {
                             pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
@@ -295,7 +290,8 @@ MainViewBase {
                 property int sampleRate: XYSeriesAdapter.SampleRate10Minutes
                 property int busyModels: 0
                 legend.visible: false
-                animationOptions: ChartView.SeriesAnimations
+                // Note: Crashes on some devices
+//                animationOptions: ChartView.SeriesAnimations
                 backgroundColor: "transparent"
 
                 onPlotAreaChanged: {
@@ -328,13 +324,14 @@ MainViewBase {
                     minorGridVisible: false
                     shadesVisible: false
                     color: "black"
-                    readonly property XYSeriesAdapter highestSeriesAdapter: consumersRepeater.count > 0 ? consumersRepeater.itemAt(consumersRepeater.count - 1).adapter : null
+                    readonly property XYSeriesAdapter highestProducersSeriesAdapter: producersRepeater.count > 0 ? producersRepeater.itemAt(producersRepeater.count - 1).adapter : null
+                    readonly property XYSeriesAdapter highestConsumersSeriesAdapter: consumersRepeater.count > 0 ? consumersRepeater.itemAt(consumersRepeater.count - 1).adapter : null
 
-                    property double rawMax: Math.max(rootMeter ? rootMeterSeriesAdapter.maxValue : 1, highestSeriesAdapter ? highestSeriesAdapter.maxValue : 1)
-                    property double rawMin: Math.min(rootMeter ? rootMeterSeriesAdapter.minValue : 0, highestSeriesAdapter ? highestSeriesAdapter.minValue : 0)
+                    property double rawMax: Math.max(Math.max(rootMeter ? rootMeterSeriesAdapter.maxValue : 1, highestProducersSeriesAdapter ? highestProducersSeriesAdapter.maxValue : 1), highestConsumersSeriesAdapter ? highestConsumersSeriesAdapter.maxValue : 1)
+//                    property double rawMin: Math.min(rootMeter ? rootMeterSeriesAdapter.minValue : 0, highestSeriesAdapter ? highestSeriesAdapter.minValue : 0)
 
                     property double roundedMax: Math.ceil(rawMax)// Math.ceil(Math.max(rawMax * 0.9, rawMax * 1.1))
-                    property double roundedMin: Math.floor(Math.min(rawMin * 0.9, rawMin * 1.1))
+//                    property double roundedMin: Math.floor(Math.min(rawMin * 0.9, rawMin * 1.1))
                     max: roundedMax
                     min: -roundedMax//roundedMin - (roundedMax - roundedMin)
                 }
@@ -373,7 +370,7 @@ MainViewBase {
                     // So hacking around by blocking the repeater from loading until this one is done
                     property bool ready: false
                     Component.onCompleted: ready = true
-                    color: lsdChart.colors[0]
+                    color: lsdChart.rootMeterColor
                     borderColor: color
 
                     upperSeries: LineSeries {
@@ -393,6 +390,83 @@ MainViewBase {
                         id: rootMeterLowerSeries
                         XYPoint { x: axisAngular.max.getTime(); y: 0 }
                         XYPoint { x: axisAngular.min.getTime(); y: 0 }
+                    }
+                }
+
+                Repeater {
+                    id: producersRepeater
+                    model: rootMeterAreaSeries.ready && !engine.thingManager.fetchingData ? producers : null
+
+                    delegate: Item {
+                        id: producer
+                        property Thing thing: producers.get(index)
+
+                        property var model: LogsModel {
+                            id: logsModel
+                            objectName: producer.thing.name
+                            engine: _engine
+                            thingId: producer.thing.id
+                            typeIds: [producer.thing.thingClass.stateTypes.findByName("currentPower").id]
+                            viewStartTime: axisAngular.min
+                            live: true
+                            onBusyChanged: {
+                                if (busy) {
+                                    chartView.busyModels++
+                                } else {
+                                    chartView.busyModels--
+                                }
+                            }
+                        }
+                        property XYSeriesAdapter adapter: XYSeriesAdapter {
+                            id: seriesAdapter
+                            objectName: producer.thing.name +  " adapter"
+                            logsModel: logsModel
+                            sampleRate: chartView.sampleRate
+                            xySeries: upperSeries
+                            inverted: true
+                        }
+                        Connections {
+                            target: axisAngular
+//                            onMinChanged: seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
+                            onMaxChanged: seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
+                        }
+                        property XYSeries lineSeries: LineSeries {
+                            id: upperSeries
+                            onPointAdded: {
+                                var newPoint = upperSeries.at(index)
+
+                                if (newPoint.x > lowerSeries.at(0).x) {
+                                    lowerSeries.replace(0, newPoint.x, 0)
+                                }
+                                if (newPoint.x < lowerSeries.at(1).x) {
+                                    lowerSeries.replace(1, newPoint.x, 0)
+                                }
+                            }
+                        }
+                        LineSeries {
+                            id: lowerSeries
+                            XYPoint { x: axisAngular.max.getTime(); y: 0 }
+                            XYPoint { x: axisAngular.min.getTime(); y: 0 }
+                        }
+
+                        Component.onCompleted: {
+                            var indexInModel = producers.indexOf(producer.thing)
+                            print("creating producer series", producer.thing.name, index, indexInModel)
+                            seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
+                            var areaSeries = chartView.createSeries(ChartView.SeriesTypeArea, producer.thing.name, axisAngular, axisRadial)
+                            areaSeries.useOpenGL = true
+                            areaSeries.upperSeries = upperSeries;
+//                            if (index > 0) {
+//                                areaSeries.lowerSeries = producersRepeater.itemAt(index - 1).lineSeries
+//                                seriesAdapter.baseSeries = producersRepeater.itemAt(index - 1).lineSeries
+//                            } else {
+                                areaSeries.lowerSeries = lowerSeries;
+//                            }
+
+                            areaSeries.color = lsdChart.producersColor
+                            areaSeries.borderColor = areaSeries.color;
+                            areaSeries.borderWidth = 0;
+                        }
                     }
                 }
 
@@ -465,7 +539,84 @@ MainViewBase {
                                 areaSeries.lowerSeries = lowerSeries;
                             }
 
-                            areaSeries.color = lsdChart.colors[indexInModel+1] //Qt.color(lsdChart.colors[i+1]);
+                            areaSeries.color = lsdChart.consumersColors[indexInModel]
+                            areaSeries.borderColor = areaSeries.color;
+                            areaSeries.borderWidth = 0;
+                        }
+                    }
+                }
+
+                Repeater {
+                    id: batteriesRepeater
+                    model: rootMeterAreaSeries.ready && !engine.thingManager.fetchingData ? batteries : null
+
+                    delegate: Item {
+                        id: battery
+                        property Thing thing: batteries.get(index)
+
+                        property var model: LogsModel {
+                            id: logsModel
+                            objectName: battery.thing.name
+                            engine: _engine
+                            thingId: battery.thing.id
+                            typeIds: [battery.thing.thingClass.stateTypes.findByName("currentPower").id]
+                            viewStartTime: axisAngular.min
+                            live: true
+                            onBusyChanged: {
+                                if (busy) {
+                                    chartView.busyModels++
+                                } else {
+                                    chartView.busyModels--
+                                }
+                            }
+                        }
+                        property XYSeriesAdapter adapter: XYSeriesAdapter {
+                            id: seriesAdapter
+                            objectName: battery.thing.name +  " adapter"
+                            logsModel: logsModel
+                            sampleRate: chartView.sampleRate
+                            xySeries: upperSeries
+                            inverted: true
+                        }
+                        Connections {
+                            target: axisAngular
+//                            onMinChanged: seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
+                            onMaxChanged: seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
+                        }
+                        property XYSeries lineSeries: LineSeries {
+                            id: upperSeries
+                            onPointAdded: {
+                                var newPoint = upperSeries.at(index)
+
+                                if (newPoint.x > lowerSeries.at(0).x) {
+                                    lowerSeries.replace(0, newPoint.x, 0)
+                                }
+                                if (newPoint.x < lowerSeries.at(1).x) {
+                                    lowerSeries.replace(1, newPoint.x, 0)
+                                }
+                            }
+                        }
+                        LineSeries {
+                            id: lowerSeries
+                            XYPoint { x: axisAngular.max.getTime(); y: 0 }
+                            XYPoint { x: axisAngular.min.getTime(); y: 0 }
+                        }
+
+                        Component.onCompleted: {
+                            var indexInModel = batteries.indexOf(battery.thing)
+                            print("creating series", battery.thing.name, index, indexInModel)
+                            seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
+                            var areaSeries = chartView.createSeries(ChartView.SeriesTypeArea, battery.thing.name, axisAngular, axisRadial)
+                            areaSeries.useOpenGL = true
+                            areaSeries.upperSeries = upperSeries;
+                            if (index > 0) {
+                                areaSeries.lowerSeries = batteriesRepeater.itemAt(index - 1).lineSeries
+                                seriesAdapter.baseSeries = batteriesRepeater.itemAt(index - 1).lineSeries
+                            } else {
+                                areaSeries.lowerSeries = lowerSeries;
+                            }
+
+                            areaSeries.color = lsdChart.batteriesColor
                             areaSeries.borderColor = areaSeries.color;
                             areaSeries.borderWidth = 0;
                         }
@@ -482,10 +633,10 @@ MainViewBase {
                     border.width: 2
                     border.color: "white"
 
-                    BusyIndicator {
-                        running: periodConsumptionModel.busy
-                        anchors.centerIn: parent
-                    }
+//                    BusyIndicator {
+//                        running: periodConsumptionModel.busy
+//                        anchors.centerIn: parent
+//                    }
 
 
                     ColumnLayout {
@@ -493,48 +644,59 @@ MainViewBase {
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.margins: Style.margins
-                        opacity: periodConsumptionModel.busy ? 0 : 1
+//                        opacity: periodConsumptionModel.busy ? 0 : 1
                         Behavior on opacity { NumberAnimation { duration: 150 } }
 
                         Label {
                             Layout.fillWidth: true
-                            text: '<span style="font-size:' + Style.bigFont.pixelSize + 'px">' +
-                                  totalPeriodConsumption.toFixed(1)
-                            + '</span> <span style="font-size:' + Style.smallFont.pixelSize + 'px">'
-                                  + "kWh"
-                            + '</span>'
                             textFormat: Text.RichText
                             horizontalAlignment: Text.AlignHCenter
                             color: "white"
+                            text: '<span style="font-size:' + Style.bigFont.pixelSize + 'px">' +
+                                  (currentPowerUsage < 1000 ? currentPowerUsage : currentPowerUsage / 1000).toFixed(1)
+                            + '</span> <span style="font-size:' + Style.smallFont.pixelSize + 'px">'
+                                  + (currentPowerUsage < 1000 ? "W" : "kW")
+                            + '</span>'
 
-                            LogsModel {
-                                id: periodConsumptionModel
-                                objectName: "Root meter model"
-                                engine: rootMeter ? _engine : null // Don't start fetching before we know what we want
-                                thingId: rootMeter ? rootMeter.id : ""
-                                typeIds: rootMeter ? [rootMeter.thingClass.stateTypes.findByName("totalEnergyConsumed").id] : []
-                                viewStartTime: axisAngular.min
-                                live: true
+
+//                            text: '<span style="font-size:' + Style.bigFont.pixelSize + 'px">' +
+//                                  totalPeriodConsumption.toFixed(1)
+//                            + '</span> <span style="font-size:' + Style.smallFont.pixelSize + 'px">'
+//                                  + "kWh"
+//                            + '</span>'
+//                            LogsModel {
+//                                id: periodConsumptionModel
+//                                objectName: "Root meter model"
+//                                engine: rootMeter ? _engine : null // Don't start fetching before we know what we want
+//                                thingId: rootMeter ? rootMeter.id : ""
+//                                typeIds: rootMeter ? [rootMeter.thingClass.stateTypes.findByName("totalEnergyConsumed").id] : []
+//                                viewStartTime: axisAngular.min
+//                                live: true
+//                            }
+//                            property LogEntry logEntryAtStart: periodConsumptionModel.busy ? periodConsumptionModel.findClosest(axisAngular.min) : periodConsumptionModel.findClosest(axisAngular.min)
+//                            property State totalEnergyConsumedState: rootMeter ? rootMeter.stateByName("totalEnergyConsumed") : null
+//                            property double totalPeriodConsumption: logEntryAtStart && totalEnergyConsumedState ? totalEnergyConsumedState.value - logEntryAtStart.value : 0
+
+                            property double totalCurrentProduction: {
+                                var ret = 0;
+                                for (var i = 0; i < producers.count; i++) {
+                                    var producer = producers.get(i)
+                                    var currentPowerState = producer.stateByName("currentPower")
+                                    ret += currentPowerState.value
+                                }
+                                return ret;
                             }
 
-
-                            property LogEntry logEntryAtStart: periodConsumptionModel.busy ? periodConsumptionModel.findClosest(axisAngular.min) : periodConsumptionModel.findClosest(axisAngular.min)
-                            property State totalEnergyConsumedState: rootMeter ? rootMeter.stateByName("totalEnergyConsumed") : null
-                            property double totalPeriodConsumption: logEntryAtStart && totalEnergyConsumedState ? totalEnergyConsumedState.value - logEntryAtStart.value : 0
+                            property State currentRootMeterPowerState: rootMeter ? rootMeter.stateByName("currentPower") : null
+                            property double currentPowerUsage: -totalCurrentProduction + (currentRootMeterPowerState ?  currentRootMeterPowerState.value : 0)
                         }
 
                         Label {
                             Layout.fillWidth: true
-                            text: qsTr("Total")
+                            text: qsTr("Total current power usage")
                             horizontalAlignment: Text.AlignHCenter
+                            wrapMode: Text.WordWrap
                             elide: Text.ElideMiddle
-                            color: "white"
-                            font: Style.smallFont
-                        }
-                        Label {
-                            Layout.fillWidth: true
-                            text: qsTr("12h")
-                            horizontalAlignment: Text.AlignHCenter
                             color: "white"
                             font: Style.smallFont
                         }
@@ -561,10 +723,22 @@ MainViewBase {
                         id: legendConsumersRepeater
                         model: consumers
                         delegate: LegendTile {
-                            color: lsdChart.colors[index + 1]
+                            color: lsdChart.consumersColors[index]
                             thing: consumers.get(index)
                             onClicked: {
                                 pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
+                            }
+                        }
+                    }
+
+                    Repeater {
+                        id: legendBatteriesRepeater
+                        model: batteries
+                        delegate: LegendTile {
+                            color: lsdChart.batteriesColor
+                            thing: batteries.get(index)
+                            onClicked: {
+                                pageStack.push("/ui/devicepages/EnergyStorageThingPage.qml", {thing: thing})
                             }
                         }
                     }
