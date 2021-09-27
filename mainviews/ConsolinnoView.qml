@@ -115,7 +115,7 @@ MainViewBase {
         anchors.fill: parent
         anchors.topMargin: root.topMargin
 
-        property int hours: 12
+        property int hours: 24
 
         readonly property color rootMeterColor: "#5e9ede"
         readonly property color producersColor: "#f8eb45"
@@ -138,11 +138,12 @@ MainViewBase {
                 loops: Animation.Infinite
                 from: 0
                 to: 1
-                running: linesCanvas.visible
+                running: linesCanvas.visible && Qt.application.state === Qt.ApplicationActive
             }
             onLineAnimationProgressChanged: requestPaint()
 
             onPaint: {
+//                print("repainting lines canvas")
                 var ctx = getContext("2d");
                 ctx.reset();
                 ctx.save();
@@ -156,6 +157,9 @@ MainViewBase {
                 }
                 for (var i = 0; i < consumers.count; i++) {
                     maxCurrentPower = Math.max(maxCurrentPower, Math.abs(consumers.get(i).stateByName("currentPower").value))
+                }
+                for (var i = 0; i < producers.count; i++) {
+                    maxCurrentPower = Math.max(maxCurrentPower, Math.abs(producers.get(i).stateByName("currentPower").value))
                 }
                 for (var i = 0; i < batteries.count; i++) {
                     maxCurrentPower = Math.max(maxCurrentPower, Math.abs(batteries.get(i).stateByName("currentPower").value))
@@ -306,7 +310,7 @@ MainViewBase {
                     property date now: new Date()
                     min: {
                         var date = new Date(now);
-                        date.setTime(date.getTime() - (1000 * 60 * 60 * 12) + 2000);
+                        date.setTime(date.getTime() - (1000 * 60 * 60 * lsdChart.hours) + 2000);
                         return date;
                     }
                     max: {
@@ -324,10 +328,11 @@ MainViewBase {
                     minorGridVisible: false
                     shadesVisible: false
                     color: "black"
+                    readonly property XYSeriesAdapter highestRootMeterSeriesAdapter: rootMeterRepeater.count > 0 ? rootMeterRepeater.itemAt(rootMeterRepeater.count - 1).adapter : null
                     readonly property XYSeriesAdapter highestProducersSeriesAdapter: producersRepeater.count > 0 ? producersRepeater.itemAt(producersRepeater.count - 1).adapter : null
                     readonly property XYSeriesAdapter highestConsumersSeriesAdapter: consumersRepeater.count > 0 ? consumersRepeater.itemAt(consumersRepeater.count - 1).adapter : null
 
-                    property double rawMax: Math.max(Math.max(rootMeter ? rootMeterSeriesAdapter.maxValue : 1, highestProducersSeriesAdapter ? highestProducersSeriesAdapter.maxValue : 1), highestConsumersSeriesAdapter ? highestConsumersSeriesAdapter.maxValue : 1)
+                    property double rawMax: Math.max(Math.max(highestRootMeterSeriesAdapter ? highestRootMeterSeriesAdapter.maxValue : 1, highestProducersSeriesAdapter ? highestProducersSeriesAdapter.maxValue : 1), highestConsumersSeriesAdapter ? highestConsumersSeriesAdapter.maxValue : 1)
 //                    property double rawMin: Math.min(rootMeter ? rootMeterSeriesAdapter.minValue : 0, highestSeriesAdapter ? highestSeriesAdapter.minValue : 0)
 
                     property double roundedMax: Math.ceil(rawMax)// Math.ceil(Math.max(rawMax * 0.9, rawMax * 1.1))
@@ -337,290 +342,65 @@ MainViewBase {
                 }
 
 
+                Repeater {
+                    id: producersRepeater
+                    model: !engine.thingManager.fetchingData ? producers : null
 
-                LogsModel {
-                    id: rootMeterLogsModel
-                    objectName: "Root meter model"
-                    engine: rootMeter ? _engine : null // Don't start fetching before we know what we want
-                    thingId: rootMeter ? rootMeter.id : ""
-                    typeIds: rootMeter ? [rootMeter.thingClass.stateTypes.findByName("currentPower").id] : []
-                    viewStartTime: axisAngular.min
-                    live: true
-                }
-                XYSeriesAdapter {
-                    id: rootMeterSeriesAdapter
-                    objectName: "Root meter adapter"
-                    logsModel: rootMeterLogsModel
-                    sampleRate: chartView.sampleRate
-                    xySeries: rootMeterSeries
-                    Component.onCompleted: ensureSamples(axisAngular.min, axisAngular.max)
-                }
-                Connections {
-                    target: axisAngular
-//                    onMinChanged: rootMeterSeriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
-                    onMaxChanged: rootMeterSeriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
-                }
-                AreaSeries {
-                    id: rootMeterAreaSeries
-                    axisAngular: axisAngular
-                    axisRadial: axisRadial
-                    // HACK: We want this to be created (added to the chart) *before* the repeater Series below...
-                    // That might not be the case for a reason I don't understand. Most likely due to a mix of the declarative
-                    // approach here and the imperative approach using chartView.createSeries() below.
-                    // So hacking around by blocking the repeater from loading until this one is done
-                    property bool ready: false
-                    Component.onCompleted: ready = true
-                    color: lsdChart.rootMeterColor
-                    borderColor: color
-
-                    upperSeries: LineSeries {
-                        id: rootMeterSeries
-                        onPointAdded: {
-                            var newPoint = rootMeterSeries.at(index)
-
-                            if (newPoint.x > rootMeterLowerSeries.at(0).x) {
-                                rootMeterLowerSeries.replace(0, newPoint.x, 0)
-                            }
-                            if (newPoint.x < rootMeterLowerSeries.at(1).x) {
-                                rootMeterLowerSeries.replace(1, newPoint.x, 0)
-                            }
-                        }
-                    }
-                    lowerSeries: LineSeries {
-                        id: rootMeterLowerSeries
-                        XYPoint { x: axisAngular.max.getTime(); y: 0 }
-                        XYPoint { x: axisAngular.min.getTime(); y: 0 }
+                    delegate: ConsolinnoChartDelegate {
+                        thing: producers.get(index)
+                        viewStartTime: axisAngular.min
+                        viewEndTime: axisAngular.max
+                        sampleRate: chartView.sampleRate
+                        color: lsdChart.producersColor
+                        inverted: true
+                        onClicked: pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                     }
                 }
 
                 Repeater {
-                    id: producersRepeater
-                    model: rootMeterAreaSeries.ready && !engine.thingManager.fetchingData ? producers : null
+                    id: rootMeterRepeater
+                    model: producersRepeater.model !== null && rootMeter != null ? 1 : null
 
-                    delegate: Item {
-                        id: producer
-                        property Thing thing: producers.get(index)
-
-                        property var model: LogsModel {
-                            id: logsModel
-                            objectName: producer.thing.name
-                            engine: _engine
-                            thingId: producer.thing.id
-                            typeIds: [producer.thing.thingClass.stateTypes.findByName("currentPower").id]
-                            viewStartTime: axisAngular.min
-                            live: true
-                            onBusyChanged: {
-                                if (busy) {
-                                    chartView.busyModels++
-                                } else {
-                                    chartView.busyModels--
-                                }
-                            }
-                        }
-                        property XYSeriesAdapter adapter: XYSeriesAdapter {
-                            id: seriesAdapter
-                            objectName: producer.thing.name +  " adapter"
-                            logsModel: logsModel
-                            sampleRate: chartView.sampleRate
-                            xySeries: upperSeries
-                            inverted: true
-                        }
-                        Connections {
-                            target: axisAngular
-//                            onMinChanged: seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
-                            onMaxChanged: seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
-                        }
-                        property XYSeries lineSeries: LineSeries {
-                            id: upperSeries
-                            onPointAdded: {
-                                var newPoint = upperSeries.at(index)
-
-                                if (newPoint.x > lowerSeries.at(0).x) {
-                                    lowerSeries.replace(0, newPoint.x, 0)
-                                }
-                                if (newPoint.x < lowerSeries.at(1).x) {
-                                    lowerSeries.replace(1, newPoint.x, 0)
-                                }
-                            }
-                        }
-                        LineSeries {
-                            id: lowerSeries
-                            XYPoint { x: axisAngular.max.getTime(); y: 0 }
-                            XYPoint { x: axisAngular.min.getTime(); y: 0 }
-                        }
-
-                        Component.onCompleted: {
-                            var indexInModel = producers.indexOf(producer.thing)
-                            print("creating producer series", producer.thing.name, index, indexInModel)
-                            seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
-                            var areaSeries = chartView.createSeries(ChartView.SeriesTypeArea, producer.thing.name, axisAngular, axisRadial)
-                            areaSeries.useOpenGL = true
-                            areaSeries.upperSeries = upperSeries;
-//                            if (index > 0) {
-//                                areaSeries.lowerSeries = producersRepeater.itemAt(index - 1).lineSeries
-//                                seriesAdapter.baseSeries = producersRepeater.itemAt(index - 1).lineSeries
-//                            } else {
-                                areaSeries.lowerSeries = lowerSeries;
-//                            }
-
-                            areaSeries.color = lsdChart.producersColor
-                            areaSeries.borderColor = areaSeries.color;
-                            areaSeries.borderWidth = 0;
-                        }
+                    delegate: ConsolinnoChartDelegate {
+                        thing: rootMeter
+                        viewStartTime: axisAngular.min
+                        viewEndTime: axisAngular.max
+                        sampleRate: chartView.sampleRate
+                        color: lsdChart.rootMeterColor
+                        onClicked: pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                     }
                 }
+
 
                 Repeater {
                     id: consumersRepeater
-                    model: rootMeterAreaSeries.ready && !engine.thingManager.fetchingData ? consumers : null
+                    model: rootMeterRepeater.model !== null ? consumers : null
 
-                    delegate: Item {
-                        id: consumer
-                        property Thing thing: consumers.get(index)
-
-                        property var model: LogsModel {
-                            id: logsModel
-                            objectName: consumer.thing.name
-                            engine: _engine
-                            thingId: consumer.thing.id
-                            typeIds: [consumer.thing.thingClass.stateTypes.findByName("currentPower").id]
-                            viewStartTime: axisAngular.min
-                            live: true
-                            onBusyChanged: {
-                                if (busy) {
-                                    chartView.busyModels++
-                                } else {
-                                    chartView.busyModels--
-                                }
-                            }
-                        }
-                        property XYSeriesAdapter adapter: XYSeriesAdapter {
-                            id: seriesAdapter
-                            objectName: consumer.thing.name +  " adapter"
-                            logsModel: logsModel
-                            sampleRate: chartView.sampleRate
-                            xySeries: upperSeries
-                        }
-                        Connections {
-                            target: axisAngular
-//                            onMinChanged: seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
-                            onMaxChanged: seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
-                        }
-                        property XYSeries lineSeries: LineSeries {
-                            id: upperSeries
-                            onPointAdded: {
-                                var newPoint = upperSeries.at(index)
-
-                                if (newPoint.x > lowerSeries.at(0).x) {
-                                    lowerSeries.replace(0, newPoint.x, 0)
-                                }
-                                if (newPoint.x < lowerSeries.at(1).x) {
-                                    lowerSeries.replace(1, newPoint.x, 0)
-                                }
-                            }
-                        }
-                        LineSeries {
-                            id: lowerSeries
-                            XYPoint { x: axisAngular.max.getTime(); y: 0 }
-                            XYPoint { x: axisAngular.min.getTime(); y: 0 }
-                        }
-
-                        Component.onCompleted: {
-                            var indexInModel = consumers.indexOf(consumer.thing)
-                            print("creating series", consumer.thing.name, index, indexInModel)
-                            seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
-                            var areaSeries = chartView.createSeries(ChartView.SeriesTypeArea, consumer.thing.name, axisAngular, axisRadial)
-                            areaSeries.useOpenGL = true
-                            areaSeries.upperSeries = upperSeries;
-                            if (index > 0) {
-                                areaSeries.lowerSeries = consumersRepeater.itemAt(index - 1).lineSeries
-                                seriesAdapter.baseSeries = consumersRepeater.itemAt(index - 1).lineSeries
-                            } else {
-                                areaSeries.lowerSeries = lowerSeries;
-                            }
-
-                            areaSeries.color = lsdChart.consumersColors[indexInModel]
-                            areaSeries.borderColor = areaSeries.color;
-                            areaSeries.borderWidth = 0;
-                        }
+                    delegate: ConsolinnoChartDelegate {
+                        thing: consumers.get(index)
+                        viewStartTime: axisAngular.min
+                        viewEndTime: axisAngular.max
+                        sampleRate: chartView.sampleRate
+                        color: lsdChart.consumersColors[index]
+                        baseSeries: index > 0 ? consumersRepeater.itemAt(index - 1).lineSeries : null
+                        onClicked: pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                     }
                 }
 
                 Repeater {
                     id: batteriesRepeater
-                    model: rootMeterAreaSeries.ready && !engine.thingManager.fetchingData ? batteries : null
+                    model: producersRepeater.model !== null ? batteries : null
 
-                    delegate: Item {
-                        id: battery
-                        property Thing thing: batteries.get(index)
-
-                        property var model: LogsModel {
-                            id: logsModel
-                            objectName: battery.thing.name
-                            engine: _engine
-                            thingId: battery.thing.id
-                            typeIds: [battery.thing.thingClass.stateTypes.findByName("currentPower").id]
-                            viewStartTime: axisAngular.min
-                            live: true
-                            onBusyChanged: {
-                                if (busy) {
-                                    chartView.busyModels++
-                                } else {
-                                    chartView.busyModels--
-                                }
-                            }
-                        }
-                        property XYSeriesAdapter adapter: XYSeriesAdapter {
-                            id: seriesAdapter
-                            objectName: battery.thing.name +  " adapter"
-                            logsModel: logsModel
-                            sampleRate: chartView.sampleRate
-                            xySeries: upperSeries
-                            inverted: true
-                        }
-                        Connections {
-                            target: axisAngular
-//                            onMinChanged: seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
-                            onMaxChanged: seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
-                        }
-                        property XYSeries lineSeries: LineSeries {
-                            id: upperSeries
-                            onPointAdded: {
-                                var newPoint = upperSeries.at(index)
-
-                                if (newPoint.x > lowerSeries.at(0).x) {
-                                    lowerSeries.replace(0, newPoint.x, 0)
-                                }
-                                if (newPoint.x < lowerSeries.at(1).x) {
-                                    lowerSeries.replace(1, newPoint.x, 0)
-                                }
-                            }
-                        }
-                        LineSeries {
-                            id: lowerSeries
-                            XYPoint { x: axisAngular.max.getTime(); y: 0 }
-                            XYPoint { x: axisAngular.min.getTime(); y: 0 }
-                        }
-
-                        Component.onCompleted: {
-                            var indexInModel = batteries.indexOf(battery.thing)
-                            print("creating series", battery.thing.name, index, indexInModel)
-                            seriesAdapter.ensureSamples(axisAngular.min, axisAngular.max)
-                            var areaSeries = chartView.createSeries(ChartView.SeriesTypeArea, battery.thing.name, axisAngular, axisRadial)
-                            areaSeries.useOpenGL = true
-                            areaSeries.upperSeries = upperSeries;
-                            if (index > 0) {
-                                areaSeries.lowerSeries = batteriesRepeater.itemAt(index - 1).lineSeries
-                                seriesAdapter.baseSeries = batteriesRepeater.itemAt(index - 1).lineSeries
-                            } else {
-                                areaSeries.lowerSeries = lowerSeries;
-                            }
-
-                            areaSeries.color = lsdChart.batteriesColor
-                            areaSeries.borderColor = areaSeries.color;
-                            areaSeries.borderWidth = 0;
-                        }
+                    delegate: ConsolinnoChartDelegate {
+                        thing: batteries.get(index)
+                        viewStartTime: axisAngular.min
+                        viewEndTime: axisAngular.max
+                        sampleRate: chartView.sampleRate
+                        color: lsdChart.batteriesColor
+                        inverted: true
+                        onClicked: pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                     }
+
                 }
 
                 Rectangle {
@@ -633,18 +413,12 @@ MainViewBase {
                     border.width: 2
                     border.color: "white"
 
-//                    BusyIndicator {
-//                        running: periodConsumptionModel.busy
-//                        anchors.centerIn: parent
-//                    }
-
 
                     ColumnLayout {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.margins: Style.margins
-//                        opacity: periodConsumptionModel.busy ? 0 : 1
                         Behavior on opacity { NumberAnimation { duration: 150 } }
 
                         Label {
@@ -658,24 +432,6 @@ MainViewBase {
                                   + (currentPowerUsage < 1000 ? "W" : "kW")
                             + '</span>'
 
-
-//                            text: '<span style="font-size:' + Style.bigFont.pixelSize + 'px">' +
-//                                  totalPeriodConsumption.toFixed(1)
-//                            + '</span> <span style="font-size:' + Style.smallFont.pixelSize + 'px">'
-//                                  + "kWh"
-//                            + '</span>'
-//                            LogsModel {
-//                                id: periodConsumptionModel
-//                                objectName: "Root meter model"
-//                                engine: rootMeter ? _engine : null // Don't start fetching before we know what we want
-//                                thingId: rootMeter ? rootMeter.id : ""
-//                                typeIds: rootMeter ? [rootMeter.thingClass.stateTypes.findByName("totalEnergyConsumed").id] : []
-//                                viewStartTime: axisAngular.min
-//                                live: true
-//                            }
-//                            property LogEntry logEntryAtStart: periodConsumptionModel.busy ? periodConsumptionModel.findClosest(axisAngular.min) : periodConsumptionModel.findClosest(axisAngular.min)
-//                            property State totalEnergyConsumedState: rootMeter ? rootMeter.stateByName("totalEnergyConsumed") : null
-//                            property double totalPeriodConsumption: logEntryAtStart && totalEnergyConsumedState ? totalEnergyConsumedState.value - logEntryAtStart.value : 0
 
                             property double totalCurrentProduction: {
                                 var ret = 0;
@@ -738,7 +494,7 @@ MainViewBase {
                             color: lsdChart.batteriesColor
                             thing: batteries.get(index)
                             onClicked: {
-                                pageStack.push("/ui/devicepages/EnergyStorageThingPage.qml", {thing: thing})
+                                pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                             }
                         }
                     }
@@ -763,6 +519,7 @@ MainViewBase {
             property int circleWidth: 20
 
             onPaint: {
+                print("repainting clircles canvas")
                 var ctx = getContext("2d");
                 ctx.reset();
                 ctx.save();
@@ -806,7 +563,11 @@ MainViewBase {
                     var textY = -(chartView.plotArea.height + circleWidth) / 2 + Style.smallFont.pixelSize / 2
                     // Just can't figure out where I'm missing thosw 2 pixels in the proper calculation (yet)...
                     textY -= 2
-                    ctx.fillText(tmpDate.toLocaleTimeString(Qt.SystemLocaleShortDate), 0, textY)
+                    if (lsdChart.width > 500) {
+                        ctx.fillText(tmpDate.toLocaleTimeString(Qt.SystemLocaleShortDate), 0, textY)
+                    } else {
+                        ctx.fillText(tmpDate.getHours(), 0, textY)
+                    }
 
                     ctx.restore()
                 }
@@ -817,14 +578,4 @@ MainViewBase {
         }
 
     }
-
-//    EmptyViewPlaceholder {
-//        anchors { left: parent.left; right: parent.right; margins: app.margins }
-//        anchors.verticalCenter: parent.verticalCenter
-//        visible: /*engine.thingManager.things.count === 0 &&*/ !engine.thingManager.fetchingData
-//        title: qsTr("Welcome to %1!").arg(Configuration.systemName)
-//        text: qsTr("Start with adding your appliances.")
-//        imageSource: "qrc:/ui/images/leaf.svg"
-//        buttonText: qsTr("Configure your leaflet")
-//    }
 }

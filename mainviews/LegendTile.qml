@@ -15,7 +15,8 @@ MouseArea {
     property alias color: background.color
     property Thing thing: null
     readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
-    readonly property bool isProducer: thing ? thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0 : false
+    readonly property bool isProducer: thing && thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0
+    readonly property bool isBattery: thing && thing.thingClass.interfaces.indexOf("energystorage") >= 0
 
     Rectangle {
         id: background
@@ -56,7 +57,7 @@ MouseArea {
                 Label {
                     id: headerLabel
                     width: parent.width
-                    text: root.thing.name
+                    text: root.thing ? root.thing.name : ""
                     elide: Text.ElideRight
                     color: root.isDark(root.color) ? "white" : "black"
                     horizontalAlignment: Text.AlignHCenter
@@ -67,7 +68,12 @@ MouseArea {
             Label {
                 Layout.fillWidth: true
                 Layout.margins: Style.margins
-                text: (root.currentPowerState.value.toFixed(0) * (root.isProducer ? -1 : 1)) + " W"
+                property double currentPower: root.currentPowerState ? root.currentPowerState.value.toFixed(0) : 0
+                text: (root.isBattery
+                      ? Math.abs(currentPower)
+                      : root.isProducer
+                        ? -currentPower
+                        : currentPower) + " W"
                 horizontalAlignment: Text.AlignHCenter
                 font: Style.bigFont
                 color: root.isDark(root.color) ? "white" : "black"

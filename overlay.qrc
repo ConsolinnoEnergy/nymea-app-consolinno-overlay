@@ -19,5 +19,6 @@
         <file>images/wizard-done.png</file>
         <file>wizards/SetupEnergyMeterWizard.qml</file>
         <file>mainviews/LegendTile.qml</file>
+        <file>components/ConsolinnoChartDelegate.qml</file>
     </qresource>
 </RCC>
