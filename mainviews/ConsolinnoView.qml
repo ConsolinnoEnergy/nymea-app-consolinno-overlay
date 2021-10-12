@@ -440,6 +440,16 @@ MainViewBase {
                                     var currentPowerState = producer.stateByName("currentPower")
                                     ret += currentPowerState.value
                                 }
+
+                                // Add batteries to producers if discharging
+                                for (var j = 0; i < batteries.count; j++) {
+                                    var battery = batteries.get(j)
+                                    var batteryPowerState = battery.stateByName("currentPower")
+                                    if (batteryPowerState.value < 0) {
+                                        ret += batteryPowerState.value
+                                    }
+                                }
+
                                 return ret;
                             }
 
