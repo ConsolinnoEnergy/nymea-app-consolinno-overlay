@@ -442,7 +442,7 @@ MainViewBase {
                                 }
 
                                 // Add batteries to producers if discharging
-                                for (var j = 0; i < batteries.count; j++) {
+                                for (var j = 0; j < batteries.count; j++) {
                                     var battery = batteries.get(j)
                                     var batteryPowerState = battery.stateByName("currentPower")
                                     if (batteryPowerState.value < 0) {
