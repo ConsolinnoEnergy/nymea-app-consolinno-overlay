@@ -445,9 +445,8 @@ MainViewBase {
                                 for (var j = 0; j < batteries.count; j++) {
                                     var battery = batteries.get(j)
                                     var batteryPowerState = battery.stateByName("currentPower")
-                                    if (batteryPowerState.value < 0) {
-                                        ret += batteryPowerState.value
-                                    }
+                                    // Depending on the charge/discharge the batter consumes or produces
+                                    ret += batteryPowerState.value
                                 }
 
                                 return ret;
