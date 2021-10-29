@@ -9,19 +9,25 @@ import "../delegates"
 
 MouseArea {
     id: root
-    height: layout.implicitHeight
+    height: 100//layout.implicitHeight
     width: 100
 
-    property alias color: background.color
+    property color color: "white"
+    property color negativeColor: root.color
     property Thing thing: null
     readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
     readonly property bool isProducer: thing && thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0
     readonly property bool isBattery: thing && thing.thingClass.interfaces.indexOf("energystorage") >= 0
 
+    readonly property double currentPower: root.currentPowerState ? root.currentPowerState.value.toFixed(0) : 0
+    readonly property State batteryLevelState: isBattery ? thing.stateByName("batteryLevel") : null
+
     Rectangle {
         id: background
         anchors.fill: parent
         radius: Style.cornerRadius
+        color: currentPower <= 0 ? root.negativeColor : root.color
+        Behavior on color { ColorAnimation { duration: 200 } }
     }
 
     function isDark(color) {
@@ -47,12 +53,12 @@ MouseArea {
         ColumnLayout {
             id: layout
             width: parent.width
-            spacing: 0
+            spacing: Style.smallMargins
 
             Rectangle {
                 Layout.fillWidth: true
                 Layout.preferredHeight: headerLabel.height + Style.margins
-                color: Qt.darker(root.color, 1.3)
+                color: Qt.darker(background.color, 1.3)
 
                 Label {
                     id: headerLabel
@@ -67,16 +73,48 @@ MouseArea {
 
             Label {
                 Layout.fillWidth: true
-                Layout.margins: Style.margins
-                property double currentPower: root.currentPowerState ? root.currentPowerState.value.toFixed(0) : 0
-                text: (root.isBattery
-                      ? Math.abs(currentPower)
-                      : root.isProducer
-                        ? -currentPower
-                        : currentPower) + " W"
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                text: Math.abs(root.currentPower) + " W"
                 horizontalAlignment: Text.AlignHCenter
                 font: Style.bigFont
-                color: root.isDark(root.color) ? "white" : "black"
+                color: root.isDark(background.color) ? "white" : "black"
+            }
+
+            Rectangle {
+                id: battery
+                Layout.fillWidth: true
+                Layout.leftMargin: Style.margins + 3
+                Layout.rightMargin: Style.margins
+                Layout.preferredHeight: 20
+                visible: root.isBattery
+
+                radius: 2
+                color: "#2f2e2d"
+                Rectangle {
+                    anchors {
+                        verticalCenter: parent.verticalCenter
+                        horizontalCenter: parent.left
+                    }
+                    height: 8
+                    width: 6
+                    radius: 2
+                    color: parent.color
+                }
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.margins: 2
+                    spacing: 2
+                    Repeater {
+                        model: 10
+                        delegate: Rectangle {
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            color: root.batteryLevelState && root.batteryLevelState.value >= (10 - index) * 10 ? "#98b945" : battery.color
+                            radius: 2
+                        }
+                    }
+                }
             }
         }
     }

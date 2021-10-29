@@ -165,28 +165,31 @@ MainViewBase {
                     maxCurrentPower = Math.max(maxCurrentPower, Math.abs(batteries.get(i).stateByName("currentPower").value))
                 }
 
+                var totalTop = rootMeter ? 1 : 0
+                totalTop += producers.count
                 // dashed lines from rootMeter
                 if (rootMeter) {
-                    drawAnimatedLine(ctx, rootMeter, rootMeterTile, false, 0, maxCurrentPower, true, xTranslate, yTranslate)
+                    drawAnimatedLine(ctx, rootMeter, rootMeterTile, false, -(totalTop - 1) / 2, maxCurrentPower, true, xTranslate, yTranslate)
                 }
 
                 for (var i = 0; i < producers.count; i++) {
                     var producer = producers.get(i)
                     var tile = legendProducersRepeater.itemAt(i)
-                    drawAnimatedLine(ctx, producer, tile, false, i + 1, maxCurrentPower, false, xTranslate, yTranslate)
+                    drawAnimatedLine(ctx, producer, tile, false, (i + 1) - ((totalTop - 1) / 2), maxCurrentPower, false, xTranslate, yTranslate)
                 }
 
+                var totalBottom = consumers.count + batteries.count
 
                 for (var i = 0; i < consumers.count; i++) {
                     var consumer = consumers.get(i)
                     var tile = legendConsumersRepeater.itemAt(i)
-                    drawAnimatedLine(ctx, consumer, tile, true, i, maxCurrentPower, false, xTranslate, yTranslate)
+                    drawAnimatedLine(ctx, consumer, tile, true, i - ((totalBottom - 1) / 2), maxCurrentPower, false, xTranslate, yTranslate)
                 }
 
                 for (var i = 0; i < batteries.count; i++) {
                     var battery = batteries.get(i)
                     var tile = legendBatteriesRepeater.itemAt(i)
-                    drawAnimatedLine(ctx, battery, tile, true, consumers.count + i, maxCurrentPower, false, xTranslate, yTranslate)
+                    drawAnimatedLine(ctx, battery, tile, true, consumers.count + i - ((totalBottom - 1) / 2), maxCurrentPower, false, xTranslate, yTranslate)
                 }
 
 
@@ -261,11 +264,13 @@ MainViewBase {
                 Layout.fillWidth: true
                 Layout.margins: Style.margins
                 Layout.alignment: Qt.AlignHCenter
+                spacing: Style.margins
 
                 LegendTile {
                     id: rootMeterTile
                     thing: rootMeter
-                    color: lsdChart.rootMeterColor
+                    color: "red"
+                    negativeColor: lsdChart.rootMeterColor
                     onClicked: {
                         pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                     }
@@ -484,6 +489,7 @@ MainViewBase {
 
                 RowLayout {
                     id: bottomLegend
+                    spacing: Style.margins
 
                     Repeater {
                         id: legendConsumersRepeater
@@ -573,7 +579,7 @@ MainViewBase {
                     var textY = -(chartView.plotArea.height + circleWidth) / 2 + Style.smallFont.pixelSize / 2
                     // Just can't figure out where I'm missing thosw 2 pixels in the proper calculation (yet)...
                     textY -= 2
-                    if (lsdChart.width > 500) {
+                    if (chartView.width > 400 && chartView.height > 400) {
                         ctx.fillText(tmpDate.toLocaleTimeString(Qt.SystemLocaleShortDate), 0, textY)
                     } else {
                         ctx.fillText(tmpDate.getHours(), 0, textY)
@@ -581,11 +587,8 @@ MainViewBase {
 
                     ctx.restore()
                 }
-
                 ctx.restore();
-
             }
         }
-
     }
 }
