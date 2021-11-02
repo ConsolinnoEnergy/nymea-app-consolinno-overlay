@@ -8,8 +8,8 @@ ConsolinnoWizardPageBase {
     id: root
 
     showBackButton: false
+    showNextButton: false
 
-    nextButtonText: qsTr("Start EMS setup")
     onNext: pageStack.push(privacyPolicyComponent)
 
     function exitWizard() {
@@ -20,35 +20,71 @@ ConsolinnoWizardPageBase {
     content: ColumnLayout {
         id: contentColumn
         anchors.fill: parent
+        anchors.topMargin: Style.margins
+        spacing: Style.hugeMargins
         Image {
             Layout.fillWidth: true
-            Layout.preferredHeight: parent.height / 3
+            Layout.preferredHeight: parent.height / 4
             source: "/ui/images/intro-bg-graphic.svg"
-            fillMode: Image.PreserveAspectCrop
-        }
-
-        Image {
-            Layout.fillWidth: true
-            Layout.preferredHeight: parent.height / 2
-            source: "/ui/images/intro-bg-graphic-2.svg"
             fillMode: Image.PreserveAspectFit
         }
 
+        ColumnLayout {
+            Layout.fillHeight: true
+            Layout.fillWidth: false
+            Layout.alignment: Qt.AlignHCenter
+            Layout.preferredWidth: Math.min(parent.width, 300)
+
+            Label {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.WordWrap
+                font: Style.bigFont
+                text: qsTr("Leaflet CLS")
+            }
+            Label {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.WordWrap
+                text: qsTr("Make sure that the Leaflet is operational and connected to the network.")
+            }
+            ConsolinnoButton {
+                Layout.alignment: Qt.AlignHCenter
+                text: qsTr("Start setup")
+                onClicked: root.next()
+            }
+        }
     }
 
     Component {
         id: privacyPolicyComponent
         ConsolinnoWizardPageBase {
+            id: privacyPolicyPage
 
-            showNextButton: policyCheckbox.checked
-            onNext: pageStack.push(connectLeafletComponent)
+            showNextButton: false
+            showBackButton: false
+
+            onNext: pageStack.push(findLeafletComponent)
             onBack: pageStack.pop()
 
             content: ColumnLayout {
-                anchors.fill: parent
+                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins }
+                width: Math.min(parent.width, 450)
+
+                Label {
+                    Layout.fillWidth: true
+                    text: qsTr("Privacy policy and license agreement")
+                    horizontalAlignment: Text.AlignHCenter
+                    wrapMode: Text.WordWrap
+                    font: Style.bigFont
+                }
+
                 Flickable {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignHCenter
                     Layout.margins: Style.margins
                     contentHeight: textArea.height
                     clip: true
@@ -56,58 +92,46 @@ ConsolinnoWizardPageBase {
                     TextArea {
                         id: textArea
                         width: parent.width
-                        text: "<h3>Legal mumbojumo</h3>Bavaria ipsum dolor sit amet Biaschlegl Sepp is Gamsbart no gelbe Rüam dringma aweng ja, wo samma denn kimmt. Edlweiss mi da, hog di hi Biawambn hob, sowos gwiss Zwedschgndadschi: Mehra Greichats hod, Maßkruag Schbozal! I sog ja nix, i red ja bloß pfundig so griaß God beinand af Woibbadinga gor Klampfn i i daad abfieseln. Sepp zua Biazelt Maibam, do: Barfuaßat kummd hi helfgod, gor Ledahosn a fescha Bua pfenningguat Blosmusi. Oachkatzlschwoaf soi nomoi noch da Giasinga Heiwog Buam des Gschicht Ledahosn wea nia ausgähd, kummt nia hoam soi, Marterl. Sei Maibam Biakriagal Maßkruag Schneid Goaßmaß und sei hod mechad Goaßmaß! D’ Schmankal Biaschlegl sodala hod, .
-
-    Mechad woaß da auf’d Schellnsau gar nia need, Freibia. Weißwiaschd Kuaschwanz a Hoiwe trihöleridi dijidiholleri heitzdog no ham, sog i ma kumm geh? Blärrd etza gfreit mi Wiesn am acht’n Tag schuf Gott des Bia, Deandlgwand. I moan scho aa auszutzeln ghupft wia gsprunga i mechad is Zwedschgndadschi Radler Biawambn. Soi Auffisteign back mas, Schdeckalfisch. Woaß pfundig imma, vui huift vui koa weida Fünferl so schee gscheid Servas: Jo mei nimmds Oachkatzlschwoaf is Guglhupf liberalitas Bavariae! Ledahosn Hemad di, is des liab. Ozapfa vo de i sog ja nix, i red ja bloß glei Resi sammawiedaguad, des basd scho Greichats. Resi hawadere midananda des is a gmahde Wiesn nia need schnacksln nix Jodler.
-
-    Hinter’m Berg san a no Leit Haferl Spuiratz, schüds nei hoam Vergeltsgott Milli! Ebba da, hog di hi Mongdratzal, Bussal a Prosit der Gmiadlichkeit wia da Buachbinda Wanninger Spuiratz Kaiwe a ganze: Helfgod auf’d Schellnsau a liabs Deandl Hetschapfah heid sog i, vui huift vui sowos Gams anbandeln. Bittschön sog i Fünferl, sowos jo mei fias: Fensdaln jedza de Sonn, greaßt eich nachad sei hod vui aasgem Griasnoggalsubbm. Hob wolln noch da Giasinga Heiwog wia da Buachbinda Wanninger des muas ma hoid kenna Sauwedda geh! Zünftig hinter’m Berg san a no Leit Enzian Gschicht boarischer Freibia wia iabaroi des is schee. A Prosit der Gmiadlichkeit i daad hod do! Brodzeid Radler Marterl Ewig und drei Dog, Weißwiaschd oans Heimatland Radler Hemad?
-
-    Biagadn Buam pfundig von gscheckate, Xaver Sauwedda Heimatland Kirwa ebba. Maibam san i mechad dee Schwoanshaxn hob i an Suri! Gams guad mim des is schee ozapfa oans vasteh Gschicht Sauwedda? Koa g’hupft wia gsprunga spernzaln, do. Hod nia need auffi und glei wirds no fui lustiga des wiad a Mordsgaudi baddscher ned, g’hupft wia gsprunga. Kuaschwanz i mog di fei wolpern, da. Sog i Obazda Haberertanz Engelgwand oans wea nia ausgähd, kummt nia hoam is ma Wuascht, Weibaleid Freibia imma. Auf der Oim, da gibt’s koa Sünd a Hoiwe hob i an Suri sauba jo mei i moan oiwei nix Gwiass woass ma ned Marterl? Und glei wirds no fui lustiga und glei wirds no fui lustiga an Schneid, a ganze Radler Leonhardifahrt i bin a woschechta Bayer Marterl Gschicht oa. Zwoa mogsd a Bussal.
-
-    Wann griagd ma nacha wos z’dringa Watschnbaam amoi i hab an Radler! Jodler ham muass in da, Schbozal hi Sauakraud umananda glei. Gschicht aasgem wia da Buachbinda Wanninger, allerweil ned Schmankal. Gfreit mi Haferl spernzaln Leonhardifahrt Sauakraud, Brotzeit owe. A ganze Hoiwe i hob di liab imma Heimatland weida i waar soweid koa Fingahaggln sammawiedaguad nia need. Hea nomoi hallelujah sog i, luja Obazda von nimmds eam griasd eich midnand muass, soi! Watschnbaam schoo pfenningguat, hinter’m Berg san a no Leit di i sog ja nix, i red ja bloß Schbozal des is schee. Hallelujah sog i, luja Prosd nimmds jedza Spuiratz i hob di liab Edlweiss Schaung kost nix a so a Schmarn Jodler, vo de. A Hoiwe Mamalad und sei Bladl. ."
+                        font: Style.smallFont
                         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                         textFormat: Text.RichText
                         readOnly: true
+                        text: "Bavaria ipsum dolor sit amet Biaschlegl Sepp is Gamsbart no gelbe Rüam dringma aweng ja, wo samma denn kimmt. Edlweiss mi da, hog di hi Biawambn hob, sowos gwiss Zwedschgndadschi: Mehra Greichats hod, Maßkruag Schbozal! I sog ja nix, i red ja bloß pfundig so griaß God beinand af Woibbadinga gor Klampfn i i daad abfieseln. Sepp zua Biazelt Maibam, do: Barfuaßat kummd hi helfgod, gor Ledahosn a fescha Bua pfenningguat Blosmusi. Oachkatzlschwoaf soi nomoi noch da Giasinga Heiwog Buam des Gschicht Ledahosn wea nia ausgähd, kummt nia hoam soi, Marterl. Sei Maibam Biakriagal Maßkruag Schneid Goaßmaß und sei hod mechad Goaßmaß! D’ Schmankal Biaschlegl sodala hod, .
+<br><br>
+    Mechad woaß da auf’d Schellnsau gar nia need, Freibia. Weißwiaschd Kuaschwanz a Hoiwe trihöleridi dijidiholleri heitzdog no ham, sog i ma kumm geh? Blärrd etza gfreit mi Wiesn am acht’n Tag schuf Gott des Bia, Deandlgwand. I moan scho aa auszutzeln ghupft wia gsprunga i mechad is Zwedschgndadschi Radler Biawambn. Soi Auffisteign back mas, Schdeckalfisch. Woaß pfundig imma, vui huift vui koa weida Fünferl so schee gscheid Servas: Jo mei nimmds Oachkatzlschwoaf is Guglhupf liberalitas Bavariae! Ledahosn Hemad di, is des liab. Ozapfa vo de i sog ja nix, i red ja bloß glei Resi sammawiedaguad, des basd scho Greichats. Resi hawadere midananda des is a gmahde Wiesn nia need schnacksln nix Jodler.
+<br><br>
+    Hinter’m Berg san a no Leit Haferl Spuiratz, schüds nei hoam Vergeltsgott Milli! Ebba da, hog di hi Mongdratzal, Bussal a Prosit der Gmiadlichkeit wia da Buachbinda Wanninger Spuiratz Kaiwe a ganze: Helfgod auf’d Schellnsau a liabs Deandl Hetschapfah heid sog i, vui huift vui sowos Gams anbandeln. Bittschön sog i Fünferl, sowos jo mei fias: Fensdaln jedza de Sonn, greaßt eich nachad sei hod vui aasgem Griasnoggalsubbm. Hob wolln noch da Giasinga Heiwog wia da Buachbinda Wanninger des muas ma hoid kenna Sauwedda geh! Zünftig hinter’m Berg san a no Leit Enzian Gschicht boarischer Freibia wia iabaroi des is schee. A Prosit der Gmiadlichkeit i daad hod do! Brodzeid Radler Marterl Ewig und drei Dog, Weißwiaschd oans Heimatland Radler Hemad?
+<br><br>
+    Biagadn Buam pfundig von gscheckate, Xaver Sauwedda Heimatland Kirwa ebba. Maibam san i mechad dee Schwoanshaxn hob i an Suri! Gams guad mim des is schee ozapfa oans vasteh Gschicht Sauwedda? Koa g’hupft wia gsprunga spernzaln, do. Hod nia need auffi und glei wirds no fui lustiga des wiad a Mordsgaudi baddscher ned, g’hupft wia gsprunga. Kuaschwanz i mog di fei wolpern, da. Sog i Obazda Haberertanz Engelgwand oans wea nia ausgähd, kummt nia hoam is ma Wuascht, Weibaleid Freibia imma. Auf der Oim, da gibt’s koa Sünd a Hoiwe hob i an Suri sauba jo mei i moan oiwei nix Gwiass woass ma ned Marterl? Und glei wirds no fui lustiga und glei wirds no fui lustiga an Schneid, a ganze Radler Leonhardifahrt i bin a woschechta Bayer Marterl Gschicht oa. Zwoa mogsd a Bussal.
+<br><br>
+    Wann griagd ma nacha wos z’dringa Watschnbaam amoi i hab an Radler! Jodler ham muass in da, Schbozal hi Sauakraud umananda glei. Gschicht aasgem wia da Buachbinda Wanninger, allerweil ned Schmankal. Gfreit mi Haferl spernzaln Leonhardifahrt Sauakraud, Brotzeit owe. A ganze Hoiwe i hob di liab imma Heimatland weida i waar soweid koa Fingahaggln sammawiedaguad nia need. Hea nomoi hallelujah sog i, luja Obazda von nimmds eam griasd eich midnand muass, soi! Watschnbaam schoo pfenningguat, hinter’m Berg san a no Leit di i sog ja nix, i red ja bloß Schbozal des is schee. Hallelujah sog i, luja Prosd nimmds jedza Spuiratz i hob di liab Edlweiss Schaung kost nix a so a Schmarn Jodler, vo de. A Hoiwe Mamalad und sei Bladl. ."
                     }
                 }
 
-
-                CheckDelegate {
+                CheckBox {
                     id: policyCheckbox
-                    Layout.fillWidth: true
-                    text: qsTr("I accept the privacy policy")
+                    Layout.alignment: Qt.AlignCenter
                 }
-            }
-        }
-    }
-
-    Component {
-        id: connectLeafletComponent
-        ConsolinnoWizardPageBase {
-
-            onNext: pageStack.push(findLeafletComponent)
-            onBack: pageStack.pop()
-
-            content: ColumnLayout {
-                anchors.fill: parent
 
                 Label {
                     Layout.fillWidth: true
-                    Layout.margins: Style.margins
-                    horizontalAlignment: Text.AlignHCenter
-                    text: qsTr("Please make sure that your Leaflet is connected to the power source and the network.")
                     wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignHCenter
+                    text: qsTr("I confirm that I have read the the agreement and am accepting it.")
                 }
+                ConsolinnoButton {
+                    Layout.alignment: Qt.AlignHCenter
+                    text: policyCheckbox.checked ? qsTr("next") : qsTr("cancel")
+                    color: policyCheckbox.checked ? Style.accentColor : Style.yellow
 
-                Image {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    source: "/ui/images/leaflet-connect.png"
-                    fillMode: Image.PreserveAspectFit
-                    verticalAlignment: Image.AlignVCenter
-                    horizontalAlignment: Image.AlignHCenter
+                    onClicked: {
+                        if (policyCheckbox.checked) {
+                            privacyPolicyPage.next()
+                        } else {
+                            Qt.quit()
+                        }
+                    }
                 }
-
             }
         }
     }

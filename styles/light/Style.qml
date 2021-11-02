@@ -22,5 +22,7 @@ StyleBase {
 
     gray: "#9c9d9d"
     darkGray: "#717171"
+    yellow: "#eec00a"
+    blue: "#329eba"
 
 }

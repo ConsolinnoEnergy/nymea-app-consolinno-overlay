@@ -91,4 +91,7 @@ Item {
         d.areaSeries.borderWidth = 0;
     }
 
+    Component.onDestruction: {
+        chartView.removeSeries(d.areaSeries)
+    }
 }

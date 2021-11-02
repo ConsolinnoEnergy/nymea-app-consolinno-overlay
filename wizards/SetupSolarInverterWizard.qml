@@ -10,7 +10,7 @@ ConsolinnoWizardPageBase {
     showBackButton: false
     showNextButton: false
 
-    onNext: pageStack.push(searchEvChargerComponent, {thingClassId: thingClassComboBox.currentValue})
+    onNext: pageStack.push(searchInverterComponent, {thingClassId: thingClassComboBox.currentValue})
 
     content: ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
@@ -18,7 +18,7 @@ ConsolinnoWizardPageBase {
         spacing: Style.margins
         Label {
             Layout.fillWidth: true
-            text: qsTr("Charging point or wallbox")
+            text: qsTr("Solar inverter")
             font: Style.bigFont
             wrapMode: Text.WordWrap
             horizontalAlignment: Text.AlignHCenter
@@ -44,7 +44,7 @@ ConsolinnoWizardPageBase {
                 valueRole: "id"
                 model: ThingClassesProxy {
                     engine: _engine
-                    filterInterface: "evcharger"
+                    filterInterface: "solarinverter"
                 }
             }
         }
@@ -76,17 +76,17 @@ ConsolinnoWizardPageBase {
     }
 
     Component {
-        id: searchEvChargerComponent
+        id: searchInverterComponent
 
         ConsolinnoWizardPageBase {
-            id: searchEvChargerPage
+            id: searchInverterPage
             property string thingClassId: null
 
             onBack: pageStack.pop()
 
             showBackButton: false
             showNextButton: false
-            onNext: pageStack.push(setupEvChargerComponent, {thingDescriptors: selectedWallboxes})
+            onNext: pageStack.push(setupInverterComponent, {thingDescriptors: selectedWallboxes})
 
             ThingDiscovery {
                 id: discovery
@@ -98,7 +98,7 @@ ConsolinnoWizardPageBase {
                         print("discovery finished! Count:", count, discovery.count)
                         if (count == 1) {
                             print("pushing:", discovery.get(0))
-                            pageStack.push(setupEvChargerComponent, {thingDescriptor: discovery.get(0)})
+                            pageStack.push(setupInverterComponent, {thingDescriptor: discovery.get(0)})
                         }
                     }
                 }
@@ -106,7 +106,7 @@ ConsolinnoWizardPageBase {
 
             Component.onCompleted: {
                 print("starting discovery")
-                discovery.discoverThings(searchEvChargerPage.thingClassId)
+                discovery.discoverThings(searchInverterPage.thingClassId)
             }
 
             content: ColumnLayout {
@@ -116,7 +116,7 @@ ConsolinnoWizardPageBase {
 
                 Label {
                     Layout.fillWidth: true
-                    text: qsTr("Charging point or wallbox")
+                    text: qsTr("Solar inverter")
                     font: Style.bigFont
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
@@ -150,7 +150,7 @@ ConsolinnoWizardPageBase {
                         Label {
                             Layout.fillWidth: true
                             Layout.bottomMargin: Style.bigMargins
-                            text: qsTr("No charging point or wallbox has been found. Please return to the previous step and verify that your charging point or wallbox is installed properly.")
+                            text: qsTr("No solar inverter has been found. Please return to the previous step and verify that your solar inverter is installed properly.")
                             wrapMode: Text.WordWrap
                             horizontalAlignment: Text.AlignHCenter
                         }
@@ -184,7 +184,7 @@ ConsolinnoWizardPageBase {
                     Label {
                         Layout.fillWidth: true
                         Layout.margins: Style.margins
-                        text: qsTr("Multiple charging points or wallboxes have been found in your network. Please select the one you'd like to use with your Leaflet.")
+                        text: qsTr("Multiple solar inverters have been found in your network. Please select the one you'd like to use with your Leaflet.")
                         horizontalAlignment: Text.AlignHCenter
                         wrapMode: Text.WordWrap
                     }
@@ -214,7 +214,7 @@ ConsolinnoWizardPageBase {
                             width: parent.width
                             onClicked: {
                                 console.warn("clicked")
-                                pageStack.push(setupEvChargerComponent, {thingDescriptor: discovery.get(index)})
+                                pageStack.push(setupInverterComponent, {thingDescriptor: discovery.get(index)})
                             }
                         }
                     }
@@ -224,7 +224,7 @@ ConsolinnoWizardPageBase {
     }
 
     Component {
-        id: setupEvChargerComponent
+        id: setupInverterComponent
         ConsolinnoWizardPageBase {
             id: setupEnergyMeterPage
 

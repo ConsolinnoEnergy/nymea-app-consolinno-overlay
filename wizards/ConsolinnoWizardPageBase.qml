@@ -22,7 +22,7 @@ Page {
     signal next();
     signal back();
     signal extraButtonPressed();
-    signal done();
+    signal done(bool skip, bool abort);
 
     header: Item {
 
@@ -63,9 +63,9 @@ Page {
                 rightMargin: Style.bigMargins
             }
             fillMode: Image.PreserveAspectFit
-            source: "qrc:/styles/%1/logo-wide.svg".arg(styleController.currentStyle)
+//            source: "qrc:/styles/%1/logo-wide.svg".arg(styleController.currentStyle)
+            source: "qrc:/styles/light/logo-wide.svg"
         }
-
     }
 
     background: Item {
@@ -77,10 +77,19 @@ Page {
                 right: parent.right
                 bottom: parent.bottom
             }
-            height: 100
+            height: Style.hugeMargins
             gradient: Gradient {
                 GradientStop { position: 0; color: Style.backgroundColor }
-                GradientStop { position: 1; color: Style.consolinnoLight }
+                GradientStop { position: 1; color: Style.accentColor }
+            }
+            Image {
+                anchors.centerIn: parent
+                width: Math.min(parent.width, 700)
+                height: parent.height
+                source: "/ui/images/intro-bg-graphic.svg"
+                sourceSize.width: width
+                fillMode: Image.PreserveAspectCrop
+                verticalAlignment: Image.AlignTop
             }
         }
     }

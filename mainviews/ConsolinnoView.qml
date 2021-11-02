@@ -34,6 +34,7 @@ import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.2
 import QtCharts 2.3
 import Nymea 1.0
+import Qt.labs.settings 1.1
 import "../components"
 import "../delegates"
 
@@ -45,34 +46,107 @@ MainViewBase {
 
     QtObject {
         id: d
-        property var currentWizard: null
+        property var firstWizardPage: null
+
+        property bool energyMeterWiazrdSkipped: false
+
+        function pushPage(comp, properties) {
+            var page = pageStack.push(comp, properties)
+            if (!d.firstWizardPage) {
+                d.firstWizardPage = page
+            }
+            return page;
+        }
+
+        function exitWizard() {
+            print("exiting wizard")
+            pageStack.pop(d.firstWizardPage, StackView.Immediate)
+            pageStack.pop()
+        }
+
+
+        function resetWizardSettings() {
+            wizardSettings.solarPanelDone = false
+            wizardSettings.evChargerDone = false
+            wizardSettings.heatPumpDone = false
+        }
 
         function setup(showFinalPage) {
 
             print("Setup. Installed energy meters:", energyMetersProxy.count, "EV Chargers:", evChargersProxy.count)
 
-            if (energyMetersProxy.count === 0) {
-                d.currentWizard = pageStack.push("/ui/wizards/SetupEnergyMeterWizard.qml")
-                d.currentWizard.done.connect(function() {setup(true)})
+            if (energyMetersProxy.count === 0 && !energyMeterWiazrdSkipped) {
+                var page = d.pushPage("/ui/wizards/SetupEnergyMeterWizard.qml")
+                page.done.connect(function(skip, abort) {
+                    print("energymeters done", skip, abort)
+                    if (abort) {
+                        exitWizard()
+                        return
+                    }
+                    if (skip) {
+                        energyMeterWiazrdSkipped = true;
+                    }
+                    setup(true)
+                })
                 return
             }
 
-//            if (evChargersProxy.count === 0) {
-//                d.currentWizard = pageStack.push("/ui/wizards/SetupEVChargerWizard.qml")
-//                d.currentWizard.done.connect(function() {setup(true)})
-//                return
-//            }
+            if (inverters.count === 0 && !wizardSettings.solarPanelDone) {
+                var page = d.pushPage("/ui/wizards/SetupSolarInverterWizard.qml");
+                page.done.connect(function(skip, abort){
+                    print("solar inverters done", skip, abort)
+                    if (abort) {
+                        exitWizard();
+                        return
+                    }
+
+                    setup(true);
+                })
+                wizardSettings.solarPanelDone = true
+                return
+            }
+
+            if (evChargersProxy.count === 0 && !wizardSettings.evChargerDone) {
+                var page = d.pushPage("/ui/wizards/SetupEVChargerWizard.qml")
+                page.done.connect(function(skip, abort) {
+                    if (abort) {
+                        exitWizard();
+                        return
+                    }
+
+                    setup(true);
+                })
+                wizardSettings.evChargerDone = true
+                return
+            }
+
+            if (heatPumps.count === 0 && !wizardSettings.heatPumpDone) {
+                var page = d.pushPage("/ui/wizards/SetupHeatPumpWizard.qml")
+                page.done.connect(function(skip, abort) {
+                    if (abort) {
+                        exitWizard();
+                        return
+                    }
+
+                    setup(true);
+                })
+                wizardSettings.heatPumpDone = true
+                return
+            }
 
             if (showFinalPage) {
-                var page = pageStack.push("/ui/wizards/WizardComplete.qml")
-                page.done.connect(function() {exitWizard()})
+                var page = d.pushPage("/ui/wizards/WizardComplete.qml")
+                page.done.connect(function(skip, abort) {exitWizard()})
             }
         }
+    }
 
-        function exitWizard() {
-            pageStack.pop(d.currentWizard, StackView.Immediate)
-            pageStack.pop()
-        }
+    Settings {
+        id: wizardSettings
+        category: "setupWizard"
+        property bool solarPanelDone: false
+        property bool evChargerDone: false
+        property bool heatPumpDone: false
     }
 
     onLoadingChanged: {
@@ -100,6 +174,12 @@ MainViewBase {
         shownInterfaces: ["smartmeterconsumer"]
     }
     ThingsProxy {
+        id: inverters
+        engine: _engine
+        shownInterfaces: ["solarinverter"]
+    }
+
+    ThingsProxy {
         id: producers
         engine: _engine
         shownInterfaces: ["smartmeterproducer"]
@@ -109,11 +189,18 @@ MainViewBase {
         engine: _engine
         shownInterfaces: ["energystorage"]
     }
+    ThingsProxy {
+        id: heatPumps
+        engine: _engine
+        shownInterfaces: ["heatpump"]
+    }
 
     Item {
         id: lsdChart
         anchors.fill: parent
         anchors.topMargin: root.topMargin
+        anchors.bottomMargin: Style.hugeMargins
+        visible: rootMeter != null
 
         property int hours: 24
 
@@ -589,6 +676,41 @@ MainViewBase {
                 }
                 ctx.restore();
             }
+        }
+    }
+
+    Rectangle {
+        anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+        height: Style.hugeMargins
+        gradient: Gradient {
+            GradientStop { position: 0; color: "transparent" }
+            GradientStop { position: 1; color: Style.accentColor }
+        }
+
+        Image {
+            anchors.centerIn: parent
+            width: Math.min(parent.width, 700)
+            height: parent.height
+            source: "/ui/images/intro-bg-graphic.svg"
+            sourceSize.width: width
+            fillMode: Image.PreserveAspectCrop
+            verticalAlignment: Image.AlignTop
+        }
+    }
+
+
+    EmptyViewPlaceholder {
+        anchors { left: parent.left; right: parent.right; margins: app.margins }
+        anchors.verticalCenter: parent.verticalCenter
+        visible: !engine.thingManager.fetchingData && root.rootMeter == null
+        title: qsTr("Your leaflet is not set up yet.")
+        text: qsTr("Please complete the setup wizard or manually configure your devices.")
+        imageSource: "/ui/images/leaf.svg"
+        buttonText: qsTr("Start setup")
+        onImageClicked: buttonClicked()
+        onButtonClicked: {
+            d.resetWizardSettings()
+            d.setup(false)
         }
     }
 }

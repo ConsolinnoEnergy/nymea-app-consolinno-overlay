@@ -10,7 +10,7 @@ ConsolinnoWizardPageBase {
     showBackButton: false
     showNextButton: false
 
-    onNext: pageStack.push(searchEvChargerComponent, {thingClassId: thingClassComboBox.currentValue})
+    onNext: pageStack.push(searchHeatPumpComponent, {thingClassId: thingClassComboBox.currentValue})
 
     content: ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
@@ -18,7 +18,7 @@ ConsolinnoWizardPageBase {
         spacing: Style.margins
         Label {
             Layout.fillWidth: true
-            text: qsTr("Charging point or wallbox")
+            text: qsTr("Heat pump")
             font: Style.bigFont
             wrapMode: Text.WordWrap
             horizontalAlignment: Text.AlignHCenter
@@ -44,7 +44,7 @@ ConsolinnoWizardPageBase {
                 valueRole: "id"
                 model: ThingClassesProxy {
                     engine: _engine
-                    filterInterface: "evcharger"
+                    filterInterface: "heatpump"
                 }
             }
         }
@@ -76,17 +76,17 @@ ConsolinnoWizardPageBase {
     }
 
     Component {
-        id: searchEvChargerComponent
+        id: searchHeatPumpComponent
 
         ConsolinnoWizardPageBase {
-            id: searchEvChargerPage
+            id: searchHeatPumpPage
             property string thingClassId: null
 
             onBack: pageStack.pop()
 
             showBackButton: false
             showNextButton: false
-            onNext: pageStack.push(setupEvChargerComponent, {thingDescriptors: selectedWallboxes})
+            onNext: pageStack.push(setupHeatPumpComponent, {thingDescriptors: selectedWallboxes})
 
             ThingDiscovery {
                 id: discovery
@@ -98,7 +98,7 @@ ConsolinnoWizardPageBase {
                         print("discovery finished! Count:", count, discovery.count)
                         if (count == 1) {
                             print("pushing:", discovery.get(0))
-                            pageStack.push(setupEvChargerComponent, {thingDescriptor: discovery.get(0)})
+                            pageStack.push(setupHeatPumpComponent, {thingDescriptor: discovery.get(0)})
                         }
                     }
                 }
@@ -106,7 +106,7 @@ ConsolinnoWizardPageBase {
 
             Component.onCompleted: {
                 print("starting discovery")
-                discovery.discoverThings(searchEvChargerPage.thingClassId)
+                discovery.discoverThings(searchHeatPumpPage.thingClassId)
             }
 
             content: ColumnLayout {
@@ -116,7 +116,7 @@ ConsolinnoWizardPageBase {
 
                 Label {
                     Layout.fillWidth: true
-                    text: qsTr("Charging point or wallbox")
+                    text: qsTr("Heat pump")
                     font: Style.bigFont
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
@@ -145,12 +145,12 @@ ConsolinnoWizardPageBase {
                         anchors.centerIn: parent
                         width: parent.width
                         spacing: Style.margins
-                        visible: !discovery.busy && discovery.count == 0
 
                         Label {
+                            visible: !discovery.busy && discovery.count == 0
                             Layout.fillWidth: true
                             Layout.bottomMargin: Style.bigMargins
-                            text: qsTr("No charging point or wallbox has been found. Please return to the previous step and verify that your charging point or wallbox is installed properly.")
+                            text: qsTr("No heat pump has been found. Please return to the previous step and verify that your heat pump is installed properly.")
                             wrapMode: Text.WordWrap
                             horizontalAlignment: Text.AlignHCenter
                         }
@@ -184,7 +184,7 @@ ConsolinnoWizardPageBase {
                     Label {
                         Layout.fillWidth: true
                         Layout.margins: Style.margins
-                        text: qsTr("Multiple charging points or wallboxes have been found in your network. Please select the one you'd like to use with your Leaflet.")
+                        text: qsTr("Multiple heat pumps have been found in your network. Please select the one you'd like to use with your Leaflet.")
                         horizontalAlignment: Text.AlignHCenter
                         wrapMode: Text.WordWrap
                     }
@@ -214,7 +214,7 @@ ConsolinnoWizardPageBase {
                             width: parent.width
                             onClicked: {
                                 console.warn("clicked")
-                                pageStack.push(setupEvChargerComponent, {thingDescriptor: discovery.get(index)})
+                                pageStack.push(setupHeatPumpComponent, {thingDescriptor: discovery.get(index)})
                             }
                         }
                     }
@@ -224,9 +224,9 @@ ConsolinnoWizardPageBase {
     }
 
     Component {
-        id: setupEvChargerComponent
+        id: setupHeatPumpComponent
         ConsolinnoWizardPageBase {
-            id: setupEnergyMeterPage
+            id: setupHeatPumpPage
 
             showNextButton: false
             showBackButton: false
@@ -245,9 +245,9 @@ ConsolinnoWizardPageBase {
             Connections {
                 target: engine.thingManager
                 onAddThingReply: {
-                    if (commandId == setupEnergyMeterPage.pendingCallId) {
-                        setupEnergyMeterPage.thingError = thingError
-                        setupEnergyMeterPage.pendingCallId = -1
+                    if (commandId == setupHeatPumpPage.pendingCallId) {
+                        setupHeatPumpPage.thingError = thingError
+                        setupHeatPumpPage.pendingCallId = -1
                         thing = engine.thingManager.things.getThing(thingId)
                     }
                 }
@@ -260,7 +260,7 @@ ConsolinnoWizardPageBase {
 
                 Label {
                     Layout.fillWidth: true
-                    text: qsTr("Solar inverter")
+                    text: qsTr("Heat pump")
                     font: Style.bigFont
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
@@ -269,7 +269,7 @@ ConsolinnoWizardPageBase {
                 Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    visible: setupEnergyMeterPage.pendingCallId != -1
+                    visible: setupHeatPumpPage.pendingCallId != -1
 
                     BusyIndicator {
                         anchors.centerIn: parent
@@ -280,20 +280,20 @@ ConsolinnoWizardPageBase {
                 ColumnLayout {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    visible: setupEnergyMeterPage.pendingCallId == -1 && setupEnergyMeterPage.thingError == Thing.ThingErrorNoError
+                    visible: setupHeatPumpPage.pendingCallId == -1 && setupHeatPumpPage.thingError == Thing.ThingErrorNoError
                     spacing: Style.margins
 
                     Label {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The solar inverter has been found and set up.")
+                        text: qsTr("The heat pump has been found and set up.")
                         horizontalAlignment: Text.AlignHCenter
                     }
 
                     Label {
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
-                        text: setupEnergyMeterPage.thingDescriptor.name
+                        text: setupHeatPumpPage.thingDescriptor.name
                     }
 
                     ColorIcon {
@@ -311,8 +311,8 @@ ConsolinnoWizardPageBase {
                     Layout.fillWidth: true
                     Layout.margins: Style.margins
                     wrapMode: Text.WordWrap
-                    text: qsTr("An unexpected error happened during the setup. Please verify the solar inverter is installed correctly and try again.")
-                    visible: setupEnergyMeterPage.thingError != Thing.ThingErrorNoError
+                    text: qsTr("An unexpected error happened during the setup. Please verify the heat pump is installed correctly and try again.")
+                    visible: setupHeatPumpPage.thingError != Thing.ThingErrorNoError
                 }
 
                 ConsolinnoButton {

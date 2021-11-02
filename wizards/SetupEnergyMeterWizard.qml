@@ -8,159 +8,90 @@ ConsolinnoWizardPageBase {
     id: root
 
     showBackButton: false
+    showNextButton: false
 
-    onNext: pageStack.push(searchEnergyMeterComponent)
+    onNext: pageStack.push(searchEnergyMeterComponent, {thingClassId: thingClassComboBox.currentValue})
 
     content: ColumnLayout {
-        anchors.fill: parent
-        anchors.margins: Style.margins
+        anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
+        width: Math.min(parent.width - Style.margins * 2, 300)
         spacing: Style.margins
         Label {
             Layout.fillWidth: true
+            text: qsTr("Feed-in and consumption meter")
             font: Style.bigFont
-            text: qsTr("Energy meter")
+            wrapMode: Text.WordWrap
             horizontalAlignment: Text.AlignHCenter
         }
 
         Label {
             Layout.fillWidth: true
             horizontalAlignment: Text.AlignHCenter
-            text: qsTr("SDM630")
+            text: qsTr("Please select your model:")
         }
 
-        GridLayout {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            Layout.leftMargin: Style.margins
-            Layout.rightMargin: Style.margins
-            columns: 3
-
-            rowSpacing: Style.margins
-
-            Label {
-                text: "•"
-            }
-
+        ColumnLayout {
+            Layout.topMargin: Style.margins
             Label {
                 Layout.fillWidth: true
-                Layout.columnSpan: 2
-                text: qsTr("The SDM630 is installed properly and operational")
-                wrapMode: Text.WordWrap
+                text: qsTr("Model:")
             }
 
-//            ColorIcon {
-//                size: Style.iconSize
-//                name: "question"
-//                MouseArea {
-//                    anchors.fill: parent
-//                    onClicked: {
-//                        var text = qsTr('Activate UDP communication protocol (SmartHome interface):') + "<br>"
-//                        text += qsTr("DIP switch 1.3 = ON") + "<br><br>"
-//                        text += qsTr('Please find the details on section 8.1 of the <a href="https://www.keba.com/download/x/5f05ed5aca/kecontactp30_ihen_web.pdf">installation handbook</a>.') + "<br><br>"
-//                        text += "<b>" + qsTr("Note") + "</b><br>"
-//                        text += qsTr("Changes will be effective only after a restart of the wallbox.") + "<br><br>"
-//                        text += "<b>" + qsTr("Warning!") + "</b><br>"
-//                        text += qsTr("When in doubt, please consult a professional service technician. A wrong configuration of the wallbox may potentially cause severe damage.")
-
-//                        var dialog = infoDialogComponent.createObject(root, {text: text})
-//                        dialog.open()
-//                    }
-//                }
-//            }
-
-            Label {
-                text: "•"
-            }
-
-            Label {
+            ComboBox {
+                id: thingClassComboBox
                 Layout.fillWidth: true
-                text: qsTr("The SDM630 is connected to the Leaflet via Modbus")
-                wrapMode: Text.WordWrap
-            }
-            ColorIcon {
-                size: Style.iconSize
-                name: "question"
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        var text = qsTr('Get IP address via DHCP server:') + "<br>"
-                        text += qsTr("DIP switches 2.1 - 2.4 = OFF") + "<br><br>"
-                        text += qsTr('Please find the details on section 8.1 of the <a href="https://www.keba.com/download/x/5f05ed5aca/kecontactp30_ihen_web.pdf">installation handbook</a>.') + "<br><br>"
-                        text += "<b>" + qsTr("Note") + "</b><br>"
-                        text += qsTr("Changes will be effective only after a restart of the wallbox.") + "<br><br>"
-                        text += "<b>" + qsTr("Warning!") + "</b><br>"
-                        text += qsTr("When in doubt, please consult a professional service technician. A wrong configuration of the wallbox may potentially cause severe damage.")
-
-                        var dialog = infoDialogComponent.createObject(root, {text: text})
-                        dialog.open()
-                    }
+                textRole: "displayName"
+                valueRole: "id"
+                model: ThingClassesProxy {
+                    engine: _engine
+                    filterInterface: "energymeter"
                 }
             }
+        }
 
-            Label {
-                text: "•"
-            }
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("The green LED is glowing")
-                wrapMode: Text.WordWrap
-            }
-            ColorIcon {
-                size: Style.iconSize
-                name: "question"
+        ColumnLayout {
+            spacing: Style.margins
+            Layout.alignment: Qt.AlignHCenter
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        var text = qsTr('It is recommended to connect both, the wallbox and the nymea.energy gateway, to your network (router) by using an ethernet cable. However, provided good WiFi coverage, using a wireless connection is possible too.') + "<br>"
-                        text += qsTr('Please find the details on section 7.6 of the <a href="https://www.keba.com/download/x/5f05ed5aca/kecontactp30_ihen_web.pdf">installation handbook</a>.') + "<br><br>"
-                        text += "<b>" + qsTr("Warning!") + "</b><br>"
-                        text += qsTr("When in doubt, please consult a professional service technician. A wrong configuration of the wallbox may potentially cause severe damage.")
-                        var dialog = infoDialogComponent.createObject(root, {text: text})
-                        dialog.open()
-                    }
-                }
+            ConsolinnoButton {
+                text: qsTr("cancel")
+                color: Style.yellow
+                Layout.alignment: Qt.AlignHCenter
+                onClicked: root.done(false, true)
             }
-
-            Image {
-                Layout.fillWidth: true
-                Layout.columnSpan: 3
-                Layout.fillHeight: true
-                source: "/ui/images/intro-bg-graphic-2.svg"
-                fillMode: Image.PreserveAspectFit
-                horizontalAlignment: Image.AlignHCenter
-                verticalAlignment: Image.AlignVCenter
+            ConsolinnoButton {
+                text: qsTr("next")
+                color: Style.accentColor
+                Layout.alignment: Qt.AlignHCenter
+                onClicked: root.next()
+            }
+            ConsolinnoButton {
+                text: qsTr("skip")
+                color: Style.blue
+                Layout.alignment: Qt.AlignHCenter
+                onClicked: root.done(true, false)
             }
         }
-    }
 
-    Component {
-        id: infoDialogComponent
-        MeaDialog {
-            id: infoDialog
-            property string text: ""
-            contentItem: Label {
-                text: infoDialog.text
-                textFormat: Text.RichText
-                wrapMode: Text.WordWrap
-                onLinkActivated: Qt.openUrlExternally(link)
-            }
-        }
     }
 
     Component {
         id: searchEnergyMeterComponent
+
         ConsolinnoWizardPageBase {
             id: searchEnergyMeterPage
+            property string thingClassId: null
 
             onBack: pageStack.pop()
 
+            showBackButton: false
             showNextButton: false
             onNext: pageStack.push(setupEnergyMeterComponent, {thingDescriptors: selectedWallboxes})
 
             ThingDiscovery {
                 id: discovery
                 engine: _engine
+
 
                 onBusyChanged: {
                     if (!busy) {
@@ -175,45 +106,86 @@ ConsolinnoWizardPageBase {
 
             Component.onCompleted: {
                 print("starting discovery")
-                discovery.discoverThingsByInterface("energymeter")
+                discovery.discoverThings(searchEnergyMeterPage.thingClassId)
             }
 
-            content: Item {
-                anchors.fill: parent
-
-                ColumnLayout {
-                    visible: discovery.busy
-                    anchors.centerIn: parent
-                    spacing: Style.margins
-
-                    BusyIndicator {
-                        Layout.alignment: Qt.AlignHCenter
-                    }
-
-                    Label {
-                        horizontalAlignment: Text.AlignHCenter
-                        text: qsTr("Searching...")
-                    }
-                }
-
+            content: ColumnLayout {
+                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
+                width: Math.min(parent.width - Style.margins * 2, 300)
+                spacing: Style.margins
 
                 Label {
-                    anchors.centerIn: parent
-                    visible: !discovery.busy && discovery.count == 0
-                    width: parent.width - Style.margins * 2
-                    text: qsTr("No energy meter has been found. Please return to the previous step and verify that your energy meter is installed properly.")
+                    Layout.fillWidth: true
+                    text: qsTr("Feed-in and consumption meter")
+                    font: Style.bigFont
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
                 }
 
+                Item {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    ColumnLayout {
+                        visible: discovery.busy
+                        anchors.centerIn: parent
+                        spacing: Style.margins
+
+                        BusyIndicator {
+                            Layout.alignment: Qt.AlignHCenter
+                        }
+
+                        Label {
+                            horizontalAlignment: Text.AlignHCenter
+                            text: qsTr("Searching...")
+                        }
+                    }
+
+                    ColumnLayout {
+                        anchors.centerIn: parent
+                        width: parent.width
+                        spacing: Style.margins
+                        visible: !discovery.busy && discovery.count == 0
+
+                        Label {
+                            Layout.fillWidth: true
+                            Layout.bottomMargin: Style.bigMargins
+                            text: qsTr("No smart meter has been found. Please return to the previous step and verify that your smart meter is installed properly.")
+                            wrapMode: Text.WordWrap
+                            horizontalAlignment: Text.AlignHCenter
+                        }
+
+                        ConsolinnoButton {
+                            Layout.alignment: Qt.AlignHCenter
+                            text: qsTr("back")
+                            color: Style.yellow
+                            onClicked: pageStack.pop()
+                        }
+                        ConsolinnoButton {
+                            Layout.alignment: Qt.AlignHCenter
+                            text: qsTr("cancel")
+                            color: Style.yellow
+                            onClicked: root.done(false, true)
+                        }
+                        ConsolinnoButton {
+                            Layout.alignment: Qt.AlignHCenter
+                            text: qsTr("skip")
+                            color: Style.blue
+                            onClicked: root.done(true, false)
+                        }
+                    }
+                }
+
                 ColumnLayout {
-                    anchors.fill: parent
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
                     visible: !discovery.busy && discovery.count > 1
 
                     Label {
                         Layout.fillWidth: true
                         Layout.margins: Style.margins
-                        text: qsTr("Multiple energy meters have been found in your network. Please select the one you'd like to use with nymea.energy.")
+                        text: qsTr("Multiple energy meters have been found in your network. Please select the one you'd like to use with your Leaflet.")
+                        horizontalAlignment: Text.AlignHCenter
                         wrapMode: Text.WordWrap
                     }
 
@@ -256,9 +228,8 @@ ConsolinnoWizardPageBase {
         ConsolinnoWizardPageBase {
             id: setupEnergyMeterPage
 
+            showNextButton: false
             showBackButton: false
-
-            onNext: root.done()
 
             property ThingDescriptor thingDescriptor: null
 
@@ -282,38 +253,35 @@ ConsolinnoWizardPageBase {
                 }
             }
 
-            content: Item {
-                anchors.fill: parent
+            content: ColumnLayout {
+                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
+                width: Math.min(parent.width - Style.margins * 2, 300)
+                spacing: Style.margins
 
-                BusyIndicator {
-                    anchors.centerIn: parent
-                    visible: setupEnergyMeterPage.pendingCallId != -1
+                Label {
+                    Layout.fillWidth: true
+                    text: qsTr("Feed-in and consumption meter")
+                    font: Style.bigFont
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignHCenter
                 }
 
+                Item {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    visible: setupEnergyMeterPage.pendingCallId != -1
+
+                    BusyIndicator {
+                        anchors.centerIn: parent
+                    }
+                }
+
+
                 ColumnLayout {
-                    anchors.centerIn: parent
-                    width: parent.width - Style.margins * 2
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
                     visible: setupEnergyMeterPage.pendingCallId == -1 && setupEnergyMeterPage.thingError == Thing.ThingErrorNoError
-
-                    Label {
-                        Layout.fillWidth: true
-                        horizontalAlignment: Text.AlignHCenter
-                        text: setupEnergyMeterPage.thingDescriptor.name
-                    }
-                    Label {
-                        Layout.fillWidth: true
-                        horizontalAlignment: Text.AlignHCenter
-                        text: setupEnergyMeterPage.thingDescriptor.description
-                        font: Style.smallFont
-                    }
-
-                    Image {
-                        Layout.preferredWidth: 200
-                        // w : h = ssw : ssh
-                        Layout.preferredHeight: width * sourceSize.height / sourceSize.width
-                        Layout.alignment: Qt.AlignHCenter
-                        source: "/images/wallboxes/keba/P30_Typ1_ml.png"
-                    }
+                    spacing: Style.margins
 
                     Label {
                         Layout.fillWidth: true
@@ -322,14 +290,21 @@ ConsolinnoWizardPageBase {
                         horizontalAlignment: Text.AlignHCenter
                     }
 
-                    TextField {
-                        Layout.alignment: Qt.AlignHCenter
-                        text: setupEnergyMeterPage.thing.name
+                    Label {
+                        Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
-                        onEditingFinished: {
-                            engine.thingManager.editThing(setupEnergyMeterPage.thing.id, text)
-                        }
+                        text: setupEnergyMeterPage.thingDescriptor.name
                     }
+
+                    ColorIcon {
+                        Layout.topMargin: Style.bigMargins
+                        Layout.bottomMargin: Style.bigMargins
+                        Layout.alignment: Qt.AlignHCenter
+                        name: "tick"
+                        color: Style.accentColor
+                        size: Style.hugeIconSize * 3
+                    }
+
                 }
 
                 Label {
@@ -338,6 +313,19 @@ ConsolinnoWizardPageBase {
                     wrapMode: Text.WordWrap
                     text: qsTr("An unexpected error happened during the setup. Please verify the energy meter is installed correctly and try again.")
                     visible: setupEnergyMeterPage.thingError != Thing.ThingErrorNoError
+                }
+
+                ConsolinnoButton {
+                    Layout.alignment: Qt.AlignHCenter
+                    text: qsTr("back")
+                    color: Style.yellow
+                    onClicked: pageStack.pop(root)
+                }
+
+                ConsolinnoButton {
+                    Layout.alignment: Qt.AlignHCenter
+                    text: qsTr("next")
+                    onClicked: root.done(false, false)
                 }
             }
         }

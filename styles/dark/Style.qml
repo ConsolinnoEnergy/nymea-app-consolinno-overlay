@@ -10,7 +10,7 @@ StyleBase {
     property color consolinnoLight: "#BDD758"
     property color consolinnoExtraLight: "#DDE8B4"
 
-    backgroundColor: "#393a39"
+    backgroundColor: "#414141"
     foregroundColor: "white"
 
 //    tileBackgroundColor:

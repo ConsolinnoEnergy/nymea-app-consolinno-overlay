@@ -6,8 +6,6 @@ import Nymea 1.0
 
 ConsolinnoWizardPageBase {
     id: root
-    headerBackgroundColor: "white"
-
 
     showNextButton: false
     showBackButton: false
@@ -19,7 +17,7 @@ ConsolinnoWizardPageBase {
         spacing: Style.hugeMargins
         Image {
             Layout.fillWidth: true
-            Layout.preferredHeight: parent.height / 4
+            Layout.preferredHeight: parent.height / 3
             source: "/ui/images/intro-bg-graphic.svg"
             fillMode: Image.PreserveAspectFit
         }
@@ -29,7 +27,6 @@ ConsolinnoWizardPageBase {
             Layout.fillWidth: false
             Layout.alignment: Qt.AlignHCenter
             Layout.preferredWidth: Math.min(parent.width, 300)
-            spacing: Style.margins
 
             Label {
                 Layout.fillWidth: true

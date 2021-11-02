@@ -4,6 +4,10 @@
         <file>styles/light/Button.qml</file>
         <file>styles/light/logo.svg</file>
         <file>styles/light/logo-wide.svg</file>
+        <file>styles/dark/Style.qml</file>
+        <file>styles/dark/Button.qml</file>
+        <file>styles/dark/logo.svg</file>
+        <file>styles/dark/logo-wide.svg</file>
     </qresource>
     <qresource prefix="/ui">
         <file>mainviews/ConsolinnoView.qml</file>
@@ -12,7 +16,6 @@
         <file>wizards/ConnectionWizard.qml</file>
         <file>wizards/ConsolinnoWizardPageBase.qml</file>
         <file>images/intro-bg-graphic.svg</file>
-        <file>images/intro-bg-graphic-2.svg</file>
         <file>images/leaflet-connect.png</file>
         <file>wizards/SetupEVChargerWizard.qml</file>
         <file>wizards/WizardComplete.qml</file>
@@ -20,5 +23,9 @@
         <file>wizards/SetupEnergyMeterWizard.qml</file>
         <file>mainviews/LegendTile.qml</file>
         <file>components/ConsolinnoChartDelegate.qml</file>
+        <file>components/ConsolinnoButton.qml</file>
+        <file>wizards/SetupSolarInverterWizard.qml</file>
+        <file>wizards/SetupHeatPumpWizard.qml</file>
+        <file>wizards/ConfigureOptimizationsWizard.qml</file>
     </qresource>
 </RCC>
