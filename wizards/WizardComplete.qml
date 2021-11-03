@@ -26,14 +26,13 @@ ConsolinnoWizardPageBase {
 
         ColumnLayout {
             Layout.fillHeight: true
-            Layout.fillWidth: false
+            Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter
             Layout.preferredWidth: Math.min(parent.width, 300)
             spacing: Style.margins
 
             Label {
                 Layout.fillWidth: true
-                Layout.fillHeight: true
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
                 font: Style.bigFont
@@ -41,21 +40,20 @@ ConsolinnoWizardPageBase {
             }
             Label {
                 Layout.fillWidth: true
-                Layout.fillHeight: true
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
                 text: qsTr("Your Leaflet is now configured. The following devices have been set up:")
             }
-
-            ColumnLayout {
-                Repeater {
-                    model: engine.thingManager.things
-                    delegate: Label {
-                        Layout.fillWidth: true
-                        text: model.name
-                        horizontalAlignment: Text.AlignHCenter
-                        color: Style.accentColor
-                    }
+            ListView {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                model: engine.thingManager.things
+                clip: true
+                delegate: Label {
+                    width: parent.width
+                    text: model.name
+                    horizontalAlignment: Text.AlignHCenter
+                    color: Style.accentColor
                 }
             }
 
