@@ -204,7 +204,7 @@ MainViewBase {
 
         property int hours: 24
 
-        readonly property color rootMeterColor: "#5e9ede"
+        readonly property color rootMeterColor: "#e31e24"
         readonly property color producersColor: "#f8eb45"
         readonly property color batteriesColor: "#b6c741"
         readonly property var consumersColors: [ "#b15c95", "#c1362f", "#731DD8", "#C4FFF9", "#C16200" ]
@@ -237,6 +237,15 @@ MainViewBase {
                 var xTranslate = chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2
                 var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
                 ctx.translate(xTranslate, yTranslate)
+
+                ctx.beginPath()
+                ctx.fillStyle = "white"
+                ctx.arc(0, 0, chartView.plotArea.width / 2, 0, 2 * Math.PI)
+                ctx.fill();
+                ctx.closePath()
+
+                ctx.strokeStyle = Style.foregroundColor
+                ctx.fillStyle = Style.foregroundColor
 
                 var maxCurrentPower = rootMeter ? Math.abs(rootMeter.stateByName("currentPower").value) : 0;
                 for (var i = 0; i < producers.count; i++) {
@@ -280,6 +289,9 @@ MainViewBase {
                 }
 
 
+                ctx.strokeStyle = "black"
+                ctx.fillStyle = "black"
+
                 ctx.beginPath();
                 ctx.setLineDash([1,0])
                 ctx.lineWidth = 5
@@ -289,7 +301,6 @@ MainViewBase {
                 ctx.closePath();
 
                 ctx.beginPath();
-                ctx.fillStyle = "black"
                 ctx.moveTo(-15, -chartView.plotArea.height / 2)
                 ctx.lineTo(15, -chartView.plotArea.height / 2)
                 ctx.lineTo(0, -chartView.plotArea.height / 2 + 20)
