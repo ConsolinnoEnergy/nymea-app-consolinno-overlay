@@ -62,7 +62,7 @@ private:
 
     void addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateChargingConfiguration(const QVariantMap &configurationMap);
-
+    HemsManager::HemsUseCases unpackUseCases(const QStringList &useCasesList);
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(HemsManager::HemsUseCases)

@@ -80,15 +80,9 @@ void HemsManager::notificationReceived(const QVariantMap &data)
     qCDebug(dcHems()) << "Hems notification received" << notification << params;
 
     if (notification == "Hems.AvailableUseCasesChanged") {
-        HemsUseCases availableUseCases;
-        QMetaEnum metaFlag = QMetaEnum::fromType<HemsManager::HemsUseCases>();
-        foreach (const QString &flagValueString, data.value("availableUseCases").toStringList()) {
-            HemsUseCase usecase = static_cast<HemsManager::HemsUseCase>(metaFlag.keyToValue(flagValueString.toUtf8()));
-            availableUseCases.setFlag(usecase);
-        }
-
+        HemsUseCases availableUseCases = unpackUseCases(params.value("availableUseCases").toStringList());
+        qCDebug(dcHems()) << "Available use cases" << availableUseCases;
         if (m_availableUseCases != availableUseCases) {
-            qCDebug(dcHems()) << "Available use cases changed" << availableUseCases;
             m_availableUseCases = availableUseCases;
             emit availableUseCasesChanged(m_availableUseCases);
         }
@@ -113,13 +107,7 @@ void HemsManager::getAvailableUseCasesResponse(int commandId, const QVariantMap 
 {
     Q_UNUSED(commandId)
 
-    HemsUseCases availableUseCases;
-    QMetaEnum metaFlag = QMetaEnum::fromType<HemsManager::HemsUseCases>();
-    foreach (const QString &flagValueString, data.value("availableUseCases").toStringList()) {
-        HemsUseCase usecase = static_cast<HemsManager::HemsUseCase>(metaFlag.keyToValue(flagValueString.toUtf8()));
-        availableUseCases.setFlag(usecase);
-    }
-
+    HemsUseCases availableUseCases = unpackUseCases(data.value("availableUseCases").toStringList());
     qCDebug(dcHems()) << "Available use cases" << availableUseCases;
     if (m_availableUseCases != availableUseCases) {
         m_availableUseCases = availableUseCases;
@@ -129,7 +117,9 @@ void HemsManager::getAvailableUseCasesResponse(int commandId, const QVariantMap 
 
 void HemsManager::getHeatingConfigurationsResponse(int commandId, const QVariantMap &data)
 {
-    qCDebug(dcHems()) << "Heating configurations" << commandId << data;
+    Q_UNUSED(commandId)
+
+    qCDebug(dcHems()) << "Heating configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("heatingConfigurations").toList()) {
         addOrUpdateHeatingConfiguration(configurationVariant.toMap());
     }
@@ -137,7 +127,9 @@ void HemsManager::getHeatingConfigurationsResponse(int commandId, const QVariant
 
 void HemsManager::getChargingConfigurationsResponse(int commandId, const QVariantMap &data)
 {
-    qCDebug(dcHems()) << "Charging configurations" << commandId << data;
+    Q_UNUSED(commandId)
+
+    qCDebug(dcHems()) << "Charging configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("chargingConfigurations").toList()) {
         addOrUpdateChargingConfiguration(configurationVariant.toMap());
     }
@@ -193,4 +185,16 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
     } else {
         qCDebug(dcHems()) << "Charging configuration changed" << configuration->evChargerThingId();
     }
+}
+
+HemsManager::HemsUseCases HemsManager::unpackUseCases(const QStringList &useCasesList)
+{
+    HemsUseCases availableUseCases;
+    QMetaEnum metaFlag = QMetaEnum::fromType<HemsManager::HemsUseCase>();
+    foreach (const QString &flagValueString, useCasesList) {
+        HemsUseCase usecase = static_cast<HemsManager::HemsUseCase>(metaFlag.keyToValue(flagValueString.toUtf8()));
+        availableUseCases = availableUseCases.setFlag(usecase);
+    }
+
+    return availableUseCases;
 }
