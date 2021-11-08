@@ -80,12 +80,8 @@ void HemsManager::notificationReceived(const QVariantMap &data)
     qCDebug(dcHems()) << "Hems notification received" << notification << params;
 
     if (notification == "Hems.AvailableUseCasesChanged") {
-        HemsUseCases availableUseCases = unpackUseCases(params.value("availableUseCases").toStringList());
-        qCDebug(dcHems()) << "Available use cases" << availableUseCases;
-        if (m_availableUseCases != availableUseCases) {
-            m_availableUseCases = availableUseCases;
-            emit availableUseCasesChanged(m_availableUseCases);
-        }
+        updateAvailableUsecases(params.value("availableUseCases").toStringList());
+        qCDebug(dcHems()) << "Available use cases changed" << m_availableUseCases;
     } else if (notification == "Hems.ChargingConfigurationAdded") {
         addOrUpdateChargingConfiguration(params.value("chargingConfiguration").toMap());
     } else if (notification == "Hems.ChargingConfigurationRemoved") {
@@ -107,12 +103,8 @@ void HemsManager::getAvailableUseCasesResponse(int commandId, const QVariantMap 
 {
     Q_UNUSED(commandId)
 
-    HemsUseCases availableUseCases = unpackUseCases(data.value("availableUseCases").toStringList());
-    qCDebug(dcHems()) << "Available use cases" << availableUseCases;
-    if (m_availableUseCases != availableUseCases) {
-        m_availableUseCases = availableUseCases;
-        emit availableUseCasesChanged(m_availableUseCases);
-    }
+    updateAvailableUsecases(data.value("availableUseCases").toStringList());
+    qCDebug(dcHems()) << "Available use cases" << m_availableUseCases;
 }
 
 void HemsManager::getHeatingConfigurationsResponse(int commandId, const QVariantMap &data)
@@ -187,7 +179,7 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
     }
 }
 
-HemsManager::HemsUseCases HemsManager::unpackUseCases(const QStringList &useCasesList)
+void HemsManager::updateAvailableUsecases(const QStringList &useCasesList)
 {
     HemsUseCases availableUseCases;
     QMetaEnum metaFlag = QMetaEnum::fromType<HemsManager::HemsUseCase>();
@@ -196,5 +188,9 @@ HemsManager::HemsUseCases HemsManager::unpackUseCases(const QStringList &useCase
         availableUseCases = availableUseCases.setFlag(usecase);
     }
 
-    return availableUseCases;
+    if (m_availableUseCases != availableUseCases) {
+        m_availableUseCases = availableUseCases;
+        emit availableUseCasesChanged(m_availableUseCases);
+    }
 }
+

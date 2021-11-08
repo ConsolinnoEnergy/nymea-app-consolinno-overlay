@@ -27,5 +27,6 @@
         <file>wizards/SetupSolarInverterWizard.qml</file>
         <file>wizards/SetupHeatPumpWizard.qml</file>
         <file>wizards/ConfigureOptimizationsWizard.qml</file>
+        <file>mainviews/HemsOptimizationPage.qml</file>
     </qresource>
 </RCC>

@@ -39,6 +39,9 @@ public:
     HeatingConfigurations *heatingConfigurations() const;
     ChargingConfigurations *chargingConfigurations() const;
 
+    //Q_INVOKABLE void setHeatingConfiguration();
+
+
 signals:
     void engineChanged();
     void fetchingDataChanged();
@@ -62,6 +65,7 @@ private:
 
     void addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateChargingConfiguration(const QVariantMap &configurationMap);
+    void updateAvailableUsecases(const QStringList &useCasesList);
     HemsManager::HemsUseCases unpackUseCases(const QStringList &useCasesList);
 };
 

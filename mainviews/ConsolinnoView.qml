@@ -41,8 +41,21 @@ import "../delegates"
 MainViewBase {
     id: root
 
-
     readonly property bool loading: engine.thingManager.fetchingData
+
+    property HemsManager hemsManager: HemsManager {
+        engine: _engine
+    }
+
+    headerButtons: [
+        {
+            iconSource: "/ui/images/configure.svg",
+            color: Style.iconColor,
+            trigger: function() {
+                pageStack.push("HemsOptimizationPage.qml", { hemsManager: hemsManager })
+            }
+        }
+    ]
 
     QtObject {
         id: d
@@ -154,18 +167,6 @@ MainViewBase {
             d.setup(false)
         }
     }
-
-    property HemsManager hemsManager: HemsManager {
-//        id: energyManager
-        engine: _engine
-        onFetchingDataChanged: {
-            if (!fetchingData) {
-                //setup();
-            }
-        }
-        //onRootMeterThingIdChanged: setup(true)
-    }
-
 
     ThingsProxy {
         id: energyMetersProxy
