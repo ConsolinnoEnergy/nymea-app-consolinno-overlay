@@ -155,6 +155,18 @@ MainViewBase {
         }
     }
 
+    property HemsManager hemsManager: HemsManager {
+//        id: energyManager
+        engine: _engine
+        onFetchingDataChanged: {
+            if (!fetchingData) {
+                //setup();
+            }
+        }
+        //onRootMeterThingIdChanged: setup(true)
+    }
+
+
     ThingsProxy {
         id: energyMetersProxy
         engine: _engine
