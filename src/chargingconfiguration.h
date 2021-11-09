@@ -47,7 +47,7 @@ private:
     QUuid m_evChargerThingId;
     bool m_optimizationEnabled = false;
     QUuid m_carThingId;
-    QTime m_endTime;
+    QTime m_endTime = QTime(7,00);
     uint m_targetPercentage = 100;
     bool m_zeroReturnPolicyEnabled = false;
 

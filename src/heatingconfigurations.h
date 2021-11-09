@@ -26,6 +26,7 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 
     Q_INVOKABLE HeatingConfiguration *getHeatingConfiguration(const QUuid &heatPumpThingId) const;
+    Q_INVOKABLE HeatingConfiguration *get(int index) const;
 
     void addConfiguration(HeatingConfiguration *heatingConfiguration);
     void removeConfiguration(const QUuid &heatPumpThingId);

@@ -47,6 +47,7 @@ void HemsManager::setEngine(Engine *engine)
 
         // Fetch initial data
         m_engine->jsonRpcClient()->sendCommand("Hems.GetAvailableUseCases", QVariantMap(), this, "getAvailableUseCasesResponse");
+        m_engine->jsonRpcClient()->sendCommand("Hems.GetHousholdPhaseLimit", QVariantMap(), this, "getHousholdPhaseLimitResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingConfigurations", QVariantMap(), this, "getHeatingConfigurationsResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingConfigurations", QVariantMap(), this, "getChargingConfigurationsResponse");
     }
@@ -62,6 +63,18 @@ HemsManager::HemsUseCases HemsManager::availableUseCases() const
     return m_availableUseCases;
 }
 
+uint HemsManager::housholdPhaseLimit() const
+{
+    return m_housholdPhaseLimit;
+}
+
+int HemsManager::setHousholdPhaseLimit(uint housholdPhaseLimit)
+{
+    QVariantMap params;
+    params.insert("housholdPhaseLimit", housholdPhaseLimit);
+    return m_engine->jsonRpcClient()->sendCommand("Hems.SetHousholdPhaseLimit", params, this, "setHousholdPhaseLimitResponse");
+}
+
 HeatingConfigurations *HemsManager::heatingConfigurations() const
 {
     return m_heatingConfigurations;
@@ -70,6 +83,40 @@ HeatingConfigurations *HemsManager::heatingConfigurations() const
 ChargingConfigurations *HemsManager::chargingConfigurations() const
 {
     return m_chargingConfigurations;
+}
+
+int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, bool optimizationEnabled, const QUuid &heatMeterThingId)
+{
+    QVariantMap heatinConfiguration;
+    heatinConfiguration.insert("heatPumpThingId", heatPumpThingId);
+    heatinConfiguration.insert("optimizationEnabled", optimizationEnabled);
+    if (!heatMeterThingId.isNull())
+        heatinConfiguration.insert("heatMeterThingId", heatMeterThingId);
+
+    QVariantMap params;
+    params.insert("heatingConfiguration", heatinConfiguration);
+
+    qCDebug(dcHems()) << "Set heating configuration" << params;
+
+    return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingConfiguration", params, this, "setHeatingConfigurationResponse");
+}
+
+int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId, const QTime &endTime, uint targetPercentage, bool zeroReturnPolicyEnabled)
+{
+    QVariantMap chargingConfiguration;
+    chargingConfiguration.insert("evChargerThingId", evChargerThingId);
+    chargingConfiguration.insert("optimizationEnabled", optimizationEnabled);
+    chargingConfiguration.insert("carThingId", carThingId);
+    chargingConfiguration.insert("endTime", endTime);
+    chargingConfiguration.insert("targetPercentage", targetPercentage);
+    chargingConfiguration.insert("zeroReturnPolicyEnabled", zeroReturnPolicyEnabled);
+
+    QVariantMap params;
+    params.insert("chargingConfiguration", chargingConfiguration);
+
+    qCDebug(dcHems()) << "Set charging configuration" << params;
+
+    return m_engine->jsonRpcClient()->sendCommand("Hems.SetChargingConfiguration", params, this, "setChargingConfigurationResponse");
 }
 
 void HemsManager::notificationReceived(const QVariantMap &data)
@@ -82,6 +129,12 @@ void HemsManager::notificationReceived(const QVariantMap &data)
     if (notification == "Hems.AvailableUseCasesChanged") {
         updateAvailableUsecases(params.value("availableUseCases").toStringList());
         qCDebug(dcHems()) << "Available use cases changed" << m_availableUseCases;
+    } else if (notification == "Hems.HousholdPhaseLimitChanged") {
+        uint phaseLimit = params.value("housholdPhaseLimit").toUInt();
+        if (m_housholdPhaseLimit != phaseLimit) {
+            m_housholdPhaseLimit = phaseLimit;
+            emit housholdPhaseLimitChanged(m_housholdPhaseLimit);
+        }
     } else if (notification == "Hems.ChargingConfigurationAdded") {
         addOrUpdateChargingConfiguration(params.value("chargingConfiguration").toMap());
     } else if (notification == "Hems.ChargingConfigurationRemoved") {
@@ -107,6 +160,17 @@ void HemsManager::getAvailableUseCasesResponse(int commandId, const QVariantMap 
     qCDebug(dcHems()) << "Available use cases" << m_availableUseCases;
 }
 
+void HemsManager::getHousholdPhaseLimitResponse(int commandId, const QVariantMap &data)
+{
+    Q_UNUSED(commandId)
+    uint phaseLimit = data.value("housholdPhaseLimit").toUInt();
+    qCDebug(dcHems()) << "Houshold phase limit" << phaseLimit << "A";
+    if (m_housholdPhaseLimit != phaseLimit) {
+        m_housholdPhaseLimit = phaseLimit;
+        emit housholdPhaseLimitChanged(m_housholdPhaseLimit);
+    }
+}
+
 void HemsManager::getHeatingConfigurationsResponse(int commandId, const QVariantMap &data)
 {
     Q_UNUSED(commandId)
@@ -129,6 +193,24 @@ void HemsManager::getChargingConfigurationsResponse(int commandId, const QVarian
     // Last call from init sequence
     m_fetchingData = false;
     emit fetchingDataChanged();
+}
+
+void HemsManager::setHousholdPhaseLimitResponse(int commandId, const QVariantMap &data)
+{
+    qCDebug(dcHems()) << "Set houshold phase limit response" << data.value("hemsError").toString();
+    emit setHousholdPhaseLimitReply(commandId, data.value("hemsError").toString());
+}
+
+void HemsManager::setHeatingConfigurationResponse(int commandId, const QVariantMap &data)
+{
+    qCDebug(dcHems()) << "Set heating configuration response" << data.value("hemsError").toString();
+    emit setHeatingConfigurationReply(commandId, data.value("hemsError").toString());
+}
+
+void HemsManager::setChargingConfigurationResponse(int commandId, const QVariantMap &data)
+{
+    qCDebug(dcHems()) << "Set charging configuration response" << data.value("hemsError").toString();
+    emit setChargingConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
 void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap)

@@ -28,5 +28,8 @@
         <file>wizards/SetupHeatPumpWizard.qml</file>
         <file>wizards/ConfigureOptimizationsWizard.qml</file>
         <file>mainviews/HemsOptimizationPage.qml</file>
+        <file>optimization/ChargingConfigurationView.qml</file>
+        <file>optimization/HeatingConfigurationView.qml</file>
+        <file>optimization/BlackoutProtectionView.qml</file>
     </qresource>
 </RCC>

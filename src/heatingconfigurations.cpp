@@ -45,6 +45,14 @@ HeatingConfiguration *HeatingConfigurations::getHeatingConfiguration(const QUuid
     return nullptr;
 }
 
+HeatingConfiguration *HeatingConfigurations::get(int index) const
+{
+    if (index < 0 || index >= m_list.count())
+        return nullptr;
+
+    return m_list.at(index);
+}
+
 void HeatingConfigurations::addConfiguration(HeatingConfiguration *heatingConfiguration)
 {
     heatingConfiguration->setParent(this);
