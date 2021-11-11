@@ -39,6 +39,16 @@ void HemsManager::setEngine(Engine *engine)
     emit engineChanged();
 
     if (m_engine) {
+
+        if (!m_engine->jsonRpcClient()->experiences().contains("Hems")) {
+            qCWarning(dcHems()) << "Hems experience not available on core system.";
+            m_available = true;
+            emit availableChanged();
+            return;
+        }
+        m_available = true;
+        emit availableChanged();
+
         m_fetchingData = true;
         emit fetchingDataChanged();
 
@@ -51,6 +61,11 @@ void HemsManager::setEngine(Engine *engine)
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingConfigurations", QVariantMap(), this, "getHeatingConfigurationsResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingConfigurations", QVariantMap(), this, "getChargingConfigurationsResponse");
     }
+}
+
+bool HemsManager::available() const
+{
+    return m_available;
 }
 
 bool HemsManager::fetchingData() const

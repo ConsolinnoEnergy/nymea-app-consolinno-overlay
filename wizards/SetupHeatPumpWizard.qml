@@ -80,7 +80,7 @@ ConsolinnoWizardPageBase {
 
         ConsolinnoWizardPageBase {
             id: searchHeatPumpPage
-            property string thingClassId: null
+            property string thingClassId
 
             onBack: pageStack.pop()
 

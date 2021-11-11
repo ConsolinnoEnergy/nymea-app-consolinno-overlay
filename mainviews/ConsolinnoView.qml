@@ -43,7 +43,13 @@ MainViewBase {
 
     readonly property bool loading: engine.thingManager.fetchingData
 
-    property HemsManager hemsManager: HemsManager {
+    EnergyManager {
+        id: energyManager
+        engine: _engine
+    }
+
+    HemsManager {
+        id: hemsManager
         engine: _engine
     }
 
@@ -51,6 +57,7 @@ MainViewBase {
         {
             iconSource: "/ui/images/configure.svg",
             color: Style.iconColor,
+            visible:  hemsManager.available && rootMeter != null,
             trigger: function() {
                 pageStack.push("HemsOptimizationPage.qml", { hemsManager: hemsManager })
             }
@@ -148,8 +155,17 @@ MainViewBase {
             }
 
             if (showFinalPage) {
-                var page = d.pushPage("/ui/wizards/WizardComplete.qml")
+                var page = d.pushPage("/ui/wizards/WizardComplete.qml", {hemsManager: hemsManager})
                 page.done.connect(function(skip, abort) {exitWizard()})
+            }
+        }
+    }
+
+    Connections {
+        target: engine.thingManager
+        onThingAdded: {
+            if (thing.thingClass.interfaces.indexOf("energymeter") >= 0) {
+                energyManager.setRootMeterId(thing.id);
             }
         }
     }
@@ -173,7 +189,7 @@ MainViewBase {
         engine: _engine
         shownInterfaces: ["energymeter"]
     }
-    readonly property Thing rootMeter: energyMetersProxy.count > 0 ? energyMetersProxy.get(0) : null
+    readonly property Thing rootMeter: engine.thingManager.fetchingData ? null : engine.thingManager.things.getThing(energyManager.rootMeterId)
 
     ThingsProxy {
         id: evChargersProxy
@@ -208,6 +224,7 @@ MainViewBase {
         shownInterfaces: ["heatpump"]
     }
 
+
     Item {
         id: lsdChart
         anchors.fill: parent
@@ -217,7 +234,8 @@ MainViewBase {
 
         property int hours: 24
 
-        readonly property color rootMeterColor: "#e31e24"
+        readonly property color rootMeterAcquisitionColor: "#e31e24"
+        readonly property color rootMeterReturnColor: Style.blue
         readonly property color producersColor: "#f8eb45"
         readonly property color batteriesColor: "#b6c741"
         readonly property var consumersColors: [ "#b15c95", "#c1362f", "#731DD8", "#C4FFF9", "#C16200" ]
@@ -380,8 +398,8 @@ MainViewBase {
                 LegendTile {
                     id: rootMeterTile
                     thing: rootMeter
-                    color: "red"
-                    negativeColor: lsdChart.rootMeterColor
+                    color: lsdChart.rootMeterAcquisitionColor
+                    negativeColor: lsdChart.rootMeterReturnColor
                     onClicked: {
                         pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                     }
@@ -482,7 +500,7 @@ MainViewBase {
                         viewStartTime: axisAngular.min
                         viewEndTime: axisAngular.max
                         sampleRate: chartView.sampleRate
-                        color: lsdChart.rootMeterColor
+                        color: lsdChart.rootMeterAcquisitionColor
                         onClicked: pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                     }
                 }
@@ -520,6 +538,7 @@ MainViewBase {
                 }
 
                 Rectangle {
+                    id: innerCircle
                     x: chartView.plotArea.x + width / 2
                     y: chartView.plotArea.y + height / 2
                     width: chartView.plotArea.width / 2
@@ -543,34 +562,10 @@ MainViewBase {
                             horizontalAlignment: Text.AlignHCenter
                             color: "white"
                             text: '<span style="font-size:' + Style.bigFont.pixelSize + 'px">' +
-                                  (currentPowerUsage < 1000 ? currentPowerUsage : currentPowerUsage / 1000).toFixed(1)
+                                  (energyManager.currentPowerConsumption < 1000 ? energyManager.currentPowerConsumption : energyManager.currentPowerConsumption / 1000).toFixed(1)
                             + '</span> <span style="font-size:' + Style.smallFont.pixelSize + 'px">'
-                                  + (currentPowerUsage < 1000 ? "W" : "kW")
+                                  + (energyManager.currentPowerConsumption < 1000 ? "W" : "kW")
                             + '</span>'
-
-
-                            property double totalCurrentProduction: {
-                                var ret = 0;
-                                for (var i = 0; i < producers.count; i++) {
-                                    var producer = producers.get(i)
-                                    var currentPowerState = producer.stateByName("currentPower")
-                                    ret += currentPowerState.value
-                                }
-
-                                // Add batteries to producers if discharging
-                                for (var j = 0; j < batteries.count; j++) {
-                                    var battery = batteries.get(j)
-                                    var batteryPowerState = battery.stateByName("currentPower")
-                                    if (batteryPowerState.value < 0) {
-                                        ret += batteryPowerState.value
-                                    }
-                                }
-
-                                return ret;
-                            }
-
-                            property State currentRootMeterPowerState: rootMeter ? rootMeter.stateByName("currentPower") : null
-                            property double currentPowerUsage: -totalCurrentProduction + (currentRootMeterPowerState ?  currentRootMeterPowerState.value : 0)
                         }
 
                         Label {
@@ -581,6 +576,7 @@ MainViewBase {
                             elide: Text.ElideMiddle
                             color: "white"
                             font: Style.smallFont
+                            visible: innerCircle.height > 120
                         }
 
                     }

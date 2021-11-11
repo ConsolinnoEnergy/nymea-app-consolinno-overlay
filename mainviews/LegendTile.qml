@@ -22,11 +22,12 @@ MouseArea {
     readonly property double currentPower: root.currentPowerState ? root.currentPowerState.value.toFixed(0) : 0
     readonly property State batteryLevelState: isBattery ? thing.stateByName("batteryLevel") : null
 
+    readonly property color currentColor: currentPower <= 0 ? root.negativeColor : root.color
     Rectangle {
         id: background
         anchors.fill: parent
         radius: Style.cornerRadius
-        color: currentPower <= 0 ? root.negativeColor : root.color
+        color: root.currentColor
         Behavior on color { ColorAnimation { duration: 200 } }
     }
 
@@ -43,13 +44,15 @@ MouseArea {
             b = parseInt(result[3], 16)
         }
 
+        print("*** isDark", root.thing.name, color.constructor.name, color.r, color.g, color.b)
+        print("isDar;", ((r * 299 + g * 587 + b * 114) / 1000) < 200)
         return ((r * 299 + g * 587 + b * 114) / 1000) < 200
     }
 
     Item {
         id: content
         anchors.fill: parent
-        visible: false
+//        visible: false
         ColumnLayout {
             id: layout
             width: parent.width
@@ -58,31 +61,28 @@ MouseArea {
             Rectangle {
                 Layout.fillWidth: true
                 Layout.preferredHeight: headerLabel.height + Style.margins
-                color: Qt.darker(background.color, 1.3)
+                color: Qt.darker(root.currentColor, 1.3)
 
                 Label {
                     id: headerLabel
                     width: parent.width
-                    text: root.thing ? root.thing.name : ""
+                    text: Math.abs(root.currentPower) + " W"
                     elide: Text.ElideRight
-                    color: root.isDark(root.color) ? "white" : "black"
+                    color: "white"
                     horizontalAlignment: Text.AlignHCenter
                     anchors.verticalCenter: parent.verticalCenter
                 }
             }
 
-            Label {
-                Layout.fillWidth: true
-                Layout.leftMargin: Style.margins
-                Layout.rightMargin: Style.margins
-                text: Math.abs(root.currentPower) + " W"
-                horizontalAlignment: Text.AlignHCenter
-                font: Style.bigFont
-                color: root.isDark(background.color) ? "white" : "black"
+            ColorIcon {
+                size: root.isBattery ? Style.iconSize : Style.largeIconSize
+                Layout.alignment: Qt.AlignCenter
+                name: root.isBattery ? "" : app.interfacesToIcon(root.thing.thingClass.interfaces)
+                color: "black"
             }
 
             Rectangle {
-                id: battery
+                id: batteryRect
                 Layout.fillWidth: true
                 Layout.leftMargin: Style.margins + 3
                 Layout.rightMargin: Style.margins
@@ -110,7 +110,7 @@ MouseArea {
                         delegate: Rectangle {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
-                            color: root.batteryLevelState && root.batteryLevelState.value >= (10 - index) * 10 ? "#98b945" : battery.color
+                            color: root.batteryLevelState && root.batteryLevelState.value >= (10 - index) * 10 ? "#98b945" : batteryRect.color
                             radius: 2
                         }
                     }
@@ -121,7 +121,12 @@ MouseArea {
 
     OpacityMask {
         anchors.fill: parent
-        source: content
+        source: ShaderEffectSource {
+            anchors.fill: parent
+            sourceItem: content
+            live: true
+            hideSource: true
+        }
         maskSource: background
     }
 }

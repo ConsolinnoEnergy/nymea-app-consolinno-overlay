@@ -8,6 +8,7 @@ ConsolinnoWizardPageBase {
     id: root
     headerBackgroundColor: "white"
 
+    property HemsManager hemsManager: null
 
     showNextButton: false
     showBackButton: false
@@ -40,6 +41,7 @@ ConsolinnoWizardPageBase {
             }
             Label {
                 Layout.fillWidth: true
+                Layout.margins: Style.margins
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
                 text: qsTr("Your Leaflet is now configured. The following devices have been set up:")
@@ -61,8 +63,12 @@ ConsolinnoWizardPageBase {
                 Layout.alignment: Qt.AlignHCenter
                 text: qsTr("Configure optimizations")
                 color: Style.accentColor
-                onClicked: root.done(false, false)
-                enabled: false
+                onClicked: {
+                    var page = pageStack.push(Qt.resolvedUrl("ConfigureOptimizationsWizard.qml"), {hemsManager: hemsManager})
+                    page.done.connect(function(skip, abort) {
+                        root.done(skip, abort)
+                    })
+                }
             }
             ConsolinnoButton {
                 Layout.alignment: Qt.AlignHCenter

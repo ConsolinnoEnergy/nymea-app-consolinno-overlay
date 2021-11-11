@@ -45,6 +45,7 @@ ConsolinnoWizardPageBase {
                 model: ThingClassesProxy {
                     engine: _engine
                     filterInterface: "solarinverter"
+                    includeProvidedInterfaces: true
                 }
             }
         }

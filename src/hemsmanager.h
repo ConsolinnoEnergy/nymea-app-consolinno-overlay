@@ -13,6 +13,7 @@ class HemsManager : public QObject
     Q_PROPERTY(Engine *engine READ engine WRITE setEngine NOTIFY engineChanged)
     Q_PROPERTY(bool fetchingData READ fetchingData NOTIFY fetchingDataChanged)
 
+    Q_PROPERTY(bool available READ available NOTIFY availableChanged)
     Q_PROPERTY(HemsUseCases availableUseCases READ availableUseCases NOTIFY availableUseCasesChanged)
     Q_PROPERTY(uint housholdPhaseLimit READ housholdPhaseLimit NOTIFY housholdPhaseLimitChanged)
     Q_PROPERTY(HeatingConfigurations *heatingConfigurations READ heatingConfigurations CONSTANT)
@@ -20,9 +21,11 @@ class HemsManager : public QObject
 
 public:
     enum HemsUseCase {
+        HemsUseCaseNone = 0x00,
         HemsUseCaseBlackoutProtection = 0x01,
         HemsUseCaseHeating = 0x02,
-        HemsUseCaseCharging = 0x04
+        HemsUseCaseCharging = 0x04,
+        HemsUseCaseAll = 0xff
     };
     Q_ENUM(HemsUseCase)
     Q_DECLARE_FLAGS(HemsUseCases, HemsUseCase)
@@ -34,6 +37,7 @@ public:
     Engine *engine() const;
     void setEngine(Engine *engine);
 
+    bool available() const;
     bool fetchingData() const;
 
     HemsUseCases availableUseCases() const;
@@ -49,6 +53,7 @@ public:
 
 signals:
     void engineChanged();
+    void availableChanged();
     void fetchingDataChanged();
 
     void availableUseCasesChanged(HemsUseCases availableUseCases);
@@ -73,6 +78,7 @@ private slots:
 private:
     QPointer<Engine> m_engine = nullptr;
     bool m_fetchingData = false;
+    bool m_available = false;
 
     HemsUseCases m_availableUseCases;
     uint m_housholdPhaseLimit = 25;

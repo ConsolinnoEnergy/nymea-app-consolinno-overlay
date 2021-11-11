@@ -45,6 +45,7 @@ ConsolinnoWizardPageBase {
                 model: ThingClassesProxy {
                     engine: _engine
                     filterInterface: "energymeter"
+                    includeProvidedInterfaces: true
                 }
             }
         }
