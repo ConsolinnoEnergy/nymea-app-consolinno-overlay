@@ -286,7 +286,7 @@ ConsolinnoWizardPageBase {
                     Label {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The solar inverter has been found and set up.")
+                        text: qsTr("The charging point or wallbox has been found and set up.")
                         horizontalAlignment: Text.AlignHCenter
                     }
 
@@ -311,7 +311,7 @@ ConsolinnoWizardPageBase {
                     Layout.fillWidth: true
                     Layout.margins: Style.margins
                     wrapMode: Text.WordWrap
-                    text: qsTr("An unexpected error happened during the setup. Please verify the solar inverter is installed correctly and try again.")
+                    text: qsTr("An unexpected error happened during the setup. Please verify the chargingpoint or wallbox is installed correctly and try again.")
                     visible: setupEnergyMeterPage.thingError != Thing.ThingErrorNoError
                 }
 
