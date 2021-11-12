@@ -81,7 +81,7 @@ ConsolinnoWizardPageBase {
 
         ConsolinnoWizardPageBase {
             id: searchEnergyMeterPage
-            property string thingClassId: null
+            property string thingClassId
 
             onBack: pageStack.pop()
 

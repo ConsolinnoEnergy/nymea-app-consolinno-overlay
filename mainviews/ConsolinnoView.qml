@@ -401,6 +401,7 @@ MainViewBase {
                     color: lsdChart.rootMeterAcquisitionColor
                     negativeColor: lsdChart.rootMeterReturnColor
                     onClicked: {
+                        print("Clicked root meter", index, thing.name)
                         pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                     }
                 }
@@ -413,6 +414,7 @@ MainViewBase {
                         color: lsdChart.producersColor
                         thing: producers.get(index)
                         onClicked: {
+                            print("Clicked producer", index, thing.name)
                             pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                         }
                     }
@@ -548,6 +550,19 @@ MainViewBase {
                     border.width: 2
                     border.color: "white"
 
+                    MouseArea {
+                        anchors.fill: parent
+                        onPressed: {
+                            // Only handle presses that are within the circle
+                            var mouseXcentered = mouseX - width / 2
+                            var mouseYcentered = mouseY - height / 2
+                            var distanceFromCenter = Math.sqrt(Math.pow(mouseXcentered, 2) + Math.pow(mouseYcentered, 2))
+                            if (distanceFromCenter > width / 2) {
+                                mouse.accepted = false
+                            }
+                        }
+                        onClicked: pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: rootMeter})
+                    }
 
                     ColumnLayout {
                         anchors.verticalCenter: parent.verticalCenter
@@ -605,6 +620,7 @@ MainViewBase {
                             color: lsdChart.consumersColors[index]
                             thing: consumers.get(index)
                             onClicked: {
+                                print("Clicked consumer", index, thing.name)
                                 pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                             }
                         }
@@ -617,6 +633,7 @@ MainViewBase {
                             color: lsdChart.batteriesColor
                             thing: batteries.get(index)
                             onClicked: {
+                                print("Clicked battery", index, thing.name)
                                 pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                             }
                         }
