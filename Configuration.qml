@@ -5,6 +5,8 @@ import QtQuick 2.0
 ConfigurationBase {
     systemName: "Leaflet"
     appName: "Consolinno energy"
+    appId: "com.consolinno.energy"
+
     connectionWizard: "/ui/wizards/ConnectionWizard.qml"
 
     // Identifier used for branding (e.g. to register for push notifications)

@@ -224,6 +224,10 @@ MainViewBase {
         shownInterfaces: ["heatpump"]
     }
 
+    EnergyLogs {
+        id: energyLogs
+        engine: _engine
+    }
 
     Item {
         id: lsdChart
@@ -421,6 +425,12 @@ MainViewBase {
                 }
             }
 
+            LineSeries {
+                id: zeroSeries
+                XYPoint { x: root.viewStartTime.getTime(); y: 0 }
+                XYPoint { x: root.viewEndTime.getTime(); y: 0 }
+            }
+
             PolarChartView {
                 id: chartView
                 Layout.fillWidth: true
@@ -473,44 +483,116 @@ MainViewBase {
 
                     property double roundedMax: Math.ceil(rawMax)// Math.ceil(Math.max(rawMax * 0.9, rawMax * 1.1))
 //                    property double roundedMin: Math.floor(Math.min(rawMin * 0.9, rawMin * 1.1))
-                    max: roundedMax
-                    min: -roundedMax//roundedMin - (roundedMax - roundedMin)
+//                    max: roundedMax
+//                    min: -roundedMax//roundedMin - (roundedMax - roundedMin)
+
+                    max: Math.max(Math.abs(energyLogs.powerBalanceLogs.maxValue), Math.abs(energyLogs.powerBalanceLogs.minValue)) * 1.1
+                    min: -Math.max(Math.abs(energyLogs.powerBalanceLogs.maxValue), Math.abs(energyLogs.powerBalanceLogs.minValue)) * 1.1
                 }
 
+                AreaSeries {
+                    id: productionSeries
+                    axisAngular: axisAngular
+                    axisRadial: axisRadial
+                    color: "yellow"//lsdChart.producersColor
+                    lowerSeries: zeroSeries
+                    upperSeries: LineSeries {
+                        id: productionUpperSeries
+                        Component.onCompleted: {
+                            for (var i = 0; i < energyLogs.powerBalanceLogs.count; i++) {
+                                var entry = energyLogs.powerBalanceLogs.get(i);
+                                append(entry.timestamp.getTime(), -entry.production)
+                            }
+                        }
 
-                Repeater {
-                    id: producersRepeater
-                    model: !engine.thingManager.fetchingData ? producers : null
-
-                    delegate: ConsolinnoChartDelegate {
-                        thing: producers.get(index)
-                        viewStartTime: axisAngular.min
-                        viewEndTime: axisAngular.max
-                        sampleRate: chartView.sampleRate
-                        color: lsdChart.producersColor
-                        inverted: true
-                        onClicked: pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
+                        Connections {
+                            target: energyLogs.powerBalanceLogs
+                            onEntryAdded: {
+                                productionUpperSeries.append(entry.timestamp.getTime(), -entry.production)
+                            }
+                        }
                     }
                 }
 
-                Repeater {
-                    id: rootMeterRepeater
-                    model: producersRepeater.model !== null && rootMeter != null ? 1 : null
+                AreaSeries {
+                    id: acquisitionSeries
+                    axisAngular: axisAngular
+                    axisRadial: axisRadial
+                    color: lsdChart.rootMeterAcquisitionColor
+                    lowerSeries: zeroSeries
+//                    visible: false
+                    upperSeries: LineSeries {
+                        id: acquisitionUpperSeries
+                        Component.onCompleted: {
+                            for (var i = 0; i < energyLogs.powerBalanceLogs.count; i++) {
+                                var entry = energyLogs.powerBalanceLogs.get(i);
+                                append(entry.timestamp.getTime(), entry.acquisition)
+                            }
+                        }
 
-                    delegate: ConsolinnoChartDelegate {
-                        thing: rootMeter
-                        viewStartTime: axisAngular.min
-                        viewEndTime: axisAngular.max
-                        sampleRate: chartView.sampleRate
-                        color: lsdChart.rootMeterAcquisitionColor
-                        onClicked: pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
+                        Connections {
+                            target: energyLogs.powerBalanceLogs
+                            onEntryAdded: {
+                                acquisitionUpperSeries.append(entry.timestamp.getTime(), entry.acquisition)
+                            }
+                        }
+                    }
+                }
+
+                AreaSeries {
+                    id: returnSeries
+                    axisAngular: axisAngular
+                    axisRadial: axisRadial
+                    color: lsdChart.rootMeterReturnColor
+//                    visible: false
+                    lowerSeries: zeroSeries
+                    upperSeries: LineSeries {
+                        id: returnUpperSeries
+                        Component.onCompleted: {
+                            for (var i = 0; i < energyLogs.powerBalanceLogs.count; i++) {
+                                var entry = energyLogs.powerBalanceLogs.get(i);
+                                append(entry.timestamp.getTime(), -entry.acquisition)
+                            }
+                        }
+
+                        Connections {
+                            target: energyLogs.powerBalanceLogs
+                            onEntryAdded: {
+                                returnUpperSeries.append(entry.timestamp.getTime(), -entry.acquisition)
+                            }
+                        }
+                    }
+                }
+
+                AreaSeries {
+                    id: storageSeries
+                    axisAngular: axisAngular
+                    axisRadial: axisRadial
+                    color: lsdChart.batteriesColor
+//                    visible: false
+                    lowerSeries: zeroSeries
+                    upperSeries: LineSeries {
+                        id: storageUpperSeries
+                        Component.onCompleted: {
+                            for (var i = 0; i < energyLogs.powerBalanceLogs.count; i++) {
+                                var entry = energyLogs.powerBalanceLogs.get(i);
+                                append(entry.timestamp.getTime(), -entry.storage)
+                            }
+                        }
+
+                        Connections {
+                            target: energyLogs.powerBalanceLogs
+                            onEntryAdded: {
+                                storageUpperSeries.append(entry.timestamp.getTime(), -entry.storage)
+                            }
+                        }
                     }
                 }
 
 
                 Repeater {
                     id: consumersRepeater
-                    model: rootMeterRepeater.model !== null ? consumers : null
+//                    model: rootMeterRepeater.model !== null ? consumers : null
 
                     delegate: ConsolinnoChartDelegate {
                         thing: consumers.get(index)
@@ -523,9 +605,10 @@ MainViewBase {
                     }
                 }
 
+
                 Repeater {
                     id: batteriesRepeater
-                    model: producersRepeater.model !== null ? batteries : null
+//                    model: producersRepeater.model !== null ? batteries : null
 
                     delegate: ConsolinnoChartDelegate {
                         thing: batteries.get(index)
@@ -536,7 +619,6 @@ MainViewBase {
                         inverted: true
                         onClicked: pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                     }
-
                 }
 
                 Rectangle {
@@ -549,6 +631,7 @@ MainViewBase {
                     color: Style.darkGray
                     border.width: 2
                     border.color: "white"
+//                    visible: false
 
                     MouseArea {
                         anchors.fill: parent
@@ -621,7 +704,11 @@ MainViewBase {
                             thing: consumers.get(index)
                             onClicked: {
                                 print("Clicked consumer", index, thing.name)
-                                pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
+                                if (thing.thingClass.interfaces.indexOf("evcharger") >= 0) {
+                                    pageStack.push("/ui/devicepages/EvChargerThingPage.qml", {thing: thing})
+                                } else {
+                                    pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
+                                }
                             }
                         }
                     }
