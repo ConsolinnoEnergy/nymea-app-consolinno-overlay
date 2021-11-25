@@ -224,8 +224,8 @@ MainViewBase {
         shownInterfaces: ["heatpump"]
     }
 
-    EnergyLogs {
-        id: energyLogs
+    PowerBalanceLogs {
+        id: powerBalanceLogs
         engine: _engine
     }
 
@@ -449,6 +449,21 @@ MainViewBase {
                     circleCanvas.requestPaint()
                 }
 
+                function appendPoint(series, timestamp, value) {
+                    // always want a point with value 0 at the end.
+                    // if we already have points, we'll remove the 0-point at the end, append the new one and a new 0-point after that
+//                    if (series.count > 0) {
+//                        series.removePoints(series.count - 1, 1)
+//                    }
+
+                    series.append(timestamp, value)
+//                    series.append(new Date().getTime(), 0)
+
+                    // And make sure the zeroSeries is up on par too
+                    zeroSeries.removePoints(zeroSeries.count - 1, 1);
+                    zeroSeries.append(axisAngular.now.getTime(), 0)
+                }
+
                 DateTimeAxis {
                     id: axisAngular
                     gridVisible: false
@@ -474,41 +489,31 @@ MainViewBase {
                     minorGridVisible: false
                     shadesVisible: false
                     color: "black"
-                    readonly property XYSeriesAdapter highestRootMeterSeriesAdapter: rootMeterRepeater.count > 0 ? rootMeterRepeater.itemAt(rootMeterRepeater.count - 1).adapter : null
-                    readonly property XYSeriesAdapter highestProducersSeriesAdapter: producersRepeater.count > 0 ? producersRepeater.itemAt(producersRepeater.count - 1).adapter : null
-                    readonly property XYSeriesAdapter highestConsumersSeriesAdapter: consumersRepeater.count > 0 ? consumersRepeater.itemAt(consumersRepeater.count - 1).adapter : null
-
-                    property double rawMax: Math.max(Math.max(highestRootMeterSeriesAdapter ? highestRootMeterSeriesAdapter.maxValue : 1, highestProducersSeriesAdapter ? highestProducersSeriesAdapter.maxValue : 1), highestConsumersSeriesAdapter ? highestConsumersSeriesAdapter.maxValue : 1)
-//                    property double rawMin: Math.min(rootMeter ? rootMeterSeriesAdapter.minValue : 0, highestSeriesAdapter ? highestSeriesAdapter.minValue : 0)
-
-                    property double roundedMax: Math.ceil(rawMax)// Math.ceil(Math.max(rawMax * 0.9, rawMax * 1.1))
-//                    property double roundedMin: Math.floor(Math.min(rawMin * 0.9, rawMin * 1.1))
-//                    max: roundedMax
-//                    min: -roundedMax//roundedMin - (roundedMax - roundedMin)
-
-                    max: Math.max(Math.abs(energyLogs.powerBalanceLogs.maxValue), Math.abs(energyLogs.powerBalanceLogs.minValue)) * 1.1
-                    min: -Math.max(Math.abs(energyLogs.powerBalanceLogs.maxValue), Math.abs(energyLogs.powerBalanceLogs.minValue)) * 1.1
+                    max: Math.max(Math.abs(powerBalanceLogs.maxValue), Math.abs(powerBalanceLogs.minValue)) * 1.1
+                    min: -Math.max(Math.abs(powerBalanceLogs.maxValue), Math.abs(powerBalanceLogs.minValue)) * 1.1
                 }
 
                 AreaSeries {
                     id: productionSeries
                     axisAngular: axisAngular
                     axisRadial: axisRadial
-                    color: "yellow"//lsdChart.producersColor
+                    color: lsdChart.producersColor
+                    borderColor: color
+                    borderWidth: 0
                     lowerSeries: zeroSeries
                     upperSeries: LineSeries {
                         id: productionUpperSeries
                         Component.onCompleted: {
-                            for (var i = 0; i < energyLogs.powerBalanceLogs.count; i++) {
-                                var entry = energyLogs.powerBalanceLogs.get(i);
-                                append(entry.timestamp.getTime(), -entry.production)
+                            for (var i = 0; i < powerBalanceLogs.count; i++) {
+                                var entry = powerBalanceLogs.get(i);
+                                chartView.appendPoint(productionUpperSeries, entry.timestamp.getTime(), -entry.production)
                             }
                         }
 
                         Connections {
-                            target: energyLogs.powerBalanceLogs
+                            target: powerBalanceLogs
                             onEntryAdded: {
-                                productionUpperSeries.append(entry.timestamp.getTime(), -entry.production)
+                                chartView.appendPoint(productionUpperSeries, entry.timestamp.getTime(), -entry.production)
                             }
                         }
                     }
@@ -519,21 +524,23 @@ MainViewBase {
                     axisAngular: axisAngular
                     axisRadial: axisRadial
                     color: lsdChart.rootMeterAcquisitionColor
+                    borderColor: color
+                    borderWidth: 0
                     lowerSeries: zeroSeries
 //                    visible: false
                     upperSeries: LineSeries {
                         id: acquisitionUpperSeries
                         Component.onCompleted: {
-                            for (var i = 0; i < energyLogs.powerBalanceLogs.count; i++) {
-                                var entry = energyLogs.powerBalanceLogs.get(i);
-                                append(entry.timestamp.getTime(), entry.acquisition)
+                            for (var i = 0; i < powerBalanceLogs.count; i++) {
+                                var entry = powerBalanceLogs.get(i);
+                                chartView.appendPoint(acquisitionSeries, entry.timestamp.getTime(), entry.acquisition)
                             }
                         }
 
                         Connections {
-                            target: energyLogs.powerBalanceLogs
+                            target: powerBalanceLogs
                             onEntryAdded: {
-                                acquisitionUpperSeries.append(entry.timestamp.getTime(), entry.acquisition)
+                                chartView.appendPoint(acquisitionUpperSeries, entry.timestamp.getTime(), entry.acquisition)
                             }
                         }
                     }
@@ -544,21 +551,23 @@ MainViewBase {
                     axisAngular: axisAngular
                     axisRadial: axisRadial
                     color: lsdChart.rootMeterReturnColor
+                    borderColor: color
+                    borderWidth: 0
 //                    visible: false
                     lowerSeries: zeroSeries
                     upperSeries: LineSeries {
                         id: returnUpperSeries
                         Component.onCompleted: {
-                            for (var i = 0; i < energyLogs.powerBalanceLogs.count; i++) {
-                                var entry = energyLogs.powerBalanceLogs.get(i);
-                                append(entry.timestamp.getTime(), -entry.acquisition)
+                            for (var i = 0; i < powerBalanceLogs.count; i++) {
+                                var entry = powerBalanceLogs.get(i);
+                                chartView.appendPoint(returnUpperSeries, entry.timestamp.getTime(), -entry.acquisition)
                             }
                         }
 
                         Connections {
-                            target: energyLogs.powerBalanceLogs
+                            target: powerBalanceLogs
                             onEntryAdded: {
-                                returnUpperSeries.append(entry.timestamp.getTime(), -entry.acquisition)
+                                chartView.appendPoint(returnUpperSeries, entry.timestamp.getTime(), -entry.acquisition)
                             }
                         }
                     }
@@ -569,55 +578,25 @@ MainViewBase {
                     axisAngular: axisAngular
                     axisRadial: axisRadial
                     color: lsdChart.batteriesColor
+                    borderColor: color
+                    borderWidth: 0
 //                    visible: false
                     lowerSeries: zeroSeries
                     upperSeries: LineSeries {
                         id: storageUpperSeries
                         Component.onCompleted: {
-                            for (var i = 0; i < energyLogs.powerBalanceLogs.count; i++) {
-                                var entry = energyLogs.powerBalanceLogs.get(i);
-                                append(entry.timestamp.getTime(), -entry.storage)
+                            for (var i = 0; i < powerBalanceLogs.count; i++) {
+                                var entry = powerBalanceLogs.get(i);
+                                chartView.appendPoint(storageUpperSeries, entry.timestamp.getTime(), -entry.storage)
                             }
                         }
 
                         Connections {
-                            target: energyLogs.powerBalanceLogs
+                            target: powerBalanceLogs
                             onEntryAdded: {
-                                storageUpperSeries.append(entry.timestamp.getTime(), -entry.storage)
+                                chartView.appendPoint(storageUpperSeries, entry.timestamp.getTime(), -entry.storage)
                             }
                         }
-                    }
-                }
-
-
-                Repeater {
-                    id: consumersRepeater
-//                    model: rootMeterRepeater.model !== null ? consumers : null
-
-                    delegate: ConsolinnoChartDelegate {
-                        thing: consumers.get(index)
-                        viewStartTime: axisAngular.min
-                        viewEndTime: axisAngular.max
-                        sampleRate: chartView.sampleRate
-                        color: lsdChart.consumersColors[index]
-                        baseSeries: index > 0 ? consumersRepeater.itemAt(index - 1).lineSeries : null
-                        onClicked: pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
-                    }
-                }
-
-
-                Repeater {
-                    id: batteriesRepeater
-//                    model: producersRepeater.model !== null ? batteries : null
-
-                    delegate: ConsolinnoChartDelegate {
-                        thing: batteries.get(index)
-                        viewStartTime: axisAngular.min
-                        viewEndTime: axisAngular.max
-                        sampleRate: chartView.sampleRate
-                        color: lsdChart.batteriesColor
-                        inverted: true
-                        onClicked: pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                     }
                 }
 
@@ -644,7 +623,7 @@ MainViewBase {
                                 mouse.accepted = false
                             }
                         }
-                        onClicked: pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: rootMeter})
+                        onClicked: pageStack.push("PowerBalanceStatsPage.qml", {energyManager: energyManager})
                     }
 
                     ColumnLayout {
@@ -746,7 +725,6 @@ MainViewBase {
             property int circleWidth: 20
 
             onPaint: {
-                print("repainting clircles canvas")
                 var ctx = getContext("2d");
                 ctx.reset();
                 ctx.save();

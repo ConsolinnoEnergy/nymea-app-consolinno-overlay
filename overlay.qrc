@@ -31,5 +31,6 @@
         <file>optimization/ChargingConfigurationView.qml</file>
         <file>optimization/HeatingConfigurationView.qml</file>
         <file>optimization/BlackoutProtectionView.qml</file>
+        <file>mainviews/PowerBalanceStatsPage.qml</file>
     </qresource>
 </RCC>

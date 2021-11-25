@@ -9,8 +9,8 @@ import "../delegates"
 
 MouseArea {
     id: root
-    height: 100//layout.implicitHeight
-    width: 100
+    height: 80//layout.implicitHeight
+    width: 80
 
     property color color: "white"
     property color negativeColor: root.color
@@ -75,10 +75,11 @@ MouseArea {
             }
 
             ColorIcon {
-                size: root.isBattery ? Style.iconSize : Style.largeIconSize
+                size: Style.iconSize
                 Layout.alignment: Qt.AlignCenter
                 name: root.isBattery ? "" : app.interfacesToIcon(root.thing.thingClass.interfaces)
                 color: "black"
+                visible: !root.isBattery
             }
 
             Rectangle {
@@ -86,6 +87,7 @@ MouseArea {
                 Layout.fillWidth: true
                 Layout.leftMargin: Style.margins + 3
                 Layout.rightMargin: Style.margins
+                Layout.topMargin: Style.smallMargins
                 Layout.preferredHeight: 20
                 visible: root.isBattery
 
