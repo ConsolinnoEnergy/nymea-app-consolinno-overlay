@@ -15,6 +15,7 @@ Page {
     }
 
     property EnergyManager energyManager: null
+    property var consumersColors: []
 
     Flickable {
         anchors.fill: parent
@@ -36,9 +37,8 @@ Page {
                 Layout.preferredHeight: width
                 energyManager: root.energyManager
                 visible: consumers.count > 0
-
-                ThingsProxy {
-                    id: consumers
+                colors: root.consumersColors
+                consumers: ThingsProxy {
                     engine: _engine
                     shownInterfaces: ["smartmeterconsumer"]
                 }

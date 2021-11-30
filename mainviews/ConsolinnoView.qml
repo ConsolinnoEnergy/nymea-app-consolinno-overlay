@@ -227,6 +227,7 @@ MainViewBase {
     PowerBalanceLogs {
         id: powerBalanceLogs
         engine: _engine
+        startTime: axisAngular.min
     }
 
     Item {
@@ -623,7 +624,7 @@ MainViewBase {
                                 mouse.accepted = false
                             }
                         }
-                        onClicked: pageStack.push("PowerBalanceStatsPage.qml", {energyManager: energyManager})
+                        onClicked: pageStack.push("PowerBalanceStatsPage.qml", {energyManager: energyManager, consumersColors: lsdChart.consumersColors})
                     }
 
                     ColumnLayout {
