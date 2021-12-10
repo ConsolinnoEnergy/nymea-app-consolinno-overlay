@@ -428,8 +428,8 @@ MainViewBase {
 
             LineSeries {
                 id: zeroSeries
-                XYPoint { x: root.viewStartTime.getTime(); y: 0 }
-                XYPoint { x: root.viewEndTime.getTime(); y: 0 }
+                XYPoint { x: new Date().setTime(new Date().getTime() - 24 * 60 * 60 * 1000); y: 0 }
+                XYPoint { x: new Date().getTime(); y: 0 }
             }
 
             PolarChartView {
@@ -624,7 +624,7 @@ MainViewBase {
                                 mouse.accepted = false
                             }
                         }
-                        onClicked: pageStack.push("PowerBalanceStatsPage.qml", {energyManager: energyManager, consumersColors: lsdChart.consumersColors})
+                        onClicked: pageStack.push("DetailedGraphsPage.qml", {energyManager: energyManager, consumersColors: lsdChart.consumersColors})
                     }
 
                     ColumnLayout {
