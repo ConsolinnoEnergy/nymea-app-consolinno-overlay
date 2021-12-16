@@ -9,8 +9,8 @@ import "../delegates"
 
 MouseArea {
     id: root
-    height: 80//layout.implicitHeight
-    width: 80
+    height: layout.implicitHeight
+    width: 100
 
     property color color: "white"
     property color negativeColor: root.color
@@ -117,6 +117,18 @@ MouseArea {
                         }
                     }
                 }
+            }
+
+            Label {
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignHCenter
+                Layout.leftMargin: Style.smallMargins
+                Layout.rightMargin: Style.smallMargins
+                Layout.bottomMargin: Style.smallMargins
+                font: Style.smallFont
+                text: root.thing.name
+                elide: Text.ElideRight
+                color: "black"
             }
         }
     }

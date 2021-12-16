@@ -230,6 +230,12 @@ MainViewBase {
         startTime: axisAngular.min
     }
 
+    ThingPowerLogs {
+        id: thingPowerLogs
+        engine: _engine
+        startTime: axisAngular.min
+    }
+
     Item {
         id: lsdChart
         anchors.fill: parent
@@ -243,7 +249,7 @@ MainViewBase {
         readonly property color rootMeterReturnColor: Style.blue
         readonly property color producersColor: "#f8eb45"
         readonly property color batteriesColor: "#b6c741"
-        readonly property var consumersColors: [ "#b15c95", "#c1362f", "#731DD8", "#C4FFF9", "#C16200" ]
+        readonly property var consumersColors: [ "#b15c95", "#44E5E7", "#3F88C5", "#731DD8", "#C4FFF9", "#C16200", "#c1362f" ]
 
 
 
@@ -596,6 +602,48 @@ MainViewBase {
                             target: powerBalanceLogs
                             onEntryAdded: {
                                 chartView.appendPoint(storageUpperSeries, entry.timestamp.getTime(), -entry.storage)
+                            }
+                        }
+                    }
+                }
+
+                Repeater {
+                    model: consumers
+                    delegate: Item {
+                        id: consumerDelegate
+                        property Thing thing: consumers.get(index)
+                        property AreaSeries consumerSeries: null
+                        Component.onCompleted: {
+                            consumerSeries = chartView.createSeries(ChartView.SeriesTypeArea, thing.name, axisAngular, axisRadial)
+                            consumerSeries.lowerSeries = zeroSeries
+                            consumerSeries.upperSeries = lineSeriesComponent.createObject(consumerSeries)
+                            consumerSeries.color = lsdChart.consumersColors[index]
+                            consumerSeries.borderWidth = 0
+                            consumerSeries.borderColor = consumerSeries.color
+                        }
+                        Component.onDestruction: {
+                            chartView.removeSeries(consumerSeries)
+                        }
+
+                        Component {
+                            id: lineSeriesComponent
+                            LineSeries {
+                                id: consumerUpperSeries
+                                Component.onCompleted: {
+                                    for (var i = 0; i < thingPowerLogs.count; i++) {
+                                        var entry = thingPowerLogs.get(i)
+                                        if (entry.thingId !== consumerDelegate.thing.id) {
+                                            continue
+                                        }
+                                        chartView.appendPoint(consumerUpperSeries, entry.timestamp.getTime(), entry.currentPower)
+                                    }
+                                }
+                                Connections {
+                                    target: thingPowerLogs
+                                    onEntryAdded: {
+                                        chartView.appendPoint(consumerUpperSeries, entry.timestamp.getTime(), entry.currentPower)
+                                    }
+                                }
                             }
                         }
                     }
