@@ -19,4 +19,8 @@ StyleBase {
 
     accentColor: consolinnoMedium
     iconColor: consolinnoLight
+
+    blue: "#009EE2"
+    red: "#E20613"
+    yellow: "#FFEC00"
 }

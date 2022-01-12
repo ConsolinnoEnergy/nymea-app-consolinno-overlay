@@ -48,6 +48,7 @@ MainViewBase {
         engine: _engine
     }
 
+
     HemsManager {
         id: hemsManager
         engine: _engine
@@ -240,16 +241,16 @@ MainViewBase {
         id: lsdChart
         anchors.fill: parent
         anchors.topMargin: root.topMargin
-        anchors.bottomMargin: Style.hugeMargins
+//        anchors.bottomMargin: Style.hugeMargins
         visible: rootMeter != null
 
         property int hours: 24
 
-        readonly property color rootMeterAcquisitionColor: "#e31e24"
+        readonly property color rootMeterAcquisitionColor: Style.red
         readonly property color rootMeterReturnColor: Style.blue
-        readonly property color producersColor: "#f8eb45"
-        readonly property color batteriesColor: "#b6c741"
-        readonly property var consumersColors: [ "#b15c95", "#44E5E7", "#3F88C5", "#731DD8", "#C4FFF9", "#C16200", "#c1362f" ]
+        readonly property color producersColor: Style.yellow
+        readonly property color batteriesColor: "#93C01F"
+        readonly property var consumersColors: [ "#E5007E", "#F29100", "#941B80", "#0069B3", "#F29100", "#93C01F" ]
 
 
 
@@ -833,6 +834,7 @@ MainViewBase {
     Rectangle {
         anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
         height: Style.hugeMargins
+        z: -1
         gradient: Gradient {
             GradientStop { position: 0; color: "transparent" }
             GradientStop { position: 1; color: Style.accentColor }

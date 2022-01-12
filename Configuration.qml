@@ -23,5 +23,24 @@ ConfigurationBase {
 
     // Main views filter: Only those main views are enabled
 //    property var mainViewsFilter: [ "consolinno", "things" ]
-    property var mainViewsFilter: ["consolinno"]
+//    property var mainViewsFilter: ["consolinno"]
+
+    defaultMainView: "consolinno"
+
+    magicEnabled: true
+    networkSettingsEnabled: true
+    apiSettingsEnabled: true
+    mqttSettingsEnabled: true
+    webServerSettingsEnabled: true
+    zigbeeSettingsEnabled: true
+    modbusSettingsEnabled: true
+    pluginSettingsEnabled: true
+
+    mainMenuLinks: ListModel {
+        ListElement {
+            text: qsTr("Help")
+            iconName: "../images/help.svg"
+            url: "https://consolinno.de"
+        }
+    }
 }
