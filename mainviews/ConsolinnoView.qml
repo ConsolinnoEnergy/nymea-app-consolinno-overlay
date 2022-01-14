@@ -257,7 +257,8 @@ MainViewBase {
         Canvas {
             id: linesCanvas
             anchors.fill: parent
-            renderTarget: Canvas.FramebufferObject
+            // Breaks on iOS!
+            //renderTarget: Canvas.FramebufferObject
             renderStrategy: Canvas.Cooperative
 
             property real lineAnimationProgress: 0
