@@ -87,18 +87,18 @@ Page {
                     }
                 }
 
-                Button {
-                    id: assignCar
-                    Layout.fillWidth: true
-                    // We only need to assign a hear meter if this heatpump does not provide one
-                    visible: chargingConfiguration.carThingId === "{00000000-0000-0000-0000-000000000000}"
-                    text: qsTr("TODO: Assign car")
-                    // TODO: Select or setup car from the things and show it here. Allow to reassign a car, remove assignment, edit car
-                }
+//                Button {
+//                    id: assignCar
+//                    Layout.fillWidth: true
+//                    // We only need to assign a hear meter if this heatpump does not provide one
+//                    visible: chargingConfiguration.carThingId === "{00000000-0000-0000-0000-000000000000}"
+//                    text: qsTr("TODO: Assign car")
+//                    // TODO: Select or setup car from the things and show it here. Allow to reassign a car, remove assignment, edit car
+//                }
 
                 Label {
                     Layout.fillWidth: true
-                    text: qsTr("Target percentage") + " " + targetPercentageSlider.value + "%"
+                    text: qsTr("Target state of charge %1%").arg(targetPercentageSlider.value)
                 }
 
                 Slider {

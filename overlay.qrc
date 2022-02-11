@@ -8,6 +8,7 @@
         <file>styles/dark/Button.qml</file>
         <file>styles/dark/logo.svg</file>
         <file>styles/dark/logo-wide.svg</file>
+        <file>translations/consolinno-energy-de.qm</file>
     </qresource>
     <qresource prefix="/ui">
         <file>mainviews/ConsolinnoView.qml</file>
