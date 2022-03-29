@@ -76,6 +76,7 @@ Page {
             Connections {
                 target: hemsManager
                 onSetHeatingConfigurationReply: {
+                    console.log("IT WORKED!")
                     if (commandId == d.pendingCallId) {
                         d.pendingCallId = -1
 
@@ -116,6 +117,12 @@ Page {
                 RowLayout {
                     Layout.fillWidth: true
 
+                    // maximale Leistung
+                    // Optimization PV Configuration.qml
+                        // peak leistung
+                        // dachneigung
+                        // ausrichtung
+
                     Label {
                         Layout.fillWidth: true
                         text: qsTr("Optimization enabled")
@@ -125,6 +132,25 @@ Page {
                         id: optimizationEnabledSwitch
                         Component.onCompleted: checked = heatingConfiguration.optimizationEnabled
                     }
+
+                }
+                RowLayout{
+                    Layout.fillWidth: true
+                    Label {
+                        Layout.fillWidth: true
+                        text: qsTr("Maximale Leistung")
+
+                    }
+
+
+                    TextField {
+                        width: 120
+                        placeholderText: ""
+                        validator: IntValidator{bottom: 0; top: 5000}
+                    }
+
+
+
                 }
 
                 Label {
@@ -158,6 +184,7 @@ Page {
                     //enabled: configurationSettingsChanged
                     onClicked: {
                         d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, optimizationEnabledSwitch.checked)
+
                     }
                 }
             }

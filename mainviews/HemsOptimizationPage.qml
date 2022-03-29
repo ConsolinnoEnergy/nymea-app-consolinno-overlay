@@ -22,6 +22,8 @@ Page {
         ListElement { text: qsTr("Blackout protection"); value: HemsManager.HemsUseCaseBlackoutProtection }
         ListElement { text: qsTr("Heating"); value: HemsManager.HemsUseCaseHeating }
         ListElement { text: qsTr("Charging"); value: HemsManager.HemsUseCaseCharging }
+       ListElement { text: qsTr("Pv"); value: HemsManager.HemsUseCasePv }
+
     }
 
     ColumnLayout {
@@ -44,6 +46,8 @@ Page {
 
                     if (model.value === HemsManager.HemsUseCaseCharging)
                         return "../images/ev-charger.svg"
+                    if (model.value === HemsManager.HemsUseCasePv)
+                        return"../images/weathericons/weather-clear-day.svg"
                 }
                 text: model.text
                 visible: (hemsManager.availableUseCases & model.value) != 0
@@ -59,6 +63,10 @@ Page {
                     case HemsManager.HemsUseCaseCharging:
                         pageStack.push(Qt.resolvedUrl("../optimization/ChargingConfigurationView.qml"), { hemsManager: hemsManager })
                         break;
+                    case HemsManager.HemsUseCasePv:
+
+                        pageStack.push(Qt.resolvedUrl("../optimization/PVConfigurationView.qml"), { hemsManager: hemsManager })
+                        break;
                     }
                 }
             }
@@ -70,7 +78,7 @@ Page {
         anchors { left: parent.left; right: parent.right; margins: app.margins }
         anchors.verticalCenter: parent.verticalCenter
         visible: hemsManager.availableUseCases === 0
-        title: qsTr("No optimizations available")
+        title: qsTr("No optimizations available" + console.log(hemsManager.availableUseCases))
         text: qsTr("Optimizations will be available once the required things have been added to the system.")
     }
 }

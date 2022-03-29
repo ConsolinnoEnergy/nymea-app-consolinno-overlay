@@ -10,6 +10,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
 {
     m_heatingConfigurations = new HeatingConfigurations(this);
     m_chargingConfigurations = new ChargingConfigurations(this);
+    m_pvConfigurations = new PvConfigurations(this);
 }
 
 HemsManager::~HemsManager()
@@ -60,6 +61,8 @@ void HemsManager::setEngine(Engine *engine)
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHousholdPhaseLimit", QVariantMap(), this, "getHousholdPhaseLimitResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingConfigurations", QVariantMap(), this, "getHeatingConfigurationsResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingConfigurations", QVariantMap(), this, "getChargingConfigurationsResponse");
+        m_engine->jsonRpcClient()->sendCommand("Hems.GetPvConfigurations", QVariantMap(), this, "getPvConfigurationsResponse");
+
     }
 }
 
@@ -99,6 +102,31 @@ ChargingConfigurations *HemsManager::chargingConfigurations() const
 {
     return m_chargingConfigurations;
 }
+
+PvConfigurations *HemsManager::pvConfigurations() const
+{
+    qCDebug(dcHems()) << "pvConfiguration: " << m_pvConfigurations;
+    return m_pvConfigurations;
+}
+
+int HemsManager::setPvConfiguration(const QUuid &pvThingId, const int &longitude, const int &latitude, const int &roofPitch, const int &alignment, const float &kwPeak)
+{
+    QVariantMap pvConfiguration;
+    pvConfiguration.insert("pvThingId", pvThingId);
+    pvConfiguration.insert("longitude", longitude);
+    pvConfiguration.insert("latitude", latitude);
+    pvConfiguration.insert("roofPitch", roofPitch);
+    pvConfiguration.insert("alignment", alignment);
+    pvConfiguration.insert("kwPeak", kwPeak);
+
+    QVariantMap params;
+    params.insert("pvConfiguration", pvConfiguration);
+
+    qCDebug(dcHems()) << "Set pv configuration" << params;
+    int response = m_engine->jsonRpcClient()->sendCommand("Hems.SetPvConfiguration", params, this, "setPvConfigurationResponse");
+    return response;
+}
+
 
 int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, bool optimizationEnabled, const QUuid &heatMeterThingId)
 {
@@ -163,14 +191,22 @@ void HemsManager::notificationReceived(const QVariantMap &data)
         qCDebug(dcHems()) << "Heating configuration removed" << params.value("heatPumpThingId").toUuid();
         m_heatingConfigurations->removeConfiguration(params.value("heatPumpThingId").toUuid());
     } else if (notification == "Hems.HeatingConfigurationChanged") {
-        addOrUpdateHeatingConfiguration(params.value("heatingConfiguration").toMap());
+        addOrUpdateHeatingConfiguration(params.value("heatingConfiguration").toMap());   
+    } else if (notification == "Hems.PvConfigurationAdded") {
+        addOrUpdatePvConfiguration(params.value("pvConfiguration").toMap());
+    } else if (notification == "Hems.PvConfigurationRemoved") {
+        qCDebug(dcHems()) << "Heating configuration removed" << params.value("heatPumpThingId").toUuid();
+        m_pvConfigurations->removeConfiguration(params.value("heatPumpThingId").toUuid());
+    } else if (notification == "Hems.PvConfigurationChanged") {
+        addOrUpdatePvConfiguration(params.value("pvConfiguration").toMap());
     }
+
+
 }
 
 void HemsManager::getAvailableUseCasesResponse(int commandId, const QVariantMap &data)
 {
     Q_UNUSED(commandId)
-
     updateAvailableUsecases(data.value("availableUseCases").toStringList());
     qCDebug(dcHems()) << "Available use cases" << m_availableUseCases;
 }
@@ -189,12 +225,25 @@ void HemsManager::getHousholdPhaseLimitResponse(int commandId, const QVariantMap
 void HemsManager::getHeatingConfigurationsResponse(int commandId, const QVariantMap &data)
 {
     Q_UNUSED(commandId)
-
     qCDebug(dcHems()) << "Heating configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("heatingConfigurations").toList()) {
         addOrUpdateHeatingConfiguration(configurationVariant.toMap());
     }
 }
+
+void HemsManager::getPvConfigurationsResponse(int commandId, const QVariantMap &data)
+{
+
+
+    Q_UNUSED(commandId)
+
+    qCDebug(dcHems()) << "Pv configurations" << data;
+    foreach (const QVariant &configurationVariant, data.value("pvConfigurations").toList()) {
+
+        addOrUpdatePvConfiguration(configurationVariant.toMap());
+    }
+}
+
 
 void HemsManager::getChargingConfigurationsResponse(int commandId, const QVariantMap &data)
 {
@@ -222,6 +271,15 @@ void HemsManager::setHeatingConfigurationResponse(int commandId, const QVariantM
     emit setHeatingConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
+void HemsManager::setPvConfigurationResponse(int commandId, const QVariantMap &data)
+{
+    qCDebug(dcHems()) << "Set pv configuration response" << data.value("pvError").toString();
+    emit setPvConfigurationReply(commandId, data.value("hemsError").toString());
+
+}
+
+
+
 void HemsManager::setChargingConfigurationResponse(int commandId, const QVariantMap &data)
 {
     qCDebug(dcHems()) << "Set charging configuration response" << data.value("hemsError").toString();
@@ -246,8 +304,10 @@ void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurati
     if (newConfiguration) {
         qCDebug(dcHems()) << "Heating configuration added" << configuration->heatPumpThingId();
         m_heatingConfigurations->addConfiguration(configuration);
+
     } else {
         qCDebug(dcHems()) << "Heating configuration changed" << configuration->heatPumpThingId();
+
     }
 }
 
@@ -274,6 +334,36 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
     } else {
         qCDebug(dcHems()) << "Charging configuration changed" << configuration->evChargerThingId();
     }
+}
+
+void HemsManager::addOrUpdatePvConfiguration(const QVariantMap &configurationMap)
+{
+
+    QUuid pvUuid = configurationMap.value("pvThingId").toUuid();
+    PvConfiguration *configuration = m_pvConfigurations->getPvConfiguration(pvUuid);
+    bool newConfiguration = false;
+    if(!configuration){
+        newConfiguration = true;
+        configuration = new PvConfiguration(this);
+        configuration->setPvThingId(pvUuid);
+        configuration->setLongitude(configurationMap.value("longitude").toDouble());
+        configuration->setLatitude(configurationMap.value("latitude").toDouble());
+        configuration->setRoofPitch(configurationMap.value("roofPitch").toInt());
+        configuration->setAlignment(configurationMap.value("alignment").toInt());
+        configuration->setKwPeak(configurationMap.value("kwPeak").toFloat());
+
+    }
+
+
+
+     if (newConfiguration){
+         qCDebug(dcHems()) << "Pv configuration added" << configuration->PvThingId();
+         m_pvConfigurations->addConfiguration(configuration);
+
+     }else{
+        qCDebug(dcHems()) << "Pv configuration changed" << configuration->PvThingId();
+
+     }
 }
 
 void HemsManager::updateAvailableUsecases(const QStringList &useCasesList)
