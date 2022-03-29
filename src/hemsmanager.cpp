@@ -144,13 +144,15 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, bool opti
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingConfiguration", params, this, "setHeatingConfigurationResponse");
 }
 
-int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId, const QTime &endTime, uint targetPercentage, bool zeroReturnPolicyEnabled)
+int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId,  int hours,  int minutes, uint targetPercentage, bool zeroReturnPolicyEnabled)
 {
+    qCInfo(dcHems())<< "did it work? hours:" << hours << " minutes: "<< minutes ;
+    qCInfo(dcHems())<< "did it work?:" << QTime(hours, minutes).toString() ;
     QVariantMap chargingConfiguration;
     chargingConfiguration.insert("evChargerThingId", evChargerThingId);
     chargingConfiguration.insert("optimizationEnabled", optimizationEnabled);
     chargingConfiguration.insert("carThingId", carThingId);
-    chargingConfiguration.insert("endTime", endTime);
+    chargingConfiguration.insert("endTime", QTime(hours,minutes).toString() );
     chargingConfiguration.insert("targetPercentage", targetPercentage);
     chargingConfiguration.insert("zeroReturnPolicyEnabled", zeroReturnPolicyEnabled);
 
@@ -249,7 +251,7 @@ void HemsManager::getChargingConfigurationsResponse(int commandId, const QVarian
 {
     Q_UNUSED(commandId)
 
-    qCDebug(dcHems()) << "Charging configurations" << data;
+    qCInfo(dcHems()) << "Charging configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("chargingConfigurations").toList()) {
         addOrUpdateChargingConfiguration(configurationVariant.toMap());
     }
@@ -282,7 +284,8 @@ void HemsManager::setPvConfigurationResponse(int commandId, const QVariantMap &d
 
 void HemsManager::setChargingConfigurationResponse(int commandId, const QVariantMap &data)
 {
-    qCDebug(dcHems()) << "Set charging configuration response" << data.value("hemsError").toString();
+
+    qCInfo(dcHems()) << "Set charging configuration response" << data.value("hemsError").toString();
     emit setChargingConfigurationReply(commandId, data.value("hemsError").toString());
 }
 

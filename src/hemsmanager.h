@@ -55,7 +55,7 @@ public:
 
     Q_INVOKABLE int setPvConfiguration(const QUuid &pvPumpThingId, const int &longitude, const int &latitude, const int &roofPitch, const int &alignment, const float &kwPeak);
     Q_INVOKABLE int setHeatingConfiguration(const QUuid &heatPumpThingId, bool optimizationEnabled, const QUuid &heatMeterThingId = QUuid());
-    Q_INVOKABLE int setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId, const QTime &endTime, uint targetPercentage, bool zeroReturnPolicyEnabled);
+    Q_INVOKABLE int setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId,  int hours,  int minutes, uint targetPercentage, bool zeroReturnPolicyEnabled);
 
 signals:
 

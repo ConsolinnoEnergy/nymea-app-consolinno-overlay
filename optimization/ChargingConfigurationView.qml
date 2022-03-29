@@ -73,6 +73,25 @@ Page {
                     //font.pixelSize: app.smallFont
                 }
 
+
+                RowLayout {
+                    Layout.fillWidth: true
+
+                    Label {
+                        Layout.fillWidth: true
+                        text: qsTr("Electic car Id:")
+                    }
+
+                    Label {
+
+                        text: chargingConfiguration.carThingId
+                        Layout.rightMargin: app.margins
+                    }
+
+
+                }
+
+
                 RowLayout {
                     Layout.fillWidth: true
 
@@ -195,7 +214,7 @@ Page {
                     //enabled: configurationSettingsChanged
                     onClicked: {
                         // TODO: wait for response
-                        hemsManager.setChargingConfiguration(chaConfiguration.evChargerThingId, optimizationEnabledSwitch.checked)
+                        hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, optimizationEnabledSwitch.checked, chargingConfiguration.carThingId, hoursTumbler.currentIndex, minutesTumbler.currentIndex , chargingConfiguration.targetPercentage, chargingConfiguration.zeroReturnPolicyEnabled)
                     }
                 }
             }
