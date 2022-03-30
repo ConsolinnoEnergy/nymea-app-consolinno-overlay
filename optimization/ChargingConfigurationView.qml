@@ -79,7 +79,7 @@ Page {
 
                     Label {
                         Layout.fillWidth: true
-                        text: qsTr("Electic car Id:")
+                        text: qsTr("Electric car Id:")
                     }
 
                     Label {
