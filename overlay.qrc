@@ -33,5 +33,6 @@
         <file>optimization/HeatingConfigurationView.qml</file>
         <file>optimization/BlackoutProtectionView.qml</file>
         <file>mainviews/DetailedGraphsPage.qml</file>
+        <file>optimization/PVConfigurationView.qml</file>
     </qresource>
 </RCC>

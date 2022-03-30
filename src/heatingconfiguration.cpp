@@ -42,3 +42,38 @@ void HeatingConfiguration::setHeatMeterThingId(const QUuid &heatMeterThingId)
     m_heatMeterThingId = heatMeterThingId;
     emit heatMeterThingIdChanged(m_heatMeterThingId);
 }
+
+
+
+double HeatingConfiguration::maxElectricalPower() const
+{
+    return m_maxElectricalPower;
+}
+
+void HeatingConfiguration::setMaxElectricalPower(const double &maxElectricalPower)
+{
+    m_maxElectricalPower = maxElectricalPower;
+}
+
+
+
+double HeatingConfiguration::maxThermalEnergy() const
+{
+    return m_maxThermalEnergy;
+}
+
+void HeatingConfiguration::setMaxThermalEnergy(const double &maxThermalEnergy)
+{
+    m_maxThermalEnergy = maxThermalEnergy;
+}
+
+
+double HeatingConfiguration::floorHeatingArea() const
+{
+    return m_floorHeatingArea;
+}
+
+void HeatingConfiguration::setFloorHeatingArea(const double &floorHeatingArea)
+{
+    m_floorHeatingArea = floorHeatingArea;
+}

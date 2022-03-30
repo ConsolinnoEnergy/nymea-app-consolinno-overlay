@@ -1,4 +1,7 @@
 #include "heatingconfigurations.h"
+#include <QDebug>
+#include "logging.h"
+NYMEA_LOGGING_CATEGORY(dcHeatingConfiguration, "PvConfig")
 
 HeatingConfigurations::HeatingConfigurations(QObject *parent) :
     QAbstractListModel(parent)
@@ -36,6 +39,7 @@ QHash<int, QByteArray> HeatingConfigurations::roleNames() const
 
 HeatingConfiguration *HeatingConfigurations::getHeatingConfiguration(const QUuid &heatPumpThingId) const
 {
+
     foreach (HeatingConfiguration *heatingConfig, m_list) {
         if (heatingConfig->heatPumpThingId() == heatPumpThingId) {
             return heatingConfig;
@@ -61,6 +65,7 @@ void HeatingConfigurations::addConfiguration(HeatingConfiguration *heatingConfig
     m_list.append(heatingConfiguration);
 
     connect(heatingConfiguration, &HeatingConfiguration::optimizationEnabledChanged, this, [=](){
+        qInfo() << "Optimization Toggled";
         QModelIndex idx = index(m_list.indexOf(heatingConfiguration));
         emit dataChanged(idx, idx, {RoleOptimizationEnabled});
     });

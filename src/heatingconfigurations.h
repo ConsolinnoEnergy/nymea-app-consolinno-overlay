@@ -35,7 +35,7 @@ signals:
     void countChanged();
 
 private:
-    QList<HeatingConfiguration *> m_list;
+    QList<HeatingConfiguration *> m_list ;
 
 };
 
