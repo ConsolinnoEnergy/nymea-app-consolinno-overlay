@@ -130,28 +130,91 @@ Page {
 
                     Switch {
                         id: optimizationEnabledSwitch
+
                         Component.onCompleted: checked = heatingConfiguration.optimizationEnabled
                     }
 
                 }
+
+
                 RowLayout{
                     Layout.fillWidth: true
                     Label {
                         Layout.fillWidth: true
-                        text: qsTr("Maximale Leistung")
+                        text: qsTr("Floor heating area")
 
                     }
 
 
                     TextField {
+                        id: floorHeatingArea
+                        property bool floorHeatingArea_validated
                         width: 120
                         placeholderText: ""
-                        validator: IntValidator{bottom: 0; top: 5000}
+                        maximumLength: 5
+                        validator: DoubleValidator{bottom: 0}
+
+                        onTextChanged: acceptableInput ?floorHeatingArea_validated = true : floorHeatingArea_validated = false
                     }
 
 
 
                 }
+
+
+                RowLayout{
+                    Layout.fillWidth: true
+                    Label {
+                        Layout.fillWidth: true
+                        text: qsTr("Maximal electrical power")
+
+                    }
+
+
+                    TextField {
+                        id: maxElectricalPower
+                        property bool maxElectricalPower_validated
+                        width: 120
+                        placeholderText: ""
+                        maximumLength: 10
+                        validator: DoubleValidator{bottom: 0 }
+
+                        onTextChanged: acceptableInput ?maxElectricalPower_validated = true : maxElectricalPower_validated = false
+                    }
+
+
+
+
+                }
+
+                RowLayout{
+                    Layout.fillWidth: true
+                    Label {
+                        Layout.fillWidth: true
+                        text: qsTr("Maximal thermical power")
+
+                    }
+
+
+                    TextField {
+                        id: maxThermalEnergy
+                        property bool maxThermalEnergy_validated
+                        width: 120
+                        placeholderText: ""
+                        maximumLength: 10
+                        validator: DoubleValidator{bottom: 0}
+
+                        onTextChanged: acceptableInput ?maxThermalEnergy_validated = true : maxThermalEnergy_validated = false
+                    }
+
+
+
+                }
+
+
+
+
+
 
                 Label {
                     Layout.fillWidth: true
@@ -162,6 +225,9 @@ Page {
                     font.pixelSize: app.smallFont
                     visible: !heatMeterIncluded
                 }
+
+
+
 
                 Button {
                     id: assignHeatMeter
@@ -178,12 +244,42 @@ Page {
                     Layout.fillWidth: true
                 }
 
+
+
+
+                Label {
+                    id: footer
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    //text: qsTr("For a better optimization you can please insert the upper data, so our optimizer has the information it needs.")
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: app.smallFont
+
+                }
+
+
+
+
                 Button {
+                    id: savebutton
+                    property bool validated: floorHeatingArea.floorHeatingArea_validated && maxThermalEnergy.maxThermalEnergy_validated && maxElectricalPower.maxElectricalPower_validated
+
                     Layout.fillWidth: true
                     text: qsTr("Save")
                     //enabled: configurationSettingsChanged
                     onClicked: {
-                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, optimizationEnabledSwitch.checked)
+                        if (savebutton.validated)
+                        {
+                            footer.text = "saved"
+                            d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, optimizationEnabledSwitch.checked, parseFloat( floorHeatingArea.text) , parseFloat( maxElectricalPower.text)  ,  parseFloat(maxThermalEnergy.text) )
+                        }
+                        else
+                        {
+                            footer.text = "some attributes are outside of the allowed range: Configurations were not saved"
+
+                        }
+
 
                     }
                 }

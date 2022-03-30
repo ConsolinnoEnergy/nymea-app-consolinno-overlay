@@ -128,26 +128,31 @@ int HemsManager::setPvConfiguration(const QUuid &pvThingId, const int &longitude
 }
 
 
-int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, bool optimizationEnabled, const QUuid &heatMeterThingId)
+int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, bool optimizationEnabled,  const double &floorHeatingArea , const double &maxElectricalPower, const double &maxThermalEnergy, const QUuid &heatMeterThingId)
 {
+    qCInfo(dcHems())<< "did it work?: "  << heatPumpThingId;
+
     QVariantMap heatinConfiguration;
     heatinConfiguration.insert("heatPumpThingId", heatPumpThingId);
     heatinConfiguration.insert("optimizationEnabled", optimizationEnabled);
+    heatinConfiguration.insert("floorHeatingArea", floorHeatingArea);
+    heatinConfiguration.insert("maxElectricalPower", maxElectricalPower);
+    heatinConfiguration.insert("maxThermalEnergy", maxThermalEnergy);
+
     if (!heatMeterThingId.isNull())
         heatinConfiguration.insert("heatMeterThingId", heatMeterThingId);
 
     QVariantMap params;
     params.insert("heatingConfiguration", heatinConfiguration);
 
-    qCDebug(dcHems()) << "Set heating configuration" << params;
+    qCInfo(dcHems()) << "Set heating configuration" << params;
 
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingConfiguration", params, this, "setHeatingConfigurationResponse");
 }
 
 int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId,  int hours,  int minutes, uint targetPercentage, bool zeroReturnPolicyEnabled)
 {
-    qCInfo(dcHems())<< "did it work? hours:" << hours << " minutes: "<< minutes ;
-    qCInfo(dcHems())<< "did it work?:" << QTime(hours, minutes).toString() ;
+
     QVariantMap chargingConfiguration;
     chargingConfiguration.insert("evChargerThingId", evChargerThingId);
     chargingConfiguration.insert("optimizationEnabled", optimizationEnabled);
@@ -226,8 +231,9 @@ void HemsManager::getHousholdPhaseLimitResponse(int commandId, const QVariantMap
 
 void HemsManager::getHeatingConfigurationsResponse(int commandId, const QVariantMap &data)
 {
+
     Q_UNUSED(commandId)
-    qCDebug(dcHems()) << "Heating configurations" << data;
+    qCInfo(dcHems()) << "Heating configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("heatingConfigurations").toList()) {
         addOrUpdateHeatingConfiguration(configurationVariant.toMap());
     }
@@ -251,7 +257,7 @@ void HemsManager::getChargingConfigurationsResponse(int commandId, const QVarian
 {
     Q_UNUSED(commandId)
 
-    qCInfo(dcHems()) << "Charging configurations" << data;
+    qCDebug(dcHems()) << "Charging configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("chargingConfigurations").toList()) {
         addOrUpdateChargingConfiguration(configurationVariant.toMap());
     }

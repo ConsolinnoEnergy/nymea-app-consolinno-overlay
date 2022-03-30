@@ -306,7 +306,7 @@ Page {
                         longitudefield.placeholderText = "60"
 
                         footer.text = "saved"
-                        //d.pendingCallId = hemsManager.setPvConfiguration(pvConfiguration.PvThingId, parseInt(longitudefield.text), parseInt(latitude.text), parseInt(roofpitch.text), parseInt(alignment.text), parseFloat(kwPeak.text) )
+                        d.pendingCallId = hemsManager.setPvConfiguration(pvConfiguration.PvThingId, parseInt(longitudefield.text), parseInt(latitude.text), parseInt(roofpitch.text), parseInt(alignment.text), parseFloat(kwPeak.text) )
                         }
                         else
                         {
