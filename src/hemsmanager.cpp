@@ -327,7 +327,7 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
 
     configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
     configuration->setCarThingId(configurationMap.value("carThingId").toUuid());
-    configuration->setEndTime(configurationMap.value("endTime").toTime());
+    configuration->setEndTime(configurationMap.value("endTime").toString());
     configuration->setTargetPercentage(configurationMap.value("targetPercentage").toUInt());
     configuration->setZeroReturnPolicyEnabled(configurationMap.value("zeroReturnPolicyEnabled").toBool());
 

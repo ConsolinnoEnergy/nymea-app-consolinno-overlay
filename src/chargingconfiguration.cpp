@@ -43,12 +43,12 @@ void ChargingConfiguration::setCarThingId(const QUuid &carThingId)
     emit carThingIdChanged(m_carThingId);
 }
 
-QTime ChargingConfiguration::endTime() const
+QString ChargingConfiguration::endTime() const
 {
     return m_endTime;
 }
 
-void ChargingConfiguration::setEndTime(const QTime &endTime)
+void ChargingConfiguration::setEndTime(const QString &endTime)
 {
     if (m_endTime == endTime)
         return;
