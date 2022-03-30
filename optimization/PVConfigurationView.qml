@@ -92,7 +92,6 @@ Page {
 
                     if (commandId == d.pendingCallId) {
                         d.pendingCallId = -1
-                        console.log("IT WORKED!")
                         switch (error) {
                         case "HemsErrorNoError":
                             pageStack.pop()
@@ -131,12 +130,6 @@ Page {
                 RowLayout {
                     Layout.fillWidth: true
 
-                    // maximale Leistung
-                    // Optimization PV Configuration.qml
-                        // peak leistung
-                        // dachneigung
-                        // ausrichtung
-
                     Label {
                         Layout.fillWidth: true
                         text: qsTr("Longitude")
@@ -165,13 +158,6 @@ Page {
 
                 RowLayout {
                     Layout.fillWidth: true
-
-                    // maximale Leistung
-                    // Optimization PV Configuration.qml
-                        // peak leistung
-                        // dachneigung
-                        // ausrichtung
-
                     Label {
                         Layout.fillWidth: true
                         text: qsTr("Latitude")
@@ -272,7 +258,6 @@ Page {
                     Layout.fillWidth: true
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    //text: qsTr("For a better optimization you can please insert the upper data, so our optimizer has the information it needs.")
                     wrapMode: Text.WordWrap
                     font.pixelSize: app.smallFont
 

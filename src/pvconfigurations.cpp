@@ -67,10 +67,6 @@ void PvConfigurations::addConfiguration(PvConfiguration *pvConfiguration)
     beginInsertRows(QModelIndex(), m_list.count(), m_list.count());
     m_list.append(pvConfiguration);
 
-//    connect(PvConfiguration, &PvConfiguration::optimizationEnabledChanged, this , [=](){
-//        QModelIndex idx = index(m_list.indexOf(PvConfiguration));
-//        emit dataChanged(idx, idx, {RolePv_____})
-//    })
     endInsertRows();
 
     emit countChanged();

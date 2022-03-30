@@ -42,7 +42,7 @@ void ChargingConfiguration::setCarThingId(const QUuid &carThingId)
     m_carThingId = carThingId;
     emit carThingIdChanged(m_carThingId);
 }
-
+// This was QTime before, but QTime showed some weird behaviour, so for now we use QString and transform it if necessary
 QString ChargingConfiguration::endTime() const
 {
     return m_endTime;

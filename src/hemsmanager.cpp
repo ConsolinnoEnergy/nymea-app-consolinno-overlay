@@ -130,7 +130,6 @@ int HemsManager::setPvConfiguration(const QUuid &pvThingId, const int &longitude
 
 int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, bool optimizationEnabled,  const double &floorHeatingArea , const double &maxElectricalPower, const double &maxThermalEnergy, const QUuid &heatMeterThingId)
 {
-    qCInfo(dcHems())<< "did it work?: "  << heatPumpThingId;
 
     QVariantMap heatinConfiguration;
     heatinConfiguration.insert("heatPumpThingId", heatPumpThingId);
@@ -145,7 +144,7 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, bool opti
     QVariantMap params;
     params.insert("heatingConfiguration", heatinConfiguration);
 
-    qCInfo(dcHems()) << "Set heating configuration" << params;
+    qCDebug(dcHems()) << "Set heating configuration" << params;
 
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingConfiguration", params, this, "setHeatingConfigurationResponse");
 }
@@ -233,7 +232,7 @@ void HemsManager::getHeatingConfigurationsResponse(int commandId, const QVariant
 {
 
     Q_UNUSED(commandId)
-    qCInfo(dcHems()) << "Heating configurations" << data;
+    qCDebug(dcHems()) << "Heating configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("heatingConfigurations").toList()) {
         addOrUpdateHeatingConfiguration(configurationVariant.toMap());
     }
@@ -291,7 +290,7 @@ void HemsManager::setPvConfigurationResponse(int commandId, const QVariantMap &d
 void HemsManager::setChargingConfigurationResponse(int commandId, const QVariantMap &data)
 {
 
-    qCInfo(dcHems()) << "Set charging configuration response" << data.value("hemsError").toString();
+    qCDebug(dcHems()) << "Set charging configuration response" << data.value("hemsError").toString();
     emit setChargingConfigurationReply(commandId, data.value("hemsError").toString());
 }
 

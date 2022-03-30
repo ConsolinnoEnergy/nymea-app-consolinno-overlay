@@ -78,7 +78,7 @@ Page {
         anchors { left: parent.left; right: parent.right; margins: app.margins }
         anchors.verticalCenter: parent.verticalCenter
         visible: hemsManager.availableUseCases === 0
-        title: qsTr("No optimizations available" + console.log(hemsManager.availableUseCases))
+        title: qsTr("No optimizations available")
         text: qsTr("Optimizations will be available once the required things have been added to the system.")
     }
 }

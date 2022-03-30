@@ -76,7 +76,6 @@ Page {
             Connections {
                 target: hemsManager
                 onSetHeatingConfigurationReply: {
-                    console.log("IT WORKED!")
                     if (commandId == d.pendingCallId) {
                         d.pendingCallId = -1
 
@@ -117,11 +116,6 @@ Page {
                 RowLayout {
                     Layout.fillWidth: true
 
-                    // maximale Leistung
-                    // Optimization PV Configuration.qml
-                        // peak leistung
-                        // dachneigung
-                        // ausrichtung
 
                     Label {
                         Layout.fillWidth: true
@@ -130,7 +124,6 @@ Page {
 
                     Switch {
                         id: optimizationEnabledSwitch
-
                         Component.onCompleted: checked = heatingConfiguration.optimizationEnabled
                     }
 
@@ -246,7 +239,7 @@ Page {
 
 
 
-
+                // potential footer for the config app, as a way to show the user that certain attributes where invalid.
                 Label {
                     id: footer
                     Layout.fillWidth: true
@@ -267,7 +260,6 @@ Page {
 
                     Layout.fillWidth: true
                     text: qsTr("Save")
-                    //enabled: configurationSettingsChanged
                     onClicked: {
                         if (savebutton.validated)
                         {
@@ -276,7 +268,9 @@ Page {
                         }
                         else
                         {
-                            footer.text = "some attributes are outside of the allowed range: Configurations were not saved"
+                            // for now this is the way how we show the user that some attributes are invalid
+                            // TO DO: Show which ones are invalid
+                            footer.text = "Some attributes are outside of the allowed range: Configurations were not saved"
 
                         }
 
