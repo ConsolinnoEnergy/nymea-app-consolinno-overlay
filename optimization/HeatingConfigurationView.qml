@@ -31,6 +31,8 @@ Page {
                 property HeatingConfiguration heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(model.heatPumpThingId)
                 property Thing heatPumpThing: engine.thingManager.things.getThing(model.heatPumpThingId)
 
+
+
                 Layout.fillWidth: true
                 iconName: "../images/thermostat/heating.svg"
                 progressive: true

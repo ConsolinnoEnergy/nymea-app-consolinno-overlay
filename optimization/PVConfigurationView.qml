@@ -209,7 +209,6 @@ Page {
 
                     Text {
                         id: roofpitchunit
-                        anchors.right:
                         text: qsTr("°")
                     }
                 }
