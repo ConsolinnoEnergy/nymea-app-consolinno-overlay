@@ -40,11 +40,11 @@ Page {
                 iconName: "../images/thermostat/heating.svg"
                 progressive: true
                 text: pvThing.name
-                onClicked: {
+                onClicked: pageStack.push(pvConfigurationComponent, { hemsManager: hemsManager, pvConfiguration: pvConfiguration, pvThing: pvThing })
 
-                    pageStack.push(pvConfigurationComponent, { hemsManager: hemsManager, pvConfiguration: pvConfiguration, pvThing: pvThing })
 
-                }
+
+
             }
         }
      }

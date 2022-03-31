@@ -8,11 +8,11 @@ class PvConfiguration : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QUuid PvThingId READ PvThingId CONSTANT)
-    Q_PROPERTY(int longitude READ longitude CONSTANT)
-    Q_PROPERTY(int latitude READ latitude CONSTANT)
-    Q_PROPERTY(double roofPitch READ roofPitch  CONSTANT)
-    Q_PROPERTY(double alignment READ alignment  CONSTANT)
-    Q_PROPERTY(double kwPeak READ kwPeak  CONSTANT)
+    Q_PROPERTY(int longitude READ longitude WRITE setLongitude NOTIFY longitudeChanged)
+    Q_PROPERTY(int latitude READ latitude WRITE setLatitude NOTIFY latitudeChanged)
+    Q_PROPERTY(double roofPitch READ roofPitch WRITE setRoofPitch NOTIFY roofPitchChanged )
+    Q_PROPERTY(double alignment READ alignment WRITE setAlignment NOTIFY alignmentChanged)
+    Q_PROPERTY(double kwPeak READ kwPeak  WRITE setKwPeak NOTIFY kwPeakChanged)
 
 public:
     explicit PvConfiguration(QObject *parent = nullptr);
@@ -36,7 +36,11 @@ public:
     void setKwPeak(const float kwPeak);
 
 signals:
-
+    void longitudeChanged(const int longitude);
+    void latitudeChanged(const int latitude);
+    void roofPitchChanged(const int roofPitch);
+    void alignmentChanged(const int alignment);
+    void kwPeakChanged(const float kwPeak);
 
 
 

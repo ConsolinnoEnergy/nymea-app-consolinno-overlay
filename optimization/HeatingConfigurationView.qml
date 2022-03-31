@@ -143,7 +143,7 @@ Page {
                         id: floorHeatingAreaId
                         property bool floorHeatingArea_validated
                         width: 120
-                        placeholderText: ""
+                        placeholderText: heatingConfiguration.floorHeatingArea
                         maximumLength: 5
                         //validator: DoubleValidator{bottom: 0}
 
@@ -168,9 +168,9 @@ Page {
                         id: maxElectricalPower
                         property bool maxElectricalPower_validated
                         width: 120
-                        placeholderText: ""
+                        placeholderText: heatingConfiguration.maxElectricalPower
                         maximumLength: 10
-                        //validator: DoubleValidator{bottom: 0 }
+                        validator: DoubleValidator{bottom: 0 }
 
                         onTextChanged: acceptableInput ?maxElectricalPower_validated = true : maxElectricalPower_validated = false
                     }
@@ -193,9 +193,9 @@ Page {
                         id: maxThermalEnergy
                         property bool maxThermalEnergy_validated
                         width: 120
-                        placeholderText: ""
+                        placeholderText: heatingConfiguration.maxThermalEnergy
                         maximumLength: 10
-                        //validator: DoubleValidator{bottom: 0}
+                        validator: DoubleValidator{bottom: 0}
 
                         onTextChanged: acceptableInput ?maxThermalEnergy_validated = true : maxThermalEnergy_validated = false
                     }
@@ -256,7 +256,7 @@ Page {
 
                 Button {
                     id: savebutton
-                    property bool validated: floorHeatingArea.floorHeatingArea_validated && maxThermalEnergy.maxThermalEnergy_validated && maxElectricalPower.maxElectricalPower_validated
+                    property bool validated: floorHeatingAreaId.floorHeatingArea_validated && maxThermalEnergy.maxThermalEnergy_validated && maxElectricalPower.maxElectricalPower_validated
 
                     Layout.fillWidth: true
                     text: qsTr("Save")
