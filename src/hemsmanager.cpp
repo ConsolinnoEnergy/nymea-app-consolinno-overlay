@@ -159,7 +159,6 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool op
     chargingConfiguration.insert("endTime", QTime(hours,minutes).toString() );
     chargingConfiguration.insert("targetPercentage", targetPercentage);
     chargingConfiguration.insert("zeroReturnPolicyEnabled", zeroReturnPolicyEnabled);
-
     QVariantMap params;
     params.insert("chargingConfiguration", chargingConfiguration);
 

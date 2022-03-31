@@ -110,12 +110,11 @@ Page {
                     Layout.rightMargin: app.margins
                     text: heatPumpThing.name
                     wrapMode: Text.WordWrap
-                    //font.pixelSize: app.smallFont
+
                 }
 
                 RowLayout {
                     Layout.fillWidth: true
-
 
                     Label {
                         Layout.fillWidth: true
@@ -150,6 +149,11 @@ Page {
                         onTextChanged: acceptableInput ?floorHeatingArea_validated = true : floorHeatingArea_validated = false
                     }
 
+                    Text {
+                        id: floorHeatingunit
+                        text: qsTr("m²")
+                    }
+
 
 
                 }
@@ -175,6 +179,11 @@ Page {
                         onTextChanged: acceptableInput ?maxElectricalPower_validated = true : maxElectricalPower_validated = false
                     }
 
+                    Text {
+                        id: maxElectricalPowerunit
+                        text: qsTr("kWh")
+                    }
+
 
 
 
@@ -184,7 +193,7 @@ Page {
                     Layout.fillWidth: true
                     Label {
                         Layout.fillWidth: true
-                        text: qsTr("Maximal thermical power")
+                        text: qsTr("Thermal storage capacity")
 
                     }
 
@@ -199,7 +208,10 @@ Page {
 
                         onTextChanged: acceptableInput ?maxThermalEnergy_validated = true : maxThermalEnergy_validated = false
                     }
-
+                    Text {
+                        id: maxThermalEnergyunit
+                        text: qsTr("kWh")
+                    }
 
 
                 }
@@ -262,7 +274,6 @@ Page {
                     text: qsTr("Save")
                     onClicked: {
 
-                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, optimizationEnabledSwitch.checked, parseFloat( floorHeatingAreaId.text) , parseFloat( maxElectricalPower.text)  ,  parseFloat(maxThermalEnergy.text) )
 
                         if (savebutton.validated)
                         {

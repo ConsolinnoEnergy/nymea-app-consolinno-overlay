@@ -31,6 +31,7 @@ Page {
                 property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(model.evChargerThingId)
                 property Thing evChargerThing: engine.thingManager.things.getThing(model.evChargerThingId)
 
+
                 Layout.fillWidth: true
                 iconName:  "../images/ev-charger.svg"
                 progressive: true
@@ -49,6 +50,7 @@ Page {
             property HemsManager hemsManager
             property ChargingConfiguration chargingConfiguration
             property Thing evChargerThing
+
 
             // TODO: only if any configuration has changed, warn also on leaving if unsaved settings
             //property bool configurationSettingsChanged
@@ -214,7 +216,7 @@ Page {
                     //enabled: configurationSettingsChanged
                     onClicked: {
                         // TODO: wait for response
-                        hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, optimizationEnabledSwitch.checked, chargingConfiguration.carThingId, hoursTumbler.currentIndex, minutesTumbler.currentIndex , chargingConfiguration.targetPercentage, chargingConfiguration.zeroReturnPolicyEnabled)
+                        hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, optimizationEnabledSwitch.checked, chargingConfiguration.carThingId, hoursTumbler.currentIndex, minutesTumbler.currentIndex , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked)
                     }
                 }
             }
