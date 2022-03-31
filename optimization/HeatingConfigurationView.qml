@@ -140,12 +140,12 @@ Page {
 
 
                     TextField {
-                        id: floorHeatingArea
+                        id: floorHeatingAreaId
                         property bool floorHeatingArea_validated
                         width: 120
                         placeholderText: ""
                         maximumLength: 5
-                        validator: DoubleValidator{bottom: 0}
+                        //validator: DoubleValidator{bottom: 0}
 
                         onTextChanged: acceptableInput ?floorHeatingArea_validated = true : floorHeatingArea_validated = false
                     }
@@ -170,7 +170,7 @@ Page {
                         width: 120
                         placeholderText: ""
                         maximumLength: 10
-                        validator: DoubleValidator{bottom: 0 }
+                        //validator: DoubleValidator{bottom: 0 }
 
                         onTextChanged: acceptableInput ?maxElectricalPower_validated = true : maxElectricalPower_validated = false
                     }
@@ -195,7 +195,7 @@ Page {
                         width: 120
                         placeholderText: ""
                         maximumLength: 10
-                        validator: DoubleValidator{bottom: 0}
+                        //validator: DoubleValidator{bottom: 0}
 
                         onTextChanged: acceptableInput ?maxThermalEnergy_validated = true : maxThermalEnergy_validated = false
                     }
@@ -261,10 +261,13 @@ Page {
                     Layout.fillWidth: true
                     text: qsTr("Save")
                     onClicked: {
+
+                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, optimizationEnabledSwitch.checked, parseFloat( floorHeatingAreaId.text) , parseFloat( maxElectricalPower.text)  ,  parseFloat(maxThermalEnergy.text) )
+
                         if (savebutton.validated)
                         {
                             footer.text = "saved"
-                            d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, optimizationEnabledSwitch.checked, parseFloat( floorHeatingArea.text) , parseFloat( maxElectricalPower.text)  ,  parseFloat(maxThermalEnergy.text) )
+                            d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, optimizationEnabledSwitch.checked, parseFloat( floorHeatingAreaId.text) , parseFloat( maxElectricalPower.text)  ,  parseFloat(maxThermalEnergy.text) )
                         }
                         else
                         {

@@ -308,6 +308,11 @@ void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurati
 
     configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
     configuration->setHeatMeterThingId(configurationMap.value("heatMeterThingId").toUuid());
+    configuration->setFloorHeatingArea(configurationMap.value("floorHeatingArea").toDouble());
+    configuration->setMaxThermalEnergy(configurationMap.value("maxThermalEnergy").toDouble());
+    configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
+
+
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Heating configuration added" << configuration->heatPumpThingId();

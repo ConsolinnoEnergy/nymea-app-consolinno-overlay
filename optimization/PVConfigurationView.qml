@@ -139,6 +139,11 @@ Page {
                         id: longitudefield
                         property bool longitude_validated
                         property var longitude_placeholdertext: pvConfiguration.longitude
+                       // background: Rectangle {
+                       //     Layout.fillWidth: true
+                       //     color: "red"
+                       // }
+
                         readOnly: false
                         width: 120               
                         placeholderText: longitude_placeholdertext
