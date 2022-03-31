@@ -143,9 +143,9 @@ Page {
                         id: floorHeatingAreaId
                         property bool floorHeatingArea_validated
                         width: 120
-                        placeholderText: heatingConfiguration.floorHeatingArea
+                        text: heatingConfiguration.floorHeatingArea
                         maximumLength: 5
-                        //validator: DoubleValidator{bottom: 0}
+                        validator: DoubleValidator{bottom: 0}
 
                         onTextChanged: acceptableInput ?floorHeatingArea_validated = true : floorHeatingArea_validated = false
                     }
@@ -168,7 +168,7 @@ Page {
                         id: maxElectricalPower
                         property bool maxElectricalPower_validated
                         width: 120
-                        placeholderText: heatingConfiguration.maxElectricalPower
+                        text: heatingConfiguration.maxElectricalPower
                         maximumLength: 10
                         validator: DoubleValidator{bottom: 0 }
 
@@ -193,7 +193,7 @@ Page {
                         id: maxThermalEnergy
                         property bool maxThermalEnergy_validated
                         width: 120
-                        placeholderText: heatingConfiguration.maxThermalEnergy
+                        text: heatingConfiguration.maxThermalEnergy
                         maximumLength: 10
                         validator: DoubleValidator{bottom: 0}
 

@@ -139,14 +139,11 @@ Page {
                         id: longitudefield
                         property bool longitude_validated
                         property var longitude_placeholdertext: pvConfiguration.longitude
-                       // background: Rectangle {
-                       //     Layout.fillWidth: true
-                       //     color: "red"
-                       // }
+
 
                         readOnly: false
                         width: 120               
-                        placeholderText: longitude_placeholdertext
+                        text: longitude_placeholdertext
                         validator: IntValidator{
                             bottom: -180;
                             top: 180
@@ -172,7 +169,7 @@ Page {
                         id: latitude
                         property bool latitude_validated
                         width: 120
-                        placeholderText: pvConfiguration.latitude
+                        text: pvConfiguration.latitude
                         validator: IntValidator{
                             bottom: -90;
                             top: 90
@@ -199,7 +196,7 @@ Page {
                         property bool roofpitch_validated
                         width: 120
 
-                        placeholderText: pvConfiguration.roofPitch
+                        text: pvConfiguration.roofPitch
                         validator: IntValidator{
                             bottom: 0;
                             top: 90
@@ -221,7 +218,7 @@ Page {
                         id: alignment
                         property bool alignment_validated
                         width: 120
-                        placeholderText: pvConfiguration.alignment
+                        text: pvConfiguration.alignment
                         validator: IntValidator{
                             bottom: 0;
                             top: 360
@@ -244,7 +241,7 @@ Page {
                         property bool kwPeak_validated
 
                         width: 120
-                        placeholderText: pvConfiguration.kwPeak
+                        text: pvConfiguration.kwPeak
                         validator: IntValidator{
                             bottom: 0;
                         }
