@@ -2,6 +2,7 @@ import QtQuick 2.8
 import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.2
+import QtQml 2.2
 import Nymea 1.0
 import "../components"
 import "../delegates"
@@ -60,6 +61,41 @@ Page {
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
+
+
+
+            QtObject {
+                id: d
+                property int pendingCallId: -1
+            }
+
+
+            Connections {
+                target: hemsManager
+                onSetChargingConfigurationReply: {
+                    if (commandId == d.pendingCallId) {
+                        d.pendingCallId = -1
+
+                        switch (error) {
+                        case "HemsErrorNoError":
+                            pageStack.pop()
+                            return;
+                        case "HemsErrorInvalidParameter":
+                            props.text = qsTr("Could not save configuration. One of the parameters is invalid.");
+                            break;
+                        case "HemsErrorInvalidThing":
+                            props.text = qsTr("Could not save configuration. The thing is not valid.");
+                            break;
+                        default:
+                            props.errorCode = error;
+                        }
+                        var comp = Qt.createComponent("../components/ErrorDialog.qml")
+                        var popup = comp.createObject(app, props)
+                        popup.open();
+                    }
+                }
+             }
+
 
             ColumnLayout {
                 id: contentColumn
@@ -128,14 +164,22 @@ Page {
                     from: 0
                     to: 100
                     stepSize: 1
+
                     Component.onCompleted: {
                         value = chargingConfiguration.targetPercentage
                     }
+
+
                 }
 
                 Label {
                     Layout.fillWidth: true
+
+
+
                     text: qsTr("Target time to reach target percentage")
+
+
                 }
 
                 Rectangle {
@@ -166,6 +210,12 @@ Page {
                         }
                     }
 
+
+
+
+
+
+
                     Frame {
                         id: frame
                         padding: 0
@@ -174,14 +224,17 @@ Page {
                         Row {
                             Tumbler {
                                 id: hoursTumbler
+                                // ChargingConfiguration.endTime example always looks like this: "05:30" (not necessarly this time)
+                                currentIndex: parseInt(chargingConfiguration.endTime[0] + chargingConfiguration.endTime[1])
                                 model: 24
+
                                 delegate: delegateComponent
                                 visibleItemCount: 4
                             }
-
                             Tumbler {
                                 id: minutesTumbler
                                 model: 60
+                                currentIndex: parseInt(chargingConfiguration.endTime[3] + chargingConfiguration.endTime[4])
                                 delegate: delegateComponent
                                 visibleItemCount: 4
                             }
@@ -211,12 +264,14 @@ Page {
                 }
 
                 Button {
+                    id: savebutton
                     Layout.fillWidth: true
                     text: qsTr("Save")
                     //enabled: configurationSettingsChanged
                     onClicked: {
+
                         // TODO: wait for response
-                        hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, optimizationEnabledSwitch.checked, chargingConfiguration.carThingId, hoursTumbler.currentIndex, minutesTumbler.currentIndex , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked)
+                        d.pendingCallId = hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, optimizationEnabledSwitch.checked, chargingConfiguration.carThingId, hoursTumbler.currentIndex, minutesTumbler.currentIndex , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked)
                     }
                 }
             }
