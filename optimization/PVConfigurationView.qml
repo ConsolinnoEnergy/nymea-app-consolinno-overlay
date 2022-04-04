@@ -144,7 +144,7 @@ Page {
                         Layout.maximumWidth: 50
                         Layout.rightMargin: 27
                         text: pvConfiguration.longitude
-                        validator: IntValidator{
+                        validator: DoubleValidator{
                             bottom: -180;
                             top: 180
                         }
@@ -174,7 +174,7 @@ Page {
                         Layout.maximumWidth: 50
                         Layout.rightMargin: 27
                         text: pvConfiguration.latitude
-                        validator: IntValidator{
+                        validator: DoubleValidator{
                             bottom: -90;
                             top: 90
                         }
@@ -273,7 +273,7 @@ Page {
                         Layout.maximumWidth: 70
                         text: pvConfiguration.kwPeak
                         maximumLength: 7
-                        validator: IntValidator{
+                        validator: DoubleValidator{
                             bottom: 0;
                         }
                         onTextChanged: acceptableInput ?kwPeak_validated = true : kwPeak_validated = false
@@ -332,7 +332,7 @@ Page {
                         longitudefield.placeholderText = "60"
 
                         footer.text = "saved"
-                        d.pendingCallId = hemsManager.setPvConfiguration(pvConfiguration.PvThingId, parseInt(longitudefield.text), parseInt(latitude.text), parseInt(roofpitch.text), parseInt(alignment.text), parseFloat(kwPeak.text) )
+                        d.pendingCallId = hemsManager.setPvConfiguration(pvConfiguration.PvThingId, parseFloat(longitudefield.text), parseFloat(latitude.text), parseInt(roofpitch.text), parseInt(alignment.text), parseFloat(kwPeak.text) )
                         }
                         else
                         {

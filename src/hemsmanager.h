@@ -53,7 +53,7 @@ public:
     PvConfigurations *pvConfigurations() const;
 
 
-    Q_INVOKABLE int setPvConfiguration(const QUuid &pvPumpThingId, const int &longitude, const int &latitude, const int &roofPitch, const int &alignment, const float &kwPeak);
+    Q_INVOKABLE int setPvConfiguration(const QUuid &pvPumpThingId, const float &longitude, const float &latitude, const int &roofPitch, const int &alignment, const float &kwPeak);
     Q_INVOKABLE int setHeatingConfiguration(const QUuid &heatPumpThingId, bool optimizationEnabled, const double & floorHeatingArea, const double &maxElectricalPower, const double &maxThermalEnergy, const QUuid &heatMeterThingId = QUuid());
     Q_INVOKABLE int setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId,  int hours,  int minutes, uint targetPercentage, bool zeroReturnPolicyEnabled);
 

@@ -8,8 +8,8 @@ class PvConfiguration : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QUuid PvThingId READ PvThingId CONSTANT)
-    Q_PROPERTY(int longitude READ longitude WRITE setLongitude NOTIFY longitudeChanged)
-    Q_PROPERTY(int latitude READ latitude WRITE setLatitude NOTIFY latitudeChanged)
+    Q_PROPERTY(float longitude READ longitude WRITE setLongitude NOTIFY longitudeChanged)
+    Q_PROPERTY(float latitude READ latitude WRITE setLatitude NOTIFY latitudeChanged)
     Q_PROPERTY(double roofPitch READ roofPitch WRITE setRoofPitch NOTIFY roofPitchChanged )
     Q_PROPERTY(double alignment READ alignment WRITE setAlignment NOTIFY alignmentChanged)
     Q_PROPERTY(double kwPeak READ kwPeak  WRITE setKwPeak NOTIFY kwPeakChanged)
@@ -20,11 +20,11 @@ public:
     QUuid PvThingId() const;
     void setPvThingId(const QUuid &pvThingId);
 
-    int latitude() const;
-    void setLatitude(const int &latitude);
+    float latitude() const;
+    void setLatitude(const float &latitude);
 
-    int longitude() const;
-    void setLongitude(const int &longitude);
+    float longitude() const;
+    void setLongitude(const float &longitude);
 
     int roofPitch() const;
     void setRoofPitch(const int roofPitch);
@@ -46,8 +46,8 @@ signals:
 
 private:
     QUuid m_PvThingId;
-    int m_longitude = 0;
-    int m_latitude = 0;
+    float m_longitude = 0;
+    float m_latitude = 0;
     int m_roofPitch = 0;
     int m_alignment = 0;
     float m_kwPeak = 0;

@@ -109,7 +109,7 @@ PvConfigurations *HemsManager::pvConfigurations() const
     return m_pvConfigurations;
 }
 
-int HemsManager::setPvConfiguration(const QUuid &pvThingId, const int &longitude, const int &latitude, const int &roofPitch, const int &alignment, const float &kwPeak)
+int HemsManager::setPvConfiguration(const QUuid &pvThingId, const float &longitude, const float &latitude, const int &roofPitch, const int &alignment, const float &kwPeak)
 {
     QVariantMap pvConfiguration;
     pvConfiguration.insert("pvThingId", pvThingId);
