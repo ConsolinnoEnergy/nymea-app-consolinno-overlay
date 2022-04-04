@@ -200,8 +200,8 @@ void HemsManager::notificationReceived(const QVariantMap &data)
     } else if (notification == "Hems.PvConfigurationAdded") {
         addOrUpdatePvConfiguration(params.value("pvConfiguration").toMap());
     } else if (notification == "Hems.PvConfigurationRemoved") {
-        qCDebug(dcHems()) << "Heating configuration removed" << params.value("heatPumpThingId").toUuid();
-        m_pvConfigurations->removeConfiguration(params.value("heatPumpThingId").toUuid());
+        qCDebug(dcHems()) << "PV configuration removed" << params.value("pvThingId").toUuid();
+        m_pvConfigurations->removeConfiguration(params.value("pvThingId").toUuid());
     } else if (notification == "Hems.PvConfigurationChanged") {
         addOrUpdatePvConfiguration(params.value("pvConfiguration").toMap());
     }
@@ -242,7 +242,6 @@ void HemsManager::getPvConfigurationsResponse(int commandId, const QVariantMap &
 
 
     Q_UNUSED(commandId)
-
     qCDebug(dcHems()) << "Pv configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("pvConfigurations").toList()) {
 
@@ -358,14 +357,13 @@ void HemsManager::addOrUpdatePvConfiguration(const QVariantMap &configurationMap
         newConfiguration = true;
         configuration = new PvConfiguration(this);
         configuration->setPvThingId(pvUuid);
-        configuration->setLongitude(configurationMap.value("longitude").toDouble());
-        configuration->setLatitude(configurationMap.value("latitude").toDouble());
-        configuration->setRoofPitch(configurationMap.value("roofPitch").toInt());
-        configuration->setAlignment(configurationMap.value("alignment").toInt());
-        configuration->setKwPeak(configurationMap.value("kwPeak").toFloat());
-
     }
 
+    configuration->setLongitude(configurationMap.value("longitude").toDouble());
+    configuration->setLatitude(configurationMap.value("latitude").toDouble());
+    configuration->setRoofPitch(configurationMap.value("roofPitch").toInt());
+    configuration->setAlignment(configurationMap.value("alignment").toInt());
+    configuration->setKwPeak(configurationMap.value("kwPeak").toFloat());
 
 
      if (newConfiguration){

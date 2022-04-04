@@ -108,7 +108,6 @@ Page {
                     Layout.rightMargin: app.margins
                     text: evChargerThing.name
                     wrapMode: Text.WordWrap
-                    //font.pixelSize: app.smallFont
                 }
 
 

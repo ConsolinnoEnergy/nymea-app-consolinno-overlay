@@ -63,7 +63,7 @@ Page {
         id: pvConfigurationComponent
 
         Page {
-            id: pvConfigroot
+            id: root
             property HemsManager hemsManager
             property PvConfiguration pvConfiguration
             property Thing pvThing
@@ -139,7 +139,10 @@ Page {
                         property bool longitude_validated
 
                         readOnly: false
-                        width: 50
+
+                        Layout.minimumWidth: 50
+                        Layout.maximumWidth: 50
+                        Layout.rightMargin: 27
                         text: pvConfiguration.longitude
                         validator: IntValidator{
                             bottom: -180;
@@ -166,7 +169,10 @@ Page {
                     TextField {
                         id: latitude
                         property bool latitude_validated
-                        width: 50
+
+                        Layout.minimumWidth: 50
+                        Layout.maximumWidth: 50
+                        Layout.rightMargin: 27
                         text: pvConfiguration.latitude
                         validator: IntValidator{
                             bottom: -90;
@@ -196,7 +202,10 @@ Page {
                         id: roofpitch
 
                         property bool roofpitch_validated
-                        width: 50
+
+                        Layout.minimumWidth: 50
+                        Layout.maximumWidth: 50
+                        Layout.rightMargin: 27
 
                         text: pvConfiguration.roofPitch
                         validator: IntValidator{
@@ -224,7 +233,9 @@ Page {
                     TextField {
                         id: alignment
                         property bool alignment_validated
-                        width: 50
+                        Layout.minimumWidth: 50
+                        Layout.maximumWidth: 50
+                        Layout.rightMargin: 27
                         text: pvConfiguration.alignment
                         validator: IntValidator{
                             bottom: 0;
@@ -236,6 +247,7 @@ Page {
 
                     Text {
                         id: alignmentunit
+                        Layout.alignment: Qt.AlignLeft
                         text: qsTr("°")
                     }
 
@@ -244,28 +256,37 @@ Page {
                 RowLayout {
                     Layout.fillWidth: true
 
+
                     Label {
+                        id: peakId
                         Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignLeft
                         text: qsTr("Peak power")
                     }
 
                     TextField {
                         id: kwPeak
+                        Layout.alignment: Qt.AlignRight
                         property bool kwPeak_validated
-
-                        width: 50
+                        Layout.rightMargin: 10
+                        Layout.minimumWidth: 70
+                        Layout.maximumWidth: 70
                         text: pvConfiguration.kwPeak
+                        maximumLength: 7
                         validator: IntValidator{
                             bottom: 0;
                         }
                         onTextChanged: acceptableInput ?kwPeak_validated = true : kwPeak_validated = false
+
 
                     }
 
                     Text {
                         id: kwPeakunit
                         text: qsTr("kW")
+                        Layout.alignment: Qt.AlignRight
                     }
+
                 }
 
 
@@ -315,6 +336,9 @@ Page {
                         }
                         else
                         {
+
+
+
                         footer.text = "some attributes are outside of the allowed range: Configurations were not saved"
                         }
                     }
