@@ -138,6 +138,8 @@ Page {
                         }
 
                         textRole: "name"
+                        currentIndex: evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId ))
+
 
 
                     }
@@ -296,7 +298,7 @@ Page {
                     text: qsTr("Save")
                     //enabled: configurationSettingsChanged
                     onClicked: {
-                        //footer.text = comboboxev.model.get(comboboxev.currentIndex).id
+
 
                         //footer.text = comboboxev.currentIndex
                         // TODO: wait for response

@@ -138,38 +138,6 @@ Page {
 
                 RowLayout {
                     Layout.fillWidth: true
-
-                    Label {
-                        Layout.fillWidth: true
-                        text: qsTr("Longitude")
-                    }
-
-                    TextField {
-                        id: longitudefield
-                        property bool longitude_validated
-                        maximumLength: 7
-                        Layout.minimumWidth: 50
-                        Layout.maximumWidth: 50
-                        Layout.rightMargin: 48
-                        text: pvConfiguration.longitude
-                        validator: DoubleValidator{
-                            bottom: -180
-                            top: 180
-                            decimals: 4
-                        }
-
-                        onTextChanged: acceptableInput ? longitude_validated = true : longitude_validated = false
-
-                    }
-
-                    Text {
-                        id: longitudeunit
-                        text: qsTr("°")
-                    }
-                }
-
-                RowLayout {
-                    Layout.fillWidth: true
                     Label {
                         Layout.fillWidth: true
                         text: qsTr("Latitude")
@@ -198,6 +166,38 @@ Page {
                         text: qsTr("°")
                     }
 
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+
+                    Label {
+                        Layout.fillWidth: true
+                        text: qsTr("Longitude")
+                    }
+
+                    TextField {
+                        id: longitudefield
+                        property bool longitude_validated
+                        maximumLength: 7
+                        Layout.minimumWidth: 50
+                        Layout.maximumWidth: 50
+                        Layout.rightMargin: 48
+                        text: pvConfiguration.longitude
+                        validator: DoubleValidator{
+                            bottom: -180
+                            top: 180
+                            decimals: 4
+                        }
+
+                        onTextChanged: acceptableInput ? longitude_validated = true : longitude_validated = false
+
+                    }
+
+                    Text {
+                        id: longitudeunit
+                        text: qsTr("°")
+                    }
                 }
 
                 RowLayout {
