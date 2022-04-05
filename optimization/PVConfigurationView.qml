@@ -146,9 +146,9 @@ Page {
                     TextField {
                         id: latitude
                         property bool latitude_validated
-                        maximumLength: 6
-                        Layout.minimumWidth: 50
-                        Layout.maximumWidth: 50
+                        maximumLength: 7
+                        Layout.minimumWidth: 55
+                        Layout.maximumWidth: 55
                         Layout.rightMargin: 48
                         text: pvConfiguration.latitude
                         validator: DoubleValidator{
@@ -180,8 +180,8 @@ Page {
                         id: longitudefield
                         property bool longitude_validated
                         maximumLength: 7
-                        Layout.minimumWidth: 50
-                        Layout.maximumWidth: 50
+                        Layout.minimumWidth: 55
+                        Layout.maximumWidth: 55
                         Layout.rightMargin: 48
                         text: pvConfiguration.longitude
                         validator: DoubleValidator{
@@ -213,8 +213,8 @@ Page {
 
                         property bool roofpitch_validated
                         maximumLength: 2
-                        Layout.minimumWidth: 50
-                        Layout.maximumWidth: 50
+                        Layout.minimumWidth: 55
+                        Layout.maximumWidth: 55
                         Layout.rightMargin: 48
 
                         text: pvConfiguration.roofPitch
@@ -244,8 +244,8 @@ Page {
                         id: alignment
                         property bool alignment_validated
                         maximumLength: 3
-                        Layout.minimumWidth: 50
-                        Layout.maximumWidth: 50
+                        Layout.minimumWidth: 55
+                        Layout.maximumWidth: 55
                         Layout.rightMargin: 48
                         text: pvConfiguration.alignment
                         validator: IntValidator{
@@ -279,7 +279,7 @@ Page {
                         id: kwPeak
                         Layout.alignment: Qt.AlignRight
                         property bool kwPeak_validated
-                        Layout.rightMargin: 10
+                        Layout.rightMargin: 15
                         Layout.minimumWidth: 50
                         Layout.maximumWidth: 70
                         text: pvConfiguration.kwPeak
