@@ -114,8 +114,13 @@ Page {
 
             ColumnLayout {
                 id: contentColumn
-                anchors.fill: parent
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.topMargin: app.margins
                 anchors.margins: app.margins
+                spacing: 5
+
 
                 Label {
                     Layout.fillWidth: true
@@ -137,8 +142,6 @@ Page {
                     TextField {
                         id: longitudefield
                         property bool longitude_validated
-
-                        readOnly: false
                         maximumLength: 5
                         Layout.minimumWidth: 50
                         Layout.maximumWidth: 50
