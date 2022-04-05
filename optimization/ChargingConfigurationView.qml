@@ -296,11 +296,11 @@ Page {
                     text: qsTr("Save")
                     //enabled: configurationSettingsChanged
                     onClicked: {
-                        footer.text = comboboxev.model.get(comboboxev.currentIndex).id
+                        //footer.text = comboboxev.model.get(comboboxev.currentIndex).id
 
                         //footer.text = comboboxev.currentIndex
                         // TODO: wait for response
-                        //d.pendingCallId = hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId  , optimizationEnabledSwitch.checked, comboboxev.model.get(comboboxev.currentIndex).id, hoursTumbler.currentIndex, minutesTumbler.currentIndex , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked)
+                        d.pendingCallId = hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId  , optimizationEnabledSwitch.checked, comboboxev.model.get(comboboxev.currentIndex).id, hoursTumbler.currentIndex, minutesTumbler.currentIndex , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked)
                     }
                 }
             }

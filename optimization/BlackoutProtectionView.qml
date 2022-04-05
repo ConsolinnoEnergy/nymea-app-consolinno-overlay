@@ -38,6 +38,7 @@ Page {
                 var props = {};
                 switch (error) {
                 case "HemsErrorNoError":
+                    pageStack.pop()
                     return;
                 case "HemsErrorInvalidPhaseLimit":
                     props.text = qsTr("Invalid phase limit.");
@@ -57,7 +58,12 @@ Page {
     // Houshold phase limit [A]
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: Style.margins
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.topMargin: app.margins
+        anchors.margins: app.margins
+
 
         RadioDelegate {
             id: limit25
@@ -98,6 +104,31 @@ Page {
             onClicked: phaseLimit = otherLimit.text
         }
 
+
+        Label {
+            id: footer
+            Layout.fillWidth: true
+            Layout.leftMargin: app.margins
+            Layout.rightMargin: app.margins
+            wrapMode: Text.WordWrap
+            font.pixelSize: app.smallFont
+
+        }
+
+        Button {
+            id: savebutton
+            Layout.fillWidth: true
+            text: qsTr("Save")
+
+            onClicked: {
+                // TODO: wait for response
+                // for debugging purposes or to let the user know that some values are not valid
+                //footer.text = "clicked"
+                d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit)
+            }
+
+        }
+
         Item {
             // place holder
             Layout.fillHeight: true
@@ -129,16 +160,7 @@ Page {
         }
 
 
-        Button {
-            id: savebutton
-            Layout.fillWidth: true
-            text: qsTr("Save")
-            enabled: settingsChanged
-            onClicked: {
-                // TODO: wait for response
-                //d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit)
-            }
-        }
+
 
 
     }

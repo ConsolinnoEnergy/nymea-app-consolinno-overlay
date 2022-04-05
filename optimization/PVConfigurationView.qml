@@ -334,7 +334,6 @@ Page {
                     id: savebutton
                     Layout.fillWidth: true
                     property bool validated: longitudefield.longitude_validated && latitude.latitude_validated && roofpitch.roofpitch_validated && alignment.alignment_validated && kwPeak.kwPeak_validated
-
                     text: qsTr("Save")
                     //enabled: configurationSettingsChanged
                     onClicked: {
