@@ -183,7 +183,7 @@ Page {
 
                     Text {
                         id: maxElectricalPowerunit
-                        text: qsTr("kWh")
+                        text: qsTr("kW")
                     }
 
 

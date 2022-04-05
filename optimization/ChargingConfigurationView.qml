@@ -1,7 +1,8 @@
 import QtQuick 2.8
 import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.2
+import QtQuick.Layouts 1.3
+import QtQuick.Controls.Styles 1.4
 import QtQml 2.2
 import Nymea 1.0
 import "../components"
@@ -97,9 +98,14 @@ Page {
              }
 
 
+
+
             ColumnLayout {
                 id: contentColumn
-                anchors.fill: parent
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.topMargin: app.margins
                 anchors.margins: app.margins
 
                 Label {
@@ -110,23 +116,35 @@ Page {
                     wrapMode: Text.WordWrap
                 }
 
-
                 RowLayout {
                     Layout.fillWidth: true
 
+
                     Label {
+                        id: evLabelid
                         Layout.fillWidth: true
-                        text: qsTr("Electric car Id:")
+                        text: qsTr("Electric car:")
+
+
                     }
 
-                    Label {
+                    ComboBox {
+                        id: comboboxev
+                        Layout.fillWidth: true
+                        model: ThingsProxy {
+                            id: evProxy
+                            engine: _engine
+                            shownInterfaces: ["electricvehicle"]
+                        }
 
-                        text: chargingConfiguration.carThingId
-                        Layout.rightMargin: app.margins
+                        textRole: "name"
+
+
                     }
-
 
                 }
+
+
 
 
                 RowLayout {
@@ -262,15 +280,27 @@ Page {
                     Layout.fillWidth: true
                 }
 
+                Label {
+                    id: footer
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: app.smallFont
+
+                }
+
                 Button {
                     id: savebutton
                     Layout.fillWidth: true
                     text: qsTr("Save")
                     //enabled: configurationSettingsChanged
                     onClicked: {
+                        footer.text = comboboxev.model.get(comboboxev.currentIndex).id
 
+                        //footer.text = comboboxev.currentIndex
                         // TODO: wait for response
-                        d.pendingCallId = hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, optimizationEnabledSwitch.checked, chargingConfiguration.carThingId, hoursTumbler.currentIndex, minutesTumbler.currentIndex , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked)
+                        //d.pendingCallId = hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId  , optimizationEnabledSwitch.checked, comboboxev.model.get(comboboxev.currentIndex).id, hoursTumbler.currentIndex, minutesTumbler.currentIndex , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked)
                     }
                 }
             }

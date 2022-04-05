@@ -104,15 +104,6 @@ Page {
             Layout.fillWidth: true
         }
 
-        Button {
-            Layout.fillWidth: true
-            text: qsTr("Save")
-            enabled: settingsChanged
-            onClicked: {
-                // TODO: wait for response
-                d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit)
-            }
-        }
 
         Component.onCompleted: {
             phaseLimit = hemsManager.housholdPhaseLimit
@@ -136,6 +127,20 @@ Page {
                 break
             }
         }
+
+
+        Button {
+            id: savebutton
+            Layout.fillWidth: true
+            text: qsTr("Save")
+            enabled: settingsChanged
+            onClicked: {
+                // TODO: wait for response
+                //d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit)
+            }
+        }
+
+
     }
 
 }

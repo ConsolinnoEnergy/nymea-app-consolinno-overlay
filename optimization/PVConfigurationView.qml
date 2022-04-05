@@ -20,6 +20,9 @@ Page {
         onBackPressed: pageStack.pop()
     }
 
+
+
+
     ColumnLayout {
         id: contentColumn
         anchors.left: parent.left
@@ -112,6 +115,8 @@ Page {
 
             }
 
+
+
             ColumnLayout {
                 id: contentColumn
                 anchors.left: parent.left
@@ -142,7 +147,7 @@ Page {
                     TextField {
                         id: longitudefield
                         property bool longitude_validated
-                        maximumLength: 5
+                        maximumLength: 7
                         Layout.minimumWidth: 50
                         Layout.maximumWidth: 50
                         Layout.rightMargin: 48
@@ -150,7 +155,7 @@ Page {
                         validator: DoubleValidator{
                             bottom: -180
                             top: 180
-                            decimals: 2
+                            decimals: 4
                         }
 
                         onTextChanged: acceptableInput ? longitude_validated = true : longitude_validated = false
@@ -173,7 +178,7 @@ Page {
                     TextField {
                         id: latitude
                         property bool latitude_validated
-                        maximumLength: 4
+                        maximumLength: 6
                         Layout.minimumWidth: 50
                         Layout.maximumWidth: 50
                         Layout.rightMargin: 48
@@ -181,7 +186,7 @@ Page {
                         validator: DoubleValidator{
                             bottom: -90
                             top: 90
-                            decimals: 2
+                            decimals: 4
                         }
                         onTextChanged: acceptableInput ?latitude_validated = true : latitude_validated = false
 
