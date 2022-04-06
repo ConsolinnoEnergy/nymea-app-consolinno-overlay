@@ -1,5 +1,5 @@
-import QtQuick 2.8
-import QtQuick.Controls 2.1
+import QtQuick 2.12
+import QtQuick.Controls 2.4
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
@@ -192,74 +192,71 @@ Page {
                 }
 
                 Label {
+                    id: endTimeLabel
+                    Layout.fillWidth: true
+                    property var today: new Date()
+                    property var endTime: new Date(today.getTime() + endTimeSlider.value * 60000)
+                    property var feasibility
+                    text: "End of the charging time: " + endTime.toLocaleString(Qt.locale("de-DE"), "dd/MM HH:mm") + "  Feasible: " + feasibility
+
+                    function endTimeValidityPrediction(d){
+                        // TODO: write validator to determine if something is feasible or not
+
+                        switch (d){
+                        case 1:
+                            feasibility =  "  <font color=\"red\">not feasible</font>"
+                            break
+                        case 2:
+                            feasibility = "  <font color=\"lightgreen\">probably feasible</font>"
+                            break
+                        case 3:
+                            feasibility = "  <font color=\"darkgreen\">feasible</font>"
+                            break
+                        }
+
+                        return
+
+
+                    }
+
+
+                }
+
+
+                RowLayout {
                     Layout.fillWidth: true
 
+                    Slider {
+                        id: endTimeSlider
+                        property int chargingConfigHours: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours()
+                        property int chargingConfigMinutes: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes()
+                        property int nextDay: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() < 0 ? 1 : 0
+                        Layout.fillWidth: true
+                        from: 0
+                        to: 24*60
+                        stepSize: 1
+                        //         von config hours      von config minutes         current hours                    current minutes                 add a day if negative (since it means it is the next day)
+                        value: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() + nextDay*24*60
+
+                        onPositionChanged: {
+                            if (value < 60){
+                                endTimeLabel.endTimeValidityPrediction(1)
+                            }
+                            else if (value >= 60 & value < 150) {
+                                endTimeLabel.endTimeValidityPrediction(2)
+                            }
+                            else{
+                                endTimeLabel.endTimeValidityPrediction(3)
+                            }
 
 
-                    text: qsTr("Target time to reach target percentage")
+                        }
 
+                    }
 
                 }
 
-                Rectangle {
-                    id: timePicker
-                    width: frame.implicitWidth + 10
-                    height: frame.implicitHeight + 10
-                    Layout.alignment: Qt.AlignHCenter
 
-                    function formatText(count, modelData) {
-                        var data = count === 12 ? modelData + 1 : modelData;
-                        return data.toString().length < 2 ? "0" + data : data;
-                    }
-
-                    FontMetrics {
-                        id: fontMetrics
-                        font.pixelSize: app.mediumFont
-                    }
-
-                    Component {
-                        id: delegateComponent
-
-                        Label {
-                            text: timePicker.formatText(Tumbler.tumbler.count, modelData)
-                            opacity: 1.0 - Math.abs(Tumbler.displacement) / (Tumbler.tumbler.visibleItemCount / 2)
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            font.pixelSize: fontMetrics.font.pixelSize * 1.25
-                        }
-                    }
-
-
-
-
-
-
-
-                    Frame {
-                        id: frame
-                        padding: 0
-                        anchors.centerIn: parent
-
-                        Row {
-                            Tumbler {
-                                id: hoursTumbler
-                                // ChargingConfiguration.endTime example always looks like this: "05:30" (not necessarly this time)
-                                currentIndex: parseInt(chargingConfiguration.endTime[0] + chargingConfiguration.endTime[1])
-                                model: 24
-
-                                delegate: delegateComponent
-                                visibleItemCount: 4
-                            }
-                            Tumbler {
-                                id: minutesTumbler
-                                model: 60
-                                currentIndex: parseInt(chargingConfiguration.endTime[3] + chargingConfiguration.endTime[4])
-                                delegate: delegateComponent
-                                visibleItemCount: 4
-                            }
-                        }
-                    }
-                }
 
 
                 RowLayout {
@@ -300,10 +297,18 @@ Page {
                     onClicked: {
 
 
-                        //footer.text = comboboxev.currentIndex
+                        // Maintool to debug
+                        //footer.text = chargingConfiguration.endTime
+
                         // TODO: wait for response
-                        d.pendingCallId = hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId  , optimizationEnabledSwitch.checked, comboboxev.model.get(comboboxev.currentIndex).id, hoursTumbler.currentIndex, minutesTumbler.currentIndex , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked)
+                        d.pendingCallId = hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId  , optimizationEnabledSwitch.checked, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked)
+
+
+
+
+
                     }
+
                 }
             }
         }
