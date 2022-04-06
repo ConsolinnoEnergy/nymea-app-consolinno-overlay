@@ -31,6 +31,8 @@ Page {
                 property HeatingConfiguration heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(model.heatPumpThingId)
                 property Thing heatPumpThing: engine.thingManager.things.getThing(model.heatPumpThingId)
 
+
+
                 Layout.fillWidth: true
                 iconName: "../images/thermostat/heating.svg"
                 progressive: true
@@ -110,12 +112,11 @@ Page {
                     Layout.rightMargin: app.margins
                     text: heatPumpThing.name
                     wrapMode: Text.WordWrap
-                    //font.pixelSize: app.smallFont
+
                 }
 
                 RowLayout {
                     Layout.fillWidth: true
-
 
                     Label {
                         Layout.fillWidth: true
@@ -140,14 +141,19 @@ Page {
 
 
                     TextField {
-                        id: floorHeatingArea
+                        id: floorHeatingAreaId
                         property bool floorHeatingArea_validated
                         width: 120
-                        placeholderText: ""
+                        text: heatingConfiguration.floorHeatingArea
                         maximumLength: 5
                         validator: DoubleValidator{bottom: 0}
 
                         onTextChanged: acceptableInput ?floorHeatingArea_validated = true : floorHeatingArea_validated = false
+                    }
+
+                    Text {
+                        id: floorHeatingunit
+                        text: qsTr("m²")
                     }
 
 
@@ -168,11 +174,16 @@ Page {
                         id: maxElectricalPower
                         property bool maxElectricalPower_validated
                         width: 120
-                        placeholderText: ""
+                        text: heatingConfiguration.maxElectricalPower
                         maximumLength: 10
                         validator: DoubleValidator{bottom: 0 }
 
                         onTextChanged: acceptableInput ?maxElectricalPower_validated = true : maxElectricalPower_validated = false
+                    }
+
+                    Text {
+                        id: maxElectricalPowerunit
+                        text: qsTr("kW")
                     }
 
 
@@ -184,7 +195,7 @@ Page {
                     Layout.fillWidth: true
                     Label {
                         Layout.fillWidth: true
-                        text: qsTr("Maximal thermical power")
+                        text: qsTr("Thermal storage capacity")
 
                     }
 
@@ -193,13 +204,16 @@ Page {
                         id: maxThermalEnergy
                         property bool maxThermalEnergy_validated
                         width: 120
-                        placeholderText: ""
+                        text: heatingConfiguration.maxThermalEnergy
                         maximumLength: 10
                         validator: DoubleValidator{bottom: 0}
 
                         onTextChanged: acceptableInput ?maxThermalEnergy_validated = true : maxThermalEnergy_validated = false
                     }
-
+                    Text {
+                        id: maxThermalEnergyunit
+                        text: qsTr("kWh")
+                    }
 
 
                 }
@@ -256,15 +270,17 @@ Page {
 
                 Button {
                     id: savebutton
-                    property bool validated: floorHeatingArea.floorHeatingArea_validated && maxThermalEnergy.maxThermalEnergy_validated && maxElectricalPower.maxElectricalPower_validated
+                    property bool validated: floorHeatingAreaId.floorHeatingArea_validated && maxThermalEnergy.maxThermalEnergy_validated && maxElectricalPower.maxElectricalPower_validated
 
                     Layout.fillWidth: true
                     text: qsTr("Save")
                     onClicked: {
+
+
                         if (savebutton.validated)
                         {
                             footer.text = "saved"
-                            d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, optimizationEnabledSwitch.checked, parseFloat( floorHeatingArea.text) , parseFloat( maxElectricalPower.text)  ,  parseFloat(maxThermalEnergy.text) )
+                            d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, optimizationEnabledSwitch.checked, parseFloat( floorHeatingAreaId.text) , parseFloat( maxElectricalPower.text)  ,  parseFloat(maxThermalEnergy.text) )
                         }
                         else
                         {

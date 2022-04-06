@@ -22,8 +22,8 @@ ConfigurationBase {
     }
 
     // Main views filter: Only those main views are enabled
-//    property var mainViewsFilter: [ "consolinno", "things" ]
-//    property var mainViewsFilter: ["consolinno"]
+    //property var mainViewsFilter: [ "consolinno", "things" ]
+    //property var mainViewsFilter: ["consolinno"]
 
     defaultMainView: "consolinno"
 

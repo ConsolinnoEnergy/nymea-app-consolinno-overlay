@@ -20,6 +20,9 @@ Page {
         onBackPressed: pageStack.pop()
     }
 
+
+
+
     ColumnLayout {
         id: contentColumn
         anchors.left: parent.left
@@ -36,15 +39,16 @@ Page {
                 property PvConfiguration pvConfiguration: hemsManager.pvConfigurations.getPvConfiguration(model.PvThingId)
                 property Thing pvThing: engine.thingManager.things.getThing(model.PvThingId)
 
+
                 Layout.fillWidth: true
                 iconName: "../images/thermostat/heating.svg"
                 progressive: true
                 text: pvThing.name
-                onClicked: {
+                onClicked: pageStack.push(pvConfigurationComponent, { hemsManager: hemsManager, pvConfiguration: pvConfiguration, pvThing: pvThing })
 
-                    pageStack.push(pvConfigurationComponent, { hemsManager: hemsManager, pvConfiguration: pvConfiguration, pvThing: pvThing })
 
-                }
+
+
             }
         }
      }
@@ -62,9 +66,7 @@ Page {
         id: pvConfigurationComponent
 
         Page {
-
-
-            id: pvConfigroot
+            id: root
             property HemsManager hemsManager
             property PvConfiguration pvConfiguration
             property Thing pvThing
@@ -113,10 +115,17 @@ Page {
 
             }
 
+
+
             ColumnLayout {
                 id: contentColumn
-                anchors.fill: parent
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.topMargin: app.margins
                 anchors.margins: app.margins
+                spacing: 5
+
 
                 Label {
                     Layout.fillWidth: true
@@ -124,35 +133,6 @@ Page {
                     Layout.rightMargin: app.margins
                     text: pvThing.name
                     wrapMode: Text.WordWrap
-                    font.pixelSize: app.smallFont
-                }
-
-                RowLayout {
-                    Layout.fillWidth: true
-
-                    Label {
-                        Layout.fillWidth: true
-                        text: qsTr("Longitude")
-                    }
-
-                    TextField {
-                        id: longitudefield
-                        property bool longitude_validated
-                        property var longitude_placeholdertext: pvConfiguration.longitude
-                        readOnly: false
-                        width: 120               
-                        placeholderText: longitude_placeholdertext
-                        validator: IntValidator{
-                            bottom: -180;
-                            top: 180
-                        }
-
-
-
-                        onTextChanged: acceptableInput ? longitude_validated = true : longitude_validated = false
-
-
-                    }
 
                 }
 
@@ -166,19 +146,58 @@ Page {
                     TextField {
                         id: latitude
                         property bool latitude_validated
-                        width: 120
-                        placeholderText: pvConfiguration.latitude
-                        validator: IntValidator{
-                            bottom: -90;
+                        maximumLength: 7
+                        Layout.minimumWidth: 55
+                        Layout.maximumWidth: 55
+                        Layout.rightMargin: 48
+                        text: pvConfiguration.latitude
+                        validator: DoubleValidator{
+                            bottom: -90
                             top: 90
+                            decimals: 4
                         }
                         onTextChanged: acceptableInput ?latitude_validated = true : latitude_validated = false
 
 
 
                     }
+                    Text {
+                        id: latitudeunit
+                        text: qsTr("°")
+                    }
 
+                }
 
+                RowLayout {
+                    Layout.fillWidth: true
+
+                    Label {
+                        Layout.fillWidth: true
+                        text: qsTr("Longitude")
+                    }
+
+                    TextField {
+                        id: longitudefield
+                        property bool longitude_validated
+                        maximumLength: 7
+                        Layout.minimumWidth: 55
+                        Layout.maximumWidth: 55
+                        Layout.rightMargin: 48
+                        text: pvConfiguration.longitude
+                        validator: DoubleValidator{
+                            bottom: -180
+                            top: 180
+                            decimals: 4
+                        }
+
+                        onTextChanged: acceptableInput ? longitude_validated = true : longitude_validated = false
+
+                    }
+
+                    Text {
+                        id: longitudeunit
+                        text: qsTr("°")
+                    }
                 }
 
                 RowLayout {
@@ -191,16 +210,25 @@ Page {
 
                     TextField {
                         id: roofpitch
-                        property bool roofpitch_validated
-                        width: 120
 
-                        placeholderText: pvConfiguration.roofPitch
+                        property bool roofpitch_validated
+                        maximumLength: 2
+                        Layout.minimumWidth: 55
+                        Layout.maximumWidth: 55
+                        Layout.rightMargin: 48
+
+                        text: pvConfiguration.roofPitch
                         validator: IntValidator{
                             bottom: 0;
                             top: 90
                         }
-                        onTextChanged: acceptableInput ?roofpitch_validated = true : roofpitch_validated = false
+                        onTextChanged: acceptableInput ?roofpitch_validated = true : roofpitch_validated = false   
+                    }
 
+
+                    Text {
+                        id: roofpitchunit
+                        text: qsTr("°")
                     }
                 }
 
@@ -209,14 +237,17 @@ Page {
 
                     Label {
                         Layout.fillWidth: true
-                        text: qsTr("alignment")
+                        text: qsTr("Alignment")
                     }
 
                     TextField {
                         id: alignment
                         property bool alignment_validated
-                        width: 120
-                        placeholderText: pvConfiguration.alignment
+                        maximumLength: 3
+                        Layout.minimumWidth: 55
+                        Layout.maximumWidth: 55
+                        Layout.rightMargin: 48
+                        text: pvConfiguration.alignment
                         validator: IntValidator{
                             bottom: 0;
                             top: 360
@@ -224,28 +255,49 @@ Page {
                         onTextChanged: acceptableInput ?alignment_validated = true : alignment_validated = false
 
                     }
+
+                    Text {
+                        id: alignmentunit
+                        Layout.alignment: Qt.AlignLeft
+                        text: qsTr("°")
+                    }
+
                 }
 
                 RowLayout {
                     Layout.fillWidth: true
 
+
                     Label {
+                        id: peakId
                         Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignLeft
                         text: qsTr("Peak power")
                     }
 
                     TextField {
                         id: kwPeak
+                        Layout.alignment: Qt.AlignRight
                         property bool kwPeak_validated
-
-                        width: 120
-                        placeholderText: pvConfiguration.kwPeak
-                        validator: IntValidator{
+                        Layout.rightMargin: 15
+                        Layout.minimumWidth: 50
+                        Layout.maximumWidth: 70
+                        text: pvConfiguration.kwPeak
+                        maximumLength: 7
+                        validator: DoubleValidator{
                             bottom: 0;
                         }
                         onTextChanged: acceptableInput ?kwPeak_validated = true : kwPeak_validated = false
 
+
                     }
+
+                    Text {
+                        id: kwPeakunit
+                        text: qsTr("kW")
+                        Layout.alignment: Qt.AlignRight
+                    }
+
                 }
 
 
@@ -282,7 +334,6 @@ Page {
                     id: savebutton
                     Layout.fillWidth: true
                     property bool validated: longitudefield.longitude_validated && latitude.latitude_validated && roofpitch.roofpitch_validated && alignment.alignment_validated && kwPeak.kwPeak_validated
-
                     text: qsTr("Save")
                     //enabled: configurationSettingsChanged
                     onClicked: {
@@ -291,10 +342,13 @@ Page {
                         longitudefield.placeholderText = "60"
 
                         footer.text = "saved"
-                        d.pendingCallId = hemsManager.setPvConfiguration(pvConfiguration.PvThingId, parseInt(longitudefield.text), parseInt(latitude.text), parseInt(roofpitch.text), parseInt(alignment.text), parseFloat(kwPeak.text) )
+                        d.pendingCallId = hemsManager.setPvConfiguration(pvConfiguration.PvThingId, parseFloat(longitudefield.text), parseFloat(latitude.text), parseInt(roofpitch.text), parseInt(alignment.text), parseFloat(kwPeak.text) )
                         }
                         else
                         {
+
+
+
                         footer.text = "some attributes are outside of the allowed range: Configurations were not saved"
                         }
                     }

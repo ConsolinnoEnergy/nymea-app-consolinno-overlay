@@ -10,6 +10,10 @@ class HeatingConfiguration : public QObject
     Q_PROPERTY(QUuid heatPumpThingId READ heatPumpThingId CONSTANT)
     Q_PROPERTY(bool optimizationEnabled READ optimizationEnabled WRITE setOptimizationEnabled NOTIFY optimizationEnabledChanged)
     Q_PROPERTY(QUuid heatMeterThingId READ heatMeterThingId WRITE setHeatMeterThingId NOTIFY heatMeterThingIdChanged)
+    Q_PROPERTY(double floorHeatingArea READ floorHeatingArea WRITE setFloorHeatingArea NOTIFY floorHeatingAreaChanged)
+    Q_PROPERTY(double maxThermalEnergy READ maxThermalEnergy WRITE setMaxThermalEnergy NOTIFY maxThermalEnergyChanged)
+    Q_PROPERTY(double maxElectricalPower READ maxElectricalPower WRITE setMaxElectricalPower NOTIFY maxElectricalPowerChanged)
+
 
 public:
     explicit HeatingConfiguration(QObject *parent = nullptr);
@@ -38,6 +42,10 @@ public:
     void setHeatMeterThingId(const QUuid &heatMeterThingId);
 
 signals:
+
+    void maxThermalEnergyChanged(const double maxThermalEnergy);
+    void maxElectricalPowerChanged(const double maxElectricalPower);
+    void floorHeatingAreaChanged(const double floorHeatingArea);
     void optimizationEnabledChanged(bool optimizationEnabled);
     void heatMeterThingIdChanged(const QUuid &heatMeterThingId);
 
