@@ -34,6 +34,6 @@
         <file>optimization/BlackoutProtectionView.qml</file>
         <file>mainviews/DetailedGraphsPage.qml</file>
         <file>optimization/PVConfigurationView.qml</file>
-        <file>components/ConfigurationCalendar.qml</file>
+        <file>components/ChargingConfigSliderBackground.qml</file>
     </qresource>
 </RCC>

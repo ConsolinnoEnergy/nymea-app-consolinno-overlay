@@ -152,8 +152,6 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, bool opti
 int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId,  int hours,  int minutes, uint targetPercentage, bool zeroReturnPolicyEnabled)
 {
 
-    qCInfo(dcHems()) << "LETS CHECK THE Time "<< "hours:" << hours << " minutes: " << minutes ;
-    qCInfo(dcHems()) << "LETS CHECK THE Time "<< QTime(hours,minutes).toString() ;
     QVariantMap chargingConfiguration;
     chargingConfiguration.insert("evChargerThingId", evChargerThingId);
     chargingConfiguration.insert("optimizationEnabled", optimizationEnabled);
@@ -256,7 +254,7 @@ void HemsManager::getChargingConfigurationsResponse(int commandId, const QVarian
 {
     Q_UNUSED(commandId)
 
-    qCInfo(dcHems()) << "Charging configurations" << data;
+    qCDebug(dcHems()) << "Charging configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("chargingConfigurations").toList()) {
         addOrUpdateChargingConfiguration(configurationVariant.toMap());
     }
