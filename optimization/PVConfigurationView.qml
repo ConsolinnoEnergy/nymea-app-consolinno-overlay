@@ -41,7 +41,7 @@ Page {
 
 
                 Layout.fillWidth: true
-                iconName: "../images/thermostat/heating.svg"
+                iconName: "../images/weathericons/weather-clear-day.svg"
                 progressive: true
                 text: pvThing.name
                 onClicked: pageStack.push(pvConfigurationComponent, { hemsManager: hemsManager, pvConfiguration: pvConfiguration, pvThing: pvThing })

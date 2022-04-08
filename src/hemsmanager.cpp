@@ -149,7 +149,7 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, bool opti
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingConfiguration", params, this, "setHeatingConfigurationResponse");
 }
 
-int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId,  int hours,  int minutes, uint targetPercentage, bool zeroReturnPolicyEnabled)
+int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId,  int hours,  int minutes, uint targetPercentage, bool zeroReturnPolicyEnabled, float necessaryEnergy)
 {
 
     QVariantMap chargingConfiguration;
@@ -158,6 +158,7 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool op
     chargingConfiguration.insert("carThingId", carThingId);
     chargingConfiguration.insert("endTime", QTime(hours,minutes).toString() );
     chargingConfiguration.insert("targetPercentage", targetPercentage);
+    chargingConfiguration.insert("necessaryEnergy", necessaryEnergy);
     chargingConfiguration.insert("zeroReturnPolicyEnabled", zeroReturnPolicyEnabled);
     QVariantMap params;
     params.insert("chargingConfiguration", chargingConfiguration);
@@ -254,7 +255,7 @@ void HemsManager::getChargingConfigurationsResponse(int commandId, const QVarian
 {
     Q_UNUSED(commandId)
 
-    qCDebug(dcHems()) << "Charging configurations" << data;
+    qCDebug(dcHems()) << "Get Charging configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("chargingConfigurations").toList()) {
         addOrUpdateChargingConfiguration(configurationVariant.toMap());
     }

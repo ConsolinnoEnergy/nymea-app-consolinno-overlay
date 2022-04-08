@@ -14,6 +14,7 @@ class ChargingConfiguration : public QObject
     Q_PROPERTY(QString endTime READ endTime WRITE setEndTime NOTIFY endTimeChanged)
     Q_PROPERTY(uint targetPercentage READ targetPercentage WRITE setTargetPercentage NOTIFY targetPercentageChanged)
     Q_PROPERTY(bool zeroReturnPolicyEnabled READ zeroReturnPolicyEnabled WRITE setZeroReturnPolicyEnabled NOTIFY zeroReturnPolicyEnabledChanged)
+    Q_PROPERTY(float necessaryEnergy READ necessaryEnergy WRITE setNecessaryEnergy NOTIFY necessaryEnergyChanged )
 
 public:
     explicit ChargingConfiguration(QObject *parent = nullptr);
@@ -36,12 +37,16 @@ public:
     bool zeroReturnPolicyEnabled() const;
     void setZeroReturnPolicyEnabled(bool zeroReturnPolicyEnabled);
 
+    float necessaryEnergy() const;
+    void setNecessaryEnergy(float necessaryEnergy);
+
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void carThingIdChanged(const QUuid &carThingId);
     void endTimeChanged(const QString &endTime);
     void targetPercentageChanged(uint targetPercentage);
     void zeroReturnPolicyEnabledChanged(bool zeroReturnPolicyEnabled);
+    void necessaryEnergyChanged(float necessaryEnergy);
 
 private:
     QUuid m_evChargerThingId;
@@ -50,6 +55,7 @@ private:
     QString m_endTime = "10:30:00";
     uint m_targetPercentage = 100;
     bool m_zeroReturnPolicyEnabled = false;
+    float m_necessaryEnergy = 0;
 
 };
 

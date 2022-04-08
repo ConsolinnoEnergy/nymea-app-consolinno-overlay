@@ -143,6 +143,15 @@ Page {
 
                         onCurrentIndexChanged: {
                             endTimeSlider.computeFeasibility()
+                            if (targetPercentageSlider.value < endTimeSlider.batteryLevel)
+                            {
+                                targetPercentageSlider.value = endTimeSlider.batteryLevel
+                            }
+                            if (targetPercentageSlider.value === 0){
+
+                                targetPercentageSlider.value = 1
+                            }
+
 
                         }
 
@@ -185,43 +194,61 @@ Page {
 
                     Component.onCompleted: {
                         value = chargingConfiguration.targetPercentage
+                        endTimeSlider.computeFeasibility()
+                        endTimeSlider.feasibilityText()
+
                     }
                     onPositionChanged: {
                         endTimeSlider.computeFeasibility()
+                        endTimeSlider.feasibilityText()
+
+
+                        if (value < endTimeSlider.batteryLevel)
+                        {
+                            value = endTimeSlider.batteryLevel
+                        }
+                        if (value == 0){
+
+                            value = 1
+                        }
+
                     }
 
 
 
                 }
 
-                Label {
-                    id: endTimeLabel
+
+                RowLayout{
                     Layout.fillWidth: true
-                    property var today: new Date()
-                    property var endTime: new Date(today.getTime() + endTimeSlider.value * 60000)
-                    property var feasibility
-                    text: "End of the charging time: " + endTime.toLocaleString(Qt.locale("de-DE"), "dd/MM HH:mm") + "  Feasible: " + feasibility
+                    Label {
+                        id: endTimeLabel
+                        Layout.fillWidth: true
+                        property var today: new Date()
+                        property var endTime: new Date(today.getTime() + endTimeSlider.value * 60000)
+                        property var feasibility
+                        text: "End of the charging time: " + endTime.toLocaleString(Qt.locale("de-DE"), "dd/MM HH:mm") + "  Feasible: " + feasibility
 
-                    function endTimeValidityPrediction(d){
-                        // TODO: write validator to determine if something is feasible or not
+                        function endTimeValidityPrediction(d){
+                            // TODO: write validator to determine if something is feasible or not
 
-                        switch (d){
-                        case 1:
-                            feasibility =  "  <font color=\"red\">not feasible</font>"
-                            break
-                        case 2:
-                            feasibility = "  <font color=\"lightgreen\">probably feasible</font>"
-                            break
-                        case 3:
-                            feasibility = "  <font color=\"darkgreen\">feasible</font>"
-                            break
+                            switch (d){
+                            case 1:
+                                feasibility =  "  <font color=\"red\">not feasible</font>"
+                                break
+                            case 2:
+                                feasibility = "  <font color=\"lightgreen\">probably feasible</font>"
+                                break
+                            case 3:
+                                feasibility = "  <font color=\"darkgreen\">feasible</font>"
+                                break
+                            }
+
+                            return
+
                         }
 
-                        return
-
-
                     }
-
 
                 }
 
@@ -238,6 +265,16 @@ Page {
 
                         property real minimumChargingthreshhold
                         property real maximumChargingthreshhold
+
+                        property var batteryLevel
+                        property var capacityInAh
+                        property var batteryContentInAh
+                        property var minChargingCurrent
+
+                        property var necessaryEnergyinKwh
+
+
+
 
 
 
@@ -259,6 +296,12 @@ Page {
                         }
 
                         onPositionChanged: {
+                            feasibilityText()
+
+                        }
+
+
+                        function feasibilityText(){
                             if (value < maximumChargingthreshhold){
                                 endTimeLabel.endTimeValidityPrediction(1)
                             }
@@ -268,9 +311,16 @@ Page {
                             else{
                                 endTimeLabel.endTimeValidityPrediction(3)
                             }
+
+
                         }
 
                         function computeFeasibility(){
+
+                            // TODo: Ladespannung von Wallbox ermittlen
+                            //       Wieviel phasen hat die Wallbox
+                            //       generell wallbox data integrieren
+                            var loadingVoltage = 230
 
                             for (let i = 0; i < evProxy.get(comboboxev.currentIndex).thingClass.stateTypes.count; i++){
 
@@ -278,39 +328,35 @@ Page {
 
                                 if (evProxy.get(comboboxev.currentIndex).thingClass.stateTypes.get(i).name === "capacity" ){
                                     var capacity = evProxy.get(comboboxev.currentIndex).states.getState(thingStateId).value
-                                    var capacityInAh = (capacity*1000)/230
+                                    capacityInAh = (capacity*1000)/loadingVoltage
                                 }
                                 if (evProxy.get(comboboxev.currentIndex).thingClass.stateTypes.get(i).name === "minChargingCurrent" ){
 
-                                    var minChargingCurrent = evProxy.get(comboboxev.currentIndex).states.getState(thingStateId).value
+                                    minChargingCurrent = evProxy.get(comboboxev.currentIndex).states.getState(thingStateId).value
                                     // for testing reasons
-                                    if (comboboxev.currentIndex === 2){
-
-                                        minChargingCurrent = 10
-                                    }
 
 
                                 }
                                 if (evProxy.get(comboboxev.currentIndex).thingClass.stateTypes.get(i).name === "batteryLevel" ){
-                                    var batteryLevel = evProxy.get(comboboxev.currentIndex).states.getState(thingStateId).value
+                                    batteryLevel = evProxy.get(comboboxev.currentIndex).states.getState(thingStateId).value
                                     // not sure if in form 0 - 100 or 0 - 1
-                                    var batteryContentInAh = capacityInAh * batteryLevel/100
+                                    batteryContentInAh = capacityInAh * batteryLevel/100
                                 }
                             }
 
 
                                var targetSOCinAh = capacityInAh * targetSOC/100
-                               // for loading full
-                               var necessaryContentInAh = capacityInAh - batteryContentInAh
+
 
                                var necessaryTimeinHMinCharg = (targetSOCinAh - batteryContentInAh)/minChargingCurrent
                                var necessaryTimeinHMaxCharg = (targetSOCinAh - batteryContentInAh)/16
 
+                               necessaryEnergyinKwh = ((targetSOCinAh - batteryContentInAh) * loadingVoltage)/1000
 
-                                minimumChargingthreshhold = necessaryTimeinHMinCharg*60
-                                maximumChargingthreshhold = necessaryTimeinHMaxCharg*60
+                               minimumChargingthreshhold = necessaryTimeinHMinCharg*60
+                               maximumChargingthreshhold = necessaryTimeinHMaxCharg*60
 
-                                footer.text = "needed minutes with maximum charging speed: " + maximumChargingthreshhold
+                               //footer.text = "necessaryEnergyinKwh:  " + necessaryEnergyinKwh
 
 
 
@@ -370,17 +416,19 @@ Page {
 
 
 
-
-
+                        var necessaryEnergyinKwh = ((endTimeSlider.capacityInAh * endTimeSlider.targetSOC/100 - endTimeSlider.batteryContentInAh) * 230)/1000
+                        footer.text = necessaryEnergyinKwh
                         // TODO: wait for response
                         //d.pendingCallId =
-                                hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId  , optimizationEnabledSwitch.checked, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked)
+                                hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId  , optimizationEnabledSwitch.checked, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked, necessaryEnergyinKwh)
 
 
 
 
 
                     }
+
+
 
 
 

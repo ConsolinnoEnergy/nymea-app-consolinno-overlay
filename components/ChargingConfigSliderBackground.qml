@@ -23,7 +23,7 @@ import QtQuick.Layouts 1.3
             x: chargingConfigSlider.parent.leftPadding
             y: chargingConfigSlider.parent.topPadding + chargingConfigSlider.parent.Height / 2 - height / 2
 
-            implicitWidth: chargingConfigSlider.infeasibleSectionWidth ? chargingConfigSlider.infeasibleSectionWidth : 0
+            implicitWidth: parent.infeasibleSectionWidth ? parent.infeasibleSectionWidth : 0
             implicitHeight: 4
             color: "red"
 
@@ -43,7 +43,7 @@ import QtQuick.Layouts 1.3
             id: maybeFeasibleSection
             x: chargingConfigSlider.parent.leftPadding
             y: chargingConfigSlider.parent.topPadding + chargingConfigSlider.parent.availableHeight / 2 - height / 2
-            implicitWidth: chargingConfigSlider.maybeFeasibleSectionWidth ? chargingConfigSlider.maybeFeasibleSectionWidth : 0
+            implicitWidth: parent.maybeFeasibleSectionWidth ? parent.maybeFeasibleSectionWidth : 0
             implicitHeight: 4
             color: "yellow"
 
@@ -55,7 +55,7 @@ import QtQuick.Layouts 1.3
             id: feasibleSection
             x: chargingConfigSlider.parent.leftPadding
             y: chargingConfigSlider.parent.topPadding + chargingConfigSlider.parent.availableHeight / 2 - height / 2
-            implicitWidth: chargingConfigSlider.feasibleSectionWidth ? chargingConfigSlider.feasibleSectionWidth : 0
+            implicitWidth: parent.feasibleSectionWidth ? parent.feasibleSectionWidth : 0
             implicitHeight: 4
             color: "green"
 
