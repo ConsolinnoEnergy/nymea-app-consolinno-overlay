@@ -1,5 +1,5 @@
 import QtQuick 2.12
-import QtQuick.Controls 2.4
+import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
@@ -58,10 +58,14 @@ Page {
             //property bool configurationSettingsChanged
 
             header: NymeaHeader {
-                text: qsTr("Charging configuration")
+                text: qsTr("Charging configuration") + " - " + evChargerThing.name
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
+
+
+
+
 
 
 
@@ -108,6 +112,7 @@ Page {
                 anchors.topMargin: app.margins
                 anchors.margins: app.margins
 
+                /*
                 Label {
                     Layout.fillWidth: true
                     Layout.leftMargin: app.margins
@@ -115,6 +120,7 @@ Page {
                     text: evChargerThing.name
                     wrapMode: Text.WordWrap
                 }
+                */
 
                 RowLayout {
                     Layout.fillWidth: true
@@ -175,8 +181,88 @@ Page {
                     Switch {
                         id: optimizationEnabledSwitch
                         Component.onCompleted: checked = chargingConfiguration.optimizationEnabled
+
+
                     }
+
                 }
+
+
+                RowLayout{
+                Layout.fillWidth: true
+                visible: optimizationEnabledSwitch.checked
+
+                Label {
+                    Layout.fillWidth: true
+                    text: qsTr("Optimization mode: ")
+                }
+
+
+                    // will replace the Optimization enabled switch, since there will be more optimization options
+                    ComboBox {
+                        id: comboboxloadingmod
+                        Layout.fillWidth: true
+                        model: ListModel{
+                            ListElement{key: "Pv optimized"; value: "PvOpimized"}
+                            ListElement{key: "fast charging"; value: "FastCharging"}
+
+
+
+
+                        }
+
+                        textRole: "key"
+                        //currentIndex: evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId ))
+
+                        onCurrentIndexChanged: {
+
+
+
+                            if ( model.get(currentIndex).value === "FastCharging" ){
+                                footer.text = "fast charging activated"
+
+                            }
+
+
+                        }
+
+
+
+
+                    }
+
+
+                }
+
+                RowLayout{
+
+                    Label{
+                    id: batteryid
+                    Layout.fillWidth: true
+                    text: qsTr("Current battery charge: ")
+
+                    }
+
+                    TextField {
+                        id: batterycharge
+                        Layout.minimumWidth: 35
+                        Layout.maximumWidth: 35
+                        Layout.alignment: Qt.AlignRight
+
+                        text: endTimeSlider.batteryLevel + "%"
+                        readOnly: true
+
+
+                        //onTextChanged:
+
+                    }
+
+
+
+
+
+                }
+
 
 
                 Label {
@@ -258,6 +344,8 @@ Page {
 
                     Slider {
                         id: endTimeSlider
+                        Layout.fillWidth: true
+                        implicitWidth: backgroundEndTimeSlider.implicitWidth
                         property int chargingConfigHours: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours()
                         property int chargingConfigMinutes: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes()
                         property int nextDay: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() < 0 ? 1 : 0
@@ -278,7 +366,7 @@ Page {
 
 
 
-                        Layout.fillWidth: true
+
                         from: 0
                         to: 24*60
                         stepSize: 1
@@ -288,6 +376,7 @@ Page {
                         background: ChargingConfigSliderBackground{
 
                             id: backgroundEndTimeSlider
+                            Layout.fillWidth: true
 
 
                             infeasibleSectionWidth: endTimeSlider.width * endTimeSlider.maximumChargingthreshhold/(24*60)
@@ -414,29 +503,33 @@ Page {
 
                         //footer.text = "saved"
 
+                        dialog.visible = true
 
-
-                        var necessaryEnergyinKwh = ((endTimeSlider.capacityInAh * endTimeSlider.targetSOC/100 - endTimeSlider.batteryContentInAh) * 230)/1000
-                        footer.text = necessaryEnergyinKwh
+                        //var necessaryEnergyinKwh = ((endTimeSlider.capacityInAh * endTimeSlider.targetSOC/100 - endTimeSlider.batteryContentInAh) * 230)/1000
+                        //footer.text = necessaryEnergyinKwh
                         // TODO: wait for response
                         //d.pendingCallId =
-                                hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId  , optimizationEnabledSwitch.checked, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked, necessaryEnergyinKwh)
-
-
-
+                               // hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId  , optimizationEnabledSwitch.checked, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked, necessaryEnergyinKwh)
 
 
                     }
+                }
+
+                Dialog{
+                    id: dialog
+                    title: "Title"
+                    standardButtons: Dialog.Ok | Dialog.Cancel
 
 
-
-
-
-
-
-
+                    onAccepted:{
+                        var necessaryEnergyinKwh = ((endTimeSlider.capacityInAh * endTimeSlider.targetSOC/100 - endTimeSlider.batteryContentInAh) * 230)/1000
+                        d.pendingCallId = hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId  , optimizationEnabledSwitch.checked, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked, necessaryEnergyinKwh)
+                    }
+                    onRejected: console.log("Cancel clicked")
 
                 }
+
+
             }
         }
     }
