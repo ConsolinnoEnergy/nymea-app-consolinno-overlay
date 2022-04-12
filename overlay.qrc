@@ -35,5 +35,6 @@
         <file>mainviews/DetailedGraphsPage.qml</file>
         <file>optimization/PVConfigurationView.qml</file>
         <file>components/ChargingConfigSliderBackground.qml</file>
+        <file>optimization/ChargingConfigView.qml</file>
     </qresource>
 </RCC>

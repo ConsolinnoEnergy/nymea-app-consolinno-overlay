@@ -16,13 +16,32 @@ Page {
     }
 
     property HemsManager hemsManager
+    /*
+    property bool ChargingConfigurationVisibility:{
+        for(let i; i < evChargerProxy.count; i++){
+
+
+        }
+
+    }
+
+    ThingsProxy{
+    id: evChargerProxy
+    engine: _engine
+    shownInterfaces: ["evcharger"]
+    }
+    */
+
+
+
+
 
     ListModel {
         id: useCasesModel
         ListElement { text: qsTr("Blackout protection"); value: HemsManager.HemsUseCaseBlackoutProtection }
         ListElement { text: qsTr("Heating"); value: HemsManager.HemsUseCaseHeating }
-        ListElement { text: qsTr("Charging"); value: HemsManager.HemsUseCaseCharging }
-       ListElement { text: qsTr("Pv"); value: HemsManager.HemsUseCasePv }
+        ListElement { text: qsTr("Charging"); value: HemsManager.HemsUseCaseCharging; }
+        ListElement { text: qsTr("Pv"); value: HemsManager.HemsUseCasePv}
 
     }
 

@@ -14,7 +14,7 @@ import QtQuick.Layouts 1.3
 
         property real infeasibleSectionWidth
         property real feasibleSectionWidth
-        property real maybeFeasibleSectionWidth
+
 
 
 
@@ -22,7 +22,7 @@ import QtQuick.Layouts 1.3
             id: infeasibleSection
             x: chargingConfigSlider.parent.leftPadding
             y: chargingConfigSlider.parent.topPadding + chargingConfigSlider.parent.Height / 2 - height / 2
-
+            Layout.leftMargin: 0
             Layout.minimumWidth: infeasibleSectionWidth
 
             implicitHeight: 4
@@ -34,21 +34,11 @@ import QtQuick.Layouts 1.3
         }
 
         Rectangle{
-            id: maybeFeasibleSection
-            x: chargingConfigSlider.parent.leftPadding
-            y: chargingConfigSlider.parent.topPadding + chargingConfigSlider.parent.availableHeight / 2 - height / 2
-            Layout.minimumWidth: maybeFeasibleSectionWidth
-            implicitHeight: 4
-            color: "yellow"
-
-
-
-        }
-
-        Rectangle{
             id: feasibleSection
             x: chargingConfigSlider.parent.leftPadding
             y: chargingConfigSlider.parent.topPadding + chargingConfigSlider.parent.availableHeight / 2 - height / 2
+
+            Layout.leftMargin: 0
             Layout.minimumWidth: feasibleSectionWidth
             implicitHeight: 4
             color: "green"
