@@ -11,6 +11,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
     m_heatingConfigurations = new HeatingConfigurations(this);
     m_chargingConfigurations = new ChargingConfigurations(this);
     m_pvConfigurations = new PvConfigurations(this);
+    m_chargingSessionConfigurations = new ChargingSessionConfigurations(this);
 }
 
 HemsManager::~HemsManager()
@@ -62,6 +63,7 @@ void HemsManager::setEngine(Engine *engine)
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingConfigurations", QVariantMap(), this, "getHeatingConfigurationsResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingConfigurations", QVariantMap(), this, "getChargingConfigurationsResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetPvConfigurations", QVariantMap(), this, "getPvConfigurationsResponse");
+        m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingSessionConfigurations", QVariantMap(), this, "getChargingSessionConfigurationsResponse");
 
     }
 }
@@ -101,6 +103,11 @@ HeatingConfigurations *HemsManager::heatingConfigurations() const
 ChargingConfigurations *HemsManager::chargingConfigurations() const
 {
     return m_chargingConfigurations;
+}
+
+ChargingSessionConfigurations *HemsManager::chargingSessionConfigurations() const
+{
+    return m_chargingSessionConfigurations;
 }
 
 PvConfigurations *HemsManager::pvConfigurations() const
@@ -168,6 +175,33 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool op
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetChargingConfiguration", params, this, "setChargingConfigurationResponse");
 }
 
+
+int HemsManager::setChargingSessionConfiguration(const QUuid chargingSession, const QUuid carThingId, const QUuid evChargerThingid, const QTime started_at, const QTime finished_at, const float initial_battery_energy, const int duration, const float energy_charged, const float energy_battery, const int battery_level)
+{
+    Q_UNUSED(chargingSession)
+    //QUuid chargingSession = "f1b2ab71-61e3-40a4-8537-1b665043ee99";
+
+    QVariantMap chargingSessionConfiguration;
+    chargingSessionConfiguration.insert("chargingSessionThingId", "f1b2ab71-61e3-40a4-8537-1b665043ee99");
+    chargingSessionConfiguration.insert("carThingId", carThingId);
+    chargingSessionConfiguration.insert("evChargerThingId", evChargerThingid);
+    chargingSessionConfiguration.insert("startedAt", QTime(10,33) );
+    chargingSessionConfiguration.insert("finishedAt", QTime(5,3) );
+    chargingSessionConfiguration.insert("initialBatteryEnergy", initial_battery_energy);
+    chargingSessionConfiguration.insert("duration", duration);
+    chargingSessionConfiguration.insert("energyCharged", energy_charged);
+    chargingSessionConfiguration.insert("energyBattery", energy_battery);
+    chargingSessionConfiguration.insert("batteryLevel", battery_level);
+    QVariantMap params;
+    params.insert("chargingSessionConfiguration", chargingSessionConfiguration);
+
+    qCInfo(dcHems()) << "Set charging configuration" << params;
+
+    return m_engine->jsonRpcClient()->sendCommand("Hems.SetChargingSessionConfiguration", params, this, "setChargingSessionConfigurationResponse");
+}
+
+
+
 void HemsManager::notificationReceived(const QVariantMap &data)
 {
     QString notification = data.value("notification").toString();
@@ -191,6 +225,13 @@ void HemsManager::notificationReceived(const QVariantMap &data)
         m_chargingConfigurations->removeConfiguration(params.value("evChargerThingId").toUuid());
     } else if (notification == "Hems.ChargingConfigurationChanged") {
         addOrUpdateChargingConfiguration(params.value("chargingConfiguration").toMap());
+    } else if (notification == "Hems.ChargingConfigurationAdded") {
+        addOrUpdateChargingSessionConfiguration(params.value("chargingSessionConfiguration").toMap());
+    } else if (notification == "Hems.ChargingSessionConfigurationRemoved") {
+        qCDebug(dcHems()) << "Charging configuration removed" << params.value("evChargerThingId").toUuid();
+        m_chargingSessionConfigurations->removeConfiguration(params.value("evChargerThingId").toUuid());
+    } else if (notification == "Hems.ChargingSessionConfigurationChanged") {
+        addOrUpdateChargingSessionConfiguration(params.value("chargingSessionConfiguration").toMap());
     } else if (notification == "Hems.HeatingConfigurationAdded") {
         addOrUpdateHeatingConfiguration(params.value("heatingConfiguration").toMap());
     } else if (notification == "Hems.HeatingConfigurationRemoved") {
@@ -255,7 +296,7 @@ void HemsManager::getChargingConfigurationsResponse(int commandId, const QVarian
 {
     Q_UNUSED(commandId)
 
-    qCDebug(dcHems()) << "Get Charging configurations" << data;
+    qCInfo(dcHems()) << "Get Charging configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("chargingConfigurations").toList()) {
         addOrUpdateChargingConfiguration(configurationVariant.toMap());
     }
@@ -264,6 +305,22 @@ void HemsManager::getChargingConfigurationsResponse(int commandId, const QVarian
     m_fetchingData = false;
     emit fetchingDataChanged();
 }
+
+
+void HemsManager::getChargingSessionConfigurationsResponse(int commandId, const QVariantMap &data)
+{
+    Q_UNUSED(commandId)
+
+    qCInfo(dcHems()) << "Get ChargingSession configurations" << data;
+    foreach (const QVariant &configurationVariant, data.value("chargingConfigurations").toList()) {
+        addOrUpdateChargingSessionConfiguration(configurationVariant.toMap());
+    }
+
+    // Last call from init sequence
+    m_fetchingData = false;
+    emit fetchingDataChanged();
+}
+
 
 void HemsManager::setHousholdPhaseLimitResponse(int commandId, const QVariantMap &data)
 {
@@ -291,6 +348,13 @@ void HemsManager::setChargingConfigurationResponse(int commandId, const QVariant
 
     qCDebug(dcHems()) << "Set charging configuration response" << data.value("hemsError").toString();
     emit setChargingConfigurationReply(commandId, data.value("hemsError").toString());
+}
+
+void HemsManager::setChargingSessionConfigurationResponse(int commandId, const QVariantMap &data)
+{
+
+    qCDebug(dcHems()) << "Set charging configuration response" << data.value("hemsError").toString();
+    emit setChargingSessionConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
 void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap)
@@ -347,6 +411,37 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
         qCDebug(dcHems()) << "Charging configuration changed" << configuration->evChargerThingId();
     }
 }
+
+void HemsManager::addOrUpdateChargingSessionConfiguration(const QVariantMap &configurationMap)
+{
+    QUuid chargingSessionUuid = configurationMap.value("chargingSessionThingId").toUuid();
+    ChargingSessionConfiguration *configuration = m_chargingSessionConfigurations->getChargingSessionConfiguration(chargingSessionUuid);
+    bool newConfiguration = false;
+    if (!configuration) {
+        newConfiguration = true;
+        configuration = new ChargingSessionConfiguration(this);
+        configuration->setChargingSessionThingId(chargingSessionUuid);
+    }
+
+    configuration->setCarThingId(configurationMap.value("carThingId").toUuid());
+    configuration->setEvChargerThingId(configurationMap.value("evChargerThingId").toUuid());
+    configuration->setStartedAt(configurationMap.value("started_at").toTime());
+    configuration->setFinishedAt(configurationMap.value("finished_at").toTime());
+    configuration->setInitialBatteryEnergy(configurationMap.value("initial_Battery_Energy").toFloat());
+    configuration->setDuration(configurationMap.value("duration").toInt());
+    configuration->setEnergyCharged(configurationMap.value("energy_Charged").toFloat());
+    configuration->setEnergyBattery(configurationMap.value("energy_Battery").toFloat());
+    configuration->setBatteryLevel(configurationMap.value("battery_Level").toInt());
+
+    if (newConfiguration) {
+        qCDebug(dcHems()) << "ChargingSession configuration added" << configuration->chargingSessionThingId();
+        m_chargingSessionConfigurations->addConfiguration(configuration);
+    } else {
+        qCDebug(dcHems()) << "ChargingSession configuration changed" << configuration->chargingSessionThingId();
+    }
+}
+
+
 
 void HemsManager::addOrUpdatePvConfiguration(const QVariantMap &configurationMap)
 {
