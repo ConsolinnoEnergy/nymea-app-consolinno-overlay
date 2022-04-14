@@ -87,19 +87,7 @@ void ChargingConfiguration::setZeroReturnPolicyEnabled(bool zeroReturnPolicyEnab
 
 
 
-float ChargingConfiguration::necessaryEnergy() const
-{
-    return m_necessaryEnergy;
-}
 
-void ChargingConfiguration::setNecessaryEnergy(float necessaryEnergy)
-{
-    if (m_necessaryEnergy == necessaryEnergy)
-        return;
-
-    m_necessaryEnergy = necessaryEnergy;
-    emit necessaryEnergyChanged(m_necessaryEnergy);
-}
 
 
 

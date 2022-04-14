@@ -156,7 +156,7 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, bool opti
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingConfiguration", params, this, "setHeatingConfigurationResponse");
 }
 
-int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId,  int hours,  int minutes, uint targetPercentage, bool zeroReturnPolicyEnabled, float necessaryEnergy)
+int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId,  int hours,  int minutes, uint targetPercentage, bool zeroReturnPolicyEnabled)
 {
 
     QVariantMap chargingConfiguration;
@@ -165,7 +165,6 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool op
     chargingConfiguration.insert("carThingId", carThingId);
     chargingConfiguration.insert("endTime", QTime(hours,minutes).toString() );
     chargingConfiguration.insert("targetPercentage", targetPercentage);
-    chargingConfiguration.insert("necessaryEnergy", necessaryEnergy);
     chargingConfiguration.insert("zeroReturnPolicyEnabled", zeroReturnPolicyEnabled);
     QVariantMap params;
     params.insert("chargingConfiguration", chargingConfiguration);
@@ -176,17 +175,19 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool op
 }
 
 
-int HemsManager::setChargingSessionConfiguration(const QUuid chargingSession, const QUuid carThingId, const QUuid evChargerThingid, const QTime started_at, const QTime finished_at, const float initial_battery_energy, const int duration, const float energy_charged, const float energy_battery, const int battery_level)
+int HemsManager::setChargingSessionConfiguration(const QUuid carThingId, const QUuid evChargerThingid, const QString started_at, const QString finished_at, const float initial_battery_energy, const int duration, const float energy_charged, const float energy_battery, const int battery_level)
 {
-    Q_UNUSED(chargingSession)
+    //Q_UNUSED(chargingSession)
     //QUuid chargingSession = "f1b2ab71-61e3-40a4-8537-1b665043ee99";
+   // QUuid chargingSessionThingId;
+
 
     QVariantMap chargingSessionConfiguration;
-    chargingSessionConfiguration.insert("chargingSessionThingId", "f1b2ab71-61e3-40a4-8537-1b665043ee99");
+   // chargingSessionConfiguration.insert("chargingSessionThingId", chargingSessionThingId.createUuid() );
     chargingSessionConfiguration.insert("carThingId", carThingId);
     chargingSessionConfiguration.insert("evChargerThingId", evChargerThingid);
-    chargingSessionConfiguration.insert("startedAt", QTime(10,33) );
-    chargingSessionConfiguration.insert("finishedAt", QTime(5,3) );
+    chargingSessionConfiguration.insert("startedAt", started_at );
+    chargingSessionConfiguration.insert("finishedAt", finished_at );
     chargingSessionConfiguration.insert("initialBatteryEnergy", initial_battery_energy);
     chargingSessionConfiguration.insert("duration", duration);
     chargingSessionConfiguration.insert("energyCharged", energy_charged);

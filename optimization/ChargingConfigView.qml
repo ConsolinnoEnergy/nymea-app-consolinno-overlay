@@ -687,8 +687,8 @@ Page {
 
 
                         var necessaryEnergyinKwh = ((endTimeSlider.capacityInAh * endTimeSlider.targetSOC/100 - endTimeSlider.batteryContentInAh) * 230)/1000
-                        hemsManager.setChargingConfiguration(thing.id, optimizationEnabled, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked, necessaryEnergyinKwh)
-                        hemsManager.setChargingSessionConfiguration("7baf3991-efa1-45d9-9963-f3fe04975ce5", "a50187f1-57eb-4eaf-b75a-d59dabf2749c", "a50187f1-57eb-4eaf-b75a-d59dabf2749c", "05:11", "10:22", 33, 12, 12, 2, 5)
+                        hemsManager.setChargingConfiguration(thing.id, optimizationEnabled, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked)
+                        hemsManager.setChargingSessionConfiguration( comboboxev.model.get(comboboxev.currentIndex).id , thing.id, "05:11", "10:22", 3, 3, 3, 3, 3)
                         pageStack.pop()
 
                     }
