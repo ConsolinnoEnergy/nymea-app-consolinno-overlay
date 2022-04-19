@@ -19,6 +19,8 @@ QVariant ChargingConfigurations::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->evChargerThingId();
     case RoleOptimizationEnabled:
         return m_list.at(index.row())->optimizationEnabled();
+    case RoleOptimizationMode:
+        return m_list.at(index.row())->optimizationMode();
     case RoleCarThingId:
         return m_list.at(index.row())->carThingId();
     case RoleEndTime:
@@ -36,6 +38,7 @@ QHash<int, QByteArray> ChargingConfigurations::roleNames() const
     QHash<int, QByteArray> roles;
     roles.insert(RoleEvChargerThingId, "evChargerThingId");
     roles.insert(RoleOptimizationEnabled, "optimizationEnabled");
+    roles.insert(RoleOptimizationMode, "optimizationMode");
     roles.insert(RoleCarThingId, "carThingId");
     roles.insert(RoleEndTime, "endTime");
     roles.insert(RoleTargetPercentage, "targetPercentage");
@@ -64,6 +67,11 @@ void ChargingConfigurations::addConfiguration(ChargingConfiguration *chargingCon
     connect(chargingConfiguration, &ChargingConfiguration::optimizationEnabledChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(chargingConfiguration));
         emit dataChanged(idx, idx, {RoleOptimizationEnabled});
+    });
+
+    connect(chargingConfiguration, &ChargingConfiguration::optimizationModeChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(chargingConfiguration));
+        emit dataChanged(idx, idx, {RoleOptimizationMode});
     });
 
     connect(chargingConfiguration, &ChargingConfiguration::carThingIdChanged, this, [=](){

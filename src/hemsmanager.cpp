@@ -107,6 +107,7 @@ ChargingConfigurations *HemsManager::chargingConfigurations() const
 
 ChargingSessionConfigurations *HemsManager::chargingSessionConfigurations() const
 {
+    qCInfo(dcHems()) << "ChargingSessionConfiguration in hemsmanager";
     return m_chargingSessionConfigurations;
 }
 
@@ -156,12 +157,13 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, bool opti
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingConfiguration", params, this, "setHeatingConfigurationResponse");
 }
 
-int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId,  int hours,  int minutes, uint targetPercentage, bool zeroReturnPolicyEnabled)
+int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId,  int hours,  int minutes, uint targetPercentage, bool zeroReturnPolicyEnabled, int optimizationMode)
 {
 
     QVariantMap chargingConfiguration;
     chargingConfiguration.insert("evChargerThingId", evChargerThingId);
     chargingConfiguration.insert("optimizationEnabled", optimizationEnabled);
+    chargingConfiguration.insert("optimizationMode", optimizationMode);
     chargingConfiguration.insert("carThingId", carThingId);
     chargingConfiguration.insert("endTime", QTime(hours,minutes).toString() );
     chargingConfiguration.insert("targetPercentage", targetPercentage);
@@ -175,15 +177,15 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool op
 }
 
 
-int HemsManager::setChargingSessionConfiguration(const QUuid carThingId, const QUuid evChargerThingid, const QString started_at, const QString finished_at, const float initial_battery_energy, const int duration, const float energy_charged, const float energy_battery, const int battery_level)
+int HemsManager::setChargingSessionConfiguration(const QUuid carThingId, const QUuid evChargerThingid, const QString started_at, const QString finished_at, const float initial_battery_energy, const int duration, const float energy_charged, const float energy_battery, const int battery_level, const QUuid sessionId, const int state, const int timestamp)
 {
-    //Q_UNUSED(chargingSession)
+    Q_UNUSED(sessionId)
+    QUuid chargingSession;
     //QUuid chargingSession = "f1b2ab71-61e3-40a4-8537-1b665043ee99";
    // QUuid chargingSessionThingId;
 
 
     QVariantMap chargingSessionConfiguration;
-   // chargingSessionConfiguration.insert("chargingSessionThingId", chargingSessionThingId.createUuid() );
     chargingSessionConfiguration.insert("carThingId", carThingId);
     chargingSessionConfiguration.insert("evChargerThingId", evChargerThingid);
     chargingSessionConfiguration.insert("startedAt", started_at );
@@ -193,6 +195,10 @@ int HemsManager::setChargingSessionConfiguration(const QUuid carThingId, const Q
     chargingSessionConfiguration.insert("energyCharged", energy_charged);
     chargingSessionConfiguration.insert("energyBattery", energy_battery);
     chargingSessionConfiguration.insert("batteryLevel", battery_level);
+    chargingSessionConfiguration.insert("sessionId", chargingSession.createUuid());
+    chargingSessionConfiguration.insert("state", state);
+    chargingSessionConfiguration.insert("timestamp", timestamp);
+
     QVariantMap params;
     params.insert("chargingSessionConfiguration", chargingSessionConfiguration);
 
@@ -313,7 +319,7 @@ void HemsManager::getChargingSessionConfigurationsResponse(int commandId, const 
     Q_UNUSED(commandId)
 
     qCInfo(dcHems()) << "Get ChargingSession configurations" << data;
-    foreach (const QVariant &configurationVariant, data.value("chargingConfigurations").toList()) {
+    foreach (const QVariant &configurationVariant, data.value("chargingSessionConfigurations").toList()) {
         addOrUpdateChargingSessionConfiguration(configurationVariant.toMap());
     }
 
@@ -400,6 +406,7 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
     }
 
     configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
+    configuration->setOptimizationMode(configurationMap.value("optimizationMode").toInt());
     configuration->setCarThingId(configurationMap.value("carThingId").toUuid());
     configuration->setEndTime(configurationMap.value("endTime").toString());
     configuration->setTargetPercentage(configurationMap.value("targetPercentage").toUInt());
@@ -415,30 +422,29 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
 
 void HemsManager::addOrUpdateChargingSessionConfiguration(const QVariantMap &configurationMap)
 {
-    QUuid chargingSessionUuid = configurationMap.value("chargingSessionThingId").toUuid();
+    QUuid chargingSessionUuid = configurationMap.value("evChargerThingId").toUuid();
     ChargingSessionConfiguration *configuration = m_chargingSessionConfigurations->getChargingSessionConfiguration(chargingSessionUuid);
     bool newConfiguration = false;
     if (!configuration) {
         newConfiguration = true;
         configuration = new ChargingSessionConfiguration(this);
-        configuration->setChargingSessionThingId(chargingSessionUuid);
+        configuration->setEvChargerThingId(chargingSessionUuid);
     }
 
     configuration->setCarThingId(configurationMap.value("carThingId").toUuid());
-    configuration->setEvChargerThingId(configurationMap.value("evChargerThingId").toUuid());
-    configuration->setStartedAt(configurationMap.value("started_at").toTime());
-    configuration->setFinishedAt(configurationMap.value("finished_at").toTime());
-    configuration->setInitialBatteryEnergy(configurationMap.value("initial_Battery_Energy").toFloat());
+    configuration->setStartedAt(configurationMap.value("startedAt").toTime());
+    configuration->setFinishedAt(configurationMap.value("finishedAt").toTime());
+    configuration->setInitialBatteryEnergy(configurationMap.value("initialBatteryEnergy").toFloat());
     configuration->setDuration(configurationMap.value("duration").toInt());
-    configuration->setEnergyCharged(configurationMap.value("energy_Charged").toFloat());
-    configuration->setEnergyBattery(configurationMap.value("energy_Battery").toFloat());
-    configuration->setBatteryLevel(configurationMap.value("battery_Level").toInt());
+    configuration->setEnergyCharged(configurationMap.value("energyCharged").toFloat());
+    configuration->setEnergyBattery(configurationMap.value("energyBattery").toFloat());
+    configuration->setBatteryLevel(configurationMap.value("batteryLevel").toInt());
 
     if (newConfiguration) {
-        qCDebug(dcHems()) << "ChargingSession configuration added" << configuration->chargingSessionThingId();
+        qCInfo(dcHems()) << "ChargingSession configuration added" << configuration->evChargerThingId();
         m_chargingSessionConfigurations->addConfiguration(configuration);
     } else {
-        qCDebug(dcHems()) << "ChargingSession configuration changed" << configuration->chargingSessionThingId();
+        qCInfo(dcHems()) << "ChargingSession configuration changed" << configuration->evChargerThingId();
     }
 }
 

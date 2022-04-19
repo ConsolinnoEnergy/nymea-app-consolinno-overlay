@@ -186,6 +186,12 @@ MainViewBase {
     }
 
     ThingsProxy {
+        id: evProxy
+        engine: _engine
+        shownInterfaces: ["electricvehicle"]
+    }
+
+    ThingsProxy {
         id: energyMetersProxy
         engine: _engine
         shownInterfaces: ["energymeter"]
@@ -735,7 +741,7 @@ MainViewBase {
                             onClicked: {
                                 print("Clicked consumer", index, thing.name)
                                 if (thing.thingClass.interfaces.indexOf("evcharger") >= 0) {
-                                    pageStack.push("../optimization/ChargingConfigView.qml", {hemsManager: hemsManager, thing: thing})
+                                    pageStack.push("../optimization/ChargingConfigView.qml", {hemsManager: hemsManager, thing: thing, carThing:  evProxy.getThing( hemsManager.chargingSessionConfigurations.getChargingSessionConfiguration(thing.id).carThingId )  })
                                 } else {
                                     pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                                 }

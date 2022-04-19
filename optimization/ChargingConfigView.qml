@@ -14,10 +14,20 @@ Page {
 
     property HemsManager hemsManager
     property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
+    property ChargingSessionConfiguration chargingSessionConfiguration: hemsManager.chargingSessionConfigurations.getChargingSessionConfiguration(thing.id)
+    property Thing carThing
     property Thing thing
 
 
 
+
+    ThingsProxy {
+        id: evProxy
+        engine: _engine
+        shownInterfaces: ["electricvehicle"]
+    }
+
+    property string pageSelectedCar: carThing.name
     header: NymeaHeader {
         text: qsTr("Charging configuration") + " - " + thing.name
         backButtonVisible: true
@@ -89,7 +99,7 @@ Page {
 
             Label{
                 id: selectedCar
-                text: " -- "
+                text: pageSelectedCar
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -105,7 +115,7 @@ Page {
 
             Label{
                 id: loadingModes
-                text: " -- "
+                text: chargingConfiguration.optimizationEnabled ? "Pv optimized" : " -- "
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -121,7 +131,12 @@ Page {
 
             Label{
                 id: targetChargeReached
-                text: " -- "
+                property var today: new Date()
+                property var tomorrow: new Date( today.getTime() + 1000*60*60*24)
+                // determine whether it is today or tomorrow
+                property var date: (parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) < today.getHours() ) | ( ( parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) === today.getHours() ) & parseInt(chargingConfiguration.endTime[3]+chargingConfiguration.endTime[4]) >= today.getMinutes() ) ? tomorrow : today
+
+                text:  chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd/MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "HH:mm:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm")   : " -- "
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -137,7 +152,7 @@ Page {
 
             Label{
                 id: targetCharge
-                text: " -- "
+                text:  chargingConfiguration.optimizationEnabled ? chargingConfiguration.targetPercentage + " %" : " -- "
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -169,12 +184,18 @@ Page {
 
             Rectangle{
                 id: status
+                property bool interrupted
+                property bool charging
+                property bool finished
+                property bool pause
 
 
                 width: 17
                 height: 17
                 Layout.rightMargin: 0
                 Layout.alignment: Qt.AlignRight
+
+
                 color: "green"
                 border.color: "black"
                 border.width: 1
@@ -202,12 +223,12 @@ Page {
             Label{
                 id: currentLoadingCurrentLabel
                 Layout.fillWidth: true
-                text: "Current loading current:"
+                text: "Current battery charge:"
 
             }
             Label{
                 id: currentLoadingCurrent
-                text: "to be implemented"
+                text: chargingSessionConfiguration.batteryLevel
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -219,12 +240,12 @@ Page {
             Label{
                 id: alreadyLoadedLabel
                 Layout.fillWidth: true
-                text: "Already loaded:"
+                text: "Amount of Energy charged:"
 
             }
             Label{
                 id: alreadyLoaded
-                text: "to be implemented"
+                text: chargingSessionConfiguration.energyBattery
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -239,10 +260,10 @@ Page {
         RowLayout{
         id: createLoadingSchedule
         Layout.fillWidth: true
-       // visible: !chargingConfiguration.optimizationEnabled
+        visible: !chargingConfiguration.optimizationEnabled
         Button{
             Layout.fillWidth: true
-            text: "Create Loading Schedule"
+            text: "Configure Charging"
             onClicked: {    pageStack.push(optimizationComponent , { hemsManager: hemsManager, thing: thing })
 
 
@@ -251,23 +272,25 @@ Page {
         }
 
         }
-        /*
+
         RowLayout{
         id: cancelLoadingSchedule
         Layout.fillWidth: true
         visible: chargingConfiguration.optimizationEnabled
         Button{
             Layout.fillWidth: true
-            text: "Cancel Loading Schedule"
+            text: "Cancel Charging Schedule"
             onClicked: {
+                var endTimeHours =
 
-                pageStack.push(optimizationComponent , { hemsManager: hemsManager, thing: thing })
+                hemsManager.setChargingConfiguration(thing.id, false, chargingConfiguration.carThingId,   Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours() , Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes() , chargingConfiguration.targetPercentage, chargingConfiguration.zeroReturnPolicyEnabled, chargingConfiguration.optimizationMode)
+                //pageStack.push(optimizationComponent , { hemsManager: hemsManager, thing: thing })
             }
 
         }
 
         }
-        */
+
 }
 
 
@@ -282,6 +305,8 @@ Page {
                 property HemsManager hemsManager
                 property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
                 property Thing thing
+
+
 
 
                 header: NymeaHeader {
@@ -316,14 +341,10 @@ Page {
 
 
                         Layout.fillWidth: true
-                        model: ThingsProxy {
-                            id: evProxy
-                            engine: _engine
-                            shownInterfaces: ["electricvehicle"]
-                        }
+                        model: evProxy
 
                         textRole: "name"
-                        currentIndex: evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId ))
+                        currentIndex: evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId))
 
                         onCurrentIndexChanged: {
                             endTimeSlider.computeFeasibility()
@@ -352,7 +373,7 @@ Page {
 
                     Label {
                         Layout.fillWidth: true
-                        text: qsTr("Optimization mode: ")
+                        text: qsTr("Charging mode: ")
                     }
 
 
@@ -363,8 +384,8 @@ Page {
 
                         Layout.fillWidth: true
                         model: ListModel{
-                            ListElement{key: "Pv optimized"; value: "PvOpimized"}
-                            ListElement{key: "fast charging"; value: "FastCharging"}
+                            ListElement{key: "Pv optimized"; value: "Pv-Optimized"}
+                            ListElement{key: "fast charging"; value: "No Optimization"}
 
 
 
@@ -378,20 +399,12 @@ Page {
 
 
 
-                            if ( model.get(currentIndex).value === "FastCharging" ){
+                            if ( model.get(currentIndex).key === "fast charging" ){
                                 footer.text = "fast charging activated"
 
                             }
-
-
                         }
-
-
-
-
                     }
-
-
                 }
 
                 RowLayout{
@@ -527,7 +540,7 @@ Page {
                         from: 0
                         to: 24*60
                         stepSize: 1
-                        //         von config hours      von config minutes         current hours                    current minutes                 add a day if negative (since it means it is the next day)
+                        //         from config hours      from config minutes         current hours                    current minutes                 add a day if negative (since it means it is the next day)
                         value: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() + nextDay*24*60
 
                         background: ChargingConfigSliderBackground{
@@ -598,10 +611,6 @@ Page {
                             minimumChargingthreshhold = necessaryTimeinHMinCharg*60
                             maximumChargingthreshhold = necessaryTimeinHMaxCharg*60
 
-                            //footer.text = "necessaryEnergyinKwh:  " + necessaryEnergyinKwh
-
-
-
                         }
 
 
@@ -652,8 +661,6 @@ Page {
 
 
                         // Maintool to debug
-
-
                         //footer.text = "saved"
 
                         dialog.visible = true
@@ -678,17 +685,19 @@ Page {
                         //footer.text = comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).value
 
                         var optimizationEnabled
-                        if (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).value  === "FastCharging"){
+                        if (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).key  === "fast charging"){
                             optimizationEnabled = false
                         }
                         else{
                             optimizationEnabled = true
                         }
 
+                        pageSelectedCar = comboboxev.model.get(comboboxev.currentIndex).name
+
 
                         var necessaryEnergyinKwh = ((endTimeSlider.capacityInAh * endTimeSlider.targetSOC/100 - endTimeSlider.batteryContentInAh) * 230)/1000
-                        hemsManager.setChargingConfiguration(thing.id, optimizationEnabled, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked)
-                        hemsManager.setChargingSessionConfiguration( comboboxev.model.get(comboboxev.currentIndex).id , thing.id, "05:11", "10:22", 3, 3, 3, 3, 3)
+                        hemsManager.setChargingConfiguration(thing.id, optimizationEnabled, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked, 1)
+                        hemsManager.setChargingSessionConfiguration( comboboxev.model.get(comboboxev.currentIndex).id , thing.id, "05:11", "10:22", 1, 1, 1, 1, 1, 3, 3, 500)
                         pageStack.pop()
 
                     }

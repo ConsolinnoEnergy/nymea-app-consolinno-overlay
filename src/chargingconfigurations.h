@@ -15,6 +15,7 @@ public:
     enum Role {
         RoleEvChargerThingId,
         RoleOptimizationEnabled,
+        RoleOptimizationMode,
         RoleCarThingId,
         RoleEndTime,
         RoleTargetPercentage,

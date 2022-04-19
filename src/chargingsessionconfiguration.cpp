@@ -5,16 +5,6 @@ ChargingSessionConfiguration::ChargingSessionConfiguration(QObject *parent): QOb
 
 }
 
-QUuid ChargingSessionConfiguration::chargingSessionThingId() const
-{
-    return m_chargingSessionthingId;
-}
-
-void ChargingSessionConfiguration::setChargingSessionThingId(const QUuid &chargingSessionThingId)
-{
-    m_chargingSessionthingId = chargingSessionThingId;
-}
-
 QUuid ChargingSessionConfiguration::carThingId() const
 {
     return m_carThingId;
@@ -103,6 +93,48 @@ int ChargingSessionConfiguration::batteryLevel() const
 void ChargingSessionConfiguration::setBatteryLevel(const int battery_level)
 {
     m_battery_level = battery_level;
+}
+
+QUuid ChargingSessionConfiguration::sessionId() const
+{
+    return m_sessionId;
+}
+
+void ChargingSessionConfiguration::setSessionId(QUuid sessionId)
+{
+    if (m_sessionId == sessionId)
+        return;
+
+    m_sessionId = sessionId;
+    emit sessionIdChanged(m_sessionId);
+}
+
+int ChargingSessionConfiguration::state() const
+{
+    return m_state;
+}
+
+void ChargingSessionConfiguration::setState(int state)
+{
+    if (m_state == state)
+        return;
+
+    m_state = state;
+    emit stateChanged(m_state);
+}
+
+int ChargingSessionConfiguration::timestamp() const
+{
+    return m_timestamp;
+}
+
+void ChargingSessionConfiguration::setTimestamp(int timstamp)
+{
+    if (m_timestamp == timstamp)
+        return;
+
+    m_timestamp = timstamp;
+    emit timestampChanged(m_timestamp);
 }
 
 

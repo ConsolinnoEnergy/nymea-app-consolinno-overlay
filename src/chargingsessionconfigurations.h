@@ -14,7 +14,6 @@ class ChargingSessionConfigurations : public QAbstractListModel
 
 public:
     enum Role {
-        RoleChargingSessionThingId,
         RoleEvChargerThingId,
         RoleStarted_at,
         RoleFinished_at,
@@ -23,7 +22,10 @@ public:
         RoleEnergy_Charged,
         RoleEnergy_Battery,
         RoleBattery_Level,
-        RoleCarThingId
+        RoleCarThingId,
+        RoleState,
+        RoleSessionId,
+        RoleTimestamp
     };
     Q_ENUM(Role);
 
@@ -33,10 +35,10 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
 
-    Q_INVOKABLE ChargingSessionConfiguration *getChargingSessionConfiguration(const QUuid &chargingSessionThingId) const;
+    Q_INVOKABLE ChargingSessionConfiguration *getChargingSessionConfiguration(const QUuid &evChargerThingId) const;
 
     void addConfiguration(ChargingSessionConfiguration *chargingSessionConfiguration);
-    void removeConfiguration(const QUuid &chargingSessionThingId);
+    void removeConfiguration(const QUuid &evChargerThingId);
 
 signals:
     void countChanged();

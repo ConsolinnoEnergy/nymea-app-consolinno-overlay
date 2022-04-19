@@ -87,6 +87,23 @@ void ChargingConfiguration::setZeroReturnPolicyEnabled(bool zeroReturnPolicyEnab
 
 
 
+int ChargingConfiguration::optimizationMode() const
+{
+    return m_optimizationMode;
+}
+
+void ChargingConfiguration::setOptimizationMode( int optimizationMode)
+{
+    if (m_optimizationMode == optimizationMode)
+        return;
+
+    m_optimizationMode = optimizationMode;
+    emit optimizationModeChanged(m_optimizationMode);
+}
+
+
+
+
 
 
 

@@ -1,4 +1,7 @@
 #include "chargingsessionconfigurations.h"
+#include "logging.h"
+NYMEA_LOGGING_CATEGORY(dcChargingSessionConfig, "ChargingSessionConfig")
+
 
 ChargingSessionConfigurations::ChargingSessionConfigurations(QObject *parent) :
     QAbstractListModel(parent)
@@ -15,10 +18,14 @@ int ChargingSessionConfigurations::rowCount(const QModelIndex &parent) const
 QVariant ChargingSessionConfigurations::data(const QModelIndex &index, int role) const
 {
     switch (role) {
-    case RoleChargingSessionThingId:
-        return m_list.at(index.row())->chargingSessionThingId();
     case RoleEvChargerThingId:
-        return m_list.at(index.row())->evChargerThingId();
+        return m_list.at(index.row())->evChargerThingId();   
+    case RoleState:
+        return m_list.at(index.row())->state();
+    case RoleSessionId:
+        return m_list.at(index.row())->sessionId();
+    case RoleTimestamp:
+        return m_list.at(index.row())->timestamp();
     case RoleCarThingId:
         return m_list.at(index.row())->carThingId();
     case RoleStarted_at:
@@ -45,25 +52,30 @@ QVariant ChargingSessionConfigurations::data(const QModelIndex &index, int role)
 QHash<int, QByteArray> ChargingSessionConfigurations::roleNames() const
 {
     QHash<int, QByteArray> roles;
-    roles.insert(RoleChargingSessionThingId, "chargingSessionThingId");
     roles.insert(RoleEvChargerThingId, "evChargerThingId");
     roles.insert(RoleCarThingId, "carThingId");
-    roles.insert(RoleStarted_at, "started_at");
-    roles.insert(RoleFinished_at, "finished_at");
-    roles.insert(RoleInitial_Battery_Energy, "initial_Battery_Energy");
-    roles.insert(RoleEnergy_Charged, "energy_Charged");
+    roles.insert(RoleState, "state");
+    roles.insert(RoleSessionId, "sessionId");
+    roles.insert(RoleTimestamp, "timestamp");
+    roles.insert(RoleStarted_at, "startedAt");
+    roles.insert(RoleFinished_at, "finishedAt");
+    roles.insert(RoleInitial_Battery_Energy, "initialBatteryEnergy");
+    roles.insert(RoleEnergy_Charged, "energyCharged");
     roles.insert(RoleDuration, "duration");
-    roles.insert(RoleEnergy_Battery, "energy_Battery");
-    roles.insert(RoleBattery_Level, "battery_Level");
+    roles.insert(RoleEnergy_Battery, "energyBattery");
+    roles.insert(RoleBattery_Level, "batteryLevel");
 
 
     return roles;
 }
 
-ChargingSessionConfiguration *ChargingSessionConfigurations::getChargingSessionConfiguration(const QUuid &chargingSessionThingId) const
+ChargingSessionConfiguration *ChargingSessionConfigurations::getChargingSessionConfiguration(const QUuid &evChargerThingId) const
 {
+    qCInfo(dcChargingSessionConfig()) << "getChargingSessionConfiguration m_list: " << m_list;
     foreach (ChargingSessionConfiguration *chargingSessionConfig, m_list) {
-        if (chargingSessionConfig->chargingSessionThingId() == chargingSessionThingId) {
+
+        if (chargingSessionConfig->evChargerThingId() == evChargerThingId) {
+            qCInfo(dcChargingSessionConfig()) << "give ChargingSessionConfig: ";
             return chargingSessionConfig;
         }
     }
@@ -86,6 +98,21 @@ void ChargingSessionConfigurations::addConfiguration(ChargingSessionConfiguratio
     connect(chargingSessionConfiguration, &ChargingSessionConfiguration::carThingIdChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(chargingSessionConfiguration));
         emit dataChanged(idx, idx, {RoleCarThingId});
+    });
+
+    connect(chargingSessionConfiguration, &ChargingSessionConfiguration::stateChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(chargingSessionConfiguration));
+        emit dataChanged(idx, idx, {RoleState});
+    });
+
+    connect(chargingSessionConfiguration, &ChargingSessionConfiguration::sessionIdChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(chargingSessionConfiguration));
+        emit dataChanged(idx, idx, {RoleSessionId});
+    });
+
+    connect(chargingSessionConfiguration, &ChargingSessionConfiguration::timestampChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(chargingSessionConfiguration));
+        emit dataChanged(idx, idx, {RoleTimestamp});
     });
 
     connect(chargingSessionConfiguration, &ChargingSessionConfiguration::startedAtChanged, this, [=](){
@@ -128,10 +155,10 @@ void ChargingSessionConfigurations::addConfiguration(ChargingSessionConfiguratio
     emit countChanged();
 }
 
-void ChargingSessionConfigurations::removeConfiguration(const QUuid &chargingSessionThingId)
+void ChargingSessionConfigurations::removeConfiguration(const QUuid &evChargerThingId)
 {
     for (int i = 0; i < m_list.count(); i++) {
-        if (m_list.at(i)->chargingSessionThingId() == chargingSessionThingId) {
+        if (m_list.at(i)->evChargerThingId() == evChargerThingId) {
             beginRemoveRows(QModelIndex(), i, i);
             m_list.takeAt(i)->deleteLater();
             endRemoveRows();
