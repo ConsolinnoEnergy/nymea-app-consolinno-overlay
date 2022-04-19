@@ -1,10 +1,11 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.1
+import QtQuick.Controls.Material 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
 import QtQml 2.2
 import Nymea 1.0
+
 import "../components"
 import "../delegates"
 
@@ -28,11 +29,15 @@ Page {
     }
 
     property string pageSelectedCar: carThing.name
+
     header: NymeaHeader {
         text: qsTr("Charging configuration") + " - " + thing.name
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
+
+
+
 
     ColumnLayout {
         id: infoColumnLayout
@@ -66,9 +71,23 @@ Page {
             }
         }
 
+        RowLayout{
+            id: noPluggedInRowLayout
+            visible: !thing.stateByName("pluggedIn")
+            Label{
+                id: noPluggedInLabel
+                text: " No car is connected at the moment. Please connect a car"
+                horizontalAlignment: Text.AlignHCenter
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignCenter
+            }
+        }
+
     }
 
-    ColumnLayout {
+
+
+ColumnLayout {
         id: stateOfLoadingColumnLayout
         anchors.left: parent.left
         anchors.right: parent.right
@@ -76,6 +95,7 @@ Page {
         anchors.topMargin: infoColumnLayout.height + 50
         anchors.margins: app.margins
         spacing: 10
+
 
 
 
@@ -99,7 +119,7 @@ Page {
 
             Label{
                 id: selectedCar
-                text: pageSelectedCar
+                text: thing.stateByName("pluggedIn").value ? pageSelectedCar : " -- "
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -115,9 +135,21 @@ Page {
 
             Label{
                 id: loadingModes
-                text: chargingConfiguration.optimizationEnabled ? "Pv optimized" : " -- "
+                text: chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationMode) : " -- "
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
+
+                function selectMode(){
+
+                    if (chargingConfiguration.optimizationMode == 0)
+                    {
+                        return "No Optimization"
+                    }
+                    else if (chargingConfiguration.optimizationMode == 1)
+                    {
+                        return "PV Optimized"
+                    }
+                }
 
             }
         }
@@ -168,6 +200,7 @@ Page {
         anchors.topMargin: stateOfLoadingColumnLayout.height + 50
         anchors.margins: app.margins
         spacing: 10
+
 
 
 
@@ -264,8 +297,15 @@ Page {
         Button{
             Layout.fillWidth: true
             text: "Configure Charging"
-            onClicked: {    pageStack.push(optimizationComponent , { hemsManager: hemsManager, thing: thing })
+            background: Rectangle{
+            color: thing.stateByName("pluggedIn").value ? "#87BD26" : "lightgrey"
+            radius: 4
+            }
 
+            onClicked: {
+                if (thing.stateByName("pluggedIn").value){
+                pageStack.push(optimizationComponent , { hemsManager: hemsManager, thing: thing })
+                }
 
             }
 
@@ -281,7 +321,7 @@ Page {
             Layout.fillWidth: true
             text: "Cancel Charging Schedule"
             onClicked: {
-                var endTimeHours =
+
 
                 hemsManager.setChargingConfiguration(thing.id, false, chargingConfiguration.carThingId,   Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours() , Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes() , chargingConfiguration.targetPercentage, chargingConfiguration.zeroReturnPolicyEnabled, chargingConfiguration.optimizationMode)
                 //pageStack.push(optimizationComponent , { hemsManager: hemsManager, thing: thing })
@@ -290,6 +330,7 @@ Page {
         }
 
         }
+
 
 }
 
@@ -380,12 +421,10 @@ Page {
                     // will replace the Optimization enabled switch, since there will be more optimization options
                     ComboBox {
                         id: comboboxloadingmod
-                        property var currentModi
-
                         Layout.fillWidth: true
                         model: ListModel{
-                            ListElement{key: "Pv optimized"; value: "Pv-Optimized"}
-                            ListElement{key: "fast charging"; value: "No Optimization"}
+                            ListElement{key: "Pv optimized"; value: "Pv-Optimized"; mode: 1}
+                            ListElement{key: "No Optimization"; value: "No Optimization"; mode: 0}
 
 
 
@@ -665,7 +704,6 @@ Page {
 
                         dialog.visible = true
 
-                        //var necessaryEnergyinKwh = ((endTimeSlider.capacityInAh * endTimeSlider.targetSOC/100 - endTimeSlider.batteryContentInAh) * 230)/1000
                         //footer.text = necessaryEnergyinKwh
                         // TODO: wait for response
                         //d.pendingCallId =
@@ -684,19 +722,10 @@ Page {
                     onAccepted:{
                         //footer.text = comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).value
 
-                        var optimizationEnabled
-                        if (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).key  === "fast charging"){
-                            optimizationEnabled = false
-                        }
-                        else{
-                            optimizationEnabled = true
-                        }
-
+                        // changes the
                         pageSelectedCar = comboboxev.model.get(comboboxev.currentIndex).name
 
-
-                        var necessaryEnergyinKwh = ((endTimeSlider.capacityInAh * endTimeSlider.targetSOC/100 - endTimeSlider.batteryContentInAh) * 230)/1000
-                        hemsManager.setChargingConfiguration(thing.id, optimizationEnabled, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked, 1)
+                        hemsManager.setChargingConfiguration(thing.id, true, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode)
                         hemsManager.setChargingSessionConfiguration( comboboxev.model.get(comboboxev.currentIndex).id , thing.id, "05:11", "10:22", 1, 1, 1, 1, 1, 3, 3, 500)
                         pageStack.pop()
 
