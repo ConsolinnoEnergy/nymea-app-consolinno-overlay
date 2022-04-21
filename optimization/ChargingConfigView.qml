@@ -33,8 +33,8 @@ Page {
     header: NymeaHeader {
         id: header
 
-        text: "false"
-        //text: qsTr("Charging configuration") + " - " + thing.name
+
+        text: qsTr("Charging configuration") + " - " + thing.name
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
