@@ -19,7 +19,7 @@ public:
         RoleCarThingId,
         RoleEndTime,
         RoleTargetPercentage,
-        RoleZeroReturnPolicy
+        RoleUniqueIdentifier,
     };
     Q_ENUM(Role);
 

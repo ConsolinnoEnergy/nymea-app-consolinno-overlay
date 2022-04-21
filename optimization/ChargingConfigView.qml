@@ -13,12 +13,12 @@ import "../delegates"
 Page {
     id: root
 
+
     property HemsManager hemsManager
     property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
     property ChargingSessionConfiguration chargingSessionConfiguration: hemsManager.chargingSessionConfigurations.getChargingSessionConfiguration(thing.id)
     property Thing carThing
     property Thing thing
-
 
 
 
@@ -29,8 +29,12 @@ Page {
     }
 
     property string pageSelectedCar: carThing.name
+    property var something: carThing.eventTriggered()
 
     header: NymeaHeader {
+        id: header
+        property int zähler: 0
+
         text: qsTr("Charging configuration") + " - " + thing.name
         backButtonVisible: true
         onBackPressed: pageStack.pop()
@@ -73,7 +77,7 @@ Page {
 
         RowLayout{
             id: noPluggedInRowLayout
-            visible: !thing.stateByName("pluggedIn")
+            visible: !(thing.stateByName("pluggedIn").value)
             Label{
                 id: noPluggedInLabel
                 text: " No car is connected at the moment. Please connect a car"
@@ -119,7 +123,7 @@ ColumnLayout {
 
             Label{
                 id: selectedCar
-                text: thing.stateByName("pluggedIn").value ? pageSelectedCar : " -- "
+                text: thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? pageSelectedCar : " -- " )  : " -- "
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -135,7 +139,7 @@ ColumnLayout {
 
             Label{
                 id: loadingModes
-                text: chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationMode) : " -- "
+                text: thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationMode) : " -- "   ) : " -- "
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -168,7 +172,7 @@ ColumnLayout {
                 // determine whether it is today or tomorrow
                 property var date: (parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) < today.getHours() ) | ( ( parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) === today.getHours() ) & parseInt(chargingConfiguration.endTime[3]+chargingConfiguration.endTime[4]) >= today.getMinutes() ) ? tomorrow : today
 
-                text:  chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd/MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "HH:mm:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm")   : " -- "
+                text: thing.stateByName("pluggedIn").value ? (  chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd/MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "HH:mm:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : " -- "  )   : " -- "
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -184,7 +188,7 @@ ColumnLayout {
 
             Label{
                 id: targetCharge
-                text:  chargingConfiguration.optimizationEnabled ? chargingConfiguration.targetPercentage + " %" : " -- "
+                text: thing.stateByName("pluggedIn").value ?(chargingConfiguration.optimizationEnabled ? chargingConfiguration.targetPercentage + " %" : " -- " ) : " -- "
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -214,25 +218,38 @@ ColumnLayout {
                 font.pixelSize: 22
                 font.bold: true
             }
+            ColumnLayout{
+                Layout.fillWidth: true
+                spacing: 0
+                Rectangle{
+                    id: status
 
-            Rectangle{
-                id: status
-                property bool interrupted
-                property bool charging
-                property bool finished
-                property bool pause
+                    //initiation   // yellow
+                    //running      // green
+                    //toBeCanceled // lightblue
+                    //canceled     // blue
+                    //notdefined   // white
+                    //disabled     // lightgrey
+                    //pausiert     // orange
 
 
-                width: 17
-                height: 17
-                Layout.rightMargin: 0
-                Layout.alignment: Qt.AlignRight
+                    width: 17
+                    height: 17
 
+                    Layout.alignment: Qt.AlignRight
 
-                color: "green"
-                border.color: "black"
-                border.width: 1
-                radius: width*0.5
+                                    //check if plugged in                 check if current power == 0           else show the current state the session is in atm
+                    color:  thing.stateByName("pluggedIn").value ? (thing.stateByName("currentPower") !== 0 ? (chargingSessionConfiguration.state === 0  ? "yellow" : chargingSessionConfiguration.state == 1 ? "green" : chargingSessionConfiguration.state == 2 ? "lightblue" : chargingSessionConfiguration.state == 3 ? "blue" : "white" ): "orange") : "lightgrey"
+                    border.color: "black"
+                    border.width: 1
+                    radius: width*0.5
+                }
+                Label{
+                    id: description
+                    text: "running"
+                    Layout.alignment: Qt.AlignRight
+                }
+
             }
 
 
@@ -240,10 +257,10 @@ ColumnLayout {
 
         RowLayout{
             id: noLoadingRowLayout
-            visible: !chargingConfiguration.optimizationEnabled
+            visible: ! (chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
             Label{
                 id: noLoadingLabel
-                text: "No loadingschedule active at the moment..."
+                text: "No chargingschedule active at the moment..."
                 horizontalAlignment: Text.AlignHCenter
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignCenter
@@ -252,7 +269,7 @@ ColumnLayout {
 
         RowLayout{
             id: loadingRowLayout
-            visible: chargingConfiguration.optimizationEnabled
+            visible: chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value
             Label{
                 id: currentLoadingCurrentLabel
                 Layout.fillWidth: true
@@ -269,7 +286,8 @@ ColumnLayout {
         }
 
         RowLayout{
-            visible: chargingConfiguration.optimizationEnabled
+            id: energyChargedLayout
+            visible: chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value
             Label{
                 id: alreadyLoadedLabel
                 Layout.fillWidth: true
@@ -293,7 +311,7 @@ ColumnLayout {
         RowLayout{
         id: createLoadingSchedule
         Layout.fillWidth: true
-        visible: !chargingConfiguration.optimizationEnabled
+        visible: !cancelLoadingSchedule.visible
         Button{
             Layout.fillWidth: true
             text: "Configure Charging"
@@ -313,10 +331,12 @@ ColumnLayout {
 
         }
 
+
+
         RowLayout{
         id: cancelLoadingSchedule
         Layout.fillWidth: true
-        visible: chargingConfiguration.optimizationEnabled
+        visible: chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value
         Button{
             Layout.fillWidth: true
             text: "Cancel Charging Schedule"
@@ -326,6 +346,7 @@ ColumnLayout {
                 hemsManager.setChargingConfiguration(thing.id, false, chargingConfiguration.carThingId,   Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours() , Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes() , chargingConfiguration.targetPercentage, chargingConfiguration.zeroReturnPolicyEnabled, chargingConfiguration.optimizationMode)
                 //pageStack.push(optimizationComponent , { hemsManager: hemsManager, thing: thing })
             }
+
 
         }
 
@@ -614,7 +635,19 @@ ColumnLayout {
                             // TODo: Ladespannung von Wallbox ermittlen
                             //       Wieviel phasen hat die Wallbox
                             //       generell wallbox data integrieren
-                            var loadingVoltage = 230
+
+                            var maxChargingCurrent = thing.stateByName("maxChargingCurrent").value
+
+
+
+                            var loadingVoltage
+                            if (thing.stateByName("phaseCount").value === 1 ){
+                                 loadingVoltage = 230
+                            }
+                            else{
+                                loadingVoltage = 400
+                            }
+
 
                             for (let i = 0; i < evProxy.get(comboboxev.currentIndex).thingClass.stateTypes.count; i++){
 
@@ -643,7 +676,7 @@ ColumnLayout {
 
 
                             var necessaryTimeinHMinCharg = (targetSOCinAh - batteryContentInAh)/minChargingCurrent
-                            var necessaryTimeinHMaxCharg = (targetSOCinAh - batteryContentInAh)/16
+                            var necessaryTimeinHMaxCharg = (targetSOCinAh - batteryContentInAh)/maxChargingCurrent
 
                             necessaryEnergyinKwh = ((targetSOCinAh - batteryContentInAh) * loadingVoltage)/1000
 
@@ -661,19 +694,6 @@ ColumnLayout {
 
 
 
-                RowLayout {
-                    Layout.fillWidth: true
-
-                    Label {
-                        Layout.fillWidth: true
-                        text: qsTr("Zero return policy")
-                    }
-
-                    Switch {
-                        id: zeroRetrunPolicyEnabledSwitch
-                        Component.onCompleted: checked = chargingConfiguration.zeroReturnPolicyEnabled
-                    }
-                }
 
                 Item {
                     // place holder
@@ -719,14 +739,15 @@ ColumnLayout {
                     standardButtons: Dialog.Ok | Dialog.Cancel
 
 
+
                     onAccepted:{
                         //footer.text = comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).value
 
-                        // changes the
+
                         pageSelectedCar = comboboxev.model.get(comboboxev.currentIndex).name
 
-                        hemsManager.setChargingConfiguration(thing.id, true, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode)
-                        hemsManager.setChargingSessionConfiguration( comboboxev.model.get(comboboxev.currentIndex).id , thing.id, "05:11", "10:22", 1, 1, 1, 1, 1, 3, 3, 500)
+                        hemsManager.setChargingConfiguration(thing.id, true, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode)
+                        hemsManager.setChargingSessionConfiguration( comboboxev.model.get(comboboxev.currentIndex).id , thing.id, "05:11", "10:22", 1, 1, 1, 1, 1, 3, 1, 500)
                         pageStack.pop()
 
                     }

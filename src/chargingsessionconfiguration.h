@@ -96,7 +96,7 @@ signals:
     void batteryLevelChanged(const int battery_level);
 
 private:
-    QUuid m_carThingId;
+    QUuid m_carThingId = "";
     QUuid m_evChargerThingId;
     QTime m_started_at;
     QTime m_finished_at;

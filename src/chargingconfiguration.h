@@ -13,8 +13,9 @@ class ChargingConfiguration : public QObject
     Q_PROPERTY(QUuid carThingId READ carThingId WRITE setCarThingId NOTIFY carThingIdChanged)
     Q_PROPERTY(QString endTime READ endTime WRITE setEndTime NOTIFY endTimeChanged)
     Q_PROPERTY(uint targetPercentage READ targetPercentage WRITE setTargetPercentage NOTIFY targetPercentageChanged)
-    Q_PROPERTY(bool zeroReturnPolicyEnabled READ zeroReturnPolicyEnabled WRITE setZeroReturnPolicyEnabled NOTIFY zeroReturnPolicyEnabledChanged)
     Q_PROPERTY(int optimizationMode READ optimizationMode WRITE setOptimizationMode NOTIFY optimizationModeChanged)
+    Q_PROPERTY(QUuid uniqueIdentifier READ uniqueIdentifier WRITE setUniqueIdentifier NOTIFY uniqueIdentifierChanged)
+
 
 public:
 
@@ -42,20 +43,20 @@ public:
     uint targetPercentage() const;
     void setTargetPercentage(uint targetPercentage);
 
-    bool zeroReturnPolicyEnabled() const;
-    void setZeroReturnPolicyEnabled(bool zeroReturnPolicyEnabled);
 
     int optimizationMode() const;
     void setOptimizationMode(int optimizationMode);
 
+    QUuid uniqueIdentifier() const;
+    void setUniqueIdentifier(QUuid uniqueIdentifier);
 
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void carThingIdChanged(const QUuid &carThingId);
     void endTimeChanged(const QString &endTime);
     void targetPercentageChanged(uint targetPercentage);
-    void zeroReturnPolicyEnabledChanged(bool zeroReturnPolicyEnabled);
     void optimizationModeChanged(int optimizationMode);
+    void uniqueIdentifierChanged(QUuid uniqueIdentifier);
 
 private:
     QUuid m_evChargerThingId;
@@ -63,8 +64,8 @@ private:
     QUuid m_carThingId;
     QString m_endTime = "10:30:00";
     uint m_targetPercentage = 100;
-    bool m_zeroReturnPolicyEnabled = false;
     int m_optimizationMode;
+    QUuid m_uniqueIdentifier;
 
 };
 

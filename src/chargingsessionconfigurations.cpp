@@ -71,11 +71,10 @@ QHash<int, QByteArray> ChargingSessionConfigurations::roleNames() const
 
 ChargingSessionConfiguration *ChargingSessionConfigurations::getChargingSessionConfiguration(const QUuid &evChargerThingId) const
 {
-    qCInfo(dcChargingSessionConfig()) << "getChargingSessionConfiguration m_list: " << m_list;
+
     foreach (ChargingSessionConfiguration *chargingSessionConfig, m_list) {
 
         if (chargingSessionConfig->evChargerThingId() == evChargerThingId) {
-            qCInfo(dcChargingSessionConfig()) << "give ChargingSessionConfig: ";
             return chargingSessionConfig;
         }
     }
