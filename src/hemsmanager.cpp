@@ -221,7 +221,7 @@ void HemsManager::notificationReceived(const QVariantMap &data)
             m_housholdPhaseLimit = phaseLimit;
             emit housholdPhaseLimitChanged(m_housholdPhaseLimit);
         }
-    } else if (notification == "Hems.ChargingConfigurationAdded") {
+    //} else if (notification == "Hems.ChargingConfigurationAdded") {
 
     } else if (notification == "Hems.ChargingConfigurationAdded") {
         addOrUpdateChargingConfiguration(params.value("chargingConfiguration").toMap());
@@ -234,7 +234,7 @@ void HemsManager::notificationReceived(const QVariantMap &data)
     } else if (notification == "Hems.ChargingSessionConfigurationAdded") {
         addOrUpdateChargingSessionConfiguration(params.value("chargingSessionConfiguration").toMap());
     } else if (notification == "Hems.ChargingSessionConfigurationRemoved") {
-        qCDebug(dcHems()) << "Charging configuration removed" << params.value("evChargerThingId").toUuid();
+        qCDebug(dcHems()) << "Charging Session configuration removed" << params.value("evChargerThingId").toUuid();
         m_chargingSessionConfigurations->removeConfiguration(params.value("evChargerThingId").toUuid());
     } else if (notification == "Hems.ChargingSessionConfigurationChanged") {
         addOrUpdateChargingSessionConfiguration(params.value("chargingSessionConfiguration").toMap());

@@ -21,7 +21,6 @@ Page {
     property Thing thing
 
 
-
     ThingsProxy {
         id: evProxy
         engine: _engine
@@ -29,17 +28,23 @@ Page {
     }
 
     property string pageSelectedCar: carThing.name
-    property var something: carThing.eventTriggered()
+    property var pluggedInEvent: thing.stateByName("pluggedIn").value
 
     header: NymeaHeader {
         id: header
-        property int zähler: 0
 
-        text: qsTr("Charging configuration") + " - " + thing.name
+        text: "false"
+        //text: qsTr("Charging configuration") + " - " + thing.name
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
 
+    onPluggedInEventChanged:
+    {
+        if (thing.stateByName("pluggedIn").value === false && chargingConfiguration.optimizationEnabled === true ){
+            hemsManager.setChargingConfiguration(thing.id, false, chargingConfiguration.carThingId,   Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours() , Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes() , chargingConfiguration.targetPercentage, chargingConfiguration.zeroReturnPolicyEnabled, chargingConfiguration.optimizationMode)
+        }
+    }
 
 
 
@@ -747,7 +752,7 @@ ColumnLayout {
                         pageSelectedCar = comboboxev.model.get(comboboxev.currentIndex).name
 
                         hemsManager.setChargingConfiguration(thing.id, true, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode)
-                        hemsManager.setChargingSessionConfiguration( comboboxev.model.get(comboboxev.currentIndex).id , thing.id, "05:11", "10:22", 1, 1, 1, 1, 1, 3, 1, 500)
+                        //hemsManager.setChargingSessionConfiguration( comboboxev.model.get(comboboxev.currentIndex).id , thing.id, "05:11", "10:22", 1, 1, 1, 1, 1, 3, "", 1, 500 )
                         pageStack.pop()
 
                     }

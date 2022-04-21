@@ -71,7 +71,7 @@ signals:
 
     void availableUseCasesChanged(HemsUseCases availableUseCases);
     void housholdPhaseLimitChanged(uint housholdPhaseLimit);
-    void evThingPluggedInChanged(bool pluggedIn);
+
 
     void setHousholdPhaseLimitReply(int commandId, const QString &error);
 
