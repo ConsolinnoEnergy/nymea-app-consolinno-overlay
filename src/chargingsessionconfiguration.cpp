@@ -35,12 +35,12 @@ void ChargingSessionConfiguration::setStartedAt(const QTime started_at)
     m_started_at = started_at;
 }
 
-QTime ChargingSessionConfiguration::finishedAt() const
+QString ChargingSessionConfiguration::finishedAt() const
 {
     return m_finished_at;
 }
 
-void ChargingSessionConfiguration::setFinishedAt(const QTime finished_at)
+void ChargingSessionConfiguration::setFinishedAt(const QString finished_at)
 {
     m_finished_at = finished_at;
 }
@@ -92,7 +92,10 @@ int ChargingSessionConfiguration::batteryLevel() const
 
 void ChargingSessionConfiguration::setBatteryLevel(const int battery_level)
 {
+    if (m_battery_level == battery_level)
+        return;
     m_battery_level = battery_level;
+    emit batteryLevelChanged(m_battery_level);
 }
 
 QUuid ChargingSessionConfiguration::sessionId() const

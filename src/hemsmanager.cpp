@@ -2,6 +2,7 @@
 
 #include <QMetaEnum>
 #include <QJsonDocument>
+#include <QDateTime>
 
 #include "logging.h"
 NYMEA_LOGGING_CATEGORY(dcHems, "Hems")
@@ -156,17 +157,27 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, bool opti
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingConfiguration", params, this, "setHeatingConfigurationResponse");
 }
 
-int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId,  int hours,  int minutes, uint targetPercentage, int optimizationMode)
+int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId,  int hours,  int minutes, uint targetPercentage, int optimizationMode, QUuid uniqueIdentifier)
 {
-    QUuid uniqueIdentifier;
+
+
     QVariantMap chargingConfiguration;
+    if (uniqueIdentifier.toString() == "{00000000-0000-0000-0000-000000000000}"){
+        QUuid DummyIdentifier;
+        chargingConfiguration.insert("uniqueIdentifier", DummyIdentifier.createUuid());
+    }else{
+        chargingConfiguration.insert("uniqueIdentifier", uniqueIdentifier);
+
+    }
+
+
     chargingConfiguration.insert("evChargerThingId", evChargerThingId);
     chargingConfiguration.insert("optimizationEnabled", optimizationEnabled);
     chargingConfiguration.insert("optimizationMode", optimizationMode);
     chargingConfiguration.insert("carThingId", carThingId);
     chargingConfiguration.insert("endTime", QTime(hours,minutes).toString() );
     chargingConfiguration.insert("targetPercentage", targetPercentage);
-    chargingConfiguration.insert("uniqueIdentifier", uniqueIdentifier.createUuid());
+
     QVariantMap params;
     params.insert("chargingConfiguration", chargingConfiguration);
 
@@ -180,6 +191,11 @@ int HemsManager::setChargingSessionConfiguration(const QUuid carThingId, const Q
 {
     Q_UNUSED(sessionId)
     QUuid chargingSession;
+            //2022-06-15T13:45:30
+    QString string =    "2022-04-23T22:51:41";
+    QString format = "yyyy-MM-dThh:mm:ss";
+    QDateTime testTime = QDateTime::fromString(string, format);
+    qCDebug(dcHems()) << " TimeFormat"  << testTime;
 
     QVariantMap chargingSessionConfiguration;
     chargingSessionConfiguration.insert("carThingId", carThingId);
@@ -198,7 +214,7 @@ int HemsManager::setChargingSessionConfiguration(const QUuid carThingId, const Q
     QVariantMap params;
     params.insert("chargingSessionConfiguration", chargingSessionConfiguration);
 
-    qCDebug(dcHems()) << "Set charging configuration" << params;
+    qCDebug(dcHems()) << "Set chargingSession configuration" << params;
 
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetChargingSessionConfiguration", params, this, "setChargingSessionConfigurationResponse");
 }
@@ -432,7 +448,7 @@ void HemsManager::addOrUpdateChargingSessionConfiguration(const QVariantMap &con
 
     configuration->setCarThingId(configurationMap.value("carThingId").toUuid());
     configuration->setStartedAt(configurationMap.value("startedAt").toTime());
-    configuration->setFinishedAt(configurationMap.value("finishedAt").toTime());
+    configuration->setFinishedAt(configurationMap.value("finishedAt").toString());
     configuration->setInitialBatteryEnergy(configurationMap.value("initialBatteryEnergy").toFloat());
     configuration->setDuration(configurationMap.value("duration").toInt());
     configuration->setEnergyCharged(configurationMap.value("energyCharged").toFloat());

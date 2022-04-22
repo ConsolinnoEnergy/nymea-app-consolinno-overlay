@@ -42,11 +42,15 @@ Page {
     onPluggedInEventChanged:
     {
         if (thing.stateByName("pluggedIn").value === false && chargingConfiguration.optimizationEnabled === true ){
-            hemsManager.setChargingConfiguration(thing.id, false, chargingConfiguration.carThingId,   Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours() , Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes() , chargingConfiguration.targetPercentage, chargingConfiguration.zeroReturnPolicyEnabled, chargingConfiguration.optimizationMode)
+            hemsManager.setChargingConfiguration(thing.id, false, chargingConfiguration.carThingId,   Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours() , Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes() , chargingConfiguration.targetPercentage, chargingConfiguration.optimizationMode, chargingConfiguration.uniqueIdentifier)
         }
     }
 
+    onChargingSessionConfigurationChanged:
+    {
+        batteryLevelValue.text = chargingSessionConfiguration.batteryLevel
 
+    }
 
     ColumnLayout {
         id: infoColumnLayout
@@ -68,7 +72,6 @@ Page {
             Rectangle{
                 id: pluggedInLight
 
-                property bool checked: color == "green" ? true:false
                 width: 17
                 height: 17
                 Layout.rightMargin: 0
@@ -273,19 +276,42 @@ ColumnLayout {
         }
 
         RowLayout{
-            id: loadingRowLayout
+            id: batteryLevelRowLayout
             visible: chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value
             Label{
-                id: currentLoadingCurrentLabel
+                id: batteryLevelLabel
                 Layout.fillWidth: true
                 text: "Current battery charge:"
 
             }
             Label{
-                id: currentLoadingCurrent
-                text: chargingSessionConfiguration.batteryLevel
+                id: batteryLevelValue
+
+                property var batteryLevel: chargingSessionConfiguration.batteryLevel
+                text: batteryLevel
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
+
+
+            }
+        }
+
+        RowLayout{
+            id: currentCurrentRowLayout
+            visible: chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value
+            Label{
+                id: currentCurrentLabel
+                Layout.fillWidth: true
+                text: "Current charging current:"
+
+            }
+            Label{
+                id: currentCurrentValue
+                property int currentCurrent: thing.stateByName("maxChargingCurrent").value
+                text: currentCurrent
+                Layout.alignment: Qt.AlignRight
+                Layout.rightMargin: 0
+
 
             }
         }
@@ -348,7 +374,7 @@ ColumnLayout {
             onClicked: {
 
 
-                hemsManager.setChargingConfiguration(thing.id, false, chargingConfiguration.carThingId,   Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours() , Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes() , chargingConfiguration.targetPercentage, chargingConfiguration.zeroReturnPolicyEnabled, chargingConfiguration.optimizationMode)
+                hemsManager.setChargingConfiguration(thing.id, false, chargingConfiguration.carThingId,   Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours() , Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes() , chargingConfiguration.targetPercentage,  chargingConfiguration.optimizationMode, chargingConfiguration.uniqueIdentifier)
                 //pageStack.push(optimizationComponent , { hemsManager: hemsManager, thing: thing })
             }
 
@@ -726,38 +752,21 @@ ColumnLayout {
 
                         // Maintool to debug
                         //footer.text = "saved"
+                        pageSelectedCar = comboboxev.model.get(comboboxev.currentIndex).name
 
-                        dialog.visible = true
+                        hemsManager.setChargingConfiguration(thing.id, true, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode, "00000000-0000-0000-0000-000000000000")
+                        hemsManager.setChargingSessionConfiguration(comboboxev.model.get(comboboxev.currentIndex).id, thing.id, "2022-04-23T22:51:41", "", 1, 2 , 3, 2, 1, "", 1, 7)
+
+                        pageStack.pop()
+
 
                         //footer.text = necessaryEnergyinKwh
                         // TODO: wait for response
-                        //d.pendingCallId =
+                        //
                         // hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId  , optimizationEnabledSwitch.checked, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, zeroRetrunPolicyEnabledSwitch.checked, necessaryEnergyinKwh)
 
 
                     }
-                }
-
-                Dialog{
-                    id: dialog
-                    title: "Title"
-                    standardButtons: Dialog.Ok | Dialog.Cancel
-
-
-
-                    onAccepted:{
-                        //footer.text = comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).value
-
-
-                        pageSelectedCar = comboboxev.model.get(comboboxev.currentIndex).name
-
-                        hemsManager.setChargingConfiguration(thing.id, true, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode)
-                        //hemsManager.setChargingSessionConfiguration( comboboxev.model.get(comboboxev.currentIndex).id , thing.id, "05:11", "10:22", 1, 1, 1, 1, 1, 3, "", 1, 500 )
-                        pageStack.pop()
-
-                    }
-                    onRejected: console.log("Cancel clicked")
-
                 }
                 }
 

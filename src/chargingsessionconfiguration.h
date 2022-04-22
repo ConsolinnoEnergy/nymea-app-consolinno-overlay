@@ -14,7 +14,7 @@ class ChargingSessionConfiguration : public QObject
     Q_PROPERTY(QUuid carThingId READ carThingId WRITE setCarThingId NOTIFY carThingIdChanged)
     Q_PROPERTY(QUuid evChargerThingId READ evChargerThingId WRITE setEvChargerThingId NOTIFY evChargerThingIdChanged)
     Q_PROPERTY(QTime startedAt READ startedAt WRITE setStartedAt NOTIFY startedAtChanged)
-    Q_PROPERTY(QTime finishedAt READ finishedAt WRITE setFinishedAt NOTIFY finishedAtChanged)
+    Q_PROPERTY(QString finishedAt READ finishedAt WRITE setFinishedAt NOTIFY finishedAtChanged)
     Q_PROPERTY(float initialBatteryEnergy READ initialBatteryEnergy WRITE setInitialBatteryEnergy NOTIFY initialBatteryEnergyChanged)
     Q_PROPERTY(int duration READ duration WRITE setDuration NOTIFY durationChanged)
     Q_PROPERTY(float energyCharged READ energyCharged WRITE setEnergyCharged NOTIFY energyChargedChanged)
@@ -49,8 +49,8 @@ public:
     QTime startedAt() const;
     void setStartedAt(const QTime started_at);
 
-    QTime finishedAt() const;
-    void setFinishedAt(const QTime finished_at);
+    QString finishedAt() const;
+    void setFinishedAt(const QString finished_at);
 
     float initialBatteryEnergy() const;
     void setInitialBatteryEnergy( const float initial_battery_energy);
@@ -88,7 +88,7 @@ signals:
     void carThingIdChanged(const QUuid &carThingId);
     void evChargerThingIdChanged(const QUuid &evChargerThingId);
     void startedAtChanged(const QTime started_at);
-    void finishedAtChanged(const QTime finished_at);
+    void finishedAtChanged(const QString finished_at);
     void initialBatteryEnergyChanged(const float initial_battery_energy);
     void durationChanged(const int duration);
     void energyChargedChanged(const float energy_charged);
@@ -99,7 +99,7 @@ private:
     QUuid m_carThingId = "00000000-0000-0000-0000-000000000000";
     QUuid m_evChargerThingId;
     QTime m_started_at;
-    QTime m_finished_at;
+    QString m_finished_at;
     float m_initial_battery_energy;
     int m_duration;
     float m_energy_charged;

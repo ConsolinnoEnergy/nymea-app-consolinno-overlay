@@ -280,6 +280,7 @@ Page {
                         if (savebutton.validated)
                         {
                             footer.text = "saved"
+
                             d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, optimizationEnabledSwitch.checked, parseFloat( floorHeatingAreaId.text) , parseFloat( maxElectricalPower.text)  ,  parseFloat(maxThermalEnergy.text) )
                         }
                         else
@@ -287,6 +288,7 @@ Page {
                             // for now this is the way how we show the user that some attributes are invalid
                             // TO DO: Show which ones are invalid
                             footer.text = "Some attributes are outside of the allowed range: Configurations were not saved"
+
 
                         }
 
