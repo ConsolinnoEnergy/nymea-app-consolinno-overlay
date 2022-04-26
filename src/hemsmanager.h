@@ -72,6 +72,8 @@ signals:
     void availableUseCasesChanged(HemsUseCases availableUseCases);
     void housholdPhaseLimitChanged(uint housholdPhaseLimit);
 
+    void chargingSessionConfigurationChanged(ChargingSessionConfiguration *configuration);
+
 
     void setHousholdPhaseLimitReply(int commandId, const QString &error);
 

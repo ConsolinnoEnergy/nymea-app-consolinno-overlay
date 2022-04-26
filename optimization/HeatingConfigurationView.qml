@@ -276,7 +276,6 @@ Page {
                     text: qsTr("Save")
                     onClicked: {
 
-
                         if (savebutton.validated)
                         {
                             footer.text = "saved"

@@ -191,11 +191,6 @@ int HemsManager::setChargingSessionConfiguration(const QUuid carThingId, const Q
 {
     Q_UNUSED(sessionId)
     QUuid chargingSession;
-            //2022-06-15T13:45:30
-    QString string =    "2022-04-23T22:51:41";
-    QString format = "yyyy-MM-dThh:mm:ss";
-    QDateTime testTime = QDateTime::fromString(string, format);
-    qCDebug(dcHems()) << " TimeFormat"  << testTime;
 
     QVariantMap chargingSessionConfiguration;
     chargingSessionConfiguration.insert("carThingId", carThingId);
@@ -237,7 +232,8 @@ void HemsManager::notificationReceived(const QVariantMap &data)
             m_housholdPhaseLimit = phaseLimit;
             emit housholdPhaseLimitChanged(m_housholdPhaseLimit);
         }
-    //} else if (notification == "Hems.ChargingConfigurationAdded") {
+    } else if (notification == "Hems.PluggedInChanged") {
+        qCDebug(dcHems()) << "the PluggedInEventTriggered";
 
     } else if (notification == "Hems.ChargingConfigurationAdded") {
         addOrUpdateChargingConfiguration(params.value("chargingConfiguration").toMap());
@@ -319,7 +315,7 @@ void HemsManager::getPvConfigurationsResponse(int commandId, const QVariantMap &
 void HemsManager::getChargingConfigurationsResponse(int commandId, const QVariantMap &data)
 {
     Q_UNUSED(commandId)
-
+    qCDebug(dcHems()) << "Charging configuration" << data;
     foreach (const QVariant &configurationVariant, data.value("chargingConfigurations").toList()) {
         addOrUpdateChargingConfiguration(configurationVariant.toMap());
     }
@@ -464,6 +460,9 @@ void HemsManager::addOrUpdateChargingSessionConfiguration(const QVariantMap &con
         m_chargingSessionConfigurations->addConfiguration(configuration);
     } else {
         qCDebug(dcHems()) << "ChargingSession configuration changed" << configuration->evChargerThingId();
+        emit chargingSessionConfigurationChanged(configuration);
+
+
     }
 }
 
