@@ -15,10 +15,11 @@ public:
     enum Role {
         RoleEvChargerThingId,
         RoleOptimizationEnabled,
+        RoleOptimizationMode,
         RoleCarThingId,
         RoleEndTime,
         RoleTargetPercentage,
-        RoleZeroReturnPolicy
+        RoleUniqueIdentifier,
     };
     Q_ENUM(Role);
 

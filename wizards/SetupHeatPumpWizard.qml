@@ -80,7 +80,7 @@ ConsolinnoWizardPageBase {
 
         ConsolinnoWizardPageBase {
             id: searchHeatPumpPage
-            property string thingClassId
+            property string thingClassId: null
 
             onBack: pageStack.pop()
 
@@ -145,9 +145,9 @@ ConsolinnoWizardPageBase {
                         anchors.centerIn: parent
                         width: parent.width
                         spacing: Style.margins
+                        visible: !discovery.busy && discovery.count == 0
 
                         Label {
-                            visible: !discovery.busy && discovery.count == 0
                             Layout.fillWidth: true
                             Layout.bottomMargin: Style.bigMargins
                             text: qsTr("No heat pump has been found. Please return to the previous step and verify that your heat pump is installed properly.")

@@ -19,14 +19,16 @@ QVariant ChargingConfigurations::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->evChargerThingId();
     case RoleOptimizationEnabled:
         return m_list.at(index.row())->optimizationEnabled();
+    case RoleOptimizationMode:
+        return m_list.at(index.row())->optimizationMode();
     case RoleCarThingId:
         return m_list.at(index.row())->carThingId();
     case RoleEndTime:
         return m_list.at(index.row())->endTime();
     case RoleTargetPercentage:
         return m_list.at(index.row())->targetPercentage();
-    case RoleZeroReturnPolicy:
-        return m_list.at(index.row())->zeroReturnPolicyEnabled();
+    case RoleUniqueIdentifier:
+        return m_list.at(index.row())->uniqueIdentifier();
     }
     return QVariant();
 }
@@ -36,10 +38,11 @@ QHash<int, QByteArray> ChargingConfigurations::roleNames() const
     QHash<int, QByteArray> roles;
     roles.insert(RoleEvChargerThingId, "evChargerThingId");
     roles.insert(RoleOptimizationEnabled, "optimizationEnabled");
+    roles.insert(RoleOptimizationMode, "optimizationMode");
     roles.insert(RoleCarThingId, "carThingId");
     roles.insert(RoleEndTime, "endTime");
     roles.insert(RoleTargetPercentage, "targetPercentage");
-    roles.insert(RoleZeroReturnPolicy, "zeroReturnPolicyEnabled");
+    roles.insert(RoleUniqueIdentifier, "uniqueIdentifier");
     return roles;
 }
 
@@ -66,6 +69,11 @@ void ChargingConfigurations::addConfiguration(ChargingConfiguration *chargingCon
         emit dataChanged(idx, idx, {RoleOptimizationEnabled});
     });
 
+    connect(chargingConfiguration, &ChargingConfiguration::optimizationModeChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(chargingConfiguration));
+        emit dataChanged(idx, idx, {RoleOptimizationMode});
+    });
+
     connect(chargingConfiguration, &ChargingConfiguration::carThingIdChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(chargingConfiguration));
         emit dataChanged(idx, idx, {RoleCarThingId});
@@ -81,10 +89,11 @@ void ChargingConfigurations::addConfiguration(ChargingConfiguration *chargingCon
         emit dataChanged(idx, idx, {RoleTargetPercentage});
     });
 
-    connect(chargingConfiguration, &ChargingConfiguration::zeroReturnPolicyEnabledChanged, this, [=](){
+    connect(chargingConfiguration, &ChargingConfiguration::uniqueIdentifierChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(chargingConfiguration));
-        emit dataChanged(idx, idx, {RoleZeroReturnPolicy});
+        emit dataChanged(idx, idx, {RoleUniqueIdentifier});
     });
+
 
     endInsertRows();
 

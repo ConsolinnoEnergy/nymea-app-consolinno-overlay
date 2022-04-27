@@ -71,16 +71,39 @@ void ChargingConfiguration::setTargetPercentage(uint targetPercentage)
     emit targetPercentageChanged(m_targetPercentage);
 }
 
-bool ChargingConfiguration::zeroReturnPolicyEnabled() const
+
+
+int ChargingConfiguration::optimizationMode() const
 {
-    return m_zeroReturnPolicyEnabled;
+    return m_optimizationMode;
 }
 
-void ChargingConfiguration::setZeroReturnPolicyEnabled(bool zeroReturnPolicyEnabled)
+void ChargingConfiguration::setOptimizationMode( int optimizationMode)
 {
-    if (m_zeroReturnPolicyEnabled == zeroReturnPolicyEnabled)
+    if (m_optimizationMode == optimizationMode)
         return;
 
-    m_zeroReturnPolicyEnabled = zeroReturnPolicyEnabled;
-    emit zeroReturnPolicyEnabledChanged(m_zeroReturnPolicyEnabled);
+    m_optimizationMode = optimizationMode;
+    emit optimizationModeChanged(m_optimizationMode);
 }
+
+QUuid ChargingConfiguration::uniqueIdentifier() const
+{
+    return m_uniqueIdentifier;
+}
+
+void ChargingConfiguration::setUniqueIdentifier(QUuid uniqueIdentifier)
+{
+    if (m_uniqueIdentifier == uniqueIdentifier)
+        return;
+
+    m_uniqueIdentifier = uniqueIdentifier;
+    emit uniqueIdentifierChanged(m_uniqueIdentifier);
+}
+
+
+
+
+
+
+
