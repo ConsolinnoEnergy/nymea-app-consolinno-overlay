@@ -20,20 +20,16 @@ Page {
     property ChargingSessionConfiguration chargingSessionConfiguration: hemsManager.chargingSessionConfigurations.getChargingSessionConfiguration(thing.id)
     property Thing carThing
     property Thing thing
-    property string pageSelectedCar: carThing.name
+    property var pageSelectedCar: carThing.name ? qsTr("no car selected") : carThing.name
 
     // Connections to update the ChargingSessionConfiguration values
     Connections {
         target: hemsManager
         onChargingSessionConfigurationChanged:
         {
-            batteryLevelValue.text = chargingSessionConfiguration.batteryLevel
-            energyChargedValue.text = chargingSessionConfiguration.energyCharged
-            energyBatteryValue.text = chargingSessionConfiguration.energyBattery
-
-
-
-
+            batteryLevelValue.text  = chargingSessionConfiguration.batteryLevel  + " %"
+            energyChargedValue.text = chargingSessionConfiguration.energyCharged.toFixed(2) + " kWh"
+            energyBatteryValue.text = chargingSessionConfiguration.energyBattery.toFixed(2) + " kWh"
         }
 
     }
@@ -46,11 +42,19 @@ Page {
         shownInterfaces: ["electricvehicle"]
     }
 
+    ThingClassesProxy{
+        id: thingClassesProxy
+        engine: _engine
+        filterInterface: "electricvehicle"
+        includeProvidedInterfaces: true
+        groupByInterface: true
+    }
+
 
 
     header: NymeaHeader {
         id: header
-        text: qsTr("Charging configuration") + " - " + qsTr(thing.name)
+        text: qsTr(thing.name)
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
@@ -120,7 +124,7 @@ Page {
             Label{
                 id: loadingState
                 Layout.fillWidth: true
-                text: qsTr("State of loading ...")
+                text: qsTr("Charging configuration")
                 font.pixelSize: 22
                 font.bold: true
             }
@@ -136,7 +140,7 @@ Page {
 
             Label{
                 id: selectedCar
-                text: thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? pageSelectedCar : " -- " )  : " -- "
+                text: thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? pageSelectedCar: " -- " )  : " -- "
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -234,6 +238,7 @@ Page {
             ColumnLayout{
                 Layout.fillWidth: true
                 spacing: 0
+                visible: chargingConfiguration.optimizationEnabled
                 Rectangle{
                     id: status
 
@@ -259,7 +264,8 @@ Page {
                 }
                 Label{
                     id: description
-                    text: "running"
+
+                    text: chargingSessionConfiguration.state == 2 ? "running" : "not running"
                     Layout.alignment: Qt.AlignRight
                 }
 
@@ -292,7 +298,7 @@ Page {
             Label{
                 id: batteryLevelValue
 
-                text: chargingSessionConfiguration.batteryLevel
+                text: chargingSessionConfiguration.batteryLevel + " %"
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -312,7 +318,7 @@ Page {
             Label{
                 id: energyBatteryValue
 
-                text: chargingSessionConfiguration.energyBattery
+                text: chargingSessionConfiguration.energyBattery.toFixed(2) + " kWh"
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -331,8 +337,7 @@ Page {
             }
             Label{
                 id: currentCurrentValue
-                property int currentCurrent: thing.stateByName("maxChargingCurrent").value
-                text: currentCurrent
+                text: thing.stateByName("maxChargingCurrent").value + " A"
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -346,12 +351,12 @@ Page {
             Label{
                 id: alreadyLoadedLabel
                 Layout.fillWidth: true
-                text: qsTr("Amount of Energy charged:")
+                text: qsTr("Energy charged:")
 
             }
             Label{
                 id: energyChargedValue
-                text: chargingSessionConfiguration.energyCharged
+                text: chargingSessionConfiguration.energyCharged.toFixed(2) + " kWh"
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -399,7 +404,6 @@ Page {
 
 
                     hemsManager.setChargingConfiguration(thing.id, false, chargingConfiguration.carThingId,   Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours() , Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes() , chargingConfiguration.targetPercentage,  chargingConfiguration.optimizationMode, chargingConfiguration.uniqueIdentifier)
-                    //pageStack.push(optimizationComponent , { hemsManager: hemsManager, thing: thing })
                 }
 
 
@@ -456,37 +460,81 @@ Page {
 
                     ComboBox {
                         id: comboboxev
-
-
+                        property var counter: 0
+                        textRole: "name"                                                        // indexOf function gives -1 back if not found
                         Layout.fillWidth: true
-                        model: evProxy
+                        model: ListModel{
+                            id: proxyModel
+                            ListElement{name: "Configure new Car"; index: "0" }
 
-                        textRole: "name"
-                        currentIndex: evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId))
+                            Component.onCompleted: {
+                                fillevCombobox()
+
+                            }
+                            function fillevCombobox(){
+                                proxyModel.clear()
+                                proxyModel.append({"name": "Configure new Car", "index": "0" })
+                                for (var k = 0; k < evProxy.count; k++){
+                                    proxyModel.append({"index": evProxy.get(k).id.toString(), "name": evProxy.get(k).name, "value": evProxy.get(k)} )
+                                }
+                                comboboxev.currentIndex = evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId)) < 0 ? 0 : evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId) )
+
+                            }
+
+                        }
+
 
                         onCurrentIndexChanged: {
-                            endTimeSlider.computeFeasibility()
+                            // if "new Car" option is not used compute something
+                            if (comboboxev.currentIndex > 0){
+                                endTimeSlider.computeFeasibility()
+                                if (evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value !== undefined){
+                                    if (batterycharge.value < evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value){
+                                        batterycharge.value = evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value
+                                    }
+                                }
+                                if (targetPercentageSlider.value < endTimeSlider.batteryLevel)
+                                {
+                                    targetPercentageSlider.value = endTimeSlider.batteryLevel
+                                }
+                                if (targetPercentageSlider.value === 0){
 
-                            if (evProxy.get(comboboxev.currentIndex).stateByName("batteryLevel").value !== undefined){
-                                if (batterycharge.value < evProxy.get(comboboxev.currentIndex).stateByName("batteryLevel").value){
-                                    batterycharge.value = evProxy.get(comboboxev.currentIndex).stateByName("batteryLevel").value
+                                    targetPercentageSlider.value = 1
                                 }
                             }
-                            if (targetPercentageSlider.value < endTimeSlider.batteryLevel)
-                            {
-                                targetPercentageSlider.value = endTimeSlider.batteryLevel
-                            }
-                            if (targetPercentageSlider.value === 0){
+                        }
+                        onActivated: {
+                            // if "new Car" option is used do something
+                            if (comboboxev.currentIndex === 0){
+                                for (var i = 0; i<thingClassesProxy.count; i++){
+                                    if (thingClassesProxy.get(i).id.toString() === "{dbe0a9ff-94ba-4a94-ae52-51da3f05c717}"  ){
+                                        var page = pageStack.push("../thingconfiguration/AddGenericCar.qml" , {thingClass: thingClassesProxy.get(i)})
+                                        page.done.connect(function(){
 
-                                targetPercentageSlider.value = 1
-                            }
+                                            pageStack.pop()
+                                            proxyModel.fillevCombobox()
+                                        })
+                                        page.aborted.connect(function(){
+                                            pageStack.pop()
+                                        })
 
+
+
+                                    }
+                                }
+                            }
 
                         }
 
 
 
+
                     }
+
+
+
+
+
 
                 }
 
@@ -509,22 +557,11 @@ Page {
                             ListElement{key: "Pv optimized"; value: "Pv-Optimized"; mode: 1}
                             ListElement{key: "No Optimization"; value: "No Optimization"; mode: 0}
 
-
-
-
                         }
-
                         textRole: "key"
-                        //currentIndex: evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId ))
+
 
                         onCurrentIndexChanged: {
-
-
-
-                            if ( model.get(currentIndex).key === "fast charging" ){
-                                footer.text = "fast charging activated"
-
-                            }
                         }
                     }
                 }
@@ -547,21 +584,24 @@ Page {
                             stepSize: 1
                             Component.onCompleted:
                             {
-                                value = evProxy.get(comboboxev.currentIndex).stateByName("batteryLevel").value
-
+                                if (comboboxev.currentIndex > 0){
+                                    value = evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value
+                                }
                             }
 
                             onPositionChanged:
                             {
-                                if (value >= targetPercentageSlider.value)
-                                {
-                                    targetPercentageSlider.value = value
+                                // if the "new Car" option is not picked do something
+                                if (comboboxev.currentIndex > 0){
+                                    if (value >= targetPercentageSlider.value)
+                                    {
+                                        targetPercentageSlider.value = value
+                                    }
+
+
+                                    endTimeSlider.computeFeasibility()
+
                                 }
-
-
-                                endTimeSlider.computeFeasibility()
-
-
                             }
 
 
@@ -593,26 +633,30 @@ Page {
                             stepSize: 1
 
                             Component.onCompleted: {
-                                value = chargingConfiguration.targetPercentage
-                                endTimeSlider.computeFeasibility()
-                                endTimeSlider.feasibilityText()
+                                if (comboboxev.currentIndex > 0){
+                                    value = chargingConfiguration.targetPercentage
+                                    endTimeSlider.computeFeasibility()
+                                    endTimeSlider.feasibilityText()
+                                }
 
                             }
                             onPositionChanged: {
-                                endTimeSlider.computeFeasibility()
-                                endTimeSlider.feasibilityText()
+                                if (comboboxev.currentIndex > 0){
+                                    endTimeSlider.computeFeasibility()
+                                    endTimeSlider.feasibilityText()
 
 
 
-                                if (value < endTimeSlider.batteryLevel)
-                                {
-                                    value = endTimeSlider.batteryLevel
+
+                                    if (value < endTimeSlider.batteryLevel)
+                                    {
+                                        value = endTimeSlider.batteryLevel
+                                    }
+                                    if (value == 0){
+
+                                        value = 1
+                                    }
                                 }
-                                if (value == 0){
-
-                                    value = 1
-                                }
-
                             }
 
 
@@ -713,50 +757,51 @@ Page {
                             // TODo: Ladespannung von Wallbox ermittlen
                             //       Wieviel phasen hat die Wallbox
                             //       generell wallbox data integrieren
-
-                            var maxChargingCurrent = thing.stateByName("maxChargingCurrent").value
-
-
-
-                            var loadingVoltage
-                            if (thing.stateByName("phaseCount").value === 1 ){
-                                loadingVoltage = 230
-                            }
-                            else{
-                                loadingVoltage = 400
-                            }
+                            if (comboboxev.currentIndex > 0){
+                                var maxChargingCurrent = thing.stateByName("maxChargingCurrent").value
 
 
-                            for (let i = 0; i < evProxy.get(comboboxev.currentIndex).thingClass.stateTypes.count; i++){
 
-                                var thingStateId = evProxy.get(comboboxev.currentIndex).thingClass.stateTypes.get(i).id
-
-                                if (evProxy.get(comboboxev.currentIndex).thingClass.stateTypes.get(i).name === "capacity" ){
-                                    var capacity = evProxy.get(comboboxev.currentIndex).states.getState(thingStateId).value
-                                    capacityInAh = (capacity*1000)/loadingVoltage
+                                var loadingVoltage
+                                if (thing.stateByName("phaseCount").value === 1 ){
+                                    loadingVoltage = 230
                                 }
-                                if (evProxy.get(comboboxev.currentIndex).thingClass.stateTypes.get(i).name === "minChargingCurrent" ){
-
-                                    minChargingCurrent = evProxy.get(comboboxev.currentIndex).states.getState(thingStateId).value
-                                    // for testing reasons
-
+                                else{
+                                    loadingVoltage = 400
                                 }
 
+
+                                for (let i = 0; i < evProxy.get(comboboxev.currentIndex-1).thingClass.stateTypes.count; i++){
+
+                                    var thingStateId = evProxy.get(comboboxev.currentIndex-1).thingClass.stateTypes.get(i).id
+
+                                    if (evProxy.get(comboboxev.currentIndex-1).thingClass.stateTypes.get(i).name === "capacity" ){
+                                        var capacity = evProxy.get(comboboxev.currentIndex-1).states.getState(thingStateId).value
+                                        capacityInAh = (capacity*1000)/loadingVoltage
+                                    }
+                                    if (evProxy.get(comboboxev.currentIndex-1).thingClass.stateTypes.get(i).name === "minChargingCurrent" ){
+
+                                        minChargingCurrent = evProxy.get(comboboxev.currentIndex-1).states.getState(thingStateId).value
+                                        // for testing reasons
+
+                                    }
+
+                                }
+
+                                batteryLevel = batterycharge.value
+                                batteryContentInAh = capacityInAh * batteryLevel/100
+
+                                var targetSOCinAh = capacityInAh * targetSOC/100
+
+
+                                var necessaryTimeinHMinCharg = (targetSOCinAh - batteryContentInAh)/minChargingCurrent
+                                var necessaryTimeinHMaxCharg = (targetSOCinAh - batteryContentInAh)/maxChargingCurrent
+
+
+                                minimumChargingthreshhold = necessaryTimeinHMinCharg*60
+                                maximumChargingthreshhold = necessaryTimeinHMaxCharg*60
+
                             }
-
-                            batteryLevel = batterycharge.value
-                            batteryContentInAh = capacityInAh * batteryLevel/100
-
-                            var targetSOCinAh = capacityInAh * targetSOC/100
-
-
-                            var necessaryTimeinHMinCharg = (targetSOCinAh - batteryContentInAh)/minChargingCurrent
-                            var necessaryTimeinHMaxCharg = (targetSOCinAh - batteryContentInAh)/maxChargingCurrent
-
-
-                            minimumChargingthreshhold = necessaryTimeinHMinCharg*60
-                            maximumChargingthreshhold = necessaryTimeinHMaxCharg*60
-
                         }
 
 
@@ -792,27 +837,24 @@ Page {
                     //enabled: configurationSettingsChanged
                     onClicked: {
 
-                        if (evProxy.get(comboboxev.currentIndex).stateByName("batteryLevel").value !== undefined)
-                        {
-                            evProxy.get(comboboxev.currentIndex).executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batterycharge.value }])
+                        if (comboboxev.currentIndex > 0){
+                            if (evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value !== undefined){
+                                evProxy.get(comboboxev.currentIndex-1).executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batterycharge.value }])
+
+                            }
+                            // Maintool to debug
+                            //footer.text = "saved"
+                            pageSelectedCar = comboboxev.model.get(comboboxev.currentIndex).name
+
+                            hemsManager.setChargingConfiguration(thing.id, true, evProxy.get(comboboxev.currentIndex -1).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode, "00000000-0000-0000-0000-000000000000")
+                            //hemsManager.setChargingSessionConfiguration(comboboxev.model.get(comboboxev.currentIndex).id, thing.id, "2022-04-23T22:51:41", "", 2, 2 , 2, 2, 2, "", 2, 2)
+
+                            pageStack.pop()
 
                         }
-                        else
-                        {
-
+                        else{
+                            footer.text = qsTr("please select a car")
                         }
-
-
-                        // Maintool to debug
-                        //footer.text = "saved"
-                        pageSelectedCar = comboboxev.model.get(comboboxev.currentIndex).name
-
-                        hemsManager.setChargingConfiguration(thing.id, true, comboboxev.model.get(comboboxev.currentIndex).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode, "00000000-0000-0000-0000-000000000000")
-                        hemsManager.setChargingSessionConfiguration(comboboxev.model.get(comboboxev.currentIndex).id, thing.id, "2022-04-23T22:51:41", "", 2, 2 , 2, 2, 2, "", 2, 2)
-
-                        pageStack.pop()
-
-
 
                     }
                 }

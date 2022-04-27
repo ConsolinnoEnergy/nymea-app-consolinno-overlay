@@ -741,7 +741,7 @@ MainViewBase {
                             onClicked: {
                                 print("Clicked consumer", index, thing.name)
                                 if (thing.thingClass.interfaces.indexOf("evcharger") >= 0) {
-                                    pageStack.push("../optimization/ChargingConfigView.qml", {hemsManager: hemsManager, thing: thing, carThing:  evProxy.getThing( hemsManager.chargingSessionConfigurations.getChargingSessionConfiguration(thing.id).carThingId )  })
+                                    pageStack.push("../optimization/ChargingConfigView.qml", {hemsManager: hemsManager, thing: thing, carThing:  evProxy.getThing(hemsManager.chargingConfigurations.getChargingConfiguration(thing.id).carThingId)  })
                                 } else {
                                     pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                                 }

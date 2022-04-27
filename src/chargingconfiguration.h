@@ -61,7 +61,7 @@ signals:
 private:
     QUuid m_evChargerThingId;
     bool m_optimizationEnabled = false;
-    QUuid m_carThingId;
+    QUuid m_carThingId = "00000000-0000-0000-0000-000000000000";
     QString m_endTime = "10:30:00";
     uint m_targetPercentage = 100;
     int m_optimizationMode;
