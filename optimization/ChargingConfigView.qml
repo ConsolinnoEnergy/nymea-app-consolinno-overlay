@@ -20,7 +20,7 @@ Page {
     property ChargingSessionConfiguration chargingSessionConfiguration: hemsManager.chargingSessionConfigurations.getChargingSessionConfiguration(thing.id)
     property Thing carThing
     property Thing thing
-    property var pageSelectedCar: carThing.name ? qsTr("no car selected") : carThing.name
+    property var pageSelectedCar: carThing.name == null ? qsTr("no car selected") : carThing.name
 
     // Connections to update the ChargingSessionConfiguration values
     Connections {
@@ -140,7 +140,7 @@ Page {
 
             Label{
                 id: selectedCar
-                text: thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? pageSelectedCar: " -- " )  : " -- "
+                text: qsTr(thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? pageSelectedCar: " -- " )  : " -- ")
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -164,11 +164,11 @@ Page {
 
                     if (chargingConfiguration.optimizationMode == 0)
                     {
-                        return "No Optimization"
+                        return qsTr("No Optimization")
                     }
                     else if (chargingConfiguration.optimizationMode == 1)
                     {
-                        return "PV Optimized"
+                        return qsTr("PV Optimized")
                     }
                 }
 
@@ -231,14 +231,14 @@ Page {
             Label{
                 id: statusLabel
                 Layout.fillWidth: true
-                text: "Status: "
+                text: qsTr("Status: ")
                 font.pixelSize: 22
                 font.bold: true
             }
             ColumnLayout{
                 Layout.fillWidth: true
                 spacing: 0
-                visible: chargingConfiguration.optimizationEnabled
+                visible: false//chargingConfiguration.optimizationEnabled
                 Rectangle{
                     id: status
 
@@ -249,7 +249,6 @@ Page {
                     //notdefined   // white
                     //disabled     // lightgrey
                     //pausiert     // orange
-
 
                     width: 17
                     height: 17
@@ -847,8 +846,6 @@ Page {
                             pageSelectedCar = comboboxev.model.get(comboboxev.currentIndex).name
 
                             hemsManager.setChargingConfiguration(thing.id, true, evProxy.get(comboboxev.currentIndex -1).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode, "00000000-0000-0000-0000-000000000000")
-                            //hemsManager.setChargingSessionConfiguration(comboboxev.model.get(comboboxev.currentIndex).id, thing.id, "2022-04-23T22:51:41", "", 2, 2 , 2, 2, 2, "", 2, 2)
-
                             pageStack.pop()
 
                         }

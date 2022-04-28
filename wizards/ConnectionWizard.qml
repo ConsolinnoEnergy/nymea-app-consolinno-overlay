@@ -143,7 +143,15 @@ ConsolinnoWizardPageBase {
             id: findLeafletPage
             onBack: pageStack.pop()
             nextButtonText: qsTr("Manual connection")
+            showExtraButton: true
+            extraButtonText: qsTr("Demo mode (online)")
+
             onNext: pageStack.push(manualConnectionComponent)
+            onExtraButtonPressed:
+            {
+                var host = nymeaDiscovery.nymeaHosts.createWanHost("Demo server", "nymea://nymea.nymea.io:2222")
+                engine.jsonRpcClient.connectToHost(host)
+            }
 
             Timer {
                 id: timeoutTimer
@@ -264,6 +272,8 @@ ConsolinnoWizardPageBase {
                         ]
                     }
                 }
+
+
             }
         }
     }

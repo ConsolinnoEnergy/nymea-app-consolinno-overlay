@@ -130,22 +130,29 @@ Page {
                 onClicked: root.back()
             }
 
+
             Item {
                 Layout.fillWidth: true
                 Layout.preferredHeight: Style.delegateHeight
                 MouseArea {
                     id: extraButton
-                    anchors { left: parent.left; verticalCenter: parent.verticalCenter }
+                    anchors.centerIn: parent
                     height: Style.delegateHeight
                     width: childrenRect.width
                     visible: false
-                    Label {
+                    RowLayout{
+                    anchors.centerIn: parent
+                        Label {
                         id: extraButtonLabel
-                        anchors.centerIn: parent
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+
+
+                        }
                     }
                     onClicked: root.extraButtonPressed()
                 }
             }
+
 
             MouseArea {
                 id: nextButton
