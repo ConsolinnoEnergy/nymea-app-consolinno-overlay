@@ -9,7 +9,7 @@ Page {
     id: root
 
     header: NymeaHeader {
-//        text: qsTr("History")
+        text: qsTr("History")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }

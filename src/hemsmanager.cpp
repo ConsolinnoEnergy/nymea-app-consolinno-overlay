@@ -2,7 +2,6 @@
 
 #include <QMetaEnum>
 #include <QJsonDocument>
-#include <QDateTime>
 
 #include "logging.h"
 NYMEA_LOGGING_CATEGORY(dcHems, "Hems")
