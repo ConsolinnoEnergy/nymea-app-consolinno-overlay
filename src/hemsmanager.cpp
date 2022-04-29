@@ -427,6 +427,7 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
         m_chargingConfigurations->addConfiguration(configuration);
     } else {
         qCDebug(dcHems()) << "Charging configuration changed" << configuration->evChargerThingId();
+        emit chargingConfigurationChanged(configuration);
     }
 }
 

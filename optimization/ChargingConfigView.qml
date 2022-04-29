@@ -21,6 +21,7 @@ Page {
     property Thing carThing
     property Thing thing
     property var pageSelectedCar: carThing.name === null ? qsTr("no car selected") : carThing.name
+    property bool initializing: false
 
     // Connections to update the ChargingSessionConfiguration values
     Connections {
@@ -28,22 +29,45 @@ Page {
         onChargingSessionConfigurationChanged:
         {
             if (chargingSessionConfiguration.evChargerThingId === thing.id){
+
                 batteryLevelValue.text  = chargingSessionConfiguration.batteryLevel  + " %"
                 energyChargedValue.text = chargingSessionConfiguration.energyCharged.toFixed(2) + " kWh"
                 energyBatteryValue.text = chargingSessionConfiguration.energyBattery.toFixed(2) + " kWh"
+
+                if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state == 2)){
+                    batteryLevelRowLayout.visible = true
+                    energyBatteryLayout.visible = true
+                    currentCurrentRowLayout.visible = true
+                    energyChargedLayout.visible = true
+                    initializing = false
+                }
+
+
             }
+
+
+
         }
 
         onChargingConfigurationChanged:
         {
-            // update the status visibility tags
-            // add signal in hemsmanager to make this available
+            if (chargingConfiguration.evChargerThingId === thing.id){
 
-            //if(chargingConfiguration.optimizationEnabled && !(chargingSessionConfiguration.state === 3) ){
+                //
+                if (!chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state === 3) ){
+                    batteryLevelRowLayout.visible = false
+                    energyBatteryLayout.visible = false
+                    currentCurrentRowLayout.visible = false
+                    energyChargedLayout.visible = false
+                    initializing = true
+                }
+                if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state === 3) ){
+                    initializing = true
+                }
 
 
-            //}
 
+            }
 
         }
 
@@ -103,7 +127,7 @@ Page {
                 Layout.alignment: Qt.AlignRight
                 color: thing.stateByName("pluggedIn").value ? "green" : "red"
                 border.color: "black"
-                border.width: 1
+                border.width: 0.5
                 radius: width*0.5
             }
         }
@@ -280,43 +304,6 @@ Page {
 
 
 
-
-/*      // löschen nach absprache mit patricia. Geht um den Status
-        RowLayout{
-            Label{
-                id: statusLabelNew
-                Layout.fillWidth: true
-                text: qsTr("New Status: ")
-                font.pixelSize: 22
-                font.bold: true
-            }
-
-            ColumnLayout{
-                Layout.fillWidth: true
-                spacing: 0
-                //visible: chargingConfiguration.optimizationEnabled
-                Rectangle{
-                    id: statusNew
-                    width: 17
-                    height: 17
-
-                    Layout.alignment: Qt.AlignRight
-
-                    //check if plugged in                 check if current power == 0           else show the current state the session is in atm
-                    color:  thing.stateByName("pluggedIn").value ? (thing.stateByName("currentPower") !== 0 ? (chargingSessionConfiguration.state === 1  ? "yellow" : chargingSessionConfiguration.state == 2 ? "green" : chargingSessionConfiguration.state == 3 ? "blue" : chargingSessionConfiguration.state == 4 ? "lightgrey" : "white" ): "orange") : "lightgrey"
-                    border.color: "black"
-                    border.width: 1
-                    radius: width*0.5
-                }
-                Label{
-                    id: description2
-                    text: chargingSessionConfiguration.state == 1 ? "Initialising" : (chargingSessionConfiguration.state == 2 ? "Running" : (chargingSessionConfiguration.state == 3 ? "Finished" : (chargingSessionConfiguration.state == 4 ? "Interrupted" :  "Failed"  )))
-                    Layout.alignment: Qt.AlignRight
-                }
-            }
-        }
-*/
-
         RowLayout{
             Label{
                 id: statusLabel
@@ -327,6 +314,7 @@ Page {
             }
 
             ColumnLayout{
+                id: statusLabelColumnLayout
                 Layout.fillWidth: true
                 spacing: 0
                 visible: chargingConfiguration.optimizationEnabled || (chargingSessionConfiguration.state == 3)
@@ -338,13 +326,11 @@ Page {
                     Layout.alignment: Qt.AlignRight
 
                     //check if plugged in                 check if current power == 0           else show the current state the session is in atm
-                    color:  thing.stateByName("pluggedIn").value ? (thing.stateByName("currentPower") !== 0 ? (chargingSessionConfiguration.state === 1  ? "yellow" : chargingSessionConfiguration.state == 2 ? "green" : chargingSessionConfiguration.state == 3 ? "grey" : chargingSessionConfiguration.state == 4 ? "grey" : "white" ): "orange") : "lightgrey"
-                    border.color: "black"
-                    border.width: 2
+                    color:  thing.stateByName("pluggedIn").value ? (thing.stateByName("currentPower") !== 0 ? ( initializing  ? "blue" : chargingSessionConfiguration.state == 2 ? "green" : chargingSessionConfiguration.state == 3 ? "grey" : chargingSessionConfiguration.state == 4 ? "grey" : "white" ): "orange") : "lightgrey"
                     radius: width*0.1
                     Label{
                         id: description
-                        text: chargingSessionConfiguration.state == 1 ? "Initialising" : (chargingSessionConfiguration.state == 2 ? "Running" : (chargingSessionConfiguration.state == 3 ? "Finished" : (chargingSessionConfiguration.state == 4 ? "Interrupted" :  "Failed"  )))
+                        text: initializing ? "Initialising" : (chargingSessionConfiguration.state == 2 ? "Running" : (chargingSessionConfiguration.state == 3 ? "Finished" : (chargingSessionConfiguration.state == 4 ? "Interrupted" :  "Failed"  )))
                         color: "white"
                         anchors.centerIn: parent
                     }
@@ -385,7 +371,7 @@ Page {
         }
 
         RowLayout{
-            id: energyBattery
+            id: energyBatteryLayout
             visible: (chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
             Label{
                 id: energyBatteryLabel
@@ -406,7 +392,7 @@ Page {
 
         RowLayout{
             id: currentCurrentRowLayout
-            visible: (chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
+            visible: chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value
             Label{
                 id: currentCurrentLabel
                 Layout.fillWidth: true
@@ -888,6 +874,7 @@ Page {
                             // Maintool to debug
                             //footer.text = "saved"
                             pageSelectedCar = comboboxev.model.get(comboboxev.currentIndex).name
+
 
                             hemsManager.setChargingConfiguration(thing.id, true, evProxy.get(comboboxev.currentIndex -1).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode, "00000000-0000-0000-0000-000000000000")
                             pageStack.pop()

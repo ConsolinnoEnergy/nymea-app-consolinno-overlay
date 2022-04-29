@@ -73,6 +73,7 @@ signals:
     void housholdPhaseLimitChanged(uint housholdPhaseLimit);
 
     void chargingSessionConfigurationChanged(ChargingSessionConfiguration *configuration);
+    void chargingConfigurationChanged(ChargingConfiguration *configuration);
 
 
     void setHousholdPhaseLimitReply(int commandId, const QString &error);
