@@ -51,20 +51,20 @@ Page {
 
         onChargingConfigurationChanged:
         {
+            header.text = "changed"
             if (chargingConfiguration.evChargerThingId === thing.id){
 
                 //
-                if (!chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state === 3) ){
+                if (!chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state === 3 | chargingSessionConfiguration === 4)){
                     batteryLevelRowLayout.visible = false
                     energyBatteryLayout.visible = false
                     currentCurrentRowLayout.visible = false
                     energyChargedLayout.visible = false
+                    initializing = false
+                }
+                if(chargingConfiguration.optimizationEnabled){
                     initializing = true
                 }
-                if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state === 3) ){
-                    initializing = true
-                }
-
 
 
             }
@@ -314,19 +314,19 @@ Page {
             }
 
             ColumnLayout{
-                id: statusLabelColumnLayout
                 Layout.fillWidth: true
                 spacing: 0
                 visible: chargingConfiguration.optimizationEnabled || (chargingSessionConfiguration.state == 3)
                 Rectangle{
                     id: status
-
-                    width: description.width + 15
+                    width: description.width+15
                     height: description.height + 10
                     Layout.alignment: Qt.AlignRight
 
+
+
                     //check if plugged in                 check if current power == 0           else show the current state the session is in atm
-                    color:  thing.stateByName("pluggedIn").value ? (thing.stateByName("currentPower") !== 0 ? ( initializing  ? "blue" : chargingSessionConfiguration.state == 2 ? "green" : chargingSessionConfiguration.state == 3 ? "grey" : chargingSessionConfiguration.state == 4 ? "grey" : "white" ): "orange") : "lightgrey"
+                    color:  thing.stateByName("pluggedIn").value ? (thing.stateByName("currentPower") !== 0 ? (initializing ? "blue" : chargingSessionConfiguration.state == 2 ? "green" : chargingSessionConfiguration.state == 3 ? "grey" : chargingSessionConfiguration.state == 4 ? "grey" : "white" ): "orange") : "lightgrey"
                     radius: width*0.1
                     Label{
                         id: description
