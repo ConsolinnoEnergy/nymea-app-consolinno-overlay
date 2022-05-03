@@ -1,7 +1,7 @@
-import QtQuick 2.9
+import QtQuick 2.15
 import "qrc:/ui/components"
 import Nymea 1.0
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.2
 
 
@@ -134,22 +134,35 @@ Page {
             Item {
                 Layout.fillWidth: true
                 Layout.preferredHeight: Style.delegateHeight
-                MouseArea {
+                Rectangle{
                     id: extraButton
                     anchors.centerIn: parent
-                    height: Style.delegateHeight
-                    width: childrenRect.width
+                    width: extraButtonLabel.width +15
+                    height: extraButtonLabel.height +10
+                    color: "#87BD26"
+                    border.width: 1
+                    border.color: "black"
+                    radius: 4
                     visible: false
-                    RowLayout{
-                    anchors.centerIn: parent
-                        Label {
-                        id: extraButtonLabel
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+
+                    MouseArea {
+
+                        anchors.centerIn: parent
+                        height: Style.delegateHeight +10
+                        width: childrenRect.width +15
 
 
+                        RowLayout{
+                        anchors.centerIn: parent
+                            Label {
+                            id: extraButtonLabel
+                            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+
+
+                            }
                         }
+                        onClicked: root.extraButtonPressed()
                     }
-                    onClicked: root.extraButtonPressed()
                 }
             }
 

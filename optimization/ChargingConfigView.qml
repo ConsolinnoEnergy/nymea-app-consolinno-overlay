@@ -4,6 +4,7 @@ import QtQuick.Controls.Material 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
 import QtQml 2.2
+ import QtGraphicalEffects 1.15
 import Nymea 1.0
 
 import "../components"
@@ -20,17 +21,74 @@ Page {
     property ChargingSessionConfiguration chargingSessionConfiguration: hemsManager.chargingSessionConfigurations.getChargingSessionConfiguration(thing.id)
     property Thing carThing
     property Thing thing
-    property var pageSelectedCar: carThing.name == null ? qsTr("no car selected") : carThing.name
+    property var pageSelectedCar: carThing.name === null ? qsTr("no car selected") : carThing.name
+    property bool initializing: false
 
     // Connections to update the ChargingSessionConfiguration values
     Connections {
         target: hemsManager
         onChargingSessionConfigurationChanged:
         {
-            batteryLevelValue.text  = chargingSessionConfiguration.batteryLevel  + " %"
-            energyChargedValue.text = chargingSessionConfiguration.energyCharged.toFixed(2) + " kWh"
-            energyBatteryValue.text = chargingSessionConfiguration.energyBattery.toFixed(2) + " kWh"
+            if (chargingSessionConfiguration.evChargerThingId === thing.id){
+
+                batteryLevelValue.text  = chargingSessionConfiguration.batteryLevel  + " %"
+                energyChargedValue.text = chargingSessionConfiguration.energyCharged.toFixed(2) + " kWh"
+                energyBatteryValue.text = chargingSessionConfiguration.energyBattery.toFixed(2) + " kWh"
+                var duration = chargingSessionConfiguration.duration
+                var hours   = Math.floor(duration/3600)
+                var minutes = Math.floor((duration - hours*3600)/60)
+                var seconds = Math.floor(duration - hours*3600 - minutes*60)
+                durationValue.text = (hours === 0) ? (minutes == 0 ? seconds + "s"  :  minutes + "min " + seconds + "s"    ) : hours + "h " + " " + minutes + "min " + seconds + "s"
+
+                if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state == 2)){
+                    batteryLevelRowLayout.visible = true
+                    energyBatteryLayout.visible = true
+                    currentCurrentRowLayout.visible = true
+                    energyChargedLayout.visible = true
+                    initializing = false
+                }
+
+
+            }
+
+
         }
+
+        onChargingConfigurationChanged:
+        {
+
+            if (chargingConfiguration.evChargerThingId === thing.id){
+
+                if (!chargingConfiguration.optimizationEnabled){
+                    batteryLevelRowLayout.visible = false
+                    energyBatteryLayout.visible = false
+                    currentCurrentRowLayout.visible = false
+                    energyChargedLayout.visible = false
+                    status.visible = false
+                    initializing = false
+                }
+                else if(chargingConfiguration.optimizationEnabled){
+                    status.visible = true
+                    initializing = true
+                    batteryLevelRowLayout.visible = true
+                    energyBatteryLayout.visible = true
+                    currentCurrentRowLayout.visible = true
+                    energyChargedLayout.visible = true
+                    batteryLevelValue.text  = 0 + " %"
+                    energyChargedValue.text = 0 + " kWh"
+                    energyBatteryValue.text = 0 + " kWh"
+                    durationValue.text = " -- "
+
+
+
+
+                }
+
+
+            }
+
+        }
+
 
     }
 
@@ -87,7 +145,7 @@ Page {
                 Layout.alignment: Qt.AlignRight
                 color: thing.stateByName("pluggedIn").value ? "green" : "red"
                 border.color: "black"
-                border.width: 1
+                border.width: 0.5
                 radius: width*0.5
             }
         }
@@ -113,11 +171,8 @@ Page {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: infoColumnLayout.top
-        anchors.topMargin: infoColumnLayout.height + 50
-        anchors.margins: app.margins
-        spacing: 10
-
-
+        anchors.topMargin: infoColumnLayout.height + 30
+        anchors.margins: app.margins 
 
 
         RowLayout{
@@ -132,22 +187,32 @@ Page {
         }
 
         RowLayout{
+            Layout.topMargin: 15
             Label{
                 id: selectedCarLabel
                 Layout.fillWidth: true
                 text: "Car: "
             }
-
             Label{
                 id: selectedCar
                 text: qsTr(thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? pageSelectedCar: " -- " )  : " -- ")
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
+            }
+        }
 
+        RowLayout
+        {
+            Rectangle{
+                color: "grey"
+                Layout.fillWidth: true
+                height: 1
+                Layout.alignment: Qt.AlignTop
             }
         }
 
         RowLayout{
+            Layout.topMargin: 15
             Label{
                 id: loadingModesLabel
                 Layout.fillWidth: true
@@ -175,11 +240,22 @@ Page {
             }
         }
 
+        RowLayout
+        {
+            Rectangle{
+                color: "grey"
+                Layout.fillWidth: true
+                height: 1
+                Layout.alignment: Qt.AlignTop
+            }
+        }
+
         RowLayout{
+            Layout.topMargin: 15
             Label{
                 id: targetChargeReachedLabel
                 Layout.fillWidth: true
-                text: qsTr("Target Charge Reached at: ")
+                text: qsTr("Ending time: ")
             }
 
             Label{
@@ -189,18 +265,30 @@ Page {
                 // determine whether it is today or tomorrow
                 property var date: (parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) < today.getHours() ) | ( ( parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) === today.getHours() ) & parseInt(chargingConfiguration.endTime[3]+chargingConfiguration.endTime[4]) >= today.getMinutes() ) ? tomorrow : today
 
-                text: thing.stateByName("pluggedIn").value ? (  chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd/MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "HH:mm:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : " -- "  )   : " -- "
+                text: thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd/MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "HH:mm:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : " -- "  )   : " -- "
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
             }
         }
 
+        RowLayout
+        {
+            Rectangle{
+                color: "grey"
+                Layout.fillWidth: true
+                height: 1
+                Layout.alignment: Qt.AlignTop
+            }
+        }
+
+
         RowLayout{
+            Layout.topMargin: 15
             Label{
                 id: targetChargeLabel
                 Layout.fillWidth: true
-                text: qsTr("Target Charge: ")
+                text: qsTr("Target charge: ")
             }
 
             Label{
@@ -209,6 +297,16 @@ Page {
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
+            }
+        }
+
+        RowLayout
+        {
+            Rectangle{
+                color: "grey"
+                Layout.fillWidth: true
+                height: 1
+                Layout.alignment: Qt.AlignTop
             }
         }
     }
@@ -220,10 +318,7 @@ Page {
         anchors.top: stateOfLoadingColumnLayout.top
         anchors.topMargin: stateOfLoadingColumnLayout.height + 50
         anchors.margins: app.margins
-        spacing: 10
-
-
-
+        spacing: 15
 
 
 
@@ -235,47 +330,37 @@ Page {
                 font.pixelSize: 22
                 font.bold: true
             }
+
             ColumnLayout{
                 Layout.fillWidth: true
                 spacing: 0
-                visible: false//chargingConfiguration.optimizationEnabled
+                visible: chargingConfiguration.optimizationEnabled || (chargingSessionConfiguration.state == 3)
                 Rectangle{
+
                     id: status
-
-                    //initiation   // yellow
-                    //running      // green
-                    //toBeCanceled // lightblue
-                    //canceled     // blue
-                    //notdefined   // white
-                    //disabled     // lightgrey
-                    //pausiert     // orange
-
-                    width: 17
-                    height: 17
-
+                    property var state: chargingSessionConfiguration.state
+                    width: 120
+                    height: description.height + 10
                     Layout.alignment: Qt.AlignRight
+
 
                     //check if plugged in                 check if current power == 0           else show the current state the session is in atm
-                    color:  thing.stateByName("pluggedIn").value ? (thing.stateByName("currentPower") !== 0 ? (chargingSessionConfiguration.state === 0  ? "yellow" : chargingSessionConfiguration.state == 1 ? "green" : chargingSessionConfiguration.state == 2 ? "lightblue" : chargingSessionConfiguration.state == 3 ? "blue" : "white" ): "orange") : "lightgrey"
-                    border.color: "black"
-                    border.width: 1
-                    radius: width*0.5
-                }
-                Label{
-                    id: description
+                    color:  thing.stateByName("pluggedIn").value ? (thing.stateByName("currentPower") !== 0 ? (initializing ? "blue" : state === 2 ? "green" : state === 3 ? "grey" : state === 4 ? "grey" : "white" ): "orange") : "lightgrey"
+                    radius: width*0.1
+                    Label{
 
-                    text: chargingSessionConfiguration.state == 2 ? "running" : "not running"
-                    Layout.alignment: Qt.AlignRight
+                        id: description
+                        text: initializing ? "Initialising" : (status.state === 2 ? "Running" : (status.state === 3 ? "Finished" : (status.state === 4 ? "Interrupted" :  "Failed"  )))
+                        color: "white"
+                        anchors.centerIn: parent
+                    }
                 }
-
             }
-
-
         }
 
         RowLayout{
             id: noLoadingRowLayout
-            visible: ! (chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
+            visible: !(chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
             Label{
                 id: noLoadingLabel
                 text: qsTr("No chargingschedule active at the moment...")
@@ -287,7 +372,7 @@ Page {
 
         RowLayout{
             id: batteryLevelRowLayout
-            visible: chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value
+            visible: (chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
             Label{
                 id: batteryLevelLabel
                 Layout.fillWidth: true
@@ -306,8 +391,8 @@ Page {
         }
 
         RowLayout{
-            id: energyBattery
-            visible: chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value
+            id: energyBatteryLayout
+            visible: (chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
             Label{
                 id: energyBatteryLabel
                 Layout.fillWidth: true
@@ -336,7 +421,7 @@ Page {
             }
             Label{
                 id: currentCurrentValue
-                text: thing.stateByName("maxChargingCurrent").value + " A"
+                text: initializing ? 0 : thing.stateByName("maxChargingCurrent").value + " A"
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -346,7 +431,7 @@ Page {
 
         RowLayout{
             id: energyChargedLayout
-            visible: chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value
+            visible: (chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
             Label{
                 id: alreadyLoadedLabel
                 Layout.fillWidth: true
@@ -362,6 +447,27 @@ Page {
             }
         }
 
+        RowLayout{
+            id: durationLayout
+            visible: (chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
+            Label{
+                id: durationLabel
+                Layout.fillWidth: true
+                text: qsTr("Time Elapsed:")
+
+            }
+            Label{
+                id: durationValue
+                property int duration: chargingSessionConfiguration.duration
+                property int hours: duration/3600
+                property int minutes: (duration - hours*3600)/60
+                property int seconds: duration - hours*3600 - minutes*60
+                text: (hours === 0) ? (minutes == 0 ? seconds + "s"  :  minutes + "min " + seconds + "s"    ) : hours + "h " + " " + minutes + "min " + seconds + "s"
+                Layout.alignment: Qt.AlignRight
+                Layout.rightMargin: 0
+
+            }
+        }
 
 
 
@@ -400,17 +506,10 @@ Page {
                 Layout.fillWidth: true
                 text: qsTr("Cancel Charging Schedule")
                 onClicked: {
-
-
                     hemsManager.setChargingConfiguration(thing.id, false, chargingConfiguration.carThingId,   Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours() , Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes() , chargingConfiguration.targetPercentage,  chargingConfiguration.optimizationMode, chargingConfiguration.uniqueIdentifier)
                 }
-
-
             }
-
         }
-
-
     }
 
 
@@ -430,7 +529,7 @@ Page {
 
 
             header: NymeaHeader {
-                text: qsTr("Charging configuration") + " - " + qsTr(thing.name)
+                text: qsTr("Charging configuration")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -459,7 +558,6 @@ Page {
 
                     ComboBox {
                         id: comboboxev
-                        property var counter: 0
                         textRole: "name"                                                        // indexOf function gives -1 back if not found
                         Layout.fillWidth: true
                         model: ListModel{
@@ -468,7 +566,6 @@ Page {
 
                             Component.onCompleted: {
                                 fillevCombobox()
-
                             }
                             function fillevCombobox(){
                                 proxyModel.clear()
@@ -477,9 +574,7 @@ Page {
                                     proxyModel.append({"index": evProxy.get(k).id.toString(), "name": evProxy.get(k).name, "value": evProxy.get(k)} )
                                 }
                                 comboboxev.currentIndex = evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId)) < 0 ? 0 : evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId) )
-
                             }
-
                         }
 
 
@@ -508,25 +603,31 @@ Page {
                                 for (var i = 0; i<thingClassesProxy.count; i++){
                                     if (thingClassesProxy.get(i).id.toString() === "{dbe0a9ff-94ba-4a94-ae52-51da3f05c717}"  ){
                                         var page = pageStack.push("../thingconfiguration/AddGenericCar.qml" , {thingClass: thingClassesProxy.get(i)})
-                                        page.done.connect(function(){
+                                        page.done.connect(function(attr){
 
                                             pageStack.pop()
                                             proxyModel.fillevCombobox()
+
+
+                                            for (var i = 0; i< attr.length; i++)
+                                            {
+
+                                                if(attr[i].id === "maxChargingLimit" ){
+                                                    // you can read the attributes here
+
+                                                }
+
+
+                                            }
+
                                         })
                                         page.aborted.connect(function(){
                                             pageStack.pop()
                                         })
-
-
-
                                     }
                                 }
                             }
-
                         }
-
-
-
 
                     }
 
@@ -567,12 +668,22 @@ Page {
 
                 RowLayout{
                     ColumnLayout{
-                        Label{
-                            id: batteryid
-                            Layout.fillWidth: true
-                            text: qsTr("Battery charge: " + batterycharge.value +" %")
+                        Row{
 
+                            Label{
+                                id: batteryid
+                                text: qsTr("Battery charge: " + batterycharge.value +" %")
+
+                            }
+                        /*
+                            InfoButton{
+                                push: "BatteryChargeInfo.qml"
+                                anchors.left: batteryid.right
+                                anchors.leftMargin:  5
+                            }
+                            */
                         }
+
 
                         Slider {
                             id: batterycharge
@@ -596,14 +707,9 @@ Page {
                                     {
                                         targetPercentageSlider.value = value
                                     }
-
-
                                     endTimeSlider.computeFeasibility()
-
                                 }
                             }
-
-
                         }
                     }
 
@@ -622,10 +728,8 @@ Page {
                             Layout.fillWidth: true
                             text: qsTr("Target state of charge %1%").arg(targetPercentageSlider.value)
                         }
-
                         Slider {
                             id: targetPercentageSlider
-
                             Layout.fillWidth: true
                             from: 0
                             to: 100
@@ -640,6 +744,7 @@ Page {
 
                             }
                             onPositionChanged: {
+
                                 if (comboboxev.currentIndex > 0){
                                     endTimeSlider.computeFeasibility()
                                     endTimeSlider.feasibilityText()
@@ -655,11 +760,9 @@ Page {
 
                                         value = 1
                                     }
+
                                 }
                             }
-
-
-
                         }
                     }
                 }
@@ -687,11 +790,8 @@ Page {
                             }
 
                             return
-
                         }
-
                     }
-
                 }
 
 
@@ -714,9 +814,6 @@ Page {
                         property var capacityInAh
                         property var batteryContentInAh
                         property var minChargingCurrent
-
-
-
 
                         from: 0
                         to: 24*60
@@ -837,13 +934,13 @@ Page {
                     onClicked: {
 
                         if (comboboxev.currentIndex > 0){
-                            if (evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value !== undefined){
+                            if (evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value){
                                 evProxy.get(comboboxev.currentIndex-1).executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batterycharge.value }])
-
                             }
                             // Maintool to debug
                             //footer.text = "saved"
                             pageSelectedCar = comboboxev.model.get(comboboxev.currentIndex).name
+
 
                             hemsManager.setChargingConfiguration(thing.id, true, evProxy.get(comboboxev.currentIndex -1).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode, "00000000-0000-0000-0000-000000000000")
                             pageStack.pop()
@@ -856,10 +953,22 @@ Page {
                     }
                 }
             }
+        }
+    }
 
+    Component{
+        id: batterychargeHelp
+        Page{
+            Text {
+                id: batterychargeHelpText
+                text: qsTr("text")
+            }
 
 
         }
+
     }
+
+
 
 }
