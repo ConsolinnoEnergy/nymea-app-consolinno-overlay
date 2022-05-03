@@ -1,6 +1,6 @@
-import QtQuick 2.5
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick 2.8
+import QtQuick.Layouts 1.2
+import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.1
 import Nymea 1.0
 
@@ -14,7 +14,7 @@ Page {
     property Thing thing: null
 
     signal aborted();
-    signal done();
+    signal done(var attr);
 
 
     QtObject {
@@ -30,12 +30,11 @@ Page {
         property var params: []
         property var states: []
         property var settings: []
+        property var attr: []
 
 
         function pairThing() {
             engine.thingManager.addThing(root.thingClass.id, d.name, params);
-
-
             //busyOverlay.shown = true;
         }
     }
@@ -65,10 +64,6 @@ Page {
                 engine.thingManager.setThingSettings(thing.id, [{ paramTypeId: d.settings[j].paramTypeId , value: d.settings[j].value }])
             }
 
-
-
-
-
         }
 
     }
@@ -89,7 +84,6 @@ Page {
 
     Component {
         id: paramsPage
-
         SettingsPageBase {
             id: paramsView
             title: qsTr("Set up %1").arg(root.thingClass.displayName)
@@ -106,69 +100,227 @@ Page {
                 Layout.rightMargin: app.margins
             }
 
-            SettingsPageSectionHeader {
-                id: settingsPageSection
-                text: qsTr("Thing parameters")
-                visible: paramRepeater.count > 0
-            }
-            // use this to set the states of the Thing
-            Repeater {
-                id: paramRepeater
-                model: engine.jsonRpcClient.ensureServerVersion("1.12") ?  root.thingClass.paramTypes : null
-                delegate: ParamDelegate {
-                    Layout.fillWidth: true
-                    enabled: !model.readOnly
-                    paramType: root.thingClass.paramTypes.get(index)
-                    value: {
-                        // Manual setup, use default value from thing class
-                        return root.thingClass.paramTypes.get(index).defaultValue
-                    }
-                }
-            }
-
-            Repeater {
-                id: stateRepeater
-                model: engine.jsonRpcClient.ensureServerVersion("1.12") ?  root.thingClass.stateTypes : null
-                delegate: StateDelegate {
-
-
-                    visible: {
-
-
-
-                        for (var i = 0; i < settingsRepeater.count; i++){
-                            // this is due to the integrationplugin of the generic car
-                            // got to the integrationplugingenericcar.json file in the generic github and look for yourself
-                            if ( param.paramTypeId.toString().match(/\{?20faf2b8-2b40-4bee-b228-97dbaf0cdffc\}?/) )
-                            {
-
-                                return false
-                            }
-                        }
-                        return true
-                    }
-                    Layout.fillWidth: true
-                    stateType: root.thingClass.stateTypes.get(index)
-                    value: root.thingClass.stateTypes.get(index).defaultValue
-
-
-
-                }
-            }
 
             Repeater{
-                id: settingsRepeater
-                model: root.thingClass.settingsTypes
-                delegate: ParamDelegate{
+                id: customRepeater
                 Layout.fillWidth: true
-                paramType: root.thingClass.settingsTypes.get(index)
-                value: root.thingClass.settingsTypes.get(index).defaultValue
-                writable: true
+                property var attributes: ({})
+                // if you want to add atribute:
+                // add one in the model
+                model:[
+
+                    {id: "batteryLevel", name: "Battery Level", component: batteryLevelComponent, type: "state", Uuid: "3f1cca10-8988-4ec6-b937-0775653cde12"},
+                    {id: "capacity", name: "Capacity", component: capacityComponent, type: "state", Uuid: "363a2a39-61b6-4109-9cd9-aca7367d12c7" },
+                    {id: "minChargingCurrent", name: "Minimum charging current", component: minimumChargingCurrentComponent, type: "setting", Uuid: "0c55516d-4285-4d02-8926-1dae03649e18"},
+                    {id: "maxChargingLimit", name: "Maximum charging limit" , component: maximumAllowedChargingLimitComponent, type: "attr", Uuid: "" },
+
+
+                ]
+
+                delegate: ItemDelegate
+                {
+                    id: attribute
+
+
+                    Layout.fillWidth: true
+                    contentItem: ColumnLayout{
+                        id: contentItemColumn
+                        Layout.fillWidth: true
+                        RowLayout{
+                            Layout.fillWidth: true
+                            spacing: app.margins
+
+                            Label{
+                                id: customRepeaterModelName
+                                Layout.fillWidth: true
+                                horizontalAlignment: Text.AlignLeft
+                                text: modelData.name
+
+                            }
+                            // define the case in the Loader
+                            Loader{
+                                id: paramLoader
+
+                                Layout.fillWidth: true
+                                Layout.rightMargin: 0
+                                sourceComponent: {
+                                    switch(modelData.name){
+                                    case "Maximum charging limit":
+                                        {
+                                            return maximumAllowedChargingLimitComponent
+                                        }
+                                    case "Minimum charging current":
+                                        {
+                                            return minimumChargingCurrentComponent
+                                        }
+                                    case "Capacity":
+                                        {
+                                            return capacityComponent
+                                        }
+                                    case "Battery Level":
+                                        {
+                                            return batteryLevelComponent
+                                        }
+
+                                    }
+
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+
+            }
+
+// individual Components for the different attributes
+            // and build a component
+            Component{
+                id: maximumAllowedChargingLimitComponent
+                RowLayout{
+                    Layout.fillWidth: true
+                    Slider
+                    {
+                        id: maximumChargingSlider
+                        Layout.fillWidth: true
+                        Layout.maximumWidth: 170
+                        Layout.alignment: Qt.AlignRight
+                        Layout.rightMargin: 0
+                        from: 0
+                        to: 100
+                        stepSize: 1
+                        value: 100
+
+                        onPositionChanged:{
+                          customRepeater.attributes["maxChargingLimit"] = value
+                        }
+
+                    }
+                    Label{
+
+                        Layout.fillWidth: true
+                        Layout.maximumWidth: 40
+                        Layout.rightMargin: 0
+                        horizontalAlignment: Text.AlignRight
+                        id: maximumChargingLimitLabel
+                        text: maximumChargingSlider.value + "%"
+                    }
 
                 }
 
             }
 
+            Component{
+                id: minimumChargingCurrentComponent
+
+                RowLayout{
+
+                    Layout.fillWidth: true
+                    Slider
+                    {
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignRight
+                        Layout.maximumWidth: 170
+                        id: minimumChargingCurrentSlider
+                        from: 6
+                        to: 16
+                        stepSize: 1
+
+                        onPositionChanged:{
+                          customRepeater.attributes["minChargingCurrent"] = value
+                        }
+
+                    }
+
+                    Label{
+                        Layout.preferredWidth: 40
+                        Layout.rightMargin: 0
+                        horizontalAlignment: Text.AlignRight
+                        id: minimumChargingCurrentLabel
+                        text: minimumChargingCurrentSlider.value + " A"
+                    }
+
+                }
+
+            }
+
+            Component{
+                id: capacityComponent
+                RowLayout{
+                    Layout.fillWidth: true
+                    // at some time replace this one
+                    NymeaSpinBox
+                    {
+                        property var capacity: value
+                        Layout.fillWidth: true
+                        Layout.maximumWidth: 150
+                        Layout.alignment: Qt.AlignRight
+                        Layout.rightMargin: 0
+
+                        value: 50
+                        id: capacitySpinbox
+                        from: 0
+                        to: 100
+
+                        onCapacityChanged:{
+
+                            if (value >= 0){
+                                customRepeater.attributes["capacity"] = value
+                            }else{
+                                value = 0
+                            }
+
+                        }
+
+
+
+                    }
+
+                    Label{
+                        Layout.preferredWidth: 20
+                        Layout.alignment: Qt.AlignRight
+                        Layout.rightMargin: 0
+                        horizontalAlignment: Text.AlignRight
+                        id: capacityComponentLabel
+                        text: " kWh"
+                    }
+
+                }
+
+            }
+
+            Component{
+                id: batteryLevelComponent
+                RowLayout{
+                    Layout.fillWidth: true
+                    Slider
+                    {
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignRight
+                        Layout.maximumWidth: 170
+                        id: batteryLevelSlider
+                        from: 0
+                        to: 100
+                        stepSize: 1
+                        onPositionChanged:{
+                            customRepeater.attributes["batteryLevel"] = value
+                        }
+
+                    }
+
+                    Label{
+                        Layout.preferredWidth: 30
+                        Layout.rightMargin: 0
+                        Layout.alignment: Qt.AlignRight
+                        horizontalAlignment: Text.AlignRight
+                        id: batteryLevelLabel
+                        text: batteryLevelSlider.value + "%"
+                    }
+
+                }
+
+            }
 
 
 
@@ -178,48 +330,51 @@ Page {
                 Layout.rightMargin: app.margins
                 text: "OK"
                 onClicked: {
-                    var params = []
-                    for (var i = 0; i < paramRepeater.count; i++) {
-                        var param = {}
-                        var paramType = paramRepeater.itemAt(i).paramType
-                        if (!paramType.readOnly) {
-                            param.paramTypeId = paramType.id
-                            param.value = paramRepeater.itemAt(i).value
-                            params.push(param)
-                        }
-                    }
-                    // here we add the params to the QObject d
-
                     var states = []
-                    for (var j = 0; j < stateRepeater.count; j++) {
-                        var state = {}
-                        var stateType = stateRepeater.itemAt(j).stateType
+                    var settings = []
+                    var attrs = []
 
-                            state.stateTypeId = stateType.id
-                            state.name = stateType.name
-                            state.value = stateRepeater.itemAt(j).value
+                    for(var i = 0; i < customRepeater.count; i++)
+                    {
+                        var state   = {}
+                        var setting = {}
+                        var attr   = {}
+
+                        var attribute = customRepeater.model[i]
+                        if (attribute.type === "state")
+                        {
+
+                            state.value = customRepeater.attributes[attribute.id]
+                            state.name = attribute.id
                             states.push(state)
 
+                        }else if(attribute.type === "setting"){
+
+                            setting.paramTypeId = attribute.Uuid
+
+                            setting.value = customRepeater.attributes[attribute.id]
+                            settings.push(setting)
+
+                        }else if(attribute.type === "attr"){
+
+                            attr.id = attribute.id
+                            attr.value = customRepeater.attributes[attribute.id]
+                            attrs.push(attr)
+                        }
+
                     }
 
 
 
-                    var settings = []
-                    for (var k = 0; k < settingsRepeater.count; k++) {
-
-                        var setting = {}
-                        setting["paramTypeId"] = settingsRepeater.itemAt(k).param.paramTypeId
-                        setting["value"] = settingsRepeater.itemAt(k).param.value
-                        settings.push(setting)
-                    }
 
 
 
                     d.settings = settings
                     d.states = states
-                    d.params = params
+                    d.attr = attrs
                     d.name = nameTextField.text
                     d.pairThing();
+
                 }
             }
         }
@@ -288,7 +443,7 @@ Page {
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     text: qsTr("Ok")
                     onClicked: {
-                        root.done();
+                        root.done(d.attr);
                     }
                 }
             }

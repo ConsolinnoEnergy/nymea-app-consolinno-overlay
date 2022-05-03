@@ -135,6 +135,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.preferredHeight: Style.delegateHeight
                 Rectangle{
+                    id: extraButton
                     anchors.centerIn: parent
                     width: extraButtonLabel.width +15
                     height: extraButtonLabel.height +10
@@ -145,7 +146,7 @@ Page {
                     visible: false
 
                     MouseArea {
-                        id: extraButton
+
                         anchors.centerIn: parent
                         height: Style.delegateHeight +10
                         width: childrenRect.width +15

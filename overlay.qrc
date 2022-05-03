@@ -37,5 +37,7 @@
         <file>components/ChargingConfigSliderBackground.qml</file>
         <file>optimization/ChargingConfigView.qml</file>
         <file>thingconfiguration/AddGenericCar.qml</file>
+        <file>components/InfoButton.qml</file>
+        <file>info/BatteryChargeInfo.qml</file>
     </qresource>
 </RCC>
