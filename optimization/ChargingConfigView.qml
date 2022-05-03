@@ -573,7 +573,7 @@ Page {
                                 for (var k = 0; k < evProxy.count; k++){
                                     proxyModel.append({"index": evProxy.get(k).id.toString(), "name": evProxy.get(k).name, "value": evProxy.get(k)} )
                                 }
-                                comboboxev.currentIndex = evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId)) < 0 ? 0 : evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId) )
+                                comboboxev.currentIndex = evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId)) <= 0 ? 0 : evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId) )
                             }
                         }
 
@@ -583,8 +583,8 @@ Page {
                             if (comboboxev.currentIndex > 0){
                                 endTimeSlider.computeFeasibility()
                                 if (evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value !== undefined){
-                                    if (batterycharge.value < evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value){
-                                        batterycharge.value = evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value
+                                    if (batteryLevel.value < evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value){
+                                        batteryLevel.value = evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value
                                     }
                                 }
                                 if (targetPercentageSlider.value < endTimeSlider.batteryLevel)
@@ -642,12 +642,20 @@ Page {
                     Layout.fillWidth: true
 
 
-
-                    Label {
+                    Row{
                         Layout.fillWidth: true
-                        text: qsTr("Charging mode: ")
-                    }
+                        Label {
+                            id: chargingModeid
 
+                            text: qsTr("Charging mode: ")
+                        }
+
+                        InfoButton{
+                            push: "ChargingModeInfo.qml"
+                            anchors.left: chargingModeid.right
+                            anchors.leftMargin:  5
+                        }
+                    }
 
                     // will replace the Optimization enabled switch, since there will be more optimization options
                     ComboBox {
@@ -672,21 +680,21 @@ Page {
 
                             Label{
                                 id: batteryid
-                                text: qsTr("Battery charge: " + batterycharge.value +" %")
+                                text: qsTr("Battery Level: " + batteryLevel.value +" %")
 
                             }
-                        /*
+
                             InfoButton{
-                                push: "BatteryChargeInfo.qml"
+                                push: "BatteryLevel.qml"
                                 anchors.left: batteryid.right
                                 anchors.leftMargin:  5
                             }
-                            */
+
                         }
 
 
                         Slider {
-                            id: batterycharge
+                            id: batteryLevel
 
                             Layout.fillWidth: true
                             from: 0
@@ -724,10 +732,20 @@ Page {
 
                     ColumnLayout {
                         spacing: 0
-                        Label {
-                            Layout.fillWidth: true
-                            text: qsTr("Target state of charge %1%").arg(targetPercentageSlider.value)
+                        Row{
+                            Label {
+                                id: targetCharge
+                                text: qsTr("Target state of charge %1%").arg(targetPercentageSlider.value)
+                            }
+                            InfoButton{
+                                push: "TargetChargeInfo.qml"
+                                anchors.left: targetCharge.right
+                                anchors.leftMargin:  5
+                            }
                         }
+
+
+
                         Slider {
                             id: targetPercentageSlider
                             Layout.fillWidth: true
@@ -884,7 +902,7 @@ Page {
 
                                 }
 
-                                batteryLevel = batterycharge.value
+                                batteryLevel = batteryLevel.value
                                 batteryContentInAh = capacityInAh * batteryLevel/100
 
                                 var targetSOCinAh = capacityInAh * targetSOC/100
@@ -935,7 +953,7 @@ Page {
 
                         if (comboboxev.currentIndex > 0){
                             if (evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value){
-                                evProxy.get(comboboxev.currentIndex-1).executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batterycharge.value }])
+                                evProxy.get(comboboxev.currentIndex-1).executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batteryLevel.value }])
                             }
                             // Maintool to debug
                             //footer.text = "saved"
@@ -955,20 +973,4 @@ Page {
             }
         }
     }
-
-    Component{
-        id: batterychargeHelp
-        Page{
-            Text {
-                id: batterychargeHelpText
-                text: qsTr("text")
-            }
-
-
-        }
-
-    }
-
-
-
 }

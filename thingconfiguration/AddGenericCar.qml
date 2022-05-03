@@ -109,10 +109,10 @@ Page {
                 // add one in the model
                 model:[
 
-                    {id: "batteryLevel", name: "Battery Level", component: batteryLevelComponent, type: "state", Uuid: "3f1cca10-8988-4ec6-b937-0775653cde12"},
-                    {id: "capacity", name: "Capacity", component: capacityComponent, type: "state", Uuid: "363a2a39-61b6-4109-9cd9-aca7367d12c7" },
-                    {id: "minChargingCurrent", name: "Minimum charging current", component: minimumChargingCurrentComponent, type: "setting", Uuid: "0c55516d-4285-4d02-8926-1dae03649e18"},
-                    {id: "maxChargingLimit", name: "Maximum charging limit" , component: maximumAllowedChargingLimitComponent, type: "attr", Uuid: "" },
+                    {id: "batteryLevel", name: "Battery Level", component: batteryLevelComponent, type: "state", Uuid: "3f1cca10-8988-4ec6-b937-0775653cde12", info: "BatteryLevel.qml" },
+                    {id: "capacity", name: "Capacity", component: capacityComponent, type: "state", Uuid: "363a2a39-61b6-4109-9cd9-aca7367d12c7", info: "Capacity.qml"  },
+                    {id: "minChargingCurrent", name: "Minimum charging current", component: minimumChargingCurrentComponent, type: "setting", Uuid: "0c55516d-4285-4d02-8926-1dae03649e18", info: "MinimumChargingCurrent.qml"},
+                    {id: "maxChargingLimit", name: "Maximum charging limit" , component: maximumAllowedChargingLimitComponent, type: "attr", Uuid: "", info: "MaximumAllowedChargingLimit.qml" },
 
 
                 ]
@@ -130,11 +130,26 @@ Page {
                             Layout.fillWidth: true
                             spacing: app.margins
 
-                            Label{
-                                id: customRepeaterModelName
+                            Row{
                                 Layout.fillWidth: true
-                                horizontalAlignment: Text.AlignLeft
-                                text: modelData.name
+                                Label{
+                                    id: customRepeaterModelName
+                                    Layout.fillWidth: true
+                                    horizontalAlignment: Text.AlignLeft
+                                    text: modelData.name
+
+                                }
+
+                                InfoButton{
+                                    property var infoPage: modelData.info
+                                    visible: modelData.info ? true : false
+                                    push: infoPage
+                                    stack: internalPageStack
+                                    anchors.left: customRepeaterModelName.right
+                                    anchors.leftMargin:  5
+                                }
+
+
 
                             }
                             // define the case in the Loader
