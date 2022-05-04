@@ -18,6 +18,6 @@ Page {
     }
 
     InfoTextInterface{
-        infotext: qsTr("Bei einigen Fahrzeugen wird der Ladevorgang nach einer Pause bzw. Unterbrechung nicht wieder fortgesetzt. Das kann im Lademodus ’kostenoptimiertes Laden’ oder ’nur Solarstrom’ der Fall sein, wenn nicht ausreichend Solarstrom zur Verfügung steht. Die Einstellung eines Mindeststroms sorgt dafür, dass das Fahrzeug auch wenn kein Solarstrom zur Verfügung steht, mit dem Mindeststrom geladen wird, und es somit zu keiner Unterbrechung kommt. Der Mindestladestrom sollte möglichst gering gewählt werden.")
+        infotext: qsTr("Please enter the battery capacity of your vehicle. You will find this in your vehicle registration document.")
     }
 }

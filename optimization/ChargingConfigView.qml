@@ -34,12 +34,13 @@ Page {
                 batteryLevelValue.text  = chargingSessionConfiguration.batteryLevel  + " %"
                 energyChargedValue.text = chargingSessionConfiguration.energyCharged.toFixed(2) + " kWh"
                 energyBatteryValue.text = chargingSessionConfiguration.energyBattery.toFixed(2) + " kWh"
-                var duration = chargingSessionConfiguration.duration
-                var hours   = Math.floor(duration/3600)
-                var minutes = Math.floor((duration - hours*3600)/60)
-                var seconds = Math.floor(duration - hours*3600 - minutes*60)
-                durationValue.text = (hours === 0) ? (minutes == 0 ? seconds + "s"  :  minutes + "min " + seconds + "s"    ) : hours + "h " + " " + minutes + "min " + seconds + "s"
-
+                if (chargingSessionConfiguration.state === 2){
+                    var duration = chargingSessionConfiguration.duration
+                    var hours   = Math.floor(duration/3600)
+                    var minutes = Math.floor((duration - hours*3600)/60)
+                    var seconds = Math.floor(duration - hours*3600 - minutes*60)
+                    durationValue.text = (hours === 0) ? (minutes == 0 ? seconds + "s"  :  minutes + "min " + seconds + "s"    ) : hours + "h " + " " + minutes + "min " + seconds + "s"
+                }
                 if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state == 2)){
                     batteryLevelRowLayout.visible = true
                     energyBatteryLayout.visible = true
@@ -334,7 +335,7 @@ Page {
             ColumnLayout{
                 Layout.fillWidth: true
                 spacing: 0
-                visible: chargingConfiguration.optimizationEnabled || (chargingSessionConfiguration.state == 3)
+                visible: (chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
                 Rectangle{
 
                     id: status
@@ -529,7 +530,7 @@ Page {
 
 
             header: NymeaHeader {
-                text: qsTr("Charging configuration")
+                text: qsTr("Charging config")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -573,7 +574,8 @@ Page {
                                 for (var k = 0; k < evProxy.count; k++){
                                     proxyModel.append({"index": evProxy.get(k).id.toString(), "name": evProxy.get(k).name, "value": evProxy.get(k)} )
                                 }
-                                comboboxev.currentIndex = evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId)) <= 0 ? 0 : evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId) )
+
+                                comboboxev.currentIndex = evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId)) < 0 ? 0 : evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId) )
                             }
                         }
 
@@ -668,9 +670,6 @@ Page {
                         }
                         textRole: "key"
 
-
-                        onCurrentIndexChanged: {
-                        }
                     }
                 }
 
@@ -720,16 +719,11 @@ Page {
                             }
                         }
                     }
-
-
-
-
                 }
 
 
 
                 RowLayout{
-
                     ColumnLayout {
                         spacing: 0
                         Row{
@@ -767,9 +761,6 @@ Page {
                                     endTimeSlider.computeFeasibility()
                                     endTimeSlider.feasibilityText()
 
-
-
-
                                     if (value < endTimeSlider.batteryLevel)
                                     {
                                         value = endTimeSlider.batteryLevel
@@ -793,7 +784,7 @@ Page {
                         property var today: new Date()
                         property var endTime: new Date(today.getTime() + endTimeSlider.value * 60000)
                         property var feasibility
-                        text: "End of the charging time: " + endTime.toLocaleString(Qt.locale("de-DE"), "dd/MM HH:mm") + "  Feasible: " + feasibility
+                        text: "End of the charging time: " + endTime.toLocaleString(Qt.locale("de-DE"), "dd/MM HH:mm")
 
                         function endTimeValidityPrediction(d){
 
@@ -810,6 +801,17 @@ Page {
                             return
                         }
                     }
+
+                    Label
+                    {
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignRight
+                    text: qsTr("Feasible: ") + endTimeLabel.feasibility
+                    }
+
+
+
+
                 }
 
 
@@ -881,7 +883,7 @@ Page {
                                     loadingVoltage = 230
                                 }
                                 else{
-                                    loadingVoltage = 400
+                                    loadingVoltage = thing.stateByName("phaseCount").value * 230
                                 }
 
 
@@ -896,14 +898,12 @@ Page {
                                     if (evProxy.get(comboboxev.currentIndex-1).thingClass.stateTypes.get(i).name === "minChargingCurrent" ){
 
                                         minChargingCurrent = evProxy.get(comboboxev.currentIndex-1).states.getState(thingStateId).value
-                                        // for testing reasons
-
                                     }
 
                                 }
 
-                                batteryLevel = batteryLevel.value
-                                batteryContentInAh = capacityInAh * batteryLevel/100
+
+                                batteryContentInAh = capacityInAh * batteryLevel.value/100
 
                                 var targetSOCinAh = capacityInAh * targetSOC/100
 

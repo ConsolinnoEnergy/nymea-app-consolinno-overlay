@@ -16,6 +16,6 @@ Page {
     }
 
     InfoTextInterface{
-        infotext: qsTr("Bei einigen Fahrzeugen wird der Ladevorgang nach einer Pause bzw. Unterbrechung nicht wieder fortgesetzt. Das kann im Lademodus "kostenoptimiertes Laden" oder "nur Solarstrom" der Fall sein, wenn nicht ausreichend Solarstrom zur Verfügung steht. Die Einstellung eines Mindeststroms sorgt dafür, dass das Fahrzeug auch wenn kein Solarstrom zur Verfügung steht, mit dem Mindeststrom geladen wird, und es somit zu keiner Unterbrechung kommt. Der Mindestladestrom sollte möglichst gering gewählt werden.")
+        infotext: qsTr("For some vehicles, the charging process is not resumed after a pause or interruption. This can be the case in the charging mode 'cost-optimized charging' or 'solar power only' if there is not enough solar power available. Setting a minimum current ensures that the vehicle is charged with the minimum current even if no solar power is available, and thus no interruption occurs. The minimum charging current should be selected as low as possible.")
     }
 }
