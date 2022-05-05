@@ -72,6 +72,8 @@ Item {
             wrapMode: Text.WordWrap
             font.bold: true
             text: "Copyright (C) %1 Consolinno Energy GmbH".arg(new Date().getFullYear())
+
+
         }
 
         Label {
@@ -89,7 +91,6 @@ Item {
                 Layout.fillWidth: true
                 iconName: "../images/stock_website.svg"
                 text: qsTr("Visit GitHub page")
-                visible: engine.jsonRpcClient.connected
                 subText: root.githubLink
                 prominentSubText: false
                 wrapTexts: false
@@ -105,9 +106,16 @@ Item {
                 subText: "Additional used software licenses"
                 prominentSubText: false
                 wrapTexts: false
-                visible: root.additionalLicenses && root.additionalLicenses.count > 0
+                visible:{
+                    // tbd: testing still needed with cloud connection
+                    if (engine.jsonRpcClient.cloudConnectionState !== JsonRpcClient.CloudConnectionStateConnected)
+                    {
+                        return true
+                    }
+                    return false
+                }
                 onClicked: {
-                    pageStack.push(licensesPageComponent)
+                    Qt.openUrlExternally("http://" + engine.jsonRpcClient.currentConnection.hostAddress.toString() + ":8082" )
                 }
             }
         }

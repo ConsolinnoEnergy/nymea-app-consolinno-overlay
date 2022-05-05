@@ -47,5 +47,6 @@
         <file>info/InfoTextInterface.qml</file>
         <file>components/ConsolinnoImprint.qml</file>
         <file>optimization/HeatingConfigView.qml</file>
+        <file>components/VerticalDivider.qml</file>
     </qresource>
 </RCC>
