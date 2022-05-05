@@ -183,12 +183,12 @@ ConsolinnoWizardPageBase {
                         showUnreachableBearers: false
                         jsonRpcClient: engine.jsonRpcClient
                         showUnreachableHosts: false
-
+                        /*
                         onCountChanged: {
                             if (count === 1) {
                                 engine.jsonRpcClient.connectToHost(hostsProxy.get(0))
                             }
-                        }
+                        }*/
                     }
 
                     ColumnLayout {
