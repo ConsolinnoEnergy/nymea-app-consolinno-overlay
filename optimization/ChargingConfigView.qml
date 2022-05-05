@@ -34,12 +34,13 @@ Page {
                 batteryLevelValue.text  = chargingSessionConfiguration.batteryLevel  + " %"
                 energyChargedValue.text = chargingSessionConfiguration.energyCharged.toFixed(2) + " kWh"
                 energyBatteryValue.text = chargingSessionConfiguration.energyBattery.toFixed(2) + " kWh"
-                var duration = chargingSessionConfiguration.duration
-                var hours   = Math.floor(duration/3600)
-                var minutes = Math.floor((duration - hours*3600)/60)
-                var seconds = Math.floor(duration - hours*3600 - minutes*60)
-                durationValue.text = (hours === 0) ? (minutes == 0 ? seconds + "s"  :  minutes + "min " + seconds + "s"    ) : hours + "h " + " " + minutes + "min " + seconds + "s"
-
+                if (chargingSessionConfiguration.state === 2){
+                    var duration = chargingSessionConfiguration.duration
+                    var hours   = Math.floor(duration/3600)
+                    var minutes = Math.floor((duration - hours*3600)/60)
+                    var seconds = Math.floor(duration - hours*3600 - minutes*60)
+                    durationValue.text = (hours === 0) ? (minutes == 0 ? seconds + "s"  :  minutes + "min " + seconds + "s"    ) : hours + "h " + " " + minutes + "min " + seconds + "s"
+                }
                 if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state == 2)){
                     batteryLevelRowLayout.visible = true
                     energyBatteryLayout.visible = true
@@ -334,7 +335,7 @@ Page {
             ColumnLayout{
                 Layout.fillWidth: true
                 spacing: 0
-                visible: chargingConfiguration.optimizationEnabled || (chargingSessionConfiguration.state == 3)
+                visible: (chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
                 Rectangle{
 
                     id: status
@@ -529,7 +530,7 @@ Page {
 
 
             header: NymeaHeader {
-                text: qsTr("Charging configuration")
+                text: qsTr("Charging config")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -573,6 +574,7 @@ Page {
                                 for (var k = 0; k < evProxy.count; k++){
                                     proxyModel.append({"index": evProxy.get(k).id.toString(), "name": evProxy.get(k).name, "value": evProxy.get(k)} )
                                 }
+
                                 comboboxev.currentIndex = evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId)) < 0 ? 0 : evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId) )
                             }
                         }
@@ -583,8 +585,8 @@ Page {
                             if (comboboxev.currentIndex > 0){
                                 endTimeSlider.computeFeasibility()
                                 if (evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value !== undefined){
-                                    if (batterycharge.value < evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value){
-                                        batterycharge.value = evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value
+                                    if (batteryLevel.value < evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value){
+                                        batteryLevel.value = evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value
                                     }
                                 }
                                 if (targetPercentageSlider.value < endTimeSlider.batteryLevel)
@@ -642,12 +644,20 @@ Page {
                     Layout.fillWidth: true
 
 
-
-                    Label {
+                    Row{
                         Layout.fillWidth: true
-                        text: qsTr("Charging mode: ")
-                    }
+                        Label {
+                            id: chargingModeid
 
+                            text: qsTr("Charging mode: ")
+                        }
+
+                        InfoButton{
+                            push: "ChargingModeInfo.qml"
+                            anchors.left: chargingModeid.right
+                            anchors.leftMargin:  5
+                        }
+                    }
 
                     // will replace the Optimization enabled switch, since there will be more optimization options
                     ComboBox {
@@ -660,9 +670,6 @@ Page {
                         }
                         textRole: "key"
 
-
-                        onCurrentIndexChanged: {
-                        }
                     }
                 }
 
@@ -672,21 +679,21 @@ Page {
 
                             Label{
                                 id: batteryid
-                                text: qsTr("Battery charge: " + batterycharge.value +" %")
+                                text: qsTr("Battery Level: " + batteryLevel.value +" %")
 
                             }
-                        /*
+
                             InfoButton{
-                                push: "BatteryChargeInfo.qml"
+                                push: "BatteryLevel.qml"
                                 anchors.left: batteryid.right
                                 anchors.leftMargin:  5
                             }
-                            */
+
                         }
 
 
                         Slider {
-                            id: batterycharge
+                            id: batteryLevel
 
                             Layout.fillWidth: true
                             from: 0
@@ -712,22 +719,27 @@ Page {
                             }
                         }
                     }
-
-
-
-
                 }
 
 
 
                 RowLayout{
-
                     ColumnLayout {
                         spacing: 0
-                        Label {
-                            Layout.fillWidth: true
-                            text: qsTr("Target state of charge %1%").arg(targetPercentageSlider.value)
+                        Row{
+                            Label {
+                                id: targetCharge
+                                text: qsTr("Target state of charge %1%").arg(targetPercentageSlider.value)
+                            }
+                            InfoButton{
+                                push: "TargetChargeInfo.qml"
+                                anchors.left: targetCharge.right
+                                anchors.leftMargin:  5
+                            }
                         }
+
+
+
                         Slider {
                             id: targetPercentageSlider
                             Layout.fillWidth: true
@@ -748,9 +760,6 @@ Page {
                                 if (comboboxev.currentIndex > 0){
                                     endTimeSlider.computeFeasibility()
                                     endTimeSlider.feasibilityText()
-
-
-
 
                                     if (value < endTimeSlider.batteryLevel)
                                     {
@@ -775,7 +784,7 @@ Page {
                         property var today: new Date()
                         property var endTime: new Date(today.getTime() + endTimeSlider.value * 60000)
                         property var feasibility
-                        text: "End of the charging time: " + endTime.toLocaleString(Qt.locale("de-DE"), "dd/MM HH:mm") + "  Feasible: " + feasibility
+                        text: "End of the charging time: " + endTime.toLocaleString(Qt.locale("de-DE"), "dd/MM HH:mm")
 
                         function endTimeValidityPrediction(d){
 
@@ -792,6 +801,17 @@ Page {
                             return
                         }
                     }
+
+                    Label
+                    {
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignRight
+                    text: qsTr("Feasible: ") + endTimeLabel.feasibility
+                    }
+
+
+
+
                 }
 
 
@@ -863,7 +883,7 @@ Page {
                                     loadingVoltage = 230
                                 }
                                 else{
-                                    loadingVoltage = 400
+                                    loadingVoltage = thing.stateByName("phaseCount").value * 230
                                 }
 
 
@@ -878,14 +898,12 @@ Page {
                                     if (evProxy.get(comboboxev.currentIndex-1).thingClass.stateTypes.get(i).name === "minChargingCurrent" ){
 
                                         minChargingCurrent = evProxy.get(comboboxev.currentIndex-1).states.getState(thingStateId).value
-                                        // for testing reasons
-
                                     }
 
                                 }
 
-                                batteryLevel = batterycharge.value
-                                batteryContentInAh = capacityInAh * batteryLevel/100
+
+                                batteryContentInAh = capacityInAh * batteryLevel.value/100
 
                                 var targetSOCinAh = capacityInAh * targetSOC/100
 
@@ -935,7 +953,7 @@ Page {
 
                         if (comboboxev.currentIndex > 0){
                             if (evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value){
-                                evProxy.get(comboboxev.currentIndex-1).executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batterycharge.value }])
+                                evProxy.get(comboboxev.currentIndex-1).executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batteryLevel.value }])
                             }
                             // Maintool to debug
                             //footer.text = "saved"
@@ -955,20 +973,4 @@ Page {
             }
         }
     }
-
-    Component{
-        id: batterychargeHelp
-        Page{
-            Text {
-                id: batterychargeHelpText
-                text: qsTr("text")
-            }
-
-
-        }
-
-    }
-
-
-
 }

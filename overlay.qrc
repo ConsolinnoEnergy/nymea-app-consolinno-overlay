@@ -38,6 +38,12 @@
         <file>optimization/ChargingConfigView.qml</file>
         <file>thingconfiguration/AddGenericCar.qml</file>
         <file>components/InfoButton.qml</file>
-        <file>info/BatteryChargeInfo.qml</file>
+        <file>info/TargetChargeInfo.qml</file>
+        <file>info/ChargingModeInfo.qml</file>
+        <file>info/BatteryLevel.qml</file>
+        <file>info/Capacity.qml</file>
+        <file>info/MinimumChargingCurrent.qml</file>
+        <file>info/MaximumAllowedChargingLimit.qml</file>
+        <file>info/InfoTextInterface.qml</file>
     </qresource>
 </RCC>
