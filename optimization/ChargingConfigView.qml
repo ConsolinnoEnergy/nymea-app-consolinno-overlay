@@ -230,11 +230,11 @@ Page {
 
                     if (chargingConfiguration.optimizationMode == 0)
                     {
-                        return qsTr("No Optimization")
+                        return qsTr("No optimization")
                     }
                     else if (chargingConfiguration.optimizationMode == 1)
                     {
-                        return qsTr("PV Optimized")
+                        return qsTr("PV optimized")
                     }
                 }
 
@@ -453,7 +453,7 @@ Page {
             Label{
                 id: durationLabel
                 Layout.fillWidth: true
-                text: qsTr("Time Elapsed:")
+                text: qsTr("Time elapsed:")
 
             }
             Label{
@@ -529,7 +529,7 @@ Page {
 
 
             header: NymeaHeader {
-                text: qsTr("Charging config")
+                text: qsTr("Configure charging")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -562,14 +562,14 @@ Page {
                         Layout.fillWidth: true
                         model: ListModel{
                             id: proxyModel
-                            ListElement{name: "Configure new Car"; index: "0" }
+                            ListElement{name: "Add new Car"; index: "0" }
 
                             Component.onCompleted: {
                                 fillevCombobox()
                             }
                             function fillevCombobox(){
                                 proxyModel.clear()
-                                proxyModel.append({"name": "Configure new Car", "index": "0" })
+                                proxyModel.append({"name": "Add new Car", "index": "0" })
                                 for (var k = 0; k < evProxy.count; k++){
                                     proxyModel.append({"index": evProxy.get(k).id.toString(), "name": evProxy.get(k).name, "value": evProxy.get(k)} )
                                 }
@@ -663,8 +663,8 @@ Page {
                         id: comboboxloadingmod
                         Layout.fillWidth: true
                         model: ListModel{
-                            ListElement{key: "Pv optimized"; value: "Pv-Optimized"; mode: 1}
-                            ListElement{key: "No Optimization"; value: "No Optimization"; mode: 0}
+                            ListElement{key: "PV optimized"; value: "Pv-Optimized"; mode: 1}
+                            ListElement{key: "No optimization"; value: "No Optimization"; mode: 0}
 
                         }
                         textRole: "key"
@@ -678,7 +678,7 @@ Page {
 
                             Label{
                                 id: batteryid
-                                text: qsTr("Battery Level: " + batteryLevel.value +" %")
+                                text: qsTr("Battery level: " + batteryLevel.value +" %")
 
                             }
 
@@ -728,7 +728,7 @@ Page {
                         Row{
                             Label {
                                 id: targetCharge
-                                text: qsTr("Target state of charge %1%").arg(targetPercentageSlider.value)
+                                text: qsTr("Target charge %1%").arg(targetPercentageSlider.value)
                             }
                             InfoButton{
                                 push: "TargetChargeInfo.qml"
@@ -783,7 +783,7 @@ Page {
                         property var today: new Date()
                         property var endTime: new Date(today.getTime() + endTimeSlider.value * 60000)
                         property var feasibility
-                        text: "End of the charging time: " + endTime.toLocaleString(Qt.locale("de-DE"), "dd/MM HH:mm")
+                        text: "Ending time: " + endTime.toLocaleString(Qt.locale("de-DE"), "dd/MM HH:mm")
 
                         function endTimeValidityPrediction(d){
 
