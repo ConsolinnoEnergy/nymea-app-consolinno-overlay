@@ -101,22 +101,39 @@ Item {
 
             NymeaSwipeDelegate {
                 Layout.fillWidth: true
+                text: qsTr("View privacy policy")
+                iconName: "../images/stock_website.svg"
+                subText: app.privacyPolicyUrl
+                prominentSubText: false
+                wrapTexts: false
+                onClicked:
+                    Qt.openUrlExternally(app.privacyPolicyUrl)
+            }
+
+            NymeaSwipeDelegate {
+                Layout.fillWidth: true
                 text: qsTr("Additional software licenses")
                 iconName: "../images/logs.svg"
                 subText: "Additional used software licenses"
                 prominentSubText: false
                 wrapTexts: false
-                visible:{
-                    // tbd: testing still needed with cloud connection
-                    if (engine.jsonRpcClient.cloudConnectionState !== JsonRpcClient.CloudConnectionStateConnected)
+                visible: {
+                    if (engine.jsonRpcClient.cloudConnectionState !== JsonRpcClient.CloudConnectionStateConnected || (root.additionalLicenses.count > 0 && root.additionalLicenses) )
                     {
                         return true
                     }
                     return false
+
                 }
+
                 onClicked: {
-                    Qt.openUrlExternally("http://" + engine.jsonRpcClient.currentConnection.hostAddress.toString() + ":8082" )
+                    if(root.additionalLicenses) {
+                        pageStack.push(licensesPageComponent)
+                    }else {
+                        Qt.openUrlExternally("http://" + engine.jsonRpcClient.currentConnection.hostAddress.toString() + ":8082" )
+                    }
                 }
+
             }
         }
 
