@@ -82,7 +82,7 @@ Page {
         Label
         {
         Layout.fillWidth: true
-        Layout.leftMargin: app.width/6
+        //Layout.leftMargin: app.width/6
         text: qsTr("Energymanager: ")
         font.bold: true
         }
@@ -98,31 +98,61 @@ Page {
                 Layout.topMargin: 5
                     // tbd: Configurationdata tab finishing
                 model: [
-                   // {Id: "operatingMode", name: "Operating mode: ", value: heatpumpThing.stateByName("sgReadyMode").value, component: stringValues, unit: ""},
-                   // {Id: "configurationData", name: "Configuration data: ",  component: stringValues },
-                    //{Id: "floorHeatingArea", name: "Floor heating area: ", value: heatingconfig.floorHeatingArea, unit: "m²"},
-//                    {Id: "maximalElectricalPower", name: "Maximal electrical power: ", value: heatingconfig.maxElectricalPower, unit: "kW"},
-                   // {Id: "thermalStorageCapacity", name: "Thermal storage capacity: ", value: heatingconfig.maxThermalEnergy, unit: "kWh"},
+                    {Id: "operatingMode", name: "Operating mode: ", value: translateNymeaHeatpumpValues(heatpumpThing.stateByName("sgReadyMode").value), component: stringValues, unit: ""},
+                    {Id: "configuartionData", name: "Configuration data: ", component: configValues,
+                        params:[
+                            {name: "Floor heating area", value: heatingconfig.floorHeatingArea},
+                            {name: "Maximal electrical power", value: heatingconfig.maxElectricalPower},
+                            {name: "Thermal storage capacity", value: heatingconfig.maxThermalEnergy},
+                        ]
+
+
+                    },
+                    {Id: "outdoorTemperature", name: "Outdoor temperature", value: heatpumpThing.stateByName("outdoorTemperature") , unit: "°C" , component: stringValues},
+                    {Id: "hotWaterTemperature", name: "Hot water temperature", value: heatpumpThing.stateByName("hotWaterTemperature") , unit: "°C" , component: stringValues},
+                    {Id: "returnTemperature", name: "Return temperature", value: heatpumpThing.stateByName("returnTemperature") , unit: "°C", component: stringValues},
+                    {Id: "flowTemperature", name: "Flow temperature", value: heatpumpThing.stateByName("flowTemperature") , unit: "°C", component: stringValues},
+
 
                 ]
 
+                function translateNymeaHeatpumpValues(something){
+
+
+                    switch(something)
+                    {
+                    case"Off":
+                        {
+                            return "Off"
+                        }
+                    case "Low":
+                        {
+                            return "Standard"
+                        }
+                    case "Standard":
+                        {
+                            return "Increased"
+                        }
+                    case "High":
+                        {
+                            return "High"
+                        }
+
+                    }
+
+                }
+
                 delegate: ItemDelegate{
+                    visible: modelData.value !== null ? true : false
                     id: optimizerInputs
                     Layout.fillWidth: true
-                    Layout.rightMargin: app.width/4
-                    Layout.leftMargin: app.width/4
+                    //Layout.rightMargin: app.width/4
+                    //Layout.leftMargin: app.width/4
                     contentItem: ColumnLayout
                     {
-
                         Layout.fillWidth: true
                         RowLayout{
                             Layout.fillWidth: true
-                            Label{
-                                id: singleInput
-                                Layout.fillWidth: true
-                                text: modelData.name
-
-                            }
                             Loader
                             {
                                 id: optimizationParams
@@ -136,21 +166,51 @@ Page {
                                     property: "delegateUnit"
                                     value: modelData.unit
                                 }
+                                Binding{
+                                    target: optimizationParams.item
+                                    property: "delegateName"
+                                    value: modelData.name
+                                }
+                                Binding{
+                                    target: optimizationParams.item
+                                    property: "delegateParams"
+                                    value: modelData.params
+                                }
 
 
                                 Layout.fillWidth: true
                                 sourceComponent:
                                 {
+
+
+
                                 switch(modelData.Id)
                                 {
-                                case "operatingMode" :
+                                case "operatingMode":
                                     {
-                                        return stringValues
+                                        return modelData.component
                                     }
                                 case "configuartionData":
                                     {
-                                        return stringValues
+                                        return modelData.component
                                     }
+                                case "outdoorTemperature":
+                                    {
+                                        return modelData.component
+                                    }
+                                case "hotWaterTemperature":
+                                    {
+                                        return modelData.component
+                                    }
+                                case "returnTemperature":
+                                    {
+                                        return modelData.component
+                                    }
+                                case "flowTemperature":
+                                    {
+                                        return modelData.component
+                                    }
+
                                 }
 
                                 }
@@ -186,7 +246,8 @@ Page {
             text: qsTr("Save")
             onClicked: {
 
-                hemsManager.setHeatingConfiguration(heatpumpThing, optimizationEnableSwitch.checked, heatingconfig.floorHeatingArea, heatingconfig.maxElectricalPower, heatingconfig.maxThermalEnergy, heatingconfig.heatMeterThingId)
+
+                hemsManager.setHeatingConfiguration(heatpumpThing.id, optimizationEnableSwitch.checked, heatingconfig.floorHeatingArea, heatingconfig.maxElectricalPower, heatingconfig.maxThermalEnergy)
                 pageStack.pop()
 
             }
@@ -194,16 +255,130 @@ Page {
 
         Component{
             id: stringValues
-
-            Label{
+            RowLayout{
+                property var delegateName
                 property var delegateValue
                 property var delegateUnit
-                id: singleValue
-                text: delegateValue + delegateUnit
+                property var delegateParams
+                Layout.fillWidth: true
+                Label{
+                    id: singleInput
+                    Layout.fillWidth: true
+                    text: delegateName
+
+                }
+
+                Label{
+                    id: singleValue
+                    text: delegateValue + delegateUnit
+                }
             }
+
+        }
+
+        Component
+        {
+            id: configValues
+
+
+            RowLayout{
+                property var delegateName
+                property var delegateValue
+                property var delegateUnit
+                property var delegateParams
+                Layout.fillWidth: true
+
+
+                Label{
+                    id: configLabel
+                    text: delegateName
+
+                }
+
+
+                NymeaItemDelegate{
+
+                    id: configDelegate
+                    Layout.fillWidth: true
+                    onClicked:
+                    {
+                       pageStack.push(configData, {configDataValues: delegateParams })
+                    }
+
+
+
+
+                    }
+              }
+
+
 
 
         }
+        Component
+        {
+            id: configData
+            Page{
+                id: configDataPage
+                Layout.fillWidth: true
+                property var configDataValues
+
+                header: NymeaHeader {
+                    id: header
+                    text: heatpumpThing.name
+                    backButtonVisible: true
+                    onBackPressed: pageStack.pop()
+                }
+
+
+                ColumnLayout{
+                    Layout.fillWidth: true
+                    Repeater
+                    {
+                        Layout.fillWidth: true
+                        id:  configDataRepeater
+                        model: configDataValues
+                        delegate: ItemDelegate{
+                            Layout.fillWidth: true
+                            contentItem: RowLayout{
+                                    Layout.fillWidth: true
+
+
+                                    Label
+                                    {
+                                        Layout.minimumWidth: app.width - 2*app.margins - itemValue.contentWidth
+                                        id: itemLabel
+                                        text: modelData.name
+
+                                    }
+
+                                    Label
+                                    {
+
+                                        id: itemValue
+                                        text: modelData.value
+
+                                    }
+
+
+                            }
+
+
+
+
+                        }
+
+
+
+
+                    }
+
+
+                }
+
+            }
+        }
+
 
 
     }

@@ -346,7 +346,7 @@ Page {
 
 
                     //check if plugged in                 check if current power == 0           else show the current state the session is in atm
-                    color:  thing.stateByName("pluggedIn").value ? (thing.stateByName("currentPower") !== 0 ? (initializing ? "blue" : state === 2 ? "green" : state === 3 ? "grey" : state === 4 ? "grey" : "white" ): "orange") : "lightgrey"
+                    color:  thing.stateByName("pluggedIn").value ? (initializing ? "blue" : state === 2 ? "green" : state === 3 ? "grey" : state === 4 ? "grey" : "white" ) : "lightgrey"
                     radius: width*0.1
                     Label{
 
