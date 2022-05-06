@@ -188,9 +188,7 @@ ConsolinnoWizardPageBase {
                             if (count === 1) {
                                 engine.jsonRpcClient.connectToHost(hostsProxy.get(0))
                             }
-                        }
-                        */
-
+                        }*/
                     }
 
                     ColumnLayout {
