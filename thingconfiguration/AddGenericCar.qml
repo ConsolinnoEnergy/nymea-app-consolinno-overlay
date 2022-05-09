@@ -86,7 +86,7 @@ Page {
         id: paramsPage
         SettingsPageBase {
             id: paramsView
-            title: qsTr("Set up %1").arg(root.thingClass.displayName)
+            title: qsTr("Add new car")
 
             SettingsPageSectionHeader {
                 text: qsTr("Name the thing:")
@@ -109,8 +109,7 @@ Page {
                 // add one in the model
                 model:[
 
-                    {id: "batteryLevel", name: "Battery Level", component: batteryLevelComponent, type: "state", Uuid: "3f1cca10-8988-4ec6-b937-0775653cde12", info: "BatteryLevel.qml" },
-                    {id: "capacity", name: "Capacity", component: capacityComponent, type: "state", Uuid: "363a2a39-61b6-4109-9cd9-aca7367d12c7", info: "Capacity.qml"  },
+                    {id: "capacity", name: "Battery capacity", component: capacityComponent, type: "state", Uuid: "363a2a39-61b6-4109-9cd9-aca7367d12c7", info: "Capacity.qml"  },
                     {id: "minChargingCurrent", name: "Minimum charging current", component: minimumChargingCurrentComponent, type: "setting", Uuid: "0c55516d-4285-4d02-8926-1dae03649e18", info: "MinimumChargingCurrent.qml"},
                     {id: "maxChargingLimit", name: "Maximum charging limit" , component: maximumAllowedChargingLimitComponent, type: "attr", Uuid: "", info: "MaximumAllowedChargingLimit.qml" },
 
@@ -168,13 +167,9 @@ Page {
                                         {
                                             return minimumChargingCurrentComponent
                                         }
-                                    case "Capacity":
+                                    case "Battery capacity":
                                         {
                                             return capacityComponent
-                                        }
-                                    case "Battery Level":
-                                        {
-                                            return batteryLevelComponent
                                         }
 
                                     }
@@ -305,37 +300,7 @@ Page {
 
             }
 
-            Component{
-                id: batteryLevelComponent
-                RowLayout{
-                    Layout.fillWidth: true
-                    Slider
-                    {
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignRight
-                        Layout.maximumWidth: 170
-                        id: batteryLevelSlider
-                        from: 0
-                        to: 100
-                        stepSize: 1
-                        onPositionChanged:{
-                            customRepeater.attributes["batteryLevel"] = value
-                        }
 
-                    }
-
-                    Label{
-                        Layout.preferredWidth: 30
-                        Layout.rightMargin: 0
-                        Layout.alignment: Qt.AlignRight
-                        horizontalAlignment: Text.AlignRight
-                        id: batteryLevelLabel
-                        text: batteryLevelSlider.value + "%"
-                    }
-
-                }
-
-            }
 
 
 
@@ -402,7 +367,7 @@ Page {
         Page {
             id: resultsView
             header: NymeaHeader {
-                text: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
+                text: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Add generic car")
                 onBackPressed: pageStack.pop()
             }
 

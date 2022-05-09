@@ -740,7 +740,10 @@ MainViewBase {
                             thing: consumers.get(index)
                             onClicked: {
                                 print("Clicked consumer", index, thing.name)
-                                if (thing.thingClass.interfaces.indexOf("evcharger") >= 0) {
+                                if (thing.thingClass.interfaces.indexOf("heatpump") >= 0){
+                                    pageStack.push("../optimization/HeatingConfigView.qml", {hemsManager: hemsManager, heatpumpThing: thing })
+                                }
+                                else if (thing.thingClass.interfaces.indexOf("evcharger") >= 0) {
                                     pageStack.push("../optimization/ChargingConfigView.qml", {hemsManager: hemsManager, thing: thing, carThing:  evProxy.getThing(hemsManager.chargingConfigurations.getChargingConfiguration(thing.id).carThingId)  })
                                 } else {
                                     pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})

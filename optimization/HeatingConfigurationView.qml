@@ -278,7 +278,6 @@ Page {
 
                         if (savebutton.validated)
                         {
-                            footer.text = "saved"
 
                             d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, optimizationEnabledSwitch.checked, parseFloat( floorHeatingAreaId.text) , parseFloat( maxElectricalPower.text)  ,  parseFloat(maxThermalEnergy.text) )
                         }
