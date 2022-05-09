@@ -60,7 +60,7 @@ ConsolinnoWizardPageBase {
                 text: qsTr("Demo mode")
                 onClicked:
                 {
-                    var host = nymeaDiscovery.nymeaHosts.createWanHost("Demo server", "wss://hems-demo.services-test.consolinno-it.de:443")
+                    var host = nymeaDiscovery.nymeaHosts.createWanHost("Demo server", "nymeas://hems-demo.consolinno-it.de:31222")
                     engine.jsonRpcClient.connectToHost(host)
                 }
             }
