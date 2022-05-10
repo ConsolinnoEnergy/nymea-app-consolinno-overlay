@@ -41,6 +41,7 @@ Page {
                     var seconds = Math.floor(duration - hours*3600 - minutes*60)
                     durationValue.text = (hours === 0) ? (minutes == 0 ? seconds + "s"  :  minutes + "min " + seconds + "s"    ) : hours + "h " + " " + minutes + "min " + seconds + "s"
                 }
+                // Running
                 if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state == 2)){
                     batteryLevelRowLayout.visible = true
                     energyBatteryLayout.visible = true
@@ -48,7 +49,14 @@ Page {
                     energyChargedLayout.visible = true
                     initializing = false
                 }
-
+                // Pending
+                if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state == 6)){
+                    batteryLevelRowLayout.visible = true
+                    energyBatteryLayout.visible = true
+                    currentCurrentRowLayout.visible = true
+                    energyChargedLayout.visible = true
+                    initializing = false
+                }
 
             }
 
