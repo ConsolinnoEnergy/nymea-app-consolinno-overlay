@@ -5,7 +5,7 @@ import QtQuick 2.0
 ConfigurationBase {
     systemName: "Leaflet"
     appName: "Consolinno energy"
-    appId: "com.consolinno.energy"
+    appId: "hems.consolinno.energy"
 
     connectionWizard: "/ui/wizards/ConnectionWizard.qml"
 

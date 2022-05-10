@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:484445295371:android:23b7d87968f84491a3080e",
         "android_client_info": {
-          "package_name": "com.consolinno.energy"
+          "package_name": "hems.consolinno.energy"
         }
       },
       "oauth_client": [

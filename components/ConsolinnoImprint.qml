@@ -118,10 +118,15 @@ Item {
                 prominentSubText: false
                 wrapTexts: false
                 visible: {
+
+                    if(engine.jsonRpcClient.currentConnection.hostAddress.toString().indexOf("hems-demo.consolinno-it.de") >= 0 ) {
+                        return false
+                    }
                     if (engine.jsonRpcClient.cloudConnectionState !== JsonRpcClient.CloudConnectionStateConnected || (root.additionalLicenses.count > 0 && root.additionalLicenses) )
                     {
                         return true
                     }
+
                     return false
 
                 }
