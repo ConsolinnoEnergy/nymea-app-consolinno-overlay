@@ -82,7 +82,7 @@ Page {
         Label
         {
         Layout.fillWidth: true
-        //Layout.leftMargin: app.width/6
+        Layout.topMargin: 10
         text: qsTr("Energymanager: ")
         font.bold: true
         }
@@ -101,9 +101,9 @@ Page {
                     {Id: "operatingMode", name: "Operating mode: ", value: translateNymeaHeatpumpValues(heatpumpThing.stateByName("sgReadyMode").value), component: stringValues, unit: ""},
                     {Id: "configuartionData", name: "Configuration data: ", component: configValues,
                         params:[
-                            {name: "Floor heating area", value: heatingconfig.floorHeatingArea},
-                            {name: "Maximal electrical power", value: heatingconfig.maxElectricalPower},
-                            {name: "Thermal storage capacity", value: heatingconfig.maxThermalEnergy},
+                            {name: "Floor heating area", value: heatingconfig.floorHeatingArea, unit: "m²"},
+                            {name: "Maximal electrical power", value: heatingconfig.maxElectricalPower, unit: "kW"},
+                            {name: "Thermal storage capacity", value: heatingconfig.maxThermalEnergy, unit: "kWh"},
                         ]
 
 
@@ -346,7 +346,7 @@ Page {
 
                                     Label
                                     {
-                                        Layout.minimumWidth: app.width - 2*app.margins - itemValue.contentWidth
+                                        Layout.minimumWidth: app.width - 2*app.margins - itemValue.contentWidth - itemUnit.width
                                         id: itemLabel
                                         text: modelData.name
 
@@ -357,6 +357,15 @@ Page {
 
                                         id: itemValue
                                         text: modelData.value
+
+                                    }
+
+                                    Label
+                                    {
+
+                                        Layout.minimumWidth: 35
+                                        id: itemUnit
+                                        text: modelData.unit
 
                                     }
 
