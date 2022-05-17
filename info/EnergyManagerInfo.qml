@@ -46,6 +46,7 @@ Page {
                 }
                 Label{
                     Layout.fillWidth: true
+                    leftPadding: app.margins -2
                     rightPadding: app.margins +10
                     wrapMode: Text.WordWrap
                     Layout.preferredWidth: app.width
@@ -67,6 +68,7 @@ Page {
 
                 Label{
                     Layout.fillWidth: true
+                    leftPadding: app.margins -2
                     rightPadding: app.margins +10
                     wrapMode: Text.WordWrap
                     Layout.preferredWidth: app.width
@@ -87,6 +89,7 @@ Page {
 
                 Label{
                     Layout.fillWidth: true
+                    leftPadding: app.margins -2
                     rightPadding: app.margins +10
                     wrapMode: Text.WordWrap
                     Layout.preferredWidth: app.width
@@ -108,6 +111,7 @@ Page {
 
                 Label{
                     Layout.fillWidth: true
+                    leftPadding: app.margins -2
                     rightPadding: app.margins +10
                     wrapMode: Text.WordWrap
                     Layout.preferredWidth: app.width
