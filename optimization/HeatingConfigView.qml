@@ -78,15 +78,26 @@ Page {
         VerticalDivider
         {Layout.fillWidth: true}
 
+        Row{
+            Layout.fillWidth: true
+            Label
+            {
+                id: energyManager
+                text: qsTr("Energymanager: ")
+                font.bold: true
+            }
+            InfoButton{
+                stack: pageStack
+                push: "EnergyManagerInfo.qml"
+                anchors.left: energyManager.right
+                anchors.leftMargin:  5
 
-        Label
-        {
-        Layout.fillWidth: true
-        Layout.topMargin: 10
-        text: qsTr("Energymanager: ")
-        font.bold: true
+
+
+
+            }
+
         }
-
 
 
 
@@ -96,6 +107,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.topMargin: 5
+
                     // tbd: Configurationdata tab finishing
                 model: [
                     {Id: "operatingMode", name: "Operating mode: ", value: translateNymeaHeatpumpValues(heatpumpThing.stateByName("sgReadyMode").value), component: stringValues, unit: ""},
@@ -146,8 +158,6 @@ Page {
                     visible: modelData.value !== null ? true : false
                     id: optimizerInputs
                     Layout.fillWidth: true
-                    //Layout.rightMargin: app.width/4
-                    //Layout.leftMargin: app.width/4
                     contentItem: ColumnLayout
                     {
                         Layout.fillWidth: true

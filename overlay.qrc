@@ -48,5 +48,7 @@
         <file>components/ConsolinnoImprint.qml</file>
         <file>optimization/HeatingConfigView.qml</file>
         <file>components/VerticalDivider.qml</file>
+        <file>components/ConsolinnoBigTile.qml</file>
+        <file>info/EnergyManagerInfo.qml</file>
     </qresource>
 </RCC>

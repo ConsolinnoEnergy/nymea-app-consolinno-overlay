@@ -3,7 +3,8 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
 import QtQml 2.2
- import QtGraphicalEffects 1.15
+import QtGraphicalEffects 1.15
+import QtQuick.Controls.Material 2.12
 import Nymea 1.0
 
 import "../components"
@@ -24,10 +25,11 @@ Item {
                 {
                     if (stack)
                     {
-                        stack.push("../info/" + push)
+                        stack.push("../info/" + push, {stack: stack})
+
                     }
                     else{
-                        pageStack.push("../info/" + push)
+                        pageStack.push("../info/" + push, {stack: pageStack})
                     }
                 }
             }
@@ -36,7 +38,7 @@ Item {
     ColorOverlay{
         anchors.fill: infoImage
         source: infoImage
-        color: "black"
+        color: Material.foreground
     }
 
 }

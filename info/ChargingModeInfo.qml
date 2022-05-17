@@ -7,12 +7,12 @@ import "../components"
 import "../delegates"
 
 Page {
-
+    property var stack
     header: NymeaHeader {
         id: header
         text: qsTr("Charging mode Info")
         backButtonVisible: true
-        onBackPressed: pageStack.pop()
+        onBackPressed: stack.pop()
     }
     InfoTextInterface{
         infotext: qsTr("The energy manager tries to maximize the consumption of the solar power. The charging time and the charging current are planned in such a way that as much of the solar power as possible can be consumed.

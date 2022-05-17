@@ -1,6 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.2
+import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
 import QtQml 2.2
@@ -266,7 +266,7 @@ Page {
                 // determine whether it is today or tomorrow
                 property var date: (parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) < today.getHours() ) | ( ( parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) === today.getHours() ) & parseInt(chargingConfiguration.endTime[3]+chargingConfiguration.endTime[4]) >= today.getMinutes() ) ? tomorrow : today
 
-                text: thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd/MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "HH:mm:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : " -- "  )   : " -- "
+                text: thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd.MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "HH:mm:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : " -- "  )   : " -- "
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -339,7 +339,7 @@ Page {
                 Rectangle{
 
                     id: status
-                    property var state: chargingSessionConfiguration.state
+                    property int state: chargingSessionConfiguration.state
                     width: 120
                     height: description.height + 10
                     Layout.alignment: Qt.AlignRight
@@ -783,17 +783,17 @@ Page {
                         Layout.fillWidth: true
                         property var today: new Date()
                         property var endTime: new Date(today.getTime() + endTimeSlider.value * 60000)
-                        property var feasibility
-                        text: "Ending time: " + endTime.toLocaleString(Qt.locale("de-DE"), "dd/MM HH:mm")
+                        text: "Ending time: " + endTime.toLocaleString(Qt.locale("de-DE"), "dd.MM HH:mm")
 
                         function endTimeValidityPrediction(d){
 
                             switch (d){
                             case 1:
-                                feasibility =  "  <font color=\"red\">not feasible</font>"
+                                feasibilityMessage.visible = true
+
                                 break
                             case 2:
-                                feasibility = "  <font color=\"green\">feasible</font>"
+                                feasibilityMessage.visible = false
                                 break
 
                             }
@@ -802,17 +802,17 @@ Page {
                         }
                     }
 
-                    Label
-                    {
-                    Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignRight
-                    text: qsTr("Feasible: ") + endTimeLabel.feasibility
-                    }
+
 
 
 
 
                 }
+
+
+
+
+
 
 
                 RowLayout {
@@ -924,6 +924,21 @@ Page {
 
                 }
 
+                RowLayout
+                {
+
+                Label
+                    {
+                    id: feasibilityMessage
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignRight
+                    text: qsTr("In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time")
+                    Material.foreground: Material.Red
+                    visible: true
+                    wrapMode: Text.WordWrap
+                    }
+
+                }
 
 
 
