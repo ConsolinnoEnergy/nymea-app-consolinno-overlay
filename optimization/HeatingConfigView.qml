@@ -110,7 +110,7 @@ Page {
 
                     // tbd: Configurationdata tab finishing
                 model: [
-                    {Id: "operatingMode", name: "Operating mode: ", value: translateNymeaHeatpumpValues(heatpumpThing.stateByName("sgReadyMode").value), component: stringValues, unit: ""},
+                    {Id: "operatingMode", name: "Operating mode: ", value: translateNymeaHeatpumpValues(heatpumpThing.stateByName("sgReadyMode") ? heatpumpThing.stateByName("sgReadyMode").value : null), component: stringValues, unit: ""},
                     {Id: "configuartionData", name: "Configuration data: ", component: configValues,
                         params:[
                             {name: "Floor heating area", value: heatingconfig.floorHeatingArea, unit: "m²"},
@@ -120,10 +120,10 @@ Page {
 
 
                     },
-                    {Id: "outdoorTemperature", name: "Outdoor temperature", value: heatpumpThing.stateByName("outdoorTemperature") , unit: "°C" , component: stringValues},
-                    {Id: "hotWaterTemperature", name: "Hot water temperature", value: heatpumpThing.stateByName("hotWaterTemperature") , unit: "°C" , component: stringValues},
-                    {Id: "returnTemperature", name: "Return temperature", value: heatpumpThing.stateByName("returnTemperature") , unit: "°C", component: stringValues},
-                    {Id: "flowTemperature", name: "Flow temperature", value: heatpumpThing.stateByName("flowTemperature") , unit: "°C", component: stringValues},
+                    {Id: "outdoorTemperature", name: "Outdoor temperature", value: heatpumpThing.stateByName("outdoorTemperature") ? heatpumpThing.stateByName("outdoorTemperature").value : null , unit: "°C" , component: stringValues},
+                    {Id: "hotWaterTemperature", name: "Hot water temperature", value: heatpumpThing.stateByName("hotWaterTemperature") ? heatpumpThing.stateByName("hotWaterTemperature").value : null , unit: "°C" , component: stringValues},
+                    {Id: "returnTemperature", name: "Return temperature", value: heatpumpThing.stateByName("returnTemperature")? heatpumpThing.stateByName("returnTemperature").value : null , unit: "°C", component: stringValues},
+                    {Id: "flowTemperature", name: "Flow temperature", value: heatpumpThing.stateByName("flowTemperature")? heatpumpThing.stateByName("flowTemperature").value : null , unit: "°C", component: stringValues},
 
 
                 ]
@@ -155,7 +155,7 @@ Page {
                 }
 
                 delegate: ItemDelegate{
-                    visible: modelData.value !== null ? true : false
+                    visible: modelData.value !==  null ? true : false
                     id: optimizerInputs
                     Layout.fillWidth: true
                     contentItem: ColumnLayout

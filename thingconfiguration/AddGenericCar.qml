@@ -119,9 +119,8 @@ Page {
                 delegate: ItemDelegate
                 {
                     id: attribute
-
-
                     Layout.fillWidth: true
+
                     contentItem: ColumnLayout{
                         id: contentItemColumn
                         Layout.fillWidth: true
