@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Consolinno energy
+Comment=A client application for Leaflets
+Icon=/usr/share/icons/hicolor/256x256/apps/consolinno-energy.png
+Terminal=false
+Type=Application
+Exec=consolinno-energy

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>Consolinno energy</Name>
+    <Version>1.0.0</Version>
+    <Title>Consilinno energy Windows Installer</Title>
+    <Publisher>Conslinno Energy GmbH</Publisher>
+    <StartMenuDir>Consolinno</StartMenuDir>
+    <TargetDir>@ApplicationsDirX64@/Consolinno energy</TargetDir>
+</Installer>
