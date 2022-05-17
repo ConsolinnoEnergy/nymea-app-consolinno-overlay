@@ -41,7 +41,7 @@ import QtQuick.Layouts 1.3
             Layout.leftMargin: 0
             Layout.minimumWidth: feasibleSectionWidth
             implicitHeight: 4
-            color: "green"
+            color: "#87BD26"
 
 
 

@@ -7,12 +7,12 @@ import "../components"
 import "../delegates"
 
 Page {
-
+    property var stack
     header: NymeaHeader {
         id: header
         text: qsTr("BatteryLevel info")
         backButtonVisible: true
-        onBackPressed: pageStack.pop()
+        onBackPressed: stack.pop()
     }
     InfoTextInterface{
         infotext: qsTr("The energy manager requires information on the battery level for the optimized charging process. This information is not transmitted by the vehicle and must therefore be entered manually.")

@@ -7,12 +7,12 @@ import "../components"
 import "../delegates"
 
 Page {
-
+    property var stack
     header: NymeaHeader {
         id: header
         text: qsTr("Targetcharge Info")
         backButtonVisible: true
-        onBackPressed: pageStack.pop()
+        onBackPressed: stack.pop()
     }
 
     InfoTextInterface{

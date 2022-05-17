@@ -125,9 +125,7 @@ Page {
                     contentItem: ColumnLayout{
                         id: contentItemColumn
                         Layout.fillWidth: true
-                        RowLayout{
-                            Layout.fillWidth: true
-                            spacing: app.margins
+                        spacing: 0
 
                             Row{
                                 Layout.fillWidth: true
@@ -177,7 +175,7 @@ Page {
                                 }
                             }
 
-                        }
+
 
                     }
                 }
@@ -194,9 +192,7 @@ Page {
                     {
                         id: maximumChargingSlider
                         Layout.fillWidth: true
-                        Layout.maximumWidth: 170
-                        Layout.alignment: Qt.AlignRight
-                        Layout.rightMargin: 0
+                        Layout.alignment: Qt.AlignLeft
                         from: 0
                         to: 100
                         stepSize: 1
@@ -225,13 +221,11 @@ Page {
                 id: minimumChargingCurrentComponent
 
                 RowLayout{
-
                     Layout.fillWidth: true
                     Slider
                     {
                         Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignRight
-                        Layout.maximumWidth: 170
+                        Layout.alignment: Qt.AlignLeft
                         id: minimumChargingCurrentSlider
                         from: 6
                         to: 16
@@ -260,40 +254,38 @@ Page {
                 RowLayout{
                     Layout.fillWidth: true
                     // at some time replace this one
-                    NymeaSpinBox
-                    {
-                        property var capacity: value
-                        Layout.fillWidth: true
-                        Layout.maximumWidth: 150
-                        Layout.alignment: Qt.AlignRight
-                        Layout.rightMargin: 0
+                    RowLayout{
+                        Layout.alignment: Qt.AlignHCenter
+                        NymeaSpinBox
+                        {
 
-                        value: 50
-                        id: capacitySpinbox
-                        from: 0
-                        to: 100
+                            property var capacity: value
+                            Layout.maximumWidth: 150
 
-                        onCapacityChanged:{
+                            value: 50
+                            id: capacitySpinbox
+                            from: 0
+                            to: 100
 
-                            if (value >= 0){
-                                customRepeater.attributes["capacity"] = value
-                            }else{
-                                value = 0
+                            onCapacityChanged:{
+
+                                if (value >= 0){
+                                    customRepeater.attributes["capacity"] = value
+                                }else{
+                                    value = 0
+                                }
+
                             }
+
+
 
                         }
 
-
-
-                    }
-
-                    Label{
-                        Layout.preferredWidth: 20
-                        Layout.alignment: Qt.AlignRight
-                        Layout.rightMargin: 0
-                        horizontalAlignment: Text.AlignRight
-                        id: capacityComponentLabel
-                        text: " kWh"
+                        Label{
+                            Layout.preferredWidth: 20
+                            id: capacityComponentLabel
+                            text: " kWh"
+                        }
                     }
 
                 }
