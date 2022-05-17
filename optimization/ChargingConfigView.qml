@@ -536,6 +536,8 @@ Page {
 
 
 
+
+
             header: NymeaHeader {
                 id: header
                 text: qsTr("Configure charging")
@@ -554,107 +556,6 @@ Page {
 
                 RowLayout {
                     Layout.fillWidth: true
-                    id: evComboBoxRow
-
-
-                    Label {
-                        id: evLabelid
-                        Layout.fillWidth: true
-                        text: qsTr("Electric car:")
-
-
-                    }
-
-                    ComboBox {
-                        id: comboboxev
-                        textRole: "name"                                                        // indexOf function gives -1 back if not found
-                        Layout.fillWidth: true
-                        model: ListModel{
-                            id: proxyModel
-                            ListElement{name: "Add new Car"; index: "0" }
-
-                            Component.onCompleted: {
-                                fillevCombobox()
-                            }
-                            function fillevCombobox(){
-                                proxyModel.clear()
-                                proxyModel.append({"name": "Add new Car", "index": "0" })
-                                for (var k = 0; k < evProxy.count; k++){
-                                    proxyModel.append({"index": evProxy.get(k).id.toString(), "name": evProxy.get(k).name, "value": evProxy.get(k)} )
-                                }
-
-                                comboboxev.currentIndex = evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId)) < 0 ? 0 : evProxy.indexOf(evProxy.getThing(chargingConfiguration.carThingId) )
-                            }
-                        }
-
-
-                        onCurrentIndexChanged: {
-                            // if "new Car" option is not used compute something
-                            if (comboboxev.currentIndex > 0){
-                                endTimeSlider.computeFeasibility()
-                                if (evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value !== undefined){
-                                    if (batteryLevel.value < evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value){
-                                        batteryLevel.value = evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value
-                                    }
-                                }
-                                if (targetPercentageSlider.value < endTimeSlider.batteryLevel)
-                                {
-                                    targetPercentageSlider.value = endTimeSlider.batteryLevel
-                                }
-                                if (targetPercentageSlider.value === 0){
-
-                                    targetPercentageSlider.value = 1
-                                }
-                            }
-                        }
-                        onActivated: {
-                            // if "new Car" option is used do something
-                            if (comboboxev.currentIndex === 0){
-                                for (var i = 0; i<thingClassesProxy.count; i++){
-                                    if (thingClassesProxy.get(i).id.toString() === "{dbe0a9ff-94ba-4a94-ae52-51da3f05c717}"  ){
-                                        var page = pageStack.push("../thingconfiguration/AddGenericCar.qml" , {thingClass: thingClassesProxy.get(i)})
-                                        page.done.connect(function(attr){
-
-                                            pageStack.pop()
-                                            proxyModel.fillevCombobox()
-
-
-                                            for (var i = 0; i< attr.length; i++)
-                                            {
-
-                                                if(attr[i].id === "maxChargingLimit" ){
-                                                    // you can read the attributes here
-
-                                                }
-
-
-                                            }
-
-                                        })
-                                        page.aborted.connect(function(){
-                                            pageStack.pop()
-                                        })
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-
-
-
-
-
-
-
-
-
-
-
-                }
-
-                RowLayout {
-                    Layout.fillWidth: true
                     id: evRow
 
 
@@ -666,12 +567,29 @@ Page {
 
                     }
                     ConsolinnoItemDelegate {
+                        id: carSelector
                         Layout.fillWidth: true
-                        text: qsTr("Add new car")
+                        text: holdingItem !== false ? holdingItem.name : qsTr("Add new car")
                         progressionsIcon: "add"
+                        holdingItem: false
                         onClicked: {
-                            pageStack.push("../thingconfiguration/CarInventory.qml")
+
+
+
+                            var page = pageStack.push("../thingconfiguration/CarInventory.qml")
+                            page.done.connect(function(selectedCar){
+                                holdingItem = selectedCar
+                                // may looks weird, but is necessary to reload the carInventory such that it is in the correct order
+                                pageStack.pop()
+                                pageStack.pop()
+                                pageStack.pop()
+                            })
+
+
+
                         }
+
+
                     }
 
 
@@ -740,15 +658,15 @@ Page {
                             stepSize: 1
                             Component.onCompleted:
                             {
-                                if (comboboxev.currentIndex > 0){
-                                    value = evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value
-                                }
+                                    if (carSelector.holdingItem !== false){
+                                        value = carSelector.holdingItem.stateByName("batteryLevel").value
+                                    }
                             }
 
                             onPositionChanged:
                             {
                                 // if the "new Car" option is not picked do something
-                                if (comboboxev.currentIndex > 0){
+                                if (carSelector.holdingItem !== false){
                                     if (value >= targetPercentageSlider.value)
                                     {
                                         targetPercentageSlider.value = value
@@ -787,7 +705,7 @@ Page {
                             stepSize: 1
 
                             Component.onCompleted: {
-                                if (comboboxev.currentIndex > 0){
+                                if (carSelector.holdingItem !== false){
                                     value = chargingConfiguration.targetPercentage
                                     endTimeSlider.computeFeasibility()
                                     endTimeSlider.feasibilityText()
@@ -796,7 +714,7 @@ Page {
                             }
                             onPositionChanged: {
 
-                                if (comboboxev.currentIndex > 0){
+                                if (carSelector.holdingItem !== false){
                                     endTimeSlider.computeFeasibility()
                                     endTimeSlider.feasibilityText()
 
@@ -912,7 +830,7 @@ Page {
                             // TODo: Ladespannung von Wallbox ermittlen
                             //       Wieviel phasen hat die Wallbox
                             //       generell wallbox data integrieren
-                            if (comboboxev.currentIndex > 0){
+                            if (carSelector.holdingItem !== false){
                                 var maxChargingCurrent = thing.stateByName("maxChargingCurrent").value
 
 
@@ -926,17 +844,17 @@ Page {
                                 }
 
 
-                                for (let i = 0; i < evProxy.get(comboboxev.currentIndex-1).thingClass.stateTypes.count; i++){
+                                for (let i = 0; i < carSelector.holdingItem.thingClass.stateTypes.count; i++){
 
-                                    var thingStateId = evProxy.get(comboboxev.currentIndex-1).thingClass.stateTypes.get(i).id
+                                    var thingStateId = carSelector.holdingItem.thingClass.stateTypes.get(i).id
 
-                                    if (evProxy.get(comboboxev.currentIndex-1).thingClass.stateTypes.get(i).name === "capacity" ){
-                                        var capacity = evProxy.get(comboboxev.currentIndex-1).states.getState(thingStateId).value
+                                    if (carSelector.holdingItem.thingClass.stateTypes.get(i).name === "capacity" ){
+                                        var capacity = carSelector.holdingItem.states.getState(thingStateId).value
                                         capacityInAh = (capacity*1000)/loadingVoltage
                                     }
-                                    if (evProxy.get(comboboxev.currentIndex-1).thingClass.stateTypes.get(i).name === "minChargingCurrent" ){
+                                    if (carSelector.holdingItem.thingClass.stateTypes.get(i).name === "minChargingCurrent" ){
 
-                                        minChargingCurrent = evProxy.get(comboboxev.currentIndex-1).states.getState(thingStateId).value
+                                        minChargingCurrent = carSelector.holdingItem.states.getState(thingStateId).value
                                     }
 
                                 }
@@ -1005,16 +923,16 @@ Page {
                     //enabled: configurationSettingsChanged
                     onClicked: {
 
-                        if (comboboxev.currentIndex > 0){
-                            if (evProxy.get(comboboxev.currentIndex-1).stateByName("batteryLevel").value){
-                                evProxy.get(comboboxev.currentIndex-1).executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batteryLevel.value }])
+                        if (carSelector.holdingItem !== false){
+                            if (carSelector.holdingItem.stateByName("batteryLevel").value){
+                                carSelector.holdingItem.executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batteryLevel.value }])
                             }
                             // Maintool to debug
                             //footer.text = "saved"
-                            pageSelectedCar = comboboxev.model.get(comboboxev.currentIndex).name
+                            pageSelectedCar = carSelector.holdingItem.name
 
 
-                            hemsManager.setChargingConfiguration(thing.id, true, evProxy.get(comboboxev.currentIndex -1).id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode, "00000000-0000-0000-0000-000000000000")
+                            hemsManager.setChargingConfiguration(thing.id, true, carSelector.holdingItem.id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode, "00000000-0000-0000-0000-000000000000")
                             pageStack.pop()
 
                         }

@@ -36,6 +36,7 @@ ItemDelegate {
     property var contextOptions: []
 
     property alias additionalItem: additionalItemContainer.children
+    property var holdingItem: false
 
     property alias busy: busyIndicator.running
 
