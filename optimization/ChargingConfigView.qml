@@ -537,6 +537,7 @@ Page {
 
 
             header: NymeaHeader {
+                id: header
                 text: qsTr("Configure charging")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
@@ -645,7 +646,38 @@ Page {
 
 
 
+
+
+
+
+
                 }
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    id: evRow
+
+
+                    Label {
+                        id: evLabel
+                        Layout.fillWidth: true
+                        text: qsTr("Electric car:")
+
+
+                    }
+                    ConsolinnoItemDelegate {
+                        Layout.fillWidth: true
+                        text: qsTr("Add new car")
+                        progressionsIcon: "add"
+                        onClicked: {
+                            pageStack.push("../thingconfiguration/CarInventory.qml")
+                        }
+                    }
+
+
+
+                }
+
 
                 RowLayout{
                     Layout.fillWidth: true

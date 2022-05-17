@@ -50,5 +50,7 @@
         <file>components/VerticalDivider.qml</file>
         <file>components/ConsolinnoBigTile.qml</file>
         <file>info/EnergyManagerInfo.qml</file>
+        <file>components/ConsolinnoItemDelegate.qml</file>
+        <file>thingconfiguration/CarInventory.qml</file>
     </qresource>
 </RCC>
