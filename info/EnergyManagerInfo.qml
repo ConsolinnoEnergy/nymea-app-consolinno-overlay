@@ -1,4 +1,4 @@
-import QtQuick 2.12
+import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQml 2.2
 import Nymea 1.0
@@ -9,7 +9,7 @@ import "../components"
 import "../delegates"
 
 Page {
-    id: root
+    id: energyroot
     property var stack
     header: NymeaHeader {
         id: header
@@ -19,7 +19,10 @@ Page {
 
     }
 
+
     InfoTextInterface{
+
+        anchors.fill: parent
         summaryText: qsTr("The energy manager regulates the heat pump to maximize the consumption of its own solar power.If you switch off the optimization, the energy manager no longer affects the control of the heat pump.")
         body: ColumnLayout {
             Layout.fillWidth: true
@@ -29,7 +32,6 @@ Page {
                     text: qsTr("Operating status: ")
                     leftPadding: app.margins +10
                     rightPadding: app.margins +10
-
                     font.bold: true
                     font.pixelSize: 17
 
@@ -133,9 +135,10 @@ Page {
 
         }
 
-        footer: [
-            {headline: "Charging Mode", Link: "ChargingModeInfo"},
-            {headline: "Battery Level", Link: "BatteryLevel"},
+        infofooter: [
+            {headline: qsTr("Charging Mode"), Link: "ChargingModeInfo"},
+            {headline: qsTr("Battery Level"), Link: "BatteryLevel"},
+
         ]
 
 

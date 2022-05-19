@@ -15,7 +15,7 @@ Page {
     property HemsManager hemsManager
 
     header: NymeaHeader {
-        text: "PV"
+        text: qsTr("PV")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
@@ -339,7 +339,7 @@ Page {
                     onClicked: {
                         if (validated == true)
                         {
-                        longitudefield.placeholderText = "60"
+
 
                         footer.text = "saved"
                         d.pendingCallId = hemsManager.setPvConfiguration(pvConfiguration.PvThingId, parseFloat(longitudefield.text), parseFloat(latitude.text), parseInt(roofpitch.text), parseInt(alignment.text), parseFloat(kwPeak.text) )

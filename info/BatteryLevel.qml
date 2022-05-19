@@ -15,7 +15,8 @@ Page {
         onBackPressed: stack.pop()
     }
     InfoTextInterface{
-        infotext: qsTr("The energy manager requires information on the battery level for the optimized charging process. This information is not transmitted by the vehicle and must therefore be entered manually.")
+        anchors.fill: parent
+        summaryText: qsTr("The energy manager requires information on the battery level for the optimized charging process. This information is not transmitted by the vehicle and must therefore be entered manually.")
     }
 }
 

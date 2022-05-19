@@ -1,4 +1,4 @@
-import QtQuick 2.12
+import QtQuick 2.15
 import QtQuick.Layouts 1.2
 import QtQuick.Controls.Material 2.12
 import QtQuick.Controls 2.15
@@ -8,16 +8,29 @@ import "../components"
 import "../delegates"
 
 Item {
-    id: root
+    id: interfaceItem
+    anchors.fill: parent
+
+
     property var infotext: false
     property var summaryText: false
     property alias body: bodyContainer.children
-    property var footer: false
+    property var infofooter: false
     signal furtherReading(var link)
+    ScrollView{
+        clip: true
+        id: infoscroller
+        anchors.top: parent.top
+        width: parent.width
+        height: parent.height
     ColumnLayout{
+        id: upperColumn
+        anchors.top: parent.top
+
         Label{
             id: summaryHeadline
             text: qsTr("Summary:")
+
             font.bold:  true
             font.pixelSize: 17
             visible: summaryText ? true : false
@@ -41,13 +54,14 @@ Item {
             Layout.bottomMargin: 15
             wrapMode: Text.WordWrap
 
-            }
+        }
         // default explanaition. Only used if the body is not implemented
         Label {
             id: textLabel
             Layout.fillWidth: true
             Layout.preferredWidth: app.width
             Layout.alignment: Qt.AlignVCenter
+
             horizontalAlignment: Text.AlignLeft
             wrapMode: Text.WordWrap
             lineHeight: 1.1
@@ -61,53 +75,69 @@ Item {
         }
         Item {
             id: bodyContainer
+            clip: true
             Layout.fillWidth: true
             height: childrenRect.height
             visible: body !== null ? true : false
-
+            Layout.bottomMargin: 15
 
         }
+
+
 
         Item{
             id: footerContainer
             Layout.fillWidth: true
+            Layout.alignment: Qt.AlignBottom
             Layout.leftMargin: app.margins +10
             Layout.rightMargin: app.margins +10
-            Layout.topMargin: 15
-            visible: footer ? true: false
+            visible: infofooter ? true: false
+
             ColumnLayout{
+                id: footerLayout
                 Layout.fillWidth: true
                 Label{
-                    Layout.fillWidth: true
                     id: furtherReading
+                    Layout.fillWidth: true
                     text: qsTr("Further Readings:")
                     font.bold: true
                     font.pixelSize: 17
                 }
                 Repeater{
                     id: footerRepeater
-                    model: footer
+                    model: infofooter
+                    Layout.fillWidth: true
                     delegate: ItemDelegate{
-                        NymeaItemDelegate{
-                            text: modelData.headline
-                            id: infoLink
+                        Layout.fillWidth: true
+                        RowLayout{
                             Layout.fillWidth: true
-                            onClicked:
-                            {
-                                stack.replace(Qt.resolvedUrl("../info/" + modelData.Link + ".qml"), {stack: stack} )
+                            ConsolinnoItemDelegate{
+                                Layout.minimumWidth: app.width - 3*app.margins
+                                text: modelData.headline
+                                id: infoLink
+
+                                onClicked:
+                                {
+                                    stack.replace(Qt.resolvedUrl("../info/" + modelData.Link + ".qml"), {stack: stack} )
 
 
+
+                                }
 
                             }
-
                         }
+
                     }
 
 
                 }
             }
+
+
         }
-
-
     }
+    }
+
+
+
 }
