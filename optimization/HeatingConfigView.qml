@@ -253,6 +253,7 @@ Page {
         Button {
             id: savebutton
             Layout.fillWidth: true
+            Layout.leftMargin: app.margins
             text: qsTr("Save")
             onClicked: {
 

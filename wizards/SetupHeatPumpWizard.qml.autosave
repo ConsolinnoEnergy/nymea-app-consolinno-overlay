@@ -282,7 +282,7 @@ ConsolinnoWizardPageBase {
 
                 }
 
-                return(params)
+                return params
 
 
 
