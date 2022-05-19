@@ -260,6 +260,7 @@ Page{
         SettingsPageBase{
             property var thing
             title: thing ? thing.name : ""
+
             ColumnLayout{
 
 
