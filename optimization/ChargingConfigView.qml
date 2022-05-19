@@ -39,7 +39,7 @@ Page {
                     var hours   = Math.floor(duration/3600)
                     var minutes = Math.floor((duration - hours*3600)/60)
                     var seconds = Math.floor(duration - hours*3600 - minutes*60)
-                    durationValue.text = (hours === 0) ? (minutes == 0 ? seconds + "s"  :  minutes + "min " + seconds + "s"    ) : hours + "h " + " " + minutes + "min " + seconds + "s"
+                    durationValue.text = (hours === 0) ? (minutes == 0 ? seconds + qsTr("s")  :  minutes + qsTr("min ") + seconds + qsTr("s")   ) : hours + qsTr("h") + " " + minutes + qsTr("min ") + seconds + qsTr("s")
                 }
                 // Running
                 if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state == 2)){
@@ -168,6 +168,9 @@ Page {
                 horizontalAlignment: Text.AlignHCenter
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignCenter
+                wrapMode: Text.WordWrap
+                Layout.preferredWidth: app.width
+
             }
         }
 
@@ -200,7 +203,7 @@ Page {
             Label{
                 id: selectedCarLabel
                 Layout.fillWidth: true
-                text: "Car: "
+                text: qsTr("Car: ")
             }
             Label{
                 id: selectedCar
@@ -358,7 +361,7 @@ Page {
                     radius: width*0.1
                     Label{
                         id: description
-                        text: initializing ? "Initialising" : (status.state === 2 ? "Running" : (status.state === 3 ? "Finished" : (status.state === 4 ? "Interrupted" : (status.state === 6 ? "Pending" :  "Failed"  ))))
+                        text: initializing ? qsTr("Initialising") : (status.state === 2 ? qsTr("Running") : (status.state === 3 ? qsTr("Finished") : (status.state === 4 ? qsTr("Interrupted") : (status.state === 6 ? "Pending" :  "Failed"  ))))
                         color: "white"
                         anchors.centerIn: parent
                     }
@@ -580,9 +583,6 @@ Page {
                             page.done.connect(function(selectedCar){
                                 holdingItem = selectedCar
                                 // may looks weird, but is necessary to reload the carInventory such that it is in the correct order
-                                pageStack.pop()
-                                pageStack.pop()
-                                pageStack.pop()
                             })
 
 
@@ -599,6 +599,8 @@ Page {
 
                 RowLayout{
                     Layout.fillWidth: true
+                    Layout.topMargin: 10
+                    Layout.rightMargin: 2 * app.margins
 
 
                     Row{
@@ -616,13 +618,15 @@ Page {
                         }
                     }
 
-                    // will replace the Optimization enabled switch, since there will be more optimization options
+
+
                     ComboBox {
                         id: comboboxloadingmod
                         Layout.fillWidth: true
+                        x: carSelector.x
                         model: ListModel{
-                            ListElement{key: "PV optimized"; value: "Pv-Optimized"; mode: 1}
-                            ListElement{key: "No optimization"; value: "No Optimization"; mode: 0}
+                            ListElement{key: qsTr("PV optimized"); value: "Pv-Optimized"; mode: 1}
+                            ListElement{key: qsTr("No optimization"); value: "No Optimization"; mode: 0}
 
                         }
                         textRole: "key"
@@ -630,13 +634,15 @@ Page {
                     }
                 }
 
+
                 RowLayout{
+                    Layout.topMargin: 10
                     ColumnLayout{
                         Row{
 
                             Label{
                                 id: batteryid
-                                text: qsTr("Battery level: " + batteryLevel.value +" %")
+                                text: qsTr("Battery level: ") + batteryLevel.value +" %"
 
                             }
 
@@ -740,7 +746,7 @@ Page {
                         Layout.fillWidth: true
                         property var today: new Date()
                         property var endTime: new Date(today.getTime() + endTimeSlider.value * 60000)
-                        text: "Ending time: " + endTime.toLocaleString(Qt.locale("de-DE"), "dd.MM HH:mm")
+                        text: qsTr("Ending time: ") + endTime.toLocaleString(Qt.locale("de-DE"), "dd.MM HH:mm")
 
                         function endTimeValidityPrediction(d){
 

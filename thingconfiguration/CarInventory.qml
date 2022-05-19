@@ -15,7 +15,7 @@ Page{
 
     header: NymeaHeader {
         id: header
-        text: qsTr("Car inventory")
+        text: qsTr("Car list")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
@@ -72,41 +72,127 @@ Page{
 
 
 
-    ColumnLayout{
-        anchors.left: parent.left
-        anchors.right: parent.right
+    Flickable{
+        clip: true
+        id: inventoryScroller
         anchors.top: parent.top
-        anchors.topMargin: app.margins
-        anchors.margins: app.margins
-        Repeater{
-            id: addCarRepeater
-            Layout.fillWidth: true
-            Layout.topMargin: 5
-            model: 1
-            delegate: ItemDelegate{
-                Layout.fillWidth: true
-                contentItem: ColumnLayout{
-                    Layout.fillWidth: true
-                    ConsolinnoItemDelegate{
-                        Layout.fillWidth: true
-                        text: qsTr("Add new car")
-                        onClicked:{
+        width: parent.width
+        height: parent.height
+        contentHeight: inventory.height
+        contentWidth: app.width
+        //ScrollBar.horizontal.interactive: false
+        //ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+        //ScrollBar.vertical.policy: ScrollBar.AlwaysOff
 
-                            for (var i = 0; i<thingClassesProxy.count; i++){
-                                if (thingClassesProxy.get(i).id.toString() === "{dbe0a9ff-94ba-4a94-ae52-51da3f05c717}"  ){
-                                    var page = pageStack.push("../thingconfiguration/AddGenericCar.qml" , {thingClass: thingClassesProxy.get(i)})
-                                    page.done.connect(function(attr){
-                                        pageStack.pop()
-                                    })
-                                    page.aborted.connect(function(){
-                                        pageStack.pop()
-                                    })
+        ColumnLayout{
+            id: inventory
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.topMargin: app.margins
+            anchors.margins: app.margins
+            Repeater{
+                id: addCarRepeater
+                Layout.fillWidth: true
+                Layout.topMargin: 5
+                model: 1
+                delegate: ItemDelegate{
+                    Layout.fillWidth: true
+                    contentItem: ColumnLayout{
+                        id: carRepeaterLayout
+                        Layout.fillWidth: true
+
+                        VerticalDivider
+                        {
+                            Layout.fillWidth: true
+                            dividerColor: Material.accent
+                        }
+
+                        ConsolinnoItemDelegate{
+                            id: addCardelegate
+                            iconName: "add"
+                            iconColor: Material.foreground
+                            Layout.fillWidth: true
+                            text: qsTr("Add new car")
+                            progressive: false
+                            onClicked:{
+
+                                for (var i = 0; i<thingClassesProxy.count; i++){
+                                    if (thingClassesProxy.get(i).id.toString() === "{dbe0a9ff-94ba-4a94-ae52-51da3f05c717}"  ){
+                                        var page = pageStack.push("../thingconfiguration/AddGenericCar.qml" , {thingClass: thingClassesProxy.get(i)})
+                                        page.done.connect(function(attr){
+                                            pageStack.pop()
+                                        })
+                                        page.aborted.connect(function(){
+                                            pageStack.pop()
+                                        })
+                                    }
                                 }
+
+
+
+
+                            }
+
+                        }
+                        VerticalDivider
+                        {
+                            Layout.fillWidth: true
+                            dividerColor: Material.accent
+                        }
+
+
+                    }
+
+                }
+
+            }
+
+            Repeater{
+                id: optimizerRepeater
+                Layout.fillWidth: true
+                model: evProxy
+                delegate: ItemDelegate{
+                    id: optimizerInputs
+                    Layout.fillWidth: true
+                    contentItem: ColumnLayout{
+                        Layout.fillWidth: true
+
+                        RowLayout{
+
+                            ConsolinnoItemDelegate{
+
+                                Layout.fillWidth: true
+                                Layout.preferredWidth: app.width/1.5
+                                progressive: false
+                                text: evProxy.get(index) ? evProxy.get(index).name : ""
+                                onClicked: {
+                                    root.done(evProxy.get(index))
+                                    pageStack.pop()
+                                }
+
+                            }
+
+                            ConsolinnoItemDelegate{
+                                Layout.fillWidth: true
+                                primetextElide: Text.ElideNone
+                                text: qsTr("edit")
+                                iconName: "edit"
+                                iconColor: Material.foreground
+                                progressive: false
+                                onClicked: {
+                                    pageStack.push(carData, {thing: evProxy.get(index)})
+                                }
+
                             }
 
 
+                        }
 
-
+                        VerticalDivider
+                        {
+                            dividerColor: Material.accent
+                            Layout.fillWidth: true
                         }
 
                     }
@@ -114,31 +200,6 @@ Page{
                 }
 
             }
-
-        }
-
-        Repeater{
-            id: optimizerRepeater
-            Layout.fillWidth: true
-            model: evProxy
-            delegate: ItemDelegate{
-                id: optimizerInputs
-                Layout.fillWidth: true
-                contentItem: ColumnLayout{
-                    Layout.fillWidth: true
-                    ConsolinnoItemDelegate{
-                        Layout.fillWidth: true
-                        text: evProxy.get(index) ? evProxy.get(index).name : ""
-                        onClicked: {
-                            pageStack.push(carData, {thing: evProxy.get(index)})
-                        }
-
-                    }
-
-                }
-
-            }
-
         }
     }
 
@@ -181,6 +242,9 @@ Page{
                     text: qsTr("Ok")
                     onClicked: {
                         root.done(thing)
+                        pageStack.pop()
+                        pageStack.pop()
+                        pageStack.pop()
                     }
                 }
             }
@@ -195,12 +259,8 @@ Page{
         id: carData
         SettingsPageBase{
             property var thing
-
+            title: thing ? thing.name : ""
             ColumnLayout{
-
-                SettingsPageSectionHeader {
-                    text: thing ? thing.name : ""
-                }
 
 
                 Repeater{
@@ -211,10 +271,10 @@ Page{
                     // add one in the model
                     model:[
 
-                        {id: "name", name: "Name: ", component: nameComponent, type: "name", Uuid: "", info: ""  },
-                        {id: "capacity", name: "Battery capacity", component: capacityComponent, type: "state", Uuid: "363a2a39-61b6-4109-9cd9-aca7367d12c7", info: "Capacity.qml"  },
-                        {id: "minChargingCurrent", name: "Minimum charging current", component: minimumChargingCurrentComponent, type: "setting", Uuid: "0c55516d-4285-4d02-8926-1dae03649e18", info: "MinimumChargingCurrent.qml"},
-                        {id: "maxChargingLimit", name: "Maximum charging limit" , component: maximumAllowedChargingLimitComponent, type: "attr", Uuid: "", info: "MaximumAllowedChargingLimit.qml" },
+                        {id: "name", name: "Name: ", displayName: qsTr("Name: "), component: nameComponent, type: "name", Uuid: "", info: ""  },
+                        {id: "capacity", name: "Battery capacity", displayName: qsTr("Battery capacity"),component: capacityComponent, type: "state", Uuid: "363a2a39-61b6-4109-9cd9-aca7367d12c7", info: "Capacity.qml"  },
+                        {id: "minChargingCurrent", name: "Minimum charging current", displayName: qsTr("Minimum charging current"), component: minimumChargingCurrentComponent, type: "setting", Uuid: "0c55516d-4285-4d02-8926-1dae03649e18", info: "MinimumChargingCurrent.qml"},
+                        {id: "maxChargingLimit", name: "Maximum charging limit" , displayName: qsTr("Maximum charging limit"), component: maximumAllowedChargingLimitComponent, type: "attr", Uuid: "", info: "MaximumAllowedChargingLimit.qml" },
 
 
                     ]
@@ -235,7 +295,7 @@ Page{
                                     id: customRepeaterModelName
                                     Layout.fillWidth: true
                                     horizontalAlignment: Text.AlignLeft
-                                    text: modelData.name
+                                    text: modelData.displayName
 
                                 }
 
@@ -264,20 +324,20 @@ Page{
                                 Layout.fillWidth: true
                                 Layout.rightMargin: 0
                                 sourceComponent: {
-                                    switch(modelData.name){
-                                    case "Maximum charging limit":
+                                    switch(modelData.id){
+                                    case "maxChargingLimit":
                                     {
                                         return maximumAllowedChargingLimitComponent
                                     }
-                                    case "Minimum charging current":
+                                    case "minChargingCurrent":
                                     {
                                         return minimumChargingCurrentComponent
                                     }
-                                    case "Battery capacity":
+                                    case "capacity":
                                     {
                                         return capacityComponent
                                     }
-                                    case "Name: ":
+                                    case "name":
                                     {
                                         return nameComponent
                                     }
@@ -467,7 +527,7 @@ Page{
                     Layout.fillWidth: true
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    text: "Save"
+                    text: qsTr("Save")
                     onClicked: {
                         var states = []
                         var settings = []
@@ -501,10 +561,10 @@ Page{
                                 attrs.push(attr)
                             }else if(attribute.type === "name"){
 
-                                if (customRepeater.attributes[attribute.id] === "" ){
-                                    d.name = thing.name
-                                }else{
+                                if ("name" in customRepeater.attributes){
                                     d.name = customRepeater.attributes[attribute.id]
+                                }else{
+                                    d.name = thing.name
                                 }
 
                             }

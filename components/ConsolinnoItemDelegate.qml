@@ -13,6 +13,9 @@ ItemDelegate {
     id: root
     implicitHeight: Style.smallDelegateHeight
 
+    property var primetextColor: Material.foreground
+    property var primetextElide: Text.ElideRight
+
     property string subText
     property bool progressive: true
     property bool canDelete: false
@@ -106,9 +109,10 @@ ItemDelegate {
                 text: root.text
                 wrapMode: root.wrapTexts ? Text.WordWrap : Text.NoWrap
                 maximumLineCount: root.wrapTexts ? 2 : 1
-                elide: Text.ElideRight
+                elide: primetextElide
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: root.textAlignment
+                color: primetextColor
             }
             Label {
                 Layout.fillWidth: true

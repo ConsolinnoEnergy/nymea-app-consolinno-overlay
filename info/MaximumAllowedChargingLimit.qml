@@ -17,7 +17,7 @@ Page {
     }
 
     InfoTextInterface{
-        //infotext: qsTr("Please enter here which charging limit you have set in your vehicle or in your vehicle app. This setting also specifies the maximum amount you can charge into the vehicle as a charging target in the charging modes of the energy manager. If you want to specify a higher charging target, you must change the setting in your vehicle and in the app accordingly.")
+        anchors.fill: parent
         summaryText: qsTr("The charge limit is set in the vehicle or in the vehicle app and specifies the maximum amount that can be charged.")
         body: ColumnLayout{
             Layout.fillWidth: true
@@ -64,8 +64,8 @@ Page {
 
         }
 
-        footer: [
-            {headline: "Target charge", Link: "TargetChargeInfo"},
+        infofooter: [
+            {headline: qsTr("Target charge"), Link: "TargetChargeInfo"},
 
         ]
 
