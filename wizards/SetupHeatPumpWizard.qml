@@ -294,7 +294,7 @@ ConsolinnoWizardPageBase {
                 }
                 else{
                     var thingclassparams = getParams()
-                    engine.thingManager.addThing(thingClassId, thingClass.name , thingclassparams);
+                    engine.thingManager.addThing(thingClassId, thingClass.displayName , thingclassparams);
                 }
 
                 }
