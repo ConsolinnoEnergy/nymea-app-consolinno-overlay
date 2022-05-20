@@ -572,8 +572,8 @@ Page {
                     ConsolinnoItemDelegate {
                         id: carSelector
                         Layout.fillWidth: true
-                        text: holdingItem !== false ? holdingItem.name : qsTr("Add new car")
-                        progressionsIcon: "add"
+                        text: holdingItem !== false ? holdingItem.name : qsTr("Select car")
+                        //progressionsIcon: "add"
                         holdingItem: false
                         onClicked: {
 
