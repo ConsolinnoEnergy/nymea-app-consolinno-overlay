@@ -254,9 +254,9 @@ MainViewBase {
 
         readonly property color rootMeterAcquisitionColor: Style.red
         readonly property color rootMeterReturnColor: Style.blue
-        readonly property color producersColor: Style.yellow
-        readonly property color batteriesColor: "#93C01F"
-        readonly property var consumersColors: [ "#E5007E", "#F29100", "#941B80", "#0069B3", "#F29100", "#93C01F" ]
+        readonly property color producersColor: "#f8dc6b"
+        readonly property color batteriesColor: "#aee48f"
+        readonly property var consumersColors: [ "#fa8787", "#c5f4f3", "#941B80", "#0069B3", "#F29100", "#93C01F" ]
 
 
 
@@ -664,7 +664,7 @@ MainViewBase {
                     width: chartView.plotArea.width / 2
                     height: chartView.plotArea.height / 2
                     radius: width / 2
-                    color: Style.darkGray
+                    color: "#aeaeae"
                     border.width: 2
                     border.color: "white"
 //                    visible: false
@@ -840,7 +840,7 @@ MainViewBase {
             }
         }
     }
-
+/*
     Rectangle {
         anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
         height: Style.hugeMargins
@@ -860,7 +860,7 @@ MainViewBase {
             verticalAlignment: Image.AlignTop
         }
     }
-
+*/
 
     EmptyViewPlaceholder {
         anchors { left: parent.left; right: parent.right; margins: app.margins }
