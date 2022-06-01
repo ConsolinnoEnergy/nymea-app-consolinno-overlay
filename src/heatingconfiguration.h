@@ -57,7 +57,6 @@ private:
 
     double m_maxElectricalPower = 0;
     double m_maxThermalEnergy = 0;
-    //HemsOptimizerInterface::HouseType m_houseType = HemsOptimizerInterface::HouseTypeSince1984;
     double m_floorHeatingArea = 0;
 
 };
