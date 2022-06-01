@@ -12,6 +12,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
     m_chargingConfigurations = new ChargingConfigurations(this);
     m_pvConfigurations = new PvConfigurations(this);
     m_chargingSessionConfigurations = new ChargingSessionConfigurations(this);
+    m_conEMSStates = new ConEMSStates(this);
 }
 
 HemsManager::~HemsManager()
@@ -58,6 +59,7 @@ void HemsManager::setEngine(Engine *engine)
         m_engine->jsonRpcClient()->registerNotificationHandler(this, "Hems", "notificationReceived");
 
         // Fetch initial data
+        m_engine->jsonRpcClient()->sendCommand("Hems.GetConEMSStates", QVariantMap(), this, "getConEMSStatesResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetAvailableUseCases", QVariantMap(), this, "getAvailableUseCasesResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHousholdPhaseLimit", QVariantMap(), this, "getHousholdPhaseLimitResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingConfigurations", QVariantMap(), this, "getHeatingConfigurationsResponse");
@@ -115,6 +117,12 @@ PvConfigurations *HemsManager::pvConfigurations() const
 {
     return m_pvConfigurations;
 }
+
+ConEMSStates *HemsManager::conEMSStates() const
+{
+    return m_conEMSStates;
+}
+
 
 int HemsManager::setPvConfiguration(const QUuid &pvThingId, const float &longitude, const float &latitude, const int &roofPitch, const int &alignment, const float &kwPeak)
 {
@@ -211,6 +219,39 @@ int HemsManager::setChargingSessionConfiguration(const QUuid carThingId, const Q
     qCDebug(dcHems()) << "Set chargingSession configuration" << params;
 
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetChargingSessionConfiguration", params, this, "setChargingSessionConfigurationResponse");
+}
+
+int HemsManager::setConEMSState( int currentState, int operationMode, int timestamp)
+{
+    QString state;
+    if(currentState == 1){
+        state = "Running";
+    } else if( currentState == 2){
+        state = "Optimizer_Busy";
+    } else if( currentState == 3){
+        state = "Restarting";
+    } else if( currentState == 4){
+        state = "Error";
+    } else{
+        state = "Unknown";
+    }
+
+    QVariantMap conEMSState;
+    conEMSState.insert("ConEMSStateID", "f002d80e-5f90-445c-8e95-a0256a0b464e");
+    conEMSState.insert("currentState", state);
+    conEMSState.insert("operationMode", operationMode);
+    conEMSState.insert("timestamp", timestamp);
+    QVariantMap params;
+    params.insert("conEMSState", conEMSState);
+
+    qCDebug(dcHems()) << "Set CONEMSState" << params;
+
+    return m_engine->jsonRpcClient()->sendCommand("Hems.SetConEMSState", params, this, "setConEMSStateResponse");
+
+
+
+
+
 }
 
 
@@ -338,6 +379,23 @@ void HemsManager::getChargingSessionConfigurationsResponse(int commandId, const 
     emit fetchingDataChanged();
 }
 
+void HemsManager::getConEMSStatesResponse(int commandId, const QVariantMap &data)
+{
+    Q_UNUSED(commandId)
+    qCDebug(dcHems()) << "ConEMS State" << data;
+    foreach (const QVariant &configurationVariant, data.value("conEMSStates").toList()) {
+        addOrUpdateConEMSState(configurationVariant.toMap());
+    }
+
+    // Last call from init sequence
+    m_fetchingData = false;
+    emit fetchingDataChanged();
+}
+
+
+
+
+
 
 void HemsManager::setHousholdPhaseLimitResponse(int commandId, const QVariantMap &data)
 {
@@ -373,6 +431,14 @@ void HemsManager::setChargingSessionConfigurationResponse(int commandId, const Q
     qCDebug(dcHems()) << "Set charging configuration response" << data.value("hemsError").toString();
     emit setChargingSessionConfigurationReply(commandId, data.value("hemsError").toString());
 }
+
+void HemsManager::setConEMSStateResponse(int commandId, const QVariantMap &data)
+{
+
+    qCDebug(dcHems()) << "Set CONEMSSTATE response" << data.value("hemsError").toString();
+    emit setConEMSStateReply(commandId, data.value("hemsError").toString());
+}
+
 
 void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap)
 {
@@ -496,6 +562,36 @@ void HemsManager::addOrUpdatePvConfiguration(const QVariantMap &configurationMap
 
      }
 }
+
+void HemsManager::addOrUpdateConEMSState(const QVariantMap &conEMSStatesMap)
+{
+
+    QUuid ConEMSUuid = conEMSStatesMap.value("ConEMSStateID").toUuid();
+    ConEMSState *state = m_conEMSStates->getConEMSState(ConEMSUuid);
+
+    bool newState = false;
+    if(!state){
+        newState = true;
+        state = new ConEMSState(this);
+        state->setConEMSStateID(ConEMSUuid);
+    }
+
+    state->setCurrentState(static_cast<ConEMSState::State>(conEMSStatesMap.value("currentState").toInt()));
+    state->setOperationMode(conEMSStatesMap.value("operationMode").toInt());
+    state->setTimestamp(conEMSStatesMap.value("timestamp").toInt());
+
+
+     if (newState){
+         qCDebug(dcHems()) << "ConEMSState added" << state->ConEMSStateID();
+         m_conEMSStates->addConEMSState(state);
+
+     }else{
+        qCDebug(dcHems()) << "ConEMSState changed" << state->ConEMSStateID();
+
+     }
+}
+
+
 
 void HemsManager::updateAvailableUsecases(const QStringList &useCasesList)
 {

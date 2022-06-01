@@ -2,6 +2,8 @@ HEADERS += \
     $$PWD/chargingconfigurations.h \
     $$PWD/chargingsessionconfiguration.h \
     $$PWD/chargingsessionconfigurations.h \
+    $$PWD/conemsstate.h \
+    $$PWD/conemsstates.h \
     $$PWD/heatingconfigurations.h \
     $$PWD/pvconfiguration.h \
     $$PWD/pvconfigurations.h \
@@ -15,6 +17,8 @@ SOURCES += \
     $$PWD/chargingconfigurations.cpp \
     $$PWD/chargingsessionconfiguration.cpp \
     $$PWD/chargingsessionconfigurations.cpp \
+    $$PWD/conemsstate.cpp \
+    $$PWD/conemsstates.cpp \
     $$PWD/heatingconfiguration.cpp \
     $$PWD/heatingconfigurations.cpp \
     $$PWD/hemsmanager.cpp \
