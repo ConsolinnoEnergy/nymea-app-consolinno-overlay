@@ -9,9 +9,10 @@ import "../delegates"
 
 Page {
     property var stack
-    header: NymeaHeader {
+    header: ConsolinnoHeader {
         id: header
-        text: qsTr("Maximum Allowed Charging Limit info")
+        show_Image: true
+        text: qsTr("Maximum Allowed Charging Limit ")
         backButtonVisible: true
         onBackPressed: stack.pop()
     }

@@ -24,7 +24,8 @@ Page {
     property var pageSelectedCar: carThing.name === null ? qsTr("no car selected") : carThing.name
     property bool initializing: false
 
-    // Connections to update the ChargingSessionConfiguration values
+
+    // Connections to update the ChargingSessionConfiguration  and the ChargingConfiguration values
     Connections {
         target: hemsManager
         onChargingSessionConfigurationChanged:
@@ -432,7 +433,7 @@ Page {
             }
             Label{
                 id: currentCurrentValue
-                text: initializing ? 0 : thing.stateByName("maxChargingCurrent").value + " A"
+                text: initializing ? 0 + " A": thing.stateByName("maxChargingCurrent").value + " A"
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 0
 
@@ -582,9 +583,16 @@ Page {
                             var page = pageStack.push("../thingconfiguration/CarInventory.qml")
                             page.done.connect(function(selectedCar){
                                 holdingItem = selectedCar
-                                // may looks weird, but is necessary to reload the carInventory such that it is in the correct order
+
                             })
 
+
+
+                        }
+
+                        onHoldingItemChanged:{
+
+                            footer.visible = false
 
 
                         }
@@ -667,6 +675,8 @@ Page {
                                     if (carSelector.holdingItem !== false){
                                         value = carSelector.holdingItem.stateByName("batteryLevel").value
                                     }
+
+
                             }
 
                             onPositionChanged:
@@ -724,9 +734,9 @@ Page {
                                     endTimeSlider.computeFeasibility()
                                     endTimeSlider.feasibilityText()
 
-                                    if (value < endTimeSlider.batteryLevel)
+                                    if (value <= batteryLevel.value)
                                     {
-                                        value = endTimeSlider.batteryLevel
+                                        value = batteryLevel.value
                                     }
                                     if (value == 0){
 
@@ -816,6 +826,7 @@ Page {
 
                         onPositionChanged: {
                             feasibilityText()
+
 
                         }
 
@@ -919,7 +930,8 @@ Page {
                     Layout.rightMargin: app.margins
                     wrapMode: Text.WordWrap
                     font.pixelSize: app.smallFont
-
+                    text: qsTr("please select a car")
+                    visible: false
                 }
 
                 Button {
@@ -943,7 +955,7 @@ Page {
 
                         }
                         else{
-                            footer.text = qsTr("please select a car")
+                            footer.visible = true
                         }
 
                     }

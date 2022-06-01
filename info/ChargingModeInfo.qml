@@ -8,9 +8,10 @@ import "../delegates"
 
 Page {
     property var stack
-    header: NymeaHeader {
+    header: ConsolinnoHeader {
         id: header
-        text: qsTr("Charging mode Info")
+        show_Image: true
+        text: qsTr("Charging mode ")
         backButtonVisible: true
         onBackPressed: stack.pop()
     }
