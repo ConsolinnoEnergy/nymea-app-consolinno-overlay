@@ -12,11 +12,12 @@ Page {
     id: root
     property var stack
 
-    header: NymeaHeader {
+    header: ConsolinnoHeader {
         id: header
-        text: qsTr("Capacity info")
+        text: qsTr("Capacity")
         backButtonVisible: true
         onBackPressed: stack.pop()
+        show_Image: true
 
     }
 

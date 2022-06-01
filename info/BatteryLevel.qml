@@ -8,11 +8,12 @@ import "../delegates"
 
 Page {
     property var stack
-    header: NymeaHeader {
+    header: ConsolinnoHeader {
         id: header
-        text: qsTr("BatteryLevel info")
+        text: qsTr("BatteryLevel")
         backButtonVisible: true
         onBackPressed: stack.pop()
+        show_Image: true
     }
     InfoTextInterface{
         anchors.fill: parent
