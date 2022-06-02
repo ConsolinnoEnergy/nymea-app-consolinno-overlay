@@ -80,9 +80,7 @@ Page{
         height: parent.height
         contentHeight: inventory.height
         contentWidth: app.width
-        //ScrollBar.horizontal.interactive: false
-        //ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-        //ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+
 
         ColumnLayout{
             id: inventory
