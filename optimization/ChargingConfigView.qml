@@ -32,6 +32,8 @@ Page {
         {
             if (chargingSessionConfiguration.evChargerThingId === thing.id){
 
+                busyOverlay.shown = false
+
                 batteryLevelValue.text  = chargingSessionConfiguration.batteryLevel  + " %"
                 energyChargedValue.text = chargingSessionConfiguration.energyCharged.toFixed(2) + " kWh"
                 energyBatteryValue.text = chargingSessionConfiguration.energyBattery.toFixed(2) + " kWh"
@@ -243,7 +245,7 @@ Page {
 
                 Label{
                     id: loadingModes
-                    text: qsTr(thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationMode) : " -- "   ) : " -- " )
+                    text: thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationMode) : " -- "   ) : " -- "
                     Layout.alignment: Qt.AlignRight
                     Layout.rightMargin: 0
 
@@ -507,7 +509,11 @@ Page {
 
                     onClicked: {
                         if (thing.stateByName("pluggedIn").value){
-                            pageStack.push(optimizationComponent , { hemsManager: hemsManager, thing: thing })
+                           var page = pageStack.push(optimizationComponent , { hemsManager: hemsManager, thing: thing })
+                            page.done.connect(function(){
+                                busyOverlay.shown = true
+
+                            })
                         }
 
                     }
@@ -540,7 +546,7 @@ Page {
 
 
         Page{
-
+            signal done()
             id: optimizationPage
             property HemsManager hemsManager
             property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
@@ -901,8 +907,6 @@ Page {
                             }
                         }
 
-
-
                     }
 
                 }
@@ -960,6 +964,7 @@ Page {
 
 
                             hemsManager.setChargingConfiguration(thing.id, true, carSelector.holdingItem.id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode, "00000000-0000-0000-0000-000000000000")
+                            optimizationPage.done()
                             pageStack.pop()
 
                         }
@@ -972,4 +977,8 @@ Page {
             }
         }
     }
+    BusyOverlay {
+        id: busyOverlay
+    }
+
 }
