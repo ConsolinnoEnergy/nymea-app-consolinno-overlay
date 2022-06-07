@@ -33,7 +33,7 @@ Page {
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.topMargin: app.margins
-        anchors.margins: app.margins
+        anchors.rightMargin: app.margins
 
         RowLayout{
             Layout.fillWidth: true
@@ -41,6 +41,7 @@ Page {
                     Layout.fillWidth: true
                     id: consumption
                     text: qsTr("Current consumption:")
+                    Layout.leftMargin:  15
                 }
 
 
@@ -62,6 +63,7 @@ Page {
                 id: optimiziationEnabled
                 Layout.fillWidth: true
                 text: qsTr("Optimization")
+                Layout.leftMargin:  15
             }
 
             Switch{
@@ -75,16 +77,17 @@ Page {
 
         }
 
-        VerticalDivider
-        {Layout.fillWidth: true}
 
         Row{
             Layout.fillWidth: true
+            Layout.leftMargin: 15
             Label
             {
                 id: energyManager
                 text: qsTr("Energymanager: ")
                 font.bold: true
+                font.pixelSize: 22
+
             }
             InfoButton{
                 stack: pageStack
@@ -110,20 +113,20 @@ Page {
 
                     // tbd: Configurationdata tab finishing
                 model: [
-                    {Id: "operatingMode", name: "Operating mode: ", value: translateNymeaHeatpumpValues(heatpumpThing.stateByName("sgReadyMode") ? heatpumpThing.stateByName("sgReadyMode").value : null), component: stringValues, unit: ""},
-                    {Id: "configuartionData", name: "Configuration data: ", component: configValues,
+                    {Id: "operatingMode", name: qsTr("Operating mode: "), value: translateNymeaHeatpumpValues(heatpumpThing.stateByName("sgReadyMode") ? heatpumpThing.stateByName("sgReadyMode").value : null), component: stringValues, unit: ""},
+                    {Id: "configuartionData", name: qsTr("Configuration data: "), component: configValues,
                         params:[
-                            {name: "Floor heating area", value: heatingconfig.floorHeatingArea, unit: "m²"},
-                            {name: "Maximal electrical power", value: heatingconfig.maxElectricalPower, unit: "kW"},
-                            {name: "Thermal storage capacity", value: heatingconfig.maxThermalEnergy, unit: "kWh"},
+                            {name: qsTr("Floor heating area"), value: heatingconfig.floorHeatingArea, unit: "m²"},
+                            {name: qsTr("Maximal electrical power"), value: heatingconfig.maxElectricalPower, unit: "kW"},
+                            {name: qsTr("Thermal storage capacity"), value: heatingconfig.maxThermalEnergy, unit: "kWh"},
                         ]
 
 
                     },
-                    {Id: "outdoorTemperature", name: "Outdoor temperature", value: heatpumpThing.stateByName("outdoorTemperature") ? heatpumpThing.stateByName("outdoorTemperature").value : null , unit: "°C" , component: stringValues},
-                    {Id: "hotWaterTemperature", name: "Hot water temperature", value: heatpumpThing.stateByName("hotWaterTemperature") ? heatpumpThing.stateByName("hotWaterTemperature").value : null , unit: "°C" , component: stringValues},
-                    {Id: "returnTemperature", name: "Return temperature", value: heatpumpThing.stateByName("returnTemperature")? heatpumpThing.stateByName("returnTemperature").value : null , unit: "°C", component: stringValues},
-                    {Id: "flowTemperature", name: "Flow temperature", value: heatpumpThing.stateByName("flowTemperature")? heatpumpThing.stateByName("flowTemperature").value : null , unit: "°C", component: stringValues},
+                    {Id: "outdoorTemperature", name: qsTr("Outdoor temperature"), value: heatpumpThing.stateByName("outdoorTemperature") ? heatpumpThing.stateByName("outdoorTemperature").value : null , unit: "°C" , component: stringValues},
+                    {Id: "hotWaterTemperature", name: qsTr("Hot water temperature"), value: heatpumpThing.stateByName("hotWaterTemperature") ? heatpumpThing.stateByName("hotWaterTemperature").value : null , unit: "°C" , component: stringValues},
+                    {Id: "returnTemperature", name: qsTr("Return temperature"), value: heatpumpThing.stateByName("returnTemperature")? heatpumpThing.stateByName("returnTemperature").value : null , unit: "°C", component: stringValues},
+                    {Id: "flowTemperature", name: qsTr("Flow temperature"), value: heatpumpThing.stateByName("flowTemperature")? heatpumpThing.stateByName("flowTemperature").value : null , unit: "°C", component: stringValues},
 
 
                 ]
@@ -135,19 +138,19 @@ Page {
                     {
                     case"Off":
                         {
-                            return "Off"
+                            return qsTr("Off")
                         }
                     case "Low":
                         {
-                            return "Standard"
+                            return qsTr("Standard")
                         }
                     case "Standard":
                         {
-                            return "Increased"
+                            return qsTr("Increased")
                         }
                     case "High":
                         {
-                            return "High"
+                            return qsTr("High")
                         }
 
                     }
@@ -235,10 +238,7 @@ Page {
 
             }
 
-        VerticalDivider
-        {
-            Layout.fillWidth: true
-        }
+
 
 
         Label {
@@ -253,6 +253,7 @@ Page {
         Button {
             id: savebutton
             Layout.fillWidth: true
+            Layout.leftMargin: app.margins
             text: qsTr("Save")
             onClicked: {
 

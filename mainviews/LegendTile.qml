@@ -64,12 +64,14 @@ MouseArea {
                 color: Qt.darker(root.currentColor, 1.3)
 
                 Label {
+                    // here is the issue with the different textsizes
                     id: headerLabel
-                    width: parent.width
-                    text: Math.abs(root.currentPower) + " W"
+                    width: parent.width - Style.margins
+                    text: root.thing.name
                     elide: Text.ElideRight
                     color: "white"
                     horizontalAlignment: Text.AlignHCenter
+
                     anchors.verticalCenter: parent.verticalCenter
                 }
             }
@@ -85,10 +87,10 @@ MouseArea {
             Rectangle {
                 id: batteryRect
                 Layout.fillWidth: true
-                Layout.leftMargin: Style.margins + 3
-                Layout.rightMargin: Style.margins
+                Layout.leftMargin: Style.margins + 5
+                Layout.rightMargin: Style.margins + 8
                 Layout.topMargin: Style.smallMargins
-                Layout.preferredHeight: 20
+                Layout.preferredHeight: 15
                 visible: root.isBattery
 
                 radius: 2
@@ -103,6 +105,7 @@ MouseArea {
                     radius: 2
                     color: parent.color
                 }
+                // those are the rectangles, which show how much the batterie is loaded
                 RowLayout {
                     anchors.fill: parent
                     anchors.margins: 2
@@ -126,7 +129,7 @@ MouseArea {
                 Layout.rightMargin: Style.smallMargins
                 Layout.bottomMargin: Style.smallMargins
                 font: Style.smallFont
-                text: root.thing.name
+                text:  Math.abs(root.currentPower) + " W"
                 elide: Text.ElideRight
                 color: "black"
             }

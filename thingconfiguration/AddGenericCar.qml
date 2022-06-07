@@ -109,9 +109,9 @@ Page {
                 // add one in the model
                 model:[
 
-                    {id: "capacity", name: "Battery capacity", component: capacityComponent, type: "state", Uuid: "363a2a39-61b6-4109-9cd9-aca7367d12c7", info: "Capacity.qml"  },
-                    {id: "minChargingCurrent", name: "Minimum charging current", component: minimumChargingCurrentComponent, type: "setting", Uuid: "0c55516d-4285-4d02-8926-1dae03649e18", info: "MinimumChargingCurrent.qml"},
-                    {id: "maxChargingLimit", name: "Maximum charging limit" , component: maximumAllowedChargingLimitComponent, type: "attr", Uuid: "", info: "MaximumAllowedChargingLimit.qml" },
+                    {id: "capacity", name: "Battery capacity",displayName: qsTr("Capacity: "), component: capacityComponent, type: "state", Uuid: "363a2a39-61b6-4109-9cd9-aca7367d12c7", info: "Capacity.qml"  },
+                    {id: "minChargingCurrent", name: "Minimum charging current",displayName: qsTr("Minimum charging current"), component: minimumChargingCurrentComponent, type: "setting", Uuid: "0c55516d-4285-4d02-8926-1dae03649e18", info: "MinimumChargingCurrent.qml"},
+                    {id: "maxChargingLimit", name: "Maximum charging limit" ,displayName: qsTr("Maximum charging limit"), component: maximumAllowedChargingLimitComponent, type: "attr", Uuid: "", info: "MaximumAllowedChargingLimit.qml" },
 
 
                 ]
@@ -132,7 +132,7 @@ Page {
                                     id: customRepeaterModelName
                                     Layout.fillWidth: true
                                     horizontalAlignment: Text.AlignLeft
-                                    text: modelData.name
+                                    text: modelData.displayName
 
                                 }
 
@@ -299,7 +299,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
-                text: "OK"
+                text: qsTr("OK")
                 onClicked: {
                     var states = []
                     var settings = []
@@ -401,7 +401,7 @@ Page {
                     Layout.fillWidth: true
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     visible: !resultsView.success
-                    text: "Retry"
+                    text: qsTr("Retry")
                     onClicked: {
                         internalPageStack.pop({immediate: true});
                         internalPageStack.pop({immediate: true});

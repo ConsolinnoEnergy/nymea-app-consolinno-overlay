@@ -108,8 +108,6 @@ Page {
 
                 Label {
                     Layout.fillWidth: true
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
                     text: heatPumpThing.name
                     wrapMode: Text.WordWrap
 
@@ -151,7 +149,7 @@ Page {
                         onTextChanged: acceptableInput ?floorHeatingArea_validated = true : floorHeatingArea_validated = false
                     }
 
-                    Text {
+                    Label {
                         id: floorHeatingunit
                         text: qsTr("m²")
                     }
@@ -181,7 +179,7 @@ Page {
                         onTextChanged: acceptableInput ?maxElectricalPower_validated = true : maxElectricalPower_validated = false
                     }
 
-                    Text {
+                    Label {
                         id: maxElectricalPowerunit
                         text: qsTr("kW")
                     }
@@ -210,7 +208,7 @@ Page {
 
                         onTextChanged: acceptableInput ?maxThermalEnergy_validated = true : maxThermalEnergy_validated = false
                     }
-                    Text {
+                    Label {
                         id: maxThermalEnergyunit
                         text: qsTr("kWh")
                     }
@@ -278,7 +276,6 @@ Page {
 
                         if (savebutton.validated)
                         {
-
                             d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, optimizationEnabledSwitch.checked, parseFloat( floorHeatingAreaId.text) , parseFloat( maxElectricalPower.text)  ,  parseFloat(maxThermalEnergy.text) )
                         }
                         else
@@ -293,6 +290,8 @@ Page {
 
                     }
                 }
+
+
             }
         }
     }

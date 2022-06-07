@@ -52,5 +52,6 @@
         <file>info/EnergyManagerInfo.qml</file>
         <file>components/ConsolinnoItemDelegate.qml</file>
         <file>thingconfiguration/CarInventory.qml</file>
+        <file>components/ConsolinnoHeader.qml</file>
     </qresource>
 </RCC>

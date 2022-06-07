@@ -4,6 +4,9 @@ import QtQuick.Controls 2.9
 import "qrc:/ui/components"
 import Nymea 1.0
 
+import "../components"
+import "../delegates"
+
 ConsolinnoWizardPageBase {
     id: root
 
@@ -100,6 +103,13 @@ ConsolinnoWizardPageBase {
                             print("pushing:", discovery.get(0))
                             pageStack.push(setupHeatPumpComponent, {thingDescriptor: discovery.get(0)})
                         }
+                        // added to get passed the setup
+                        if(count == 0){
+                            pageStack.push(setupHeatPumpComponent, {thingClassId: thingClassId})
+
+                        }
+
+
                     }
                 }
             }
@@ -116,7 +126,8 @@ ConsolinnoWizardPageBase {
 
                 Label {
                     Layout.fillWidth: true
-                    text: qsTr("Heat pump")
+                    //text: qsTr("Heat pump")
+                    text: thingClassId
                     font: Style.bigFont
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
@@ -145,7 +156,7 @@ ConsolinnoWizardPageBase {
                         anchors.centerIn: parent
                         width: parent.width
                         spacing: Style.margins
-                        visible: !discovery.busy && discovery.count == 0
+                        visible:  false //!discovery.busy && discovery.count == 0
 
                         Label {
                             Layout.fillWidth: true
@@ -233,14 +244,60 @@ ConsolinnoWizardPageBase {
 
             property ThingDescriptor thingDescriptor: null
 
+            //added
+            property var thingClassId: null
+            property var thingClass: thingClassId ? engine.thingManager.thingClasses.getThingClass(thingClassId) : null
+
             property int pendingCallId: -1
             property int thingError: Thing.ThingErrorNoError
 
             property Thing thing: null
 
-            Component.onCompleted: {
-                pendingCallId = engine.thingManager.addDiscoveredThing(thingDescriptor.thingClassId, thingDescriptor.id, thingDescriptor.name, {})
+
+            function getParams(){
+
+//                var params = []
+//                for (var i = 0; i < paramRepeater.count; i++) {
+//                    var param = {}
+//                    var paramType = paramRepeater.itemAt(i).paramType
+//                    if (!paramType.readOnly) {
+//                        param.paramTypeId = paramType.id
+//                        param.value = paramRepeater.itemAt(i).value
+//                        print("adding param", param.paramTypeId, param.value)
+//                        params.push(param)
+//                    }
+//                }
+
+//                d.params = params
+//                d.name = nameTextField.text
+//                d.pairThing();
+
+                var params = []
+                for (var i = 0; i < thingClass.paramTypes.count; i++)
+                {
+                    var param = {}
+                    param.paramTypeId = thingClass.paramTypes.get(i).id
+                    param.value = thingClass.paramTypes.get(i).defaultValue
+                    params.push(param)
+
+                }
+
+                return params
+
+
+
             }
+
+            Component.onCompleted: {
+                if (thingDescriptor){
+                    pendingCallId = engine.thingManager.addDiscoveredThing(thingDescriptor.thingClassId, thingDescriptor.id, thingDescriptor.name, {})
+                }
+                else{
+                    var thingclassparams = getParams()
+                    engine.thingManager.addThing(thingClassId, thingClass.displayName , thingclassparams);
+                }
+
+                }
 
             Connections {
                 target: engine.thingManager
@@ -293,7 +350,7 @@ ConsolinnoWizardPageBase {
                     Label {
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
-                        text: setupHeatPumpPage.thingDescriptor.name
+                        text: setupHeatPumpPage.thingClass.name
                     }
 
                     ColorIcon {

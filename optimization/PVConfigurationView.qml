@@ -15,7 +15,7 @@ Page {
     property HemsManager hemsManager
 
     header: NymeaHeader {
-        text: "PV"
+        text: qsTr("PV")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
@@ -129,8 +129,6 @@ Page {
 
                 Label {
                     Layout.fillWidth: true
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
                     text: pvThing.name
                     wrapMode: Text.WordWrap
 
@@ -161,7 +159,7 @@ Page {
 
 
                     }
-                    Text {
+                    Label {
                         id: latitudeunit
                         text: qsTr("°")
                     }
@@ -194,7 +192,7 @@ Page {
 
                     }
 
-                    Text {
+                    Label {
                         id: longitudeunit
                         text: qsTr("°")
                     }
@@ -226,7 +224,7 @@ Page {
                     }
 
 
-                    Text {
+                    Label {
                         id: roofpitchunit
                         text: qsTr("°")
                     }
@@ -256,7 +254,7 @@ Page {
 
                     }
 
-                    Text {
+                    Label {
                         id: alignmentunit
                         Layout.alignment: Qt.AlignLeft
                         text: qsTr("°")
@@ -292,7 +290,7 @@ Page {
 
                     }
 
-                    Text {
+                    Label {
                         id: kwPeakunit
                         text: qsTr("kW")
                         Layout.alignment: Qt.AlignRight
@@ -339,7 +337,7 @@ Page {
                     onClicked: {
                         if (validated == true)
                         {
-                        longitudefield.placeholderText = "60"
+
 
                         footer.text = "saved"
                         d.pendingCallId = hemsManager.setPvConfiguration(pvConfiguration.PvThingId, parseFloat(longitudefield.text), parseFloat(latitude.text), parseInt(roofpitch.text), parseInt(alignment.text), parseFloat(kwPeak.text) )

@@ -65,7 +65,6 @@ void HeatingConfigurations::addConfiguration(HeatingConfiguration *heatingConfig
     m_list.append(heatingConfiguration);
 
     connect(heatingConfiguration, &HeatingConfiguration::optimizationEnabledChanged, this, [=](){
-        qInfo() << "Optimization Toggled";
         QModelIndex idx = index(m_list.indexOf(heatingConfiguration));
         emit dataChanged(idx, idx, {RoleOptimizationEnabled});
     });

@@ -252,11 +252,11 @@ MainViewBase {
 
         property int hours: 24
 
-        readonly property color rootMeterAcquisitionColor: Style.red
-        readonly property color rootMeterReturnColor: Style.blue
-        readonly property color producersColor: Style.yellow
-        readonly property color batteriesColor: "#93C01F"
-        readonly property var consumersColors: [ "#E5007E", "#F29100", "#941B80", "#0069B3", "#F29100", "#93C01F" ]
+        readonly property string rootMeterAcquisitionColor: "#E95E52";
+        readonly property string rootMeterReturnColor:  "#24A0D6"
+        readonly property color producersColor: "#F7EC5A"
+        readonly property color batteriesColor: "#84D35E"
+        readonly property var consumersColors: [ "#EEAC66", "#CB5C9E", "#9984C4", "#84982E", "#639F86", "#6FD2CD" ]
 
 
 
@@ -289,8 +289,8 @@ MainViewBase {
                 ctx.translate(xTranslate, yTranslate)
 
                 ctx.beginPath()
-                ctx.fillStyle = "white"
-                ctx.arc(0, 0, chartView.plotArea.width / 2, 0, 2 * Math.PI)
+                ctx.fillStyle = Material.background
+                ctx.arc(0, 0, chartView.plotArea.width / 2 , 0, 2 * Math.PI)
                 ctx.fill();
                 ctx.closePath()
 
@@ -483,6 +483,7 @@ MainViewBase {
                     id: axisAngular
                     gridVisible: false
                     labelsVisible: false
+                    lineVisible: false
                     property date now: new Date()
                     min: {
                         var date = new Date(now);
@@ -664,7 +665,7 @@ MainViewBase {
                     width: chartView.plotArea.width / 2
                     height: chartView.plotArea.height / 2
                     radius: width / 2
-                    color: Style.darkGray
+                    color: "#aeaeae"
                     border.width: 2
                     border.color: "white"
 //                    visible: false
@@ -840,7 +841,7 @@ MainViewBase {
             }
         }
     }
-
+/*
     Rectangle {
         anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
         height: Style.hugeMargins
@@ -860,7 +861,7 @@ MainViewBase {
             verticalAlignment: Image.AlignTop
         }
     }
-
+*/
 
     EmptyViewPlaceholder {
         anchors { left: parent.left; right: parent.right; margins: app.margins }
