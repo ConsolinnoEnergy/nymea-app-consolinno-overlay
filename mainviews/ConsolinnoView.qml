@@ -252,11 +252,11 @@ MainViewBase {
 
         property int hours: 24
 
-        readonly property color rootMeterAcquisitionColor: Style.red
-        readonly property color rootMeterReturnColor: Style.blue
-        readonly property color producersColor: "#f8dc6b"
-        readonly property color batteriesColor: "#aee48f"
-        readonly property var consumersColors: [ "#fa8787", "#c5f4f3", "#941B80", "#0069B3", "#F29100", "#93C01F" ]
+        readonly property string rootMeterAcquisitionColor: "#E95E52";
+        readonly property string rootMeterReturnColor:  "#24A0D6"
+        readonly property color producersColor: "#F7EC5A"
+        readonly property color batteriesColor: "#84D35E"
+        readonly property var consumersColors: [ "#EEAC66", "#CB5C9E", "#9984C4", "#84982E", "#639F86", "#6FD2CD" ]
 
 
 
@@ -289,8 +289,8 @@ MainViewBase {
                 ctx.translate(xTranslate, yTranslate)
 
                 ctx.beginPath()
-                ctx.fillStyle = "white"
-                ctx.arc(0, 0, chartView.plotArea.width / 2, 0, 2 * Math.PI)
+                ctx.fillStyle = Material.background
+                ctx.arc(0, 0, chartView.plotArea.width / 2 , 0, 2 * Math.PI)
                 ctx.fill();
                 ctx.closePath()
 
@@ -483,6 +483,7 @@ MainViewBase {
                     id: axisAngular
                     gridVisible: false
                     labelsVisible: false
+                    lineVisible: false
                     property date now: new Date()
                     min: {
                         var date = new Date(now);
