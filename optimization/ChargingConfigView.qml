@@ -259,7 +259,7 @@ Page {
                         {
                             return qsTr("PV optimized")
                         }
-                        else if (chargingConfiguration.optimizationMode == 1)
+                        else if (chargingConfiguration.optimizationMode == 2)
                         {
                             return qsTr("PV excess")
                         }
