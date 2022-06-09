@@ -54,5 +54,6 @@
         <file>thingconfiguration/CarInventory.qml</file>
         <file>components/ConsolinnoHeader.qml</file>
         <file>thingconfiguration/carSimulation.qml</file>
+        <file>info/MainviewInfo.qml</file>
     </qresource>
 </RCC>
