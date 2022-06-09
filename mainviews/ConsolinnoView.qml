@@ -55,6 +55,16 @@ MainViewBase {
     }
 
     headerButtons: [
+
+        {
+            iconSource: "/ui/images/info.svg",
+            color: Material.foreground,
+            visible:  true,
+            trigger: function() {
+                pageStack.push("../info/MainviewInfo.qml",  {stack: pageStack})
+            }
+        },
+
         {
             iconSource: "/ui/images/configure.svg",
             color: Style.iconColor,
