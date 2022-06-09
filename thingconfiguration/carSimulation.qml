@@ -8,7 +8,7 @@ Page {
 
 
     Component.onCompleted:{
-        simulationSwitch.checked = evProxy.get(0).stateByName("pluggedIn")
+        simulationSwitch.checked = evProxy.get(0).stateByName("pluggedIn").value
     }
 
     header: NymeaHeader {
@@ -50,7 +50,7 @@ Page {
                 else{
                     evProxy.get(0).executeAction("pluggedIn", [{paramName: "pluggedIn", value: false}])
                 }
-                header.text = "wtf"
+
             }
 
 
