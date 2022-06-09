@@ -14,7 +14,7 @@ Page {
 
     header: ConsolinnoHeader {
         id: header
-        text: qsTr("Mainview")
+        text: qsTr("Dashboard")
         backButtonVisible: true
         onBackPressed: stack.pop()
         show_Image: true
@@ -30,7 +30,7 @@ Page {
             Label{
                 Layout.fillWidth: true
                 id: dashboardTitle
-                text: qsTr("Dashboard")
+                text: qsTr("Energy flow")
                 leftPadding: app.margins +10
                 rightPadding: app.margins +10
                 font.bold: true
@@ -66,9 +66,6 @@ Page {
 
         }
 
-        infofooter: [
-            {headline: qsTr("Energymanager"), Link: "EnergyManagerInfo"},
-        ]
 
 
 
