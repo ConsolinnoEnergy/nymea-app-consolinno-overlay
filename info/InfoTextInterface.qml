@@ -55,7 +55,7 @@ Item {
             wrapMode: Text.WordWrap
 
         }
-        // default explanaition. Only used if the body is not implemented
+        // default explanation. Only used if the body is not implemented
         Label {
             id: textLabel
             Layout.fillWidth: true
@@ -77,6 +77,7 @@ Item {
             id: bodyContainer
             clip: true
             Layout.fillWidth: true
+            Layout.preferredWidth: app.width
             height: childrenRect.height
             visible: body !== null ? true : false
             Layout.bottomMargin: 15
