@@ -53,7 +53,7 @@
             <!-- extract android style -->
             <meta-data android:name="android.app.splash_screen_sticky" android:value="true"/>
         </activity>
-        <activity android:process=":qt_controlsActivity" android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density" android:name="io.guh.nymeaapp.NymeaAppControlsActivity" android:label="Consolinno energy" android:screenOrientation="unspecified" android:launchMode="standard">
+        <activity android:process=":qt_controlsActivity" android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density" android:name="io.guh.nymeaapp.NymeaAppControlsActivity" android:label="Consolinno energy" android:screenOrientation="portrait" android:launchMode="standard">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
                 <category android:name="android.intent.category.DEFAULT"/>
