@@ -48,6 +48,7 @@ Page {
 
             Label{
                 Layout.fillWidth: true
+                Layout.topMargin: 15
                 leftPadding: app.margins +10
                 rightPadding: app.margins +10
                 font.bold: true
@@ -63,6 +64,25 @@ Page {
                 id: consumptionDescription
                 text: qsTr("In the center of the dashboard you can see the consumption of the last 24 hours. The yellow area shows your produced energy. If more is produced than consumed, power is fed into the grid visible by the blue area. If more energy is consumed than produced, energy is drawn from the grid visible on the red area. The other colored areas stand for the consumption of the different consumers.")
             }
+            Label{
+                Layout.fillWidth: true
+                Layout.topMargin: 15
+                leftPadding: app.margins +10
+                rightPadding: app.margins +10
+                font.bold: true
+                id: interactionTitle
+                text: qsTr("Interaction")
+            }
+            Label{
+                Layout.fillWidth: true
+                leftPadding: app.margins +10
+                rightPadding: app.margins +10
+                wrapMode: Text.WordWrap
+                Layout.preferredWidth: app.width
+                id: interactionDescription
+                text: qsTr("By tapping on the consumers, you can access the settings, e.g. the charging of the e-car. If you tap on the evaluation of the last 24 hours, further statistics are displayed.")
+            }
+
 
         }
 

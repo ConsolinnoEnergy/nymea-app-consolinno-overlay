@@ -261,7 +261,7 @@ Page {
                         }
                         else if (chargingConfiguration.optimizationMode == 2)
                         {
-                            return qsTr("PV excess")
+                            return qsTr("PV only")
                         }
                     }
 
@@ -652,7 +652,7 @@ Page {
                         Layout.fillWidth: true
                         x: carSelector.x
                         model: ListModel{
-                            ListElement{key: qsTr("PV excess"); value: "Pv-Excess"; mode: 2}
+                            ListElement{key: qsTr("PV only"); value: "Pv-Only"; mode: 2}
                             ListElement{key: qsTr("PV optimized"); value: "Pv-Optimized"; mode: 1}
                             ListElement{key: qsTr("No optimization"); value: "No Optimization"; mode: 0}
 
