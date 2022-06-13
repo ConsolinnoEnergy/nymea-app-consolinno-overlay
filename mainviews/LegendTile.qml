@@ -66,8 +66,8 @@ MouseArea {
                 Label {
                     // here is the issue with the different textsizes
                     id: headerLabel
-                    width: parent.width - Style.margins
-                    text: root.thing.name
+                    width: parent.width //- Style.margins
+                    text: Math.abs(root.currentPower) + " W"
                     elide: Text.ElideRight
                     color: "white"
                     horizontalAlignment: Text.AlignHCenter
@@ -129,7 +129,7 @@ MouseArea {
                 Layout.rightMargin: Style.smallMargins
                 Layout.bottomMargin: Style.smallMargins
                 font: Style.smallFont
-                text:  Math.abs(root.currentPower) + " W"
+                text:  root.thing.name
                 elide: Text.ElideRight
                 color: "black"
             }
