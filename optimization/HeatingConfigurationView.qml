@@ -141,7 +141,8 @@ Page {
                     TextField {
                         id: floorHeatingAreaId
                         property bool floorHeatingArea_validated
-                        width: 120
+                        Layout.preferredWidth: 60
+                        Layout.rightMargin: 10
                         text: heatingConfiguration.floorHeatingArea
                         maximumLength: 5
                         validator: DoubleValidator{bottom: 0}
@@ -171,7 +172,8 @@ Page {
                     TextField {
                         id: maxElectricalPower
                         property bool maxElectricalPower_validated
-                        width: 120
+                        Layout.preferredWidth: 60
+                        Layout.rightMargin: 8
                         text: heatingConfiguration.maxElectricalPower
                         maximumLength: 10
                         validator: DoubleValidator{bottom: 0 }
@@ -201,7 +203,7 @@ Page {
                     TextField {
                         id: maxThermalEnergy
                         property bool maxThermalEnergy_validated
-                        width: 120
+                        Layout.preferredWidth: 60
                         text: heatingConfiguration.maxThermalEnergy
                         maximumLength: 10
                         validator: DoubleValidator{bottom: 0}
@@ -221,27 +223,27 @@ Page {
 
 
 
-                Label {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    text: qsTr("For a better optimization you can assign a heat meter which is measuring the produced heat energy of this heat pump.")
-                    wrapMode: Text.WordWrap
-                    font.pixelSize: app.smallFont
-                    visible: !heatMeterIncluded
-                }
+//                Label {
+//                    Layout.fillWidth: true
+//                    Layout.leftMargin: app.margins
+//                    Layout.rightMargin: app.margins
+//                    text: qsTr("For a better optimization you can assign a heat meter which is measuring the produced heat energy of this heat pump.")
+//                    wrapMode: Text.WordWrap
+//                    font.pixelSize: app.smallFont
+//                    visible: !heatMeterIncluded
+//                }
 
 
 
 
-                Button {
-                    id: assignHeatMeter
-                    Layout.fillWidth: true
-                    // We only need to assign a hear meter if this heatpump does not provide one
-                    visible: !heatMeterIncluded
-                    text: qsTr("TODO: Assign heat meter")
-                    // TODO: Select a heat meter from the things and show it here. Allow to reassign a heat meter and remove the assignment
-                }
+//                Button {
+//                    id: assignHeatMeter
+//                    Layout.fillWidth: true
+//                    // We only need to assign a hear meter if this heatpump does not provide one
+//                    visible: !heatMeterIncluded
+//                    text: qsTr("TODO: Assign heat meter")
+//                    // TODO: Select a heat meter from the things and show it here. Allow to reassign a heat meter and remove the assignment
+//                }
 
                 Item {
                     // place holder
