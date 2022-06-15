@@ -139,16 +139,6 @@ Page {
         }
 
 
-        Slider{
-            Layout.fillWidth:  true
-            from: 0
-            to: 100
-            onPositionChanged:{
-            hemsManager.setConEMSState( 4, 1, value)
-
-            }
-
-        }
 
         Label{
 
