@@ -104,6 +104,12 @@ Page {
 
     }
 
+    ThingsProxy {
+        id: simulationEvProxy
+        engine: _engine
+        shownInterfaces: ["electricvehicle"]
+        requiredStateName: "pluggedIn"
+    }
 
 
     ThingsProxy {
@@ -184,6 +190,30 @@ Page {
                     Layout.alignment: Qt.AlignCenter
                     wrapMode: Text.WordWrap
                     Layout.preferredWidth: app.width
+
+                }
+            }
+
+            RowLayout{
+                id: simulationSwitchLayout
+                Layout.fillWidth: true
+                visible: !(thing.stateByName("pluggedIn").value)
+
+                Switch{
+                    id: simulationSwitch
+                    Layout.fillWidth: true
+                    text: qsTr("Activate simulated car")
+                    onClicked: {
+                        if (simulationSwitch.checked){
+                            simulationEvProxy.get(0).executeAction("pluggedIn", [{paramName: "pluggedIn", value: true}])
+                        }
+                        else{
+                            simulationEvProxy.get(0).executeAction("pluggedIn", [{paramName: "pluggedIn", value: false}])
+                        }
+
+                    }
+
+
 
                 }
             }
@@ -283,7 +313,7 @@ Page {
                 Label{
                     id: targetChargeReachedLabel
                     Layout.fillWidth: true
-                    text: qsTr("Ending time: ")
+                    text: qsTr("Ending time:")
                 }
 
                 Label{
@@ -777,6 +807,7 @@ Page {
                         property var today: new Date()
                         property var endTime: new Date(today.getTime() + endTimeSlider.value * 60000)
                         text: qsTr("Ending time: ") + endTime.toLocaleString(Qt.locale("de-DE"), "dd.MM HH:mm")
+                        visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode !== 2)
 
                         function endTimeValidityPrediction(d){
 
@@ -827,6 +858,8 @@ Page {
                         property var capacityInAh
                         property var batteryContentInAh
                         property var minChargingCurrent
+
+                        visible:  (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode !== 2)
 
                         from: 0
                         to: 24*60
