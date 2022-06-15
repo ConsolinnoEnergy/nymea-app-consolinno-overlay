@@ -95,9 +95,6 @@ Page {
                 anchors.left: energyManager.right
                 anchors.leftMargin:  5
 
-
-
-
             }
 
         }
