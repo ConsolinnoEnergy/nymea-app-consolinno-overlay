@@ -27,6 +27,21 @@ public:
     };
     Q_ENUM(State);
 
+    enum Controller{
+        CHARGING_CONTROLLER = 1,
+        HEATPUMP_CONTROLLER = 2
+
+
+
+
+    };
+    Q_ENUM(Controller);
+
+    // Controller Flags
+
+    Q_INVOKABLE bool chargingControllerActive();
+    Q_INVOKABLE bool heatpumpControllerActive();
+
     QUuid ConEMSStateID() const;
     void setConEMSStateID(const QUuid conEMSStateID);
 
@@ -51,6 +66,8 @@ signals:
 
 
 private:
+
+
     QUuid m_conEMSStateID = "f002d80e-5f90-445c-8e95-a0256a0b464e";
     State m_currentState = State::Optimizer_Busy;
     int m_operationMode = 0;

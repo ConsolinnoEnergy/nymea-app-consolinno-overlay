@@ -281,8 +281,10 @@ void HemsManager::notificationReceived(const QVariantMap &data)
         qCDebug(dcHems()) << "Charging configuration removed" << params.value("evChargerThingId").toUuid();
         m_chargingConfigurations->removeConfiguration(params.value("evChargerThingId").toUuid());
     } else if (notification == "Hems.ChargingConfigurationChanged") {
-        addOrUpdateChargingConfiguration(params.value("chargingConfiguration").toMap());
-
+        addOrUpdateChargingConfiguration(params.value("chargingConfiguration").toMap()); 
+    } else if (notification == "Hems.ConEMSStateChanged") {
+        qCDebug(dcHems()) << "ConEMSStateChanged Notification";
+        addOrUpdateConEMSState(params.value("conEMSState").toMap());
     } else if (notification == "Hems.ChargingSessionConfigurationAdded") {
         addOrUpdateChargingSessionConfiguration(params.value("chargingSessionConfiguration").toMap());
     } else if (notification == "Hems.ChargingSessionConfigurationRemoved") {
@@ -559,6 +561,7 @@ void HemsManager::addOrUpdatePvConfiguration(const QVariantMap &configurationMap
 
      }else{
         qCDebug(dcHems()) << "Pv configuration changed" << configuration->PvThingId();
+        emit pvConfigurationChanged(configuration);
 
      }
 }
@@ -576,7 +579,20 @@ void HemsManager::addOrUpdateConEMSState(const QVariantMap &conEMSStatesMap)
         state->setConEMSStateID(ConEMSUuid);
     }
 
-    state->setCurrentState(static_cast<ConEMSState::State>(conEMSStatesMap.value("currentState").toInt()));
+    ConEMSState::State temp;
+    if (conEMSStatesMap.value("currentState") == "Unknown"){
+        temp = ConEMSState::Unknown;
+    }else if (conEMSStatesMap.value("currentState") == "Running"){
+        temp = ConEMSState::Running;
+    }else if (conEMSStatesMap.value("currentState") == "Optimizer_Busy"){
+        temp = ConEMSState::Optimizer_Busy;
+    }else if (conEMSStatesMap.value("currentState") == "Restarting"){
+        temp = ConEMSState::Restarting;
+    }else if (conEMSStatesMap.value("currentState") == "Error"){
+        temp = ConEMSState::Error;
+    }
+
+    state->setCurrentState(temp);
     state->setOperationMode(conEMSStatesMap.value("operationMode").toInt());
     state->setTimestamp(conEMSStatesMap.value("timestamp").toInt());
 
@@ -586,7 +602,8 @@ void HemsManager::addOrUpdateConEMSState(const QVariantMap &conEMSStatesMap)
          m_conEMSStates->addConEMSState(state);
 
      }else{
-        qCDebug(dcHems()) << "ConEMSState changed" << state->ConEMSStateID();
+        qCDebug(dcHems()) << "ConEMSState changed add or Update" << state->ConEMSStateID();
+        emit conEMSStateChanged(state);
 
      }
 }
