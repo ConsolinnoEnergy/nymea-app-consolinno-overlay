@@ -37,6 +37,7 @@ public:
         HemsUseCaseAll = 0xff,
 
     };
+
     Q_ENUM(HemsUseCase)
     Q_DECLARE_FLAGS(HemsUseCases, HemsUseCase)
     Q_FLAG(HemsUseCases)
@@ -81,6 +82,7 @@ signals:
     void chargingSessionConfigurationChanged(ChargingSessionConfiguration *configuration);
     void chargingConfigurationChanged(ChargingConfiguration *configuration);
     void conEMSStateChanged(ConEMSState *state);
+    void pvConfigurationChanged(PvConfiguration *configuration);
 
 
     void setHousholdPhaseLimitReply(int commandId, const QString &error);

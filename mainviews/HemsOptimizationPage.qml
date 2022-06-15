@@ -23,7 +23,8 @@ Page {
         ListElement { text: qsTr("Charging"); value: HemsManager.HemsUseCaseCharging }
         ListElement { text: qsTr("Pv"); value: HemsManager.HemsUseCasePv}
         ListElement { text: qsTr("CarSimulation"); value: 9}
-
+        ListElement { text: qsTr("ConEMS Observer"); value: 10}
+        // value is set to an integer for pieces which are either going to be migrated to a different location or deleted
     }
 
     ColumnLayout {
@@ -50,6 +51,8 @@ Page {
                         return"../images/weathericons/weather-clear-day.svg"
                     if (model.value === 9)
                         return"../images/car.svg"
+                    if (model.value === 10)
+                        return"../images/chart.svg"
 
 
                 }
@@ -73,7 +76,9 @@ Page {
                     case 9:
                         pageStack.push(Qt.resolvedUrl("../thingconfiguration/carSimulation.qml"), {})
                         break;
-
+                    case 10:
+                        pageStack.push(Qt.resolvedUrl("../thingconfiguration/ConEMSObserver.qml"), { hemsManager: hemsManager})
+                        break;
                     }
                 }
             }

@@ -38,7 +38,7 @@ Page {
         Layout.fillWidth: true
         Label{
             Layout.fillWidth: true
-            text: evProxy.get(0) ? qsTr("switch on") +  evProxy.get(0).id : qsTr("please add a simulated Car")
+            text: evProxy.get(0) ? qsTr("switch on") +  evProxy.get(0).id : qsTr("plug in car: ")
         }
 
         Switch{
