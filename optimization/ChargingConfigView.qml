@@ -184,7 +184,7 @@ Page {
                 visible: !(thing.stateByName("pluggedIn").value)
                 Label{
                     id: noPluggedInLabel
-                    text: qsTr("No car is connected at the moment. Please connect a car")
+                    text: qsTr("No car is connected at the moment. Please connect a car.")
                     horizontalAlignment: Text.AlignHCenter
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignCenter
@@ -199,10 +199,16 @@ Page {
                 Layout.fillWidth: true
                 visible: !(thing.stateByName("pluggedIn").value)
 
+                Label{
+                    id: simulationLabel
+                    text: qsTr("Activate simulated car: ")
+                    Layout.fillWidth: true
+                    wrapMode: Text.WordWrap
+
+                }
+
                 Switch{
                     id: simulationSwitch
-                    Layout.fillWidth: true
-                    text: qsTr("Activate simulated car")
                     onClicked: {
                         if (simulationSwitch.checked){
                             simulationEvProxy.get(0).executeAction("pluggedIn", [{paramName: "pluggedIn", value: true}])
