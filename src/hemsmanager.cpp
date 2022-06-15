@@ -123,6 +123,20 @@ ConEMSStates *HemsManager::conEMSStates() const
     return m_conEMSStates;
 }
 
+int HemsManager::setUserConfig(const QVariantMap &data){
+    Q_UNUSED(data);
+    // TODO: write a setter which automatically reads the current config, builds a setter message with that and replaces the old values with the new ones
+
+//    foreach (const QString key, data.keys()) {
+//        qCDebug(dcHems()) << "key:" << key << "with value: " << data.value(key);
+
+        //addOrUpdateHeatingConfiguration(configurationVariant.toMap());
+//    }
+
+
+
+
+}
 
 int HemsManager::setPvConfiguration(const QUuid &pvThingId, const float &longitude, const float &latitude, const int &roofPitch, const int &alignment, const float &kwPeak)
 {

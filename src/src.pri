@@ -11,6 +11,8 @@ HEADERS += \
     $$PWD/chargingconfiguration.h \
     $$PWD/heatingconfiguration.h \
     $$PWD/hemsmanager.h \
+    $$PWD/userconfig.h \
+    $$PWD/userconfigs.h
 
 SOURCES += \
     $$PWD/chargingconfiguration.cpp \
@@ -23,6 +25,8 @@ SOURCES += \
     $$PWD/heatingconfigurations.cpp \
     $$PWD/hemsmanager.cpp \
     $$PWD/pvconfiguration.cpp \
-    $$PWD/pvconfigurations.cpp
+    $$PWD/pvconfigurations.cpp \
+    $$PWD/userconfig.cpp \
+    $$PWD/userconfigs.cpp
 
 

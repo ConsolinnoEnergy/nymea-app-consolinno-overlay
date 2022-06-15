@@ -68,6 +68,7 @@ public:
     Q_INVOKABLE int setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId,  int hours,  int minutes, uint targetPercentage, int optimizationMode, QUuid uniqueIdentifier);
     Q_INVOKABLE int setChargingSessionConfiguration(const QUuid carThingId, const QUuid evChargerThingid, const QString started_at, const QString finished_at, const float initial_battery_energy, const int duration, const float energy_charged, const float energy_battery, const int battery_level, const QUuid sessionId, const int state, const int timestamp);
     Q_INVOKABLE int setConEMSState(int currentState, int operationMode, int timestamp);
+    Q_INVOKABLE int setUserConfig(const QVariantMap &data);
 
 
 signals:
