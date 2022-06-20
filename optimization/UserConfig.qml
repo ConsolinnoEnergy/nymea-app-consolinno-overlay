@@ -22,7 +22,7 @@ Page {
         id: testbutton
         text: "Testing stuff"
         onClicked: {
-            hemsManager.setUserConfiguration({defaultChargingMode: 1, value: "something else", also: "even more something"})
+            hemsManager.setUserConfiguration({defaultChargingMode: 2, value: "something else", also: "even more something"})
 
         }
 

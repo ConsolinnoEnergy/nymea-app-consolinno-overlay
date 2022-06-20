@@ -265,15 +265,6 @@ Page {
 
                 }
 
-                Button {
-
-                    Layout.fillWidth: true
-                    text: qsTr("Testing")
-                    onClicked: {
-                        hemsManager.setTesting({name: "hallo", something: "sup"})
-                    }
-                }
-
 
                 Button {
                     id: savebutton
