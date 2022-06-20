@@ -24,6 +24,7 @@ Page {
         ListElement { text: qsTr("Pv"); value: HemsManager.HemsUseCasePv}
         ListElement { text: qsTr("CarSimulation"); value: 9}
         ListElement { text: qsTr("ConEMS Observer"); value: 10}
+        ListElement { text: qsTr("ConEMS Default Page"); value: 11}
         // value is set to an integer for pieces which are either going to be migrated to a different location or deleted
     }
 
@@ -53,7 +54,8 @@ Page {
                         return"../images/car.svg"
                     if (model.value === 10)
                         return"../images/chart.svg"
-
+                    if (model.value === 11)
+                        return"../images/edit.svg"
 
                 }
                 text: model.text
@@ -78,6 +80,9 @@ Page {
                         break;
                     case 10:
                         pageStack.push(Qt.resolvedUrl("../thingconfiguration/ConEMSObserver.qml"), { hemsManager: hemsManager})
+                        break;
+                    case 11:
+                        pageStack.push(Qt.resolvedUrl("../optimization/UserConfig.qml"), { hemsManager: hemsManager})
                         break;
                     }
                 }
