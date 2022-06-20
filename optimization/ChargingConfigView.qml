@@ -197,7 +197,7 @@ Page {
             RowLayout{
                 id: simulationSwitchLayout
                 Layout.fillWidth: true
-                visible: !(thing.stateByName("pluggedIn").value)
+                visible: !(thing.stateByName("pluggedIn").value) && (simulationEvProxy.count > 0)  && (thing.thingClassId.toString() === "{21a48e6d-6152-407a-a303-3b46e29bbb94}")
 
                 Label{
                     id: simulationLabel
