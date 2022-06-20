@@ -9,7 +9,11 @@
 #include "chargingsessionconfigurations.h"
 #include "pvconfigurations.h"
 #include "conemsstates.h"
+#include "userconfigurations.h"
+
 #include "conemsstate.h"
+
+
 
 class HemsManager : public QObject
 {
@@ -25,6 +29,7 @@ class HemsManager : public QObject
     Q_PROPERTY(PvConfigurations *pvConfigurations READ pvConfigurations CONSTANT)
     Q_PROPERTY(ChargingSessionConfigurations *chargingSessionConfigurations READ chargingSessionConfigurations CONSTANT)
     Q_PROPERTY(ConEMSStates *conEMSStates READ conEMSStates CONSTANT)
+    Q_PROPERTY(UserConfigurations *userConfigurations READ userConfigurations CONSTANT)
 
 public:
     enum HemsUseCase {
@@ -61,6 +66,7 @@ public:
     PvConfigurations *pvConfigurations() const;
     ChargingSessionConfigurations *chargingSessionConfigurations() const;
     ConEMSStates *conEMSStates() const;
+    UserConfigurations *userConfigurations() const;
 
 
     Q_INVOKABLE int setPvConfiguration(const QUuid &pvPumpThingId, const float &longitude, const float &latitude, const int &roofPitch, const int &alignment, const float &kwPeak);
@@ -68,6 +74,7 @@ public:
     Q_INVOKABLE int setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId,  int hours,  int minutes, uint targetPercentage, int optimizationMode, QUuid uniqueIdentifier);
     Q_INVOKABLE int setChargingSessionConfiguration(const QUuid carThingId, const QUuid evChargerThingid, const QString started_at, const QString finished_at, const float initial_battery_energy, const int duration, const float energy_charged, const float energy_battery, const int battery_level, const QUuid sessionId, const int state, const int timestamp);
     Q_INVOKABLE int setConEMSState(int currentState, int operationMode, int timestamp);
+    Q_INVOKABLE int setUserConfiguration(const QVariantMap &data);
 
 
 signals:
@@ -83,6 +90,7 @@ signals:
     void chargingConfigurationChanged(ChargingConfiguration *configuration);
     void conEMSStateChanged(ConEMSState *state);
     void pvConfigurationChanged(PvConfiguration *configuration);
+    void userConfigurationChanged(UserConfiguration *configuration);
 
 
     void setHousholdPhaseLimitReply(int commandId, const QString &error);
@@ -92,6 +100,7 @@ signals:
     void setChargingConfigurationReply(int commandId, const QString &error);
     void setChargingSessionConfigurationReply(int commandId, const QString &error);
     void setConEMSStateReply(int commandId, const QString &error);
+    void setUserConfigurationReply(int commandId, const QString &error);
 
 
 
@@ -106,6 +115,7 @@ private slots:
     Q_INVOKABLE void getChargingSessionConfigurationsResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getPvConfigurationsResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getConEMSStatesResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void getUserConfigurationsResponse(int commandId, const QVariantMap &data);
 
 
     Q_INVOKABLE void setHousholdPhaseLimitResponse(int commandId, const QVariantMap &data);
@@ -115,6 +125,7 @@ private slots:
     Q_INVOKABLE void setChargingConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setChargingSessionConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setConEMSStateResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void setUserConfigurationResponse(int commandId, const QVariantMap &data);
 
 private:
     QPointer<Engine> m_engine = nullptr;
@@ -129,6 +140,7 @@ private:
     ChargingSessionConfigurations *m_chargingSessionConfigurations = nullptr;
     PvConfigurations *m_pvConfigurations = nullptr;
     ConEMSStates *m_conEMSStates = nullptr;
+    UserConfigurations *m_userConfigurations = nullptr;
 
 
     void addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap);
@@ -136,6 +148,7 @@ private:
     void addOrUpdateChargingSessionConfiguration(const QVariantMap &configurationMap);
     void addOrUpdatePvConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateConEMSState(const QVariantMap &configurationMap);
+    void addOrUpdateUserConfiguration(const QVariantMap &configurationMap);
 
 
     void updateAvailableUsecases(const QStringList &useCasesList);

@@ -4,7 +4,8 @@
 #include <QJsonDocument>
 
 #include "logging.h"
-NYMEA_LOGGING_CATEGORY(dcHems, "Hems")
+
+NYMEA_LOGGING_CATEGORY(dcHems, "Hems");
 
 HemsManager::HemsManager(QObject *parent) : QObject(parent)
 {
@@ -13,6 +14,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
     m_pvConfigurations = new PvConfigurations(this);
     m_chargingSessionConfigurations = new ChargingSessionConfigurations(this);
     m_conEMSStates = new ConEMSStates(this);
+    m_userConfigurations = new UserConfigurations(this);
 }
 
 HemsManager::~HemsManager()
@@ -59,6 +61,7 @@ void HemsManager::setEngine(Engine *engine)
         m_engine->jsonRpcClient()->registerNotificationHandler(this, "Hems", "notificationReceived");
 
         // Fetch initial data
+        m_engine->jsonRpcClient()->sendCommand("Hems.GetUserConfigurations", QVariantMap(), this, "getUserConfigurationsResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetConEMSStates", QVariantMap(), this, "getConEMSStatesResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetAvailableUseCases", QVariantMap(), this, "getAvailableUseCasesResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHousholdPhaseLimit", QVariantMap(), this, "getHousholdPhaseLimitResponse");
@@ -121,6 +124,11 @@ PvConfigurations *HemsManager::pvConfigurations() const
 ConEMSStates *HemsManager::conEMSStates() const
 {
     return m_conEMSStates;
+}
+
+UserConfigurations *HemsManager::userConfigurations() const
+{
+    return m_userConfigurations;
 }
 
 
@@ -196,7 +204,7 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool op
 
 int HemsManager::setChargingSessionConfiguration(const QUuid carThingId, const QUuid evChargerThingid, const QString started_at, const QString finished_at, const float initial_battery_energy, const int duration, const float energy_charged, const float energy_battery, const int battery_level, const QUuid sessionId, const int state, const int timestamp)
 {
-    Q_UNUSED(sessionId)
+    Q_UNUSED(sessionId);
     QUuid chargingSession;
 
     QVariantMap chargingSessionConfiguration;
@@ -248,10 +256,49 @@ int HemsManager::setConEMSState( int currentState, int operationMode, int timest
 
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetConEMSState", params, this, "setConEMSStateResponse");
 
+}
+
+int HemsManager::setUserConfiguration(const QVariantMap &data){
 
 
+    UserConfiguration *configuration = m_userConfigurations->getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72");
+    if (!configuration){
+        QVariantMap userConfig;
+        userConfig.insert("userConfigID", "528b3820-1b6d-4f37-aea7-a99d21d42e72");
+        userConfig.insert("lastSelectedCar", "282d39a8-3537-4c22-a386-b31faeebbb55");
+        userConfig.insert("defaultChargingMode", 2);
+        addOrUpdateUserConfiguration(userConfig);
+        configuration = m_userConfigurations->getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72");
 
+    }
 
+    // Make a MetaObject of an configuration
+    const QMetaObject *metaObj = configuration->metaObject();
+
+    // add the values from data which match with the
+    QVariantMap userConfiguration;
+    for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
+
+        if(data.contains(metaObj->property(i).name()))
+            {
+                //qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
+                userConfiguration.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
+
+            }
+
+        else{
+
+                //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
+                userConfiguration.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
+
+            }
+    }
+
+    QVariantMap params;
+    params.insert("userConfiguration", userConfiguration);
+
+    qCDebug(dcHems())<< "sent userConfiguration" << params;
+    return  m_engine->jsonRpcClient()->sendCommand("Hems.SetUserConfiguration", params, this, "setUserConfigurationResponse");
 }
 
 
@@ -293,6 +340,14 @@ void HemsManager::notificationReceived(const QVariantMap &data)
     } else if (notification == "Hems.ChargingSessionConfigurationChanged") {
         addOrUpdateChargingSessionConfiguration(params.value("chargingSessionConfiguration").toMap());
 
+    } else if (notification == "Hems.UserConfigurationAdded") {
+        addOrUpdateUserConfiguration(params.value("userConfiguration").toMap());
+    } else if (notification == "Hems.UserConfigurationRemoved") {
+        qCDebug(dcHems()) << "User configuration removed" << params.value("userConfigId").toUuid();
+        m_userConfigurations->removeConfiguration(params.value("userConfigId").toUuid());
+    } else if (notification == "Hems.UserConfigurationChanged") {
+        addOrUpdateUserConfiguration(params.value("userConfiguration").toMap());
+
     } else if (notification == "Hems.HeatingConfigurationAdded") {
         addOrUpdateHeatingConfiguration(params.value("heatingConfiguration").toMap());
     } else if (notification == "Hems.HeatingConfigurationRemoved") {
@@ -315,14 +370,14 @@ void HemsManager::notificationReceived(const QVariantMap &data)
 
 void HemsManager::getAvailableUseCasesResponse(int commandId, const QVariantMap &data)
 {
-    Q_UNUSED(commandId)
+    Q_UNUSED(commandId);
     updateAvailableUsecases(data.value("availableUseCases").toStringList());
     qCDebug(dcHems()) << "Available use cases" << m_availableUseCases;
 }
 
 void HemsManager::getHousholdPhaseLimitResponse(int commandId, const QVariantMap &data)
 {
-    Q_UNUSED(commandId)
+    Q_UNUSED(commandId);
     uint phaseLimit = data.value("housholdPhaseLimit").toUInt();
     qCDebug(dcHems()) << "Houshold phase limit" << phaseLimit << "A";
     if (m_housholdPhaseLimit != phaseLimit) {
@@ -334,7 +389,7 @@ void HemsManager::getHousholdPhaseLimitResponse(int commandId, const QVariantMap
 void HemsManager::getHeatingConfigurationsResponse(int commandId, const QVariantMap &data)
 {
 
-    Q_UNUSED(commandId)
+    Q_UNUSED(commandId);
     qCDebug(dcHems()) << "Heating configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("heatingConfigurations").toList()) {
         addOrUpdateHeatingConfiguration(configurationVariant.toMap());
@@ -345,7 +400,7 @@ void HemsManager::getPvConfigurationsResponse(int commandId, const QVariantMap &
 {
 
 
-    Q_UNUSED(commandId)
+    Q_UNUSED(commandId);
     qCDebug(dcHems()) << "Pv configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("pvConfigurations").toList()) {
 
@@ -356,7 +411,7 @@ void HemsManager::getPvConfigurationsResponse(int commandId, const QVariantMap &
 
 void HemsManager::getChargingConfigurationsResponse(int commandId, const QVariantMap &data)
 {
-    Q_UNUSED(commandId)
+    Q_UNUSED(commandId);
     qCDebug(dcHems()) << "Charging configuration" << data;
     foreach (const QVariant &configurationVariant, data.value("chargingConfigurations").toList()) {
         addOrUpdateChargingConfiguration(configurationVariant.toMap());
@@ -370,7 +425,7 @@ void HemsManager::getChargingConfigurationsResponse(int commandId, const QVarian
 
 void HemsManager::getChargingSessionConfigurationsResponse(int commandId, const QVariantMap &data)
 {
-    Q_UNUSED(commandId)
+    Q_UNUSED(commandId);
     qCDebug(dcHems()) << "ChargingSession configuration" << data;
     foreach (const QVariant &configurationVariant, data.value("chargingSessionConfigurations").toList()) {
         addOrUpdateChargingSessionConfiguration(configurationVariant.toMap());
@@ -383,7 +438,7 @@ void HemsManager::getChargingSessionConfigurationsResponse(int commandId, const 
 
 void HemsManager::getConEMSStatesResponse(int commandId, const QVariantMap &data)
 {
-    Q_UNUSED(commandId)
+    Q_UNUSED(commandId);
     qCDebug(dcHems()) << "ConEMS State" << data;
     foreach (const QVariant &configurationVariant, data.value("conEMSStates").toList()) {
         addOrUpdateConEMSState(configurationVariant.toMap());
@@ -394,7 +449,15 @@ void HemsManager::getConEMSStatesResponse(int commandId, const QVariantMap &data
     emit fetchingDataChanged();
 }
 
+void HemsManager::getUserConfigurationsResponse(int commandId, const QVariantMap &data)
+{
 
+    Q_UNUSED(commandId);
+    qCDebug(dcHems()) << "User configurations" << data;
+    foreach (const QVariant &configurationVariant, data.value("userConfigurations").toList()) {
+        addOrUpdateUserConfiguration(configurationVariant.toMap());
+    }
+}
 
 
 
@@ -418,8 +481,6 @@ void HemsManager::setPvConfigurationResponse(int commandId, const QVariantMap &d
 
 }
 
-
-
 void HemsManager::setChargingConfigurationResponse(int commandId, const QVariantMap &data)
 {
 
@@ -441,9 +502,17 @@ void HemsManager::setConEMSStateResponse(int commandId, const QVariantMap &data)
     emit setConEMSStateReply(commandId, data.value("hemsError").toString());
 }
 
+void HemsManager::setUserConfigurationResponse(int commandId, const QVariantMap &data)
+{
+
+    qCDebug(dcHems()) << "Set UserConfiguration response" << data.value("hemsError").toString();
+    emit setUserConfigurationReply(commandId, data.value("hemsError").toString());
+}
+
 
 void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap)
 {
+    qCDebug(dcHems()) << "add or Update Heatpump Config configurationMap: " << configurationMap;
     QUuid heatPumpUuid = configurationMap.value("heatPumpThingId").toUuid();
 
     HeatingConfiguration *configuration = m_heatingConfigurations->getHeatingConfiguration(heatPumpUuid);
@@ -534,8 +603,6 @@ void HemsManager::addOrUpdateChargingSessionConfiguration(const QVariantMap &con
     }
 }
 
-
-
 void HemsManager::addOrUpdatePvConfiguration(const QVariantMap &configurationMap)
 {
 
@@ -608,7 +675,29 @@ void HemsManager::addOrUpdateConEMSState(const QVariantMap &conEMSStatesMap)
      }
 }
 
+void HemsManager::addOrUpdateUserConfiguration(const QVariantMap &configurationMap)
+{
+    QUuid userConfigId = configurationMap.value("userConfigID").toUuid();
+    qCDebug(dcHems()) << "addOrUpdateUserConfig" << configurationMap;
+    UserConfiguration *configuration = m_userConfigurations->getUserConfiguration(userConfigId);
+    bool newConfiguration = false;
+    if (!configuration) {
+        newConfiguration = true;
+        configuration = new UserConfiguration(this);
+        // I think I dont need that since the UUid is set default and should not be changed
+        //configuration->set(evChargerUuid);
+    }
+    configuration->setLastSelectedCar(configurationMap.value("lastSelectedCar").toUuid());
+    configuration->setDefaultChargingMode(configurationMap.value("defaultChargingMode").toInt());
 
+    if (newConfiguration) {
+        qCDebug(dcHems()) << "User configuration added" << configuration->userConfigID();
+        m_userConfigurations->addConfiguration(configuration);
+    } else {
+        qCDebug(dcHems()) << "User configuration changed" << configuration->userConfigID();
+        emit userConfigurationChanged(configuration);
+    }
+}
 
 void HemsManager::updateAvailableUsecases(const QStringList &useCasesList)
 {

@@ -1,9 +1,8 @@
 #include <QQmlEngine>
 
 #include "hemsmanager.h"
-#include "chargingconfigurations.h"
-#include "heatingconfigurations.h"
-#include "pvconfigurations.h"
+#include "userconfigurations.h"
+
 
 void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
     qmlRegisterType<HemsManager>(uri, versionMajor, versionMinor, "HemsManager");
@@ -17,5 +16,7 @@ void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
     qmlRegisterUncreatableType<ChargingSessionConfigurations>(uri, versionMajor, versionMinor, "ChargingSessionConfigurations", "Get it from HemsManager");
     qmlRegisterUncreatableType<ConEMSState>(uri, versionMajor, versionMinor, "ConEMSState", "Get it from HemsManager");
     qmlRegisterUncreatableType<ConEMSStates>(uri, versionMajor, versionMinor, "ConEMSStates", "Get it from HemsManager");
+    qmlRegisterUncreatableType<UserConfiguration>(uri, versionMajor, versionMinor, "UserConfiguration", "Get it from HemsManager");
+    qmlRegisterUncreatableType<UserConfigurations>(uri, versionMajor, versionMinor, "UserConfigurations", "Get it from HemsManager");
 
 }
