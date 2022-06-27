@@ -295,15 +295,15 @@ Page {
 
                     function selectMode(){
 
-                        if (chargingConfiguration.optimizationMode == 0)
+                        if (chargingConfiguration.optimizationMode === 0)
                         {
                             return qsTr("No optimization")
                         }
-                        else if (chargingConfiguration.optimizationMode == 1)
+                        else if (chargingConfiguration.optimizationMode === 1)
                         {
                             return qsTr("PV optimized")
                         }
-                        else if (chargingConfiguration.optimizationMode == 2)
+                        else if (chargingConfiguration.optimizationMode === 2)
                         {
                             return qsTr("PV only")
                         }
@@ -314,6 +314,7 @@ Page {
 
             RowLayout
             {
+                visible: chargingConfiguration.optimizationMode === 2 ? false : true
                 Rectangle{
                     color: "grey"
                     Layout.fillWidth: true
@@ -324,6 +325,7 @@ Page {
 
             RowLayout{
                 Layout.topMargin: 15
+                visible: chargingConfiguration.optimizationMode === 2 ? false : true
                 Label{
                     id: targetChargeReachedLabel
                     Layout.fillWidth: true
@@ -709,10 +711,7 @@ Page {
                           endTimeSlider.feasibilityText()
 
                         }
-
                     }
-
-
                 }
 
 
@@ -974,7 +973,7 @@ Page {
 
                 RowLayout
                 {
-
+                visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode !== 2)
                 Label
                     {
                     id: feasibilityMessage
@@ -982,7 +981,7 @@ Page {
                     Layout.alignment: Qt.AlignRight
                     text: qsTr("In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time")
                     Material.foreground: Material.Red
-                    visible: true
+                    visible: false
                     wrapMode: Text.WordWrap
                     }
 

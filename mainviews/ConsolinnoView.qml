@@ -840,7 +840,7 @@ MainViewBase {
                     // Just can't figure out where I'm missing thosw 2 pixels in the proper calculation (yet)...
                     textY -= 2
                     if (chartView.width > 400 && chartView.height > 400) {
-                        ctx.fillText(tmpDate.toLocaleTimeString(Qt.SystemLocaleShortDate), 0, textY)
+                        ctx.fillText(tmpDate.toLocaleTimeString(Qt.locale("de_DE"), "HH:mm"), 0, textY)
                     } else {
                         ctx.fillText(tmpDate.getHours(), 0, textY)
                     }
