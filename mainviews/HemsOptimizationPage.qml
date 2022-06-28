@@ -18,13 +18,13 @@ Page {
     property HemsManager hemsManager
     ListModel {
         id: useCasesModel
-        ListElement { text: qsTr("Blackout protection"); value: HemsManager.HemsUseCaseBlackoutProtection }
-        ListElement { text: qsTr("Heating"); value: HemsManager.HemsUseCaseHeating }
-        ListElement { text: qsTr("Charging"); value: HemsManager.HemsUseCaseCharging }
-        ListElement { text: qsTr("Pv"); value: HemsManager.HemsUseCasePv}
-        ListElement { text: qsTr("CarSimulation"); value: 9}
-        ListElement { text: qsTr("ConEMS Observer"); value: 10}
-        ListElement { text: qsTr("ConEMS Default Page"); value: 11}
+        ListElement { text: qsTr("Blackout protection"); value: HemsManager.HemsUseCaseBlackoutProtection; visible: true }
+        ListElement { text: qsTr("Heating"); value: HemsManager.HemsUseCaseHeating; visible: true }
+        ListElement { text: qsTr("Charging"); value: HemsManager.HemsUseCaseCharging; visible: true }
+        ListElement { text: qsTr("Pv"); value: HemsManager.HemsUseCasePv; visible: true}
+        ListElement { text: qsTr("CarSimulation"); value: 9; visible: true}
+        ListElement { text: qsTr("Development"); value: 10; visible: false}
+        //ListElement { text: qsTr("ConEMS Default Page"); value: 11}
         // value is set to an integer for pieces which are either going to be migrated to a different location or deleted
     }
 
@@ -53,13 +53,11 @@ Page {
                     if (model.value === 9)
                         return"../images/car.svg"
                     if (model.value === 10)
-                        return"../images/chart.svg"
-                    if (model.value === 11)
                         return"../images/edit.svg"
 
                 }
                 text: model.text
-                visible: (hemsManager.availableUseCases & model.value) != 0
+                visible: (hemsManager.availableUseCases & model.value) != 0 && (model.visible || settings.showHiddenOptions)
                 progressive: true
                 onClicked: {
                     switch (model.value) {
@@ -79,10 +77,7 @@ Page {
                         pageStack.push(Qt.resolvedUrl("../thingconfiguration/carSimulation.qml"), {})
                         break;
                     case 10:
-                        pageStack.push(Qt.resolvedUrl("../thingconfiguration/ConEMSObserver.qml"), { hemsManager: hemsManager})
-                        break;
-                    case 11:
-                        pageStack.push(Qt.resolvedUrl("../optimization/UserConfig.qml"), { hemsManager: hemsManager})
+                        pageStack.push(Qt.resolvedUrl("../optimization/DeveloperConfig.qml"), { hemsManager: hemsManager})
                         break;
                     }
                 }
