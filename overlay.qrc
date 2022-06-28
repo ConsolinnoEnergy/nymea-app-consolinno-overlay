@@ -57,5 +57,6 @@
         <file>info/MainviewInfo.qml</file>
         <file>thingconfiguration/ConEMSObserver.qml</file>
         <file>optimization/UserConfig.qml</file>
+        <file>optimization/DeveloperConfig.qml</file>
     </qresource>
 </RCC>
