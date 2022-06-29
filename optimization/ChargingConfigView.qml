@@ -102,12 +102,6 @@ Page {
             }
 
         }
-//        onUserConfigurationChanged:
-//        {
-//            carSelector.text =  evProxy.getThing(userconfig.lastSelectedCar).name
-
-//        }
-
 
 
     }
