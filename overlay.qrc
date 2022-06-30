@@ -58,5 +58,7 @@
         <file>thingconfiguration/ConEMSObserver.qml</file>
         <file>optimization/UserConfig.qml</file>
         <file>optimization/DeveloperConfig.qml</file>
+        <file>wizards/AuthorisationView.qml</file>
+        <file>optimization/PVConfig.qml</file>
     </qresource>
 </RCC>

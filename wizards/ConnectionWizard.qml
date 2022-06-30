@@ -75,7 +75,7 @@ ConsolinnoWizardPageBase {
             showNextButton: false
             showBackButton: false
 
-            onNext: pageStack.push(findLeafletComponent)
+            onNext: pageStack.push(connectionInfo)
             onBack: pageStack.pop()
 
             content: ColumnLayout {
@@ -146,6 +146,53 @@ ConsolinnoWizardPageBase {
     }
 
     Component {
+        id: connectionInfo
+        ConsolinnoWizardPageBase {
+            id: connectionInfoPage
+
+            showNextButton: false
+            showBackButton: false
+
+            onNext: pageStack.push(findLeafletComponent)
+            onBack: pageStack.pop()
+
+            content: ColumnLayout {
+                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins }
+                width: Math.min(parent.width, 450)
+
+                Label {
+                    Layout.fillWidth: true
+                    text: qsTr("Establishing a connection")
+                    horizontalAlignment: Text.AlignHCenter
+                    wrapMode: Text.WordWrap
+                    font: Style.bigFont
+                }
+
+                Label{
+                    Layout.fillWidth: true
+                    text: "In order to connect your device (phone/PC) with the Leaflet you have to be in the same network. \n \n Connect your device with a LAN-cable with the Leaflet (Third ethernet slot). \n\n You can also connect your device to your local Wifi if the Leaflet has a Wifi module."
+                    wrapMode: Text.WordWrap
+                }
+
+
+
+
+
+                ConsolinnoButton {
+                    Layout.alignment: Qt.AlignHCenter
+                    text: qsTr("next")
+                    color: Style.accentColor
+
+                    onClicked: {
+                        connectionInfoPage.next()
+                    }
+                }
+            }
+        }
+    }
+
+
+    Component {
         id: findLeafletComponent
 
         ConsolinnoWizardPageBase {
@@ -179,7 +226,7 @@ ConsolinnoWizardPageBase {
 
                 ListView {
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
+                    Layout.preferredHeight: app.height/3
                     clip: true
                     model: NymeaHostsFilterModel {
                         id: hostsProxy
@@ -258,6 +305,8 @@ ConsolinnoWizardPageBase {
                         secondaryIconColor: "red"
 
                         onClicked: {
+
+
                             engine.jsonRpcClient.connectToHost(nymeaHostDelegate.nymeaHost)
                         }
 
@@ -275,6 +324,16 @@ ConsolinnoWizardPageBase {
                             }
                         ]
                     }
+                }
+
+                Label{
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.margins: Style.margins
+                    //horizontalAlignment: Text.AlignHCenter
+                    wrapMode: Text.WordWrap
+                    text: "You have to authenticate yourself to the Leaflet. For further information look at the manual for Commissioning"
+
                 }
 
 
@@ -327,6 +386,8 @@ ConsolinnoWizardPageBase {
             }
 
             content: ColumnLayout {
+
+
                 anchors.fill: parent
                 anchors.margins: Style.margins
                 GridLayout {

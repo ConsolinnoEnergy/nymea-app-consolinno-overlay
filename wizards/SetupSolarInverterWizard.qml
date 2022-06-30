@@ -243,6 +243,11 @@ ConsolinnoWizardPageBase {
                 pendingCallId = engine.thingManager.addDiscoveredThing(thingDescriptor.thingClassId, thingDescriptor.id, thingDescriptor.name, {})
             }
 
+            HemsManager{
+                id: hemsManager
+                engine: _engine
+            }
+
             Connections {
                 target: engine.thingManager
                 onAddThingReply: {
@@ -262,6 +267,7 @@ ConsolinnoWizardPageBase {
                 Label {
                     Layout.fillWidth: true
                     text: qsTr("Solar inverter")
+                    //text: thing.id
                     font: Style.bigFont
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
@@ -326,7 +332,11 @@ ConsolinnoWizardPageBase {
                 ConsolinnoButton {
                     Layout.alignment: Qt.AlignHCenter
                     text: qsTr("next")
-                    onClicked: root.done(false, false)
+                    onClicked: pageStack.push("../optimization/PVConfig.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thing.id), thing: thing} )
+
+                        //root.done(false, false)
+
+
                 }
             }
         }

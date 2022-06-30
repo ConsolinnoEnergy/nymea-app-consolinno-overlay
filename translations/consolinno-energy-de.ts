@@ -2,6 +2,80 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
+    <name>AddGenericCar</name>
+    <message>
+        <source>Add new car</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name the thing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Capacity: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum charging current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum charging limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconfigure %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add generic car</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing reconfigured!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing added!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uh oh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All done. You can now start using %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Something went wrong setting up this thing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BatteryLevel</name>
+    <message>
+        <source>BatteryLevel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The energy manager requires information on the battery level for the optimized charging process. This information is not transmitted by the vehicle and must therefore be entered manually.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BlackoutProtectionView</name>
     <message>
         <source>Blackout protection</source>
@@ -17,6 +91,227 @@
     </message>
 </context>
 <context>
+    <name>Capacity</name>
+    <message>
+        <source>Capacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the battery capacity of your vehicle. You will find this in your vehicle registration document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery Level</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CarInventory</name>
+    <message>
+        <source>Car list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add new car</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing reconfigured!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All done. You can now start using %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery capacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum charging current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum charging limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Speichern</translation>
+    </message>
+</context>
+<context>
+    <name>ChargingConfigView</name>
+    <message>
+        <source>no car selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>min </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>h</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Car plugged in:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No car is connected at the moment. Please connect a car.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate simulated car: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging configuration</source>
+        <translation type="unfinished">Ladeeinstellungen</translation>
+    </message>
+    <message>
+        <source>Car: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging mode: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No optimization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV optimized</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ending time:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target charge: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Status: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Initialising</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Running</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Interrupted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No chargingschedule active at the moment...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery charge:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging current:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Energy charged:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Time elapsed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure Charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel Charging Schedule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Electric car:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select car</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery level: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target charge %1%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ending time: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>please select a car</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Speichern</translation>
+    </message>
+</context>
+<context>
     <name>ChargingConfigurationView</name>
     <message>
         <source>Charging</source>
@@ -24,27 +319,118 @@
     </message>
     <message>
         <source>Charging configuration</source>
-        <translation>Ladeeinstellungen</translation>
+        <translation type="vanished">Ladeeinstellungen</translation>
     </message>
     <message>
         <source>Optimization enabled</source>
-        <translation>Optimierung aktiv</translation>
+        <translation type="vanished">Optimierung aktiv</translation>
     </message>
     <message>
         <source>Target time to reach target percentage</source>
-        <translation>Zielzeit um um Ladestand zu erreichen</translation>
+        <translation type="vanished">Zielzeit um um Ladestand zu erreichen</translation>
     </message>
     <message>
         <source>Zero return policy</source>
-        <translation>Null-Rückspeise-Regelung</translation>
+        <translation type="vanished">Null-Rückspeise-Regelung</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Speichern</translation>
+        <translation type="vanished">Speichern</translation>
     </message>
     <message>
         <source>Target state of charge %1%</source>
-        <translation>Zielladestand %1%</translation>
+        <translation type="vanished">Zielladestand %1%</translation>
+    </message>
+</context>
+<context>
+    <name>ChargingModeInfo</name>
+    <message>
+        <source>Charging mode </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the charging mode you set how the energy manager should charge the vehicle.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV optimized: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The energy manager tries to maximize the consumption of the solar power. The charging time and the charging current are planned in such a way that as much of the solar power as possible can be consumed.
+If the own electricity is not sufficient to reach the charging target, it is supplemented with grid electricity.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV only: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The vehicle is charged with solar power only. (To avoid charging interruptions, the charging process is continued with a minimum current if there is not enough own solar power available.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConEMSObserver</name>
+    <message>
+        <source>Charging Controller</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heatpump Controller</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Running</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optimizer Busy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restarting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>min </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>h</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ConEMS Observer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>:  Current State: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>    started: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> ago.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Active controller: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -167,6 +553,60 @@
         <source>Encrypted connection:</source>
         <translation>Verschlüsselete Verbindung:</translation>
     </message>
+    <message>
+        <source>Demo mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Establishing a connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoImprint</name>
+    <message>
+        <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer options are now disabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Howdy cowboy!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Licensed under the terms of the GNU General Public License, version 3. Please visit the GitHub page for source code and build instructions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visit GitHub page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View privacy policy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Additional software licenses</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qt is a registered trademark of The Qt Company Ltd. and its subsidiaries.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visit the Qt website</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoItemDelegate</name>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoView</name>
@@ -199,6 +639,151 @@
     </message>
 </context>
 <context>
+    <name>DeveloperConfig</name>
+    <message>
+        <source>Development</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ConEMS Observer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User config Test</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EnergyManagerInfo</name>
+    <message>
+        <source>Energymanager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The energy manager regulates the heat pump to maximize the consumption of its own solar power. If you switch off the optimization, the energy manager no longer affects the control of the heat pump.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operating status: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The energy manager can set the heat pump to increased operation in the case of a power surplus, e.g. on a sunny day, in order to consume the own solar energy. The intervention of the energy manager is visible in the display of the operating status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Normal&lt;/li&gt;: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>energy manager does not intervene</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Increased&lt;/li&gt;: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>recommendation for increased operation, the heat pump will decide if this is possible depending on the current temperature range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;High&lt;/li&gt;: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>energy manager switches heat pump to increased operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Off&lt;/li&gt;: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>a temporary shutdown by the network operator to avoid network overload.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery Level</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HeatingConfigView</name>
+    <message>
+        <source>Current consumption:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optimization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Energymanager: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operating mode: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configuration data: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Floor heating area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximal electrical power</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thermal storage capacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outdoor temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hot water temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Return temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Flow temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Standard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Increased</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>High</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Speichern</translation>
+    </message>
+</context>
+<context>
     <name>HeatingConfigurationView</name>
     <message>
         <source>Heating</source>
@@ -222,15 +807,35 @@
     </message>
     <message>
         <source>For a better optimization you can assign a heat meter which is measuring the produced heat energy of this heat pump.</source>
-        <translation>Für eine bessere Optimierung, kann ein Wärmezähler zugewiesen werden der die erzeugte Wärme dieser Wärmepumpe misst.</translation>
-    </message>
-    <message>
-        <source>TODO: Assign heat meter</source>
-        <translation></translation>
+        <translation type="vanished">Für eine bessere Optimierung, kann ein Wärmezähler zugewiesen werden der die erzeugte Wärme dieser Wärmepumpe misst.</translation>
     </message>
     <message>
         <source>Save</source>
         <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>Floor heating area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>m²</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximal electrical power</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>kW</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thermal storage capacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>kWh</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -258,6 +863,169 @@
     <message>
         <source>Optimizations will be available once the required things have been added to the system.</source>
         <translation>Optimierungen sind verfügbar, sobald die benötigten Geräte im System eingerichtet wurden.</translation>
+    </message>
+    <message>
+        <source>Pv</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CarSimulation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Development</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>InfoTextInterface</name>
+    <message>
+        <source>Summary:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Further Readings:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MainviewInfo</name>
+    <message>
+        <source>Dashboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Energy flow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The dashboard illustrates the energy flow in your house. The lines indicate by their thickness and direction where the current is flowing. At the top you can see the energy sources: Electricity can come from either their grid connection (red) or solar production (yellow). If more solar power is produced than consumed, it is fed into the grid (grid connection changes color from red to blue).  At the bottom, your consumers and their current consumption are displayed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consumption of the last 24 hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the center of the dashboard you can see the consumption of the last 24 hours. The yellow area shows your produced energy. If more is produced than consumed, power is fed into the grid visible by the blue area. If more energy is consumed than produced, energy is drawn from the grid visible on the red area. The other colored areas stand for the consumption of the different consumers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Interaction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>By tapping on the consumers, you can access the settings, e.g. the charging of the e-car. If you tap on the evaluation of the last 24 hours, further statistics are displayed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MaximumAllowedChargingLimit</name>
+    <message>
+        <source>Maximum Allowed Charging Limit </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The charge limit is set in the vehicle or in the vehicle app and specifies the maximum amount that can be charged.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging limit and target charge: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The charging limit also specifies how much can be charged with the energy manager, since the vehicle automatically limits the charging process. To ensure that the value is taken into account when setting the charging target, it should be entered here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Higher target charge: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you want to specify a higher charging target, then you need to change the setting in your vehicle and in the energy manager accordingly.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target charge</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MinimumChargingCurrent</name>
+    <message>
+        <source>Minimum Charging Current </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The minimum current defines the minimum charging current with which the vehicle must be charged.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging interruptions: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>For some vehicles, the charging process is not continued again after a break or interruption. This can be the case in the charging mode &apos;PV-optimized charging&apos; or &apos;solar power only&apos; if there is not enough solar power available. Setting a minimum current ensures that the vehicle is charged with the minimum current even if no solar power is available, and thus no interruption occurs. The minimum charging current should be selected as low as possible.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target charge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum allowed charging limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PVConfigurationView</name>
+    <message>
+        <source>PV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pv configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not save configuration. One of the parameters is invalid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Could not save configuration. The thing is not valid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Latitude</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>°</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Longitude</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Roof pitch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alignment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Peak power</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>kW</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Speichern</translation>
     </message>
 </context>
 <context>
@@ -477,6 +1245,29 @@
     </message>
 </context>
 <context>
+    <name>TargetChargeInfo</name>
+    <message>
+        <source>Targetcharge </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>With the charging target, you specify how full you want to charge the battery.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target charge and charging limit: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Note that the charging limit set in the vehicle cannot be exceeded. For example, if you have preset a charging limit of 80%, you cannot charge more than 80% with the energy manager, as the vehicle automatically shuts down the charging process. To ensure that the energy manager takes this limit into account, enter the charging limit in the vehicle profile.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum charging limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>WizardComplete</name>
     <message>
         <source>Congratulations!</source>
@@ -493,6 +1284,21 @@
     <message>
         <source>skip</source>
         <translation>überspringen</translation>
+    </message>
+</context>
+<context>
+    <name>carSimulation</name>
+    <message>
+        <source>car Simulation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>switch on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>plug in car: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

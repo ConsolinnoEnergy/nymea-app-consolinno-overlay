@@ -100,6 +100,7 @@ MainViewBase {
             wizardSettings.solarPanelDone = false
             wizardSettings.evChargerDone = false
             wizardSettings.heatPumpDone = false
+            wizardSettings.authorisation = false
         }
 
         function setup(showFinalPage) {
@@ -107,6 +108,22 @@ MainViewBase {
             print("Setup. Installed energy meters:", energyMetersProxy.count, "EV Chargers:", evChargersProxy.count)
 
             if (energyMetersProxy.count === 0 && !energyMeterWiazrdSkipped) {
+
+
+                if (!wizardSettings.authorisation){
+                    var page = d.pushPage("/ui/wizards/AuthorisationView.qml")
+                    page.done.connect(function( _ , accepted) {
+                        print("energymeters done", _ , accepted)
+
+                        if (accepted) {
+                            wizardSettings.authorisation = true;
+                        }
+                        setup(true)
+                    })
+                    return
+                }
+
+
                 var page = d.pushPage("/ui/wizards/SetupEnergyMeterWizard.qml")
                 page.done.connect(function(skip, abort) {
                     print("energymeters done", skip, abort)
@@ -187,6 +204,7 @@ MainViewBase {
         property bool solarPanelDone: false
         property bool evChargerDone: false
         property bool heatPumpDone: false
+        property bool authorisation: false
     }
 
     onLoadingChanged: {
@@ -877,11 +895,15 @@ MainViewBase {
         anchors { left: parent.left; right: parent.right; margins: app.margins }
         anchors.verticalCenter: parent.verticalCenter
         visible: !engine.thingManager.fetchingData && root.rootMeter == null
+        property bool rootMeter: !engine.thingManager.fetchingData && root.rootMeter == null
         title: qsTr("Your leaflet is not set up yet.")
         text: qsTr("Please complete the setup wizard or manually configure your devices.")
         imageSource: "/ui/images/leaf.svg"
         buttonText: qsTr("Start setup")
         onImageClicked: buttonClicked()
+        onRootMeterChanged: {
+            d.resetWizardSettings()
+        }
         onButtonClicked: {
             d.resetWizardSettings()
             d.setup(false)
