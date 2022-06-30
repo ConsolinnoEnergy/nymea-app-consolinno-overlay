@@ -332,9 +332,13 @@ ConsolinnoWizardPageBase {
                 ConsolinnoButton {
                     Layout.alignment: Qt.AlignHCenter
                     text: qsTr("next")
-                    onClicked: pageStack.push("../optimization/PVConfig.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thing.id), thing: thing} )
+                    onClicked:{
+                        var page = pageStack.push("../optimization/PVConfig.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thing.id), thing: thing, directionID: 1} )
+                        page.done.connect(function(){
+                            root.done(false, false)
+                        })
+                    }
 
-                        //root.done(false, false)
 
 
                 }

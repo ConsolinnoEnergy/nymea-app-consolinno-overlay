@@ -11,11 +11,12 @@ Page {
     property HemsManager hemsManager
     property PvConfiguration pvConfiguration
     property Thing thing
+    property int directionID: 0
 
+    signal done()
 
     header: NymeaHeader {
-        //text: qsTr("Pv configuration")
-        text: thing.id
+        text: qsTr("Pv configuration")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
@@ -277,8 +278,16 @@ Page {
             onClicked: {
                 if (validated == true)
                 {
+                    if (directionID === 1){
+                        hemsManager.setPvConfiguration(pvConfiguration.PvThingId, parseFloat(longitudefield.text), parseFloat(latitude.text), parseInt(roofpitch.text), parseInt(alignment.text), parseFloat(kwPeak.text) )
+                        root.done()
+                    }else if(directionID === 0){
+                        d.pendingCallId = hemsManager.setPvConfiguration(pvConfiguration.PvThingId, parseFloat(longitudefield.text), parseFloat(latitude.text), parseInt(roofpitch.text), parseInt(alignment.text), parseFloat(kwPeak.text) )
 
-                d.pendingCallId = hemsManager.setPvConfiguration(pvConfiguration.PvThingId, parseFloat(longitudefield.text), parseFloat(latitude.text), parseInt(roofpitch.text), parseInt(alignment.text), parseFloat(kwPeak.text) )
+                    }
+
+
+
                 }
                 else
                 {
