@@ -70,7 +70,7 @@ Page {
 
         Label {
             Layout.fillWidth: true
-            text: pvThing.name
+            text: thing.name
             wrapMode: Text.WordWrap
 
         }

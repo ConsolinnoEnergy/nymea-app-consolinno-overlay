@@ -59,23 +59,32 @@ ConsolinnoWizardPageBase {
                 }
             }
 
+            //            ConsolinnoButton {
+            //                Layout.alignment: Qt.AlignHCenter
+            //                text: qsTr("Configure optimizations")
+            //                color: Style.accentColor
+            //                onClicked: {
+            //                    var page = pageStack.push(Qt.resolvedUrl("ConfigureOptimizationsWizard.qml"), {hemsManager: hemsManager})
+            //                    page.done.connect(function(skip, abort) {
+            //                        root.done(skip, abort)
+            //                    })
+            //                }
+            //            }
+            //            ConsolinnoButton {
+            //                Layout.alignment: Qt.AlignHCenter
+            //                text: qsTr("skip")
+            //                color: Style.blue
+            //                onClicked: root.done(true, false)
+            //            }
             ConsolinnoButton {
                 Layout.alignment: Qt.AlignHCenter
-                text: qsTr("Configure optimizations")
-                color: Style.accentColor
-                onClicked: {
-                    var page = pageStack.push(Qt.resolvedUrl("ConfigureOptimizationsWizard.qml"), {hemsManager: hemsManager})
-                    page.done.connect(function(skip, abort) {
-                        root.done(skip, abort)
-                    })
-                }
-            }
-            ConsolinnoButton {
-                Layout.alignment: Qt.AlignHCenter
-                text: qsTr("skip")
+                text: qsTr("to the Dashboard")
                 color: Style.blue
                 onClicked: root.done(true, false)
             }
+
+
+
         }
     }
 }
