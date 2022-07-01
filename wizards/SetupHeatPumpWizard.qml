@@ -299,14 +299,24 @@ ConsolinnoWizardPageBase {
 
                 }
 
+
+            HemsManager{
+                id: hemsManager
+                engine: _engine
+            }
+
+
             Connections {
                 target: engine.thingManager
                 onAddThingReply: {
-                    if (commandId == setupHeatPumpPage.pendingCallId) {
+
+                    //labelfortesting.text = thingId
+                    //if (commandId == setupHeatPumpPage.pendingCallId) {
+
                         setupHeatPumpPage.thingError = thingError
                         setupHeatPumpPage.pendingCallId = -1
-                        thing = engine.thingManager.things.getThing(thingId)
-                    }
+                        setupHeatPumpPage.thing = engine.thingManager.things.getThing(thingId)
+                    //}
                 }
             }
 
@@ -316,6 +326,7 @@ ConsolinnoWizardPageBase {
                 spacing: Style.margins
 
                 Label {
+                    id: labelfortesting
                     Layout.fillWidth: true
                     text: qsTr("Heat pump")
                     font: Style.bigFont
@@ -382,7 +393,13 @@ ConsolinnoWizardPageBase {
                 ConsolinnoButton {
                     Layout.alignment: Qt.AlignHCenter
                     text: qsTr("next")
-                    onClicked: root.done(false, false)
+                    onClicked:{
+                        var page = pageStack.push("../optimization/HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatpumpthing: thing, directionID: 1})
+                        page.done.connect(function(){
+                            root.done(false, false)
+                        })
+
+                    } //root.done(false, false)
                 }
             }
         }

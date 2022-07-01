@@ -44,7 +44,7 @@ Page {
                 iconName: "../images/weathericons/weather-clear-day.svg"
                 progressive: true
                 text: pvThing.name
-                onClicked: pageStack.push("PVConfig.qml", { hemsManager: hemsManager, pvConfiguration: pvConfiguration, pvThing: pvThing })
+                onClicked: pageStack.push("PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration: pvConfiguration, pvThing: pvThing })
 
 
 

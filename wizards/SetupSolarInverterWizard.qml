@@ -333,7 +333,7 @@ ConsolinnoWizardPageBase {
                     Layout.alignment: Qt.AlignHCenter
                     text: qsTr("next")
                     onClicked:{
-                        var page = pageStack.push("../optimization/PVConfig.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thing.id), thing: thing, directionID: 1} )
+                        var page = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thing.id), thing: thing, directionID: 1} )
                         page.done.connect(function(){
                             root.done(false, false)
                         })
