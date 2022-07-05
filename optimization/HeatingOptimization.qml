@@ -15,7 +15,7 @@ Page {
     property int directionID: 0
     signal done()
 
-    property bool heatMeterIncluded: heatPumpThing.thingClass.interfaces.includes("heatmeter")
+    //property bool heatMeterIncluded: heatPumpThing.thingClass.interfaces.includes("heatmeter")
     // TODO: only if any configuration has changed, warn also on leaving if unsaved settings
     //property bool configurationSettingsChanged
 

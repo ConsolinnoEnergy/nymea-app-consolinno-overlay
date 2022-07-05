@@ -43,6 +43,7 @@ MainViewBase {
 
     readonly property bool loading: engine.thingManager.fetchingData
 
+
     EnergyManager {
         id: energyManager
         engine: _engine
@@ -53,6 +54,7 @@ MainViewBase {
         id: hemsManager
         engine: _engine
     }
+
 
     headerButtons: [
 
@@ -70,7 +72,16 @@ MainViewBase {
             color: Style.iconColor,
             visible:  hemsManager.available && rootMeter != null,
             trigger: function() {
-                pageStack.push("HemsOptimizationPage.qml", { hemsManager: hemsManager })
+                var page = pageStack.push("HemsOptimizationPage.qml", { hemsManager: hemsManager })
+                page.startWizard.connect(function(){
+                    pageStack.pop(pageStack.get(0))
+                    //d.resetWizardSettings()
+                    d.resetManualWizardSettings()
+                    d.setup(true)
+
+
+
+                })
             }
         }
     ]
@@ -102,6 +113,13 @@ MainViewBase {
             wizardSettings.heatPumpDone = false
             wizardSettings.authorisation = false
         }
+
+        function resetManualWizardSettings() {
+            manualWizardSettings.solarPanelDone = false
+            manualWizardSettings.evChargerDone = false
+            manualWizardSettings.heatPumpDone = false
+        }
+
 
         function setup(showFinalPage) {
 
@@ -139,54 +157,62 @@ MainViewBase {
                 return
             }
 
-            if (inverters.count === 0 && !wizardSettings.solarPanelDone) {
+            if ((inverters.count === 0 && !wizardSettings.solarPanelDone) || !manualWizardSettings.solarPanelDone) {
                 var page = d.pushPage("/ui/wizards/SetupSolarInverterWizard.qml");
                 page.done.connect(function(skip, abort){
                     print("solar inverters done", skip, abort)
                     if (abort) {
+                        manualWizardSettings.solarPanelDone = true
                         exitWizard();
                         return
                     }
 
+                    manualWizardSettings.solarPanelDone = true
                     setup(true);
                 })
                 wizardSettings.solarPanelDone = true
                 return
             }
 
-            if (evChargersProxy.count === 0 && !wizardSettings.evChargerDone) {
+            if ((evChargersProxy.count === 0 && !wizardSettings.evChargerDone)|| !manualWizardSettings.evChargerDone) {
                 var page = d.pushPage("/ui/wizards/SetupEVChargerWizard.qml")
                 page.done.connect(function(skip, abort) {
                     if (abort) {
+                        manualWizardSettings.evChargerDone = true
                         exitWizard();
                         return
                     }
-
+                    manualWizardSettings.evChargerDone = true
                     setup(true);
                 })
                 wizardSettings.evChargerDone = true
                 return
             }
 
-            if (heatPumps.count === 0 && !wizardSettings.heatPumpDone) {
+            if ((heatPumps.count === 0 && !wizardSettings.heatPumpDone) || !manualWizardSettings.heatPumpDone) {
                 var page = d.pushPage("/ui/wizards/SetupHeatPumpWizard.qml")
                 page.done.connect(function(skip, abort) {
                     if (abort) {
+                        manualWizardSettings.heatPumpDone = true
                         exitWizard();
                         return
                     }
-
+                    manualWizardSettings.heatPumpDone = true
                     setup(true);
                 })
                 wizardSettings.heatPumpDone = true
                 return
             }
 
+
             if (showFinalPage) {
                 var page = d.pushPage("/ui/wizards/WizardComplete.qml", {hemsManager: hemsManager})
                 page.done.connect(function(skip, abort) {exitWizard()})
             }
+
+
         }
+
     }
 
     Connections {
@@ -205,6 +231,15 @@ MainViewBase {
         property bool evChargerDone: false
         property bool heatPumpDone: false
         property bool authorisation: false
+    }
+
+    Settings {
+        id: manualWizardSettings
+        category: "manualSetupWizard"
+        property bool solarPanelDone: false
+        property bool evChargerDone: false
+        property bool heatPumpDone: false
+
     }
 
     onLoadingChanged: {
@@ -732,6 +767,7 @@ MainViewBase {
                         }
 
                         Label {
+                            id: mainviewTestingLabel
                             Layout.fillWidth: true
                             text: qsTr("Total current power usage")
                             horizontalAlignment: Text.AlignHCenter

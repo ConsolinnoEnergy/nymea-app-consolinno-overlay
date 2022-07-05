@@ -286,8 +286,6 @@ Page {
 
                     }
 
-
-
                 }
                 else
                 {
@@ -300,5 +298,18 @@ Page {
 
 
         }
+
+        // only visible if installation mode (directionID == 1)
+        Button {
+            id: passbutton
+            visible: directionID === 1
+
+            Layout.fillWidth: true
+            text: qsTr("skip")
+            onClicked: {
+                root.done()
+            }
+        }
+
     }
 }

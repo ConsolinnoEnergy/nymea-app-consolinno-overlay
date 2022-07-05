@@ -61,5 +61,7 @@
         <file>wizards/AuthorisationView.qml</file>
         <file>optimization/PVOptimization.qml</file>
         <file>optimization/HeatingOptimization.qml</file>
+        <file>thingconfiguration/DeviceOverview.qml</file>
+        <file>mainviews/OptimizationConfiguration.qml</file>
     </qresource>
 </RCC>
