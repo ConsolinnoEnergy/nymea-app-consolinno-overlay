@@ -26,7 +26,7 @@ Page {
 
         Label {
             Layout.fillWidth: true
-            text: qsTr("Integrated heatpumps")
+            text: qsTr("Integrated heat pumps")
             wrapMode: Text.WordWrap
             Layout.alignment: Qt.AlignLeft
             horizontalAlignment: Text.AlignLeft
@@ -434,7 +434,7 @@ Page {
                     Label {
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
-                        text: setupHeatPumpPage.thingClass.name
+                        text: setupHeatPumpPage.thingClass.displayName
                     }
 
                     ColorIcon {
@@ -471,7 +471,8 @@ Page {
                     onClicked:{
                         var page = pageStack.push("../optimization/HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatPumpThing: thing, directionID: 1})
                         page.done.connect(function(){
-                            root.done(false, false)
+                            pageStack.pop(root)
+                            //root.done(false, false)
                         })
 
                     } //root.done(false, false)

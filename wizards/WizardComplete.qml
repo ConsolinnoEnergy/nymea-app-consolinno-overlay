@@ -7,6 +7,7 @@ import Nymea 1.0
 ConsolinnoWizardPageBase {
     id: root
     headerBackgroundColor: "white"
+    background: Item {}
 
     property HemsManager hemsManager: null
 
@@ -49,6 +50,7 @@ ConsolinnoWizardPageBase {
             ListView {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                Layout.minimumHeight: 50
                 model: engine.thingManager.things
                 clip: true
                 delegate: Label {
@@ -76,10 +78,11 @@ ConsolinnoWizardPageBase {
             //                color: Style.blue
             //                onClicked: root.done(true, false)
             //            }
-            ConsolinnoButton {
+            Button {
                 Layout.alignment: Qt.AlignHCenter
                 text: qsTr("to the Dashboard")
-                color: Style.blue
+                Layout.preferredWidth: 200
+                //color: Style.blue
                 onClicked: root.done(true, false)
             }
 
