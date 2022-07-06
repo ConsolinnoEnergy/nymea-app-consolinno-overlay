@@ -167,7 +167,7 @@ MainViewBase {
                         exitWizard();
                         return
                     }
-
+                    wizardSettings.solarPanelDone = true
                     manualWizardSettings.solarPanelDone = true
                     setup(true);
                 })
@@ -183,6 +183,7 @@ MainViewBase {
                         exitWizard();
                         return
                     }
+                    wizardSettings.evChargerDone = true
                     manualWizardSettings.evChargerDone = true
                     setup(true);
                 })
@@ -203,6 +204,8 @@ MainViewBase {
                         exitWizard();
                         return
                     }
+
+                    wizardSettings.heatPumpDone = true
                     manualWizardSettings.heatPumpDone = true
                     setup(true);
                 })
@@ -215,16 +218,16 @@ MainViewBase {
                 return
             }
 
-            if ( !blackoutProtectionSetting.blackoutProtectionDone && !manualWizardSettings.blackoutProtectionDone )  {
+            if (!blackoutProtectionSetting.blackoutProtectionDone)  {
                 var page = d.pushPage("../optimization/BlackoutProtectionView.qml", {hemsManager: hemsManager, directionID: 1})
                 page.done.connect(function(skip, abort) {
                     if (abort) {
-                        manualWizardSettings.blackoutProtectionDone = true
+
                         blackoutProtectionSetting.blackoutProtectionDone = true
                         exitWizard();
                         return
                     }
-                    manualWizardSettings.blackoutProtectionDone = true
+
                     blackoutProtectionSetting.blackoutProtectionDone = true
                     setup(true);
                 })
@@ -977,7 +980,7 @@ MainViewBase {
         buttonText: qsTr("Start setup")
         onImageClicked: buttonClicked()
         onRootMeterChanged: {
-            d.resetWizardSettings()
+            //d.resetWizardSettings()
         }
         onButtonClicked: {
             d.resetWizardSettings()
