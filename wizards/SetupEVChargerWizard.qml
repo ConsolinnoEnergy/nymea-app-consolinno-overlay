@@ -8,10 +8,7 @@ import Nymea 1.0
 Page {
     id: root
     signal done(bool skip, bool abort);
-    //showBackButton: false
-    //showNextButton: false
-
-    //onNext: pageStack.push(searchEvChargerComponent, {thingClassId: thingClassComboBox.currentValue})
+    signal countChanged()
 
     header: NymeaHeader {
         text: qsTr("Setup wallbox")
@@ -24,10 +21,10 @@ Page {
         //spacing: Style.margins
         Label {
             Layout.fillWidth: true
-            text: qsTr("Charging point or wallbox")
-            font: Style.bigFont
+            text: qsTr("Integrated wallboxes")
             wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
+            Layout.alignment: Qt.AlignLeft
         }
 
 
@@ -47,6 +44,7 @@ Page {
             height: parent.height
             contentHeight: evChargerList.height
             contentWidth: app.width
+            visible: evProxy.count !== 0
 
             Layout.alignment: Qt.AlignHCenter
             Layout.preferredHeight: app.height/4
@@ -82,6 +80,22 @@ Page {
 
         }
 
+
+        Rectangle{
+        Layout.preferredHeight: app.height/4
+        Layout.fillWidth: true
+        visible: evProxy.count === 0
+        color: Material.background
+        Text {
+            text: qsTr("There is no wallbox set up yet.")
+            color: Material.foreground
+            anchors.fill: parent
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+        }
+
+
         VerticalDivider
         {
             Layout.fillWidth: true
@@ -89,19 +103,12 @@ Page {
         }
 
 
-
-
-//        Label {
-//            Layout.fillWidth: true
-//            horizontalAlignment: Text.AlignHCenter
-//            text: qsTr("Please select your model:")
-//        }
-
         ColumnLayout {
             Layout.topMargin: Style.margins
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Please select your model:")
+                text: qsTr("Please select the model you want to add:")
+                wrapMode: Text.WordWrap
             }
 
             ComboBox {
@@ -159,10 +166,6 @@ Page {
                 onBackPressed: pageStack.pop()
             }
 
-            //showBackButton: false
-            //showNextButton: false
-            //onNext: pageStack.push(setupEvChargerComponent, {thingDescriptors: selectedWallboxes})
-
             ThingDiscovery {
                 id: discovery
                 engine: _engine
@@ -189,13 +192,6 @@ Page {
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
-//                Label {
-//                    Layout.fillWidth: true
-//                    text: qsTr("Charging point or wallbox")
-//                    font: Style.bigFont
-//                    wrapMode: Text.WordWrap
-//                    horizontalAlignment: Text.AlignHCenter
-//                }
 
                 Item {
                     Layout.fillWidth: true
@@ -308,9 +304,6 @@ Page {
         Page {
             id: setupEnergyMeterPage
 
-            //showNextButton: false
-            //showBackButton: false
-
             property ThingDescriptor thingDescriptor: null
 
             property int pendingCallId: -1
@@ -330,6 +323,7 @@ Page {
             Connections {
                 target: engine.thingManager
                 onAddThingReply: {
+                    root.countChanged()
                     if (commandId == setupEnergyMeterPage.pendingCallId) {
                         setupEnergyMeterPage.thingError = thingError
                         setupEnergyMeterPage.pendingCallId = -1
@@ -343,13 +337,6 @@ Page {
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
-//                Label {
-//                    Layout.fillWidth: true
-//                    text: qsTr("Solar inverter")
-//                    font: Style.bigFont
-//                    wrapMode: Text.WordWrap
-//                    horizontalAlignment: Text.AlignHCenter
-//                }
 
                 Item {
                     Layout.fillWidth: true
@@ -371,7 +358,7 @@ Page {
                     Label {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The charging point or wallbox has been found and set up.")
+                        text: qsTr("The following charging point or wallbox has been found and set up:")
                         horizontalAlignment: Text.AlignHCenter
                     }
 

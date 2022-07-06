@@ -75,7 +75,6 @@ MainViewBase {
                 var page = pageStack.push("HemsOptimizationPage.qml", { hemsManager: hemsManager })
                 page.startWizard.connect(function(){
                     pageStack.pop(pageStack.get(0))
-                    //d.resetWizardSettings()
                     d.resetManualWizardSettings()
                     d.setup(true)
 
@@ -112,12 +111,15 @@ MainViewBase {
             wizardSettings.evChargerDone = false
             wizardSettings.heatPumpDone = false
             wizardSettings.authorisation = false
+
         }
 
         function resetManualWizardSettings() {
             manualWizardSettings.solarPanelDone = false
             manualWizardSettings.evChargerDone = false
             manualWizardSettings.heatPumpDone = false
+            manualWizardSettings.authorisation = false
+            manualWizardSettings.blackoutProtectionDone = false
         }
 
 
@@ -125,23 +127,22 @@ MainViewBase {
 
             print("Setup. Installed energy meters:", energyMetersProxy.count, "EV Chargers:", evChargersProxy.count)
 
+
+
+            if ((energyMetersProxy.count === 0 && !wizardSettings.authorisation) || !manualWizardSettings.authorisation){
+                var page = d.pushPage("/ui/wizards/AuthorisationView.qml")
+                page.done.connect(function( _ , accepted) {
+                    if (accepted) {
+                        manualWizardSettings.authorisation = true
+                        wizardSettings.authorisation = true
+                    }
+                    setup(true)
+                })
+                return
+            }
+
+
             if (energyMetersProxy.count === 0 && !energyMeterWiazrdSkipped) {
-
-
-                if (!wizardSettings.authorisation){
-                    var page = d.pushPage("/ui/wizards/AuthorisationView.qml")
-                    page.done.connect(function( _ , accepted) {
-                        print("energymeters done", _ , accepted)
-
-                        if (accepted) {
-                            wizardSettings.authorisation = true;
-                        }
-                        setup(true)
-                    })
-                    return
-                }
-
-
                 var page = d.pushPage("/ui/wizards/SetupEnergyMeterWizard.qml")
                 page.done.connect(function(skip, abort) {
                     print("energymeters done", skip, abort)
@@ -185,6 +186,11 @@ MainViewBase {
                     manualWizardSettings.evChargerDone = true
                     setup(true);
                 })
+
+                page.countChanged.connect(function(){
+                    blackoutProtectionSetting.blackoutProtectionDone = false
+                })
+
                 wizardSettings.evChargerDone = true
                 return
             }
@@ -200,7 +206,29 @@ MainViewBase {
                     manualWizardSettings.heatPumpDone = true
                     setup(true);
                 })
+
+                page.countChanged.connect(function(){
+                    blackoutProtectionSetting.blackoutProtectionDone = false
+                })
+
                 wizardSettings.heatPumpDone = true
+                return
+            }
+
+            if ( !blackoutProtectionSetting.blackoutProtectionDone && !manualWizardSettings.blackoutProtectionDone )  {
+                var page = d.pushPage("../optimization/BlackoutProtectionView.qml", {hemsManager: hemsManager, directionID: 1})
+                page.done.connect(function(skip, abort) {
+                    if (abort) {
+                        manualWizardSettings.blackoutProtectionDone = true
+                        blackoutProtectionSetting.blackoutProtectionDone = true
+                        exitWizard();
+                        return
+                    }
+                    manualWizardSettings.blackoutProtectionDone = true
+                    blackoutProtectionSetting.blackoutProtectionDone = true
+                    setup(true);
+                })
+                blackoutProtectionSetting.blackoutProtectionDone = true
                 return
             }
 
@@ -239,8 +267,19 @@ MainViewBase {
         property bool solarPanelDone: false
         property bool evChargerDone: false
         property bool heatPumpDone: false
+        property bool authorisation: false
+        property bool blackoutProtectionDone: false
 
     }
+
+    Settings {
+        id: blackoutProtectionSetting
+        category: "blackoutProtectionSetting"
+        property bool blackoutProtectionDone: false
+
+
+    }
+
 
     onLoadingChanged: {
         if (!loading) {

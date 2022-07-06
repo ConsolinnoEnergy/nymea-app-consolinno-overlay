@@ -21,7 +21,7 @@ Page {
         id: useCasesModel
         ListElement { text: qsTr("Blackout protection"); value: HemsManager.HemsUseCaseBlackoutProtection; visible: true }
         ListElement { text: qsTr("Heating"); value: HemsManager.HemsUseCaseHeating; visible: true }
-        ListElement { text: qsTr("Charging"); value: HemsManager.HemsUseCaseCharging; visible: true }
+        //ListElement { text: qsTr("Charging"); value: HemsManager.HemsUseCaseCharging; visible: true }
         ListElement { text: qsTr("Pv"); value: HemsManager.HemsUseCasePv; visible: true}
 
     }

@@ -14,7 +14,7 @@ ConsolinnoWizardPageBase {
     //onNext: pageStack.push(searchEnergyMeterComponent, {thingClassId: thingClassComboBox.currentValue})
 
     content: ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
+        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right; margins: Style.margins }
         width: Math.min(parent.width - Style.margins * 2, 300)
         spacing: Style.margins
 
@@ -23,13 +23,13 @@ ConsolinnoWizardPageBase {
             horizontalAlignment: Text.AlignHCenter
             font: Style.bigFont
             wrapMode: Text.WordWrap
-            text: qsTr("Authorisation Page")
+            text: qsTr("Authorisation page")
         }
 
         Label {
             Layout.fillWidth: true
             wrapMode: Text.WordWrap
-            text: qsTr("To operate devices with the Leaflet, you must be authorized. Otherwise the warranty will be void")
+            text: qsTr("To comission devices with the Leaflet, you must be authorized. Otherwise the warranty expires.")
         }
 
 
@@ -44,17 +44,22 @@ ConsolinnoWizardPageBase {
             spacing: Style.margins
             Layout.alignment: Qt.AlignHCenter
 
-            ConsolinnoButton {
+            Button {
                 Layout.alignment: Qt.AlignHCenter
                 text: authorisationCheckbox.checked ? qsTr("next") : qsTr("cancel")
-                color: authorisationCheckbox.checked ? Style.accentColor : Style.yellow
-
+                //color: authorisationCheckbox.checked ? Style.accentColor : Style.yellow
+                background: Rectangle{
+                    color: authorisationCheckbox.checked  ? "#87BD26" : "grey"
+                    radius: 4
+                }
+                Layout.preferredWidth: 200
                 onClicked: {
                     if (authorisationCheckbox.checked) {
                         root.done(false, true)
-                    } else {
-                        Qt.quit()
                     }
+//                    else {
+//                        Qt.quit()
+//                    }
                 }
             }
 

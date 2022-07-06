@@ -20,10 +20,10 @@ Page {
 
         }
 
-        HeaderButton {
-            imageSource: "../images/add.svg"
-            onClicked: pageStack.push(Qt.resolvedUrl("NewThingPage.qml"))
-        }
+//        HeaderButton {
+//            imageSource: "../images/add.svg"
+//            onClicked: pageStack.push(Qt.resolvedUrl("NewThingPage.qml"))
+//        }
     }
 
     QtObject {
@@ -60,13 +60,26 @@ Page {
 
         Button{
             id: startWizardButton
-            text: qsTr("start Wizard")
+            text: qsTr("Start Wizard")
             Layout.alignment: Qt.AlignHCenter
             Layout.preferredWidth: 200
+            Layout.topMargin: 10
             onClicked:{
                 // go back to ConsolinnoView.qml
                 root.startWizard()
-                //pageStack.pop(pageStack.get(0))
+            }
+
+        }
+
+
+        Button{
+            id: addDevice
+            text: qsTr("Add device manually")
+            Layout.alignment: Qt.AlignHCenter
+            Layout.preferredWidth: 200
+            onClicked:{
+                pageStack.push(Qt.resolvedUrl("NewThingPage.qml"))
+
             }
 
         }

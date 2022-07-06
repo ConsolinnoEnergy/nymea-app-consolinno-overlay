@@ -9,6 +9,9 @@ import "../delegates"
 Page {
     id: root
     property HemsManager hemsManager
+    property int directionID: 0
+
+    signal done(bool skip, bool abort)
 
     header: NymeaHeader {
         text: qsTr("Blackout protection")
@@ -124,7 +127,16 @@ Page {
                 // TODO: wait for response
                 // for debugging purposes or to let the user know that some values are not valid
                 //footer.text = "clicked"
-                d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit)
+
+                if(directionID === 0){
+                    d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit)
+                }
+                else if(directionID === 1)
+                {
+                    hemsManager.setHousholdPhaseLimit(root.phaseLimit)
+                    root.done(false, false)
+                }
+
             }
 
         }

@@ -12,6 +12,7 @@ Page {
     id: root
 
     signal done(bool skip, bool abort);
+    signal countChanged()
 
     header: NymeaHeader {
         text: qsTr("Setup heat pump")
@@ -46,6 +47,7 @@ Page {
             height: parent.height
             contentHeight: heatpumpList.height
             contentWidth: app.width
+            visible: hpProxy.count !== 0
 
             Layout.alignment: Qt.AlignHCenter
             Layout.preferredHeight: app.height/4
@@ -81,6 +83,22 @@ Page {
 
         }
 
+        Rectangle{
+        Layout.preferredHeight: app.height/4
+        Layout.fillWidth: true
+        visible: hpProxy.count === 0
+        color: Material.background
+        Text {
+            text: qsTr("There is no heatpump set up yet.")
+            color: Material.foreground
+            anchors.fill: parent
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+        }
+
+
+
         VerticalDivider
         {
             Layout.fillWidth: true
@@ -93,6 +111,7 @@ Page {
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Please select the model you want to add:")
+                wrapMode: Text.WordWrap
             }
 
             ComboBox {
@@ -143,11 +162,6 @@ Page {
             id: searchHeatPumpPage
             property string thingClassId: null
 
-            //onBack: pageStack.pop()
-
-            //showBackButton: false
-            //showNextButton: false
-            //onNext: pageStack.push(setupHeatPumpComponent, {thingDescriptors: selectedWallboxes})
 
             header: NymeaHeader {
                 text: qsTr("Heatpump")
@@ -312,9 +326,6 @@ Page {
                 onBackPressed: pageStack.pop(root)
             }
 
-            //showNextButton: false
-            //showBackButton: false
-
             property ThingDescriptor thingDescriptor: null
 
             //added
@@ -328,22 +339,6 @@ Page {
 
 
             function getParams(){
-
-//                var params = []
-//                for (var i = 0; i < paramRepeater.count; i++) {
-//                    var param = {}
-//                    var paramType = paramRepeater.itemAt(i).paramType
-//                    if (!paramType.readOnly) {
-//                        param.paramTypeId = paramType.id
-//                        param.value = paramRepeater.itemAt(i).value
-//                        print("adding param", param.paramTypeId, param.value)
-//                        params.push(param)
-//                    }
-//                }
-
-//                d.params = params
-//                d.name = nameTextField.text
-//                d.pairThing();
 
                 var params = []
                 for (var i = 0; i < thingClass.paramTypes.count; i++)
@@ -382,8 +377,7 @@ Page {
             Connections {
                 target: engine.thingManager
                 onAddThingReply: {
-
-                    //labelfortesting.text = thingId
+                    root.countChanged()
                     //if (commandId == setupHeatPumpPage.pendingCallId) {
 
                         setupHeatPumpPage.thingError = thingError
@@ -427,7 +421,7 @@ Page {
                     Label {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The heat pump has been found and set up.")
+                        text: qsTr("The following heat pump has been found and set up:")
                         horizontalAlignment: Text.AlignHCenter
                     }
 

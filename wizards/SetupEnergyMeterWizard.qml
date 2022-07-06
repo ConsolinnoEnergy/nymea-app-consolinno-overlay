@@ -8,15 +8,9 @@ Page {
     id: root
 
     signal done(bool skip, bool abort);
-    //showBackButton: false
-    //showNextButton: false
 
-    //onNext: pageStack.push(searchEnergyMeterComponent, {thingClassId: thingClassComboBox.currentValue})
-
-    // This replaces Items of the ConsolinnoWizardPageBase
-    // TODO replace the ConsolinnoWizardPageBase everywhere
     header: NymeaHeader {
-        text: qsTr("Setup energymeter")
+        text: qsTr("Setup energy meter")
         onBackPressed: pageStack.pop()
     }
     background: Item{}
@@ -25,25 +19,13 @@ Page {
         anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
         width: Math.min(parent.width - Style.margins * 2, 300)
         spacing: Style.margins
-//        Label {
-//            Layout.fillWidth: true
-//            text: qsTr("Feed-in and consumption meter")
-//            font: Style.bigFont
-//            wrapMode: Text.WordWrap
-//            horizontalAlignment: Text.AlignHCenter
-//        }
-
-        Label {
-            Layout.fillWidth: true
-            horizontalAlignment: Text.AlignHCenter
-            text: qsTr("Please select your model:")
-        }
 
         ColumnLayout {
             Layout.topMargin: Style.margins
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Model:")
+                text: qsTr("Please select your model:")
+                wrapMode: Text.WordWrap
             }
 
             ComboBox {
@@ -71,7 +53,7 @@ Page {
                 onClicked: root.done(false, true)
             }
             Button {
-                text: qsTr("next")
+                text: qsTr("add")
                 //color: Style.accentColor
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
@@ -96,15 +78,9 @@ Page {
             id: searchEnergyMeterPage
             property string thingClassId
             header: NymeaHeader {
-                text: qsTr("Setup energymeter")
+                text: qsTr("Setup energy meter")
                 onBackPressed: pageStack.pop()
             }
-
-
-
-            //showBackButton: false
-            //showNextButton: false
-            //onNext: pageStack.push(setupEnergyMeterComponent, {thingDescriptors: selectedWallboxes})
 
             ThingDiscovery {
                 id: discovery
@@ -132,13 +108,6 @@ Page {
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
-//                Label {
-//                    Layout.fillWidth: true
-//                    text: qsTr("Feed-in and consumption meter")
-//                    font: Style.bigFont
-//                    wrapMode: Text.WordWrap
-//                    horizontalAlignment: Text.AlignHCenter
-//                }
 
                 Item {
                     Layout.fillWidth: true
@@ -213,6 +182,8 @@ Page {
                     ListView {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        Layout.bottomMargin: app.margins
+                        clip: true
                         model: discovery
                         delegate: ItemDelegate {
                             id: wallboxDelegate
@@ -249,11 +220,8 @@ Page {
         Page {
             id: setupEnergyMeterPage
 
-            //showNextButton: false
-            //showBackButton: false
-
             header: NymeaHeader {
-                text: qsTr("Setup energymeter")
+                text: qsTr("Setup energy meter")
                 onBackPressed: pageStack.pop()
             }
 
@@ -284,13 +252,6 @@ Page {
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
-//                Label {
-//                    Layout.fillWidth: true
-//                    text: qsTr("Feed-in and consumption meter")
-//                    font: Style.bigFont
-//                    wrapMode: Text.WordWrap
-//                    horizontalAlignment: Text.AlignHCenter
-//                }
 
                 Item {
                     Layout.fillWidth: true
@@ -312,7 +273,7 @@ Page {
                     Label {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The energy meter has been found and set up.")
+                        text: qsTr("The following energy meter has been found and set up:")
                         horizontalAlignment: Text.AlignHCenter
                     }
 

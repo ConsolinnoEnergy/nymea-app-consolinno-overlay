@@ -7,8 +7,10 @@ import Nymea 1.0
 ConsolinnoWizardPageBase {
     id: root
 
+
     showBackButton: false
     showNextButton: false
+    background: Item{}
 
     onNext: pageStack.push(privacyPolicyComponent)
 
@@ -50,14 +52,16 @@ ConsolinnoWizardPageBase {
                 wrapMode: Text.WordWrap
                 text: qsTr("Make sure that the Leaflet is operational and connected to the network.")
             }
-            ConsolinnoButton {
+            Button {
                 Layout.alignment: Qt.AlignHCenter
                 text: qsTr("Start setup")
+                Layout.preferredWidth: 200
                 onClicked: root.next()
             }
-            ConsolinnoButton {
+            Button {
                 Layout.alignment: Qt.AlignHCenter
                 text: qsTr("Demo mode")
+                Layout.preferredWidth: 200
                 onClicked:
                 {
                     var host = nymeaDiscovery.nymeaHosts.createWanHost("Demo server", "nymeas://hems-demo.consolinno-it.de:31222")
@@ -78,6 +82,7 @@ ConsolinnoWizardPageBase {
             onNext: pageStack.push(connectionInfo)
             onBack: pageStack.pop()
 
+            background: Item {}
             content: ColumnLayout {
                 anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins }
                 width: Math.min(parent.width, 450)
@@ -128,10 +133,16 @@ ConsolinnoWizardPageBase {
                     horizontalAlignment: Text.AlignHCenter
                     text: qsTr("I confirm that I have read the the agreement and am accepting it.")
                 }
-                ConsolinnoButton {
+                Button {
                     Layout.alignment: Qt.AlignHCenter
                     text: policyCheckbox.checked ? qsTr("next") : qsTr("cancel")
-                    color: policyCheckbox.checked ? Style.accentColor : Style.yellow
+                    //color: policyCheckbox.checked ? Style.accentColor : Style.yellow
+                    Layout.preferredWidth: 200
+                    background: Rectangle{
+                        color: policyCheckbox.checked  ? "#87BD26" : "grey"
+                        radius: 4
+                    }
+
 
                     onClicked: {
                         if (policyCheckbox.checked) {
@@ -152,7 +163,7 @@ ConsolinnoWizardPageBase {
 
             showNextButton: false
             showBackButton: false
-
+            background: Item {}
             onNext: pageStack.push(findLeafletComponent)
             onBack: pageStack.pop()
 
@@ -170,7 +181,7 @@ ConsolinnoWizardPageBase {
 
                 Label{
                     Layout.fillWidth: true
-                    text: "In order to connect your device (phone/PC) with the Leaflet you have to be in the same network. \n \n Connect your device with a LAN-cable with the Leaflet (Third ethernet slot). \n\n You can also connect your device to your local Wifi if the Leaflet has a Wifi module."
+                    text: "In order to connect your device (phone/PC) with the Leaflet you have to be in the same network. \n \n Connect your device with a LAN-cable with the Leaflet (Third ethernet slot). \n\n You can also connect your device to the local Wifi if the Leaflet has a Wifi module."
                     wrapMode: Text.WordWrap
                 }
 
@@ -178,10 +189,15 @@ ConsolinnoWizardPageBase {
 
 
 
-                ConsolinnoButton {
+                Button {
                     Layout.alignment: Qt.AlignHCenter
                     text: qsTr("next")
-                    color: Style.accentColor
+                    //color: Style.accentColor
+                    Layout.preferredWidth: 200
+                    background: Rectangle{
+                        color: Style.accentColor
+                        radius: 4
+                    }
 
                     onClicked: {
                         connectionInfoPage.next()
@@ -202,7 +218,7 @@ ConsolinnoWizardPageBase {
 
 
             onNext: pageStack.push(manualConnectionComponent)
-
+            background: Item{}
 
             Timer {
                 id: timeoutTimer
@@ -332,7 +348,7 @@ ConsolinnoWizardPageBase {
                     Layout.margins: Style.margins
                     //horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WordWrap
-                    text: "You have to authenticate yourself to the Leaflet. For further information look at the manual for Commissioning"
+                    text: "You have to authenticate yourself to the Leaflet. For further information look at the manual for commissioning."
 
                 }
 
@@ -347,7 +363,7 @@ ConsolinnoWizardPageBase {
 //            title: qsTr("Manual connection")
 //            text: qsTr("Please enter the connection information for your nymea system")
             onBack: pageStack.pop()
-
+            background: Item {}
             onNext: {
                 var rpcUrl
                 var hostAddress

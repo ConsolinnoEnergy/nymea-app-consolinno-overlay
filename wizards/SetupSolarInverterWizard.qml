@@ -48,6 +48,7 @@ Page {
             height: parent.height
             contentHeight: energyMeterList.height
             contentWidth: app.width
+            visible: emProxy.count !== 0
 
             Layout.alignment: Qt.AlignHCenter
             Layout.preferredHeight: app.height/4
@@ -83,6 +84,20 @@ Page {
 
         }
 
+        Rectangle{
+        Layout.preferredHeight: app.height/4
+        Layout.fillWidth: true
+        visible: emProxy.count === 0
+        color: Material.background
+        Text {
+            text: qsTr("There is no inverter set up yet.")
+            color: Material.foreground
+            anchors.fill: parent
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+        }
+
         VerticalDivider
         {
             Layout.fillWidth: true
@@ -94,6 +109,7 @@ Page {
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Please select the model you want to add:")
+                wrapMode: Text.WordWrap
             }
 
             ComboBox {
@@ -176,14 +192,6 @@ Page {
                 anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
-
-//                Label {
-//                    Layout.fillWidth: true
-//                    text: qsTr("Solar inverter")
-//                    font: Style.bigFont
-//                    wrapMode: Text.WordWrap
-//                    horizontalAlignment: Text.AlignHCenter
-//                }
 
                 Item {
                     Layout.fillWidth: true
