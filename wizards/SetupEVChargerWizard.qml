@@ -1,40 +1,114 @@
 import QtQuick 2.9
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.9
+import QtQuick.Controls.Material 2.1
 import "qrc:/ui/components"
 import Nymea 1.0
 
-ConsolinnoWizardPageBase {
+Page {
     id: root
+    signal done(bool skip, bool abort);
+    signal countChanged()
 
-    showBackButton: false
-    showNextButton: false
+    header: NymeaHeader {
+        text: qsTr("Setup wallbox")
+        onBackPressed: pageStack.pop()
+    }
 
-    onNext: pageStack.push(searchEvChargerComponent, {thingClassId: thingClassComboBox.currentValue})
-
-    content: ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
+    ColumnLayout {
+        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
         width: Math.min(parent.width - Style.margins * 2, 300)
-        spacing: Style.margins
+        //spacing: Style.margins
         Label {
             Layout.fillWidth: true
-            text: qsTr("Charging point or wallbox")
-            font: Style.bigFont
+            text: qsTr("Integrated wallboxes")
             wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
+            Layout.alignment: Qt.AlignLeft
         }
 
-        Label {
+
+
+
+
+        VerticalDivider
+        {
             Layout.fillWidth: true
-            horizontalAlignment: Text.AlignHCenter
-            text: qsTr("Please select your model:")
+            dividerColor: Material.accent
         }
+
+        Flickable{
+            id: evChargerFlickable
+            clip: true
+            width: parent.width
+            height: parent.height
+            contentHeight: evChargerList.height
+            contentWidth: app.width
+            visible: evProxy.count !== 0
+
+            Layout.alignment: Qt.AlignHCenter
+            Layout.preferredHeight: app.height/4
+            Layout.preferredWidth: app.width/2
+            flickableDirection: Flickable.VerticalFlick
+
+            ColumnLayout{
+                id: evChargerList
+                Layout.preferredWidth: app.width/2
+                Layout.fillHeight: true
+                Repeater{
+                    id: evChargerRepeater
+                    Layout.preferredWidth: app.width/2
+                    model: ThingsProxy {
+                        id: evProxy
+                        engine: _engine
+                        shownInterfaces: ["evcharger"]
+                    }
+                    delegate: ItemDelegate{
+                        Layout.preferredWidth: app.width/2
+                        contentItem: ConsolinnoItemDelegate{
+                            Layout.fillWidth: true
+                            progressive: false
+                            text: evProxy.get(index) ? evProxy.get(index).name : ""
+                            onClicked: {
+                            }
+                        }
+                    }
+
+
+                }
+            }
+
+        }
+
+
+        Rectangle{
+        Layout.preferredHeight: app.height/4
+        Layout.fillWidth: true
+        visible: evProxy.count === 0
+        color: Material.background
+        Text {
+            text: qsTr("There is no wallbox set up yet.")
+            color: Material.foreground
+            anchors.fill: parent
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+        }
+
+
+        VerticalDivider
+        {
+            Layout.fillWidth: true
+            dividerColor: Material.accent
+        }
+
 
         ColumnLayout {
             Layout.topMargin: Style.margins
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Model:")
+                text: qsTr("Please select the model you want to add:")
+                wrapMode: Text.WordWrap
             }
 
             ComboBox {
@@ -53,21 +127,24 @@ ConsolinnoWizardPageBase {
             spacing: Style.margins
             Layout.alignment: Qt.AlignHCenter
 
-            ConsolinnoButton {
+            Button {
                 text: qsTr("cancel")
-                color: Style.yellow
+                //color: Style.yellow
+                Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
                 onClicked: root.done(false, true)
             }
-            ConsolinnoButton {
-                text: qsTr("next")
-                color: Style.accentColor
+            Button {
+                text: qsTr("add")
+                //color: Style.accentColor
+                Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                onClicked: root.next()
+                onClicked: pageStack.push(searchEvChargerComponent, {thingClassId: thingClassComboBox.currentValue})
             }
-            ConsolinnoButton {
-                text: qsTr("skip")
-                color: Style.blue
+            Button {
+                text: qsTr("next")
+                //color: Style.blue
+                Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
                 onClicked: root.done(true, false)
             }
@@ -78,15 +155,16 @@ ConsolinnoWizardPageBase {
     Component {
         id: searchEvChargerComponent
 
-        ConsolinnoWizardPageBase {
+        Page {
             id: searchEvChargerPage
             property string thingClassId: null
 
-            onBack: pageStack.pop()
+            //onBack: pageStack.pop()
 
-            showBackButton: false
-            showNextButton: false
-            onNext: pageStack.push(setupEvChargerComponent, {thingDescriptors: selectedWallboxes})
+            header: NymeaHeader {
+                text: qsTr("Wallbox")
+                onBackPressed: pageStack.pop()
+            }
 
             ThingDiscovery {
                 id: discovery
@@ -109,18 +187,11 @@ ConsolinnoWizardPageBase {
                 discovery.discoverThings(searchEvChargerPage.thingClassId)
             }
 
-            content: ColumnLayout {
+            ColumnLayout {
                 anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
-                Label {
-                    Layout.fillWidth: true
-                    text: qsTr("Charging point or wallbox")
-                    font: Style.bigFont
-                    wrapMode: Text.WordWrap
-                    horizontalAlignment: Text.AlignHCenter
-                }
 
                 Item {
                     Layout.fillWidth: true
@@ -155,22 +226,25 @@ ConsolinnoWizardPageBase {
                             horizontalAlignment: Text.AlignHCenter
                         }
 
-                        ConsolinnoButton {
+                        Button {
                             Layout.alignment: Qt.AlignHCenter
                             text: qsTr("back")
-                            color: Style.yellow
+                            Layout.preferredWidth: 200
+                            //color: Style.yellow
                             onClicked: pageStack.pop()
                         }
-                        ConsolinnoButton {
+                        Button {
                             Layout.alignment: Qt.AlignHCenter
                             text: qsTr("cancel")
-                            color: Style.yellow
+                            Layout.preferredWidth: 200
+                            //color: Style.yellow
                             onClicked: root.done(false, true)
                         }
-                        ConsolinnoButton {
+                        Button {
                             Layout.alignment: Qt.AlignHCenter
                             text: qsTr("skip")
-                            color: Style.blue
+                            Layout.preferredWidth: 200
+                            //color: Style.blue
                             onClicked: root.done(true, false)
                         }
                     }
@@ -192,6 +266,8 @@ ConsolinnoWizardPageBase {
                     ListView {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        Layout.bottomMargin: app.margins
+                        clip: true
                         model: discovery
                         delegate: ItemDelegate {
                             id: wallboxDelegate
@@ -225,11 +301,8 @@ ConsolinnoWizardPageBase {
 
     Component {
         id: setupEvChargerComponent
-        ConsolinnoWizardPageBase {
+        Page {
             id: setupEnergyMeterPage
-
-            showNextButton: false
-            showBackButton: false
 
             property ThingDescriptor thingDescriptor: null
 
@@ -238,6 +311,11 @@ ConsolinnoWizardPageBase {
 
             property Thing thing: null
 
+            header: NymeaHeader {
+                text: qsTr("Wallbox")
+                onBackPressed: pageStack.pop(root)
+            }
+
             Component.onCompleted: {
                 pendingCallId = engine.thingManager.addDiscoveredThing(thingDescriptor.thingClassId, thingDescriptor.id, thingDescriptor.name, {})
             }
@@ -245,6 +323,7 @@ ConsolinnoWizardPageBase {
             Connections {
                 target: engine.thingManager
                 onAddThingReply: {
+                    root.countChanged()
                     if (commandId == setupEnergyMeterPage.pendingCallId) {
                         setupEnergyMeterPage.thingError = thingError
                         setupEnergyMeterPage.pendingCallId = -1
@@ -253,18 +332,11 @@ ConsolinnoWizardPageBase {
                 }
             }
 
-            content: ColumnLayout {
+            ColumnLayout {
                 anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
-                Label {
-                    Layout.fillWidth: true
-                    text: qsTr("Solar inverter")
-                    font: Style.bigFont
-                    wrapMode: Text.WordWrap
-                    horizontalAlignment: Text.AlignHCenter
-                }
 
                 Item {
                     Layout.fillWidth: true
@@ -286,13 +358,14 @@ ConsolinnoWizardPageBase {
                     Label {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The charging point or wallbox has been found and set up.")
+                        text: qsTr("The following charging point or wallbox has been found and set up:")
                         horizontalAlignment: Text.AlignHCenter
                     }
 
                     Label {
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
+                        font.bold: true
                         text: setupEnergyMeterPage.thingDescriptor.name
                     }
 
@@ -315,17 +388,19 @@ ConsolinnoWizardPageBase {
                     visible: setupEnergyMeterPage.thingError != Thing.ThingErrorNoError
                 }
 
-                ConsolinnoButton {
+                Button {
                     Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredWidth: 200
                     text: qsTr("back")
-                    color: Style.yellow
+                    //color: Style.yellow
                     onClicked: pageStack.pop(root)
                 }
 
-                ConsolinnoButton {
+                Button {
                     Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredWidth: 200
                     text: qsTr("next")
-                    onClicked: root.done(false, false)
+                    onClicked: pageStack.pop(root)
                 }
             }
         }

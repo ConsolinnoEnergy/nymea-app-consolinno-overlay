@@ -58,5 +58,10 @@
         <file>thingconfiguration/ConEMSObserver.qml</file>
         <file>optimization/UserConfig.qml</file>
         <file>optimization/DeveloperConfig.qml</file>
+        <file>wizards/AuthorisationView.qml</file>
+        <file>optimization/PVOptimization.qml</file>
+        <file>optimization/HeatingOptimization.qml</file>
+        <file>thingconfiguration/DeviceOverview.qml</file>
+        <file>mainviews/OptimizationConfiguration.qml</file>
     </qresource>
 </RCC>

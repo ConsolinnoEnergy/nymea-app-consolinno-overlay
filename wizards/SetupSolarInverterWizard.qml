@@ -1,40 +1,115 @@
 import QtQuick 2.9
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.9
+import QtQuick.Controls.Material 2.12
 import "qrc:/ui/components"
 import Nymea 1.0
 
-ConsolinnoWizardPageBase {
+import "../components"
+import "../delegates"
+
+Page {
     id: root
 
-    showBackButton: false
-    showNextButton: false
+    signal done(bool skip, bool abort);
 
-    onNext: pageStack.push(searchInverterComponent, {thingClassId: thingClassComboBox.currentValue})
+    header: NymeaHeader {
+        text: qsTr("Setup solar inverter")
+        onBackPressed: pageStack.pop()
+    }
 
-    content: ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
+
+    ColumnLayout {
+        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
         width: Math.min(parent.width - Style.margins * 2, 300)
-        spacing: Style.margins
+
+
+
         Label {
             Layout.fillWidth: true
-            text: qsTr("Solar inverter")
-            font: Style.bigFont
+            text: qsTr("Integrated solar Inverter:")
+            //Layout.leftMargin: 0
             wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
+            Layout.alignment: Qt.AlignLeft
+            horizontalAlignment: Text.AlignLeft
         }
 
-        Label {
+
+        VerticalDivider
+        {
             Layout.fillWidth: true
+            dividerColor: Material.accent
+        }
+
+        Flickable{
+            id: energyMeterFlickable
+            clip: true
+            width: parent.width
+            height: parent.height
+            contentHeight: energyMeterList.height
+            contentWidth: app.width
+            visible: emProxy.count !== 0
+
+            Layout.alignment: Qt.AlignHCenter
+            Layout.preferredHeight: app.height/4
+            Layout.preferredWidth: app.width/2
+            flickableDirection: Flickable.VerticalFlick
+
+            ColumnLayout{
+                id: energyMeterList
+                Layout.preferredWidth: app.width/2
+                Layout.fillHeight: true
+                Repeater{
+                    id: energyMeterRepeater
+                    Layout.preferredWidth: app.width/2
+                    model: ThingsProxy {
+                        id: emProxy
+                        engine: _engine
+                        shownInterfaces: ["solarinverter"]
+                    }
+                    delegate: ItemDelegate{
+                        Layout.preferredWidth: app.width/2
+                        contentItem: ConsolinnoItemDelegate{
+                            Layout.fillWidth: true
+                            progressive: false
+                            text: emProxy.get(index) ? emProxy.get(index).name : ""
+                            onClicked: {
+                            }
+                        }
+                    }
+
+
+                }
+            }
+
+        }
+
+        Rectangle{
+        Layout.preferredHeight: app.height/4
+        Layout.fillWidth: true
+        visible: emProxy.count === 0
+        color: Material.background
+        Text {
+            text: qsTr("There is no inverter set up yet.")
+            color: Material.foreground
+            anchors.fill: parent
             horizontalAlignment: Text.AlignHCenter
-            text: qsTr("Please select your model:")
+            verticalAlignment: Text.AlignVCenter
+        }
+        }
+
+        VerticalDivider
+        {
+            Layout.fillWidth: true
+            dividerColor: Material.accent
         }
 
         ColumnLayout {
             Layout.topMargin: Style.margins
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Model:")
+                text: qsTr("Please select the model you want to add:")
+                wrapMode: Text.WordWrap
             }
 
             ComboBox {
@@ -54,21 +129,24 @@ ConsolinnoWizardPageBase {
             spacing: Style.margins
             Layout.alignment: Qt.AlignHCenter
 
-            ConsolinnoButton {
+            Button {
                 text: qsTr("cancel")
-                color: Style.yellow
+                //color: Style.yellow
+                Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
                 onClicked: root.done(false, true)
             }
-            ConsolinnoButton {
-                text: qsTr("next")
-                color: Style.accentColor
+            Button {
+                text: qsTr("add")
+                //color: Style.accentColor
+                Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                onClicked: root.next()
+                onClicked: pageStack.push(searchInverterComponent, {thingClassId: thingClassComboBox.currentValue})
             }
-            ConsolinnoButton {
-                text: qsTr("skip")
-                color: Style.blue
+            Button {
+                text: qsTr("next")
+                //color: Style.blue
+                Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
                 onClicked: root.done(true, false)
             }
@@ -79,15 +157,15 @@ ConsolinnoWizardPageBase {
     Component {
         id: searchInverterComponent
 
-        ConsolinnoWizardPageBase {
+        Page {
             id: searchInverterPage
-            property string thingClassId: null
+            property var thingClassId: null
 
-            onBack: pageStack.pop()
 
-            showBackButton: false
-            showNextButton: false
-            onNext: pageStack.push(setupInverterComponent, {thingDescriptors: selectedWallboxes})
+            header: NymeaHeader {
+                text: qsTr("Solar inverter")
+                onBackPressed: pageStack.pop()
+            }
 
             ThingDiscovery {
                 id: discovery
@@ -110,18 +188,10 @@ ConsolinnoWizardPageBase {
                 discovery.discoverThings(searchInverterPage.thingClassId)
             }
 
-            content: ColumnLayout {
+            ColumnLayout {
                 anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
-
-                Label {
-                    Layout.fillWidth: true
-                    text: qsTr("Solar inverter")
-                    font: Style.bigFont
-                    wrapMode: Text.WordWrap
-                    horizontalAlignment: Text.AlignHCenter
-                }
 
                 Item {
                     Layout.fillWidth: true
@@ -156,22 +226,25 @@ ConsolinnoWizardPageBase {
                             horizontalAlignment: Text.AlignHCenter
                         }
 
-                        ConsolinnoButton {
+                        Button {
                             Layout.alignment: Qt.AlignHCenter
+                            Layout.preferredWidth: 200
                             text: qsTr("back")
-                            color: Style.yellow
+                            //color: Style.yellow
                             onClicked: pageStack.pop()
                         }
-                        ConsolinnoButton {
+                        Button {
                             Layout.alignment: Qt.AlignHCenter
+                            Layout.preferredWidth: 200
                             text: qsTr("cancel")
-                            color: Style.yellow
+                            //color: Style.yellow
                             onClicked: root.done(false, true)
                         }
-                        ConsolinnoButton {
+                        Button {
                             Layout.alignment: Qt.AlignHCenter
+                            Layout.preferredWidth: 200
                             text: qsTr("skip")
-                            color: Style.blue
+                            //color: Style.blue
                             onClicked: root.done(true, false)
                         }
                     }
@@ -193,6 +266,8 @@ ConsolinnoWizardPageBase {
                     ListView {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        Layout.bottomMargin: app.margins
+                        clip: true
                         model: discovery
                         delegate: ItemDelegate {
                             id: wallboxDelegate
@@ -226,11 +301,8 @@ ConsolinnoWizardPageBase {
 
     Component {
         id: setupInverterComponent
-        ConsolinnoWizardPageBase {
+        Page {
             id: setupEnergyMeterPage
-
-            showNextButton: false
-            showBackButton: false
 
             property ThingDescriptor thingDescriptor: null
 
@@ -239,8 +311,19 @@ ConsolinnoWizardPageBase {
 
             property Thing thing: null
 
+
+            header: NymeaHeader {
+                text: qsTr("Solar inverter")
+                onBackPressed: pageStack.pop(root)
+            }
+
             Component.onCompleted: {
                 pendingCallId = engine.thingManager.addDiscoveredThing(thingDescriptor.thingClassId, thingDescriptor.id, thingDescriptor.name, {})
+            }
+
+            HemsManager{
+                id: hemsManager
+                engine: _engine
             }
 
             Connections {
@@ -254,18 +337,19 @@ ConsolinnoWizardPageBase {
                 }
             }
 
-            content: ColumnLayout {
+            ColumnLayout {
                 anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
-                Label {
-                    Layout.fillWidth: true
-                    text: qsTr("Solar inverter")
-                    font: Style.bigFont
-                    wrapMode: Text.WordWrap
-                    horizontalAlignment: Text.AlignHCenter
-                }
+//                Label {
+//                    Layout.fillWidth: true
+//                    text: qsTr("Solar inverter")
+//                    //text: thing.id
+//                    font: Style.bigFont
+//                    wrapMode: Text.WordWrap
+//                    horizontalAlignment: Text.AlignHCenter
+//                }
 
                 Item {
                     Layout.fillWidth: true
@@ -287,13 +371,14 @@ ConsolinnoWizardPageBase {
                     Label {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The solar inverter has been found and set up.")
+                        text: qsTr("The following solar inverter has been found and set up:")
                         horizontalAlignment: Text.AlignHCenter
                     }
 
                     Label {
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
+                        font.bold: true
                         text: setupEnergyMeterPage.thingDescriptor.name
                     }
 
@@ -316,17 +401,28 @@ ConsolinnoWizardPageBase {
                     visible: setupEnergyMeterPage.thingError != Thing.ThingErrorNoError
                 }
 
-                ConsolinnoButton {
+                Button {
                     Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredWidth: 200
                     text: qsTr("back")
-                    color: Style.yellow
+                    //color: Style.yellow
                     onClicked: pageStack.pop(root)
                 }
 
-                ConsolinnoButton {
+                Button {
                     Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredWidth: 200
                     text: qsTr("next")
-                    onClicked: root.done(false, false)
+                    onClicked:{
+                        var page = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thing.id), thing: thing, directionID: 1} )
+                        page.done.connect(function(){
+                            pageStack.pop(root)
+                            //root.done(false, false)
+                        })
+                    }
+
+
+
                 }
             }
         }

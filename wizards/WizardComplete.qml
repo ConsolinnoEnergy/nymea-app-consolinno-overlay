@@ -7,6 +7,7 @@ import Nymea 1.0
 ConsolinnoWizardPageBase {
     id: root
     headerBackgroundColor: "white"
+    background: Item {}
 
     property HemsManager hemsManager: null
 
@@ -49,6 +50,7 @@ ConsolinnoWizardPageBase {
             ListView {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                Layout.minimumHeight: 50
                 model: engine.thingManager.things
                 clip: true
                 delegate: Label {
@@ -59,23 +61,33 @@ ConsolinnoWizardPageBase {
                 }
             }
 
-            ConsolinnoButton {
+            //            ConsolinnoButton {
+            //                Layout.alignment: Qt.AlignHCenter
+            //                text: qsTr("Configure optimizations")
+            //                color: Style.accentColor
+            //                onClicked: {
+            //                    var page = pageStack.push(Qt.resolvedUrl("ConfigureOptimizationsWizard.qml"), {hemsManager: hemsManager})
+            //                    page.done.connect(function(skip, abort) {
+            //                        root.done(skip, abort)
+            //                    })
+            //                }
+            //            }
+            //            ConsolinnoButton {
+            //                Layout.alignment: Qt.AlignHCenter
+            //                text: qsTr("skip")
+            //                color: Style.blue
+            //                onClicked: root.done(true, false)
+            //            }
+            Button {
                 Layout.alignment: Qt.AlignHCenter
-                text: qsTr("Configure optimizations")
-                color: Style.accentColor
-                onClicked: {
-                    var page = pageStack.push(Qt.resolvedUrl("ConfigureOptimizationsWizard.qml"), {hemsManager: hemsManager})
-                    page.done.connect(function(skip, abort) {
-                        root.done(skip, abort)
-                    })
-                }
-            }
-            ConsolinnoButton {
-                Layout.alignment: Qt.AlignHCenter
-                text: qsTr("skip")
-                color: Style.blue
+                text: qsTr("to the Dashboard")
+                Layout.preferredWidth: 200
+                //color: Style.blue
                 onClicked: root.done(true, false)
             }
+
+
+
         }
     }
 }

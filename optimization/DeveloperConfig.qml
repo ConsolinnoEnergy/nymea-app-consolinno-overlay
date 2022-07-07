@@ -23,6 +23,7 @@ Page {
     // 1. add a ListElement with your feature name and a random value that is not taken yet
     ListModel {
         id: useCasesModel
+        ListElement { text: qsTr("CarSimulation"); value: 9}
         ListElement { text: qsTr("ConEMS Observer"); value: 10}
         ListElement { text: qsTr("User config Test"); value: 11}
         // value is set to an integer for pieces which are either going to be migrated to a different location or deleted
@@ -42,6 +43,8 @@ Page {
                 Layout.fillWidth: true
                 // 2. add an icon for it, if you dont want to search for one just pick a random one
                 iconName: {
+                    if (model.value === 9)
+                        return"../images/car.svg"
                     if (model.value === 10)
                         return"../images/chart.svg"
                     if (model.value === 11)
@@ -56,6 +59,9 @@ Page {
                 // Note: make sure you are the only one working on this page or mark your changes accordingly if you work with a colleague
                 onClicked: {
                     switch (model.value) {
+                    case 9:
+                        pageStack.push(Qt.resolvedUrl("../thingconfiguration/carSimulation.qml"), { hemsManager: hemsManager})
+                        break;
                     case 10:
                         pageStack.push(Qt.resolvedUrl("../thingconfiguration/ConEMSObserver.qml"), { hemsManager: hemsManager})
                         break;

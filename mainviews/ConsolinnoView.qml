@@ -43,6 +43,7 @@ MainViewBase {
 
     readonly property bool loading: engine.thingManager.fetchingData
 
+
     EnergyManager {
         id: energyManager
         engine: _engine
@@ -53,6 +54,7 @@ MainViewBase {
         id: hemsManager
         engine: _engine
     }
+
 
     headerButtons: [
 
@@ -70,7 +72,15 @@ MainViewBase {
             color: Style.iconColor,
             visible:  hemsManager.available && rootMeter != null,
             trigger: function() {
-                pageStack.push("HemsOptimizationPage.qml", { hemsManager: hemsManager })
+                var page = pageStack.push("HemsOptimizationPage.qml", { hemsManager: hemsManager })
+                page.startWizard.connect(function(){
+                    pageStack.pop(pageStack.get(0))
+                    d.resetManualWizardSettings()
+                    d.setup(true)
+
+
+
+                })
             }
         }
     ]
@@ -100,11 +110,37 @@ MainViewBase {
             wizardSettings.solarPanelDone = false
             wizardSettings.evChargerDone = false
             wizardSettings.heatPumpDone = false
+            wizardSettings.authorisation = false
+
         }
+
+        function resetManualWizardSettings() {
+            manualWizardSettings.solarPanelDone = false
+            manualWizardSettings.evChargerDone = false
+            manualWizardSettings.heatPumpDone = false
+            manualWizardSettings.authorisation = false
+            manualWizardSettings.blackoutProtectionDone = false
+        }
+
 
         function setup(showFinalPage) {
 
             print("Setup. Installed energy meters:", energyMetersProxy.count, "EV Chargers:", evChargersProxy.count)
+
+
+
+            if ((energyMetersProxy.count === 0 && !wizardSettings.authorisation) || !manualWizardSettings.authorisation){
+                var page = d.pushPage("/ui/wizards/AuthorisationView.qml")
+                page.done.connect(function( _ , accepted) {
+                    if (accepted) {
+                        manualWizardSettings.authorisation = true
+                        wizardSettings.authorisation = true
+                    }
+                    setup(true)
+                })
+                return
+            }
+
 
             if (energyMetersProxy.count === 0 && !energyMeterWiazrdSkipped) {
                 var page = d.pushPage("/ui/wizards/SetupEnergyMeterWizard.qml")
@@ -122,54 +158,92 @@ MainViewBase {
                 return
             }
 
-            if (inverters.count === 0 && !wizardSettings.solarPanelDone) {
+            if ((inverters.count === 0 && !wizardSettings.solarPanelDone) || !manualWizardSettings.solarPanelDone) {
                 var page = d.pushPage("/ui/wizards/SetupSolarInverterWizard.qml");
                 page.done.connect(function(skip, abort){
                     print("solar inverters done", skip, abort)
                     if (abort) {
+                        manualWizardSettings.solarPanelDone = true
                         exitWizard();
                         return
                     }
-
+                    wizardSettings.solarPanelDone = true
+                    manualWizardSettings.solarPanelDone = true
                     setup(true);
                 })
                 wizardSettings.solarPanelDone = true
                 return
             }
 
-            if (evChargersProxy.count === 0 && !wizardSettings.evChargerDone) {
+            if ((evChargersProxy.count === 0 && !wizardSettings.evChargerDone)|| !manualWizardSettings.evChargerDone) {
                 var page = d.pushPage("/ui/wizards/SetupEVChargerWizard.qml")
                 page.done.connect(function(skip, abort) {
                     if (abort) {
+                        manualWizardSettings.evChargerDone = true
                         exitWizard();
                         return
                     }
-
+                    wizardSettings.evChargerDone = true
+                    manualWizardSettings.evChargerDone = true
                     setup(true);
                 })
+
+                page.countChanged.connect(function(){
+                    blackoutProtectionSetting.blackoutProtectionDone = false
+                })
+
                 wizardSettings.evChargerDone = true
                 return
             }
 
-            if (heatPumps.count === 0 && !wizardSettings.heatPumpDone) {
+            if ((heatPumps.count === 0 && !wizardSettings.heatPumpDone) || !manualWizardSettings.heatPumpDone) {
                 var page = d.pushPage("/ui/wizards/SetupHeatPumpWizard.qml")
                 page.done.connect(function(skip, abort) {
                     if (abort) {
+                        manualWizardSettings.heatPumpDone = true
                         exitWizard();
                         return
                     }
 
+                    wizardSettings.heatPumpDone = true
+                    manualWizardSettings.heatPumpDone = true
                     setup(true);
                 })
+
+                page.countChanged.connect(function(){
+                    blackoutProtectionSetting.blackoutProtectionDone = false
+                })
+
                 wizardSettings.heatPumpDone = true
                 return
             }
+
+            if (!blackoutProtectionSetting.blackoutProtectionDone)  {
+                var page = d.pushPage("../optimization/BlackoutProtectionView.qml", {hemsManager: hemsManager, directionID: 1})
+                page.done.connect(function(skip, abort) {
+                    if (abort) {
+
+                        blackoutProtectionSetting.blackoutProtectionDone = true
+                        exitWizard();
+                        return
+                    }
+
+                    blackoutProtectionSetting.blackoutProtectionDone = true
+                    setup(true);
+                })
+                blackoutProtectionSetting.blackoutProtectionDone = true
+                return
+            }
+
 
             if (showFinalPage) {
                 var page = d.pushPage("/ui/wizards/WizardComplete.qml", {hemsManager: hemsManager})
                 page.done.connect(function(skip, abort) {exitWizard()})
             }
+
+
         }
+
     }
 
     Connections {
@@ -187,7 +261,28 @@ MainViewBase {
         property bool solarPanelDone: false
         property bool evChargerDone: false
         property bool heatPumpDone: false
+        property bool authorisation: false
     }
+
+    Settings {
+        id: manualWizardSettings
+        category: "manualSetupWizard"
+        property bool solarPanelDone: false
+        property bool evChargerDone: false
+        property bool heatPumpDone: false
+        property bool authorisation: false
+        property bool blackoutProtectionDone: false
+
+    }
+
+    Settings {
+        id: blackoutProtectionSetting
+        category: "blackoutProtectionSetting"
+        property bool blackoutProtectionDone: false
+
+
+    }
+
 
     onLoadingChanged: {
         if (!loading) {
@@ -714,6 +809,7 @@ MainViewBase {
                         }
 
                         Label {
+                            id: mainviewTestingLabel
                             Layout.fillWidth: true
                             text: qsTr("Total current power usage")
                             horizontalAlignment: Text.AlignHCenter
@@ -877,11 +973,15 @@ MainViewBase {
         anchors { left: parent.left; right: parent.right; margins: app.margins }
         anchors.verticalCenter: parent.verticalCenter
         visible: !engine.thingManager.fetchingData && root.rootMeter == null
+        property bool rootMeter: !engine.thingManager.fetchingData && root.rootMeter == null
         title: qsTr("Your leaflet is not set up yet.")
         text: qsTr("Please complete the setup wizard or manually configure your devices.")
         imageSource: "/ui/images/leaf.svg"
         buttonText: qsTr("Start setup")
         onImageClicked: buttonClicked()
+        onRootMeterChanged: {
+            //d.resetWizardSettings()
+        }
         onButtonClicked: {
             d.resetWizardSettings()
             d.setup(false)
