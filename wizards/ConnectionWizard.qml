@@ -181,7 +181,7 @@ ConsolinnoWizardPageBase {
 
                 Label{
                     Layout.fillWidth: true
-                    text: "In order to connect your device (phone/PC) with the Leaflet you have to be in the same network. \n \n Connect your device with a LAN-cable with the Leaflet (Third ethernet slot). \n\n You can also connect your device to the local Wifi if the Leaflet has a Wifi module."
+                    text: qsTr( "In order to connect your device (phone/PC) with the Leaflet you have to be in the same network. \n \n Connect your device with a LAN-cable with the Leaflet (Third ethernet slot). \n\n You can also connect your device to the local Wifi if the Leaflet has a Wifi module.")
                     wrapMode: Text.WordWrap
                 }
 
@@ -348,7 +348,7 @@ ConsolinnoWizardPageBase {
                     Layout.margins: Style.margins
                     //horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WordWrap
-                    text: "You have to authenticate yourself to the Leaflet. For further information look at the manual for commissioning."
+                    text: qsTr("You have to authenticate yourself to the Leaflet. For further information look at the manual for commissioning.")
 
                 }
 

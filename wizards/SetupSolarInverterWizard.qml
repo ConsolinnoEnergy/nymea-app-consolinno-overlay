@@ -378,6 +378,7 @@ Page {
                     Label {
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
+                        font.bold: true
                         text: setupEnergyMeterPage.thingDescriptor.name
                     }
 

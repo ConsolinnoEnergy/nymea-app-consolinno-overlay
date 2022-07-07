@@ -62,7 +62,9 @@ Page {
             id: startWizardButton
             text: qsTr("Start Wizard")
             Layout.alignment: Qt.AlignHCenter
-            Layout.preferredWidth: 200
+
+            Layout.preferredWidth: 300
+            Layout.minimumWidth: 100
             Layout.topMargin: 10
             onClicked:{
                 // go back to ConsolinnoView.qml
@@ -76,7 +78,8 @@ Page {
             id: addDevice
             text: qsTr("Add device manually")
             Layout.alignment: Qt.AlignHCenter
-            Layout.preferredWidth: 200
+            Layout.preferredWidth: 300
+            Layout.minimumWidth: 100
             onClicked:{
                 pageStack.push(Qt.resolvedUrl("NewThingPage.qml"))
 

@@ -428,6 +428,7 @@ Page {
                     Label {
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
+                        font.bold: true
                         text: setupHeatPumpPage.thingClass.displayName
                     }
 

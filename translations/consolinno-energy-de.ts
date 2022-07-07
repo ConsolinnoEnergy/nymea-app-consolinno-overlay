@@ -583,7 +583,23 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
     </message>
     <message>
         <source>Establishing a connection</source>
-        <translation>verbinde</translation>
+        <translation>Verbindung einrichten</translation>
+    </message>
+    <message>
+        <source>In order to connect your device (phone/PC) with the Leaflet you have to be in the same network. 
+ 
+ Connect your device with a LAN-cable with the Leaflet (Third ethernet slot). 
+
+ You can also connect your device to the local Wifi if the Leaflet has a Wifi module.</source>
+        <translation>Um Ihr Gerät (Smartphone/PC) mit dem Leaflet zu verbinden, müssen sie sich  im selben Netzwerk befinden.
+
+Verbinden Sie Ihr Gerät mit einem LAN-Kabel mit dem Leaflet (Dritter Ethernet-Slot)
+
+Sie können Ihr Gerät auch mit dem lokalen Wifi verbinden, wenn das Leaflet über ein Wifi-Modul verfügt.</translation>
+    </message>
+    <message>
+        <source>You have to authenticate yourself to the Leaflet. For further information look at the manual for commissioning.</source>
+        <translation>Sie müssen sich beim Leaflet authentifizieren. Weitere Informationen finden Sie in der Anleitung zur Inbetriebnahme.</translation>
     </message>
 </context>
 <context>
@@ -666,7 +682,7 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
     <name>DeveloperConfig</name>
     <message>
         <source>Development</source>
-        <translation type="unfinished">Development
+        <translation>Development
 </translation>
     </message>
     <message>
@@ -675,7 +691,7 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
     </message>
     <message>
         <source>User config Test</source>
-        <translation type="unfinished"></translation>
+        <translation>Nutzer config test</translation>
     </message>
     <message>
         <source>CarSimulation</source>
