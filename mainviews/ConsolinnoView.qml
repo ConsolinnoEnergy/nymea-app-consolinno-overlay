@@ -111,6 +111,7 @@ MainViewBase {
             wizardSettings.evChargerDone = false
             wizardSettings.heatPumpDone = false
             wizardSettings.authorisation = false
+            wizardSettings.installerData = false
 
         }
 
@@ -236,6 +237,18 @@ MainViewBase {
             }
 
 
+
+            if (!wizardSettings.installerData){
+                var page = d.pushPage("/ui/wizards/InstallerDataView.qml")
+                page.done.connect(function( saved , skip) {
+                        wizardSettings.installerData = true
+                    setup(true)
+                })
+                return
+            }
+
+
+
             if (showFinalPage) {
                 var page = d.pushPage("/ui/wizards/WizardComplete.qml", {hemsManager: hemsManager})
                 page.done.connect(function(skip, abort) {exitWizard()})
@@ -262,6 +275,7 @@ MainViewBase {
         property bool evChargerDone: false
         property bool heatPumpDone: false
         property bool authorisation: false
+        property bool installerData: false
     }
 
     Settings {

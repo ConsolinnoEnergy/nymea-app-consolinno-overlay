@@ -342,14 +342,6 @@ Page {
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
-//                Label {
-//                    Layout.fillWidth: true
-//                    text: qsTr("Solar inverter")
-//                    //text: thing.id
-//                    font: Style.bigFont
-//                    wrapMode: Text.WordWrap
-//                    horizontalAlignment: Text.AlignHCenter
-//                }
 
                 Item {
                     Layout.fillWidth: true
@@ -420,8 +412,6 @@ Page {
                             //root.done(false, false)
                         })
                     }
-
-
 
                 }
             }
