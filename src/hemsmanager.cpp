@@ -267,6 +267,11 @@ int HemsManager::setUserConfiguration(const QVariantMap &data){
         userConfig.insert("userConfigID", "528b3820-1b6d-4f37-aea7-a99d21d42e72");
         userConfig.insert("lastSelectedCar", "282d39a8-3537-4c22-a386-b31faeebbb55");
         userConfig.insert("defaultChargingMode", 2);
+        userConfig.insert("installerName", "");
+        userConfig.insert("installerEmail", "");
+        userConfig.insert("installerPhoneNr", "");
+        userConfig.insert("installerWorkplace", "");
+
         addOrUpdateUserConfiguration(userConfig);
         configuration = m_userConfigurations->getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72");
 
@@ -275,7 +280,7 @@ int HemsManager::setUserConfiguration(const QVariantMap &data){
     // Make a MetaObject of an configuration
     const QMetaObject *metaObj = configuration->metaObject();
 
-    // add the values from data which match with the
+    // add the values from data which match with the MetaObject
     QVariantMap userConfiguration;
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
 
@@ -283,21 +288,15 @@ int HemsManager::setUserConfiguration(const QVariantMap &data){
             {
                 //qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
                 userConfiguration.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
-
-            }
-
-        else{
-
+            }else{
                 //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
                 userConfiguration.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
-
             }
     }
-
     QVariantMap params;
     params.insert("userConfiguration", userConfiguration);
 
-    qCDebug(dcHems())<< "sent userConfiguration" << params;
+    qCWarning(dcHems())<< "sent userConfiguration" << params;
     return  m_engine->jsonRpcClient()->sendCommand("Hems.SetUserConfiguration", params, this, "setUserConfigurationResponse");
 }
 
@@ -453,7 +452,7 @@ void HemsManager::getUserConfigurationsResponse(int commandId, const QVariantMap
 {
 
     Q_UNUSED(commandId);
-    qCDebug(dcHems()) << "User configurations" << data;
+    qCWarning(dcHems()) << "User configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("userConfigurations").toList()) {
         addOrUpdateUserConfiguration(configurationVariant.toMap());
     }
@@ -689,6 +688,12 @@ void HemsManager::addOrUpdateUserConfiguration(const QVariantMap &configurationM
     }
     configuration->setLastSelectedCar(configurationMap.value("lastSelectedCar").toUuid());
     configuration->setDefaultChargingMode(configurationMap.value("defaultChargingMode").toInt());
+
+    configuration->setInstallerName(configurationMap.value("installerName").toString());
+    configuration->setInstallerEmail(configurationMap.value("installerEmail").toString());
+    configuration->setInstallerPhoneNr(configurationMap.value("installerPhoneNr").toString());
+    configuration->setInstallerWorkplace(configurationMap.value("installerWorkplace").toString());
+
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "User configuration added" << configuration->userConfigID();

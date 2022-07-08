@@ -11,8 +11,6 @@ ConsolinnoWizardPageBase {
     showBackButton: false
     showNextButton: false
 
-    //onNext: pageStack.push(searchEnergyMeterComponent, {thingClassId: thingClassComboBox.currentValue})
-
     content: ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right; margins: Style.margins }
         width: Math.min(parent.width - Style.margins * 2, 300)

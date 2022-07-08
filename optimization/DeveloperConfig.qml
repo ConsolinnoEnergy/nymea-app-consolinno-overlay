@@ -9,7 +9,7 @@ import "../optimization"
 
 // This is the Development Page
 // This is only visible if the Hidden Options are activated, so if you push something be sure it is disabled.
-// In order to add something to the development page do the following 3 steps:
+// In order to add something to the development page do the following step:
 Page {
     id: root
 
@@ -20,13 +20,21 @@ Page {
     }
 
     property HemsManager hemsManager
-    // 1. add a ListElement with your feature name and a random value that is not taken yet
+
+    // Add your page here:
+    // Name, where it is and which attributes it needs
+    // Note you may have to instantiate the attributes that you want to add
+    Component.onCompleted: {
+        useCasesModel.append({ text: "CarSimulation", link: "../thingconfiguration/carSimulation.qml", attributes: {hemsManager: hemsManager}  })
+        useCasesModel.append({ text: "ConEMS Observer", link: "../thingconfiguration/ConEMSObserver.qml", attributes: {hemsManager: hemsManager} })
+        useCasesModel.append({ text: "User config Test", link: "../optimization/UserConfig.qml", attributes: {hemsManager: hemsManager} })
+        useCasesModel.append({ text: "Installer Data Test", link: "../wizards/InstallerDataView.qml", attributes: {hemsManager: hemsManager} })
+    }
+
+
     ListModel {
         id: useCasesModel
-        ListElement { text: qsTr("CarSimulation"); value: 9}
-        ListElement { text: qsTr("ConEMS Observer"); value: 10}
-        ListElement { text: qsTr("User config Test"); value: 11}
-        // value is set to an integer for pieces which are either going to be migrated to a different location or deleted
+
     }
 
 
@@ -41,34 +49,15 @@ Page {
             model: useCasesModel
             delegate: NymeaItemDelegate {
                 Layout.fillWidth: true
-                // 2. add an icon for it, if you dont want to search for one just pick a random one
                 iconName: {
-                    if (model.value === 9)
-                        return"../images/car.svg"
-                    if (model.value === 10)
-                        return"../images/chart.svg"
-                    if (model.value === 11)
                         return"../images/edit.svg"
-
                 }
                 text: model.text
-                visible: (hemsManager.availableUseCases & model.value) != 0
+                //visible: (hemsManager.availableUseCases) != 0
                 progressive: true
-                // 3a. link to the a new page if you are working on a new page
-                // 3b. Make a new page Copy paste the old page and do your stuff, if you want to add something to an existing page.
-                // Note: make sure you are the only one working on this page or mark your changes accordingly if you work with a colleague
                 onClicked: {
-                    switch (model.value) {
-                    case 9:
-                        pageStack.push(Qt.resolvedUrl("../thingconfiguration/carSimulation.qml"), { hemsManager: hemsManager})
-                        break;
-                    case 10:
-                        pageStack.push(Qt.resolvedUrl("../thingconfiguration/ConEMSObserver.qml"), { hemsManager: hemsManager})
-                        break;
-                    case 11:
-                        pageStack.push(Qt.resolvedUrl("../optimization/UserConfig.qml"), { hemsManager: hemsManager})
-                        break;
-                    }
+                        pageStack.push(Qt.resolvedUrl(model.link), model.attributes)
+
 
 
                 }

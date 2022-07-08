@@ -17,6 +17,10 @@ public:
         RoleUserConfigID,
         RoleLastSelectedCar,
         RoleDefaultChargingMode,
+        RoleInstallerName,
+        RoleInstallerEmail,
+        RoleInstallerPhoneNr,
+        RoleInstallerWorkplace
 
     };
     Q_ENUM(Role);

@@ -63,5 +63,6 @@
         <file>optimization/HeatingOptimization.qml</file>
         <file>thingconfiguration/DeviceOverview.qml</file>
         <file>mainviews/OptimizationConfiguration.qml</file>
+        <file>wizards/InstallerDataView.qml</file>
     </qresource>
 </RCC>

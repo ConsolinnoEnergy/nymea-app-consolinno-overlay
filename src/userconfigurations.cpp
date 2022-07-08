@@ -20,6 +20,14 @@ QVariant UserConfigurations::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->lastSelectedCar();
     case RoleDefaultChargingMode:
         return m_list.at(index.row())->defaultChargingMode();
+    case RoleInstallerName:
+        return m_list.at(index.row())->installerName();
+    case RoleInstallerEmail:
+        return m_list.at(index.row())->installerEmail();
+    case RoleInstallerPhoneNr:
+        return m_list.at(index.row())->installerPhoneNr();
+    case RoleInstallerWorkplace:
+        return m_list.at(index.row())->installerWorkplace();
     }
     return QVariant();
 }
@@ -30,6 +38,10 @@ QHash<int, QByteArray> UserConfigurations::roleNames() const
     roles.insert(RoleUserConfigID, "userConfigId");
     roles.insert(RoleDefaultChargingMode, "defaultChargingMode");
     roles.insert(RoleLastSelectedCar, "lastSelectedCar");
+    roles.insert(RoleInstallerName, "installerName");
+    roles.insert(RoleInstallerEmail, "installerEmail");
+    roles.insert(RoleInstallerPhoneNr, "installerPhoneNr");
+    roles.insert(RoleInstallerWorkplace, "installerWorkplace");
     return roles;
 }
 
@@ -60,6 +72,27 @@ void UserConfigurations::addConfiguration(UserConfiguration *userconfiguration)
         QModelIndex idx = index(m_list.indexOf(userconfiguration));
         emit dataChanged(idx, idx, {RoleDefaultChargingMode});
     });
+
+    connect(userconfiguration, &UserConfiguration::installerNameChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(userconfiguration));
+        emit dataChanged(idx, idx, {RoleInstallerName});
+    });
+
+    connect(userconfiguration, &UserConfiguration::installerEmailChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(userconfiguration));
+        emit dataChanged(idx, idx, {RoleInstallerEmail});
+    });
+
+    connect(userconfiguration, &UserConfiguration::installerPhoneNrChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(userconfiguration));
+        emit dataChanged(idx, idx, {RoleInstallerPhoneNr});
+    });
+    connect(userconfiguration, &UserConfiguration::installerWorkplaceChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(userconfiguration));
+        emit dataChanged(idx, idx, {RoleInstallerWorkplace});
+    });
+
+
 
     endInsertRows();
     emit countChanged();
