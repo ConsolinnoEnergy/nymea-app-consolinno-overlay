@@ -121,6 +121,7 @@ MainViewBase {
             manualWizardSettings.heatPumpDone = false
             manualWizardSettings.authorisation = false
             manualWizardSettings.blackoutProtectionDone = false
+            manualWizardSettings.installerData = false
         }
 
 
@@ -238,9 +239,10 @@ MainViewBase {
 
 
 
-            if (!wizardSettings.installerData){
-                var page = d.pushPage("/ui/wizards/InstallerDataView.qml")
+            if (!wizardSettings.installerData || !manualWizardSettings.installerData){
+                var page = d.pushPage("/ui/wizards/InstallerDataView.qml", {hemsManager: hemsManager})
                 page.done.connect(function( saved , skip) {
+                        manualWizardSettings.installerData = true
                         wizardSettings.installerData = true
                     setup(true)
                 })
@@ -286,6 +288,7 @@ MainViewBase {
         property bool heatPumpDone: false
         property bool authorisation: false
         property bool blackoutProtectionDone: false
+        property bool installerData: false
 
     }
 

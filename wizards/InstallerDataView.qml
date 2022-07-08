@@ -16,9 +16,14 @@ Page{
 
     header: NymeaHeader {
         text: qsTr("Contact")
+        //text: userconfig.installerEmail
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
+
+
+    property HemsManager hemsManager
+    property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
 
     ColumnLayout{
         id: mainColumnLayout
@@ -47,10 +52,12 @@ Page{
 
             }
             TextField{
+                id: nameField
                 Layout.preferredWidth: app.width - 2*app.margins
                 Layout.topMargin: 0
                 Layout.rightMargin: app.margins
                 Layout.leftMargin: app.margins
+                text: userconfig.installerName
                 placeholderText: qsTr("Firstname Lastname")
             }
         }
@@ -64,11 +71,13 @@ Page{
                 text: qsTr("Workplace: ")
             }
             TextField{
+                id: companyField
                 Layout.preferredWidth: app.width - 2*app.margins
                 Layout.topMargin: 0
                 Layout.rightMargin: app.margins
                 Layout.leftMargin: app.margins
-                placeholderText: qsTr("company")
+                text: userconfig.installerWorkplace
+                placeholderText: qsTr("Company")
 
             }
         }
@@ -82,10 +91,12 @@ Page{
                 text: qsTr("E-mail: ")
             }
             TextField{
+                id: emailField
                 Layout.preferredWidth: app.width - 2*app.margins
                 Layout.topMargin: 0
                 Layout.rightMargin: app.margins
                 Layout.leftMargin: app.margins
+                text: userconfig.installerEmail
                 placeholderText: qsTr("Example@mail.com")
 
             }
@@ -100,10 +111,12 @@ Page{
                 text: qsTr("Phone number: ")
             }
             TextField{
+                id: numberField
                 Layout.preferredWidth: app.width - 2*app.margins
                 Layout.topMargin: 0
                 Layout.rightMargin: app.margins
                 Layout.leftMargin: app.margins
+                text: userconfig.installerPhoneNr
                 placeholderText: qsTr("+1 ")
 
             }
@@ -117,7 +130,7 @@ Page{
             onClicked:{
                 // TODO:
                 // add the setter for the Config
-
+                hemsManager.setUserConfiguration({installerName: nameField.text, installerEmail: emailField.text, installerPhoneNr: numberField.text, installerWorkplace: companyField.text})
                 root.done(true, false)
             }
         }
