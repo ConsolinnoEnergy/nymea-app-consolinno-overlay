@@ -255,7 +255,7 @@ Page {
             onClicked: {
 
 
-                hemsManager.setHeatingConfiguration(heatpumpThing.id, optimizationEnableSwitch.checked, heatingconfig.floorHeatingArea, heatingconfig.maxElectricalPower, heatingconfig.maxThermalEnergy)
+                hemsManager.setHeatingConfiguration(heatpumpThing.id, {optimizationEnabled: optimizationEnableSwitch.checked})
                 pageStack.pop()
 
             }

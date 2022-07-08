@@ -6,7 +6,7 @@ PvConfiguration::PvConfiguration(QObject *parent) : QObject(parent)
 }
 
 
-QUuid PvConfiguration::PvThingId() const
+QUuid PvConfiguration::pvThingId() const
 {
     return m_PvThingId;
 }
