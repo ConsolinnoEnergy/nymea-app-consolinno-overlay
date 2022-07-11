@@ -217,31 +217,66 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingConfiguration", params, this, "setHeatingConfigurationResponse");
 }
 
-int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, bool optimizationEnabled, const QUuid &carThingId,  int hours,  int minutes, uint targetPercentage, int optimizationMode, QUuid uniqueIdentifier)
+int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const QVariantMap &data )
 {
 
 
-    QVariantMap chargingConfiguration;
-    if (uniqueIdentifier.toString() == "{00000000-0000-0000-0000-000000000000}"){
-        QUuid DummyIdentifier;
-        chargingConfiguration.insert("uniqueIdentifier", DummyIdentifier.createUuid());
-    }else{
-        chargingConfiguration.insert("uniqueIdentifier", uniqueIdentifier);
+//    QVariantMap chargingConfiguration;
+//    if (uniqueIdentifier.toString() == "{00000000-0000-0000-0000-000000000000}"){
+//        QUuid DummyIdentifier;
+//        chargingConfiguration.insert("uniqueIdentifier", DummyIdentifier.createUuid());
+//    }else{
+//        chargingConfiguration.insert("uniqueIdentifier", uniqueIdentifier);
+//    }
 
+//    chargingConfiguration.insert("evChargerThingId", evChargerThingId);
+//    chargingConfiguration.insert("optimizationEnabled", optimizationEnabled);
+//    chargingConfiguration.insert("optimizationMode", optimizationMode);
+//    chargingConfiguration.insert("carThingId", carThingId);
+//    chargingConfiguration.insert("endTime", QTime(hours,minutes).toString() );
+//    chargingConfiguration.insert("targetPercentage", targetPercentage);
+
+    ChargingConfiguration *configuration = m_chargingConfigurations->getChargingConfiguration(evChargerThingId);
+    // if the configuration does not exist yet. Set up a dummy configuration
+    // This ensures that if the Thing does not exist that the program wont crash
+    if (!configuration){
+        qCDebug(dcHems()) << "Adding a dummy Config" << evChargerThingId;
+        QVariantMap dummyConfig;
+        QUuid DummyIdentifier;
+        dummyConfig.insert("uniqueIdentifier", DummyIdentifier.createUuid());
+        dummyConfig.insert("evChargerThingId", evChargerThingId);
+        dummyConfig.insert("optimizationEnabled", false);
+        dummyConfig.insert("optimizationMode", 0);
+        dummyConfig.insert("carThingId", "{00000000-0000-0000-0000-000000000000}");
+        dummyConfig.insert("endTime", "0:00:00");
+        dummyConfig.insert("targetPercentage", 100);
+
+        addOrUpdateChargingConfiguration(dummyConfig);
+        // and get the dummy Config
+        configuration =  m_chargingConfigurations->getChargingConfiguration(evChargerThingId);
+    }
+
+    // Make a MetaObject of an configuration
+    const QMetaObject *metaObj = configuration->metaObject();
+    // add the values from data which match with the MetaObject
+    QVariantMap config;
+    for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
+        if(data.contains(metaObj->property(i).name()))
+            {
+                //qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
+                config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
+            }else{
+                //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
+                config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
+            }
     }
 
 
-    chargingConfiguration.insert("evChargerThingId", evChargerThingId);
-    chargingConfiguration.insert("optimizationEnabled", optimizationEnabled);
-    chargingConfiguration.insert("optimizationMode", optimizationMode);
-    chargingConfiguration.insert("carThingId", carThingId);
-    chargingConfiguration.insert("endTime", QTime(hours,minutes).toString() );
-    chargingConfiguration.insert("targetPercentage", targetPercentage);
 
     QVariantMap params;
-    params.insert("chargingConfiguration", chargingConfiguration);
+    params.insert("chargingConfiguration", config);
 
-    qCDebug(dcHems()) << "Set charging configuration" << params;
+    qCWarning(dcHems()) << "Set charging configuration" << params;
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetChargingConfiguration", params, this, "setChargingConfigurationResponse");
 }
 
