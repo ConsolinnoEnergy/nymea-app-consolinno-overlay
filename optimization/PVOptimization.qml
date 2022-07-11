@@ -2,6 +2,7 @@ import QtQuick 2.8
 import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.2
+import QtPositioning 5.15
 import Nymea 1.0
 import "../components"
 import "../delegates"
@@ -14,6 +15,17 @@ Page {
     property int directionID: 0
 
     signal done()
+
+    PositionSource{
+        id: src
+        updateInterval: 1000
+        name: "SerialPortNmea"
+        preferredPositioningMethods: PositionSource.SatellitePositioningMethods
+        active: true
+
+        onPositionChanged: {
+        }
+    }
 
     header: NymeaHeader {
         text: qsTr("Pv configuration")
@@ -89,7 +101,7 @@ Page {
                 Layout.minimumWidth: 55
                 Layout.maximumWidth: 55
                 Layout.rightMargin: 48
-                text: pvConfiguration.latitude
+                text: pvConfiguration.latitude !== 0? pvConfiguration.latitude : src.position.coordinate.latitude.toFixed(2)
                 validator: DoubleValidator{
                     bottom: -90
                     top: 90
@@ -122,7 +134,8 @@ Page {
                 Layout.minimumWidth: 55
                 Layout.maximumWidth: 55
                 Layout.rightMargin: 48
-                text: pvConfiguration.longitude
+                text: pvConfiguration.longitude !== 0 ? pvConfiguration.longitude : src.position.coordinate.longitude.toFixed(2)
+
                 validator: DoubleValidator{
                     bottom: -180
                     top: 180
