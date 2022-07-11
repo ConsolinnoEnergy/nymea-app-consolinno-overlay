@@ -576,7 +576,10 @@ Page {
                     Layout.fillWidth: true
                     text: qsTr("Cancel Charging Schedule")
                     onClicked: {
-                        hemsManager.setChargingConfiguration(thing.id, false, chargingConfiguration.carThingId,   Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours() , Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes() , chargingConfiguration.targetPercentage,  chargingConfiguration.optimizationMode, chargingConfiguration.uniqueIdentifier)
+
+                        //hemsManager.setChargingConfiguration(thing.id, false, chargingConfiguration.carThingId,   Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours() , Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes() , chargingConfiguration.targetPercentage,  chargingConfiguration.optimizationMode, chargingConfiguration.uniqueIdentifier)
+
+                        hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: false})
                     }
                 }
             }
@@ -632,7 +635,7 @@ Page {
                     ConsolinnoItemDelegate {
                         id: carSelector
                         Layout.fillWidth: true
-                        property var holdItem: evProxy.getThing(userconfig.lastSelectedCar)
+                        property var holdItem: evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar) : qsTr("Select/Add Car")
                         text: holdItem.name ? holdItem.name : qsTr("Select car")
                         //progressionsIcon: "add"
                         holdingItem: holdItem ? holdItem : false
@@ -1018,7 +1021,10 @@ Page {
                             pageSelectedCar = carSelector.holdingItem.name
 
                             hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
-                            hemsManager.setChargingConfiguration(thing.id, true, carSelector.holdingItem.id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode, "00000000-0000-0000-0000-000000000000")
+
+                            //hemsManager.setChargingConfiguration(thing.id, true, carSelector.holdingItem.id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode, "00000000-0000-0000-0000-000000000000")
+                            hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode })
+
                             optimizationPage.done()
                             pageStack.pop()
 

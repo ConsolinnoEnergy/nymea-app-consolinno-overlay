@@ -7,7 +7,7 @@
 class PvConfiguration : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QUuid PvThingId READ PvThingId CONSTANT)
+    Q_PROPERTY(QUuid pvThingId READ pvThingId CONSTANT)
     Q_PROPERTY(float longitude READ longitude WRITE setLongitude NOTIFY longitudeChanged)
     Q_PROPERTY(float latitude READ latitude WRITE setLatitude NOTIFY latitudeChanged)
     Q_PROPERTY(double roofPitch READ roofPitch WRITE setRoofPitch NOTIFY roofPitchChanged )
@@ -17,7 +17,7 @@ class PvConfiguration : public QObject
 public:
     explicit PvConfiguration(QObject *parent = nullptr);
 
-    QUuid PvThingId() const;
+    QUuid pvThingId() const;
     void setPvThingId(const QUuid &pvThingId);
 
     float latitude() const;
