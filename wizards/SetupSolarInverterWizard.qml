@@ -11,11 +11,11 @@ import "../delegates"
 Page {
     id: root
 
-    signal done(bool skip, bool abort);
+    signal done(bool skip, bool abort, bool back);
 
     header: NymeaHeader {
         text: qsTr("Setup solar inverter")
-        onBackPressed: pageStack.pop()
+        onBackPressed: root.done(false, false, true)
     }
 
 
@@ -24,10 +24,13 @@ Page {
         width: Math.min(parent.width - Style.margins * 2, 300)
 
 
+    ColumnLayout{
+        Layout.fillWidth: true
+        Layout.fillHeight: true
 
         Label {
             Layout.fillWidth: true
-            text: qsTr("Integrated solar Inverter:")
+            text: qsTr("Integrated solar inverter list:")
             //Layout.leftMargin: 0
             wrapMode: Text.WordWrap
             Layout.alignment: Qt.AlignLeft
@@ -37,7 +40,7 @@ Page {
 
         VerticalDivider
         {
-            Layout.fillWidth: true
+            Layout.preferredWidth: app.width - 2* Style.margins
             dividerColor: Material.accent
         }
 
@@ -51,26 +54,27 @@ Page {
             visible: emProxy.count !== 0
 
             Layout.alignment: Qt.AlignHCenter
-            Layout.preferredHeight: app.height/4
-            Layout.preferredWidth: app.width/2
+            Layout.preferredHeight: app.height/3
+            Layout.preferredWidth: app.width
             flickableDirection: Flickable.VerticalFlick
 
             ColumnLayout{
                 id: energyMeterList
-                Layout.preferredWidth: app.width/2
+                Layout.preferredWidth: app.width
                 Layout.fillHeight: true
                 Repeater{
                     id: energyMeterRepeater
-                    Layout.preferredWidth: app.width/2
+                    Layout.preferredWidth: app.width
                     model: ThingsProxy {
                         id: emProxy
                         engine: _engine
                         shownInterfaces: ["solarinverter"]
                     }
                     delegate: ItemDelegate{
-                        Layout.preferredWidth: app.width/2
+                        Layout.preferredWidth: app.width
                         contentItem: ConsolinnoItemDelegate{
                             Layout.fillWidth: true
+                            iconName: "../images/weathericons/weather-clear-day.svg"
                             progressive: false
                             text: emProxy.get(index) ? emProxy.get(index).name : ""
                             onClicked: {
@@ -85,7 +89,7 @@ Page {
         }
 
         Rectangle{
-        Layout.preferredHeight: app.height/4
+        Layout.preferredHeight: app.height/3
         Layout.fillWidth: true
         visible: emProxy.count === 0
         color: Material.background
@@ -100,21 +104,23 @@ Page {
 
         VerticalDivider
         {
-            Layout.fillWidth: true
+            Layout.preferredWidth: app.width - 2* Style.margins
             dividerColor: Material.accent
         }
+
+    }
 
         ColumnLayout {
             Layout.topMargin: Style.margins
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Please select the model you want to add:")
+                text: qsTr("Add solar Inverter: ")
                 wrapMode: Text.WordWrap
             }
 
             ComboBox {
                 id: thingClassComboBox
-                Layout.fillWidth: true
+                Layout.preferredWidth: app.width - Style.margins
                 textRole: "displayName"
                 valueRole: "id"
                 model: ThingClassesProxy {
@@ -126,7 +132,7 @@ Page {
         }
 
         ColumnLayout {
-            spacing: Style.margins
+            spacing: 0
             Layout.alignment: Qt.AlignHCenter
 
             Button {
@@ -134,7 +140,7 @@ Page {
                 //color: Style.yellow
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                onClicked: root.done(false, true)
+                onClicked: root.done(false, true, false)
             }
             Button {
                 text: qsTr("add")
@@ -148,7 +154,7 @@ Page {
                 //color: Style.blue
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                onClicked: root.done(true, false)
+                onClicked: root.done(true, false, false)
             }
         }
 
@@ -238,14 +244,14 @@ Page {
                             Layout.preferredWidth: 200
                             text: qsTr("cancel")
                             //color: Style.yellow
-                            onClicked: root.done(false, true)
+                            onClicked: root.done(false, true, false)
                         }
                         Button {
                             Layout.alignment: Qt.AlignHCenter
                             Layout.preferredWidth: 200
                             text: qsTr("skip")
                             //color: Style.blue
-                            onClicked: root.done(true, false)
+                            onClicked: root.done(true, false, false)
                         }
                     }
                 }

@@ -72,11 +72,11 @@
     </message>
     <message>
         <source>To comission devices with the Leaflet, you must be authorized. Otherwise the warranty expires.</source>
-        <translation>Um Geräte mit dem Leaflet in Betrieb zu nehmen, müssen Sie autorisiert sein. Ansonsten erlischt die Garantie.</translation>
+        <translation>Nur Personen mit ausreichenden Fachkenntnissen sollten Geräte in Betrieb nehmen. Andernfalls kann es zu einer Beeinträchtigung der Funktionsweise des Leaflets führen. </translation>
     </message>
     <message>
         <source>I am authorized to operate the Leaflet</source>
-        <translation>Ich bin autorisiert das Leaflet in Betrieb zu nehmen.</translation>
+        <translation>Zur Kenntnis genommen.</translation>
     </message>
     <message>
         <source>next</source>
@@ -332,6 +332,10 @@
     <message>
         <source>Save</source>
         <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>Select/Add Car</source>
+        <translation>hinzufügen/wähle Auto</translation>
     </message>
 </context>
 <context>
@@ -687,15 +691,15 @@ Sie können Ihr Gerät auch mit dem lokalen Wifi verbinden, wenn das Leaflet üb
     </message>
     <message>
         <source>ConEMS Observer</source>
-        <translation>ConEMS Beobachter</translation>
+        <translation type="vanished">ConEMS Beobachter</translation>
     </message>
     <message>
         <source>User config Test</source>
-        <translation>Nutzer config test</translation>
+        <translation type="vanished">Nutzer config test</translation>
     </message>
     <message>
         <source>CarSimulation</source>
-        <translation>Autosimulation</translation>
+        <translation type="vanished">Autosimulation</translation>
     </message>
 </context>
 <context>
@@ -706,7 +710,7 @@ Sie können Ihr Gerät auch mit dem lokalen Wifi verbinden, wenn das Leaflet üb
     </message>
     <message>
         <source>Start Wizard</source>
-        <translation>Inbetriebnahme-Assistent</translation>
+        <translation>Inbetriebnahme-Assistent starten</translation>
     </message>
     <message>
         <source>Add device manually</source>
@@ -994,6 +998,57 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
 </context>
 <context>
+    <name>InstallerDataView</name>
+    <message>
+        <source>Contact</source>
+        <translation>Kontakt</translation>
+    </message>
+    <message>
+        <source>To be available for the customer in case of questions or problems, enter your contact data here. The data will only be sent to the customer&apos;s app.</source>
+        <translation>Um bei Fragen oder Problemen für den Kunden erreichbar zu sein, tragen Sie hier Ihre Kontaktdaten ein. Die Daten werden nur an die App des Kunden gesendet.</translation>
+    </message>
+    <message>
+        <source>Name: </source>
+        <translation>Name: </translation>
+    </message>
+    <message>
+        <source>Firstname Lastname</source>
+        <translation>Vorname Nachname</translation>
+    </message>
+    <message>
+        <source>Workplace: </source>
+        <translation>Gewerbe: </translation>
+    </message>
+    <message>
+        <source>Company</source>
+        <translation>Gewerbe</translation>
+    </message>
+    <message>
+        <source>E-mail: </source>
+        <translation>E-mail: </translation>
+    </message>
+    <message>
+        <source>Example@mail.com</source>
+        <translation>Example@mail.com</translation>
+    </message>
+    <message>
+        <source>Phone number: </source>
+        <translation>Telefonnummer</translation>
+    </message>
+    <message>
+        <source>+1 </source>
+        <translation>+49 </translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>Skip</source>
+        <translation>überspringen</translation>
+    </message>
+</context>
+<context>
     <name>MainviewInfo</name>
     <message>
         <source>Dashboard</source>
@@ -1247,7 +1302,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Integrated wallboxes</source>
-        <translation>Eingerichtete Wallboxen:</translation>
+        <translation type="vanished">Eingerichtete Wallboxen:</translation>
     </message>
     <message>
         <source>There is no wallbox set up yet.</source>
@@ -1267,7 +1322,15 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Please select the model you want to add:</source>
-        <translation>Bitte wählen sie das Modell, welches Sie hinzufügen möchten</translation>
+        <translation type="vanished">Bitte wählen sie das Modell, welches Sie hinzufügen möchten</translation>
+    </message>
+    <message>
+        <source>Integrated wallbox list:</source>
+        <translation>Eingerichtete Wallboxenliste:</translation>
+    </message>
+    <message>
+        <source>Add wallboxes:</source>
+        <translation>Füge Wallboxen hinzu</translation>
     </message>
 </context>
 <context>
@@ -1385,11 +1448,11 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Setup heat pump</source>
-        <translation>Wärmepump einrichten</translation>
+        <translation>Wärmepumpe einrichten</translation>
     </message>
     <message>
         <source>Integrated heat pumps</source>
-        <translation>Eingerichtete Wärmepumpen:</translation>
+        <translation>Eingerichtete Wärmepumpenliste:</translation>
     </message>
     <message>
         <source>There is no heatpump set up yet.</source>
@@ -1397,7 +1460,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Please select the model you want to add:</source>
-        <translation>Bitte wählen sie das Modell, welches Sie hinzufügen möchten</translation>
+        <translation type="vanished">Bitte wählen sie das Modell, welches Sie hinzufügen möchten</translation>
     </message>
     <message>
         <source>add</source>
@@ -1410,6 +1473,10 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>The following heat pump has been found and set up:</source>
         <translation>Die folgende Wärmepumpe wurde gefunden und eingerichtet</translation>
+    </message>
+    <message>
+        <source>Add heatpumps:</source>
+        <translation>Füge Wärmepumpen hinzu: </translation>
     </message>
 </context>
 <context>
@@ -1468,7 +1535,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Integrated solar Inverter:</source>
-        <translation>Eingerichtete Wechselrichter:</translation>
+        <translation type="vanished">Eingerichtete Wechselrichter:</translation>
     </message>
     <message>
         <source>There is no inverter set up yet.</source>
@@ -1476,7 +1543,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Please select the model you want to add:</source>
-        <translation>Bitte wählen sie das Modell, welches Sie hinzufügen möchten</translation>
+        <translation type="vanished">Bitte wählen sie das Modell, welches Sie hinzufügen möchten</translation>
     </message>
     <message>
         <source>add</source>
@@ -1485,6 +1552,14 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>The following solar inverter has been found and set up:</source>
         <translation>Der folgende Wechselrichter wurde gefunden und eingerichtet</translation>
+    </message>
+    <message>
+        <source>Integrated solar inverter list:</source>
+        <translation>Eingerichtete Wechselrichterliste:</translation>
+    </message>
+    <message>
+        <source>Add solar Inverter: </source>
+        <translation>Füge Wechselrichter hinzu: </translation>
     </message>
 </context>
 <context>
