@@ -133,10 +133,14 @@ MainViewBase {
 
             if ((energyMetersProxy.count === 0 && !wizardSettings.authorisation) || !manualWizardSettings.authorisation){
                 var page = d.pushPage("/ui/wizards/AuthorisationView.qml")
-                page.done.connect(function( _ , accepted) {
+                page.done.connect(function( abort , accepted) {
                     if (accepted) {
                         manualWizardSettings.authorisation = true
                         wizardSettings.authorisation = true
+                    }
+                    if (abort){
+                        exitWizard()
+                        return
                     }
                     setup(true)
                 })

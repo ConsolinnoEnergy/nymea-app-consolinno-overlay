@@ -651,16 +651,9 @@ Page {
 
                             })
 
-
-
                         }
 
-
-
-
                     }
-
-
 
                 }
 
@@ -845,11 +838,6 @@ Page {
                         }
                     }
 
-
-
-
-
-
                 }
 
 
@@ -938,6 +926,7 @@ Page {
                                     var thingStateId = carSelector.holdingItem.thingClass.stateTypes.get(i).id
 
                                     if (carSelector.holdingItem.thingClass.stateTypes.get(i).name === "capacity" ){
+                                        // capacity in KWh
                                         var capacity = carSelector.holdingItem.states.getState(thingStateId).value
                                         capacityInAh = (capacity*1000)/loadingVoltage
                                     }
@@ -948,11 +937,9 @@ Page {
 
                                 }
 
-
                                 batteryContentInAh = capacityInAh * batteryLevel.value/100
 
                                 var targetSOCinAh = capacityInAh * targetSOC/100
-
 
                                 var necessaryTimeinHMinCharg = (targetSOCinAh - batteryContentInAh)/minChargingCurrent
                                 var necessaryTimeinHMaxCharg = (targetSOCinAh - batteryContentInAh)/maxChargingCurrent

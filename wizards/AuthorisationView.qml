@@ -55,9 +55,9 @@ ConsolinnoWizardPageBase {
                     if (authorisationCheckbox.checked) {
                         root.done(false, true)
                     }
-//                    else {
-//                        Qt.quit()
-//                    }
+                    else {
+                        root.done(true, false)
+                    }
                 }
             }
 
