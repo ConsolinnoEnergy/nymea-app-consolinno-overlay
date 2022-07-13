@@ -101,7 +101,7 @@ Page {
                 Layout.minimumWidth: 55
                 Layout.maximumWidth: 55
                 Layout.rightMargin: 48
-                text: pvConfiguration.latitude !== 0? pvConfiguration.latitude : src.position.coordinate.latitude.toFixed(2)
+                text: pvConfiguration.latitude !== 0? pvConfiguration.latitude : src.position.coordinate.latitude.toFixed(0)
                 validator: DoubleValidator{
                     bottom: -90
                     top: 90
@@ -134,7 +134,7 @@ Page {
                 Layout.minimumWidth: 55
                 Layout.maximumWidth: 55
                 Layout.rightMargin: 48
-                text: pvConfiguration.longitude !== 0 ? pvConfiguration.longitude : src.position.coordinate.longitude.toFixed(2)
+                text: pvConfiguration.longitude !== 0 ? pvConfiguration.longitude : src.position.coordinate.longitude.toFixed(0)
 
                 validator: DoubleValidator{
                     bottom: -180
