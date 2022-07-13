@@ -7,113 +7,141 @@ import Nymea 1.0
 
 Page {
     id: root
-    signal done(bool skip, bool abort);
+    signal done(bool skip, bool abort, bool back);
     signal countChanged()
 
     header: NymeaHeader {
         text: qsTr("Setup wallbox")
-        onBackPressed: pageStack.pop()
+        onBackPressed: root.done(false, false, true)
     }
 
     ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
         width: Math.min(parent.width - Style.margins * 2, 300)
         //spacing: Style.margins
-        Label {
+
+
+
+
+
+        ColumnLayout{
             Layout.fillWidth: true
-            text: qsTr("Integrated wallboxes")
-            wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignLeft
-            Layout.alignment: Qt.AlignLeft
-        }
+            Layout.fillHeight: true
 
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("Integrated wallbox list:")
+                wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignLeft
+                Layout.alignment: Qt.AlignLeft
 
+            }
 
+            VerticalDivider
+            {
+                Layout.preferredWidth: app.width - 2* Style.margins
+                dividerColor: Material.accent
+                Layout.bottomMargin: 0
+            }
 
+            Flickable{
+                id: evChargerFlickable
+                clip: true
+                Layout.topMargin: 0
+                Layout.bottomMargin: 0
+                width: parent.width
+                height: parent.height
+                contentHeight: evChargerList.height
+                contentWidth: app.width
+                visible: evProxy.count !== 0
 
-        VerticalDivider
-        {
-            Layout.fillWidth: true
-            dividerColor: Material.accent
-        }
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredHeight: app.height/3
+                Layout.preferredWidth: app.width
+                flickableDirection: Flickable.VerticalFlick
 
-        Flickable{
-            id: evChargerFlickable
-            clip: true
-            width: parent.width
-            height: parent.height
-            contentHeight: evChargerList.height
-            contentWidth: app.width
-            visible: evProxy.count !== 0
-
-            Layout.alignment: Qt.AlignHCenter
-            Layout.preferredHeight: app.height/4
-            Layout.preferredWidth: app.width/2
-            flickableDirection: Flickable.VerticalFlick
-
-            ColumnLayout{
-                id: evChargerList
-                Layout.preferredWidth: app.width/2
-                Layout.fillHeight: true
-                Repeater{
-                    id: evChargerRepeater
-                    Layout.preferredWidth: app.width/2
-                    model: ThingsProxy {
-                        id: evProxy
-                        engine: _engine
-                        shownInterfaces: ["evcharger"]
-                    }
-                    delegate: ItemDelegate{
-                        Layout.preferredWidth: app.width/2
-                        contentItem: ConsolinnoItemDelegate{
-                            Layout.fillWidth: true
-                            progressive: false
-                            text: evProxy.get(index) ? evProxy.get(index).name : ""
-                            onClicked: {
+                ColumnLayout{
+                    id: evChargerList
+                    Layout.preferredWidth: app.width
+                    Layout.fillHeight: true
+                    Repeater{
+                        id: evChargerRepeater
+                        Layout.preferredWidth: app.width
+                        model: ThingsProxy {
+                            id: evProxy
+                            engine: _engine
+                            shownInterfaces: ["evcharger"]
+                        }
+                        delegate: ItemDelegate{
+                            Layout.preferredWidth: app.width
+                            contentItem: ConsolinnoItemDelegate{
+                                Layout.fillWidth: true
+                                iconName: "../images/ev-charger.svg"
+                                progressive: false
+                                text: evProxy.get(index) ? evProxy.get(index).name : ""
+                                onClicked: {
+                                }
                             }
                         }
+
+
                     }
+                }
+
+            }
 
 
+
+            Rectangle{
+                Layout.preferredHeight: app.height/3
+                Layout.fillWidth: true
+                visible: evProxy.count === 0
+                color: Material.background
+                Text {
+                    text: qsTr("There is no wallbox set up yet.")
+                    color: Material.foreground
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
                 }
             }
 
+//            Label {
+//                Layout.fillWidth: true
+//                Layout.topMargin: 10
+//                text: qsTr("Add wallboxes:")
+//                wrapMode: Text.WordWrap
+//                horizontalAlignment: Text.AlignLeft
+//                Layout.alignment: Qt.AlignLeft
+
+//            }
+
+            VerticalDivider
+            {
+                Layout.preferredWidth: app.width - 2* Style.margins
+                dividerColor: Material.accent
+            }
+
+
+
         }
-
-
-        Rectangle{
-        Layout.preferredHeight: app.height/4
-        Layout.fillWidth: true
-        visible: evProxy.count === 0
-        color: Material.background
-        Text {
-            text: qsTr("There is no wallbox set up yet.")
-            color: Material.foreground
-            anchors.fill: parent
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-        }
-        }
-
-
-        VerticalDivider
-        {
-            Layout.fillWidth: true
-            dividerColor: Material.accent
-        }
-
 
         ColumnLayout {
-            Layout.topMargin: Style.margins
+            Layout.topMargin: 0
+
+
+
+
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Please select the model you want to add:")
+                text: qsTr("Add wallboxes:")
                 wrapMode: Text.WordWrap
             }
 
             ComboBox {
                 id: thingClassComboBox
-                Layout.fillWidth: true
+                //Layout.fillWidth: true
+                Layout.preferredWidth: app.width - Style.margins
                 textRole: "displayName"
                 valueRole: "id"
                 model: ThingClassesProxy {
@@ -124,29 +152,26 @@ Page {
         }
 
         ColumnLayout {
-            spacing: Style.margins
+            spacing: 0
             Layout.alignment: Qt.AlignHCenter
 
             Button {
                 text: qsTr("cancel")
-                //color: Style.yellow
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                onClicked: root.done(false, true)
+                onClicked: root.done(false, true, false)
             }
             Button {
                 text: qsTr("add")
-                //color: Style.accentColor
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
                 onClicked: pageStack.push(searchEvChargerComponent, {thingClassId: thingClassComboBox.currentValue})
             }
             Button {
                 text: qsTr("next")
-                //color: Style.blue
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                onClicked: root.done(true, false)
+                onClicked: root.done(true, false, false)
             }
         }
 
@@ -238,14 +263,14 @@ Page {
                             text: qsTr("cancel")
                             Layout.preferredWidth: 200
                             //color: Style.yellow
-                            onClicked: root.done(false, true)
+                            onClicked: root.done(false, true, false)
                         }
                         Button {
                             Layout.alignment: Qt.AlignHCenter
                             text: qsTr("skip")
                             Layout.preferredWidth: 200
                             //color: Style.blue
-                            onClicked: root.done(true, false)
+                            onClicked: root.done(true, false, false)
                         }
                     }
                 }
