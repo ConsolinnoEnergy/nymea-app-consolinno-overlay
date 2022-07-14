@@ -30,7 +30,7 @@ Page {
 
         Label {
             Layout.fillWidth: true
-            text: qsTr("Integrated solar inverter list:")
+            text: qsTr("Integrated solar inverter:")
             //Layout.leftMargin: 0
             wrapMode: Text.WordWrap
             Layout.alignment: Qt.AlignLeft

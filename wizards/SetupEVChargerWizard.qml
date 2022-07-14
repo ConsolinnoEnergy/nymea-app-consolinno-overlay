@@ -30,7 +30,7 @@ Page {
 
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Integrated wallbox list:")
+                text: qsTr("Integrated wallbox:")
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignLeft
                 Layout.alignment: Qt.AlignLeft
