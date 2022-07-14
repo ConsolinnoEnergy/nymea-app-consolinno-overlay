@@ -710,7 +710,7 @@ Sie können Ihr Gerät auch mit dem lokalen Wifi verbinden, wenn das Leaflet üb
     </message>
     <message>
         <source>Start Wizard</source>
-        <translation>Inbetriebnahme-Assistent starten</translation>
+        <translation>Inbetriebnahme-Assistent</translation>
     </message>
     <message>
         <source>Add device manually</source>
@@ -1306,7 +1306,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>There is no wallbox set up yet.</source>
-        <translation>Bis jetzt ist keine Wallbox eingerichtet</translation>
+        <translation>Bis jetzt ist keine Wallbox eingerichtet.</translation>
     </message>
     <message>
         <source>add</source>
@@ -1326,11 +1326,15 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Integrated wallbox list:</source>
-        <translation>Eingerichtete Wallboxenliste:</translation>
+        <translation type="vanished">Eingerichtete Wallboxenliste:</translation>
     </message>
     <message>
         <source>Add wallboxes:</source>
-        <translation>Füge Wallboxen hinzu</translation>
+        <translation>Füge Wallboxen hinzu:</translation>
+    </message>
+    <message>
+        <source>Integrated wallbox:</source>
+        <translation>Eingerichtete Wallboxen:</translation>
     </message>
 </context>
 <context>
@@ -1452,7 +1456,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Integrated heat pumps</source>
-        <translation>Eingerichtete Wärmepumpenliste:</translation>
+        <translation>Eingerichtete Wärmepumpen:</translation>
     </message>
     <message>
         <source>There is no heatpump set up yet.</source>
@@ -1555,11 +1559,15 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Integrated solar inverter list:</source>
-        <translation>Eingerichtete Wechselrichterliste:</translation>
+        <translation type="vanished">Eingerichtete Wechselrichterliste:</translation>
     </message>
     <message>
         <source>Add solar Inverter: </source>
         <translation>Füge Wechselrichter hinzu: </translation>
+    </message>
+    <message>
+        <source>Integrated solar inverter:</source>
+        <translation>Eingerichtete Wechselrichter:</translation>
     </message>
 </context>
 <context>
