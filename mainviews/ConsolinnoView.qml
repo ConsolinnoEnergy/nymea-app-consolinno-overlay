@@ -35,6 +35,7 @@ import QtQuick.Layouts 1.2
 import QtCharts 2.3
 import Nymea 1.0
 import Qt.labs.settings 1.1
+
 import "../components"
 import "../delegates"
 
@@ -42,8 +43,7 @@ MainViewBase {
     id: root
 
     readonly property bool loading: engine.thingManager.fetchingData
-
-
+    property UserConfiguration userconfig
     EnergyManager {
         id: energyManager
         engine: _engine
@@ -121,11 +121,18 @@ MainViewBase {
             manualWizardSettings.evChargerDone = false
             manualWizardSettings.heatPumpDone = false
             manualWizardSettings.authorisation = false
-            manualWizardSettings.blackoutProtectionDone = false
             manualWizardSettings.installerData = false
             manualWizardSettings.energymeter = false
         }
 
+        function initialManualWizardSettings() {
+            manualWizardSettings.solarPanelDone = true
+            manualWizardSettings.evChargerDone = true
+            manualWizardSettings.heatPumpDone = true
+            manualWizardSettings.authorisation = true
+            manualWizardSettings.installerData = true
+            manualWizardSettings.energymeter = true
+        }
 
         function setup(showFinalPage) {
 
@@ -292,7 +299,7 @@ MainViewBase {
 
 
 
-            if (!wizardSettings.installerData || !manualWizardSettings.installerData){
+            if ((userconfig.installerName === "" && !wizardSettings.installerData) || !manualWizardSettings.installerData){
                 var page = d.pushPage("/ui/wizards/InstallerDataView.qml", {hemsManager: hemsManager})
                 page.done.connect(function( saved , skip, back) {
 
@@ -359,31 +366,29 @@ MainViewBase {
     Settings {
         id: manualWizardSettings
         category: "manualSetupWizard"
-        property bool solarPanelDone: false
-        property bool evChargerDone: false
-        property bool heatPumpDone: false
-        property bool authorisation: false
-        property bool blackoutProtectionDone: false
-        property bool installerData: false
-        property bool energymeter: false
+        property bool solarPanelDone: true
+        property bool evChargerDone: true
+        property bool heatPumpDone: true
+        property bool authorisation: true
+        property bool installerData: true
+        property bool energymeter: true
 
     }
 
     Settings {
         id: blackoutProtectionSetting
         category: "blackoutProtectionSetting"
-        property bool blackoutProtectionDone: false
+        property bool blackoutProtectionDone: true
         property bool blackoutBackPage: false
 
 
     }
 
 
-//    onLoadingChanged: {
-//        if (!loading) {
-//            d.setup(false)
-//        }
-//    }
+    onLoadingChanged: {
+        userconfig = hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
+
+    }
 
     ThingsProxy {
         id: evProxy
@@ -907,6 +912,7 @@ MainViewBase {
                             id: mainviewTestingLabel
                             Layout.fillWidth: true
                             text: qsTr("Total current power usage")
+
                             horizontalAlignment: Text.AlignHCenter
                             wrapMode: Text.WordWrap
                             elide: Text.ElideMiddle
@@ -1080,6 +1086,7 @@ MainViewBase {
         }
         onButtonClicked: {
             d.resetWizardSettings()
+            d.initialManualWizardSettings()
             d.setup(false)
         }
     }
