@@ -90,6 +90,7 @@ MainViewBase {
         property var firstWizardPage: null
 
         property bool energyMeterWiazrdSkipped: false
+        property bool manualEnergyWizardBack: false
 
         function pushPage(comp, properties) {
             var page = pageStack.push(comp, properties)
@@ -122,6 +123,7 @@ MainViewBase {
             manualWizardSettings.authorisation = false
             manualWizardSettings.blackoutProtectionDone = false
             manualWizardSettings.installerData = false
+            manualWizardSettings.energymeter = false
         }
 
 
@@ -148,9 +150,15 @@ MainViewBase {
             }
 
 
-            if (energyMetersProxy.count === 0 && !energyMeterWiazrdSkipped) {
+            if ((energyMetersProxy.count === 0 && !energyMeterWiazrdSkipped) || !manualWizardSettings.energymeter) {
                 var page = d.pushPage("/ui/wizards/SetupEnergyMeterWizard.qml")
                 page.done.connect(function(skip, abort) {
+//                    if (back){
+//                        manualWizardSettings.solarPanelDone = false
+//                        pageStack.pop()
+//                        return
+//                    }
+
                     print("energymeters done", skip, abort)
                     if (abort) {
                         exitWizard()
@@ -158,7 +166,16 @@ MainViewBase {
                     }
                     if (skip) {
                         energyMeterWiazrdSkipped = true;
+                        manualWizardSettings.energymeter = true
+                        setup(true)
+                        return
+
                     }
+
+                    manualWizardSettings.energymeter = true
+                    // since SetupEnergyMeter is not an add loop I need to pop twice
+                    pageStack.pop()
+                    pageStack.pop()
                     setup(true)
                 })
                 return
@@ -166,8 +183,16 @@ MainViewBase {
 
             if ((inverters.count === 0 && !wizardSettings.solarPanelDone) || !manualWizardSettings.solarPanelDone) {
                 var page = d.pushPage("/ui/wizards/SetupSolarInverterWizard.qml");
-                page.done.connect(function(skip, abort){
-                    print("solar inverters done", skip, abort)
+                page.done.connect(function(skip, abort, back){
+
+                    if(back){
+                        energyMeterWiazrdSkipped = false
+                        manualWizardSettings.energymeter = false
+                        pageStack.pop()
+                        return
+
+                    }
+
                     if (abort) {
                         manualWizardSettings.solarPanelDone = true
                         exitWizard();
@@ -183,7 +208,14 @@ MainViewBase {
 
             if ((evChargersProxy.count === 0 && !wizardSettings.evChargerDone)|| !manualWizardSettings.evChargerDone) {
                 var page = d.pushPage("/ui/wizards/SetupEVChargerWizard.qml")
-                page.done.connect(function(skip, abort) {
+                page.done.connect(function(skip, abort, back) {
+                    if(back){
+                        manualWizardSettings.solarPanelDone = false
+                        pageStack.pop()
+                        return
+
+                    }
+
                     if (abort) {
                         manualWizardSettings.evChargerDone = true
                         exitWizard();
@@ -204,7 +236,15 @@ MainViewBase {
 
             if ((heatPumps.count === 0 && !wizardSettings.heatPumpDone) || !manualWizardSettings.heatPumpDone) {
                 var page = d.pushPage("/ui/wizards/SetupHeatPumpWizard.qml")
-                page.done.connect(function(skip, abort) {
+                page.done.connect(function(skip, abort, back) {
+
+                    if(back){
+                        manualWizardSettings.evChargerDone = false
+                        pageStack.pop()
+                        return
+
+                    }
+
                     if (abort) {
                         manualWizardSettings.heatPumpDone = true
                         exitWizard();
@@ -226,7 +266,15 @@ MainViewBase {
 
             if (!blackoutProtectionSetting.blackoutProtectionDone)  {
                 var page = d.pushPage("../optimization/BlackoutProtectionView.qml", {hemsManager: hemsManager, directionID: 1})
-                page.done.connect(function(skip, abort) {
+                page.done.connect(function(skip, abort, back) {
+
+                    if(back){
+                        manualWizardSettings.heatPumpDone = false
+                        pageStack.pop()
+                        return
+
+                    }
+
                     if (abort) {
 
                         blackoutProtectionSetting.blackoutProtectionDone = true
@@ -234,10 +282,11 @@ MainViewBase {
                         return
                     }
 
+                    blackoutProtectionSetting.blackoutBackPage = true
                     blackoutProtectionSetting.blackoutProtectionDone = true
                     setup(true);
                 })
-                blackoutProtectionSetting.blackoutProtectionDone = true
+
                 return
             }
 
@@ -245,9 +294,26 @@ MainViewBase {
 
             if (!wizardSettings.installerData || !manualWizardSettings.installerData){
                 var page = d.pushPage("/ui/wizards/InstallerDataView.qml", {hemsManager: hemsManager})
-                page.done.connect(function( saved , skip) {
-                        manualWizardSettings.installerData = true
-                        wizardSettings.installerData = true
+                page.done.connect(function( saved , skip, back) {
+
+                    if(back){
+
+                        if (blackoutProtectionSetting.blackoutBackPage)
+                        {
+                            blackoutProtectionSetting.blackoutProtectionDone = false
+                            blackoutProtectionSetting.blackoutBackPage = false
+                        }
+                        else
+                        {
+                            manualWizardSettings.heatPumpDone = false
+                        }
+
+                        pageStack.pop()
+                        return
+
+                    }
+                    manualWizardSettings.installerData = true
+                    wizardSettings.installerData = true
                     setup(true)
                 })
                 return
@@ -257,7 +323,13 @@ MainViewBase {
 
             if (showFinalPage) {
                 var page = d.pushPage("/ui/wizards/WizardComplete.qml", {hemsManager: hemsManager})
-                page.done.connect(function(skip, abort) {exitWizard()})
+                page.done.connect(function(skip, abort) {
+
+
+
+
+                    exitWizard()
+                })
             }
 
 
@@ -293,6 +365,7 @@ MainViewBase {
         property bool authorisation: false
         property bool blackoutProtectionDone: false
         property bool installerData: false
+        property bool energymeter: false
 
     }
 
@@ -300,16 +373,17 @@ MainViewBase {
         id: blackoutProtectionSetting
         category: "blackoutProtectionSetting"
         property bool blackoutProtectionDone: false
+        property bool blackoutBackPage: false
 
 
     }
 
 
-    onLoadingChanged: {
-        if (!loading) {
-            d.setup(false)
-        }
-    }
+//    onLoadingChanged: {
+//        if (!loading) {
+//            d.setup(false)
+//        }
+//    }
 
     ThingsProxy {
         id: evProxy
@@ -993,13 +1067,14 @@ MainViewBase {
     EmptyViewPlaceholder {
         anchors { left: parent.left; right: parent.right; margins: app.margins }
         anchors.verticalCenter: parent.verticalCenter
-        visible: !engine.thingManager.fetchingData && root.rootMeter == null
+        //visible: !engine.thingManager.fetchingData && root.rootMeter == null
+        visible: energyMetersProxy.count === 0
         property bool rootMeter: !engine.thingManager.fetchingData && root.rootMeter == null
         title: qsTr("Your leaflet is not set up yet.")
         text: qsTr("Please complete the setup wizard or manually configure your devices.")
         imageSource: "/ui/images/leaf.svg"
         buttonText: qsTr("Start setup")
-        onImageClicked: buttonClicked()
+        //onImageClicked: buttonClicked()
         onRootMeterChanged: {
             //d.resetWizardSettings()
         }

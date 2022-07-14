@@ -12,13 +12,13 @@ import "../delegates"
 
 Page{
     id: root
-    signal done(bool saved, bool skip)
+    signal done(bool saved, bool skip, bool back)
 
     header: NymeaHeader {
         text: qsTr("Contact")
         //text: userconfig.installerEmail
         backButtonVisible: true
-        onBackPressed: pageStack.pop()
+        onBackPressed: root.done(false, false, true)
     }
 
 
@@ -131,7 +131,7 @@ Page{
                 // TODO:
                 // add the setter for the Config
                 hemsManager.setUserConfiguration({installerName: nameField.text, installerEmail: emailField.text, installerPhoneNr: numberField.text, installerWorkplace: companyField.text})
-                root.done(true, false)
+                root.done(true, false, false)
             }
         }
 
@@ -141,7 +141,7 @@ Page{
             Layout.preferredWidth: 300
             text: qsTr("Skip")
             onClicked:{
-                root.done(false, true)
+                root.done(false, true, false)
             }
         }
 

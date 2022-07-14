@@ -11,12 +11,20 @@ Page {
     property HemsManager hemsManager
     property int directionID: 0
 
-    signal done(bool skip, bool abort)
+    signal done(bool skip, bool abort, bool back)
 
     header: NymeaHeader {
         text: qsTr("Blackout protection")
         backButtonVisible: true
-        onBackPressed: pageStack.pop()
+        onBackPressed:{
+            if (directionID == 0)
+            {
+                //pageStack.pop()
+            }else{
+                root.done(false, false, true)
+            }
+
+        }
     }
 
     property int phaseLimit: 25
@@ -134,7 +142,7 @@ Page {
                 else if(directionID === 1)
                 {
                     hemsManager.setHousholdPhaseLimit(root.phaseLimit)
-                    root.done(false, false)
+                    root.done(false, false, false)
                 }
 
             }

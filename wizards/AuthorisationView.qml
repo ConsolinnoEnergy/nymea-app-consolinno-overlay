@@ -22,6 +22,7 @@ ConsolinnoWizardPageBase {
             font: Style.bigFont
             wrapMode: Text.WordWrap
             text: qsTr("Authorisation page")
+
         }
 
         Label {
