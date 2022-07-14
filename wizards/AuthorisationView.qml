@@ -11,6 +11,8 @@ ConsolinnoWizardPageBase {
     showBackButton: false
     showNextButton: false
 
+    property real directionID: 0
+
     content: ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right; margins: Style.margins }
         width: Math.min(parent.width - Style.margins * 2, 300)
@@ -54,10 +56,22 @@ ConsolinnoWizardPageBase {
                 Layout.preferredWidth: 200
                 onClicked: {
                     if (authorisationCheckbox.checked) {
-                        root.done(false, true)
+                        if (directionID == 0){
+                            root.done(false, true)
+                        }else if(directionID == 1){
+
+                            pageStack.replace(Qt.resolvedUrl("../thingconfiguration/NewThingPage.qml"))
+                        }
+
                     }
                     else {
-                        root.done(true, false)
+                        if (directionID == 0){
+                            root.done(true, false)
+                        }else if(directionID == 1){
+                            pageStack.pop()
+                        }
+
+
                     }
                 }
             }

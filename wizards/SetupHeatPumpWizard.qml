@@ -132,7 +132,7 @@ Page {
         }
 
         ColumnLayout {
-            spacing: Style.margins
+            spacing: 0
             Layout.alignment: Qt.AlignHCenter
 
             Button {

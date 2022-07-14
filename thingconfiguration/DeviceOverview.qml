@@ -81,7 +81,8 @@ Page {
             Layout.preferredWidth: 300
             Layout.minimumWidth: 100
             onClicked:{
-                pageStack.push(Qt.resolvedUrl("NewThingPage.qml"))
+                //pageStack.push(Qt.resolvedUrl("NewThingPage.qml"))
+                pageStack.push( "../wizards/AuthorisationView.qml", {directionID: 1})
 
             }
 
