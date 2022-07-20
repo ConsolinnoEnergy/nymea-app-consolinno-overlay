@@ -128,11 +128,27 @@ Page {
         groupByInterface: true
     }
 
+    // check if there exists a Simulated Car which is plugged in
+    function checkForPluggedInCars(){
 
+        var exist = false
+        for( var i = 0; i < simulationEvProxy.count; i++){
+            if (simulationEvProxy.get(i).stateByName("pluggedIn").value === true )
+            {
+
+                exist = true
+            }
+
+        }
+
+
+        return exist
+    }
 
     header: NymeaHeader {
         id: header
         text: qsTr(thing.name)
+
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
@@ -169,12 +185,11 @@ Page {
 
                 Rectangle{
                     id: pluggedInLight
-
                     width: 17
                     height: 17
                     Layout.rightMargin: 0
                     Layout.alignment: Qt.AlignRight
-                    color: thing.stateByName("pluggedIn").value ? "green" : "red"
+                   color: thing.stateByName("pluggedIn").value && checkForPluggedInCars()? "green" : "red"
                     border.color: "black"
                     border.width: 0.5
                     radius: width*0.5

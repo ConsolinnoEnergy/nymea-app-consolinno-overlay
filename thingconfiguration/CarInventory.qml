@@ -138,12 +138,8 @@ Page{
                             Layout.fillWidth: true
                             dividerColor: Material.accent
                         }
-
-
                     }
-
                 }
-
             }
 
             Repeater{
@@ -155,7 +151,7 @@ Page{
                     Layout.fillWidth: true
                     contentItem: ColumnLayout{
                         Layout.fillWidth: true
-
+                        objectName: "optimizerRepeater_" + index.toString()
                         RowLayout{
 
                             ConsolinnoItemDelegate{
