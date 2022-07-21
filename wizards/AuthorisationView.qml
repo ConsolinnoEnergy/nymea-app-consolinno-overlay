@@ -30,6 +30,8 @@ ConsolinnoWizardPageBase {
         Label {
             Layout.fillWidth: true
             wrapMode: Text.WordWrap
+            Layout.alignment: Qt.AlignCenter
+            horizontalAlignment: Text.AlignHCenter
             text: qsTr("To comission devices with the Leaflet, you must be authorized. Otherwise the warranty expires.")
         }
 

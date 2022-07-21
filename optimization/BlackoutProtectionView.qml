@@ -19,7 +19,7 @@ Page {
         onBackPressed:{
             if (directionID == 0)
             {
-                //pageStack.pop()
+                pageStack.pop()
             }else{
                 root.done(false, false, true)
             }

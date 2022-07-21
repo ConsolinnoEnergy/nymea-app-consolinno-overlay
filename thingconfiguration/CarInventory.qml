@@ -138,12 +138,8 @@ Page{
                             Layout.fillWidth: true
                             dividerColor: Material.accent
                         }
-
-
                     }
-
                 }
-
             }
 
             Repeater{
@@ -155,7 +151,7 @@ Page{
                     Layout.fillWidth: true
                     contentItem: ColumnLayout{
                         Layout.fillWidth: true
-
+                        objectName: "optimizerRepeater_" + index.toString()
                         RowLayout{
 
                             ConsolinnoItemDelegate{
@@ -271,7 +267,7 @@ Page{
                     model:[
 
                         {id: "name", name: "Name: ", displayName: qsTr("Name: "), component: nameComponent, type: "name", Uuid: "", info: ""  },
-                        {id: "capacity", name: "Battery capacity", displayName: qsTr("Battery capacity"),component: capacityComponent, type: "state", Uuid: "363a2a39-61b6-4109-9cd9-aca7367d12c7", info: "Capacity.qml"  },
+                        {id: "capacity", name: "Battery capacity", displayName: qsTr("Battery capacity"),component: capacityComponent, type: "setting", Uuid: "57f36386-dd71-4ab0-8d2f-8c74a391f90d", info: "Capacity.qml"  },
                         {id: "minChargingCurrent", name: "Minimum charging current", displayName: qsTr("Minimum charging current"), component: minimumChargingCurrentComponent, type: "setting", Uuid: "0c55516d-4285-4d02-8926-1dae03649e18", info: "MinimumChargingCurrent.qml"},
                         {id: "maxChargingLimit", name: "Maximum charging limit" , displayName: qsTr("Maximum charging limit"), component: maximumAllowedChargingLimitComponent, type: "attr", Uuid: "", info: "MaximumAllowedChargingLimit.qml" },
 
