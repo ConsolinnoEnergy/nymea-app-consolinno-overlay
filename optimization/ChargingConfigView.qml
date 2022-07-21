@@ -189,7 +189,7 @@ Page {
                     height: 17
                     Layout.rightMargin: 0
                     Layout.alignment: Qt.AlignRight
-                   color: thing.stateByName("pluggedIn").value && checkForPluggedInCars()? "green" : "red"
+                   color: thing.stateByName("pluggedIn").value ? "green" : "red"
                     border.color: "black"
                     border.width: 0.5
                     radius: width*0.5
@@ -633,6 +633,7 @@ Page {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.topMargin: app.margins
+                anchors.rightMargin: app.margins
                 anchors.margins: app.margins
 
                 RowLayout {
@@ -650,6 +651,7 @@ Page {
                     ConsolinnoItemDelegate {
                         id: carSelector
                         Layout.fillWidth: true
+
                         property var holdItem: evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar) : qsTr("Select/Add Car")
                         text: holdItem.name ? holdItem.name : qsTr("Select car")
                         //progressionsIcon: "add"
@@ -676,11 +678,13 @@ Page {
                 RowLayout{
                     Layout.fillWidth: true
                     Layout.topMargin: 10
-                    Layout.rightMargin: 2 * app.margins
+                    Layout.rightMargin: 200
 
 
                     Row{
+                        id: chargingModeRowid
                         Layout.fillWidth: true
+                        Layout.preferredWidth: chargingModeid.width + chargingModeInfoButton.width
                         Label {
                             id: chargingModeid
 
@@ -688,6 +692,7 @@ Page {
                         }
 
                         InfoButton{
+                            id: chargingModeInfoButton
                             push: "ChargingModeInfo.qml"
                             anchors.left: chargingModeid.right
                             anchors.leftMargin:  5
@@ -699,6 +704,8 @@ Page {
                     ComboBox {
                         id: comboboxloadingmod
                         Layout.fillWidth: true
+                        //Layout.preferredWidth: carSelector.width
+                        Layout.alignment: Qt.AlignRight
                         x: carSelector.x
                         model: ListModel{
                             ListElement{key: qsTr("No optimization"); value: "No Optimization"; mode: 0}

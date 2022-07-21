@@ -362,7 +362,7 @@ Page {
 
                                     Label
                                     {
-
+                                        objectName: "ConfigDataRepeater_ItemValue_" + modelData.name
                                         id: itemValue
                                         text: modelData.value
 
