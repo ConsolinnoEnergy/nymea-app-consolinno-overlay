@@ -1,7 +1,7 @@
 #include <QQmlEngine>
 
 #include "hemsmanager.h"
-#include "userconfigurations.h"
+#include "Configurations/userconfigurations.h"
 
 
 void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {

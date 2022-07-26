@@ -147,7 +147,7 @@ Page {
 
     header: NymeaHeader {
         id: header
-        text: PlatformHelper.deviceModel //qsTr(thing.name)
+        text: qsTr(thing.name)
 
         backButtonVisible: true
         onBackPressed: pageStack.pop()
