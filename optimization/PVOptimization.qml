@@ -237,7 +237,7 @@ Page {
                 text: pvConfiguration.kwPeak
                 maximumLength: 7
                 validator: DoubleValidator{
-                    bottom: 0;
+                    bottom: 1;
                 }
                 onTextChanged: acceptableInput ?kwPeak_validated = true : kwPeak_validated = false
 
@@ -292,7 +292,7 @@ Page {
                 if (validated == true)
                 {
                     if (directionID === 1){
-                        //hemsManager.setPvConfiguration(pvConfiguration.PvThingId, parseFloat(longitudefield.text), parseFloat(latitude.text), parseInt(roofpitch.text), parseInt(alignment.text), parseFloat(kwPeak.text) )
+
                         hemsManager.setPvConfiguration(thing.id, {longitude: longitudefield.text, latitude: latitude.text, roofPitch: roofpitch.text, alignment: alignment.text, kwPeak: kwPeak.text})
                         root.done()
                     }else if(directionID === 0){
@@ -315,16 +315,17 @@ Page {
         }
 
         // only visible if installation mode (directionID == 1)
-        Button {
-            id: passbutton
-            visible: directionID === 1
+        // skip will be added at a later stage
+//        Button {
+//            id: passbutton
+//            visible: directionID === 1
 
-            Layout.fillWidth: true
-            text: qsTr("skip")
-            onClicked: {
-                root.done()
-            }
-        }
+//            Layout.fillWidth: true
+//            text: qsTr("skip")
+//            onClicked: {
+//                root.done()
+//            }
+//        }
 
     }
 }

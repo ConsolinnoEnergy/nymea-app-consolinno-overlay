@@ -68,20 +68,20 @@ Page {
 
         }
 
-        RowLayout {
-            Layout.fillWidth: true
+//        RowLayout {
+//            Layout.fillWidth: true
 
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Optimization enabled")
-            }
+//            //            Label {
+//            //                Layout.fillWidth: true
+//            //                text: qsTr("Optimization enabled")
+//            //            }
 
-            Switch {
-                id: optimizationEnabledSwitch
-                Component.onCompleted: checked = heatingConfiguration.optimizationEnabled
-            }
+//            //            Switch {
+//            //                id: optimizationEnabledSwitch
+//            //                Component.onCompleted: checked = heatingConfiguration.optimizationEnabled
+//            //            }
 
-        }
+//        }
 
 
         RowLayout{
@@ -100,7 +100,7 @@ Page {
                 Layout.rightMargin: 10
                 text: heatingConfiguration.floorHeatingArea
                 maximumLength: 5
-                validator: DoubleValidator{bottom: 0}
+                validator: DoubleValidator{bottom: 1}
 
                 onTextChanged: acceptableInput ?floorHeatingArea_validated = true : floorHeatingArea_validated = false
             }
@@ -131,7 +131,7 @@ Page {
                 Layout.rightMargin: 8
                 text: heatingConfiguration.maxElectricalPower
                 maximumLength: 10
-                validator: DoubleValidator{bottom: 0 }
+                validator: DoubleValidator{bottom: 1 }
 
                 onTextChanged: acceptableInput ?maxElectricalPower_validated = true : maxElectricalPower_validated = false
             }
@@ -161,7 +161,7 @@ Page {
                 Layout.preferredWidth: 60
                 text: heatingConfiguration.maxThermalEnergy
                 maximumLength: 10
-                validator: DoubleValidator{bottom: 0}
+                validator: DoubleValidator{bottom: 1}
 
                 onTextChanged: acceptableInput ?maxThermalEnergy_validated = true : maxThermalEnergy_validated = false
             }
@@ -232,13 +232,11 @@ Page {
                 if (savebutton.validated)
                 {
                     if (directionID == 1){
-                        //hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, optimizationEnabledSwitch.checked, parseFloat( floorHeatingAreaId.text) , parseFloat( maxElectricalPower.text)  ,  parseFloat(maxThermalEnergy.text) )
-                        hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: optimizationEnabledSwitch.checked, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text, maxThermalEnergy: maxThermalEnergy.text  })
+                        hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text, maxThermalEnergy: maxThermalEnergy.text  })
 
                         root.done()
                     }else if(directionID == 0){
-                        //d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, optimizationEnabledSwitch.checked, parseFloat( floorHeatingAreaId.text) , parseFloat( maxElectricalPower.text)  ,  parseFloat(maxThermalEnergy.text) )
-                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: optimizationEnabledSwitch.checked, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text, maxThermalEnergy: maxThermalEnergy.text  })
+                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text, maxThermalEnergy: maxThermalEnergy.text  })
 
                     }
 
