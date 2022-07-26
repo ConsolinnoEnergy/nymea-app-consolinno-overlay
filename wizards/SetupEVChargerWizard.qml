@@ -167,11 +167,22 @@ Page {
                 Layout.alignment: Qt.AlignHCenter
                 onClicked: pageStack.push(searchEvChargerComponent, {thingClassId: thingClassComboBox.currentValue})
             }
+            // Having 0 EV charger will be supporter at a later stage
             Button {
                 text: qsTr("next")
+                background: Rectangle{
+                    color: evChargerRepeater.count > 0  ? "#87BD26" : "grey"
+                    radius: 4
+                }
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                onClicked: root.done(true, false, false)
+                onClicked:{
+                    if (evChargerRepeater.count >0){
+                        root.done(true, false, false)
+                    }
+
+                }
+
             }
         }
 

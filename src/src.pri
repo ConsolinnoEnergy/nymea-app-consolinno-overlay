@@ -1,32 +1,32 @@
 HEADERS += \
-    $$PWD/chargingconfigurations.h \
-    $$PWD/chargingsessionconfiguration.h \
-    $$PWD/chargingsessionconfigurations.h \
-    $$PWD/conemsstate.h \
-    $$PWD/conemsstates.h \
-    $$PWD/heatingconfigurations.h \
-    $$PWD/pvconfiguration.h \
-    $$PWD/pvconfigurations.h \
+    $$PWD/Configurations/chargingconfigurations.h \
+    $$PWD/Configurations/chargingsessionconfiguration.h \
+    $$PWD/Configurations/chargingsessionconfigurations.h \
+    $$PWD/Configurations/conemsstate.h \
+    $$PWD/Configurations/conemsstates.h \
+    $$PWD/Configurations/heatingconfigurations.h \
+    $$PWD/Configurations/pvconfiguration.h \
+    $$PWD/Configurations/pvconfigurations.h \
     $$PWD/qmltypes.h \
-    $$PWD/chargingconfiguration.h \
-    $$PWD/heatingconfiguration.h \
+    $$PWD/Configurations/chargingconfiguration.h \
+    $$PWD/Configurations/heatingconfiguration.h \
     $$PWD/hemsmanager.h \
-    $$PWD/userconfiguration.h \
-    $$PWD/userconfigurations.h
+    $$PWD/Configurations/userconfiguration.h \
+    $$PWD/Configurations/userconfigurations.h
 
 SOURCES += \
-    $$PWD/chargingconfiguration.cpp \
-    $$PWD/chargingconfigurations.cpp \
-    $$PWD/chargingsessionconfiguration.cpp \
-    $$PWD/chargingsessionconfigurations.cpp \
-    $$PWD/conemsstate.cpp \
-    $$PWD/conemsstates.cpp \
-    $$PWD/heatingconfiguration.cpp \
-    $$PWD/heatingconfigurations.cpp \
+    $$PWD/Configurations/chargingconfiguration.cpp \
+    $$PWD/Configurations/chargingconfigurations.cpp \
+    $$PWD/Configurations/chargingsessionconfiguration.cpp \
+    $$PWD/Configurations/chargingsessionconfigurations.cpp \
+    $$PWD/Configurations/conemsstate.cpp \
+    $$PWD/Configurations/conemsstates.cpp \
+    $$PWD/Configurations/heatingconfiguration.cpp \
+    $$PWD/Configurations/heatingconfigurations.cpp \
     $$PWD/hemsmanager.cpp \
-    $$PWD/pvconfiguration.cpp \
-    $$PWD/pvconfigurations.cpp \
-    $$PWD/userconfiguration.cpp \
-    $$PWD/userconfigurations.cpp
+    $$PWD/Configurations/pvconfiguration.cpp \
+    $$PWD/Configurations/pvconfigurations.cpp \
+    $$PWD/Configurations/userconfiguration.cpp \
+    $$PWD/Configurations/userconfigurations.cpp
 
 

@@ -63,7 +63,7 @@ Page {
                 Layout.preferredWidth: app.width
                 Layout.fillHeight: true
                 Repeater{
-                    id: energyMeterRepeater
+                    id: solarInverterRepeater
                     Layout.preferredWidth: app.width
                     model: ThingsProxy {
                         id: emProxy
@@ -149,12 +149,22 @@ Page {
                 Layout.alignment: Qt.AlignHCenter
                 onClicked: pageStack.push(searchInverterComponent, {thingClassId: thingClassComboBox.currentValue})
             }
+
+            // Having 0 Solar inverter will be supporter at a later stage
             Button {
                 text: qsTr("next")
-                //color: Style.blue
+                background: Rectangle{
+                    color: solarInverterRepeater.count > 0  ? "#87BD26" : "grey"
+                    radius: 4
+                }
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                onClicked: root.done(true, false, false)
+                onClicked:{
+                    if (solarInverterRepeater.count >0){
+                        root.done(true, false, false)
+                    }
+                }
+
             }
         }
 

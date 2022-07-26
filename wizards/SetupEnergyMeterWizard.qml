@@ -60,13 +60,13 @@ Page {
                 onClicked: pageStack.push(searchEnergyMeterComponent, {thingClassId: thingClassComboBox.currentValue})
 
             }
-            Button {
-                text: qsTr("skip")
-                //color: Style.blue
-                Layout.preferredWidth: 200
-                Layout.alignment: Qt.AlignHCenter
-                onClicked: root.done(true, false)
-            }
+//            Button {
+//                text: qsTr("skip")
+//                //color: Style.blue
+//                Layout.preferredWidth: 200
+//                Layout.alignment: Qt.AlignHCenter
+//                onClicked: root.done(true, false)
+//            }
         }
 
     }

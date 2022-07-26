@@ -4,14 +4,14 @@
 #include <QObject>
 
 #include "engine.h"
-#include "heatingconfigurations.h"
-#include "chargingconfigurations.h"
-#include "chargingsessionconfigurations.h"
-#include "pvconfigurations.h"
-#include "conemsstates.h"
-#include "userconfigurations.h"
+#include "Configurations/heatingconfigurations.h"
+#include "Configurations/chargingconfigurations.h"
+#include "Configurations/chargingsessionconfigurations.h"
+#include "Configurations/pvconfigurations.h"
+#include "Configurations/conemsstates.h"
+#include "Configurations/userconfigurations.h"
 
-#include "conemsstate.h"
+#include "Configurations/conemsstate.h"
 
 
 
