@@ -651,6 +651,7 @@ Page {
                     ConsolinnoItemDelegate {
                         id: carSelector
                         Layout.fillWidth: true
+                        Layout.maximumWidth: 250
 
                         property var holdItem: evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar) : qsTr("Select/Add Car")
                         text: holdItem.name ? holdItem.name : qsTr("Select car")
@@ -668,6 +669,12 @@ Page {
 
                             })
 
+                            page.back.connect(function(){
+                                pageStack.pop()
+                                carSelector.text = evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar).name : qsTr("Select/Add Car")
+                                holdingItem = false
+                            })
+
                         }
 
                     }
@@ -678,24 +685,24 @@ Page {
                 RowLayout{
                     Layout.fillWidth: true
                     Layout.topMargin: 10
-                    Layout.rightMargin: 200
 
 
-                    Row{
+                    RowLayout{
                         id: chargingModeRowid
                         Layout.fillWidth: true
-                        Layout.preferredWidth: chargingModeid.width + chargingModeInfoButton.width
-                        Label {
-                            id: chargingModeid
 
+                        Label {
+
+                            id: chargingModeid
                             text: qsTr("Charging mode: ")
                         }
 
                         InfoButton{
                             id: chargingModeInfoButton
                             push: "ChargingModeInfo.qml"
-                            anchors.left: chargingModeid.right
-                            anchors.leftMargin:  5
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignTop
+
                         }
                     }
 
@@ -703,8 +710,10 @@ Page {
 
                     ComboBox {
                         id: comboboxloadingmod
-                        Layout.fillWidth: true
-                        //Layout.preferredWidth: carSelector.width
+                        //Layout.fillWidth: true
+                        Layout.maximumWidth: 300
+                        Layout.preferredWidth: 250
+                        Layout.minimumWidth: 100
                         Layout.alignment: Qt.AlignRight
                         x: carSelector.x
                         model: ListModel{
