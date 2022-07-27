@@ -12,12 +12,13 @@ import "../delegates"
 Page{
     id: root
     signal done(var selectedCar)
+    signal back()
 
     header: NymeaHeader {
         id: header
         text: qsTr("Car list")
         backButtonVisible: true
-        onBackPressed: pageStack.pop()
+        onBackPressed: root.back()
     }
 
     ThingsProxy {
@@ -498,10 +499,9 @@ Page{
                         MouseArea{
                             width: parent.width
                             height: parent.height
-                            onClicked:{
-                                pageStack.pop()
+                            onClicked:{       
                                 engine.thingManager.removeThing(thing.id)
-
+                                pageStack.pop()
                             }
 
                         }
