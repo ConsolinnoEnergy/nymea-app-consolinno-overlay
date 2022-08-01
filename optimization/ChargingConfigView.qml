@@ -591,9 +591,6 @@ Page {
                     Layout.fillWidth: true
                     text: qsTr("Cancel Charging Schedule")
                     onClicked: {
-
-                        //hemsManager.setChargingConfiguration(thing.id, false, chargingConfiguration.carThingId,   Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours() , Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes() , chargingConfiguration.targetPercentage,  chargingConfiguration.optimizationMode, chargingConfiguration.uniqueIdentifier)
-
                         hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: false})
                     }
                 }
@@ -607,6 +604,7 @@ Page {
 
 
 
+
         Page{
             signal done()
             id: optimizationPage
@@ -615,7 +613,9 @@ Page {
             property Thing thing
 
 
-
+            Component.onCompleted:{
+                endTimeSlider.feasibilityText()
+            }
 
 
 
@@ -653,15 +653,15 @@ Page {
                         Layout.fillWidth: true
                         Layout.maximumWidth: 250
 
-                        property var holdItem: evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar) : qsTr("Select/Add Car")
-                        text: holdItem.name ? holdItem.name : qsTr("Select car")
+                        text:  evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar).name : qsTr("Select/Add Car")
                         //progressionsIcon: "add"
-                        holdingItem: holdItem ? holdItem : false
+                        holdingItem: evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar) : false
                         onClicked: {
 
                             var page = pageStack.push("../thingconfiguration/CarInventory.qml")
                             page.done.connect(function(selectedCar){
 
+                                footer.visible = false
                                 hemsManager.setUserConfiguration({lastSelectedCar: selectedCar.id})
                                 carSelector.text = selectedCar.name
                                 holdingItem = selectedCar
@@ -672,10 +672,20 @@ Page {
                             page.back.connect(function(){
                                 pageStack.pop()
                                 carSelector.text = evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar).name : qsTr("Select/Add Car")
-                                holdingItem = false
+                                if (!(evProxy.getThing(userconfig.lastSelectedCar))){
+                                    holdingItem = false
+                                }
+
                             })
 
                         }
+                        onHoldingItemChanged:{
+                            if (holdingItem !== false){
+                                endTimeSlider.computeFeasibility()
+                                endTimeSlider.feasibilityText()
+                            }
+                        }
+
 
                     }
 
@@ -776,11 +786,13 @@ Page {
                             {
                                 // if the "new Car" option is not picked do something
                                 if (carSelector.holdingItem !== false){
-                                    if (value >= targetPercentageSlider.value)
+                                    if (value  >= targetPercentageSlider.value)
                                     {
                                         targetPercentageSlider.value = value
                                     }
+
                                     endTimeSlider.computeFeasibility()
+                                    endTimeSlider.feasibilityText()
                                 }
                             }
                         }
@@ -870,11 +882,6 @@ Page {
                     }
 
                 }
-
-
-
-
-
 
 
                 RowLayout {
@@ -1033,14 +1040,10 @@ Page {
                             if (carSelector.holdingItem.stateByName("batteryLevel").value){
                                 carSelector.holdingItem.executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batteryLevel.value }])
                             }
-                            // Maintool to debug
-                            //footer.text = "saved"
 
                             pageSelectedCar = carSelector.holdingItem.name
 
                             hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
-
-                            //hemsManager.setChargingConfiguration(thing.id, true, carSelector.holdingItem.id,  parseInt(endTimeLabel.endTime.getHours()) , parseInt( endTimeLabel.endTime.getMinutes()) , targetPercentageSlider.value, comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode, "00000000-0000-0000-0000-000000000000")
                             hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode })
 
                             optimizationPage.done()

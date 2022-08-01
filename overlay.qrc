@@ -9,6 +9,8 @@
         <file>styles/dark/logo.svg</file>
         <file>styles/dark/logo-wide.svg</file>
         <file>translations/consolinno-energy-de.qm</file>
+        <file>styles/dark/Background.qml</file>
+        <file>styles/light/Background.qml</file>
     </qresource>
     <qresource prefix="/ui">
         <file>mainviews/ConsolinnoView.qml</file>

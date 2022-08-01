@@ -41,7 +41,7 @@
     </message>
     <message>
         <source>Thing added!</source>
-        <translation>Thing hinzugefüg!</translation>
+        <translation>Thing hinzugefügt!</translation>
     </message>
     <message>
         <source>Uh oh</source>
@@ -211,7 +211,7 @@
     </message>
     <message>
         <source>Activate simulated car: </source>
-        <translation>Aktiviertes simuliertes Auto</translation>
+        <translation>Aktiviere simuliertes Auto</translation>
     </message>
     <message>
         <source>Charging configuration</source>
@@ -306,12 +306,8 @@
         <translation>Ausgewähltes Auto:</translation>
     </message>
     <message>
-        <source>Select car</source>
-        <translation>wähle Auto</translation>
-    </message>
-    <message>
         <source>Battery level: </source>
-        <translation>Batteriezustand:</translation>
+        <translation>Batteriezustand: </translation>
     </message>
     <message>
         <source>Target charge %1%</source>
@@ -327,7 +323,7 @@
     </message>
     <message>
         <source>please select a car</source>
-        <translation>please select a car</translation>
+        <translation>bitte wählen Sie ein Auto aus</translation>
     </message>
     <message>
         <source>Save</source>
@@ -343,30 +339,6 @@
     <message>
         <source>Charging</source>
         <translation>Laden</translation>
-    </message>
-    <message>
-        <source>Charging configuration</source>
-        <translation type="vanished">Ladeeinstellungen</translation>
-    </message>
-    <message>
-        <source>Optimization enabled</source>
-        <translation type="vanished">Optimierung aktiv</translation>
-    </message>
-    <message>
-        <source>Target time to reach target percentage</source>
-        <translation type="vanished">Zielzeit um um Ladestand zu erreichen</translation>
-    </message>
-    <message>
-        <source>Zero return policy</source>
-        <translation type="vanished">Null-Rückspeise-Regelung</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="vanished">Speichern</translation>
-    </message>
-    <message>
-        <source>Target state of charge %1%</source>
-        <translation type="vanished">Zielladestand %1%</translation>
     </message>
 </context>
 <context>
@@ -689,18 +661,6 @@ Sie können Ihr Gerät auch mit dem lokalen Wifi verbinden, wenn das Leaflet üb
         <translation>Development
 </translation>
     </message>
-    <message>
-        <source>ConEMS Observer</source>
-        <translation type="vanished">ConEMS Beobachter</translation>
-    </message>
-    <message>
-        <source>User config Test</source>
-        <translation type="vanished">Nutzer config test</translation>
-    </message>
-    <message>
-        <source>CarSimulation</source>
-        <translation type="vanished">Autosimulation</translation>
-    </message>
 </context>
 <context>
     <name>DeviceOverview</name>
@@ -866,30 +826,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>Heating</source>
         <translation>Heizen</translation>
     </message>
-    <message>
-        <source>Heating configuration</source>
-        <translation type="vanished">Heizungseinstellungen</translation>
-    </message>
-    <message>
-        <source>Could not save configuration. One of the parameters is invalid.</source>
-        <translation type="vanished">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
-    </message>
-    <message>
-        <source>Could not save configuration. The thing is not valid.</source>
-        <translation type="vanished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
-    </message>
-    <message>
-        <source>Optimization enabled</source>
-        <translation type="vanished">Optimierung aktiv</translation>
-    </message>
-    <message>
-        <source>For a better optimization you can assign a heat meter which is measuring the produced heat energy of this heat pump.</source>
-        <translation type="vanished">Für eine bessere Optimierung, kann ein Wärmezähler zugewiesen werden der die erzeugte Wärme dieser Wärmepumpe misst.</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="vanished">Speichern</translation>
-    </message>
 </context>
 <context>
     <name>HeatingOptimization</name>
@@ -904,10 +840,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
-    </message>
-    <message>
-        <source>Optimization enabled</source>
-        <translation>Optimierung aktiv</translation>
     </message>
     <message>
         <source>Floor heating area</source>
@@ -944,22 +876,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
 </context>
 <context>
     <name>HemsOptimizationPage</name>
-    <message>
-        <source>Optimizations</source>
-        <translation type="vanished">Optimierungen</translation>
-    </message>
-    <message>
-        <source>Blackout protection</source>
-        <translation type="vanished">Überlastschutz</translation>
-    </message>
-    <message>
-        <source>Heating</source>
-        <translation type="vanished">Heizen</translation>
-    </message>
-    <message>
-        <source>Charging</source>
-        <translation type="vanished">Laden</translation>
-    </message>
     <message>
         <source>No optimizations available</source>
         <translation>Keine Optimierungen verfügbar</translation>
@@ -1170,18 +1086,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>PV</source>
         <translation>PV</translation>
     </message>
-    <message>
-        <source>Could not save configuration. One of the parameters is invalid.</source>
-        <translation type="obsolete">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
-    </message>
-    <message>
-        <source>Could not save configuration. The thing is not valid.</source>
-        <translation type="obsolete">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="obsolete">Speichern</translation>
-    </message>
 </context>
 <context>
     <name>PVOptimization</name>
@@ -1229,10 +1133,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
-    <message>
-        <source>skip</source>
-        <translation>überspringen</translation>
-    </message>
 </context>
 <context>
     <name>S:</name>
@@ -1244,18 +1144,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
 </context>
 <context>
     <name>SetupEVChargerWizard</name>
-    <message>
-        <source>Charging point or wallbox</source>
-        <translation type="vanished">Ladepunkt oder Wallbox</translation>
-    </message>
-    <message>
-        <source>Please select your model:</source>
-        <translation type="vanished">Bitte :</translation>
-    </message>
-    <message>
-        <source>Model:</source>
-        <translation type="vanished">Modell:</translation>
-    </message>
     <message>
         <source>cancel</source>
         <translation>abbrechen</translation>
@@ -1285,24 +1173,12 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Mehrere Ladepunkte oder Wallboxen wurden im Netzwerk gefunden. Bitte das Gerät auswählen, welches mit dem Leaflet betrieben werden soll.</translation>
     </message>
     <message>
-        <source>Solar inverter</source>
-        <translation type="vanished">Solarwechselrichter</translation>
-    </message>
-    <message>
-        <source>The charging point or wallbox has been found and set up.</source>
-        <translation type="vanished">Ladepunkt oder Wallbox wurde erfolgreich eingerichtet.</translation>
-    </message>
-    <message>
         <source>An unexpected error happened during the setup. Please verify the chargingpoint or wallbox is installed correctly and try again.</source>
         <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Ladepunkt oder Wallbox überprüfen und erneut versuchen.</translation>
     </message>
     <message>
         <source>Setup wallbox</source>
         <translation>Wallbox einrichten</translation>
-    </message>
-    <message>
-        <source>Integrated wallboxes</source>
-        <translation type="vanished">Eingerichtete Wallboxen:</translation>
     </message>
     <message>
         <source>There is no wallbox set up yet.</source>
@@ -1321,14 +1197,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Die folgende wallbox wurde gefunden:</translation>
     </message>
     <message>
-        <source>Please select the model you want to add:</source>
-        <translation type="vanished">Bitte wählen sie das Modell, welches Sie hinzufügen möchten</translation>
-    </message>
-    <message>
-        <source>Integrated wallbox list:</source>
-        <translation type="vanished">Eingerichtete Wallboxenliste:</translation>
-    </message>
-    <message>
         <source>Add wallboxes:</source>
         <translation>Füge Wallboxen hinzu:</translation>
     </message>
@@ -1340,16 +1208,8 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
 <context>
     <name>SetupEnergyMeterWizard</name>
     <message>
-        <source>Feed-in and consumption meter</source>
-        <translation type="vanished">Stromzähler</translation>
-    </message>
-    <message>
         <source>Please select your model:</source>
         <translation>Bitte Modell auswählen:</translation>
-    </message>
-    <message>
-        <source>Model:</source>
-        <translation type="vanished">Modell:</translation>
     </message>
     <message>
         <source>cancel</source>
@@ -1380,10 +1240,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Mehrere Stromzähler wurden gefunden. Bitte wähle denjenigen aus, der mit dem Leaflet betrieben werden soll.</translation>
     </message>
     <message>
-        <source>The energy meter has been found and set up.</source>
-        <translation type="vanished">Der Stromzähler wurde erfolgreich eingerichtet.</translation>
-    </message>
-    <message>
         <source>An unexpected error happened during the setup. Please verify the energy meter is installed correctly and try again.</source>
         <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Stromzähler überprüfen und erneut versuchen.</translation>
     </message>
@@ -1405,14 +1261,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Heat pump</source>
         <translation>Wärmepumpe</translation>
-    </message>
-    <message>
-        <source>Please select your model:</source>
-        <translation type="vanished">Bitte Modell auswählen:</translation>
-    </message>
-    <message>
-        <source>Model:</source>
-        <translation type="vanished">Modell:</translation>
     </message>
     <message>
         <source>cancel</source>
@@ -1443,10 +1291,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Mehrere Wärmepumpen wurden gefunden. Bitte diejenige auswählen, die mit dem Leaflet betrieben werden soll.</translation>
     </message>
     <message>
-        <source>The heat pump has been found and set up.</source>
-        <translation type="vanished">Die Wärmepumpe wurde erfolgreich eingerichtet.</translation>
-    </message>
-    <message>
         <source>An unexpected error happened during the setup. Please verify the heat pump is installed correctly and try again.</source>
         <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte überprüfen ob die Wärmepumpe korrekt installiert ist und erneut versuchen.</translation>
     </message>
@@ -1461,10 +1305,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>There is no heatpump set up yet.</source>
         <translation>Bis jetzt ist keine Wärmepumpe eingerichtet</translation>
-    </message>
-    <message>
-        <source>Please select the model you want to add:</source>
-        <translation type="vanished">Bitte wählen sie das Modell, welches Sie hinzufügen möchten</translation>
     </message>
     <message>
         <source>add</source>
@@ -1488,14 +1328,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Solar inverter</source>
         <translation>Solarwechselrichter</translation>
-    </message>
-    <message>
-        <source>Please select your model:</source>
-        <translation type="vanished">Bitte Modell auswählen:</translation>
-    </message>
-    <message>
-        <source>Model:</source>
-        <translation type="vanished">Modell:</translation>
     </message>
     <message>
         <source>cancel</source>
@@ -1526,10 +1358,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Mehrere Solarwechselrichter wurden gefunden. Bitte denjenigen auswählen, der mit dem Leaflet betrieben werden soll.</translation>
     </message>
     <message>
-        <source>The solar inverter has been found and set up.</source>
-        <translation type="vanished">Der Solarwechselrichter wrude gefunden und eingerichtet.</translation>
-    </message>
-    <message>
         <source>An unexpected error happened during the setup. Please verify the solar inverter is installed correctly and try again.</source>
         <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Solarwechselrichter überprüfen und erneut versuchen.</translation>
     </message>
@@ -1538,16 +1366,8 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Wechselrichter einrichten</translation>
     </message>
     <message>
-        <source>Integrated solar Inverter:</source>
-        <translation type="vanished">Eingerichtete Wechselrichter:</translation>
-    </message>
-    <message>
         <source>There is no inverter set up yet.</source>
         <translation>Bis jetzt ist kein Wechselrichter eingerichtet</translation>
-    </message>
-    <message>
-        <source>Please select the model you want to add:</source>
-        <translation type="vanished">Bitte wählen sie das Modell, welches Sie hinzufügen möchten</translation>
     </message>
     <message>
         <source>add</source>
@@ -1556,10 +1376,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>The following solar inverter has been found and set up:</source>
         <translation>Der folgende Wechselrichter wurde gefunden und eingerichtet</translation>
-    </message>
-    <message>
-        <source>Integrated solar inverter list:</source>
-        <translation type="vanished">Eingerichtete Wechselrichterliste:</translation>
     </message>
     <message>
         <source>Add solar Inverter: </source>
@@ -1602,14 +1418,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Your Leaflet is now configured. The following devices have been set up:</source>
         <translation>Dein Leaflet ist jetzt eingerichtet. Die folgenden Geräte wurden konfiguriert:</translation>
-    </message>
-    <message>
-        <source>Configure optimizations</source>
-        <translation type="vanished">Optimierungen einrichten</translation>
-    </message>
-    <message>
-        <source>skip</source>
-        <translation type="vanished">überspringen</translation>
     </message>
     <message>
         <source>to the Dashboard</source>

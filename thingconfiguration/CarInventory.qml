@@ -497,7 +497,7 @@ Page{
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignLeft
                         MouseArea{
-                            width: parent.width
+                            width: parent.width + deleteLabel.width
                             height: parent.height
                             onClicked:{       
                                 engine.thingManager.removeThing(thing.id)
@@ -513,6 +513,7 @@ Page{
                         }
                     }
                     Label{
+                        id: deleteLabel
                         text: qsTr("delete")
                     }
                 }
