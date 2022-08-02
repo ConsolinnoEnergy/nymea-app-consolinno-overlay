@@ -255,7 +255,7 @@
     </message>
     <message>
         <source>Running</source>
-        <translation>Läuft</translation>
+        <translation>Aktiv</translation>
     </message>
     <message>
         <source>Finished</source>

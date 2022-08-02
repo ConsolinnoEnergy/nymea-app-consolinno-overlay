@@ -947,8 +947,9 @@ Page {
                             //       How many phases does the wallbox have
                             //       generell wallbox data integrieren
                             if (carSelector.holdingItem !== false){
-                                var maxChargingCurrent = thing.stateByName("maxChargingCurrent").value
-
+                                // read the upper interval of the wallbox
+                                var maxChargingCurrent = thing.stateByName("maxChargingCurrent").maxValue
+                                header.text = maxChargingCurrent
 
 
                                 var loadingVoltage
