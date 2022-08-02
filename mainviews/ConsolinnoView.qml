@@ -1074,7 +1074,7 @@ MainViewBase {
         anchors { left: parent.left; right: parent.right; margins: app.margins }
         anchors.verticalCenter: parent.verticalCenter
         //visible: !engine.thingManager.fetchingData && root.rootMeter == null
-        visible: energyMetersProxy.count === 0
+        visible: !engine.thingManager.fetchingData && energyMetersProxy.count === 0
         property bool rootMeter: !engine.thingManager.fetchingData && root.rootMeter == null
         title: qsTr("Your leaflet is not set up yet.")
         text: qsTr("Please complete the setup wizard or manually configure your devices.")
