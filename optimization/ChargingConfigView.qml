@@ -589,7 +589,7 @@ Page {
                 visible: chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value
                 Button{
                     Layout.fillWidth: true
-                    text: qsTr("Cancel Charging Schedule")
+                    text:  status.state == 3 ? qsTr("Start new charging schedule") : qsTr("Cancel Charging Schedule" )
                     onClicked: {
                         hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: false})
                     }
@@ -856,13 +856,14 @@ Page {
 
                 RowLayout{
                     Layout.fillWidth: true
+                    visible:  (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 1 )
                     Label {
                         id: endTimeLabel
                         Layout.fillWidth: true
                         property var today: new Date()
                         property var endTime: new Date(today.getTime() + endTimeSlider.value * 60000)
                         text: qsTr("Ending time: ") + endTime.toLocaleString(Qt.locale("de-DE"), "dd.MM HH:mm")
-                        visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode !== 2)
+
 
                         function endTimeValidityPrediction(d){
 
@@ -886,7 +887,7 @@ Page {
 
                 RowLayout {
                     Layout.fillWidth: true
-
+                    visible:  (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 1 )
                     Slider {
                         id: endTimeSlider
                         Layout.fillWidth: true
@@ -904,7 +905,7 @@ Page {
                         property var batteryContentInAh
                         property var minChargingCurrent
 
-                        visible:  (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode !== 2)
+
 
                         from: 0
                         to: 24*60
@@ -942,8 +943,8 @@ Page {
 
                         function computeFeasibility(){
 
-                            // TODo: Ladespannung von Wallbox ermittlen
-                            //       Wieviel phasen hat die Wallbox
+                            // TODo: Determine charging Voltage of wallbox
+                            //       How many phases does the wallbox have
                             //       generell wallbox data integrieren
                             if (carSelector.holdingItem !== false){
                                 var maxChargingCurrent = thing.stateByName("maxChargingCurrent").value
