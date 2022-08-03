@@ -36,6 +36,8 @@ Page{
         groupByInterface: true
     }
 
+
+
     QtObject {
         id: d
         property var vendorId: null
@@ -55,6 +57,7 @@ Page{
         function updateThing(thing) {
 
             for(var i = 0; i < d.states.length; i++){
+
                 thing.executeAction( d.states[i].name, [{ paramName: d.states[i].name , value: d.states[i].value }])
 
             }
@@ -127,10 +130,6 @@ Page{
                                         })
                                     }
                                 }
-
-
-
-
                             }
 
                         }
@@ -270,7 +269,7 @@ Page{
                         {id: "name", name: "Name: ", displayName: qsTr("Name: "), component: nameComponent, type: "name", Uuid: "", info: ""  },
                         {id: "capacity", name: "Battery capacity", displayName: qsTr("Battery capacity"),component: capacityComponent, type: "setting", Uuid: "57f36386-dd71-4ab0-8d2f-8c74a391f90d", info: "Capacity.qml"  },
                         {id: "minChargingCurrent", name: "Minimum charging current", displayName: qsTr("Minimum charging current"), component: minimumChargingCurrentComponent, type: "setting", Uuid: "0c55516d-4285-4d02-8926-1dae03649e18", info: "MinimumChargingCurrent.qml"},
-                        {id: "maxChargingLimit", name: "Maximum charging limit" , displayName: qsTr("Maximum charging limit"), component: maximumAllowedChargingLimitComponent, type: "attr", Uuid: "", info: "MaximumAllowedChargingLimit.qml" },
+                        {id: "batteryLevelLimit", name: "Maximum charging limit" , displayName: qsTr("Maximum charging limit"), component: maximumAllowedChargingLimitComponent, type: "state", Uuid: "70cbfe6a-6119-4434-8a06-2d6b7c9a30ea", info: "MaximumAllowedChargingLimit.qml" },
 
 
                     ]
@@ -321,7 +320,7 @@ Page{
                                 Layout.rightMargin: 0
                                 sourceComponent: {
                                     switch(modelData.id){
-                                    case "maxChargingLimit":
+                                    case "batteryLevelLimit":
                                     {
                                         return maximumAllowedChargingLimitComponent
                                     }
@@ -365,10 +364,10 @@ Page{
                             from: 0
                             to: 100
                             stepSize: 1
-                            value: 100
+                            value: thing ? thing.stateByName("batteryLevelLimit").value : 100
 
                             onPositionChanged:{
-                                customRepeater.attributes["maxChargingLimit"] = value
+                                customRepeater.attributes["batteryLevelLimit"] = value
                             }
 
                         }
