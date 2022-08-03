@@ -308,11 +308,11 @@ Page {
                         {
                             return qsTr("No optimization")
                         }
-                        else if (chargingConfiguration.optimizationMode === 1)
+                        else if (chargingConfiguration.optimizationMode >= 1000 && chargingConfiguration.optimizationMode <= 2000)
                         {
                             return qsTr("PV optimized")
                         }
-                        else if (chargingConfiguration.optimizationMode === 2)
+                        else if (chargingConfiguration.optimizationMode >= 2000 && chargingConfiguration.optimizationMode <= 3000  )
                         {
                             return qsTr("PV only")
                         }
@@ -1022,8 +1022,8 @@ Page {
                     Layout.fillWidth: true
                     model: ListModel{
                         ListElement{key: qsTr("Charge with minimum current"); mode: 0}
-                        ListElement{key: qsTr("Cancel charging"); mode: 1}
-                        ListElement{key: qsTr("Pause charging"); mode: 2}
+                        ListElement{key: qsTr("Cancel charging"); mode: 100}
+                        ListElement{key: qsTr("Pause charging"); mode: 200}
 
 
 
