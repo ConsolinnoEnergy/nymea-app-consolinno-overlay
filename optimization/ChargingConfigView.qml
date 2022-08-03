@@ -1010,6 +1010,58 @@ Page {
                 }
 
 
+                RowLayout
+                {
+                visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 2)
+                Label{
+                    id: allowBreaksLabel
+                    Layout.fillWidth: true
+                    Layout.minimumWidth: 50
+                    Layout.preferredWidth: 100
+                    Layout.maximumWidth: app.width
+                    Layout.alignment: Qt.AlignLeft
+                    text: qsTr("Allow charging breaks:")
+                    wrapMode: Text.WordWrap
+
+                }
+
+                CheckBox{
+                    id: allowBreaksCheckbox
+                    Layout.alignment: Qt.AlignRight
+                    Layout.rightMargin: app.margins
+
+                }
+
+
+                }
+
+                RowLayout
+                {
+                visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 2)
+                Label{
+                    id: cancelBreaksLabel
+                    Layout.fillWidth: true
+                    Layout.minimumWidth: 50
+                    Layout.preferredWidth: 100
+                    Layout.maximumWidth: app.width
+                    Layout.alignment: Qt.AlignLeft
+                    text: qsTr("Cancel on breaks:")
+                    wrapMode: Text.WordWrap
+                }
+
+                CheckBox{
+                    id: cancelBreaksCheckbox
+                    Layout.alignment: Qt.AlignRight
+                    Layout.rightMargin: app.margins
+
+                }
+
+
+                }
+
+
+
+
 
 
                 Item {
