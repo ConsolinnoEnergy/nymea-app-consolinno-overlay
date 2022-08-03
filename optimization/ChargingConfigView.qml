@@ -728,8 +728,8 @@ Page {
                         x: carSelector.x
                         model: ListModel{
                             ListElement{key: qsTr("No optimization"); value: "No Optimization"; mode: 0}
-                            ListElement{key: qsTr("PV optimized"); value: "Pv-Optimized"; mode: 1}
-                            ListElement{key: qsTr("PV only"); value: "Pv-Only"; mode: 2}
+                            ListElement{key: qsTr("PV optimized"); value: "Pv-Optimized"; mode: 1000}
+                            ListElement{key: qsTr("PV only"); value: "Pv-Only"; mode: 2000}
 
 
 
@@ -856,7 +856,7 @@ Page {
 
                 RowLayout{
                     Layout.fillWidth: true
-                    visible:  (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 1 )
+                    visible:  (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 1000 )
                     Label {
                         id: endTimeLabel
                         Layout.fillWidth: true
@@ -887,7 +887,7 @@ Page {
 
                 RowLayout {
                     Layout.fillWidth: true
-                    visible:  (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 1 )
+                    visible:  (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 1000 )
                     Slider {
                         id: endTimeSlider
                         Layout.fillWidth: true
@@ -995,7 +995,7 @@ Page {
 
                 RowLayout
                 {
-                visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode !== 2)
+                visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode !== 2000)
                 Label
                     {
                     id: feasibilityMessage
@@ -1008,6 +1008,33 @@ Page {
                     }
 
                 }
+
+
+                Label{
+                    visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 2000) && settings.showHiddenOptions
+                    id: gridConsumptionLabel
+                    text: qsTr("Grid consumption:")
+                }
+
+                ComboBox {
+                    visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 2000) && settings.showHiddenOptions
+                    id: gridConsumptionloadingmod
+                    Layout.fillWidth: true
+                    model: ListModel{
+                        ListElement{key: qsTr("Charge with minimum current"); mode: 0}
+                        ListElement{key: qsTr("Cancel charging"); mode: 1}
+                        ListElement{key: qsTr("Pause charging"); mode: 2}
+
+
+
+                    }
+                    textRole: "key"
+                }
+
+
+
+
+
 
 
 
@@ -1040,11 +1067,18 @@ Page {
                             if (carSelector.holdingItem.stateByName("batteryLevel").value){
                                 carSelector.holdingItem.executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batteryLevel.value }])
                             }
-
                             pageSelectedCar = carSelector.holdingItem.name
 
+                            var optimizationMode = compute_OptimizationMode()
+
+                            // TODO: when ConEMS finished no need for this if statement anymore
+                            if(!settings.showHiddenOptions){
+                                optimizationMode = Math.floor(optimizationMode/1000)
+                            }
+
+
                             hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
-                            hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode })
+                            hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode })
 
                             optimizationPage.done()
                             pageStack.pop()
@@ -1054,6 +1088,18 @@ Page {
                             footer.visible = true
                         }
 
+                    }
+
+
+                    function compute_OptimizationMode(){
+                        var mode = comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode
+                        if(mode === 2000){
+                            // single diget
+                            var gridConsumptionOption = gridConsumptionloadingmod.model.get(gridConsumptionloadingmod.currentIndex).mode
+
+                            mode = mode + gridConsumptionOption
+                        }
+                        return mode
                     }
                 }
             }
