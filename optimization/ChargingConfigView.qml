@@ -177,7 +177,7 @@ Page {
             RowLayout{
 
                 Label {
-                    id: pluggedInLagel
+                    id: pluggedInLabel
                     Layout.fillWidth: true
                     text: qsTr("Car plugged in:")
 
@@ -947,9 +947,7 @@ Page {
                             //       How many phases does the wallbox have
                             //       generell wallbox data integrieren
                             if (carSelector.holdingItem !== false){
-                                // read the upper interval of the wallbox
                                 var maxChargingCurrent = thing.stateByName("maxChargingCurrent").maxValue
-                                header.text = maxChargingCurrent
 
 
                                 var loadingVoltage
