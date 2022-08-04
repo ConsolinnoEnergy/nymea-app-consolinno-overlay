@@ -9,7 +9,7 @@
 	<key>CFBundleGetInfoString</key>
 	<string>Created by Qt/QMake</string>
         <key>CFBundleIdentifier</key>
-        <string>hems.consolinno.energy</string>
+        <string>consolinno.hems.energy</string>
 	<key>CFBundleName</key>
         <string>consolinno-energy</string>
 	<key>CFBundlePackageType</key>
