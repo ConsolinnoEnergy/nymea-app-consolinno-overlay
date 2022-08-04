@@ -10,7 +10,6 @@ Page {
     id: root
     header: NymeaHeader {
         text: qsTr("Charging optimization")
-        //text: ev_chargerProxy.get(0).id
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
