@@ -10,6 +10,8 @@
 #include "Configurations/pvconfigurations.h"
 #include "Configurations/conemsstates.h"
 #include "Configurations/userconfigurations.h"
+#include "Configurations/chargingoptimizationconfigurations.h"
+
 
 #include "Configurations/conemsstate.h"
 
@@ -26,6 +28,7 @@ class HemsManager : public QObject
     Q_PROPERTY(uint housholdPhaseLimit READ housholdPhaseLimit NOTIFY housholdPhaseLimitChanged)
     Q_PROPERTY(HeatingConfigurations *heatingConfigurations READ heatingConfigurations CONSTANT)
     Q_PROPERTY(ChargingConfigurations *chargingConfigurations READ chargingConfigurations CONSTANT)
+    Q_PROPERTY(ChargingOptimizationConfigurations *chargingOptimizationConfigurations READ chargingOptimizationConfigurations CONSTANT)
     Q_PROPERTY(PvConfigurations *pvConfigurations READ pvConfigurations CONSTANT)
     Q_PROPERTY(ChargingSessionConfigurations *chargingSessionConfigurations READ chargingSessionConfigurations CONSTANT)
     Q_PROPERTY(ConEMSStates *conEMSStates READ conEMSStates CONSTANT)
@@ -63,6 +66,7 @@ public:
 
     HeatingConfigurations *heatingConfigurations() const;
     ChargingConfigurations *chargingConfigurations() const;
+    ChargingOptimizationConfigurations *chargingOptimizationConfigurations() const;
     PvConfigurations *pvConfigurations() const;
     ChargingSessionConfigurations *chargingSessionConfigurations() const;
     ConEMSStates *conEMSStates() const;
@@ -72,6 +76,7 @@ public:
     Q_INVOKABLE int setPvConfiguration(const QUuid &pvThingId, const QVariantMap &data);
     Q_INVOKABLE int setHeatingConfiguration(const QUuid &heatPumpThingId, const QVariantMap &data);
     Q_INVOKABLE int setChargingConfiguration(const QUuid &evChargerThingId, const QVariantMap &data );
+    Q_INVOKABLE int setChargingOptimizationConfiguration(const QUuid &evChargerThingId, const QVariantMap &data );
     Q_INVOKABLE int setUserConfiguration(const QVariantMap &data);
 
     // read only
@@ -88,6 +93,7 @@ signals:
 
     void chargingSessionConfigurationChanged(ChargingSessionConfiguration *configuration);
     void chargingConfigurationChanged(ChargingConfiguration *configuration);
+    void chargingOptimizationConfigurationChanged(ChargingOptimizationConfiguration *configuration);
     void conEMSStateChanged(ConEMSState *state);
     void pvConfigurationChanged(PvConfiguration *configuration);
     void userConfigurationChanged(UserConfiguration *configuration);
@@ -98,6 +104,7 @@ signals:
     void setPvConfigurationReply(int commandId, const QString &error);
     void setHeatingConfigurationReply(int commandId, const QString &error);
     void setChargingConfigurationReply(int commandId, const QString &error);
+    void setChargingOptimizationConfigurationReply(int commandId, const QString &error);
     void setChargingSessionConfigurationReply(int commandId, const QString &error);
     void setConEMSStateReply(int commandId, const QString &error);
     void setUserConfigurationReply(int commandId, const QString &error);
@@ -112,6 +119,7 @@ private slots:
 
     Q_INVOKABLE void getHeatingConfigurationsResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getChargingConfigurationsResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void getChargingOptimizationConfigurationsResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getChargingSessionConfigurationsResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getPvConfigurationsResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getConEMSStatesResponse(int commandId, const QVariantMap &data);
@@ -123,6 +131,7 @@ private slots:
     Q_INVOKABLE void setPvConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setHeatingConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setChargingConfigurationResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void setChargingOptimizationConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setChargingSessionConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setConEMSStateResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setUserConfigurationResponse(int commandId, const QVariantMap &data);
@@ -137,6 +146,7 @@ private:
 
     HeatingConfigurations *m_heatingConfigurations = nullptr;
     ChargingConfigurations *m_chargingConfigurations = nullptr;
+    ChargingOptimizationConfigurations *m_chargingOptimizationConfigurations = nullptr;
     ChargingSessionConfigurations *m_chargingSessionConfigurations = nullptr;
     PvConfigurations *m_pvConfigurations = nullptr;
     ConEMSStates *m_conEMSStates = nullptr;
@@ -145,6 +155,7 @@ private:
 
     void addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateChargingConfiguration(const QVariantMap &configurationMap);
+    void addOrUpdateChargingOptimizationConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateChargingSessionConfiguration(const QVariantMap &configurationMap);
     void addOrUpdatePvConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateConEMSState(const QVariantMap &configurationMap);

@@ -11,6 +11,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
 {
     m_heatingConfigurations = new HeatingConfigurations(this);
     m_chargingConfigurations = new ChargingConfigurations(this);
+    m_chargingOptimizationConfigurations = new ChargingOptimizationConfigurations(this);
     m_pvConfigurations = new PvConfigurations(this);
     m_chargingSessionConfigurations = new ChargingSessionConfigurations(this);
     m_conEMSStates = new ConEMSStates(this);
@@ -67,6 +68,7 @@ void HemsManager::setEngine(Engine *engine)
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHousholdPhaseLimit", QVariantMap(), this, "getHousholdPhaseLimitResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingConfigurations", QVariantMap(), this, "getHeatingConfigurationsResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingConfigurations", QVariantMap(), this, "getChargingConfigurationsResponse");
+        m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingOptimizationConfigurations", QVariantMap(), this, "getChargingOptimizationConfigurationsResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetPvConfigurations", QVariantMap(), this, "getPvConfigurationsResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingSessionConfigurations", QVariantMap(), this, "getChargingSessionConfigurationsResponse");
 
@@ -108,6 +110,11 @@ HeatingConfigurations *HemsManager::heatingConfigurations() const
 ChargingConfigurations *HemsManager::chargingConfigurations() const
 {
     return m_chargingConfigurations;
+}
+
+ChargingOptimizationConfigurations *HemsManager::chargingOptimizationConfigurations() const
+{
+    return m_chargingOptimizationConfigurations;
 }
 
 ChargingSessionConfigurations *HemsManager::chargingSessionConfigurations() const
@@ -217,24 +224,53 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingConfiguration", params, this, "setHeatingConfigurationResponse");
 }
 
-int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const QVariantMap &data )
+
+int HemsManager::setChargingOptimizationConfiguration(const QUuid &evChargerThingId, const QVariantMap &data )
 {
 
+    ChargingOptimizationConfiguration *configuration = m_chargingOptimizationConfigurations->getChargingOptimizationConfiguration(evChargerThingId);
+    // if the configuration does not exist yet. Set up a dummy configuration
+    // This ensures that if the Thing does not exist that the program wont crash
+    if (!configuration){
+        qCDebug(dcHems()) << "Adding a dummy Config" << evChargerThingId;
+        QVariantMap dummyConfig;
+        QUuid DummyIdentifier;
+        dummyConfig.insert("evChargerThingId", evChargerThingId);
+        dummyConfig.insert("reenableChargepoint", false);
+        addOrUpdateChargingOptimizationConfiguration(dummyConfig);
+        // and get the dummy Config
+        configuration =  m_chargingOptimizationConfigurations->getChargingOptimizationConfiguration(evChargerThingId);
+    }
 
-//    QVariantMap chargingConfiguration;
-//    if (uniqueIdentifier.toString() == "{00000000-0000-0000-0000-000000000000}"){
-//        QUuid DummyIdentifier;
-//        chargingConfiguration.insert("uniqueIdentifier", DummyIdentifier.createUuid());
-//    }else{
-//        chargingConfiguration.insert("uniqueIdentifier", uniqueIdentifier);
-//    }
+    // Make a MetaObject of an configuration
+    const QMetaObject *metaObj = configuration->metaObject();
+    // add the values from data which match with the MetaObject
+    QVariantMap config;
+    for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
+        if(data.contains(metaObj->property(i).name()))
+            {
+                //qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
+                config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
+            }else{
+                //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
+                config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
+            }
+    }
 
-//    chargingConfiguration.insert("evChargerThingId", evChargerThingId);
-//    chargingConfiguration.insert("optimizationEnabled", optimizationEnabled);
-//    chargingConfiguration.insert("optimizationMode", optimizationMode);
-//    chargingConfiguration.insert("carThingId", carThingId);
-//    chargingConfiguration.insert("endTime", QTime(hours,minutes).toString() );
-//    chargingConfiguration.insert("targetPercentage", targetPercentage);
+
+
+    QVariantMap params;
+    params.insert("chargingOptimizationConfiguration", config);
+
+    qCWarning(dcHems()) << "Set charging Optimization configuration" << params;
+    return m_engine->jsonRpcClient()->sendCommand("Hems.SetChargingOptimizationConfiguration", params, this, "setChargingOptimizationConfigurationResponse");
+}
+
+
+
+
+int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const QVariantMap &data )
+{
 
     ChargingConfiguration *configuration = m_chargingConfigurations->getChargingConfiguration(evChargerThingId);
     // if the configuration does not exist yet. Set up a dummy configuration
@@ -270,8 +306,6 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
                 config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
             }
     }
-
-
 
     QVariantMap params;
     params.insert("chargingConfiguration", config);
@@ -377,7 +411,7 @@ int HemsManager::setUserConfiguration(const QVariantMap &data){
 }
 
 
-
+// notification Handling -> atm mostly for added, removed, changed
 void HemsManager::notificationReceived(const QVariantMap &data)
 {
     QString notification = data.value("notification").toString();
@@ -403,7 +437,15 @@ void HemsManager::notificationReceived(const QVariantMap &data)
         qCDebug(dcHems()) << "Charging configuration removed" << params.value("evChargerThingId").toUuid();
         m_chargingConfigurations->removeConfiguration(params.value("evChargerThingId").toUuid());
     } else if (notification == "Hems.ChargingConfigurationChanged") {
-        addOrUpdateChargingConfiguration(params.value("chargingConfiguration").toMap()); 
+        addOrUpdateChargingConfiguration(params.value("chargingConfiguration").toMap());
+
+    } else if (notification == "Hems.ChargingOptimizationConfigurationAdded") {
+        addOrUpdateChargingOptimizationConfiguration(params.value("chargingOptimizationConfiguration").toMap());
+    } else if (notification == "Hems.ChargingOptimizationConfigurationRemoved") {
+        qCDebug(dcHems()) << "Charging configuration removed" << params.value("evChargerThingId").toUuid();
+        m_chargingOptimizationConfigurations->removeConfiguration(params.value("evChargerThingId").toUuid());
+    } else if (notification == "Hems.ChargingOptimizationConfigurationChanged") {
+        addOrUpdateChargingOptimizationConfiguration(params.value("chargingOptimizationConfiguration").toMap());
     } else if (notification == "Hems.ConEMSStateChanged") {
         qCDebug(dcHems()) << "ConEMSStateChanged Notification";
         addOrUpdateConEMSState(params.value("conEMSState").toMap());
@@ -498,6 +540,20 @@ void HemsManager::getChargingConfigurationsResponse(int commandId, const QVarian
 }
 
 
+void HemsManager::getChargingOptimizationConfigurationsResponse(int commandId, const QVariantMap &data)
+{
+    Q_UNUSED(commandId);
+    qCDebug(dcHems()) << "Charging Optimization configuration" << data;
+    foreach (const QVariant &configurationVariant, data.value("chargingOptimizationConfigurations").toList()) {
+        addOrUpdateChargingOptimizationConfiguration(configurationVariant.toMap());
+    }
+
+    // Last call from init sequence
+    m_fetchingData = false;
+    emit fetchingDataChanged();
+}
+
+
 void HemsManager::getChargingSessionConfigurationsResponse(int commandId, const QVariantMap &data)
 {
     Q_UNUSED(commandId);
@@ -562,6 +618,15 @@ void HemsManager::setChargingConfigurationResponse(int commandId, const QVariant
     qCDebug(dcHems()) << "Set charging configuration response" << data.value("hemsError").toString();
     emit setChargingConfigurationReply(commandId, data.value("hemsError").toString());
 }
+
+
+void HemsManager::setChargingOptimizationConfigurationResponse(int commandId, const QVariantMap &data)
+{
+
+    qCDebug(dcHems()) << "Set charging Optimization configuration response" << data.value("hemsError").toString();
+    emit setChargingOptimizationConfigurationReply(commandId, data.value("hemsError").toString());
+}
+
 
 void HemsManager::setChargingSessionConfigurationResponse(int commandId, const QVariantMap &data)
 {
@@ -642,6 +707,30 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
         emit chargingConfigurationChanged(configuration);
     }
 }
+
+void HemsManager::addOrUpdateChargingOptimizationConfiguration(const QVariantMap &configurationMap)
+{
+    QUuid evChargerUuid = configurationMap.value("evChargerThingId").toUuid();
+    ChargingOptimizationConfiguration *configuration = m_chargingOptimizationConfigurations->getChargingOptimizationConfiguration(evChargerUuid);
+    bool newConfiguration = false;
+    if (!configuration) {
+        newConfiguration = true;
+        configuration = new ChargingOptimizationConfiguration(this);
+        configuration->setEvChargerThingId(evChargerUuid);
+    }
+
+    configuration->setReenableChargepoint(configurationMap.value("reenableChargepoint").toBool());
+
+
+    if (newConfiguration) {
+        qCDebug(dcHems()) << "Charging Optimization configuration added" << configuration->evChargerThingId();
+        m_chargingOptimizationConfigurations->addConfiguration(configuration);
+    } else {
+        qCDebug(dcHems()) << "Charging Optimization configuration changed" << configuration->evChargerThingId();
+        emit chargingOptimizationConfigurationChanged(configuration);
+    }
+}
+
 
 void HemsManager::addOrUpdateChargingSessionConfiguration(const QVariantMap &configurationMap)
 {

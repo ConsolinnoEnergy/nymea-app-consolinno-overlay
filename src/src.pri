@@ -1,5 +1,7 @@
 HEADERS += \
     $$PWD/Configurations/chargingconfigurations.h \
+    $$PWD/Configurations/chargingoptimizationconfiguration.h \
+    $$PWD/Configurations/chargingoptimizationconfigurations.h \
     $$PWD/Configurations/chargingsessionconfiguration.h \
     $$PWD/Configurations/chargingsessionconfigurations.h \
     $$PWD/Configurations/conemsstate.h \
@@ -17,6 +19,8 @@ HEADERS += \
 SOURCES += \
     $$PWD/Configurations/chargingconfiguration.cpp \
     $$PWD/Configurations/chargingconfigurations.cpp \
+    $$PWD/Configurations/chargingoptimizationconfiguration.cpp \
+    $$PWD/Configurations/chargingoptimizationconfigurations.cpp \
     $$PWD/Configurations/chargingsessionconfiguration.cpp \
     $$PWD/Configurations/chargingsessionconfigurations.cpp \
     $$PWD/Configurations/conemsstate.cpp \
