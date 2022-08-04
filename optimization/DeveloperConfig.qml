@@ -29,6 +29,9 @@ Page {
         useCasesModel.append({ text: "ConEMS Observer", link: "../thingconfiguration/ConEMSObserver.qml", attributes: {hemsManager: hemsManager} })
         useCasesModel.append({ text: "User config Test", link: "../optimization/UserConfig.qml", attributes: {hemsManager: hemsManager} })
         useCasesModel.append({ text: "Installer Data Test", link: "../wizards/InstallerDataView.qml", attributes: {hemsManager: hemsManager} })
+        useCasesModel.append({ text: "ChargingOptimization ConfigTest", link: "../optimization/ChargingOptimization.qml", attributes: {hemsManager: hemsManager} })
+
+
     }
 
 
