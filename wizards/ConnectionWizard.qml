@@ -11,8 +11,8 @@ ConsolinnoWizardPageBase {
     showBackButton: false
     showNextButton: false
     background: Item{}
-
-    onNext: pageStack.push(privacyPolicyComponent)
+    // change this to privacyPolicyComponent when the Policy is there
+    onNext: pageStack.push(connectionInfo)
 
     function exitWizard() {
         pageStack.pop(root, StackView.Immediate)

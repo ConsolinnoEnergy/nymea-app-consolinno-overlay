@@ -651,7 +651,7 @@ Page {
                     ConsolinnoItemDelegate {
                         id: carSelector
                         Layout.fillWidth: true
-                        Layout.maximumWidth: 250
+                        Layout.maximumWidth: 200
 
                         text:  evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar).name : qsTr("Select/Add Car")
                         //progressionsIcon: "add"
@@ -693,7 +693,7 @@ Page {
 
 
                 RowLayout{
-                    Layout.fillWidth: true
+                    Layout.preferredWidth: app.width
                     Layout.topMargin: 10
 
 
@@ -720,10 +720,8 @@ Page {
 
                     ComboBox {
                         id: comboboxloadingmod
-                        //Layout.fillWidth: true
-                        Layout.maximumWidth: 300
-                        Layout.preferredWidth: 250
-                        Layout.minimumWidth: 100
+                        Layout.fillWidth: true
+                        Layout.maximumWidth: 200
                         Layout.alignment: Qt.AlignRight
                         x: carSelector.x
                         model: ListModel{
@@ -1013,7 +1011,7 @@ Page {
                 Label{
                     visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 2000) && settings.showHiddenOptions
                     id: gridConsumptionLabel
-                    text: qsTr("Grid consumption:")
+                    text: qsTr("Behaviour on grid consumption:")
                 }
 
                 ComboBox {
