@@ -19,14 +19,13 @@ Page {
         onConEMSStateChanged:
         {
             update_Controller(conState)
-
-            conEMSStates.append({timestamp: translate_time(conState.timestamp) , currentState: translate_CurrentState(conState.currentState)})
+            conEMSStates.append({currentState: translate_CurrentState(conState.currentState)})
             if(conEMSStates.count > 200){
                 conEMSStates.remove(0)
             }
 
         }
-
+        // if more controller come -> add an if statement here
         function update_Controller(conState){
 
             conEMSControllerlistview.model.clear()
@@ -57,13 +56,8 @@ Page {
 
         }
 
-        function translate_time(duration){
-
-            var hours   = Math.floor(duration/3600)
-            var minutes = Math.floor((duration - hours*3600)/60)
-            var seconds = Math.floor(duration - hours*3600 - minutes*60)
-            return (hours === 0) ? (minutes == 0 ? seconds + qsTr("s")  :  minutes + qsTr("min ") + seconds + qsTr("s")   ) : hours + qsTr("h") + " " + minutes + qsTr("min ") + seconds + qsTr("s")
-
+        function translate_time(timestamp){
+            return timestamp
 
 
         }
@@ -114,7 +108,7 @@ Page {
                     width: listView.width
                     maximumLineCount: 2
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                    text: Qt.formatDateTime(new Date(), "HH:mm")+ qsTr(":  Current State: ") + currentState + qsTr("    started: ")+ timestamp + qsTr(" ago.")
+                    text: Qt.formatDateTime(new Date(), "HH:mm:ss")+ qsTr(":  Current State:  ") + currentState
                     color: {
                         if (currentState === "Error"){
                             return "red"
@@ -147,9 +141,6 @@ Page {
             font.pixelSize: 20
 
         }
-
-
-
 
 
         ListView{
