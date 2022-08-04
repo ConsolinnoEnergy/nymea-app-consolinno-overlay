@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
         <string>AppIcon.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>hems.consolinno.energy</string>
+	<string>consolinno.hems.energy</string>
         <key>CFBundleVersion</key>
         <string>$$APP_REVISION</string>
         <key>CFBundleShortVersionString</key>
