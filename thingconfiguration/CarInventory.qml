@@ -120,7 +120,7 @@ Page{
                             onClicked:{
 
                                 for (var i = 0; i<thingClassesProxy.count; i++){
-                                    if (thingClassesProxy.get(i).id.toString() === "{dbe0a9ff-94ba-4a94-ae52-51da3f05c717}"  ){
+                                    if (thingClassesProxy.get(i).id.toString() === "{dbe0a9ff-94ba-4a94-ae52-51da3f05c717}" || thingClassesProxy.get(i).id.toString() === "{0d6151d6-e013-47ab-a8c1-9c516a2c8664}"  ){
                                         var page = pageStack.push("../thingconfiguration/AddGenericCar.qml" , {thingClass: thingClassesProxy.get(i)})
                                         page.done.connect(function(attr){
                                             pageStack.pop()
