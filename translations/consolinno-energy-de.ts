@@ -333,6 +333,26 @@
         <source>Select/Add Car</source>
         <translation>hinzufügen/wähle Auto</translation>
     </message>
+    <message>
+        <source>Start new charging schedule</source>
+        <translation>Starte neuen Ladevorgang</translation>
+    </message>
+    <message>
+        <source>Charge with minimum current</source>
+        <translation>Laden mit minimaler Leistung</translation>
+    </message>
+    <message>
+        <source>Cancel charging</source>
+        <translation>Abbrechen des Ladevorgangs</translation>
+    </message>
+    <message>
+        <source>Pause charging</source>
+        <translation>Pausieren des Ladevorgangs</translation>
+    </message>
+    <message>
+        <source>Behaviour on grid consumption:</source>
+        <translation>Verhalten bei ungenügender PV-Erzeugung:</translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -371,6 +391,17 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
     </message>
 </context>
 <context>
+    <name>ChargingOptimization</name>
+    <message>
+        <source>Charging optimization</source>
+        <translation>Ladeoptimierung</translation>
+    </message>
+    <message>
+        <source>Test that</source>
+        <translation>testen</translation>
+    </message>
+</context>
+<context>
     <name>ConEMSObserver</name>
     <message>
         <source>Charging Controller</source>
@@ -401,36 +432,16 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
         <translation>Fehler</translation>
     </message>
     <message>
-        <source>s</source>
-        <translation>s</translation>
-    </message>
-    <message>
-        <source>min </source>
-        <translation>min</translation>
-    </message>
-    <message>
-        <source>h</source>
-        <translation>h</translation>
-    </message>
-    <message>
         <source>ConEMS Observer</source>
         <translation>ConEMS Beobachter</translation>
     </message>
     <message>
-        <source>:  Current State: </source>
-        <translation>:  Momentaner Status</translation>
-    </message>
-    <message>
-        <source>    started: </source>
-        <translation>    ist vor: </translation>
-    </message>
-    <message>
-        <source> ago.</source>
-        <translation> gestartet</translation>
-    </message>
-    <message>
         <source>Active controller: </source>
         <translation>Active Regler</translation>
+    </message>
+    <message>
+        <source>:  Current State:  </source>
+        <translation>:  Status:  </translation>
     </message>
 </context>
 <context>

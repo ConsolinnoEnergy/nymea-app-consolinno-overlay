@@ -333,6 +333,26 @@
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Start new charging schedule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charge with minimum current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pause charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Behaviour on grid consumption:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -370,6 +390,17 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
 </context>
 <context>
+    <name>ChargingOptimization</name>
+    <message>
+        <source>Charging optimization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Test that</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConEMSObserver</name>
     <message>
         <source>Charging Controller</source>
@@ -400,35 +431,15 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>min </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>h</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>ConEMS Observer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>:  Current State: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>    started: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> ago.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Active controller: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>:  Current State:  </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
