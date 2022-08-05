@@ -308,11 +308,11 @@ Page {
                         {
                             return qsTr("No optimization")
                         }
-                        else if (chargingConfiguration.optimizationMode >= 1000 && chargingConfiguration.optimizationMode <= 2000)
+                        else if (chargingConfiguration.optimizationMode >= 1000 && chargingConfiguration.optimizationMode < 2000)
                         {
                             return qsTr("PV optimized")
                         }
-                        else if (chargingConfiguration.optimizationMode >= 2000 && chargingConfiguration.optimizationMode <= 3000  )
+                        else if (chargingConfiguration.optimizationMode >= 2000 && chargingConfiguration.optimizationMode < 3000  )
                         {
                             return qsTr("PV only")
                         }
