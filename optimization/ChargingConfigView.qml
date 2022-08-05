@@ -307,12 +307,12 @@ Page {
                         if (chargingConfiguration.optimizationMode === 0)
                         {
                             return qsTr("No optimization")
-                        }
-                        else if (chargingConfiguration.optimizationMode >= 1000 && chargingConfiguration.optimizationMode < 2000)
+                        }                                                                                                                      // Legacy will be deleted
+                        else if ((chargingConfiguration.optimizationMode >= 1000 && chargingConfiguration.optimizationMode < 2000) || chargingConfiguration.optimizationMode === 1)
                         {
                             return qsTr("PV optimized")
-                        }
-                        else if (chargingConfiguration.optimizationMode >= 2000 && chargingConfiguration.optimizationMode < 3000  )
+                        }                                                                                                                      // Legacy will be deleted
+                        else if (chargingConfiguration.optimizationMode >= 2000 && chargingConfiguration.optimizationMode < 3000 || chargingConfiguration.optimizationMode === 2 )
                         {
                             return qsTr("PV only")
                         }
@@ -1091,12 +1091,14 @@ Page {
 
                     function compute_OptimizationMode(){
                         var mode = comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode
+
                         if(mode === 2000){
                             // single diget
                             var gridConsumptionOption = gridConsumptionloadingmod.model.get(gridConsumptionloadingmod.currentIndex).mode
 
                             mode = mode + gridConsumptionOption
                         }
+
                         return mode
                     }
                 }
