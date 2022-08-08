@@ -312,7 +312,7 @@ Page {
                         {
                             return qsTr("PV optimized")
                         }                                                                                                                      // Legacy will be deleted
-                        else if (chargingConfiguration.optimizationMode >= 2000 && chargingConfiguration.optimizationMode < 3000 || chargingConfiguration.optimizationMode === 2 )
+                        else if ((chargingConfiguration.optimizationMode >= 2000 && chargingConfiguration.optimizationMode < 3000) || chargingConfiguration.optimizationMode === 2 )
                         {
                             return qsTr("PV only")
                         }
@@ -334,7 +334,7 @@ Page {
 
             RowLayout{
                 Layout.topMargin: 15
-                visible: chargingConfiguration.optimizationMode === 2 ? false : true
+                visible: !(chargingConfiguration.optimizationMode === 2 || (chargingConfiguration.optimizationMode >= 2000 && chargingConfiguration.optimizationMode < 3000 ))
                 Label{
                     id: targetChargeReachedLabel
                     Layout.fillWidth: true
@@ -348,7 +348,7 @@ Page {
                     // determine whether it is today or tomorrow
                     property var date: (parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) < today.getHours() ) | ( ( parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) === today.getHours() ) & parseInt(chargingConfiguration.endTime[3]+chargingConfiguration.endTime[4]) >= today.getMinutes() ) ? tomorrow : today
 
-                    text: thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd.MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "HH:m:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : " -- "  )   : " -- "
+                    text: thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd.MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "H:m:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : " -- "  )   : " -- "
                     Layout.alignment: Qt.AlignRight
                     Layout.rightMargin: 0
 
@@ -358,7 +358,8 @@ Page {
             RowLayout
             {
                 Rectangle{
-                    color: "grey"
+                    color: "grey"    // will be replaced when the app gets updated
+                    visible: !(chargingConfiguration.optimizationMode === 2 || (chargingConfiguration.optimizationMode >= 2000 && chargingConfiguration.optimizationMode < 3000 ))
                     Layout.fillWidth: true
                     height: 1
                     Layout.alignment: Qt.AlignTop
@@ -727,7 +728,7 @@ Page {
                         model: ListModel{
                             ListElement{key: qsTr("No optimization"); value: "No Optimization"; mode: 0}
                             ListElement{key: qsTr("PV optimized"); value: "Pv-Optimized"; mode: 1000}
-                            ListElement{key: qsTr("PV only"); value: "Pv-Only"; mode: 2000}
+                            ListElement{key: qsTr("PV excess only"); value: "Pv-Only"; mode: 2000}
 
 
 

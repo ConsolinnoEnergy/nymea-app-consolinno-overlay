@@ -307,7 +307,7 @@
     </message>
     <message>
         <source>Battery level: </source>
-        <translation>Batteriezustand: </translation>
+        <translation>Batteriestand: </translation>
     </message>
     <message>
         <source>Target charge %1%</source>
@@ -315,7 +315,7 @@
     </message>
     <message>
         <source>Ending time: </source>
-        <translation>Endzeit: </translation>
+        <translation>Zielzeit: </translation>
     </message>
     <message>
         <source>In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time</source>
@@ -352,6 +352,10 @@
     <message>
         <source>Behaviour on grid consumption:</source>
         <translation>Verhalten bei ungenügender PV-Erzeugung:</translation>
+    </message>
+    <message>
+        <source>PV excess only</source>
+        <translation>Nur PV-Überschuss </translation>
     </message>
 </context>
 <context>

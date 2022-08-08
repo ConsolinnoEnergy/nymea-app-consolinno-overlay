@@ -353,6 +353,10 @@
         <source>Behaviour on grid consumption:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>PV excess only</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
