@@ -271,7 +271,7 @@
     </message>
     <message>
         <source>Battery level:</source>
-        <translation>Batteriezustand:</translation>
+        <translation>Batteriestand:</translation>
     </message>
     <message>
         <source>Battery charge:</source>
@@ -771,10 +771,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Momentaner Verbrauch</translation>
     </message>
     <message>
-        <source>Optimization</source>
-        <translation>Optimierung</translation>
-    </message>
-    <message>
         <source>Energymanager: </source>
         <translation>Energiemanager</translation>
     </message>
@@ -829,10 +825,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>High</source>
         <translation>Hoch</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
     </message>
 </context>
 <context>

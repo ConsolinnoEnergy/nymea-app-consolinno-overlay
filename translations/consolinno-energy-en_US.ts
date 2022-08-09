@@ -764,10 +764,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Optimization</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Energymanager: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -821,10 +817,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>High</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
