@@ -926,6 +926,8 @@ Page {
                             feasibilityText()
 
 
+
+
                         }
 
 
@@ -944,7 +946,6 @@ Page {
 
                             // TODo: Determine charging Voltage of wallbox
                             //       How many phases does the wallbox have
-                            //       generell wallbox data integrieren
                             if (carSelector.holdingItem !== false){
                                 var maxChargingCurrent = thing.stateByName("maxChargingCurrent").maxValue
 
@@ -1062,30 +1063,36 @@ Page {
                     //enabled: configurationSettingsChanged
                     onClicked: {
 
-                        if (carSelector.holdingItem !== false){
-                            if (carSelector.holdingItem.stateByName("batteryLevel").value){
-                                carSelector.holdingItem.executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batteryLevel.value }])
+                        if((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) && (endTimeSlider.value >= 30) ){
+
+                           if (carSelector.holdingItem !== false){
+                                if (carSelector.holdingItem.stateByName("batteryLevel").value){
+                                    carSelector.holdingItem.executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batteryLevel.value }])
+                                }
+                                pageSelectedCar = carSelector.holdingItem.name
+
+                                var optimizationMode = compute_OptimizationMode()
+
+                                // TODO: when ConEMS finished no need for this if statement anymore
+                                if(!settings.showHiddenOptions){
+                                    optimizationMode = Math.floor(optimizationMode/1000)
+                                }
+
+
+                                hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
+                                hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode })
+
+                                optimizationPage.done()
+                                pageStack.pop()
+
                             }
-                            pageSelectedCar = carSelector.holdingItem.name
-
-                            var optimizationMode = compute_OptimizationMode()
-
-                            // TODO: when ConEMS finished no need for this if statement anymore
-                            if(!settings.showHiddenOptions){
-                                optimizationMode = Math.floor(optimizationMode/1000)
+                            else{
+                                footer.text = qsTr("please select a car")
+                                footer.visible = true
                             }
+                        }else{
+                       }
 
-
-                            hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
-                            hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode })
-
-                            optimizationPage.done()
-                            pageStack.pop()
-
-                        }
-                        else{
-                            footer.visible = true
-                        }
 
                     }
 
