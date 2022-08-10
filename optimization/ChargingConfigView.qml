@@ -1058,6 +1058,7 @@ Page {
 
                 Button {
                     id: savebutton
+                    Accessible.name: chargingConfigViewSaveButton
                     Layout.fillWidth: true
                     text: qsTr("Save")
                     //enabled: configurationSettingsChanged
