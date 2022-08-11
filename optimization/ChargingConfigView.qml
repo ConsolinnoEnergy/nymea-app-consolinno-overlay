@@ -889,6 +889,8 @@ Page {
                     visible:  (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 1000 )
                     Slider {
                         id: endTimeSlider
+                        Accessible.name: chargingConfigView_endTimeSlider
+                        Accessible.editable: true
                         Layout.fillWidth: true
                         implicitWidth: backgroundEndTimeSlider.implicitWidth
                         property int chargingConfigHours: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours()
@@ -1058,7 +1060,7 @@ Page {
 
                 Button {
                     id: savebutton
-                    Accessible.name: chargingConfigViewSaveButton
+                    Accessible.name: chargingConfigView_SaveButton
                     Layout.fillWidth: true
                     text: qsTr("Save")
                     //enabled: configurationSettingsChanged

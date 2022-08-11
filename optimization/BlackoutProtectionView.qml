@@ -98,7 +98,7 @@ Page {
             id: limit65
             Layout.fillWidth: true
             text: "3 x 65 A"
-            onClicked: phaseLimit = 65
+            onClicked: phaseLimit = 63
         }
         RadioDelegate {
             id: limitOther
