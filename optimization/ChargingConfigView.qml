@@ -775,8 +775,16 @@ Page {
                             from: 0
                             to: 100
                             stepSize: 1
+
+                            function basename(str)
+                            {
+                                return (str.slice(str.lastIndexOf("/")+1))
+                            }
+
                             Component.onCompleted:
                             {
+                               header.text =  basename(fileUrl.toString())
+
                                     if (carSelector.holdingItem !== false){
                                         value = carSelector.holdingItem.stateByName("batteryLevel").value
                                     }
@@ -1089,13 +1097,10 @@ Page {
                                     optimizationMode = Math.floor(optimizationMode/1000)
                                 }
 
-
-
                                 // if PV excess mode is used set the endTime to maximum value
                                 if((comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode >= 2000) && (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode < 3000) ){
                                     endTimeSlider.value = 24*60
-                                        }
-
+                                }
 
                                 hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
                                 hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode })
