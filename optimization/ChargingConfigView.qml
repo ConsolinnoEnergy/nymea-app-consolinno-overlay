@@ -651,11 +651,11 @@ Page {
                     }
                     ConsolinnoItemDelegate {
                         id: carSelector
+                        Accessible.name: "chargingConfigView_CarSelector"
                         Layout.fillWidth: true
                         Layout.maximumWidth: 200
 
                         text:  evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar).name : qsTr("Select/Add Car")
-                        //progressionsIcon: "add"
                         holdingItem: evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar) : false
                         onClicked: {
 
@@ -721,11 +721,14 @@ Page {
 
                     ComboBox {
                         id: comboboxloadingmod
+                        Accessible.name: "chargingConfigView_Comboboxloadingmod"
+                        Accessible.role: Accessible.ComboBox
                         Layout.fillWidth: true
                         Layout.maximumWidth: 200
                         Layout.alignment: Qt.AlignRight
                         x: carSelector.x
                         model: ListModel{
+
                             ListElement{key: qsTr("No optimization"); value: "No Optimization"; mode: 0}
                             ListElement{key: qsTr("PV optimized"); value: "Pv-Optimized"; mode: 1000}
                             ListElement{key: qsTr("PV excess only"); value: "Pv-Only"; mode: 2000}
@@ -889,8 +892,8 @@ Page {
                     visible:  (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 1000 )
                     Slider {
                         id: endTimeSlider
-                        Accessible.name: chargingConfigView_endTimeSlider
-                        Accessible.editable: true
+                        Accessible.name: "chargingConfigView_endTimeSlider"
+                        Accessible.role: Accessible.Slider
                         Layout.fillWidth: true
                         implicitWidth: backgroundEndTimeSlider.implicitWidth
                         property int chargingConfigHours: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours()
@@ -1060,10 +1063,15 @@ Page {
 
                 Button {
                     id: savebutton
-                    Accessible.name: chargingConfigView_SaveButton
+                    Accessible.name: "chargingConfigView_SaveButton"
+                    Accessible.role: Accessible.Button
+                    Accessible.description: "sets changes to the chargingConfiguration"
+                    Accessible.onPressAction:{
+                        savebutton.clicked()
+                    }
+
                     Layout.fillWidth: true
                     text: qsTr("Save")
-                    //enabled: configurationSettingsChanged
                     onClicked: {
 
                         if((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) && (endTimeSlider.value >= 30) ){
@@ -1082,11 +1090,18 @@ Page {
                                 }
 
 
+
+                                // if PV excess mode is used set the endTime to maximum value
+                                if((comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode >= 2000) && (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode < 3000) ){
+                                    endTimeSlider.value = 24*60
+                                        }
+
+
                                 hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
                                 hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode })
 
                                 optimizationPage.done()
-                                pageStack.pop()
+                                //pageStack.pop()
 
                             }
                             else{
