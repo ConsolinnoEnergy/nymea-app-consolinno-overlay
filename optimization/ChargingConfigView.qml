@@ -776,14 +776,16 @@ Page {
                             to: 100
                             stepSize: 1
 
-                            function basename(str)
-                            {
-                                return (str.slice(str.lastIndexOf("/")+1))
-                            }
+//                            function getCurrentFileName() {
+//                              var e = new Error();
+//                              return e.stack.match(/\/{1}([^\/]*)\./).pop()
+//                            }
+
+
 
                             Component.onCompleted:
                             {
-                               header.text =  basename(fileUrl.toString())
+                                getCurrentFileName()
 
                                     if (carSelector.holdingItem !== false){
                                         value = carSelector.holdingItem.stateByName("batteryLevel").value
@@ -1106,7 +1108,7 @@ Page {
                                 hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode })
 
                                 optimizationPage.done()
-                                //pageStack.pop()
+                                pageStack.pop()
 
                             }
                             else{

@@ -104,7 +104,7 @@ ItemDelegate {
             Layout.fillHeight: true
 
             Label {
-                Accessible.name: root.parent
+                //Accessible.name: root.parent
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 text: root.text
