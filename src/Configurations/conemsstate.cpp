@@ -5,6 +5,29 @@ ConEMSState::ConEMSState(QObject *parent): QObject(parent)
 
 }
 
+bool ConEMSState::chargingControllerActive(){
+
+    if((m_operationMode & ConEMSState::CHARGING_CONTROLLER) == ConEMSState::CHARGING_CONTROLLER )
+    {
+        return true;
+    }else{
+        return false;
+    }
+
+}
+
+bool ConEMSState::heatpumpControllerActive(){
+
+    if((m_operationMode & ConEMSState::HEATPUMP_CONTROLLER) == ConEMSState::HEATPUMP_CONTROLLER )
+    {
+        return true;
+    }else{
+        return false;
+    }
+
+}
+
+
 QUuid ConEMSState::ConEMSStateID() const
 {
     return m_conEMSStateID;

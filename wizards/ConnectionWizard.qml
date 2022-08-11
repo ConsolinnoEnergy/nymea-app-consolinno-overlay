@@ -7,10 +7,12 @@ import Nymea 1.0
 ConsolinnoWizardPageBase {
     id: root
 
+
     showBackButton: false
     showNextButton: false
-
-    onNext: pageStack.push(privacyPolicyComponent)
+    background: Item{}
+    // change this to privacyPolicyComponent when the Policy is there
+    onNext: pageStack.push(connectionInfo)
 
     function exitWizard() {
         pageStack.pop(root, StackView.Immediate)
@@ -41,7 +43,7 @@ ConsolinnoWizardPageBase {
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
                 font: Style.bigFont
-                text: qsTr("Leaflet CLS")
+                text: qsTr("HEMS")
             }
             Label {
                 Layout.fillWidth: true
@@ -50,14 +52,16 @@ ConsolinnoWizardPageBase {
                 wrapMode: Text.WordWrap
                 text: qsTr("Make sure that the Leaflet is operational and connected to the network.")
             }
-            ConsolinnoButton {
+            Button {
                 Layout.alignment: Qt.AlignHCenter
                 text: qsTr("Start setup")
+                Layout.preferredWidth: 200
                 onClicked: root.next()
             }
-            ConsolinnoButton {
+            Button {
                 Layout.alignment: Qt.AlignHCenter
                 text: qsTr("Demo mode")
+                Layout.preferredWidth: 200
                 onClicked:
                 {
                     var host = nymeaDiscovery.nymeaHosts.createWanHost("Demo server", "nymeas://hems-demo.consolinno-it.de:31222")
@@ -75,9 +79,10 @@ ConsolinnoWizardPageBase {
             showNextButton: false
             showBackButton: false
 
-            onNext: pageStack.push(findLeafletComponent)
+            onNext: pageStack.push(connectionInfo)
             onBack: pageStack.pop()
 
+            background: Item {}
             content: ColumnLayout {
                 anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins }
                 width: Math.min(parent.width, 450)
@@ -128,10 +133,16 @@ ConsolinnoWizardPageBase {
                     horizontalAlignment: Text.AlignHCenter
                     text: qsTr("I confirm that I have read the the agreement and am accepting it.")
                 }
-                ConsolinnoButton {
+                Button {
                     Layout.alignment: Qt.AlignHCenter
                     text: policyCheckbox.checked ? qsTr("next") : qsTr("cancel")
-                    color: policyCheckbox.checked ? Style.accentColor : Style.yellow
+                    //color: policyCheckbox.checked ? Style.accentColor : Style.yellow
+                    Layout.preferredWidth: 200
+                    background: Rectangle{
+                        color: policyCheckbox.checked  ? "#87BD26" : "grey"
+                        radius: 4
+                    }
+
 
                     onClicked: {
                         if (policyCheckbox.checked) {
@@ -146,6 +157,59 @@ ConsolinnoWizardPageBase {
     }
 
     Component {
+        id: connectionInfo
+        ConsolinnoWizardPageBase {
+            id: connectionInfoPage
+
+            showNextButton: false
+            showBackButton: false
+            background: Item {}
+            onNext: pageStack.push(findLeafletComponent)
+            onBack: pageStack.pop()
+
+            content: ColumnLayout {
+                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins }
+                width: Math.min(parent.width, 450)
+
+                Label {
+                    Layout.fillWidth: true
+                    text: qsTr("Establishing a connection")
+                    horizontalAlignment: Text.AlignHCenter
+                    wrapMode: Text.WordWrap
+                    font: Style.bigFont
+                }
+
+                Label{
+                    Layout.fillWidth: true
+                    Layout.margins: app.margins
+                    text: qsTr( "In order to connect your device (phone/PC) with the Leaflet you have to be in the same network. \n \n Connect your device with a LAN-cable with the Leaflet (Third ethernet slot). \n\n You can also connect your device to the local Wifi if the Leaflet has a Wifi module.")
+                    wrapMode: Text.WordWrap
+                }
+
+
+
+
+
+                Button {
+                    Layout.alignment: Qt.AlignHCenter
+                    text: qsTr("next")
+                    //color: Style.accentColor
+                    Layout.preferredWidth: 200
+                    background: Rectangle{
+                        color: Style.accentColor
+                        radius: 4
+                    }
+
+                    onClicked: {
+                        connectionInfoPage.next()
+                    }
+                }
+            }
+        }
+    }
+
+
+    Component {
         id: findLeafletComponent
 
         ConsolinnoWizardPageBase {
@@ -155,7 +219,7 @@ ConsolinnoWizardPageBase {
 
 
             onNext: pageStack.push(manualConnectionComponent)
-
+            background: Item{}
 
             Timer {
                 id: timeoutTimer
@@ -179,7 +243,7 @@ ConsolinnoWizardPageBase {
 
                 ListView {
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
+                    Layout.preferredHeight: app.height/3
                     clip: true
                     model: NymeaHostsFilterModel {
                         id: hostsProxy
@@ -258,6 +322,8 @@ ConsolinnoWizardPageBase {
                         secondaryIconColor: "red"
 
                         onClicked: {
+
+
                             engine.jsonRpcClient.connectToHost(nymeaHostDelegate.nymeaHost)
                         }
 
@@ -277,6 +343,16 @@ ConsolinnoWizardPageBase {
                     }
                 }
 
+                Label{
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.margins: Style.margins
+                    //horizontalAlignment: Text.AlignHCenter
+                    wrapMode: Text.WordWrap
+                    text: qsTr("You have to authenticate yourself to the Leaflet. For further information look at the manual for commissioning.")
+
+                }
+
 
             }
         }
@@ -288,7 +364,7 @@ ConsolinnoWizardPageBase {
 //            title: qsTr("Manual connection")
 //            text: qsTr("Please enter the connection information for your nymea system")
             onBack: pageStack.pop()
-
+            background: Item {}
             onNext: {
                 var rpcUrl
                 var hostAddress
@@ -327,6 +403,8 @@ ConsolinnoWizardPageBase {
             }
 
             content: ColumnLayout {
+
+
                 anchors.fill: parent
                 anchors.margins: Style.margins
                 GridLayout {

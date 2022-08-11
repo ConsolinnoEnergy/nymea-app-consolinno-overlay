@@ -56,31 +56,10 @@ Page {
         }
 
 
-        RowLayout{
-            Layout.fillWidth: true
-
-            Label{
-                id: optimiziationEnabled
-                Layout.fillWidth: true
-                text: qsTr("Optimization")
-                Layout.leftMargin:  15
-            }
-
-            Switch{
-                id: optimizationEnableSwitch
-                checked: heatingconfig.optimizationEnabled
-
-
-            }
-
-
-
-        }
-
-
         Row{
             Layout.fillWidth: true
             Layout.leftMargin: 15
+            Layout.topMargin: 10
             Label
             {
                 id: energyManager
@@ -94,8 +73,6 @@ Page {
                 push: "EnergyManagerInfo.qml"
                 anchors.left: energyManager.right
                 anchors.leftMargin:  5
-
-
 
 
             }
@@ -241,28 +218,15 @@ Page {
 
 
 
-        Label {
-            id: footer
-            Layout.fillWidth: true
-            Layout.leftMargin: app.margins
-            Layout.rightMargin: app.margins
-            wrapMode: Text.WordWrap
-            font.pixelSize: app.smallFont
+//        Label {
+//            id: footer
+//            Layout.fillWidth: true
+//            Layout.leftMargin: app.margins
+//            Layout.rightMargin: app.margins
+//            wrapMode: Text.WordWrap
+//            font.pixelSize: app.smallFont
 
-        }
-        Button {
-            id: savebutton
-            Layout.fillWidth: true
-            Layout.leftMargin: app.margins
-            text: qsTr("Save")
-            onClicked: {
-
-
-                hemsManager.setHeatingConfiguration(heatpumpThing.id, optimizationEnableSwitch.checked, heatingconfig.floorHeatingArea, heatingconfig.maxElectricalPower, heatingconfig.maxThermalEnergy)
-                pageStack.pop()
-
-            }
-        }
+//        }
 
         Component{
             id: stringValues
@@ -365,7 +329,7 @@ Page {
 
                                     Label
                                     {
-
+                                        objectName: "ConfigDataRepeater_ItemValue_" + modelData.name
                                         id: itemValue
                                         text: modelData.value
 

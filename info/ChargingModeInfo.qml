@@ -41,6 +41,26 @@ Page {
 If the own electricity is not sufficient to reach the charging target, it is supplemented with grid electricity.")
             }
 
+            Label{
+                Layout.topMargin: 15
+                Layout.fillWidth: true
+                text: qsTr("PV only: ")
+                leftPadding: app.margins +10
+                rightPadding: app.margins +10
+
+                font.bold: true
+                font.pixelSize: 17
+
+            }
+            Label{
+                Layout.fillWidth: true
+                leftPadding: app.margins +10
+                rightPadding: app.margins +10
+                wrapMode: Text.WordWrap
+                Layout.preferredWidth: app.width
+                text: qsTr("The vehicle is charged with solar power only. (To avoid charging interruptions, the charging process is continued with a minimum current if there is not enough own solar power available.)")
+            }
+
         }
 
     }

@@ -4,37 +4,28 @@ import QtQuick.Controls 2.9
 import "qrc:/ui/components"
 import Nymea 1.0
 
-ConsolinnoWizardPageBase {
+Page {
     id: root
 
-    showBackButton: false
-    showNextButton: false
+    signal done(bool skip, bool abort);
 
-    onNext: pageStack.push(searchEnergyMeterComponent, {thingClassId: thingClassComboBox.currentValue})
+    header: NymeaHeader {
+        text: qsTr("Setup energy meter")
+        onBackPressed: pageStack.pop()
+    }
+    background: Item{}
 
-    content: ColumnLayout {
+    ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
         width: Math.min(parent.width - Style.margins * 2, 300)
         spacing: Style.margins
-        Label {
-            Layout.fillWidth: true
-            text: qsTr("Feed-in and consumption meter")
-            font: Style.bigFont
-            wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
-        }
-
-        Label {
-            Layout.fillWidth: true
-            horizontalAlignment: Text.AlignHCenter
-            text: qsTr("Please select your model:")
-        }
 
         ColumnLayout {
             Layout.topMargin: Style.margins
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Model:")
+                text: qsTr("Please select your model:")
+                wrapMode: Text.WordWrap
             }
 
             ComboBox {
@@ -54,24 +45,28 @@ ConsolinnoWizardPageBase {
             spacing: Style.margins
             Layout.alignment: Qt.AlignHCenter
 
-            ConsolinnoButton {
+            Button {
                 text: qsTr("cancel")
-                color: Style.yellow
+                //color: Style.yellow
+                Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
                 onClicked: root.done(false, true)
             }
-            ConsolinnoButton {
-                text: qsTr("next")
-                color: Style.accentColor
+            Button {
+                text: qsTr("add")
+                //color: Style.accentColor
+                Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                onClicked: root.next()
+                onClicked: pageStack.push(searchEnergyMeterComponent, {thingClassId: thingClassComboBox.currentValue})
+
             }
-            ConsolinnoButton {
-                text: qsTr("skip")
-                color: Style.blue
-                Layout.alignment: Qt.AlignHCenter
-                onClicked: root.done(true, false)
-            }
+//            Button {
+//                text: qsTr("skip")
+//                //color: Style.blue
+//                Layout.preferredWidth: 200
+//                Layout.alignment: Qt.AlignHCenter
+//                onClicked: root.done(true, false)
+//            }
         }
 
     }
@@ -79,15 +74,13 @@ ConsolinnoWizardPageBase {
     Component {
         id: searchEnergyMeterComponent
 
-        ConsolinnoWizardPageBase {
+        Page {
             id: searchEnergyMeterPage
             property string thingClassId
-
-            onBack: pageStack.pop()
-
-            showBackButton: false
-            showNextButton: false
-            onNext: pageStack.push(setupEnergyMeterComponent, {thingDescriptors: selectedWallboxes})
+            header: NymeaHeader {
+                text: qsTr("Setup energy meter")
+                onBackPressed: pageStack.pop()
+            }
 
             ThingDiscovery {
                 id: discovery
@@ -110,18 +103,11 @@ ConsolinnoWizardPageBase {
                 discovery.discoverThings(searchEnergyMeterPage.thingClassId)
             }
 
-            content: ColumnLayout {
+            ColumnLayout {
                 anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
-                Label {
-                    Layout.fillWidth: true
-                    text: qsTr("Feed-in and consumption meter")
-                    font: Style.bigFont
-                    wrapMode: Text.WordWrap
-                    horizontalAlignment: Text.AlignHCenter
-                }
 
                 Item {
                     Layout.fillWidth: true
@@ -156,22 +142,25 @@ ConsolinnoWizardPageBase {
                             horizontalAlignment: Text.AlignHCenter
                         }
 
-                        ConsolinnoButton {
+                        Button {
                             Layout.alignment: Qt.AlignHCenter
+                            Layout.preferredWidth: 200
                             text: qsTr("back")
-                            color: Style.yellow
+                            //color: Style.yellow
                             onClicked: pageStack.pop()
                         }
-                        ConsolinnoButton {
+                        Button {
                             Layout.alignment: Qt.AlignHCenter
+                            Layout.preferredWidth: 200
                             text: qsTr("cancel")
-                            color: Style.yellow
+                            //color: Style.yellow
                             onClicked: root.done(false, true)
                         }
-                        ConsolinnoButton {
+                        Button {
                             Layout.alignment: Qt.AlignHCenter
+                            Layout.preferredWidth: 200
                             text: qsTr("skip")
-                            color: Style.blue
+                            //color: Style.blue
                             onClicked: root.done(true, false)
                         }
                     }
@@ -193,6 +182,8 @@ ConsolinnoWizardPageBase {
                     ListView {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        Layout.bottomMargin: app.margins
+                        clip: true
                         model: discovery
                         delegate: ItemDelegate {
                             id: wallboxDelegate
@@ -226,11 +217,13 @@ ConsolinnoWizardPageBase {
 
     Component {
         id: setupEnergyMeterComponent
-        ConsolinnoWizardPageBase {
+        Page {
             id: setupEnergyMeterPage
 
-            showNextButton: false
-            showBackButton: false
+            header: NymeaHeader {
+                text: qsTr("Setup energy meter")
+                onBackPressed: pageStack.pop()
+            }
 
             property ThingDescriptor thingDescriptor: null
 
@@ -254,18 +247,11 @@ ConsolinnoWizardPageBase {
                 }
             }
 
-            content: ColumnLayout {
+            ColumnLayout {
                 anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
-                Label {
-                    Layout.fillWidth: true
-                    text: qsTr("Feed-in and consumption meter")
-                    font: Style.bigFont
-                    wrapMode: Text.WordWrap
-                    horizontalAlignment: Text.AlignHCenter
-                }
 
                 Item {
                     Layout.fillWidth: true
@@ -287,13 +273,14 @@ ConsolinnoWizardPageBase {
                     Label {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The energy meter has been found and set up.")
+                        text: qsTr("The following energy meter has been found and set up:")
                         horizontalAlignment: Text.AlignHCenter
                     }
 
                     Label {
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
+                        font.bold: true
                         text: setupEnergyMeterPage.thingDescriptor.name
                     }
 
@@ -316,16 +303,18 @@ ConsolinnoWizardPageBase {
                     visible: setupEnergyMeterPage.thingError != Thing.ThingErrorNoError
                 }
 
-                ConsolinnoButton {
+                Button {
                     Layout.alignment: Qt.AlignHCenter
                     text: qsTr("back")
-                    color: Style.yellow
+                    Layout.preferredWidth: 200
+                    //color: Style.yellow
                     onClicked: pageStack.pop(root)
                 }
 
-                ConsolinnoButton {
+                Button {
                     Layout.alignment: Qt.AlignHCenter
                     text: qsTr("next")
+                    Layout.preferredWidth: 200
                     onClicked: root.done(false, false)
                 }
             }

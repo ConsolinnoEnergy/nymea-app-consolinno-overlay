@@ -1,43 +1,122 @@
 import QtQuick 2.9
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.9
+import QtQuick.Controls.Material 2.12
 import "qrc:/ui/components"
 import Nymea 1.0
 
 import "../components"
 import "../delegates"
 
-ConsolinnoWizardPageBase {
+Page {
     id: root
 
-    showBackButton: false
-    showNextButton: false
+    signal done(bool skip, bool abort, bool back);
+    signal countChanged()
 
-    onNext: pageStack.push(searchHeatPumpComponent, {thingClassId: thingClassComboBox.currentValue})
+    header: NymeaHeader {
+        text: qsTr("Setup heat pump")
+        onBackPressed: root.done(false, false, true)
+    }
 
-    content: ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
+    ColumnLayout {
+        anchors { top: parent.top; bottom: parent.bottom;left: parent.left; right: parent.right; margins: Style.margins }
         width: Math.min(parent.width - Style.margins * 2, 300)
-        spacing: Style.margins
-        Label {
-            Layout.fillWidth: true
-            text: qsTr("Heat pump")
-            font: Style.bigFont
-            wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
-        }
+        //spacing: Style.margins
 
-        Label {
+
+        ColumnLayout{
             Layout.fillWidth: true
-            horizontalAlignment: Text.AlignHCenter
-            text: qsTr("Please select your model:")
+            Layout.fillHeight: true
+
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("Integrated heat pumps")
+                wrapMode: Text.WordWrap
+                Layout.alignment: Qt.AlignLeft
+                horizontalAlignment: Text.AlignLeft
+            }
+
+
+            VerticalDivider
+            {
+                Layout.preferredWidth: app.width - 2* Style.margins
+                dividerColor: Material.accent
+            }
+
+            Flickable{
+                id: heatpumpFlickable
+                clip: true
+                width: parent.width
+                height: parent.height
+                contentHeight: heatpumpList.height
+                contentWidth: app.width
+                visible: hpProxy.count !== 0
+
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredHeight: app.height/3
+                Layout.preferredWidth: app.width
+                flickableDirection: Flickable.VerticalFlick
+
+                ColumnLayout{
+                    id: heatpumpList
+                    Layout.preferredWidth: app.width
+                    Layout.fillHeight: true
+                    Repeater{
+                        id: heatpumpRepeater
+                        Layout.preferredWidth: app.width
+                        model: ThingsProxy {
+                            id: hpProxy
+                            engine: _engine
+                            shownInterfaces: ["heatpump"]
+                        }
+                        delegate: ItemDelegate{
+                            Layout.preferredWidth: app.width
+                            contentItem: ConsolinnoItemDelegate{
+                                Layout.fillWidth: true
+                                iconName: "../images/thermostat/heating.svg"
+                                progressive: false
+                                text: hpProxy.get(index) ? hpProxy.get(index).name : ""
+                                onClicked: {
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+
+            }
+
+            Rectangle{
+                Layout.preferredHeight: app.height/3
+                Layout.fillWidth: true
+                visible: hpProxy.count === 0
+                color: Material.background
+                Text {
+                    text: qsTr("There is no heatpump set up yet.")
+                    color: Material.foreground
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+            }
+
+
+
+            VerticalDivider
+            {
+                Layout.preferredWidth: app.width - 2* Style.margins
+                dividerColor: Material.accent
+            }
         }
 
         ColumnLayout {
             Layout.topMargin: Style.margins
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Model:")
+                text: qsTr("Add heatpumps:")
+                wrapMode: Text.WordWrap
             }
 
             ComboBox {
@@ -53,26 +132,29 @@ ConsolinnoWizardPageBase {
         }
 
         ColumnLayout {
-            spacing: Style.margins
+            spacing: 0
             Layout.alignment: Qt.AlignHCenter
 
-            ConsolinnoButton {
+            Button {
                 text: qsTr("cancel")
-                color: Style.yellow
+                //color: Style.yellow
                 Layout.alignment: Qt.AlignHCenter
-                onClicked: root.done(false, true)
+                Layout.preferredWidth: 200
+                onClicked: root.done(false, true, false)
             }
-            ConsolinnoButton {
+            Button {
+                text: qsTr("add")
+                //color: Style.accentColor
+                Layout.preferredWidth: 200
+                Layout.alignment: Qt.AlignHCenter
+                onClicked:  pageStack.push(searchHeatPumpComponent, {thingClassId: thingClassComboBox.currentValue})
+            }
+            Button {
                 text: qsTr("next")
-                color: Style.accentColor
+                //color: Style.blue
+                Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                onClicked: root.next()
-            }
-            ConsolinnoButton {
-                text: qsTr("skip")
-                color: Style.blue
-                Layout.alignment: Qt.AlignHCenter
-                onClicked: root.done(true, false)
+                onClicked: root.done(true, false, false)
             }
         }
 
@@ -81,15 +163,15 @@ ConsolinnoWizardPageBase {
     Component {
         id: searchHeatPumpComponent
 
-        ConsolinnoWizardPageBase {
+        Page {
             id: searchHeatPumpPage
             property string thingClassId: null
 
-            onBack: pageStack.pop()
 
-            showBackButton: false
-            showNextButton: false
-            onNext: pageStack.push(setupHeatPumpComponent, {thingDescriptors: selectedWallboxes})
+            header: NymeaHeader {
+                text: qsTr("Heatpump")
+                onBackPressed: pageStack.pop()
+            }
 
             ThingDiscovery {
                 id: discovery
@@ -119,19 +201,19 @@ ConsolinnoWizardPageBase {
                 discovery.discoverThings(searchHeatPumpPage.thingClassId)
             }
 
-            content: ColumnLayout {
+            ColumnLayout {
                 anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
-                Label {
-                    Layout.fillWidth: true
-                    //text: qsTr("Heat pump")
-                    text: thingClassId
-                    font: Style.bigFont
-                    wrapMode: Text.WordWrap
-                    horizontalAlignment: Text.AlignHCenter
-                }
+//                Label {
+//                    Layout.fillWidth: true
+//                    //text: qsTr("Heat pump")
+//                    text: thingClassId
+//                    font: Style.bigFont
+//                    wrapMode: Text.WordWrap
+//                    horizontalAlignment: Text.AlignHCenter
+//                }
 
                 Item {
                     Layout.fillWidth: true
@@ -166,23 +248,26 @@ ConsolinnoWizardPageBase {
                             horizontalAlignment: Text.AlignHCenter
                         }
 
-                        ConsolinnoButton {
+                        Button {
                             Layout.alignment: Qt.AlignHCenter
                             text: qsTr("back")
-                            color: Style.yellow
+                            //color: Style.yellow
+                            Layout.preferredWidth: 200
                             onClicked: pageStack.pop()
                         }
-                        ConsolinnoButton {
+                        Button {
                             Layout.alignment: Qt.AlignHCenter
                             text: qsTr("cancel")
-                            color: Style.yellow
-                            onClicked: root.done(false, true)
+                            //color: Style.yellow
+                            Layout.preferredWidth: 200
+                            onClicked: root.done(false, true, false)
                         }
-                        ConsolinnoButton {
+                        Button {
                             Layout.alignment: Qt.AlignHCenter
                             text: qsTr("skip")
-                            color: Style.blue
-                            onClicked: root.done(true, false)
+                            //color: Style.blue
+                            Layout.preferredWidth: 200
+                            onClicked: root.done(true, false, false)
                         }
                     }
                 }
@@ -203,6 +288,8 @@ ConsolinnoWizardPageBase {
                     ListView {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
+                        Layout.bottomMargin: app.margins
+                        clip: true
                         model: discovery
                         delegate: ItemDelegate {
                             id: wallboxDelegate
@@ -236,11 +323,13 @@ ConsolinnoWizardPageBase {
 
     Component {
         id: setupHeatPumpComponent
-        ConsolinnoWizardPageBase {
+        Page {
             id: setupHeatPumpPage
 
-            showNextButton: false
-            showBackButton: false
+            header: NymeaHeader {
+                text: qsTr("Heatpump")
+                onBackPressed: pageStack.pop(root)
+            }
 
             property ThingDescriptor thingDescriptor: null
 
@@ -255,22 +344,6 @@ ConsolinnoWizardPageBase {
 
 
             function getParams(){
-
-//                var params = []
-//                for (var i = 0; i < paramRepeater.count; i++) {
-//                    var param = {}
-//                    var paramType = paramRepeater.itemAt(i).paramType
-//                    if (!paramType.readOnly) {
-//                        param.paramTypeId = paramType.id
-//                        param.value = paramRepeater.itemAt(i).value
-//                        print("adding param", param.paramTypeId, param.value)
-//                        params.push(param)
-//                    }
-//                }
-
-//                d.params = params
-//                d.name = nameTextField.text
-//                d.pairThing();
 
                 var params = []
                 for (var i = 0; i < thingClass.paramTypes.count; i++)
@@ -299,23 +372,33 @@ ConsolinnoWizardPageBase {
 
                 }
 
+
+            HemsManager{
+                id: hemsManager
+                engine: _engine
+            }
+
+
             Connections {
                 target: engine.thingManager
                 onAddThingReply: {
-                    if (commandId == setupHeatPumpPage.pendingCallId) {
+                    root.countChanged()
+                    //if (commandId == setupHeatPumpPage.pendingCallId) {
+
                         setupHeatPumpPage.thingError = thingError
                         setupHeatPumpPage.pendingCallId = -1
-                        thing = engine.thingManager.things.getThing(thingId)
-                    }
+                        setupHeatPumpPage.thing = engine.thingManager.things.getThing(thingId)
+                    //}
                 }
             }
 
-            content: ColumnLayout {
+            ColumnLayout {
                 anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
                 Label {
+                    id: labelfortesting
                     Layout.fillWidth: true
                     text: qsTr("Heat pump")
                     font: Style.bigFont
@@ -343,14 +426,15 @@ ConsolinnoWizardPageBase {
                     Label {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The heat pump has been found and set up.")
+                        text: qsTr("The following heat pump has been found and set up:")
                         horizontalAlignment: Text.AlignHCenter
                     }
 
                     Label {
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
-                        text: setupHeatPumpPage.thingClass.name
+                        font.bold: true
+                        text: setupHeatPumpPage.thingClass.displayName
                     }
 
                     ColorIcon {
@@ -372,17 +456,26 @@ ConsolinnoWizardPageBase {
                     visible: setupHeatPumpPage.thingError != Thing.ThingErrorNoError
                 }
 
-                ConsolinnoButton {
+                Button {
                     Layout.alignment: Qt.AlignHCenter
                     text: qsTr("back")
-                    color: Style.yellow
+                    //color: Style.yellow
+                    Layout.preferredWidth: 200
                     onClicked: pageStack.pop(root)
                 }
 
-                ConsolinnoButton {
+                Button {
                     Layout.alignment: Qt.AlignHCenter
                     text: qsTr("next")
-                    onClicked: root.done(false, false)
+                    Layout.preferredWidth: 200
+                    onClicked:{
+                        var page = pageStack.push("../optimization/HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatPumpThing: thing, directionID: 1})
+                        page.done.connect(function(){
+                            pageStack.pop(root)
+                            //root.done(false, false)
+                        })
+
+                    } //root.done(false, false)
                 }
             }
         }

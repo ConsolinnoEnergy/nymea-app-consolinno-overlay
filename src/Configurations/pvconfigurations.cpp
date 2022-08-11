@@ -21,7 +21,7 @@ QVariant PvConfigurations::data(const QModelIndex &index, int role) const
 {
     switch(role){
     case RolePvthingId:
-        return m_list.at(index.row())->PvThingId();
+        return m_list.at(index.row())->pvThingId();
     // when adding a new role that is suppose to be in the m_list add here
     }
 
@@ -40,7 +40,7 @@ PvConfiguration *PvConfigurations::getPvConfiguration(const QUuid &pvThingId) co
 {
 
     foreach(PvConfiguration *pvconfig, m_list){
-        if (pvconfig->PvThingId() == pvThingId){
+        if (pvconfig->pvThingId() == pvThingId){
             return pvconfig;
         }
 
@@ -76,7 +76,7 @@ void PvConfigurations::addConfiguration(PvConfiguration *pvConfiguration)
 void PvConfigurations::removeConfiguration(const QUuid &pvThingId)
 {
     for(int i = 0; i <m_list.count(); i++){
-        if(m_list.at(i)->PvThingId() == pvThingId){
+        if(m_list.at(i)->pvThingId() == pvThingId){
             beginRemoveRows(QModelIndex(), i, i);
             m_list.takeAt(i)->deleteLater();
             endRemoveRows();

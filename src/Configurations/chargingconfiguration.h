@@ -62,10 +62,10 @@ private:
     QUuid m_evChargerThingId;
     bool m_optimizationEnabled = false;
     QUuid m_carThingId = "00000000-0000-0000-0000-000000000000";
-    QString m_endTime = "10:30:00";
+    QString m_endTime = "0:00:00";
     uint m_targetPercentage = 100;
-    int m_optimizationMode;
-    QUuid m_uniqueIdentifier;
+    int m_optimizationMode = 0;
+    QUuid m_uniqueIdentifier = "2e2d25c5-57c7-419a-b294-881f11ed01c4";
 
 };
 

@@ -12,12 +12,13 @@ import "../delegates"
 Page{
     id: root
     signal done(var selectedCar)
+    signal back()
 
     header: NymeaHeader {
         id: header
         text: qsTr("Car list")
         backButtonVisible: true
-        onBackPressed: pageStack.pop()
+        onBackPressed: root.back()
     }
 
     ThingsProxy {
@@ -34,6 +35,8 @@ Page{
         includeProvidedInterfaces: true
         groupByInterface: true
     }
+
+
 
     QtObject {
         id: d
@@ -54,6 +57,7 @@ Page{
         function updateThing(thing) {
 
             for(var i = 0; i < d.states.length; i++){
+
                 thing.executeAction( d.states[i].name, [{ paramName: d.states[i].name , value: d.states[i].value }])
 
             }
@@ -116,7 +120,7 @@ Page{
                             onClicked:{
 
                                 for (var i = 0; i<thingClassesProxy.count; i++){
-                                    if (thingClassesProxy.get(i).id.toString() === "{dbe0a9ff-94ba-4a94-ae52-51da3f05c717}"  ){
+                                    if (thingClassesProxy.get(i).id.toString() === "{dbe0a9ff-94ba-4a94-ae52-51da3f05c717}" || thingClassesProxy.get(i).id.toString() === "{0d6151d6-e013-47ab-a8c1-9c516a2c8664}"  ){
                                         var page = pageStack.push("../thingconfiguration/AddGenericCar.qml" , {thingClass: thingClassesProxy.get(i)})
                                         page.done.connect(function(attr){
                                             pageStack.pop()
@@ -126,10 +130,6 @@ Page{
                                         })
                                     }
                                 }
-
-
-
-
                             }
 
                         }
@@ -138,12 +138,8 @@ Page{
                             Layout.fillWidth: true
                             dividerColor: Material.accent
                         }
-
-
                     }
-
                 }
-
             }
 
             Repeater{
@@ -155,7 +151,7 @@ Page{
                     Layout.fillWidth: true
                     contentItem: ColumnLayout{
                         Layout.fillWidth: true
-
+                        objectName: "optimizerRepeater_" + index.toString()
                         RowLayout{
 
                             ConsolinnoItemDelegate{
@@ -271,9 +267,9 @@ Page{
                     model:[
 
                         {id: "name", name: "Name: ", displayName: qsTr("Name: "), component: nameComponent, type: "name", Uuid: "", info: ""  },
-                        {id: "capacity", name: "Battery capacity", displayName: qsTr("Battery capacity"),component: capacityComponent, type: "state", Uuid: "363a2a39-61b6-4109-9cd9-aca7367d12c7", info: "Capacity.qml"  },
+                        {id: "capacity", name: "Battery capacity", displayName: qsTr("Battery capacity"),component: capacityComponent, type: "setting", Uuid: "57f36386-dd71-4ab0-8d2f-8c74a391f90d", info: "Capacity.qml"  },
                         {id: "minChargingCurrent", name: "Minimum charging current", displayName: qsTr("Minimum charging current"), component: minimumChargingCurrentComponent, type: "setting", Uuid: "0c55516d-4285-4d02-8926-1dae03649e18", info: "MinimumChargingCurrent.qml"},
-                        {id: "maxChargingLimit", name: "Maximum charging limit" , displayName: qsTr("Maximum charging limit"), component: maximumAllowedChargingLimitComponent, type: "attr", Uuid: "", info: "MaximumAllowedChargingLimit.qml" },
+                        {id: "batteryLevelLimit", name: "Maximum charging limit" , displayName: qsTr("Maximum charging limit"), component: maximumAllowedChargingLimitComponent, type: "state", Uuid: "70cbfe6a-6119-4434-8a06-2d6b7c9a30ea", info: "MaximumAllowedChargingLimit.qml" },
 
 
                     ]
@@ -324,7 +320,7 @@ Page{
                                 Layout.rightMargin: 0
                                 sourceComponent: {
                                     switch(modelData.id){
-                                    case "maxChargingLimit":
+                                    case "batteryLevelLimit":
                                     {
                                         return maximumAllowedChargingLimitComponent
                                     }
@@ -368,10 +364,10 @@ Page{
                             from: 0
                             to: 100
                             stepSize: 1
-                            value: 100
+                            value: thing ? thing.stateByName("batteryLevelLimit").value : 100
 
                             onPositionChanged:{
-                                customRepeater.attributes["maxChargingLimit"] = value
+                                customRepeater.attributes["batteryLevelLimit"] = value
                             }
 
                         }
@@ -500,12 +496,11 @@ Page{
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignLeft
                         MouseArea{
-                            width: parent.width
+                            width: parent.width + deleteLabel.width
                             height: parent.height
-                            onClicked:{
-                                pageStack.pop()
+                            onClicked:{       
                                 engine.thingManager.removeThing(thing.id)
-
+                                pageStack.pop()
                             }
 
                         }
@@ -517,6 +512,7 @@ Page{
                         }
                     }
                     Label{
+                        id: deleteLabel
                         text: qsTr("delete")
                     }
                 }

@@ -2,6 +2,11 @@
 
 ChargingConfiguration::ChargingConfiguration(QObject *parent) : QObject(parent)
 {
+    QUuid carThingId;
+    m_carThingId = carThingId.createUuid();
+
+    QUuid uniqueIdentifier;
+    m_uniqueIdentifier = uniqueIdentifier.createUuid();
 
 }
 
