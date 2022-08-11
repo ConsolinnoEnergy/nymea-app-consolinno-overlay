@@ -85,6 +85,13 @@ MainViewBase {
         }
     ]
 
+    function getCurrentFileName() {
+      var e = new Error();
+      return e.stack.match(/\/{1}([^\/]*)\./).pop()
+    }
+
+
+
     QtObject {
         id: d
         property var firstWizardPage: null
