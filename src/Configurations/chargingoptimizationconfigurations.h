@@ -17,6 +17,10 @@ public:
     enum Role {
         RoleEvChargerThingId,
         RoleReenableChargepoint,
+        RoleP_Value,
+        RoleI_Value,
+        RoleD_Value,
+        RoleSetpoint
 
     };
     Q_ENUM(Role);

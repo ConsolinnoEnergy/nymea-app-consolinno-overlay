@@ -237,6 +237,10 @@ int HemsManager::setChargingOptimizationConfiguration(const QUuid &evChargerThin
         QUuid DummyIdentifier;
         dummyConfig.insert("evChargerThingId", evChargerThingId);
         dummyConfig.insert("reenableChargepoint", false);
+        dummyConfig.insert("p_value", 0.001);
+        dummyConfig.insert("i_value", 0.001);
+        dummyConfig.insert("d_value", 0);
+        dummyConfig.insert("setpoint", 0);
         addOrUpdateChargingOptimizationConfiguration(dummyConfig);
         // and get the dummy Config
         configuration =  m_chargingOptimizationConfigurations->getChargingOptimizationConfiguration(evChargerThingId);
@@ -720,7 +724,10 @@ void HemsManager::addOrUpdateChargingOptimizationConfiguration(const QVariantMap
     }
 
     configuration->setReenableChargepoint(configurationMap.value("reenableChargepoint").toBool());
-
+    configuration->setP_value(configurationMap.value("p_value").toFloat());
+    configuration->setI_value(configurationMap.value("i_value").toFloat());
+    configuration->setD_value(configurationMap.value("d_value").toFloat());
+    configuration->setSetpoint(configurationMap.value("setpoint").toFloat());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Charging Optimization configuration added" << configuration->evChargerThingId();

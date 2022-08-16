@@ -85,6 +85,7 @@ MainViewBase {
         }
     ]
 
+
     QtObject {
         id: d
         property var firstWizardPage: null
@@ -99,6 +100,7 @@ MainViewBase {
             }
             return page;
         }
+
 
         function exitWizard() {
             print("exiting wizard")
@@ -197,7 +199,7 @@ MainViewBase {
                         manualWizardSettings.energymeter = false
                         pageStack.pop()
                         return
-
+RootMeter
                     }
 
                     if (abort) {
@@ -341,6 +343,10 @@ MainViewBase {
 
 
         }
+
+
+
+
 
     }
 

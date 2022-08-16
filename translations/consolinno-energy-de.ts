@@ -387,7 +387,7 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
     </message>
     <message>
         <source>PV only: </source>
-        <translation>Nur Solar: </translation>
+        <translation>nur PV-Strom: </translation>
     </message>
     <message>
         <source>The vehicle is charged with solar power only. (To avoid charging interruptions, the charging process is continued with a minimum current if there is not enough own solar power available.)</source>
@@ -712,7 +712,7 @@ Sie können Ihr Gerät auch mit dem lokalen Wifi verbinden, wenn das Leaflet üb
     </message>
     <message>
         <source>The energy manager regulates the heat pump to maximize the consumption of its own solar power. If you switch off the optimization, the energy manager no longer affects the control of the heat pump.</source>
-        <translation>Der Energiemanager steuert die Wärmepumpe so, dass der Verbrauch des eigenen Solarstroms maximiert wird.Wenn Sie die Optimerung ausschalten, greift der Energiemanager nicht mehr in die Steuerung der Wärmepumpe ein.</translation>
+        <translation>Der Energiemanager steuert die Wärmepumpe so, dass der Verbrauch des eigenen Solarstroms maximiert wird. Wenn Sie die Optimerung ausschalten, greift der Energiemanager nicht mehr in die Steuerung der Wärmepumpe ein.</translation>
     </message>
     <message>
         <source>Operating status: </source>
@@ -720,7 +720,7 @@ Sie können Ihr Gerät auch mit dem lokalen Wifi verbinden, wenn das Leaflet üb
     </message>
     <message>
         <source>The energy manager can set the heat pump to increased operation in the case of a power surplus, e.g. on a sunny day, in order to consume the own solar energy. The intervention of the energy manager is visible in the display of the operating status</source>
-        <translation>Der Energiemanager kann bei Stromüberschuss z.B. bei einem sonnigen Tag, die Wärmepumpe in verstärkten Betrieb schalten um die eigene Solar-Energie zu verbrauchen.
+        <translation>Der Energiemanager kann bei Stromüberschuss z.B. bei einem sonnigen Tag, die Wärmepumpe in verstärkten Betrieb schalten, um die eigene Solar-Energie zu verbrauchen.
 Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzustands:</translation>
     </message>
     <message>
@@ -737,7 +737,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>recommendation for increased operation, the heat pump will decide if this is possible depending on the current temperature range</source>
-        <translation>Empfehlung zu erhöhtem Betrieb,die Wärmepumpe wird je nach momentanen Temperaturbereich entscheiden, ob dies möglich ist;</translation>
+        <translation>Empfehlung zu erhöhtem Betrieb, die Wärmepumpe wird je nach momentanen Temperaturbereich entscheiden, ob dies möglich ist;</translation>
     </message>
     <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;High&lt;/li&gt;: </source>
@@ -753,7 +753,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>a temporary shutdown by the network operator to avoid network overload.</source>
-        <translation>ein zeitlich berenzte Abschaltung durch den Netzbetreiber um Netzüberlastung zu vermeiden.</translation>
+        <translation>eine zeitlich berenzte Abschaltung durch den Netzbetreiber um Netzüberlastung zu vermeiden.</translation>
     </message>
     <message>
         <source>Charging Mode</source>
@@ -1049,7 +1049,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>For some vehicles, the charging process is not continued again after a break or interruption. This can be the case in the charging mode &apos;PV-optimized charging&apos; or &apos;solar power only&apos; if there is not enough solar power available. Setting a minimum current ensures that the vehicle is charged with the minimum current even if no solar power is available, and thus no interruption occurs. The minimum charging current should be selected as low as possible.</source>
-        <translation>Bei einigen Fahrzeugen wird der Ladevorgang nach einer Pause bzw. Unterbrechung nicht wieder fortgesetzt. Das kann im Lademodus &quot;PV-optimiertes Laden&quot; oder &quot;nur Solarstrom&quot; der Fall sein, wenn nicht ausreichend Solarstrom zur Verfügung steht. Die Einstellung eines Mindeststroms sorgt dafür, dass das Fahrzeug auch wenn kein Solarstrom zur Verfügung steht, mit dem Mindeststrom geladen wird, und es somit zu keiner Unterbrechung kommt. Der Mindestladestrom sollte möglichst gering gewählt werden.</translation>
+        <translation>Bei einigen Fahrzeugen wird der Ladevorgang nach einer Pause bzw. Unterbrechung nicht wieder fortgesetzt. Das kann im Lademodus &quot;PV-optimiertes Laden&quot; oder &quot;nur PV-Strom&quot; der Fall sein, wenn nicht ausreichend Solarstrom zur Verfügung steht. Die Einstellung eines Mindeststroms sorgt dafür, dass das Fahrzeug auch wenn kein Solarstrom zur Verfügung steht, mit dem Mindeststrom geladen wird, und es somit zu keiner Unterbrechung kommt. Der Mindestladestrom sollte möglichst gering gewählt werden.</translation>
     </message>
     <message>
         <source>Target charge</source>
@@ -1401,7 +1401,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>With the charging target, you specify how full you want to charge the battery.</source>
-        <translation>Mit dem Ladeziel geben Sie an wie voll Sie dir Batterie laden möchten.</translation>
+        <translation>Mit dem Ladeziel geben Sie an wie voll Sie die Batterie laden möchten.</translation>
     </message>
     <message>
         <source>Target charge and charging limit: </source>

@@ -19,7 +19,7 @@ Page {
 
     InfoTextInterface{
         anchors.fill: parent
-        summaryText: qsTr("The charge limit is set in the vehicle or in the vehicle app and specifies the maximum amount that can be charged.")
+        //summaryText: qsTr("The charge limit is set in the vehicle or in the vehicle app and specifies the maximum amount that can be charged.")
         body: ColumnLayout{
             Layout.fillWidth: true
             id: bodyItem

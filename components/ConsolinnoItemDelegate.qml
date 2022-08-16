@@ -16,6 +16,7 @@ ItemDelegate {
     property var primetextColor: Material.foreground
     property var primetextElide: Text.ElideRight
 
+
     property string subText
     property bool progressive: true
     property bool canDelete: false
@@ -104,7 +105,6 @@ ItemDelegate {
             Layout.fillHeight: true
 
             Label {
-                Accessible.name: root.parent
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 text: root.text

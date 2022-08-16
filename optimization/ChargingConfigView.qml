@@ -15,6 +15,10 @@ import "../delegates"
 Page {
     id: root
 
+//    function getCurrentFileName() {
+//      var e = new Error();
+//      return e.stack.match(/\/{1}([^\/]*)\./).pop()
+//    }
 
     property HemsManager hemsManager
     property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
@@ -651,7 +655,6 @@ Page {
                     }
                     ConsolinnoItemDelegate {
                         id: carSelector
-                        Accessible.name: "chargingConfigView_CarSelector"
                         Layout.fillWidth: true
                         Layout.maximumWidth: 200
 
@@ -721,8 +724,6 @@ Page {
 
                     ComboBox {
                         id: comboboxloadingmod
-                        Accessible.name: "chargingConfigView_Comboboxloadingmod"
-                        Accessible.role: Accessible.ComboBox
                         Layout.fillWidth: true
                         Layout.maximumWidth: 200
                         Layout.alignment: Qt.AlignRight
@@ -776,14 +777,13 @@ Page {
                             to: 100
                             stepSize: 1
 
-                            function basename(str)
-                            {
-                                return (str.slice(str.lastIndexOf("/")+1))
-                            }
+
+
+
 
                             Component.onCompleted:
                             {
-                               header.text =  basename(fileUrl.toString())
+
 
                                     if (carSelector.holdingItem !== false){
                                         value = carSelector.holdingItem.stateByName("batteryLevel").value
@@ -900,8 +900,6 @@ Page {
                     visible:  (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 1000 )
                     Slider {
                         id: endTimeSlider
-                        Accessible.name: "chargingConfigView_endTimeSlider"
-                        Accessible.role: Accessible.Slider
                         Layout.fillWidth: true
                         implicitWidth: backgroundEndTimeSlider.implicitWidth
                         property int chargingConfigHours: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours()
@@ -1071,13 +1069,6 @@ Page {
 
                 Button {
                     id: savebutton
-                    Accessible.name: "chargingConfigView_SaveButton"
-                    Accessible.role: Accessible.Button
-                    Accessible.description: "sets changes to the chargingConfiguration"
-                    Accessible.onPressAction:{
-                        savebutton.clicked()
-                    }
-
                     Layout.fillWidth: true
                     text: qsTr("Save")
                     onClicked: {
@@ -1106,7 +1097,7 @@ Page {
                                 hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode })
 
                                 optimizationPage.done()
-                                //pageStack.pop()
+                                pageStack.pop()
 
                             }
                             else{
