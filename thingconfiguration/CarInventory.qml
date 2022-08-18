@@ -16,7 +16,7 @@ Page{
 
     header: NymeaHeader {
         id: header
-        text: qsTr("Car list")
+        text: qsTr("List of Cars")
         backButtonVisible: true
         onBackPressed: root.back()
     }
