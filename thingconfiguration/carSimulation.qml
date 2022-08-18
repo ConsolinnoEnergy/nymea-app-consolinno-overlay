@@ -15,6 +15,7 @@ Page {
         text: qsTr("car Simulation")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
+
     }
 
 

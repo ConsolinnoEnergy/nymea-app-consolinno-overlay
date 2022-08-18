@@ -302,7 +302,7 @@ RootMeter
 
 
             if ((userconfig.installerName === "" && !wizardSettings.installerData) || !manualWizardSettings.installerData){
-                var page = d.pushPage("/ui/wizards/InstallerDataView.qml", {hemsManager: hemsManager})
+                var page = d.pushPage("/ui/wizards/InstallerDataView.qml", {hemsManager: hemsManager, directionID: 0})
                 page.done.connect(function( saved , skip, back) {
 
                     if(back){

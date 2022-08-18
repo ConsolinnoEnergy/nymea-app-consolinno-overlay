@@ -13,12 +13,22 @@ import "../delegates"
 Page{
     id: root
     signal done(bool saved, bool skip, bool back)
+    property int directionID: 0
 
     header: NymeaHeader {
         text: qsTr("Contact")
         //text: userconfig.installerEmail
         backButtonVisible: true
-        onBackPressed: root.done(false, false, true)
+        onBackPressed:{
+
+            if(directionID == 1){
+                pageStack.pop()
+            } else{
+                root.done(false, false, true)
+            }
+
+
+        }
     }
 
 
