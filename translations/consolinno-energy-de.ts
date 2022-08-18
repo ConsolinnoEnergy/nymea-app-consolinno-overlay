@@ -1175,7 +1175,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <name>PVOptimization</name>
     <message>
         <source>Pv configuration</source>
-        <translation>PV einstellungen</translation>
+        <translation>PV-Einstellungen</translation>
     </message>
     <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
