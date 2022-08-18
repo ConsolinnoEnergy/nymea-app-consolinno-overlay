@@ -43,7 +43,7 @@ Page {
                 rightPadding: app.margins +10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
-                text: qsTr("The dashboard illustrates the energy flow in your house. The lines indicate by their thickness and direction where the current is flowing. At the top you can see the energy sources: Electricity can come from either their grid connection (red) or solar production (yellow). If more solar power is produced than consumed, it is fed into the grid (grid connection changes color from red to blue).  At the bottom, your consumers and their current consumption are displayed.")
+                text: qsTr("The dashboard illustrates the energy flow in your house. The lines indicate by their thickness and direction where the current is flowing. At the top you can see the energy sources: Electricity can come from either their grid connection (red) or solar production (yellow). If more solar power is produced than consumed, it is fed into the grid (grid connection changes color from red to blue). At the bottom, your consumers and their current consumption are displayed.")
             }
 
             Label{
@@ -62,7 +62,7 @@ Page {
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 id: consumptionDescription
-                text: qsTr("In the center of the dashboard you can see the consumption of the last 24 hours. The yellow area shows your produced energy. If more is produced than consumed, power is fed into the grid visible by the blue area. If more energy is consumed than produced, energy is drawn from the grid visible on the red area. The other colored areas stand for the consumption of the different consumers.")
+                text: qsTr("In the middle of the dashboard you can see the consumption of the last 24 hours. The yellow area shows your produced energy. If more energy is produced than consumed, power is fed into the grid visible on the blue area. If more energy is consumed than produced, then energy is drawn from the grid visible on the blue area. The other colored areas represent the energy consumption of the different devices such as a wallbox or a heat pump.")
             }
             Label{
                 Layout.fillWidth: true
