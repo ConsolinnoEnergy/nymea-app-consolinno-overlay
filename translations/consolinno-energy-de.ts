@@ -401,8 +401,24 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
         <translation>Ladeoptimierung</translation>
     </message>
     <message>
-        <source>Test that</source>
-        <translation>testen</translation>
+        <source>Reenable chargepoint:</source>
+        <translation>Wiedereinschalten des Ladepunkts:</translation>
+    </message>
+    <message>
+        <source>P value:</source>
+        <translation>P-wert</translation>
+    </message>
+    <message>
+        <source>I value:</source>
+        <translation>I-wert</translation>
+    </message>
+    <message>
+        <source>D value:</source>
+        <translation>D-wert</translation>
+    </message>
+    <message>
+        <source>Setpoint:</source>
+        <translation>Sollwert:</translation>
     </message>
 </context>
 <context>
@@ -501,10 +517,6 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
         <translation>Info</translation>
     </message>
     <message>
-        <source>Leaflet CLS</source>
-        <translation>Leaflet CLS</translation>
-    </message>
-    <message>
         <source>Make sure that the Leaflet is operational and connected to the network.</source>
         <translation>Bitte stelle sicher, dass das Leaflet eingeschaltet und mit dem Netzwerk verbunden ist.</translation>
     </message>
@@ -591,6 +603,10 @@ Sie können Ihr Gerät auch mit dem lokalen Wifi verbinden, wenn das Leaflet üb
     <message>
         <source>You have to authenticate yourself to the Leaflet. For further information look at the manual for commissioning.</source>
         <translation>Sie müssen sich beim Leaflet authentifizieren. Weitere Informationen finden Sie in der Anleitung zur Inbetriebnahme.</translation>
+    </message>
+    <message>
+        <source>HEMS</source>
+        <translation>HEMS</translation>
     </message>
 </context>
 <context>
@@ -858,7 +874,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Maximal electrical power</source>
-        <translation>Maximale elektrische Energie</translation>
+        <translation>Maximale elektrische Leistung</translation>
     </message>
     <message>
         <source>kW</source>
@@ -982,16 +998,8 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Energiefluss</translation>
     </message>
     <message>
-        <source>The dashboard illustrates the energy flow in your house. The lines indicate by their thickness and direction where the current is flowing. At the top you can see the energy sources: Electricity can come from either their grid connection (red) or solar production (yellow). If more solar power is produced than consumed, it is fed into the grid (grid connection changes color from red to blue).  At the bottom, your consumers and their current consumption are displayed.</source>
-        <translation>Das Dashboard veranschaulicht den Energiefluss in ihrem Haus. Die Linien zeigen durch ihre Dicke und Richtung an wohin gerade der Strom fließt. Oben werden Ihnen die Energiequellen angezeigt: Der Strom kann entweder von ihrem Netzanschluss (rot) oder der Solarproduktion (gelb) kommen. Wird mehr Solarstrom produziert als verbraucht wird er ins Netz eingespeist (Wechselrichter verändert Farbe von rot zu blau).  Unten werden ihre Verbraucher und ihr aktueller Bezug angezeigt.</translation>
-    </message>
-    <message>
         <source>Consumption of the last 24 hours</source>
         <translation>Verbrauch der letzten 24 Stunden</translation>
-    </message>
-    <message>
-        <source>In the center of the dashboard you can see the consumption of the last 24 hours. The yellow area shows your produced energy. If more is produced than consumed, power is fed into the grid visible by the blue area. If more energy is consumed than produced, energy is drawn from the grid visible on the red area. The other colored areas stand for the consumption of the different consumers.</source>
-        <translation>In der Mitte des Dashboards sehen Sie den Verbrauch der letzten 24 Stunden. Die gelbe Fläche zeigt ihre produzierte Energie an. Wird mehr produziert als verbraucht, wird Strom ins Netz eingespeist sichtbar an der blauen Fläche. Wenn mehr verbraucht wird als produziert wird Energie vom Netz bezogen sichtbar an der roten Fläche. Die anderen farbigen Flächen stehen für den Bezug der unterschiedlichen Verbraucher.</translation>
     </message>
     <message>
         <source>Interaction</source>
@@ -1001,16 +1009,20 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>By tapping on the consumers, you can access the settings, e.g. the charging of the e-car. If you tap on the evaluation of the last 24 hours, further statistics are displayed.</source>
         <translation>Durch Tippen auf die Verbraucher gelangen Sie zu den Einstellungen z.B. dem Laden des E-Autos. Wenn Sie auf die Auswertung der letzten 24 Stunden tippen, werden Ihnen weitere Statistiken angezeigt.</translation>
     </message>
+    <message>
+        <source>The dashboard illustrates the energy flow in your house. The lines indicate by their thickness and direction where the current is flowing. At the top you can see the energy sources: Electricity can come from either their grid connection (red) or solar production (yellow). If more solar power is produced than consumed, it is fed into the grid (grid connection changes color from red to blue). At the bottom, your consumers and their current consumption are displayed.</source>
+        <translation>Das Dashboard veranschaulicht den Energiefluss in ihrem Haus. Die Linien zeigen durch ihre Dicke und Richtung an wohin der Strom gerade fließt. Oben werden Ihnen die Energiequellen angezeigt: Der Strom kann entweder von ihrem Netzanschluss (rot) oder der Solarproduktion (gelb) kommen. Wird mehr Solarstrom produziert als verbraucht wird er ins Netz eingespeist (Wechselrichter verändert Farbe von rot zu blau). Unten werden ihre Verbraucher und ihr aktueller Bezug angezeigt.</translation>
+    </message>
+    <message>
+        <source>In the middle of the dashboard you can see the consumption of the last 24 hours. The yellow area shows your produced energy. If more energy is produced than consumed, power is fed into the grid visible on the blue area. If more energy is consumed than produced, then energy is drawn from the grid visible on the blue area. The other colored areas represent the energy consumption of the different devices such as a wallbox or a heat pump.</source>
+        <translation>In der Mitte des Dashboards sehen Sie den Verbrauch der letzten 24 Stunden. Die gelbe Fläche zeigt ihre produzierte Energie an. Wird mehr Energie produziert als verbraucht, wird Strom ins Netz eingespeist sichtbar an der blauen Fläche. Wenn mehr Energie verbraucht als produziert wird, dann wird Energie von Netz bezogen sichtbar an der blauen Fläche. Die anderen farbigen Flächen stehen für den Energieverbrauch der unterschiedlichen Geräte wie zum Beispiel eine Wallbox oder eine Wärmepumpe.</translation>
+    </message>
 </context>
 <context>
     <name>MaximumAllowedChargingLimit</name>
     <message>
         <source>Maximum Allowed Charging Limit </source>
         <translation>Maximales Ladelimit</translation>
-    </message>
-    <message>
-        <source>The charge limit is set in the vehicle or in the vehicle app and specifies the maximum amount that can be charged.</source>
-        <translation>Das Ladelimit wird beim Fahrzeug oder in der Fahrzeug-App eingegeben und gibt vor wieviel maximal geladen werden kann.</translation>
     </message>
     <message>
         <source>Charging limit and target charge: </source>

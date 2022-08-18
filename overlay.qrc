@@ -67,5 +67,9 @@
         <file>mainviews/OptimizationConfiguration.qml</file>
         <file>wizards/InstallerDataView.qml</file>
         <file>optimization/ChargingOptimization.qml</file>
+        <file>info/Help/HelpPage.qml</file>
+        <file>info/Help/ManualPage.qml</file>
+        <file>info/Help/ContactPage.qml</file>
+        <file>info/Help/ServicePage.qml</file>
     </qresource>
 </RCC>
