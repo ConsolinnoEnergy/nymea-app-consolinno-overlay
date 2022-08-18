@@ -135,10 +135,6 @@
 <context>
     <name>CarInventory</name>
     <message>
-        <source>Car list</source>
-        <translation>Auto inventar</translation>
-    </message>
-    <message>
         <source>Add new car</source>
         <translation>Auto hinzufügen</translation>
     </message>
@@ -181,6 +177,10 @@
     <message>
         <source>Save</source>
         <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>List of Cars</source>
+        <translation>Fahrzeugliste</translation>
     </message>
 </context>
 <context>
@@ -686,6 +686,29 @@ Sie können Ihr Gerät auch mit dem lokalen Wifi verbinden, wenn das Leaflet üb
     </message>
 </context>
 <context>
+    <name>ContactPage</name>
+    <message>
+        <source>Contact</source>
+        <translation>Kontakt</translation>
+    </message>
+    <message>
+        <source>Name: </source>
+        <translation>Name: </translation>
+    </message>
+    <message>
+        <source>Workplace: </source>
+        <translation>Gewerbe: </translation>
+    </message>
+    <message>
+        <source>E-mail: </source>
+        <translation>E-mail: </translation>
+    </message>
+    <message>
+        <source>Phone number: </source>
+        <translation>Telefonnummer: </translation>
+    </message>
+</context>
+<context>
     <name>DeveloperConfig</name>
     <message>
         <source>Development</source>
@@ -898,6 +921,33 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
 </context>
 <context>
+    <name>HelpPage</name>
+    <message>
+        <source>Help</source>
+        <translation>Hilfe</translation>
+    </message>
+    <message>
+        <source>Manual</source>
+        <translation>Bedienungsanleitung</translation>
+    </message>
+    <message>
+        <source>Installer contact</source>
+        <translation>Installateur Kontakt</translation>
+    </message>
+    <message>
+        <source>Service Consolinno</source>
+        <translation>Consolinno Service</translation>
+    </message>
+    <message>
+        <source>Under Manual you will find the the most recent version of the HEMS</source>
+        <translation>Unter &quot;Bedienungsanleitung&quot; finden Sie die aktuellste version der Anleitung zur App</translation>
+    </message>
+    <message>
+        <source>In case of problems with your </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>HemsOptimizationPage</name>
     <message>
         <source>No optimizations available</source>
@@ -1016,6 +1066,21 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>In the middle of the dashboard you can see the consumption of the last 24 hours. The yellow area shows your produced energy. If more energy is produced than consumed, power is fed into the grid visible on the blue area. If more energy is consumed than produced, then energy is drawn from the grid visible on the blue area. The other colored areas represent the energy consumption of the different devices such as a wallbox or a heat pump.</source>
         <translation>In der Mitte des Dashboards sehen Sie den Verbrauch der letzten 24 Stunden. Die gelbe Fläche zeigt ihre produzierte Energie an. Wird mehr Energie produziert als verbraucht, wird Strom ins Netz eingespeist sichtbar an der blauen Fläche. Wenn mehr Energie verbraucht als produziert wird, dann wird Energie von Netz bezogen sichtbar an der blauen Fläche. Die anderen farbigen Flächen stehen für den Energieverbrauch der unterschiedlichen Geräte wie zum Beispiel eine Wallbox oder eine Wärmepumpe.</translation>
+    </message>
+</context>
+<context>
+    <name>ManualPage</name>
+    <message>
+        <source>Manual</source>
+        <translation>Bedienungsanleitung</translation>
+    </message>
+    <message>
+        <source>You find the most recent manual here: </source>
+        <translation>Aktuelle Bedienungsanleitungen finden sie hier: </translation>
+    </message>
+    <message>
+        <source>Link to the manual</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1159,6 +1224,21 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source></source>
         <comment>example: &quot;and temperature &gt; 5&quot;</comment>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>ServicePage</name>
+    <message>
+        <source>Service Consolinno</source>
+        <translation>Service Consolinno</translation>
+    </message>
+    <message>
+        <source>If there are problems with the Leaflet, please refer to our service adress: </source>
+        <translation>Bei Problemen mit dem Leaflet wenden sie sich an unserere Serviceadresse</translation>
+    </message>
+    <message>
+        <source>service@consolinno.de</source>
+        <translation>service@consolinno.de</translation>
     </message>
 </context>
 <context>

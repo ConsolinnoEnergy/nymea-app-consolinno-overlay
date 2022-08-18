@@ -135,10 +135,6 @@
 <context>
     <name>CarInventory</name>
     <message>
-        <source>Car list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Add new car</source>
         <translation type="unfinished"></translation>
     </message>
@@ -180,6 +176,10 @@
     </message>
     <message>
         <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of Cars</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -681,6 +681,29 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
 </context>
 <context>
+    <name>ContactPage</name>
+    <message>
+        <source>Contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Workplace: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E-mail: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Phone number: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DeveloperConfig</name>
     <message>
         <source>Development</source>
@@ -891,6 +914,33 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
 </context>
 <context>
+    <name>HelpPage</name>
+    <message>
+        <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installer contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Service Consolinno</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Under Manual you will find the the most recent version of the HEMS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In case of problems with your </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>HemsOptimizationPage</name>
     <message>
         <source>No optimizations available</source>
@@ -1007,6 +1057,21 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>In the middle of the dashboard you can see the consumption of the last 24 hours. The yellow area shows your produced energy. If more energy is produced than consumed, power is fed into the grid visible on the blue area. If more energy is consumed than produced, then energy is drawn from the grid visible on the blue area. The other colored areas represent the energy consumption of the different devices such as a wallbox or a heat pump.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ManualPage</name>
+    <message>
+        <source>Manual</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You find the most recent manual here: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link to the manual</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1151,6 +1216,21 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <source></source>
         <comment>example: &quot;and temperature &gt; 5&quot;</comment>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>ServicePage</name>
+    <message>
+        <source>Service Consolinno</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there are problems with the Leaflet, please refer to our service adress: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>service@consolinno.de</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
