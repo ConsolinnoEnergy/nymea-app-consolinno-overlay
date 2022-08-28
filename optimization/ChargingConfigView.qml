@@ -1070,6 +1070,11 @@ Page {
                     text: qsTr("Save")
                     onClicked: {
 
+                        // if PV excess mode is used set the endTime to maximum value
+                        if((comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode >= 2000) && (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode < 3000) ){
+                            endTimeSlider.value = 24*60
+                        }
+
                         if((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) && (endTimeSlider.value >= 30) ){
 
                            if (carSelector.holdingItem !== false){
@@ -1079,16 +1084,6 @@ Page {
                                 pageSelectedCar = carSelector.holdingItem.name
 
                                 var optimizationMode = compute_OptimizationMode()
-
-                                // TODO: when ConEMS finished no need for this if statement anymore
-                                if(!settings.showHiddenOptions){
-                                    optimizationMode = Math.floor(optimizationMode/1000)
-                                }
-
-                                // if PV excess mode is used set the endTime to maximum value
-                                if((comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode >= 2000) && (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode < 3000) ){
-                                    endTimeSlider.value = 24*60
-                                }
 
                                 hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
                                 hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode })
@@ -1102,6 +1097,7 @@ Page {
                                 footer.visible = true
                             }
                         }else{
+                         // TODO: How to handle this case? Any error/warning message required here?
                        }
 
 
