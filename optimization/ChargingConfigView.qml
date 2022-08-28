@@ -1006,7 +1006,7 @@ Page {
 
                 RowLayout
                 {
-                visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode !== 2000)
+                visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 1000)
                 Label
                     {
                     id: feasibilityMessage
@@ -1072,6 +1072,10 @@ Page {
 
                         // if PV excess mode is used set the endTime to maximum value
                         if((comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode >= 2000) && (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode < 3000) ){
+                            endTimeSlider.value = 24*60
+                        }
+                        // Set endTime to maximum for no optimization
+                        if((comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode < 1000) ){
                             endTimeSlider.value = 24*60
                         }
 
