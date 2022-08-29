@@ -724,10 +724,9 @@ Page {
 
                     ComboBox {
                         id: comboboxloadingmod
-                        Layout.fillWidth: true
-                        Layout.maximumWidth: 200
-                        Layout.alignment: Qt.AlignRight
-                        x: carSelector.x
+
+                        Layout.preferredWidth: carSelector.width
+
                         model: ListModel{
 
                             ListElement{key: qsTr("No optimization"); value: "No Optimization"; mode: 0}
@@ -738,6 +737,16 @@ Page {
 
                         }
                         textRole: "key"
+                        contentItem: Text{
+                            text: parent.displayText
+                            width: parent.width
+                            color: Material.foreground
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignLeft;
+                            leftPadding: app.margins
+                            elide: Text.ElideRight
+                        }
+
                         currentIndex: userconfig.defaultChargingMode
                         onCurrentIndexChanged:
                         {
