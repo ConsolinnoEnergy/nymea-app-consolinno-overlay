@@ -152,13 +152,16 @@ Page {
 
             // Having 0 Solar inverter will be supporter at a later stage
             Button {
-                text: qsTr("next")
+                text: qsTr("next step")
                 background: Rectangle{
+                    border.color: Material.background
                     color: solarInverterRepeater.count > 0  ? "#87BD26" : "grey"
                     radius: 4
                 }
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
+                // background fucks up the margin between the buttons, thats why wee need this topMargin
+                Layout.topMargin: 5
                 onClicked:{
                     if (solarInverterRepeater.count >0){
                         root.done(true, false, false)
@@ -409,26 +412,31 @@ Page {
                     visible: setupEnergyMeterPage.thingError != Thing.ThingErrorNoError
                 }
 
-                Button {
+                ColumnLayout{
+                    spacing: 0
                     Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredWidth: 200
-                    text: qsTr("back")
-                    //color: Style.yellow
-                    onClicked: pageStack.pop(root)
-                }
 
-                Button {
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredWidth: 200
-                    text: qsTr("next")
-                    onClicked:{
-                        var page = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thing.id), thing: thing, directionID: 1} )
-                        page.done.connect(function(){
-                            pageStack.pop(root)
-                            //root.done(false, false)
-                        })
+                    Button {
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.preferredWidth: 200
+                        text: qsTr("back")
+                        //color: Style.yellow
+                        onClicked: pageStack.pop(root)
                     }
 
+                    Button {
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.preferredWidth: 200
+                        text: qsTr("next step")
+                        onClicked:{
+                            var page = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thing.id), thing: thing, directionID: 1} )
+                            page.done.connect(function(){
+                                pageStack.pop(root)
+                                //root.done(false, false)
+                            })
+                        }
+
+                    }
                 }
             }
         }

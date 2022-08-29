@@ -669,6 +669,7 @@ Page {
                                 hemsManager.setUserConfiguration({lastSelectedCar: selectedCar.id})
                                 carSelector.text = selectedCar.name
                                 holdingItem = selectedCar
+                                batteryLevel.value = 0
 
 
                             })
@@ -853,19 +854,22 @@ Page {
 
                             }
                             onPositionChanged: {
-
                                 if (carSelector.holdingItem !== false){
                                     endTimeSlider.computeFeasibility()
                                     endTimeSlider.feasibilityText()
 
                                     if (value <= batteryLevel.value)
                                     {
-                                        value = batteryLevel.value
+                                        if (value === 100){
+                                            value = batteryLevel.value
+                                        }else{
+                                            value = batteryLevel.value + 1
+                                        }
                                     }
-                                    if (value == 0){
+//                                    if (value == 0){
 
-                                        value = 1
-                                    }
+//                                        value = 1
+//                                    }
 
                                 }
                             }
@@ -1088,30 +1092,39 @@ Page {
                             endTimeSlider.value = 24*60
                         }
 
-                        if((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) && (endTimeSlider.value >= 30) ){
+                        if ((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) && (endTimeSlider.value >= 30) && carSelector.holdingItem !== false && batteryLevel.value !== 0){
+                            if (carSelector.holdingItem.stateByName("batteryLevel").value){
+                                carSelector.holdingItem.executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batteryLevel.value }])
+                            }
+                            pageSelectedCar = carSelector.holdingItem.name
 
-                           if (carSelector.holdingItem !== false){
-                                if (carSelector.holdingItem.stateByName("batteryLevel").value){
-                                    carSelector.holdingItem.executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batteryLevel.value }])
-                                }
-                                pageSelectedCar = carSelector.holdingItem.name
+                            var optimizationMode = compute_OptimizationMode()
 
-                                var optimizationMode = compute_OptimizationMode()
+                            hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
+                            hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode })
 
-                                hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
-                                hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode })
+                            optimizationPage.done()
+                            pageStack.pop()
 
-                                optimizationPage.done()
-                                pageStack.pop()
-
+                        }
+                        else{
+                            // footer message to notifiy the user, what is wrong
+                            if(batteryLevel.value === 0){
+                                footer.text = qsTr("please select a valid battery level")
+                            }
+                            else if (carSelector.holdingItem === false){
+                                footer.text = qsTr("please select a car")
+                            }
+                            else if((endTimeSlider.value < endTimeSlider.maximumChargingthreshhold) || (endTimeSlider.value < 30)){
+                                footer.text = qsTr("please select a valid target time")
                             }
                             else{
-                                footer.text = qsTr("please select a car")
-                                footer.visible = true
+                                footer.text = qsTr("unknown error")
                             }
-                        }else{
-                         // TODO: How to handle this case? Any error/warning message required here?
-                       }
+
+                            footer.visible = true
+                        }
+
 
 
                     }

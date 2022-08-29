@@ -357,6 +357,18 @@
         <source>PV excess only</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>please select a valid battery level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>please select a valid target time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -1240,10 +1252,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>next</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>skip</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1293,6 +1301,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>The following charging point or wallbox has been found and set up:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>next step</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1358,10 +1370,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>next</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>skip</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1413,6 +1421,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <source>The following heat pump has been found and set up:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>next step</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SetupSolarInverterWizard</name>
@@ -1422,10 +1434,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1474,6 +1482,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>The following solar inverter has been found and set up:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>next step</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

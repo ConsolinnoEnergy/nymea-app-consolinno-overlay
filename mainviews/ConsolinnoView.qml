@@ -159,7 +159,7 @@ MainViewBase {
             }
 
 
-            if ((energyMetersProxy.count === 0 && !energyMeterWiazrdSkipped) || !manualWizardSettings.energymeter) {
+            if ((energyMetersProxy.count === 0 && !energyMeterWiazrdSkipped) || (energyMetersProxy.count === 0 && !manualWizardSettings.energymeter)) {
                 var page = d.pushPage("/ui/wizards/SetupEnergyMeterWizard.qml")
                 page.done.connect(function(skip, abort) {
 //                    if (back){
@@ -199,7 +199,6 @@ MainViewBase {
                         manualWizardSettings.energymeter = false
                         pageStack.pop()
                         return
-RootMeter
                     }
 
                     if (abort) {
