@@ -169,7 +169,7 @@ Page {
             }
             // Having 0 EV charger will be supporter at a later stage
             Button {
-                text: qsTr("next step")
+                text: qsTr("Next step")
                 background: Rectangle{
                     color: evChargerRepeater.count > 0  ? "#87BD26" : "grey"
                     radius: 4
@@ -432,7 +432,7 @@ Page {
                     Button {
                         Layout.alignment: Qt.AlignHCenter
                         Layout.preferredWidth: 200
-                        text: qsTr("back")
+                        text: qsTr("Back")
                         //color: Style.yellow
                         onClicked: pageStack.pop(root)
                     }
@@ -440,7 +440,7 @@ Page {
                     Button {
                         Layout.alignment: Qt.AlignHCenter
                         Layout.preferredWidth: 200
-                        text: qsTr("next step")
+                        text: qsTr("Next")
                         onClicked: pageStack.pop(root)
                     }
                 }

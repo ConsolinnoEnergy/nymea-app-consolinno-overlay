@@ -308,7 +308,7 @@ Page {
 
                     Button {
                         Layout.alignment: Qt.AlignHCenter
-                        text: qsTr("back")
+                        text: qsTr("Back")
                         Layout.preferredWidth: 200
                         //color: Style.yellow
                         onClicked: pageStack.pop(root)
@@ -316,7 +316,7 @@ Page {
 
                     Button {
                         Layout.alignment: Qt.AlignHCenter
-                        text: qsTr("next")
+                        text: qsTr("Next")
                         Layout.preferredWidth: 200
                         onClicked: root.done(false, false)
                     }

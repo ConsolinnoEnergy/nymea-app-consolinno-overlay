@@ -358,16 +358,20 @@
         <translation>PV-Überschuss</translation>
     </message>
     <message>
-        <source>please select a valid battery level</source>
-        <translation>Bitte wählen sie ein geeignetes Batteriestand</translation>
+        <source>Please select a battery level greater than 0%.</source>
+        <translation>Bitte wählen Sie ein Batteriestand, der größer als 0% ist.</translation>
     </message>
     <message>
-        <source>please select a valid target time</source>
-        <translation>Bitte wählen Sie eine valide Endzeit</translation>
+        <source>Please select a car</source>
+        <translation>Bitte wählen Sie ein Auto aus</translation>
     </message>
     <message>
-        <source>unknown error</source>
-        <translation>Unbekannter fehler</translation>
+        <source>Please select a valid target time</source>
+        <translation>Bitte wählen Sie eine geeignete Zielzeit</translation>
+    </message>
+    <message>
+        <source>Unknown error</source>
+        <translation>Unbekannter Fehler</translation>
     </message>
 </context>
 <context>
@@ -1312,8 +1316,16 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Eingerichtete Wallboxen:</translation>
     </message>
     <message>
-        <source>next step</source>
+        <source>Next step</source>
         <translation>Nächster Schritt</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Zurück</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
     </message>
 </context>
 <context>
@@ -1325,10 +1337,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>cancel</source>
         <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>next</source>
-        <translation>weiter</translation>
     </message>
     <message>
         <source>skip</source>
@@ -1365,6 +1373,14 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>The following energy meter has been found and set up:</source>
         <translation>Der folgende Stromzähler wurde gefunden und eingerichtet</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Zurück</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
     </message>
 </context>
 <context>
@@ -1430,8 +1446,16 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Füge Wärmepumpen hinzu: </translation>
     </message>
     <message>
-        <source>next step</source>
+        <source>Next step</source>
         <translation>Nächster Schritt</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Zurück</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
     </message>
 </context>
 <context>
@@ -1493,8 +1517,16 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Eingerichtete Wechselrichter:</translation>
     </message>
     <message>
-        <source>next step</source>
-        <translation type="unfinished">Nächster Schritt</translation>
+        <source>Next step</source>
+        <translation>Nächster Schritt</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Zurück</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
     </message>
 </context>
 <context>

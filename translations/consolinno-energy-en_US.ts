@@ -358,15 +358,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>please select a valid battery level</source>
+        <source>Please select a battery level greater than 0%.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>please select a valid target time</source>
+        <source>Please select a car</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>unknown error</source>
+        <source>Please select a valid target time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown error</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1304,8 +1308,16 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>next step</source>
+        <source>Next step</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">Zurück</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
     </message>
 </context>
 <context>
@@ -1316,10 +1328,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1357,6 +1365,14 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     <message>
         <source>The following energy meter has been found and set up:</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">Zurück</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
     </message>
 </context>
 <context>
@@ -1422,8 +1438,16 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>next step</source>
+        <source>Next step</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">Zurück</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
     </message>
 </context>
 <context>
@@ -1485,8 +1509,16 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>next step</source>
+        <source>Next step</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">Zurück</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
     </message>
 </context>
 <context>

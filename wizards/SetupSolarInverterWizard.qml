@@ -152,7 +152,7 @@ Page {
 
             // Having 0 Solar inverter will be supporter at a later stage
             Button {
-                text: qsTr("next step")
+                text: qsTr("Next step")
                 background: Rectangle{
                     border.color: Material.background
                     color: solarInverterRepeater.count > 0  ? "#87BD26" : "grey"
@@ -419,7 +419,7 @@ Page {
                     Button {
                         Layout.alignment: Qt.AlignHCenter
                         Layout.preferredWidth: 200
-                        text: qsTr("back")
+                        text: qsTr("Back")
                         //color: Style.yellow
                         onClicked: pageStack.pop(root)
                     }
@@ -427,7 +427,7 @@ Page {
                     Button {
                         Layout.alignment: Qt.AlignHCenter
                         Layout.preferredWidth: 200
-                        text: qsTr("next step")
+                        text: qsTr("Next")
                         onClicked:{
                             var page = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thing.id), thing: thing, directionID: 1} )
                             page.done.connect(function(){

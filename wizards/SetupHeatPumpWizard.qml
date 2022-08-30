@@ -150,7 +150,7 @@ Page {
                 onClicked:  pageStack.push(searchHeatPumpComponent, {thingClassId: thingClassComboBox.currentValue})
             }
             Button {
-                text: qsTr("next step")
+                text: qsTr("Next step")
                 //color: Style.blue
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
@@ -462,7 +462,7 @@ Page {
 
                     Button {
                         Layout.alignment: Qt.AlignHCenter
-                        text: qsTr("back")
+                        text: qsTr("Back")
                         //color: Style.yellow
                         Layout.preferredWidth: 200
                         onClicked: pageStack.pop(root)
@@ -470,7 +470,7 @@ Page {
 
                     Button {
                         Layout.alignment: Qt.AlignHCenter
-                        text: qsTr("next step")
+                        text: qsTr("Next")
                         Layout.preferredWidth: 200
                         onClicked:{
                             var page = pageStack.push("../optimization/HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatPumpThing: thing, directionID: 1})

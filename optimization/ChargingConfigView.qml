@@ -786,11 +786,6 @@ Page {
                             from: 0
                             to: 100
                             stepSize: 1
-
-
-
-
-
                             Component.onCompleted:
                             {
 
@@ -798,8 +793,6 @@ Page {
                                     if (carSelector.holdingItem !== false){
                                         value = carSelector.holdingItem.stateByName("batteryLevel").value
                                     }
-
-
                             }
 
                             onPositionChanged:
@@ -808,7 +801,11 @@ Page {
                                 if (carSelector.holdingItem !== false){
                                     if (value  >= targetPercentageSlider.value)
                                     {
-                                        targetPercentageSlider.value = value
+                                        if (value === 100){
+                                            value = 99
+                                        }
+
+                                        targetPercentageSlider.value = value +1
                                     }
 
                                     endTimeSlider.computeFeasibility()
@@ -1110,16 +1107,16 @@ Page {
                         else{
                             // footer message to notifiy the user, what is wrong
                             if(batteryLevel.value === 0){
-                                footer.text = qsTr("please select a valid battery level")
+                                footer.text = qsTr("Please select a battery level greater than 0%.")
                             }
                             else if (carSelector.holdingItem === false){
-                                footer.text = qsTr("please select a car")
+                                footer.text = qsTr("Please select a car")
                             }
                             else if((endTimeSlider.value < endTimeSlider.maximumChargingthreshhold) || (endTimeSlider.value < 30)){
-                                footer.text = qsTr("please select a valid target time")
+                                footer.text = qsTr("Please select a valid target time")
                             }
                             else{
-                                footer.text = qsTr("unknown error")
+                                footer.text = qsTr("Unknown error")
                             }
 
                             footer.visible = true
