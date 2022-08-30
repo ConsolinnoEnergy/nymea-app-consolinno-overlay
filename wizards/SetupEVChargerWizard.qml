@@ -169,11 +169,12 @@ Page {
             }
             // Having 0 EV charger will be supporter at a later stage
             Button {
-                text: qsTr("next")
+                text: qsTr("Next step")
                 background: Rectangle{
                     color: evChargerRepeater.count > 0  ? "#87BD26" : "grey"
                     radius: 4
                 }
+                Layout.topMargin: 5
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
                 onClicked:{
@@ -424,20 +425,26 @@ Page {
                     visible: setupEnergyMeterPage.thingError != Thing.ThingErrorNoError
                 }
 
-                Button {
+                ColumnLayout{
+                    spacing: 0
                     Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredWidth: 200
-                    text: qsTr("back")
-                    //color: Style.yellow
-                    onClicked: pageStack.pop(root)
+
+                    Button {
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.preferredWidth: 200
+                        text: qsTr("Back")
+                        //color: Style.yellow
+                        onClicked: pageStack.pop(root)
+                    }
+
+                    Button {
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.preferredWidth: 200
+                        text: qsTr("Next")
+                        onClicked: pageStack.pop(root)
+                    }
                 }
 
-                Button {
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredWidth: 200
-                    text: qsTr("next")
-                    onClicked: pageStack.pop(root)
-                }
             }
         }
     }

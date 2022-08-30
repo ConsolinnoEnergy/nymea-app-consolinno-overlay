@@ -235,7 +235,7 @@
     </message>
     <message>
         <source>PV only</source>
-        <translation>Nur Solar</translation>
+        <translation>PV-Überschuss</translation>
     </message>
     <message>
         <source>Ending time:</source>
@@ -355,7 +355,23 @@
     </message>
     <message>
         <source>PV excess only</source>
-        <translation>Nur PV-Überschuss </translation>
+        <translation>PV-Überschuss</translation>
+    </message>
+    <message>
+        <source>Please select a battery level greater than 0%.</source>
+        <translation>Bitte wählen Sie ein Batteriestand, der größer als 0% ist.</translation>
+    </message>
+    <message>
+        <source>Please select a car</source>
+        <translation>Bitte wählen Sie ein Auto aus</translation>
+    </message>
+    <message>
+        <source>Please select a valid target time</source>
+        <translation>Bitte wählen Sie eine geeignete Zielzeit</translation>
+    </message>
+    <message>
+        <source>Unknown error</source>
+        <translation>Unbekannter Fehler</translation>
     </message>
 </context>
 <context>
@@ -1248,10 +1264,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>abbrechen</translation>
     </message>
     <message>
-        <source>next</source>
-        <translation>weiter</translation>
-    </message>
-    <message>
         <source>skip</source>
         <translation>überspringen</translation>
     </message>
@@ -1303,6 +1315,18 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>Integrated wallbox:</source>
         <translation>Eingerichtete Wallboxen:</translation>
     </message>
+    <message>
+        <source>Next step</source>
+        <translation>Nächster Schritt</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Zurück</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
+    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -1313,10 +1337,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>cancel</source>
         <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>next</source>
-        <translation>weiter</translation>
     </message>
     <message>
         <source>skip</source>
@@ -1354,6 +1374,14 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>The following energy meter has been found and set up:</source>
         <translation>Der folgende Stromzähler wurde gefunden und eingerichtet</translation>
     </message>
+    <message>
+        <source>Back</source>
+        <translation>Zurück</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
+    </message>
 </context>
 <context>
     <name>SetupHeatPumpWizard</name>
@@ -1364,10 +1392,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>cancel</source>
         <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>next</source>
-        <translation>weiter</translation>
     </message>
     <message>
         <source>skip</source>
@@ -1421,6 +1445,18 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>Add heatpumps:</source>
         <translation>Füge Wärmepumpen hinzu: </translation>
     </message>
+    <message>
+        <source>Next step</source>
+        <translation>Nächster Schritt</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Zurück</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
+    </message>
 </context>
 <context>
     <name>SetupSolarInverterWizard</name>
@@ -1431,10 +1467,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>cancel</source>
         <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>next</source>
-        <translation>weiter</translation>
     </message>
     <message>
         <source>skip</source>
@@ -1483,6 +1515,18 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Integrated solar inverter:</source>
         <translation>Eingerichtete Wechselrichter:</translation>
+    </message>
+    <message>
+        <source>Next step</source>
+        <translation>Nächster Schritt</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Zurück</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
     </message>
 </context>
 <context>

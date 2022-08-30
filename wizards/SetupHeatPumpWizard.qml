@@ -150,7 +150,7 @@ Page {
                 onClicked:  pageStack.push(searchHeatPumpComponent, {thingClassId: thingClassComboBox.currentValue})
             }
             Button {
-                text: qsTr("next")
+                text: qsTr("Next step")
                 //color: Style.blue
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
@@ -456,26 +456,31 @@ Page {
                     visible: setupHeatPumpPage.thingError != Thing.ThingErrorNoError
                 }
 
-                Button {
+                ColumnLayout{
+                    spacing: 0
                     Layout.alignment: Qt.AlignHCenter
-                    text: qsTr("back")
-                    //color: Style.yellow
-                    Layout.preferredWidth: 200
-                    onClicked: pageStack.pop(root)
-                }
 
-                Button {
-                    Layout.alignment: Qt.AlignHCenter
-                    text: qsTr("next")
-                    Layout.preferredWidth: 200
-                    onClicked:{
-                        var page = pageStack.push("../optimization/HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatPumpThing: thing, directionID: 1})
-                        page.done.connect(function(){
-                            pageStack.pop(root)
-                            //root.done(false, false)
-                        })
+                    Button {
+                        Layout.alignment: Qt.AlignHCenter
+                        text: qsTr("Back")
+                        //color: Style.yellow
+                        Layout.preferredWidth: 200
+                        onClicked: pageStack.pop(root)
+                    }
 
-                    } //root.done(false, false)
+                    Button {
+                        Layout.alignment: Qt.AlignHCenter
+                        text: qsTr("Next")
+                        Layout.preferredWidth: 200
+                        onClicked:{
+                            var page = pageStack.push("../optimization/HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatPumpThing: thing, directionID: 1})
+                            page.done.connect(function(){
+                                pageStack.pop(root)
+                                //root.done(false, false)
+                            })
+
+                        } //root.done(false, false)
+                    }
                 }
             }
         }

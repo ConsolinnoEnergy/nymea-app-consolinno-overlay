@@ -42,7 +42,7 @@ Page {
         }
 
         ColumnLayout {
-            spacing: Style.margins
+            spacing: 0
             Layout.alignment: Qt.AlignHCenter
 
             Button {
@@ -302,20 +302,24 @@ Page {
                     text: qsTr("An unexpected error happened during the setup. Please verify the energy meter is installed correctly and try again.")
                     visible: setupEnergyMeterPage.thingError != Thing.ThingErrorNoError
                 }
-
-                Button {
+                ColumnLayout{
+                    spacing: 0
                     Layout.alignment: Qt.AlignHCenter
-                    text: qsTr("back")
-                    Layout.preferredWidth: 200
-                    //color: Style.yellow
-                    onClicked: pageStack.pop(root)
-                }
 
-                Button {
-                    Layout.alignment: Qt.AlignHCenter
-                    text: qsTr("next")
-                    Layout.preferredWidth: 200
-                    onClicked: root.done(false, false)
+                    Button {
+                        Layout.alignment: Qt.AlignHCenter
+                        text: qsTr("Back")
+                        Layout.preferredWidth: 200
+                        //color: Style.yellow
+                        onClicked: pageStack.pop(root)
+                    }
+
+                    Button {
+                        Layout.alignment: Qt.AlignHCenter
+                        text: qsTr("Next")
+                        Layout.preferredWidth: 200
+                        onClicked: root.done(false, false)
+                    }
                 }
             }
         }
