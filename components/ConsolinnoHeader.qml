@@ -70,8 +70,8 @@ Item {
             //Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             //Layout.maximumWidth: layout.width - x * 2
             //Layout.minimumWidth: layout.width/2
-            horizontalAlignment: Text.AlignHCenter
-            //verticalAlignment: Text.AlignVCenter
+            //horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight
             text: root.text
             font: Style.bigFont

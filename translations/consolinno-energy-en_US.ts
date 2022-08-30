@@ -925,7 +925,7 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Some attributes are outside of the allowed range: Configurations were not saved</source>
+        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1182,10 +1182,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
 <context>
     <name>PVOptimization</name>
     <message>
-        <source>Pv configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1223,6 +1219,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV configuration</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

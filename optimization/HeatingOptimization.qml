@@ -245,7 +245,7 @@ Page {
                 {
                     // for now this is the way how we show the user that some attributes are invalid
                     // TO DO: Show which ones are invalid
-                    footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved")
+                    footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
 
 
                 }
