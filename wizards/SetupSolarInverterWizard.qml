@@ -120,7 +120,7 @@ Page {
 
             ComboBox {
                 id: thingClassComboBox
-                Layout.preferredWidth: app.width - Style.margins
+                Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"
                 valueRole: "id"
                 model: ThingClassesProxy {
