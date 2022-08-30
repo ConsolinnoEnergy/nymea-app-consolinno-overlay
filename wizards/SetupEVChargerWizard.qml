@@ -200,7 +200,8 @@ Page {
 
             header: NymeaHeader {
                 text: qsTr("Wallbox")
-                onBackPressed: pageStack.pop()
+                backButtonVisible: false
+                //onBackPressed: pageStack.pop()
             }
 
             ThingDiscovery {
@@ -350,7 +351,8 @@ Page {
 
             header: NymeaHeader {
                 text: qsTr("Wallbox")
-                onBackPressed: pageStack.pop(root)
+                backButtonVisible: false
+                //onBackPressed: pageStack.pop(root)
             }
 
             Component.onCompleted: {

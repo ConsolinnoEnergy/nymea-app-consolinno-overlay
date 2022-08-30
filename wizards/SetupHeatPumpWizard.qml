@@ -170,7 +170,8 @@ Page {
 
             header: NymeaHeader {
                 text: qsTr("Heatpump")
-                onBackPressed: pageStack.pop()
+                backButtonVisible: false
+                //onBackPressed: pageStack.pop()
             }
 
             ThingDiscovery {
@@ -328,7 +329,8 @@ Page {
 
             header: NymeaHeader {
                 text: qsTr("Heatpump")
-                onBackPressed: pageStack.pop(root)
+                backButtonVisible: false
+                //onBackPressed: pageStack.pop(root)
             }
 
             property ThingDescriptor thingDescriptor: null
@@ -397,15 +399,6 @@ Page {
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
-                Label {
-                    id: labelfortesting
-                    Layout.fillWidth: true
-                    text: qsTr("Heat pump")
-                    font: Style.bigFont
-                    wrapMode: Text.WordWrap
-                    horizontalAlignment: Text.AlignHCenter
-                }
-
                 Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
@@ -460,13 +453,13 @@ Page {
                     spacing: 0
                     Layout.alignment: Qt.AlignHCenter
 
-                    Button {
-                        Layout.alignment: Qt.AlignHCenter
-                        text: qsTr("Back")
-                        //color: Style.yellow
-                        Layout.preferredWidth: 200
-                        onClicked: pageStack.pop(root)
-                    }
+//                    Button {
+//                        Layout.alignment: Qt.AlignHCenter
+//                        text: qsTr("Back")
+//                        //color: Style.yellow
+//                        Layout.preferredWidth: 200
+//                        onClicked: pageStack.pop(root)
+//                    }
 
                     Button {
                         Layout.alignment: Qt.AlignHCenter

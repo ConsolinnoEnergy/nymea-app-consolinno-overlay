@@ -15,6 +15,7 @@ Page {
 
     header: NymeaHeader {
         text: qsTr("Setup solar inverter")
+        backButtonVisible: true
         onBackPressed: root.done(false, false, true)
     }
 
@@ -183,7 +184,9 @@ Page {
 
             header: NymeaHeader {
                 text: qsTr("Solar inverter")
-                onBackPressed: pageStack.pop()
+                backButtonVisible: false
+                Layout.topMargin: 10
+                //onBackPressed: pageStack.pop()
             }
 
             ThingDiscovery {
@@ -194,7 +197,7 @@ Page {
                 onBusyChanged: {
                     if (!busy) {
                         print("discovery finished! Count:", count, discovery.count)
-                        if (count == 1) {
+                        if (count === 1) {
                             print("pushing:", discovery.get(0))
                             pageStack.push(setupInverterComponent, {thingDescriptor: discovery.get(0)})
                         }
@@ -235,7 +238,7 @@ Page {
                         anchors.centerIn: parent
                         width: parent.width
                         spacing: Style.margins
-                        visible: !discovery.busy && discovery.count == 0
+                        visible: !discovery.busy && discovery.count === 0
 
                         Label {
                             Layout.fillWidth: true
@@ -333,7 +336,8 @@ Page {
 
             header: NymeaHeader {
                 text: qsTr("Solar inverter")
-                onBackPressed: pageStack.pop(root)
+                backButtonVisible: false
+                //onBackPressed: pageStack.pop(root)
             }
 
             Component.onCompleted: {
@@ -348,7 +352,7 @@ Page {
             Connections {
                 target: engine.thingManager
                 onAddThingReply: {
-                    if (commandId == setupEnergyMeterPage.pendingCallId) {
+                    if (commandId === setupEnergyMeterPage.pendingCallId) {
                         setupEnergyMeterPage.thingError = thingError
                         setupEnergyMeterPage.pendingCallId = -1
                         thing = engine.thingManager.things.getThing(thingId)
@@ -415,14 +419,6 @@ Page {
                 ColumnLayout{
                     spacing: 0
                     Layout.alignment: Qt.AlignHCenter
-
-                    Button {
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.preferredWidth: 200
-                        text: qsTr("Back")
-                        //color: Style.yellow
-                        onClicked: pageStack.pop(root)
-                    }
 
                     Button {
                         Layout.alignment: Qt.AlignHCenter
