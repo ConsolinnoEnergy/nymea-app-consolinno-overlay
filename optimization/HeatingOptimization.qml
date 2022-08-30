@@ -21,7 +21,7 @@ Page {
 
     header: NymeaHeader {
         text: qsTr("Heating configuration")
-        backButtonVisible: true
+        backButtonVisible: directionID === 1 ? false : true
         onBackPressed: pageStack.pop()
     }
 
@@ -245,7 +245,7 @@ Page {
                 {
                     // for now this is the way how we show the user that some attributes are invalid
                     // TO DO: Show which ones are invalid
-                    footer.text = "Some attributes are outside of the allowed range: Configurations were not saved"
+                    footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
 
 
                 }
@@ -255,16 +255,16 @@ Page {
         }
 
         // only visible if installation mode (directionID == 1)
-        Button {
-            id: passbutton
-            visible: directionID === 1
+//        Button {
+//            id: passbutton
+//            visible: directionID === 1
 
-            Layout.fillWidth: true
-            text: qsTr("skip")
-            onClicked: {
-                root.done()
-            }
-        }
+//            Layout.fillWidth: true
+//            text: qsTr("skip")
+//            onClicked: {
+//                root.done()
+//            }
+//        }
 
 
 

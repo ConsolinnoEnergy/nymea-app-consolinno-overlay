@@ -141,7 +141,7 @@ Page {
             ComboBox {
                 id: thingClassComboBox
                 //Layout.fillWidth: true
-                Layout.preferredWidth: app.width - Style.margins
+                Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"
                 valueRole: "id"
                 model: ThingClassesProxy {
@@ -200,7 +200,8 @@ Page {
 
             header: NymeaHeader {
                 text: qsTr("Wallbox")
-                onBackPressed: pageStack.pop()
+                backButtonVisible: false
+                //onBackPressed: pageStack.pop()
             }
 
             ThingDiscovery {
@@ -350,7 +351,8 @@ Page {
 
             header: NymeaHeader {
                 text: qsTr("Wallbox")
-                onBackPressed: pageStack.pop(root)
+                backButtonVisible: false
+                //onBackPressed: pageStack.pop(root)
             }
 
             Component.onCompleted: {

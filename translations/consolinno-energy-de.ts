@@ -932,8 +932,8 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Speichern</translation>
     </message>
     <message>
-        <source>skip</source>
-        <translation>überspringen</translation>
+        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
+        <translation>Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
     </message>
 </context>
 <context>
@@ -1190,10 +1190,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
 <context>
     <name>PVOptimization</name>
     <message>
-        <source>Pv configuration</source>
-        <translation>PV-Einstellungen</translation>
-    </message>
-    <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
@@ -1232,6 +1228,10 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Save</source>
         <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>PV configuration</source>
+        <translation>PV-Einstellungen</translation>
     </message>
 </context>
 <context>
@@ -1386,10 +1386,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
 <context>
     <name>SetupHeatPumpWizard</name>
     <message>
-        <source>Heat pump</source>
-        <translation>Wärmepumpe</translation>
-    </message>
-    <message>
         <source>cancel</source>
         <translation>abbrechen</translation>
     </message>
@@ -1448,10 +1444,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Next step</source>
         <translation>Nächster Schritt</translation>
-    </message>
-    <message>
-        <source>Back</source>
-        <translation>Zurück</translation>
     </message>
     <message>
         <source>Next</source>
@@ -1519,10 +1511,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Next step</source>
         <translation>Nächster Schritt</translation>
-    </message>
-    <message>
-        <source>Back</source>
-        <translation>Zurück</translation>
     </message>
     <message>
         <source>Next</source>

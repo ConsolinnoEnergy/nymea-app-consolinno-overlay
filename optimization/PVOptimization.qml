@@ -28,8 +28,8 @@ Page {
     }
 
     header: NymeaHeader {
-        text: qsTr("Pv configuration")
-        backButtonVisible: true
+        text: qsTr("PV configuration")
+        backButtonVisible: directionID === 1 ? false : true
         onBackPressed: pageStack.pop()
     }
 
