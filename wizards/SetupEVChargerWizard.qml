@@ -171,7 +171,7 @@ Page {
             Button {
                 text: qsTr("Next step")
                 background: Rectangle{
-                    color: evChargerRepeater.count > 0  ? "#87BD26" : "grey"
+                    color: evChargerRepeater.count > 0  ? Style.consolinnoHighlight : "grey"
                     radius: 4
                 }
                 Layout.topMargin: 5

@@ -9,9 +9,11 @@ StyleBase {
     property color consolinnoMedium: "#87BD26"
     property color consolinnoLight: "#BDD758"
     property color consolinnoExtraLight: "#DDE8B4"
+    property color consolinnoHighlight: "#006400"
 
     backgroundColor: "#414141"
     foregroundColor: "white"
+
 
 //    tileBackgroundColor:
 //    tileOverlayColor: "#DDE8B4"

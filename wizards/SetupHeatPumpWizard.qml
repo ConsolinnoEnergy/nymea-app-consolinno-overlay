@@ -151,9 +151,15 @@ Page {
             }
             Button {
                 text: qsTr("Next step")
-                //color: Style.blue
+                background: Rectangle{
+                    border.color: Material.background
+                    color: Style.consolinnoHighlight
+                    radius: 4
+                }
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
+                // background fucks up the margin between the buttons, thats why wee need this topMargin
+                Layout.topMargin: 5
                 onClicked: root.done(true, false, false)
             }
         }

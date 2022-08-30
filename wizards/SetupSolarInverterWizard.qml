@@ -2,6 +2,8 @@ import QtQuick 2.9
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.9
 import QtQuick.Controls.Material 2.12
+import QtGraphicalEffects 1.15
+
 import "qrc:/ui/components"
 import Nymea 1.0
 
@@ -140,23 +142,59 @@ Page {
                 text: qsTr("cancel")
                 //color: Style.yellow
                 Layout.preferredWidth: 200
-                Layout.alignment: Qt.AlignHCenter
+                //Layout.alignment: Qt.AlignHCenter
                 onClicked: root.done(false, true, false)
             }
             Button {
                 text: qsTr("add")
                 //color: Style.accentColor
                 Layout.preferredWidth: 200
-                Layout.alignment: Qt.AlignHCenter
+                //Layout.alignment: Qt.AlignHCenter
                 onClicked: pageStack.push(searchInverterComponent, {thingClassId: thingClassComboBox.currentValue})
             }
 
             // Having 0 Solar inverter will be supporter at a later stage
             Button {
+                id: nextStepButton
                 text: qsTr("Next step")
+
+
+                contentItem:
+                    RowLayout{
+                    Text{
+
+                        text: nextStepButton.text
+                        font: nextStepButton.font
+                        opacity: enabled ? 1.0 : 0.3
+                        color: "white"
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideRight
+                    }
+
+                    Image{
+                        id: headerImage
+
+                        sourceSize.width: 18
+                        sourceSize.height: 18
+                        source: "../images/next.svg"
+
+                        layer{
+                            enabled: true
+                            effect: ColorOverlay{
+                                color: Material.foreground
+                            }
+                        }
+                    }
+
+                }
+
+
+
+
                 background: Rectangle{
                     border.color: Material.background
-                    color: solarInverterRepeater.count > 0  ? "#87BD26" : "grey"
+                    color: solarInverterRepeater.count > 0  ? Style.consolinnoHighlight : "grey"
                     radius: 4
                 }
                 Layout.preferredWidth: 200
