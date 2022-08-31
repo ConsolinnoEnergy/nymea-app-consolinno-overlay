@@ -9,7 +9,7 @@ StyleBase {
     property color consolinnoMedium: "#87BD26"
     property color consolinnoLight: "#BDD758"
     property color consolinnoExtraLight: "#BDD758"
-    property color consolinnoHighlight: "#1f75cb"
+    property color consolinnoHighlight: "#189521"
 
     backgroundColor: "white"
     foregroundColor: consolinnoExtraDark

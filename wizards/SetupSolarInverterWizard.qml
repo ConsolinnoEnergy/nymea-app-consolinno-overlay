@@ -143,13 +143,22 @@ Page {
                 //color: Style.yellow
                 Layout.preferredWidth: 200
                 //Layout.alignment: Qt.AlignHCenter
+//                contentItem: Text {
+//                    text: parent.text
+//                    font: parent.font
+//                    horizontalAlignment : Text.AlignLeft
+//                    verticalAlignment: Text.AlignVCenter
+//                }
+
                 onClicked: root.done(false, true, false)
             }
             Button {
+                id: addButton
                 text: qsTr("add")
                 //color: Style.accentColor
                 Layout.preferredWidth: 200
                 //Layout.alignment: Qt.AlignHCenter
+                Layout.alignment: Qt.AlignLeft
                 onClicked: pageStack.push(searchInverterComponent, {thingClassId: thingClassComboBox.currentValue})
             }
 
@@ -157,16 +166,20 @@ Page {
             Button {
                 id: nextStepButton
                 text: qsTr("Next step")
+                Layout.preferredWidth: 200
+                Layout.preferredHeight: addButton.height - 9
+                // background fucks up the margin between the buttons, thats why wee need this topMargin
+                Layout.topMargin: 5
 
-
-                contentItem:
-                    RowLayout{
+                contentItem:Row{
                     Text{
-
+                        id: nextStepButtonText
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
                         text: nextStepButton.text
                         font: nextStepButton.font
                         opacity: enabled ? 1.0 : 0.3
-                        color: "white"
+                        color: Material.foreground
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         elide: Text.ElideRight
@@ -174,6 +187,8 @@ Page {
 
                     Image{
                         id: headerImage
+                        anchors.right : parent.right
+                        anchors.verticalCenter:  parent.verticalCenter
 
                         sourceSize.width: 18
                         sourceSize.height: 18
@@ -193,14 +208,14 @@ Page {
 
 
                 background: Rectangle{
+                    height: parent.height
+                    width: parent.width
                     border.color: Material.background
                     color: solarInverterRepeater.count > 0  ? Style.consolinnoHighlight : "grey"
                     radius: 4
                 }
-                Layout.preferredWidth: 200
+
                 Layout.alignment: Qt.AlignHCenter
-                // background fucks up the margin between the buttons, thats why wee need this topMargin
-                Layout.topMargin: 5
                 onClicked:{
                     if (solarInverterRepeater.count >0){
                         root.done(true, false, false)

@@ -2,6 +2,7 @@ import QtQuick 2.9
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.9
 import QtQuick.Controls.Material 2.1
+import QtGraphicalEffects 1.15
 import "qrc:/ui/components"
 import Nymea 1.0
 
@@ -162,6 +163,7 @@ Page {
                 onClicked: root.done(false, true, false)
             }
             Button {
+                id: addButton
                 text: qsTr("add")
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
@@ -169,13 +171,53 @@ Page {
             }
             // Having 0 EV charger will be supporter at a later stage
             Button {
+                id: nextStepButton
                 text: qsTr("Next step")
+                Layout.topMargin: 5
+                Layout.preferredWidth: 200
+                Layout.preferredHeight: addButton.height - 9
+
+                contentItem:Row{
+                    Text{
+                        id: nextStepButtonText
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: nextStepButton.text
+                        font: nextStepButton.font
+                        opacity: enabled ? 1.0 : 0.3
+                        color: Material.foreground
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideRight
+                    }
+
+                    Image{
+                        id: headerImage
+                        anchors.right : parent.right
+                        anchors.verticalCenter:  parent.verticalCenter
+
+                        sourceSize.width: 18
+                        sourceSize.height: 18
+                        source: "../images/next.svg"
+
+                        layer{
+                            enabled: true
+                            effect: ColorOverlay{
+                                color: Material.foreground
+                            }
+                        }
+                    }
+
+                }
+
                 background: Rectangle{
+                    height: parent.height
+                    width: parent.width
+                    border.color: Material.background
                     color: evChargerRepeater.count > 0  ? Style.consolinnoHighlight : "grey"
                     radius: 4
                 }
-                Layout.topMargin: 5
-                Layout.preferredWidth: 200
+
                 Layout.alignment: Qt.AlignHCenter
                 onClicked:{
                     if (evChargerRepeater.count >0){
