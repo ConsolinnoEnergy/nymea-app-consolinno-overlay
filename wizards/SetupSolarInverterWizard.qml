@@ -179,7 +179,7 @@ Page {
                         text: nextStepButton.text
                         font: nextStepButton.font
                         opacity: enabled ? 1.0 : 0.3
-                        color: Material.foreground
+                        color: Style.consolinnoHighlightForeground
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         elide: Text.ElideRight
@@ -197,7 +197,7 @@ Page {
                         layer{
                             enabled: true
                             effect: ColorOverlay{
-                                color: Material.foreground
+                                color: Style.consolinnoHighlightForeground
                             }
                         }
                     }

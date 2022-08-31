@@ -10,6 +10,7 @@ StyleBase {
     property color consolinnoLight: "#BDD758"
     property color consolinnoExtraLight: "#DDE8B4"
     property color consolinnoHighlight: "#006400"
+    property color consolinnoHighlightForeground: "white"
 
     backgroundColor: "#414141"
     foregroundColor: "white"
