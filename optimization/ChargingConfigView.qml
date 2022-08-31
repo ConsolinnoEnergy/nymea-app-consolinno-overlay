@@ -193,7 +193,7 @@ Page {
                     height: 17
                     Layout.rightMargin: 0
                     Layout.alignment: Qt.AlignRight
-                   color: thing.stateByName("pluggedIn").value ? "green" : "red"
+                    color: thing.stateByName("pluggedIn").value ? "green" : "red"
                     border.color: "black"
                     border.width: 0.5
                     radius: width*0.5
