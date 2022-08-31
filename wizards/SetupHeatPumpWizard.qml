@@ -95,7 +95,7 @@ Page {
                 visible: hpProxy.count === 0
                 color: Material.background
                 Text {
-                    text: qsTr("There is no heatpump set up yet.")
+                    text: qsTr("There is no heat pump set up yet.")
                     color: Material.foreground
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
@@ -116,7 +116,7 @@ Page {
             Layout.topMargin: Style.margins
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Add heatpumps:")
+                text: qsTr("Add heat pumps:")
                 wrapMode: Text.WordWrap
             }
 
@@ -217,7 +217,7 @@ Page {
 
 
             header: NymeaHeader {
-                text: qsTr("Heatpump")
+                text: qsTr("Heat pump")
                 backButtonVisible: false
                 //onBackPressed: pageStack.pop()
             }
@@ -376,7 +376,7 @@ Page {
             id: setupHeatPumpPage
 
             header: NymeaHeader {
-                text: qsTr("Heatpump")
+                text: qsTr("Heat pump")
                 backButtonVisible: false
                 //onBackPressed: pageStack.pop(root)
             }

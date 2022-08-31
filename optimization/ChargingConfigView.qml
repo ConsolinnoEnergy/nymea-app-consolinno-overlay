@@ -47,8 +47,8 @@ Page {
                     var duration = chargingSessionConfiguration.duration
                     var hours   = Math.floor(duration/3600)
                     var minutes = Math.floor((duration - hours*3600)/60)
-                    var seconds = Math.floor(duration - hours*3600 - minutes*60)
-                    durationValue.text = (hours === 0) ? (minutes == 0 ? seconds + qsTr("s")  :  minutes + qsTr("min ") + seconds + qsTr("s")   ) : hours + qsTr("h") + " " + minutes + qsTr("min ") + seconds + qsTr("s")
+                    durationValue.text = (hours === 0) ? minutes +  "min " : hours+ "h " + minutes + "min"
+
                 }
                 // Running
                 if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state == 2)){
@@ -193,9 +193,9 @@ Page {
                     height: 17
                     Layout.rightMargin: 0
                     Layout.alignment: Qt.AlignRight
-                    color: thing.stateByName("pluggedIn").value ? "green" : "red"
+                    color: thing.stateByName("pluggedIn").value ? "#95eb95" : "#e7907d"
                     border.color: "black"
-                    border.width: 0.5
+                    border.width: 0
                     radius: width*0.5
                 }
             }
@@ -222,7 +222,7 @@ Page {
 
                 Label{
                     id: simulationLabel
-                    text: qsTr("Activate simulated car: ")
+                    text: qsTr("Activate simulated car")
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
 
@@ -272,7 +272,7 @@ Page {
                 Label{
                     id: selectedCarLabel
                     Layout.fillWidth: true
-                    text: qsTr("Car: ")
+                    text: qsTr("Car")
                 }
                 Label{
                     id: selectedCar
@@ -297,7 +297,7 @@ Page {
                 Label{
                     id: loadingModesLabel
                     Layout.fillWidth: true
-                    text: qsTr("Charging mode: ")
+                    text: qsTr("Charging mode")
                 }
 
                 Label{
@@ -342,7 +342,7 @@ Page {
                 Label{
                     id: targetChargeReachedLabel
                     Layout.fillWidth: true
-                    text: qsTr("Ending time:")
+                    text: qsTr("Ending time")
                 }
 
                 Label{
@@ -376,7 +376,7 @@ Page {
                 Label{
                     id: targetChargeLabel
                     Layout.fillWidth: true
-                    text: qsTr("Target charge: ")
+                    text: qsTr("Target charge")
                 }
 
                 Label{
@@ -413,7 +413,7 @@ Page {
                 Label{
                     id: statusLabel
                     Layout.fillWidth: true
-                    text: qsTr("Status: ")
+                    text: qsTr("Status")
                     font.pixelSize: 22
                     font.bold: true
                 }
@@ -432,11 +432,11 @@ Page {
 
 
                         //check if plugged in                 check if current power == 0           else show the current state the session is in atm
-                        color:  thing.stateByName("pluggedIn").value ? (initializing ? "blue" : state === 2 ? "green" : state === 3 ? "grey" : state === 4 ? "grey" : "lightgrey" ) : "lightgrey"
+                        color:  thing.stateByName("pluggedIn").value ? (initializing ? "blue" : state === 2 ? "green" : state === 3 ? "#66a5e2" : state === 4 ? "grey" : "lightgrey" ) : "lightgrey"
                         radius: width*0.1
                         Label{
                             id: description
-                            text: initializing ? qsTr("Initialising") : (status.state === 2 ? qsTr("Running") : (status.state === 3 ? qsTr("Finished") : (status.state === 4 ? qsTr("Interrupted") : (status.state === 6 ? "Pending" :  "Failed"  ))))
+                            text: initializing ? qsTr("Initialising") : (status.state === 2 ? qsTr("Running") : (status.state === 3 ? qsTr("Finished") : (status.state === 4 ? qsTr("Interrupted") : (status.state === 6 ? qsTr("Pending") :  qsTr("Failed")  ))))
                             color: "white"
                             anchors.centerIn: parent
                         }
@@ -462,7 +462,7 @@ Page {
                 Label{
                     id: batteryLevelLabel
                     Layout.fillWidth: true
-                    text: qsTr("Battery level:")
+                    text: qsTr("Battery level")
 
                 }
                 Label{
@@ -482,7 +482,7 @@ Page {
                 Label{
                     id: energyBatteryLabel
                     Layout.fillWidth: true
-                    text: qsTr("Battery charge:")
+                    text: qsTr("Battery charge")
 
                 }
                 Label{
@@ -502,7 +502,7 @@ Page {
                 Label{
                     id: currentCurrentLabel
                     Layout.fillWidth: true
-                    text: qsTr("Charging current:")
+                    text: qsTr("Charging current")
 
                 }
                 Label{
@@ -521,7 +521,7 @@ Page {
                 Label{
                     id: alreadyLoadedLabel
                     Layout.fillWidth: true
-                    text: qsTr("Energy charged:")
+                    text: qsTr("Energy charged")
 
                 }
                 Label{
@@ -539,7 +539,7 @@ Page {
                 Label{
                     id: durationLabel
                     Layout.fillWidth: true
-                    text: qsTr("Time elapsed:")
+                    text: qsTr("Time elapsed")
 
                 }
                 Label{
@@ -547,8 +547,7 @@ Page {
                     property int duration: chargingSessionConfiguration.duration
                     property int hours: duration/3600
                     property int minutes: (duration - hours*3600)/60
-                    property int seconds: duration - hours*3600 - minutes*60
-                    text: (hours === 0) ? (minutes == 0 ? seconds + "s"  :  minutes + "min " + seconds + "s"    ) : hours + "h " + " " + minutes + "min " + seconds + "s"
+                    text: (hours === 0) ? minutes +  "min " : hours+ "h " + minutes + "min"
                     Layout.alignment: Qt.AlignRight
                     Layout.rightMargin: 0
 

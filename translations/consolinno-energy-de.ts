@@ -190,18 +190,6 @@
         <translation>kein Auto ausgewählt</translation>
     </message>
     <message>
-        <source>s</source>
-        <translation>s</translation>
-    </message>
-    <message>
-        <source>min </source>
-        <translation>min</translation>
-    </message>
-    <message>
-        <source>h</source>
-        <translation>h</translation>
-    </message>
-    <message>
         <source>Car plugged in:</source>
         <translation>Auto eingesteckt</translation>
     </message>
@@ -210,16 +198,8 @@
         <translation>Im Moment ist kein Auto angesteckt. Bitte stecken Sie ein Auto an</translation>
     </message>
     <message>
-        <source>Activate simulated car: </source>
-        <translation>Aktiviere simuliertes Auto</translation>
-    </message>
-    <message>
         <source>Charging configuration</source>
         <translation>Ladeeinstellungen</translation>
-    </message>
-    <message>
-        <source>Car: </source>
-        <translation>Auto: </translation>
     </message>
     <message>
         <source>Charging mode: </source>
@@ -236,18 +216,6 @@
     <message>
         <source>PV only</source>
         <translation>PV-Überschuss</translation>
-    </message>
-    <message>
-        <source>Ending time:</source>
-        <translation>Endzeit: </translation>
-    </message>
-    <message>
-        <source>Target charge: </source>
-        <translation>Ladeziel</translation>
-    </message>
-    <message>
-        <source>Status: </source>
-        <translation>Status:</translation>
     </message>
     <message>
         <source>Initialising</source>
@@ -268,26 +236,6 @@
     <message>
         <source>No chargingschedule active at the moment...</source>
         <translation>Kein Ladevorgang aktiv im Moment...</translation>
-    </message>
-    <message>
-        <source>Battery level:</source>
-        <translation>Batteriestand:</translation>
-    </message>
-    <message>
-        <source>Battery charge:</source>
-        <translation>Batterieinhalt:</translation>
-    </message>
-    <message>
-        <source>Charging current:</source>
-        <translation>Ladestrom</translation>
-    </message>
-    <message>
-        <source>Energy charged:</source>
-        <translation>Geladene Energie:</translation>
-    </message>
-    <message>
-        <source>Time elapsed:</source>
-        <translation>Vergangene Zeit: </translation>
     </message>
     <message>
         <source>Configure Charging</source>
@@ -373,6 +321,58 @@
         <source>Unknown error</source>
         <translation>Unbekannter Fehler</translation>
     </message>
+    <message>
+        <source>Activate simulated car</source>
+        <translation>Auto Simulation aktivieren</translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation>Auto</translation>
+    </message>
+    <message>
+        <source>Charging mode</source>
+        <translation>Lademodus</translation>
+    </message>
+    <message>
+        <source>Ending time</source>
+        <translation>Zielzeit</translation>
+    </message>
+    <message>
+        <source>Target charge</source>
+        <translation>Ladeziel</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
+        <source>Pending</source>
+        <translation>Pausiert</translation>
+    </message>
+    <message>
+        <source>Failed</source>
+        <translation>Fehlgeschlagen</translation>
+    </message>
+    <message>
+        <source>Battery level</source>
+        <translation>Batteriestand</translation>
+    </message>
+    <message>
+        <source>Battery charge</source>
+        <translation>Batterieinhalt</translation>
+    </message>
+    <message>
+        <source>Charging current</source>
+        <translation>Ladestrom</translation>
+    </message>
+    <message>
+        <source>Energy charged</source>
+        <translation>Geladene Energie</translation>
+    </message>
+    <message>
+        <source>Time elapsed</source>
+        <translation>Vergangene Zeit</translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -444,10 +444,6 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
         <translation>Ladekontroller</translation>
     </message>
     <message>
-        <source>Heatpump Controller</source>
-        <translation>Wärmepumpenkontroller</translation>
-    </message>
-    <message>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
@@ -478,6 +474,10 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
     <message>
         <source>:  Current State:  </source>
         <translation>:  Status:  </translation>
+    </message>
+    <message>
+        <source>Heat pump Controller</source>
+        <translation>Wärmepumpenkontroller</translation>
     </message>
 </context>
 <context>
@@ -1422,24 +1422,12 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Eingerichtete Wärmepumpen:</translation>
     </message>
     <message>
-        <source>There is no heatpump set up yet.</source>
-        <translation>Bis jetzt ist keine Wärmepumpe eingerichtet</translation>
-    </message>
-    <message>
         <source>add</source>
         <translation>hinzufügen</translation>
     </message>
     <message>
-        <source>Heatpump</source>
-        <translation>Wärmepumpe</translation>
-    </message>
-    <message>
         <source>The following heat pump has been found and set up:</source>
         <translation>Die folgende Wärmepumpe wurde gefunden und eingerichtet</translation>
-    </message>
-    <message>
-        <source>Add heatpumps:</source>
-        <translation>Füge Wärmepumpen hinzu: </translation>
     </message>
     <message>
         <source>Next step</source>
@@ -1448,6 +1436,18 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Next</source>
         <translation>Weiter</translation>
+    </message>
+    <message>
+        <source>There is no heat pump set up yet.</source>
+        <translation>Bis jetzt ist keine Wärmepumpe eingerichtet.</translation>
+    </message>
+    <message>
+        <source>Add heat pumps:</source>
+        <translation>Füge Wärmepumpen hinzu: </translation>
+    </message>
+    <message>
+        <source>Heat pump</source>
+        <translation>Wärmepumpe</translation>
     </message>
 </context>
 <context>
@@ -1498,7 +1498,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>The following solar inverter has been found and set up:</source>
-        <translation>Der folgende Wechselrichter wurde gefunden und eingerichtet</translation>
+        <translation>Der folgende Wechselrichter wurde gefunden und eingerichtet:</translation>
     </message>
     <message>
         <source>Add solar Inverter: </source>

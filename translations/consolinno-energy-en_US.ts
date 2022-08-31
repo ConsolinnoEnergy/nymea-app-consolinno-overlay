@@ -190,18 +190,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>min </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>h</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Car plugged in:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -210,15 +198,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Activate simulated car: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Charging configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Car: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -235,18 +215,6 @@
     </message>
     <message>
         <source>PV only</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ending time:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Target charge: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Status: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -267,26 +235,6 @@
     </message>
     <message>
         <source>No chargingschedule active at the moment...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Battery level:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Battery charge:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Charging current:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Energy charged:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Time elapsed:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -373,6 +321,58 @@
         <source>Unknown error</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Activate simulated car</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ending time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target charge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery charge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Energy charged</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Time elapsed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -443,10 +443,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Heatpump Controller</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -476,6 +472,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>:  Current State:  </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heat pump Controller</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1414,19 +1414,7 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>There is no heatpump set up yet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add heatpumps:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>add</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Heatpump</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1440,6 +1428,18 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     <message>
         <source>Next</source>
         <translation type="unfinished">Weiter</translation>
+    </message>
+    <message>
+        <source>There is no heat pump set up yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add heat pumps:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heat pump</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
