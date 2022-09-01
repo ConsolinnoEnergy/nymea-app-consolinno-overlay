@@ -115,63 +115,63 @@ Page {
         }
 
 
-        RowLayout{
-            Layout.fillWidth: true
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Maximal electrical power")
+//        RowLayout{
+//            Layout.fillWidth: true
+//            Label {
+//                Layout.fillWidth: true
+//                text: qsTr("Maximal electrical power")
 
-            }
-
-
-            TextField {
-                id: maxElectricalPower
-                property bool maxElectricalPower_validated
-                Layout.preferredWidth: 60
-                Layout.rightMargin: 8
-                text: heatingConfiguration.maxElectricalPower
-                maximumLength: 10
-                validator: DoubleValidator{bottom: 1 }
-
-                onTextChanged: acceptableInput ?maxElectricalPower_validated = true : maxElectricalPower_validated = false
-            }
-
-            Label {
-                id: maxElectricalPowerunit
-                text: qsTr("kW")
-            }
+//            }
 
 
+//            TextField {
+//                id: maxElectricalPower
+//                property bool maxElectricalPower_validated
+//                Layout.preferredWidth: 60
+//                Layout.rightMargin: 8
+//                text: heatingConfiguration.maxElectricalPower
+//                maximumLength: 10
+//                validator: DoubleValidator{bottom: 1 }
+
+//                onTextChanged: acceptableInput ?maxElectricalPower_validated = true : maxElectricalPower_validated = false
+//            }
+
+//            Label {
+//                id: maxElectricalPowerunit
+//                text: qsTr("kW")
+//            }
 
 
-        }
-
-        RowLayout{
-            Layout.fillWidth: true
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Thermal storage capacity")
-
-            }
 
 
-            TextField {
-                id: maxThermalEnergy
-                property bool maxThermalEnergy_validated
-                Layout.preferredWidth: 60
-                text: heatingConfiguration.maxThermalEnergy
-                maximumLength: 10
-                validator: DoubleValidator{bottom: 1}
+//        }
 
-                onTextChanged: acceptableInput ?maxThermalEnergy_validated = true : maxThermalEnergy_validated = false
-            }
-            Label {
-                id: maxThermalEnergyunit
-                text: qsTr("kWh")
-            }
+//        RowLayout{
+//            Layout.fillWidth: true
+//            Label {
+//                Layout.fillWidth: true
+//                text: qsTr("Thermal storage capacity")
+
+//            }
 
 
-        }
+//            TextField {
+//                id: maxThermalEnergy
+//                property bool maxThermalEnergy_validated
+//                Layout.preferredWidth: 60
+//                text: heatingConfiguration.maxThermalEnergy
+//                maximumLength: 10
+//                validator: DoubleValidator{bottom: 1}
+
+//                onTextChanged: acceptableInput ?maxThermalEnergy_validated = true : maxThermalEnergy_validated = false
+//            }
+//            Label {
+//                id: maxThermalEnergyunit
+//                text: qsTr("kWh")
+//            }
+
+
+//        }
 
 
 
@@ -223,7 +223,7 @@ Page {
 
         Button {
             id: savebutton
-            property bool validated: floorHeatingAreaId.floorHeatingArea_validated && maxThermalEnergy.maxThermalEnergy_validated && maxElectricalPower.maxElectricalPower_validated
+            property bool validated: floorHeatingAreaId.floorHeatingArea_validated
 
             Layout.fillWidth: true
             text: qsTr("Save")
@@ -232,11 +232,11 @@ Page {
                 if (savebutton.validated)
                 {
                     if (directionID == 1){
-                        hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text, maxThermalEnergy: maxThermalEnergy.text  })
+                        hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text})
 
                         root.done()
                     }else if(directionID == 0){
-                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text, maxThermalEnergy: maxThermalEnergy.text  })
+                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text})
 
                     }
 
