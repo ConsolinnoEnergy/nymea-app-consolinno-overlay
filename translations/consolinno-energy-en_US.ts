@@ -913,14 +913,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Thermal storage capacity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1223,6 +1215,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>PV configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some values are out of range. Please check your input.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

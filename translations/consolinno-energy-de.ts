@@ -920,14 +920,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>kW</translation>
     </message>
     <message>
-        <source>Thermal storage capacity</source>
-        <translation>Wärmespeicherkapazität</translation>
-    </message>
-    <message>
-        <source>kWh</source>
-        <translation>kWh</translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
@@ -1232,6 +1224,10 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>PV configuration</source>
         <translation>PV-Einstellungen</translation>
+    </message>
+    <message>
+        <source>Some values are out of range. Please check your input.</source>
+        <translation>Einige Werte sind nicht gültig. Bitte überprüfen Sie Ihre Eingaben.</translation>
     </message>
 </context>
 <context>
