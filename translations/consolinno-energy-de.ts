@@ -1301,7 +1301,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>The following charging point or wallbox has been found and set up:</source>
-        <translation>Die folgende wallbox wurde gefunden:</translation>
+        <translation>Die folgende Wallbox wurde gefunden:</translation>
     </message>
     <message>
         <source>Add wallboxes:</source>

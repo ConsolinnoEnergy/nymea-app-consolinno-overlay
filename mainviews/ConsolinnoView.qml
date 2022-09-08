@@ -417,7 +417,7 @@ MainViewBase {
     ThingsProxy {
         id: consumers
         engine: _engine
-        shownInterfaces: ["smartmeterconsumer"]
+        shownInterfaces: ["smartmeterconsumer", "evcharger"]
     }
     ThingsProxy {
         id: inverters

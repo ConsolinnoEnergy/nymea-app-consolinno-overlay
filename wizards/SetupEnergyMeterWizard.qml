@@ -306,13 +306,13 @@ Page {
                     spacing: 0
                     Layout.alignment: Qt.AlignHCenter
 
-                    Button {
-                        Layout.alignment: Qt.AlignHCenter
-                        text: qsTr("Back")
-                        Layout.preferredWidth: 200
-                        //color: Style.yellow
-                        onClicked: pageStack.pop(root)
-                    }
+//                    Button {
+//                        Layout.alignment: Qt.AlignHCenter
+//                        text: qsTr("Back")
+//                        Layout.preferredWidth: 200
+//                        //color: Style.yellow
+//                        onClicked: pageStack.pop(root)
+//                    }
 
                     Button {
                         Layout.alignment: Qt.AlignHCenter

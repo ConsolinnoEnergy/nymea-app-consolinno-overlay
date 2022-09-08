@@ -166,6 +166,8 @@ Page {
             Button {
                 id: nextStepButton
                 text: qsTr("Next step")
+                font.capitalization: Font.AllUppercase
+                font.pixelSize: 15
                 Layout.preferredWidth: 200
                 Layout.preferredHeight: addButton.height - 9
                 // background fucks up the margin between the buttons, thats why wee need this topMargin

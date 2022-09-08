@@ -154,6 +154,8 @@ Page {
             Button {
                 id: nextStepButton
                 text: qsTr("Next step")
+                font.capitalization: Font.AllUppercase
+                font.pixelSize: 15
                 Layout.preferredWidth: 200
                 Layout.preferredHeight: addButton.height - 9
                 Layout.alignment: Qt.AlignHCenter
