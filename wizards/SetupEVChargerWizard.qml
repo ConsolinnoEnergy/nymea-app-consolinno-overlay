@@ -173,6 +173,8 @@ Page {
             Button {
                 id: nextStepButton
                 text: qsTr("Next step")
+                font.capitalization: Font.AllUppercase
+                font.pixelSize: 15
                 Layout.topMargin: 5
                 Layout.preferredWidth: 200
                 Layout.preferredHeight: addButton.height - 9
@@ -473,13 +475,13 @@ Page {
                     spacing: 0
                     Layout.alignment: Qt.AlignHCenter
 
-                    Button {
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.preferredWidth: 200
-                        text: qsTr("Back")
-                        //color: Style.yellow
-                        onClicked: pageStack.pop(root)
-                    }
+//                    Button {
+//                        Layout.alignment: Qt.AlignHCenter
+//                        Layout.preferredWidth: 200
+//                        text: qsTr("Back")
+//                        //color: Style.yellow
+//                        onClicked: pageStack.pop(root)
+//                    }
 
                     Button {
                         Layout.alignment: Qt.AlignHCenter
