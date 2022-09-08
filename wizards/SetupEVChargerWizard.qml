@@ -216,16 +216,13 @@ Page {
                     height: parent.height
                     width: parent.width
                     border.color: Material.background
-                    color: evChargerRepeater.count > 0  ? Style.consolinnoHighlight : "grey"
+                    color: Style.consolinnoHighlight
                     radius: 4
                 }
 
                 Layout.alignment: Qt.AlignHCenter
                 onClicked:{
-                    if (evChargerRepeater.count >0){
-                        root.done(true, false, false)
-                    }
-
+                      root.done(true, false, false)
                 }
 
             }
