@@ -401,11 +401,19 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PV only: </source>
+        <source>PV excess only: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The vehicle is charged with solar power only. (To avoid charging interruptions, the charging process is continued with a minimum current if there is not enough own solar power available.)</source>
+        <source>The vehicle is only charged with solar power. You can specify what should happen if there is not enough solar power available for charging. (Charging can be paused or your vehicle can continue charging with minimal power from the grid). Since the charging time depends on the available solar power, no desired end time can be specified.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No optimization: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The vehicle is charged at maximum charging power until the specified charging target is reached.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1308,10 +1316,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Back</source>
-        <translation type="unfinished">Zurück</translation>
-    </message>
-    <message>
         <source>Next</source>
         <translation type="unfinished">Weiter</translation>
     </message>
@@ -1361,10 +1365,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     <message>
         <source>The following energy meter has been found and set up:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Back</source>
-        <translation type="unfinished">Zurück</translation>
     </message>
     <message>
         <source>Next</source>

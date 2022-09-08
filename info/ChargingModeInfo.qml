@@ -44,7 +44,7 @@ If the own electricity is not sufficient to reach the charging target, it is sup
             Label{
                 Layout.topMargin: 15
                 Layout.fillWidth: true
-                text: qsTr("PV only: ")
+                text: qsTr("PV excess only: ")
                 leftPadding: app.margins +10
                 rightPadding: app.margins +10
 
@@ -58,7 +58,28 @@ If the own electricity is not sufficient to reach the charging target, it is sup
                 rightPadding: app.margins +10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
-                text: qsTr("The vehicle is charged with solar power only. (To avoid charging interruptions, the charging process is continued with a minimum current if there is not enough own solar power available.)")
+                text: qsTr("The vehicle is only charged with solar power. You can specify what should happen if there is not enough solar power available for charging. (Charging can be paused or your vehicle can continue charging with minimal power from the grid). Since the charging time depends on the available solar power, no desired end time can be specified.")
+            }
+
+
+            Label{
+                Layout.topMargin: 15
+                Layout.fillWidth: true
+                text: qsTr("No optimization: ")
+                leftPadding: app.margins +10
+                rightPadding: app.margins +10
+
+                font.bold: true
+                font.pixelSize: 17
+
+            }
+            Label{
+                Layout.fillWidth: true
+                leftPadding: app.margins +10
+                rightPadding: app.margins +10
+                wrapMode: Text.WordWrap
+                Layout.preferredWidth: app.width
+                text: qsTr("The vehicle is charged at maximum charging power until the specified charging target is reached.")
             }
 
         }

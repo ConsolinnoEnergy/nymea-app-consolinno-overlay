@@ -402,12 +402,20 @@ If the own electricity is not sufficient to reach the charging target, it is sup
 Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Netzstrom ergänzt.</translation>
     </message>
     <message>
-        <source>PV only: </source>
-        <translation>nur PV-Strom: </translation>
+        <source>PV excess only: </source>
+        <translation>PV-Überschuss: </translation>
     </message>
     <message>
-        <source>The vehicle is charged with solar power only. (To avoid charging interruptions, the charging process is continued with a minimum current if there is not enough own solar power available.)</source>
-        <translation>Das Fahrzeu wird nur mit solarenergie geladen. (Um Ladeunterbrechungen zu vermeiden, wird bei zu niedriger solar energie mit dem minimal notwendigen Strom geladen.)</translation>
+        <source>The vehicle is only charged with solar power. You can specify what should happen if there is not enough solar power available for charging. (Charging can be paused or your vehicle can continue charging with minimal power from the grid). Since the charging time depends on the available solar power, no desired end time can be specified.</source>
+        <translation>Das Fahrzeug wird nur mit Solarstrom geladen. Sie können angeben was passieren soll, wenn nicht ausreichend Solarstrom zum Laden zur Verfügung steht. (Der Ladevorgang kann pausieren oder ihr Fahrzeug kann mit minimalen Strom aus dem Netz weitergeladen werden.) Da die Ladezeit abhängig ist, von dem verfügbaren Solarstrom kann keine gewünschte Endzeit angegeben werden.</translation>
+    </message>
+    <message>
+        <source>No optimization: </source>
+        <translation>Keine Optimierung: </translation>
+    </message>
+    <message>
+        <source>The vehicle is charged at maximum charging power until the specified charging target is reached.</source>
+        <translation>Das Fahrzeug wird mit maximaler Ladeleistung geladen bis das angegebene Ladeziel erreicht ist.</translation>
     </message>
 </context>
 <context>
@@ -1316,10 +1324,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Nächster Schritt</translation>
     </message>
     <message>
-        <source>Back</source>
-        <translation>Zurück</translation>
-    </message>
-    <message>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
@@ -1369,10 +1373,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>The following energy meter has been found and set up:</source>
         <translation>Der folgende Stromzähler wurde gefunden und eingerichtet</translation>
-    </message>
-    <message>
-        <source>Back</source>
-        <translation>Zurück</translation>
     </message>
     <message>
         <source>Next</source>
