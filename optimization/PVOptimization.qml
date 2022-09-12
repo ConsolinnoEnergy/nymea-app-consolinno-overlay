@@ -2,7 +2,6 @@ import QtQuick 2.8
 import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.2
-import QtPositioning 5.15
 import Nymea 1.0
 import "../components"
 import "../delegates"
@@ -16,20 +15,20 @@ Page {
 
     signal done()
 
-    PositionSource{
-        id: src
-        updateInterval: 1000
-        name: "SerialPortNmea"
-        preferredPositioningMethods: PositionSource.SatellitePositioningMethods
-        active: true
+//    PositionSource{
+//        id: src
+//        updateInterval: 1000
+//        name: "SerialPortNmea"
+//        preferredPositioningMethods: PositionSource.SatellitePositioningMethods
+//        active: true
 
-        onPositionChanged: {
-        }
-    }
+//        onPositionChanged: {
+//        }
+//    }
 
     header: NymeaHeader {
-        text: qsTr("Pv configuration")
-        backButtonVisible: true
+        text: qsTr("PV configuration")
+        backButtonVisible: directionID === 1 ? false : true
         onBackPressed: pageStack.pop()
     }
 
@@ -101,7 +100,8 @@ Page {
                 Layout.minimumWidth: 55
                 Layout.maximumWidth: 55
                 Layout.rightMargin: 48
-                text: pvConfiguration.latitude !== 0? pvConfiguration.latitude : src.position.coordinate.latitude.toFixed(0)
+                //text: pvConfiguration.latitude !== 0? pvConfiguration.latitude : src.position.coordinate.latitude.toFixed(0)
+                text: pvConfiguration.latitude
                 validator: DoubleValidator{
                     bottom: -90
                     top: 90
@@ -134,7 +134,8 @@ Page {
                 Layout.minimumWidth: 55
                 Layout.maximumWidth: 55
                 Layout.rightMargin: 48
-                text: pvConfiguration.longitude !== 0 ? pvConfiguration.longitude : src.position.coordinate.longitude.toFixed(0)
+                //text: pvConfiguration.longitude !== 0 ? pvConfiguration.longitude : src.position.coordinate.longitude.toFixed(0)
+                text: pvConfiguration.longitude
 
                 validator: DoubleValidator{
                     bottom: -180
@@ -307,7 +308,7 @@ Page {
 
 
 
-                footer.text = "some attributes are outside of the allowed range: Configurations were not saved"
+                footer.text = qsTr("Some values are out of range. Please check your input.")
                 }
             }
 

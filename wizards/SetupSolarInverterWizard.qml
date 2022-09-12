@@ -2,6 +2,8 @@ import QtQuick 2.9
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.9
 import QtQuick.Controls.Material 2.12
+import QtGraphicalEffects 1.15
+
 import "qrc:/ui/components"
 import Nymea 1.0
 
@@ -15,6 +17,7 @@ Page {
 
     header: NymeaHeader {
         text: qsTr("Setup solar inverter")
+        backButtonVisible: true
         onBackPressed: root.done(false, false, true)
     }
 
@@ -120,7 +123,7 @@ Page {
 
             ComboBox {
                 id: thingClassComboBox
-                Layout.preferredWidth: app.width - Style.margins
+                Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"
                 valueRole: "id"
                 model: ThingClassesProxy {
@@ -139,25 +142,81 @@ Page {
                 text: qsTr("cancel")
                 //color: Style.yellow
                 Layout.preferredWidth: 200
-                Layout.alignment: Qt.AlignHCenter
+                //Layout.alignment: Qt.AlignHCenter
+//                contentItem: Text {
+//                    text: parent.text
+//                    font: parent.font
+//                    horizontalAlignment : Text.AlignLeft
+//                    verticalAlignment: Text.AlignVCenter
+//                }
+
                 onClicked: root.done(false, true, false)
             }
             Button {
+                id: addButton
                 text: qsTr("add")
                 //color: Style.accentColor
                 Layout.preferredWidth: 200
-                Layout.alignment: Qt.AlignHCenter
+                //Layout.alignment: Qt.AlignHCenter
+                Layout.alignment: Qt.AlignLeft
                 onClicked: pageStack.push(searchInverterComponent, {thingClassId: thingClassComboBox.currentValue})
             }
 
             // Having 0 Solar inverter will be supporter at a later stage
             Button {
-                text: qsTr("next")
+                id: nextStepButton
+                text: qsTr("Next step")
+                font.capitalization: Font.AllUppercase
+                font.pixelSize: 15
+                Layout.preferredWidth: 200
+                Layout.preferredHeight: addButton.height - 9
+                // background fucks up the margin between the buttons, thats why wee need this topMargin
+                Layout.topMargin: 5
+
+                contentItem:Row{
+                    Text{
+                        id: nextStepButtonText
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: nextStepButton.text
+                        font: nextStepButton.font
+                        opacity: enabled ? 1.0 : 0.3
+                        color: Style.consolinnoHighlightForeground
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideRight
+                    }
+
+                    Image{
+                        id: headerImage
+                        anchors.right : parent.right
+                        anchors.verticalCenter:  parent.verticalCenter
+
+                        sourceSize.width: 18
+                        sourceSize.height: 18
+                        source: "../images/next.svg"
+
+                        layer{
+                            enabled: true
+                            effect: ColorOverlay{
+                                color: Style.consolinnoHighlightForeground
+                            }
+                        }
+                    }
+
+                }
+
+
+
+
                 background: Rectangle{
-                    color: solarInverterRepeater.count > 0  ? "#87BD26" : "grey"
+                    height: parent.height
+                    width: parent.width
+                    border.color: Material.background
+                    color: solarInverterRepeater.count > 0  ? Style.consolinnoHighlight : "grey"
                     radius: 4
                 }
-                Layout.preferredWidth: 200
+
                 Layout.alignment: Qt.AlignHCenter
                 onClicked:{
                     if (solarInverterRepeater.count >0){
@@ -180,7 +239,9 @@ Page {
 
             header: NymeaHeader {
                 text: qsTr("Solar inverter")
-                onBackPressed: pageStack.pop()
+                backButtonVisible: false
+                Layout.topMargin: 10
+                //onBackPressed: pageStack.pop()
             }
 
             ThingDiscovery {
@@ -191,7 +252,7 @@ Page {
                 onBusyChanged: {
                     if (!busy) {
                         print("discovery finished! Count:", count, discovery.count)
-                        if (count == 1) {
+                        if (count === 1) {
                             print("pushing:", discovery.get(0))
                             pageStack.push(setupInverterComponent, {thingDescriptor: discovery.get(0)})
                         }
@@ -232,7 +293,7 @@ Page {
                         anchors.centerIn: parent
                         width: parent.width
                         spacing: Style.margins
-                        visible: !discovery.busy && discovery.count == 0
+                        visible: !discovery.busy && discovery.count === 0
 
                         Label {
                             Layout.fillWidth: true
@@ -330,7 +391,8 @@ Page {
 
             header: NymeaHeader {
                 text: qsTr("Solar inverter")
-                onBackPressed: pageStack.pop(root)
+                backButtonVisible: false
+                //onBackPressed: pageStack.pop(root)
             }
 
             Component.onCompleted: {
@@ -345,7 +407,7 @@ Page {
             Connections {
                 target: engine.thingManager
                 onAddThingReply: {
-                    if (commandId == setupEnergyMeterPage.pendingCallId) {
+                    if (commandId === setupEnergyMeterPage.pendingCallId) {
                         setupEnergyMeterPage.thingError = thingError
                         setupEnergyMeterPage.pendingCallId = -1
                         thing = engine.thingManager.things.getThing(thingId)
@@ -409,26 +471,23 @@ Page {
                     visible: setupEnergyMeterPage.thingError != Thing.ThingErrorNoError
                 }
 
-                Button {
+                ColumnLayout{
+                    spacing: 0
                     Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredWidth: 200
-                    text: qsTr("back")
-                    //color: Style.yellow
-                    onClicked: pageStack.pop(root)
-                }
 
-                Button {
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredWidth: 200
-                    text: qsTr("next")
-                    onClicked:{
-                        var page = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thing.id), thing: thing, directionID: 1} )
-                        page.done.connect(function(){
-                            pageStack.pop(root)
-                            //root.done(false, false)
-                        })
+                    Button {
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.preferredWidth: 200
+                        text: qsTr("Next")
+                        onClicked:{
+                            var page = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thing.id), thing: thing, directionID: 1} )
+                            page.done.connect(function(){
+                                pageStack.pop(root)
+                                //root.done(false, false)
+                            })
+                        }
+
                     }
-
                 }
             }
         }

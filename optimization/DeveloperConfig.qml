@@ -25,10 +25,7 @@ Page {
     // Name, where it is and which attributes it needs
     // Note you may have to instantiate the attributes that you want to add
     Component.onCompleted: {
-        useCasesModel.append({ text: "CarSimulation", link: "../thingconfiguration/carSimulation.qml", attributes: {hemsManager: hemsManager}  })
         useCasesModel.append({ text: "ConEMS Observer", link: "../thingconfiguration/ConEMSObserver.qml", attributes: {hemsManager: hemsManager} })
-        useCasesModel.append({ text: "User config Test", link: "../optimization/UserConfig.qml", attributes: {hemsManager: hemsManager} })
-        useCasesModel.append({ text: "Installer Data Test", link: "../wizards/InstallerDataView.qml", attributes: {hemsManager: hemsManager} })
         useCasesModel.append({ text: "ChargingOptimization ConfigTest", link: "../optimization/ChargingOptimization.qml", attributes: {hemsManager: hemsManager} })
 
 
@@ -56,7 +53,6 @@ Page {
                         return"../images/edit.svg"
                 }
                 text: model.text
-                //visible: (hemsManager.availableUseCases) != 0
                 progressive: true
                 onClicked: {
                         pageStack.push(Qt.resolvedUrl(model.link), model.attributes)

@@ -2,6 +2,8 @@ import QtQuick 2.9
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.9
 import QtQuick.Controls.Material 2.12
+import QtGraphicalEffects 1.15
+
 import "qrc:/ui/components"
 import Nymea 1.0
 
@@ -94,7 +96,7 @@ Page {
                 visible: hpProxy.count === 0
                 color: Material.background
                 Text {
-                    text: qsTr("There is no heatpump set up yet.")
+                    text: qsTr("There is no heat pump set up yet.")
                     color: Material.foreground
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
@@ -115,13 +117,13 @@ Page {
             Layout.topMargin: Style.margins
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Add heatpumps:")
+                text: qsTr("Add heat pumps:")
                 wrapMode: Text.WordWrap
             }
 
             ComboBox {
                 id: thingClassComboBox
-                Layout.fillWidth: true
+                Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"
                 valueRole: "id"
                 model: ThingClassesProxy {
@@ -143,6 +145,7 @@ Page {
                 onClicked: root.done(false, true, false)
             }
             Button {
+                id: addButton
                 text: qsTr("add")
                 //color: Style.accentColor
                 Layout.preferredWidth: 200
@@ -150,10 +153,58 @@ Page {
                 onClicked:  pageStack.push(searchHeatPumpComponent, {thingClassId: thingClassComboBox.currentValue})
             }
             Button {
-                text: qsTr("next")
-                //color: Style.blue
+                id: nextStepButton
+                text: qsTr("Next step")
+                font.capitalization: Font.AllUppercase
+                font.pixelSize: 15
                 Layout.preferredWidth: 200
+                Layout.preferredHeight: addButton.height - 9
                 Layout.alignment: Qt.AlignHCenter
+                // background fucks up the margin between the buttons, thats why wee need this topMargin
+                Layout.topMargin: 5
+
+                contentItem:Row{
+                    Text{
+                        id: nextStepButtonText
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: nextStepButton.text
+                        font: nextStepButton.font
+                        opacity: enabled ? 1.0 : 0.3
+                        color: Style.consolinnoHighlightForeground
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideRight
+                    }
+
+                    Image{
+                        id: headerImage
+                        anchors.right : parent.right
+                        anchors.verticalCenter:  parent.verticalCenter
+
+                        sourceSize.width: 18
+                        sourceSize.height: 18
+                        source: "../images/next.svg"
+
+                        layer{
+                            enabled: true
+                            effect: ColorOverlay{
+                                color: Style.consolinnoHighlightForeground
+                            }
+                        }
+                    }
+
+                }
+
+                background: Rectangle{
+                    height: parent.height
+                    width: parent.width
+                    border.color: Material.background
+                    color: Style.consolinnoHighlight
+                    radius: 4
+                }
+
+
                 onClicked: root.done(true, false, false)
             }
         }
@@ -169,8 +220,9 @@ Page {
 
 
             header: NymeaHeader {
-                text: qsTr("Heatpump")
-                onBackPressed: pageStack.pop()
+                text: qsTr("Heat pump")
+                backButtonVisible: false
+                //onBackPressed: pageStack.pop()
             }
 
             ThingDiscovery {
@@ -327,8 +379,9 @@ Page {
             id: setupHeatPumpPage
 
             header: NymeaHeader {
-                text: qsTr("Heatpump")
-                onBackPressed: pageStack.pop(root)
+                text: qsTr("Heat pump")
+                backButtonVisible: false
+                //onBackPressed: pageStack.pop(root)
             }
 
             property ThingDescriptor thingDescriptor: null
@@ -397,15 +450,6 @@ Page {
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
-                Label {
-                    id: labelfortesting
-                    Layout.fillWidth: true
-                    text: qsTr("Heat pump")
-                    font: Style.bigFont
-                    wrapMode: Text.WordWrap
-                    horizontalAlignment: Text.AlignHCenter
-                }
-
                 Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
@@ -456,26 +500,31 @@ Page {
                     visible: setupHeatPumpPage.thingError != Thing.ThingErrorNoError
                 }
 
-                Button {
+                ColumnLayout{
+                    spacing: 0
                     Layout.alignment: Qt.AlignHCenter
-                    text: qsTr("back")
-                    //color: Style.yellow
-                    Layout.preferredWidth: 200
-                    onClicked: pageStack.pop(root)
-                }
 
-                Button {
-                    Layout.alignment: Qt.AlignHCenter
-                    text: qsTr("next")
-                    Layout.preferredWidth: 200
-                    onClicked:{
-                        var page = pageStack.push("../optimization/HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatPumpThing: thing, directionID: 1})
-                        page.done.connect(function(){
-                            pageStack.pop(root)
-                            //root.done(false, false)
-                        })
+//                    Button {
+//                        Layout.alignment: Qt.AlignHCenter
+//                        text: qsTr("Back")
+//                        //color: Style.yellow
+//                        Layout.preferredWidth: 200
+//                        onClicked: pageStack.pop(root)
+//                    }
 
-                    } //root.done(false, false)
+                    Button {
+                        Layout.alignment: Qt.AlignHCenter
+                        text: qsTr("Next")
+                        Layout.preferredWidth: 200
+                        onClicked:{
+                            var page = pageStack.push("../optimization/HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatPumpThing: thing, directionID: 1})
+                            page.done.connect(function(){
+                                pageStack.pop(root)
+                                //root.done(false, false)
+                            })
+
+                        } //root.done(false, false)
+                    }
                 }
             }
         }

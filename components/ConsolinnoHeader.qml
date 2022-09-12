@@ -14,7 +14,10 @@ Item {
     property string text
     property bool show_Image: false
     property alias backButtonVisible: backButton.visible
+    property var backButtonColor: Material.accent
+
     property alias menuButtonVisible: menuButton.visible
+
     default property alias children: layout.data
     property alias elide: label.elide
 
@@ -52,6 +55,9 @@ Item {
             objectName: "backButton"
             imageSource: "../images/back.svg"
             onClicked: root.backPressed();
+            color: root.backButtonColor
+
+
         }
 
         Item {
@@ -60,11 +66,12 @@ Item {
         }
         Label {
             id: label
+            //anchors.fill: parent
             //Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             //Layout.maximumWidth: layout.width - x * 2
             //Layout.minimumWidth: layout.width/2
+            //horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            //horizontalAlignment: Text.AlignRight
             elide: Text.ElideRight
             text: root.text
             font: Style.bigFont

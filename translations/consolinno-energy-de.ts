@@ -135,10 +135,6 @@
 <context>
     <name>CarInventory</name>
     <message>
-        <source>Car list</source>
-        <translation>Auto inventar</translation>
-    </message>
-    <message>
         <source>Add new car</source>
         <translation>Auto hinzufügen</translation>
     </message>
@@ -182,24 +178,16 @@
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
+    <message>
+        <source>List of Cars</source>
+        <translation>Fahrzeugliste</translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigView</name>
     <message>
         <source>no car selected</source>
         <translation>kein Auto ausgewählt</translation>
-    </message>
-    <message>
-        <source>s</source>
-        <translation>s</translation>
-    </message>
-    <message>
-        <source>min </source>
-        <translation>min</translation>
-    </message>
-    <message>
-        <source>h</source>
-        <translation>h</translation>
     </message>
     <message>
         <source>Car plugged in:</source>
@@ -210,16 +198,8 @@
         <translation>Im Moment ist kein Auto angesteckt. Bitte stecken Sie ein Auto an</translation>
     </message>
     <message>
-        <source>Activate simulated car: </source>
-        <translation>Aktiviere simuliertes Auto</translation>
-    </message>
-    <message>
         <source>Charging configuration</source>
         <translation>Ladeeinstellungen</translation>
-    </message>
-    <message>
-        <source>Car: </source>
-        <translation>Auto: </translation>
     </message>
     <message>
         <source>Charging mode: </source>
@@ -235,19 +215,7 @@
     </message>
     <message>
         <source>PV only</source>
-        <translation>Nur Solar</translation>
-    </message>
-    <message>
-        <source>Ending time:</source>
-        <translation>Endzeit: </translation>
-    </message>
-    <message>
-        <source>Target charge: </source>
-        <translation>Ladeziel</translation>
-    </message>
-    <message>
-        <source>Status: </source>
-        <translation>Status:</translation>
+        <translation>PV-Überschuss</translation>
     </message>
     <message>
         <source>Initialising</source>
@@ -268,26 +236,6 @@
     <message>
         <source>No chargingschedule active at the moment...</source>
         <translation>Kein Ladevorgang aktiv im Moment...</translation>
-    </message>
-    <message>
-        <source>Battery level:</source>
-        <translation>Batteriestand:</translation>
-    </message>
-    <message>
-        <source>Battery charge:</source>
-        <translation>Batterieinhalt:</translation>
-    </message>
-    <message>
-        <source>Charging current:</source>
-        <translation>Ladestrom</translation>
-    </message>
-    <message>
-        <source>Energy charged:</source>
-        <translation>Geladene Energie:</translation>
-    </message>
-    <message>
-        <source>Time elapsed:</source>
-        <translation>Vergangene Zeit: </translation>
     </message>
     <message>
         <source>Configure Charging</source>
@@ -355,7 +303,75 @@
     </message>
     <message>
         <source>PV excess only</source>
-        <translation>Nur PV-Überschuss </translation>
+        <translation>PV-Überschuss</translation>
+    </message>
+    <message>
+        <source>Please select a battery level greater than 0%.</source>
+        <translation>Bitte wählen Sie ein Batteriestand, der größer als 0% ist.</translation>
+    </message>
+    <message>
+        <source>Please select a car</source>
+        <translation>Bitte wählen Sie ein Auto aus</translation>
+    </message>
+    <message>
+        <source>Please select a valid target time</source>
+        <translation>Bitte wählen Sie eine geeignete Zielzeit</translation>
+    </message>
+    <message>
+        <source>Unknown error</source>
+        <translation>Unbekannter Fehler</translation>
+    </message>
+    <message>
+        <source>Activate simulated car</source>
+        <translation>Auto Simulation aktivieren</translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation>Auto</translation>
+    </message>
+    <message>
+        <source>Charging mode</source>
+        <translation>Lademodus</translation>
+    </message>
+    <message>
+        <source>Ending time</source>
+        <translation>Zielzeit</translation>
+    </message>
+    <message>
+        <source>Target charge</source>
+        <translation>Ladeziel</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
+        <source>Pending</source>
+        <translation>Pausiert</translation>
+    </message>
+    <message>
+        <source>Failed</source>
+        <translation>Fehlgeschlagen</translation>
+    </message>
+    <message>
+        <source>Battery level</source>
+        <translation>Batteriestand</translation>
+    </message>
+    <message>
+        <source>Battery charge</source>
+        <translation>Batterieinhalt</translation>
+    </message>
+    <message>
+        <source>Charging current</source>
+        <translation>Ladestrom</translation>
+    </message>
+    <message>
+        <source>Energy charged</source>
+        <translation>Geladene Energie</translation>
+    </message>
+    <message>
+        <source>Time elapsed</source>
+        <translation>Vergangene Zeit</translation>
     </message>
 </context>
 <context>
@@ -386,12 +402,20 @@ If the own electricity is not sufficient to reach the charging target, it is sup
 Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Netzstrom ergänzt.</translation>
     </message>
     <message>
-        <source>PV only: </source>
-        <translation>nur PV-Strom: </translation>
+        <source>PV excess only: </source>
+        <translation>PV-Überschuss: </translation>
     </message>
     <message>
-        <source>The vehicle is charged with solar power only. (To avoid charging interruptions, the charging process is continued with a minimum current if there is not enough own solar power available.)</source>
-        <translation>Das Fahrzeu wird nur mit solarenergie geladen. (Um Ladeunterbrechungen zu vermeiden, wird bei zu niedriger solar energie mit dem minimal notwendigen Strom geladen.)</translation>
+        <source>The vehicle is only charged with solar power. You can specify what should happen if there is not enough solar power available for charging. (Charging can be paused or your vehicle can continue charging with minimal power from the grid). Since the charging time depends on the available solar power, no desired end time can be specified.</source>
+        <translation>Das Fahrzeug wird nur mit Solarstrom geladen. Sie können angeben was passieren soll, wenn nicht ausreichend Solarstrom zum Laden zur Verfügung steht. (Der Ladevorgang kann pausieren oder ihr Fahrzeug kann mit minimalen Strom aus dem Netz weitergeladen werden.) Da die Ladezeit abhängig ist, von dem verfügbaren Solarstrom kann keine gewünschte Endzeit angegeben werden.</translation>
+    </message>
+    <message>
+        <source>No optimization: </source>
+        <translation>Keine Optimierung: </translation>
+    </message>
+    <message>
+        <source>The vehicle is charged at maximum charging power until the specified charging target is reached.</source>
+        <translation>Das Fahrzeug wird mit maximaler Ladeleistung geladen bis das angegebene Ladeziel erreicht ist.</translation>
     </message>
 </context>
 <context>
@@ -428,10 +452,6 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
         <translation>Ladekontroller</translation>
     </message>
     <message>
-        <source>Heatpump Controller</source>
-        <translation>Wärmepumpenkontroller</translation>
-    </message>
-    <message>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
@@ -462,6 +482,10 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
     <message>
         <source>:  Current State:  </source>
         <translation>:  Status:  </translation>
+    </message>
+    <message>
+        <source>Heat pump Controller</source>
+        <translation>Wärmepumpenkontroller</translation>
     </message>
 </context>
 <context>
@@ -686,6 +710,29 @@ Sie können Ihr Gerät auch mit dem lokalen Wifi verbinden, wenn das Leaflet üb
     </message>
 </context>
 <context>
+    <name>ContactPage</name>
+    <message>
+        <source>Contact</source>
+        <translation>Kontakt</translation>
+    </message>
+    <message>
+        <source>Name: </source>
+        <translation>Name: </translation>
+    </message>
+    <message>
+        <source>Workplace: </source>
+        <translation>Gewerbe: </translation>
+    </message>
+    <message>
+        <source>E-mail: </source>
+        <translation>E-mail: </translation>
+    </message>
+    <message>
+        <source>Phone number: </source>
+        <translation>Telefonnummer: </translation>
+    </message>
+</context>
+<context>
     <name>DeveloperConfig</name>
     <message>
         <source>Development</source>
@@ -881,20 +928,39 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>kW</translation>
     </message>
     <message>
-        <source>Thermal storage capacity</source>
-        <translation>Wärmespeicherkapazität</translation>
-    </message>
-    <message>
-        <source>kWh</source>
-        <translation>kWh</translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <source>skip</source>
-        <translation>überspringen</translation>
+        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
+        <translation>Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
+    </message>
+</context>
+<context>
+    <name>HelpPage</name>
+    <message>
+        <source>Help</source>
+        <translation>Hilfe</translation>
+    </message>
+    <message>
+        <source>Manual</source>
+        <translation>Bedienungsanleitung</translation>
+    </message>
+    <message>
+        <source>Installer contact</source>
+        <translation>Installateur Kontakt</translation>
+    </message>
+    <message>
+        <source>Service Consolinno</source>
+        <translation>Consolinno Service</translation>
+    </message>
+    <message>
+        <source>Under Manual you will find the the most recent version of the HEMS</source>
+        <translation>Unter &quot;Bedienungsanleitung&quot; finden Sie die aktuellste version der Anleitung zur App</translation>
+    </message>
+    <message>
+        <source>In case of problems with your </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1019,6 +1085,21 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
 </context>
 <context>
+    <name>ManualPage</name>
+    <message>
+        <source>Manual</source>
+        <translation>Bedienungsanleitung</translation>
+    </message>
+    <message>
+        <source>You find the most recent manual here: </source>
+        <translation>Aktuelle Bedienungsanleitungen finden sie hier: </translation>
+    </message>
+    <message>
+        <source>Link to the manual</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MaximumAllowedChargingLimit</name>
     <message>
         <source>Maximum Allowed Charging Limit </source>
@@ -1109,10 +1190,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
 <context>
     <name>PVOptimization</name>
     <message>
-        <source>Pv configuration</source>
-        <translation>PV einstellungen</translation>
-    </message>
-    <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
@@ -1152,6 +1229,14 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
+    <message>
+        <source>PV configuration</source>
+        <translation>PV-Einstellungen</translation>
+    </message>
+    <message>
+        <source>Some values are out of range. Please check your input.</source>
+        <translation>Einige Werte sind nicht gültig. Bitte überprüfen Sie Ihre Eingaben.</translation>
+    </message>
 </context>
 <context>
     <name>S:</name>
@@ -1162,14 +1247,25 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
 </context>
 <context>
+    <name>ServicePage</name>
+    <message>
+        <source>Service Consolinno</source>
+        <translation>Service Consolinno</translation>
+    </message>
+    <message>
+        <source>If there are problems with the Leaflet, please refer to our service adress: </source>
+        <translation>Bei Problemen mit dem Leaflet wenden sie sich an unserere Serviceadresse</translation>
+    </message>
+    <message>
+        <source>service@consolinno.de</source>
+        <translation>service@consolinno.de</translation>
+    </message>
+</context>
+<context>
     <name>SetupEVChargerWizard</name>
     <message>
         <source>cancel</source>
         <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>next</source>
-        <translation>weiter</translation>
     </message>
     <message>
         <source>skip</source>
@@ -1213,7 +1309,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>The following charging point or wallbox has been found and set up:</source>
-        <translation>Die folgende wallbox wurde gefunden:</translation>
+        <translation>Die folgende Wallbox wurde gefunden:</translation>
     </message>
     <message>
         <source>Add wallboxes:</source>
@@ -1222,6 +1318,14 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Integrated wallbox:</source>
         <translation>Eingerichtete Wallboxen:</translation>
+    </message>
+    <message>
+        <source>Next step</source>
+        <translation>Nächster Schritt</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
     </message>
 </context>
 <context>
@@ -1233,10 +1337,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>cancel</source>
         <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>next</source>
-        <translation>weiter</translation>
     </message>
     <message>
         <source>skip</source>
@@ -1274,20 +1374,16 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>The following energy meter has been found and set up:</source>
         <translation>Der folgende Stromzähler wurde gefunden und eingerichtet</translation>
     </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
+    </message>
 </context>
 <context>
     <name>SetupHeatPumpWizard</name>
     <message>
-        <source>Heat pump</source>
-        <translation>Wärmepumpe</translation>
-    </message>
-    <message>
         <source>cancel</source>
         <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>next</source>
-        <translation>weiter</translation>
     </message>
     <message>
         <source>skip</source>
@@ -1322,24 +1418,32 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Eingerichtete Wärmepumpen:</translation>
     </message>
     <message>
-        <source>There is no heatpump set up yet.</source>
-        <translation>Bis jetzt ist keine Wärmepumpe eingerichtet</translation>
-    </message>
-    <message>
         <source>add</source>
         <translation>hinzufügen</translation>
-    </message>
-    <message>
-        <source>Heatpump</source>
-        <translation>Wärmepumpe</translation>
     </message>
     <message>
         <source>The following heat pump has been found and set up:</source>
         <translation>Die folgende Wärmepumpe wurde gefunden und eingerichtet</translation>
     </message>
     <message>
-        <source>Add heatpumps:</source>
+        <source>Next step</source>
+        <translation>Nächster Schritt</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
+    </message>
+    <message>
+        <source>There is no heat pump set up yet.</source>
+        <translation>Bis jetzt ist keine Wärmepumpe eingerichtet.</translation>
+    </message>
+    <message>
+        <source>Add heat pumps:</source>
         <translation>Füge Wärmepumpen hinzu: </translation>
+    </message>
+    <message>
+        <source>Heat pump</source>
+        <translation>Wärmepumpe</translation>
     </message>
 </context>
 <context>
@@ -1351,10 +1455,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>cancel</source>
         <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>next</source>
-        <translation>weiter</translation>
     </message>
     <message>
         <source>skip</source>
@@ -1394,7 +1494,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>The following solar inverter has been found and set up:</source>
-        <translation>Der folgende Wechselrichter wurde gefunden und eingerichtet</translation>
+        <translation>Der folgende Wechselrichter wurde gefunden und eingerichtet:</translation>
     </message>
     <message>
         <source>Add solar Inverter: </source>
@@ -1403,6 +1503,14 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Integrated solar inverter:</source>
         <translation>Eingerichtete Wechselrichter:</translation>
+    </message>
+    <message>
+        <source>Next step</source>
+        <translation>Nächster Schritt</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
     </message>
 </context>
 <context>

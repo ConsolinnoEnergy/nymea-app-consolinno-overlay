@@ -21,7 +21,7 @@ Page {
 
     header: NymeaHeader {
         text: qsTr("Heating configuration")
-        backButtonVisible: true
+        backButtonVisible: directionID === 1 ? false : true
         onBackPressed: pageStack.pop()
     }
 
@@ -146,32 +146,32 @@ Page {
 
         }
 
-        RowLayout{
-            Layout.fillWidth: true
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Thermal storage capacity")
+//        RowLayout{
+//            Layout.fillWidth: true
+//            Label {
+//                Layout.fillWidth: true
+//                text: qsTr("Thermal storage capacity")
 
-            }
-
-
-            TextField {
-                id: maxThermalEnergy
-                property bool maxThermalEnergy_validated
-                Layout.preferredWidth: 60
-                text: heatingConfiguration.maxThermalEnergy
-                maximumLength: 10
-                validator: DoubleValidator{bottom: 1}
-
-                onTextChanged: acceptableInput ?maxThermalEnergy_validated = true : maxThermalEnergy_validated = false
-            }
-            Label {
-                id: maxThermalEnergyunit
-                text: qsTr("kWh")
-            }
+//            }
 
 
-        }
+//            TextField {
+//                id: maxThermalEnergy
+//                property bool maxThermalEnergy_validated
+//                Layout.preferredWidth: 60
+//                text: heatingConfiguration.maxThermalEnergy
+//                maximumLength: 10
+//                validator: DoubleValidator{bottom: 1}
+
+//                onTextChanged: acceptableInput ?maxThermalEnergy_validated = true : maxThermalEnergy_validated = false
+//            }
+//            Label {
+//                id: maxThermalEnergyunit
+//                text: qsTr("kWh")
+//            }
+
+
+//        }
 
 
 
@@ -223,7 +223,8 @@ Page {
 
         Button {
             id: savebutton
-            property bool validated: floorHeatingAreaId.floorHeatingArea_validated && maxThermalEnergy.maxThermalEnergy_validated && maxElectricalPower.maxElectricalPower_validated
+            property bool validated: floorHeatingAreaId.floorHeatingArea_validated && maxElectricalPower.maxElectricalPower_validated
+
 
             Layout.fillWidth: true
             text: qsTr("Save")
@@ -232,11 +233,11 @@ Page {
                 if (savebutton.validated)
                 {
                     if (directionID == 1){
-                        hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text, maxThermalEnergy: maxThermalEnergy.text  })
+                        hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text,})
 
                         root.done()
                     }else if(directionID == 0){
-                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text, maxThermalEnergy: maxThermalEnergy.text  })
+                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text,})
 
                     }
 
@@ -245,7 +246,7 @@ Page {
                 {
                     // for now this is the way how we show the user that some attributes are invalid
                     // TO DO: Show which ones are invalid
-                    footer.text = "Some attributes are outside of the allowed range: Configurations were not saved"
+                    footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
 
 
                 }
@@ -255,16 +256,16 @@ Page {
         }
 
         // only visible if installation mode (directionID == 1)
-        Button {
-            id: passbutton
-            visible: directionID === 1
+//        Button {
+//            id: passbutton
+//            visible: directionID === 1
 
-            Layout.fillWidth: true
-            text: qsTr("skip")
-            onClicked: {
-                root.done()
-            }
-        }
+//            Layout.fillWidth: true
+//            text: qsTr("skip")
+//            onClicked: {
+//                root.done()
+//            }
+//        }
 
 
 

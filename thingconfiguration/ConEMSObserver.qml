@@ -35,7 +35,7 @@ Page {
             }
 
             if (conState.heatpumpControllerActive()){
-                conEMSControllerlistview.model.append({name: qsTr("Heatpump Controller")})
+                conEMSControllerlistview.model.append({name: qsTr("Heat pump Controller")})
             }
 
         }

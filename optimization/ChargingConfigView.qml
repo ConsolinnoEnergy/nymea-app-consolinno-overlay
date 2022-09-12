@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.3
-import QtQuick.Controls.Styles 1.4
+//import QtQuick.Controls.Styles 1.4
 import QtQml 2.2
 import QtGraphicalEffects 1.15
 import Nymea 1.0
@@ -47,8 +47,8 @@ Page {
                     var duration = chargingSessionConfiguration.duration
                     var hours   = Math.floor(duration/3600)
                     var minutes = Math.floor((duration - hours*3600)/60)
-                    var seconds = Math.floor(duration - hours*3600 - minutes*60)
-                    durationValue.text = (hours === 0) ? (minutes == 0 ? seconds + qsTr("s")  :  minutes + qsTr("min ") + seconds + qsTr("s")   ) : hours + qsTr("h") + " " + minutes + qsTr("min ") + seconds + qsTr("s")
+                    durationValue.text = (hours === 0) ? minutes +  "min " : hours+ "h " + minutes + "min"
+
                 }
                 // Running
                 if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state == 2)){
@@ -193,9 +193,9 @@ Page {
                     height: 17
                     Layout.rightMargin: 0
                     Layout.alignment: Qt.AlignRight
-                   color: thing.stateByName("pluggedIn").value ? "green" : "red"
+                    color: thing.stateByName("pluggedIn").value ? "#87BD26" : "#CD5C5C"
                     border.color: "black"
-                    border.width: 0.5
+                    border.width: 0
                     radius: width*0.5
                 }
             }
@@ -222,7 +222,7 @@ Page {
 
                 Label{
                     id: simulationLabel
-                    text: qsTr("Activate simulated car: ")
+                    text: qsTr("Activate simulated car")
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
 
@@ -272,7 +272,7 @@ Page {
                 Label{
                     id: selectedCarLabel
                     Layout.fillWidth: true
-                    text: qsTr("Car: ")
+                    text: qsTr("Car")
                 }
                 Label{
                     id: selectedCar
@@ -297,7 +297,7 @@ Page {
                 Label{
                     id: loadingModesLabel
                     Layout.fillWidth: true
-                    text: qsTr("Charging mode: ")
+                    text: qsTr("Charging mode")
                 }
 
                 Label{
@@ -342,7 +342,7 @@ Page {
                 Label{
                     id: targetChargeReachedLabel
                     Layout.fillWidth: true
-                    text: qsTr("Ending time:")
+                    text: qsTr("Ending time")
                 }
 
                 Label{
@@ -376,7 +376,7 @@ Page {
                 Label{
                     id: targetChargeLabel
                     Layout.fillWidth: true
-                    text: qsTr("Target charge: ")
+                    text: qsTr("Target charge")
                 }
 
                 Label{
@@ -413,7 +413,7 @@ Page {
                 Label{
                     id: statusLabel
                     Layout.fillWidth: true
-                    text: qsTr("Status: ")
+                    text: qsTr("Status")
                     font.pixelSize: 22
                     font.bold: true
                 }
@@ -432,11 +432,11 @@ Page {
 
 
                         //check if plugged in                 check if current power == 0           else show the current state the session is in atm
-                        color:  thing.stateByName("pluggedIn").value ? (initializing ? "blue" : state === 2 ? "green" : state === 3 ? "grey" : state === 4 ? "grey" : "lightgrey" ) : "lightgrey"
+                        color:  thing.stateByName("pluggedIn").value ? (initializing ? "blue" : state === 2 ? "green" : state === 3 ? "#66a5e2" : state === 4 ? "grey" : "lightgrey" ) : "lightgrey"
                         radius: width*0.1
                         Label{
                             id: description
-                            text: initializing ? qsTr("Initialising") : (status.state === 2 ? qsTr("Running") : (status.state === 3 ? qsTr("Finished") : (status.state === 4 ? qsTr("Interrupted") : (status.state === 6 ? "Pending" :  "Failed"  ))))
+                            text: initializing ? qsTr("Initialising") : (status.state === 2 ? qsTr("Running") : (status.state === 3 ? qsTr("Finished") : (status.state === 4 ? qsTr("Interrupted") : (status.state === 6 ? qsTr("Pending") :  qsTr("Failed")  ))))
                             color: "white"
                             anchors.centerIn: parent
                         }
@@ -462,7 +462,7 @@ Page {
                 Label{
                     id: batteryLevelLabel
                     Layout.fillWidth: true
-                    text: qsTr("Battery level:")
+                    text: qsTr("Battery level")
 
                 }
                 Label{
@@ -482,7 +482,7 @@ Page {
                 Label{
                     id: energyBatteryLabel
                     Layout.fillWidth: true
-                    text: qsTr("Battery charge:")
+                    text: qsTr("Battery charge")
 
                 }
                 Label{
@@ -502,7 +502,7 @@ Page {
                 Label{
                     id: currentCurrentLabel
                     Layout.fillWidth: true
-                    text: qsTr("Charging current:")
+                    text: qsTr("Charging current")
 
                 }
                 Label{
@@ -521,7 +521,7 @@ Page {
                 Label{
                     id: alreadyLoadedLabel
                     Layout.fillWidth: true
-                    text: qsTr("Energy charged:")
+                    text: qsTr("Energy charged")
 
                 }
                 Label{
@@ -539,7 +539,7 @@ Page {
                 Label{
                     id: durationLabel
                     Layout.fillWidth: true
-                    text: qsTr("Time elapsed:")
+                    text: qsTr("Time elapsed")
 
                 }
                 Label{
@@ -547,8 +547,7 @@ Page {
                     property int duration: chargingSessionConfiguration.duration
                     property int hours: duration/3600
                     property int minutes: (duration - hours*3600)/60
-                    property int seconds: duration - hours*3600 - minutes*60
-                    text: (hours === 0) ? (minutes == 0 ? seconds + "s"  :  minutes + "min " + seconds + "s"    ) : hours + "h " + " " + minutes + "min " + seconds + "s"
+                    text: (hours === 0) ? minutes +  "min " : hours+ "h " + minutes + "min"
                     Layout.alignment: Qt.AlignRight
                     Layout.rightMargin: 0
 
@@ -669,6 +668,7 @@ Page {
                                 hemsManager.setUserConfiguration({lastSelectedCar: selectedCar.id})
                                 carSelector.text = selectedCar.name
                                 holdingItem = selectedCar
+                                batteryLevel.value = 0
 
 
                             })
@@ -724,10 +724,9 @@ Page {
 
                     ComboBox {
                         id: comboboxloadingmod
-                        Layout.fillWidth: true
-                        Layout.maximumWidth: 200
-                        Layout.alignment: Qt.AlignRight
-                        x: carSelector.x
+
+                        Layout.preferredWidth: carSelector.width
+
                         model: ListModel{
 
                             ListElement{key: qsTr("No optimization"); value: "No Optimization"; mode: 0}
@@ -738,6 +737,16 @@ Page {
 
                         }
                         textRole: "key"
+                        contentItem: Text{
+                            text: parent.displayText
+                            width: parent.width
+                            color: Material.foreground
+                            verticalAlignment: Text.AlignVCenter;
+                            horizontalAlignment: Text.AlignLeft;
+                            leftPadding: app.margins
+                            elide: Text.ElideRight
+                        }
+
                         currentIndex: userconfig.defaultChargingMode
                         onCurrentIndexChanged:
                         {
@@ -776,11 +785,6 @@ Page {
                             from: 0
                             to: 100
                             stepSize: 1
-
-
-
-
-
                             Component.onCompleted:
                             {
 
@@ -788,8 +792,6 @@ Page {
                                     if (carSelector.holdingItem !== false){
                                         value = carSelector.holdingItem.stateByName("batteryLevel").value
                                     }
-
-
                             }
 
                             onPositionChanged:
@@ -798,7 +800,11 @@ Page {
                                 if (carSelector.holdingItem !== false){
                                     if (value  >= targetPercentageSlider.value)
                                     {
-                                        targetPercentageSlider.value = value
+                                        if (value === 100){
+                                            value = 99
+                                        }
+
+                                        targetPercentageSlider.value = value +1
                                     }
 
                                     endTimeSlider.computeFeasibility()
@@ -844,19 +850,22 @@ Page {
 
                             }
                             onPositionChanged: {
-
                                 if (carSelector.holdingItem !== false){
                                     endTimeSlider.computeFeasibility()
                                     endTimeSlider.feasibilityText()
 
                                     if (value <= batteryLevel.value)
                                     {
-                                        value = batteryLevel.value
+                                        if (value === 100){
+                                            value = batteryLevel.value
+                                        }else{
+                                            value = batteryLevel.value + 1
+                                        }
                                     }
-                                    if (value == 0){
+//                                    if (value == 0){
 
-                                        value = 1
-                                    }
+//                                        value = 1
+//                                    }
 
                                 }
                             }
@@ -1006,7 +1015,7 @@ Page {
 
                 RowLayout
                 {
-                visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode !== 2000)
+                visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 1000)
                 Label
                     {
                     id: feasibilityMessage
@@ -1022,22 +1031,19 @@ Page {
 
 
                 Label{
-                    visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 2000) && settings.showHiddenOptions
+                    visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 2000)
                     id: gridConsumptionLabel
                     text: qsTr("Behaviour on grid consumption:")
                 }
 
                 ComboBox {
-                    visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 2000) && settings.showHiddenOptions
+                    visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 2000)
                     id: gridConsumptionloadingmod
                     Layout.fillWidth: true
                     model: ListModel{
                         ListElement{key: qsTr("Charge with minimum current"); mode: 0}
                         ListElement{key: qsTr("Cancel charging"); mode: 100}
                         ListElement{key: qsTr("Pause charging"); mode: 200}
-
-
-
                     }
                     textRole: "key"
                 }
@@ -1073,39 +1079,48 @@ Page {
                     text: qsTr("Save")
                     onClicked: {
 
-                        if((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) && (endTimeSlider.value >= 30) ){
+                        // if PV excess mode is used set the endTime to maximum value
+                        if((comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode >= 2000) && (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode < 3000) ){
+                            endTimeSlider.value = 24*60
+                        }
+                        // Set endTime to maximum for no optimization
+                        if((comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode < 1000) ){
+                            endTimeSlider.value = 24*60
+                        }
 
-                           if (carSelector.holdingItem !== false){
-                                if (carSelector.holdingItem.stateByName("batteryLevel").value){
-                                    carSelector.holdingItem.executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batteryLevel.value }])
-                                }
-                                pageSelectedCar = carSelector.holdingItem.name
+                        if ((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) && (endTimeSlider.value >= 30) && carSelector.holdingItem !== false && batteryLevel.value !== 0){
+                            if (carSelector.holdingItem.stateByName("batteryLevel").value){
+                                carSelector.holdingItem.executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batteryLevel.value }])
+                            }
+                            pageSelectedCar = carSelector.holdingItem.name
 
-                                var optimizationMode = compute_OptimizationMode()
+                            var optimizationMode = compute_OptimizationMode()
 
-                                // TODO: when ConEMS finished no need for this if statement anymore
-                                if(!settings.showHiddenOptions){
-                                    optimizationMode = Math.floor(optimizationMode/1000)
-                                }
+                            hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
+                            hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode })
 
-                                // if PV excess mode is used set the endTime to maximum value
-                                if((comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode >= 2000) && (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode < 3000) ){
-                                    endTimeSlider.value = 24*60
-                                }
+                            optimizationPage.done()
+                            pageStack.pop()
 
-                                hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
-                                hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode })
-
-                                optimizationPage.done()
-                                pageStack.pop()
-
+                        }
+                        else{
+                            // footer message to notifiy the user, what is wrong
+                            if(batteryLevel.value === 0){
+                                footer.text = qsTr("Please select a battery level greater than 0%.")
+                            }
+                            else if (carSelector.holdingItem === false){
+                                footer.text = qsTr("Please select a car")
+                            }
+                            else if((endTimeSlider.value < endTimeSlider.maximumChargingthreshhold) || (endTimeSlider.value < 30)){
+                                footer.text = qsTr("Please select a valid target time")
                             }
                             else{
-                                footer.text = qsTr("please select a car")
-                                footer.visible = true
+                                footer.text = qsTr("Unknown error")
                             }
-                        }else{
-                       }
+
+                            footer.visible = true
+                        }
+
 
 
                     }

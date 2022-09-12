@@ -135,10 +135,6 @@
 <context>
     <name>CarInventory</name>
     <message>
-        <source>Car list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Add new car</source>
         <translation type="unfinished"></translation>
     </message>
@@ -182,23 +178,15 @@
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>List of Cars</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigView</name>
     <message>
         <source>no car selected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>min </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>h</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -210,15 +198,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Activate simulated car: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Charging configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Car: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -235,18 +215,6 @@
     </message>
     <message>
         <source>PV only</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ending time:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Target charge: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Status: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -267,26 +235,6 @@
     </message>
     <message>
         <source>No chargingschedule active at the moment...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Battery level:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Battery charge:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Charging current:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Energy charged:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Time elapsed:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -357,6 +305,74 @@
         <source>PV excess only</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Please select a battery level greater than 0%.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please select a car</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please select a valid target time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate simulated car</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Car</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ending time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target charge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery charge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Energy charged</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Time elapsed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -385,11 +401,19 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PV only: </source>
+        <source>PV excess only: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The vehicle is charged with solar power only. (To avoid charging interruptions, the charging process is continued with a minimum current if there is not enough own solar power available.)</source>
+        <source>The vehicle is only charged with solar power. You can specify what should happen if there is not enough solar power available for charging. (Charging can be paused or your vehicle can continue charging with minimal power from the grid). Since the charging time depends on the available solar power, no desired end time can be specified.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No optimization: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The vehicle is charged at maximum charging power until the specified charging target is reached.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -427,10 +451,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Heatpump Controller</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -460,6 +480,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>:  Current State:  </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heat pump Controller</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -681,6 +705,29 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
 </context>
 <context>
+    <name>ContactPage</name>
+    <message>
+        <source>Contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Workplace: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E-mail: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Phone number: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DeveloperConfig</name>
     <message>
         <source>Development</source>
@@ -874,19 +921,38 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Thermal storage capacity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>skip</source>
+        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HelpPage</name>
+    <message>
+        <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installer contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Service Consolinno</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Under Manual you will find the the most recent version of the HEMS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In case of problems with your </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1011,6 +1077,21 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
 </context>
 <context>
+    <name>ManualPage</name>
+    <message>
+        <source>Manual</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You find the most recent manual here: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link to the manual</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MaximumAllowedChargingLimit</name>
     <message>
         <source>Maximum Allowed Charging Limit </source>
@@ -1101,10 +1182,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
 <context>
     <name>PVOptimization</name>
     <message>
-        <source>Pv configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1144,6 +1221,14 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>PV configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some values are out of range. Please check your input.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>S:</name>
@@ -1154,13 +1239,24 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
 </context>
 <context>
-    <name>SetupEVChargerWizard</name>
+    <name>ServicePage</name>
     <message>
-        <source>cancel</source>
+        <source>Service Consolinno</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>next</source>
+        <source>If there are problems with the Leaflet, please refer to our service adress: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>service@consolinno.de</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SetupEVChargerWizard</name>
+    <message>
+        <source>cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1215,6 +1311,14 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <source>The following charging point or wallbox has been found and set up:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Next step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
+    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -1224,10 +1328,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1266,19 +1366,15 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <source>The following energy meter has been found and set up:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
+    </message>
 </context>
 <context>
     <name>SetupHeatPumpWizard</name>
     <message>
-        <source>Heat pump</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1314,23 +1410,31 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>There is no heatpump set up yet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add heatpumps:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Heatpump</source>
+        <source>The following heat pump has been found and set up:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The following heat pump has been found and set up:</source>
+        <source>Next step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
+    </message>
+    <message>
+        <source>There is no heat pump set up yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add heat pumps:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heat pump</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1342,10 +1446,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1395,6 +1495,14 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     <message>
         <source>The following solar inverter has been found and set up:</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
     </message>
 </context>
 <context>
