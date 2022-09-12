@@ -22,6 +22,12 @@ Page {
     }
 
 
+
+
+
+
+
+
     ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
         width: Math.min(parent.width - Style.margins * 2, 300)
@@ -34,7 +40,6 @@ Page {
         Label {
             Layout.fillWidth: true
             text: qsTr("Integrated solar inverter:")
-            //Layout.leftMargin: 0
             wrapMode: Text.WordWrap
             Layout.alignment: Qt.AlignLeft
             horizontalAlignment: Text.AlignLeft
@@ -140,16 +145,7 @@ Page {
 
             Button {
                 text: qsTr("cancel")
-                //color: Style.yellow
                 Layout.preferredWidth: 200
-                //Layout.alignment: Qt.AlignHCenter
-//                contentItem: Text {
-//                    text: parent.text
-//                    font: parent.font
-//                    horizontalAlignment : Text.AlignLeft
-//                    verticalAlignment: Text.AlignVCenter
-//                }
-
                 onClicked: root.done(false, true, false)
             }
             Button {
@@ -235,6 +231,48 @@ Page {
         Page {
             id: searchInverterPage
             property var thingClassId: null
+            property var thingClass: engine.ThingManager.thingClasses.getThingClass(thingClassId)
+
+
+
+            Component.onCompleted: {
+
+                if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
+                    if (thingClass["discoveryParamTypes"].count > 0) {
+                        // discoveryParamsPage
+                        pageStack.push(discoveryParamsPage)
+                    } else {
+                        pageStack.push(discoveryPage, {thingClass: thingClass})
+                        discovery.discoverThings(thingClass.id)
+                    }
+                }else if (thingClass.createMethods.indexOf("CreateMethodUser") !== -1) {
+                    if (!root.thing) {
+                        internalPageStack.push(paramsPage)
+                    } else if (root.thing) {
+                        if (thingClass.paramTypes.count > 0) {
+                            internalPageStack.push(paramsPage)
+                        } else {
+                            switch (thingClass.setupMethod) {
+                            case 0:
+                                engine.thingManager.reconfigureThing(root.thing.id, [])
+                                busyOverlay.shown = true;
+                                break;
+                            case 1:
+                            case 2:
+                            case 3:
+                            case 4:
+                            case 5:
+                                engine.thingManager.rePairThing(root.thing.id, []);
+                                break;
+                            default:
+                                console.warn("Unhandled setup method!")
+                            }
+                        }
+                    }
+                }
+
+            }
+
 
 
             header: NymeaHeader {
@@ -375,6 +413,21 @@ Page {
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     Component {
         id: setupInverterComponent
