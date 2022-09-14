@@ -6,6 +6,8 @@ import QtGraphicalEffects 1.15
 import "qrc:/ui/components"
 import Nymea 1.0
 
+import "../delegates"
+
 Page {
     id: root
     signal done(bool skip, bool abort, bool back);
@@ -16,14 +18,73 @@ Page {
         onBackPressed: root.done(false, false, true)
     }
 
+
+    QtObject {
+        id: d
+        property var vendorId: null
+        property ThingDescriptor thingDescriptor: null
+        property var discoveryParams: []
+        property string thingName: ""
+        property int pairRequestId: 0
+        property var pairingTransactionId: null
+        property int addRequestId: 0
+        property var name: ""
+        property var params: []
+
+        function pairThing(thingClass, thing) {
+
+            switch (thingClass.setupMethod) {
+                // Just Add
+            case 0:
+                if (d.thingDescriptor) {
+                    engine.thingManager.addDiscoveredThing(thingClass.id, d.thingDescriptor.id, d.name, params);
+                } else {
+                    engine.thingManager.addThing(thingClass.id, d.name, params);
+                }
+                break;
+                // Display Pin
+            case 1:
+                // Enter Pin
+            case 2:
+                // PushButton
+            case 3:
+                // OAuth
+            case 4:
+                // User and Password
+            case 5:
+            }
+
+            busyOverlay.shown = true;
+
+        }
+    }
+
+    ThingDiscovery {
+        id: discovery
+        engine: _engine
+    }
+
+    StackView {
+        id: internalPageStack
+        anchors.fill: parent
+    }
+
+
+    Connections {
+        target: engine.thingManager
+        onAddThingReply: {
+
+            busyOverlay.shown = false;
+            var thing = engine.thingManager.things.getThing(thingId)
+            pageStack.push(setupEvChargerComponent, {thingError: thingError, thing: thing, message: displayMessage})
+
+        }
+    }
+
+
     ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
         width: Math.min(parent.width - Style.margins * 2, 300)
-        //spacing: Style.margins
-
-
-
-
 
         ColumnLayout{
             Layout.fillWidth: true
@@ -107,15 +168,6 @@ Page {
                 }
             }
 
-//            Label {
-//                Layout.fillWidth: true
-//                Layout.topMargin: 10
-//                text: qsTr("Add wallboxes:")
-//                wrapMode: Text.WordWrap
-//                horizontalAlignment: Text.AlignLeft
-//                Layout.alignment: Qt.AlignLeft
-
-//            }
 
             VerticalDivider
             {
@@ -123,16 +175,10 @@ Page {
                 dividerColor: Material.accent
             }
 
-
-
         }
 
         ColumnLayout {
             Layout.topMargin: 0
-
-
-
-
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Add wallboxes:")
@@ -141,7 +187,6 @@ Page {
 
             ComboBox {
                 id: thingClassComboBox
-                //Layout.fillWidth: true
                 Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"
                 valueRole: "id"
@@ -167,9 +212,8 @@ Page {
                 text: qsTr("add")
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                onClicked: pageStack.push(searchEvChargerComponent, {thingClassId: thingClassComboBox.currentValue})
+                onClicked: internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue})
             }
-            // Having 0 EV charger will be supporter at a later stage
             Button {
                 id: nextStepButton
                 text: qsTr("Next step")
@@ -222,161 +266,277 @@ Page {
 
                 Layout.alignment: Qt.AlignHCenter
                 onClicked:{
-                      root.done(true, false, false)
+                    root.done(true, false, false)
                 }
 
             }
         }
 
+    }
+
+
+
+    // This Component Looks at the thingClass and decides based on the createMethod, which "Route" of the
+    // Setup we should take
+    // tested and supported are atm:
+    // ThingDiscovery
+    // ThingDiscovery with discoveryParams
+    Component {
+        id: creatingMethodDecider
+
+        Page {
+            id: searchHeatPumpPage
+
+            property var thingClassId
+            property var thingClass: engine.thingManager.thingClasses.getThingClass(thingClassId)
+            property var thing: null
+
+
+            Component.onCompleted: {
+
+                // if discovery and user. Always Discovery
+                if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
+
+                    if (thingClass["discoveryParamTypes"].count > 0) {
+                        // ThingDiscovery with discoveryParams
+                        pageStack.push(discoveryParamsPage, {thingClass: thingClass})
+                    } else {
+                        // ThingDiscovery without discoveryParams
+                        pageStack.push(discoveryPage, {thingClass: thingClass})
+                        discovery.discoverThings(thingClass.id)
+                    }
+                }// not supported yet
+                else if (thingClass.createMethods.indexOf("CreateMethodUser") !== -1) {
+                    pageStack.push(paramsPage, {thingClass: thingClass})
+
+                }
+
+            }
+
+
+
+
+
+        }
+    }
+
+    // discoveryParams: Params necessary for Discovery
+    Component {
+        id: discoveryParamsPage
+        SettingsPageBase {
+
+            property ThingClass thingClass
+
+            id: discoveryParamsView
+            title: qsTr("Discover %1").arg(thingClass.displayName)
+
+            SettingsPageSectionHeader {
+                text: qsTr("Discovery options")
+            }
+
+            Repeater {
+                id: paramRepeater
+                model: thingClass ? thingClass.discoveryParamTypes : null
+                delegate: ParamDelegate {
+                    Layout.fillWidth: true
+                    paramType: thingClass.discoveryParamTypes.get(index)
+                }
+            }
+
+            Button {
+                Layout.fillWidth: true
+                Layout.margins: app.margins
+                text: "Next"
+                onClicked: {
+                    var paramTypes = thingClass.discoveryParamTypes;
+                    d.discoveryParams = [];
+                    for (var i = 0; i < paramTypes.count; i++) {
+                        var param = {};
+                        param["paramTypeId"] = paramTypes.get(i).id;
+                        param["value"] = paramRepeater.itemAt(i).value
+                        d.discoveryParams.push(param);
+                    }
+                    discovery.discoverThings(thingClass.id, d.discoveryParams)
+                    pageStack.push(discoveryPage, {thingClass: thingClass})
+                }
+            }
+        }
+    }
+
+    // discoveryPage
+    Component {
+        id: discoveryPage
+
+        SettingsPageBase {
+            id: discoveryView
+
+            property ThingClass thingClass
+            property Thing thing
+
+            header: NymeaHeader {
+                text: qsTr("Discover %1").arg(thingClass.displayName)
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
+
+
+
+            SettingsPageSectionHeader {
+                text: qsTr("Nymea found the following things")
+                visible: !discovery.busy && discoveryProxy.count > 0
+            }
+
+            Repeater {
+                model: ThingDiscoveryProxy {
+                    id: discoveryProxy
+                    thingDiscovery: discovery
+                    showAlreadyAdded: thing !== null
+                    showNew: thing === null
+                    //filterThingId: root.thing ? root.thing.id : ""
+                }
+                delegate: NymeaItemDelegate {
+                    Layout.fillWidth: true
+                    text: model.name
+                    subText: model.description
+                    iconName: app.interfacesToIcon(discoveryView.thingClass.interfaces)
+                    onClicked: {
+                        d.thingDescriptor = discoveryProxy.get(index);
+                        d.thingName = model.name;
+                        pageStack.push(paramsPage,{thingClass: thingClass, thing: thing})
+                    }
+                }
+            }
+
+            busy: discovery.busy
+            busyText: qsTr("Searching for things...")
+
+            ColumnLayout {
+                visible: !discovery.busy && discoveryProxy.count === 0
+                spacing: app.margins
+                Layout.preferredHeight: discoveryView.height - discoveryView.header.height - retryButton.height - app.margins * 3
+                Label {
+                    text: qsTr("Too bad...")
+                    font.pixelSize: app.largeFont
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
+                    horizontalAlignment: Text.AlignHCenter
+                }
+                Label {
+                    text: qsTr("No things of this kind could be found...")
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignHCenter
+                }
+
+                Label {
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
+                    horizontalAlignment: Text.AlignHCenter
+                    text: discovery.displayMessage.length === 0 ?
+                              qsTr("Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.")
+                            : discovery.displayMessage
+                    wrapMode: Text.WordWrap
+                }
+
+            }
+            Button {
+                id: retryButton
+                Layout.fillWidth: true
+                Layout.margins: app.margins
+                text: qsTr("Search again")
+                onClicked: discovery.discoverThings(thingClass.id, d.discoveryParams)
+                visible: !discovery.busy
+            }
+        }
     }
 
     Component {
-        id: searchEvChargerComponent
+        id: paramsPage
 
-        Page {
-            id: searchEvChargerPage
-            property string thingClassId: null
+        SettingsPageBase {
+            id: paramsView
+            property Thing thing
+            property ThingClass thingClass
 
-            //onBack: pageStack.pop()
 
-            header: NymeaHeader {
-                text: qsTr("Wallbox")
-                backButtonVisible: false
-                //onBackPressed: pageStack.pop()
+            title: thing ? qsTr("Reconfigure %1").arg(thing.name) : qsTr("Set up %1").arg(thingClass.displayName)
+
+            SettingsPageSectionHeader {
+                text: qsTr("Name the thing:")
             }
 
-            ThingDiscovery {
-                id: discovery
-                engine: _engine
-
-
-                onBusyChanged: {
-                    if (!busy) {
-                        print("discovery finished! Count:", count, discovery.count)
-                        if (count == 1) {
-                            print("pushing:", discovery.get(0))
-                            pageStack.push(setupEvChargerComponent, {thingDescriptor: discovery.get(0)})
-                        }
-                    }
-                }
+            TextField {
+                id: nameTextField
+                text: (d.thingName ? d.thingName : thingClass.displayName)
+                      + (thingClass.id.toString().match(/\{?f0dd4c03-0aca-42cc-8f34-9902457b05de\}?/) ? " (" + PlatformHelper.machineHostname + ")" : "")
+                Layout.fillWidth: true
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
             }
 
-            Component.onCompleted: {
-                print("starting discovery")
-                discovery.discoverThings(searchEvChargerPage.thingClassId)
+            SettingsPageSectionHeader {
+                text: qsTr("Thing parameters")
+                visible: paramRepeater.count > 0
             }
 
-            ColumnLayout {
-                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
-                width: Math.min(parent.width - Style.margins * 2, 300)
-                spacing: Style.margins
-
-
-                Item {
+            Repeater {
+                id: paramRepeater
+                model: engine.jsonRpcClient.ensureServerVersion("1.12") || d.thingDescriptor == null ?  thingClass.paramTypes : null
+                delegate: ParamDelegate {
+                    //                            Layout.preferredHeight: 60
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
-
-                    ColumnLayout {
-                        visible: discovery.busy
-                        anchors.centerIn: parent
-                        spacing: Style.margins
-
-                        BusyIndicator {
-                            Layout.alignment: Qt.AlignHCenter
+                    enabled: !model.readOnly
+                    paramType: thingClass.paramTypes.get(index)
+                    value: {
+                        // Discovery, use params from discovered descriptor
+                        if (d.thingDescriptor && d.thingDescriptor.params.getParam(paramType.id)) {
+                            return d.thingDescriptor.params.getParam(paramType.id).value
                         }
 
-                        Label {
-                            horizontalAlignment: Text.AlignHCenter
-                            text: qsTr("Searching...")
-                        }
-                    }
-
-                    ColumnLayout {
-                        anchors.centerIn: parent
-                        width: parent.width
-                        spacing: Style.margins
-                        visible: !discovery.busy && discovery.count == 0
-
-                        Label {
-                            Layout.fillWidth: true
-                            Layout.bottomMargin: Style.bigMargins
-                            text: qsTr("No charging point or wallbox has been found. Please return to the previous step and verify that your charging point or wallbox is installed properly.")
-                            wrapMode: Text.WordWrap
-                            horizontalAlignment: Text.AlignHCenter
-                        }
-
-                        Button {
-                            Layout.alignment: Qt.AlignHCenter
-                            text: qsTr("back")
-                            Layout.preferredWidth: 200
-                            //color: Style.yellow
-                            onClicked: pageStack.pop()
-                        }
-                        Button {
-                            Layout.alignment: Qt.AlignHCenter
-                            text: qsTr("cancel")
-                            Layout.preferredWidth: 200
-                            //color: Style.yellow
-                            onClicked: root.done(false, true, false)
-                        }
-                        Button {
-                            Layout.alignment: Qt.AlignHCenter
-                            text: qsTr("skip")
-                            Layout.preferredWidth: 200
-                            //color: Style.blue
-                            onClicked: root.done(true, false, false)
-                        }
-                    }
-                }
-
-                ColumnLayout {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    visible: !discovery.busy && discovery.count > 1
-
-                    Label {
-                        Layout.fillWidth: true
-                        Layout.margins: Style.margins
-                        text: qsTr("Multiple charging points or wallboxes have been found in your network. Please select the one you'd like to use with your Leaflet.")
-                        horizontalAlignment: Text.AlignHCenter
-                        wrapMode: Text.WordWrap
-                    }
-
-                    ListView {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        Layout.bottomMargin: app.margins
-                        clip: true
-                        model: discovery
-                        delegate: ItemDelegate {
-                            id: wallboxDelegate
-                            contentItem: RowLayout {
-                                ColumnLayout {
-                                    Label {
-                                        Layout.fillWidth: true
-                                        text: model.name
-                                        elide: Text.ElideRight
-                                    }
-                                    Label {
-                                        Layout.fillWidth: true
-                                        text: model.description
-                                        elide: Text.ElideRight
-                                        font: Style.smallFont
-                                    }
-                                }
-                            }
-
-                            width: parent.width
-                            onClicked: {
-                                console.warn("clicked")
-                                pageStack.push(setupEvChargerComponent, {thingDescriptor: discovery.get(index)})
-                            }
-                        }
+                        // Manual setup, use default value from thing class
+                        return thingClass.paramTypes.get(index).defaultValue
                     }
                 }
             }
+
+            Button {
+                Layout.fillWidth: true
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
+
+                text: "OK"
+                onClicked: {
+                    var params = []
+                    for (var i = 0; i < paramRepeater.count; i++) {
+                        var param = {}
+                        var paramType = paramRepeater.itemAt(i).paramType
+                        if (!paramType.readOnly) {
+                            param.paramTypeId = paramType.id
+                            param.value = paramRepeater.itemAt(i).value
+                            print("adding param", param.paramTypeId, param.value)
+                            params.push(param)
+                        }
+                    }
+
+                    d.params = params
+                    d.name = nameTextField.text
+                    d.pairThing(thingClass, thing);
+
+
+                }
+            }
+
         }
+
+
     }
+
+
+    BusyOverlay {
+        id: busyOverlay
+    }
+
 
     Component {
         id: setupEvChargerComponent
