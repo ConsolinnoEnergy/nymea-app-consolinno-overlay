@@ -71,5 +71,6 @@
         <file>info/Help/ManualPage.qml</file>
         <file>info/Help/ContactPage.qml</file>
         <file>info/Help/ServicePage.qml</file>
+        <file>info/Privacy/PrivacyPage.qml</file>
     </qresource>
 </RCC>
