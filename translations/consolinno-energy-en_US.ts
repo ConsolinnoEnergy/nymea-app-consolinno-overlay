@@ -1229,6 +1229,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <source>Some values are out of range. Please check your input.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Please enter your position in the longitude and latitude field</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>S:</name>

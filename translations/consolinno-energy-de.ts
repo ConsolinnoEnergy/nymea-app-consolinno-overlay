@@ -1237,6 +1237,10 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>Some values are out of range. Please check your input.</source>
         <translation>Einige Werte sind nicht gültig. Bitte überprüfen Sie Ihre Eingaben.</translation>
     </message>
+    <message>
+        <source>Please enter your position in the longitude and latitude field</source>
+        <translation>Bitte geben Sie Ihre Position in das Longitude und Latitude Feld ein.</translation>
+    </message>
 </context>
 <context>
     <name>S:</name>

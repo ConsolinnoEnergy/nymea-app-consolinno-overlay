@@ -268,20 +268,7 @@ Page {
 
         }
 
-      //  Button {
-      //      id: assignHeatMeter
-      //      Layout.fillWidth: true
-            // We only need to assign a hear meter if this heatpump does not provide one
-      //      visible: !heatMeterIncluded
-      //      text: qsTr("TODO: Assign heat meter")
-            // TODO: Select a heat meter from the things and show it here. Allow to reassign a heat meter and remove the assignment
-      //  }
 
-     //   Item {
-            // place holder
-      //      Layout.fillHeight: true
-      //      Layout.fillWidth: true
-      //  }
 
         Button {
             id: savebutton
@@ -290,43 +277,47 @@ Page {
             text: qsTr("Save")
             //enabled: configurationSettingsChanged
             onClicked: {
+                // the input is in the range that is defined in the individual Validator
                 if (validated == true)
                 {
                     if (directionID === 1){
 
-                        hemsManager.setPvConfiguration(thing.id, {longitude: longitudefield.text, latitude: latitude.text, roofPitch: roofpitch.text, alignment: alignment.text, kwPeak: kwPeak.text})
-                        root.done()
+                        if (longitudefield.text !== "0" || latitude.text !== "0"){
+                            hemsManager.setPvConfiguration(thing.id, {longitude: longitudefield.text, latitude: latitude.text, roofPitch: roofpitch.text, alignment: alignment.text, kwPeak: kwPeak.text})
+                            root.done()
+
+                        }else{
+                            footer.text = qsTr("Please enter your position in the longitude and latitude field")
+                        }
+
+
+
+
+
                     }else if(directionID === 0){
 
-                        d.pendingCallId = hemsManager.setPvConfiguration(thing.id, {longitude: longitudefield.text, latitude: latitude.text, roofPitch: roofpitch.text, alignment: alignment.text, kwPeak: kwPeak.text})
+
+                        if (longitudefield.text !== "0" || latitude.text !== "0"){
+
+                            d.pendingCallId = hemsManager.setPvConfiguration(thing.id, {longitude: longitudefield.text, latitude: latitude.text, roofPitch: roofpitch.text, alignment: alignment.text, kwPeak: kwPeak.text})
+                        }else{
+                            footer.text = qsTr("Please enter your position in the longitude and latitude field")
+                        }
+
 
                     }
 
                 }
                 else
                 {
-
-
-
-                footer.text = qsTr("Some values are out of range. Please check your input.")
+                    footer.text = qsTr("Some values are out of range. Please check your input.")
                 }
             }
 
 
         }
 
-        // only visible if installation mode (directionID == 1)
-        // skip will be added at a later stage
-//        Button {
-//            id: passbutton
-//            visible: directionID === 1
 
-//            Layout.fillWidth: true
-//            text: qsTr("skip")
-//            onClicked: {
-//                root.done()
-//            }
-//        }
 
     }
 }
