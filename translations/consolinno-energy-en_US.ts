@@ -1229,6 +1229,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <source>Some values are out of range. Please check your input.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Please enter your position in the longitude and latitude field</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>S:</name>
@@ -1257,26 +1261,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     <name>SetupEVChargerWizard</name>
     <message>
         <source>cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>skip</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Searching...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No charging point or wallbox has been found. Please return to the previous step and verify that your charging point or wallbox is installed properly.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Multiple charging points or wallboxes have been found in your network. Please select the one you&apos;d like to use with your Leaflet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1319,6 +1303,54 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <source>Next</source>
         <translation type="unfinished">Weiter</translation>
     </message>
+    <message>
+        <source>Discover %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Discovery options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nymea found the following things</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching for things...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Too bad...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No things of this kind could be found...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconfigure %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name the thing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -1328,26 +1360,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>skip</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Searching...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No smart meter has been found. Please return to the previous step and verify that your smart meter is installed properly.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Multiple energy meters have been found in your network. Please select the one you&apos;d like to use with your Leaflet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1370,31 +1382,59 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <source>Next</source>
         <translation type="unfinished">Weiter</translation>
     </message>
+    <message>
+        <source>Discover %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Discovery options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nymea found the following things</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching for things...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Too bad...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No things of this kind could be found...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconfigure %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name the thing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SetupHeatPumpWizard</name>
     <message>
         <source>cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>skip</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Searching...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No heat pump has been found. Please return to the previous step and verify that your heat pump is installed properly.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Multiple heat pumps have been found in your network. Please select the one you&apos;d like to use with your Leaflet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1437,6 +1477,54 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <source>Heat pump</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Discover %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Discovery options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nymea found the following things</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching for things...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Too bad...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No things of this kind could be found...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconfigure %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name the thing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SetupSolarInverterWizard</name>
@@ -1446,26 +1534,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>skip</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Searching...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No solar inverter has been found. Please return to the previous step and verify that your solar inverter is installed properly.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Multiple solar inverters have been found in your network. Please select the one you&apos;d like to use with your Leaflet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1503,6 +1571,54 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     <message>
         <source>Next</source>
         <translation type="unfinished">Weiter</translation>
+    </message>
+    <message>
+        <source>Discover %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Discovery options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nymea found the following things</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching for things...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Too bad...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No things of this kind could be found...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconfigure %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name the thing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

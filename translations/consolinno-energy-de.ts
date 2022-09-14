@@ -1237,6 +1237,10 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>Some values are out of range. Please check your input.</source>
         <translation>Einige Werte sind nicht gültig. Bitte überprüfen Sie Ihre Eingaben.</translation>
     </message>
+    <message>
+        <source>Please enter your position in the longitude and latitude field</source>
+        <translation>Bitte geben Sie Ihre Position in das Longitude und Latitude Feld ein.</translation>
+    </message>
 </context>
 <context>
     <name>S:</name>
@@ -1266,26 +1270,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>cancel</source>
         <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>skip</source>
-        <translation>überspringen</translation>
-    </message>
-    <message>
-        <source>Searching...</source>
-        <translation>Suche...</translation>
-    </message>
-    <message>
-        <source>No charging point or wallbox has been found. Please return to the previous step and verify that your charging point or wallbox is installed properly.</source>
-        <translation>Keine Ladepunkte oder Wallbox gefunden. Bitte zum vorherigen Schritt zurück kehren und überprüfen, ob Lapunkt oder Wallbox korrekt installiert sind.</translation>
-    </message>
-    <message>
-        <source>back</source>
-        <translation>zurück</translation>
-    </message>
-    <message>
-        <source>Multiple charging points or wallboxes have been found in your network. Please select the one you&apos;d like to use with your Leaflet.</source>
-        <translation>Mehrere Ladepunkte oder Wallboxen wurden im Netzwerk gefunden. Bitte das Gerät auswählen, welches mit dem Leaflet betrieben werden soll.</translation>
     </message>
     <message>
         <source>An unexpected error happened during the setup. Please verify the chargingpoint or wallbox is installed correctly and try again.</source>
@@ -1327,6 +1311,54 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
+    <message>
+        <source>Discover %1</source>
+        <translation>Finde %1</translation>
+    </message>
+    <message>
+        <source>Discovery options</source>
+        <translation>Suchparameter</translation>
+    </message>
+    <message>
+        <source>Nymea found the following things</source>
+        <translation>Nymea hat folgende Geräte gefunden</translation>
+    </message>
+    <message>
+        <source>Searching for things...</source>
+        <translation>Suche Geräte</translation>
+    </message>
+    <message>
+        <source>Too bad...</source>
+        <translation>Schade!</translation>
+    </message>
+    <message>
+        <source>No things of this kind could be found...</source>
+        <translation>Kein Gerät wurde gefunden</translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
+    </message>
+    <message>
+        <source>Search again</source>
+        <translation>Erneut suchen</translation>
+    </message>
+    <message>
+        <source>Reconfigure %1</source>
+        <translation>Konfiguriere %1</translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation>Einrichten von %1</translation>
+    </message>
+    <message>
+        <source>Name the thing:</source>
+        <translation>Name:</translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation>Gerät parameter</translation>
+    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -1337,26 +1369,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>cancel</source>
         <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>skip</source>
-        <translation>überspringen</translation>
-    </message>
-    <message>
-        <source>Searching...</source>
-        <translation>Suche...</translation>
-    </message>
-    <message>
-        <source>No smart meter has been found. Please return to the previous step and verify that your smart meter is installed properly.</source>
-        <translation>Es wurde kein Stromzähler gefunden. Bitte zum vorherigen Schritt zurück kehren und überprüfen ob der Stromzähler korrekt installiert ist.</translation>
-    </message>
-    <message>
-        <source>back</source>
-        <translation>zurück</translation>
-    </message>
-    <message>
-        <source>Multiple energy meters have been found in your network. Please select the one you&apos;d like to use with your Leaflet.</source>
-        <translation>Mehrere Stromzähler wurden gefunden. Bitte wähle denjenigen aus, der mit dem Leaflet betrieben werden soll.</translation>
     </message>
     <message>
         <source>An unexpected error happened during the setup. Please verify the energy meter is installed correctly and try again.</source>
@@ -1378,32 +1390,60 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
+    <message>
+        <source>Discover %1</source>
+        <translation>Finde %1</translation>
+    </message>
+    <message>
+        <source>Discovery options</source>
+        <translation>Suchparameter</translation>
+    </message>
+    <message>
+        <source>Nymea found the following things</source>
+        <translation>Nymea hat folgende Geräte gefunden</translation>
+    </message>
+    <message>
+        <source>Searching for things...</source>
+        <translation>Suche Geräte</translation>
+    </message>
+    <message>
+        <source>Too bad...</source>
+        <translation>Schade!</translation>
+    </message>
+    <message>
+        <source>No things of this kind could be found...</source>
+        <translation>Kein Gerät wurde gefunden</translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
+    </message>
+    <message>
+        <source>Search again</source>
+        <translation>Erneut suchen</translation>
+    </message>
+    <message>
+        <source>Reconfigure %1</source>
+        <translation>Konfiguriere %1</translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation>Einrichten von %1</translation>
+    </message>
+    <message>
+        <source>Name the thing:</source>
+        <translation>Name:</translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation>Gerät parameter</translation>
+    </message>
 </context>
 <context>
     <name>SetupHeatPumpWizard</name>
     <message>
         <source>cancel</source>
         <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>skip</source>
-        <translation>überspringen</translation>
-    </message>
-    <message>
-        <source>Searching...</source>
-        <translation>Suche...</translation>
-    </message>
-    <message>
-        <source>No heat pump has been found. Please return to the previous step and verify that your heat pump is installed properly.</source>
-        <translation>Es wurde keine Wärmepumpe gefunden. Bitte zum vorherigen Schritt zurück kehren und überprüfen ob die Wärmepumpe korrekt installiert ist.</translation>
-    </message>
-    <message>
-        <source>back</source>
-        <translation>zurück</translation>
-    </message>
-    <message>
-        <source>Multiple heat pumps have been found in your network. Please select the one you&apos;d like to use with your Leaflet.</source>
-        <translation>Mehrere Wärmepumpen wurden gefunden. Bitte diejenige auswählen, die mit dem Leaflet betrieben werden soll.</translation>
     </message>
     <message>
         <source>An unexpected error happened during the setup. Please verify the heat pump is installed correctly and try again.</source>
@@ -1445,6 +1485,54 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>Heat pump</source>
         <translation>Wärmepumpe</translation>
     </message>
+    <message>
+        <source>Discover %1</source>
+        <translation>Finde %1</translation>
+    </message>
+    <message>
+        <source>Discovery options</source>
+        <translation>Suchparameter</translation>
+    </message>
+    <message>
+        <source>Nymea found the following things</source>
+        <translation>Nymea hat folgende Geräte gefunden</translation>
+    </message>
+    <message>
+        <source>Searching for things...</source>
+        <translation>Suche Geräte</translation>
+    </message>
+    <message>
+        <source>Too bad...</source>
+        <translation>Schade!</translation>
+    </message>
+    <message>
+        <source>No things of this kind could be found...</source>
+        <translation>Kein Gerät wurde gefunden</translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
+    </message>
+    <message>
+        <source>Search again</source>
+        <translation>Erneut suchen</translation>
+    </message>
+    <message>
+        <source>Reconfigure %1</source>
+        <translation>Konfiguriere %1</translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation>Einrichten von %1</translation>
+    </message>
+    <message>
+        <source>Name the thing:</source>
+        <translation>Name:</translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation>Gerät parameter</translation>
+    </message>
 </context>
 <context>
     <name>SetupSolarInverterWizard</name>
@@ -1455,26 +1543,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>cancel</source>
         <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>skip</source>
-        <translation>überspringen</translation>
-    </message>
-    <message>
-        <source>Searching...</source>
-        <translation>Suche...</translation>
-    </message>
-    <message>
-        <source>No solar inverter has been found. Please return to the previous step and verify that your solar inverter is installed properly.</source>
-        <translation>Es wurde kein Solarwechselrichter gefunden. Bitte zum vorherigen Schritt zurück kehrern und überprüfen ob der Solarwechselrichter korrekt installiert ist.</translation>
-    </message>
-    <message>
-        <source>back</source>
-        <translation>zurück</translation>
-    </message>
-    <message>
-        <source>Multiple solar inverters have been found in your network. Please select the one you&apos;d like to use with your Leaflet.</source>
-        <translation>Mehrere Solarwechselrichter wurden gefunden. Bitte denjenigen auswählen, der mit dem Leaflet betrieben werden soll.</translation>
     </message>
     <message>
         <source>An unexpected error happened during the setup. Please verify the solar inverter is installed correctly and try again.</source>
@@ -1511,6 +1579,54 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Next</source>
         <translation>Weiter</translation>
+    </message>
+    <message>
+        <source>Discover %1</source>
+        <translation>Finde %1</translation>
+    </message>
+    <message>
+        <source>Discovery options</source>
+        <translation>Suchparameter</translation>
+    </message>
+    <message>
+        <source>Nymea found the following things</source>
+        <translation>Nymea hat folgende Geräte gefunden</translation>
+    </message>
+    <message>
+        <source>Searching for things...</source>
+        <translation>Suche Geräte</translation>
+    </message>
+    <message>
+        <source>Too bad...</source>
+        <translation>Schade!</translation>
+    </message>
+    <message>
+        <source>No things of this kind could be found...</source>
+        <translation>Kein Gerät wurde gefunden</translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
+    </message>
+    <message>
+        <source>Search again</source>
+        <translation>Erneut suchen</translation>
+    </message>
+    <message>
+        <source>Reconfigure %1</source>
+        <translation>Konfiguriere %1</translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation>Einrichten von %1</translation>
+    </message>
+    <message>
+        <source>Name the thing:</source>
+        <translation>Name:</translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation>Gerät parameter</translation>
     </message>
 </context>
 <context>
