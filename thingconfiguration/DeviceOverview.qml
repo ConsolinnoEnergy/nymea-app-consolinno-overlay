@@ -20,10 +20,6 @@ Page {
 
         }
 
-//        HeaderButton {
-//            imageSource: "../images/add.svg"
-//            onClicked: pageStack.push(Qt.resolvedUrl("NewThingPage.qml"))
-//        }
     }
 
     QtObject {
@@ -58,6 +54,7 @@ Page {
     ColumnLayout {
         anchors.fill: parent
 
+
         Button{
             id: startWizardButton
             text: qsTr("Start Wizard")
@@ -71,7 +68,8 @@ Page {
                 root.startWizard()
             }
 
-        }
+            }
+
 
 
         Button{
@@ -81,7 +79,6 @@ Page {
             Layout.preferredWidth: 300
             Layout.minimumWidth: 100
             onClicked:{
-                //pageStack.push(Qt.resolvedUrl("NewThingPage.qml"))
                 pageStack.push( "../wizards/AuthorisationView.qml", {directionID: 1})
 
             }
@@ -89,10 +86,10 @@ Page {
         }
 
 
-        ListFilterInput {
-            id: filterInput
-            Layout.fillWidth: true
-        }
+//        ListFilterInput {
+//            id: filterInput
+//            Layout.fillWidth: true
+//        }
 
         GroupedListView {
             Layout.fillWidth: true
