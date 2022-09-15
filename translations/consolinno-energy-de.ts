@@ -889,6 +889,14 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>High</source>
         <translation>Hoch</translation>
     </message>
+    <message>
+        <source>Optimization</source>
+        <translation>Optimierung</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
 </context>
 <context>
     <name>HeatingConfigurationView</name>
@@ -1240,6 +1248,17 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Please enter your position in the longitude and latitude field</source>
         <translation>Bitte geben Sie Ihre Position in das Longitude und Latitude Feld ein.</translation>
+    </message>
+</context>
+<context>
+    <name>PrivacyPage</name>
+    <message>
+        <source>Privacy policy and license agreement</source>
+        <translation type="unfinished">Datenschutz und Geschäftsbedingungen</translation>
+    </message>
+    <message>
+        <source>I confirm that I have read the the agreement and am accepting it.</source>
+        <translation type="unfinished">Ich bestätige, dass ich die Bestimmungen gelesen habe und akzeptiere.</translation>
     </message>
 </context>
 <context>

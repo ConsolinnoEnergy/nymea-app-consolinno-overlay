@@ -35,7 +35,6 @@ Page {
 
         function pairThing() {
             engine.thingManager.addThing(root.thingClass.id, d.name, params);
-            //busyOverlay.shown = true;
         }
     }
 
@@ -111,14 +110,14 @@ Page {
 
 
                     // congeneric car
-                    {id: "capacity", name: "Battery capacity",displayName: qsTr("Capacity: "), component: capacityComponent, type: "setting", Uuid: "8990bdde-7701-4e14-8a15-1a4277c51f10", info: "Capacity.qml"  },
-                    {id: "minChargingCurrent", name: "Minimum charging current",displayName: qsTr("Minimum charging current"), component: minimumChargingCurrentComponent, type: "setting", Uuid: "af26a9a3-9742-45db-9570-7e246eff754b", info: "MinimumChargingCurrent.qml"},
-                    {id: "maxChargingLimit", name: "Maximum charging limit" ,displayName: qsTr("Maximum charging limit"), component: maximumAllowedChargingLimitComponent, type: "attr", Uuid: "", info: "MaximumAllowedChargingLimit.qml" },
+                    //{id: "capacity", name: "Battery capacity",displayName: qsTr("Capacity: "), component: capacityComponent, type: "setting", Uuid: "8990bdde-7701-4e14-8a15-1a4277c51f10", info: "Capacity.qml"  },
+                    //{id: "minChargingCurrent", name: "Minimum charging current", displayName: qsTr("Minimum charging current"), component: minimumChargingCurrentComponent, type: "setting", Uuid: "af26a9a3-9742-45db-9570-7e246eff754b", info: "MinimumChargingCurrent.qml"},
+                    //{id: "maxChargingLimit", name: "Maximum charging limit", displayName: qsTr("Maximum charging limit"), component: maximumAllowedChargingLimitComponent, type: "attr", Uuid: "", info: "MaximumAllowedChargingLimit.qml" },
 
                     // old generic car by nymea
-                    //{id: "capacity", name: "Battery capacity",displayName: qsTr("Capacity: "), component: capacityComponent, type: "setting", Uuid: "57f36386-dd71-4ab0-8d2f-8c74a391f90d", info: "Capacity.qml"  },
-                    //{id: "minChargingCurrent", name: "Minimum charging current",displayName: qsTr("Minimum charging current"), component: minimumChargingCurrentComponent, type: "setting", Uuid: "0c55516d-4285-4d02-8926-1dae03649e18", info: "MinimumChargingCurrent.qml"},
-                    //{id: "maxChargingLimit", name: "Maximum charging limit" ,displayName: qsTr("Maximum charging limit"), component: maximumAllowedChargingLimitComponent, type: "attr", Uuid: "", info: "MaximumAllowedChargingLimit.qml" },
+                    {id: "capacity", name: "Battery capacity",displayName: qsTr("Capacity: "), component: capacityComponent, type: "setting", Uuid: "57f36386-dd71-4ab0-8d2f-8c74a391f90d", info: "Capacity.qml"  },
+                    {id: "minChargingCurrent", name: "Minimum charging current",displayName: qsTr("Minimum charging current"), component: minimumChargingCurrentComponent, type: "setting", Uuid: "0c55516d-4285-4d02-8926-1dae03649e18", info: "MinimumChargingCurrent.qml"},
+                    {id: "maxChargingLimit", name: "Maximum charging limit" ,displayName: qsTr("Maximum charging limit"), component: maximumAllowedChargingLimitComponent, type: "attr", Uuid: "", info: "MaximumAllowedChargingLimit.qml" },
 
                 ]
 
@@ -293,9 +292,6 @@ Page {
                 }
 
             }
-
-
-
 
 
             Button {

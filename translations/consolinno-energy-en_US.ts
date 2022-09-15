@@ -882,6 +882,14 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <source>High</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Optimization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HeatingConfigurationView</name>
@@ -1231,6 +1239,17 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>Please enter your position in the longitude and latitude field</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PrivacyPage</name>
+    <message>
+        <source>Privacy policy and license agreement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I confirm that I have read the the agreement and am accepting it.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
