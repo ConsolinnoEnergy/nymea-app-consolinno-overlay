@@ -9,6 +9,7 @@ Item {
 
     property alias title: titleLabel.text
     property url githubLink
+
     property var additionalLicenses: null
 
     default property alias content: contentGrid.data
@@ -107,6 +108,7 @@ Item {
                 prominentSubText: false
                 wrapTexts: false
                 onClicked:
+                    //pageStack.push("../info/Privacy/PrivacyPage.qml")
                     Qt.openUrlExternally(app.privacyPolicyUrl)
             }
 

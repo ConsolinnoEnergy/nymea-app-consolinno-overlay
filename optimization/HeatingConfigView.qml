@@ -56,6 +56,33 @@ Page {
         }
 
 
+        RowLayout{
+            Layout.fillWidth: true
+
+            Label{
+                id: optimiziationEnabled
+                Layout.fillWidth: true
+                text: qsTr("Optimization")
+                Layout.leftMargin:  15
+            }
+
+            Switch{
+                id: optimizationEnableSwitch
+                checked: heatingconfig.optimizationEnabled
+
+
+            }
+
+
+
+        }
+
+
+
+
+
+
+
         Row{
             Layout.fillWidth: true
             Layout.leftMargin: 15
@@ -214,6 +241,21 @@ Page {
                 }
 
             }
+
+
+            Button {
+                 id: savebutton
+                 Layout.fillWidth: true
+                 Layout.leftMargin: app.margins
+                 text: qsTr("Save")
+                 onClicked: {
+
+
+                     hemsManager.setHeatingConfiguration(heatpumpThing.id, {optimizationEnabled: optimizationEnableSwitch.checked})
+                     pageStack.pop()
+
+                 }
+             }
 
 
 
