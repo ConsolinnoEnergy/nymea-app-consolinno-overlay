@@ -114,16 +114,50 @@ Item {
 
             NymeaSwipeDelegate {
                 Layout.fillWidth: true
+                text: qsTr("Common Licenses")
+                iconName:  "../images/logs.svg"
+                subText: qsTr("Common Licenses used for this Product")
+                prominentSubText: false
+                wrapTexts: false
+//                visible: {
+
+//                    // dont show on Demo Server
+//                    if(engine.jsonRpcClient.currentConnection.hostAddress.toString().indexOf("hems-demo.consolinno-it.de") >= 0 ) {
+//                        return false
+//                    }
+//                    // Show if CloudConnection is not Connected ("so local")  OR offline additional Licenses are provided
+//                    if (engine.jsonRpcClient.cloudConnectionState !== JsonRpcClient.CloudConnectionStateConnected || (root.additionalLicenses.count > 0 && root.additionalLicenses) )
+//                    {
+//                        return true
+//                    }
+
+//                    return false
+
+//                }
+                onClicked: {
+                    if(root.additionalLicenses) {
+                        pageStack.push(licensesPageComponent)
+                    }else {
+                        Qt.openUrlExternally("http://" + engine.jsonRpcClient.currentConnection.hostAddress.toString() + ":8083" )
+                    }
+                }
+            }
+
+
+            NymeaSwipeDelegate {
+                Layout.fillWidth: true
                 text: qsTr("Additional software licenses")
                 iconName: "../images/logs.svg"
-                subText: "Additional used software licenses"
+                subText: qsTr("Only available on the local Network")
                 prominentSubText: false
                 wrapTexts: false
                 visible: {
 
+                    // dont show on Demo Server
                     if(engine.jsonRpcClient.currentConnection.hostAddress.toString().indexOf("hems-demo.consolinno-it.de") >= 0 ) {
                         return false
                     }
+                    // Show if CloudConnection is not Connected ("so local")  OR offline additional Licenses are provided
                     if (engine.jsonRpcClient.cloudConnectionState !== JsonRpcClient.CloudConnectionStateConnected || (root.additionalLicenses.count > 0 && root.additionalLicenses) )
                     {
                         return true

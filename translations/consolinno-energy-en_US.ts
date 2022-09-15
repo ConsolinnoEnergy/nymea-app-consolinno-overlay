@@ -666,6 +666,18 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <source>Visit the Qt website</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Common Licenses</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Common Licenses used for this Product</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only available on the local Network</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoItemDelegate</name>
