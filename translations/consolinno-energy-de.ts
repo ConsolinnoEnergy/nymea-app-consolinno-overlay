@@ -671,6 +671,18 @@ Sie können Ihr Gerät auch mit dem lokalen Wifi verbinden, wenn das Leaflet üb
         <source>Visit the Qt website</source>
         <translation>Besuchen Sie die Qt Webseite</translation>
     </message>
+    <message>
+        <source>Common Licenses</source>
+        <translation>Allgemeine Lizenzen</translation>
+    </message>
+    <message>
+        <source>Common Licenses used for this Product</source>
+        <translation>Genutzte Lizenzen für dieses Produkt</translation>
+    </message>
+    <message>
+        <source>Only available on the local Network</source>
+        <translation>nur im lokalen Netzwerk abrufbar</translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoItemDelegate</name>
