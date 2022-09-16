@@ -548,10 +548,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Privacy policy and license agreement</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>I confirm that I have read the the agreement and am accepting it.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -625,6 +621,14 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>HEMS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Privacy policy and license agreement HEMS (09/2022)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes I agree to open a Useraccount, according to part 6 </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1262,6 +1266,14 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>I confirm that I have read the the agreement and am accepting it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source></source>
         <translation type="unfinished"></translation>
     </message>
 </context>

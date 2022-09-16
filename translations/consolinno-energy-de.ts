@@ -549,10 +549,6 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
         <translation>Einrichtung starten</translation>
     </message>
     <message>
-        <source>Privacy policy and license agreement</source>
-        <translation>Datenschutz und Geschäftsbedingungen</translation>
-    </message>
-    <message>
         <source>I confirm that I have read the the agreement and am accepting it.</source>
         <translation>Ich bestätige, dass ich die Bestimmungen gelesen habe und akzeptiere.</translation>
     </message>
@@ -631,6 +627,14 @@ Sie können Ihr Gerät auch mit dem lokalen Wifi verbinden, wenn das Leaflet üb
     <message>
         <source>HEMS</source>
         <translation>HEMS</translation>
+    </message>
+    <message>
+        <source>Privacy policy and license agreement HEMS (09/2022)</source>
+        <translation>Datenschutzerklärung HEMS (09/2022)</translation>
+    </message>
+    <message>
+        <source>Yes I agree to open a Useraccount, according to part 6 </source>
+        <translation>Ja ich möchte wie in Teil 6 beschrieben ein Benutzerkonto eröffnen</translation>
     </message>
 </context>
 <context>
@@ -1271,6 +1275,10 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>I confirm that I have read the the agreement and am accepting it.</source>
         <translation type="unfinished">Ich bestätige, dass ich die Bestimmungen gelesen habe und akzeptiere.</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
