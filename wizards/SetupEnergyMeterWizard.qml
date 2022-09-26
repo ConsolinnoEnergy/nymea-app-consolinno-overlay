@@ -247,7 +247,7 @@ Page {
 
 
             SettingsPageSectionHeader {
-                text: qsTr("Nymea found the following things")
+                text: qsTr("The following devices were found:")
                 visible: !discovery.busy && discoveryProxy.count > 0
             }
 

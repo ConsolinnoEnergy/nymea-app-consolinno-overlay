@@ -1270,10 +1270,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <source></source>
+        <source>Yes I agree to open a Useraccount, according to part 6 </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1355,10 +1355,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nymea found the following things</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Searching for things...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1392,6 +1388,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>Thing parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1434,10 +1434,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nymea found the following things</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Searching for things...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1471,6 +1467,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>Thing parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1529,10 +1529,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nymea found the following things</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Searching for things...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1566,6 +1562,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>Thing parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1624,10 +1624,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nymea found the following things</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Searching for things...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1661,6 +1657,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>Thing parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -1278,7 +1278,11 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Yes I agree to open a Useraccount, according to part 6 </source>
+        <translation type="unfinished">Ja ich möchte wie in Teil 6 beschrieben ein Benutzerkonto eröffnen</translation>
     </message>
 </context>
 <context>
@@ -1359,10 +1363,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Suchparameter</translation>
     </message>
     <message>
-        <source>Nymea found the following things</source>
-        <translation>Nymea hat folgende Geräte gefunden</translation>
-    </message>
-    <message>
         <source>Searching for things...</source>
         <translation>Suche Geräte</translation>
     </message>
@@ -1397,6 +1397,10 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Thing parameters</source>
         <translation>Gerät parameter</translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
+        <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
 </context>
 <context>
@@ -1438,10 +1442,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Suchparameter</translation>
     </message>
     <message>
-        <source>Nymea found the following things</source>
-        <translation>Nymea hat folgende Geräte gefunden</translation>
-    </message>
-    <message>
         <source>Searching for things...</source>
         <translation>Suche Geräte</translation>
     </message>
@@ -1476,6 +1476,10 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Thing parameters</source>
         <translation>Gerät parameter</translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
+        <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
 </context>
 <context>
@@ -1533,10 +1537,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Suchparameter</translation>
     </message>
     <message>
-        <source>Nymea found the following things</source>
-        <translation>Nymea hat folgende Geräte gefunden</translation>
-    </message>
-    <message>
         <source>Searching for things...</source>
         <translation>Suche Geräte</translation>
     </message>
@@ -1571,6 +1571,10 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Thing parameters</source>
         <translation>Gerät parameter</translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
+        <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
 </context>
 <context>
@@ -1628,10 +1632,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Suchparameter</translation>
     </message>
     <message>
-        <source>Nymea found the following things</source>
-        <translation>Nymea hat folgende Geräte gefunden</translation>
-    </message>
-    <message>
         <source>Searching for things...</source>
         <translation>Suche Geräte</translation>
     </message>
@@ -1666,6 +1666,10 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Thing parameters</source>
         <translation>Gerät parameter</translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
+        <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
 </context>
 <context>
