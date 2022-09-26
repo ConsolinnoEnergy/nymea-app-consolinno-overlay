@@ -1,4 +1,4 @@
-name: consolinno-energy
+name: consolinno-hems
 summary: Control app for Leaflets
 description: | 
   Consolinno energy is the control application for Leaflet devices.
@@ -6,7 +6,7 @@ description: |
 grade: stable
 base: core20
 confinement: strict
-adopt-info: consolinno-energy
+adopt-info: consolinno-hems
 
 architectures:
 - build-on: amd64
@@ -14,10 +14,10 @@ architectures:
 - build-on: armhf
 
 apps:
-  consolinno-energy:
+  consolinno-hems:
     command-chain: [ bin/desktop-launch ]
-    command: usr/bin/consolinno-energy
-    desktop: usr/share/applications/consolinno-energy.desktop
+    command: usr/bin/consolinno-hems
+    desktop: usr/share/applications/consolinno-hems.desktop
     plugs:
     - avahi-observe
     - bluez
@@ -53,7 +53,7 @@ parts:
       - xdg-user-dirs
       - fcitx-frontend-qt5
 
-  consolinno-energy:
+  consolinno-hems:
     plugin: qmake
     qmake-parameters:
       - OVERLAY_PATH=${SNAPCRAFT_PART_SRC}/overlay
@@ -77,6 +77,7 @@ parts:
     stage-packages:
       - libqt5gui5
       - libqt5websockets5
+      - libqt5webview5
       - libqt5bluetooth5
       - libqt5nfc5
       - libgl1-mesa-dri
