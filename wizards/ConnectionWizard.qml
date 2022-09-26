@@ -84,7 +84,7 @@ ConsolinnoWizardPageBase {
 
             background: Item {}
             content: ColumnLayout {
-                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins }
+                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins; right: parent.right; left: parent.left }
                 width: Math.min(parent.width, 450)
 
                 Label {
@@ -101,6 +101,7 @@ ConsolinnoWizardPageBase {
                     Layout.alignment: Qt.AlignHCenter
                     Layout.margins: Style.margins
                     contentHeight: textArea.height
+
                     clip: true
 
                         TextArea {
@@ -231,10 +232,10 @@ ConsolinnoWizardPageBase {
 " <h3 class='western'> 2. Information über Ihre Rechte als betroffene"+
 " Person</h3>"+
 " <ol>"+
-" <h3 class='western'><a name='_Ref513466093'></a> 2.1 Bei <u>Vorliegen"+
+" <h3 class='western'><a name='_Ref513466093'></a> 2.1 </h3> Bei <u>Vorliegen"+
 " der gesetzlichen Voraussetzungen</u> haben Sie - sofern nicht ein"+
 " gesetzlicher Ausnahmefall gegeben ist - <font color='#141414'>folgende"+
-" Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:</font></h3>"+
+" Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:</font>"+
 " </ol>"+
 " </ol>"+
 " <p style='margin-left: 1.33cm; margin-bottom: 0cm'><br/>"+
@@ -290,14 +291,14 @@ ConsolinnoWizardPageBase {
 " </p>"+
 " <ol>"+
 " <ol start='2'>"+
-" <h3 class='western'> 2.2 Wenn Sie darüber hinaus Auskunft über"+
+" <h3 class='western'> 2.2 </h3> Wenn Sie darüber hinaus Auskunft über"+
 " Ihre personenbezogenen Daten wünschen oder weitergehende Fragen"+
 " über die Verarbeitung Ihrer uns überlassenen personenbezogenen"+
 " Daten haben, sowie eine Korrektur oder Löschung Ihrer Daten"+
 " veranlassen möchten, so wenden Sie sich bitte an die unter Ziffer"+
 " <span style='background: #c0c0c0'>3.</span> <span style='text-decoration: none'>&quot;Ausübung"+
 " des </span>Widerspruchs- und Widerrufsrechts<span style='text-decoration: none'>&quot;</span>"+
-" angegebene Kontaktadresse.</h3>"+
+" angegebene Kontaktadresse."+
 " </ol>"+
 " </ol>"+
 " <p class='western' style='margin-bottom: 0cm'><br/>"+
@@ -492,7 +493,7 @@ ConsolinnoWizardPageBase {
 " <p style='margin-left: 1.27cm; margin-bottom: 0cm'><br/>"+
 " "+
 " </p>"+
-"     <p style='margin-bottom: 0cm'><b> 6. Erteilte Einwilligungen</b><a class='sdfootnoteanc' name='sdfootnote2anc' href='#sdfootnote2sym'><sup>2</sup></a></p>"+
+"     <p style='margin-bottom: 0cm'><b> 6. Erteilte Einwilligungen</b></p>"+
 " <p class='western' style='margin-left: 0.64cm; margin-bottom: 0cm'>Soweit"+
 " erforderlich haben Sie uns ggf. Einwilligungen zur Verarbeitung Ihrer"+
 " personenbezogenen Daten erteilt. In diesem Fall haben wir Ihre"+
@@ -607,19 +608,6 @@ ConsolinnoWizardPageBase {
 " Verwendung der Sprachformen männlich, weiblich und divers (m/w/d)"+
 " verzichtet. Sämtliche Personenbezeichnungen gelten gleichermaßen"+
 " für alle Geschlechter.</font></p>"+
-" </div>"+
-" <div id='sdfootnote2'><p class='sdfootnote-western'><a class='sdfootnotesym' name='sdfootnote2sym' href='#sdfootnote2anc'>2</a><font size='1' style='font-size: 8pt'>"+
-" Dieser Einwilligungstext muss auch bei der erstmaligen Registrierung"+
-" angezeigt und angefragt werden. Das Kästchen zum Setzen des Hakens"+
-" darf nicht vorausgefüllt sein. Die Registrierung ist nachhaltig zu"+
-" dokumentieren.</font></p>"+
-" </div>"+
-" <div title='footer'><p align='right' style='margin-top: 0.65cm; margin-bottom: 0cm'>"+
-" <font size='1' style='font-size: 8pt'>Seite </font><font size='1' style='font-size: 8pt'><b><span style='background: #c0c0c0'><sdfield type=PAGE subtype=RANDOM format=PAGE>7</sdfield></span></b></font><font size='1' style='font-size: 8pt'> "+
-" von </font><font size='1' style='font-size: 8pt'><b><span style='background: #c0c0c0'><sdfield type=DOCSTAT subtype=PAGE format=PAGE>7</sdfield></span></b></font></p>"+
-" <p style='margin-bottom: 0cm'><br/>"+
-" "+
-" </p>"+
 " </div>"+
 " </body>"+
 " </html>"
