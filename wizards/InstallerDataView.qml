@@ -75,7 +75,7 @@ Page{
                     Layout.rightMargin: app.margins
                     Layout.leftMargin: app.margins
                     text: userconfig.installerName
-                    placeholderText: qsTr("Firstname Lastname")
+                    placeholderText: qsTr("First name Last name")
                 }
             }
 

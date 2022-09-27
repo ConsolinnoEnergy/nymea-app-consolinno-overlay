@@ -626,7 +626,7 @@ ConsolinnoWizardPageBase {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
                         horizontalAlignment: Text.AlignHCenter
-                        text: qsTr("Yes I agree to open a Useraccount, according to part 6 ")
+                        text: qsTr("Yes I agree to open a user account, according to part 6 ")
                     }
                 }
 
@@ -642,7 +642,7 @@ ConsolinnoWizardPageBase {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
                         horizontalAlignment: Text.AlignHCenter
-                        text: qsTr('I confirm that I have read the the agreement and am accepting it.')
+                        text: qsTr('I confirm that I have read the the agreement and I am accepting it.')
                     }
                 }
 
@@ -695,7 +695,7 @@ ConsolinnoWizardPageBase {
                 Label{
                     Layout.fillWidth: true
                     Layout.margins: app.margins
-                    text: qsTr( 'In order to connect your device (phone/PC) with the Leaflet you have to be in the same network. \n \n Connect your device with a LAN-cable with the Leaflet (Third ethernet slot). \n\n You can also connect your device to the local Wifi if the Leaflet has a Wifi module.')
+                    text: qsTr( 'In order to connect your device (phone/PC) with the Leaflet you have to be in the same network. \n \n Connect your device with a LAN-cable with the Leaflet (Third ethernet slot). \n\n You can also connect your device to the local WiFi if the Leaflet has a WiFi module.')
                     wrapMode: Text.WordWrap
                 }
 
