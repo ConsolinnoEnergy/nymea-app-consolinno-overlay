@@ -1394,6 +1394,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <source>The following devices were found:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Please change name if necessary</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -1471,6 +1475,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>The following devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1568,6 +1576,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <source>The following devices were found:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Please change name if necessary</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SetupSolarInverterWizard</name>
@@ -1661,6 +1673,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>The following devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

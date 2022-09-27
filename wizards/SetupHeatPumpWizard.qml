@@ -482,6 +482,19 @@ Page {
                 Layout.rightMargin: app.margins
             }
 
+            Label{
+                id: nameExplain
+                text: qsTr("Please change name if necessary")
+                Layout.alignment: Qt.AlignTop
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
+                verticalAlignment: Text.AlignTop
+                Layout.topMargin: 0
+                color: Style.accentColor
+                font.pixelSize: 12
+            }
+
+
             SettingsPageSectionHeader {
                 text: qsTr("Thing parameters")
                 visible: paramRepeater.count > 0
@@ -613,12 +626,12 @@ Page {
                 target: engine.thingManager
                 onAddThingReply: {
                     root.countChanged()
-                    //if (commandId == setupHeatPumpPage.pendingCallId) {
+                    if (commandId == setupHeatPumpPage.pendingCallId) {
 
-                    setupHeatPumpPage.thingError = thingError
-                    setupHeatPumpPage.pendingCallId = -1
-                    setupHeatPumpPage.thing = engine.thingManager.things.getThing(thingId)
-                    //}
+                        setupHeatPumpPage.thingError = thingError
+                        setupHeatPumpPage.pendingCallId = -1
+                        setupHeatPumpPage.thing = engine.thingManager.things.getThing(thingId)
+                    }
                 }
             }
 
@@ -655,7 +668,7 @@ Page {
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
                         font.bold: true
-                        text: setupHeatPumpPage.thingClass.displayName
+                        text: thing.name
                     }
 
                     ColorIcon {

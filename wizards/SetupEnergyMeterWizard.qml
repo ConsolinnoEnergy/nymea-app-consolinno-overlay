@@ -339,6 +339,19 @@ Page {
                 Layout.rightMargin: app.margins
             }
 
+
+            Label{
+                id: nameExplain
+                text: qsTr("Please change name if necessary")
+                Layout.alignment: Qt.AlignTop
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
+                verticalAlignment: Text.AlignTop
+                Layout.topMargin: 0
+                color: Style.accentColor
+                font.pixelSize: 12
+            }
+
             SettingsPageSectionHeader {
                 text: qsTr("Thing parameters")
                 visible: paramRepeater.count > 0
@@ -467,7 +480,7 @@ Page {
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
                         font.bold: true
-                        text: setupEnergyMeterPage.thingDescriptor.name
+                        text: thing.name
                     }
 
                     ColorIcon {

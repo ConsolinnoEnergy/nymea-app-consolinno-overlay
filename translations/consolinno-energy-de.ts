@@ -1356,7 +1356,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Discover %1</source>
-        <translation>Finde %1</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Discovery options</source>
@@ -1388,7 +1388,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Set up %1</source>
-        <translation>Einrichten von %1</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Name the thing:</source>
@@ -1401,6 +1401,10 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>The following devices were found:</source>
         <translation>Folgende Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1435,7 +1439,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Discover %1</source>
-        <translation>Finde %1</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Discovery options</source>
@@ -1467,7 +1471,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Set up %1</source>
-        <translation>Einrichten von %1</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Name the thing:</source>
@@ -1480,6 +1484,10 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>The following devices were found:</source>
         <translation>Folgende Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1530,7 +1538,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Discover %1</source>
-        <translation>Finde %1</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Discovery options</source>
@@ -1562,7 +1570,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Set up %1</source>
-        <translation>Einrichten von %1</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Name the thing:</source>
@@ -1575,6 +1583,10 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>The following devices were found:</source>
         <translation>Folgende Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1625,7 +1637,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Discover %1</source>
-        <translation>Finde %1</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Discovery options</source>
@@ -1657,7 +1669,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Set up %1</source>
-        <translation>Einrichten von %1</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Name the thing:</source>
@@ -1670,6 +1682,10 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>The following devices were found:</source>
         <translation>Folgende Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
