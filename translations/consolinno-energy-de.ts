@@ -549,14 +549,6 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
         <translation>Einrichtung starten</translation>
     </message>
     <message>
-        <source>Privacy policy and license agreement</source>
-        <translation>Datenschutz und Geschäftsbedingungen</translation>
-    </message>
-    <message>
-        <source>I confirm that I have read the the agreement and am accepting it.</source>
-        <translation>Ich bestätige, dass ich die Bestimmungen gelesen habe und akzeptiere.</translation>
-    </message>
-    <message>
         <source>next</source>
         <translation>weiter</translation>
     </message>
@@ -613,24 +605,36 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
         <translation>Verbindung einrichten</translation>
     </message>
     <message>
-        <source>In order to connect your device (phone/PC) with the Leaflet you have to be in the same network. 
- 
- Connect your device with a LAN-cable with the Leaflet (Third ethernet slot). 
-
- You can also connect your device to the local Wifi if the Leaflet has a Wifi module.</source>
-        <translation>Um Ihr Gerät (Smartphone/PC) mit dem Leaflet zu verbinden, müssen sie sich  im selben Netzwerk befinden.
-
-Verbinden Sie Ihr Gerät mit einem LAN-Kabel mit dem Leaflet (Dritter Ethernet-Slot)
-
-Sie können Ihr Gerät auch mit dem lokalen Wifi verbinden, wenn das Leaflet über ein Wifi-Modul verfügt.</translation>
-    </message>
-    <message>
         <source>You have to authenticate yourself to the Leaflet. For further information look at the manual for commissioning.</source>
         <translation>Sie müssen sich beim Leaflet authentifizieren. Weitere Informationen finden Sie in der Anleitung zur Inbetriebnahme.</translation>
     </message>
     <message>
         <source>HEMS</source>
         <translation>HEMS</translation>
+    </message>
+    <message>
+        <source>Privacy policy and license agreement HEMS (09/2022)</source>
+        <translation>Datenschutzerklärung HEMS (09/2022)</translation>
+    </message>
+    <message>
+        <source>Yes I agree to open a user account, according to part 6 </source>
+        <translation>Ja ich möchte wie in Teil 6 beschrieben ein Benutzerkonto eröffnen.</translation>
+    </message>
+    <message>
+        <source>I confirm that I have read the the agreement and I am accepting it.</source>
+        <translation>Ich bestätige, dass ich die Bestimmungen gelesen habe und akzeptiere.</translation>
+    </message>
+    <message>
+        <source>In order to connect your device (phone/PC) with the Leaflet you have to be in the same network. 
+ 
+ Connect your device with a LAN-cable with the Leaflet (Third ethernet slot). 
+
+ You can also connect your device to the local WiFi if the Leaflet has a WiFi module.</source>
+        <translation>Um Ihr Gerät (Smartphone/PC) mit dem Leaflet zu verbinden, müssen sie sich  im selben Netzwerk befinden.
+
+Verbinden Sie Ihr Gerät mit einem LAN-Kabel mit dem Leaflet (Dritter Ethernet-Slot)
+
+Sie können Ihr Gerät auch mit dem lokalen WiFi verbinden, wenn das Leaflet über ein WiFi-Modul verfügt.</translation>
     </message>
 </context>
 <context>
@@ -1037,10 +1041,6 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Name: </translation>
     </message>
     <message>
-        <source>Firstname Lastname</source>
-        <translation>Vorname Nachname</translation>
-    </message>
-    <message>
         <source>Workplace: </source>
         <translation>Gewerbe: </translation>
     </message>
@@ -1071,6 +1071,10 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Skip</source>
         <translation>überspringen</translation>
+    </message>
+    <message>
+        <source>First name Last name</source>
+        <translation>Vor- und Nachname</translation>
     </message>
 </context>
 <context>
@@ -1272,6 +1276,14 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>I confirm that I have read the the agreement and am accepting it.</source>
         <translation type="unfinished">Ich bestätige, dass ich die Bestimmungen gelesen habe und akzeptiere.</translation>
     </message>
+    <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Yes I agree to open a Useraccount, according to part 6 </source>
+        <translation type="unfinished">Ja ich möchte wie in Teil 6 beschrieben ein Benutzerkonto eröffnen</translation>
+    </message>
 </context>
 <context>
     <name>S:</name>
@@ -1344,15 +1356,11 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Discover %1</source>
-        <translation>Finde %1</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Discovery options</source>
         <translation>Suchparameter</translation>
-    </message>
-    <message>
-        <source>Nymea found the following things</source>
-        <translation>Nymea hat folgende Geräte gefunden</translation>
     </message>
     <message>
         <source>Searching for things...</source>
@@ -1380,7 +1388,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Set up %1</source>
-        <translation>Einrichten von %1</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Name the thing:</source>
@@ -1389,6 +1397,14 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Thing parameters</source>
         <translation>Gerät parameter</translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
+        <translation>Folgende Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
+        <translation>Wenn notwendig, bitte den Namen ändern</translation>
     </message>
 </context>
 <context>
@@ -1423,15 +1439,11 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Discover %1</source>
-        <translation>Finde %1</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Discovery options</source>
         <translation>Suchparameter</translation>
-    </message>
-    <message>
-        <source>Nymea found the following things</source>
-        <translation>Nymea hat folgende Geräte gefunden</translation>
     </message>
     <message>
         <source>Searching for things...</source>
@@ -1459,7 +1471,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Set up %1</source>
-        <translation>Einrichten von %1</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Name the thing:</source>
@@ -1468,6 +1480,14 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Thing parameters</source>
         <translation>Gerät parameter</translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
+        <translation>Folgende Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
+        <translation>Wenn notwendig, bitte den Namen ändern</translation>
     </message>
 </context>
 <context>
@@ -1518,15 +1538,11 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Discover %1</source>
-        <translation>Finde %1</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Discovery options</source>
         <translation>Suchparameter</translation>
-    </message>
-    <message>
-        <source>Nymea found the following things</source>
-        <translation>Nymea hat folgende Geräte gefunden</translation>
     </message>
     <message>
         <source>Searching for things...</source>
@@ -1554,7 +1570,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Set up %1</source>
-        <translation>Einrichten von %1</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Name the thing:</source>
@@ -1563,6 +1579,14 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Thing parameters</source>
         <translation>Gerät parameter</translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
+        <translation>Folgende Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
+        <translation>Wenn notwendig, bitte den Namen ändern</translation>
     </message>
 </context>
 <context>
@@ -1613,15 +1637,11 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Discover %1</source>
-        <translation>Finde %1</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Discovery options</source>
         <translation>Suchparameter</translation>
-    </message>
-    <message>
-        <source>Nymea found the following things</source>
-        <translation>Nymea hat folgende Geräte gefunden</translation>
     </message>
     <message>
         <source>Searching for things...</source>
@@ -1649,7 +1669,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Set up %1</source>
-        <translation>Einrichten von %1</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Name the thing:</source>
@@ -1658,6 +1678,14 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Thing parameters</source>
         <translation>Gerät parameter</translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
+        <translation>Folgende Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
+        <translation type="unfinished">Wenn notwendig, bitte den Namen ändern</translation>
     </message>
 </context>
 <context>

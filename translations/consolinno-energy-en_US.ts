@@ -548,14 +548,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Privacy policy and license agreement</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>I confirm that I have read the the agreement and am accepting it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>next</source>
         <translation type="unfinished"></translation>
     </message>
@@ -612,19 +604,31 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>In order to connect your device (phone/PC) with the Leaflet you have to be in the same network. 
- 
- Connect your device with a LAN-cable with the Leaflet (Third ethernet slot). 
-
- You can also connect your device to the local Wifi if the Leaflet has a Wifi module.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>You have to authenticate yourself to the Leaflet. For further information look at the manual for commissioning.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>HEMS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Privacy policy and license agreement HEMS (09/2022)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes I agree to open a user account, according to part 6 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I confirm that I have read the the agreement and I am accepting it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In order to connect your device (phone/PC) with the Leaflet you have to be in the same network. 
+ 
+ Connect your device with a LAN-cable with the Leaflet (Third ethernet slot). 
+
+ You can also connect your device to the local WiFi if the Leaflet has a WiFi module.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1029,10 +1033,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Firstname Lastname</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Workplace: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1062,6 +1062,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>Skip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First name Last name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1264,6 +1268,14 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <source>I confirm that I have read the the agreement and am accepting it.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Yes I agree to open a Useraccount, according to part 6 </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>S:</name>
@@ -1343,10 +1355,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nymea found the following things</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Searching for things...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1380,6 +1388,14 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>Thing parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1422,10 +1438,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nymea found the following things</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Searching for things...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1459,6 +1471,14 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>Thing parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1517,10 +1537,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nymea found the following things</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Searching for things...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1554,6 +1570,14 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>Thing parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1612,10 +1636,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nymea found the following things</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Searching for things...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1649,6 +1669,14 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>Thing parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

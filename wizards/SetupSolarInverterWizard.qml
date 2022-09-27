@@ -83,6 +83,7 @@ Page {
 
     Connections {
         target: engine.thingManager
+
         onAddThingReply: {
 
             busyOverlay.shown = false;
@@ -419,8 +420,9 @@ Page {
 
 
             SettingsPageSectionHeader {
-                text: qsTr("Nymea found the following things")
+                text: qsTr("The following devices were found:")
                 visible: !discovery.busy && discoveryProxy.count > 0
+
             }
 
             Repeater {
@@ -511,7 +513,21 @@ Page {
                 Layout.fillWidth: true
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
+                Layout.bottomMargin: 0
             }
+
+            Label{
+                id: nameExplain
+                text: qsTr("Please change name if necessary")
+                Layout.alignment: Qt.AlignTop
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
+                verticalAlignment: Text.AlignTop
+                Layout.topMargin: 0
+                color: Style.accentColor
+                font.pixelSize: 12
+            }
+
 
             SettingsPageSectionHeader {
                 text: qsTr("Thing parameters")
@@ -596,7 +612,7 @@ Page {
             }
 
             Component.onCompleted: {
-                pendingCallId = engine.thingManager.addDiscoveredThing(thingDescriptor.thingClassId, thingDescriptor.id, thingDescriptor.name, {})
+                pendingCallId = engine.thingManager.addDiscoveredThing(thingDescriptor.thingClassId, thing.id, thing.name, {})
             }
 
             HemsManager{
@@ -639,7 +655,8 @@ Page {
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
                         font.bold: true
-                        text: setupEnergyMeterPage.thingDescriptor.name
+                        //text: setupEnergyMeterPage.thingDescriptor.name
+                        text: thing.name
                     }
 
                     ColorIcon {
