@@ -1022,11 +1022,15 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Consolinno Service</translation>
     </message>
     <message>
-        <source>Under Manual you will find the the most recent version of the HEMS</source>
-        <translation>Unter &quot;Bedienungsanleitung&quot; finden Sie die aktuellste version der Anleitung zur App</translation>
+        <source>Under Manual you will find the the most recent version of the HEMS.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>In case of problems with your </source>
+        <source>If you have any problems with your system, please contact the installer who commissioned the particular device. Under &apos;Installation contact details&apos; you can see the data stored by the respective installer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there is a problem with the Leaflet itself, please contact the Consolinno service.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
