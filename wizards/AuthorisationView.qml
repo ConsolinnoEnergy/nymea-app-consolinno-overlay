@@ -49,8 +49,20 @@ ConsolinnoWizardPageBase {
 
             Button {
                 Layout.alignment: Qt.AlignHCenter
-                text: authorisationCheckbox.checked ? qsTr("next") : qsTr("cancel")
-                //color: authorisationCheckbox.checked ? Style.accentColor : Style.yellow
+                text: qsTr("cancel")
+                background: Rectangle{
+                    color: "#87BD26"
+                    radius: 4
+                }
+                Layout.preferredWidth: 200
+                onClicked: {
+                    pageStack.pop()
+                }
+            }
+
+            Button {
+                Layout.alignment: Qt.AlignHCenter
+                text: qsTr("next")
                 background: Rectangle{
                     color: authorisationCheckbox.checked  ? "#87BD26" : "grey"
                     radius: 4
@@ -66,17 +78,16 @@ ConsolinnoWizardPageBase {
                         }
 
                     }
-                    else {
-                        if (directionID == 0){
-                            root.done(true, false)
-                        }else if(directionID == 1){
-                            pageStack.pop()
-                        }
-
-
-                    }
                 }
             }
+
+
+
+
+
+
+
+
 
         }
 
