@@ -68,7 +68,7 @@ ColumnLayout {
             wrapMode: Text.WordWrap
             font.pixelSize: 12
             Layout.fillWidth: true
-            visible: root.signup && focus && !root.isValidPassword
+            visible: root.signup && !root.isValidPassword
             text:{
                 // add text and check if it condition is met
                 var texts = []
