@@ -640,9 +640,9 @@ Page {
                 anchors.rightMargin: app.margins
                 anchors.margins: app.margins
 
-                RowLayout {
-                    Layout.fillWidth: true
-                    id: evRow
+//                RowLayout {
+//                    Layout.fillWidth: true
+//                    id: evRow
 
 
                     Label {
@@ -655,7 +655,7 @@ Page {
                     ConsolinnoItemDelegate {
                         id: carSelector
                         Layout.fillWidth: true
-                        Layout.maximumWidth: 200
+                        //Layout.maximumWidth: 200
 
                         text:  evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar).name : qsTr("Select/Add Car")
                         holdingItem: evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar) : false
@@ -693,12 +693,12 @@ Page {
 
                     }
 
-                }
+//                }
 
 
-                RowLayout{
-                    Layout.preferredWidth: app.width
-                    Layout.topMargin: 10
+//                RowLayout{
+//                    Layout.preferredWidth: app.width
+//                    Layout.topMargin: 10
 
 
                     RowLayout{
@@ -725,7 +725,8 @@ Page {
                     ComboBox {
                         id: comboboxloadingmod
 
-                        Layout.preferredWidth: carSelector.width
+                        Layout.fillWidth: true
+                        //Layout.preferredWidth: carSelector.width
 
                         model: ListModel{
 
@@ -755,7 +756,7 @@ Page {
 
                         }
                     }
-                }
+     //           }
 
 
                 RowLayout{
