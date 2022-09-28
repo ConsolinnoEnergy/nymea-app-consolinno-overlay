@@ -1019,15 +1019,15 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Under Manual you will find the the most recent version of the HEMS.</source>
+        <source>Under &apos;Manual&apos; you will find current instructions for the app.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If you have any problems with your system, please contact the installer who commissioned the particular device. Under &apos;Installation contact details&apos; you can see the data stored by the respective installer.</source>
+        <source>If you have any problems with your system, please contact the installer. Under &apos;Installation contact&apos; the installer&apos;s details are stored (if he has entered them in the app).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If there is a problem with the Leaflet itself, please contact the Consolinno service.</source>
+        <source>If there is a problem with the Leaflet itself, then contact Consolinno&apos;s service.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
