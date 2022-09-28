@@ -72,5 +72,6 @@
         <file>info/Help/ContactPage.qml</file>
         <file>info/Help/ServicePage.qml</file>
         <file>info/Privacy/PrivacyPage.qml</file>
+        <file>components/ConsolinnoPasswordTextField.qml</file>
     </qresource>
 </RCC>
