@@ -625,16 +625,24 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
         <translation>Ich bestätige, dass ich die Bestimmungen gelesen habe und akzeptiere.</translation>
     </message>
     <message>
-        <source>In order to connect your device (phone/PC) with the Leaflet you have to be in the same network. 
- 
- Connect your device with a LAN-cable with the Leaflet (Third ethernet slot). 
-
- You can also connect your device to the local WiFi if the Leaflet has a WiFi module.</source>
-        <translation>Um Ihr Gerät (Smartphone/PC) mit dem Leaflet zu verbinden, müssen sie sich  im selben Netzwerk befinden.
-
-Verbinden Sie Ihr Gerät mit einem LAN-Kabel mit dem Leaflet (Dritter Ethernet-Slot)
-
-Sie können Ihr Gerät auch mit dem lokalen WiFi verbinden, wenn das Leaflet über ein WiFi-Modul verfügt.</translation>
+        <source>There are two ways to connect your device (smartphone/ PC) with the Leaflet:</source>
+        <translation>Damit sich ihr Gerät (Smartphone/ PC) mit dem Leaflet verbinden kann gibt es 2 Möglichkeiten:</translation>
+    </message>
+    <message>
+        <source>1. Connection via the local network</source>
+        <translation>1. Verbindung über das lokale Netzwerk</translation>
+    </message>
+    <message>
+        <source>Connect the device to the same network where the Leaflet is connected.</source>
+        <translation>Verbinden Sie sich mit dem gleichen Netzwerk indem sich auch das Leaflet befindet.</translation>
+    </message>
+    <message>
+        <source>2. Direct connection with LAN cable</source>
+        <translation>2. Direkte Verbindung mit LAN-Kabel</translation>
+    </message>
+    <message>
+        <source>Connect your device with LAN cable to the 3rd Ethernet slot (LAN 3). Smartphones can also be connected to the Leaflet with LAN cable using an appropriate LAN adapter.</source>
+        <translation>Verbinden Sie ihr Gerät mit LAN-Kabel mit der 3. Ethernet Slot (LAN 3). Smartphones können mit einem entsprechenden LAN-Adapter auch mit LAN-Kabel mit dem Leaflet verbunden werden.</translation>
     </message>
 </context>
 <context>
