@@ -117,8 +117,9 @@ Page {
                 id: infoManual
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
+                Layout.topMargin: 20
                 Layout.fillWidth: true
-                text: qsTr("Under Manual you will find the the most recent version of the HEMS")
+                text: qsTr("Under Manual you will find the the most recent version of the HEMS.")
                 wrapMode: Text.WordWrap
             }
 
@@ -129,8 +130,24 @@ Page {
                 id: infoDevice
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
+                Layout.topMargin: 10
                 Layout.fillWidth: true
-                text: qsTr("In case of problems with your ")
+                wrapMode: Text.WordWrap
+                text: qsTr("If you have any problems with your system, please contact the installer who commissioned the particular device. Under 'Installation contact details' you can see the data stored by the respective installer.")
+
+            }
+
+        }
+
+        RowLayout{
+            Label{
+                id: infoLeaflet
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
+                Layout.topMargin: 10
+                Layout.fillWidth: true
+                wrapMode: Text.WordWrap
+                text: qsTr("If there is a problem with the Leaflet itself, please contact the Consolinno service.")
 
             }
 
