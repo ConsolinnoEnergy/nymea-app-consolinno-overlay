@@ -119,7 +119,7 @@ Page {
                 Layout.rightMargin: app.margins
                 Layout.topMargin: 20
                 Layout.fillWidth: true
-                text: qsTr("Under Manual you will find the the most recent version of the HEMS.")
+                text: qsTr("Under 'Manual' you will find current instructions for the app.")
                 wrapMode: Text.WordWrap
             }
 
@@ -133,7 +133,7 @@ Page {
                 Layout.topMargin: 10
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
-                text: qsTr("If you have any problems with your system, please contact the installer who commissioned the particular device. Under 'Installation contact details' you can see the data stored by the respective installer.")
+                text: qsTr("If you have any problems with your system, please contact the installer. Under 'Installation contact' the installer's details are stored (if he has entered them in the app).")
 
             }
 
@@ -147,7 +147,7 @@ Page {
                 Layout.topMargin: 10
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
-                text: qsTr("If there is a problem with the Leaflet itself, please contact the Consolinno service.")
+                text: qsTr("If there is a problem with the Leaflet itself, then contact Consolinno's service.")
 
             }
 

@@ -1015,23 +1015,23 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Installer contact</source>
-        <translation>Installateur Kontakt</translation>
+        <translation>Kontaktdaten Installation</translation>
     </message>
     <message>
         <source>Service Consolinno</source>
         <translation>Consolinno Service</translation>
     </message>
     <message>
-        <source>Under Manual you will find the the most recent version of the HEMS.</source>
-        <translation type="unfinished"></translation>
+        <source>Under &apos;Manual&apos; you will find current instructions for the app.</source>
+        <translation>Unter &quot;Bedienungsanleitungen&quot; finden Sie aktuelle Anleitungen zur App</translation>
     </message>
     <message>
-        <source>If you have any problems with your system, please contact the installer who commissioned the particular device. Under &apos;Installation contact details&apos; you can see the data stored by the respective installer.</source>
-        <translation type="unfinished"></translation>
+        <source>If you have any problems with your system, please contact the installer. Under &apos;Installation contact&apos; the installer&apos;s details are stored (if he has entered them in the app).</source>
+        <translation>Bei Problemen mit Ihrer Anlage, wenden Sie sich an den Installateur. Unter &quot;Kontaktdaten Installation&quot; sind die Daten des Installateur gespeichert (falls er diese in der App hinterlegt hat).</translation>
     </message>
     <message>
-        <source>If there is a problem with the Leaflet itself, please contact the Consolinno service.</source>
-        <translation type="unfinished"></translation>
+        <source>If there is a problem with the Leaflet itself, then contact Consolinno&apos;s service.</source>
+        <translation>Falls ein Problem mit dem Leaflet selbst besteht, dann wenden Sie sich an den Service von Consolinno.</translation>
     </message>
 </context>
 <context>
