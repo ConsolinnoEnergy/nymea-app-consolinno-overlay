@@ -691,6 +691,41 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
 </context>
 <context>
+    <name>ConsolinnoPasswordTextField</name>
+    <message>
+        <source>Pick a password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum %1 characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lowercase letters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uppercase letters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Special characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm password</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoView</name>
     <message>
         <source>Total current power usage</source>
