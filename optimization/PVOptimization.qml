@@ -153,6 +153,8 @@ Page {
             }
         }
 
+
+
         RowLayout {
             Layout.fillWidth: true
 
@@ -287,7 +289,7 @@ Page {
                             root.done()
 
                         }else{
-                            footer.text = qsTr("Please enter your position in the longitude and latitude field")
+                            footer.text = qsTr("Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)")
                         }
 
 
@@ -301,7 +303,7 @@ Page {
 
                             d.pendingCallId = hemsManager.setPvConfiguration(thing.id, {longitude: longitudefield.text, latitude: latitude.text, roofPitch: roofpitch.text, alignment: alignment.text, kwPeak: kwPeak.text})
                         }else{
-                            footer.text = qsTr("Please enter your position in the longitude and latitude field")
+                            footer.text = qsTr("Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)")
                         }
 
 

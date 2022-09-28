@@ -1027,7 +1027,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>If you have any problems with your system, please contact the installer. Under &apos;Installation contact&apos; the installer&apos;s details are stored (if he has entered them in the app).</source>
-        <translation>Bei Problemen mit Ihrer Anlage, wenden Sie sich an den Installateur. Unter &quot;Kontaktdaten Installation&quot; sind die Daten des Installateur gespeichert (falls er diese in der App hinterlegt hat).</translation>
+        <translation>Bei Problem mit Ihrer Anlage, wenden Sie sich an den Installateur. Unter &quot;Kontaktdaten Installation&quot; sind die Daten des Installateurs gespeichert (falls er diese in der App hinterlegt hat).</translation>
     </message>
     <message>
         <source>If there is a problem with the Leaflet itself, then contact Consolinno&apos;s service.</source>
@@ -1309,8 +1309,8 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <translation>Einige Werte sind nicht gültig. Bitte überprüfen Sie Ihre Eingaben.</translation>
     </message>
     <message>
-        <source>Please enter your position in the longitude and latitude field</source>
-        <translation>Bitte geben Sie Ihre Position in das Longitude und Latitude Feld ein.</translation>
+        <source>Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)</source>
+        <translation>Bitte geben Sie Breiten- und Längengrad des Standortes der Anlage an. (Kann zum Beispiel über Google Maps ermittelt werden.)</translation>
     </message>
 </context>
 <context>
@@ -1732,7 +1732,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Please change name if necessary</source>
-        <translation type="unfinished">Wenn notwendig, bitte den Namen ändern</translation>
+        <translation>Wenn notwendig, bitte den Namen ändern</translation>
     </message>
 </context>
 <context>
