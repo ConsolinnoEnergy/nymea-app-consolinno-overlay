@@ -655,7 +655,8 @@ Page {
                     ConsolinnoItemDelegate {
                         id: carSelector
                         Layout.fillWidth: true
-                        Layout.maximumWidth: 200
+                        Layout.maximumWidth: 300
+                        Layout.leftMargin: 20
 
                         text:  evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar).name : qsTr("Select/Add Car")
                         holdingItem: evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar) : false
