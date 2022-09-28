@@ -1305,7 +1305,7 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please enter your position in the longitude and latitude field</source>
+        <source>Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
