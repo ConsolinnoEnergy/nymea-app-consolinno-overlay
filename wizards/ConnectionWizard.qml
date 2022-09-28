@@ -692,15 +692,80 @@ ConsolinnoWizardPageBase {
                     font: Style.bigFont
                 }
 
-                Label{
+                ColumnLayout{
                     Layout.fillWidth: true
-                    Layout.margins: app.margins
-                    text: qsTr( 'In order to connect your device (phone/PC) with the Leaflet you have to be in the same network. \n \n Connect your device with a LAN-cable with the Leaflet (Third ethernet slot). \n\n You can also connect your device to the local WiFi if the Leaflet has a WiFi module.')
-                    wrapMode: Text.WordWrap
+                    Label{
+                        id: pos
+                        wrapMode: Text.WordWrap
+                        Layout.fillWidth: true
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        text: qsTr("There are two ways to connect your device (smartphone/ PC) with the Leaflet:")
+
+                    }
+
+                    ColumnLayout{
+                        Layout.fillWidth: true
+                        Layout.topMargin: 30
+                        spacing: 1
+                        Label{
+                            id: firstOption
+                            Layout.fillWidth: true
+                            Layout.leftMargin: app.margins
+                            Layout.rightMargin: app.margins
+                            wrapMode: Text.WordWrap
+                            font.bold: true
+
+                            text: qsTr("1. Connection via the local network")
+
+                        }
+                        Label{
+                            id: optionOne
+                            Layout.fillWidth: true
+                            wrapMode: Text.WordWrap
+                            Layout.leftMargin: app.margins
+                            Layout.rightMargin: app.margins
+                            Layout.topMargin: 1
+                            text: qsTr("Connect the device to the same network where the Leaflet is connected.")
+
+                        }
+
+
+                    }
+
+                    ColumnLayout{
+                        Layout.fillWidth: true
+                        Layout.topMargin: 10
+                        spacing: 1
+                        Label{
+                            id: secondOption
+                            wrapMode: Text.WordWrap
+                            Layout.leftMargin: app.margins
+                            Layout.rightMargin: app.margins
+                            Layout.fillWidth: true
+                            font.bold: true
+
+                            text: qsTr("2. Direct connection with LAN cable")
+
+                        }
+                        Label{
+                            id: optionTwo
+                            Layout.fillWidth: true
+                            Layout.leftMargin: app.margins
+                            Layout.rightMargin: app.margins
+                            wrapMode: Text.WordWrap
+                            Layout.topMargin: 1
+                            text: qsTr("Connect your device with LAN cable to the 3rd Ethernet slot (LAN 3). Smartphones can also be connected to the Leaflet with LAN cable using an appropriate LAN adapter.")
+
+                        }
+
+
+                    }
+
+
+
+
                 }
-
-
-
 
 
                 Button {

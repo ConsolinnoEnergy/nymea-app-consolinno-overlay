@@ -624,11 +624,23 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>In order to connect your device (phone/PC) with the Leaflet you have to be in the same network. 
- 
- Connect your device with a LAN-cable with the Leaflet (Third ethernet slot). 
-
- You can also connect your device to the local WiFi if the Leaflet has a WiFi module.</source>
+        <source>There are two ways to connect your device (smartphone/ PC) with the Leaflet:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1. Connection via the local network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connect the device to the same network where the Leaflet is connected.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2. Direct connection with LAN cable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connect your device with LAN cable to the 3rd Ethernet slot (LAN 3). Smartphones can also be connected to the Leaflet with LAN cable using an appropriate LAN adapter.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
