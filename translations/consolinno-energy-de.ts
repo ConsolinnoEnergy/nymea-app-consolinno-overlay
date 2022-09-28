@@ -696,6 +696,41 @@ Sie können Ihr Gerät auch mit dem lokalen WiFi verbinden, wenn das Leaflet üb
     </message>
 </context>
 <context>
+    <name>ConsolinnoPasswordTextField</name>
+    <message>
+        <source>Pick a password</source>
+        <translation>Wähle ein Passwort</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>Passwort</translation>
+    </message>
+    <message>
+        <source>Minimum %1 characters</source>
+        <translation>Mindestens %1 Zeichen</translation>
+    </message>
+    <message>
+        <source>Lowercase letters</source>
+        <translation>Kleinbuchstaben</translation>
+    </message>
+    <message>
+        <source>Uppercase letters</source>
+        <translation>Großbuchstaben</translation>
+    </message>
+    <message>
+        <source>Numbers</source>
+        <translation>Zahlen</translation>
+    </message>
+    <message>
+        <source>Special characters</source>
+        <translation>Sonderzeichen</translation>
+    </message>
+    <message>
+        <source>Confirm password</source>
+        <translation>Passwort bestätigen</translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoView</name>
     <message>
         <source>Total current power usage</source>
