@@ -523,15 +523,21 @@ MainViewBase {
 
                 var totalTop = rootMeter ? 1 : 0
                 totalTop += producers.count
+
+
                 // dashed lines from rootMeter
                 if (rootMeter) {
                     drawAnimatedLine(ctx, rootMeter, rootMeterTile, false, -(totalTop - 1) / 2, maxCurrentPower, true, xTranslate, yTranslate)
                 }
 
                 for (var i = 0; i < producers.count; i++) {
+
+                    // draw every producer, but not the rootMeter as producer, since it is already drawn.
                     var producer = producers.get(i)
-                    var tile = legendProducersRepeater.itemAt(i)
-                    drawAnimatedLine(ctx, producer, tile, false, (i + 1) - ((totalTop - 1) / 2), maxCurrentPower, false, xTranslate, yTranslate)
+                    if(producer.id !== rootMeter.id){
+                        var tile = legendProducersRepeater.itemAt(i)
+                        drawAnimatedLine(ctx, producer, tile, false, (i + 1) - ((totalTop - 1) / 2), maxCurrentPower, false, xTranslate, yTranslate)
+                    }
                 }
 
                 var totalBottom = consumers.count + batteries.count
@@ -547,6 +553,8 @@ MainViewBase {
                     var tile = legendBatteriesRepeater.itemAt(i)
                     drawAnimatedLine(ctx, battery, tile, true, consumers.count + i - ((totalBottom - 1) / 2), maxCurrentPower, false, xTranslate, yTranslate)
                 }
+                // end draw Animated Line
+
 
 
                 ctx.strokeStyle = "black"
@@ -640,6 +648,7 @@ MainViewBase {
                     model: producers
 
                     delegate: LegendTile {
+                        visible: producers.get(index).id !== rootMeter.id
                         color: lsdChart.producersColor
                         thing: producers.get(index)
                         onClicked: {
