@@ -13,7 +13,18 @@ Page {
     header: NymeaHeader {
         text: qsTr("Optimizations")
         backButtonVisible: true
-        onBackPressed: pageStack.pop()
+        onBackPressed:{
+            if ( hemsManager.availableUseCases === 0){
+                pageStack.pop(root)
+            }
+            else{
+                pageStack.pop()
+            }
+
+        }
+
+
+
     }
 
     property HemsManager hemsManager

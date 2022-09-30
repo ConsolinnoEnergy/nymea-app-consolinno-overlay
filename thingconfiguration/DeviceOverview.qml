@@ -8,10 +8,21 @@ import Nymea 1.0
 Page {
     id: root
     signal startWizard()
+    property HemsManager hemsManager
+
 
     header: NymeaHeader {
         text: qsTr("Device Overview")
-        onBackPressed: pageStack.pop()
+        onBackPressed: {
+            if (hemsManager.availableUseCases === 0){
+                pageStack.pop()
+                pageStack.pop()
+            }
+            else{
+                pageStack.pop()
+            }
+
+        }
 
         HeaderButton {
             imageSource: "../images/find.svg"
