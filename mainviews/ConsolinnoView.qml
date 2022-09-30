@@ -162,11 +162,6 @@ MainViewBase {
             if ((energyMetersProxy.count === 0 && !energyMeterWiazrdSkipped) || (energyMetersProxy.count === 0 && !manualWizardSettings.energymeter)) {
                 var page = d.pushPage("/ui/wizards/SetupEnergyMeterWizard.qml")
                 page.done.connect(function(skip, abort) {
-//                    if (back){
-//                        manualWizardSettings.solarPanelDone = false
-//                        pageStack.pop()
-//                        return
-//                    }
 
                     print("energymeters done", skip, abort)
                     if (abort) {
@@ -190,7 +185,7 @@ MainViewBase {
                 return
             }
 
-            if ((inverters.count === 0 && !wizardSettings.solarPanelDone) || !manualWizardSettings.solarPanelDone) {
+            if ((!wizardSettings.solarPanelDone) || !manualWizardSettings.solarPanelDone) {
                 var page = d.pushPage("/ui/wizards/SetupSolarInverterWizard.qml");
                 page.done.connect(function(skip, abort, back){
 
@@ -214,7 +209,7 @@ MainViewBase {
                 return
             }
 
-            if ((evChargersProxy.count === 0 && !wizardSettings.evChargerDone)|| !manualWizardSettings.evChargerDone) {
+            if (( !wizardSettings.evChargerDone)|| !manualWizardSettings.evChargerDone) {
                 var page = d.pushPage("/ui/wizards/SetupEVChargerWizard.qml")
                 page.done.connect(function(skip, abort, back) {
                     if(back){
@@ -242,7 +237,7 @@ MainViewBase {
                 return
             }
 
-            if ((heatPumps.count === 0 && !wizardSettings.heatPumpDone) || !manualWizardSettings.heatPumpDone) {
+            if (( !wizardSettings.heatPumpDone) || !manualWizardSettings.heatPumpDone) {
                 var page = d.pushPage("/ui/wizards/SetupHeatPumpWizard.qml")
                 page.done.connect(function(skip, abort, back) {
 
