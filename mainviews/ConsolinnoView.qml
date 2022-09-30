@@ -349,11 +349,30 @@ MainViewBase {
 
     }
 
+    function checkForRootmeter(thing){
+
+        var check = false
+        for (var i; i < energyMetersProxy.count; i++){
+            if (energyManager.rootMeterId == energyMetersProxy.get(i).id){
+                check = true
+            }
+        }
+        return check
+    }
+
+
+
     Connections {
         target: engine.thingManager
         onThingAdded: {
             if (thing.thingClass.interfaces.indexOf("energymeter") >= 0) {
-                energyManager.setRootMeterId(thing.id);
+                //TODO: check if rootmeter is already provided
+                if (checkForRootmeter(thing)){
+                    energyManager.setRootMeterId(thing.id);
+                }
+
+
+
             }
         }
     }
