@@ -349,30 +349,41 @@ MainViewBase {
 
     }
 
-    function checkForRootmeter(thing){
+    function checkForRootmeter(){
 
         var check = false
         for (var i; i < energyMetersProxy.count; i++){
-            if (energyManager.rootMeterId == energyMetersProxy.get(i).id){
+
+            if (energyManager.rootMeterId === energyMetersProxy.get(i).id){
                 check = true
             }
         }
         return check
+
     }
 
 
 
     Connections {
         target: engine.thingManager
+
+        // if rootmeter gets removed, choose the first energymeter as new root meter
+        // the energyMeterProxy seems to be sorted alphabetically
+        onThingRemoved:{
+
+
+            if (!checkForRootmeter()){
+                energyManager.setRootMeterId(energyMetersProxy.get(0).id)
+            }
+        }
+
+        // on ThingAded check if thing is energymeter
+        // if yes, check if rootMeter was already assigned.
         onThingAdded: {
             if (thing.thingClass.interfaces.indexOf("energymeter") >= 0) {
-                //TODO: check if rootmeter is already provided
-                if (checkForRootmeter(thing)){
+                if (checkForRootmeter()){
                     energyManager.setRootMeterId(thing.id);
                 }
-
-
-
             }
         }
     }
