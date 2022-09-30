@@ -162,11 +162,6 @@ MainViewBase {
             if ((energyMetersProxy.count === 0 && !energyMeterWiazrdSkipped) || (energyMetersProxy.count === 0 && !manualWizardSettings.energymeter)) {
                 var page = d.pushPage("/ui/wizards/SetupEnergyMeterWizard.qml")
                 page.done.connect(function(skip, abort) {
-//                    if (back){
-//                        manualWizardSettings.solarPanelDone = false
-//                        pageStack.pop()
-//                        return
-//                    }
 
                     print("energymeters done", skip, abort)
                     if (abort) {
@@ -190,7 +185,7 @@ MainViewBase {
                 return
             }
 
-            if ((inverters.count === 0 && !wizardSettings.solarPanelDone) || !manualWizardSettings.solarPanelDone) {
+            if ((!wizardSettings.solarPanelDone) || !manualWizardSettings.solarPanelDone) {
                 var page = d.pushPage("/ui/wizards/SetupSolarInverterWizard.qml");
                 page.done.connect(function(skip, abort, back){
 
@@ -214,7 +209,7 @@ MainViewBase {
                 return
             }
 
-            if ((evChargersProxy.count === 0 && !wizardSettings.evChargerDone)|| !manualWizardSettings.evChargerDone) {
+            if (( !wizardSettings.evChargerDone)|| !manualWizardSettings.evChargerDone) {
                 var page = d.pushPage("/ui/wizards/SetupEVChargerWizard.qml")
                 page.done.connect(function(skip, abort, back) {
                     if(back){
@@ -242,7 +237,7 @@ MainViewBase {
                 return
             }
 
-            if ((heatPumps.count === 0 && !wizardSettings.heatPumpDone) || !manualWizardSettings.heatPumpDone) {
+            if (( !wizardSettings.heatPumpDone) || !manualWizardSettings.heatPumpDone) {
                 var page = d.pushPage("/ui/wizards/SetupHeatPumpWizard.qml")
                 page.done.connect(function(skip, abort, back) {
 
@@ -349,11 +344,41 @@ MainViewBase {
 
     }
 
+    function checkForRootmeter(){
+
+        var check = false
+        for (var i; i < energyMetersProxy.count; i++){
+
+            if (energyManager.rootMeterId === energyMetersProxy.get(i).id){
+                check = true
+            }
+        }
+        return check
+
+    }
+
+
+
     Connections {
         target: engine.thingManager
+
+        // if rootmeter gets removed, choose the first energymeter as new root meter
+        // the energyMeterProxy seems to be sorted alphabetically
+        onThingRemoved:{
+
+
+            if (!checkForRootmeter()){
+                energyManager.setRootMeterId(energyMetersProxy.get(0).id)
+            }
+        }
+
+        // on ThingAded check if thing is energymeter
+        // if yes, check if rootMeter was already assigned.
         onThingAdded: {
             if (thing.thingClass.interfaces.indexOf("energymeter") >= 0) {
-                energyManager.setRootMeterId(thing.id);
+                if (checkForRootmeter()){
+                    energyManager.setRootMeterId(thing.id);
+                }
             }
         }
     }
@@ -523,15 +548,21 @@ MainViewBase {
 
                 var totalTop = rootMeter ? 1 : 0
                 totalTop += producers.count
+
+
                 // dashed lines from rootMeter
                 if (rootMeter) {
                     drawAnimatedLine(ctx, rootMeter, rootMeterTile, false, -(totalTop - 1) / 2, maxCurrentPower, true, xTranslate, yTranslate)
                 }
 
                 for (var i = 0; i < producers.count; i++) {
+
+                    // draw every producer, but not the rootMeter as producer, since it is already drawn.
                     var producer = producers.get(i)
-                    var tile = legendProducersRepeater.itemAt(i)
-                    drawAnimatedLine(ctx, producer, tile, false, (i + 1) - ((totalTop - 1) / 2), maxCurrentPower, false, xTranslate, yTranslate)
+                    if(producer.id !== rootMeter.id){
+                        var tile = legendProducersRepeater.itemAt(i)
+                        drawAnimatedLine(ctx, producer, tile, false, (i + 1) - ((totalTop - 1) / 2), maxCurrentPower, false, xTranslate, yTranslate)
+                    }
                 }
 
                 var totalBottom = consumers.count + batteries.count
@@ -547,6 +578,8 @@ MainViewBase {
                     var tile = legendBatteriesRepeater.itemAt(i)
                     drawAnimatedLine(ctx, battery, tile, true, consumers.count + i - ((totalBottom - 1) / 2), maxCurrentPower, false, xTranslate, yTranslate)
                 }
+                // end draw Animated Line
+
 
 
                 ctx.strokeStyle = "black"
@@ -640,6 +673,7 @@ MainViewBase {
                     model: producers
 
                     delegate: LegendTile {
+                        visible: producers.get(index).id !== rootMeter.id
                         color: lsdChart.producersColor
                         thing: producers.get(index)
                         onClicked: {
