@@ -606,9 +606,6 @@ Page {
     Component{
         id: optimizationComponent
 
-
-
-
         Page{
             signal done()
             id: optimizationPage
@@ -786,14 +783,13 @@ Page {
                             from: 0
                             to: 100
                             stepSize: 1
-                            Component.onCompleted:
-                            {
-
-
-                                    if (carSelector.holdingItem !== false){
-                                        value = carSelector.holdingItem.stateByName("batteryLevel").value
-                                    }
-                            }
+// when entering the Optimization page -> get values from holdingItem (selected Car)
+//                            Component.onCompleted:
+//                            {
+//                                    if (carSelector.holdingItem !== false){
+//                                        value = carSelector.holdingItem.stateByName("batteryLevel").value
+//                                    }
+//                            }
 
                             onPositionChanged:
                             {
@@ -841,10 +837,11 @@ Page {
                             from: 0
                             to: 100
                             stepSize: 1
+                            value: 0
 
                             Component.onCompleted: {
                                 if (carSelector.holdingItem !== false){
-                                    value = chargingConfiguration.targetPercentage
+//                                    value = chargingConfiguration.targetPercentage
                                     endTimeSlider.computeFeasibility()
                                     endTimeSlider.feasibilityText()
                                 }
