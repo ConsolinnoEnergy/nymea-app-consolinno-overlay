@@ -176,7 +176,7 @@ int HemsManager::setPvConfiguration(const QUuid &pvThingId, const QVariantMap &d
 
     QVariantMap params;
     params.insert("pvConfiguration", config);
-    qCDebug(dcHems()) << "Set pv configuration" << config;
+    qCDebug(dcHems()) << "Set pv configuration" << params;
 
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetPvConfiguration", params, this, "setPvConfigurationResponse");
 }

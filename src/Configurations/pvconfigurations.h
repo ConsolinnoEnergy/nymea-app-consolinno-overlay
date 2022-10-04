@@ -14,7 +14,12 @@ class PvConfigurations : public QAbstractListModel
 
 public:
     enum Role{
-     RolePvthingId
+     RolePvthingId,
+     RoleLatitude,
+     RoleLongitude,
+     RoleRoofPitch,
+     RoleAlignment,
+     RoleKwPeak
     };
     Q_ENUM(Role);
 
