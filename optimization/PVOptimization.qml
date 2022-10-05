@@ -106,6 +106,7 @@ Page {
                     bottom: -90
                     top: 90
                     decimals: 4
+                    notation: "StandardNotation"
                 }
                 onTextChanged: acceptableInput ?latitude_validated = true : latitude_validated = false
 
@@ -141,6 +142,7 @@ Page {
                     bottom: -180
                     top: 180
                     decimals: 4
+                    notation: "StandardNotation"
                 }
 
                 onTextChanged: acceptableInput ? longitude_validated = true : longitude_validated = false
@@ -297,6 +299,8 @@ Page {
                 }
 
 
+                header.text = longitudefield.longitude_validated
+
                 // the input is in the range that is defined in the individual Validator
                 if (validated == false)
                 {
@@ -312,8 +316,8 @@ Page {
                     if (longitudefield.text !== "0" || latitude.text !== "0"){
 
                         header.text = longitudefield.text
-                        hemsManager.setPvConfiguration(thing.id, {longitude: longitudefield.text, latitude: latitude.text, roofPitch: roofpitch.text, alignment: alignment.text, kwPeak: kwPeak.text})
-                        footer.text = ""
+                        //hemsManager.setPvConfiguration(thing.id, {longitude: longitudefield.text, latitude: latitude.text, roofPitch: roofpitch.text, alignment: alignment.text, kwPeak: kwPeak.text})
+                        //footer.text = ""
                         root.done()
 
                     }else{
@@ -332,7 +336,7 @@ Page {
 
 
 
-                        d.pendingCallId = hemsManager.setPvConfiguration(thing.id, {longitude: longitudefield.text, latitude: latitude.text, roofPitch: roofpitch.text, alignment: alignment.text, kwPeak: kwPeak.text})
+                        //d.pendingCallId = hemsManager.setPvConfiguration(thing.id, {longitude: longitudefield.text, latitude: latitude.text, roofPitch: roofpitch.text, alignment: alignment.text, kwPeak: kwPeak.text})
                     }else{
                         footer.text = qsTr("Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)")
                     }
