@@ -101,11 +101,12 @@ Page {
                 Layout.maximumWidth: 55
                 Layout.rightMargin: 48
                 //text: pvConfiguration.latitude !== 0? pvConfiguration.latitude : src.position.coordinate.latitude.toFixed(0)
-                text: pvConfiguration.latitude
+                text: pvConfiguration.latitude.toFixed(2).toString().replace('.', ',')
                 validator: DoubleValidator{
                     bottom: -90
                     top: 90
                     decimals: 4
+                    notation: "StandardNotation"
                 }
                 onTextChanged: acceptableInput ?latitude_validated = true : latitude_validated = false
 
@@ -135,12 +136,13 @@ Page {
                 Layout.maximumWidth: 55
                 Layout.rightMargin: 48
                 //text: pvConfiguration.longitude !== 0 ? pvConfiguration.longitude : src.position.coordinate.longitude.toFixed(0)
-                text: pvConfiguration.longitude
+                text: pvConfiguration.longitude.toFixed(2).toString().replace('.', ',')
 
                 validator: DoubleValidator{
                     bottom: -180
                     top: 180
                     decimals: 4
+                    notation: "StandardNotation"
                 }
 
                 onTextChanged: acceptableInput ? longitude_validated = true : longitude_validated = false
@@ -279,41 +281,69 @@ Page {
             text: qsTr("Save")
             //enabled: configurationSettingsChanged
             onClicked: {
-                // the input is in the range that is defined in the individual Validator
-                if (validated == true)
-                {
-                    if (directionID === 1){
-
-                        if (longitudefield.text !== "0" || latitude.text !== "0"){
-                            hemsManager.setPvConfiguration(thing.id, {longitude: longitudefield.text, latitude: latitude.text, roofPitch: roofpitch.text, alignment: alignment.text, kwPeak: kwPeak.text})
-                            root.done()
-
-                        }else{
-                            footer.text = qsTr("Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)")
-                        }
 
 
 
-
-
-                    }else if(directionID === 0){
-
-
-                        if (longitudefield.text !== "0" || latitude.text !== "0"){
-
-                            d.pendingCallId = hemsManager.setPvConfiguration(thing.id, {longitude: longitudefield.text, latitude: latitude.text, roofPitch: roofpitch.text, alignment: alignment.text, kwPeak: kwPeak.text})
-                        }else{
-                            footer.text = qsTr("Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)")
-                        }
-
-
-                    }
+                // check if a . was set
+                if ( latitude.text.search(/(\.){1}/) >= 0 ){
+                    footer.text = qsTr("Please, when putting in the latitude use comma (,) not a dot (.)")
+                    return
 
                 }
-                else
+
+                // check if a . was set
+                if ( longitudefield.text.search(/(\.){1}/) >= 0 ){
+                    footer.text = qsTr("Please, when putting in the longitude use comma (,) not a dot (.)")
+                    return
+
+                }
+
+
+                header.text = longitudefield.longitude_validated
+
+                // the input is in the range that is defined in the individual Validator
+                if (validated == false)
                 {
                     footer.text = qsTr("Some values are out of range. Please check your input.")
+                    return
                 }
+
+
+                if (directionID === 1){
+
+
+
+                    if (longitudefield.text !== "0" || latitude.text !== "0"){
+
+                        header.text = longitudefield.text
+                        //hemsManager.setPvConfiguration(thing.id, {longitude: longitudefield.text, latitude: latitude.text, roofPitch: roofpitch.text, alignment: alignment.text, kwPeak: kwPeak.text})
+                        //footer.text = ""
+                        root.done()
+
+                    }else{
+                        footer.text = qsTr("Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)")
+                    }
+
+
+
+
+
+                }else if(directionID === 0){
+
+
+
+                    if (longitudefield.text !== "0" || latitude.text !== "0"){
+
+
+
+                        //d.pendingCallId = hemsManager.setPvConfiguration(thing.id, {longitude: longitudefield.text, latitude: latitude.text, roofPitch: roofpitch.text, alignment: alignment.text, kwPeak: kwPeak.text})
+                    }else{
+                        footer.text = qsTr("Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)")
+                    }
+
+
+                }
+
             }
 
 

@@ -22,7 +22,17 @@ QVariant PvConfigurations::data(const QModelIndex &index, int role) const
     switch(role){
     case RolePvthingId:
         return m_list.at(index.row())->pvThingId();
-    // when adding a new role that is suppose to be in the m_list add here
+    case RoleLatitude:
+        return m_list.at(index.row())->latitude();
+    case RoleLongitude:
+        return m_list.at(index.row())->longitude();
+    case RoleRoofPitch:
+        return m_list.at(index.row())->roofPitch();
+    case RoleAlignment:
+        return m_list.at(index.row())->alignment();
+    case RoleKwPeak:
+        return m_list.at(index.row())->kwPeak();
+
     }
 
     return QVariant();
@@ -33,6 +43,11 @@ QHash<int, QByteArray> PvConfigurations::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles.insert(RolePvthingId, "PvThingId");
+    roles.insert(RoleLatitude, "latitude");
+    roles.insert(RoleLongitude, "longitude");
+    roles.insert(RoleRoofPitch, "roofPitch");
+    roles.insert(RoleAlignment, "alignment");
+    roles.insert(RoleKwPeak, "kwPeak");
     return roles;
 }
 
@@ -66,6 +81,33 @@ void PvConfigurations::addConfiguration(PvConfiguration *pvConfiguration)
 
     beginInsertRows(QModelIndex(), m_list.count(), m_list.count());
     m_list.append(pvConfiguration);
+
+    connect(pvConfiguration, &PvConfiguration::latitudeChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(pvConfiguration));
+        emit dataChanged(idx, idx, {RoleLatitude});
+    });
+
+
+    connect(pvConfiguration, &PvConfiguration::longitudeChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(pvConfiguration));
+        emit dataChanged(idx, idx, {RoleLongitude});
+    });
+
+    connect(pvConfiguration, &PvConfiguration::roofPitchChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(pvConfiguration));
+        emit dataChanged(idx, idx, {RoleRoofPitch});
+    });
+
+    connect(pvConfiguration, &PvConfiguration::alignmentChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(pvConfiguration));
+        emit dataChanged(idx, idx, {RoleAlignment});
+    });
+
+    connect(pvConfiguration, &PvConfiguration::kwPeakChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(pvConfiguration));
+        emit dataChanged(idx, idx, {RoleKwPeak});
+    });
+
 
     endInsertRows();
 

@@ -1508,6 +1508,14 @@ Mail service@consolinno.de</source>
         <source>Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Please, when putting in the latitude use comma (,) not a dot (.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please, when putting in the longitude use comma (,) not a dot (.)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PrivacyPage</name>
