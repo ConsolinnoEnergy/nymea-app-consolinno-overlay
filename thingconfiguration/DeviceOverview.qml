@@ -138,7 +138,9 @@ Page {
         title: qsTr("There are no things set up yet.")
         text: qsTr("In order for your %1 system to be useful, go ahead and add some things.").arg(Configuration.systemName)
         imageSource: "qrc:/styles/%1/logo.svg".arg(styleController.currentStyle)
-        buttonText: qsTr("Add a thing")
-        onButtonClicked: pageStack.push(Qt.resolvedUrl("NewThingPage.qml"))
+        //buttonText: qsTr("Add a thing")
+        buttonVisible: false
+        //onButtonClicked: pageStack.push(Qt.resolvedUrl("NewThingPage.qml"))
+
     }
 }
