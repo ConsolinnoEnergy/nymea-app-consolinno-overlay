@@ -646,7 +646,7 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
     </message>
     <message>
         <source>Terms of Use</source>
-        <translation type="unfinished"></translation>
+        <translation>Nutzungsbedingungen</translation>
     </message>
     <message>
         <source>1. Allgemeines</source>
@@ -842,7 +842,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Yes I read the Term of Use and agree</source>
-        <translation type="unfinished"></translation>
+        <translation>Ja ich habe die Nutzungsbedingungen gelesen</translation>
     </message>
 </context>
 <context>
