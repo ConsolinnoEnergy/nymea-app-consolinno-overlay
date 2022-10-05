@@ -34,10 +34,16 @@ Page {
         RowLayout{
             id: nameColum
             Label{
-                text: qsTr("Name: ") + userconfig.installerName
+                text: qsTr("Name: ")
                 Layout.rightMargin: app.margins
                 Layout.leftMargin: app.margins
             }
+
+            Label{
+                id: installerName
+                text: userconfig.installerName
+            }
+
 
         }
 
@@ -97,7 +103,7 @@ Page {
 
             Label{
                 id: installerNumber
-                text: + userconfig.installerPhoneNr
+                text: userconfig.installerPhoneNr
             }
 
         }
