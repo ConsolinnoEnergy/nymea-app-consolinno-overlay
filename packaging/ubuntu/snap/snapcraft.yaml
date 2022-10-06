@@ -16,8 +16,8 @@ architectures:
 apps:
   consolinno-hems:
     command-chain: [ bin/desktop-launch ]
-    command: usr/bin/consolinno-hems
-    desktop: usr/share/applications/consolinno-hems.desktop
+    command: usr/bin/consolinno-energy
+    desktop: usr/share/applications/consolinno-energy.desktop
     plugs:
     - avahi-observe
     - bluez
