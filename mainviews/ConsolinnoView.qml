@@ -515,7 +515,7 @@ MainViewBase {
             onLineAnimationProgressChanged: requestPaint()
 
             onPaint: {
-//                print("repainting lines canvas")
+//              repainting lines canvas
                 var ctx = getContext("2d");
                 ctx.reset();
                 ctx.save();
@@ -525,7 +525,7 @@ MainViewBase {
 
                 ctx.beginPath()
                 ctx.fillStyle = Material.background
-                ctx.arc(0, 0, chartView.plotArea.width / 2 , 0, 2 * Math.PI)
+                ctx.arc(0, 0, chartView.plotArea.width / 2, 0, 2 * Math.PI)
                 ctx.fill();
                 ctx.closePath()
 
@@ -711,12 +711,13 @@ MainViewBase {
                 function appendPoint(series, timestamp, value) {
                     // always want a point with value 0 at the end.
                     // if we already have points, we'll remove the 0-point at the end, append the new one and a new 0-point after that
-//                    if (series.count > 0) {
-//                        series.removePoints(series.count - 1, 1)
-//                    }
+                    if (series.count > 0) {
+                        series.removePoints(series.count - 1, 1)
+
+                    }
 
                     series.append(timestamp, value)
-//                    series.append(new Date().getTime(), 0)
+                    series.append(new Date().getTime(), 0)
 
                     // And make sure the zeroSeries is up on par too
                     zeroSeries.removePoints(zeroSeries.count - 1, 1);
@@ -748,7 +749,7 @@ MainViewBase {
                     lineVisible: false
                     minorGridVisible: false
                     shadesVisible: false
-                    color: "black"
+                    color: Material.background
                     max: Math.max(Math.abs(powerBalanceLogs.maxValue), Math.abs(powerBalanceLogs.minValue)) * 1.1
                     min: -Math.max(Math.abs(powerBalanceLogs.maxValue), Math.abs(powerBalanceLogs.minValue)) * 1.1
                 }
@@ -758,7 +759,7 @@ MainViewBase {
                     axisAngular: axisAngular
                     axisRadial: axisRadial
                     color: lsdChart.producersColor
-                    borderColor: color
+                    borderColor: "transparent"
                     borderWidth: 0
                     lowerSeries: zeroSeries
                     upperSeries: LineSeries {
@@ -784,7 +785,7 @@ MainViewBase {
                     axisAngular: axisAngular
                     axisRadial: axisRadial
                     color: lsdChart.rootMeterAcquisitionColor
-                    borderColor: color
+                    borderColor: "transparent"
                     borderWidth: 0
                     lowerSeries: zeroSeries
 //                    visible: false
@@ -811,7 +812,7 @@ MainViewBase {
                     axisAngular: axisAngular
                     axisRadial: axisRadial
                     color: lsdChart.rootMeterReturnColor
-                    borderColor: color
+                    borderColor: "transparent"
                     borderWidth: 0
 //                    visible: false
                     lowerSeries: zeroSeries
@@ -838,7 +839,7 @@ MainViewBase {
                     axisAngular: axisAngular
                     axisRadial: axisRadial
                     color: lsdChart.batteriesColor
-                    borderColor: color
+                    borderColor: "transparent"
                     borderWidth: 0
 //                    visible: false
                     lowerSeries: zeroSeries
@@ -910,9 +911,10 @@ MainViewBase {
                     height: chartView.plotArea.height / 2
                     radius: width / 2
                     color: "#aeaeae"
-                    border.width: 2
-                    border.color: "white"
-//                    visible: false
+                    border.width: 0
+                    antialiasing: true
+                    border.color: "transparent"
+                    //visible: false
 
                     MouseArea {
                         anchors.fill: parent
