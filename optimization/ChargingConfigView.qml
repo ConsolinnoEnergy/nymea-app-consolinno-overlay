@@ -968,14 +968,7 @@ Page {
                                 var maxChargingCurrent = thing.stateByName("maxChargingCurrent").maxValue
 
 
-                                var loadingVoltage
-                                if (thing.stateByName("phaseCount").value === 1 ){
-                                    loadingVoltage = 230
-                                }
-                                else{
-                                    loadingVoltage = thing.stateByName("phaseCount").value * 230
-                                }
-
+                                var loadingVoltage = thing.stateByName("phaseCount").value * 230
 
                                 for (let i = 0; i < carSelector.holdingItem.thingClass.stateTypes.count; i++){
 

@@ -987,11 +987,25 @@ MainViewBase {
                             thing: consumers.get(index)
                             onClicked: {
                                 print("Clicked consumer", index, thing.name)
-                                if (thing.thingClass.interfaces.indexOf("heatpump") >= 0){
+                                if (thing.thingClass.interfaces.indexOf("heatpump") >= 0){ 
                                     pageStack.push("../optimization/HeatingConfigView.qml", {hemsManager: hemsManager, heatpumpThing: thing })
                                 }
                                 else if (thing.thingClass.interfaces.indexOf("evcharger") >= 0) {
-                                    pageStack.push("../optimization/ChargingConfigView.qml", {hemsManager: hemsManager, thing: thing, carThing:  evProxy.getThing(hemsManager.chargingConfigurations.getChargingConfiguration(thing.id).carThingId)  })
+
+                                    // check if those specific values are provided by the thing
+                                    var pluggedIn = thing.stateByName("pluggedIn")
+                                    var maxChargingCurrent = thing.stateByName("maxChargingCurrent")
+                                    var phaseCount = thing.stateByName("phaseCount")
+
+                                    // if yes you can use the optimization
+                                    if(pluggedIn !== null && maxChargingCurrent !== null && phaseCount !== null){
+                                       pageStack.push("../optimization/ChargingConfigView.qml", {hemsManager: hemsManager, thing: thing, carThing:  evProxy.getThing(hemsManager.chargingConfigurations.getChargingConfiguration(thing.id).carThingId)  })
+                                    }
+                                    // if not you have to resort to the EvChargerThingPage
+                                    else{
+                                       pageStack.push("/ui/devicepages/EvChargerThingPage.qml", {thing: thing})
+                                    }
+
                                 } else {
                                     pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
                                 }
