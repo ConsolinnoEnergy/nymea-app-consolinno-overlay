@@ -716,12 +716,20 @@ MainViewBase {
 
                     }
 
+                    // ensure, that the amount of points does not grow infintely
+                    if (series.count > 50){
+                        series.removePoints(0,0)
+                    }
+
                     series.append(timestamp, value)
                     series.append(new Date().getTime(), 0)
 
                     // And make sure the zeroSeries is up on par too
                     zeroSeries.removePoints(zeroSeries.count - 1, 1);
                     zeroSeries.append(axisAngular.now.getTime(), 0)
+
+                    mainviewTestingLabel.text = series.count
+                    mainviewTestingLabel2.text = zeroSeries.count
                 }
 
                 DateTimeAxis {
@@ -953,6 +961,19 @@ MainViewBase {
                             id: mainviewTestingLabel
                             Layout.fillWidth: true
                             text: qsTr("Total current power usage")
+
+                            horizontalAlignment: Text.AlignHCenter
+                            wrapMode: Text.WordWrap
+                            elide: Text.ElideMiddle
+                            color: "white"
+                            font: Style.smallFont
+                            visible: innerCircle.height > 120
+                        }
+
+                        Label {
+                            id: mainviewTestingLabel2
+                            Layout.fillWidth: true
+                            text: qsTr("test")
 
                             horizontalAlignment: Text.AlignHCenter
                             wrapMode: Text.WordWrap
