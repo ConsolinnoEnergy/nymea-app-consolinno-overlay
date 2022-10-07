@@ -487,11 +487,11 @@ MainViewBase {
 
         property int hours: 24
 
-        readonly property string rootMeterAcquisitionColor: "#E95E52";
+        readonly property string rootMeterAcquisitionColor: "#F37B8E";
         readonly property string rootMeterReturnColor:  "#24A0D6"
-        readonly property color producersColor: "#F7EC5A"
-        readonly property color batteriesColor: "#84D35E"
-        readonly property var consumersColors: [ "#EEAC66", "#CB5C9E", "#9984C4", "#84982E", "#639F86", "#6FD2CD" ]
+        readonly property color producersColor: "#FCE487"
+        readonly property color batteriesColor: "#ACE3E2"
+        readonly property var consumersColors: [ "#BDD786", "#F7B772", "#45B4E4", "#ADB9E3", "#707070"]
 
 
 
@@ -547,7 +547,7 @@ MainViewBase {
                 }
 
                 var totalTop = rootMeter ? 1 : 0
-                totalTop += producers.count
+                totalTop += producers.count + batteries.count
 
 
                 // dashed lines from rootMeter
@@ -565,7 +565,7 @@ MainViewBase {
                     }
                 }
 
-                var totalBottom = consumers.count + batteries.count
+                var totalBottom = consumers.count //+ batteries.count
 
                 for (var i = 0; i < consumers.count; i++) {
                     var consumer = consumers.get(i)
@@ -576,7 +576,7 @@ MainViewBase {
                 for (var i = 0; i < batteries.count; i++) {
                     var battery = batteries.get(i)
                     var tile = legendBatteriesRepeater.itemAt(i)
-                    drawAnimatedLine(ctx, battery, tile, true, consumers.count + i - ((totalBottom - 1) / 2), maxCurrentPower, false, xTranslate, yTranslate)
+                    drawAnimatedLine(ctx, battery, tile, false,  producers.count + (i + 1) - ((totalTop - 1) / 2), maxCurrentPower, false, xTranslate, yTranslate)
                 }
                 // end draw Animated Line
 
@@ -616,8 +616,10 @@ MainViewBase {
                 }
 
                 var startX = tilePosition.x - xTranslate
-                var startY = tilePosition.y - yTranslate
+                var startY = tilePosition.y - yTranslate //+ tile.height/3
+                //var endX = 25 * index
                 var endX = 10 * index
+
                 var endY = -chartView.plotArea.height / 2
                 if (bottom) {
                     endY = chartView.plotArea.height / 2
@@ -641,7 +643,88 @@ MainViewBase {
                 ctx.bezierCurveTo(startX, endY + height / 2, endX, startY - height / 2, endX, endY)
                 ctx.stroke();
                 ctx.closePath();
+
+
+
+
+
+
+//                if (inverted){
+
+//                    if (currentPower >= 0){
+//                    // switch arrow
+//                    ctx.beginPath();
+//                    ctx.setLineDash([1,0])
+//                    canvas_arrow(ctx, startX, startY, startX, startY-10)
+//                    ctx.stroke();
+//                    ctx.closePath();
+//                    }
+//                    else{
+//                        // energyMeter injecting energy into the grid
+//                        ctx.save();
+//                        ctx.beginPath();
+//                        ctx.setLineDash([1,0])
+
+//                        canvas_arrow(ctx, startX+1, startY, startX+1, startY-16)
+
+
+//                        ctx.stroke();
+//                        ctx.restore();
+//                        ctx.closePath();
+
+//                    }
+
+
+
+//                }
+//                else{
+
+//                    if (currentPower >= 0){
+//                    // switch arrow
+//                    ctx.beginPath();
+//                    ctx.setLineDash([1,0])
+//                    canvas_arrow(ctx, startX, startY, startX, startY-10)
+//                    ctx.stroke();
+//                    ctx.closePath();
+//                    }
+//                    else{
+//                        // arrow towards circle
+//                        ctx.beginPath();
+//                        ctx.setLineDash([1,0])
+//                        canvas_arrow(ctx, endX, endY, endX, endY+15)
+//                        ctx.stroke();
+//                        ctx.closePath();
+
+//                    }
+//                }
+
+
+
+
             }
+
+            function canvas_arrow(context, fromx, fromy, tox, toy) {
+
+
+
+              var headlen = 17; // length of head in pixels
+              var dx = tox - fromx;
+              var dy = toy - fromy;
+              var angle = Math.atan2(dy, dx);
+              //context.moveTo(fromx, fromy);
+              //context.bezierCurveTo(fromx, toy + (fromy -toy)/2, tox,  fromy-(fromy-toy)/2, tox, toy);
+              context.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
+              context.moveTo(tox, toy);
+              context.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
+              context.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6))
+              context.fill()
+            }
+
+
+
+
+
+
         }
 
 
@@ -682,6 +765,22 @@ MainViewBase {
                         }
                     }
                 }
+
+                Repeater {
+                    id: legendBatteriesRepeater
+                    model: batteries
+                    delegate: LegendTile {
+                        color: lsdChart.batteriesColor
+                        thing: batteries.get(index)
+                        onClicked: {
+                            print("Clicked battery", index, thing.name)
+                            pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
+                        }
+                    }
+                }
+
+
+
             }
 
             LineSeries {
@@ -1013,18 +1112,6 @@ MainViewBase {
                         }
                     }
 
-                    Repeater {
-                        id: legendBatteriesRepeater
-                        model: batteries
-                        delegate: LegendTile {
-                            color: lsdChart.batteriesColor
-                            thing: batteries.get(index)
-                            onClicked: {
-                                print("Clicked battery", index, thing.name)
-                                pageStack.push("/ui/devicepages/SmartMeterDevicePage.qml", {thing: thing})
-                            }
-                        }
-                    }
                 }
             }
         }
