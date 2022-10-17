@@ -53,16 +53,30 @@ Page {
                     }
                 }
                 break;
-            // DisplayPin
-            case 1:
-            // EnterPin
-            case 2:
-            // PushButton
-            case 3:
-            // OAuth
-            case 4:
-            // User and Password
-            case 5:
+            case 1:// DisplayPin
+            case 2:// EnterPin
+            case 3:// PushButton
+            case 4:// OAuth
+            case 5:// User and Password
+                if (thing) {
+                    if (d.thingDescriptor) {
+                        engine.thingManager.pairDiscoveredThing(d.thingDescriptor.id, params, d.name);
+                    } else {
+                        engine.thingManager.rePairThing(thing.id, params, d.name);
+                    }
+                    return;
+                } else {
+                    if (d.thingDescriptor) {
+                        engine.thingManager.pairDiscoveredThing(d.thingDescriptor.id, params, d.name);
+                    } else {
+                        engine.thingManager.pairThing(thingClass.id, params, d.name);
+                    }
+                }
+                break;
+
+
+
+
             }
 
             busyOverlay.shown = true;
@@ -92,6 +106,37 @@ Page {
             pageStack.push(setupInverterComponent, {thingError: thingError, thing: thing, message: displayMessage})
 
         }
+
+
+        onPairThingReply: {
+            busyOverlay.shown = false
+            if (thingError !== Thing.ThingErrorNoError) {
+                busyOverlay.shown = false;
+                pageStack.push(resultsPage, {thingError: thingError, message: displayMessage});
+                return;
+
+            }
+
+            d.pairingTransactionId = pairingTransactionId;
+
+            switch (setupMethod) {
+            case "SetupMethodPushButton":
+            case "SetupMethodDisplayPin":
+            case "SetupMethodEnterPin":
+            case "SetupMethodUserAndPassword":
+                internalPageStack.push(pairingPageComponent, {text: displayMessage, setupMethod: setupMethod})
+                break;
+            case "SetupMethodOAuth":
+                internalPageStack.push(oAuthPageComponent, {oAuthUrl: oAuthUrl})
+                break;
+            default:
+                print("Setup method reply not handled:", setupMethod);
+            }
+        }
+
+
+
+
     }
 
     ColumnLayout {
@@ -704,4 +749,56 @@ Page {
             }
         }
     }
+
+
+    Component {
+        id: pairingPageComponent
+        SettingsPageBase {
+            id: pairingPage
+            title: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
+            property alias text: textLabel.text
+
+            property string setupMethod
+
+            SettingsPageSectionHeader {
+                text: qsTr("Login required")
+            }
+
+            Label {
+                id: textLabel
+                Layout.fillWidth: true
+                Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
+                wrapMode: Text.WordWrap
+            }
+
+            TextField {
+                id: usernameTextField
+                Layout.fillWidth: true
+                Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
+                placeholderText: qsTr("Username")
+                visible: pairingPage.setupMethod === "SetupMethodUserAndPassword"
+            }
+
+            ConsolinnoPasswordTextField {
+                id: pinTextField
+                Layout.fillWidth: true
+                Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
+                visible: pairingPage.setupMethod === "SetupMethodDisplayPin" || pairingPage.setupMethod === "SetupMethodEnterPin" || pairingPage.setupMethod === "SetupMethodUserAndPassword"
+                signup: false
+            }
+
+
+            Button {
+                Layout.fillWidth: true
+                Layout.margins: app.margins
+                text: "OK"
+                onClicked: {
+                    engine.thingManager.confirmPairing(d.pairingTransactionId, pinTextField.password, usernameTextField.displayText);
+                    busyOverlay.shown = true;
+                }
+            }
+        }
+    }
+
+
 }
