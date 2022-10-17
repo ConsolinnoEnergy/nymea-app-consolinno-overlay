@@ -20,11 +20,7 @@ Page {
             else{
                 pageStack.pop()
             }
-
         }
-
-
-
     }
 
     property HemsManager hemsManager
@@ -57,8 +53,6 @@ Page {
                         return "../images/ev-charger.svg"
                     if (model.value === HemsManager.HemsUseCasePv)
                         return"../images/weathericons/weather-clear-day.svg"
-
-
                 }
                 text: model.text
                 visible: (hemsManager.availableUseCases & model.value) != 0 && (model.visible || settings.showHiddenOptions)

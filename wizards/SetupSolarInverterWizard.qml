@@ -33,8 +33,10 @@ Page {
         property int addRequestId: 0
         property var name: ""
         property var params: []
+        property var thing: null
 
         function pairThing(thingClass, thing) {
+            d.thing = thing
 
             switch (thingClass.setupMethod) {
             // Just Add
@@ -107,6 +109,10 @@ Page {
 
         }
 
+        onConfirmPairingReply: {
+            busyOverlay.shown = false
+            PageStack.push(resultsPage, {thingError: thingError, thingId: thingId, message: displayMessage})
+        }
 
         onPairThingReply: {
             busyOverlay.shown = false
@@ -119,15 +125,16 @@ Page {
 
             d.pairingTransactionId = pairingTransactionId;
 
+
             switch (setupMethod) {
             case "SetupMethodPushButton":
             case "SetupMethodDisplayPin":
             case "SetupMethodEnterPin":
             case "SetupMethodUserAndPassword":
-                internalPageStack.push(pairingPageComponent, {text: displayMessage, setupMethod: setupMethod})
+                pageStack.push(pairingPageComponent, {thing: d.thing, transactionId: pairingTransactionId,  text: displayMessage, setupMethod: setupMethod})
                 break;
             case "SetupMethodOAuth":
-                internalPageStack.push(oAuthPageComponent, {oAuthUrl: oAuthUrl})
+                pageStack.push(oAuthPageComponent, {oAuthUrl: oAuthUrl})
                 break;
             default:
                 print("Setup method reply not handled:", setupMethod);
@@ -755,7 +762,9 @@ Page {
         id: pairingPageComponent
         SettingsPageBase {
             id: pairingPage
-            title: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
+            property var thing
+
+            title: qsTr("Reconfigure %1").arg(d.thingName)
             property alias text: textLabel.text
 
             property string setupMethod
