@@ -111,7 +111,7 @@ Page {
 
         onConfirmPairingReply: {
             busyOverlay.shown = false
-            PageStack.push(resultsPage, {thingError: thingError, thingId: thingId, message: displayMessage})
+            pageStack.push(resultsPage, {thingError: thingError, thingId: thingId, message: displayMessage})
         }
 
         onPairThingReply: {
@@ -763,6 +763,7 @@ Page {
         SettingsPageBase {
             id: pairingPage
             property var thing
+            property var transactionId
 
             title: qsTr("Reconfigure %1").arg(d.thingName)
             property alias text: textLabel.text
@@ -802,12 +803,91 @@ Page {
                 Layout.margins: app.margins
                 text: "OK"
                 onClicked: {
-                    engine.thingManager.confirmPairing(d.pairingTransactionId, pinTextField.password, usernameTextField.displayText);
+                    engine.thingManager.confirmPairing(transactionId, pinTextField.password, usernameTextField.displayText);
                     busyOverlay.shown = true;
                 }
             }
         }
     }
+
+    Component {
+        id: resultsPage
+
+        Page {
+            id: resultsView
+            header: NymeaHeader {
+                text: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
+                onBackPressed: pageStack.pop()
+            }
+
+            property string thingId
+            property int thingError
+            property string message
+
+            readonly property bool success: thingError === Thing.ThingErrorNoError
+
+            readonly property Thing thing: root.thing ? root.thing : engine.thingManager.things.getThing(thingId)
+
+            ColumnLayout {
+                width: Math.min(500, parent.width - app.margins * 2)
+                anchors.centerIn: parent
+                spacing: app.margins * 2
+                Label {
+                    Layout.fillWidth: true
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignHCenter
+                    text: resultsView.success ? root.thing ? qsTr("Thing reconfigured!") : qsTr("Thing added!") : qsTr("Uh oh")
+                    font.pixelSize: app.largeFont
+                    color: Style.accentColor
+                }
+                Label {
+                    Layout.fillWidth: true
+                    horizontalAlignment: Text.AlignHCenter
+                    wrapMode: Text.WordWrap
+                    text: thingError
+                    //text: resultsView.success ? qsTr("All done. You can now start using %1.").arg(resultsView.thing.name) : qsTr("Something went wrong setting up this thing...");
+                }
+
+                Label {
+                    Layout.fillWidth: true
+                    horizontalAlignment: Text.AlignHCenter
+                    wrapMode: Text.WordWrap
+                    text: resultsView.message
+                }
+
+
+                Button {
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
+                    visible: !resultsView.success
+                    text: "Retry"
+                    onClicked: {
+                        //internalPageStack.pop({immediate: true});
+                        //internalPageStack.pop({immediate: true});
+                        d.pairThing();
+                    }
+                }
+
+                Button {
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
+                    text: qsTr("Ok")
+                    onClicked: {
+                        if(thing){
+                            var page = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thing.id), thing: thing, directionID: 1} )
+                            page.done.connect(function(){
+                                pageStack.pop(root)
+                                //root.done(false, false)
+                            })
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
 
 
 }
