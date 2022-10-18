@@ -13,7 +13,7 @@ ConsolinnoWizardPageBase {
     showNextButton: false
     background: Item{}
     // change this to privacyPolicyComponent when the Policy is there
-    onNext: pageStack.push(licensePolicyComponent)
+    onNext: pageStack.push(privacyPolicyComponent)
 
     function exitWizard() {
         pageStack.pop(root, StackView.Immediate)
@@ -21,632 +21,637 @@ ConsolinnoWizardPageBase {
     }
 
     content: ColumnLayout {
-        id: contentColumn
-        anchors.fill: parent
-        anchors.topMargin: Style.margins
-        spacing: Style.hugeMargins
-        Image {
+        anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins; right: parent.right; left: parent.left }
+        //width: Math.min(parent.width, 450)
+
+        Label {
             Layout.fillWidth: true
-            Layout.preferredHeight: parent.height / 4
-            source: '/ui/images/intro-bg-graphic.svg'
-            fillMode: Image.PreserveAspectFit
+            text: qsTr('Terms of Use')
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.WordWrap
+            font: Style.bigFont
         }
 
-        ColumnLayout {
+        Flickable {
             Layout.fillHeight: true
-            Layout.fillWidth: false
+            Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter
-            Layout.preferredWidth: Math.min(parent.width, 300)
+            Layout.margins: Style.margins
+            contentHeight: layoutID.height
+            clip: true
+
+
+            ColumnLayout{
+                id: layoutID
+                Layout.fillWidth: true
+
+                Label {
+                    id: allgemein
+                    width: app.width
+                    font.bold: true
+                    font.pixelSize: 15
+                    wrapMode: Text.WordWrap
+                    text: qsTr("1. Allgemeines")
+
+                }
+
+
+                Text{
+                    id: allgemeinText
+                    //Layout.fillWidth: true
+                    Layout.preferredWidth: app.width - app.margins*2
+                    color: Material.foreground
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    //readOnly: true
+                    text: qsTr("(1) Consolinno Energy GmbH hat eine Software entwickelt, welche als Applikation auf Android und IOS-Systemen benutzt werden kann. Die Software verbindet sich mit einem Energy Management Systems genannt Leaflet HEMS. Das hat dann die Aufgabe in Verbindung mit einer Photovoltaikanlage den Eigenverbrauch der PV-Energie zu maximieren. Parallel ist die Funktion Black-out Schutz integriert. Damit wird der Ladestrom einer Ladeeinrichtung dynamisch begrenzt. Es kommt nicht zum Auslösen der Sicherung.")
+
+                }
+
+
+
+
+
+
+                Text{
+                    id: allgemeinText2
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("Die Software ermöglicht es, durch die Steuerung einer E-Ladeeinrichtung, einer Wärmepumpe, Hausgeräte (Waschmaschine, Trockner, Spülmaschine) und dem Einbinden einer Batterie den Eigenbedarf der erzeugten PV-Energie signifikant zu steigern.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("Dadurch wird CO2 und Kosten eingespart.")
+
+                }
+
+                Text{
+                    id: allgemeinText4
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("Diese allgemeinen Lizenzbestimmungen gelten für sämtliche Lizenzverträge mit dem Kunden über die Module der Software und dem HEMS Produkt.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(2) Die Software wird von der Consolinno Energy GmbH kostenfrei Kunden vom HEMS über Appstores angeboten.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(3) Die Kunden sind für das ordnungsgemäße Installieren der Hard- und Software verantwortlich.")
+
+                }
+
+
+                Text{
+                    Layout.topMargin: 30
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    font.bold: true
+                    text: qsTr("2.Lizenzgegenstand")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(1) Consolinno Energy GmbH gewährt dem Kunden das ausschließliche Recht die in der Vereinbarung näher beschriebene Software innerhalb Deutschlands zu nutzen. Es wird ein nicht-ausschließliches und nicht-übertragbares Nutzungsrecht an der Software eingeräumt.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(2) Soweit dies für die vertragsgemäße Nutzung erforderlich ist, darf die Software vervielfältigt werden.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("Über die Appstores kann der Kunde mit dem jeweiligen Betriebssystem das Programm laden und installieren")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(3) Im Übrigen ist der Kunde zu einer Vervielfältigung oder Überlassung an Dritte nicht berechtigt, soweit gesetzlich nicht anderes bestimmt.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(4) Der Kunde ist nicht berechtigt, die Software zu verändern und zu bearbeiten, es sei denn, es handelt sich bei der Änderung bzw. Bearbeitung um eine für die vertragsgemäße Nutzung der Software erforderliche Beseitigung eines Mangels, mit welcher sich die Consolinno Energy GmbH in Verzug befindet.")
+
+                }
+
+
+                Text{
+                    Layout.topMargin: 30
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    font.bold: true
+                    text: qsTr("3.Lizenzgebühr")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(1) Der Kunde hat mit dem Erwerb des HEMS-Gerätes die Software kostenfrei von den APP Stores geladen und kann diese benutzen.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(2) Im Rahmen der Weiterentwicklung können Softwaremodule auch für eine unbefristete Nutzungsdauer käuflich erworben werden.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 30
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.bold: true
+                    font.pixelSize: 15
+                    text: qsTr("4.Softwareauslieferung und Installation")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(1) Consolinno Energy GmbH liefert die Software an den Kunden über den Appstore von Apple oder Google aus.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(2) Neben der Software wird Consolinno Energy GmbH dem Kunden eine Installationsanleitung des Gerätes HEMS sowie eine Dokumentation zum Download anbieten.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("3) Consolinno Energy GmbH schuldet keine Installation der Software auf den Systemen des Kunden; für diese ist der Kunde allein ver-antwortlich.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 30
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    font.bold: true
+                    text: qsTr("5.Instandhaltung")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(1) Consolinno Energy GmbH ist zur Aufrechterhaltung der vertraglich vereinbarten Beschaffenheit der Software während der Vertragslaufzeit ('Instandhaltung') verpflichtet. Die vertraglich geschuldete Beschaffenheit der Software bestimmt sich nach der zugesagten Funktion des HEMS Produktes. Up Dates erfolgen über eine Internetverbindung.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(2) Consolinno Energy GmbH ist zu einer Änderung, Anpassung und Weiterentwicklung der Software nur dann verpflichtet, wenn das mit dem Kunden gesondert vereinbart ist. Ohne eine solche gesonderte Vereinbarung ist die Consolinno Energy GmbH nicht zu einer Weiterentwicklung der Software verpflichtet.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 30
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    font.bold: true
+                    text: qsTr("6.Gewährleistung")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(1) Sollte dem Kunden Mängel an der Software, am Gerät oder an der Dokumentation feststellen, so hat der Kunde das der Consolinno Energy GmbH mitzuteilen. Das kann zum Beispiel per Mail erfolgen.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(2) Ein Mangel liegt nicht vor, wenn die vom Kunden verwendete Hardware und /oder Software nicht den spezifizierten Anforderungen entspricht.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(3) Consolinno Energy GmbH wird die angezeigten Mängel an der Software und an der Dokumentation innerhalb einer angemessenen Frist zu beheben. Im Rahmen der Mängelbeseitigung hat Consolinno Energy GmbH ein Wahlrecht zwischen Nachbesserung und Ersatzlieferung. Die Kosten der Mängelbeseitigung trägt Consolinno Energy GmbH. Kosten für Ausfall, entgangener Gewinn, Ein- und Ausbaukosten oder ähnliches werden nicht erstattet.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(4) Schlägt die hierin geschuldete Mängelbeseitigung fehl, ist die Kunde zur außerordentlichen Kündigung des betreffenden Vertrages gemäß § 543 Abs. 2 S. 1 Nr. 1 BGB berechtigt.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 30
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    font.bold: true
+                    text: qsTr("8.Haftung")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(1) Der Lizenzgeber haftet unbeschränkt:
+
+· bei Arglist, Vorsatz oder grober Fahrlässigkeit;
+
+· im Rahmen einer von ihm ausdrücklich übernommenen Garantie;
+
+· für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit;
+
+· nach den Vorschriften des Produkthaftungsgesetzes")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(2) Im Übrigen ist eine Haftung der Consolinno Energy GmbH für direkte und indirekte Schäden ausgeschlossen.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(3) Open Source
+
+Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelten für diese Module die entsprechende Garantie und Haftungsbedingungen. Sollte das nicht möglich sein, dann gilt die Regelung im jeweiligen Anwenderland.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 30
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    font.bold: true
+                    text: qsTr("9.Vertragsdauer und Vertragsbeendigung")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(1) Der Lizenzvertrag tritt mit der Akzeptanz der Lizenzbestimmungen vor der Installation in Kraft in gilt auf unbestimmte Dauer.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(2) Das Recht beider Parteien zur jederzeitigen außerordentlichen und fristlosen Kündigung aus wichtigem Grund bleibt unberührt. Ein wichtiger Grund liegt insbesondere vor, wenn der Lizenzgeber oder die Lizenznehmerin vorsätzlich oder fahrlässig gegen eine wesentliche Pflicht aus diesen Lizenzbestimmungen verstößt und deswegen der kündigenden Partei das Festhalten am Lizenzvertrag nicht mehr zumutbar ist. Der Lizenzgeber ist hiernach insbesondere zur außerordentlichen und fristlosen Kündigung des Lizenzvertrages berechtigt, wenn die Lizenznehmerin die ihr eingeräumten Nutzungsbefugnisse überschreitet und ihre Verletzungshandlungen nicht innerhalb einer angemessenen Frist abstellt, wenn der Lizenzgeber diese zuvor zur Unterlassung dieser Verletzungshandlungen abgemahnt hat.")
+
+                }
+
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(3) Die Kündigung des Lizenzvertrages bedarf der Schriftform.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(4) Consolinno Energy GmbH kann die Pflege des Programmes ohne nennen von Gründen einstellen")
+
+                }
+
+                Text{
+                    Layout.topMargin: 30
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    font.bold: true
+                    text: qsTr("11.Schlussbestimmungen")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(1) Sollte eine dieser Lizenzbestimmungen oder eine später in diesen Lizenzvertrag aufgenommene Bestimmung ganz oder teilweise nichtig oder undurchführbar sein oder werden oder sollte sich eine Lücke in diesen Lizenzbestimmungen herausstellen, wird dadurch die Wirksamkeit der übrigen Bestimmungen nicht berührt (Erhaltung). Es ist der ausdrückliche Wille der Parteien, hierdurch die Wirksamkeit der übrigen Bestimmungen unter allen Umständen aufrechtzuerhalten und damit § 139 BGB insgesamt abzubedingen. Anstelle der nichtigen oder undurchführbaren Bestimmung oder zur Ausfüllung der Lücke gilt mit Rückwirkung diejenige wirksame und durchführbare Regelung als bestimmt, die rechtlich und wirtschaftlich dem am nächsten kommt, was die Parteien gewollt haben oder nach dem Sinn und Zweck des Lizenzvertrages gewollt hätten, wenn sie diesen Punkt bei Abschluss dieser Vereinbarung bzw. bei Aufnahme der Bestimmung bedacht hätten; beruht die Nichtigkeit einer Bestimmung auf einem darin festgelegten Maß der Leistung oder der Zeit (Frist oder Termin), so gilt die Bestimmung mit einem dem ursprünglichen Maß am nächsten kommenden rechtlich zulässigen Maß als vereinbart (Ersetzungsfiktion). Ist die Ersetzungsfiktion nicht möglich, ist anstelle der nichtigen oder undurchführbaren Bestimmung oder zur Schließung der Lücke eine Bestimmung bzw. Regelung nach inhaltlicher Maßgabe des vorstehenden Satzes zu treffen (Ersetzungsverpflichtung). Betrifft die Nichtigkeit oder Lücke eine beurkundungspflichtige Bestimmung, so ist die Regelung bzw. die Bestimmung in notariell beurkundeter Form zu vereinbaren.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(2) Änderungen und Ergänzungen des betreffenden Lizenzvertrages einschließlich dieser Klausel bedürfen der Schriftform, soweit nicht etwas anderes bestimmt ist")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(3) Die Parteien dürfen den Lizenzvertrag sowie Rechte und Pflichten aus dem Lizenzvertrag nur mit vorheriger schriftlicher Zustimmung der jeweils anderen Partei auf einen Dritten übertragen.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(4) Die Geltung der Allgemeinen Geschäftsbedingungen der Lizenznehmerin werden ausdrücklich ausgeschlossen.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("(5) Ausschließlicher Gerichtsstand für alle Streitigkeiten aus oder im Zusammenhang mit dem Lizenzvertrag ist der Sitz des Lizenzgebers, Regensburg. Der Lizenzgeber bleibt berechtigt, am allgemeinen Gerichtsstand der Lizenznehmerin zu klagen.")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("Anschrift des Lizenzgebers
+Consolinno Energy GmbH, Franz-Mayer-Straße 1, 93053 Regensburg")
+
+                }
+
+                Text{
+                    Layout.topMargin: 15
+                    color: Material.foreground
+                    Layout.preferredWidth: app.width - app.margins*2
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 15
+                    text: qsTr("Tel 0941 20300 333
+Mail service@consolinno.de")
+
+                }
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+        }
+
+
+        RowLayout{
+            CheckBox{
+                id: readCheckbox
+                Layout.alignment: Qt.AlignLeft
+
+            }
 
             Label {
                 Layout.fillWidth: true
-                Layout.fillHeight: true
-                horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
-                font: Style.bigFont
-                text: qsTr('HEMS')
-            }
-            Label {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
                 horizontalAlignment: Text.AlignHCenter
-                wrapMode: Text.WordWrap
-                text: qsTr('Make sure that the Leaflet is operational and connected to the network.')
+                text: qsTr("Yes I read the Term of Use and agree")
             }
-            Button {
-                Layout.alignment: Qt.AlignHCenter
-                text: qsTr('Start setup')
-                Layout.preferredWidth: 200
-                onClicked: root.next()
+        }
+
+
+        Button {
+            Layout.alignment: Qt.AlignHCenter
+            text: readCheckbox.checked ? qsTr('next') : qsTr('cancel')
+            Layout.preferredWidth: 200
+            background: Rectangle{
+                color: readCheckbox.checked  ? '#87BD26' : 'grey'
+                radius: 4
             }
-            Button {
-                Layout.alignment: Qt.AlignHCenter
-                text: qsTr('Demo mode')
-                Layout.preferredWidth: 200
-                onClicked:
-                {
-                    var host = nymeaDiscovery.nymeaHosts.createWanHost('Demo server', 'nymeas://hems-demo.consolinno-it.de:31222')
-                    engine.jsonRpcClient.connectToHost(host)
+
+
+            onClicked: {
+                if (readCheckbox.checked) {
+                    root.next()
+                } else {
+                    Qt.quit()
                 }
             }
         }
     }
 
+
+
+
     Component{
-        id: licensePolicyComponent
+        id: demoModeComponent
         ConsolinnoWizardPageBase {
-            id: licensePolicyPage
+            id: demoModePage
 
             showNextButton: false
             showBackButton: false
 
-            onNext: pageStack.push(privacyPolicyComponent)
+            onNext: pageStack.push(connectionInfo)
             onBack: pageStack.pop()
 
             background: Item {}
             content: ColumnLayout {
-                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins; right: parent.right; left: parent.left }
-                //width: Math.min(parent.width, 450)
-
-                Label {
+                id: contentColumn
+                anchors.fill: parent
+                anchors.topMargin: Style.margins
+                spacing: Style.hugeMargins
+                Image {
                     Layout.fillWidth: true
-                    text: qsTr('Terms of Use')
-                    horizontalAlignment: Text.AlignHCenter
-                    wrapMode: Text.WordWrap
-                    font: Style.bigFont
+                    Layout.preferredHeight: parent.height / 4
+                    source: '/ui/images/intro-bg-graphic.svg'
+                    fillMode: Image.PreserveAspectFit
                 }
 
-                Flickable {
+                ColumnLayout {
                     Layout.fillHeight: true
-                    Layout.fillWidth: true
+                    Layout.fillWidth: false
                     Layout.alignment: Qt.AlignHCenter
-                    Layout.margins: Style.margins
-                    contentHeight: layoutID.height
-                    clip: true
-
-
-                    ColumnLayout{
-                        id: layoutID
-                        Layout.fillWidth: true
-
-                        Label {
-                            id: allgemein
-                            width: app.width
-                            font.bold: true
-                            font.pixelSize: 15
-                            wrapMode: Text.WordWrap
-                            text: qsTr("1. Allgemeines")
-
-                        }
-
-
-                        Text{
-                            id: allgemeinText
-                            //Layout.fillWidth: true
-                            Layout.preferredWidth: app.width - app.margins*2
-                            color: Material.foreground
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            //readOnly: true
-                            text: qsTr("(1) Consolinno Energy GmbH hat eine Software entwickelt, welche als Applikation auf Android und IOS-Systemen benutzt werden kann. Die Software verbindet sich mit einem Energy Management Systems genannt Leaflet HEMS. Das hat dann die Aufgabe in Verbindung mit einer Photovoltaikanlage den Eigenverbrauch der PV-Energie zu maximieren. Parallel ist die Funktion Black-out Schutz integriert. Damit wird der Ladestrom einer Ladeeinrichtung dynamisch begrenzt. Es kommt nicht zum Auslösen der Sicherung.")
-
-                        }
-
-
-
-
-
-
-                        Text{
-                            id: allgemeinText2
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("Die Software ermöglicht es, durch die Steuerung einer E-Ladeeinrichtung, einer Wärmepumpe, Hausgeräte (Waschmaschine, Trockner, Spülmaschine) und dem Einbinden einer Batterie den Eigenbedarf der erzeugten PV-Energie signifikant zu steigern.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("Dadurch wird CO2 und Kosten eingespart.")
-
-                        }
-
-                        Text{
-                            id: allgemeinText4
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("Diese allgemeinen Lizenzbestimmungen gelten für sämtliche Lizenzverträge mit dem Kunden über die Module der Software und dem HEMS Produkt.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(2) Die Software wird von der Consolinno Energy GmbH kostenfrei Kunden vom HEMS über Appstores angeboten.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(3) Die Kunden sind für das ordnungsgemäße Installieren der Hard- und Software verantwortlich.")
-
-                        }
-
-
-                        Text{
-                            Layout.topMargin: 30
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            font.bold: true
-                            text: qsTr("2.Lizenzgegenstand")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(1) Consolinno Energy GmbH gewährt dem Kunden das ausschließliche Recht die in der Vereinbarung näher beschriebene Software innerhalb Deutschlands zu nutzen. Es wird ein nicht-ausschließliches und nicht-übertragbares Nutzungsrecht an der Software eingeräumt.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(2) Soweit dies für die vertragsgemäße Nutzung erforderlich ist, darf die Software vervielfältigt werden.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("Über die Appstores kann der Kunde mit dem jeweiligen Betriebssystem das Programm laden und installieren")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(3) Im Übrigen ist der Kunde zu einer Vervielfältigung oder Überlassung an Dritte nicht berechtigt, soweit gesetzlich nicht anderes bestimmt.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(4) Der Kunde ist nicht berechtigt, die Software zu verändern und zu bearbeiten, es sei denn, es handelt sich bei der Änderung bzw. Bearbeitung um eine für die vertragsgemäße Nutzung der Software erforderliche Beseitigung eines Mangels, mit welcher sich die Consolinno Energy GmbH in Verzug befindet.")
-
-                        }
-
-
-                        Text{
-                            Layout.topMargin: 30
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            font.bold: true
-                            text: qsTr("3.Lizenzgebühr")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(1) Der Kunde hat mit dem Erwerb des HEMS-Gerätes die Software kostenfrei von den APP Stores geladen und kann diese benutzen.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(2) Im Rahmen der Weiterentwicklung können Softwaremodule auch für eine unbefristete Nutzungsdauer käuflich erworben werden.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 30
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.bold: true
-                            font.pixelSize: 15
-                            text: qsTr("4.Softwareauslieferung und Installation")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(1) Consolinno Energy GmbH liefert die Software an den Kunden über den Appstore von Apple oder Google aus.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(2) Neben der Software wird Consolinno Energy GmbH dem Kunden eine Installationsanleitung des Gerätes HEMS sowie eine Dokumentation zum Download anbieten.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("3) Consolinno Energy GmbH schuldet keine Installation der Software auf den Systemen des Kunden; für diese ist der Kunde allein ver-antwortlich.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 30
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            font.bold: true
-                            text: qsTr("5.Instandhaltung")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(1) Consolinno Energy GmbH ist zur Aufrechterhaltung der vertraglich vereinbarten Beschaffenheit der Software während der Vertragslaufzeit ('Instandhaltung') verpflichtet. Die vertraglich geschuldete Beschaffenheit der Software bestimmt sich nach der zugesagten Funktion des HEMS Produktes. Up Dates erfolgen über eine Internetverbindung.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(2) Consolinno Energy GmbH ist zu einer Änderung, Anpassung und Weiterentwicklung der Software nur dann verpflichtet, wenn das mit dem Kunden gesondert vereinbart ist. Ohne eine solche gesonderte Vereinbarung ist die Consolinno Energy GmbH nicht zu einer Weiterentwicklung der Software verpflichtet.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 30
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            font.bold: true
-                            text: qsTr("6.Gewährleistung")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(1) Sollte dem Kunden Mängel an der Software, am Gerät oder an der Dokumentation feststellen, so hat der Kunde das der Consolinno Energy GmbH mitzuteilen. Das kann zum Beispiel per Mail erfolgen.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(2) Ein Mangel liegt nicht vor, wenn die vom Kunden verwendete Hardware und /oder Software nicht den spezifizierten Anforderungen entspricht.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(3) Consolinno Energy GmbH wird die angezeigten Mängel an der Software und an der Dokumentation innerhalb einer angemessenen Frist zu beheben. Im Rahmen der Mängelbeseitigung hat Consolinno Energy GmbH ein Wahlrecht zwischen Nachbesserung und Ersatzlieferung. Die Kosten der Mängelbeseitigung trägt Consolinno Energy GmbH. Kosten für Ausfall, entgangener Gewinn, Ein- und Ausbaukosten oder ähnliches werden nicht erstattet.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(4) Schlägt die hierin geschuldete Mängelbeseitigung fehl, ist die Kunde zur außerordentlichen Kündigung des betreffenden Vertrages gemäß § 543 Abs. 2 S. 1 Nr. 1 BGB berechtigt.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 30
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            font.bold: true
-                            text: qsTr("8.Haftung")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(1) Der Lizenzgeber haftet unbeschränkt:
-
-    · bei Arglist, Vorsatz oder grober Fahrlässigkeit;
-
-    · im Rahmen einer von ihm ausdrücklich übernommenen Garantie;
-
-    · für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit;
-
-    · nach den Vorschriften des Produkthaftungsgesetzes")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(2) Im Übrigen ist eine Haftung der Consolinno Energy GmbH für direkte und indirekte Schäden ausgeschlossen.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(3) Open Source
-
-Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelten für diese Module die entsprechende Garantie und Haftungsbedingungen. Sollte das nicht möglich sein, dann gilt die Regelung im jeweiligen Anwenderland.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 30
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            font.bold: true
-                            text: qsTr("9.Vertragsdauer und Vertragsbeendigung")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(1) Der Lizenzvertrag tritt mit der Akzeptanz der Lizenzbestimmungen vor der Installation in Kraft in gilt auf unbestimmte Dauer.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(2) Das Recht beider Parteien zur jederzeitigen außerordentlichen und fristlosen Kündigung aus wichtigem Grund bleibt unberührt. Ein wichtiger Grund liegt insbesondere vor, wenn der Lizenzgeber oder die Lizenznehmerin vorsätzlich oder fahrlässig gegen eine wesentliche Pflicht aus diesen Lizenzbestimmungen verstößt und deswegen der kündigenden Partei das Festhalten am Lizenzvertrag nicht mehr zumutbar ist. Der Lizenzgeber ist hiernach insbesondere zur außerordentlichen und fristlosen Kündigung des Lizenzvertrages berechtigt, wenn die Lizenznehmerin die ihr eingeräumten Nutzungsbefugnisse überschreitet und ihre Verletzungshandlungen nicht innerhalb einer angemessenen Frist abstellt, wenn der Lizenzgeber diese zuvor zur Unterlassung dieser Verletzungshandlungen abgemahnt hat.")
-
-                        }
-
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(3) Die Kündigung des Lizenzvertrages bedarf der Schriftform.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(4) Consolinno Energy GmbH kann die Pflege des Programmes ohne nennen von Gründen einstellen")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 30
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            font.bold: true
-                            text: qsTr("11.Schlussbestimmungen")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(1) Sollte eine dieser Lizenzbestimmungen oder eine später in diesen Lizenzvertrag aufgenommene Bestimmung ganz oder teilweise nichtig oder undurchführbar sein oder werden oder sollte sich eine Lücke in diesen Lizenzbestimmungen herausstellen, wird dadurch die Wirksamkeit der übrigen Bestimmungen nicht berührt (Erhaltung). Es ist der ausdrückliche Wille der Parteien, hierdurch die Wirksamkeit der übrigen Bestimmungen unter allen Umständen aufrechtzuerhalten und damit § 139 BGB insgesamt abzubedingen. Anstelle der nichtigen oder undurchführbaren Bestimmung oder zur Ausfüllung der Lücke gilt mit Rückwirkung diejenige wirksame und durchführbare Regelung als bestimmt, die rechtlich und wirtschaftlich dem am nächsten kommt, was die Parteien gewollt haben oder nach dem Sinn und Zweck des Lizenzvertrages gewollt hätten, wenn sie diesen Punkt bei Abschluss dieser Vereinbarung bzw. bei Aufnahme der Bestimmung bedacht hätten; beruht die Nichtigkeit einer Bestimmung auf einem darin festgelegten Maß der Leistung oder der Zeit (Frist oder Termin), so gilt die Bestimmung mit einem dem ursprünglichen Maß am nächsten kommenden rechtlich zulässigen Maß als vereinbart (Ersetzungsfiktion). Ist die Ersetzungsfiktion nicht möglich, ist anstelle der nichtigen oder undurchführbaren Bestimmung oder zur Schließung der Lücke eine Bestimmung bzw. Regelung nach inhaltlicher Maßgabe des vorstehenden Satzes zu treffen (Ersetzungsverpflichtung). Betrifft die Nichtigkeit oder Lücke eine beurkundungspflichtige Bestimmung, so ist die Regelung bzw. die Bestimmung in notariell beurkundeter Form zu vereinbaren.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(2) Änderungen und Ergänzungen des betreffenden Lizenzvertrages einschließlich dieser Klausel bedürfen der Schriftform, soweit nicht etwas anderes bestimmt ist")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(3) Die Parteien dürfen den Lizenzvertrag sowie Rechte und Pflichten aus dem Lizenzvertrag nur mit vorheriger schriftlicher Zustimmung der jeweils anderen Partei auf einen Dritten übertragen.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(4) Die Geltung der Allgemeinen Geschäftsbedingungen der Lizenznehmerin werden ausdrücklich ausgeschlossen.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("(5) Ausschließlicher Gerichtsstand für alle Streitigkeiten aus oder im Zusammenhang mit dem Lizenzvertrag ist der Sitz des Lizenzgebers, Regensburg. Der Lizenzgeber bleibt berechtigt, am allgemeinen Gerichtsstand der Lizenznehmerin zu klagen.")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("Anschrift des Lizenzgebers
-Consolinno Energy GmbH, Franz-Mayer-Straße 1, 93053 Regensburg")
-
-                        }
-
-                        Text{
-                            Layout.topMargin: 15
-                            color: Material.foreground
-                            Layout.preferredWidth: app.width - app.margins*2
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 15
-                            text: qsTr("Tel 0941 20300 333
-Mail service@consolinno.de")
-
-                        }
-
-
-
-
-
-
-
-                    }
-
-
-
-
-
-                }
-
-
-                RowLayout{
-                    CheckBox{
-                        id: readCheckbox
-                        Layout.alignment: Qt.AlignLeft
-
-                    }
+                    Layout.preferredWidth: Math.min(parent.width, 300)
 
                     Label {
                         Layout.fillWidth: true
-                        wrapMode: Text.WordWrap
+                        Layout.fillHeight: true
                         horizontalAlignment: Text.AlignHCenter
-                        text: qsTr("Yes I read the Term of Use and agree")
+                        wrapMode: Text.WordWrap
+                        font: Style.bigFont
+                        text: qsTr('HEMS')
                     }
-                }
-
-
-                Button {
-                    Layout.alignment: Qt.AlignHCenter
-                    text: readCheckbox.checked ? qsTr('next') : qsTr('cancel')
-                    Layout.preferredWidth: 200
-                    background: Rectangle{
-                        color: readCheckbox.checked  ? '#87BD26' : 'grey'
-                        radius: 4
+                    Label {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        horizontalAlignment: Text.AlignHCenter
+                        wrapMode: Text.WordWrap
+                        text: qsTr('Make sure that the Leaflet is operational and connected to the network.')
                     }
-
-
-                    onClicked: {
-                        if (readCheckbox.checked) {
-                            licensePolicyPage.next()
-                        } else {
-                            Qt.quit()
+                    Button {
+                        Layout.alignment: Qt.AlignHCenter
+                        text: qsTr('Start setup')
+                        Layout.preferredWidth: 200
+                        onClicked: demoModePage.next()
+                    }
+                    Button {
+                        Layout.alignment: Qt.AlignHCenter
+                        text: qsTr('Demo mode')
+                        Layout.preferredWidth: 200
+                        onClicked:
+                        {
+                            var host = nymeaDiscovery.nymeaHosts.createWanHost('Demo server', 'nymeas://hems-demo.consolinno-it.de:31222')
+                            engine.jsonRpcClient.connectToHost(host)
                         }
                     }
                 }
             }
+
+
         }
 
 
-
     }
+
 
 
 
@@ -660,7 +665,7 @@ Mail service@consolinno.de")
             showNextButton: false
             showBackButton: false
 
-            onNext: pageStack.push(connectionInfo)
+            onNext: pageStack.push(demoModeComponent)
             onBack: pageStack.pop()
 
             background: Item {}
