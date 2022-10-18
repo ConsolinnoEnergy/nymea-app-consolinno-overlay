@@ -38,6 +38,7 @@ import Qt.labs.settings 1.1
 
 import "../components"
 import "../delegates"
+import "energy"
 
 MainViewBase {
     id: root
@@ -359,6 +360,7 @@ MainViewBase {
 
 
 
+
     Connections {
         target: engine.thingManager
 
@@ -581,27 +583,27 @@ MainViewBase {
                 // end draw Animated Line
 
 
+// Timepicker
+//                ctx.strokeStyle = "black"
+//                ctx.fillStyle = "black"
 
-                ctx.strokeStyle = "black"
-                ctx.fillStyle = "black"
+//                ctx.beginPath();
+//                ctx.setLineDash([1,0])
+//                ctx.lineWidth = 5
+//                ctx.moveTo(0, -chartView.plotArea.height / 2)
+//                ctx.lineTo(0, 0)
+//                ctx.stroke();
+//                ctx.closePath();
 
-                ctx.beginPath();
-                ctx.setLineDash([1,0])
-                ctx.lineWidth = 5
-                ctx.moveTo(0, -chartView.plotArea.height / 2)
-                ctx.lineTo(0, 0)
-                ctx.stroke();
-                ctx.closePath();
+//                ctx.beginPath();
+//                ctx.moveTo(-15, -chartView.plotArea.height / 2)
+//                ctx.lineTo(15, -chartView.plotArea.height / 2)
+//                ctx.lineTo(0, -chartView.plotArea.height / 2 + 20)
+//                ctx.lineTo(-15, -chartView.plotArea.height / 2)
+//                ctx.fill()
+//                ctx.closePath();
 
-                ctx.beginPath();
-                ctx.moveTo(-15, -chartView.plotArea.height / 2)
-                ctx.lineTo(15, -chartView.plotArea.height / 2)
-                ctx.lineTo(0, -chartView.plotArea.height / 2 + 20)
-                ctx.lineTo(-15, -chartView.plotArea.height / 2)
-                ctx.fill()
-                ctx.closePath();
-
-                ctx.restore();
+//                ctx.restore();
             }
 
             function drawAnimatedLine(ctx, thing, tile, bottom, index, relativeTo, inverted, xTranslate, yTranslate) {
@@ -645,79 +647,6 @@ MainViewBase {
                 ctx.closePath();
 
 
-
-
-
-
-//                if (inverted){
-
-//                    if (currentPower >= 0){
-//                    // switch arrow
-//                    ctx.beginPath();
-//                    ctx.setLineDash([1,0])
-//                    canvas_arrow(ctx, startX, startY, startX, startY-10)
-//                    ctx.stroke();
-//                    ctx.closePath();
-//                    }
-//                    else{
-//                        // energyMeter injecting energy into the grid
-//                        ctx.save();
-//                        ctx.beginPath();
-//                        ctx.setLineDash([1,0])
-
-//                        canvas_arrow(ctx, startX+1, startY, startX+1, startY-16)
-
-
-//                        ctx.stroke();
-//                        ctx.restore();
-//                        ctx.closePath();
-
-//                    }
-
-
-
-//                }
-//                else{
-
-//                    if (currentPower >= 0){
-//                    // switch arrow
-//                    ctx.beginPath();
-//                    ctx.setLineDash([1,0])
-//                    canvas_arrow(ctx, startX, startY, startX, startY-10)
-//                    ctx.stroke();
-//                    ctx.closePath();
-//                    }
-//                    else{
-//                        // arrow towards circle
-//                        ctx.beginPath();
-//                        ctx.setLineDash([1,0])
-//                        canvas_arrow(ctx, endX, endY, endX, endY+15)
-//                        ctx.stroke();
-//                        ctx.closePath();
-
-//                    }
-//                }
-
-
-
-
-            }
-
-            function canvas_arrow(context, fromx, fromy, tox, toy) {
-
-
-
-              var headlen = 17; // length of head in pixels
-              var dx = tox - fromx;
-              var dy = toy - fromy;
-              var angle = Math.atan2(dy, dx);
-              //context.moveTo(fromx, fromy);
-              //context.bezierCurveTo(fromx, toy + (fromy -toy)/2, tox,  fromy-(fromy-toy)/2, tox, toy);
-              context.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
-              context.moveTo(tox, toy);
-              context.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
-              context.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6))
-              context.fill()
             }
 
 
@@ -783,285 +712,296 @@ MainViewBase {
 
             }
 
-            LineSeries {
-                id: zeroSeries
-                XYPoint { x: new Date().setTime(new Date().getTime() - 24 * 60 * 60 * 1000); y: 0 }
-                XYPoint { x: new Date().getTime(); y: 0 }
-            }
+//            LineSeries {
+//                id: zeroSeries
+//                XYPoint { x: new Date().setTime(new Date().getTime() - 24 * 60 * 60 * 1000); y: 0 }
+//                XYPoint { x: new Date().getTime(); y: 0 }
+//            }
 
-            PolarChartView {
-                id: chartView
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                Layout.margins: Style.bigMargins
+//            PolarChartView {
+//                id: chartView
+//                Layout.fillWidth: true
+//                Layout.fillHeight: true
+//                Layout.margins: Style.bigMargins
 
-                property int sampleRate: XYSeriesAdapter.SampleRate10Minutes
-                property int busyModels: 0
-                legend.visible: false
-                // Note: Crashes on some devices
-//                animationOptions: ChartView.SeriesAnimations
-                backgroundColor: "transparent"
+//                property int sampleRate: XYSeriesAdapter.SampleRate10Minutes
+//                property int busyModels: 0
+//                legend.visible: false
+//                // Note: Crashes on some devices
+////                animationOptions: ChartView.SeriesAnimations
+//                backgroundColor: "transparent"
 
-                onPlotAreaChanged: {
-                    linesCanvas.requestPaint()
-                    circleCanvas.requestPaint()
-                }
+//                onPlotAreaChanged: {
+//                    linesCanvas.requestPaint()
+//                    circleCanvas.requestPaint()
+//                }
 
-                function appendPoint(series, timestamp, value) {
-                    // always want a point with value 0 at the end.
-                    // if we already have points, we'll remove the 0-point at the end, append the new one and a new 0-point after that
-//                    if (series.count > 0) {
-//                        series.removePoints(series.count - 1, 1)
+//                function appendPoint(series, timestamp, value) {
+//                    // always want a point with value 0 at the end.
+//                    // if we already have points, we'll remove the 0-point at the end, append the new one and a new 0-point after that
+////                    if (series.count > 0) {
+////                        series.removePoints(series.count - 1, 1)
+////                    }
+
+//                    series.append(timestamp, value)
+////                    series.append(new Date().getTime(), 0)
+
+//                    // And make sure the zeroSeries is up on par too
+//                    zeroSeries.removePoints(zeroSeries.count - 1, 1);
+//                    zeroSeries.append(axisAngular.now.getTime(), 0)
+//                }
+
+//                DateTimeAxis {
+//                    id: axisAngular
+//                    gridVisible: false
+//                    labelsVisible: false
+//                    lineVisible: false
+//                    property date now: new Date()
+//                    min: {
+//                        var date = new Date(now);
+//                        date.setTime(date.getTime() - (1000 * 60 * 60 * lsdChart.hours) + 2000);
+//                        return date;
+//                    }
+//                    max: {
+//                        var date = new Date(now);
+//                        date.setTime(date.getTime() + 2000)
+//                        return date;
+//                    }
+//                }
+
+//                ValueAxis {
+//                    id: axisRadial
+//                    gridVisible: false
+//                    labelsVisible: false
+//                    lineVisible: false
+//                    minorGridVisible: false
+//                    shadesVisible: false
+//                    color: "black"
+//                    max: Math.max(Math.abs(powerBalanceLogs.maxValue), Math.abs(powerBalanceLogs.minValue)) * 1.1
+//                    min: -Math.max(Math.abs(powerBalanceLogs.maxValue), Math.abs(powerBalanceLogs.minValue)) * 1.1
+//                }
+
+//                AreaSeries {
+//                    id: productionSeries
+//                    axisAngular: axisAngular
+//                    axisRadial: axisRadial
+//                    color: lsdChart.producersColor
+//                    borderColor: color
+//                    borderWidth: 0
+//                    lowerSeries: zeroSeries
+//                    upperSeries: LineSeries {
+//                        id: productionUpperSeries
+//                        Component.onCompleted: {
+//                            for (var i = 0; i < powerBalanceLogs.count; i++) {
+//                                var entry = powerBalanceLogs.get(i);
+//                                chartView.appendPoint(productionUpperSeries, entry.timestamp.getTime(), -entry.production)
+//                            }
+//                        }
+
+//                        Connections {
+//                            target: powerBalanceLogs
+//                            onEntryAdded: {
+//                                chartView.appendPoint(productionUpperSeries, entry.timestamp.getTime(), -entry.production)
+//                            }
+//                        }
+//                    }
+//                }
+
+//                AreaSeries {
+//                    id: acquisitionSeries
+//                    axisAngular: axisAngular
+//                    axisRadial: axisRadial
+//                    color: lsdChart.rootMeterAcquisitionColor
+//                    borderColor: color
+//                    borderWidth: 0
+//                    lowerSeries: zeroSeries
+////                    visible: false
+//                    upperSeries: LineSeries {
+//                        id: acquisitionUpperSeries
+//                        Component.onCompleted: {
+//                            for (var i = 0; i < powerBalanceLogs.count; i++) {
+//                                var entry = powerBalanceLogs.get(i);
+//                                chartView.appendPoint(acquisitionSeries, entry.timestamp.getTime(), entry.acquisition)
+//                            }
+//                        }
+
+//                        Connections {
+//                            target: powerBalanceLogs
+//                            onEntryAdded: {
+//                                chartView.appendPoint(acquisitionUpperSeries, entry.timestamp.getTime(), entry.acquisition)
+//                            }
+//                        }
+//                    }
+//                }
+
+//                AreaSeries {
+//                    id: returnSeries
+//                    axisAngular: axisAngular
+//                    axisRadial: axisRadial
+//                    color: lsdChart.rootMeterReturnColor
+//                    borderColor: color
+//                    borderWidth: 0
+////                    visible: false
+//                    lowerSeries: zeroSeries
+//                    upperSeries: LineSeries {
+//                        id: returnUpperSeries
+//                        Component.onCompleted: {
+//                            for (var i = 0; i < powerBalanceLogs.count; i++) {
+//                                var entry = powerBalanceLogs.get(i);
+//                                chartView.appendPoint(returnUpperSeries, entry.timestamp.getTime(), -entry.acquisition)
+//                            }
+//                        }
+
+//                        Connections {
+//                            target: powerBalanceLogs
+//                            onEntryAdded: {
+//                                chartView.appendPoint(returnUpperSeries, entry.timestamp.getTime(), -entry.acquisition)
+//                            }
+//                        }
+//                    }
+//                }
+
+//                AreaSeries {
+//                    id: storageSeries
+//                    axisAngular: axisAngular
+//                    axisRadial: axisRadial
+//                    color: lsdChart.batteriesColor
+//                    borderColor: color
+//                    borderWidth: 0
+////                    visible: false
+//                    lowerSeries: zeroSeries
+//                    upperSeries: LineSeries {
+//                        id: storageUpperSeries
+//                        Component.onCompleted: {
+//                            for (var i = 0; i < powerBalanceLogs.count; i++) {
+//                                var entry = powerBalanceLogs.get(i);
+//                                chartView.appendPoint(storageUpperSeries, entry.timestamp.getTime(), -entry.storage)
+//                            }
+//                        }
+
+//                        Connections {
+//                            target: powerBalanceLogs
+//                            onEntryAdded: {
+//                                chartView.appendPoint(storageUpperSeries, entry.timestamp.getTime(), -entry.storage)
+//                            }
+//                        }
+//                    }
+//                }
+
+//                Repeater {
+//                    model: consumers
+//                    delegate: Item {
+//                        id: consumerDelegate
+//                        property Thing thing: consumers.get(index)
+//                        property AreaSeries consumerSeries: null
+//                        Component.onCompleted: {
+//                            consumerSeries = chartView.createSeries(ChartView.SeriesTypeArea, thing.name, axisAngular, axisRadial)
+//                            consumerSeries.lowerSeries = zeroSeries
+//                            consumerSeries.upperSeries = lineSeriesComponent.createObject(consumerSeries)
+//                            consumerSeries.color = lsdChart.consumersColors[index]
+//                            consumerSeries.borderWidth = 0
+//                            consumerSeries.borderColor = consumerSeries.color
+//                        }
+//                        Component.onDestruction: {
+//                            chartView.removeSeries(consumerSeries)
+//                        }
+
+//                        Component {
+//                            id: lineSeriesComponent
+//                            LineSeries {
+//                                id: consumerUpperSeries
+//                                Component.onCompleted: {
+//                                    for (var i = 0; i < thingPowerLogs.count; i++) {
+//                                        var entry = thingPowerLogs.get(i)
+//                                        if (entry.thingId !== consumerDelegate.thing.id) {
+//                                            continue
+//                                        }
+//                                        chartView.appendPoint(consumerUpperSeries, entry.timestamp.getTime(), entry.currentPower)
+//                                    }
+//                                }
+//                                Connections {
+//                                    target: thingPowerLogs
+//                                    onEntryAdded: {
+//                                        chartView.appendPoint(consumerUpperSeries, entry.timestamp.getTime(), entry.currentPower)
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+
+//                Rectangle {
+//                    id: innerCircle
+//                    x: chartView.plotArea.x + width / 2
+//                    y: chartView.plotArea.y + height / 2
+//                    width: chartView.plotArea.width / 2
+//                    height: chartView.plotArea.height / 2
+//                    radius: width / 2
+//                    color: "#aeaeae"
+//                    border.width: 2
+//                    border.color: "white"
+////                    visible: false
+
+//                    MouseArea {
+//                        anchors.fill: parent
+//                        onPressed: {
+//                            // Only handle presses that are within the circle
+//                            var mouseXcentered = mouseX - width / 2
+//                            var mouseYcentered = mouseY - height / 2
+//                            var distanceFromCenter = Math.sqrt(Math.pow(mouseXcentered, 2) + Math.pow(mouseYcentered, 2))
+//                            if (distanceFromCenter > width / 2) {
+//                                mouse.accepted = false
+//                            }
+//                        }
+//                        onClicked: pageStack.push("DetailedGraphsPage.qml", {energyManager: energyManager, consumersColors: lsdChart.consumersColors})
 //                    }
 
-                    series.append(timestamp, value)
-//                    series.append(new Date().getTime(), 0)
+//                    ColumnLayout {
+//                        anchors.verticalCenter: parent.verticalCenter
+//                        anchors.left: parent.left
+//                        anchors.right: parent.right
+//                        anchors.margins: Style.margins
+//                        Behavior on opacity { NumberAnimation { duration: 150 } }
 
-                    // And make sure the zeroSeries is up on par too
-                    zeroSeries.removePoints(zeroSeries.count - 1, 1);
-                    zeroSeries.append(axisAngular.now.getTime(), 0)
-                }
+//                        Label {
+//                            Layout.fillWidth: true
+//                            textFormat: Text.RichText
+//                            horizontalAlignment: Text.AlignHCenter
+//                            color: "white"
+//                            text: '<span style="font-size:' + Style.bigFont.pixelSize + 'px">' +
+//                                  (energyManager.currentPowerConsumption < 1000 ? energyManager.currentPowerConsumption : energyManager.currentPowerConsumption / 1000).toFixed(1)
+//                            + '</span> <span style="font-size:' + Style.smallFont.pixelSize + 'px">'
+//                                  + (energyManager.currentPowerConsumption < 1000 ? "W" : "kW")
+//                            + '</span>'
+//                        }
 
-                DateTimeAxis {
-                    id: axisAngular
-                    gridVisible: false
-                    labelsVisible: false
-                    lineVisible: false
-                    property date now: new Date()
-                    min: {
-                        var date = new Date(now);
-                        date.setTime(date.getTime() - (1000 * 60 * 60 * lsdChart.hours) + 2000);
-                        return date;
-                    }
-                    max: {
-                        var date = new Date(now);
-                        date.setTime(date.getTime() + 2000)
-                        return date;
-                    }
-                }
+//                        Label {
+//                            id: mainviewTestingLabel
+//                            Layout.fillWidth: true
+//                            text: qsTr("Total current power usage")
 
-                ValueAxis {
-                    id: axisRadial
-                    gridVisible: false
-                    labelsVisible: false
-                    lineVisible: false
-                    minorGridVisible: false
-                    shadesVisible: false
-                    color: "black"
-                    max: Math.max(Math.abs(powerBalanceLogs.maxValue), Math.abs(powerBalanceLogs.minValue)) * 1.1
-                    min: -Math.max(Math.abs(powerBalanceLogs.maxValue), Math.abs(powerBalanceLogs.minValue)) * 1.1
-                }
+//                            horizontalAlignment: Text.AlignHCenter
+//                            wrapMode: Text.WordWrap
+//                            elide: Text.ElideMiddle
+//                            color: "white"
+//                            font: Style.smallFont
+//                            visible: innerCircle.height > 120
+//                        }
 
-                AreaSeries {
-                    id: productionSeries
-                    axisAngular: axisAngular
-                    axisRadial: axisRadial
-                    color: lsdChart.producersColor
-                    borderColor: color
-                    borderWidth: 0
-                    lowerSeries: zeroSeries
-                    upperSeries: LineSeries {
-                        id: productionUpperSeries
-                        Component.onCompleted: {
-                            for (var i = 0; i < powerBalanceLogs.count; i++) {
-                                var entry = powerBalanceLogs.get(i);
-                                chartView.appendPoint(productionUpperSeries, entry.timestamp.getTime(), -entry.production)
-                            }
-                        }
+//                    }
+//                }
+//            }
 
-                        Connections {
-                            target: powerBalanceLogs
-                            onEntryAdded: {
-                                chartView.appendPoint(productionUpperSeries, entry.timestamp.getTime(), -entry.production)
-                            }
-                        }
-                    }
-                }
+            CurrentConsumptionBalancePieChart{
+                id: chartView
+                Layout.fillWidth: true
+                Layout.preferredHeight: app.height/2
+                energyManager: energyManager
+                animationsEnabled: Qt.application.active
 
-                AreaSeries {
-                    id: acquisitionSeries
-                    axisAngular: axisAngular
-                    axisRadial: axisRadial
-                    color: lsdChart.rootMeterAcquisitionColor
-                    borderColor: color
-                    borderWidth: 0
-                    lowerSeries: zeroSeries
-//                    visible: false
-                    upperSeries: LineSeries {
-                        id: acquisitionUpperSeries
-                        Component.onCompleted: {
-                            for (var i = 0; i < powerBalanceLogs.count; i++) {
-                                var entry = powerBalanceLogs.get(i);
-                                chartView.appendPoint(acquisitionSeries, entry.timestamp.getTime(), entry.acquisition)
-                            }
-                        }
-
-                        Connections {
-                            target: powerBalanceLogs
-                            onEntryAdded: {
-                                chartView.appendPoint(acquisitionUpperSeries, entry.timestamp.getTime(), entry.acquisition)
-                            }
-                        }
-                    }
-                }
-
-                AreaSeries {
-                    id: returnSeries
-                    axisAngular: axisAngular
-                    axisRadial: axisRadial
-                    color: lsdChart.rootMeterReturnColor
-                    borderColor: color
-                    borderWidth: 0
-//                    visible: false
-                    lowerSeries: zeroSeries
-                    upperSeries: LineSeries {
-                        id: returnUpperSeries
-                        Component.onCompleted: {
-                            for (var i = 0; i < powerBalanceLogs.count; i++) {
-                                var entry = powerBalanceLogs.get(i);
-                                chartView.appendPoint(returnUpperSeries, entry.timestamp.getTime(), -entry.acquisition)
-                            }
-                        }
-
-                        Connections {
-                            target: powerBalanceLogs
-                            onEntryAdded: {
-                                chartView.appendPoint(returnUpperSeries, entry.timestamp.getTime(), -entry.acquisition)
-                            }
-                        }
-                    }
-                }
-
-                AreaSeries {
-                    id: storageSeries
-                    axisAngular: axisAngular
-                    axisRadial: axisRadial
-                    color: lsdChart.batteriesColor
-                    borderColor: color
-                    borderWidth: 0
-//                    visible: false
-                    lowerSeries: zeroSeries
-                    upperSeries: LineSeries {
-                        id: storageUpperSeries
-                        Component.onCompleted: {
-                            for (var i = 0; i < powerBalanceLogs.count; i++) {
-                                var entry = powerBalanceLogs.get(i);
-                                chartView.appendPoint(storageUpperSeries, entry.timestamp.getTime(), -entry.storage)
-                            }
-                        }
-
-                        Connections {
-                            target: powerBalanceLogs
-                            onEntryAdded: {
-                                chartView.appendPoint(storageUpperSeries, entry.timestamp.getTime(), -entry.storage)
-                            }
-                        }
-                    }
-                }
-
-                Repeater {
-                    model: consumers
-                    delegate: Item {
-                        id: consumerDelegate
-                        property Thing thing: consumers.get(index)
-                        property AreaSeries consumerSeries: null
-                        Component.onCompleted: {
-                            consumerSeries = chartView.createSeries(ChartView.SeriesTypeArea, thing.name, axisAngular, axisRadial)
-                            consumerSeries.lowerSeries = zeroSeries
-                            consumerSeries.upperSeries = lineSeriesComponent.createObject(consumerSeries)
-                            consumerSeries.color = lsdChart.consumersColors[index]
-                            consumerSeries.borderWidth = 0
-                            consumerSeries.borderColor = consumerSeries.color
-                        }
-                        Component.onDestruction: {
-                            chartView.removeSeries(consumerSeries)
-                        }
-
-                        Component {
-                            id: lineSeriesComponent
-                            LineSeries {
-                                id: consumerUpperSeries
-                                Component.onCompleted: {
-                                    for (var i = 0; i < thingPowerLogs.count; i++) {
-                                        var entry = thingPowerLogs.get(i)
-                                        if (entry.thingId !== consumerDelegate.thing.id) {
-                                            continue
-                                        }
-                                        chartView.appendPoint(consumerUpperSeries, entry.timestamp.getTime(), entry.currentPower)
-                                    }
-                                }
-                                Connections {
-                                    target: thingPowerLogs
-                                    onEntryAdded: {
-                                        chartView.appendPoint(consumerUpperSeries, entry.timestamp.getTime(), entry.currentPower)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                Rectangle {
-                    id: innerCircle
-                    x: chartView.plotArea.x + width / 2
-                    y: chartView.plotArea.y + height / 2
-                    width: chartView.plotArea.width / 2
-                    height: chartView.plotArea.height / 2
-                    radius: width / 2
-                    color: "#aeaeae"
-                    border.width: 2
-                    border.color: "white"
-//                    visible: false
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onPressed: {
-                            // Only handle presses that are within the circle
-                            var mouseXcentered = mouseX - width / 2
-                            var mouseYcentered = mouseY - height / 2
-                            var distanceFromCenter = Math.sqrt(Math.pow(mouseXcentered, 2) + Math.pow(mouseYcentered, 2))
-                            if (distanceFromCenter > width / 2) {
-                                mouse.accepted = false
-                            }
-                        }
-                        onClicked: pageStack.push("DetailedGraphsPage.qml", {energyManager: energyManager, consumersColors: lsdChart.consumersColors})
-                    }
-
-                    ColumnLayout {
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        anchors.margins: Style.margins
-                        Behavior on opacity { NumberAnimation { duration: 150 } }
-
-                        Label {
-                            Layout.fillWidth: true
-                            textFormat: Text.RichText
-                            horizontalAlignment: Text.AlignHCenter
-                            color: "white"
-                            text: '<span style="font-size:' + Style.bigFont.pixelSize + 'px">' +
-                                  (energyManager.currentPowerConsumption < 1000 ? energyManager.currentPowerConsumption : energyManager.currentPowerConsumption / 1000).toFixed(1)
-                            + '</span> <span style="font-size:' + Style.smallFont.pixelSize + 'px">'
-                                  + (energyManager.currentPowerConsumption < 1000 ? "W" : "kW")
-                            + '</span>'
-                        }
-
-                        Label {
-                            id: mainviewTestingLabel
-                            Layout.fillWidth: true
-                            text: qsTr("Total current power usage")
-
-                            horizontalAlignment: Text.AlignHCenter
-                            wrapMode: Text.WordWrap
-                            elide: Text.ElideMiddle
-                            color: "white"
-                            font: Style.smallFont
-                            visible: innerCircle.height > 120
-                        }
-
-                    }
-                }
             }
+
+
 
             Flickable {
                 Layout.preferredWidth: Math.min(implicitWidth, parent.width - Style.margins * 2)
@@ -1116,77 +1056,79 @@ MainViewBase {
             }
         }
 
-        Canvas {
-            id: circleCanvas
-            anchors.fill: parent
+//        Canvas {
+//            id: circleCanvas
+//            anchors.fill: parent
 
-            Timer {
-                running: true
-                repeat: true
-                interval: 15000
-                onTriggered: {
-                    axisAngular.now = new Date()
-                    circleCanvas.requestPaint()
-                }
-            }
+//            Timer {
+//                running: true
+//                repeat: true
+//                interval: 15000
+//                onTriggered: {
+//                    axisAngular.now = new Date()
+//                    circleCanvas.requestPaint()
+//                }
+//            }
 
-            property int circleWidth: 20
+//            property int circleWidth: 20
 
-            onPaint: {
-                var ctx = getContext("2d");
-                ctx.reset();
-                ctx.save();
-                var xTranslate = chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2
-                var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
-                ctx.translate(xTranslate, yTranslate)
+//            onPaint: {
+//                var ctx = getContext("2d");
+//                ctx.reset();
+//                ctx.save();
+//                var xTranslate = chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2
+//                var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
+//                ctx.translate(xTranslate, yTranslate)
 
 
-                // Outer circle
-                ctx.lineWidth = circleWidth;
-                var sliceAngle = 2 * Math.PI / lsdChart.hours
-                var timeSinceFullHour = new Date().getMinutes()
-                var timeDiffRotation = timeSinceFullHour * sliceAngle / 60
+//                // Outer circle
+//                ctx.lineWidth = circleWidth;
+//                var sliceAngle = 2 * Math.PI / lsdChart.hours
+//                var timeSinceFullHour = new Date().getMinutes()
+//                var timeDiffRotation = timeSinceFullHour * sliceAngle / 60
 
-                for (var i = 0; i < lsdChart.hours; i++) {
-                    ctx.save();
+//                for (var i = 0; i < lsdChart.hours; i++) {
+//                    ctx.save();
 
-                    ctx.rotate(i * sliceAngle - timeDiffRotation)
+//                    ctx.rotate(i * sliceAngle - timeDiffRotation)
 
-                    ctx.beginPath();
-                    ctx.strokeStyle = i % 2 == 0 ? Style.gray : Style.darkGray;
-                    ctx.arc(0, 0, (chartView.plotArea.width + circleWidth) / 2, 0, sliceAngle);
-                    ctx.stroke();
-                    ctx.closePath();
+//                    ctx.beginPath();
+//                    ctx.strokeStyle = i % 2 == 0 ? Style.gray : Style.darkGray;
+//                    ctx.arc(0, 0, (chartView.plotArea.width + circleWidth) / 2, 0, sliceAngle);
+//                    ctx.stroke();
+//                    ctx.closePath();
 
-                    ctx.restore()
-                }
+//                    ctx.restore()
+//                }
 
-                // Hour texts in outer circle
-                var startHour = new Date().getHours() - lsdChart.hours + 1
-                for (var i = 0; i < lsdChart.hours; i++) {
-                    ctx.save();
+//                // Hour texts in outer circle
+//                var startHour = new Date().getHours() - lsdChart.hours + 1
+//                for (var i = 0; i < lsdChart.hours; i++) {
+//                    ctx.save();
 
-                    ctx.rotate(i * sliceAngle - timeDiffRotation + sliceAngle * 1.5)
+//                    ctx.rotate(i * sliceAngle - timeDiffRotation + sliceAngle * 1.5)
 
-                    var tmpDate = new Date()
-                    tmpDate.setHours(startHour + i, 0, 0)
-                    ctx.textAlign = 'center';
-                    ctx.font = "" + Style.smallFont.pixelSize + "px " + Style.smallFont.family
-                    ctx.fillStyle = "white"
-                    var textY = -(chartView.plotArea.height + circleWidth) / 2 + Style.smallFont.pixelSize / 2
-                    // Just can't figure out where I'm missing thosw 2 pixels in the proper calculation (yet)...
-                    textY -= 2
-                    if (chartView.width > 400 && chartView.height > 400) {
-                        ctx.fillText(tmpDate.toLocaleTimeString(Qt.locale("de_DE"), "HH:mm"), 0, textY)
-                    } else {
-                        ctx.fillText(tmpDate.getHours(), 0, textY)
-                    }
+//                    var tmpDate = new Date()
+//                    tmpDate.setHours(startHour + i, 0, 0)
+//                    ctx.textAlign = 'center';
+//                    ctx.font = "" + Style.smallFont.pixelSize + "px " + Style.smallFont.family
+//                    ctx.fillStyle = "white"
+//                    var textY = -(chartView.plotArea.height + circleWidth) / 2 + Style.smallFont.pixelSize / 2
+//                    // Just can't figure out where I'm missing thosw 2 pixels in the proper calculation (yet)...
+//                    textY -= 2
+//                    if (chartView.width > 400 && chartView.height > 400) {
+//                        ctx.fillText(tmpDate.toLocaleTimeString(Qt.locale("de_DE"), "HH:mm"), 0, textY)
+//                    } else {
+//                        ctx.fillText(tmpDate.getHours(), 0, textY)
+//                    }
 
-                    ctx.restore()
-                }
-                ctx.restore();
-            }
-        }
+//                    ctx.restore()
+//                }
+//                ctx.restore();
+//            }
+//        }
+
+
     }
 /*
     Rectangle {
