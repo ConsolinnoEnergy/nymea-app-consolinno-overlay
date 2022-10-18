@@ -38,19 +38,19 @@ ChartView {
         property double fromProduction: energyManager.currentPowerConsumption - fromGrid - fromStorage
 
         PieSlice {
-            color: Style.red
+            color: "#F37B8E"
             borderColor: Style.backgroundColor
 
             value: consumptionBalanceSeries.fromGrid
         }
         PieSlice {
-            color: Style.green
+            color: "#FCE487"
             borderColor: Style.backgroundColor
 
             value: consumptionBalanceSeries.fromProduction
         }
         PieSlice {
-            color: Style.orange
+            color: "#ACE3E2"
             borderColor: Style.backgroundColor
             value: consumptionBalanceSeries.fromStorage
         }
@@ -69,22 +69,43 @@ ChartView {
         x: consumptionPieChart.plotArea.x + (consumptionPieChart.plotArea.width - width) / 2
         y: consumptionPieChart.plotArea.y + (consumptionPieChart.plotArea.height - height) / 2
         width: consumptionPieChart.plotArea.width * 0.65
-//                    height: consumptionPieChart.plotArea.height * 0.65
         height: childrenRect.height
         spacing: Style.smallMargins
 
         ColumnLayout {
             width: parent.width
             spacing: 0
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked:{
+                    pageStack.push("../mainviews/DetailedGraphsPage.qml", {energyManager: energyManager, consumersColors: lsdChart.consumersColors})
+                }
+            }
+
             Image {
                 id: home
                 scale: 0.8
                 source: "../images/home.svg"
-                //Layout.preferredWidth: parent.width *0.65 *0.88/2
-                //Layout.preferredHeight: home.width
                 horizontalAlignment: Text.AlignHCenter
                 Layout.alignment: Qt.AlignCenter
+                ColorOverlay{
+                    anchors.fill: home
+                    source: home
+                    color: Material.foreground
+                }
+
             }
+
+
+            Label{
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignHCenter
+                font: Style.bigfont
+                text: qsTr("Current consumption")
+
+            }
+
 
             Label {
                 text: "%1 %2"
@@ -92,72 +113,9 @@ ChartView {
                 .arg(energyManager.currentPowerConsumption > 1000 ? "kW" : "W")
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
-                font: Style.bigFont
 
             }
         }
 
-
-//        ColumnLayout {
-//            width: parent.width
-//            spacing: 0
-//            Label {
-//                text: qsTr("From grid")
-//                Layout.fillWidth: true
-//                horizontalAlignment: Text.AlignHCenter
-//                font: Style.extraSmallFont
-//            }
-//            Label {
-//                property double absValue: consumptionBalanceSeries.fromGrid
-//                color: Style.red
-//                text: "%1 %2"
-//                .arg((absValue / (absValue > 1000 ? 1000 : 1)).toFixed(1))
-//                .arg(absValue > 1000 ? "kW" : "W")
-//                Layout.fillWidth: true
-//                horizontalAlignment: Text.AlignHCenter
-//                font: Style.smallFont
-//            }
-//        }
-
-
-//        ColumnLayout {
-//            width: parent.width
-//            spacing: 0
-//            Label {
-//                text: qsTr("From self production")
-//                Layout.fillWidth: true
-//                horizontalAlignment: Text.AlignHCenter
-//                font: Style.extraSmallFont
-//            }
-//            Label {
-//                color: Style.green
-//                property double absValue: consumptionBalanceSeries.fromProduction
-//                text: "%1 %2".arg((absValue / (absValue > 1000 ? 1000 : 1)).toFixed(1))
-//                .arg(absValue > 1000 ? "kW" : "W")
-//                Layout.fillWidth: true
-//                horizontalAlignment: Text.AlignHCenter
-//                font: Style.smallFont
-//            }
-//        }
-//        ColumnLayout {
-//            width: parent.width
-//            spacing: 0
-//            visible: batteries.count > 0
-//            Label {
-//                text: qsTr("From battery")
-//                Layout.fillWidth: true
-//                horizontalAlignment: Text.AlignHCenter
-//                font: Style.extraSmallFont
-//            }
-//            Label {
-//                color: Style.orange
-//                property double absValue: consumptionBalanceSeries.fromStorage
-//                text: "%1 %2".arg((absValue / (absValue > 1000 ? 1000 : 1)).toFixed(1))
-//                .arg(absValue > 1000 ? "kW" : "W")
-//                Layout.fillWidth: true
-//                horizontalAlignment: Text.AlignHCenter
-//                font: Style.smallFont
-//            }
-//        }
     }
 }

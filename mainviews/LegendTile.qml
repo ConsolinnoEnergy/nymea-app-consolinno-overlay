@@ -79,7 +79,7 @@ MouseArea {
             }
 
             ColorIcon {
-                size: Style.iconSize
+                size: Style.iconSize + 8
                 Layout.alignment: Qt.AlignCenter
                 name: !root.thing || root.isBattery ? "" : app.interfacesToIcon(root.thing.thingClass.interfaces)
                 color: "black"
