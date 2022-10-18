@@ -73,5 +73,6 @@
         <file>info/Help/ServicePage.qml</file>
         <file>info/Privacy/PrivacyPage.qml</file>
         <file>components/ConsolinnoPasswordTextField.qml</file>
+        <file>Statistics/ConCurrentConsumptionBalancePieChart.qml</file>
     </qresource>
 </RCC>

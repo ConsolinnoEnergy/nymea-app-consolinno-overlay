@@ -38,7 +38,7 @@ import Qt.labs.settings 1.1
 
 import "../components"
 import "../delegates"
-import "energy"
+import "../Statistics"
 
 MainViewBase {
     id: root
@@ -992,12 +992,13 @@ MainViewBase {
 //                }
 //            }
 
-            CurrentConsumptionBalancePieChart{
+            ConCurrentConsumptionBalancePieChart{
                 id: chartView
                 Layout.fillWidth: true
                 Layout.preferredHeight: app.height/2
+                Layout.alignment: Qt.AlignCenter
                 energyManager: energyManager
-                animationsEnabled: Qt.application.active
+                //animationsEnabled: Qt.application.active
 
             }
 
