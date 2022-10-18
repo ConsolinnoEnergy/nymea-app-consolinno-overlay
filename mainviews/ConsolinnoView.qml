@@ -515,7 +515,7 @@ MainViewBase {
             onLineAnimationProgressChanged: requestPaint()
 
             onPaint: {
-//                print("repainting lines canvas")
+//              repainting lines canvas
                 var ctx = getContext("2d");
                 ctx.reset();
                 ctx.save();
@@ -525,7 +525,7 @@ MainViewBase {
 
                 ctx.beginPath()
                 ctx.fillStyle = Material.background
-                ctx.arc(0, 0, chartView.plotArea.width / 2 , 0, 2 * Math.PI)
+                ctx.arc(0, 0, chartView.plotArea.width / 2, 0, 2 * Math.PI)
                 ctx.fill();
                 ctx.closePath()
 
@@ -582,26 +582,26 @@ MainViewBase {
 
 
 
-                ctx.strokeStyle = "black"
-                ctx.fillStyle = "black"
+//                ctx.strokeStyle = "black"
+//                ctx.fillStyle = "black"
 
-                ctx.beginPath();
-                ctx.setLineDash([1,0])
-                ctx.lineWidth = 5
-                ctx.moveTo(0, -chartView.plotArea.height / 2)
-                ctx.lineTo(0, 0)
-                ctx.stroke();
-                ctx.closePath();
+//                ctx.beginPath();
+//                ctx.setLineDash([1,0])
+//                ctx.lineWidth = 5
+//                ctx.moveTo(0, -chartView.plotArea.height / 2)
+//                ctx.lineTo(0, 0)
+//                ctx.stroke();
+//                ctx.closePath();
 
-                ctx.beginPath();
-                ctx.moveTo(-15, -chartView.plotArea.height / 2)
-                ctx.lineTo(15, -chartView.plotArea.height / 2)
-                ctx.lineTo(0, -chartView.plotArea.height / 2 + 20)
-                ctx.lineTo(-15, -chartView.plotArea.height / 2)
-                ctx.fill()
-                ctx.closePath();
+//                ctx.beginPath();
+//                ctx.moveTo(-15, -chartView.plotArea.height / 2)
+//                ctx.lineTo(15, -chartView.plotArea.height / 2)
+//                ctx.lineTo(0, -chartView.plotArea.height / 2 + 20)
+//                ctx.lineTo(-15, -chartView.plotArea.height / 2)
+//                ctx.fill()
+//                ctx.closePath();
 
-                ctx.restore();
+//                ctx.restore();
             }
 
             function drawAnimatedLine(ctx, thing, tile, bottom, index, relativeTo, inverted, xTranslate, yTranslate) {
@@ -706,6 +706,7 @@ MainViewBase {
                 onPlotAreaChanged: {
                     linesCanvas.requestPaint()
                     circleCanvas.requestPaint()
+
                 }
 
                 function appendPoint(series, timestamp, value) {
@@ -713,14 +714,24 @@ MainViewBase {
                     // if we already have points, we'll remove the 0-point at the end, append the new one and a new 0-point after that
 //                    if (series.count > 0) {
 //                        series.removePoints(series.count - 1, 1)
+
 //                    }
 
-                    series.append(timestamp, value)
+                    // ensure, that the amount of points does not grow infintely
+                    if (series.count > 60*24){
+                        series.removePoints(0,0)
+                    }
+
+                    series.append(timestamp , value)
 //                    series.append(new Date().getTime(), 0)
 
                     // And make sure the zeroSeries is up on par too
                     zeroSeries.removePoints(zeroSeries.count - 1, 1);
                     zeroSeries.append(axisAngular.now.getTime(), 0)
+
+                    // repaint the timepicker so the charts dont overlap
+                    timePickerCanvas.requestPaint()
+
                 }
 
                 DateTimeAxis {
@@ -748,7 +759,7 @@ MainViewBase {
                     lineVisible: false
                     minorGridVisible: false
                     shadesVisible: false
-                    color: "black"
+                    color: Material.background
                     max: Math.max(Math.abs(powerBalanceLogs.maxValue), Math.abs(powerBalanceLogs.minValue)) * 1.1
                     min: -Math.max(Math.abs(powerBalanceLogs.maxValue), Math.abs(powerBalanceLogs.minValue)) * 1.1
                 }
@@ -758,7 +769,7 @@ MainViewBase {
                     axisAngular: axisAngular
                     axisRadial: axisRadial
                     color: lsdChart.producersColor
-                    borderColor: color
+                    borderColor: "transparent"
                     borderWidth: 0
                     lowerSeries: zeroSeries
                     upperSeries: LineSeries {
@@ -784,7 +795,7 @@ MainViewBase {
                     axisAngular: axisAngular
                     axisRadial: axisRadial
                     color: lsdChart.rootMeterAcquisitionColor
-                    borderColor: color
+                    borderColor: "transparent"
                     borderWidth: 0
                     lowerSeries: zeroSeries
 //                    visible: false
@@ -811,7 +822,7 @@ MainViewBase {
                     axisAngular: axisAngular
                     axisRadial: axisRadial
                     color: lsdChart.rootMeterReturnColor
-                    borderColor: color
+                    borderColor: "transparent"
                     borderWidth: 0
 //                    visible: false
                     lowerSeries: zeroSeries
@@ -838,7 +849,7 @@ MainViewBase {
                     axisAngular: axisAngular
                     axisRadial: axisRadial
                     color: lsdChart.batteriesColor
-                    borderColor: color
+                    borderColor: "transparent"
                     borderWidth: 0
 //                    visible: false
                     lowerSeries: zeroSeries
@@ -910,9 +921,10 @@ MainViewBase {
                     height: chartView.plotArea.height / 2
                     radius: width / 2
                     color: "#aeaeae"
-                    border.width: 2
-                    border.color: "white"
-//                    visible: false
+                    border.width: 0
+                    antialiasing: true
+                    border.color: "transparent"
+                    //visible: false
 
                     MouseArea {
                         anchors.fill: parent
@@ -960,9 +972,64 @@ MainViewBase {
                             visible: innerCircle.height > 120
                         }
 
+//                        Label {
+//                            id: mainviewTestingLabel2
+//                            Layout.fillWidth: true
+//                            text: qsTr("test")
+
+//                            horizontalAlignment: Text.AlignHCenter
+//                            wrapMode: Text.WordWrap
+//                            elide: Text.ElideMiddle
+//                            color: "white"
+//                            font: Style.smallFont
+//                            visible: innerCircle.height > 120
+//                        }
+
                     }
                 }
             }
+
+            Canvas {
+                id: timePickerCanvas
+                anchors.fill: parent
+                // Breaks on iOS!
+                //renderTarget: Canvas.FramebufferObject
+                renderStrategy: Canvas.Cooperative
+
+                onPaint: {
+    //              paint timePicker canvas
+                    var ctx = getContext("2d");
+                    ctx.reset();
+                    ctx.save();
+                    var xTranslate = chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2
+                    var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
+                    ctx.translate(xTranslate, yTranslate)
+
+                    ctx.strokeStyle = "black"
+                    ctx.fillStyle = "black"
+
+                    ctx.beginPath();
+                    ctx.setLineDash([1,0])
+                    ctx.lineWidth = 5
+                    ctx.moveTo(0, -chartView.plotArea.height / 2 + innerCircle.radius)
+                    ctx.lineTo(0, -(chartView.plotArea.width + 20) / 2)
+                    ctx.stroke();
+                    ctx.closePath();
+
+                    ctx.beginPath();
+                    ctx.moveTo(-15, -chartView.plotArea.height / 2)
+                    ctx.lineTo(15, -chartView.plotArea.height / 2)
+                    ctx.lineTo(0, -chartView.plotArea.height / 2 + 20)
+                    ctx.lineTo(-15, -chartView.plotArea.height / 2)
+                    ctx.fill()
+                    ctx.closePath();
+
+                    ctx.restore();
+
+                }
+            }
+
+
 
             Flickable {
                 Layout.preferredWidth: Math.min(implicitWidth, parent.width - Style.margins * 2)
