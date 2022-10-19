@@ -42,6 +42,11 @@ Page {
                     engine.thingManager.addThing(thingClass.id, d.name, params);
                 }
                 break;
+
+                // If any Plugin comes up with one of those setupMethods to be implemented, Look up SetupSolarInverterWizard and look at
+                // the implementation there. Its more than just this case and you need a bit of stuff
+                // However I couldnt implement it yet, since there is no EvCharger yet, which needs this Method.
+
                 // Display Pin
             case 1:
                 // Enter Pin
