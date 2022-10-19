@@ -22,6 +22,11 @@ Page {
     }
 
 
+    HemsManager{
+        id: hemsManager
+        engine: _engine
+    }
+
     QtObject {
         id: d
         property var vendorId: null
@@ -667,10 +672,6 @@ Page {
                 pendingCallId = engine.thingManager.addDiscoveredThing(thingDescriptor.thingClassId, thing.id, thing.name, {})
             }
 
-            HemsManager{
-                id: hemsManager
-                engine: _engine
-            }
 
 
             ColumnLayout {
@@ -816,7 +817,7 @@ Page {
         Page {
             id: resultsView
             header: NymeaHeader {
-                text: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
+                text: qsTr("Reconfigure %1").arg(d.thingName)
                 onBackPressed: pageStack.pop()
             }
 
@@ -844,8 +845,7 @@ Page {
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WordWrap
-                    text: thingError
-                    //text: resultsView.success ? qsTr("All done. You can now start using %1.").arg(resultsView.thing.name) : qsTr("Something went wrong setting up this thing...");
+                    text: resultsView.success ? qsTr("All done. You can now start using %1.").arg(resultsView.thing.name) : qsTr("Something went wrong setting up this thing...");
                 }
 
                 Label {
