@@ -1508,15 +1508,15 @@ Mail service@consolinno.de")
                     }
                 }
 
-                Label{
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    Layout.margins: Style.margins
-                    //horizontalAlignment: Text.AlignHCenter
-                    wrapMode: Text.WordWrap
-                    text: qsTr('You have to authenticate yourself to the Leaflet. For further information look at the manual for commissioning.')
+//                Label{
+//                    Layout.fillHeight: true
+//                    Layout.fillWidth: true
+//                    Layout.margins: Style.margins
+//                    //horizontalAlignment: Text.AlignHCenter
+//                    wrapMode: Text.WordWrap
+//                    text: qsTr('You have to authenticate yourself to the Leaflet. For further information look at the manual for commissioning.')
 
-                }
+//                }
 
 
             }
