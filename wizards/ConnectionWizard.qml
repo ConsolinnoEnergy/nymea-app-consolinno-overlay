@@ -546,14 +546,14 @@ Mail service@consolinno.de")
         RowLayout{
             CheckBox{
                 id: readCheckbox
-                Layout.alignment: Qt.AlignLeft
+                Layout.alignment: Qt.AlignHCenter
 
             }
 
             Label {
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
-                horizontalAlignment: Text.AlignHCenter
+                horizontalAlignment: Text.AlignLeft
                 text: qsTr("Yes I read the Term of Use and agree")
             }
         }
@@ -1204,14 +1204,14 @@ Mail service@consolinno.de")
                 RowLayout{
                     CheckBox{
                         id: accountCheckbox
-                        Layout.alignment: Qt.AlignLeft
+                        Layout.alignment: Qt.AlignHCenter
 
                     }
 
                     Label {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
-                        horizontalAlignment: Text.AlignHCenter
+                        horizontalAlignment: Text.AlignLeft
                         text: qsTr("Yes I agree to open a user account, according to part 6 ")
                     }
                 }
@@ -1220,14 +1220,14 @@ Mail service@consolinno.de")
                 RowLayout{
                     CheckBox {
                         id: policyCheckbox
-                        Layout.alignment: Qt.AlignLeft
+                        Layout.alignment: Qt.AlignHCenter
                     }
 
 
                     Label {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
-                        horizontalAlignment: Text.AlignHCenter
+                        horizontalAlignment: Text.AlignLeft
                         text: qsTr('I confirm that I have read the the agreement and I am accepting it.')
                     }
                 }

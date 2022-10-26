@@ -644,7 +644,7 @@ Page {
 
                     Label {
                         id: evLabel
-                        Layout.fillWidth: true
+                        //Layout.fillWidth: true
                         text: qsTr("Electric car:")
 
 
@@ -652,8 +652,10 @@ Page {
                     ConsolinnoItemDelegate {
                         id: carSelector
                         Layout.fillWidth: true
-                        Layout.maximumWidth: 300
+                        //Layout.maximumWidth: 300
+                        Layout.minimumWidth: 50
                         Layout.leftMargin: 20
+                        Layout.alignment: Qt.AlignRight
 
                         text:  evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar).name : qsTr("Select/Add Car")
                         holdingItem: evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar) : false

@@ -491,7 +491,7 @@ MainViewBase {
         readonly property string rootMeterReturnColor:  "#24A0D6"
         readonly property color producersColor: "#F7EC5A"
         readonly property color batteriesColor: "#84D35E"
-        readonly property var consumersColors: [ "#EEAC66", "#CB5C9E", "#9984C4", "#84982E", "#639F86", "#6FD2CD" ]
+        readonly property var consumersColors: ["#F37B8E", "#ACE3E2", "#FCE487", "#BDD786", "#F7B772", "#45B4E4", "#ADB9E3", Style.pink, Style.darkBlue]
 
 
 
