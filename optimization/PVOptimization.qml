@@ -287,7 +287,10 @@ Page {
 
                 if (directionID === 1) {
 
-                    if (longitudefield.text !== "0" || latitude.text !== "0") {
+                    if (Number.fromLocaleString(Qt.locale(),
+                                                longitudefield.text) !== 0
+                            || Number.fromLocaleString(Qt.locale(),
+                                                       latitude.text) !== 0) {
 
                         header.text = longitudefield.text
                         hemsManager.setPvConfiguration(thing.id, {
@@ -308,8 +311,10 @@ Page {
                                     "Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)")
                     }
                 } else if (directionID === 0) {
-
-                    if (longitudefield.text !== "0" || latitude.text !== "0") {
+                    if (Number.fromLocaleString(Qt.locale(),
+                                                longitudefield.text) !== 0
+                            || Number.fromLocaleString(Qt.locale(),
+                                                       latitude.text) !== 0) {
 
                         d.pendingCallId = hemsManager.setPvConfiguration(
                                     thing.id, {
