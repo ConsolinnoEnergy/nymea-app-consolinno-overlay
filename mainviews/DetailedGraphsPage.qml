@@ -56,31 +56,20 @@ Page {
                 columnSpacing: 0
 
 
-                CurrentConsumptionBalancePieChart {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: width
-                    energyManager: root.energyManager
-                    visible: producers.count > 0
-                }
+//                CurrentConsumptionBalancePieChart {
+//                    Layout.fillWidth: true
+//                    Layout.preferredHeight: width
+//                    energyManager: root.energyManager
+//                    visible: producers.count > 0
+//                }
+                //1
                 CurrentProductionBalancePieChart {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     energyManager: root.energyManager
                     visible: producers.count > 0
                 }
-
-                PowerConsumptionBalanceHistory {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: width
-                    visible: producers.count > 0
-                }
-
-                PowerProductionBalanceHistory {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: width
-                    visible: producers.count > 0
-                }
-
+                //2
                 ConsumersPieChart {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
@@ -89,7 +78,20 @@ Page {
                     colors: root.consumersColors
                     consumers: consumers
                 }
+                //3
+                PowerProductionBalanceHistory {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: width
+                    visible: producers.count > 0
+                }
 
+                //4
+                PowerConsumptionBalanceHistory {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: width
+                    visible: producers.count > 0
+                }
+                //5
                 ConsumersHistory {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
@@ -97,14 +99,14 @@ Page {
                     colors: root.consumersColors
                     consumers: consumers
                 }
-
+                //6
                 PowerBalanceStats {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     energyManager: root.energyManager
                     visible: rootMeter != null
                 }
-
+                //7
                 ConsumerStats {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width

@@ -59,9 +59,11 @@ MouseArea {
             spacing: Style.smallMargins
 
             Rectangle {
+                id: headerLabelRectangle
                 Layout.fillWidth: true
                 Layout.preferredHeight: headerLabel.height + Style.margins
-                color: Qt.darker(root.currentColor, 1.3)
+                //color: Qt.darker(root.currentColor, 1.3)
+                color: root.currentColor
 
                 Label {
                     // here is the issue with the different textsizes
@@ -69,7 +71,7 @@ MouseArea {
                     width: parent.width //- Style.margins
                     text: Math.abs(root.currentPower) + " W"
                     elide: Text.ElideRight
-                    color: "white"
+                    color: "black"
                     horizontalAlignment: Text.AlignHCenter
 
                     anchors.verticalCenter: parent.verticalCenter
@@ -77,7 +79,7 @@ MouseArea {
             }
 
             ColorIcon {
-                size: Style.iconSize
+                size: Style.iconSize + 8
                 Layout.alignment: Qt.AlignCenter
                 name: !root.thing || root.isBattery ? "" : app.interfacesToIcon(root.thing.thingClass.interfaces)
                 color: "black"
@@ -122,17 +124,24 @@ MouseArea {
                 }
             }
 
-            Label {
-                Layout.fillWidth: true
-                horizontalAlignment: Text.AlignHCenter
-                Layout.leftMargin: Style.smallMargins
-                Layout.rightMargin: Style.smallMargins
-                Layout.bottomMargin: Style.smallMargins
-                font: Style.smallFont
-                text:  root.thing.name
-                elide: Text.ElideRight
-                color: "black"
+            Rectangle{
+                id: fillerRec
+                height: 15
+                width: headerLabelRectangle.width
+                color: root.currentColor
+
             }
+//            Label {
+//                Layout.fillWidth: true
+//                horizontalAlignment: Text.AlignHCenter
+//                Layout.leftMargin: Style.smallMargins
+//                Layout.rightMargin: Style.smallMargins
+//                Layout.bottomMargin: Style.smallMargins
+//                font: Style.smallFont
+//                text:  root.thing.name
+//                elide: Text.ElideRight
+//                color: "black"
+//            }
         }
     }
 
