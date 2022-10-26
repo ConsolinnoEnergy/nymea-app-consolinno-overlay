@@ -13,19 +13,18 @@ Page {
     property Thing thing
     property int directionID: 0
 
-    signal done()
+    signal done
 
-//    PositionSource{
-//        id: src
-//        updateInterval: 1000
-//        name: "SerialPortNmea"
-//        preferredPositioningMethods: PositionSource.SatellitePositioningMethods
-//        active: true
+    //    PositionSource{
+    //        id: src
+    //        updateInterval: 1000
+    //        name: "SerialPortNmea"
+    //        preferredPositioningMethods: PositionSource.SatellitePositioningMethods
+    //        active: true
 
-//        onPositionChanged: {
-//        }
-//    }
-
+    //        onPositionChanged: {
+    //        }
+    //    }
     header: NymeaHeader {
         text: qsTr("PV configuration")
         backButtonVisible: directionID === 1 ? false : true
@@ -37,37 +36,33 @@ Page {
         property int pendingCallId: -1
     }
 
-
-
     Connections {
         target: hemsManager
         onSetPvConfigurationReply: {
-
 
             if (commandId == d.pendingCallId) {
                 d.pendingCallId = -1
                 switch (error) {
                 case "HemsErrorNoError":
                     pageStack.pop()
-                    return;
+                    return
                 case "HemsErrorInvalidParameter":
-                    props.text = qsTr("Could not save configuration. One of the parameters is invalid.");
-                    break;
+                    props.text = qsTr(
+                                "Could not save configuration. One of the parameters is invalid.")
+                    break
                 case "HemsErrorInvalidThing":
-                    props.text = qsTr("Could not save configuration. The thing is not valid.");
-                    break;
+                    props.text = qsTr(
+                                "Could not save configuration. The thing is not valid.")
+                    break
                 default:
-                    props.errorCode = error;
+                    props.errorCode = error
                 }
                 var comp = Qt.createComponent("../components/ErrorDialog.qml")
                 var popup = comp.createObject(app, props)
-                popup.open();
+                popup.open()
             }
         }
-
     }
-
-
 
     ColumnLayout {
         id: contentColumn
@@ -78,12 +73,29 @@ Page {
         anchors.margins: app.margins
         spacing: 5
 
+        function parseNumber(text) {
+            try {
+                // Try locale parse
+                var v = Number.fromLocaleString(Qt.locale(), text)
+                //print("parsed locale")
+            } catch (e) {
+                try {
+                    // Parse EN (decimal point)
+                    var v = Number.fromLocaleString(Qt.locale("en_EN"), text)
+                    //print("parsed EN")
+                } catch (e) {
+                    // Last try, parse float. Returns 0 if fail to convert
+                    var v = parseFloat(text)
+                    //print("parsed float")
+                }
+            }
+            return v
+        }
 
         Label {
             Layout.fillWidth: true
             text: thing.name
             wrapMode: Text.WordWrap
-
         }
 
         RowLayout {
@@ -100,24 +112,20 @@ Page {
                 Layout.minimumWidth: 55
                 Layout.maximumWidth: 55
                 Layout.rightMargin: 48
-                //text: pvConfiguration.latitude !== 0? pvConfiguration.latitude : src.position.coordinate.latitude.toFixed(0)
-                text: pvConfiguration.latitude.toFixed(2).toString().replace('.', ',')
-                validator: DoubleValidator{
+                text: pvConfiguration.latitude.toLocaleString(Qt.locale())
+                validator: DoubleValidator {
                     bottom: -90
                     top: 90
                     decimals: 4
                     notation: "StandardNotation"
                 }
-                onTextChanged: acceptableInput ?latitude_validated = true : latitude_validated = false
-
-
-
+                onTextChanged: acceptableInput ? latitude_validated
+                                                 = true : latitude_validated = false
             }
             Label {
                 id: latitudeunit
                 text: qsTr("°")
             }
-
         }
 
         RowLayout {
@@ -135,18 +143,17 @@ Page {
                 Layout.minimumWidth: 55
                 Layout.maximumWidth: 55
                 Layout.rightMargin: 48
-                //text: pvConfiguration.longitude !== 0 ? pvConfiguration.longitude : src.position.coordinate.longitude.toFixed(0)
-                text: pvConfiguration.longitude.toFixed(2).toString().replace('.', ',')
+                text: pvConfiguration.longitude.toLocaleString(Qt.locale())
 
-                validator: DoubleValidator{
+                validator: DoubleValidator {
                     bottom: -180
                     top: 180
                     decimals: 4
                     notation: "StandardNotation"
                 }
 
-                onTextChanged: acceptableInput ? longitude_validated = true : longitude_validated = false
-
+                onTextChanged: acceptableInput ? longitude_validated
+                                                 = true : longitude_validated = false
             }
 
             Label {
@@ -154,8 +161,6 @@ Page {
                 text: qsTr("°")
             }
         }
-
-
 
         RowLayout {
             Layout.fillWidth: true
@@ -175,13 +180,13 @@ Page {
                 Layout.rightMargin: 48
 
                 text: pvConfiguration.roofPitch
-                validator: IntValidator{
-                    bottom: 0;
+                validator: IntValidator {
+                    bottom: 0
                     top: 90
                 }
-                onTextChanged: acceptableInput ?roofpitch_validated = true : roofpitch_validated = false
+                onTextChanged: acceptableInput ? roofpitch_validated
+                                                 = true : roofpitch_validated = false
             }
-
 
             Label {
                 id: roofpitchunit
@@ -205,12 +210,12 @@ Page {
                 Layout.maximumWidth: 55
                 Layout.rightMargin: 48
                 text: pvConfiguration.alignment
-                validator: IntValidator{
-                    bottom: 0;
+                validator: IntValidator {
+                    bottom: 0
                     top: 360
                 }
-                onTextChanged: acceptableInput ?alignment_validated = true : alignment_validated = false
-
+                onTextChanged: acceptableInput ? alignment_validated
+                                                 = true : alignment_validated = false
             }
 
             Label {
@@ -218,12 +223,10 @@ Page {
                 Layout.alignment: Qt.AlignLeft
                 text: qsTr("°")
             }
-
         }
 
         RowLayout {
             Layout.fillWidth: true
-
 
             Label {
                 id: peakId
@@ -241,12 +244,10 @@ Page {
                 Layout.maximumWidth: 70
                 text: pvConfiguration.kwPeak
                 maximumLength: 7
-                validator: DoubleValidator{
-                    bottom: 1;
+                validator: DoubleValidator {
+                    bottom: 1
                 }
-                onTextChanged: acceptableInput ?kwPeak_validated = true : kwPeak_validated = false
-
-
+                onTextChanged: acceptableInput ? kwPeak_validated = true : kwPeak_validated = false
             }
 
             Label {
@@ -254,13 +255,7 @@ Page {
                 text: qsTr("kW")
                 Layout.alignment: Qt.AlignRight
             }
-
         }
-
-
-
-
-
 
         Label {
             id: footer
@@ -269,87 +264,71 @@ Page {
             Layout.rightMargin: app.margins
             wrapMode: Text.WordWrap
             font.pixelSize: app.smallFont
-
         }
-
-
 
         Button {
             id: savebutton
             Layout.fillWidth: true
-            property bool validated: longitudefield.longitude_validated && latitude.latitude_validated && roofpitch.roofpitch_validated && alignment.alignment_validated && kwPeak.kwPeak_validated
+            property bool validated: longitudefield.longitude_validated
+                                     && latitude.latitude_validated
+                                     && roofpitch.roofpitch_validated
+                                     && alignment.alignment_validated
+                                     && kwPeak.kwPeak_validated
             text: qsTr("Save")
             //enabled: configurationSettingsChanged
             onClicked: {
 
-
-
-                // check if a . was set
-                if ( latitude.text.search(/(\.){1}/) >= 0 ){
-                    footer.text = qsTr("Please, when putting in the latitude use comma (,) not a dot (.)")
-                    return
-
-                }
-
-                // check if a . was set
-                if ( longitudefield.text.search(/(\.){1}/) >= 0 ){
-                    footer.text = qsTr("Please, when putting in the longitude use comma (,) not a dot (.)")
-                    return
-
-                }
-
-
-                header.text = longitudefield.longitude_validated
-
                 // the input is in the range that is defined in the individual Validator
-                if (validated == false)
-                {
-                    footer.text = qsTr("Some values are out of range. Please check your input.")
+                if (validated == false) {
+                    footer.text = qsTr(
+                                "Some values are out of range. Please check your input.")
                     return
                 }
 
+                if (directionID === 1) {
 
-                if (directionID === 1){
-
-
-
-                    if (longitudefield.text !== "0" || latitude.text !== "0"){
+                    if (longitudefield.text !== "0" || latitude.text !== "0") {
 
                         header.text = longitudefield.text
-                        //hemsManager.setPvConfiguration(thing.id, {longitude: longitudefield.text, latitude: latitude.text, roofPitch: roofpitch.text, alignment: alignment.text, kwPeak: kwPeak.text})
-                        //footer.text = ""
+                        hemsManager.setPvConfiguration(thing.id, {
+                                                           "longitude": Number.fromLocaleString(
+                                                                            Qt.locale(),
+                                                                            longitudefield.text),
+                                                           "latitude": Number.fromLocaleString(
+                                                                           Qt.locale(),
+                                                                           latitude.text),
+                                                           "roofPitch": roofpitch.text,
+                                                           "alignment": alignment.text,
+                                                           "kwPeak": kwPeak.text
+                                                       })
+                        footer.text = ""
                         root.done()
-
-                    }else{
-                        footer.text = qsTr("Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)")
+                    } else {
+                        footer.text = qsTr(
+                                    "Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)")
                     }
+                } else if (directionID === 0) {
 
+                    if (longitudefield.text !== "0" || latitude.text !== "0") {
 
-
-
-
-                }else if(directionID === 0){
-
-
-
-                    if (longitudefield.text !== "0" || latitude.text !== "0"){
-
-
-
-                        //d.pendingCallId = hemsManager.setPvConfiguration(thing.id, {longitude: longitudefield.text, latitude: latitude.text, roofPitch: roofpitch.text, alignment: alignment.text, kwPeak: kwPeak.text})
-                    }else{
-                        footer.text = qsTr("Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)")
+                        d.pendingCallId = hemsManager.setPvConfiguration(
+                                    thing.id, {
+                                        "longitude": Number.fromLocaleString(
+                                                         Qt.locale(),
+                                                         longitudefield.text),
+                                        "latitude": Number.fromLocaleString(
+                                                        Qt.locale(),
+                                                        latitude.text),
+                                        "roofPitch": roofpitch.text,
+                                        "alignment": alignment.text,
+                                        "kwPeak": kwPeak.text
+                                    })
+                    } else {
+                        footer.text = qsTr(
+                                    "Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)")
                     }
-
-
                 }
-
             }
-
-
         }
-
-
-
     }
 }
