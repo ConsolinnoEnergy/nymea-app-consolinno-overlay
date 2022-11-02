@@ -577,24 +577,6 @@ MainViewBase {
                 }
 
                 // end draw Animated Line
-                ctx.strokeStyle = "gray"
-                ctx.fillStyle = "gray"
-
-                ctx.beginPath()
-                ctx.setLineDash([1, 0])
-                ctx.lineWidth = 3
-                ctx.moveTo(0, -chartView.plotArea.height / 2)
-                ctx.lineTo(0, 0)
-                ctx.stroke()
-                ctx.closePath()
-                ctx.beginPath()
-                ctx.moveTo(-10, -chartView.plotArea.height / 2)
-                ctx.lineTo(10, -chartView.plotArea.height / 2)
-                ctx.lineTo(0, -chartView.plotArea.height / 2 + 20)
-                ctx.lineTo(-10, -chartView.plotArea.height / 2)
-                ctx.fill()
-                ctx.closePath()
-                ctx.restore()
             }
 
             function drawAnimatedLine(ctx, thing, tile, bottom, index, relativeTo, inverted, xTranslate, yTranslate) {
@@ -700,6 +682,9 @@ MainViewBase {
                 }
             }
 
+
+
+
             PolarChartView {
                 id: chartView
                 Layout.fillWidth: true
@@ -714,8 +699,9 @@ MainViewBase {
                 backgroundColor: "transparent"
 
                 onPlotAreaChanged: {
-                    linesCanvas.requestPaint()
                     circleCanvas.requestPaint()
+                    linesCanvas.requestPaint()
+                    timePickerCanvas.requestPaint()
                 }
 
                 function appendPoint(series, timestamp, value) {
@@ -737,9 +723,6 @@ MainViewBase {
                     // And make sure the zeroSeries is up on par too
                     zeroSeries.removePoints(zeroSeries.count - 1, 1)
                     zeroSeries.append(axisAngular.now.getTime(), 0)
-
-                    // repaint the timepicker so the charts dont overlap
-                    //timePickerCanvas.requestPaint()
                 }
 
                 DateTimeAxis {
@@ -949,6 +932,7 @@ MainViewBase {
                     }
                 }
 
+
                 Rectangle {
                     id: innerCircle
                     x: chartView.plotArea.x + width / 2
@@ -1059,6 +1043,48 @@ MainViewBase {
                         //                            visible: innerCircle.height > 120
                         //                        }
                     }
+                }
+            }
+
+            Canvas {
+                id: timePickerCanvas
+                anchors.fill: parent
+
+
+
+                // Breaks on iOS!
+                //renderTarget: Canvas.FramebufferObject
+                renderStrategy: Canvas.Cooperative
+
+                onPaint: {
+    //              paint timePicker canvas
+                    var ctx = getContext("2d");
+                    ctx.reset();
+                    ctx.save();
+                    var xTranslate = chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2
+                    var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
+                    ctx.translate(xTranslate, yTranslate)
+
+                    ctx.strokeStyle = "gray"
+                    ctx.fillStyle = "gray"
+
+                    ctx.beginPath();
+                    ctx.lineWidth = 3
+                    ctx.moveTo(0, -chartView.plotArea.height / 2 + innerCircle.radius)
+                    ctx.lineTo(0, -(chartView.plotArea.width + 20) / 2)
+                    ctx.stroke();
+                    ctx.closePath();
+
+                    ctx.beginPath();
+                    ctx.moveTo(-15, -chartView.plotArea.height / 2)
+                    ctx.lineTo(15, -chartView.plotArea.height / 2)
+                    ctx.lineTo(0, -chartView.plotArea.height / 2 + 20)
+                    ctx.lineTo(-15, -chartView.plotArea.height / 2)
+                    ctx.fill()
+                    ctx.closePath();
+
+                    ctx.restore();
+
                 }
             }
 
