@@ -1260,22 +1260,34 @@ MainViewBase {
                 var timeSinceFullHour = new Date().getMinutes()
                 var timeDiffRotation = timeSinceFullHour * sliceAngle / 60
 
+
+                // could also be just a circle if only one color is used
+                // see strokeStyle
                 for (var i = 0; i < lsdChart.hours; i++) {
                     ctx.save()
-
                     ctx.rotate(i * sliceAngle - timeDiffRotation)
-
                     ctx.beginPath()
-                    //ctx.strokeStyle = i % 2 == 0 ? Style.gray : Style.darkGray;
-                    ctx.strokeStyle = "#d7d7d7"
-
+                    //ctx.strokeStyle = i % 2 == 0 ? Style.gray : Style.darkGray; //alternating colors
+                    ctx.strokeStyle = "#d7d7d7" // could also be achieved with only a circle
                     ctx.arc(0, 0, (chartView.plotArea.width + circleWidth) / 2,
-                            0, sliceAngle - 0.005)
+                            0, sliceAngle)
                     ctx.stroke()
                     ctx.closePath()
-
                     ctx.restore()
                 }
+                // Dividers between sections
+                for (var i = 0; i < lsdChart.hours; i++) {
+                    ctx.save()
+                    ctx.rotate(i * sliceAngle - timeDiffRotation)
+                    ctx.beginPath()
+                    ctx.strokeStyle = "#ffffff"
+                    ctx.arc(0, 0, (chartView.plotArea.width + circleWidth) / 2,
+                            0, 0.005)
+                    ctx.stroke()
+                    ctx.closePath()
+                    ctx.restore()
+                }
+
 
                 // Hour texts in outer circle
                 var startHour = new Date().getHours() - lsdChart.hours + 1
