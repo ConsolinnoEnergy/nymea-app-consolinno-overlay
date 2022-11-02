@@ -4,12 +4,7 @@
         <file>styles/light/Button.qml</file>
         <file>styles/light/logo.svg</file>
         <file>styles/light/logo-wide.svg</file>
-        <file>styles/dark/Style.qml</file>
-        <file>styles/dark/Button.qml</file>
-        <file>styles/dark/logo.svg</file>
-        <file>styles/dark/logo-wide.svg</file>
         <file>translations/consolinno-energy-de.qm</file>
-        <file>styles/dark/Background.qml</file>
         <file>styles/light/Background.qml</file>
     </qresource>
     <qresource prefix="/ui">
