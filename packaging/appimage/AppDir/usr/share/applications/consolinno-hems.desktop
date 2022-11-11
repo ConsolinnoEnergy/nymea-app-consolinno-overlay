@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Consolinno HEMS
+Comment=App for controlling the Consolinno HEMS system
+Exec=consolinno-energy
+Icon=consolinno-energy
+Categories=Office;
