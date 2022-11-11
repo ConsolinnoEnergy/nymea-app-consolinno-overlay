@@ -1,0 +1,7 @@
+Name=Consolinno HEMS
+Comment=A client application for the Consolinno HEMS system
+Icon=consolinno-energy
+Terminal=false
+Type=Application
+Exec=consolinno-energy
+Categories=Network;
