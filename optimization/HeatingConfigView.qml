@@ -42,16 +42,13 @@ Page {
                     id: consumption
                     text: qsTr("Current consumption:")
                     Layout.leftMargin:  15
+                    visible: heatpumpThing ? heatpumpThing.stateByName("currentPower"): false
                 }
-
-
-
-
 
             Label{
                 id: consumptionValue
                 text: heatpumpThing.stateByName("currentPower").value + " W"
-
+                visible: heatpumpThing ? heatpumpThing.stateByName("currentPower"): false
              }
         }
 
