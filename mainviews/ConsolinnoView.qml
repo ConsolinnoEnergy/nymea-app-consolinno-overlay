@@ -1301,20 +1301,6 @@ MainViewBase {
                     ctx.closePath()
                     ctx.restore()
                 }
-                // Dividers between sections
-                for (var i = 0; i < lsdChart.hours; i++) {
-                    ctx.save()
-                    ctx.rotate(i * sliceAngle - timeDiffRotation)
-                    ctx.beginPath()
-                    ctx.strokeStyle = "#ffffff"
-                    ctx.arc(0, 0, (chartView.plotArea.width + circleWidth) / 2,
-                            0, 0.005)
-                    ctx.stroke()
-                    ctx.closePath()
-                    ctx.restore()
-                }
-
-
 
                 // Hour texts in outer circle
                 var startHour = new Date().getHours() - lsdChart.hours + 1
