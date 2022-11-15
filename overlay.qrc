@@ -68,5 +68,7 @@
         <file>info/Help/ServicePage.qml</file>
         <file>info/Privacy/PrivacyPage.qml</file>
         <file>components/ConsolinnoPasswordTextField.qml</file>
+        <file>images/heatpump.svg</file>
+        <file>images/grid.svg</file>
     </qresource>
 </RCC>

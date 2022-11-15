@@ -18,6 +18,8 @@ MouseArea {
     readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
     readonly property bool isProducer: thing && thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0
     readonly property bool isBattery: thing && thing.thingClass.interfaces.indexOf("energystorage") >= 0
+    property bool isRootmeter: false
+
 
     readonly property double currentPower: root.currentPowerState ? root.currentPowerState.value.toFixed(0) : 0
     readonly property State batteryLevelState: isBattery ? thing.stateByName("batteryLevel") : null
@@ -49,6 +51,40 @@ MouseArea {
         return ((r * 299 + g * 587 + b * 114) / 1000) < 200
     }
 
+    function getLabeltext(power) {
+        if (currentPowerState != null) {
+            return Math.abs(power) + " W"
+        }
+        return "–"
+    }
+
+
+    function ifacesToIcon(interfaces) {
+        for (var i = 0; i < interfaces.length; i++) {
+            var icon = ifaceToIcon(interfaces[i]);
+            if (icon !== "") {
+                return icon;
+            }
+        }
+        return Qt.resolvedUrl("images/select-none.svg")
+    }
+
+    function ifaceToIcon(name) {
+        switch (name) {
+        case "smartgridheatpump":
+            return Qt.resolvedUrl("/ui/images/heatpump.svg")
+        default:
+            return app.interfaceToIcon(name)
+        }
+    }
+
+
+    function thingToIcon(thing) {
+        if(isRootmeter)
+            return Qt.resolvedUrl("/ui/images/grid.svg")
+        return ifacesToIcon(thing.thingClass.interfaces)
+    }
+
     Item {
         id: content
         anchors.fill: parent
@@ -67,7 +103,7 @@ MouseArea {
                     // here is the issue with the different textsizes
                     id: headerLabel
                     width: parent.width //- Style.margins
-                    text: Math.abs(root.currentPower) + " W"
+                    text: getLabeltext(root.currentPower)
                     elide: Text.ElideRight
                     color: "white"
                     horizontalAlignment: Text.AlignHCenter
@@ -79,8 +115,8 @@ MouseArea {
             ColorIcon {
                 size: Style.iconSize
                 Layout.alignment: Qt.AlignCenter
-                name: !root.thing || root.isBattery ? "" : app.interfacesToIcon(root.thing.thingClass.interfaces)
-                color: "black"
+                name: !root.thing || root.isBattery ? "" : thingToIcon(root.thing)
+                color: "#3b3b3b"
                 visible: !root.isBattery
             }
 

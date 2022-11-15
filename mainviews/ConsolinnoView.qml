@@ -420,7 +420,7 @@ MainViewBase {
     ThingsProxy {
         id: consumers
         engine: _engine
-        shownInterfaces: ["smartmeterconsumer"]
+        shownInterfaces: ["smartmeterconsumer", "heatpump"]
     }
     ThingsProxy {
         id: inverters
@@ -518,9 +518,14 @@ MainViewBase {
                                                        "currentPower").value))
                 }
                 for (var i = 0; i < consumers.count; i++) {
+                    if (consumers.get(i).thingClass.interfaces.indexOf("smartmeterconsumer") >= 0)
+                    {
                     maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
                                                    consumers.get(i).stateByName(
                                                        "currentPower").value))
+                    }else{
+                        maxCurrentPower = 0
+                    }
                 }
                 for (var i = 0; i < producers.count; i++) {
                     maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
@@ -538,7 +543,7 @@ MainViewBase {
 
                 // dashed lines from rootMeter
                 if (rootMeter) {
-                    drawAnimatedLine(ctx, rootMeter, rootMeterTile, false,
+                    drawAnimatedLine(ctx, rootMeter.stateByName("currentPower").value, rootMeterTile, false,
                                      -(totalTop - 1) / 2, maxCurrentPower,
                                      true, xTranslate, yTranslate)
                 }
@@ -550,7 +555,7 @@ MainViewBase {
                     if (producer.id !== rootMeter.id) {
                         var tile = legendProducersRepeater.itemAt(i)
                         drawAnimatedLine(
-                                    ctx, producer, tile, false,
+                                    ctx, producer.stateByName("currentPower").value, tile, false,
                                     (i + 1) - ((totalTop - 1) / 2), maxCurrentPower,
                                     false, xTranslate, yTranslate)
                     }
@@ -561,17 +566,26 @@ MainViewBase {
                 for (var i = 0; i < consumers.count; i++) {
                     var consumer = consumers.get(i)
                     var tile = legendConsumersRepeater.itemAt(i)
-                    drawAnimatedLine(ctx, consumer, tile, true,
+                    if (consumer.thingClass.interfaces.indexOf("smartmeterconsumer") >= 0)
+                    {
+                    drawAnimatedLine(ctx, consumer.stateByName("currentPower").value, tile, true,
                                      i - ((totalBottom - 1) / 2),
                                      maxCurrentPower, false, xTranslate,
                                      yTranslate)
+                    }else{
+                    // draws line for consumers without power monitoring
+                    drawAnimatedLine(ctx, 0, tile, true,
+                                     i - ((totalBottom - 1) / 2),
+                                     maxCurrentPower, false, xTranslate,
+                                     yTranslate)
+                    }
                 }
 
                 for (var i = 0; i < batteries.count; i++) {
                     var battery = batteries.get(i)
                     var tile = legendBatteriesRepeater.itemAt(i)
                     drawAnimatedLine(
-                                ctx, battery, tile, true,
+                                ctx, battery.stateByName("currentPower").value, tile, true,
                                 consumers.count + i - ((totalBottom - 1) / 2), maxCurrentPower,
                                 false, xTranslate, yTranslate)
                 }
@@ -579,10 +593,9 @@ MainViewBase {
                 // end draw Animated Line
             }
 
-            function drawAnimatedLine(ctx, thing, tile, bottom, index, relativeTo, inverted, xTranslate, yTranslate) {
+            function drawAnimatedLine(ctx, currentPower, tile, bottom, index, relativeTo, inverted, xTranslate, yTranslate) {
                 ctx.beginPath()
                 // rM : max = x : 5
-                var currentPower = thing.stateByName("currentPower").value
                 ctx.lineWidth = Math.abs(currentPower) / Math.abs(
                             relativeTo) * 5 + 1
                 ctx.setLineDash([5, 2])
@@ -637,6 +650,7 @@ MainViewBase {
                 LegendTile {
                     id: rootMeterTile
                     thing: rootMeter
+                    isRootmeter: true
                     color: lsdChart.rootMeterAcquisitionColor
                     negativeColor: lsdChart.rootMeterReturnColor
                     onClicked: {
