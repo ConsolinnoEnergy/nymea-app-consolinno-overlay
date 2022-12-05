@@ -523,8 +523,6 @@ MainViewBase {
                     maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
                                                    consumers.get(i).stateByName(
                                                        "currentPower").value))
-                    }else{
-                        maxCurrentPower = 0
                     }
                 }
                 for (var i = 0; i < producers.count; i++) {
