@@ -120,6 +120,10 @@ MainViewBase {
             manualWizardSettings.energymeter = false
         }
 
+        function resetBlackoutProtectionSettings() {
+            blackoutProtectionSetting.blackoutProtectionDone = false
+        }
+
         function initialManualWizardSettings() {
             manualWizardSettings.solarPanelDone = true
             manualWizardSettings.evChargerDone = true
@@ -128,6 +132,7 @@ MainViewBase {
             manualWizardSettings.installerData = true
             manualWizardSettings.energymeter = true
         }
+
 
         function setup(showFinalPage) {
 
@@ -1376,6 +1381,7 @@ MainViewBase {
         onButtonClicked: {
             d.resetWizardSettings()
             d.initialManualWizardSettings()
+            d.resetBlackoutProtectionSettings()
             d.setup(false)
         }
     }
