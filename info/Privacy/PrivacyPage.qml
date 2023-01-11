@@ -570,6 +570,8 @@ Page {
                    CheckBox {
                        id: policyCheckbox
                        Layout.alignment: Qt.AlignLeft
+                       Accessible.name: this.id
+                       Accessible.checkable: true
                    }
 
 
