@@ -52,16 +52,16 @@ Page {
                 }
                 // Running
                 if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state == 2)){
-                    batteryLevelRowLayout.visible = true
-                    energyBatteryLayout.visible = true
+                    //batteryLevelRowLayout.visible = true
+                    //energyBatteryLayout.visible = true
                     currentCurrentRowLayout.visible = true
                     energyChargedLayout.visible = true
                     initializing = false
                 }
                 // Pending
                 if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state == 6)){
-                    batteryLevelRowLayout.visible = true
-                    energyBatteryLayout.visible = true
+                    //batteryLevelRowLayout.visible = true
+                    //energyBatteryLayout.visible = true
                     currentCurrentRowLayout.visible = true
                     energyChargedLayout.visible = true
                     initializing = false
@@ -320,6 +320,10 @@ Page {
                         {
                             return qsTr("PV only")
                         }
+                        else if ((chargingConfiguration.optimizationMode >= 3000 && chargingConfiguration.optimizationMode < 4000) )
+                        {
+                            return qsTr("Simple PV only")
+                        }
                     }
 
                 }
@@ -338,7 +342,7 @@ Page {
 
             RowLayout{
                 Layout.topMargin: 15
-                visible: !(chargingConfiguration.optimizationMode === 2 || (chargingConfiguration.optimizationMode >= 2000 && chargingConfiguration.optimizationMode < 3000 ))
+                visible: !(chargingConfiguration.optimizationMode === 2 || (chargingConfiguration.optimizationMode >= 2000 && chargingConfiguration.optimizationMode < 4000 ))
                 Label{
                     id: targetChargeReachedLabel
                     Layout.fillWidth: true
@@ -372,6 +376,7 @@ Page {
 
 
             RowLayout{
+                visible: [3000,].includes(chargingConfiguration.optimizationMode) ? false : true
                 Layout.topMargin: 15
                 Label{
                     id: targetChargeLabel
@@ -457,8 +462,19 @@ Page {
             }
 
             RowLayout{
+                function isVisible() {
+                    if ([3000,].includes(chargingConfiguration.optimizationMode))
+                    {
+                    return false
+                    }
+                    if (!(chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)){
+                    return false
+                    }
+                    return true
+            }
+
                 id: batteryLevelRowLayout
-                visible: (chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
+                visible: isVisible()
                 Label{
                     id: batteryLevelLabel
                     Layout.fillWidth: true
@@ -477,8 +493,21 @@ Page {
             }
 
             RowLayout{
+                function isVisible() {
+                    if ([3000,].includes(chargingConfiguration.optimizationMode))
+                    {
+                    return false
+                    }
+                    if (!(chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)){
+                    return false
+                    }
+
+
+                    return true
+            }
+
                 id: energyBatteryLayout
-                visible: (chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
+                visible: isVisible()
                 Label{
                     id: energyBatteryLabel
                     Layout.fillWidth: true
@@ -727,13 +756,10 @@ Page {
                         Layout.fillWidth: true
 
                         model: ListModel{
-
                             ListElement{key: qsTr("No optimization"); value: "No Optimization"; mode: 0}
+                            ListElement{key: qsTr("Simple PV excess"); value: "Simple-Pv-Only"; mode: 3000; devOnly: true}
                             ListElement{key: qsTr("PV optimized"); value: "Pv-Optimized"; mode: 1000}
                             ListElement{key: qsTr("PV excess only"); value: "Pv-Only"; mode: 2000}
-
-
-
                         }
                         textRole: "key"
                         contentItem: Text{
@@ -744,20 +770,23 @@ Page {
                             horizontalAlignment: Text.AlignLeft;
                             leftPadding: app.margins
                             elide: Text.ElideRight
+                            // Not working:
+                            // visible: parent.devOnly && settings.showHiddenOptions | !parent.devOnly
                         }
+
 
                         currentIndex: userconfig.defaultChargingMode
                         onCurrentIndexChanged:
                         {
                           endTimeSlider.computeFeasibility()
                           endTimeSlider.feasibilityText()
-
                         }
                     }
                 }
 
 
                 RowLayout{
+                    visible:  ([1000, 2000, 0].includes(comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode))
                     Layout.topMargin: 10
                     ColumnLayout{
                         Row{
@@ -816,6 +845,7 @@ Page {
 
 
                 RowLayout{
+                    visible:  ([1000, 2000, 0].includes(comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode))
                     ColumnLayout {
                         spacing: 0
                         Row{
@@ -1070,7 +1100,14 @@ Page {
                     Layout.fillWidth: true
                     text: qsTr("Save")
                     onClicked: {
-
+                        // if simple PV excess mode is used set the batteryLevel to 1
+                        if((comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode >= 3000) && (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode < 4000) ){
+                            batteryLevel.value = 1
+                        }
+                        // if no optimization mode is used set the batteryLevel to 1
+                        //if(comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 0) {
+                        //    batteryLevel.value = 1
+                        //}
                         // if PV excess mode is used set the endTime to maximum value
                         if((comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode >= 2000) && (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode < 3000) ){
                             endTimeSlider.value = 24*60
