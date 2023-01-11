@@ -451,7 +451,6 @@ Page {
                     }
                     return true
                 }
-
                 id: batteryLevelRowLayout
                 visible: isVisible()
                 Label{
