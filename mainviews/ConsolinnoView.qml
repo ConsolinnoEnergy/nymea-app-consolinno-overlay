@@ -643,6 +643,20 @@ MainViewBase {
             id: layout
             anchors.fill: parent
 
+            Flickable {
+                Layout.preferredWidth: Math.min(
+                                           implicitWidth,
+                                           parent.width - Style.margins * 2)
+                implicitWidth: topLegend.implicitWidth
+                Layout.margins: Style.margins
+                Layout.preferredHeight: topLegend.implicitHeight
+                contentWidth: topLegend.implicitWidth
+                Layout.alignment: Qt.AlignHCenter
+                onContentXChanged: {
+                    linesCanvas.requestPaint()
+                }
+
+
             RowLayout {
                 id: topLegend
                 Layout.fillWidth: true
@@ -684,6 +698,7 @@ MainViewBase {
                         }
                     }
                 }
+            }
             }
 
             LineSeries {
