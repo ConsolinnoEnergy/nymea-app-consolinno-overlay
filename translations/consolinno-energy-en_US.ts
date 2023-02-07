@@ -819,6 +819,7 @@ Mail service@consolinno.de</source>
 · nach den Vorschriften des Produkthaftungsgesetzes</source>
         <translation type="unfinished"></translation>
     </message>
+<<<<<<< HEAD
     <message>
         <source>Please connect your Leaflet device (LAN port 1) to your network. Be sure the device running this App (Smartphone, PC) is connected to the same network.</source>
         <translation type="unfinished"></translation>
@@ -954,6 +955,8 @@ Mail service@consolinno.de</source>
         <source>To battery</source>
         <translation type="unfinished"></translation>
     </message>
+=======
+>>>>>>> c9ba058 (Improved simple pv charging mode)
 </context>
 <context>
     <name>ConsolinnoImprint</name>
@@ -2152,6 +2155,7 @@ Mail service@consolinno.de</source>
         <source>Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)</source>
         <translation type="unfinished"></translation>
     </message>
+<<<<<<< HEAD
     <message>
         <source>north</source>
         <translation type="unfinished"></translation>
@@ -2180,6 +2184,8 @@ Mail service@consolinno.de</source>
         <source>northwest</source>
         <translation type="unfinished"></translation>
     </message>
+=======
+>>>>>>> c9ba058 (Improved simple pv charging mode)
 </context>
 <context>
     <name>PrivacyPage</name>

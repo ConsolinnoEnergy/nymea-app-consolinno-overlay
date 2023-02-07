@@ -820,6 +820,7 @@ Mail service@consolinno.de</source>
 · nach den Vorschriften des Produkthaftungsgesetzes</source>
         <translation type="unfinished"></translation>
     </message>
+<<<<<<< HEAD
     <message>
         <source>Please connect your Leaflet device (LAN port 1) to your network. Be sure the device running this App (Smartphone, PC) is connected to the same network.</source>
         <translation>Bitte verbinden Sie das Leaflet (1. LAN-Buchse) mit dem Netzwerk. Stellen Sie sicher, dass Ihr Gerät (Smartphone, PC) mit dem selben Netzwerk verbunden ist.
@@ -956,6 +957,8 @@ Mail service@consolinno.de</source>
         <source>To battery</source>
         <translation>Batterie</translation>
     </message>
+=======
+>>>>>>> c9ba058 (Improved simple pv charging mode)
 </context>
 <context>
     <name>ConsolinnoImprint</name>
@@ -2157,6 +2160,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)</source>
         <translation>Bitte geben Sie Breiten- und Längengrad des Standortes der Anlage an. (Kann zum Beispiel über Google Maps ermittelt werden.)</translation>
     </message>
+<<<<<<< HEAD
     <message>
         <source>north</source>
         <translation>Norden</translation>
@@ -2185,6 +2189,8 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>northwest</source>
         <translation>Nordwesten</translation>
     </message>
+=======
+>>>>>>> c9ba058 (Improved simple pv charging mode)
 </context>
 <context>
     <name>PrivacyPage</name>
@@ -2613,7 +2619,11 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Username</source>
+<<<<<<< HEAD
         <translation type="unfinished">Benutzername</translation>
+=======
+        <translation type="unfinished"></translation>
+>>>>>>> c9ba058 (Improved simple pv charging mode)
     </message>
     <message>
         <source>Thing reconfigured!</source>
@@ -2633,7 +2643,11 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Something went wrong setting up this thing...</source>
+<<<<<<< HEAD
         <translation>Etwas ist schiefgelaufen</translation>
+=======
+        <translation type="unfinished">Etwas ist schiefgelaufen</translation>
+>>>>>>> c9ba058 (Improved simple pv charging mode)
     </message>
     <message>
         <source>Ok</source>

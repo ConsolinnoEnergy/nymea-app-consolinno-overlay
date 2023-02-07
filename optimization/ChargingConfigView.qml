@@ -451,6 +451,10 @@ Page {
                     }
                     return true
                 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> c9ba058 (Improved simple pv charging mode)
                 id: batteryLevelRowLayout
                 visible: isVisible()
                 Label{
