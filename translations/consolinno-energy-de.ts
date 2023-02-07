@@ -206,14 +206,6 @@
         <translation>Lademodus: </translation>
     </message>
     <message>
-        <source>No optimization</source>
-        <translation>Keine Optimierung</translation>
-    </message>
-    <message>
-        <source>PV optimized</source>
-        <translation>PV-optimiert</translation>
-    </message>
-    <message>
         <source>PV only</source>
         <translation>PV-Überschuss</translation>
     </message>
@@ -302,10 +294,6 @@
         <translation>Verhalten bei ungenügender PV-Erzeugung:</translation>
     </message>
     <message>
-        <source>PV excess only</source>
-        <translation>PV-Überschuss</translation>
-    </message>
-    <message>
         <source>Please select a battery level greater than 0%.</source>
         <translation>Bitte wählen Sie ein Batteriestand, der größer als 0% ist.</translation>
     </message>
@@ -372,6 +360,18 @@
     <message>
         <source>Time elapsed</source>
         <translation>Vergangene Zeit</translation>
+    </message>
+    <message>
+        <source>Charge always</source>
+        <translation>Immer laden</translation>
+    </message>
+    <message>
+        <source>Next trip</source>
+        <translation>Nächste Fahrt</translation>
+    </message>
+    <message>
+        <source>Solar only</source>
+        <translation>Nur Solarstrom</translation>
     </message>
 </context>
 <context>

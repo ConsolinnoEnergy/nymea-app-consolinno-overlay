@@ -206,14 +206,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No optimization</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PV optimized</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>PV only</source>
         <translation type="unfinished"></translation>
     </message>
@@ -302,10 +294,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PV excess only</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Please select a battery level greater than 0%.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -371,6 +359,18 @@
     </message>
     <message>
         <source>Time elapsed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charge always</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next trip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Solar only</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
