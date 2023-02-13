@@ -29,7 +29,17 @@ Page {
     property var pageSelectedCar: carThing.name === null ? qsTr("no car selected") : carThing.name
     property bool initializing: false
 
+    enum ChargingMode {
+        NO_OPTIMIZATION = 0,
+        PV_OPTIMIZED = 1,
+        PV_EXCESS = 2,
+        SIMPLE_PV_EXCESS = 3
+    }
 
+    property int no_optimization: ChargingConfigView.ChargingMode.NO_OPTIMIZATION
+    property int pv_optimized: ChargingConfigView.ChargingMode.PV_OPTIMIZED
+    property int pv_excess: ChargingConfigView.ChargingMode.PV_EXCESS
+    property int simple_pv_excess: ChargingConfigView.ChargingMode.SIMPLE_PV_EXCESS
 
     // Connections to update the ChargingSessionConfiguration  and the ChargingConfiguration values
     Connections {
@@ -88,7 +98,7 @@ Page {
                     initializing = false
                 }
                 else if(chargingConfiguration.optimizationEnabled){
-                    if (chargingConfiguration.optimizationMode >=3000 && chargingConfiguration.optimizationMode < 4000)
+                    if (chargingIsAnyOf([simple_pv_excess]))
                     {
                         status.visible = thing.stateByName("pluggedIn")
                         initializing = true
@@ -163,6 +173,32 @@ Page {
 
 
         return exist
+    }
+
+    function getChargingMode(opti_mode){
+
+        if (opti_mode < 1000) {
+            return no_optimization
+        }
+        if (opti_mode >= 1000 && opti_mode < 2000) {
+            return pv_optimized
+        }
+        if (opti_mode >= 2000 && opti_mode < 3000) {
+            return pv_excess
+        }
+        if (opti_mode >= 3000 && opti_mode < 4000) {
+            return simple_pv_excess
+        }
+    }
+
+    function chargingIsAnyOf(modes)
+    {
+        return modes.includes(getChargingMode(chargingConfiguration.optimizationMode))
+    }
+
+    // 1234 -> mode==1; option1==2; option2==3; option3==4
+    function getChargingModeOpts(opti_mode){
+        return([(opti_mode/100) % 10, (opti_mode/10) % 10, opti_mode % 10])
     }
 
     header: NymeaHeader {
@@ -315,19 +351,19 @@ Page {
 
                     function selectMode(){
 
-                        if (chargingConfiguration.optimizationMode === 0)
+                        if (chargingIsAnyOf([no_optimization]))
                         {
                             return qsTr("Charge always")
-                        }                                                                                                                      // Legacy will be deleted
-                        else if ((chargingConfiguration.optimizationMode >= 1000 && chargingConfiguration.optimizationMode < 2000) || chargingConfiguration.optimizationMode === 1)
+                        }
+                        else if (chargingIsAnyOf([pv_optimized]))
                         {
                             return qsTr("Next trip")
-                        }                                                                                                                      // Legacy will be deleted
-                        else if ((chargingConfiguration.optimizationMode >= 2000 && chargingConfiguration.optimizationMode < 3000) || chargingConfiguration.optimizationMode === 2 )
+                        }
+                        else if (chargingIsAnyOf([pv_excess]))
                         {
                             return qsTr("PV only")
                         }
-                        else if ((chargingConfiguration.optimizationMode >= 3000 && chargingConfiguration.optimizationMode < 4000) )
+                        else if (chargingIsAnyOf([simple_pv_excess]))
                         {
                             return qsTr("Solar only")
                         }
@@ -336,11 +372,9 @@ Page {
                 }
             }
 
-
-
             RowLayout{
                 Layout.topMargin: 15
-                visible: !(chargingConfiguration.optimizationMode === 2 || (chargingConfiguration.optimizationMode >= 2000 && chargingConfiguration.optimizationMode < 4000 ))
+                visible: !([pv_excess, simple_pv_excess].includes(getChargingMode(chargingConfiguration.optimizationMode)))
                 Label{
                     id: targetChargeReachedLabel
                     Layout.fillWidth: true
@@ -364,7 +398,7 @@ Page {
 
 
             RowLayout{
-                visible: [3000,].includes(chargingConfiguration.optimizationMode) ? false : true
+                visible: chargingIsAnyOf([simple_pv_excess,]) ? false : true
                 Layout.topMargin: 15
                 Label{
                     id: targetChargeLabel
@@ -442,7 +476,7 @@ Page {
 
             RowLayout{
                 function isVisible() {
-                    if (chargingConfiguration.optimizationMode >=3000 && chargingConfiguration.optimizationMode < 4000)
+                    if (chargingIsAnyOf(simple_pv_excess))
                     {
                         return false
                     }
@@ -476,7 +510,7 @@ Page {
 
             RowLayout{
                 function isVisible() {
-                    if (chargingConfiguration.optimizationMode >=3000 && chargingConfiguration.optimizationMode < 4000)
+                    if (chargingIsAnyOf([simple_pv_excess,]))
                     {
                         return false
                     }
@@ -624,6 +658,16 @@ Page {
             property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
             property Thing thing
 
+            function getSelectedMode(){
+                return getChargingMode(comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode)
+            }
+
+            function isAnyOfModesSelected(modes)
+            {
+                var selected_mode = getSelectedMode()
+                return (modes.includes(selected_mode))
+            }
+
 
             Component.onCompleted:{
                 endTimeSlider.feasibilityText()
@@ -647,6 +691,8 @@ Page {
                 anchors.topMargin: app.margins
                 anchors.rightMargin: app.margins
                 anchors.margins: app.margins
+
+
 
                 RowLayout {
                     Layout.fillWidth: true
@@ -708,9 +754,9 @@ Page {
 
 
                 RowLayout{
+
                     Layout.preferredWidth: app.width
                     Layout.topMargin: 10
-
 
                     RowLayout{
                         id: chargingModeRowid
@@ -739,7 +785,7 @@ Page {
 
                         model: ListModel{
                             ListElement{key: qsTr("Charge always"); value: "No Optimization"; mode: 0}
-                            ListElement{key: qsTr("Solar only"); value: "Simple-Pv-Only"; mode: 3000; devOnly: true}
+                            ListElement{key: qsTr("Solar only"); value: "Simple-Pv-Only"; mode: 3000;}
                             ListElement{key: qsTr("Next trip"); value: "Pv-Optimized"; mode: 1000}
                             //ListElement{key: qsTr("PV excess only"); value: "Pv-Only"; mode: 2000}
                         }
@@ -768,7 +814,7 @@ Page {
 
 
                 RowLayout{
-                    visible:  ([1000, 2000, 0].includes(comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode))
+                    visible:  isAnyOfModesSelected([no_optimization, pv_optimized, pv_excess])
                     Layout.topMargin: 10
                     ColumnLayout{
                         Row{
@@ -827,7 +873,7 @@ Page {
 
 
                 RowLayout{
-                    visible:  ([1000, 2000, 0].includes(comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode))
+                    visible:  isAnyOfModesSelected([no_optimization, pv_optimized, pv_excess])
                     ColumnLayout {
                         spacing: 0
                         Row{
@@ -885,8 +931,8 @@ Page {
                 }
 
                 RowLayout{
+                    visible:  isAnyOfModesSelected([pv_optimized])
                     Layout.fillWidth: true
-                    visible:  (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 1000 )
                     Label {
                         id: endTimeLabel
                         Layout.fillWidth: true
@@ -917,7 +963,7 @@ Page {
 
                 RowLayout {
                     Layout.fillWidth: true
-                    visible:  (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 1000 )
+                    visible:   isAnyOfModesSelected([pv_optimized])
                     Slider {
                         id: endTimeSlider
                         Layout.fillWidth: true
@@ -1019,7 +1065,7 @@ Page {
 
                 RowLayout
                 {
-                    visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 1000)
+                    visible: isAnyOfModesSelected([pv_optimized])
                     Label
                     {
                         id: feasibilityMessage
@@ -1035,13 +1081,13 @@ Page {
 
 
                 Label{
-                    visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 3000)
+                    visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess,])
                     id: gridConsumptionLabel
                     text: qsTr("Behaviour on grid consumption:")
                 }
 
                 ComboBox {
-                    visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 3000)
+                    visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess,])
                     id: gridConsumptionloadingmod
                     Layout.fillWidth: true
                     model: ListModel{
@@ -1050,13 +1096,6 @@ Page {
                     }
                     textRole: "key"
                 }
-
-
-
-
-
-
-
 
 
                 Item {
@@ -1082,21 +1121,15 @@ Page {
                     text: qsTr("Save")
                     onClicked: {
                         // if simple PV excess mode is used set the batteryLevel to 1
-                        if((comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode >= 3000) && (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode < 4000) ){
+                        if(isAnyOfModesSelected([simple_pv_excess])){
                             batteryLevel.value = 1
                         }
-                        // if no optimization mode is used set the batteryLevel to 1
-                        //if(comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 0) {
-                        //    batteryLevel.value = 1
-                        //}
-                        // if PV excess mode is used set the endTime to maximum value
-                        if((comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode >= 2000) && (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode < 3000) ){
+
+                        // Set the endTime to maximum value for all modes except pv_optimized
+                        if(isAnyOfModesSelected([pv_excess, simple_pv_excess, no_optimization])){
                             endTimeSlider.value = 24*60
                         }
-                        // Set endTime to maximum for no optimization
-                        if((comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode < 1000) ){
-                            endTimeSlider.value = 24*60
-                        }
+
 
                         if ((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) && (endTimeSlider.value >= 30) && carSelector.holdingItem !== false && batteryLevel.value !== 0){
                             if (carSelector.holdingItem.stateByName("batteryLevel").value){
@@ -1138,14 +1171,11 @@ Page {
 
                     function compute_OptimizationMode(){
                         var mode = comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode
-
-                        if([2000, 3000].includes(mode)){
-                            // single diget
+                        if(isAnyOfModesSelected([pv_excess, simple_pv_excess])){
+                            // single digit
                             var gridConsumptionOption = gridConsumptionloadingmod.model.get(gridConsumptionloadingmod.currentIndex).mode
-
                             mode = mode + gridConsumptionOption
                         }
-
                         return mode
                     }
                 }
