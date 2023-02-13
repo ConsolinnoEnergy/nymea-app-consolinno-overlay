@@ -476,7 +476,7 @@ Page {
 
             RowLayout{
                 function isVisible() {
-                    if (chargingIsAnyOf(simple_pv_excess))
+                    if (chargingIsAnyOf([simple_pv_excess,]))
                     {
                         return false
                     }
@@ -1123,6 +1123,7 @@ Page {
                         // if simple PV excess mode is used set the batteryLevel to 1
                         if(isAnyOfModesSelected([simple_pv_excess])){
                             batteryLevel.value = 1
+                            targetPercentageSlider.value = 100
                         }
 
                         // Set the endTime to maximum value for all modes except pv_optimized
