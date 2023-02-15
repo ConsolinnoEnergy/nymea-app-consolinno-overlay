@@ -86,7 +86,7 @@ Page {
                     Layout.preferredHeight: width
                     energyManager: root.energyManager
                     visible: consumers.count > 0
-                    colors: root.consumersColors
+                    //colors: root.consumersColors
                     consumers: consumers
                 }
 
@@ -94,7 +94,7 @@ Page {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     visible: consumers.count > 0
-                    colors: root.consumersColors
+                    //colors: root.consumersColors
                     consumers: consumers
                 }
 
@@ -110,7 +110,7 @@ Page {
                     Layout.preferredHeight: width
                     energyManager: root.energyManager
                     visible: consumers.count > 0
-                    colors: root.consumersColors
+                    //colors: root.consumersColors
                     consumers: consumers
                 }
             }
