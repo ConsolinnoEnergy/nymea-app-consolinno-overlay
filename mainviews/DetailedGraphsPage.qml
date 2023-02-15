@@ -90,27 +90,27 @@ Page {
                     consumers: consumers
                 }
 
-                ConsumersHistory {
+                ConsolinnoConsumersHistory {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     visible: consumers.count > 0
-                    //colors: root.consumersColors
+                    consumerColors: consumersColors
                     consumers: consumers
                 }
 
-                PowerBalanceStats {
+                ConsolinnoPowerBalanceStats {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     energyManager: root.energyManager
                     visible: rootMeter != null
                 }
 
-                ConsumerStats {
+                ConsolinnoConsumerStats {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     energyManager: root.energyManager
                     visible: consumers.count > 0
-                    //colors: root.consumersColors
+                    consumerColors: consumersColors
                     consumers: consumers
                 }
             }
