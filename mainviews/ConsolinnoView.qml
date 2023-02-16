@@ -498,8 +498,10 @@ MainViewBase {
         readonly property color rootMeterReturnColor: "#45B4E4"
         readonly property color producersColor: "#FCE487"
         readonly property color batteriesColor: "#BDD786"
+        readonly property color batteryChargeColor: batteriesColor
+        readonly property color batteryDischargeColor: "#F7B772"
         readonly property color consumedColor: "#ADB9E3"
-        readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteriesColor]
+        readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
 
         Canvas {
             id: linesCanvas

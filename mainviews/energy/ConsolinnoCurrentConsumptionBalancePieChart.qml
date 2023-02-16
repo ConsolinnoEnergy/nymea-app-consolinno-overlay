@@ -52,7 +52,7 @@ ChartView {
             value: consumptionBalanceSeries.fromProduction
         }
         PieSlice {
-            color: totalColors[4]
+            color: totalColors[5]
             borderColor: color
             borderWidth: 0
             value: consumptionBalanceSeries.fromStorage
@@ -149,7 +149,7 @@ ChartView {
                 font: Style.extraSmallFont
             }
             Label {
-                color: Qt.darker(totalColors[4], 1.1)
+                color: Qt.darker(totalColors[5], 1.1)
                 property double absValue: consumptionBalanceSeries.fromStorage
                 text: "%1 %2".arg((absValue / (absValue > 1000 ? 1000 : 1)).toFixed(1))
                 .arg(absValue > 1000 ? "kW" : "W")

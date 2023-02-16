@@ -78,5 +78,6 @@
         <file>mainviews/energy/ConsolinnoCurrentProductionBalancePieChart.qml</file>
         <file>mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml</file>
         <file>mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml</file>
+        <file>mainviews/energy/ConsolinnoPowerBalanceHistory.qml</file>
     </qresource>
 </RCC>

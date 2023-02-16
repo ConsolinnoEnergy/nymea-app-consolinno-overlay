@@ -58,12 +58,13 @@ Page {
                 columnSpacing: 0
 
 
-//
-//                PowerBalanceHistory {
-//                    Layout.fillWidth: true
-//                    Layout.preferredHeight: width
-//                    visible: rootMeter != null || producers.count > 0
-//                }
+
+                ConsolinnoPowerBalanceHistory {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: width
+                    visible: rootMeter != null || producers.count > 0
+                    totalColors: root.totalColors
+                }
 
                 ConsolinnoCurrentConsumptionBalancePieChart {
                     Layout.fillWidth: true
