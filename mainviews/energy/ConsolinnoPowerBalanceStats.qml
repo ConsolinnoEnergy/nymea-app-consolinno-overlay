@@ -11,6 +11,7 @@ StatsBase {
     property EnergyManager energyManager: null
 
     property bool titleVisible: true
+    property var totalColors: null
 
     property ThingsProxy producers: ThingsProxy {
         engine: _engine
@@ -299,7 +300,11 @@ StatsBase {
                     BarSet {
                         id: consumptionSet
                         label: qsTr("Consumed")
-                        color: Qt.rgba(Style.blue.r, Style.blue.g, Style.blue.b, d.selectedSet == null || d.selectedSet == consumptionSet ? 1 : 0.3)
+                        color:  {
+                            var alpha = d.selectedSet == null || d.selectedSet == consumptionSet ? 1 : 0.3
+                            var col = totalColors[0]
+                            return Qt.hsla(col.hslHue, col.hslSaturation, col.hslLightness, alpha)
+                        }
                         borderColor: color
                         borderWidth: 0
                         values: {
@@ -313,7 +318,11 @@ StatsBase {
                     BarSet {
                         id: productionSet
                         label: qsTr("Produced")
-                        color: Qt.rgba(Style.green.r, Style.green.g, Style.green.b, d.selectedSet == null || d.selectedSet == productionSet ? 1 : 0.3)
+                        color:{
+                            var alpha = d.selectedSet == null || d.selectedSet == productionSet ? 1 : 0.3
+                            var col = totalColors[1]
+                            return Qt.hsla(col.hslHue, col.hslSaturation, col.hslLightness, alpha)
+                        }
                         borderColor: color
                         borderWidth: 0
                         values: {
@@ -327,7 +336,11 @@ StatsBase {
                     BarSet {
                         id: acquisitionSet
                         label: qsTr("From grid")
-                        color: Qt.rgba(Style.red.r, Style.red.g, Style.red.b, d.selectedSet == null || d.selectedSet == acquisitionSet ? 1 : 0.3)
+                        color: {
+                            var alpha = d.selectedSet == null || d.selectedSet == acquisitionSet ? 1 : 0.3
+                            var col = totalColors[2]
+                            return Qt.hsla(col.hslHue, col.hslSaturation, col.hslLightness, alpha)
+                        }
                         borderColor: color
                         borderWidth: 0
                         values: {
@@ -341,7 +354,11 @@ StatsBase {
                     BarSet {
                         id: returnSet
                         label: qsTr("To grid")
-                        color: Qt.rgba(Style.yellow.r, Style.yellow.g, Style.yellow.b, d.selectedSet == null || d.selectedSet == returnSet ? 1 : 0.3)
+                        color: {
+                            var alpha = d.selectedSet == null || d.selectedSet == returnSet ? 1 : 0.3
+                            var col = totalColors[3]
+                            return Qt.hsla(col.hslHue, col.hslSaturation, col.hslLightness, alpha)
+                        }
                         borderColor: color
                         borderWidth: 0
                         values: {
@@ -372,7 +389,7 @@ StatsBase {
                         ColorIcon {
                             name: "powersocket"
                             size: Style.smallIconSize
-                            color: Style.blue
+                            color: totalColors[0]
                         }
                         Label {
                             width: parent.parent.width - x
@@ -395,7 +412,7 @@ StatsBase {
                         ColorIcon {
                             name: "weathericons/weather-clear-day"
                             size: Style.smallIconSize
-                            color: Style.green
+                            color: Qt.darker(totalColors[1], 1.1)
                         }
                         Label {
                             width: parent.parent.width - x
@@ -419,12 +436,12 @@ StatsBase {
                             ColorIcon {
                                 name: "power-grid"
                                 size: Style.smallIconSize
-                                color: Style.red
+                                color: totalColors[2]
                             }
                             ColorIcon {
                                 name: "arrow-down"
                                 size: Style.smallIconSize
-                                color: Style.red
+                                color: totalColors[2]
                             }
                         }
                         Label {
@@ -448,12 +465,12 @@ StatsBase {
                             ColorIcon {
                                 name: "power-grid"
                                 size: Style.smallIconSize
-                                color: Style.yellow
+                                color: totalColors[3]
                             }
                             ColorIcon {
                                 name: "arrow-up"
                                 size: Style.smallIconSize
-                                color: Style.yellow
+                                color: totalColors[3]
                             }
                         }
                         Label {
@@ -622,7 +639,7 @@ StatsBase {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: Style.blue
+                                color: totalColors[0]
                             }
                             Label {
                                 text: d.startOffset !== undefined ? qsTr("Consumed: %1 kWh").arg(consumptionSet.at(toolTip.idx).toFixed(2)) : ""
@@ -634,7 +651,7 @@ StatsBase {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: Style.green
+                                color: totalColors[1]
                             }
                             Label {
                                 text: d.startOffset !== undefined ? qsTr("Produced: %1 kWh").arg(productionSet.at(toolTip.idx).toFixed(2)) : ""
@@ -645,7 +662,7 @@ StatsBase {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: Style.red
+                                color: totalColors[2]
                             }
                             Label {
                                 text: d.startOffset !== undefined ? qsTr("From grid: %1 kWh").arg(acquisitionSet.at(toolTip.idx).toFixed(2)) :""
@@ -656,7 +673,7 @@ StatsBase {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: Style.yellow
+                                color: totalColors[3]
                             }
                             Label {
                                 text: d.startOffset !== undefined ? qsTr("To grid: %1 kWh").arg(returnSet.at(toolTip.idx).toFixed(2)) : ""

@@ -493,12 +493,13 @@ MainViewBase {
         visible: rootMeter != null
 
         property int hours: 24
-
-        readonly property string rootMeterAcquisitionColor: "#E95E52"
-        readonly property string rootMeterReturnColor: "#24A0D6"
-        readonly property color producersColor: "#F7EC5A"
-        readonly property color batteriesColor: "#84D35E"
-        readonly property var consumersColors: ["#F37B8E", "#ACE3E2", "#FCE487", "#BDD786", "#F7B772", "#45B4E4", "#ADB9E3", Style.pink, Style.darkBlue]
+        readonly property var consumersColors: ["#ACE3E2","#F7B772","#ADB9E3","#639F86", "#FF8954", "#D9F6C5","#437BC4","#AA5DC2", "#C6C73F"]
+        readonly property color rootMeterAcquisitionColor: "#F37B8E"
+        readonly property color rootMeterReturnColor: "#45B4E4"
+        readonly property color producersColor: "#FCE487"
+        readonly property color batteriesColor: "#BDD786"
+        readonly property color consumedColor: "#ADB9E3"
+        readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteriesColor]
 
         Canvas {
             id: linesCanvas
@@ -1078,7 +1079,8 @@ MainViewBase {
                         }
                         onClicked: pageStack.push("DetailedGraphsPage.qml", {
                                                       "energyManager": energyManager,
-                                                      "consumersColors": lsdChart.consumersColors
+                                                      "totalColors": lsdChart.totalColors,
+                                                      "consumersColors": lsdChart.consumersColors,
                                                   })
                     }
 
