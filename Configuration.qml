@@ -20,6 +20,9 @@ ConfigurationBase {
     property string githubLink: "https://github.com/ConsolinnoEnergy/nymea-app"
     property string privacyPolicyUrl: "https://consolinno.de/datenschutz/"
 
+    // Default value when manually adding a tunnel proxy
+    property string defaultTunnelProxyUrl: "hems-remoteproxy.services-test.consolinno-it.de"
+
     // Additional MainViews
     property var additionalMainViews: ListModel {
         ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Consolinno"); icon: "leaf" }
