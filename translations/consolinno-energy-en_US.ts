@@ -604,10 +604,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You have to authenticate yourself to the Leaflet. For further information look at the manual for commissioning.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>HEMS</source>
         <translation type="unfinished"></translation>
     </message>
@@ -764,18 +760,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(1) Der Lizenzgeber haftet unbeschränkt:
-
-    · bei Arglist, Vorsatz oder grober Fahrlässigkeit;
-
-    · im Rahmen einer von ihm ausdrücklich übernommenen Garantie;
-
-    · für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit;
-
-    · nach den Vorschriften des Produkthaftungsgesetzes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>(2) Im Übrigen ist eine Haftung der Consolinno Energy GmbH für direkte und indirekte Schäden ausgeschlossen.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -841,6 +825,153 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Yes I read the Term of Use and agree</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(1) Der Lizenzgeber haftet unbeschränkt:
+
+· bei Arglist, Vorsatz oder grober Fahrlässigkeit;
+
+· im Rahmen einer von ihm ausdrücklich übernommenen Garantie;
+
+· für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit;
+
+· nach den Vorschriften des Produkthaftungsgesetzes</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoConsumerStats</name>
+    <message>
+        <source>Consumers totals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weeks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Years</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoConsumersHistory</name>
+    <message>
+        <source>Consumers history</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weeks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoConsumersPieChart</name>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consumers balance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoCurrentConsumptionBalancePieChart</name>
+    <message>
+        <source>My energy consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From self production</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoCurrentProductionBalancePieChart</name>
+    <message>
+        <source>My energy production</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consumed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To battery</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -938,6 +1069,258 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>ConsolinnoPowerBalanceHistory</name>
+    <message>
+        <source>My power balance history</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weeks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From self production</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Produced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consumed: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Produced: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From grid: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To grid: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From self production: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To battery: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From battery: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoPowerBalanceStats</name>
+    <message>
+        <source>Totals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weeks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Years</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consumed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Produced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consumed: %1 kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Produced: %1 kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From grid: %1 kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To grid: %1 kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoPowerConsumptionBalanceHistory</name>
+    <message>
+        <source>My consumption history</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weeks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Self production</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total consumption: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Self production: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From battery: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From grid: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoPowerProductionBalanceHistory</name>
+    <message>
+        <source>My production history</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weeks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consumed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total production: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consumed: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To battery: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To grid: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoView</name>
     <message>
         <source>Total current power usage</source>
@@ -1017,10 +1400,6 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>In order for your %1 system to be useful, go ahead and add some things.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add a thing</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1508,14 +1887,6 @@ Mail service@consolinno.de</source>
         <source>Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Please, when putting in the latitude use comma (,) not a dot (.)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please, when putting in the longitude use comma (,) not a dot (.)</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>PrivacyPage</name>
@@ -1936,6 +2307,38 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Please change name if necessary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Login required</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing reconfigured!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing added!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uh oh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All done. You can now start using %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Something went wrong setting up this thing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
