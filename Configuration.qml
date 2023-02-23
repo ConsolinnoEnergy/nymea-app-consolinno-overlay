@@ -39,7 +39,7 @@ ConfigurationBase {
         {
             text: qsTr("Help"),
             iconName: "../images/help.svg",
-            url: "https://consolinno.de"
+            page: "info/Help/HelpPage.qml"
         },
     ] 
 }
