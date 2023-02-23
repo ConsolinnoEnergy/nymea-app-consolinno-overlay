@@ -23,6 +23,15 @@ ConfigurationBase {
     // Default value when manually adding a tunnel proxy
     property string defaultTunnelProxyUrl: "hems-remoteproxy.services-test.consolinno-it.de"
 
+    // Hides shutdown button in general settings menu
+    property bool hideShutdownButton: true
+
+    // Hides Restart button in general settings menu
+    property bool hideResetButton: true
+
+    // Shows Reboot button in general settings menu
+    property bool hideRebootButton: false
+
     // Additional MainViews
     property var additionalMainViews: ListModel {
         ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Consolinno"); icon: "leaf" }
