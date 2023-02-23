@@ -22,7 +22,6 @@ ConfigurationBase {
     }
 
     // Main views filter: Only those main views are enabled
-    //property var mainViewsFilter: [ "consolinno", "things" ]
     //property var mainViewsFilter: ["consolinno"]
 
     defaultMainView: "consolinno"
@@ -36,11 +35,11 @@ ConfigurationBase {
     modbusSettingsEnabled: true
     pluginSettingsEnabled: true
 
-    mainMenuLinks: ListModel {
-        ListElement {
-            text: qsTr("Help")
-            iconName: "../images/help.svg"
+    mainMenuLinks: [ 
+        {
+            text: qsTr("Help"),
+            iconName: "../images/help.svg",
             url: "https://consolinno.de"
-        }
-    }
+        },
+    ] 
 }
