@@ -92,11 +92,11 @@ Item {
                 Layout.fillWidth: true
                 iconName: "../images/stock_website.svg"
                 text: qsTr("Visit GitHub page")
-                subText: root.githubLink
+                subText: Configuration.githubLink
                 prominentSubText: false
                 wrapTexts: false
                 onClicked: {
-                    Qt.openUrlExternally(root.githubLink)
+                    Qt.openUrlExternally(Configuration.githubLink)
                 }
             }
 
@@ -104,12 +104,12 @@ Item {
                 Layout.fillWidth: true
                 text: qsTr("View privacy policy")
                 iconName: "../images/stock_website.svg"
-                subText: app.privacyPolicyUrl
+                subText: Configuration.privacyPolicyUrl
                 prominentSubText: false
                 wrapTexts: false
                 onClicked:
                     //pageStack.push("../info/Privacy/PrivacyPage.qml")
-                    Qt.openUrlExternally(app.privacyPolicyUrl)
+                    Qt.openUrlExternally(Configuration.privacyPolicyUrl)
             }
 
             NymeaSwipeDelegate {
@@ -119,21 +119,6 @@ Item {
                 subText: qsTr("Common Licenses used for this Product")
                 prominentSubText: false
                 wrapTexts: false
-//                visible: {
-
-//                    // dont show on Demo Server
-//                    if(engine.jsonRpcClient.currentConnection.hostAddress.toString().indexOf("hems-demo.consolinno-it.de") >= 0 ) {
-//                        return false
-//                    }
-//                    // Show if CloudConnection is not Connected ("so local")  OR offline additional Licenses are provided
-//                    if (engine.jsonRpcClient.cloudConnectionState !== JsonRpcClient.CloudConnectionStateConnected || (root.additionalLicenses.count > 0 && root.additionalLicenses) )
-//                    {
-//                        return true
-//                    }
-
-//                    return false
-
-//                }
                 onClicked: {
                     if(root.additionalLicenses) {
                         pageStack.push(licensesPageComponent)

@@ -16,6 +16,10 @@ ConfigurationBase {
     property string appBranding: "Consolinno Energy"
     property string coreBranding: "Leaflet"
 
+    // Will be shown in About page
+    property string githubLink: "https://github.com/ConsolinnoEnergy/nymea-app"
+    property string privacyPolicyUrl: "https://consolinno.de/datenschutz/"
+
     // Additional MainViews
     property var additionalMainViews: ListModel {
         ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Consolinno"); icon: "leaf" }
@@ -34,6 +38,8 @@ ConfigurationBase {
     zigbeeSettingsEnabled: true
     modbusSettingsEnabled: true
     pluginSettingsEnabled: true
+
+
 
     mainMenuLinks: [ 
         {
