@@ -8,6 +8,7 @@
         <file>styles/light/Background.qml</file>
     </qresource>
     <qresource prefix="/ui">
+        <file>system/ConsolinnoUsersSettingsPage.qml</file>
         <file>mainviews/ConsolinnoView.qml</file>
         <file>images/leaf.svg</file>
         <file>Configuration.qml</file>

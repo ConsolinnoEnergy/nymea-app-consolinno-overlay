@@ -870,7 +870,7 @@ Mail service@consolinno.de</source>
     <message>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
-</message>
+    </message>
 </context>
 <context>
     <name>ConsolinnoConsumersHistory</name>
@@ -920,6 +920,14 @@ Mail service@consolinno.de</source>
     <message>
         <source>Total</source>
         <translation>Gesamt</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1312,7 +1320,173 @@ Mail service@consolinno.de</source>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
     </message>
-
+</context>
+<context>
+    <name>ConsolinnoUsersSettingsPage</name>
+    <message>
+        <source>User settings</source>
+        <translation>Benutzereinstellungen</translation>
+    </message>
+    <message>
+        <source>The given password is not valid.</source>
+        <translation>Das eingegebene Passwort ist nicht gültig.</translation>
+    </message>
+    <message>
+        <source>Permission denied.</source>
+        <translation>Zugriff verweigert.</translation>
+    </message>
+    <message>
+        <source>The new password could not be stored.</source>
+        <translation>Das neue Passwort konnte nicht gespeichert werden.</translation>
+    </message>
+    <message>
+        <source>Un unexpected error happened when changing the password. We&apos;re sorry for this. (Error code: %1)</source>
+        <translation>Ein unerwarteter Fehler ist beim Ändern des Passwortes aufgetreten. Dies tut uns leid. (Fehlercode: %1)</translation>
+    </message>
+    <message>
+        <source>Change password</source>
+        <translation>Passwort ändern</translation>
+    </message>
+    <message>
+        <source>Created on %1</source>
+        <translation>Erstellt am %1</translation>
+    </message>
+    <message>
+        <source>Please enter the new password for %1</source>
+        <translation>Bitte gib das neue Passwort für %1 ein</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Edit user information</source>
+        <translation>Benutzerinformation bearbeiten</translation>
+    </message>
+    <message>
+        <source>Manage authorized devices</source>
+        <translation>Angemeldete Geräte verwalten</translation>
+    </message>
+    <message>
+        <source>Admin</source>
+        <translation>Administrator</translation>
+    </message>
+    <message>
+        <source>Manage users</source>
+        <translation>Benutzer verwalten</translation>
+    </message>
+    <message>
+        <source>Your name</source>
+        <translation>Dein Name</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>E-Mail</translation>
+    </message>
+    <message>
+        <source>Un unexpected error happened when creating the user. We&apos;re sorry for this. (Error code: %1)</source>
+        <translation>Beim Erstellen des Benutzers ist ein unerwarteter Fehler aufgetreten. Wir bitten dies zu entschuldigen. (Fehler-Code: %1)</translation>
+    </message>
+    <message>
+        <source>Device access</source>
+        <translation>Gerätezugänge</translation>
+    </message>
+    <message>
+        <source>Remove device access</source>
+        <translation>Gerät entfernen</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove %1 from accessing your %2 system?</source>
+        <translation>Bist Du sicher, dass Du %1 den Zugang zu Deinem %2 System entziehen möchtest?</translation>
+    </message>
+    <message>
+        <source>Devices / Apps accessing %1</source>
+        <translation>Geräte/Anwendungen die auf %1 zugreifen</translation>
+    </message>
+    <message>
+        <source>Users</source>
+        <translation>Benutzer</translation>
+    </message>
+    <message>
+        <source>Manage users for this %1 system</source>
+        <translation>Verwalte Benutzer für dieses %1 System</translation>
+    </message>
+    <message>
+        <source>Manage %1</source>
+        <translation>Verwalte %1</translation>
+    </message>
+    <message>
+        <source>Remove user</source>
+        <translation>Benutzer entfernen</translation>
+    </message>
+    <message>
+        <source>User information for %1</source>
+        <translation>Benutzerinformationen für %1</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>Permissions</source>
+        <translation>Berechtigungen</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Entfernen</translation>
+    </message>
+    <message>
+        <source>Remove this user</source>
+        <translation>Diesen Benutzer entfernen</translation>
+    </message>
+    <message>
+        <source>Add a user</source>
+        <translation>Benutzer hinzufügen</translation>
+    </message>
+    <message>
+        <source>Username:</source>
+        <translation>Benutzername:</translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <translation>Passwort:</translation>
+    </message>
+    <message>
+        <source>Full name:</source>
+        <translation>Vollständiger Name:</translation>
+    </message>
+    <message>
+        <source>e-mail:</source>
+        <translation>E-Mail:</translation>
+    </message>
+    <message>
+        <source>Create new user</source>
+        <translation>Neuen Benutzer erstellen</translation>
+    </message>
+    <message>
+        <source>The given username is not valid. It needs to be at least three characters long and not contain special characters.</source>
+        <translation>Der gewählte Benutzername ist nicht gültig. Der Benutzername muss aus mindestens drei Zeichen bestehen und darf keine Sonderzeichen enthalten.</translation>
+    </message>
+    <message>
+        <source>The given username is already in use. Please choose a different username.</source>
+        <translation>Der gewählte Benutzername ist bereits verwendet. Bitte wähle einen anderen Benutzernamen.</translation>
+    </message>
+    <message>
+        <source>User information</source>
+        <translation>Benutzerinformationen</translation>
+    </message>
+    <message>
+        <source>User login via authentication</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Authenticated user</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoView</name>

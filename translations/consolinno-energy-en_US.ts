@@ -914,7 +914,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Consumers balance</source>
@@ -922,10 +922,6 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Total</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source></source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1317,6 +1313,173 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>To grid: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoUsersSettingsPage</name>
+    <message>
+        <source>User settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The given password is not valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Permission denied.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The new password could not be stored.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Un unexpected error happened when changing the password. We&apos;re sorry for this. (Error code: %1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit user information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage authorized devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Admin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Un unexpected error happened when creating the user. We&apos;re sorry for this. (Error code: %1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the new password for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device access</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove device access</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove %1 from accessing your %2 system?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Devices / Apps accessing %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Created on %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage users for this %1 system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User login via authentication</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Authenticated user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User information for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Permissions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove this user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Full name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>e-mail:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create new user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The given username is not valid. It needs to be at least three characters long and not contain special characters.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The given username is already in use. Please choose a different username.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
