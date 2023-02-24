@@ -915,19 +915,11 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Unknown</source>
-        <translation>Unbekannt</translation>
+        <translation>Sonstige</translation>
     </message>
     <message>
         <source>Total</source>
         <translation>Gesamt</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source></source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1481,11 +1473,11 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>User login via authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>User Login über Authentifizierung</translation>
     </message>
     <message>
         <source>Authenticated user</source>
-        <translation type="unfinished"></translation>
+        <translation>Authentifizierter User</translation>
     </message>
 </context>
 <context>
@@ -2564,6 +2556,109 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>plug in car: </source>
         <translation>Auto einstecken</translation>
+    </message>
+</context>
+<!-- The following targets views in nymea-app and overwrites the existing translations -->
+<context>
+    <name>LoginPage</name>
+    <message>
+        <source>Welcome to %1!</source>
+        <translation>Willkommen zu %1!</translation>
+    </message>
+    <message>
+        <source>Sorry, that wasn&apos;t right. Try again please.</source>
+        <translation>Entschuldingung, das war nicht richtig. Bitte erneut versuchen.</translation>
+    </message>
+    <message>
+        <source>The email you&apos;ve entered isn&apos;t valid.</source>
+        <translation>Die eingegebene E-Mail Adresse ist ungültig.</translation>
+    </message>
+    <message>
+        <source>In order to use your %1 system, please log in.</source>
+        <translation>Um Ihr %1 system zu nutzen, melden Sie sich bitte an.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>An error happened with the user storage. Please make sure your %1 system is installed correctly.</source>
+        <translation>In der Benutzerverwaltung ist ein Fehler aufgetreten. Bitte stelle sicher, dass Dein %1 System korrekt installiert ist.</translation>
+    </message>
+    <message>
+        <source>The username you&apos;ve entered isn&apos;t valid.</source>
+        <translation>Der eingegebene Benutzername ist ungültig.</translation>
+    </message>
+    <message>
+        <source>The username you&apos;ve entered is already used.</source>
+        <translation>Der eingegebene Benutzername wird bereits verwendet.</translation>
+    </message>
+    <message>
+        <source>The password you&apos;ve chosen is too weak.</source>
+        <translation>Das gewählte Passwort ist zu schwach.</translation>
+    </message>
+    <message>
+        <source>In order to use your %1 system, please create an account.</source>
+        <translation>Erstelle ein Benutzerkonto um dieses %1 System zu benutzen.</translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation>Benutzername</translation>
+    </message>
+    <message>
+        <source>Your e-mail address</source>
+        <translation>Deine e-mail Adresse</translation>
+    </message>
+    <message>
+        <source>Required</source>
+        <translation>Erforderlich</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>Passwort</translation>
+    </message>
+    <message>
+        <source>Your name</source>
+        <translation>Dein Name</translation>
+    </message>
+    <message>
+        <source>Optional</source>
+        <translation>Optional</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>E-Mail</translation>
+    </message>
+    <message>
+        <source>If you are the owner and do not have your own account, have your installer create an account for you.</source>
+        <translation>Wenn Sie Anlagenbetreiber sind und kein eigenen Account haben, lassen Sie sich einen Account von ihrem Installateur anlegen.</translation>
+    </message>
+    <message>
+        <source>If you are an installer and do not have your own account, you can authenticate yourself using the test button on the leaflet (see quick start guide or user manual).</source>
+        <translation>Sind sie Installateur und haben keinen eigenen Account, dann können sie sich mit dem Testtaster am Leaflet authentifizieren (siehe Kurzanleitung oder  Gebrauchsanleitung).</translation>
+    </message>
+</context>
+<context>
+    <name>PushButtonAuthPage</name>
+    <message>
+        <source>Welcome to %1!</source>
+        <translation>Willkommen zu %1!</translation>
+    </message>
+    <message>
+        <source>Sorry, something went wrong during the setup. Try again please.</source>
+        <translation>Entschuldigung, bei der Einrichtung ist etwas schief gelaufen. Bitte versuchen Sie es erneut.</translation>
+    </message>
+    <message>
+        <source>Finish authentication</source>
+        <translation>Authentifizierung abschließen</translation>
+    </message>
+    <message>
+        <source>To complete authentication, press the test button again for 5 sec. until the status LED lights up green.</source>
+        <translation>Um die Authentifizierung abzuschließen bitte den Testtaster erneut drücken für ca. 5 Sek. bis Status-LED grün leuchtet.</translation>
+    </message>
+    <message>
+        <source>If the status LED is not green, you have to repeat authentication.(Go back to connection page, press reset button shortly and select leaflet again).</source>
+        <translation>Sollte die Status LED nicht grün leuchten, müssen Sie Authentifizierung wiederholen. (Zurückgehen zur Verbindungsseite, Resettaste kurz drücken und Leaflet erneut auswählen).</translation>
     </message>
 </context>
 </TS>
