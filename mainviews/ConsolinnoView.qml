@@ -1,5 +1,4 @@
 
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 *
 * Copyright 2013 - 2020, nymea GmbH
@@ -493,7 +492,7 @@ MainViewBase {
         visible: rootMeter != null
 
         property int hours: 24
-        readonly property var consumersColors: ["#ACE3E2","#F7B772","#ADB9E3","#639F86", "#FF8954", "#D9F6C5","#437BC4","#AA5DC2", "#C6C73F"]
+        readonly property var consumersColors: ["#F7B772", "#ACE3E2", "#ADB9E3","#639F86", "#FF8954", "#D9F6C5","#437BC4","#AA5DC2", "#C6C73F"]
         readonly property color rootMeterAcquisitionColor: "#F37B8E"
         readonly property color rootMeterReturnColor: "#45B4E4"
         readonly property color producersColor: "#FCE487"
