@@ -1122,7 +1122,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>Hot water temperature</source>
-        <translation>Heißwasser temperatur</translation>
+        <translation>Heißwassertemperatur</translation>
     </message>
     <message>
         <source>Return temperature</source>
