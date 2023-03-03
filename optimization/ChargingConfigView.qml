@@ -724,8 +724,7 @@ Page {
 
                     ComboBox {
                         id: comboboxloadingmod
-
-                        Layout.preferredWidth: carSelector.width
+                        Layout.fillWidth: true
 
                         model: ListModel{
 
