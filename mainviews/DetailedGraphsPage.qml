@@ -15,7 +15,9 @@ Page {
     }
 
     property EnergyManager energyManager: null
+    property var totalColors: []
     property var consumersColors: []
+
 
     readonly property Thing rootMeter: engine.thingManager.fetchingData ? null : engine.thingManager.things.getThing(energyManager.rootMeterId)
 
@@ -56,61 +58,74 @@ Page {
                 columnSpacing: 0
 
 
-                CurrentConsumptionBalancePieChart {
+
+                ConsolinnoPowerBalanceHistory {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: width
+                    visible: rootMeter != null || producers.count > 0
+                    totalColors: root.totalColors
+                }
+
+                ConsolinnoCurrentConsumptionBalancePieChart {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     energyManager: root.energyManager
                     visible: producers.count > 0
+                    totalColors: root.totalColors
                 }
-                CurrentProductionBalancePieChart {
+                ConsolinnoCurrentProductionBalancePieChart {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     energyManager: root.energyManager
                     visible: producers.count > 0
+                    totalColors: root.totalColors
                 }
 
-                PowerConsumptionBalanceHistory {
+                ConsolinnoPowerConsumptionBalanceHistory {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     visible: producers.count > 0
+                    totalColors: root.totalColors
                 }
 
-                PowerProductionBalanceHistory {
+                ConsolinnoPowerProductionBalanceHistory {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     visible: producers.count > 0
+                    totalColors: root.totalColors
                 }
 
-                ConsumersPieChart {
+                ConsolinnoConsumersPieChart {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     energyManager: root.energyManager
                     visible: consumers.count > 0
-                    colors: root.consumersColors
+                    consumerColors: root.consumersColors
                     consumers: consumers
                 }
 
-                ConsumersHistory {
+                ConsolinnoConsumersHistory {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     visible: consumers.count > 0
-                    colors: root.consumersColors
+                    consumerColors: root.consumersColors
                     consumers: consumers
                 }
 
-                PowerBalanceStats {
+                ConsolinnoPowerBalanceStats {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     energyManager: root.energyManager
+                    totalColors: root.totalColors
                     visible: rootMeter != null
                 }
 
-                ConsumerStats {
+                ConsolinnoConsumerStats {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     energyManager: root.energyManager
                     visible: consumers.count > 0
-                    colors: root.consumersColors
+                    consumerColors: root.consumersColors
                     consumers: consumers
                 }
             }

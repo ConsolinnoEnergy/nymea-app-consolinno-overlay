@@ -1,5 +1,4 @@
 
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 *
 * Copyright 2013 - 2020, nymea GmbH
@@ -44,7 +43,9 @@ import "../delegates"
 MainViewBase {
     id: root
 
-    readonly property bool loading: engine.thingManager.fetchingData
+    property bool fetchPending: true
+    //readonly property bool loading: true
+    property bool loading: engine.thingManager.fetchingData || logsLoader.fetchingData
     property UserConfiguration userconfig
     EnergyManager {
         id: energyManager
@@ -88,6 +89,7 @@ MainViewBase {
 
         property bool energyMeterWiazrdSkipped: false
         property bool manualEnergyWizardBack: false
+        //readonly property bool loading: false
 
         function pushPage(comp, properties) {
             var page = pageStack.push(comp, properties)
@@ -399,7 +401,8 @@ MainViewBase {
     }
 
     onLoadingChanged: {
-        userconfig = hemsManager.userConfigurations.getUserConfiguration(
+       console.info("Loading changed")
+       userconfig = hemsManager.userConfigurations.getUserConfiguration(
                     "528b3820-1b6d-4f37-aea7-a99d21d42e72")
     }
 
@@ -453,13 +456,33 @@ MainViewBase {
         id: powerBalanceLogs
         engine: _engine
         startTime: axisAngular.min
+        endTime: axisAngular.max
+        sampleRate: EnergyLogs.SampleRate15Mins
+        Component.onCompleted: fetchLogs()
     }
 
-    ThingPowerLogs {
-        id: thingPowerLogs
+
+    ThingPowerLogsLoader {
+        id: logsLoader
         engine: _engine
         startTime: axisAngular.min
+        endTime: axisAngular.max
+        sampleRate: EnergyLogs.SampleRate15Mins
+//        Component.onCompleted: {
+//            for (var i = 0; i < consumers.count; i++)
+//            {
+//                addThingId(consumers.get(i).id)
+//            }
+//            fetchLogs()
+//        }
+
+//        onFetchingDataChanged: {
+//                   if (!fetchingData) {
+//                       root.fetchPending = false
+//                   }
+//               }
     }
+
 
     Item {
         id: lsdChart
@@ -469,12 +492,15 @@ MainViewBase {
         visible: rootMeter != null
 
         property int hours: 24
-
-        readonly property string rootMeterAcquisitionColor: "#E95E52"
-        readonly property string rootMeterReturnColor: "#24A0D6"
-        readonly property color producersColor: "#F7EC5A"
-        readonly property color batteriesColor: "#84D35E"
-        readonly property var consumersColors: ["#F37B8E", "#ACE3E2", "#FCE487", "#BDD786", "#F7B772", "#45B4E4", "#ADB9E3", Style.pink, Style.darkBlue]
+        readonly property var consumersColors: ["#F7B772", "#ACE3E2", "#ADB9E3","#639F86", "#FF8954", "#D9F6C5","#437BC4","#AA5DC2", "#C6C73F"]
+        readonly property color rootMeterAcquisitionColor: "#F37B8E"
+        readonly property color rootMeterReturnColor: "#45B4E4"
+        readonly property color producersColor: "#FCE487"
+        readonly property color batteriesColor: "#BDD786"
+        readonly property color batteryChargeColor: batteriesColor
+        readonly property color batteryDischargeColor: "#F7B772"
+        readonly property color consumedColor: "#ADB9E3"
+        readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
 
         Canvas {
             id: linesCanvas
@@ -788,6 +814,7 @@ MainViewBase {
                                   Math.abs(powerBalanceLogs.minValue)) * 1.1
                     min: -Math.max(Math.abs(powerBalanceLogs.maxValue),
                                    Math.abs(powerBalanceLogs.minValue)) * 1.1
+
                 }
 
                 AreaSeries {
@@ -811,10 +838,23 @@ MainViewBase {
 
                         Connections {
                             target: powerBalanceLogs
-                            onEntryAdded: {
-                                chartView.appendPoint(productionUpperSeries,
-                                                      entry.timestamp.getTime(
-                                                          ), -entry.production)
+                            onEntriesAdded: {
+                                for (var i = 0; i < entries.length; i++) {
+                                    var entry = entries[i]
+                                    chartView.appendPoint(productionUpperSeries,
+                                                          entry.timestamp.getTime(
+                                                              ), -entry.production)
+
+                                    chartView.appendPoint(acquisitionUpperSeries,
+                                                          entry.timestamp.getTime(
+                                                              ), entry.acquisition)
+                                    chartView.appendPoint(returnUpperSeries,
+                                                          entry.timestamp.getTime(
+                                                              ), -entry.acquisition)
+                                    chartView.appendPoint(storageUpperSeries,
+                                                          entry.timestamp.getTime(
+                                                              ), -entry.storage)
+                                }
                             }
                         }
                     }
@@ -840,14 +880,17 @@ MainViewBase {
                             }
                         }
 
-                        Connections {
-                            target: powerBalanceLogs
-                            onEntryAdded: {
-                                chartView.appendPoint(acquisitionUpperSeries,
-                                                      entry.timestamp.getTime(
-                                                          ), entry.acquisition)
-                            }
-                        }
+//                        Connections {
+//                            target: powerBalanceLogs
+//                            onEntriesAdded: {
+//                                for (var i = 0; i < entries.length; i++) {
+//                                var entry = entries[i]
+//                                chartView.appendPoint(acquisitionUpperSeries,
+//                                                      entry.timestamp.getTime(
+//                                                          ), entry.acquisition)
+//                                }
+//                            }
+//                        }
                     }
                 }
 
@@ -871,14 +914,17 @@ MainViewBase {
                             }
                         }
 
-                        Connections {
-                            target: powerBalanceLogs
-                            onEntryAdded: {
-                                chartView.appendPoint(returnUpperSeries,
-                                                      entry.timestamp.getTime(
-                                                          ), -entry.acquisition)
-                            }
-                        }
+//                        Connections {
+//                            target: powerBalanceLogs
+//                            onEntriesAdded: {
+//                                for (var i = 0; i < entries.length; i++) {
+//                                var entry = entries[i]
+//                                chartView.appendPoint(returnUpperSeries,
+//                                                      entry.timestamp.getTime(
+//                                                          ), -entry.acquisition)
+//                                }
+//                            }
+//                        }
                     }
                 }
 
@@ -902,14 +948,17 @@ MainViewBase {
                             }
                         }
 
-                        Connections {
-                            target: powerBalanceLogs
-                            onEntryAdded: {
-                                chartView.appendPoint(storageUpperSeries,
-                                                      entry.timestamp.getTime(
-                                                          ), -entry.storage)
-                            }
-                        }
+//                        Connections {
+//                            target: powerBalanceLogs
+//                            onEntriesAdded: {
+//                                for (var i = 0; i < entries.length; i++) {
+//                                var entry = entries[i]
+//                                chartView.appendPoint(storageUpperSeries,
+//                                                      entry.timestamp.getTime(
+//                                                          ), -entry.storage)
+//                                }
+//                            }
+//                        }
                     }
                 }
 
@@ -934,6 +983,17 @@ MainViewBase {
                             chartView.removeSeries(consumerSeries)
                         }
 
+                        readonly property ThingPowerLogs logs: ThingPowerLogs {
+                                       id: thingPowerLogs
+                                       engine: _engine
+                                       startTime: axisAngular.min
+                                       endTime: axisAngular.max
+                                       thingId: consumerDelegate.thing.id
+                                       loader: logsLoader
+                                       Component.onCompleted: fetchLogs()
+                                   }
+
+
                         Component {
                             id: lineSeriesComponent
                             LineSeries {
@@ -941,9 +1001,6 @@ MainViewBase {
                                 Component.onCompleted: {
                                     for (var i = 0; i < thingPowerLogs.count; i++) {
                                         var entry = thingPowerLogs.get(i)
-                                        if (entry.thingId !== consumerDelegate.thing.id) {
-                                            continue
-                                        }
                                         chartView.appendPoint(
                                                     consumerUpperSeries,
                                                     entry.timestamp.getTime(),
@@ -952,11 +1009,14 @@ MainViewBase {
                                 }
                                 Connections {
                                     target: thingPowerLogs
-                                    onEntryAdded: {
-                                        chartView.appendPoint(
-                                                    consumerUpperSeries,
-                                                    entry.timestamp.getTime(),
-                                                    entry.currentPower)
+                                    onEntriesAdded: {
+                                        for (var i = 0; i < entries.length; i++) {
+                                            var entry = entries[i]
+                                            chartView.appendPoint(
+                                                        consumerUpperSeries,
+                                                        entry.timestamp.getTime(),
+                                                        entry.currentPower)
+                                        }
                                     }
                                 }
                             }
@@ -1020,7 +1080,8 @@ MainViewBase {
                         }
                         onClicked: pageStack.push("DetailedGraphsPage.qml", {
                                                       "energyManager": energyManager,
-                                                      "consumersColors": lsdChart.consumersColors
+                                                      "totalColors": lsdChart.totalColors,
+                                                      "consumersColors": lsdChart.consumersColors,
                                                   })
                     }
 

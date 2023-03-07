@@ -16,13 +16,28 @@ ConfigurationBase {
     property string appBranding: "Consolinno Energy"
     property string coreBranding: "Leaflet"
 
+    // Will be shown in About page
+    property string githubLink: "https://github.com/ConsolinnoEnergy/nymea-app"
+    property string privacyPolicyUrl: "https://consolinno.de/datenschutz/"
+
+    // Default value when manually adding a tunnel proxy
+    property string defaultTunnelProxyUrl: "hems-remoteproxy.services-test.consolinno-it.de"
+
+    // Hides shutdown button in general settings menu
+    property bool hideShutdownButton: true
+
+    // Hides Restart button in general settings menu
+    property bool hideResetButton: true
+
+    // Shows Reboot button in general settings menu
+    property bool hideRebootButton: false
+
     // Additional MainViews
     property var additionalMainViews: ListModel {
         ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Consolinno"); icon: "leaf" }
     }
 
     // Main views filter: Only those main views are enabled
-    //property var mainViewsFilter: [ "consolinno", "things" ]
     //property var mainViewsFilter: ["consolinno"]
 
     defaultMainView: "consolinno"
@@ -36,11 +51,13 @@ ConfigurationBase {
     modbusSettingsEnabled: true
     pluginSettingsEnabled: true
 
-    mainMenuLinks: ListModel {
-        ListElement {
-            text: qsTr("Help")
-            iconName: "../images/help.svg"
-            url: "https://consolinno.de"
-        }
-    }
+
+
+    mainMenuLinks: [ 
+        {
+            text: qsTr("Help"),
+            iconName: "../images/help.svg",
+            page: "info/Help/HelpPage.qml"
+        },
+    ] 
 }
