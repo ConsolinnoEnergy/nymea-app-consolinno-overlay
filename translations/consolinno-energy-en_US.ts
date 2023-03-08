@@ -1023,6 +1023,116 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>ConsolinnoImprintApp</name>
+    <message>
+        <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer options are now disabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Howdy cowboy!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Licensed under the terms of the GNU General Public License, version 3. Please visit the GitHub page for source code and build instructions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visit GitHub page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View privacy policy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Common Licenses</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Common Licenses used for this Product</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Software and Libraries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Software and libraries used for this Product</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qt is a registered trademark of The Qt Company Ltd. and its subsidiaries.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visit the Qt website</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visit the nymea website</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source code availability</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoImprintSystem</name>
+    <message>
+        <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer options are now disabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Howdy cowboy!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Licensed under the terms of the GNU General Public License, version 3. Please visit the GitHub page for source code and build instructions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visit GitHub page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View privacy policy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Common Licenses</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Common Licenses used for this Product</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Additional software licenses</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only available on the local Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qt is a registered trademark of The Qt Company Ltd. and its subsidiaries.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visit the Qt website</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoItemDelegate</name>
     <message>
         <source>Delete</source>

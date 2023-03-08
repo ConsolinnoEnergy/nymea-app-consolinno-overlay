@@ -6,6 +6,8 @@
         <file>styles/light/logo-wide.svg</file>
         <file>translations/consolinno-energy-de.qm</file>
         <file>styles/light/Background.qml</file>
+        <file>SOURCE_AVAIL_de_DE.txt</file>
+        <file>SOURCE_AVAIL_en_US.txt</file>
     </qresource>
     <qresource prefix="/ui">
         <file>system/ConsolinnoUsersSettingsPage.qml</file>
@@ -43,7 +45,6 @@
         <file>info/MinimumChargingCurrent.qml</file>
         <file>info/MaximumAllowedChargingLimit.qml</file>
         <file>info/InfoTextInterface.qml</file>
-        <file>components/ConsolinnoImprint.qml</file>
         <file>optimization/HeatingConfigView.qml</file>
         <file>components/VerticalDivider.qml</file>
         <file>components/ConsolinnoBigTile.qml</file>
@@ -80,5 +81,7 @@
         <file>mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml</file>
         <file>mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml</file>
         <file>mainviews/energy/ConsolinnoPowerBalanceHistory.qml</file>
+        <file>components/ConsolinnoImprintSystem.qml</file>
+        <file>components/ConsolinnoImprintApp.qml</file>
     </qresource>
 </RCC>
