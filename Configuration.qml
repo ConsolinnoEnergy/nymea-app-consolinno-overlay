@@ -3,8 +3,8 @@ pragma Singleton
 import QtQuick 2.5
 
 ConfigurationBase {
-    systemName: "Leaflet"
-    appName: "Consolinno energy"
+    systemName: "Leaflet HEMS"
+    appName: "Consolinno HEMS"
     appId: "hems.consolinno.energy"
 
     connectionWizard: "/ui/wizards/ConnectionWizard.qml"
