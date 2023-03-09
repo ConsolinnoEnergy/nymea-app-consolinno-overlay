@@ -923,7 +923,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1113,16 +1113,8 @@ Mail service@consolinno.de</source>
         <translation>Allgemeine Lizenzen</translation>
     </message>
     <message>
-        <source>Common Licenses used for this Product</source>
-        <translation>Für dieses Produkt genutzte Lizenzen</translation>
-    </message>
-    <message>
         <source>Additional software licenses</source>
         <translation>Zusätzliche Software-Lizenzen</translation>
-    </message>
-    <message>
-        <source>Only available on the local Network</source>
-        <translation>nur im lokalen Netzwerk abrufbar</translation>
     </message>
     <message>
         <source>Qt is a registered trademark of The Qt Company Ltd. and its subsidiaries.</source>
@@ -1131,6 +1123,18 @@ Mail service@consolinno.de</source>
     <message>
         <source>Visit the Qt website</source>
         <translation>Besuchen Sie die Qt Webseite</translation>
+    </message>
+    <message>
+        <source>Only available on the local network</source>
+        <translation>Nur im lokalen Netzwerk verfügbar</translation>
+    </message>
+    <message>
+        <source>Only available on the local network. Please connect the device running this app to the same network as your Leaflet HEMS system, e.g. your home network.</source>
+        <translation>Nur im lokalen Netzwerk verfügbar. Bitte verbinden Sie das Gerät auf dem diese App läuft mit dem selben Netzwerk in dem sich das Leaflet HEMS System befindet, z.B. Ihr Heimnetzwerk.</translation>
+    </message>
+    <message>
+        <source>Visit the nymea website</source>
+        <translation>Besuchen Sie die nymea Webseite</translation>
     </message>
 </context>
 <context>

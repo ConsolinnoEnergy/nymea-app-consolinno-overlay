@@ -1112,15 +1112,7 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Common Licenses used for this Product</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Additional software licenses</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Only available on the local Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1129,6 +1121,18 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Visit the Qt website</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only available on the local network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only available on the local network. Please connect the device running this app to the same network as your Leaflet HEMS system, e.g. your home network.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visit the nymea website</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

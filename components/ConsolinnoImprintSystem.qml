@@ -110,56 +110,52 @@ Item {
                 onClicked:
                     //pageStack.push("../info/Privacy/PrivacyPage.qml")
                     Qt.openUrlExternally(Configuration.privacyPolicyUrl)
-            }
+            } 
 
             NymeaSwipeDelegate {
                 Layout.fillWidth: true
                 text: qsTr("Common Licenses")
                 iconName:  "../images/logs.svg"
-                subText: qsTr("Common Licenses used for this Product")
+                subText: qsTr("Only available on the local network")
                 prominentSubText: false
                 wrapTexts: false
                 onClicked: {
-                    if(root.additionalLicenses) {
-                        pageStack.push(licensesPageComponent)
-                    }else {
+                    var isRemote=function()
+                    {
+                        if  (["hems-demo.consolinno-it.de", ].includes(engine.jsonRpcClient.currentConnection.hostAddress.toString())) {
+                            return true
+                        }
+                        if  (engine.jsonRpcClient.currentConnection.hostAddress.toString().includes("hems-remoteproxy")) {
+                            return true
+                        }
+                        return false
+                    }
+                    if(isRemote()) {
+                        localOnlyPopup.open()
+                    }else{
                         Qt.openUrlExternally("http://" + engine.jsonRpcClient.currentConnection.hostAddress.toString() + ":8083" )
                     }
                 }
             }
 
-
-            NymeaSwipeDelegate {
-                Layout.fillWidth: true
-                text: qsTr("Additional software licenses")
-                iconName: "../images/logs.svg"
-                subText: qsTr("Only available on the local Network")
-                prominentSubText: false
-                wrapTexts: false
-                visible: {
-
-                    // dont show on Demo Server
-                    if(engine.jsonRpcClient.currentConnection.hostAddress.toString().indexOf("hems-demo.consolinno-it.de") >= 0 ) {
-                        return false
-                    }
-                    // Show if CloudConnection is not Connected ("so local")  OR offline additional Licenses are provided
-                    if (engine.jsonRpcClient.cloudConnectionState !== JsonRpcClient.CloudConnectionStateConnected || (root.additionalLicenses.count > 0 && root.additionalLicenses) )
-                    {
-                        return true
-                    }
-
-                    return false
-
+            Popup {
+                id: localOnlyPopup
+                parent: Overlay.overlay
+                x: Math.round((parent.width - width) / 2)
+                y: Math.round((parent.height - height) / 2)
+                width: parent.width
+                height: 100
+                modal: true
+                focus: true
+                closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+                contentItem: Label {
+                    Layout.fillWidth: true
+                    Layout.topMargin: app.margins
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    wrapMode: Text.WordWrap
+                    text: qsTr("Only available on the local network. Please connect the device running this app to the same network as your Leaflet HEMS system, e.g. your home network.")
                 }
-
-                onClicked: {
-                    if(root.additionalLicenses) {
-                        pageStack.push(licensesPageComponent)
-                    }else {
-                        Qt.openUrlExternally("http://" + engine.jsonRpcClient.currentConnection.hostAddress.toString() + ":8082" )
-                    }
-                }
-
             }
         }
 
@@ -194,6 +190,18 @@ Item {
             wrapTexts: false
             onClicked: {
                 Qt.openUrlExternally("https://www.qt.io")
+            }
+        }
+
+        NymeaSwipeDelegate {
+            Layout.fillWidth: true
+            iconName: "../images/stock_website.svg"
+            text: qsTr("Visit the nymea website")
+            subText: "https://www.nymea.io"
+            prominentSubText: false
+            wrapTexts: false
+            onClicked: {
+                Qt.openUrlExternally("https://www.nymea.io")
             }
         }
     }
