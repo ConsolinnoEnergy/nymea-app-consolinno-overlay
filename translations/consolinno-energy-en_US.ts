@@ -1135,6 +1135,10 @@ Mail service@consolinno.de</source>
         <source>Visit the nymea website</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Software and Libraries</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoItemDelegate</name>

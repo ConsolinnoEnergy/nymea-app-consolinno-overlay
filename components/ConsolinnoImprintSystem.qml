@@ -112,6 +112,26 @@ Item {
                     Qt.openUrlExternally(Configuration.privacyPolicyUrl)
             } 
 
+            Popup {
+                id: localOnlyPopup
+                parent: Overlay.overlay
+                x: Math.round((parent.width - width) / 2)
+                y: Math.round((parent.height - height) / 2)
+                width: parent.width
+                height: 100
+                modal: true
+                focus: true
+                closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+                contentItem: Label {
+                    Layout.fillWidth: true
+                    Layout.topMargin: app.margins
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    wrapMode: Text.WordWrap
+                    text: qsTr("Only available on the local network. Please connect the device running this app to the same network as your Leaflet HEMS system, e.g. your home network.")
+                }
+            }
+
             NymeaSwipeDelegate {
                 Layout.fillWidth: true
                 text: qsTr("Common Licenses")
@@ -138,23 +158,29 @@ Item {
                 }
             }
 
-            Popup {
-                id: localOnlyPopup
-                parent: Overlay.overlay
-                x: Math.round((parent.width - width) / 2)
-                y: Math.round((parent.height - height) / 2)
-                width: parent.width
-                height: 100
-                modal: true
-                focus: true
-                closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-                contentItem: Label {
-                    Layout.fillWidth: true
-                    Layout.topMargin: app.margins
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    wrapMode: Text.WordWrap
-                    text: qsTr("Only available on the local network. Please connect the device running this app to the same network as your Leaflet HEMS system, e.g. your home network.")
+            NymeaSwipeDelegate {
+                Layout.fillWidth: true
+                text: qsTr("Software and Libraries")
+                iconName:  "../images/logs.svg"
+                subText: qsTr("Only available on the local network")
+                prominentSubText: false
+                wrapTexts: false
+                onClicked: {
+                    var isRemote=function()
+                    {
+                        if  (["hems-demo.consolinno-it.de", ].includes(engine.jsonRpcClient.currentConnection.hostAddress.toString())) {
+                            return true
+                        }
+                        if  (engine.jsonRpcClient.currentConnection.hostAddress.toString().includes("hems-remoteproxy")) {
+                            return true
+                        }
+                        return false
+                    }
+                    if(isRemote()) {
+                        localOnlyPopup.open()
+                    }else{
+                        Qt.openUrlExternally("http://" + engine.jsonRpcClient.currentConnection.hostAddress.toString() + ":8082" )
+                    }
                 }
             }
         }
