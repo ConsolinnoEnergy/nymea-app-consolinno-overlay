@@ -18,7 +18,7 @@ ConfigurationBase {
 
     // Will be shown in About page
     property string githubLink: "https://github.com/ConsolinnoEnergy/nymea-app"
-    property string privacyPolicyUrl: "https://consolinno.de/datenschutz/"
+    property string privacyPolicyUrl: "https://consolinno.de/hems-datenschutz/"
 
     property ListModel softwareLinksApp: ListModel {
         ListElement { component: "Suru icons"; url: "https://github.com/snwh/suru-icon-theme" }
