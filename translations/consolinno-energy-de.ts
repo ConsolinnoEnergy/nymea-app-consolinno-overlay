@@ -621,26 +621,6 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
         <translation>Ich bestätige, dass ich die Bestimmungen gelesen habe und akzeptiere.</translation>
     </message>
     <message>
-        <source>There are two ways to connect your device (smartphone/ PC) with the Leaflet:</source>
-        <translation>Damit sich ihr Gerät (Smartphone/ PC) mit dem Leaflet verbinden kann gibt es 2 Möglichkeiten:</translation>
-    </message>
-    <message>
-        <source>1. Connection via the local network</source>
-        <translation>1. Verbindung über das lokale Netzwerk</translation>
-    </message>
-    <message>
-        <source>Connect the device to the same network where the Leaflet is connected.</source>
-        <translation>Verbinden Sie sich mit dem gleichen Netzwerk indem sich auch das Leaflet befindet.</translation>
-    </message>
-    <message>
-        <source>2. Direct connection with LAN cable</source>
-        <translation>2. Direkte Verbindung mit LAN-Kabel</translation>
-    </message>
-    <message>
-        <source>Connect your device with LAN cable to the 3rd Ethernet slot (LAN 3). Smartphones can also be connected to the Leaflet with LAN cable using an appropriate LAN adapter.</source>
-        <translation>Verbinden Sie ihr Gerät mit LAN-Kabel mit der 3. Ethernet Slot (LAN 3). Smartphones können mit einem entsprechenden LAN-Adapter auch mit LAN-Kabel mit dem Leaflet verbunden werden.</translation>
-    </message>
-    <message>
         <source>Terms of Use</source>
         <translation>Nutzungsbedingungen</translation>
     </message>
@@ -839,6 +819,11 @@ Mail service@consolinno.de</source>
 
 · nach den Vorschriften des Produkthaftungsgesetzes</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please connect your Leaflet device (LAN port 1) to your network. Be sure the device running this App (Smartphone, PC) is connected to the same network.</source>
+        <translation>Bitte verbinden Sie das Leaflet (1. LAN-Buchse) mit dem Netzwerk. Stellen Sie sicher, dass Ihr Gerät (Smartphone, PC) mit dem selben Netzwerk verbunden ist.
+</translation>
     </message>
 </context>
 <context>

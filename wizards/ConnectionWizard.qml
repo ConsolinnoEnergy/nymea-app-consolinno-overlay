@@ -1287,72 +1287,18 @@ Mail service@consolinno.de")
                         Layout.fillWidth: true
                         Layout.leftMargin: app.margins
                         Layout.rightMargin: app.margins
-                        text: qsTr("There are two ways to connect your device (smartphone/ PC) with the Leaflet:")
-
-                    }
-
-                    ColumnLayout{
-                        Layout.fillWidth: true
-                        Layout.topMargin: 30
-                        spacing: 1
-                        Label{
-                            id: firstOption
-                            Layout.fillWidth: true
-                            Layout.leftMargin: app.margins
-                            Layout.rightMargin: app.margins
-                            wrapMode: Text.WordWrap
-                            font.bold: true
-
-                            text: qsTr("1. Connection via the local network")
-
-                        }
-                        Label{
-                            id: optionOne
-                            Layout.fillWidth: true
-                            wrapMode: Text.WordWrap
-                            Layout.leftMargin: app.margins
-                            Layout.rightMargin: app.margins
-                            Layout.topMargin: 1
-                            text: qsTr("Connect the device to the same network where the Leaflet is connected.")
-
-                        }
-
-
-                    }
-
-                    ColumnLayout{
-                        Layout.fillWidth: true
-                        Layout.topMargin: 10
-                        spacing: 1
-                        Label{
-                            id: secondOption
-                            wrapMode: Text.WordWrap
-                            Layout.leftMargin: app.margins
-                            Layout.rightMargin: app.margins
-                            Layout.fillWidth: true
-                            font.bold: true
-
-                            text: qsTr("2. Direct connection with LAN cable")
-
-                        }
-                        Label{
-                            id: optionTwo
-                            Layout.fillWidth: true
-                            Layout.leftMargin: app.margins
-                            Layout.rightMargin: app.margins
-                            wrapMode: Text.WordWrap
-                            Layout.topMargin: 1
-                            text: qsTr("Connect your device with LAN cable to the 3rd Ethernet slot (LAN 3). Smartphones can also be connected to the Leaflet with LAN cable using an appropriate LAN adapter.")
-
-                        }
-
-
-                    }
-
-
-
-
+                        text: qsTr("Please connect your Leaflet device (LAN port 1) to your network. Be sure the device running this App (Smartphone, PC) is connected to the same network.")
+                    } 
                 }
+
+            Image {
+                Layout.fillWidth: true
+                Layout.preferredHeight: connectionInfoPage.visibleContentHeight - Style.margins * 2
+                Layout.margins: Style.margins
+                fillMode: Image.PreserveAspectFit
+                sourceSize.width: width
+                source: "/ui/images/leaflet-ethernet-connect.png"
+            }
 
 
                 Button {

@@ -83,5 +83,6 @@
         <file>mainviews/energy/ConsolinnoPowerBalanceHistory.qml</file>
         <file>components/ConsolinnoImprintSystem.qml</file>
         <file>components/ConsolinnoImprintApp.qml</file>
+        <file>images/leaflet-ethernet-connect.png</file>
     </qresource>
 </RCC>

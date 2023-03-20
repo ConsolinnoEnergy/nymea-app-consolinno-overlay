@@ -620,26 +620,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>There are two ways to connect your device (smartphone/ PC) with the Leaflet:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>1. Connection via the local network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connect the device to the same network where the Leaflet is connected.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>2. Direct connection with LAN cable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connect your device with LAN cable to the 3rd Ethernet slot (LAN 3). Smartphones can also be connected to the Leaflet with LAN cable using an appropriate LAN adapter.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Terms of Use</source>
         <translation type="unfinished"></translation>
     </message>
@@ -837,6 +817,10 @@ Mail service@consolinno.de</source>
 · für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit;
 
 · nach den Vorschriften des Produkthaftungsgesetzes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please connect your Leaflet device (LAN port 1) to your network. Be sure the device running this App (Smartphone, PC) is connected to the same network.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
