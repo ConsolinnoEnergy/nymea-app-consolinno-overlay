@@ -1294,7 +1294,7 @@ Mail service@consolinno.de")
             Image {
                 Layout.fillWidth: true
                 Layout.preferredHeight: connectionInfoPage.visibleContentHeight - Style.margins * 2
-                Layout.margins: Style.margins
+                Layout.margins: Style.margins * 4
                 fillMode: Image.PreserveAspectFit
                 sourceSize.width: width
                 source: "/ui/images/leaflet-ethernet-connect.png"
