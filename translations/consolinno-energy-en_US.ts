@@ -2152,6 +2152,34 @@ Mail service@consolinno.de</source>
         <source>Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>north</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>northeast</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>east</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>southeast</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>south</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>southwest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>northwest</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PrivacyPage</name>

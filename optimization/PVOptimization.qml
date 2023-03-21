@@ -109,9 +109,9 @@ Page {
                 id: latitude
                 property bool latitude_validated
                 maximumLength: 7
-                Layout.minimumWidth: 55
-                Layout.maximumWidth: 55
-                Layout.rightMargin: 48
+                Layout.minimumWidth: 70
+                Layout.maximumWidth: 70
+                Layout.rightMargin: 60
                 text: pvConfiguration.latitude.toLocaleString(Qt.locale())
                 validator: DoubleValidator {
                     bottom: -90
@@ -140,9 +140,9 @@ Page {
                 id: longitudefield
                 property bool longitude_validated
                 maximumLength: 7
-                Layout.minimumWidth: 55
-                Layout.maximumWidth: 55
-                Layout.rightMargin: 48
+                Layout.minimumWidth: 70
+                Layout.maximumWidth: 70
+                Layout.rightMargin: 60
                 text: pvConfiguration.longitude.toLocaleString(Qt.locale())
 
                 validator: DoubleValidator {
@@ -175,9 +175,9 @@ Page {
 
                 property bool roofpitch_validated
                 maximumLength: 2
-                Layout.minimumWidth: 55
-                Layout.maximumWidth: 55
-                Layout.rightMargin: 48
+                Layout.minimumWidth: 70
+                Layout.maximumWidth: 70
+                Layout.rightMargin: 58
 
                 text: pvConfiguration.roofPitch
                 validator: IntValidator {
@@ -202,27 +202,40 @@ Page {
                 text: qsTr("Alignment")
             }
 
-            TextField {
-                id: alignment
-                property bool alignment_validated
-                maximumLength: 3
-                Layout.minimumWidth: 55
-                Layout.maximumWidth: 55
-                Layout.rightMargin: 48
-                text: pvConfiguration.alignment
-                validator: IntValidator {
-                    bottom: 0
-                    top: 360
-                }
-                onTextChanged: acceptableInput ? alignment_validated
-                                                 = true : alignment_validated = false
-            }
+//            TextField {
+//                id: alignment
+//                property bool alignment_validated
+//                maximumLength: 3
+//                Layout.minimumWidth: 55
+//                Layout.maximumWidth: 55
+//                Layout.rightMargin: 48
+//                text: pvConfiguration.alignment //                validator: IntValidator {
+//                    bottom: 0
+//                    top: 360
+//                }
+//                onTextChanged: acceptableInput ? alignment_validated
+//                                                 = true : alignment_validated = false
+//            }
 
-            Label {
-                id: alignmentunit
-                Layout.alignment: Qt.AlignLeft
-                text: qsTr("°")
-            }
+ComboBox {
+        id: alignment
+        //Layout.fillWidth: true
+        currentIndex: 4
+        textRole: "text"
+        valueRole: "value"
+        Layout.minimumWidth: 140
+        Layout.maximumWidth: 140
+        Component.onCompleted: currentIndex = indexOfValue(pvConfiguration.alignment)
+        model: [
+            { value: 0, text: qsTr("north") },
+            { value: 45, text: qsTr("northeast") },
+            { value: 90, text: qsTr("east") },
+            { value: 135, text: qsTr("southeast") },
+            { value: 180, text: qsTr("south") },
+            { value: 225, text: qsTr("southwest") },
+            { value: 270, text: qsTr("northwest") },
+        ]
+    }
         }
 
         RowLayout {
@@ -239,8 +252,8 @@ Page {
                 id: kwPeak
                 Layout.alignment: Qt.AlignRight
                 property bool kwPeak_validated
-                Layout.rightMargin: 15
-                Layout.minimumWidth: 50
+                Layout.rightMargin: 40
+                Layout.minimumWidth: 70
                 Layout.maximumWidth: 70
                 text: pvConfiguration.kwPeak
                 maximumLength: 7
@@ -272,7 +285,6 @@ Page {
             property bool validated: longitudefield.longitude_validated
                                      && latitude.latitude_validated
                                      && roofpitch.roofpitch_validated
-                                     && alignment.alignment_validated
                                      && kwPeak.kwPeak_validated
             text: qsTr("Save")
             //enabled: configurationSettingsChanged
@@ -301,7 +313,7 @@ Page {
                                                                            Qt.locale(),
                                                                            latitude.text),
                                                            "roofPitch": roofpitch.text,
-                                                           "alignment": alignment.text,
+                                                           "alignment": alignment.currentValue,
                                                            "kwPeak": kwPeak.text
                                                        })
                         footer.text = ""
@@ -325,7 +337,7 @@ Page {
                                                         Qt.locale(),
                                                         latitude.text),
                                         "roofPitch": roofpitch.text,
-                                        "alignment": alignment.text,
+                                        "alignment": alignment.currentValue,
                                         "kwPeak": kwPeak.text
                                     })
                     } else {

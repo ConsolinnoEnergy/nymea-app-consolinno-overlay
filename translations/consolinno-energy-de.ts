@@ -2157,6 +2157,34 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
         <source>Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)</source>
         <translation>Bitte geben Sie Breiten- und Längengrad des Standortes der Anlage an. (Kann zum Beispiel über Google Maps ermittelt werden.)</translation>
     </message>
+    <message>
+        <source>north</source>
+        <translation>Norden</translation>
+    </message>
+    <message>
+        <source>northeast</source>
+        <translation>Nordosten</translation>
+    </message>
+    <message>
+        <source>east</source>
+        <translation>Osten</translation>
+    </message>
+    <message>
+        <source>southeast</source>
+        <translation>Südosten</translation>
+    </message>
+    <message>
+        <source>south</source>
+        <translation>Süden</translation>
+    </message>
+    <message>
+        <source>southwest</source>
+        <translation type="unfinished">Südwesten</translation>
+    </message>
+    <message>
+        <source>northwest</source>
+        <translation>Nordwesten</translation>
+    </message>
 </context>
 <context>
     <name>PrivacyPage</name>

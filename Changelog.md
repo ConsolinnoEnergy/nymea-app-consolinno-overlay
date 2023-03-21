@@ -1,4 +1,5 @@
-## [1.2.0 - Unreleases]
+## [1.2.1 - Unreleased ]
 
 ### Added
-- Scrolling of producer row in main view
+- Ethernet port illustration on connection hint view 
+- ComboBox for alignment input of PV 
