@@ -98,7 +98,7 @@ Page {
                     initializing = false
                 }
                 else if(chargingConfiguration.optimizationEnabled){
-                    if (chargingIsAnyOf([simple_pv_excess]))
+                    if (chargingIsAnyOf([simple_pv_excess, no_optimization]))
                     {
                         status.visible = thing.stateByName("pluggedIn")
                         initializing = true
@@ -374,7 +374,7 @@ Page {
 
             RowLayout{
                 Layout.topMargin: 15
-                visible: !([pv_excess, simple_pv_excess].includes(getChargingMode(chargingConfiguration.optimizationMode)))
+                visible: !([pv_excess, simple_pv_excess, no_optimization].includes(getChargingMode(chargingConfiguration.optimizationMode)))
                 Label{
                     id: targetChargeReachedLabel
                     Layout.fillWidth: true
@@ -398,7 +398,7 @@ Page {
 
 
             RowLayout{
-                visible: chargingIsAnyOf([simple_pv_excess,]) ? false : true
+                visible: chargingIsAnyOf([simple_pv_excess, no_optimization]) ? false : true
                 Layout.topMargin: 15
                 Label{
                     id: targetChargeLabel
@@ -476,7 +476,7 @@ Page {
 
             RowLayout{
                 function isVisible() {
-                    if (chargingIsAnyOf([simple_pv_excess,]))
+                    if (chargingIsAnyOf([simple_pv_excess, no_optimization]))
                     {
                         return false
                     }
@@ -507,7 +507,7 @@ Page {
 
             RowLayout{
                 function isVisible() {
-                    if (chargingIsAnyOf([simple_pv_excess,]))
+                    if (chargingIsAnyOf([simple_pv_excess, no_optimization]))
                     {
                         return false
                     }
@@ -811,7 +811,7 @@ Page {
 
 
                 RowLayout{
-                    visible:  isAnyOfModesSelected([no_optimization, pv_optimized, pv_excess])
+                    visible:  isAnyOfModesSelected([pv_optimized, pv_excess])
                     Layout.topMargin: 10
                     ColumnLayout{
                         Row{
@@ -870,7 +870,7 @@ Page {
 
 
                 RowLayout{
-                    visible:  isAnyOfModesSelected([no_optimization, pv_optimized, pv_excess])
+                    visible:  isAnyOfModesSelected([pv_optimized, pv_excess])
                     ColumnLayout {
                         spacing: 0
                         Row{
@@ -1118,7 +1118,7 @@ Page {
                     text: qsTr("Save")
                     onClicked: {
                         // if simple PV excess mode is used set the batteryLevel to 1
-                        if(isAnyOfModesSelected([simple_pv_excess])){
+                        if(isAnyOfModesSelected([simple_pv_excess, no_optimization])){
                             batteryLevel.value = 1
                             targetPercentageSlider.value = 100
                         }
