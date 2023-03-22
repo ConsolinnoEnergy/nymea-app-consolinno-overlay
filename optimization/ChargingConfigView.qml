@@ -637,7 +637,7 @@ Page {
                     Layout.fillWidth: true
                     text:  status.state == 3 ? qsTr("Start new charging schedule") : qsTr("Cancel Charging Schedule" )
                     onClicked: {
-                        hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: false, optimizationMode:0})
+                        hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: false, optimizationMode:9})
                     }
                 }
             }
