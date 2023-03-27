@@ -195,7 +195,7 @@
     </message>
     <message>
         <source>No car is connected at the moment. Please connect a car.</source>
-        <translation>Im Moment ist kein Auto angesteckt. Bitte stecken Sie ein Auto an</translation>
+        <translation>Im Moment ist kein Auto angesteckt. Bitte stecken Sie ein Auto an.</translation>
     </message>
     <message>
         <source>Charging configuration</source>
@@ -280,10 +280,6 @@
     <message>
         <source>Charge with minimum current</source>
         <translation>Laden mit minimaler Leistung</translation>
-    </message>
-    <message>
-        <source>Cancel charging</source>
-        <translation>Abbrechen des Ladevorgangs</translation>
     </message>
     <message>
         <source>Pause charging</source>
@@ -372,6 +368,18 @@
     <message>
         <source>Solar only</source>
         <translation>Nur Solarstrom</translation>
+    </message>
+    <message>
+        <source>On grid consumption</source>
+        <translation>Bei wenig Solarstrom</translation>
+    </message>
+    <message>
+        <source>Minimal current</source>
+        <translation>Minimalstrom</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation>Pausieren</translation>
     </message>
 </context>
 <context>
@@ -2179,7 +2187,7 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     </message>
     <message>
         <source>southwest</source>
-        <translation type="unfinished">Südwesten</translation>
+        <translation>Südwesten</translation>
     </message>
     <message>
         <source>northwest</source>

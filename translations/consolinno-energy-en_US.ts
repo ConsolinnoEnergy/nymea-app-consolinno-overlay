@@ -282,10 +282,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cancel charging</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Pause charging</source>
         <translation type="unfinished"></translation>
     </message>
@@ -371,6 +367,18 @@
     </message>
     <message>
         <source>Solar only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On grid consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimal current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

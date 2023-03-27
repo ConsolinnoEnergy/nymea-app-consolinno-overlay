@@ -370,6 +370,34 @@ Page {
                     }
 
                 }
+             }
+
+             RowLayout{
+                Layout.topMargin: 15
+                visible:  chargingIsAnyOf([simple_pv_excess])
+                Label{
+                    id: ongridConsumptionLabel
+                    Layout.fillWidth: true
+                    text: qsTr("On grid consumption")
+                }
+
+                Label{
+                    id: ongridConsumption
+                    text: getText()
+                    Layout.alignment: Qt.AlignRight
+                    Layout.rightMargin: 0
+                    function getText(){
+                        if (getChargingModeOpts(chargingConfiguration.optimizationMode)[0] === 0)
+                        {
+                            return qsTr("Minimal current")
+                        }
+                        else if (getChargingModeOpts(chargingConfiguration.optimizationMode)[0] === 2)
+                        {
+                            return qsTr("Pause")
+                        }
+                    }
+
+                }
             }
 
             RowLayout{
