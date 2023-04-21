@@ -41,8 +41,10 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
 
     if ("${useFirebase}" == "true") {
-        implementation 'com.google.android.gms:play-services-base:15.0.1'
-        implementation 'com.google.firebase:firebase-messaging:18.0.0'
+        implementation 'com.google.android.gms:play-services-base:17.0.0'
+        implementation 'com.google.firebase:firebase-messaging:23.0.0'
+        implementation "com.google.firebase:firebase-iid:21.1.0"
+        implementation 'com.pusher:push-notifications-android:1.9.0'
         implementation 'com.google.firebase.messaging.cpp:firebase_messaging_cpp@aar'
     }
 }
@@ -64,6 +66,11 @@ android {
      * updated by QtCreator and androiddeployqt tools.
      * Changing them manually might break the compilation!
      *******************************************************/
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     compileSdkVersion androidCompileSdkVersion.toInteger()
 

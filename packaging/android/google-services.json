@@ -1,39 +1,39 @@
 {
-  "project_info": {
-    "project_number": "930163413283",
-    "project_id": "consolinno-hems",
-    "storage_bucket": "consolinno-hems.appspot.com"
-  },
-  "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:930163413283:android:15334d6c030f7442c2bc96",
-        "android_client_info": {
-          "package_name": "hems.consolinno.energy"
-        }
-      },
-      "oauth_client": [
+    "client": [
         {
-          "client_id": "930163413283-rtq21uvqcl3sdc7akisobbmhpbfnhjm8.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBsy1tmSUHWBEuwqUVIOeWYxz1xEi0mG0c"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "930163413283-rtq21uvqcl3sdc7akisobbmhpbfnhjm8.apps.googleusercontent.com",
-              "client_type": 3
+            "api_key": [
+                {
+                    "current_key": "AIzaSyBsy1tmSUHWBEuwqUVIOeWYxz1xEi0mG0c"
+                }
+            ],
+            "client_info": {
+                "android_client_info": {
+                    "package_name": "hems.consolinno.energy"
+                },
+                "mobilesdk_app_id": "1:930163413283:android:15334d6c030f7442c2bc96"
+            },
+            "oauth_client": [
+                {
+                    "client_id": "930163413283-rtq21uvqcl3sdc7akisobbmhpbfnhjm8.apps.googleusercontent.com",
+                    "client_type": 3
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [
+                        {
+                            "client_id": "930163413283-rtq21uvqcl3sdc7akisobbmhpbfnhjm8.apps.googleusercontent.com",
+                            "client_type": 3
+                        }
+                    ]
+                }
             }
-          ]
         }
-      }
+    ],
+    "configuration_version": "1",
+    "project_info": {
+        "project_id": "consolinno-hems",
+        "project_number": "930163413283",
+        "storage_bucket": "consolinno-hems.appspot.com"
     }
-  ],
-  "configuration_version": "1"
 }

@@ -86,7 +86,7 @@
             <meta-data android:name="android.app.splash_screen_sticky" android:value="true"/>
         </activity>
         <!-- For adding service(s) please check: https://wiki.qt.io/AndroidServices -->
-        <service android:name="io.guh.nymeaapp.NymeaAppService" android:process=":qt_service">
+        <service android:name="io.guh.nymeaapp.NymeaAppService" android:process=":qt_service" android:exported="true">
             <meta-data android:name="android.app.qt_sources_resource_id" android:resource="@array/qt_sources"/>
             <meta-data android:name="android.app.repository" android:value="default"/>
             <meta-data android:name="android.app.qt_libs_resource_id" android:resource="@array/qt_libs"/>
@@ -105,16 +105,19 @@
             <!-- Background running -->
             <meta-data android:name="android.app.lib_name" android:value="service"/>
         </service>
-        <service android:name="com.google.firebase.messaging.MessageForwardingService">
-            <meta-data android:name="android.app.lib_name" android:value="-- %%INSERT_APP_LIB_NAME%% --"/>
+          <service android:name="com.google.firebase.messaging.MessageForwardingService" android:exported="false">
         </service>
-        <service android:name="io.guh.nymeaapp.NymeaAppNotificationService">
-            <meta-data android:name="android.app.lib_name" android:value="-- %%INSERT_APP_LIB_NAME%% --"/>
+         <service android:name="io.guh.nymeaapp.NymeaAppNotificationService" android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
         </service>
-        <service android:name="io.guh.nymeaapp.NymeaAppControlService">
-            <meta-data android:name="android.app.lib_name" android:value="-- %%INSERT_APP_LIB_NAME%% --"/>
+        <service android:name="io.guh.nymeaap.NymeaAppControlService" android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.controls.ControlsProviderService"/>
+            </intent-filter>
         </service>
-        <provider android:name="android.support.v4.content.FileProvider" android:authorities="hems.consolinno.energy.fileprovider" android:exported="false" android:grantUriPermissions="true">
+        <provider android:name="androidx.core.content.FileProvider" android:authorities="hems.consolinno.energy.fileprovider" android:exported="false" android:grantUriPermissions="true">
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"/>
         </provider>
     </application>
@@ -130,4 +133,5 @@
     <!-- %%INSERT_FEATURES -->
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.NFC"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 </manifest>
