@@ -219,13 +219,20 @@ Page {
 
 ComboBox {
         id: alignment
-        //Layout.fillWidth: true
-        currentIndex: 4
         textRole: "text"
         valueRole: "value"
         Layout.minimumWidth: 140
         Layout.maximumWidth: 140
-        Component.onCompleted: currentIndex = indexOfValue(pvConfiguration.alignment)
+        currentIndex: 4
+        Component.onCompleted: {
+            var current = indexOfValue(pvConfiguration.alignment)
+            if (current !== -1)
+            {
+                currentIndex =  current
+            }else{
+                currentIndex = 4 // south
+            }
+        }
         model: [
             { value: 0, text: qsTr("north") },
             { value: 45, text: qsTr("northeast") },
