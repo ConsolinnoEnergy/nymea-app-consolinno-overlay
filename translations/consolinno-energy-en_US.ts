@@ -1679,27 +1679,7 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Operating status: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The energy manager can set the heat pump to increased operation in the case of a power surplus, e.g. on a sunny day, in order to consume the own solar energy. The intervention of the energy manager is visible in the display of the operating status</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Normal&lt;/li&gt;: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>energy manager does not intervene</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Increased&lt;/li&gt;: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>recommendation for increased operation, the heat pump will decide if this is possible depending on the current temperature range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1707,15 +1687,7 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>energy manager switches heat pump to increased operation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Off&lt;/li&gt;: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>a temporary shutdown by the network operator to avoid network overload.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1724,6 +1696,42 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Battery Level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The energy manager controls the heat pump to maximize the consumption of its own solar electricity. The control is carried out by a schedule generated in advance and based on a prediction of the surplus solar power. The schedule contains so-called control recommendations according to the SG-Ready standard.  Depending on the predicted PV surplus, the heat pump will be switched to increased operation or a recommendation for increased operation will be given.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the energy manager does not intervene.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>recommendation for increased operation, the heat pump will decide if this is possible depending on the current temperature range.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>energy manager switches heat pump to increased operation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>a temporary shutdown by the grid operator to avoid grid overload.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The operating status indicates the control of the heat pump:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please note that the schedule is subject to a certain inaccuracy due to the prediction of the PV production. If sufficient PV production was not predicted, the heat pump may not be switched to increased operation despite sunshine. Or vice versa, if the forecast assumes sufficient PV surplus, but in reality there is less PV surplus, there may be grid consumption.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operating status:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

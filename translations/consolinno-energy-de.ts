@@ -1682,45 +1682,16 @@ Mail service@consolinno.de</source>
         <translation>Der Energiemanager steuert die Wärmepumpe so, dass der Verbrauch des eigenen Solarstroms maximiert wird. Wenn Sie die Optimerung ausschalten, greift der Energiemanager nicht mehr in die Steuerung der Wärmepumpe ein.</translation>
     </message>
     <message>
-        <source>Operating status: </source>
-        <translation>Betriebszustand</translation>
-    </message>
-    <message>
-        <source>The energy manager can set the heat pump to increased operation in the case of a power surplus, e.g. on a sunny day, in order to consume the own solar energy. The intervention of the energy manager is visible in the display of the operating status</source>
-        <translation>Der Energiemanager kann bei Stromüberschuss z.B. bei einem sonnigen Tag, die Wärmepumpe in verstärkten Betrieb schalten, um die eigene Solar-Energie zu verbrauchen.
-Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzustands:</translation>
-    </message>
-    <message>
-        <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Normal&lt;/li&gt;: </source>
-        <translation> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Normal&lt;/li&gt;: </translation>
-    </message>
-    <message>
-        <source>energy manager does not intervene</source>
-        <translation>Energiemanager greift nicht ein</translation>
-    </message>
-    <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Increased&lt;/li&gt;: </source>
         <translation>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Erhöht&lt;/li&gt;: </translation>
-    </message>
-    <message>
-        <source>recommendation for increased operation, the heat pump will decide if this is possible depending on the current temperature range</source>
-        <translation>Empfehlung zu erhöhtem Betrieb, die Wärmepumpe wird je nach momentanen Temperaturbereich entscheiden, ob dies möglich ist;</translation>
     </message>
     <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;High&lt;/li&gt;: </source>
         <translation>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Hoch&lt;/li&gt;: </translation>
     </message>
     <message>
-        <source>energy manager switches heat pump to increased operation</source>
-        <translation>Energiemanager schaltet Wärmepumpe in erhöhten Betrieb</translation>
-    </message>
-    <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Off&lt;/li&gt;: </source>
         <translation>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Aus&lt;/li&gt;: </translation>
-    </message>
-    <message>
-        <source>a temporary shutdown by the network operator to avoid network overload.</source>
-        <translation>eine zeitlich berenzte Abschaltung durch den Netzbetreiber um Netzüberlastung zu vermeiden.</translation>
     </message>
     <message>
         <source>Charging Mode</source>
@@ -1729,6 +1700,42 @@ Das Eingreifen des Energiemanagers ist sichtbar bei der Anzeige des Betriebzusta
     <message>
         <source>Battery Level</source>
         <translation>Batteriezustand</translation>
+    </message>
+    <message>
+        <source>The energy manager controls the heat pump to maximize the consumption of its own solar electricity. The control is carried out by a schedule generated in advance and based on a prediction of the surplus solar power. The schedule contains so-called control recommendations according to the SG-Ready standard.  Depending on the predicted PV surplus, the heat pump will be switched to increased operation or a recommendation for increased operation will be given.</source>
+        <translation>Der Energiemanager steuert die Wärmepumpe so, dass der Verbrauch des eigenen Solarstroms maximiert wird. Die Steuerung erfolgt durch einem in Voraus erzeugten Fahrplan und basiert auf einer Vorhersage des überschüssigen Solarstroms. Der Fahrplan enthält sog. Anfahrtsempfehlungen nach dem SG-Ready Standard.  Je nach vorhergesagten PV-Überschuss wird die Wärmepumpe in einen erhöhten Betrieb geschalten werden oder eine Empfehlung zum erhöhten Betrieb gegeben.</translation>
+    </message>
+    <message>
+        <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </source>
+        <translation> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </translation>
+    </message>
+    <message>
+        <source>the energy manager does not intervene.</source>
+        <translation>Der Energiemanager greift nicht ein.</translation>
+    </message>
+    <message>
+        <source>recommendation for increased operation, the heat pump will decide if this is possible depending on the current temperature range.</source>
+        <translation>Empfehlung zu erhöhtem Betrieb, die Wärmepumpe wird je nach momentanen Temperaturbereich entscheiden, ob dies möglich ist.</translation>
+    </message>
+    <message>
+        <source>energy manager switches heat pump to increased operation.</source>
+        <translation>Energiemanager schaltet Wärmepumpe in erhöhten Betrieb.</translation>
+    </message>
+    <message>
+        <source>a temporary shutdown by the grid operator to avoid grid overload.</source>
+        <translation>eine zeitlich begrenzte Abschaltung durch den Netzbetreiber, um Netzüberlastung zu vermeiden.</translation>
+    </message>
+    <message>
+        <source>The operating status indicates the control of the heat pump:</source>
+        <translation>Der Betriebszustand zeigt die Steuerung der Wärmepumpe an:</translation>
+    </message>
+    <message>
+        <source>Please note that the schedule is subject to a certain inaccuracy due to the prediction of the PV production. If sufficient PV production was not predicted, the heat pump may not be switched to increased operation despite sunshine. Or vice versa, if the forecast assumes sufficient PV surplus, but in reality there is less PV surplus, there may be grid consumption.</source>
+        <translation>Bitte beachten Sie, dass der Fahrplan durch die Vorhersage der PV-Produktion mit einer gewissen Ungenauigkeit behaftet ist. Falls keine ausreichende PV-Produktion vorhergesagt wurde, kann es sein dass die Wärmepumpe trotz Sonnenschein nicht in erhöhten Betrieb geschalten wird. Oder umgekehrt falls die Vorhersage von ausreichend PV-Überschuss ausgeht, in der Realität aber weniger PV-Überschuss vorhanden ist, kann es zu Netzbezug kommen.</translation>
+    </message>
+    <message>
+        <source>Operating status:</source>
+        <translation>Betriebszustand:</translation>
     </message>
 </context>
 <context>
