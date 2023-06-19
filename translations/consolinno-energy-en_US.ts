@@ -1736,6 +1736,37 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>GridConsumptionInfo</name>
+    <message>
+        <source>Grid Consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging with minimum current:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there is not enough PV surplus to charge, charging continues at minimum charging current (grid supply).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel charging:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there is not sufficient PV surplus for charging for approx. 2 minutes, the charging current is aborted.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pausing charging:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there is no sufficient PV surplus for approx. 2 minutes, the charging process is paused. If there is sufficient PV surplus again for approx. 2 minutes, the charging process is continued.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>HeatingConfigView</name>
     <message>
         <source>Current consumption:</source>

@@ -1021,11 +1021,22 @@ Page {
 
                 }
 
-
-                Label{
+                RowLayout {
+                    Layout.fillWidth: true
                     visible: (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === 2000)
-                    id: gridConsumptionLabel
-                    text: qsTr("Behaviour on grid consumption:")
+
+                    Label{
+                        id: gridConsumptionLabel
+                        text: qsTr("Behaviour on grid consumption:")
+                    }
+
+                    InfoButton{
+                        id: gridConsumptionInfoButton
+                        push: "GridConsumptionInfo.qml"
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignTop
+
+                    }
                 }
 
                 ComboBox {

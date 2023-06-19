@@ -1739,6 +1739,37 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>GridConsumptionInfo</name>
+    <message>
+        <source>Grid Consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging with minimum current:</source>
+        <translation>Laden mit minimaler Leistung:</translation>
+    </message>
+    <message>
+        <source>If there is not enough PV surplus to charge, charging continues at minimum charging current (grid supply).</source>
+        <translation>Wenn nicht ausreichend PV-Überschuss zum Laden vorhanden ist, wird mit minimalen Ladestrom (Netzbezug weitergeladen).</translation>
+    </message>
+    <message>
+        <source>Cancel charging:</source>
+        <translation>Abbrechen des Ladevorgangs:</translation>
+    </message>
+    <message>
+        <source>If there is not sufficient PV surplus for charging for approx. 2 minutes, the charging current is aborted.</source>
+        <translation>Wenn ca. 2 Minuten kein ausreichender PV-Überschuss vorhanden ist, wird der Ladestrom abgebrochen.</translation>
+    </message>
+    <message>
+        <source>Pausing charging:</source>
+        <translation>Pausieren des Ladevorgangs:</translation>
+    </message>
+    <message>
+        <source>If there is no sufficient PV surplus for approx. 2 minutes, the charging process is paused. If there is sufficient PV surplus again for approx. 2 minutes, the charging process is continued.</source>
+        <translation>Wenn ca. 2 Minuten kein ausreichender PV-Überschuss vorhanden ist, wird der Ladevorgang pausiert. Ist ca. 2 Minuten wieder ausreichend PV-Überschuss vorhanden, wird der Ladevorgang fortgesetzt.</translation>
+    </message>
+</context>
+<context>
     <name>HeatingConfigView</name>
     <message>
         <source>Current consumption:</source>
