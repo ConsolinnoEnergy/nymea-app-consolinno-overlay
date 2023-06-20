@@ -19,41 +19,29 @@ Page {
         show_Image: false
     }
 
-    ColumnLayout{
-        id: serviceConsolinnoColumnLayout
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.topMargin: app.margins
 
 
-        RowLayout{
-            Label{
-                Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                text: qsTr("You find the most recent manual here: ")
-                wrapMode: Text.WordWrap
-            }
-
+    RowLayout{
+        anchors {
+            left: parent.left
+            leftMargin: 16
+            right:  parent.right
+            rightMargin: 16
+            top: parent.top
+            bottom: parent.bottom
+            bottomMargin: 16
         }
 
-        RowLayout{
-            Label{
-                Layout.fillWidth: true
-                Layout.topMargin: 10
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                text: qsTr("Link to the manual")
+        Label{
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            text: qsTr('<html><style type="text/css"></style><p>You can find current manuals for Consolinno HEMS in the download area of our <a href="https://consolinno.de/hems/#downloads">Website</a> </p></html>')
+            wrapMode: Text.WordWrap
+
+            onLinkActivated:{
+                Qt.openUrlExternally(link)
             }
-
         }
-
-
-
     }
-
-
-
-
 }
+

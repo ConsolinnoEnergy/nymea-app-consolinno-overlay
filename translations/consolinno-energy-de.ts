@@ -1832,10 +1832,6 @@ Mail service@consolinno.de</source>
         <translation>Hoch</translation>
     </message>
     <message>
-        <source>Optimization</source>
-        <translation>Optimierung</translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
@@ -2045,12 +2041,8 @@ Mail service@consolinno.de</source>
         <translation>Bedienungsanleitung</translation>
     </message>
     <message>
-        <source>You find the most recent manual here: </source>
-        <translation>Aktuelle Bedienungsanleitungen finden sie hier: </translation>
-    </message>
-    <message>
-        <source>Link to the manual</source>
-        <translation>Link zur Bedienungsanleitung</translation>
+        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can find current manuals for Consolinno HEMS in the download area of our &lt;a href=&quot;https://consolinno.de/hems/#downloads&quot;&gt;Website&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;Sie finden aktuelle Anleitungen zum Consolinno HEMS auf dem Downloadbereich unserer&lt;a href=&quot;https://consolinno.de/hems/#downloads&quot;&gt;Webseite&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>

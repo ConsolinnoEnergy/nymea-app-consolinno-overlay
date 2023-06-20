@@ -52,34 +52,6 @@ Page {
              }
         }
 
-
-        RowLayout{
-            Layout.fillWidth: true
-
-            Label{
-                id: optimiziationEnabled
-                Layout.fillWidth: true
-                text: qsTr("Optimization")
-                Layout.leftMargin:  15
-            }
-
-            Switch{
-                id: optimizationEnableSwitch
-                checked: heatingconfig.optimizationEnabled
-
-
-            }
-
-
-
-        }
-
-
-
-
-
-
-
         Row{
             Layout.fillWidth: true
             Layout.leftMargin: 15
@@ -248,7 +220,7 @@ Page {
                  onClicked: {
 
 
-                     hemsManager.setHeatingConfiguration(heatpumpThing.id, {optimizationEnabled: optimizationEnableSwitch.checked})
+                     hemsManager.setHeatingConfiguration(heatpumpThing.id, {})
                      pageStack.pop()
 
                  }

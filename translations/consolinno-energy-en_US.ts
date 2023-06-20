@@ -1829,10 +1829,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Optimization</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2041,11 +2037,7 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You find the most recent manual here: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Link to the manual</source>
+        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can find current manuals for Consolinno HEMS in the download area of our &lt;a href=&quot;https://consolinno.de/hems/#downloads&quot;&gt;Website&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
