@@ -401,8 +401,8 @@ MainViewBase {
     }
 
     onLoadingChanged: {
-       console.info("Loading changed")
-       userconfig = hemsManager.userConfigurations.getUserConfiguration(
+        console.info("Loading changed")
+        userconfig = hemsManager.userConfigurations.getUserConfiguration(
                     "528b3820-1b6d-4f37-aea7-a99d21d42e72")
     }
 
@@ -468,19 +468,19 @@ MainViewBase {
         startTime: axisAngular.min
         endTime: axisAngular.max
         sampleRate: EnergyLogs.SampleRate15Mins
-//        Component.onCompleted: {
-//            for (var i = 0; i < consumers.count; i++)
-//            {
-//                addThingId(consumers.get(i).id)
-//            }
-//            fetchLogs()
-//        }
+        //        Component.onCompleted: {
+        //            for (var i = 0; i < consumers.count; i++)
+        //            {
+        //                addThingId(consumers.get(i).id)
+        //            }
+        //            fetchLogs()
+        //        }
 
-//        onFetchingDataChanged: {
-//                   if (!fetchingData) {
-//                       root.fetchPending = false
-//                   }
-//               }
+        //        onFetchingDataChanged: {
+        //                   if (!fetchingData) {
+        //                       root.fetchPending = false
+        //                   }
+        //               }
     }
 
 
@@ -551,9 +551,9 @@ MainViewBase {
                 for (var i = 0; i < consumers.count; i++) {
                     if (consumers.get(i).thingClass.interfaces.indexOf("smartmeterconsumer") >= 0)
                     {
-                    maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
-                                                   consumers.get(i).stateByName(
-                                                       "currentPower").value))
+                        maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
+                                                       consumers.get(i).stateByName(
+                                                           "currentPower").value))
                     }
                 }
                 for (var i = 0; i < producers.count; i++) {
@@ -597,16 +597,16 @@ MainViewBase {
                     var tile = legendConsumersRepeater.itemAt(i)
                     if (consumer.thingClass.interfaces.indexOf("smartmeterconsumer") >= 0)
                     {
-                    drawAnimatedLine(ctx, consumer.stateByName("currentPower").value, tile, true,
-                                     i - ((totalBottom - 1) / 2),
-                                     maxCurrentPower, false, xTranslate,
-                                     yTranslate)
+                        drawAnimatedLine(ctx, consumer.stateByName("currentPower").value, tile, true,
+                                         i - ((totalBottom - 1) / 2),
+                                         maxCurrentPower, false, xTranslate,
+                                         yTranslate)
                     }else{
-                    // draws line for consumers without power monitoring
-                    drawAnimatedLine(ctx, 0, tile, true,
-                                     i - ((totalBottom - 1) / 2),
-                                     maxCurrentPower, false, xTranslate,
-                                     yTranslate)
+                        // draws line for consumers without power monitoring
+                        drawAnimatedLine(ctx, 0, tile, true,
+                                         i - ((totalBottom - 1) / 2),
+                                         maxCurrentPower, false, xTranslate,
+                                         yTranslate)
                     }
                 }
 
@@ -683,48 +683,49 @@ MainViewBase {
                 }
 
 
-            RowLayout {
-                id: topLegend
-                Layout.fillWidth: true
-                Layout.margins: Style.margins
-                Layout.alignment: Qt.AlignHCenter
-                spacing: Style.margins
+                RowLayout {
+                    id: topLegend
+                    Layout.fillWidth: true
+                    Layout.margins: Style.margins
+                    Layout.alignment: Qt.AlignHCenter
+                    spacing: Style.margins
 
-                LegendTile {
-                    id: rootMeterTile
-                    thing: rootMeter
-                    isRootmeter: true
-                    color: lsdChart.rootMeterAcquisitionColor
-                    negativeColor: lsdChart.rootMeterReturnColor
-                    onClicked: {
-                        print("Clicked root meter", index, thing.name)
-                        pageStack.push(
-                                    "/ui/devicepages/SmartMeterDevicePage.qml",
-                                    {
-                                        "thing": thing
-                                    })
-                    }
-                }
+                    LegendTile {
+                        id: rootMeterTile
+                        thing: rootMeter
+                        isRootmeter: true
+                        color: lsdChart.rootMeterAcquisitionColor
+                        negativeColor: lsdChart.rootMeterReturnColor
 
-                Repeater {
-                    id: legendProducersRepeater
-                    model: producers
-
-                    delegate: LegendTile {
-                        visible: producers.get(index).id !== rootMeter.id
-                        color: lsdChart.producersColor
-                        thing: producers.get(index)
                         onClicked: {
-                            print("Clicked producer", index, thing.name)
+                            console.log("Clicked")
+                            print("Clicked root meter", index, thing.name)
+
                             pageStack.push(
-                                        "/ui/devicepages/SmartMeterDevicePage.qml",
-                                        {
-                                            "thing": thing
-                                        })
+                                        "/ui/components/GenericSmartDeviceMeterPage.qml",
+                                        {"thing": thing})
+                        }
+                    }
+
+                    Repeater {
+                        id: legendProducersRepeater
+                        model: producers
+
+                        delegate: LegendTile {
+                            visible: producers.get(index).id !== rootMeter.id
+                            color: lsdChart.producersColor
+                            thing: producers.get(index)
+                            onClicked: {
+                                print("Clicked producer", index, thing.name)
+                                console.log("Clicked Root Producer")
+
+                                pageStack.push(
+                                            "/ui/components/GenericSmartDeviceMeterPage.qml",
+                                            {"thing": thing})
+                            }
                         }
                     }
                 }
-            }
             }
 
             LineSeries {
@@ -739,8 +740,6 @@ MainViewBase {
                     y: 0
                 }
             }
-
-
 
 
             PolarChartView {
@@ -880,17 +879,17 @@ MainViewBase {
                             }
                         }
 
-//                        Connections {
-//                            target: powerBalanceLogs
-//                            onEntriesAdded: {
-//                                for (var i = 0; i < entries.length; i++) {
-//                                var entry = entries[i]
-//                                chartView.appendPoint(acquisitionUpperSeries,
-//                                                      entry.timestamp.getTime(
-//                                                          ), entry.acquisition)
-//                                }
-//                            }
-//                        }
+                        //                        Connections {
+                        //                            target: powerBalanceLogs
+                        //                            onEntriesAdded: {
+                        //                                for (var i = 0; i < entries.length; i++) {
+                        //                                var entry = entries[i]
+                        //                                chartView.appendPoint(acquisitionUpperSeries,
+                        //                                                      entry.timestamp.getTime(
+                        //                                                          ), entry.acquisition)
+                        //                                }
+                        //                            }
+                        //                        }
                     }
                 }
 
@@ -914,17 +913,17 @@ MainViewBase {
                             }
                         }
 
-//                        Connections {
-//                            target: powerBalanceLogs
-//                            onEntriesAdded: {
-//                                for (var i = 0; i < entries.length; i++) {
-//                                var entry = entries[i]
-//                                chartView.appendPoint(returnUpperSeries,
-//                                                      entry.timestamp.getTime(
-//                                                          ), -entry.acquisition)
-//                                }
-//                            }
-//                        }
+                        //                        Connections {
+                        //                            target: powerBalanceLogs
+                        //                            onEntriesAdded: {
+                        //                                for (var i = 0; i < entries.length; i++) {
+                        //                                var entry = entries[i]
+                        //                                chartView.appendPoint(returnUpperSeries,
+                        //                                                      entry.timestamp.getTime(
+                        //                                                          ), -entry.acquisition)
+                        //                                }
+                        //                            }
+                        //                        }
                     }
                 }
 
@@ -948,17 +947,17 @@ MainViewBase {
                             }
                         }
 
-//                        Connections {
-//                            target: powerBalanceLogs
-//                            onEntriesAdded: {
-//                                for (var i = 0; i < entries.length; i++) {
-//                                var entry = entries[i]
-//                                chartView.appendPoint(storageUpperSeries,
-//                                                      entry.timestamp.getTime(
-//                                                          ), -entry.storage)
-//                                }
-//                            }
-//                        }
+                        //                        Connections {
+                        //                            target: powerBalanceLogs
+                        //                            onEntriesAdded: {
+                        //                                for (var i = 0; i < entries.length; i++) {
+                        //                                var entry = entries[i]
+                        //                                chartView.appendPoint(storageUpperSeries,
+                        //                                                      entry.timestamp.getTime(
+                        //                                                          ), -entry.storage)
+                        //                                }
+                        //                            }
+                        //                        }
                     }
                 }
 
@@ -984,14 +983,14 @@ MainViewBase {
                         }
 
                         readonly property ThingPowerLogs logs: ThingPowerLogs {
-                                       id: thingPowerLogs
-                                       engine: _engine
-                                       startTime: axisAngular.min
-                                       endTime: axisAngular.max
-                                       thingId: consumerDelegate.thing.id
-                                       loader: logsLoader
-                                       Component.onCompleted: fetchLogs()
-                                   }
+                            id: thingPowerLogs
+                            engine: _engine
+                            startTime: axisAngular.min
+                            endTime: axisAngular.max
+                            thingId: consumerDelegate.thing.id
+                            loader: logsLoader
+                            Component.onCompleted: fetchLogs()
+                        }
 
 
                         Component {
@@ -1150,7 +1149,7 @@ MainViewBase {
                 renderStrategy: Canvas.Cooperative
 
                 onPaint: {
-    //              paint timePicker canvas
+                    //              paint timePicker canvas
                     var ctx = getContext("2d");
                     ctx.reset();
                     ctx.save();
@@ -1212,7 +1211,8 @@ MainViewBase {
                                                 "../optimization/HeatingConfigView.qml",
                                                 {
                                                     "hemsManager": hemsManager,
-                                                    "heatpumpThing": thing
+                                                    //                                                    "heatpumpThing": thing
+                                                    "thing": thing
                                                 })
                                 } else if (thing.thingClass.interfaces.indexOf(
                                                "evcharger") >= 0) {
@@ -1248,7 +1248,7 @@ MainViewBase {
                                     }
                                 } else {
                                     pageStack.push(
-                                                "/ui/devicepages/SmartMeterDevicePage.qml",
+                                                "/ui/components/GenericSmartDeviceMeterPage.qml",
                                                 {
                                                     "thing": thing
                                                 })
@@ -1265,12 +1265,12 @@ MainViewBase {
                             thing: batteries.get(index)
                             onClicked: {
                                 print("Clicked battery", index, thing.name)
+
                                 pageStack.push(
-                                            "/ui/devicepages/SmartMeterDevicePage.qml",
+                                            "/ui/components/GenericSmartDeviceMeterPage.qml",
                                             {
                                                 "thing": thing
-                                            })
-                            }
+                                            })}
                         }
                     }
                 }
