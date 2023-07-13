@@ -702,7 +702,7 @@ MainViewBase {
                             print("Clicked root meter", index, thing.name)
 
                             pageStack.push(
-                                        "/ui/components/GenericSmartDeviceMeterPage.qml",
+                                        "/ui/mainviews/GenericSmartDeviceMeterPage.qml",
                                         {"thing": thing})
                         }
                     }
@@ -720,7 +720,7 @@ MainViewBase {
                                 console.log("Clicked Root Producer")
 
                                 pageStack.push(
-                                            "/ui/components/GenericSmartDeviceMeterPage.qml",
+                                            "/ui/mainviews/GenericSmartDeviceMeterPage.qml",
                                             {"thing": thing})
                             }
                         }
@@ -1211,7 +1211,6 @@ MainViewBase {
                                                 "../optimization/HeatingConfigView.qml",
                                                 {
                                                     "hemsManager": hemsManager,
-                                                    //                                                    "heatpumpThing": thing
                                                     "thing": thing
                                                 })
                                 } else if (thing.thingClass.interfaces.indexOf(
@@ -1248,7 +1247,7 @@ MainViewBase {
                                     }
                                 } else {
                                     pageStack.push(
-                                                "/ui/components/GenericSmartDeviceMeterPage.qml",
+                                                "/ui/mainviews/GenericSmartDeviceMeterPage.qml",
                                                 {
                                                     "thing": thing
                                                 })
@@ -1267,7 +1266,7 @@ MainViewBase {
                                 print("Clicked battery", index, thing.name)
 
                                 pageStack.push(
-                                            "/ui/components/GenericSmartDeviceMeterPage.qml",
+                                            "/ui/mainviews/GenericSmartDeviceMeterPage.qml",
                                             {
                                                 "thing": thing
                                             })}

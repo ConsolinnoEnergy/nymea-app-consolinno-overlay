@@ -1739,6 +1739,84 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>GenericDeviceHistoryPage</name>
+    <message>
+        <source>States</source>
+        <translation>Zustände</translation>
+    </message>
+    <message>
+        <source>Actions</source>
+        <translation>Aktionen</translation>
+    </message>
+    <message>
+        <source>Events</source>
+        <translation>Ereignisse</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>GenericSmartDeviceMeterPage</name>
+    <message>
+        <source>Idle</source>
+        <translation>Leerlauf</translation>
+    </message>
+    <message>
+        <source>Charging</source>
+        <translation>Laden</translation>
+    </message>
+    <message>
+        <source>Discharging</source>
+        <translation>Entladen</translation>
+    </message>
+    <message>
+        <source>Producing</source>
+        <translation>Erzeugend</translation>
+    </message>
+    <message>
+        <source>Consuming</source>
+        <translation>Verbrauchend</translation>
+    </message>
+    <message>
+        <source>Returning</source>
+        <translation>Einspeisend</translation>
+    </message>
+    <message>
+        <source>Obtaining</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total Consumption: %1 kWh</source>
+        <translation>Gesamtverbrauch: %1 kWh</translation>
+    </message>
+    <message>
+        <source>Total Production: %1 kWh</source>
+        <translation>Gesamtproduktion: %1 kWh</translation>
+    </message>
+    <message>
+        <source>Total Acquisition: %1 kWh</source>
+        <translation>Gesamter Netzbezug: %1 kWh</translation>
+    </message>
+    <message>
+        <source>Total Return: %1 kWh</source>
+        <translation>Gesamte Netzeinspeisung: %1 kWh</translation>
+    </message>
+    <message>
+        <source>At the current rate, the battery will be fully charged at %1.</source>
+        <translation>Bei der aktuellen Rate wird die Batterie um %1 vollständig geladen sein.</translation>
+    </message>
+    <message>
+        <source>At the current rate, the battery will last until %1.</source>
+        <translation>Bei der aktuellen Rate wird die Batterie bis %1 halten.</translation>
+    </message>
+</context>
+<context>
     <name>GridConsumptionInfo</name>
     <message>
         <source>Grid Consumption</source>
@@ -1767,73 +1845,6 @@ Mail service@consolinno.de</source>
     <message>
         <source>If there is no sufficient PV surplus for approx. 2 minutes, the charging process is paused. If there is sufficient PV surplus again for approx. 2 minutes, the charging process is continued.</source>
         <translation>Wenn ca. 2 Minuten kein ausreichender PV-Überschuss vorhanden ist, wird der Ladevorgang pausiert. Ist ca. 2 Minuten wieder ausreichend PV-Überschuss vorhanden, wird der Ladevorgang fortgesetzt.</translation>
-    </message>
-</context>
-<context>
-    <name>HeatingConfigView</name>
-    <message>
-        <source>Current consumption:</source>
-        <translation>Momentaner Verbrauch</translation>
-    </message>
-    <message>
-        <source>Energymanager: </source>
-        <translation>Energiemanager</translation>
-    </message>
-    <message>
-        <source>Operating mode: </source>
-        <translation>Betriebsmodus</translation>
-    </message>
-    <message>
-        <source>Configuration data: </source>
-        <translation>Konfigurationsdaten</translation>
-    </message>
-    <message>
-        <source>Floor heating area</source>
-        <translation>Beheizte Fläche</translation>
-    </message>
-    <message>
-        <source>Maximal electrical power</source>
-        <translation>Maximale elektrische Energie</translation>
-    </message>
-    <message>
-        <source>Thermal storage capacity</source>
-        <translation>Wärmespeicherkapazität</translation>
-    </message>
-    <message>
-        <source>Outdoor temperature</source>
-        <translation>Außentemperatur</translation>
-    </message>
-    <message>
-        <source>Hot water temperature</source>
-        <translation>Heißwassertemperatur</translation>
-    </message>
-    <message>
-        <source>Return temperature</source>
-        <translation>Rücklauftemperatur</translation>
-    </message>
-    <message>
-        <source>Flow temperature</source>
-        <translation>Vorlauftemperatur</translation>
-    </message>
-    <message>
-        <source>Off</source>
-        <translation>Aus</translation>
-    </message>
-    <message>
-        <source>Standard</source>
-        <translation>Standard</translation>
-    </message>
-    <message>
-        <source>Increased</source>
-        <translation>Erhöht</translation>
-    </message>
-    <message>
-        <source>High</source>
-        <translation>Hoch</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
     </message>
 </context>
 <context>
@@ -2042,7 +2053,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can find current manuals for Consolinno HEMS in the download area of our &lt;a href=&quot;https://consolinno.de/hems/#downloads&quot;&gt;Website&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;Sie finden aktuelle Anleitungen zum Consolinno HEMS auf dem Downloadbereich unserer&lt;a href=&quot;https://consolinno.de/hems/#downloads&quot;&gt;Webseite&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;Sie finden aktuelle Anleitungen zum Consolinno HEMS auf dem Downloadbereich unserer &lt;a href=&quot;https://consolinno.de/hems/#downloads&quot;&gt;Webseite&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>

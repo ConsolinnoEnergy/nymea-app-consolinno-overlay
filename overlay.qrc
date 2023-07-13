@@ -86,7 +86,7 @@
         <file>images/leaflet-ethernet-connect.png</file>
         <file>info/GridConsumptionInfo.qml</file>
         <file>components/GenericConfigPage.qml</file>
-        <file>components/GenericSmartDeviceMeterPage.qml</file>
-        <file>components/GenericDeviceHistoryPage.qml</file>
+        <file>mainviews/GenericSmartDeviceMeterPage.qml</file>
+        <file>mainviews/GenericDeviceHistoryPage.qml</file>
     </qresource>
 </RCC>
