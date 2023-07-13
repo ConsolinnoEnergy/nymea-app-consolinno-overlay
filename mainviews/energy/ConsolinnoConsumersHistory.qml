@@ -130,10 +130,6 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             text: qsTr("Consumers history")
             visible: root.titleVisible
-            MouseArea {
-                anchors.fill: parent
-                onClicked: pageStack.push(Qt.resolvedUrl("ConsumersHistoryPage.qml"), {energyManager: root.energyManager, consumers: root.consumers})
-            }
         }
 
         SelectionTabs {

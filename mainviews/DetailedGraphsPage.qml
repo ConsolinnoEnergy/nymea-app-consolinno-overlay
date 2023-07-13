@@ -57,8 +57,6 @@ Page {
                 rowSpacing: 0
                 columnSpacing: 0
 
-
-
                 ConsolinnoPowerBalanceHistory {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
@@ -131,5 +129,4 @@ Page {
             }
         }
     }
-
 }
