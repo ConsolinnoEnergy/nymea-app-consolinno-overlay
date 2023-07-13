@@ -64,21 +64,6 @@ Page {
                     totalColors: root.totalColors
                 }
 
-                ConsolinnoCurrentConsumptionBalancePieChart {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: width
-                    energyManager: root.energyManager
-                    visible: producers.count > 0
-                    totalColors: root.totalColors
-                }
-                ConsolinnoCurrentProductionBalancePieChart {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: width
-                    energyManager: root.energyManager
-                    visible: producers.count > 0
-                    totalColors: root.totalColors
-                }
-
                 ConsolinnoPowerConsumptionBalanceHistory {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
@@ -91,15 +76,6 @@ Page {
                     Layout.preferredHeight: width
                     visible: producers.count > 0
                     totalColors: root.totalColors
-                }
-
-                ConsolinnoConsumersPieChart {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: width
-                    energyManager: root.energyManager
-                    visible: consumers.count > 0
-                    consumerColors: root.consumersColors
-                    consumers: consumers
                 }
 
                 ConsolinnoConsumersHistory {
