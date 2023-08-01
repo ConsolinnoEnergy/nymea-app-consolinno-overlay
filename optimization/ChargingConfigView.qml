@@ -1045,7 +1045,6 @@ Page {
                     Layout.fillWidth: true
                     model: ListModel{
                         ListElement{key: qsTr("Charge with minimum current"); mode: 0}
-                        ListElement{key: qsTr("Cancel charging"); mode: 100}
                         ListElement{key: qsTr("Pause charging"); mode: 200}
                     }
                     textRole: "key"

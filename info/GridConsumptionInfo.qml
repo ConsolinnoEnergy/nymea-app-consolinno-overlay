@@ -42,27 +42,6 @@ Page {
             Label{
                 Layout.topMargin: 15
                 Layout.fillWidth: true
-                text: qsTr("Cancel charging:")
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
-
-                font.bold: true
-                font.pixelSize: 17
-
-            }
-            Label{
-                Layout.fillWidth: true
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
-                wrapMode: Text.WordWrap
-                Layout.preferredWidth: app.width
-                text: qsTr("If there is not sufficient PV surplus for charging for approx. 2 minutes, the charging current is aborted.")
-            }
-
-
-            Label{
-                Layout.topMargin: 15
-                Layout.fillWidth: true
                 text: qsTr("Pausing charging:")
                 leftPadding: app.margins +10
                 rightPadding: app.margins +10
