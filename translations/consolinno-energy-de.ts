@@ -1675,7 +1675,7 @@ Mail service@consolinno.de</source>
     <name>EnergyManagerInfo</name>
     <message>
         <source>Energymanager</source>
-        <translation>Energiemanager info</translation>
+        <translation type="unfinished">Energiemanager</translation>
     </message>
     <message>
         <source>The energy manager regulates the heat pump to maximize the consumption of its own solar power. If you switch off the optimization, the energy manager no longer affects the control of the heat pump.</source>
