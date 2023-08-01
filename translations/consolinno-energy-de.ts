@@ -91,7 +91,7 @@
     <name>BatteryLevel</name>
     <message>
         <source>BatteryLevel</source>
-        <translation>Batteriezustandsinfo</translation>
+        <translation>Batteriezustand</translation>
     </message>
     <message>
         <source>The energy manager requires information on the battery level for the optimized charging process. This information is not transmitted by the vehicle and must therefore be entered manually.</source>
@@ -384,10 +384,6 @@
 <context>
     <name>ChargingModeInfo</name>
     <message>
-        <source>Charging mode </source>
-        <translation>Lademodusinfo</translation>
-    </message>
-    <message>
         <source>In the charging mode you set how the energy manager should charge the vehicle.</source>
         <translation>Im Lademodus stellen Sie ein wie der Energiemanager das Fahrzeug laden soll.</translation>
     </message>
@@ -416,6 +412,10 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
     <message>
         <source>The vehicle is charged at maximum charging power until the specified charging target is reached.</source>
         <translation>Das Fahrzeug wird mit maximaler Ladeleistung geladen bis das angegebene Ladeziel erreicht ist.</translation>
+    </message>
+    <message>
+        <source>Charging mode</source>
+        <translation>Lademodus</translation>
     </message>
 </context>
 <context>
@@ -1741,10 +1741,6 @@ Mail service@consolinno.de</source>
 <context>
     <name>GridConsumptionInfo</name>
     <message>
-        <source>Grid Consumption</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Charging with minimum current:</source>
         <translation>Laden mit minimaler Leistung:</translation>
     </message>
@@ -1767,6 +1763,10 @@ Mail service@consolinno.de</source>
     <message>
         <source>If there is no sufficient PV surplus for approx. 2 minutes, the charging process is paused. If there is sufficient PV surplus again for approx. 2 minutes, the charging process is continued.</source>
         <translation>Wenn ca. 2 Minuten kein ausreichender PV-Überschuss vorhanden ist, wird der Ladevorgang pausiert. Ist ca. 2 Minuten wieder ausreichend PV-Überschuss vorhanden, wird der Ladevorgang fortgesetzt.</translation>
+    </message>
+    <message>
+        <source>Behaviour on grid consumption</source>
+        <translation>Verhalten bei Netzbezug</translation>
     </message>
 </context>
 <context>

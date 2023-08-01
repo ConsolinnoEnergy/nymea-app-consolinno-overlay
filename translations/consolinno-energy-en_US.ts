@@ -384,10 +384,6 @@
 <context>
     <name>ChargingModeInfo</name>
     <message>
-        <source>Charging mode </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>In the charging mode you set how the energy manager should charge the vehicle.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -414,6 +410,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>The vehicle is charged at maximum charging power until the specified charging target is reached.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1738,10 +1738,6 @@ Mail service@consolinno.de</source>
 <context>
     <name>GridConsumptionInfo</name>
     <message>
-        <source>Grid Consumption</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Charging with minimum current:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1763,6 +1759,10 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>If there is no sufficient PV surplus for approx. 2 minutes, the charging process is paused. If there is sufficient PV surplus again for approx. 2 minutes, the charging process is continued.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Behaviour on grid consumption</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
