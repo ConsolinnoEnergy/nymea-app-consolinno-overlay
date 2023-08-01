@@ -1746,7 +1746,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>If there is not enough PV surplus to charge, charging continues at minimum charging current (grid supply).</source>
-        <translation>Wenn nicht ausreichend PV-Überschuss zum Laden vorhanden ist, wird mit minimalen Ladestrom (Netzbezug weitergeladen).</translation>
+        <translation type="unfinished">Wenn nicht ausreichend PV-Überschuss zum Laden vorhanden ist, wird mit minimalen Ladestrom (Netzbezug) weitergeladen.</translation>
     </message>
     <message>
         <source>Cancel charging:</source>
