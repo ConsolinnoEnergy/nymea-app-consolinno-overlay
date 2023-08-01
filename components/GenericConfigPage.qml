@@ -19,7 +19,7 @@ Item {
         ListElement {
             icon: "/ui/images/info.svg"
             text: "Details"
-            page: "../mainviews/GenericDeviceHistoryPage.qml"
+            page: "GenericDeviceHistoryPage.qml"
         }
 
         ListElement {

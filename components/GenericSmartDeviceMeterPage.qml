@@ -66,10 +66,8 @@ GenericConfigPage {
                         }
                         return Style.green
                     }
-                    if (root.isEnergyMeter) {
-                        return root.currentPowerState.value < 0 ? Style.yellow : Style.red
-                    }
-                    return root.currentPowerState.value < 0 ? Style.green : Style.blue
+                    if (root.isEnergyMeter)
+                        return root.currentPowerState.value < 0 ? Style.green : Style.blue
                 }
 
                 Behavior on onColor { ColorAnimation { duration: Style.fastAnimationDuration } }
