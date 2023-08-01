@@ -5,3 +5,4 @@
 - Show EV chargers withouth smartmeter interface on dashboard
 - Update Strings in Screen Heatpump Info Screen.
 - Infoicon + Text "behavior on grid consumption" for charging mode "PV excess only"
+- Added missing 'west' option to PV aligment dropdown

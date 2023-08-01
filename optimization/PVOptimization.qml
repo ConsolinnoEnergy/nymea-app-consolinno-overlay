@@ -240,7 +240,8 @@ ComboBox {
             { value: 135, text: qsTr("southeast") },
             { value: 180, text: qsTr("south") },
             { value: 225, text: qsTr("southwest") },
-            { value: 270, text: qsTr("northwest") },
+            { value: 270, text: qsTr("west") },
+            { value: 315, text: qsTr("northwest") },
         ]
     }
         }

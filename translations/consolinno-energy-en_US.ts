@@ -2211,6 +2211,10 @@ Mail service@consolinno.de</source>
         <source>northwest</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>west</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PrivacyPage</name>

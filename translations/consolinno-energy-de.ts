@@ -2209,11 +2209,15 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>southwest</source>
-        <translation type="unfinished">Südwesten</translation>
+        <translation>Südwesten</translation>
     </message>
     <message>
         <source>northwest</source>
         <translation>Nordwesten</translation>
+    </message>
+    <message>
+        <source>west</source>
+        <translation>Westen</translation>
     </message>
 </context>
 <context>
