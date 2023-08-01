@@ -394,35 +394,6 @@ SettingsPageBase {
             }
 
             SettingsPageSectionHeader {
-                text: qsTr("Permissions")
-            }
-
-            Repeater {
-                model: NymeaUtils.scopesModel
-
-                delegate: CheckDelegate {
-                    Layout.fillWidth: true
-                    text: model.text
-                    checked: (userDetailsPage.userInfo.scopes & model.scope) === model.scope
-                    enabled: model.scope === UserInfo.PermissionScopeAdmin ||
-                             ((userDetailsPage.userInfo.scopes & UserInfo.PermissionScopeAdmin) !== UserInfo.PermissionScopeAdmin)
-                    onClicked: {
-                        print("scopes:", userDetailsPage.userInfo.scopes)
-                        var scopes = userDetailsPage.userInfo.scopes
-                        if (checked) {
-                            scopes |= model.scope
-                        } else {
-                            scopes &= ~model.scope
-                            scopes |= model.resetOnUnset
-                        }
-                        print("username:", userDetailsPage.userInfo.username)
-                        print("new scopes:", scopes, UserInfo.PermissionScopeAdmin)
-                        userManager.setUserScopes(userDetailsPage.userInfo.username, scopes)
-                    }
-                }
-            }
-
-            SettingsPageSectionHeader {
                 text: qsTr("Remove")
             }
 
@@ -508,33 +479,6 @@ SettingsPageBase {
                 TextField {
                     id: emailTextField
                     Layout.fillWidth: true
-                }
-            }
-
-
-            SettingsPageSectionHeader {
-                text: qsTr("Permissions")
-            }
-
-
-            Repeater {
-                id: scopesRepeater
-                model: NymeaUtils.scopesModel
-
-                delegate: CheckDelegate {
-                    Layout.fillWidth: true
-                    text: model.text
-                    checked: (createUserPage.permissionScopes & model.scope) === model.scope
-                    onClicked: {
-                        var scopes = createUserPage.permissionScopes
-                        if (checked) {
-                            scopes |= model.scope
-                        } else {
-                            scopes &= ~model.scope
-                            scopes |= model.resetOnUnset
-                        }
-                        createUserPage.permissionScopes = scopes
-                    }
                 }
             }
 
