@@ -46,6 +46,23 @@ GenericConfigPage {
                 }
             }
 
+
+            RowLayout{
+                Layout.fillWidth: true
+
+                Label {
+                    id: optimiziationEnabled
+                    Layout.fillWidth: true
+                    text: qsTr("Optimization")
+                    Layout.leftMargin:  15
+                }
+
+                Switch {
+                    id: optimizationEnableSwitch
+                    checked: heatingconfig.optimizationEnabled
+                }
+            }
+
             Row{
                 Layout.fillWidth: true
                 Layout.leftMargin: 15
