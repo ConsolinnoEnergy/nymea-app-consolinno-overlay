@@ -290,10 +290,6 @@
         <translation>Laden mit minimaler Leistung</translation>
     </message>
     <message>
-        <source>Cancel charging</source>
-        <translation>Abbrechen des Ladevorgangs</translation>
-    </message>
-    <message>
         <source>Pause charging</source>
         <translation>Pausieren des Ladevorgangs</translation>
     </message>
@@ -1531,10 +1527,6 @@ Mail service@consolinno.de</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <source>Permissions</source>
-        <translation>Berechtigungen</translation>
-    </message>
-    <message>
         <source>Remove</source>
         <translation>Entfernen</translation>
     </message>
@@ -1747,14 +1739,6 @@ Mail service@consolinno.de</source>
     <message>
         <source>If there is not enough PV surplus to charge, charging continues at minimum charging current (grid supply).</source>
         <translation type="unfinished">Wenn nicht ausreichend PV-Überschuss zum Laden vorhanden ist, wird mit minimalen Ladestrom (Netzbezug) weitergeladen.</translation>
-    </message>
-    <message>
-        <source>Cancel charging:</source>
-        <translation>Abbrechen des Ladevorgangs:</translation>
-    </message>
-    <message>
-        <source>If there is not sufficient PV surplus for charging for approx. 2 minutes, the charging current is aborted.</source>
-        <translation>Wenn ca. 2 Minuten kein ausreichender PV-Überschuss vorhanden ist, wird der Ladestrom abgebrochen.</translation>
     </message>
     <message>
         <source>Pausing charging:</source>
@@ -2102,10 +2086,6 @@ Mail service@consolinno.de</source>
 <context>
     <name>OptimizationConfiguration</name>
     <message>
-        <source>Optimizations</source>
-        <translation>Optimierungen</translation>
-    </message>
-    <message>
         <source>Blackout protection</source>
         <translation>Überlastschutz</translation>
     </message>
@@ -2124,6 +2104,10 @@ Mail service@consolinno.de</source>
     <message>
         <source>Optimizations will be available once the required things have been added to the system.</source>
         <translation>Optimierungen sind verfügbar, sobald die benötigten Geräte im System eingerichtet wurden.</translation>
+    </message>
+    <message>
+        <source>Optimization Configuration</source>
+        <translation>Optimierungseinstellungen</translation>
     </message>
 </context>
 <context>
