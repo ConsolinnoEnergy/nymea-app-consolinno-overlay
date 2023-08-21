@@ -85,5 +85,6 @@
         <file>components/ConsolinnoImprintApp.qml</file>
         <file>images/leaflet-ethernet-connect.png</file>
         <file>info/GridConsumptionInfo.qml</file>
+        <file>wizards/ManualDeviceEssentialsWizard.qml</file>
     </qresource>
 </RCC>
