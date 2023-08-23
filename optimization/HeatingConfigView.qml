@@ -211,24 +211,6 @@ Page {
 
             }
 
-
-            Button {
-                 id: savebutton
-                 Layout.fillWidth: true
-                 Layout.leftMargin: app.margins
-                 text: qsTr("Save")
-                 onClicked: {
-
-
-                     hemsManager.setHeatingConfiguration(heatpumpThing.id, {})
-                     pageStack.pop()
-
-                 }
-             }
-
-
-
-
 //        Label {
 //            id: footer
 //            Layout.fillWidth: true

@@ -696,10 +696,11 @@ MainViewBase {
                     isRootmeter: true
                     color: lsdChart.rootMeterAcquisitionColor
                     negativeColor: lsdChart.rootMeterReturnColor
+
                     onClicked: {
                         print("Clicked root meter", index, thing.name)
                         pageStack.push(
-                                    "/ui/devicepages/SmartMeterDevicePage.qml",
+                                    "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                     {
                                         "thing": thing
                                     })
@@ -714,10 +715,12 @@ MainViewBase {
                         visible: producers.get(index).id !== rootMeter.id
                         color: lsdChart.producersColor
                         thing: producers.get(index)
+
                         onClicked: {
                             print("Clicked producer", index, thing.name)
+
                             pageStack.push(
-                                        "/ui/devicepages/SmartMeterDevicePage.qml",
+                                        "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                         {
                                             "thing": thing
                                         })
@@ -1204,6 +1207,7 @@ MainViewBase {
                         delegate: LegendTile {
                             color: lsdChart.consumersColors[index]
                             thing: consumers.get(index)
+
                             onClicked: {
                                 print("Clicked consumer", index, thing.name)
                                 if (thing.thingClass.interfaces.indexOf(
@@ -1248,7 +1252,7 @@ MainViewBase {
                                     }
                                 } else {
                                     pageStack.push(
-                                                "/ui/devicepages/SmartMeterDevicePage.qml",
+                                                "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                                 {
                                                     "thing": thing
                                                 })
@@ -1265,8 +1269,9 @@ MainViewBase {
                             thing: batteries.get(index)
                             onClicked: {
                                 print("Clicked battery", index, thing.name)
+
                                 pageStack.push(
-                                            "/ui/devicepages/SmartMeterDevicePage.qml",
+                                            "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                             {
                                                 "thing": thing
                                             })
