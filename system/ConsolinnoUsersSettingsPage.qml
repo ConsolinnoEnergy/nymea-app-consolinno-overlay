@@ -105,7 +105,7 @@ SettingsPageBase {
     NymeaItemDelegate {
         Layout.fillWidth: true
         text: qsTr("Manage users")
-        visible: (userManager.userInfo.scopes & UserInfo.PermissionScopeAdmin) //&& !engine.jsonRpcClient.pushButtonAuthAvailable
+//        visible: (userManager.userInfo.scopes & UserInfo.PermissionScopeAdmin) //&& !engine.jsonRpcClient.pushButtonAuthAvailable
         iconName: "../images/contact-group.svg"
         onClicked: {
             pageStack.push(manageUsersComponent)
@@ -441,45 +441,80 @@ SettingsPageBase {
                 text: qsTr("User information")
             }
 
-            GridLayout {
+            ColumnLayout {
                 Layout.fillWidth: true
                 Layout.leftMargin: Style.margins
                 Layout.rightMargin: Style.margins
-                columns: 2
-                Label {
-                    text: qsTr("Username:") + "*"
-                }
-                TextField {
+//                columns: 2
+//                Label {
+//                    text: qsTr("Username:") + "*"
+//                }
+//                TextField {
+//                    id: usernameTextField
+//                    Layout.fillWidth: true
+
+//                    //inputMethodHints: Qt.ImhLowercaseOnly
+//                }
+
+                ErrorTextField {
                     id: usernameTextField
                     Layout.fillWidth: true
+                    label: qsTr("Username")
+                    placeholderText: qsTr("Enter your username")
+                    inputMethodHints: engine.jsonRpcClient.ensureServerVersion("6.0")
+                                      ? Qt.ImhEmailCharactersOnly | Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                                      : Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                    validator: RegExpValidator {
+                        regExp: /[a-zA-Z0-9_\\.+-@]{3,}/
+                    }
+                    warningLabel: qsTr("You need to enter your username")
+                }
 
-                    //inputMethodHints: Qt.ImhLowercaseOnly
+                ErrorTextField {
+                    id: emailTextField
+                    Layout.fillWidth: true
+                    label: qsTr("Email")
+                    placeholderText: qsTr("Enter your email")
+                    warningLabel: qsTr("You need to enter your email")
+                    inputMethodHints: Qt.ImhEmailCharactersOnly
+                    validator: RegExpValidator {
+                        regExp: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
+                    }
                 }
 
                 Label {
-                    text: qsTr("Password:") + "*"
+                    text: qsTr("%1<font color=\"#cd5c5c\">%2</font>".arg("Password:").arg("*"))
                     Layout.alignment: Qt.AlignTop
                     Layout.topMargin: Style.smallMargins
                 }
+
                 ConsolinnoPasswordTextField {
                     id: passwordTextField
                     Layout.fillWidth: true
                 }
 
-                Label {
-                    text: qsTr("Full name:")
-                }
-                TextField {
-                    id: displayNameTextField
-                    Layout.fillWidth: true
-                }
-                Label {
-                    text: qsTr("e-mail:")
-                }
-                TextField {
-                    id: emailTextField
-                    Layout.fillWidth: true
-                }
+//                Label {
+//                    text: qsTr("Full name:")
+//                }
+//                TextField {
+//                    id: displayNameTextField
+//                    Layout.fillWidth: true
+//                }
+//                Label {
+//                    text: qsTr("e-mail:")
+//                }
+//                TextField {
+//                    id: emailTextField
+//                    Layout.fillWidth: true
+//                }
+            }
+
+            Rectangle {
+                id: isValidRect
+
+               width: 100
+               height: 100
+                color: "red"
             }
 
             Button {
@@ -487,12 +522,20 @@ SettingsPageBase {
                 Layout.fillWidth: true
                 Layout.leftMargin: Style.margins
                 Layout.rightMargin: Style.margins
-                enabled: usernameTextField.length >= 3 && passwordTextField.isValid
+//                enabled: usernameTextField.length >= 3 && passwordTextField.isValid
                 onClicked: {
-                    createUserPage.busy = true
+                    usernameTextField.check();
+                    emailTextField.check();
+                    passwordTextField.showErrors = true;
+
+                    if(usernameTextField.acceptableInput && emailTextField.acceptableInput && passwordTextField.isValid) {
+                    isValidRect.color = "green"
+                    }
+
+//                    createUserPage.busy = true
                     // TOFIX: IT is not possible to give usernameTextField an Uppercase. Otherwise the function just is very buggy
                     // Also not allowed are: Special character (!"§), german specific signs (?ÄÜ)
-                    userManager.createUser(usernameTextField.text.toLowerCase(), passwordTextField.password, displayNameTextField.text, emailTextField.text, createUserPage.permissionScopes)
+//                    userManager.createUser(usernameTextField.text.toLowerCase(), passwordTextField.password, displayNameTextField.text, emailTextField.text, createUserPage.permissionScopes)
                 }
             }
 
