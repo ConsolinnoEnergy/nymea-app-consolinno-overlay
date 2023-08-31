@@ -11,7 +11,7 @@ Page {
     header: ConsolinnoHeader {
         id: header
         show_Image: true
-        text: qsTr("Charging mode ")
+        text: qsTr("Charging mode")
         backButtonVisible: true
         onBackPressed: stack.pop()
     }

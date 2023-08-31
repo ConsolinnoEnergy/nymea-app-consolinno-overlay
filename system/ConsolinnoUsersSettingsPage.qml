@@ -218,7 +218,7 @@ SettingsPageBase {
 
             Component {
                 id: confirmTokenDeletionComponent
-                MeaDialog {
+                NymeaDialog {
                     headerIcon: "../images/lock-closed.svg"
                     title: qsTr("Remove device access")
                     text: qsTr("Are you sure you want to remove %1 from accessing your %2 system?").arg("<b>" + tokenInfo.deviceName + "</b>").arg(Configuration.systemName)
@@ -344,7 +344,7 @@ SettingsPageBase {
 
             Component {
                 id: confirmUserDeletionComponent
-                MeaDialog {
+                NymeaDialog {
                     headerIcon: "../images/lock-closed.svg"
                     title: qsTr("Remove user")
                     text: qsTr("Are you sure you want to remove %1 from accessing your %2 system?").arg("<b>" + userInfo.username + "</b>").arg(Configuration.systemName)
@@ -390,35 +390,6 @@ SettingsPageBase {
                 text: qsTr("Save")
                 onClicked: {
                     userManager.setUserInfo(userDetailsPage.userInfo.username, displayNameTextField.text, emailTextField.text)
-                }
-            }
-
-            SettingsPageSectionHeader {
-                text: qsTr("Permissions")
-            }
-
-            Repeater {
-                model: NymeaUtils.scopesModel
-
-                delegate: CheckDelegate {
-                    Layout.fillWidth: true
-                    text: model.text
-                    checked: (userDetailsPage.userInfo.scopes & model.scope) === model.scope
-                    enabled: model.scope === UserInfo.PermissionScopeAdmin ||
-                             ((userDetailsPage.userInfo.scopes & UserInfo.PermissionScopeAdmin) !== UserInfo.PermissionScopeAdmin)
-                    onClicked: {
-                        print("scopes:", userDetailsPage.userInfo.scopes)
-                        var scopes = userDetailsPage.userInfo.scopes
-                        if (checked) {
-                            scopes |= model.scope
-                        } else {
-                            scopes &= ~model.scope
-                            scopes |= model.resetOnUnset
-                        }
-                        print("username:", userDetailsPage.userInfo.username)
-                        print("new scopes:", scopes, UserInfo.PermissionScopeAdmin)
-                        userManager.setUserScopes(userDetailsPage.userInfo.username, scopes)
-                    }
                 }
             }
 
@@ -508,33 +479,6 @@ SettingsPageBase {
                 TextField {
                     id: emailTextField
                     Layout.fillWidth: true
-                }
-            }
-
-
-            SettingsPageSectionHeader {
-                text: qsTr("Permissions")
-            }
-
-
-            Repeater {
-                id: scopesRepeater
-                model: NymeaUtils.scopesModel
-
-                delegate: CheckDelegate {
-                    Layout.fillWidth: true
-                    text: model.text
-                    checked: (createUserPage.permissionScopes & model.scope) === model.scope
-                    onClicked: {
-                        var scopes = createUserPage.permissionScopes
-                        if (checked) {
-                            scopes |= model.scope
-                        } else {
-                            scopes &= ~model.scope
-                            scopes |= model.resetOnUnset
-                        }
-                        createUserPage.permissionScopes = scopes
-                    }
                 }
             }
 

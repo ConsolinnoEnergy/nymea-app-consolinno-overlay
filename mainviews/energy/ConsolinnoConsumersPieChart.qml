@@ -117,12 +117,6 @@ Item {
         horizontalAlignment: Text.AlignHCenter
         text: qsTr("Consumers balance")
         visible: root.titleVisible
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                pageStack.push(Qt.resolvedUrl("ConsumersPieChartPage.qml"), {energyManager: root.energyManager, consumers: root.consumers})
-            }
-        }
     }
 
 

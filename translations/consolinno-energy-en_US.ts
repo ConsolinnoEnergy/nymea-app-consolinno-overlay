@@ -392,10 +392,6 @@
 <context>
     <name>ChargingModeInfo</name>
     <message>
-        <source>Charging mode </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>In the charging mode you set how the energy manager should charge the vehicle.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -422,6 +418,10 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>The vehicle is charged at maximum charging power until the specified charging target is reached.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1687,27 +1687,7 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Operating status: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The energy manager can set the heat pump to increased operation in the case of a power surplus, e.g. on a sunny day, in order to consume the own solar energy. The intervention of the energy manager is visible in the display of the operating status</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Normal&lt;/li&gt;: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>energy manager does not intervene</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Increased&lt;/li&gt;: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>recommendation for increased operation, the heat pump will decide if this is possible depending on the current temperature range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1715,15 +1695,7 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>energy manager switches heat pump to increased operation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Off&lt;/li&gt;: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>a temporary shutdown by the network operator to avoid network overload.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1732,6 +1704,73 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Battery Level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The energy manager controls the heat pump to maximize the consumption of its own solar electricity. The control is carried out by a schedule generated in advance and based on a prediction of the surplus solar power. The schedule contains so-called control recommendations according to the SG-Ready standard.  Depending on the predicted PV surplus, the heat pump will be switched to increased operation or a recommendation for increased operation will be given.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the energy manager does not intervene.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>recommendation for increased operation, the heat pump will decide if this is possible depending on the current temperature range.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>energy manager switches heat pump to increased operation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>a temporary shutdown by the grid operator to avoid grid overload.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The operating status indicates the control of the heat pump:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please note that the schedule is subject to a certain inaccuracy due to the prediction of the PV production. If sufficient PV production was not predicted, the heat pump may not be switched to increased operation despite sunshine. Or vice versa, if the forecast assumes sufficient PV surplus, but in reality there is less PV surplus, there may be grid consumption.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operating status:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>GridConsumptionInfo</name>
+    <message>
+        <source>Charging with minimum current:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there is not enough PV surplus to charge, charging continues at minimum charging current (grid supply).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel charging:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there is not sufficient PV surplus for charging for approx. 2 minutes, the charging current is aborted.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pausing charging:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there is no sufficient PV surplus for approx. 2 minutes, the charging process is paused. If there is sufficient PV surplus again for approx. 2 minutes, the charging process is continued.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Behaviour on grid consumption</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1795,10 +1834,6 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>High</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Optimization</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2010,11 +2045,7 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You find the most recent manual here: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Link to the manual</source>
+        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can find current manuals for Consolinno HEMS in the download area of our &lt;a href=&quot;https://consolinno.de/hems/#downloads&quot;&gt;Website&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2186,6 +2217,10 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>northwest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>west</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

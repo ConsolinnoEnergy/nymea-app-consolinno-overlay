@@ -129,10 +129,6 @@ StatsBase {
             horizontalAlignment: Text.AlignHCenter
             text: qsTr("Totals")
             visible: root.titleVisible
-            MouseArea {
-                anchors.fill: parent
-                onClicked: pageStack.push(Qt.resolvedUrl("PowerBalanceStatsPage.qml"), {energyManager: root.energyManager, producers: root.producers})
-            }
         }
 
         SelectionTabs {

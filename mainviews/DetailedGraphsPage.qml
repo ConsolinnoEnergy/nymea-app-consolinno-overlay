@@ -57,27 +57,10 @@ Page {
                 rowSpacing: 0
                 columnSpacing: 0
 
-
-
                 ConsolinnoPowerBalanceHistory {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     visible: rootMeter != null || producers.count > 0
-                    totalColors: root.totalColors
-                }
-
-                ConsolinnoCurrentConsumptionBalancePieChart {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: width
-                    energyManager: root.energyManager
-                    visible: producers.count > 0
-                    totalColors: root.totalColors
-                }
-                ConsolinnoCurrentProductionBalancePieChart {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: width
-                    energyManager: root.energyManager
-                    visible: producers.count > 0
                     totalColors: root.totalColors
                 }
 
@@ -93,15 +76,6 @@ Page {
                     Layout.preferredHeight: width
                     visible: producers.count > 0
                     totalColors: root.totalColors
-                }
-
-                ConsolinnoConsumersPieChart {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: width
-                    energyManager: root.energyManager
-                    visible: consumers.count > 0
-                    consumerColors: root.consumersColors
-                    consumers: consumers
                 }
 
                 ConsolinnoConsumersHistory {
@@ -131,5 +105,4 @@ Page {
             }
         }
     }
-
 }

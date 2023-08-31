@@ -50,24 +50,7 @@ Page {
             }
         }
 
-        RowLayout {
-            Layout.fillWidth: true
-            visible: false
-
-            Label {
-                id: optimiziationEnabled
-                Layout.fillWidth: true
-                text: qsTr("Optimization")
-                Layout.leftMargin: 15
-            }
-
-            Switch {
-                id: optimizationEnableSwitch
-                checked: heatingconfig.optimizationEnabled
-            }
-        }
-
-        Row {
+        Row{
             Layout.fillWidth: true
             Layout.leftMargin: 15
             Layout.topMargin: 10
@@ -220,30 +203,6 @@ Page {
             }
         }
 
-        Button {
-            id: savebutton
-            visible: false
-            Layout.fillWidth: true
-            Layout.leftMargin: app.margins
-            text: qsTr("Save")
-            onClicked: {
-
-                hemsManager.setHeatingConfiguration(heatpumpThing.id, {
-                                                        "optimizationEnabled": optimizationEnableSwitch.checked
-                                                    })
-                pageStack.pop()
-            }
-        }
-
-        //        Label {
-        //            id: footer
-        //            Layout.fillWidth: true
-        //            Layout.leftMargin: app.margins
-        //            Layout.rightMargin: app.margins
-        //            wrapMode: Text.WordWrap
-        //            font.pixelSize: app.smallFont
-
-        //        }
         Component {
             id: stringValues
             RowLayout {

@@ -124,12 +124,6 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             text: qsTr("My power balance history")
             visible: root.titleVisible
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("PowerBalanceHistoryPage.qml"))
-                }
-            }
         }
 
         SelectionTabs {
