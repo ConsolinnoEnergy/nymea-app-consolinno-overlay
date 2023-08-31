@@ -109,7 +109,7 @@ Page {
                         batteryLevelValue.text  = 0 + " %"
                         energyChargedValue.text = 0 + " kWh"
                         energyBatteryValue.text = 0 + " kWh"
-                        durationValue.text = " -- "
+                        durationValue.text = " — "
                     }
                     else{
                         status.visible = true
@@ -121,7 +121,7 @@ Page {
                         batteryLevelValue.text  = 0 + " %"
                         energyChargedValue.text = 0 + " kWh"
                         energyBatteryValue.text = 0 + " kWh"
-                        durationValue.text = " -- "
+                        durationValue.text = " — "
 
                     }
 
@@ -321,6 +321,7 @@ Page {
 
             RowLayout{
                 Layout.topMargin: 15
+                visible:  chargingIsAnyOf([pv_optimized]) ? true: false
                 Label{
                     id: selectedCarLabel
                     Layout.fillWidth: true
@@ -328,7 +329,7 @@ Page {
                 }
                 Label{
                     id: selectedCar
-                    text: qsTr(thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? pageSelectedCar: " -- " )  : " -- ")
+                    text: qsTr(thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? pageSelectedCar: " — " )  : " — ")
                     Layout.alignment: Qt.AlignRight
                     Layout.rightMargin: 0
                 }
@@ -345,7 +346,7 @@ Page {
 
                 Label{
                     id: loadingModes
-                    text: chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationMode) : " -- "
+                    text: chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationMode) : " — "
                     Layout.alignment: Qt.AlignRight
                     Layout.rightMargin: 0
 
@@ -416,7 +417,7 @@ Page {
                     // determine whether it is today or tomorrow
                     property var date: (parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) < today.getHours() ) | ( ( parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) === today.getHours() ) & parseInt(chargingConfiguration.endTime[3]+chargingConfiguration.endTime[4]) >= today.getMinutes() ) ? tomorrow : today
 
-                    text: thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd.MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "H:m:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : " -- "  )   : " -- "
+                    text: thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd.MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "H:m:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : " — "  )   : " — "
                     Layout.alignment: Qt.AlignRight
                     Layout.rightMargin: 0
 
@@ -436,7 +437,7 @@ Page {
 
                 Label{
                     id: targetCharge
-                    text: thing.stateByName("pluggedIn").value ?(chargingConfiguration.optimizationEnabled ? chargingConfiguration.targetPercentage + " %" : " -- " ) : " -- "
+                    text: thing.stateByName("pluggedIn").value ?(chargingConfiguration.optimizationEnabled ? chargingConfiguration.targetPercentage + " %" : " — " ) : " — "
                     Layout.alignment: Qt.AlignRight
                     Layout.rightMargin: 0
 
@@ -495,7 +496,7 @@ Page {
                 visible: !(chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
                 Label{
                     id: noLoadingLabel
-                    text: qsTr("No chargingschedule active at the moment...")
+                    text: qsTr("Charging deactivated. Please choose a charging mode.")
                     horizontalAlignment: Text.AlignHCenter
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignCenter
@@ -663,7 +664,7 @@ Page {
                 visible: chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value
                 Button{
                     Layout.fillWidth: true
-                    text:  status.state == 3 ? qsTr("Start new charging schedule") : qsTr("Cancel Charging Schedule" )
+                    text:  status.state == 3 ? qsTr("Configure charging mode") : qsTr("Reconfigure charging mode" )
                     onClicked: {
                         hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: false, optimizationMode:9})
                     }
@@ -702,7 +703,7 @@ Page {
 
             header: NymeaHeader {
                 id: header
-                text: qsTr("Configure charging")
+                text: qsTr("Configure charging mode")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }

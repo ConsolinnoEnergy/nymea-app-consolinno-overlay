@@ -226,19 +226,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No chargingschedule active at the moment...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Configure Charging</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel Charging Schedule</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Configure charging</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -271,10 +259,6 @@
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Start new charging schedule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -379,6 +363,18 @@
     </message>
     <message>
         <source>Pause</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging deactivated. Please choose a charging mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure charging mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconfigure charging mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1545,10 +1541,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Permissions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1754,14 +1746,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cancel charging:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If there is not sufficient PV surplus for charging for approx. 2 minutes, the charging current is aborted.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Pausing charging:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1786,22 +1770,6 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Operating mode: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Configuration data: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Floor heating area</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Maximal electrical power</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Thermal storage capacity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1834,10 +1802,6 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>High</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
