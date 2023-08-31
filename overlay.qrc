@@ -91,5 +91,7 @@
         <file>devicepages/GenericDeviceHistoryPage.qml</file>
         <file>system/SignUpPage.qml</file>
         <file>components/ErrorTextField.qml</file>
+        <file>system/ForgotPasswordPage.qml</file>
+        <file>system/PasswordResetSuccessPage.qml</file>
     </qresource>
 </RCC>
