@@ -89,21 +89,28 @@ Page {
             onClicked: phaseLimit = 35
         }
         RadioDelegate {
+            id: limit40
+            Layout.fillWidth: true
+            text: "3 x 40 A"
+            onClicked: phaseLimit = 40
+        }
+        RadioDelegate {
             id: limit50
             Layout.fillWidth: true
             text: "3 x 50 A"
             onClicked: phaseLimit = 50
         }
         RadioDelegate {
-            id: limit65
+            id: limit63
             Layout.fillWidth: true
-            text: "3 x 65 A"
+            text: "3 x 63 A"
             onClicked: phaseLimit = 63
         }
         RadioDelegate {
             id: limitOther
             Layout.fillWidth: true
             text: "other"
+            visible: false
             contentItem: TextField {
                 id: otherLimit
                 rightPadding: 50//otherDelegate.width - otherDelegate.indicator.width - otherDelegate.spacing
@@ -166,11 +173,14 @@ Page {
             case 35:
                 limit35.checked = true
                 break
+            case 40:
+                limit40.checked = true
+                break
             case 50:
                 limit50.checked = true
                 break
-            case 65:
-                limit65.checked = true
+            case 63:
+                limit63.checked = true
                 break
             default:
                 limitOther.checked = true
