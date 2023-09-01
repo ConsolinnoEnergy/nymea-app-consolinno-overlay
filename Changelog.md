@@ -1,5 +1,6 @@
 ## [1.3.0 - unreleased ]
 ### Changed
+- Improved household phase limit configuration
 - Rework of charging configuration view for "simple charging" 
 
 ## [1.2.1]
