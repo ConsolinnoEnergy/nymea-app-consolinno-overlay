@@ -41,6 +41,15 @@ Page {
     property int pv_excess: ChargingConfigView.ChargingMode.PV_EXCESS
     property int simple_pv_excess: ChargingConfigView.ChargingMode.SIMPLE_PV_EXCESS
 
+    function isCarPluggedIn()
+    {
+      if (thing.stateByName("pluggedIn").value)
+      {
+         return true
+      }
+      return false
+    }
+
     // Connections to update the ChargingSessionConfiguration  and the ChargingConfiguration values
     Connections {
         target: hemsManager
@@ -245,7 +254,7 @@ Page {
                     height: 17
                     Layout.rightMargin: 0
                     Layout.alignment: Qt.AlignRight
-                    color: thing.stateByName("pluggedIn").value ? "#87BD26" : "#CD5C5C"
+                    color: isCarPluggedIn() ? "#87BD26" : "#CD5C5C"
                     border.color: "black"
                     border.width: 0
                     radius: width*0.5
@@ -254,7 +263,7 @@ Page {
 
             RowLayout{
                 id: noPluggedInRowLayout
-                visible: !(thing.stateByName("pluggedIn").value)
+                visible: !(isCarPluggedIn())
                 Label{
                     id: noPluggedInLabel
                     text: qsTr("No car is connected at the moment. Please connect a car.")
@@ -270,7 +279,7 @@ Page {
             RowLayout{
                 id: simulationSwitchLayout
                 Layout.fillWidth: true
-                visible: !(thing.stateByName("pluggedIn").value) && (simulationEvProxy.count > 0)  && (thing.thingClassId.toString() === "{21a48e6d-6152-407a-a303-3b46e29bbb94}")
+                visible: !(isCarPluggedIn()) && (simulationEvProxy.count > 0)  && (thing.thingClassId.toString() === "{21a48e6d-6152-407a-a303-3b46e29bbb94}")
 
                 Label{
                     id: simulationLabel
@@ -329,7 +338,7 @@ Page {
                 }
                 Label{
                     id: selectedCar
-                    text: qsTr(thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? pageSelectedCar: " — " )  : " — ")
+                    text: qsTr(isCarPluggedIn() ? (chargingConfiguration.optimizationEnabled ? pageSelectedCar: " — " )  : " — ")
                     Layout.alignment: Qt.AlignRight
                     Layout.rightMargin: 0
                 }
@@ -417,7 +426,7 @@ Page {
                     // determine whether it is today or tomorrow
                     property var date: (parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) < today.getHours() ) | ( ( parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) === today.getHours() ) & parseInt(chargingConfiguration.endTime[3]+chargingConfiguration.endTime[4]) >= today.getMinutes() ) ? tomorrow : today
 
-                    text: thing.stateByName("pluggedIn").value ? (chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd.MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "H:m:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : " — "  )   : " — "
+                    text: isCarPluggedIn() ? (chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd.MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "H:m:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : " — "  )   : " — "
                     Layout.alignment: Qt.AlignRight
                     Layout.rightMargin: 0
 
@@ -437,7 +446,7 @@ Page {
 
                 Label{
                     id: targetCharge
-                    text: thing.stateByName("pluggedIn").value ?(chargingConfiguration.optimizationEnabled ? chargingConfiguration.targetPercentage + " %" : " — " ) : " — "
+                    text: isCarPluggedIn() ?(chargingConfiguration.optimizationEnabled ? chargingConfiguration.targetPercentage + " %" : " — " ) : " — "
                     Layout.alignment: Qt.AlignRight
                     Layout.rightMargin: 0
 
@@ -447,7 +456,7 @@ Page {
 
         ColumnLayout {
             id: statusColumnLayout
-            visible: thing.stateByName("pluggedIn").value
+            visible: isCarPluggedIn()
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: stateOfLoadingColumnLayout.top
@@ -468,7 +477,7 @@ Page {
                 ColumnLayout{
                     Layout.fillWidth: true
                     spacing: 0
-                    visible: (chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
+                    visible: (chargingConfiguration.optimizationEnabled && isCarPluggedIn())
                     Rectangle{
 
                         id: status
@@ -479,7 +488,7 @@ Page {
 
 
                         //check if plugged in                 check if current power == 0           else show the current state the session is in atm
-                        color:  thing.stateByName("pluggedIn").value ? (initializing ? "blue" : state === 2 ? "green" : state === 3 ? "#66a5e2" : state === 4 ? "grey" : "lightgrey" ) : "lightgrey"
+                        color:  isCarPluggedIn() ? (initializing ? "blue" : state === 2 ? "green" : state === 3 ? "#66a5e2" : state === 4 ? "grey" : "lightgrey" ) : "lightgrey"
                         radius: width*0.1
                         Label{
                             id: description
@@ -493,7 +502,7 @@ Page {
 
             RowLayout{
                 id: noLoadingRowLayout
-                visible: !(chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
+                visible: !(chargingConfiguration.optimizationEnabled && isCarPluggedIn())
                 Label{
                     id: noLoadingLabel
                     text: qsTr("Charging deactivated. Please choose a charging mode.")
@@ -509,7 +518,7 @@ Page {
                     {
                         return false
                     }
-                    if (!(chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)){
+                    if (!(chargingConfiguration.optimizationEnabled && isCarPluggedIn())){
                         return false
                     }
                     return true
@@ -540,7 +549,7 @@ Page {
                     {
                         return false
                     }
-                    if (!(chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)){
+                    if (!(chargingConfiguration.optimizationEnabled && isCarPluggedIn())){
                         return false
                     }
 
@@ -569,7 +578,7 @@ Page {
 
             RowLayout{
                 id: currentCurrentRowLayout
-                visible: chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value
+                visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
                 Label{
                     id: currentCurrentLabel
                     Layout.fillWidth: true
@@ -588,7 +597,7 @@ Page {
 
             RowLayout{
                 id: energyChargedLayout
-                visible: (chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
+                visible: (chargingConfiguration.optimizationEnabled && isCarPluggedIn())
                 Label{
                     id: alreadyLoadedLabel
                     Layout.fillWidth: true
@@ -606,7 +615,7 @@ Page {
 
             RowLayout{
                 id: durationLayout
-                visible: (chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value)
+                visible: (chargingConfiguration.optimizationEnabled && isCarPluggedIn())
                 Label{
                     id: durationLabel
                     Layout.fillWidth: true
@@ -637,12 +646,12 @@ Page {
                     Layout.fillWidth: true
                     text: qsTr("Configure Charging")
                     background: Rectangle{
-                        color: thing.stateByName("pluggedIn").value ? "#87BD26" : "lightgrey"
+                        color: isCarPluggedIn() ? "#87BD26" : "lightgrey"
                         radius: 4
                     }
 
                     onClicked: {
-                        if (thing.stateByName("pluggedIn").value){
+                        if (isCarPluggedIn()){
                             var page = pageStack.push(optimizationComponent , { hemsManager: hemsManager, thing: thing })
                             page.done.connect(function(){
                                 busyOverlay.shown = true
@@ -661,7 +670,7 @@ Page {
             RowLayout{
                 id: cancelLoadingSchedule
                 Layout.fillWidth: true
-                visible: chargingConfiguration.optimizationEnabled && thing.stateByName("pluggedIn").value
+                visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
                 Button{
                     Layout.fillWidth: true
                     text:  status.state == 3 ? qsTr("Configure charging mode") : qsTr("Reconfigure charging mode" )
