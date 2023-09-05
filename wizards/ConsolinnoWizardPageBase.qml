@@ -4,10 +4,14 @@ import Nymea 1.0
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.2
 
+
 Page {
     id: root
 
+    property alias headerBackgroundColor: topCircle.color
+
     property alias content: contentContainer.children
+
     property alias showNextButton: nextButton.visible
     property alias nextButtonText: nextLabel.text
     property alias showBackButton: backButton.visible
@@ -15,24 +19,58 @@ Page {
     property alias showExtraButton: extraButton.visible
     property alias extraButtonText: extraButtonLabel.text
 
-    property bool headerVisible: true
-    property string headerLabel: ""
-
     signal next();
     signal back();
     signal extraButtonPressed();
     signal done(bool skip, bool abort);
 
-    header: NymeaHeader {
-        text: root.headerLabel
-        visible: root.headerVisible
-        backButtonVisible: true
-        onBackPressed:{
-            pageStack.pop()
+    header: Item {
+
+        height: 105
+
+        Rectangle {
+            anchors.centerIn: topCircle
+            anchors.horizontalCenterOffset: 5
+            anchors.verticalCenterOffset: 5
+            radius: width/2
+            width: topCircle.width
+            height: topCircle.height
+            color: Style.consolinnoLight
+        }
+
+        Rectangle {
+            id: topCircle
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+                bottomMargin: 5
+
+                leftMargin: -parent.width / 2
+                rightMargin: -parent.width / 2
+            }
+            height: width
+            radius: width/2
+            color: "#dddddd"
+
+        }
+        Image {
+            anchors {
+                fill: parent
+                topMargin: Style.margins
+                bottomMargin: Style.margins
+                leftMargin: Style.bigMargins
+                rightMargin: Style.bigMargins
+            }
+            fillMode: Image.PreserveAspectFit
+//            source: "qrc:/styles/%1/logo-wide.svg".arg(styleController.currentStyle)
+            source: "qrc:/styles/light/logo-wide.svg"
         }
     }
 
     background: Item {
+
+
         Rectangle {
             anchors {
                 left: parent.left
@@ -62,7 +100,6 @@ Page {
 
         Item {
             id: contentContainer
-
             Layout.fillWidth: true
             Layout.fillHeight: true
         }
@@ -74,20 +111,16 @@ Page {
 
             MouseArea {
                 id: backButton
-
                 Layout.preferredHeight: Style.delegateHeight
                 Layout.preferredWidth: childrenRect.width
                 Layout.alignment: Qt.AlignLeft
-
                 RowLayout {
                     anchors.centerIn: parent
-
                     ColorIcon {
                         Layout.alignment: Qt.AlignRight
                         size: Style.iconSize
                         name: "back"
                     }
-
                     Label {
                         id: backLabel
                         Layout.fillWidth: true
@@ -97,13 +130,12 @@ Page {
                 onClicked: root.back()
             }
 
+
             Item {
                 Layout.fillWidth: true
                 Layout.preferredHeight: Style.delegateHeight
-
                 Rectangle{
                     id: extraButton
-
                     anchors.centerIn: parent
                     width: extraButtonLabel.width +15
                     height: extraButtonLabel.height +10
@@ -119,13 +151,14 @@ Page {
                         height: Style.delegateHeight +10
                         width: childrenRect.width +15
 
+
                         RowLayout{
-                            anchors.centerIn: parent
-
+                        anchors.centerIn: parent
                             Label {
-                                id: extraButtonLabel
+                            id: extraButtonLabel
+                            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
-                                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+
                             }
                         }
                         onClicked: root.extraButtonPressed()
@@ -133,23 +166,19 @@ Page {
                 }
             }
 
+
             MouseArea {
                 id: nextButton
-
                 Layout.preferredHeight: Style.delegateHeight
                 Layout.preferredWidth: childrenRect.width
                 Layout.alignment: Qt.AlignRight
-
                 RowLayout {
                     anchors.centerIn: parent
-
                     Label {
                         id: nextLabel
-
                         Layout.fillWidth: true
                         text: qsTr("Next")
                     }
-
                     ColorIcon {
                         Layout.alignment: Qt.AlignRight
                         size: Style.iconSize
