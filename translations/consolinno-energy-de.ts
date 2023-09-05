@@ -195,7 +195,7 @@
     </message>
     <message>
         <source>No car is connected at the moment. Please connect a car.</source>
-        <translation>Im Moment ist kein Auto angesteckt. Bitte stecken Sie ein Auto an</translation>
+        <translation>Im Moment ist kein Auto angesteckt. Bitte stecken Sie ein Auto an.</translation>
     </message>
     <message>
         <source>Charging configuration</source>
@@ -204,14 +204,6 @@
     <message>
         <source>Charging mode: </source>
         <translation>Lademodus: </translation>
-    </message>
-    <message>
-        <source>No optimization</source>
-        <translation>Keine Optimierung</translation>
-    </message>
-    <message>
-        <source>PV optimized</source>
-        <translation>PV-optimiert</translation>
     </message>
     <message>
         <source>PV only</source>
@@ -234,20 +226,8 @@
         <translation>Unterbrochen</translation>
     </message>
     <message>
-        <source>No chargingschedule active at the moment...</source>
-        <translation>Kein Ladevorgang aktiv im Moment...</translation>
-    </message>
-    <message>
         <source>Configure Charging</source>
-        <translation>Ladevorgang einstellen</translation>
-    </message>
-    <message>
-        <source>Cancel Charging Schedule</source>
-        <translation>Ladevorgang abbrechen</translation>
-    </message>
-    <message>
-        <source>Configure charging</source>
-        <translation>Ladevorgang einstellen</translation>
+        <translation>Lademodus einstellen</translation>
     </message>
     <message>
         <source>Electric car:</source>
@@ -282,16 +262,8 @@
         <translation>hinzufügen/wähle Auto</translation>
     </message>
     <message>
-        <source>Start new charging schedule</source>
-        <translation>Starte neuen Ladevorgang</translation>
-    </message>
-    <message>
         <source>Charge with minimum current</source>
         <translation>Laden mit minimaler Leistung</translation>
-    </message>
-    <message>
-        <source>Cancel charging</source>
-        <translation>Abbrechen des Ladevorgangs</translation>
     </message>
     <message>
         <source>Pause charging</source>
@@ -300,10 +272,6 @@
     <message>
         <source>Behaviour on grid consumption:</source>
         <translation>Verhalten bei ungenügender PV-Erzeugung:</translation>
-    </message>
-    <message>
-        <source>PV excess only</source>
-        <translation>PV-Überschuss</translation>
     </message>
     <message>
         <source>Please select a battery level greater than 0%.</source>
@@ -372,6 +340,42 @@
     <message>
         <source>Time elapsed</source>
         <translation>Vergangene Zeit</translation>
+    </message>
+    <message>
+        <source>Charge always</source>
+        <translation>Immer laden</translation>
+    </message>
+    <message>
+        <source>Next trip</source>
+        <translation>Nächste Fahrt</translation>
+    </message>
+    <message>
+        <source>Solar only</source>
+        <translation>Nur Solarstrom</translation>
+    </message>
+    <message>
+        <source>On grid consumption</source>
+        <translation>Bei wenig Solarstrom</translation>
+    </message>
+    <message>
+        <source>Minimal current</source>
+        <translation>Minimalstrom</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation>Pausieren</translation>
+    </message>
+    <message>
+        <source>Charging deactivated. Please choose a charging mode.</source>
+        <translation>Laden deaktiviert. Bitte wählen sie einen Lademodus.</translation>
+    </message>
+    <message>
+        <source>Configure charging mode</source>
+        <translation>Lademodus konfiguieren</translation>
+    </message>
+    <message>
+        <source>Reconfigure charging mode</source>
+        <translation>Lademodus ändern</translation>
     </message>
 </context>
 <context>
@@ -1531,10 +1535,6 @@ Mail service@consolinno.de</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <source>Permissions</source>
-        <translation>Berechtigungen</translation>
-    </message>
-    <message>
         <source>Remove</source>
         <translation>Entfernen</translation>
     </message>
@@ -1749,14 +1749,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished">Wenn nicht ausreichend PV-Überschuss zum Laden vorhanden ist, wird mit minimalen Ladestrom (Netzbezug) weitergeladen.</translation>
     </message>
     <message>
-        <source>Cancel charging:</source>
-        <translation>Abbrechen des Ladevorgangs:</translation>
-    </message>
-    <message>
-        <source>If there is not sufficient PV surplus for charging for approx. 2 minutes, the charging current is aborted.</source>
-        <translation>Wenn ca. 2 Minuten kein ausreichender PV-Überschuss vorhanden ist, wird der Ladestrom abgebrochen.</translation>
-    </message>
-    <message>
         <source>Pausing charging:</source>
         <translation>Pausieren des Ladevorgangs:</translation>
     </message>
@@ -1782,22 +1774,6 @@ Mail service@consolinno.de</source>
     <message>
         <source>Operating mode: </source>
         <translation>Betriebsmodus</translation>
-    </message>
-    <message>
-        <source>Configuration data: </source>
-        <translation>Konfigurationsdaten</translation>
-    </message>
-    <message>
-        <source>Floor heating area</source>
-        <translation>Beheizte Fläche</translation>
-    </message>
-    <message>
-        <source>Maximal electrical power</source>
-        <translation>Maximale elektrische Energie</translation>
-    </message>
-    <message>
-        <source>Thermal storage capacity</source>
-        <translation>Wärmespeicherkapazität</translation>
     </message>
     <message>
         <source>Outdoor temperature</source>
@@ -1830,10 +1806,6 @@ Mail service@consolinno.de</source>
     <message>
         <source>High</source>
         <translation>Hoch</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
     </message>
 </context>
 <context>
@@ -2338,7 +2310,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Reconfigure %1</source>
-        <translation>Konfiguriere %1</translation>
+        <translation type="unfinished">Konfiguriere %1</translation>
     </message>
     <message>
         <source>Set up %1</source>

@@ -1,4 +1,9 @@
-## [1.2.1 - Unreleased ]
+## [1.3.0 - unreleased ]
+### Changed
+- Improved household phase limit configuration
+- Rework of charging configuration view for "simple charging" 
+
+## [1.2.1]
 ### Added
 - Compatibility with new nymea API 
 - Ethernet port illustration on connection hint view 
