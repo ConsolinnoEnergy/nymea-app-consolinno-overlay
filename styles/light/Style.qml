@@ -12,14 +12,6 @@ StyleBase {
     property color consolinnoHighlight: "#189521"
     property color consolinnoHighlightForeground: "white"
 
-    property real majorFontSize: 16
-    property real screenMargins: 16
-
-    property color buttonColor: "#87BD26"
-    property real buttonFontSize: 16
-    property real buttonTopPading: 16
-    property real buttonLeftPadding: 32
-
     backgroundColor: "white"
     foregroundColor: consolinnoExtraDark
 

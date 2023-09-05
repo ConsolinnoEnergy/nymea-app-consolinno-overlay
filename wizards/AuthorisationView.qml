@@ -74,7 +74,7 @@ ConsolinnoWizardPageBase {
                             root.done(false, true)
                         }else if(directionID == 1){
 
-                            pageStack.replace(Qt.resolvedUrl("ManualDeviceEssentialsWizard.qml"))
+                            pageStack.replace(Qt.resolvedUrl("../thingconfiguration/NewThingPage.qml"))
                         }
 
                     }

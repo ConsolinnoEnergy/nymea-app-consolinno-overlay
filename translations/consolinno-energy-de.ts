@@ -2118,31 +2118,6 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
-    <name>ManualDeviceEssentialsWizard</name>
-    <message>
-        <source>Essential Optimizations Settings</source>
-        <translation>Notwendige Optimierungseinstellungen</translation>
-    </message>
-    <message>
-        <source>If a heat pump or an inverter is added, the settings for optimization must be entered.
-
- After adding a heat pump or a wallbox, the blackout protection must be adjusted accordingly.
-</source>
-        <translation>Wenn eine Wärmepumpe oder ein Wechselrichter hinzugefügt wird, müssen die Einstellungen für die Optimierung eingegeben werden.
-
-Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz entsprechend anzupassen.
-</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;The settings can be found in the wrench menu under &lt;i&gt; Optimization Configuration&lt;/i&gt;&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Die Einstellungen sind zu finden im Schraubenschlüsselmenü unter &lt;i&gt; Optimierungseinstellungen&lt;/i&gt;&lt;&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Next</source>
-        <translation>Weiter</translation>
-    </message>
-</context>
-<context>
     <name>ManualPage</name>
     <message>
         <source>Manual</source>
