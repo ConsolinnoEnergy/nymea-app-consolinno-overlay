@@ -388,38 +388,50 @@
 <context>
     <name>ChargingModeInfo</name>
     <message>
-        <source>In the charging mode you set how the energy manager should charge the vehicle.</source>
-        <translation>Im Lademodus stellen Sie ein wie der Energiemanager das Fahrzeug laden soll.</translation>
-    </message>
-    <message>
-        <source>PV optimized: </source>
-        <translation>PV-optimiertes Laden</translation>
-    </message>
-    <message>
-        <source>The energy manager tries to maximize the consumption of the solar power. The charging time and the charging current are planned in such a way that as much of the solar power as possible can be consumed.
-If the own electricity is not sufficient to reach the charging target, it is supplemented with grid electricity.</source>
-        <translation>Der Energiemanager versucht den Verbrauch des Solarstroms zu maximieren. Dabei wird die Ladezeit und der Ladestrom so geplant, dass möglichst viel eigener Solarstrom verbraucht werden kann.
-Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Netzstrom ergänzt.</translation>
-    </message>
-    <message>
-        <source>PV excess only: </source>
-        <translation>PV-Überschuss: </translation>
-    </message>
-    <message>
-        <source>The vehicle is only charged with solar power. You can specify what should happen if there is not enough solar power available for charging. (Charging can be paused or your vehicle can continue charging with minimal power from the grid). Since the charging time depends on the available solar power, no desired end time can be specified.</source>
-        <translation>Das Fahrzeug wird nur mit Solarstrom geladen. Sie können angeben was passieren soll, wenn nicht ausreichend Solarstrom zum Laden zur Verfügung steht. (Der Ladevorgang kann pausieren oder ihr Fahrzeug kann mit minimalen Strom aus dem Netz weitergeladen werden.) Da die Ladezeit abhängig ist, von dem verfügbaren Solarstrom kann keine gewünschte Endzeit angegeben werden.</translation>
-    </message>
-    <message>
-        <source>No optimization: </source>
-        <translation>Keine Optimierung: </translation>
-    </message>
-    <message>
-        <source>The vehicle is charged at maximum charging power until the specified charging target is reached.</source>
-        <translation>Das Fahrzeug wird mit maximaler Ladeleistung geladen bis das angegebene Ladeziel erreicht ist.</translation>
-    </message>
-    <message>
         <source>Charging mode</source>
         <translation>Lademodus</translation>
+    </message>
+    <message>
+        <source>Charging Mode</source>
+        <translation>Lademodus</translation>
+    </message>
+    <message>
+        <source>In charging mode, you set how the energy manager should charge the vehicle.</source>
+        <translation>Im Lademodus stellen Sie ein, wie das Fahrzeug geladen werden soll.</translation>
+    </message>
+    <message>
+        <source>Next Trip</source>
+        <translation>Nächste Fahrt</translation>
+    </message>
+    <message>
+        <source>The charging mode is used to ensure a certain charge level until a departure time, while scheduling the charging to use as much of your own electricity as possible. If the own solar power is not sufficient to reach the charging target, the grid supply (or grid supply times) is scheduled accordingly. The charging plan depends on a forecast of the solar production, which, like every forecast, is always affected by inaccuracies. Therefore, please note that deviations from the forecast may occur, i.e. it may happen that less is charged than solar power is currently available, since less solar power was predicted, or conversely, grid draw may occur if less solar power is available than the forecast assumed.</source>
+        <translation>Der Lademodus dient dazu, einen bestimmten Ladestand bis zu einem Abfahrtszeitpunkt sicherzustellen und das Laden dabei so zu planen, dass möglichst viel eigener Strom verbraucht wird. Falls der eigene Solarstrom nicht ausreichen sollte, um das Ladeziel zu erreichen, wird entsprechend Netzbezug (bzw. Netzbezugszeiten) eingeplant. Der Ladeplan basiert auf einer Prognose der Solarproduktion, die wie jede Vorhersage stets mit Ungenauigkeit behaftet ist. Beachten Sie deshalb, dass es zu Abweichungen von der Prognose kommen kann, d.h. es kann vorkommen, dass weniger geladen wird, als aktuell Solarstrom zur Verfügung steht, da weniger Solarstrom vorhergesagt war oder umgekehrt, kann es zu Netzbezug kommen, wenn weniger Solarstrom zur Verfügung steht, als die Prognose angenommen hat.</translation>
+    </message>
+    <message>
+        <source>Solar Power Only</source>
+        <translation>Nur Solarstrom</translation>
+    </message>
+    <message>
+        <source>The vehicle will be charged with solar power only. You can specify what should happen if there is not enough solar power available for charging. Charging can be paused or continued with minimal power from the grid. The default setting is pausing. If your car does not automatically continue charging after pausing when its solar power is available again, then the option &lt;font color=&quot;#87BD26&quot;&gt;Charge with minimum power&lt;/font&gt; is useful. Note that the charging current will not regulate down until there is 60 seconds too less solar power available and vice versa will not regulate up until there is 60 seconds more solar power available.</source>
+        <translation>Das Fahrzeug wird nur mit Solarstrom geladen. Sie können angeben, was passieren soll, wenn nicht ausreichend Solarstrom zum Laden zur Verfügung steht. Der Ladevorgang kann pausieren oder mit minimalem Strom aus dem Netz fortgesetzt werden. Standardmäßig ist pausieren eingestellt. Sollte ihr Auto, nach dem Pausieren nicht automatisch das Laden fortsetzen, sobald wieder eigener Strom verfügbar ist, dann ist die Option „Laden mit minimaler Leistung“ sinnvoll. Beachten Sie, dass der Ladestrom erst heruntergeregelt wird, wenn 60 Sekunden zu wenig Solarstrom zur Verfügung steht und umgekehrt erst hochregelt, wenn 60 Sekunden mehr Leistung vorhanden ist.</translation>
+    </message>
+    <message>
+        <source>Always charge</source>
+        <translation>Immer laden</translation>
+    </message>
+    <message>
+        <source>The vehicle is charged with maximum charging power until the vehicle is fully charged or until it stops charging.</source>
+        <translation>Das Fahrzeug wird mit maximaler Ladeleistung geladen, bis das Fahrzeug vollgeladen ist bzw. abregelt.
+Verhalten bei Abstecken
+Die Lademodi „Nur Solarstrom“ und „Immer Laden“ bleiben nach dem Abstecken weiterhin ausgewählt. Das heißt, wenn Sie wieder anstecken, ist der letzte gewählte Modus aktiv. Wenn Sie mit „Nächster Fahrt“ geladen haben, dann müssen Sie beim Anstecken wieder einen Lademodus wählen.</translation>
+    </message>
+    <message>
+        <source>Behavior when unplugged</source>
+        <translation>Verhalten bei Abstecken</translation>
+    </message>
+    <message>
+        <source>The charging modes &lt;font color=&quot;#87BD26&quot;&gt;Solar power only&lt;/font&gt; and &lt;font color=&quot;#87BD26&quot;&gt;Always charging&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;#87BD26&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
+        <translation>Die Lademodi &lt;font color=&quot;#87BD26&quot;&gt;„Nur Solarstrom“&lt;/font&gt; und &lt;font color=&quot;#87BD26&quot;&gt;„Immer Laden“&lt;/font&gt; bleiben nachdem Abstecken weiterhin ausgewählt. Das heißt, wenn Sie wieder anstecken, ist der letzte gewählte Modus aktiv. Wenn Sie mit &lt;font color=&quot;#87BD26&quot;&gt;„Nächster Fahrt“&lt;/font&gt; geladen haben, dann müssen Sie bei Anstecken wieder einen Lademodus wählen.</translation>
     </message>
 </context>
 <context>
@@ -545,10 +557,6 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
         <translation>Info</translation>
     </message>
     <message>
-        <source>Make sure that the Leaflet is operational and connected to the network.</source>
-        <translation>Bitte stelle sicher, dass das Leaflet eingeschaltet und mit dem Netzwerk verbunden ist.</translation>
-    </message>
-    <message>
         <source>Start setup</source>
         <translation>Einrichtung starten</translation>
     </message>
@@ -603,18 +611,6 @@ Falls der eigene Strom nicht ausreicht, um das Ladeziel zu erreichen wird mit Ne
     <message>
         <source>Demo mode</source>
         <translation>Demo-Modus</translation>
-    </message>
-    <message>
-        <source>Establishing a connection</source>
-        <translation>Verbindung einrichten</translation>
-    </message>
-    <message>
-        <source>HEMS</source>
-        <translation>HEMS</translation>
-    </message>
-    <message>
-        <source>Privacy policy and license agreement HEMS (09/2022)</source>
-        <translation>Datenschutzerklärung HEMS (09/2022)</translation>
     </message>
     <message>
         <source>Yes I agree to open a user account, according to part 6 </source>
@@ -828,6 +824,35 @@ Mail service@consolinno.de</source>
         <source>Please connect your Leaflet device (LAN port 1) to your network. Be sure the device running this App (Smartphone, PC) is connected to the same network.</source>
         <translation>Bitte verbinden Sie das Leaflet (1. LAN-Buchse) mit dem Netzwerk. Stellen Sie sicher, dass Ihr Gerät (Smartphone, PC) mit dem selben Netzwerk verbunden ist.
 </translation>
+    </message>
+    <message>
+        <source>Welcome to Consolinno HEMS!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">Zurück</translation>
+    </message>
+    <message>
+        <source>Privacy Policy and License Agreement
+(09/2022)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internet Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Discovered Devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
     </message>
 </context>
 <context>
@@ -1739,6 +1764,84 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>GenericDeviceHistoryPage</name>
+    <message>
+        <source>States</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Events</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+</context>
+<context>
+    <name>GenericSmartDeviceMeterPage</name>
+    <message>
+        <source>Idle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging</source>
+        <translation type="unfinished">Laden</translation>
+    </message>
+    <message>
+        <source>Discharging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Producing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consuming</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Returning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Obtaining</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total Consumption: %1 kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total Production: %1 kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total Acquisition: %1 kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total Return: %1 kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At the current rate, the battery will be fully charged at %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At the current rate, the battery will last until %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>GridConsumptionInfo</name>
     <message>
         <source>Charging with minimum current:</source>
@@ -2074,10 +2177,6 @@ Mail service@consolinno.de</source>
 <context>
     <name>OptimizationConfiguration</name>
     <message>
-        <source>Optimizations</source>
-        <translation>Optimierungen</translation>
-    </message>
-    <message>
         <source>Blackout protection</source>
         <translation>Überlastschutz</translation>
     </message>
@@ -2096,6 +2195,10 @@ Mail service@consolinno.de</source>
     <message>
         <source>Optimizations will be available once the required things have been added to the system.</source>
         <translation>Optimierungen sind verfügbar, sobald die benötigten Geräte im System eingerichtet wurden.</translation>
+    </message>
+    <message>
+        <source>Optimization Configuration</source>
+        <translation>Optimierungseinstellungen</translation>
     </message>
 </context>
 <context>
@@ -2682,6 +2785,10 @@ Mail service@consolinno.de</source>
     <message>
         <source>to the Dashboard</source>
         <translation>zum Dashboard</translation>
+    </message>
+    <message>
+        <source>Installed Devices</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

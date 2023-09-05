@@ -17,13 +17,13 @@ Page {
     }
     InfoTextInterface{
         anchors.fill: parent
-        summaryText: qsTr("In the charging mode you set how the energy manager should charge the vehicle.")
+//        summaryText: qsTr("In the charging mode you set how the energy manager should charge the vehicle.")
         body: ColumnLayout{
             Layout.fillWidth: true
             id: bodyItem
             Label{
                 Layout.fillWidth: true
-                text: qsTr("PV optimized: ")
+                text: qsTr("Charging Mode")
                 leftPadding: app.margins +10
                 rightPadding: app.margins +10
 
@@ -37,14 +37,13 @@ Page {
                 rightPadding: app.margins +10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
-                text: qsTr("The energy manager tries to maximize the consumption of the solar power. The charging time and the charging current are planned in such a way that as much of the solar power as possible can be consumed.
-If the own electricity is not sufficient to reach the charging target, it is supplemented with grid electricity.")
+                text: qsTr("In charging mode, you set how the energy manager should charge the vehicle.")
             }
 
             Label{
                 Layout.topMargin: 15
                 Layout.fillWidth: true
-                text: qsTr("PV excess only: ")
+                text: qsTr("Next Trip")
                 leftPadding: app.margins +10
                 rightPadding: app.margins +10
 
@@ -58,28 +57,64 @@ If the own electricity is not sufficient to reach the charging target, it is sup
                 rightPadding: app.margins +10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
-                text: qsTr("The vehicle is only charged with solar power. You can specify what should happen if there is not enough solar power available for charging. (Charging can be paused or your vehicle can continue charging with minimal power from the grid). Since the charging time depends on the available solar power, no desired end time can be specified.")
+                text: qsTr("The charging mode is used to ensure a certain charge level until a departure time, while scheduling the charging to use as much of your own electricity as possible. If the own solar power is not sufficient to reach the charging target, the grid supply (or grid supply times) is scheduled accordingly. The charging plan depends on a forecast of the solar production, which, like every forecast, is always affected by inaccuracies. Therefore, please note that deviations from the forecast may occur, i.e. it may happen that less is charged than solar power is currently available, since less solar power was predicted, or conversely, grid draw may occur if less solar power is available than the forecast assumed.")
             }
-
 
             Label{
                 Layout.topMargin: 15
                 Layout.fillWidth: true
-                text: qsTr("No optimization: ")
+                text: qsTr("Solar Power Only")
                 leftPadding: app.margins +10
                 rightPadding: app.margins +10
-
                 font.bold: true
                 font.pixelSize: 17
-
             }
+
             Label{
                 Layout.fillWidth: true
                 leftPadding: app.margins +10
                 rightPadding: app.margins +10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
-                text: qsTr("The vehicle is charged at maximum charging power until the specified charging target is reached.")
+                text: qsTr("The vehicle will be charged with solar power only. You can specify what should happen if there is not enough solar power available for charging. Charging can be paused or continued with minimal power from the grid. The default setting is pausing. If your car does not automatically continue charging after pausing when its solar power is available again, then the option <font color=\"#87BD26\">Charge with minimum power</font> is useful. Note that the charging current will not regulate down until there is 60 seconds too less solar power available and vice versa will not regulate up until there is 60 seconds more solar power available.")
+            }
+
+            Label{
+                Layout.topMargin: 15
+                Layout.fillWidth: true
+                text: qsTr("Always charge")
+                leftPadding: app.margins +10
+                rightPadding: app.margins +10
+                font.bold: true
+                font.pixelSize: 17
+            }
+
+            Label{
+                Layout.fillWidth: true
+                leftPadding: app.margins +10
+                rightPadding: app.margins +10
+                wrapMode: Text.WordWrap
+                Layout.preferredWidth: app.width
+                text: qsTr("The vehicle is charged with maximum charging power until the vehicle is fully charged or until it stops charging.")
+            }
+
+            Label{
+                Layout.topMargin: 15
+                Layout.fillWidth: true
+                text: qsTr("Behavior when unplugged")
+                leftPadding: app.margins +10
+                rightPadding: app.margins +10
+                font.bold: true
+                font.pixelSize: 17
+            }
+
+            Label{
+                Layout.fillWidth: true
+                leftPadding: app.margins +10
+                rightPadding: app.margins +10
+                wrapMode: Text.WordWrap
+                Layout.preferredWidth: app.width
+                text: qsTr("The charging modes <font color=\"#87BD26\">Solar power only</font> and <font color=\"#87BD26\">Always charging</font> remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with <font color=\"#87BD26\">Next trip</font>, you must select a charging mode again when you plug in.")
             }
 
         }
