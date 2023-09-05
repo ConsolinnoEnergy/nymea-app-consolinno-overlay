@@ -405,7 +405,7 @@
     </message>
     <message>
         <source>The charging mode is used to ensure a certain charge level until a departure time, while scheduling the charging to use as much of your own electricity as possible. If the own solar power is not sufficient to reach the charging target, the grid supply (or grid supply times) is scheduled accordingly. The charging plan depends on a forecast of the solar production, which, like every forecast, is always affected by inaccuracies. Therefore, please note that deviations from the forecast may occur, i.e. it may happen that less is charged than solar power is currently available, since less solar power was predicted, or conversely, grid draw may occur if less solar power is available than the forecast assumed.</source>
-        <translation type="unfinished">Der Lademodus dient dazu, einen bestimmten Ladestand bis zu einem Abfahrtszeitpunkt sicherzustellen und das Laden dabei so zu planen, dass möglichst viel eigener Strom verbraucht wird. Falls der eigene Solarstrom nicht ausreichen sollte, um das Ladeziel zu erreichen, wird entsprechend Netzbezug (bzw. Netzbezugszeiten) eingeplant. Der Ladeplan basiert auf einer Prognose der Solarproduktion, die wie jede Vorhersage stets mit Ungenauigkeit behaftet ist. Beachten Sie deshalb, dass es zu Abweichungen von der Prognose kommen kann, d.h. es kann vorkommen, dass weniger geladen wird, als aktuell Solarstrom zur Verfügung steht, da weniger Solarstrom vorhergesagt war. Umgekehrt kann es zu Netzbezug kommen, wenn weniger Solarstrom zur Verfügung steht, als die Prognose angenommen hat.</translation>
+        <translation>Der Lademodus dient dazu, einen bestimmten Ladestand bis zu einem Abfahrtszeitpunkt sicherzustellen und das Laden dabei so zu planen, dass möglichst viel eigener Strom verbraucht wird. Falls der eigene Solarstrom nicht ausreichen sollte, um das Ladeziel zu erreichen, wird entsprechend Netzbezug (bzw. Netzbezugszeiten) eingeplant. Der Ladeplan basiert auf einer Prognose der Solarproduktion, die wie jede Vorhersage stets mit Ungenauigkeit behaftet ist. Beachten Sie deshalb, dass es zu Abweichungen von der Prognose kommen kann, d.h. es kann vorkommen, dass weniger geladen wird, als aktuell Solarstrom zur Verfügung steht, da weniger Solarstrom vorhergesagt war. Umgekehrt kann es zu Netzbezug kommen, wenn weniger Solarstrom zur Verfügung steht, als die Prognose angenommen hat.</translation>
     </message>
     <message>
         <source>Solar Power Only</source>
@@ -421,9 +421,7 @@
     </message>
     <message>
         <source>The vehicle is charged with maximum charging power until the vehicle is fully charged or until it stops charging.</source>
-        <translation>Das Fahrzeug wird mit maximaler Ladeleistung geladen, bis das Fahrzeug vollgeladen ist bzw. abregelt.
-Verhalten bei Abstecken
-Die Lademodi „Nur Solarstrom“ und „Immer Laden“ bleiben nach dem Abstecken weiterhin ausgewählt. Das heißt, wenn Sie wieder anstecken, ist der letzte gewählte Modus aktiv. Wenn Sie mit „Nächster Fahrt“ geladen haben, dann müssen Sie beim Anstecken wieder einen Lademodus wählen.</translation>
+        <translation>Das Fahrzeug wird mit maximaler Ladeleistung geladen, bis das Fahrzeug vollgeladen ist bzw. abregelt.</translation>
     </message>
     <message>
         <source>Behavior when unplugged</source>
