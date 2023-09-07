@@ -5,6 +5,10 @@
 ### Added
 - Added remote proxy option to manual connection form
 
+## [1.2.3]
+### Fixed
+- Update nymea remoteproxy lib 
+
 ## [1.2.1]
 ### Added
 - Compatibility with new nymea API 
