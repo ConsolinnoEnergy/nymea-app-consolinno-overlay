@@ -38,6 +38,10 @@
         <string>Nymea boxes can be connected to WiFi using a Bluetooth setup. Also, this app can connect to nymea boxes using Bluetooth only, without requiring WiFi at all.</string>
         <key>NSLocalNetworkUsageDescription</key>
         <string>Nymea:app will connect to nymea systems in the local network and allow controlling smart home equipment.</string>
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>Not used at this point but will be used in the future to automatically fill in location information when setting up solar power forecasting.</string>
+        <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+        <string>Not used at this point but will be used in the future to automatically fill in location information when setting up solar power forecasting.</string>
         <key>NSBonjourServices</key>
         <array>
             <string>_jsonrpc._tcp</string>
