@@ -1,4 +1,8 @@
-## [1.2.1 - Unreleased ]
+## [1.2.2]
+### Fixed
+- Update nymea remoteproxy lib 
+
+## [1.2.1]
 ### Added
 - Compatibility with new nymea API 
 - Ethernet port illustration on connection hint view 
