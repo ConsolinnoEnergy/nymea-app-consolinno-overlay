@@ -367,7 +367,7 @@
     </message>
     <message>
         <source>Charging deactivated. Please choose a charging mode.</source>
-        <translation>Laden deaktiviert. Bitte wählen sie einen Lademodus.</translation>
+        <translation>Laden deaktiviert. Bitte wählen Sie einen Lademodus.</translation>
     </message>
     <message>
         <source>Configure charging mode</source>
