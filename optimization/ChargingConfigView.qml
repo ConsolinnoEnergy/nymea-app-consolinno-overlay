@@ -509,6 +509,7 @@ Page {
                     horizontalAlignment: Text.AlignHCenter
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignCenter
+                    wrapMode: Text.WordWrap
                 }
             }
 
