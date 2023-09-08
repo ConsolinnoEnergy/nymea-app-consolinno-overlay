@@ -1798,6 +1798,84 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+<name>GenericDeviceHistoryPage</name>
+<message>
+    <source>States</source>
+    <translation type="unfinished"></translation>
+</message>
+<message>
+    <source>Actions</source>
+    <translation type="unfinished"></translation>
+</message>
+<message>
+    <source>Events</source>
+    <translation type="unfinished"></translation>
+</message>
+<message>
+    <source>Cancel</source>
+    <translation type="unfinished"></translation>
+</message>
+<message>
+    <source>OK</source>
+    <translation type="unfinished">OK</translation>
+</message>
+</context>
+<context>
+<name>GenericSmartDeviceMeterPage</name>
+<message>
+    <source>Idle</source>
+    <translation>Leerlauf</translation>
+</message>
+<message>
+    <source>Charging</source>
+    <translation>Laden</translation>
+</message>
+<message>
+    <source>Discharging</source>
+    <translation>Entladen</translation>
+</message>
+<message>
+    <source>Producing</source>
+    <translation>Erzeugend</translation>
+</message>
+<message>
+    <source>Consuming</source>
+    <translation>Verbrauchend</translation>
+</message>
+<message>
+    <source>Returning</source>
+    <translation>Einspeisend</translation>
+</message>
+<message>
+    <source>Obtaining</source>
+    <translation>Beziehend</translation>
+</message>
+<message>
+    <source>Total Consumption: %1 kWh</source>
+    <translation>Gesamtverbrauch: %1 kWh</translation>
+</message>
+<message>
+    <source>Total Production: %1 kWh</source>
+    <translation>Gesamtproduktion: %1 kWh</translation>
+</message>
+<message>
+    <source>Total Acquisition: %1 kWh</source>
+    <translation>Gesamter Netzbezug: %1 kWh</translation>
+</message>
+<message>
+    <source>Total Return: %1 kWh</source>
+    <translation>Gesamte Netzeinspeisung: %1 kWh</translation>
+</message>
+<message>
+    <source>At the current rate, the battery will be fully charged at %1.</source>
+    <translation>Bei der aktuellen Rate wird die Batterie um %1 vollständig geladen sein.</translation>
+</message>
+<message>
+    <source>At the current rate, the battery will last until %1.</source>
+    <translation>Bei der aktuellen Rate wird die Batterie bis %1 halten.</translation>
+</message>
+</context>
+<context>
     <name>GridConsumptionInfo</name>
     <message>
         <source>Charging with minimum current:</source>
