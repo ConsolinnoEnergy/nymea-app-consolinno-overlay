@@ -1212,7 +1212,7 @@ MainViewBase {
                                                 "../optimization/HeatingConfigView.qml",
                                                 {
                                                     "hemsManager": hemsManager,
-                                                    "heatpumpThing": thing
+                                                    "thing": thing
                                                 })
                                 } else if (thing.thingClass.interfaces.indexOf(
                                                "evcharger") >= 0) {
