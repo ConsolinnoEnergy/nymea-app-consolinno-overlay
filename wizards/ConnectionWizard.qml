@@ -1570,7 +1570,7 @@ Mail service@consolinno.de")
 
                     Label {
                         Layout.fillWidth: true
-                        text: qsTr("Encrypted connection:")
+                        text: qsTr("SSL:")
                     }
                     CheckBox {
                         id: secureCheckBox
