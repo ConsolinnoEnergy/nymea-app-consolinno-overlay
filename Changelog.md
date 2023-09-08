@@ -2,6 +2,8 @@
 ### Changed
 - Improved household phase limit configuration
 - Rework of charging configuration view for "simple charging" 
+### Added
+- Added remote proxy option to manual connection form
 
 ## [1.2.1]
 ### Added

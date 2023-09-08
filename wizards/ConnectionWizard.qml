@@ -1506,6 +1506,12 @@ Mail service@consolinno.de")
                     } else {
                         rpcUrl = 'ws://' + hostAddress + ':' + port
                     }
+                } else if (connectionTypeComboBox.currentIndex == 2) {
+                    if (secureCheckBox.checked) {
+                        rpcUrl = "tunnels://" + hostAddress + ":" + port + "?uuid=" + serverUuidTextInput.text
+                    } else {
+                        rpcUrl = "tunnel://" + hostAddress + ":" + port + "?uuid=" + serverUuidTextInput.text
+                    }
                 }
 
                 print('Try to connect ', rpcUrl)
@@ -1528,28 +1534,43 @@ Mail service@consolinno.de")
                     ComboBox {
                         id: connectionTypeComboBox
                         Layout.fillWidth: true
-                        model: [ qsTr('TCP'), qsTr('Websocket') ]
+                        model: [ qsTr("TCP"), qsTr("Websocket"), qsTr("Remote proxy") ]
                     }
 
-                    Label { text: qsTr('Address:') }
+                    Label {
+                        text: connectionTypeComboBox.currentIndex < 2 ? qsTr("Address:") : qsTr("Proxy address:")
+                    }
                     TextField {
                         id: addressTextInput
-                        objectName: 'addressTextInput'
+                        objectName: "addressTextInput"
                         Layout.fillWidth: true
-                        placeholderText: '127.0.0.1'
+                        placeholderText: connectionTypeComboBox.currentIndex < 2 ? "127.0.0.1" : "hems-remoteproxy.services.consolinno.de"
                     }
 
-                    Label { text: qsTr('Port:') }
+                    Label {
+                        text: qsTr("%1 UUID:").arg(Configuration.systemName)
+                        visible: connectionTypeComboBox.currentIndex == 2
+                    }
+                    TextField {
+                        id: serverUuidTextInput
+                        Layout.fillWidth: true
+                        visible: connectionTypeComboBox.currentIndex == 2
+                    }
+                    Label { text: qsTr("Port:") }
                     TextField {
                         id: portTextInput
                         Layout.fillWidth: true
-                        placeholderText: connectionTypeComboBox.currentIndex === 0 ? '2222' : '4444'
+                        placeholderText: connectionTypeComboBox.currentIndex === 0
+                                         ? "2222"
+                                         : connectionTypeComboBox.currentIndex == 1
+                                           ? "4444"
+                                           : "2213"
                         validator: IntValidator{bottom: 1; top: 65535;}
                     }
 
                     Label {
                         Layout.fillWidth: true
-                        text: qsTr('Encrypted connection:')
+                        text: qsTr("SSL:")
                     }
                     CheckBox {
                         id: secureCheckBox

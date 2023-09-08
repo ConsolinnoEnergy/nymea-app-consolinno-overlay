@@ -603,10 +603,6 @@
         <translation>Port:</translation>
     </message>
     <message>
-        <source>Encrypted connection:</source>
-        <translation>Verschlüsselte Verbindung:</translation>
-    </message>
-    <message>
         <source>Demo mode</source>
         <translation>Demo-Modus</translation>
     </message>
@@ -824,33 +820,36 @@ Mail service@consolinno.de</source>
 </translation>
     </message>
     <message>
-        <source>Welcome to Consolinno HEMS!</source>
+        <source>HEMS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Back</source>
-        <translation type="unfinished">Zurück</translation>
-    </message>
-    <message>
-        <source>Privacy Policy and License Agreement
-(09/2022)</source>
+        <source>Make sure that the Leaflet is operational and connected to the network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Internet Connection</source>
+        <source>Privacy policy and license agreement HEMS (09/2022)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Discovered Devices</source>
+        <source>Establishing a connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Manual Connection</source>
-        <translation type="unfinished"></translation>
+        <source>Remote proxy</source>
+        <translation></translation>
     </message>
     <message>
-        <source>Next</source>
-        <translation type="unfinished">Weiter</translation>
+        <source>Proxy address:</source>
+        <translation>Proxy Adresse</translation>
+    </message>
+    <message>
+        <source>%1 UUID:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>SSL:</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1759,84 +1758,6 @@ Mail service@consolinno.de</source>
     <message>
         <source>Operating status:</source>
         <translation>Betriebszustand:</translation>
-    </message>
-</context>
-<context>
-    <name>GenericDeviceHistoryPage</name>
-    <message>
-        <source>States</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Actions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Events</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="unfinished">OK</translation>
-    </message>
-</context>
-<context>
-    <name>GenericSmartDeviceMeterPage</name>
-    <message>
-        <source>Idle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Charging</source>
-        <translation type="unfinished">Laden</translation>
-    </message>
-    <message>
-        <source>Discharging</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Producing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Consuming</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Returning</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Obtaining</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total Consumption: %1 kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total Production: %1 kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total Acquisition: %1 kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total Return: %1 kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>At the current rate, the battery will be fully charged at %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>At the current rate, the battery will last until %1.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2783,10 +2704,6 @@ Mail service@consolinno.de</source>
     <message>
         <source>to the Dashboard</source>
         <translation>zum Dashboard</translation>
-    </message>
-    <message>
-        <source>Installed Devices</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

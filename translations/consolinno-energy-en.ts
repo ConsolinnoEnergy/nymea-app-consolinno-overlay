@@ -388,36 +388,47 @@
 <context>
     <name>ChargingModeInfo</name>
     <message>
-        <source>In the charging mode you set how the energy manager should charge the vehicle.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PV optimized: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The energy manager tries to maximize the consumption of the solar power. The charging time and the charging current are planned in such a way that as much of the solar power as possible can be consumed.
-If the own electricity is not sufficient to reach the charging target, it is supplemented with grid electricity.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PV excess only: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The vehicle is only charged with solar power. You can specify what should happen if there is not enough solar power available for charging. (Charging can be paused or your vehicle can continue charging with minimal power from the grid). Since the charging time depends on the available solar power, no desired end time can be specified.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No optimization: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The vehicle is charged at maximum charging power until the specified charging target is reached.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Charging mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In charging mode, you set how the energy manager should charge the vehicle.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next Trip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The charging mode is used to ensure a certain charge level until a departure time, while scheduling the charging to use as much of your own electricity as possible. If the own solar power is not sufficient to reach the charging target, the grid supply (or grid supply times) is scheduled accordingly. The charging plan depends on a forecast of the solar production, which, like every forecast, is always affected by inaccuracies. Therefore, please note that deviations from the forecast may occur, i.e. it may happen that less is charged than solar power is currently available, since less solar power was predicted, or conversely, grid draw may occur if less solar power is available than the forecast assumed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Solar Power Only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The vehicle will be charged with solar power only. You can specify what should happen if there is not enough solar power available for charging. Charging can be paused or continued with minimal power from the grid. The default setting is pausing. If your car does not automatically continue charging after pausing when its solar power is available again, then the option &lt;font color=&quot;#87BD26&quot;&gt;Charge with minimum power&lt;/font&gt; is useful. Note that the charging current will not regulate down until there is 60 seconds too less solar power available and vice versa will not regulate up until there is 60 seconds more solar power available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always charge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The vehicle is charged with maximum charging power until the vehicle is fully charged or until it stops charging.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Behavior when unplugged</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The charging modes &lt;font color=&quot;#87BD26&quot;&gt;Solar power only&lt;/font&gt; and &lt;font color=&quot;#87BD26&quot;&gt;Always charging&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;#87BD26&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -593,10 +604,6 @@ If the own electricity is not sufficient to reach the charging target, it is sup
     </message>
     <message>
         <source>Port:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Encrypted connection:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -825,6 +832,22 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Please connect your Leaflet device (LAN port 1) to your network. Be sure the device running this App (Smartphone, PC) is connected to the same network.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remote proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proxy address:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 UUID:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SSL:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2070,10 +2093,6 @@ Mail service@consolinno.de</source>
 <context>
     <name>OptimizationConfiguration</name>
     <message>
-        <source>Optimizations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Blackout protection</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2091,6 +2110,10 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Optimizations will be available once the required things have been added to the system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optimization Configuration</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
