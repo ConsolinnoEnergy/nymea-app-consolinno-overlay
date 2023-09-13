@@ -2,6 +2,8 @@
 ### Changed
 - Improved household phase limit configuration
 - Rework of charging configuration view for "simple charging" 
+- Only allow adding one ev charger and one heatpump 
+
 ### Added
 - Added remote proxy option to manual connection form
 

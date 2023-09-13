@@ -212,12 +212,41 @@ Page {
                 Layout.alignment: Qt.AlignHCenter
                 onClicked: root.done(false, true, false)
             }
+
+            Popup {
+                id: wallboxLimitPopup
+                parent: Overlay.overlay
+                x: Math.round((parent.width - width) / 2)
+                y: Math.round((parent.height - height) / 2)
+                width: parent.width
+                height: 100
+                modal: true
+                focus: true
+                closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+                contentItem: Label {
+                    Layout.fillWidth: true
+                    Layout.topMargin: app.margins
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    wrapMode: Text.WordWrap
+                    text: qsTr("At the moment, Consolinno HEMS can only control one EV charger. Support for multiple EV chargers is planned for future releases.")
+                }
+            }
+
             Button {
                 id: addButton
                 text: qsTr("add")
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                onClicked: internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue})
+                opacity:  (evChargerRepeater.model.count > 0) ? 0.3 : 1.0
+                onClicked:    {
+                    // Actually not needed when button is
+                    if (evChargerRepeater.model.count > 0)  {
+                        wallboxLimitPopup.open()
+                        return
+                    }
+                    internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue})
+                }
             }
             Button {
                 id: nextStepButton

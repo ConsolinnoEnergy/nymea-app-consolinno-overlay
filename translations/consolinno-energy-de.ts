@@ -2354,6 +2354,10 @@ Mail service@consolinno.de</source>
         <source>Please change name if necessary</source>
         <translation>Wenn notwendig, bitte den Namen ändern</translation>
     </message>
+    <message>
+        <source>At the moment, Consolinno HEMS can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
+        <translation>Momentan kann das Consolinno HEMS nur eine Wallbox ansteuern. Das Unterstützen von mehreren Wallboxen ist für ein zukünftiges Release geplant.</translation>
+    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -2535,6 +2539,10 @@ Mail service@consolinno.de</source>
     <message>
         <source>Please change name if necessary</source>
         <translation>Wenn notwendig, bitte den Namen ändern</translation>
+    </message>
+    <message>
+        <source>At the moment, Consolinno HEMS can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
+        <translation>Momentan kann das Consolinno HEMS nur eine Wärmepumpe ansteuern. Das Unterstützen von mehreren Wärmepumpen ist für ein zukünftiges Release geplant.</translation>
     </message>
 </context>
 <context>

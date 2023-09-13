@@ -224,15 +224,43 @@ Page {
                 Layout.preferredWidth: 200
                 onClicked: root.done(false, true, false)
             }
+
+            Popup {
+                id: heatpumpLimitPopup
+                parent: Overlay.overlay
+                x: Math.round((parent.width - width) / 2)
+                y: Math.round((parent.height - height) / 2)
+                width: parent.width
+                height: 100
+                modal: true
+                focus: true
+                closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+                contentItem: Label {
+                    Layout.fillWidth: true
+                    Layout.topMargin: app.margins
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    wrapMode: Text.WordWrap
+                    text: qsTr("At the moment, Consolinno HEMS can only control one heatpump. Support for multiple heatpumps is planned for future releases.")
+                }
+            }
+
             Button {
                 id: addButton
                 text: qsTr("add")
-                //text: thingClassComboBox.currentValue
-                //color: Style.accentColor
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                onClicked:  internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue})
+                opacity:  (heatpumpRepeater.model.count > 0) ? 0.3 : 1.0
+                onClicked:    {
+                    // Actually not needed when button is
+                    if (heatpumpRepeater.model.count > 0)  {
+                        heatpumpLimitPopup.open()
+                        return
+                    }
+                    internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue})
+                }
             }
+
             Button {
                 id: nextStepButton
                 text: qsTr("Next step")
