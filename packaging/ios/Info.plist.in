@@ -42,6 +42,8 @@
         <string>Not used at this point but will be used in the future to automatically fill in location information when setting up solar power forecasting.</string>
         <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
         <string>Not used at this point but will be used in the future to automatically fill in location information when setting up solar power forecasting.</string>
+        <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+        <string>Used for optional automatic detection of the location when setting up a solar power system. Location (provided manually or automatically) is used for solar power forecasting.</string>
         <key>NSBonjourServices</key>
         <array>
             <string>_jsonrpc._tcp</string>
