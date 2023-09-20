@@ -85,5 +85,10 @@
         <file>components/ConsolinnoImprintApp.qml</file>
         <file>images/leaflet-ethernet-connect.png</file>
         <file>info/GridConsumptionInfo.qml</file>
+        <file>wizards/ManualDeviceEssentialsWizard.qml</file>
+        <file>devicepages/GenericSmartDeviceMeterPage.qml</file>
+        <file>devicepages/GenericConfigPage.qml</file>
+        <file>devicepages/GenericDeviceHistoryPage.qml</file>
+        <file>wizards/ConsolinnoPushButtonAuthPage.qml</file>
     </qresource>
 </RCC>
