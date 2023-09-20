@@ -1447,6 +1447,25 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>ConsolinnoPushButtonAuthPage</name>
+    <message>
+        <source>Complete Authentication</source>
+        <translation type="unfinished">Authentifizierung abschließen</translation>
+    </message>
+    <message>
+        <source>Sorry, something went wrong during the setup. Try again please.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To complete the authentication, please press the test button again for 5 seconds until the status LED lights up green.</source>
+        <translation type="unfinished">Um die Authentifizierung abzuschließen, drücken Sie bitte den Test-Taster erneut für 5 Sekunden, bis die Status-LED grün leuchtet.</translation>
+    </message>
+    <message>
+        <source>If the status LED flashes red briefly, you must repeat the authentication. (Go back to the connection page, press the test button briefly and select the leaflet again).</source>
+        <translation type="unfinished">Wenn die Status-LED kurz rot blinkt, müssen Sie die Authentifizierung wiederholen. (Gehen Sie zurück zur Verbindungsseite, betätigen Sie kurz die Test-Taste und wählen Sie erneut das Leaflet aus).</translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoUsersSettingsPage</name>
     <message>
         <source>User settings</source>
@@ -2164,8 +2183,8 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
         <translation>Weiter</translation>
     </message>
     <message>
-        <source>(The settings can be found in the wrench menu under &lt;font color=&quot;#87BD26&quot;&gt;Optimization Settings&lt;/font&gt;).</source>
-        <translation>(Die Einstellungen sind zu finden im Schraubenschlüsselmenü unter &lt;font color=\&quot;#87BD26\&quot;&gt;Optimierungseinstellungen&lt;/font&gt; ).</translation>
+        <source>(The settings can be found in the wrench menu under &lt;font color=&quot;#87BD26&quot;&gt; Optimization Settings &lt;/font&gt;).</source>
+        <translation type="unfinished">(Die Einstellungen sind zu finden im Schraubenschlüsselmenü unter &lt;font color=&quot;#87BD26&quot;&gt; Optimierungseinstellungen &lt;/font&gt;).</translation>
     </message>
 </context>
 <context>
@@ -2371,25 +2390,6 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     <message>
         <source>Yes I agree to open a Useraccount, according to part 6 </source>
         <translation>Ja ich möchte wie in Teil 6 beschrieben ein Benutzerkonto eröffnen</translation>
-    </message>
-</context>
-<context>
-    <name>PushButtonAuthPage</name>
-    <message>
-        <source>Complete Authentication</source>
-        <translation>Authentifizierung abschließen</translation>
-    </message>
-    <message>
-        <source>Sorry, something went wrong during the setup. Try again please.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To complete the authentication, please press the test button again for 5 seconds until the status LED lights up green.</source>
-        <translation>Um die Authentifizierung abzuschließen, drücken Sie bitte den Test-Taster erneut für 5 Sekunden, bis die Status-LED grün leuchtet.</translation>
-    </message>
-    <message>
-        <source>If the status LED flashes red briefly, you must repeat the authentication. (Go back to the connection page, press the test button briefly and select the leaflet again).</source>
-        <translation>Wenn die Status-LED kurz rot blinkt, müssen Sie die Authentifizierung wiederholen. (Gehen Sie zurück zur Verbindungsseite, betätigen Sie kurz die Test-Taste und wählen Sie erneut das Leaflet aus).</translation>
     </message>
 </context>
 <context>

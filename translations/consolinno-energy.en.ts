@@ -1460,6 +1460,25 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>ConsolinnoPushButtonAuthPage</name>
+    <message>
+        <source>Complete Authentication</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sorry, something went wrong during the setup. Try again please.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To complete the authentication, please press the test button again for 5 seconds until the status LED lights up green.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If the status LED flashes red briefly, you must repeat the authentication. (Go back to the connection page, press the test button briefly and select the leaflet again).</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoUsersSettingsPage</name>
     <message>
         <source>User settings</source>
@@ -2157,7 +2176,7 @@ Mail service@consolinno.de</source>
         <translation type="unfinished">Weiter</translation>
     </message>
     <message>
-        <source>(The settings can be found in the wrench menu under &lt;font color=&quot;#87BD26&quot;&gt;Optimization Settings&lt;/font&gt;).</source>
+        <source>(The settings can be found in the wrench menu under &lt;font color=&quot;#87BD26&quot;&gt; Optimization Settings &lt;/font&gt;).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2363,25 +2382,6 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Yes I agree to open a Useraccount, according to part 6 </source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PushButtonAuthPage</name>
-    <message>
-        <source>Complete Authentication</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sorry, something went wrong during the setup. Try again please.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To complete the authentication, please press the test button again for 5 seconds until the status LED lights up green.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If the status LED flashes red briefly, you must repeat the authentication. (Go back to the connection page, press the test button briefly and select the leaflet again).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
