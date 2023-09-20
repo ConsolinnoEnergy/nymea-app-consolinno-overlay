@@ -87,6 +87,11 @@
         <file>images/heating_rod.svg</file>
         <file>thingconfiguration/DebugCharts.qml</file>
         <file>thingconfiguration/ConEMSState.qml</file>
+        <file>wizards/ManualDeviceEssentialsWizard.qml</file>
+        <file>devicepages/GenericSmartDeviceMeterPage.qml</file>
+        <file>devicepages/GenericConfigPage.qml</file>
+        <file>devicepages/GenericDeviceHistoryPage.qml</file>
+        <file>wizards/ConsolinnoPushButtonAuthPage.qml</file>
         <file>mainviews/StartupNotificationPopup.qml</file>
     </qresource>
 </RCC>

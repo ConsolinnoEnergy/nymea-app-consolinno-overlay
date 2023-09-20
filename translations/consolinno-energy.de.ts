@@ -2374,6 +2374,25 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     </message>
 </context>
 <context>
+    <name>PushButtonAuthPage</name>
+    <message>
+        <source>Complete Authentication</source>
+        <translation>Authentifizierung abschließen</translation>
+    </message>
+    <message>
+        <source>Sorry, something went wrong during the setup. Try again please.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To complete the authentication, please press the test button again for 5 seconds until the status LED lights up green.</source>
+        <translation>Um die Authentifizierung abzuschließen, drücken Sie bitte den Test-Taster erneut für 5 Sekunden, bis die Status-LED grün leuchtet.</translation>
+    </message>
+    <message>
+        <source>If the status LED flashes red briefly, you must repeat the authentication. (Go back to the connection page, press the test button briefly and select the leaflet again).</source>
+        <translation>Wenn die Status-LED kurz rot blinkt, müssen Sie die Authentifizierung wiederholen. (Gehen Sie zurück zur Verbindungsseite, betätigen Sie kurz die Test-Taste und wählen Sie erneut das Leaflet aus).</translation>
+    </message>
+</context>
+<context>
     <name>S:</name>
     <message>
         <source></source>
