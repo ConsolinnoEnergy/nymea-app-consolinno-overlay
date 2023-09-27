@@ -8,7 +8,8 @@ import Nymea 1.0
 ConsolinnoWizardPageBase {
     id: root
 
-
+    headerLabel: qsTr("Terms of Use")
+    headerBackButtonVisible: false
     showBackButton: false
     showNextButton: false
     background: Item{}
