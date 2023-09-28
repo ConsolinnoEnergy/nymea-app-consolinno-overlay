@@ -820,22 +820,6 @@ Mail service@consolinno.de</source>
 </translation>
     </message>
     <message>
-        <source>HEMS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Make sure that the Leaflet is operational and connected to the network.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Privacy policy and license agreement HEMS (09/2022)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Establishing a connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Remote proxy</source>
         <translation></translation>
     </message>
@@ -848,8 +832,28 @@ Mail service@consolinno.de</source>
         <translation></translation>
     </message>
     <message>
-        <source>SSL:</source>
-        <translation></translation>
+        <source>Welcome to Consolinno HEMS!</source>
+        <translation>Willkommen zum Consolinno HEMS!</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Zurück</translation>
+    </message>
+    <message>
+        <source>Internet Connection</source>
+        <translation>Internetverbindung</translation>
+    </message>
+    <message>
+        <source>Discovered Devices</source>
+        <translation>Gefundene Geräte</translation>
+    </message>
+    <message>
+        <source>Manual Connection</source>
+        <translation>Manuelle Verbindung</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
     </message>
 </context>
 <context>
@@ -2871,6 +2875,10 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     <message>
         <source>to the Dashboard</source>
         <translation>zum Dashboard</translation>
+    </message>
+    <message>
+        <source>Installed Devices</source>
+        <translation>Installierte Geräte</translation>
     </message>
 </context>
 <context>
