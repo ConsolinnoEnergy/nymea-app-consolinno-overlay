@@ -73,6 +73,8 @@ MouseArea {
         switch (name) {
         case "smartgridheatpump":
             return Qt.resolvedUrl("/ui/images/heatpump.svg")
+        case "smartheatingrod":
+            return Qt.resolvedUrl("/ui/images/heating_rod.svg")
         default:
             return app.interfaceToIcon(name)
         }
