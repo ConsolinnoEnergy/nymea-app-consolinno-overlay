@@ -4,7 +4,7 @@
 - Improved showing busy spinner in charging configuration view
 - Heating rod support 
 
-## [1.3.0 - unreleased ]
+## [1.3.0]
 ### Changed
 - Improved household phase limit configuration
 - Rework of charging configuration view for "simple charging" 
