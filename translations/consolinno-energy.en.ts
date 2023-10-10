@@ -382,7 +382,7 @@
     <name>ChargingConfigurationView</name>
     <message>
         <source>Charging</source>
-        <translation type="unfinished">Laden</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -552,7 +552,7 @@
     <name>ConnectionWizard</name>
     <message>
         <source>Info</source>
-        <translation>Info</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Make sure that the Leaflet is operational and connected to the network.</source>
@@ -1631,11 +1631,11 @@ Mail service@consolinno.de</source>
     <name>ConsolinnoWizardPageBase</name>
     <message>
         <source>Back</source>
-        <translation type="unfinished">Zurück</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished">Weiter</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2297,7 +2297,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished">Weiter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Discover %1</source>
@@ -2384,7 +2384,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished">Weiter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Discover %1</source>
@@ -2471,7 +2471,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished">Weiter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>There is no heat pump set up yet.</source>
@@ -2546,7 +2546,7 @@ Mail service@consolinno.de</source>
     <name>SetupSolarInverterWizard</name>
     <message>
         <source>Solar inverter</source>
-        <translation type="unfinished">Solarwechselrichter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>cancel</source>
@@ -2586,7 +2586,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished">Weiter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Discover %1</source>
