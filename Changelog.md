@@ -1,3 +1,7 @@
+## [1.4.0 - unreleased ]
+### Added
+- Heating rod support 
+
 ## [1.3.0 - unreleased ]
 ### Changed
 - Improved household phase limit configuration
