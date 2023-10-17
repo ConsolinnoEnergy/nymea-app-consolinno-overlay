@@ -699,7 +699,7 @@ MainViewBase {
                     onClicked: {
                         print("Clicked root meter", index, thing.name)
                         pageStack.push(
-                                    "/ui/devicepages/SmartMeterDevicePage.qml",
+                                    "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                     {
                                         "thing": thing
                                     })
@@ -717,7 +717,7 @@ MainViewBase {
                         onClicked: {
                             print("Clicked producer", index, thing.name)
                             pageStack.push(
-                                        "/ui/devicepages/SmartMeterDevicePage.qml",
+                                        "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                         {
                                             "thing": thing
                                         })
@@ -1248,7 +1248,7 @@ MainViewBase {
                                     }
                                 } else {
                                     pageStack.push(
-                                                "/ui/devicepages/SmartMeterDevicePage.qml",
+                                                "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                                 {
                                                     "thing": thing
                                                 })
@@ -1266,7 +1266,7 @@ MainViewBase {
                             onClicked: {
                                 print("Clicked battery", index, thing.name)
                                 pageStack.push(
-                                            "/ui/devicepages/SmartMeterDevicePage.qml",
+                                            "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                             {
                                                 "thing": thing
                                             })

@@ -6,7 +6,9 @@ import Nymea 1.0
 
 ConsolinnoWizardPageBase {
     id: root
-    headerBackgroundColor: "white"
+
+//    headerBackgroundColor: "white"
+    headerLabel: qsTr("Installed Devices")
     background: Item {}
 
     property HemsManager hemsManager: null
