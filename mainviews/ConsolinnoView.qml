@@ -817,41 +817,41 @@ MainViewBase {
                     Layout.alignment: Qt.AlignHCenter
                     spacing: Style.margins
 
-                    LegendTile {
-                        id: rootMeterTile
-                        thing: rootMeter
-                        isRootmeter: true
-                        color: lsdChart.rootMeterAcquisitionColor
-                        negativeColor: lsdChart.rootMeterReturnColor
-                        onClicked: {
-                            print("Clicked root meter", index, thing.name)
-                            pageStack.push(
-                                        "/ui/devicepages/SmartMeterDevicePage.qml",
-                                        {
-                                            "thing": thing
-                                        })
-                        }
+                LegendTile {
+                    id: rootMeterTile
+                    thing: rootMeter
+                    isRootmeter: true
+                    color: lsdChart.rootMeterAcquisitionColor
+                    negativeColor: lsdChart.rootMeterReturnColor
+                    onClicked: {
+                        print("Clicked root meter", index, thing.name)
+                        pageStack.push(
+                                    "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
+                                    {
+                                        "thing": thing
+                                    })
                     }
+                }
 
                     Repeater {
                         id: legendProducersRepeater
                         model: producers
 
-                        delegate: LegendTile {
-                            visible: producers.get(index) !== rootMeter
-                            color: lsdChart.producersColor
-                            thing: producers.get(index)
-                            onClicked: {
-                                print("Clicked producer", index, thing.name)
-                                pageStack.push(
-                                            "/ui/devicepages/SmartMeterDevicePage.qml",
-                                            {
-                                                "thing": thing
-                                            })
-                            }
+                    delegate: LegendTile {
+                        visible: producers.get(index).id !== rootMeter.id
+                        color: lsdChart.producersColor
+                        thing: producers.get(index)
+                        onClicked: {
+                            print("Clicked producer", index, thing.name)
+                            pageStack.push(
+                                        "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
+                                        {
+                                            "thing": thing
+                                        })
                         }
                     }
                 }
+            }
             }
 
             LineSeries {
@@ -1374,7 +1374,7 @@ MainViewBase {
                                     }
                                 } else {
                                     pageStack.push(
-                                                "/ui/devicepages/SmartMeterDevicePage.qml",
+                                                "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                                 {
                                                     "thing": thing
                                                 })
@@ -1392,7 +1392,7 @@ MainViewBase {
                             onClicked: {
                                 print("Clicked battery", index, thing.name)
                                 pageStack.push(
-                                            "/ui/devicepages/SmartMeterDevicePage.qml",
+                                            "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                             {
                                                 "thing": thing
                                             })

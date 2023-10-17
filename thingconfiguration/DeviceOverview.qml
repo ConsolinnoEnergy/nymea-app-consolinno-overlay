@@ -91,9 +91,7 @@ Page {
             Layout.minimumWidth: 100
             onClicked:{
                 pageStack.push( "../wizards/AuthorisationView.qml", {directionID: 1})
-
             }
-
         }
 
 
