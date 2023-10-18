@@ -562,11 +562,11 @@ Mail service@consolinno.de")
             background: Item {}
             content: Item {
                 anchors.fill: parent
-         
-                ColumnLayout {
-                id: contentColumn
 
-                //                anchors.fill: parent
+                ColumnLayout {
+                    id: contentColumn
+
+                    //                anchors.fill: parent
                     anchors {
                         top: parent.top
                         bottom: parent.bottom
@@ -577,22 +577,22 @@ Mail service@consolinno.de")
                         leftMargin: Style.margins
                         rightMargin: Style.margins
                     }
-                spacing: Style.hugeMargins
+                    spacing: Style.hugeMargins
 
-                Image {
+                    Image {
                         Layout.fillWidth: true
                         Layout.preferredHeight: parent.height / 4
                         source: "qrc:/styles/%1/logo-wide.svg".arg(styleController.currentStyle)
                         fillMode: Image.PreserveAspectFit
                     }
 
-                ColumnLayout {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: false
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredWidth: Math.min(parent.width, 300)
+                    ColumnLayout {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: false
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.preferredWidth: Math.min(parent.width, 300)
 
-                  Label {
+                        Label {
                             Layout.fillWidth: true
                             Layout.fillHeight: true
                             horizontalAlignment: Text.AlignHCenter
@@ -601,25 +601,25 @@ Mail service@consolinno.de")
                             text: qsTr('Welcome to Consolinno HEMS!')
                         }
 
-                    Button {
-                        Layout.alignment: Qt.AlignHCenter
-                        text: qsTr('Start setup')
-                        Layout.preferredWidth: 200
-                        onClicked: demoModePage.next()
-                    }
-
-                    Button {
-                        Layout.alignment: Qt.AlignHCenter
-                        text: qsTr('Demo mode')
-                        Layout.preferredWidth: 200
-                        onClicked:
-                        {
-                            var host = nymeaDiscovery.nymeaHosts.createWanHost('Demo server', 'nymeas://hems-demo.consolinno-it.de:31222')
-                            engine.jsonRpcClient.connectToHost(host)
+                        Button {
+                            Layout.alignment: Qt.AlignHCenter
+                            text: qsTr('Start setup')
+                            Layout.preferredWidth: 200
+                            onClicked: demoModePage.next()
                         }
-                    }
 
-		Button {
+                        Button {
+                            Layout.alignment: Qt.AlignHCenter
+                            text: qsTr('Demo mode')
+                            Layout.preferredWidth: 200
+                            onClicked:
+                            {
+                                var host = nymeaDiscovery.nymeaHosts.createWanHost('Demo server', 'nymeas://hems-demo.consolinno-it.de:31222')
+                                engine.jsonRpcClient.connectToHost(host)
+                            }
+                        }
+
+                        Button {
                             Layout.alignment: Qt.AlignHCenter
                             Layout.preferredWidth: 200
                             text: qsTr('Back')
@@ -629,15 +629,15 @@ Mail service@consolinno.de")
                             }
                             onClicked: pageStack.pop()
                         }
+                    }
                 }
+
+
             }
 
 
         }
-
-
     }
-}
 
 
 
@@ -648,7 +648,7 @@ Mail service@consolinno.de")
         ConsolinnoWizardPageBase {
             id: privacyPolicyPage
 
-	    headerLabel: qsTr("Privacy Policy and License Agreement\n(09/2022)")
+            headerLabel: qsTr("Privacy Policy and License Agreement\n(09/2022)")
             showNextButton: false
             showBackButton: false
 
@@ -1240,7 +1240,7 @@ Mail service@consolinno.de")
         ConsolinnoWizardPageBase {
             id: connectionInfoPage
 
-	    headerLabel: qsTr("Internet Connection")
+            headerLabel: qsTr("Internet Connection")
             showNextButton: false
             showBackButton: false
             background: Item {}
@@ -1261,17 +1261,17 @@ Mail service@consolinno.de")
                         Layout.leftMargin: app.margins
                         Layout.rightMargin: app.margins
                         text: qsTr("Please connect your Leaflet device (LAN port 1) to your network. Be sure the device running this App (Smartphone, PC) is connected to the same network.")
-                    } 
+                    }
                 }
 
-            Image {
-                Layout.fillWidth: true
-                Layout.preferredHeight: connectionInfoPage.visibleContentHeight - Style.margins * 2
-                Layout.margins: Style.margins * 3
-                fillMode: Image.PreserveAspectFit
-                sourceSize.width: width
-                source: "/ui/images/leaflet-ethernet-connect.png"
-            }
+                Image {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: connectionInfoPage.visibleContentHeight - Style.margins * 2
+                    Layout.margins: Style.margins * 3
+                    fillMode: Image.PreserveAspectFit
+                    sourceSize.width: width
+                    source: "/ui/images/leaflet-ethernet-connect.png"
+                }
 
 
                 Button {
@@ -1433,53 +1433,12 @@ Mail service@consolinno.de")
         id: manualConnectionComponent
 
         ConsolinnoWizardPageBase {
-//            title: qsTr('Manual connection')
-//            text: qsTr('Please enter the connection information for your nymea system')
+            //            title: qsTr('Manual connection')
+            //            text: qsTr('Please enter the connection information for your nymea system')
             headerLabel: qsTr("Manual Connection")
             onBack: pageStack.pop()
+            showNextButton: false
             background: Item {}
-            onNext: {
-                var rpcUrl
-                var hostAddress
-                var port
-
-                // Set default to placeholder
-                if (addressTextInput.text === '') {
-                    hostAddress = addressTextInput.placeholderText
-                } else {
-                    hostAddress = addressTextInput.text
-                }
-
-                if (portTextInput.text === '') {
-                    port = portTextInput.placeholderText
-                } else {
-                    port = portTextInput.text
-                }
-
-                if (connectionTypeComboBox.currentIndex == 0) {
-                    if (secureCheckBox.checked) {
-                        rpcUrl = 'nymeas://' + hostAddress + ':' + port
-                    } else {
-                        rpcUrl = 'nymea://' + hostAddress + ':' + port
-                    }
-                } else if (connectionTypeComboBox.currentIndex == 1) {
-                    if (secureCheckBox.checked) {
-                        rpcUrl = 'wss://' + hostAddress + ':' + port
-                    } else {
-                        rpcUrl = 'ws://' + hostAddress + ':' + port
-                    }
-                } else if (connectionTypeComboBox.currentIndex == 2) {
-                    if (secureCheckBox.checked) {
-                        rpcUrl = "tunnels://" + hostAddress + ":" + port + "?uuid=" + serverUuidTextInput.text
-                    } else {
-                        rpcUrl = "tunnel://" + hostAddress + ":" + port + "?uuid=" + serverUuidTextInput.text
-                    }
-                }
-
-                print('Try to connect ', rpcUrl)
-                var host = nymeaDiscovery.nymeaHosts.createWanHost('Manual connection', rpcUrl);
-                engine.jsonRpcClient.connectToHost(host)
-            }
 
             content: Item {
                 anchors {
@@ -1492,6 +1451,7 @@ Mail service@consolinno.de")
                     leftMargin: Style.margins
                     rightMargin: Style.margins
                 }
+
                 GridLayout {
                     id: manualConnectionDetailsGridLayout
 
@@ -1549,12 +1509,13 @@ Mail service@consolinno.de")
                         id: secureCheckBox
                         checked: true
                     }
+                }
 
-		 Button {
+                Button {
                     width: 200
-                    anchors.top: manualConnectionDetailsGridLayout.bottom
-                    anchors.topMargin: 32
                     anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: manualConnectionDetailsGridLayout.bottom
+                    anchors.topMargin: Style.margins
                     text: qsTr('Next')
                     onClicked: {
                         var rpcUrl
@@ -1586,6 +1547,12 @@ Mail service@consolinno.de")
                             } else {
                                 rpcUrl = 'ws://' + hostAddress + ':' + port
                             }
+                        } else if (connectionTypeComboBox.currentIndex == 2) {
+                            if (secureCheckBox.checked) {
+                                rpcUrl = "tunnels://" + hostAddress + ":" + port + "?uuid=" + serverUuidTextInput.text
+                            } else {
+                                rpcUrl = "tunnel://" + hostAddress + ":" + port + "?uuid=" + serverUuidTextInput.text
+                            }
                         }
 
                         print('Try to connect ', rpcUrl)
@@ -1596,5 +1563,4 @@ Mail service@consolinno.de")
             }
         }
     }
-}
 }
