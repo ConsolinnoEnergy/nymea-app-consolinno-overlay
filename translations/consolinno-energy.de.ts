@@ -855,6 +855,15 @@ Mail service@consolinno.de</source>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
+    <message>
+        <source>Privacy Policy and License Agreement
+(09/2022)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SSL:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoConsumerStats</name>
@@ -1784,82 +1793,82 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
-<name>GenericDeviceHistoryPage</name>
-<message>
-    <source>States</source>
-    <translation type="unfinished"></translation>
-</message>
-<message>
-    <source>Actions</source>
-    <translation type="unfinished"></translation>
-</message>
-<message>
-    <source>Events</source>
-    <translation type="unfinished"></translation>
-</message>
-<message>
-    <source>Cancel</source>
-    <translation type="unfinished"></translation>
-</message>
-<message>
-    <source>OK</source>
-    <translation type="unfinished">OK</translation>
-</message>
+    <name>GenericDeviceHistoryPage</name>
+    <message>
+        <source>States</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Events</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
 </context>
 <context>
-<name>GenericSmartDeviceMeterPage</name>
-<message>
-    <source>Idle</source>
-    <translation>Leerlauf</translation>
-</message>
-<message>
-    <source>Charging</source>
-    <translation>Laden</translation>
-</message>
-<message>
-    <source>Discharging</source>
-    <translation>Entladen</translation>
-</message>
-<message>
-    <source>Producing</source>
-    <translation>Erzeugend</translation>
-</message>
-<message>
-    <source>Consuming</source>
-    <translation>Verbrauchend</translation>
-</message>
-<message>
-    <source>Returning</source>
-    <translation>Einspeisend</translation>
-</message>
-<message>
-    <source>Obtaining</source>
-    <translation>Beziehend</translation>
-</message>
-<message>
-    <source>Total Consumption: %1 kWh</source>
-    <translation>Gesamtverbrauch: %1 kWh</translation>
-</message>
-<message>
-    <source>Total Production: %1 kWh</source>
-    <translation>Gesamtproduktion: %1 kWh</translation>
-</message>
-<message>
-    <source>Total Acquisition: %1 kWh</source>
-    <translation>Gesamter Netzbezug: %1 kWh</translation>
-</message>
-<message>
-    <source>Total Return: %1 kWh</source>
-    <translation>Gesamte Netzeinspeisung: %1 kWh</translation>
-</message>
-<message>
-    <source>At the current rate, the battery will be fully charged at %1.</source>
-    <translation>Bei der aktuellen Rate wird die Batterie um %1 vollständig geladen sein.</translation>
-</message>
-<message>
-    <source>At the current rate, the battery will last until %1.</source>
-    <translation>Bei der aktuellen Rate wird die Batterie bis %1 halten.</translation>
-</message>
+    <name>GenericSmartDeviceMeterPage</name>
+    <message>
+        <source>Idle</source>
+        <translation>Leerlauf</translation>
+    </message>
+    <message>
+        <source>Charging</source>
+        <translation>Laden</translation>
+    </message>
+    <message>
+        <source>Discharging</source>
+        <translation>Entladen</translation>
+    </message>
+    <message>
+        <source>Producing</source>
+        <translation>Erzeugend</translation>
+    </message>
+    <message>
+        <source>Consuming</source>
+        <translation>Verbrauchend</translation>
+    </message>
+    <message>
+        <source>Returning</source>
+        <translation>Einspeisend</translation>
+    </message>
+    <message>
+        <source>Obtaining</source>
+        <translation>Beziehend</translation>
+    </message>
+    <message>
+        <source>Total Consumption: %1 kWh</source>
+        <translation>Gesamtverbrauch: %1 kWh</translation>
+    </message>
+    <message>
+        <source>Total Production: %1 kWh</source>
+        <translation>Gesamtproduktion: %1 kWh</translation>
+    </message>
+    <message>
+        <source>Total Acquisition: %1 kWh</source>
+        <translation>Gesamter Netzbezug: %1 kWh</translation>
+    </message>
+    <message>
+        <source>Total Return: %1 kWh</source>
+        <translation>Gesamte Netzeinspeisung: %1 kWh</translation>
+    </message>
+    <message>
+        <source>At the current rate, the battery will be fully charged at %1.</source>
+        <translation>Bei der aktuellen Rate wird die Batterie um %1 vollständig geladen sein.</translation>
+    </message>
+    <message>
+        <source>At the current rate, the battery will last until %1.</source>
+        <translation>Bei der aktuellen Rate wird die Batterie bis %1 halten.</translation>
+    </message>
 </context>
 <context>
     <name>GridConsumptionInfo</name>
@@ -1929,6 +1938,18 @@ Mail service@consolinno.de</source>
     <message>
         <source>High</source>
         <translation>Hoch</translation>
+    </message>
+    <message>
+        <source>Configuration data: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Floor heating area</source>
+        <translation type="unfinished">Beheizte Fläche</translation>
+    </message>
+    <message>
+        <source>Maximal electrical power</source>
+        <translation type="unfinished">Maximale elektrische Leistung</translation>
     </message>
 </context>
 <context>
@@ -2242,7 +2263,7 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
         <translation>Optimierungen sind verfügbar, sobald die benötigten Geräte im System eingerichtet wurden.</translation>
     </message>
     <message>
-        <source>Optimization Configuration</source>
+        <source>Optimization configuration</source>
         <translation>Optimierungseinstellungen</translation>
     </message>
 </context>

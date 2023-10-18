@@ -11,7 +11,7 @@ Page {
 
 
     header: NymeaHeader {
-        text: qsTr("Optimization Configuration")
+        text: qsTr("Optimization configuration")
         backButtonVisible: true
         onBackPressed:{
             if ( hemsManager.availableUseCases === 0){
