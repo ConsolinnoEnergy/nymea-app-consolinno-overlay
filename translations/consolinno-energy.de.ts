@@ -608,7 +608,7 @@
     </message>
     <message>
         <source>Yes I agree to open a user account, according to part 6 </source>
-        <translation>Ja ich möchte wie in Teil 6 beschrieben ein Benutzerkonto eröffnen.</translation>
+        <translation>Ja ich möchte wie in Teil 6 beschrieben ein Benutzerkonto eröffnen </translation>
     </message>
     <message>
         <source>I confirm that I have read the the agreement and I am accepting it.</source>
@@ -816,8 +816,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Please connect your Leaflet device (LAN port 1) to your network. Be sure the device running this App (Smartphone, PC) is connected to the same network.</source>
-        <translation>Bitte verbinden Sie das Leaflet (1. LAN-Buchse) mit dem Netzwerk. Stellen Sie sicher, dass Ihr Gerät (Smartphone, PC) mit dem selben Netzwerk verbunden ist.
-</translation>
+        <translation>Bitte verbinden Sie das Leaflet (1. LAN-Buchse) mit dem Netzwerk. Stellen Sie sicher, dass Ihr Gerät (Smartphone, PC) mit dem selben Netzwerk verbunden ist.</translation>
     </message>
     <message>
         <source>Remote proxy</source>
@@ -825,7 +824,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Proxy address:</source>
-        <translation>Proxy Adresse</translation>
+        <translation>Proxy Adresse:</translation>
     </message>
     <message>
         <source>%1 UUID:</source>
@@ -858,11 +857,11 @@ Mail service@consolinno.de</source>
     <message>
         <source>Privacy Policy and License Agreement
 (09/2022)</source>
-        <translation type="unfinished"></translation>
+        <translation>Datenschutzerklärung HEMS (09/2022)</translation>
     </message>
     <message>
         <source>SSL:</source>
-        <translation type="unfinished"></translation>
+        <translation>SSL:</translation>
     </message>
 </context>
 <context>
