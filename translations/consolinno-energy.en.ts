@@ -382,7 +382,7 @@
     <name>ChargingConfigurationView</name>
     <message>
         <source>Charging</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Laden</translation>
     </message>
 </context>
 <context>
@@ -1686,11 +1686,11 @@ Mail service@consolinno.de</source>
     <name>ConsolinnoWizardPageBase</name>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zurück</translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Weiter</translation>
     </message>
 </context>
 <context>
@@ -1958,6 +1958,18 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>High</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configuration data: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Floor heating area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximal electrical power</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2268,7 +2280,7 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Optimization Configuration</source>
+        <source>Optimization configuration</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2452,7 +2464,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Weiter</translation>
     </message>
     <message>
         <source>Discover %1</source>
@@ -2539,7 +2551,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Weiter</translation>
     </message>
     <message>
         <source>Discover %1</source>
@@ -2626,7 +2638,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Weiter</translation>
     </message>
     <message>
         <source>There is no heat pump set up yet.</source>
@@ -2741,7 +2753,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Weiter</translation>
     </message>
     <message>
         <source>Discover %1</source>
