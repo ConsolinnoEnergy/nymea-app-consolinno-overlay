@@ -835,6 +835,7 @@ Mail service@consolinno.de</source>
         <source>SSL:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
         <source>Welcome to Consolinno HEMS!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -863,7 +864,6 @@ Mail service@consolinno.de</source>
         <source>Next</source>
         <translation type="unfinished">Weiter</translation>
     </message>
->>>>>>> 3fb5019 (Text color fix (#398).):translations/consolinno-energy-en.ts
 </context>
 <context>
     <name>ConsolinnoConsumerStats</name>
