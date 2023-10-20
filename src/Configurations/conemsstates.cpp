@@ -1,6 +1,6 @@
 #include "conemsstates.h"
 
-ConEMSStates::ConEMSStates(QObject *parent):
+ConEMSState::ConEMSState(QObject *parent):
     QAbstractListModel(parent)
 {
 
@@ -19,9 +19,6 @@ QVariant ConEMSStates::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->ConEMSStateID();
     case RoleCurrentState:
         return m_list.at(index.row())->currentState();
-    case RoleOperationMode:
-        return m_list.at(index.row())->operationMode();
-
     }
     return QVariant();
 }
@@ -29,14 +26,12 @@ QVariant ConEMSStates::data(const QModelIndex &index, int role) const
 QHash<int, QByteArray> ConEMSStates::roleNames() const
 {
     QHash<int, QByteArray> roles;
-    roles.insert(RoleConEMSStateID, "conEMSStateID");
     roles.insert(RoleCurrentState, "currentState");
-    roles.insert(RoleOperationMode, "operationMode");
 
     return roles;
 }
 
-ConEMSState *ConEMSStates::getConEMSState(const QUuid &conEMSStateID) const
+ConEMSState *ConEMSStates::getConEMSState() const
 {
 
     foreach (ConEMSState *conEMSState, m_list) {
@@ -49,41 +44,8 @@ ConEMSState *ConEMSStates::getConEMSState(const QUuid &conEMSStateID) const
     return nullptr;
 }
 
-void ConEMSStates::addConEMSState(ConEMSState *conEMSState)
-{
-    conEMSState->setParent(this);
-
-    beginInsertRows(QModelIndex(), m_list.count(), m_list.count());
-    m_list.append(conEMSState);
-
-    connect(conEMSState, &ConEMSState::currentStateChanged, this, [=](){
-        QModelIndex idx = index(m_list.indexOf(conEMSState));
-        emit dataChanged(idx, idx, {RoleCurrentState});
-    });
-
-    connect(conEMSState, &ConEMSState::operationModeChanged, this, [=](){
-        QModelIndex idx = index(m_list.indexOf(conEMSState));
-        emit dataChanged(idx, idx, {RoleOperationMode});
-    });
 
 
-
-    endInsertRows();
-
-    emit countChanged();
-}
-
-void ConEMSStates::removeConEMSState(const QUuid &conEMSStateID)
-{
-    for (int i = 0; i < m_list.count(); i++) {
-        if (m_list.at(i)->ConEMSStateID() == conEMSStateID) {
-            beginRemoveRows(QModelIndex(), i, i);
-            m_list.takeAt(i)->deleteLater();
-            endRemoveRows();
-            return;
-        }
-    }
-}
 
 
 

@@ -8,8 +8,8 @@
 #include "Configurations/chargingconfigurations.h"
 #include "Configurations/chargingsessionconfigurations.h"
 #include "Configurations/pvconfigurations.h"
-#include "Configurations/conemsstates.h"
 #include "Configurations/userconfigurations.h"
+#include "Configurations/conemsstate.h"
 #include "Configurations/chargingoptimizationconfigurations.h"
 
 
@@ -31,7 +31,7 @@ class HemsManager : public QObject
     Q_PROPERTY(ChargingOptimizationConfigurations *chargingOptimizationConfigurations READ chargingOptimizationConfigurations CONSTANT)
     Q_PROPERTY(PvConfigurations *pvConfigurations READ pvConfigurations CONSTANT)
     Q_PROPERTY(ChargingSessionConfigurations *chargingSessionConfigurations READ chargingSessionConfigurations CONSTANT)
-    Q_PROPERTY(ConEMSStates *conEMSStates READ conEMSStates CONSTANT)
+    Q_PROPERTY(ConEMSState *conEMSState READ conEMSState CONSTANT)
     Q_PROPERTY(UserConfigurations *userConfigurations READ userConfigurations CONSTANT)
 
 public:
@@ -69,7 +69,7 @@ public:
     ChargingOptimizationConfigurations *chargingOptimizationConfigurations() const;
     PvConfigurations *pvConfigurations() const;
     ChargingSessionConfigurations *chargingSessionConfigurations() const;
-    ConEMSStates *conEMSStates() const;
+    ConEMSState *conEMSState() const;
     UserConfigurations *userConfigurations() const;
 
     // write and read
@@ -122,7 +122,7 @@ private slots:
     Q_INVOKABLE void getChargingOptimizationConfigurationsResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getChargingSessionConfigurationsResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getPvConfigurationsResponse(int commandId, const QVariantMap &data);
-    Q_INVOKABLE void getConEMSStatesResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void getConEMSStateResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getUserConfigurationsResponse(int commandId, const QVariantMap &data);
 
 
@@ -149,7 +149,7 @@ private:
     ChargingOptimizationConfigurations *m_chargingOptimizationConfigurations = nullptr;
     ChargingSessionConfigurations *m_chargingSessionConfigurations = nullptr;
     PvConfigurations *m_pvConfigurations = nullptr;
-    ConEMSStates *m_conEMSStates = nullptr;
+    ConEMSState *m_conEMSState = nullptr;
     UserConfigurations *m_userConfigurations = nullptr;
 
 

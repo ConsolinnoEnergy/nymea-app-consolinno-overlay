@@ -2,67 +2,31 @@ import QtQuick 2.0
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.2
+import QtCharts 2.3
 import Nymea 1.0
 import "../components"
 import "../delegates"
 import "../optimization"
+import "../"
+
 
 Page {
     id: root
 
     property HemsManager hemsManager
-    property ConEMSState conState: hemsManager.conEMSStates.getConEMSState("f002d80e-5f90-445c-8e95-a0256a0b464e")
+    property ConEMSState conState: hemsManager.conEMSState
 
 
     Connections{
         target: hemsManager
         onConEMSStateChanged:
         {
-            update_Controller(conState)
-            conEMSStates.append({currentState: translate_CurrentState(conState.currentState)})
-            if(conEMSStates.count > 200){
-                conEMSStates.remove(0)
-            }
-
-        }
-        // if more controller come -> add an if statement here
-        function update_Controller(conState){
-
-            conEMSControllerlistview.model.clear()
-
-            if (conState.chargingControllerActive()){
-                conEMSControllerlistview.model.append({name: qsTr("Charging Controller")})
-            }
-
-            if (conState.heatpumpControllerActive()){
-                conEMSControllerlistview.model.append({name: qsTr("Heat pump Controller")})
-            }
-
-        }
-
-        function translate_CurrentState(currentState){
-            if (currentState === 0){
-                return qsTr("Unknown")
-            }else if(currentState === 1){
-                return qsTr("Running")
-            }else if(currentState === 2){
-                return qsTr("Optimizer Busy")
-            }else if(currentState === 3){
-                return qsTr("Restarting")
-            }else if(currentState === 4){
-                return qsTr("Error")
-            }
-
-
-        }
-
-        function translate_time(timestamp){
-            return timestamp
-
-
+            console.log(conState)
+            formattedJSON.text = JSON.stringify(conState, undefined, 4)
         }
 
     }
+
 
 
 
@@ -78,107 +42,138 @@ Page {
 
 
     ColumnLayout{
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.right: parent.right
+        anchors.fill: parent
+        /**
+       ChartView {
+        anchors.fill: parent
+        antialiasing: true
 
-
-        ListModel{
-            id: conEMSStates
-
+        ValueAxis {
+            id: valueAxisY
+            titleText: "Values"
         }
 
-        VerticalDivider{
-            Layout.fillWidth: true
-            Layout.topMargin: app.margins
-            dividerColor: Material.accent
+        DateTimeAxis {
+            id: valueAxisX
+            titleText: "Timestamp"
+            format: "HH:mm:ss" // You can adjust the format as needed
         }
 
-        ListView{
-                id: listView
-                Layout.fillWidth: true
-                Layout.preferredHeight: app.height/2
-                Layout.leftMargin: app.margins
-                clip: true
-                ScrollBar.vertical: ScrollBar{}
-                model: conEMSStates
+        LineSeries {
+            name: "Forecast Data"
+            axisX: valueAxisX
+            axisY: valueAxisY
 
+            // Loop through the subarrays in "forecast" to add data points
+            Repeater {
+                model: conState.currentState.forecast
+                delegate: XYPoint {
+                    x: new Date(modelData[0] * 1000) // Convert Unix timestamp to milliseconds
+                    y: modelData[1]
+                }
+            }
 
-                delegate: Label{
-                    width: listView.width
-                    maximumLineCount: 2
-                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                    text: Qt.formatDateTime(new Date(), "HH:mm:ss")+ qsTr(":  Current State:  ") + currentState
-                    color: {
-                        if (currentState === "Error"){
-                            return "red"
-                        }
-                        else if (currentState === "Running" ){
-                            return "green"
-                        }
-                        else{
-                            return Material.foreground
-                        }
+            // Ensure the series is cleared and updated when it becomes visible
+            onVisibleChanged: {
+                if (visible) {
+                    clear();
+                    for (var i = 0; i < conState.currentState.forecast.length; i++) {
+                        append(new Date(conState.currentState.forecast[i][0] * 1000), conState.currentState.forecast[i][1]);
                     }
                 }
-
             }
+        }
+        }
+        **/
 
 
-
-
-        VerticalDivider{
-            Layout.fillWidth: true
-            dividerColor: Material.accent
+        // Create a property to hold the data
+        property var jsonData: {
+            "objectName": "",
+            "currentState": {
+                "forecast": [
+                    [
+                        0.5,
+                        0.5
+                    ],
+                    [
+                        2,
+                        2
+                    ],
+                    [
+                        3,
+                        3
+                    ],
+                ]
+            },
         }
 
+        function updateChartWithData() {
+            // Clear the existing data
+            //forecastSeries.clear();
 
+            // Iterate through the new data and add it to the LineSeries
 
-        Label{
+            var xMax = 0
+            var xMin = conState.currentState.forecast[0][0]
+            var yMax = 0
+            var yMin = conState.currentState.forecast[0][1]
 
-            text: qsTr("Active controller: ")
-            Layout.leftMargin: app.margins
-            font.pixelSize: 20
-
+            for (var i = 0; i < conState.currentState.forecast.length; i++) {
+                var dataPoint = conState.currentState.forecast[i];
+                xMax = Math.max(xMax, dataPoint[0])
+                xMin = Math.min(xMin, dataPoint[0])
+                yMax = Math.max(yMax, dataPoint[1])
+                yMin = Math.min(yMin, dataPoint[1])
+                forecastSeries.append(new Date(dataPoint[0] * 1000), dataPoint[1]);
+            }
+            valueAxisX.max = new Date(xMax * 1000)
+            valueAxisX.min = new Date(xMin * 1000)
+            valueAxisY.min = yMin
+            valueAxisY.max = yMax
         }
+        ChartView {
+            anchors.fill: parent
+            antialiasing: true
 
-
-        ListView{
-                id: conEMSControllerlistview
-                Layout.fillWidth: true
-                Layout.preferredHeight: app.height/3
-                Layout.leftMargin: app.margins
-                clip: true
-                ScrollBar.vertical: ScrollBar{}
-                model: ListModel {
-                    id: modelNodes
-                }
-
-
-                delegate: ConsolinnoItemDelegate{
-                    id: controller
-                    width: conEMSControllerlistview.width - 2*app.margins
-                    text: model.name
-                    progressive: false
-
-                }
-
+            ValueAxis {
+                id: valueAxisY
+                titleText: "Forecast"
+                max:  10
+                min: 0
             }
 
+        DateTimeAxis {
+            id: valueAxisX
+            titleText: "Time"
+            format: "HH:mm:ss"
+        }
 
+            LineSeries {
+                name: "Forecast Data"
+                id: forecastSeries
+                axisX: valueAxisX
+                axisY: valueAxisY
+            }
+        }
 
-
-
-
-
-
-
-
-
-
-
+        Component.onCompleted: {
+            updateChartWithData()
+        }
+        /*
+        ScrollView {
+            anchors.fill: parent
+            TextEdit {
+                id: formattedJSON
+                readOnly: true
+                anchors.fill: parent
+                wrapMode: Text.Wrap
+                text: JSON.stringify(conState, undefined, 4)
+                selectByMouse: true
+            }
+        }
+        */
 
 
     }
-
 }

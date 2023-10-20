@@ -86,5 +86,6 @@
         <file>images/leaflet-ethernet-connect.png</file>
         <file>info/GridConsumptionInfo.qml</file>
         <file>images/heating_rod.svg</file>
+        <file>DebugRectangle.qml</file>
     </qresource>
 </RCC>

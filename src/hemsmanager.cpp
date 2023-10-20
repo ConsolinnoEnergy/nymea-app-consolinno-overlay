@@ -14,7 +14,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
     m_chargingOptimizationConfigurations = new ChargingOptimizationConfigurations(this);
     m_pvConfigurations = new PvConfigurations(this);
     m_chargingSessionConfigurations = new ChargingSessionConfigurations(this);
-    m_conEMSStates = new ConEMSStates(this);
+    m_conEMSState = new ConEMSState();
     m_userConfigurations = new UserConfigurations(this);
 }
 
@@ -63,7 +63,7 @@ void HemsManager::setEngine(Engine *engine)
 
         // Fetch initial data
         m_engine->jsonRpcClient()->sendCommand("Hems.GetUserConfigurations", QVariantMap(), this, "getUserConfigurationsResponse");
-        m_engine->jsonRpcClient()->sendCommand("Hems.GetConEMSStates", QVariantMap(), this, "getConEMSStatesResponse");
+        m_engine->jsonRpcClient()->sendCommand("Hems.GetConEMSState", QVariantMap(), this, "getConEMSStateResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetAvailableUseCases", QVariantMap(), this, "getAvailableUseCasesResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHousholdPhaseLimit", QVariantMap(), this, "getHousholdPhaseLimitResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingConfigurations", QVariantMap(), this, "getHeatingConfigurationsResponse");
@@ -128,9 +128,9 @@ PvConfigurations *HemsManager::pvConfigurations() const
     return m_pvConfigurations;
 }
 
-ConEMSStates *HemsManager::conEMSStates() const
+ConEMSState *HemsManager::conEMSState() const
 {
-    return m_conEMSStates;
+    return m_conEMSState;
 }
 
 UserConfigurations *HemsManager::userConfigurations() const
@@ -571,13 +571,11 @@ void HemsManager::getChargingSessionConfigurationsResponse(int commandId, const 
     emit fetchingDataChanged();
 }
 
-void HemsManager::getConEMSStatesResponse(int commandId, const QVariantMap &data)
+void HemsManager::getConEMSStateResponse(int commandId, const QVariantMap &data)
 {
     Q_UNUSED(commandId);
-    qCDebug(dcHems()) << "ConEMS State" << data;
-    foreach (const QVariant &configurationVariant, data.value("conEMSStates").toList()) {
-        addOrUpdateConEMSState(configurationVariant.toMap());
-    }
+    qCWarning(dcHems()) << "ConEMS State" << data;
+    addOrUpdateConEMSState(data.value("conEMSState").toList()[0].toMap());
 
     // Last call from init sequence
     m_fetchingData = false;
@@ -804,46 +802,23 @@ void HemsManager::addOrUpdatePvConfiguration(const QVariantMap &configurationMap
      }
 }
 
-void HemsManager::addOrUpdateConEMSState(const QVariantMap &conEMSStatesMap)
+void HemsManager::addOrUpdateConEMSState(const QVariantMap &ConEMSStateMap)
 {
 
-    QUuid ConEMSUuid = conEMSStatesMap.value("ConEMSStateID").toUuid();
-    ConEMSState *state = m_conEMSStates->getConEMSState(ConEMSUuid);
+    qCWarning(dcHems()) << ConEMSStateMap.value("currentState").toMap();
 
-    bool newState = false;
-    if(!state){
-        newState = true;
-        state = new ConEMSState(this);
-        state->setConEMSStateID(ConEMSUuid);
+    QJsonDocument jsonResponse = QJsonDocument::fromVariant(ConEMSStateMap.value("currentState").toMap());
+
+    if(m_conEMSState->timestamp() != ConEMSStateMap.value("timestamp").toInt())
+    {
+
+        m_conEMSState->setTimestamp(ConEMSStateMap.value("timestamp").toInt());
+        m_conEMSState->setCurrentState(jsonResponse.object());
+
+        qCWarning(dcHems()) << "ConEMS state changed";
+        emit conEMSStateChanged(m_conEMSState);
     }
 
-    ConEMSState::State temp;
-    if (conEMSStatesMap.value("currentState") == "Unknown"){
-        temp = ConEMSState::Unknown;
-    }else if (conEMSStatesMap.value("currentState") == "Running"){
-        temp = ConEMSState::Running;
-    }else if (conEMSStatesMap.value("currentState") == "Optimizer_Busy"){
-        temp = ConEMSState::Optimizer_Busy;
-    }else if (conEMSStatesMap.value("currentState") == "Restarting"){
-        temp = ConEMSState::Restarting;
-    }else {
-        temp = ConEMSState::Error;
-    }
-
-    state->setCurrentState(temp);
-    state->setOperationMode(conEMSStatesMap.value("operationMode").toInt());
-    state->setTimestamp(conEMSStatesMap.value("timestamp").toInt());
-
-
-     if (newState){
-         qCDebug(dcHems()) << "ConEMSState added" << state->ConEMSStateID();
-         m_conEMSStates->addConEMSState(state);
-
-     }else{
-        qCDebug(dcHems()) << "ConEMSState changed add or Update" << state->ConEMSStateID();
-        emit conEMSStateChanged(state);
-
-     }
 }
 
 void HemsManager::addOrUpdateUserConfiguration(const QVariantMap &configurationMap)
