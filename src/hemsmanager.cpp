@@ -2,6 +2,7 @@
 
 #include <QMetaEnum>
 #include <QJsonDocument>
+#include <QJsonObject>
 
 #include "logging.h"
 

@@ -138,7 +138,7 @@ Page {
 
             ValueAxis {
                 id: valueAxisY
-                titleText: "Forecast"
+                titleText: "Solar forecast in kW"
                 max:  10
                 min: 0
             }
