@@ -92,6 +92,7 @@
         <file>devicepages/GenericConfigPage.qml</file>
         <file>devicepages/GenericDeviceHistoryPage.qml</file>
         <file>wizards/ConsolinnoPushButtonAuthPage.qml</file>
+        <file>components/ConsolinnoPVTextField.qml</file>
         <file>mainviews/StartupNotificationPopup.qml</file>
     </qresource>
 </RCC>
