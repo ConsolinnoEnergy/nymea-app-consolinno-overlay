@@ -21,22 +21,21 @@ Page {
 
     property HemsManager hemsManager
 
-    // Add your page here:
-    // Name, where it is and which attributes it needs
-    // Note you may have to instantiate the attributes that you want to add
     Component.onCompleted: {
-        useCasesModel.append({ text: "ConEMS Observer", link: "../thingconfiguration/ConEMSObserver.qml", attributes: {hemsManager: hemsManager} })
-        useCasesModel.append({ text: "ChargingOptimization ConfigTest", link: "../optimization/ChargingOptimization.qml", attributes: {hemsManager: hemsManager} })
-
-
+        //menuEntriesModel.append({ text: "ConEMS Observer", link: "../thingconfiguration/ConEMSObserver.qml", attributes: {hemsManager: hemsManager} })
+        menuEntriesModel.append({
+                                    "text": "Debug Charts",
+                                    "link": "../thingconfiguration/DebugCharts.qml",
+                                    "attributes": {
+                                        "hemsManager": hemsManager
+                                    }
+                                })
+        //menuEntriesModel.append({ text: "ChargingOptimization ConfigTest", link: "../optimization/ChargingOptimization.qml", attributes: {hemsManager: hemsManager} })
     }
-
 
     ListModel {
-        id: useCasesModel
-
+        id: menuEntriesModel
     }
-
 
     ColumnLayout {
         id: contentColumn
@@ -46,25 +45,18 @@ Page {
         anchors.topMargin: app.margins
 
         Repeater {
-            model: useCasesModel
+            model: menuEntriesModel
             delegate: NymeaItemDelegate {
                 Layout.fillWidth: true
                 iconName: {
-                        return"../images/edit.svg"
+                    return "../images/edit.svg"
                 }
                 text: model.text
                 progressive: true
                 onClicked: {
-                        pageStack.push(Qt.resolvedUrl(model.link), model.attributes)
-
-
-
+                    pageStack.push(Qt.resolvedUrl(model.link), model.attributes)
                 }
             }
         }
     }
-
-
-
-
 }

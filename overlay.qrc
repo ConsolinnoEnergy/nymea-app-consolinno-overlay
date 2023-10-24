@@ -87,5 +87,6 @@
         <file>info/GridConsumptionInfo.qml</file>
         <file>images/heating_rod.svg</file>
         <file>DebugRectangle.qml</file>
+        <file>thingconfiguration/DebugCharts.qml</file>
     </qresource>
 </RCC>

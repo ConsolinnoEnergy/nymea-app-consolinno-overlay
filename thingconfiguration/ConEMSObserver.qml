@@ -17,6 +17,7 @@ Page {
     property ConEMSState conState: hemsManager.conEMSState
 
 
+
     Connections{
         target: hemsManager
         onConEMSStateChanged:
