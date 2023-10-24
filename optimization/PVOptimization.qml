@@ -98,99 +98,43 @@ Page {
             wrapMode: Text.WordWrap
         }
 
-        RowLayout {
-            Layout.fillWidth: true
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Latitude")
-            }
+        ConsolinnoPVTextField {
+            id: latitudeInput
 
-            TextField {
-                id: latitude
-                property bool latitude_validated
-                maximumLength: 7
-                Layout.minimumWidth: 70
-                Layout.maximumWidth: 70
-                Layout.rightMargin: 60
-                text: pvConfiguration.latitude.toLocaleString(Qt.locale())
-                validator: DoubleValidator {
-                    bottom: -90
-                    top: 90
-                    decimals: 4
-                    notation: "StandardNotation"
-                }
-                onTextChanged: acceptableInput ? latitude_validated
-                                                 = true : latitude_validated = false
-            }
-            Label {
-                id: latitudeunit
-                text: qsTr("°")
+            Layout.fillWidth: true
+            Layout.fillHeight: false
+            label: qsTr("Latitude")
+            text: pvConfiguration.latitude.toLocaleString(Qt.locale())
+        }
+
+        ConsolinnoPVTextField {
+            id: longitudeInput
+
+            Layout.fillWidth: true
+            Layout.fillHeight: false
+            label: qsTr("Longitude")
+            text: pvConfiguration.longitude.toLocaleString(Qt.locale())
+
+            validator: DoubleValidator {
+                bottom: -180
+                top: 180
+                decimals: 4
+                notation: "StandardNotation"
             }
         }
 
-        RowLayout {
+        ConsolinnoPVTextField {
+            id: roofpitchInput
+
             Layout.fillWidth: true
+            Layout.fillHeight: false
+            label: qsTr("Roof pitch")
+            text: pvConfiguration.roofPitch
+            maximumLength: 2
 
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Longitude")
-            }
-
-            TextField {
-                id: longitudefield
-                property bool longitude_validated
-                maximumLength: 7
-                Layout.minimumWidth: 70
-                Layout.maximumWidth: 70
-                Layout.rightMargin: 60
-                text: pvConfiguration.longitude.toLocaleString(Qt.locale())
-
-                validator: DoubleValidator {
-                    bottom: -180
-                    top: 180
-                    decimals: 4
-                    notation: "StandardNotation"
-                }
-
-                onTextChanged: acceptableInput ? longitude_validated
-                                                 = true : longitude_validated = false
-            }
-
-            Label {
-                id: longitudeunit
-                text: qsTr("°")
-            }
-        }
-
-        RowLayout {
-            Layout.fillWidth: true
-
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Roof pitch")
-            }
-
-            TextField {
-                id: roofpitch
-
-                property bool roofpitch_validated
-                maximumLength: 2
-                Layout.minimumWidth: 70
-                Layout.maximumWidth: 70
-                Layout.rightMargin: 58
-
-                text: pvConfiguration.roofPitch
-                validator: IntValidator {
-                    bottom: 0
-                    top: 90
-                }
-                onTextChanged: acceptableInput ? roofpitch_validated
-                                                 = true : roofpitch_validated = false
-            }
-
-            Label {
-                id: roofpitchunit
-                text: qsTr("°")
+            validator: IntValidator {
+                bottom: 0
+                top: 90
             }
         }
 
@@ -202,155 +146,140 @@ Page {
                 text: qsTr("Alignment")
             }
 
-//            TextField {
-//                id: alignment
-//                property bool alignment_validated
-//                maximumLength: 3
-//                Layout.minimumWidth: 55
-//                Layout.maximumWidth: 55
-//                Layout.rightMargin: 48
-//                text: pvConfiguration.alignment //                validator: IntValidator {
-//                    bottom: 0
-//                    top: 360
-//                }
-//                onTextChanged: acceptableInput ? alignment_validated
-//                                                 = true : alignment_validated = false
-//            }
+            //            TextField {
+            //                id: alignment
+            //                property bool alignment_validated
+            //                maximumLength: 3
+            //                Layout.minimumWidth: 55
+            //                Layout.maximumWidth: 55
+            //                Layout.rightMargin: 48
+            //                text: pvConfiguration.alignment //                validator: IntValidator {
+            //                    bottom: 0
+            //                    top: 360
+            //                }
+            //                onTextChanged: acceptableInput ? alignment_validated
+            //                                                 = true : alignment_validated = false
+            //            }
 
-ComboBox {
-        id: alignment
-        textRole: "text"
-        valueRole: "value"
-        Layout.minimumWidth: 140
-        Layout.maximumWidth: 140
-        currentIndex: 4
-        Component.onCompleted: {
-            var current = indexOfValue(pvConfiguration.alignment)
-            if (current !== -1)
-            {
-                currentIndex =  current
-            }else{
-                currentIndex = 4 // south
-            }
-        }
-        model: [
-            { value: 0, text: qsTr("north") },
-            { value: 45, text: qsTr("northeast") },
-            { value: 90, text: qsTr("east") },
-            { value: 135, text: qsTr("southeast") },
-            { value: 180, text: qsTr("south") },
-            { value: 225, text: qsTr("southwest") },
-            { value: 270, text: qsTr("west") },
-            { value: 315, text: qsTr("northwest") },
-        ]
-    }
-        }
-
-        RowLayout {
-            Layout.fillWidth: true
-
-            Label {
-                id: peakId
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignLeft
-                text: qsTr("Peak power")
-            }
-
-            TextField {
-                id: kwPeak
-                Layout.alignment: Qt.AlignRight
-                property bool kwPeak_validated
-                Layout.rightMargin: 40
-                Layout.minimumWidth: 70
-                Layout.maximumWidth: 70
-                text: pvConfiguration.kwPeak
-                maximumLength: 7
-                validator: DoubleValidator {
-                    bottom: 1
+            ComboBox {
+                id: alignment
+                textRole: "text"
+                valueRole: "value"
+                Layout.fillWidth: false
+                Layout.preferredWidth: parent.width * 0.35 + Style.smallMargins
+                currentIndex: 4
+                Component.onCompleted: {
+                    var current = indexOfValue(pvConfiguration.alignment)
+                    if (current !== -1)
+                    {
+                        currentIndex =  current
+                    }else{
+                        currentIndex = 4 // south
+                    }
                 }
-                onTextChanged: acceptableInput ? kwPeak_validated = true : kwPeak_validated = false
-            }
-
-            Label {
-                id: kwPeakunit
-                text: qsTr("kW")
-                Layout.alignment: Qt.AlignRight
+                model: [
+                    { value: 0, text: qsTr("north") },
+                    { value: 45, text: qsTr("northeast") },
+                    { value: 90, text: qsTr("east") },
+                    { value: 135, text: qsTr("southeast") },
+                    { value: 180, text: qsTr("south") },
+                    { value: 225, text: qsTr("southwest") },
+                    { value: 270, text: qsTr("west") },
+                    { value: 315, text: qsTr("northwest") },
+                ]
             }
         }
 
-        Label {
-            id: footer
+        ConsolinnoPVTextField {
+            id: peakPowerInput
+
             Layout.fillWidth: true
-            Layout.leftMargin: app.margins
-            Layout.rightMargin: app.margins
-            wrapMode: Text.WordWrap
-            font.pixelSize: app.smallFont
+            Layout.fillHeight: false
+            label: qsTr("Peak power")
+            text: pvConfiguration.kwPeak
+            unit: qsTr("kW")
+
+            validator: DoubleValidator {
+                bottom: 1
+            }
+        }
+
+        //margins filler
+        Item {
+            Layout.fillWidth: true
+            Layout.fillHeight: false
+            Layout.preferredHeight: Style.bigMargins
         }
 
         Button {
             id: savebutton
+
             Layout.fillWidth: true
-            property bool validated: longitudefield.longitude_validated
-                                     && latitude.latitude_validated
-                                     && roofpitch.roofpitch_validated
-                                     && kwPeak.kwPeak_validated
+
+            property bool validated: latitudeInput.acceptableInput
+                                     && longitudeInput.acceptableInput
+                                     && roofpitchInput.acceptableInput
+                                     && peakPowerInput.acceptableInput
+
+
             text: qsTr("Save")
             //enabled: configurationSettingsChanged
+
+            function validateValues() {
+                latitudeInput.validateValue();
+                longitudeInput.validateValue();
+                roofpitchInput.validateValue();
+                peakPowerInput.validateValue();
+            }
+
             onClicked: {
+                validateValues();
 
                 // the input is in the range that is defined in the individual Validator
                 if (validated == false) {
-                    footer.text = qsTr(
-                                "Some values are out of range. Please check your input.")
                     return
                 }
 
                 if (directionID === 1) {
 
                     if (Number.fromLocaleString(Qt.locale(),
-                                                longitudefield.text) !== 0
+                                                longitudeInput.text) !== 0
                             || Number.fromLocaleString(Qt.locale(),
-                                                       latitude.text) !== 0) {
+                                                       latitudeInput.text) !== 0) {
 
-                        header.text = longitudefield.text
+                        header.text = longitudeInput.text
                         hemsManager.setPvConfiguration(thing.id, {
                                                            "longitude": Number.fromLocaleString(
                                                                             Qt.locale(),
-                                                                            longitudefield.text),
+                                                                            longitudeInput.text),
                                                            "latitude": Number.fromLocaleString(
                                                                            Qt.locale(),
-                                                                           latitude.text),
-                                                           "roofPitch": roofpitch.text,
+                                                                           latitudeInput.text),
+                                                           "roofPitch": roofpitchInput.text,
                                                            "alignment": alignment.currentValue,
-                                                           "kwPeak": kwPeak.text
+                                                           "kwPeak": peakPowerInput.text
                                                        })
-                        footer.text = ""
                         root.done()
                     } else {
-                        footer.text = qsTr(
-                                    "Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)")
                     }
                 } else if (directionID === 0) {
                     if (Number.fromLocaleString(Qt.locale(),
-                                                longitudefield.text) !== 0
+                                                longitudeInput.text) !== 0
                             || Number.fromLocaleString(Qt.locale(),
-                                                       latitude.text) !== 0) {
+                                                       latitudeInput.text) !== 0) {
 
                         d.pendingCallId = hemsManager.setPvConfiguration(
                                     thing.id, {
                                         "longitude": Number.fromLocaleString(
                                                          Qt.locale(),
-                                                         longitudefield.text),
+                                                         longitudeInput.text),
                                         "latitude": Number.fromLocaleString(
                                                         Qt.locale(),
-                                                        latitude.text),
-                                        "roofPitch": roofpitch.text,
+                                                        latitudeInput.text),
+                                        "roofPitch": roofpitchInput.text,
                                         "alignment": alignment.currentValue,
-                                        "kwPeak": kwPeak.text
+                                        "kwPeak": peakPowerInput.text
                                     })
-                    } else {
-                        footer.text = qsTr(
-                                    "Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)")
                     }
                 }
             }

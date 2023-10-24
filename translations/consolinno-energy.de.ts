@@ -1172,6 +1172,29 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>ConsolinnoPVTextField</name>
+    <message>
+        <source>°</source>
+        <translation>°</translation>
+    </message>
+    <message>
+        <source>Please enter a value between </source>
+        <translation>Bitte geben Sie einen Wert zwischen </translation>
+    </message>
+    <message>
+        <source> and </source>
+        <translation> und </translation>
+    </message>
+    <message>
+        <source>Please enter the value with a dot (.)</source>
+        <translation>Bitte geben Sie den Wert mit einem Punkt (.) ein</translation>
+    </message>
+    <message>
+        <source>Please enter the value with a comma (,)</source>
+        <translation>Bitte geben Sie den Wert mit einem Komma (,) ein</translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoPasswordTextField</name>
     <message>
         <source>Pick a password</source>
@@ -2288,10 +2311,6 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
         <translation>Breitengrad</translation>
     </message>
     <message>
-        <source>°</source>
-        <translation>°</translation>
-    </message>
-    <message>
         <source>Longitude</source>
         <translation>Längengrad</translation>
     </message>
@@ -2318,14 +2337,6 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     <message>
         <source>PV configuration</source>
         <translation>PV-Einstellungen</translation>
-    </message>
-    <message>
-        <source>Some values are out of range. Please check your input.</source>
-        <translation>Einige Werte sind nicht gültig. Bitte überprüfen Sie Ihre Eingaben.</translation>
-    </message>
-    <message>
-        <source>Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)</source>
-        <translation>Bitte geben Sie Breiten- und Längengrad des Standortes der Anlage an. (Kann zum Beispiel über Google Maps ermittelt werden.)</translation>
     </message>
     <message>
         <source>north</source>

@@ -1173,6 +1173,29 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>ConsolinnoPVTextField</name>
+    <message>
+        <source>°</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter a value between </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> and </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the value with a dot (.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the value with a comma (,)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoPasswordTextField</name>
     <message>
         <source>Pick a password</source>
@@ -2284,10 +2307,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>°</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Longitude</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2313,14 +2332,6 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>PV configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Some values are out of range. Please check your input.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter the longitude and latitude of your device (This can be determined i.e via Google maps)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
