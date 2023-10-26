@@ -1300,7 +1300,7 @@ Mail service@consolinno.de")
             id: findLeafletPage
 
             headerLabel: qsTr("Discovered Devices")
-            onBack: pageStack.pop()
+            showBackButton: false
             nextButtonText: qsTr('Manual connection')
 
 
@@ -1436,7 +1436,7 @@ Mail service@consolinno.de")
             //            title: qsTr('Manual connection')
             //            text: qsTr('Please enter the connection information for your nymea system')
             headerLabel: qsTr("Manual Connection")
-            onBack: pageStack.pop()
+            showBackButton: false
             showNextButton: false
             background: Item {}
 
