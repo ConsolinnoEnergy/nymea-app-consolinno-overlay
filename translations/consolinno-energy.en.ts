@@ -1194,6 +1194,10 @@ Mail service@consolinno.de</source>
         <source>Please enter the value with a comma (,)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source> </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoPasswordTextField</name>

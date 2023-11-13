@@ -73,7 +73,7 @@ Item {
 
     function checkValue() {
         if(textInput.text < textInput.validator.bottom || textInput.text > textInput.validator.top) {
-            root.errorMessage = qsTr("Please enter a value between ") + textInput.validator.bottom + qsTr(" and ") + textInput.validator.top;
+            root.errorMessage = qsTr("Please enter a value between ") + textInput.validator.bottom + qsTr(" and ") + textInput.validator.top + qsTr(" ");
             return;
         }
         root.checkLocale();
