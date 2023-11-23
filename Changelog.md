@@ -1,5 +1,7 @@
 ## [1.4.0 - unreleased ]
 ### Added
+- Added Debug charts and ConEMS state
+- Improved showing busy spinner in charging configuration view
 - Heating rod support 
 
 ## [1.3.0 - unreleased ]
