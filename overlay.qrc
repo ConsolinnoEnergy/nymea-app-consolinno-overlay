@@ -88,5 +88,6 @@
         <file>images/heating_rod.svg</file>
         <file>DebugRectangle.qml</file>
         <file>thingconfiguration/DebugCharts.qml</file>
+        <file>thingconfiguration/ConEMSState.qml</file>
     </qresource>
 </RCC>
