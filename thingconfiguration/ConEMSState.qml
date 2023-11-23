@@ -9,8 +9,31 @@ import "../delegates"
 import "../optimization"
 import "../"
 
+
 Page {
     id: root
+
+
+    function intToOperatingStateString(value) {
+        switch (value) {
+            case 0:
+                return "UNSET";
+            case 1:
+                return "RUNNING";
+            case 2:
+                return "BUSY";
+            case 10:
+                return "RESTARTING";
+            case 11:
+                return "SHUTDOWN";
+            case 80:
+                return "ERROR";
+            default:
+                return "Unknown State";
+        }
+    }
+
+
 
     property HemsManager hemsManager
     property ConEMSState conState: hemsManager.conEMSState
@@ -18,7 +41,7 @@ Page {
     Connections {
         target: hemsManager
         onConEMSStateChanged: {
-            formattedJSON.text = JSON.stringify(conState, undefined, 4)
+            opStatusLabel.text = intToOperatingStateString(conState.currentState.operating_state)
         }
     }
 
@@ -30,6 +53,13 @@ Page {
 
     ColumnLayout {
         anchors.fill: parent
+        ScrollView {
+            anchors.fill: parent
+            Label {
+                id: opStatusLabel
+                text: intToOperatingStateString(conState.currentState.operating_state)
 
+            }
+        }
     }
 }
