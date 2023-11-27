@@ -16,12 +16,12 @@ void ConEMSState::setCurrentState(QJsonObject currentState)
 }
 
 
-int ConEMSState::timestamp() const
+long ConEMSState::timestamp() const
 {
     return m_timestamp;
 }
 
-void ConEMSState::setTimestamp(int timestamp)
+void ConEMSState::setTimestamp(long timestamp)
 {
     m_timestamp = timestamp;
 }

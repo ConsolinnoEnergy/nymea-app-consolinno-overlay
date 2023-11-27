@@ -11,7 +11,7 @@ class ConEMSState : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QJsonObject currentState READ currentState WRITE setCurrentState NOTIFY currentStateChanged)
-    Q_PROPERTY(int timestamp READ timestamp WRITE setTimestamp NOTIFY timestampChanged)
+    Q_PROPERTY(long timestamp READ timestamp WRITE setTimestamp NOTIFY timestampChanged)
 
 public:
 
@@ -24,19 +24,19 @@ public:
 
     void setCurrentState(QJsonObject currentState);
 
-    int timestamp() const;
-    void setTimestamp(const int timestamp);
+    long timestamp() const;
+    void setTimestamp(const long timestamp);
 
 
 signals:
 
     void currentStateChanged(QJsonObject currentState);
-    void timestampChanged(int timestamp);
+    void timestampChanged(long timestamp);
 
 private:
 
     QJsonObject m_currentState = QJsonObject();
-    int m_timestamp = 0;
+    long m_timestamp = 0;
 
 
 };

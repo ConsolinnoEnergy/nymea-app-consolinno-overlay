@@ -807,16 +807,17 @@ void HemsManager::addOrUpdateConEMSState(const QVariantMap &ConEMSStateMap)
 {
 
     qCWarning(dcHems()) << ConEMSStateMap.value("currentState").toMap();
+    qCWarning(dcHems()) << ConEMSStateMap.value("timestamp");
 
     QJsonDocument jsonResponse = QJsonDocument::fromVariant(ConEMSStateMap.value("currentState").toMap());
 
-    if(m_conEMSState->timestamp() != ConEMSStateMap.value("timestamp").toInt())
+    if(m_conEMSState->timestamp() != ConEMSStateMap.value("timestamp").toLongLong())
     {
 
-        m_conEMSState->setTimestamp(ConEMSStateMap.value("timestamp").toInt());
+        m_conEMSState->setTimestamp(ConEMSStateMap.value("timestamp").toLongLong());
         m_conEMSState->setCurrentState(jsonResponse.object());
 
-        qCWarning(dcHems()) << "ConEMS state changed";
+        qCWarning(dcHems()) << "ConEMS state changed (" << m_conEMSState->timestamp() << ")";
         emit conEMSStateChanged(m_conEMSState);
     }
 
