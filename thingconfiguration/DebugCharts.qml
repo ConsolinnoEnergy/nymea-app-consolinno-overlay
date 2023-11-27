@@ -5,9 +5,7 @@ import QtQuick.Layouts 1.2
 import QtCharts 2.3
 import Nymea 1.0
 import "../components"
-import "../delegates"
 import "../optimization"
-import "../"
 
 Page {
     id: root
