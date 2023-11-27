@@ -54,7 +54,6 @@
         <file>components/ConsolinnoHeader.qml</file>
         <file>thingconfiguration/carSimulation.qml</file>
         <file>info/MainviewInfo.qml</file>
-        <file>thingconfiguration/ConEMSObserver.qml</file>
         <file>optimization/UserConfig.qml</file>
         <file>optimization/DeveloperConfig.qml</file>
         <file>wizards/AuthorisationView.qml</file>
