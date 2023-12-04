@@ -711,7 +711,7 @@ MainViewBase {
                     model: producers
 
                     delegate: LegendTile {
-                        visible: producers.get(index).id !== rootMeter.id
+                        visible: producers.get(index) !== rootMeter
                         color: lsdChart.producersColor
                         thing: producers.get(index)
                         onClicked: {
@@ -1141,7 +1141,6 @@ MainViewBase {
 
             Canvas {
                 id: timePickerCanvas
-                anchors.fill: parent
 
 
 

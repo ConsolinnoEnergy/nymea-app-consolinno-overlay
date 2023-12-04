@@ -575,7 +575,7 @@ void HemsManager::getChargingSessionConfigurationsResponse(int commandId, const 
 void HemsManager::getConEMSStateResponse(int commandId, const QVariantMap &data)
 {
     Q_UNUSED(commandId);
-    qCWarning(dcHems()) << "ConEMS State" << data;
+    qCDebug(dcHems()) << "ConEMS State" << data;
     addOrUpdateConEMSState(data.value("conEMSState").toList()[0].toMap());
 
     // Last call from init sequence
@@ -587,7 +587,7 @@ void HemsManager::getUserConfigurationsResponse(int commandId, const QVariantMap
 {
 
     Q_UNUSED(commandId);
-    qCWarning(dcHems()) << "User configurations" << data;
+    qCDebug(dcHems()) << "User configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("userConfigurations").toList()) {
         addOrUpdateUserConfiguration(configurationVariant.toMap());
     }

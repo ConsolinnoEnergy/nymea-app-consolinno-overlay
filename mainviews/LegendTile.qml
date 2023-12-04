@@ -167,7 +167,7 @@ MouseArea {
                 Layout.rightMargin: Style.smallMargins
                 Layout.bottomMargin: Style.smallMargins
                 font: Style.smallFont
-                text:  root.thing.name
+                text: root.thing ? root.thing.name : ""
                 elide: Text.ElideRight
                 color: "black"
             }
