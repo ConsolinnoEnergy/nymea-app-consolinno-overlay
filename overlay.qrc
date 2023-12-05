@@ -93,6 +93,11 @@
         <file>devicepages/GenericDeviceHistoryPage.qml</file>
         <file>wizards/ConsolinnoPushButtonAuthPage.qml</file>
         <file>components/ConsolinnoPVTextField.qml</file>
+        <file>wizards/SetupHeatingElementWizard.qml</file>
+        <file>optimization/HeatingElementConfigurationView.qml</file>
+        <file>components/ConsolinnoSwitchDelegate.qml</file>
+        <file>components/ConsolinnoRowLabelValue.qml</file>
+        <file>devicepages/HeatingElementDevicePage.qml</file>
         <file>mainviews/StartupNotificationPopup.qml</file>
     </qresource>
 </RCC>

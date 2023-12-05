@@ -28,9 +28,9 @@ Page {
         id: useCasesModel
         ListElement { text: qsTr("Blackout protection"); value: HemsManager.HemsUseCaseBlackoutProtection; visible: true }
         ListElement { text: qsTr("Heating"); value: HemsManager.HemsUseCaseHeating; visible: true }
+        ListElement { text: qsTr("Heating Element"); value: HemsManager.HemsUseCaseHeatingElement; visible: true }
         //ListElement { text: qsTr("Charging"); value: HemsManager.HemsUseCaseCharging; visible: true }
         ListElement { text: qsTr("Pv"); value: HemsManager.HemsUseCasePv; visible: true}
-
     }
 
     ColumnLayout {
@@ -53,6 +53,8 @@ Page {
                         return "../images/ev-charger.svg"
                     if (model.value === HemsManager.HemsUseCasePv)
                         return"../images/weathericons/weather-clear-day.svg"
+                    if (model.value === HemsManager.HemsUseCaseHeatingElement)
+                        return"../images/sensors/water.svg"
                 }
                 text: model.text
                 visible: (hemsManager.availableUseCases & model.value) != 0 && (model.visible || settings.showHiddenOptions)
@@ -70,6 +72,9 @@ Page {
                         break;
                     case HemsManager.HemsUseCasePv:
                         pageStack.push(Qt.resolvedUrl("../optimization/PVConfigurationView.qml"), { hemsManager: hemsManager })
+                        break;
+                    case HemsManager.HemsUseCaseHeatingElement:
+                        pageStack.push(Qt.resolvedUrl("../optimization/HeatingElementConfigurationView.qml"), { hemsManager: hemsManager })
                         break;
                     }
                 }

@@ -302,6 +302,31 @@ MainViewBase {
                 return
             }
 
+            if((!wizardSettings.heatingElementDone) || (!manualWizardSettings.heatingElementDone)) {
+                var page = d.pushPage("/ui/wizards/SetupHeatingElementWizard.qml")
+                page.done.connect(function (skip, abort, back) {
+                    if (back) {
+                        manualWizardSettings.heatPumpDone = false
+                        pageStack.pop()
+                        return
+                    }
+                    if (abort) {
+                        manualWizardSettings.heatingElementDone = true
+                        exitWizard()
+                        return
+                    }
+                    wizardSettings.heatingElementDone = true
+                    manualWizardSettings.heatingElementDone = true
+                    setup(true)
+                })
+                page.countChanged.connect(function () {
+                    blackoutProtectionSetting.blackoutProtectionDone = false
+                })
+
+                wizardSettings.heatingElementDone = true
+                return;
+            }
+
             if (!blackoutProtectionSetting.blackoutProtectionDone) {
                 var page = d.pushPage(
                             "../optimization/BlackoutProtectionView.qml", {
@@ -411,6 +436,7 @@ MainViewBase {
         property bool solarPanelDone: false
         property bool evChargerDone: false
         property bool heatPumpDone: false
+        property bool heatingElementDone: false
         property bool authorisation: false
         property bool installerData: false
     }
@@ -421,6 +447,7 @@ MainViewBase {
         property bool solarPanelDone: true
         property bool evChargerDone: true
         property bool heatPumpDone: true
+        property bool heatingElementDone: true
         property bool authorisation: true
         property bool installerData: true
         property bool energymeter: true
@@ -810,6 +837,7 @@ MainViewBase {
                     linesCanvas.requestPaint()
                 }
 
+
                 RowLayout {
                     id: topLegend
                     Layout.fillWidth: true
@@ -817,32 +845,14 @@ MainViewBase {
                     Layout.alignment: Qt.AlignHCenter
                     spacing: Style.margins
 
-                LegendTile {
-                    id: rootMeterTile
-                    thing: rootMeter
-                    isRootmeter: true
-                    color: lsdChart.rootMeterAcquisitionColor
-                    negativeColor: lsdChart.rootMeterReturnColor
-                    onClicked: {
-                        print("Clicked root meter", index, thing.name)
-                        pageStack.push(
-                                    "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
-                                    {
-                                        "thing": thing
-                                    })
-                    }
-                }
-
-                    Repeater {
-                        id: legendProducersRepeater
-                        model: producers
-
-                    delegate: LegendTile {
-                        visible: producers.get(index).id !== rootMeter.id
-                        color: lsdChart.producersColor
-                        thing: producers.get(index)
+                    LegendTile {
+                        id: rootMeterTile
+                        thing: rootMeter
+                        isRootmeter: true
+                        color: lsdChart.rootMeterAcquisitionColor
+                        negativeColor: lsdChart.rootMeterReturnColor
                         onClicked: {
-                            print("Clicked producer", index, thing.name)
+                            print("Clicked root meter", index, thing.name)
                             pageStack.push(
                                         "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                         {
@@ -850,8 +860,29 @@ MainViewBase {
                                         })
                         }
                     }
+
+                    Repeater {
+                        id: legendProducersRepeater
+                        model: producers
+                    Repeater {
+                        id: legendProducersRepeater
+                        model: producers
+
+                        delegate: LegendTile {
+                            visible: producers.get(index).id !== rootMeter.id
+                            color: lsdChart.producersColor
+                            thing: producers.get(index)
+                            onClicked: {
+                                print("Clicked producer", index, thing.name)
+                                pageStack.push(
+                                            "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
+                                            {
+                                                "thing": thing
+                                            })
+                            }
+                        }
+                    }
                 }
-            }
             }
 
             LineSeries {
@@ -1275,13 +1306,11 @@ MainViewBase {
 
                 onPaint: {
                     //              paint timePicker canvas
-                    var ctx = getContext("2d")
-                    ctx.reset()
-                    ctx.save()
-                    var xTranslate = chartView.x + chartView.plotArea.x
-                            + chartView.plotArea.width / 2
-                    var yTranslate = chartView.y + chartView.plotArea.y
-                            + chartView.plotArea.height / 2
+                    var ctx = getContext("2d");
+                    ctx.reset();
+                    ctx.save();
+                    var xTranslate = chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2
+                    var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
                     ctx.translate(xTranslate, yTranslate)
 
                     ctx.strokeStyle = "gray"
@@ -1338,7 +1367,7 @@ MainViewBase {
                                                 "../optimization/HeatingConfigView.qml",
                                                 {
                                                     "hemsManager": hemsManager,
-                                                    "thing": thing
+                                                    "heatpumpThing": thing
                                                 })
                                 } else if (thing.thingClass.interfaces.indexOf(
                                                "evcharger") >= 0) {
@@ -1372,7 +1401,15 @@ MainViewBase {
                                                         "thing": thing
                                                     })
                                     }
-                                } else {
+                                } else if(thing.name === 'Heizstab') {
+                                    pageStack.push(
+                                                "../devicepages/HeatingElementDevicePage.qml",
+                                                {
+                                                    "thing": thing
+                                                })
+                                }
+
+                                else {
                                     pageStack.push(
                                                 "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                                 {

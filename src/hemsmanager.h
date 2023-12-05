@@ -42,6 +42,7 @@ public:
         HemsUseCaseCharging = 0x04,
         HemsUseCasePv = 0x08,
         HemsUseCaseBattery = 0x10,
+        HemsUseCaseHeatingElement = 0x20,
         HemsUseCaseAll = 0xff,
 
     };
