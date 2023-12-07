@@ -42,7 +42,6 @@ import "../delegates"
 
 MainViewBase {
     id: root
-
     property bool fetchPending: true
     //readonly property bool loading: true
     property bool loading: engine.thingManager.fetchingData || logsLoader.fetchingData

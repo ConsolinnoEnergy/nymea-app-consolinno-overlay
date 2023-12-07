@@ -88,5 +88,6 @@
         <file>DebugRectangle.qml</file>
         <file>thingconfiguration/DebugCharts.qml</file>
         <file>thingconfiguration/ConEMSState.qml</file>
+        <file>mainviews/OutOfDate.qml</file>
     </qresource>
 </RCC>
