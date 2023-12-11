@@ -89,5 +89,6 @@
         <file>thingconfiguration/DebugCharts.qml</file>
         <file>thingconfiguration/ConEMSState.qml</file>
         <file>mainviews/OutOfDate.qml</file>
+        <file>mainviews/StartupNotificationPopup.qml</file>
     </qresource>
 </RCC>

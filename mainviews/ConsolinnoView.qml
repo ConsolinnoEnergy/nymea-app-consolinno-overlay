@@ -44,7 +44,8 @@ MainViewBase {
     id: root
     property bool fetchPending: true
     //readonly property bool loading: true
-    property bool loading: engine.thingManager.fetchingData || logsLoader.fetchingData
+    property bool loading: engine.thingManager.fetchingData
+                           || logsLoader.fetchingData
     property UserConfiguration userconfig
     EnergyManager {
         id: energyManager
@@ -65,8 +66,7 @@ MainViewBase {
                                    "stack": pageStack
                                })
             }
-        },
-        {
+        }, {
             "iconSource": "/ui/images/configure.svg",
             "color": Style.iconColor,
             "visible": hemsManager.available && rootMeter != null,
@@ -88,8 +88,8 @@ MainViewBase {
 
         property bool energyMeterWiazrdSkipped: false
         property bool manualEnergyWizardBack: false
-        //readonly property bool loading: false
 
+        //readonly property bool loading: false
         function pushPage(comp, properties) {
             var page = pageStack.push(comp, properties)
             if (!d.firstWizardPage) {
@@ -133,7 +133,6 @@ MainViewBase {
             manualWizardSettings.installerData = true
             manualWizardSettings.energymeter = true
         }
-
 
         function setup(showFinalPage) {
 
@@ -399,10 +398,63 @@ MainViewBase {
         property bool blackoutBackPage: false
     }
 
+    Settings {
+        id: shownPopupsSetting
+        category: "shownPopups"
+        property var shown: []
+    }
+
+    Component {
+        id: startUpNotificationComponent
+
+        Popup {
+
+            property string message: ""
+            id: startUpNotificationPopup
+            parent: root
+            x: Math.round((parent.width - width) / 2)
+            y: Math.round((parent.height - height) / 2)
+            width: parent.width
+            modal: true
+            focus: true
+            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+            Label {
+                Layout.fillWidth: true
+                Layout.topMargin: app.margins
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
+                wrapMode: Text.WordWrap
+                text: message
+            }
+            onClosed: {
+                console.warn("shonwPopupsSetting.shown: ",
+                             shownPopupsSetting.shown)
+                var shownPopups = shownPopupsSetting.shown
+                shownPopups.push(appVersion)
+                shownPopupsSetting.shown = shownPopups
+            }
+        }
+    }
+
     onLoadingChanged: {
-       console.info("Loading changed")
-       userconfig = hemsManager.userConfigurations.getUserConfiguration(
+        console.debug("Loading changed")
+        userconfig = hemsManager.userConfigurations.getUserConfiguration(
                     "528b3820-1b6d-4f37-aea7-a99d21d42e72")
+    }
+
+    onVisibleChanged: {
+        console.debug(
+                    "Visibility of " + engine.jsonRpcClient.currentHost + " changed to " + visible)
+        if (visible) {
+            var notficationPopup = startUpNotificationComponent.createObject(
+                        root)
+            notficationPopup.message = qsTr("Consolinno HEMS App was updated!")
+            // If Popup not already open, open it
+            if (notficationPopup.opened === false
+                    && shownPopupsSetting.shown.indexOf(appVersion) === -1) {
+                notficationPopup.open()
+            }
+        }
     }
 
     ThingsProxy {
@@ -460,38 +512,22 @@ MainViewBase {
         Component.onCompleted: fetchLogs()
     }
 
-
     ThingPowerLogsLoader {
         id: logsLoader
         engine: _engine
         startTime: axisAngular.min
         endTime: axisAngular.max
         sampleRate: EnergyLogs.SampleRate15Mins
-//        Component.onCompleted: {
-//            for (var i = 0; i < consumers.count; i++)
-//            {
-//                addThingId(consumers.get(i).id)
-//            }
-//            fetchLogs()
-//        }
-
-//        onFetchingDataChanged: {
-//                   if (!fetchingData) {
-//                       root.fetchPending = false
-//                   }
-//               }
     }
-
 
     Item {
         id: lsdChart
         anchors.fill: parent
         anchors.topMargin: root.topMargin
-        //        anchors.bottomMargin: Style.hugeMargins
         visible: rootMeter != null
 
         property int hours: 24
-        readonly property var consumersColors: ["#F7B772", "#ACE3E2", "#ADB9E3","#639F86", "#FF8954", "#D9F6C5","#437BC4","#AA5DC2", "#C6C73F"]
+        readonly property var consumersColors: ["#F7B772", "#ACE3E2", "#ADB9E3", "#639F86", "#FF8954", "#D9F6C5", "#437BC4", "#AA5DC2", "#C6C73F"]
         readonly property color rootMeterAcquisitionColor: "#F37B8E"
         readonly property color rootMeterReturnColor: "#45B4E4"
         readonly property color producersColor: "#FCE487"
@@ -548,11 +584,12 @@ MainViewBase {
                                                        "currentPower").value))
                 }
                 for (var i = 0; i < consumers.count; i++) {
-                    if (consumers.get(i).thingClass.interfaces.indexOf("smartmeterconsumer") >= 0)
-                    {
-                    maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
-                                                   consumers.get(i).stateByName(
-                                                       "currentPower").value))
+                    if (consumers.get(i).thingClass.interfaces.indexOf(
+                                "smartmeterconsumer") >= 0) {
+                        maxCurrentPower = Math.max(
+                                    maxCurrentPower,
+                                    Math.abs(consumers.get(i).stateByName(
+                                                 "currentPower").value))
                     }
                 }
                 for (var i = 0; i < producers.count; i++) {
@@ -571,9 +608,11 @@ MainViewBase {
 
                 // dashed lines from rootMeter
                 if (rootMeter) {
-                    drawAnimatedLine(ctx, rootMeter.stateByName("currentPower").value, rootMeterTile, false,
-                                     -(totalTop - 1) / 2, maxCurrentPower,
-                                     true, xTranslate, yTranslate)
+                    drawAnimatedLine(ctx, rootMeter.stateByName(
+                                         "currentPower").value, rootMeterTile,
+                                     false, -(totalTop - 1) / 2,
+                                     maxCurrentPower, true, xTranslate,
+                                     yTranslate)
                 }
 
                 for (var i = 0; i < producers.count; i++) {
@@ -582,10 +621,11 @@ MainViewBase {
                     var producer = producers.get(i)
                     if (producer.id !== rootMeter.id) {
                         var tile = legendProducersRepeater.itemAt(i)
-                        drawAnimatedLine(
-                                    ctx, producer.stateByName("currentPower").value, tile, false,
-                                    (i + 1) - ((totalTop - 1) / 2), maxCurrentPower,
-                                    false, xTranslate, yTranslate)
+                        drawAnimatedLine(ctx, producer.stateByName(
+                                             "currentPower").value, tile,
+                                         false, (i + 1) - ((totalTop - 1) / 2),
+                                         maxCurrentPower, false,
+                                         xTranslate, yTranslate)
                     }
                 }
 
@@ -594,18 +634,19 @@ MainViewBase {
                 for (var i = 0; i < consumers.count; i++) {
                     var consumer = consumers.get(i)
                     var tile = legendConsumersRepeater.itemAt(i)
-                    if (consumer.thingClass.interfaces.indexOf("smartmeterconsumer") >= 0)
-                    {
-                    drawAnimatedLine(ctx, consumer.stateByName("currentPower").value, tile, true,
-                                     i - ((totalBottom - 1) / 2),
-                                     maxCurrentPower, false, xTranslate,
-                                     yTranslate)
-                    }else{
-                    // draws line for consumers without power monitoring
-                    drawAnimatedLine(ctx, 0, tile, true,
-                                     i - ((totalBottom - 1) / 2),
-                                     maxCurrentPower, false, xTranslate,
-                                     yTranslate)
+                    if (consumer.thingClass.interfaces.indexOf(
+                                "smartmeterconsumer") >= 0) {
+                        drawAnimatedLine(
+                                    ctx, consumer.stateByName(
+                                        "currentPower").value, tile,
+                                    true, i - ((totalBottom - 1) / 2), maxCurrentPower,
+                                    false, xTranslate, yTranslate)
+                    } else {
+                        // draws line for consumers without power monitoring
+                        drawAnimatedLine(ctx, 0, tile, true,
+                                         i - ((totalBottom - 1) / 2),
+                                         maxCurrentPower, false, xTranslate,
+                                         yTranslate)
                     }
                 }
 
@@ -613,9 +654,10 @@ MainViewBase {
                     var battery = batteries.get(i)
                     var tile = legendBatteriesRepeater.itemAt(i)
                     drawAnimatedLine(
-                                ctx, battery.stateByName("currentPower").value, tile, true,
-                                consumers.count + i - ((totalBottom - 1) / 2), maxCurrentPower,
-                                false, xTranslate, yTranslate)
+                                ctx, battery.stateByName(
+                                    "currentPower").value, tile,
+                                true, consumers.count + i - ((totalBottom - 1) / 2),
+                                maxCurrentPower, false, xTranslate, yTranslate)
                 }
 
                 // end draw Animated Line
@@ -681,40 +723,21 @@ MainViewBase {
                     linesCanvas.requestPaint()
                 }
 
+                RowLayout {
+                    id: topLegend
+                    Layout.fillWidth: true
+                    Layout.margins: Style.margins
+                    Layout.alignment: Qt.AlignHCenter
+                    spacing: Style.margins
 
-            RowLayout {
-                id: topLegend
-                Layout.fillWidth: true
-                Layout.margins: Style.margins
-                Layout.alignment: Qt.AlignHCenter
-                spacing: Style.margins
-
-                LegendTile {
-                    id: rootMeterTile
-                    thing: rootMeter
-                    isRootmeter: true
-                    color: lsdChart.rootMeterAcquisitionColor
-                    negativeColor: lsdChart.rootMeterReturnColor
-                    onClicked: {
-                        print("Clicked root meter", index, thing.name)
-                        pageStack.push(
-                                    "/ui/devicepages/SmartMeterDevicePage.qml",
-                                    {
-                                        "thing": thing
-                                    })
-                    }
-                }
-
-                Repeater {
-                    id: legendProducersRepeater
-                    model: producers
-
-                    delegate: LegendTile {
-                        visible: producers.get(index) !== rootMeter
-                        color: lsdChart.producersColor
-                        thing: producers.get(index)
+                    LegendTile {
+                        id: rootMeterTile
+                        thing: rootMeter
+                        isRootmeter: true
+                        color: lsdChart.rootMeterAcquisitionColor
+                        negativeColor: lsdChart.rootMeterReturnColor
                         onClicked: {
-                            print("Clicked producer", index, thing.name)
+                            print("Clicked root meter", index, thing.name)
                             pageStack.push(
                                         "/ui/devicepages/SmartMeterDevicePage.qml",
                                         {
@@ -722,8 +745,26 @@ MainViewBase {
                                         })
                         }
                     }
+
+                    Repeater {
+                        id: legendProducersRepeater
+                        model: producers
+
+                        delegate: LegendTile {
+                            visible: producers.get(index) !== rootMeter
+                            color: lsdChart.producersColor
+                            thing: producers.get(index)
+                            onClicked: {
+                                print("Clicked producer", index, thing.name)
+                                pageStack.push(
+                                            "/ui/devicepages/SmartMeterDevicePage.qml",
+                                            {
+                                                "thing": thing
+                                            })
+                            }
+                        }
+                    }
                 }
-            }
             }
 
             LineSeries {
@@ -738,9 +779,6 @@ MainViewBase {
                     y: 0
                 }
             }
-
-
-
 
             PolarChartView {
                 id: chartView
@@ -813,7 +851,6 @@ MainViewBase {
                                   Math.abs(powerBalanceLogs.minValue)) * 1.1
                     min: -Math.max(Math.abs(powerBalanceLogs.maxValue),
                                    Math.abs(powerBalanceLogs.minValue)) * 1.1
-
                 }
 
                 AreaSeries {
@@ -840,19 +877,23 @@ MainViewBase {
                             onEntriesAdded: {
                                 for (var i = 0; i < entries.length; i++) {
                                     var entry = entries[i]
-                                    chartView.appendPoint(productionUpperSeries,
-                                                          entry.timestamp.getTime(
-                                                              ), -entry.production)
+                                    chartView.appendPoint(
+                                                productionUpperSeries,
+                                                entry.timestamp.getTime(),
+                                                -entry.production)
 
-                                    chartView.appendPoint(acquisitionUpperSeries,
-                                                          entry.timestamp.getTime(
-                                                              ), entry.acquisition)
-                                    chartView.appendPoint(returnUpperSeries,
-                                                          entry.timestamp.getTime(
-                                                              ), -entry.acquisition)
-                                    chartView.appendPoint(storageUpperSeries,
-                                                          entry.timestamp.getTime(
-                                                              ), -entry.storage)
+                                    chartView.appendPoint(
+                                                acquisitionUpperSeries,
+                                                entry.timestamp.getTime(),
+                                                entry.acquisition)
+                                    chartView.appendPoint(
+                                                returnUpperSeries,
+                                                entry.timestamp.getTime(),
+                                                -entry.acquisition)
+                                    chartView.appendPoint(
+                                                storageUpperSeries,
+                                                entry.timestamp.getTime(),
+                                                -entry.storage)
                                 }
                             }
                         }
@@ -879,17 +920,17 @@ MainViewBase {
                             }
                         }
 
-//                        Connections {
-//                            target: powerBalanceLogs
-//                            onEntriesAdded: {
-//                                for (var i = 0; i < entries.length; i++) {
-//                                var entry = entries[i]
-//                                chartView.appendPoint(acquisitionUpperSeries,
-//                                                      entry.timestamp.getTime(
-//                                                          ), entry.acquisition)
-//                                }
-//                            }
-//                        }
+                        //                        Connections {
+                        //                            target: powerBalanceLogs
+                        //                            onEntriesAdded: {
+                        //                                for (var i = 0; i < entries.length; i++) {
+                        //                                var entry = entries[i]
+                        //                                chartView.appendPoint(acquisitionUpperSeries,
+                        //                                                      entry.timestamp.getTime(
+                        //                                                          ), entry.acquisition)
+                        //                                }
+                        //                            }
+                        //                        }
                     }
                 }
 
@@ -913,17 +954,17 @@ MainViewBase {
                             }
                         }
 
-//                        Connections {
-//                            target: powerBalanceLogs
-//                            onEntriesAdded: {
-//                                for (var i = 0; i < entries.length; i++) {
-//                                var entry = entries[i]
-//                                chartView.appendPoint(returnUpperSeries,
-//                                                      entry.timestamp.getTime(
-//                                                          ), -entry.acquisition)
-//                                }
-//                            }
-//                        }
+                        //                        Connections {
+                        //                            target: powerBalanceLogs
+                        //                            onEntriesAdded: {
+                        //                                for (var i = 0; i < entries.length; i++) {
+                        //                                var entry = entries[i]
+                        //                                chartView.appendPoint(returnUpperSeries,
+                        //                                                      entry.timestamp.getTime(
+                        //                                                          ), -entry.acquisition)
+                        //                                }
+                        //                            }
+                        //                        }
                     }
                 }
 
@@ -947,17 +988,17 @@ MainViewBase {
                             }
                         }
 
-//                        Connections {
-//                            target: powerBalanceLogs
-//                            onEntriesAdded: {
-//                                for (var i = 0; i < entries.length; i++) {
-//                                var entry = entries[i]
-//                                chartView.appendPoint(storageUpperSeries,
-//                                                      entry.timestamp.getTime(
-//                                                          ), -entry.storage)
-//                                }
-//                            }
-//                        }
+                        //                        Connections {
+                        //                            target: powerBalanceLogs
+                        //                            onEntriesAdded: {
+                        //                                for (var i = 0; i < entries.length; i++) {
+                        //                                var entry = entries[i]
+                        //                                chartView.appendPoint(storageUpperSeries,
+                        //                                                      entry.timestamp.getTime(
+                        //                                                          ), -entry.storage)
+                        //                                }
+                        //                            }
+                        //                        }
                     }
                 }
 
@@ -983,15 +1024,14 @@ MainViewBase {
                         }
 
                         readonly property ThingPowerLogs logs: ThingPowerLogs {
-                                       id: thingPowerLogs
-                                       engine: _engine
-                                       startTime: axisAngular.min
-                                       endTime: axisAngular.max
-                                       thingId: consumerDelegate.thing.id
-                                       loader: logsLoader
-                                       Component.onCompleted: fetchLogs()
-                                   }
-
+                            id: thingPowerLogs
+                            engine: _engine
+                            startTime: axisAngular.min
+                            endTime: axisAngular.max
+                            thingId: consumerDelegate.thing.id
+                            loader: logsLoader
+                            Component.onCompleted: fetchLogs()
+                        }
 
                         Component {
                             id: lineSeriesComponent
@@ -1013,7 +1053,8 @@ MainViewBase {
                                             var entry = entries[i]
                                             chartView.appendPoint(
                                                         consumerUpperSeries,
-                                                        entry.timestamp.getTime(),
+                                                        entry.timestamp.getTime(
+                                                            ),
                                                         entry.currentPower)
                                         }
                                     }
@@ -1022,7 +1063,6 @@ MainViewBase {
                         }
                     }
                 }
-
 
                 Rectangle {
                     id: innerCircle
@@ -1080,7 +1120,7 @@ MainViewBase {
                         onClicked: pageStack.push("DetailedGraphsPage.qml", {
                                                       "energyManager": energyManager,
                                                       "totalColors": lsdChart.totalColors,
-                                                      "consumersColors": lsdChart.consumersColors,
+                                                      "consumersColors": lsdChart.consumersColors
                                                   })
                     }
 
@@ -1141,41 +1181,41 @@ MainViewBase {
             Canvas {
                 id: timePickerCanvas
 
-
-
                 // Breaks on iOS!
                 //renderTarget: Canvas.FramebufferObject
                 renderStrategy: Canvas.Cooperative
 
                 onPaint: {
-    //              paint timePicker canvas
-                    var ctx = getContext("2d");
-                    ctx.reset();
-                    ctx.save();
-                    var xTranslate = chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2
-                    var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
+                    //              paint timePicker canvas
+                    var ctx = getContext("2d")
+                    ctx.reset()
+                    ctx.save()
+                    var xTranslate = chartView.x + chartView.plotArea.x
+                            + chartView.plotArea.width / 2
+                    var yTranslate = chartView.y + chartView.plotArea.y
+                            + chartView.plotArea.height / 2
                     ctx.translate(xTranslate, yTranslate)
 
                     ctx.strokeStyle = "gray"
                     ctx.fillStyle = "gray"
 
-                    ctx.beginPath();
+                    ctx.beginPath()
                     ctx.lineWidth = 3
-                    ctx.moveTo(0, -chartView.plotArea.height / 2 + innerCircle.radius)
+                    ctx.moveTo(0,
+                               -chartView.plotArea.height / 2 + innerCircle.radius)
                     ctx.lineTo(0, -(chartView.plotArea.width + 20) / 2)
-                    ctx.stroke();
-                    ctx.closePath();
+                    ctx.stroke()
+                    ctx.closePath()
 
-                    ctx.beginPath();
+                    ctx.beginPath()
                     ctx.moveTo(-15, -chartView.plotArea.height / 2)
                     ctx.lineTo(15, -chartView.plotArea.height / 2)
                     ctx.lineTo(0, -chartView.plotArea.height / 2 + 20)
                     ctx.lineTo(-15, -chartView.plotArea.height / 2)
                     ctx.fill()
-                    ctx.closePath();
+                    ctx.closePath()
 
-                    ctx.restore();
-
+                    ctx.restore()
                 }
             }
 
@@ -1350,7 +1390,6 @@ MainViewBase {
                 var sliceAngle = 2 * Math.PI / lsdChart.hours
                 var timeSinceFullHour = new Date().getMinutes()
                 var timeDiffRotation = timeSinceFullHour * sliceAngle / 60
-
 
                 // could also be just a circle if only one color is used
                 // see strokeStyle
