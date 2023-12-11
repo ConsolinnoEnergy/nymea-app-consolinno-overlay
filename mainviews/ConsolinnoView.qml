@@ -421,9 +421,9 @@ MainViewBase {
             closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
             Label {
                 Layout.fillWidth: true
-                Layout.topMargin: Style.margins
-                Layout.leftMargin: Style.margins
-                Layout.rightMargin: Style.margins
+                Layout.topMargin: app.margins
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
                 wrapMode: Text.WordWrap
                 text: message
             }
@@ -447,8 +447,7 @@ MainViewBase {
         console.debug(
                     "Visibility of " + engine.jsonRpcClient.currentHost + " changed to " + visible)
         if (visible) {
-            var notficationPopup = startUpNotificationComponent.createObject(
-                        root)
+            var notficationPopup = startUpNotificationComponent.createObject(root)
             notficationPopup.message = qsTr("Consolinno HEMS App was updated to version %1.").arg(appVersion)
             // If Popup not already open, open it
             if (notficationPopup.opened === false
@@ -1181,7 +1180,6 @@ MainViewBase {
 
             Canvas {
                 id: timePickerCanvas
-                anchors.fill: parent
 
                 // Breaks on iOS!
                 //renderTarget: Canvas.FramebufferObject
