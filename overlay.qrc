@@ -85,5 +85,7 @@
         <file>components/ConsolinnoImprintApp.qml</file>
         <file>images/leaflet-ethernet-connect.png</file>
         <file>info/GridConsumptionInfo.qml</file>
+        <file>DebugRectangle.qml</file>
+        <file>mainviews/StartupNotificationPopup.qml</file>
     </qresource>
 </RCC>
