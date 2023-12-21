@@ -48,6 +48,38 @@ MainViewBase {
     property bool loading: engine.thingManager.fetchingData
                            || logsLoader.fetchingData
     property UserConfiguration userconfig
+
+    function compareSemanticVersions(version1, version2) {
+        // Returns 0 if version1 == version2
+        // Returns 1 if version1 > version2
+        // Returns -1 if version1 < version2
+
+        var v1 = version1.split('.').map(function(part) { return parseInt(part); });
+        var v2 = version2.split('.').map(function(part) { return parseInt(part); });
+
+        for (var i = 0; i < Math.max(v1.length, v2.length); i++) {
+            var num1 = i < v1.length ? v1[i] : 0;
+            var num2 = i < v2.length ? v2[i] : 0;
+
+            if (num1 < num2) {
+                return -1; // version1 is lower
+            } else if (num1 > num2) {
+                return 1; // version1 is higher
+            }
+        }
+
+        return 0; // versions are equal
+    }
+
+        function checkHEMSVersion(){
+            var minSysVersion = Configuration.minSysVersion
+                // Checks if System version is less or equal to minSysVersion
+                if ([-1].includes(compareSemanticVersions(engine.jsonRpcClient.experiences.Hems, minSysVersion)))
+                {
+                    return false
+                }
+            return true
+        }
     EnergyManager {
         id: energyManager
         engine: _engine
@@ -98,6 +130,7 @@ MainViewBase {
             }
             return page
         }
+
 
         function exitWizard() {
             print("exiting wizard")
@@ -406,6 +439,32 @@ MainViewBase {
     }
 
     Component {
+        id: incompNotificationComponent
+
+        Popup {
+
+            property string message: ""
+            id: incompNotificationPopup
+            parent: root
+            x: Math.round((parent.width - width) / 2)
+            y: Math.round((parent.height - height) / 2)
+            width: parent.width
+            modal: true
+            focus: true
+            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+            Label {
+                Layout.fillWidth: true
+                Layout.topMargin: Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                wrapMode: Text.WordWrap
+                text: message
+            }
+        }
+    }
+
+
+    Component {
         id: startUpNotificationComponent
 
         Popup {
@@ -421,14 +480,14 @@ MainViewBase {
             closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
             Label {
                 Layout.fillWidth: true
-                Layout.topMargin: app.margins
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
+                Layout.topMargin: Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
                 wrapMode: Text.WordWrap
                 text: message
             }
             onClosed: {
-                console.warn("shonwPopupsSetting.shown: ",
+                console.debug("shonwPopupsSetting.shown: ",
                              shownPopupsSetting.shown)
                 var shownPopups = shownPopupsSetting.shown
                 shownPopups.push(appVersion)
@@ -444,15 +503,25 @@ MainViewBase {
     }
 
     onVisibleChanged: {
-        console.debug(
-                    "Visibility of " + engine.jsonRpcClient.currentHost + " changed to " + visible)
+        console.debug("Visibility of " + engine.jsonRpcClient.currentHost + " changed to " + visible)
         if (visible) {
+            // Show message if app was updated
             var notficationPopup = startUpNotificationComponent.createObject(root)
             notficationPopup.message = qsTr("Consolinno HEMS App was updated to version %1.").arg(appVersion)
             // If Popup not already open, open it
             if (notficationPopup.opened === false
                     && shownPopupsSetting.shown.indexOf(appVersion) === -1) {
                 notficationPopup.open()
+            }
+
+            // Show message if HEMS version is not compatible
+            if (!checkHEMSVersion()) {
+                var incompNotificationPopup = incompNotificationComponent.createObject(root)
+                incompNotificationPopup.message = qsTr("Consolinno HEMS App is not compatible with your HEMS version. Please update your HEMS.")
+                // If Popup not already open, open it
+                if (incompNotificationPopup.opened === false) {
+                    incompNotificationPopup.open()
+                }
             }
         }
     }

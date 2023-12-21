@@ -9,6 +9,9 @@ ConfigurationBase {
 
     connectionWizard: "/ui/wizards/ConnectionWizard.qml"
 
+    // Defines the minimal compatible HEMS version
+    property string minSysVersion: "1.1.0"
+
     // Identifier used for branding (e.g. to register for push notifications)
     property string branding: "consolinno"
 
