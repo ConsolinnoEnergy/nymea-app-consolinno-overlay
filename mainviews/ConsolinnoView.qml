@@ -420,9 +420,9 @@ MainViewBase {
             closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
             Label {
                 Layout.fillWidth: true
-                Layout.topMargin: app.margins
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
+                Layout.topMargin: Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
                 wrapMode: Text.WordWrap
                 text: message
             }
@@ -448,7 +448,7 @@ MainViewBase {
         if (visible) {
             var notficationPopup = startUpNotificationComponent.createObject(
                         root)
-            notficationPopup.message = qsTr("Consolinno HEMS App was updated!")
+            notficationPopup.message = qsTr("Consolinno HEMS App was updated to version %1.").arg(appVersion)
             // If Popup not already open, open it
             if (notficationPopup.opened === false
                     && shownPopupsSetting.shown.indexOf(appVersion) === -1) {
