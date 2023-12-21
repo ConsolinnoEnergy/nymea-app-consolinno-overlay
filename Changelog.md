@@ -1,4 +1,7 @@
-## [1.4.0 - unreleased ]
+## [1.3.1 - unreleased ]
+### Added
+- Notification after App update 
+
 
 ## [1.3.0]
 ### Changed
