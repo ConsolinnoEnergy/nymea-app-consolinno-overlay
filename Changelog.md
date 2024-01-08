@@ -1,4 +1,4 @@
-## [1.3.2 - unreleased ]
+## [1.3.3 - unreleased ]
 ### Added
 - Notification after App update 
 - Notification on incompatibility of HEMS system version
