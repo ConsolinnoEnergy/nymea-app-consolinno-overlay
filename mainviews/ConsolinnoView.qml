@@ -442,21 +442,20 @@ MainViewBase {
         id: incompNotificationComponent
 
         Popup {
-
             property string message: ""
             id: incompNotificationPopup
             parent: root
             x: Math.round((parent.width - width) / 2)
             y: Math.round((parent.height - height) / 2)
-            width: parent.width
+            width: parent.width * 0.9
             modal: true
             focus: true
             closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-            Label {
+            contentItem: Label {
                 Layout.fillWidth: true
-                Layout.topMargin: Style.margins
-                Layout.leftMargin: Style.margins
-                Layout.rightMargin: Style.margins
+                Layout.topMargin: app.margins
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
                 wrapMode: Text.WordWrap
                 text: message
             }
@@ -474,15 +473,15 @@ MainViewBase {
             parent: root
             x: Math.round((parent.width - width) / 2)
             y: Math.round((parent.height - height) / 2)
-            width: parent.width
+            width: parent.width * 0.9
             modal: true
             focus: true
             closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-            Label {
+            contentItem: Label {
                 Layout.fillWidth: true
-                Layout.topMargin: Style.margins
-                Layout.leftMargin: Style.margins
-                Layout.rightMargin: Style.margins
+                Layout.topMargin: app.margins
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
                 wrapMode: Text.WordWrap
                 text: message
             }
