@@ -4,126 +4,40 @@ import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.2
 import Nymea 1.0
 import "../components"
+import "../delegates"
 
 Page {
     id: root
 
     property HemsManager hemsManager
-    property HeatingElementConfiguration heatingElementConfiguration
-    property Thing thing: engine.thingManager.things.getThing(model.PvThingId)
-    property int directionID: 0
 
     header: NymeaHeader {
-        text: qsTr("Heating Element Configuration")
+        text: qsTr("Heating Element")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
 
-    QtObject {
-        id: d
-        property int pendingCallId: -1
-    }
-
-    Connections {
-        target: hemsManager
-        onSetHeatingElementConfigurationReply: {
-
-            if (commandId === d.pendingCallId) {
-                d.pendingCallId = -1
-                switch (error) {
-                case "HemsErrorNoError":
-                    pageStack.pop()
-                    return
-                case "HemsErrorInvalidParameter":
-                    props.text = qsTr(
-                                "Could not save configuration. One of the parameters is invalid.")
-                    break
-                case "HemsErrorInvalidThing":
-                    props.text = qsTr(
-                                "Could not save configuration. The thing is not valid.")
-                    break
-                default:
-                    props.errorCode = error
-                }
-                var comp = Qt.createComponent("../components/ErrorDialog.qml")
-                var popup = comp.createObject(app, props)
-                popup.open()
-            }
-        }
-    }
-
-
     ColumnLayout {
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: parent.top
-            topMargin: Style.margins
-            leftMargin: Style.margins
-            rightMargin: Style.margins
-        }
+        id: contentColumn
 
-        ConsolinnoPVTextField {
-            id: maxPowerInput
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.topMargin: app.margins
 
-            Layout.fillWidth: true
-            Layout.fillHeight: false
-            label: qsTr("Max power")
-            text: heatingElementConfiguration.maxPower.toLocaleString(Qt.locale())
-            unit: qsTr("kW")
+        Repeater {
+            id: testrepeater
 
-            validator: DoubleValidator {
-                bottom: 1
-            }
-        }
+            model: hemsManager.heatingElementConfigurations
+            delegate: NymeaItemDelegate {
 
-        ConsolinnoSwitchDelegate {
-            Layout.fillWidth: true
-            text: qsTr("Operating mode (Solar Only)")
-            warningText: checked ? qsTr("The heater is operated only with solar power. If a wallbox is connected to
-the system, and a charging process is started, charging is prioritized.") : qsTr("The heating element is not controlled by the HEMS.")
-        }
+                property Thing heatingElementThing: engine.thingManager.things.getThing(model.heatingRodThingId)
 
-        //margins filler
-        Item {
-            Layout.fillWidth: true
-            Layout.fillHeight: false
-            Layout.preferredHeight: Style.bigMargins
-        }
-
-        Button {
-            property string dummy: 'Null'
-            Layout.fillWidth: true
-            text: qsTr("Ok") + thing
-            onClicked: {
-                if (directionID === 1) {
-
-                    if (Number.fromLocaleString(Qt.locale(),
-                                                maxPowerInput.text) !== 0) {
-
-                        dummy = 1;
-                        header.text = maxPowerInput.text
-                        hemsManager.setHeatingElementConfiguration(thing.id, {
-                                                           "maxPower": Number.fromLocaleString(
-                                                                            Qt.locale(),
-                                                                            maxPowerInput.text),
-                                                       })
-                        root.done()
-                    } else {
-                    }
-                } else if (directionID === 0) {
-                    dummy = 2;
-                    if (Number.fromLocaleString(Qt.locale(),
-                                                maxPowerInput.text) !== 0) {
-
-                        d.pendingCallId = hemsManager.setHeatingElementConfiguration(
-                                    thing.id, {
-                                        "maxPower": Number.fromLocaleString(
-                                                         Qt.locale(),
-                                                         maxPowerInput.text),
-                                    })
-                    }
-                }
+                Layout.fillWidth: true
+                iconName: "../images/sensors/water.svg"
+                progressive: true
+                text: heatingElementThing.name
+                onClicked: pageStack.push("HeatingElementOptimization.qml", { hemsManager: hemsManager, thing: heatingElementThing })
             }
         }
     }

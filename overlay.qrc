@@ -98,6 +98,7 @@
         <file>components/ConsolinnoSwitchDelegate.qml</file>
         <file>components/ConsolinnoRowLabelValue.qml</file>
         <file>devicepages/HeatingElementDevicePage.qml</file>
+        <file>optimization/HeatingElementOptimization.qml</file>
         <file>mainviews/StartupNotificationPopup.qml</file>
     </qresource>
 </RCC>
