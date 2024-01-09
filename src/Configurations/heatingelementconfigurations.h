@@ -13,7 +13,7 @@ class HeatingElementConfigurations : public QAbstractListModel
 public:
     enum Role{
      RoleHeatingRodThingId,
-     RoleMaxPower,
+     RoleMaxElectricalPower,
     };
     Q_ENUM(Role);
 

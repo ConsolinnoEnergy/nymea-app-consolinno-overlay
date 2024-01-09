@@ -8,7 +8,7 @@ class HeatingElementConfiguration : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QUuid heatingRodThingId READ heatingRodThingId CONSTANT)
-    Q_PROPERTY(double maxPower READ maxPower WRITE setMaxPower NOTIFY maxPowerChanged)
+    Q_PROPERTY(double maxElectricalPower READ maxElectricalPower WRITE setMaxElectricalPower NOTIFY maxElectricalPowerChanged)
 
 public:
     explicit HeatingElementConfiguration(QObject *parent = nullptr);
@@ -16,16 +16,16 @@ public:
     QUuid heatingRodThingId() const;
     void setHeatingRodThingId(const QUuid &heatingRodThingId);
 
-    double maxPower() const;
-    void setMaxPower(const double &maxPower);
+    double maxElectricalPower() const;
+    void setMaxElectricalPower(const double &maxElectricalPower);
 
 
 private:
     QUuid m_heatingRodThingId;
-    double m_maxPower = 0;
+    double m_maxElectricalPower = 0;
 
 signals:
-    void maxPowerChanged(const double maxPower);
+    void maxElectricalPowerChanged(const double maxElectricalPower);
 
 };
 

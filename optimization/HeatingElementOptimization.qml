@@ -69,7 +69,7 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: false
             label: qsTr("Max power")
-            text: heatingElementConfiguration.maxPower.toLocaleString(Qt.locale())
+            text: heatingElementConfiguration.maxElectricalPower.toLocaleString(Qt.locale())
             unit: qsTr("kW")
 
             validator: DoubleValidator {
@@ -103,7 +103,7 @@ the system, and a charging process is started, charging is prioritized.") : qsTr
 
                         header.text = maxPowerInput.text
                         hemsManager.setHeatingElementConfiguration(thing.id, {
-                                                                       "maxPower": Number.fromLocaleString(
+                                                                       "maxElectricalPower": Number.fromLocaleString(
                                                                                        Qt.locale(),
                                                                                        maxPowerInput.text),
                                                                    })
@@ -116,7 +116,7 @@ the system, and a charging process is started, charging is prioritized.") : qsTr
 
                         d.pendingCallId = hemsManager.setHeatingElementConfiguration(
                                     thing.id, {
-                                        "maxPower": Number.fromLocaleString(
+                                        "maxElectricalPower": Number.fromLocaleString(
                                                         Qt.locale(),
                                                         maxPowerInput.text),
                                     })

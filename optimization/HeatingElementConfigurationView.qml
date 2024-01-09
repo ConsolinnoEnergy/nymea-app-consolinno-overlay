@@ -31,13 +31,14 @@ Page {
             model: hemsManager.heatingElementConfigurations
             delegate: NymeaItemDelegate {
 
+                property HeatingElementConfiguration heatingElementConfiguration: hemsManager.heatingElementConfigurations.getHeatingElementConfiguration(model.heatingRodThingId)
                 property Thing heatingElementThing: engine.thingManager.things.getThing(model.heatingRodThingId)
 
                 Layout.fillWidth: true
                 iconName: "../images/sensors/water.svg"
                 progressive: true
                 text: heatingElementThing.name
-                onClicked: pageStack.push("HeatingElementOptimization.qml", { hemsManager: hemsManager, thing: heatingElementThing })
+                onClicked: pageStack.push("HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingElementConfiguration: heatingElementConfiguration, thing: heatingElementThing })
             }
         }
     }

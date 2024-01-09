@@ -16,16 +16,16 @@ void HeatingElementConfiguration::setHeatingRodThingId(const QUuid &heatingRodTh
     m_heatingRodThingId = heatingRodThingId;
 }
 
-double HeatingElementConfiguration::maxPower() const
+double HeatingElementConfiguration::maxElectricalPower() const
 {
-    return m_maxPower;
+    return m_maxElectricalPower;
 }
 
-void HeatingElementConfiguration::setMaxPower(const double &maxPower)
+void HeatingElementConfiguration::setMaxElectricalPower(const double &maxElectricalPower)
  {
-     if (m_maxPower == maxPower)
+     if (m_maxElectricalPower == maxElectricalPower)
          return;
 
-     m_maxPower = maxPower;
-     emit maxPowerChanged(m_maxPower);
+     m_maxElectricalPower = maxElectricalPower;
+     emit maxElectricalPowerChanged(m_maxElectricalPower);
  }

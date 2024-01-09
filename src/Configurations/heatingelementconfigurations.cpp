@@ -22,8 +22,8 @@ QVariant HeatingElementConfigurations::data(const QModelIndex &index, int role) 
     switch(role){
     case RoleHeatingRodThingId:
         return m_list.at(index.row())->heatingRodThingId();
-    case RoleMaxPower:
-        return m_list.at(index.row())->maxPower();
+    case RoleMaxElectricalPower:
+        return m_list.at(index.row())->maxElectricalPower();
     }
 
     return QVariant();
@@ -34,7 +34,7 @@ QHash<int, QByteArray> HeatingElementConfigurations::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles.insert(RoleHeatingRodThingId, "heatingRodThingId");
-    roles.insert(RoleMaxPower, "maxPower");
+    roles.insert(RoleMaxElectricalPower, "maxElectricalPower");
     return roles;
 }
 
@@ -64,9 +64,9 @@ void HeatingElementConfigurations::addConfiguration(HeatingElementConfiguration 
     beginInsertRows(QModelIndex(), m_list.count(), m_list.count());
     m_list.append(heatingElementConfiguration);
 
-    connect(heatingElementConfiguration, &HeatingElementConfiguration::maxPowerChanged, this, [=](){
+    connect(heatingElementConfiguration, &HeatingElementConfiguration::maxElectricalPowerChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(heatingElementConfiguration));
-        emit dataChanged(idx, idx, {RoleMaxPower});
+        emit dataChanged(idx, idx, {RoleMaxElectricalPower});
     });
 
     endInsertRows();
