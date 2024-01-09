@@ -1,8 +1,11 @@
 import QtQuick 2.9
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.9
+import QtGraphicalEffects 1.15
 import "qrc:/ui/components"
 import Nymea 1.0
+
+import "../delegates"
 
 Page {
     id: root

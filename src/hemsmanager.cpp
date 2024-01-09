@@ -14,6 +14,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
     m_chargingConfigurations = new ChargingConfigurations(this);
     m_chargingOptimizationConfigurations = new ChargingOptimizationConfigurations(this);
     m_pvConfigurations = new PvConfigurations(this);
+    m_heatingElementConfigurations = new HeatingElementConfigurations(this);
     m_chargingSessionConfigurations = new ChargingSessionConfigurations(this);
     m_conEMSState = new ConEMSState();
     m_userConfigurations = new UserConfigurations(this);
@@ -73,6 +74,7 @@ void HemsManager::setEngine(Engine *engine)
         m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingOptimizationConfigurations", QVariantMap(), this, "getChargingOptimizationConfigurationsResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetPvConfigurations", QVariantMap(), this, "getPvConfigurationsResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingSessionConfigurations", QVariantMap(), this, "getChargingSessionConfigurationsResponse");
+        m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingRodConfigurations", QVariantMap(), this, "getHeatingElementConfigurationsResponse");
 
     }
 }
@@ -130,6 +132,16 @@ PvConfigurations *HemsManager::pvConfigurations() const
     return m_pvConfigurations;
 }
 
+HeatingElementConfigurations *HemsManager::heatingElementConfigurations() const
+{
+    return m_heatingElementConfigurations;
+}
+
+HeatingElementConfigurations *HemsManager::heatingElementConfigurations() const
+{
+    return m_heatingElementConfigurations;
+}
+
 ConEMSState *HemsManager::conEMSState() const
 {
     return m_conEMSState;
@@ -181,6 +193,46 @@ int HemsManager::setPvConfiguration(const QUuid &pvThingId, const QVariantMap &d
     qCDebug(dcHems()) << "Set pv configuration" << params;
 
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetPvConfiguration", params, this, "setPvConfigurationResponse");
+}
+
+int HemsManager::setHeatingElementConfiguration(const QUuid &heatingRodThingId, const QVariantMap &data)
+{
+
+//    HeatingElementConfiguration *configuration = m_heatingElementConfigurations->getHeatingElementConfiguration(heatingRodThingId);
+//    // if the configuration does not exist yet. Set up a dummy configuration
+//    // This ensures that if the Thing does not exist that the program wont crash
+//    if (!configuration){
+//        qCDebug(dcHems()) << "Adding a dummy Config" << heatingRodThingId;
+//        QVariantMap dummyConfig;
+//        dummyConfig.insert("heatPumpThingId", heatingRodThingId);
+//        dummyConfig.insert("maxPower", 0);
+
+//        addOrUpdateHeatingElementConfiguration(dummyConfig);
+//        // and get the dummy Config
+//        configuration =  m_heatingElementConfigurations->getHeatingElementConfiguration(heatingRodThingId);
+//    }
+
+//    // Make a MetaObject of an configuration
+//    const QMetaObject *metaObj = configuration->metaObject();
+//    // add the values from data which match with the MetaObject
+//    QVariantMap config;
+//    for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
+//        if(data.contains(metaObj->property(i).name()))
+//            {
+//                //qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
+//                config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
+//            }else{
+//                //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
+//                config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
+//            }
+//    }
+
+//    QVariantMap params;
+//    params.insert("heatingElementConfiguration", config);
+//    qCWarning(dcHems()) << "Set heatingelement configuration" << params;
+
+//    return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingElementConfiguration", params, this, "setHeatingElementConfigurationResponse");
+
 }
 
 
@@ -271,9 +323,6 @@ int HemsManager::setChargingOptimizationConfiguration(const QUuid &evChargerThin
     qCWarning(dcHems()) << "Set charging Optimization configuration" << params;
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetChargingOptimizationConfiguration", params, this, "setChargingOptimizationConfigurationResponse");
 }
-
-
-
 
 int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const QVariantMap &data )
 {
@@ -486,6 +535,13 @@ void HemsManager::notificationReceived(const QVariantMap &data)
         m_pvConfigurations->removeConfiguration(params.value("pvThingId").toUuid());
     } else if (notification == "Hems.PvConfigurationChanged") {
         addOrUpdatePvConfiguration(params.value("pvConfiguration").toMap());
+    } else if (notification == "Hems.HeatingElementConfigurationAdded") {
+        addOrUpdateHeatingElementConfiguration(params.value("heatingElementConfiguration").toMap());
+    } else if (notification == "Hems.HeatingElementConfigurationRemoved") {
+        qCDebug(dcHems()) << "HeatingElement configuration removed" << params.value("heatingRodThingId").toUuid();
+        m_heatingElementConfigurations->removeConfiguration(params.value("heatingRodThingId").toUuid());
+    } else if (notification == "Hems.HeatingElementConfigurationChanged") {
+        addOrUpdateHeatingElementConfiguration(params.value("heatingElementConfiguration").toMap());
     }
 
 
@@ -528,6 +584,15 @@ void HemsManager::getPvConfigurationsResponse(int commandId, const QVariantMap &
     foreach (const QVariant &configurationVariant, data.value("pvConfigurations").toList()) {
 
         addOrUpdatePvConfiguration(configurationVariant.toMap());
+    }
+}
+
+void HemsManager::getHeatingElementConfigurationsResponse(int commandId, const QVariantMap &data)
+{
+    Q_UNUSED(commandId);
+    qCDebug(dcHems()) << "Heating Element configurations" << data;
+    foreach (const QVariant &configurationVariant, data.value("heatingRodConfigurations").toList()) {
+        addOrUpdateHeatingElementConfiguration(configurationVariant.toMap());
     }
 }
 
@@ -613,6 +678,13 @@ void HemsManager::setPvConfigurationResponse(int commandId, const QVariantMap &d
 {
     qCDebug(dcHems()) << "Set pv configuration response" << data.value("pvError").toString();
     emit setPvConfigurationReply(commandId, data.value("hemsError").toString());
+
+}
+
+void HemsManager::setHeatingElementConfigurationResponse(int commandId, const QVariantMap &data)
+{
+    qCDebug(dcHems()) << "Set HeatingElement configuration response" << data.value("heatingElementError").toString();
+    emit setHeatingElementConfigurationReply(commandId, data.value("hemsError").toString());
 
 }
 
@@ -800,6 +872,62 @@ void HemsManager::addOrUpdatePvConfiguration(const QVariantMap &configurationMap
      }else{
         qCDebug(dcHems()) << "Pv configuration changed" << configuration->pvThingId();
         emit pvConfigurationChanged(configuration);
+
+     }
+}
+
+void HemsManager::addOrUpdateHeatingElementConfiguration(const QVariantMap &configurationMap)
+{
+
+    QUuid heatingElementUuid = configurationMap.value("heatingRodThingId").toUuid();
+    HeatingElementConfiguration *configuration = m_heatingElementConfigurations->getHeatingElementConfiguration(heatingElementUuid);
+    bool newConfiguration = false;
+    if(!configuration){
+        newConfiguration = true;
+        configuration = new HeatingElementConfiguration(this);
+
+
+        configuration->setHeatingRodThingId(heatingElementUuid);
+    }
+
+
+    configuration->setMaxPower(configurationMap.value("maxPower").toDouble());
+
+     if (newConfiguration){
+         qCDebug(dcHems()) << "HeatingElement configuration added" << configuration->heatingRodThingId();
+         m_heatingElementConfigurations->addConfiguration(configuration);
+
+     }else{
+        qCDebug(dcHems()) << "Heating Element configuration changed" << configuration->heatingRodThingId();
+        emit heatingElementConfigurationChanged(configuration);
+
+     }
+}
+
+void HemsManager::addOrUpdateHeatingElementConfiguration(const QVariantMap &configurationMap)
+{
+
+    QUuid heatingElementUuid = configurationMap.value("heatingRodThingId").toUuid();
+    HeatingElementConfiguration *configuration = m_heatingElementConfigurations->getHeatingElementConfiguration(heatingElementUuid);
+    bool newConfiguration = false;
+    if(!configuration){
+        newConfiguration = true;
+        configuration = new HeatingElementConfiguration(this);
+
+
+        configuration->setHeatingRodThingId(heatingElementUuid);
+    }
+
+
+    configuration->setMaxPower(configurationMap.value("maxPower").toDouble());
+
+     if (newConfiguration){
+         qCDebug(dcHems()) << "HeatingElement configuration added" << configuration->heatingRodThingId();
+         m_heatingElementConfigurations->addConfiguration(configuration);
+
+     }else{
+        qCDebug(dcHems()) << "Heating Element configuration changed" << configuration->heatingRodThingId();
+        emit heatingElementConfigurationChanged(configuration);
 
      }
 }

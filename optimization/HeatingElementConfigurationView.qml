@@ -8,11 +8,50 @@ import "../components"
 Page {
     id: root
 
+    property HemsManager hemsManager
+    property HeatingElementConfiguration heatingElementConfiguration
+    property Thing thing: engine.thingManager.things.getThing(model.PvThingId)
+    property int directionID: 0
+
     header: NymeaHeader {
         text: qsTr("Heating Element Configuration")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
+
+    QtObject {
+        id: d
+        property int pendingCallId: -1
+    }
+
+    Connections {
+        target: hemsManager
+        onSetHeatingElementConfigurationReply: {
+
+            if (commandId === d.pendingCallId) {
+                d.pendingCallId = -1
+                switch (error) {
+                case "HemsErrorNoError":
+                    pageStack.pop()
+                    return
+                case "HemsErrorInvalidParameter":
+                    props.text = qsTr(
+                                "Could not save configuration. One of the parameters is invalid.")
+                    break
+                case "HemsErrorInvalidThing":
+                    props.text = qsTr(
+                                "Could not save configuration. The thing is not valid.")
+                    break
+                default:
+                    props.errorCode = error
+                }
+                var comp = Qt.createComponent("../components/ErrorDialog.qml")
+                var popup = comp.createObject(app, props)
+                popup.open()
+            }
+        }
+    }
+
 
     ColumnLayout {
         anchors {
@@ -30,7 +69,7 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: false
             label: qsTr("Max power")
-            text: pvConfiguration.kwPeak
+            text: heatingElementConfiguration.maxPower.toLocaleString(Qt.locale())
             unit: qsTr("kW")
 
             validator: DoubleValidator {
@@ -53,10 +92,38 @@ the system, and a charging process is started, charging is prioritized.") : qsTr
         }
 
         Button {
+            property string dummy: 'Null'
             Layout.fillWidth: true
-            text: qsTr("Ok")
+            text: qsTr("Ok") + thing
             onClicked: {
+                if (directionID === 1) {
 
+                    if (Number.fromLocaleString(Qt.locale(),
+                                                maxPowerInput.text) !== 0) {
+
+                        dummy = 1;
+                        header.text = maxPowerInput.text
+                        hemsManager.setHeatingElementConfiguration(thing.id, {
+                                                           "maxPower": Number.fromLocaleString(
+                                                                            Qt.locale(),
+                                                                            maxPowerInput.text),
+                                                       })
+                        root.done()
+                    } else {
+                    }
+                } else if (directionID === 0) {
+                    dummy = 2;
+                    if (Number.fromLocaleString(Qt.locale(),
+                                                maxPowerInput.text) !== 0) {
+
+                        d.pendingCallId = hemsManager.setHeatingElementConfiguration(
+                                    thing.id, {
+                                        "maxPower": Number.fromLocaleString(
+                                                         Qt.locale(),
+                                                         maxPowerInput.text),
+                                    })
+                    }
+                }
             }
         }
     }

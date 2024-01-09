@@ -11,7 +11,7 @@
 #include "Configurations/userconfigurations.h"
 #include "Configurations/conemsstate.h"
 #include "Configurations/chargingoptimizationconfigurations.h"
-
+#include "Configurations/heatingelementconfigurations.h"
 
 #include "Configurations/conemsstate.h"
 
@@ -33,6 +33,7 @@ class HemsManager : public QObject
     Q_PROPERTY(ChargingSessionConfigurations *chargingSessionConfigurations READ chargingSessionConfigurations CONSTANT)
     Q_PROPERTY(ConEMSState *conEMSState READ conEMSState CONSTANT)
     Q_PROPERTY(UserConfigurations *userConfigurations READ userConfigurations CONSTANT)
+    Q_PROPERTY(HeatingElementConfigurations *heatingElementConfigurations READ heatingElementConfigurations CONSTANT)
 
 public:
     enum HemsUseCase {
@@ -72,6 +73,7 @@ public:
     ChargingSessionConfigurations *chargingSessionConfigurations() const;
     ConEMSState *conEMSState() const;
     UserConfigurations *userConfigurations() const;
+    HeatingElementConfigurations *heatingElementConfigurations() const;
 
     // write and read
     Q_INVOKABLE int setPvConfiguration(const QUuid &pvThingId, const QVariantMap &data);
@@ -79,6 +81,7 @@ public:
     Q_INVOKABLE int setChargingConfiguration(const QUuid &evChargerThingId, const QVariantMap &data );
     Q_INVOKABLE int setChargingOptimizationConfiguration(const QUuid &evChargerThingId, const QVariantMap &data );
     Q_INVOKABLE int setUserConfiguration(const QVariantMap &data);
+    Q_INVOKABLE int setHeatingElementConfiguration(const QUuid &heatingRodThingId, const QVariantMap &data);
 
     // read only
     Q_INVOKABLE int setChargingSessionConfiguration(const QUuid carThingId, const QUuid evChargerThingid, const QString started_at, const QString finished_at, const float initial_battery_energy, const int duration, const float energy_charged, const float energy_battery, const int battery_level, const QUuid sessionId, const int state, const int timestamp);
@@ -98,7 +101,7 @@ signals:
     void conEMSStateChanged(ConEMSState *state);
     void pvConfigurationChanged(PvConfiguration *configuration);
     void userConfigurationChanged(UserConfiguration *configuration);
-
+    void heatingElementConfigurationChanged(HeatingElementConfiguration *configuration);
 
     void setHousholdPhaseLimitReply(int commandId, const QString &error);
 
@@ -109,6 +112,7 @@ signals:
     void setChargingSessionConfigurationReply(int commandId, const QString &error);
     void setConEMSStateReply(int commandId, const QString &error);
     void setUserConfigurationReply(int commandId, const QString &error);
+    void setHeatingElementConfigurationReply(int commandId, const QString &error);
 
 
 
@@ -125,7 +129,7 @@ private slots:
     Q_INVOKABLE void getPvConfigurationsResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getConEMSStateResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getUserConfigurationsResponse(int commandId, const QVariantMap &data);
-
+    Q_INVOKABLE void getHeatingElementConfigurationsResponse(int commandId, const QVariantMap &data);
 
     Q_INVOKABLE void setHousholdPhaseLimitResponse(int commandId, const QVariantMap &data);
 
@@ -136,6 +140,7 @@ private slots:
     Q_INVOKABLE void setChargingSessionConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setConEMSStateResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setUserConfigurationResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void setHeatingElementConfigurationResponse(int commandId, const QVariantMap &data);
 
 private:
     QPointer<Engine> m_engine = nullptr;
@@ -152,7 +157,7 @@ private:
     PvConfigurations *m_pvConfigurations = nullptr;
     ConEMSState *m_conEMSState = nullptr;
     UserConfigurations *m_userConfigurations = nullptr;
-
+    HeatingElementConfigurations *m_heatingElementConfigurations = nullptr;
 
     void addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateChargingConfiguration(const QVariantMap &configurationMap);
@@ -161,7 +166,7 @@ private:
     void addOrUpdatePvConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateConEMSState(const QVariantMap &configurationMap);
     void addOrUpdateUserConfiguration(const QVariantMap &configurationMap);
-
+    void addOrUpdateHeatingElementConfiguration(const QVariantMap &configurationMap);
 
     void updateAvailableUsecases(const QStringList &useCasesList);
     HemsManager::HemsUseCases unpackUseCases(const QStringList &useCasesList);
