@@ -71,15 +71,17 @@ MainViewBase {
         return 0; // versions are equal
     }
 
-        function checkHEMSVersion(){
-            var minSysVersion = Configuration.minSysVersion
-                // Checks if System version is less or equal to minSysVersion
-                if ([-1].includes(compareSemanticVersions(engine.jsonRpcClient.experiences.Hems, minSysVersion)))
-                {
-                    return false
-                }
-            return true
-        }
+    function checkHEMSVersion(){
+        var minSysVersion = Configuration.minSysVersion
+            // Checks if System version is less or equal to minSysVersion
+            if ([-1].includes(compareSemanticVersions(engine.jsonRpcClient.experiences.Hems, minSysVersion)))
+            {
+                return false
+            }
+        return true
+    }
+
+
     EnergyManager {
         id: energyManager
         engine: _engine
@@ -500,9 +502,9 @@ MainViewBase {
         userconfig = hemsManager.userConfigurations.getUserConfiguration(
                     "528b3820-1b6d-4f37-aea7-a99d21d42e72")
     }
-
+    
     onVisibleChanged: {
-        console.debug("Visibility of " + engine.jsonRpcClient.currentHost + " changed to " + visible)
+        console.debug("Visibility of " + engine.jsonRpcClient.currentHost.name + " changed to " + visible)
         if (visible) {
             // Show message if app was updated
             var notficationPopup = startUpNotificationComponent.createObject(root)
@@ -516,7 +518,7 @@ MainViewBase {
             // Show message if HEMS version is not compatible
             if (!checkHEMSVersion()) {
                 var incompNotificationPopup = incompNotificationComponent.createObject(root)
-                incompNotificationPopup.message = qsTr("Consolinno HEMS App is not compatible with your HEMS version. Please update your HEMS.")
+                incompNotificationPopup.message = qsTr("Consolinno HEMS App is not compatible with the HEMS system version running on %1. Please update your HEMS.").arg(engine.jsonRpcClient.currentHost.name)
                 // If Popup not already open, open it
                 if (incompNotificationPopup.opened === false) {
                     incompNotificationPopup.open()
