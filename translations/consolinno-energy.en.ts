@@ -1626,6 +1626,14 @@ Mail service@consolinno.de</source>
         <source>Start setup</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Consolinno HEMS App was updated to version %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consolinno HEMS App is not compatible with the HEMS system version running on %1. Please update your HEMS.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoWizardPageBase</name>
