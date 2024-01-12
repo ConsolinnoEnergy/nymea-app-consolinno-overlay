@@ -1628,12 +1628,58 @@ Mail service@consolinno.de</source>
         <translation>Einrichtung starten</translation>
     </message>
     <message>
-        <source>Consolinno HEMS App was updated to version %1.</source>
-        <translation>Die Consolinno HEMS App wurde auf Version %1 aktualisiert.</translation>
+        <source>&lt;h3&gt;Incompatible Software Versions&lt;/h3&gt;
+                &lt;p&gt;The software versions of your &quot;Consolinno Energy HEMS App&quot; (v%1) and your &quot;Leaflet HEMS End Device&quot; (v%2) are incompatible and currently only partially usable. Your &quot;Leaflet HEMS End Device&quot; will be automatically updated during the day.&lt;/p&gt;
+                &lt;p&gt;If you still receive this message after several hours, please contact our support:&lt;/p&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Phone: &lt;a href=&quot;tel:+4994120300333&quot;&gt;+49 941/ 20300 333&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;a href=&quot;mailto:service@consolinno.de&quot;&gt;service@consolinno.de&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;p&gt;We apologize for the temporary limitations in use.&lt;/p&gt;
+                &lt;p&gt;Best regards&lt;/p&gt;
+                &lt;p&gt;Your Consolinno Energy Team&lt;/p&gt;</source>
+        <translation>&lt;h3&gt;Inkompatible Softwareversionen&lt;/h3&gt;
+    &lt;p&gt;Die Softwareversionen Ihrer &quot;Consolinno Energy HEMS App&quot; (v%1) und Ihres &quot;Leaflet HEMS Endgeräts&quot; (v%2) sind inkompatibel und derzeit nur eingeschränkt nutzbar. Ihr &quot;Leaflet HEMS Endgerät&quot; wird im Laufe des Tages automatisch aktualisiert.&lt;/p&gt;
+    &lt;p&gt;Falls Sie diese Nachricht auch nach mehreren Stunden noch erhalten, kontaktieren Sie bitte unseren Support:&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Telefon: &lt;a href=&quot;tel:+4994120300333&quot;&gt;+49 941/ 20300 333&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;E-Mail: &lt;a href=&quot;mailto:service@consolinno.de&quot;&gt;service@consolinno.de&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;Wir entschuldigen uns für die vorübergehenden Einschränkungen in der Nutzung.&lt;/p&gt;
+    &lt;p&gt;Beste Grüße&lt;/p&gt;
+    &lt;p&gt;Ihr Consolinno Energy Team&lt;/p&gt;
+</translation>
     </message>
     <message>
-        <source>Consolinno HEMS App is not compatible with the HEMS system version running on %1. Please update your HEMS.</source>
-        <translation type="unfinished">Die Consolinno HEMS App ist nicht kompatibel mit der Version des HEMS Systems auf %1. Bitte aktualisieren Sie das HEMS System.</translation>
+        <source>&lt;h3&gt;Consolinno Energy HEMS App was updated&lt;/h3&gt;
+            &lt;p&gt;Version 1.3.3 (January 15, 2024)&lt;/p&gt;
+            &lt;h4&gt;New&lt;/h4&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Simplified Charging – Improved and easier use of charging features&lt;/li&gt;
+                &lt;li&gt;Notification of changes in Consolinno Energy HEMS App&lt;/li&gt;
+                &lt;li&gt;Notification of incompatibility for software versions of App and Leaflet Hardware&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;h4&gt;Improvements&lt;/h4&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Kaco Inverter Integrations&lt;/li&gt;
+                &lt;li&gt;Goodwe Inverter Integrations&lt;/li&gt;
+                &lt;li&gt;Heidelberg Wallboxes Integrations&lt;/li&gt;
+            &lt;/ul&gt;</source>
+        <translation>&lt;h3&gt;Consolinno Energy HEMS App wurde aktualisiert&lt;/h3&gt;
+&lt;p&gt;Version 1.3.3 (15. Januar 2024)&lt;/p&gt;
+&lt;h4&gt;Neu&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;Vereinfachtes Laden – verbesserte Komfortfunktionen der Lademodi&lt;/li&gt;
+    &lt;li&gt;Benachrichtigung über Änderungen in der Consolinno Energy HEMS App&lt;/li&gt;
+    &lt;li&gt;Benachrichtigung über Inkompatibilität bei Softwareversionen von App und Leaflet Hardware&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Verbesserungen&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;Kaco Wechselrichter Integrationen&lt;/li&gt;
+    &lt;li&gt;Goodwe Wechselrichter Integrationen&lt;/li&gt;
+    &lt;li&gt;Heidelberg Wallboxen Integrationen&lt;/li&gt;
+&lt;/ul&gt;
+</translation>
     </message>
 </context>
 <context>

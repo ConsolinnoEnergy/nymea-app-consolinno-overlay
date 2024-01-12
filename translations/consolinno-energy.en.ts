@@ -1627,11 +1627,33 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Consolinno HEMS App was updated to version %1.</source>
+        <source>&lt;h3&gt;Incompatible Software Versions&lt;/h3&gt;
+                &lt;p&gt;The software versions of your &quot;Consolinno Energy HEMS App&quot; (v%1) and your &quot;Leaflet HEMS End Device&quot; (v%2) are incompatible and currently only partially usable. Your &quot;Leaflet HEMS End Device&quot; will be automatically updated during the day.&lt;/p&gt;
+                &lt;p&gt;If you still receive this message after several hours, please contact our support:&lt;/p&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Phone: &lt;a href=&quot;tel:+4994120300333&quot;&gt;+49 941/ 20300 333&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;a href=&quot;mailto:service@consolinno.de&quot;&gt;service@consolinno.de&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;p&gt;We apologize for the temporary limitations in use.&lt;/p&gt;
+                &lt;p&gt;Best regards&lt;/p&gt;
+                &lt;p&gt;Your Consolinno Energy Team&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Consolinno HEMS App is not compatible with the HEMS system version running on %1. Please update your HEMS.</source>
+        <source>&lt;h3&gt;Consolinno Energy HEMS App was updated&lt;/h3&gt;
+            &lt;p&gt;Version 1.3.3 (January 15, 2024)&lt;/p&gt;
+            &lt;h4&gt;New&lt;/h4&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Simplified Charging – Improved and easier use of charging features&lt;/li&gt;
+                &lt;li&gt;Notification of changes in Consolinno Energy HEMS App&lt;/li&gt;
+                &lt;li&gt;Notification of incompatibility for software versions of App and Leaflet Hardware&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;h4&gt;Improvements&lt;/h4&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Kaco Inverter Integrations&lt;/li&gt;
+                &lt;li&gt;Goodwe Inverter Integrations&lt;/li&gt;
+                &lt;li&gt;Heidelberg Wallboxes Integrations&lt;/li&gt;
+            &lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

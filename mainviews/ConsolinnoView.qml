@@ -459,6 +459,7 @@ MainViewBase {
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
                 wrapMode: Text.WordWrap
+                textFormat: Text.RichText
                 text: message
             }
         }
@@ -485,6 +486,7 @@ MainViewBase {
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
                 wrapMode: Text.WordWrap
+                textFormat: Text.RichText
                 text: message
             }
             onClosed: {
@@ -508,7 +510,21 @@ MainViewBase {
         if (visible) {
             // Show message if app was updated
             var notficationPopup = startUpNotificationComponent.createObject(root)
-            notficationPopup.message = qsTr("Consolinno HEMS App was updated to version %1.").arg(appVersion)
+            //notficationPopup.message = qsTr("Consolinno HEMS App was updated to version %1.").arg(appVersion)
+            notficationPopup.message=qsTr('<h3>Consolinno Energy HEMS App was updated</h3>
+            <p>Version 1.3.3 (January 15, 2024)</p>
+            <h4>New</h4>
+            <ul>
+                <li>Simplified Charging – Improved and easier use of charging features</li>
+                <li>Notification of changes in Consolinno Energy HEMS App</li>
+                <li>Notification of incompatibility for software versions of App and Leaflet Hardware</li>
+            </ul>
+            <h4>Improvements</h4>
+            <ul>
+                <li>Kaco Inverter Integrations</li>
+                <li>Goodwe Inverter Integrations</li>
+                <li>Heidelberg Wallboxes Integrations</li>
+            </ul>')
             // If Popup not already open, open it
             if (notficationPopup.opened === false
                     && shownPopupsSetting.shown.indexOf(appVersion) === -1) {
@@ -518,7 +534,18 @@ MainViewBase {
             // Show message if HEMS version is not compatible
             if (!checkHEMSVersion()) {
                 var incompNotificationPopup = incompNotificationComponent.createObject(root)
-                incompNotificationPopup.message = qsTr("Consolinno HEMS App is not compatible with the HEMS system version running on %1. Please update your HEMS.").arg(engine.jsonRpcClient.currentHost.name)
+//                incompNotificationPopup.message = qsTr("Consolinno HEMS App is not compatible with the HEMS system version running on %1. Please update your HEMS.").arg(engine.jsonRpcClient.currentHost.name)
+                
+                incompNotificationPopup.message=qsTr('<h3>Incompatible Software Versions</h3>
+                <p>The software versions of your "Consolinno Energy HEMS App" (v%1) and your "Leaflet HEMS End Device" (v%2) are incompatible and currently only partially usable. Your "Leaflet HEMS End Device" will be automatically updated during the day.</p>
+                <p>If you still receive this message after several hours, please contact our support:</p>
+                <ul>
+                    <li>Phone: <a href="tel:+4994120300333">+49 941/ 20300 333</a></li>
+                    <li>Email: <a href="mailto:service@consolinno.de">service@consolinno.de</a></li>
+                </ul>
+                <p>We apologize for the temporary limitations in use.</p>
+                <p>Best regards</p>
+                <p>Your Consolinno Energy Team</p>').arg(appVersion).arg(engine.jsonRpcClient.experiences.Hems)
                 // If Popup not already open, open it
                 if (incompNotificationPopup.opened === false) {
                     incompNotificationPopup.open()
