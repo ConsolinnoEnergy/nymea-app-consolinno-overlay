@@ -535,13 +535,13 @@ void HemsManager::notificationReceived(const QVariantMap &data)
         m_pvConfigurations->removeConfiguration(params.value("pvThingId").toUuid());
     } else if (notification == "Hems.PvConfigurationChanged") {
         addOrUpdatePvConfiguration(params.value("pvConfiguration").toMap());
-    } else if (notification == "Hems.HeatingElementConfigurationAdded") {
-        addOrUpdateHeatingElementConfiguration(params.value("heatingElementConfiguration").toMap());
-    } else if (notification == "Hems.HeatingElementConfigurationRemoved") {
+    } else if (notification == "Hems.HeatingRodConfigurationAdded") {
+        addOrUpdateHeatingElementConfiguration(params.value("heatingRodConfiguration").toMap());
+    } else if (notification == "Hems.HeatingRodConfigurationRemoved") {
         qCDebug(dcHems()) << "HeatingElement configuration removed" << params.value("heatingRodThingId").toUuid();
         m_heatingElementConfigurations->removeConfiguration(params.value("heatingRodThingId").toUuid());
-    } else if (notification == "Hems.HeatingElementConfigurationChanged") {
-        addOrUpdateHeatingElementConfiguration(params.value("heatingElementConfiguration").toMap());
+    } else if (notification == "Hems.HeatingRodConfigurationChanged") {
+        addOrUpdateHeatingElementConfiguration(params.value("heatingRodConfiguration").toMap());
     }
 
 
