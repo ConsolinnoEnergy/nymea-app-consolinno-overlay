@@ -197,42 +197,42 @@ int HemsManager::setPvConfiguration(const QUuid &pvThingId, const QVariantMap &d
 
 int HemsManager::setHeatingElementConfiguration(const QUuid &heatingRodThingId, const QVariantMap &data)
 {
+qCritical() << "setHeatingElementConfiguration" << data;
+    HeatingElementConfiguration *configuration = m_heatingElementConfigurations->getHeatingElementConfiguration(heatingRodThingId);
+    // if the configuration does not exist yet. Set up a dummy configuration
+    // This ensures that if the Thing does not exist that the program wont crash
+    if (!configuration){
+        qCDebug(dcHems()) << "Adding a dummy Config" << heatingRodThingId;
+        QVariantMap dummyConfig;
+        dummyConfig.insert("heatingRodThingId", heatingRodThingId);
+        dummyConfig.insert("maxElectricalPower", 0);
+        dummyConfig.insert("optimizationEnabled",true);
 
-//    HeatingElementConfiguration *configuration = m_heatingElementConfigurations->getHeatingElementConfiguration(heatingRodThingId);
-//    // if the configuration does not exist yet. Set up a dummy configuration
-//    // This ensures that if the Thing does not exist that the program wont crash
-//    if (!configuration){
-//        qCDebug(dcHems()) << "Adding a dummy Config" << heatingRodThingId;
-//        QVariantMap dummyConfig;
-//        dummyConfig.insert("heatPumpThingId", heatingRodThingId);
-//        dummyConfig.insert("maxPower", 0);
+        addOrUpdateHeatingElementConfiguration(dummyConfig);
+        // and get the dummy Config
+        configuration =  m_heatingElementConfigurations->getHeatingElementConfiguration(heatingRodThingId);
+    }
 
-//        addOrUpdateHeatingElementConfiguration(dummyConfig);
-//        // and get the dummy Config
-//        configuration =  m_heatingElementConfigurations->getHeatingElementConfiguration(heatingRodThingId);
-//    }
+    // Make a MetaObject of an configuration
+    const QMetaObject *metaObj = configuration->metaObject();
+    // add the values from data which match with the MetaObject
+    QVariantMap config;
+    for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
+        if(data.contains(metaObj->property(i).name()))
+            {
+                //qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
+                config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
+            }else{
+                //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
+                config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
+            }
+    }
 
-//    // Make a MetaObject of an configuration
-//    const QMetaObject *metaObj = configuration->metaObject();
-//    // add the values from data which match with the MetaObject
-//    QVariantMap config;
-//    for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
-//        if(data.contains(metaObj->property(i).name()))
-//            {
-//                //qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
-//                config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
-//            }else{
-//                //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
-//                config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
-//            }
-//    }
+    QVariantMap params;
+    params.insert("heatingRodConfiguration", config);
+    qCWarning(dcHems()) << "Set heatingelement configuration" << params;
 
-//    QVariantMap params;
-//    params.insert("heatingElementConfiguration", config);
-//    qCWarning(dcHems()) << "Set heatingelement configuration" << params;
-
-//    return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingElementConfiguration", params, this, "setHeatingElementConfigurationResponse");
-
+    return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingRodConfiguration", params, this, "setHeatingElementConfigurationResponse");
 }
 
 
@@ -890,8 +890,8 @@ void HemsManager::addOrUpdateHeatingElementConfiguration(const QVariantMap &conf
         configuration->setHeatingRodThingId(heatingElementUuid);
     }
 
-
-    configuration->setMaxPower(configurationMap.value("maxPower").toDouble());
+    configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
+    configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
 
      if (newConfiguration){
          qCDebug(dcHems()) << "HeatingElement configuration added" << configuration->heatingRodThingId();

@@ -78,6 +78,8 @@ Page {
         }
 
         ConsolinnoSwitchDelegate {
+            id: operatingModeSwitch
+
             Layout.fillWidth: true
             text: qsTr("Operating mode (Solar Only)")
             warningText: checked ? qsTr("The heater is operated only with solar power. If a wallbox is connected to
@@ -106,6 +108,7 @@ the system, and a charging process is started, charging is prioritized.") : qsTr
                                                                        "maxElectricalPower": Number.fromLocaleString(
                                                                                        Qt.locale(),
                                                                                        maxPowerInput.text),
+                                                                       "optimizationEnabled": operatingModeSwitch.checked,
                                                                    })
                         root.done()
                     } else {
@@ -119,6 +122,7 @@ the system, and a charging process is started, charging is prioritized.") : qsTr
                                         "maxElectricalPower": Number.fromLocaleString(
                                                         Qt.locale(),
                                                         maxPowerInput.text),
+                                        "optimizationEnabled": operatingModeSwitch.checked,
                                     })
                     }
                 }

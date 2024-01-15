@@ -29,3 +29,17 @@ void HeatingElementConfiguration::setMaxElectricalPower(const double &maxElectri
      m_maxElectricalPower = maxElectricalPower;
      emit maxElectricalPowerChanged(m_maxElectricalPower);
  }
+
+bool HeatingElementConfiguration::optimizationEnabled() const
+{
+    return m_optimizationEnabled;
+}
+
+void HeatingElementConfiguration::setOptimizationEnabled(const bool &optimizationEnabled)
+ {
+     if (m_optimizationEnabled == optimizationEnabled)
+         return;
+
+     m_optimizationEnabled = optimizationEnabled;
+     emit optimizationEnabledChanged(m_optimizationEnabled);
+ }
