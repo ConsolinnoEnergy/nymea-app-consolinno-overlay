@@ -51,8 +51,8 @@ GenericConfigPage {
                         Layout.fillHeight: true
 
                         Rectangle {
-                            width: operatingModeValueText.width
-                            height: parent.height
+                            width: 120
+                            height: operatingModeValueText.height + 10
                             anchors.right: parent.right
                             radius: Style.smallMargins
                             color: {
@@ -69,7 +69,6 @@ GenericConfigPage {
                                 id: operatingModeValueText
 
                                 anchors.centerIn: parent
-                                padding: Style.smallMargins
                                 color: Style.white
                                 text: {
                                     if(root.operatingModeStatus === 1) {
