@@ -1641,18 +1641,10 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>&lt;h3&gt;Consolinno Energy HEMS App was updated&lt;/h3&gt;
-            &lt;p&gt;Version 1.3.3 (January 15, 2024)&lt;/p&gt;
-            &lt;h4&gt;New&lt;/h4&gt;
+            &lt;p&gt;Version 1.3.4 (January 18, 2024)&lt;/p&gt;
+            &lt;h4&gt;Fixed&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;Simplified Charging – Improved and easier use of charging features&lt;/li&gt;
-                &lt;li&gt;Notification of changes in Consolinno Energy HEMS App&lt;/li&gt;
-                &lt;li&gt;Notification of incompatibility for software versions of App and Leaflet Hardware&lt;/li&gt;
-            &lt;/ul&gt;
-            &lt;h4&gt;Improvements&lt;/h4&gt;
-            &lt;ul&gt;
-                &lt;li&gt;Kaco Inverter Integrations&lt;/li&gt;
-                &lt;li&gt;Goodwe Inverter Integrations&lt;/li&gt;
-                &lt;li&gt;Heidelberg Wallboxes Integrations&lt;/li&gt;
+                &lt;li&gt;Fixed missing time indicator in dashboard&lt;/li&gt;
             &lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>

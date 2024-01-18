@@ -1652,34 +1652,17 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>&lt;h3&gt;Consolinno Energy HEMS App was updated&lt;/h3&gt;
-            &lt;p&gt;Version 1.3.3 (January 15, 2024)&lt;/p&gt;
-            &lt;h4&gt;New&lt;/h4&gt;
+            &lt;p&gt;Version 1.3.4 (January 18, 2024)&lt;/p&gt;
+            &lt;h4&gt;Fixed&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;Simplified Charging – Improved and easier use of charging features&lt;/li&gt;
-                &lt;li&gt;Notification of changes in Consolinno Energy HEMS App&lt;/li&gt;
-                &lt;li&gt;Notification of incompatibility for software versions of App and Leaflet Hardware&lt;/li&gt;
-            &lt;/ul&gt;
-            &lt;h4&gt;Improvements&lt;/h4&gt;
-            &lt;ul&gt;
-                &lt;li&gt;Kaco Inverter Integrations&lt;/li&gt;
-                &lt;li&gt;Goodwe Inverter Integrations&lt;/li&gt;
-                &lt;li&gt;Heidelberg Wallboxes Integrations&lt;/li&gt;
+                &lt;li&gt;Fixed missing time indicator in dashboard&lt;/li&gt;
             &lt;/ul&gt;</source>
         <translation>&lt;h3&gt;Consolinno Energy HEMS App wurde aktualisiert&lt;/h3&gt;
-&lt;p&gt;Version 1.3.3 (15. Januar 2024)&lt;/p&gt;
-&lt;h4&gt;Neu&lt;/h4&gt;
-&lt;ul&gt;
-    &lt;li&gt;Vereinfachtes Laden – verbesserte Komfortfunktionen der Lademodi&lt;/li&gt;
-    &lt;li&gt;Benachrichtigung über Änderungen in der Consolinno Energy HEMS App&lt;/li&gt;
-    &lt;li&gt;Benachrichtigung über Inkompatibilität bei Softwareversionen von App und Leaflet Hardware&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;Verbesserungen&lt;/h4&gt;
-&lt;ul&gt;
-    &lt;li&gt;Kaco Wechselrichter Integrationen&lt;/li&gt;
-    &lt;li&gt;Goodwe Wechselrichter Integrationen&lt;/li&gt;
-    &lt;li&gt;Heidelberg Wallboxen Integrationen&lt;/li&gt;
-&lt;/ul&gt;
-</translation>
+            &lt;p&gt;Version 1.3.4 (18. Januar 2024)&lt;/p&gt;
+            &lt;h4&gt;Behoben&lt;/h4&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Fehlender Zeiger in der 24 Stunden-Ansicht&lt;/li&gt;
+            &lt;/ul&gt;</translation>
     </message>
 </context>
 <context>
