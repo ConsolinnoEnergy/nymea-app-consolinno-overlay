@@ -1277,6 +1277,7 @@ MainViewBase {
 
             Canvas {
                 id: timePickerCanvas
+                anchors.fill: parent
 
                 // Breaks on iOS!
                 //renderTarget: Canvas.FramebufferObject

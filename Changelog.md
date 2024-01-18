@@ -1,4 +1,8 @@
-## [1.3.3 - unreleased ]
+## [1.3.4 ]
+### Fixed
+- Missing time indicator in dashboard graph
+
+## [1.3.3 ]
 ### Added
 - Notification after App update 
 - Notification on incompatibility of HEMS system version
