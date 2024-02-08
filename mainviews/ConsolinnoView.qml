@@ -72,11 +72,11 @@ MainViewBase {
 
     function checkHEMSVersion(){
         var minSysVersion = Configuration.minSysVersion
-            // Checks if System version is less or equal to minSysVersion
-            if ([-1].includes(compareSemanticVersions(engine.jsonRpcClient.experiences.Hems, minSysVersion)))
-            {
-                return false
-            }
+        // Checks if System version is less or equal to minSysVersion
+        if ([-1].includes(compareSemanticVersions(engine.jsonRpcClient.experiences.Hems, minSysVersion)))
+        {
+            return false
+        }
         return true
     }
 
@@ -515,7 +515,8 @@ MainViewBase {
                 text: message
             }
             onClosed: {
-                console.debug("shonwPopupsSetting.shown: ", shownPopupsSetting.shown)
+                console.debug("shonwPopupsSetting.shown: ",
+                              shownPopupsSetting.shown)
                 var shownPopups = shownPopupsSetting.shown
                 shownPopups.push(appVersion)
                 shownPopupsSetting.shown = shownPopups
@@ -550,7 +551,7 @@ MainViewBase {
             // Show message if HEMS version is not compatible
             if (!checkHEMSVersion()) {
                 var incompNotificationPopup = incompNotificationComponent.createObject(root)
-//                incompNotificationPopup.message = qsTr("Consolinno HEMS App is not compatible with the HEMS system version running on %1. Please update your HEMS.").arg(engine.jsonRpcClient.currentHost.name)
+                //                incompNotificationPopup.message = qsTr("Consolinno HEMS App is not compatible with the HEMS system version running on %1. Please update your HEMS.").arg(engine.jsonRpcClient.currentHost.name)
                 
                 incompNotificationPopup.message=qsTr('<h3>Incompatible Software Versions</h3>
                 <p>The software versions of your "Consolinno Energy HEMS App" (v%1) and your "Leaflet HEMS End Device" (v%2) are incompatible and currently only partially usable. Your "Leaflet HEMS End Device" will be automatically updated during the day.</p>
@@ -837,7 +838,6 @@ MainViewBase {
                     linesCanvas.requestPaint()
                 }
 
-
                 RowLayout {
                     id: topLegend
                     Layout.fillWidth: true
@@ -864,10 +864,6 @@ MainViewBase {
                     Repeater {
                         id: legendProducersRepeater
                         model: producers
-                    Repeater {
-                        id: legendProducersRepeater
-                        model: producers
-
                         delegate: LegendTile {
                             visible: producers.get(index).id !== rootMeter.id
                             color: lsdChart.producersColor
@@ -1572,7 +1568,6 @@ MainViewBase {
             }
         }
     }
-
 
     /*
     Rectangle {
