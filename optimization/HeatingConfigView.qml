@@ -19,7 +19,6 @@ GenericConfigPage {
 
     title: root.thing.name
 
-
     content: [
         ColumnLayout{
             id: columnLayout
@@ -31,20 +30,19 @@ GenericConfigPage {
 
             RowLayout{
                 Layout.fillWidth: true
+                visible: thing && thing.stateByName("currentPower")
 
                 Label{
                     Layout.fillWidth: true
                     id: consumption
                     text: qsTr("Current consumption:")
                     Layout.leftMargin:  15
-                    visible: thing ? thing.stateByName("currentPower"): false
                 }
 
                 Label{
                     id: consumptionValue
 
                     text: thing.stateByName("currentPower").value + " W"
-                    visible: thing ? thing.stateByName("currentPower"): false
                 }
             }
 
@@ -94,8 +92,6 @@ GenericConfigPage {
                     {Id: "hotWaterTemperature", name: qsTr("Hot water temperature"), value: thing.stateByName("hotWaterTemperature") ? thing.stateByName("hotWaterTemperature").value : null , unit: "°C" , component: stringValues},
                     {Id: "returnTemperature", name: qsTr("Return temperature"), value: thing.stateByName("returnTemperature")? thing.stateByName("returnTemperature").value : null , unit: "°C", component: stringValues},
                     {Id: "flowTemperature", name: qsTr("Flow temperature"), value: thing.stateByName("flowTemperature")? thing.stateByName("flowTemperature").value : null , unit: "°C", component: stringValues},
-
-
                 ]
 
                 function translateNymeaHeatpumpValues(something){
@@ -211,7 +207,9 @@ GenericConfigPage {
                     Label{
                         id: singleValue
 
-                        text: delegateValue + delegateUnit
+                        property double numberValue: Number(delegateValue)
+
+                        text: ( numberValue ? numberValue.toFixed(1) : delegateValue) + delegateUnit
                     }
                 }
             }
@@ -241,8 +239,8 @@ GenericConfigPage {
                         onClicked:
                         {
                             pageStack.push(configData, {
-                                           "configDataValues": delegateParams
-                                       })
+                                               "configDataValues": delegateParams
+                                           })
                         }
                     }
                 }
