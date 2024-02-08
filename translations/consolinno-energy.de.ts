@@ -2023,6 +2023,104 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>HeatingElementConfigurationView</name>
+    <message>
+        <source>Heating Element</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HeatingElementDevicePage</name>
+    <message>
+        <source>Operating Mode (Solar Only)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation type="unfinished">Aus</translation>
+    </message>
+    <message>
+        <source>Not available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heating is operated only with solar power.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The operating mode (Solar Only) is turned off. The settings can be changed in the optimization settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The operating mode (Solar Only) is not available because a charging process is currently being prioritized.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current Temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current Consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total Consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HeatingElementOptimization</name>
+    <message>
+        <source>Heating Element Configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not save configuration. One of the parameters is invalid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Could not save configuration. The thing is not valid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Max power</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>kW</source>
+        <translation type="unfinished">kW</translation>
+    </message>
+    <message>
+        <source>Operating mode (Solar Only)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heater is operated only with solar power. If a wallbox is connected to
+the system, and a charging process is started, charging is prioritized.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heating element is not controlled by the HEMS.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>HeatingOptimization</name>
     <message>
         <source>Heating configuration</source>
@@ -2517,10 +2615,6 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
         <translation>Schade!</translation>
     </message>
     <message>
-        <source>No things of this kind could be found...</source>
-        <translation>Kein Gerät wurde gefunden</translation>
-    </message>
-    <message>
         <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
         <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
     </message>
@@ -2530,7 +2624,7 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     </message>
     <message>
         <source>Reconfigure %1</source>
-        <translation type="unfinished">Konfiguriere %1</translation>
+        <translation>Konfiguriere %1</translation>
     </message>
     <message>
         <source>Set up %1</source>
@@ -2555,6 +2649,10 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     <message>
         <source>At the moment, Consolinno HEMS can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
         <translation>Momentan kann das Consolinno HEMS nur eine Wallbox ansteuern. Das Unterstützen von mehreren Wallboxen ist für ein zukünftiges Release geplant.</translation>
+    </message>
+    <message>
+        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
+        <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
 </context>
 <context>
@@ -2604,10 +2702,6 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
         <translation>Schade!</translation>
     </message>
     <message>
-        <source>No things of this kind could be found...</source>
-        <translation>Kein Gerät wurde gefunden</translation>
-    </message>
-    <message>
         <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
         <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
     </message>
@@ -2638,6 +2732,10 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     <message>
         <source>Please change name if necessary</source>
         <translation>Wenn notwendig, bitte den Namen ändern</translation>
+    </message>
+    <message>
+        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
+        <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
 </context>
 <context>
@@ -2703,10 +2801,6 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
         <translation>Schade!</translation>
     </message>
     <message>
-        <source>No things of this kind could be found...</source>
-        <translation>Kein Gerät wurde gefunden</translation>
-    </message>
-    <message>
         <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
         <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
     </message>
@@ -2741,6 +2835,113 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     <message>
         <source>At the moment, Consolinno HEMS can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
         <translation>Momentan kann das Consolinno HEMS nur eine Wärmepumpe ansteuern. Das Unterstützen von mehreren Wärmepumpen ist für ein zukünftiges Release geplant.</translation>
+    </message>
+    <message>
+        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
+        <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
+    </message>
+</context>
+<context>
+    <name>SetupHeatingElementWizard</name>
+    <message>
+        <source>Setup heating element</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Integrated heating elements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is no heating element set up yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add heating element: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cancel</source>
+        <translation>abbrechen</translation>
+    </message>
+    <message>
+        <source>add</source>
+        <translation>hinzufügen</translation>
+    </message>
+    <message>
+        <source>Next step</source>
+        <translation>Nächster Schritt</translation>
+    </message>
+    <message>
+        <source>Discover %1</source>
+        <translation>%1 einrichten</translation>
+    </message>
+    <message>
+        <source>Discovery options</source>
+        <translation>Suchparameter</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
+        <translation>Folgende Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Searching for things...</source>
+        <translation>Suche Geräte</translation>
+    </message>
+    <message>
+        <source>Too bad...</source>
+        <translation>Schade!</translation>
+    </message>
+    <message>
+        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
+        <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
+    </message>
+    <message>
+        <source>Search again</source>
+        <translation>Erneut suchen</translation>
+    </message>
+    <message>
+        <source>Reconfigure %1</source>
+        <translation>Konfiguriere %1</translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation>%1 einrichten</translation>
+    </message>
+    <message>
+        <source>Name the thing:</source>
+        <translation>Name:</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
+        <translation>Wenn notwendig, bitte den Namen ändern</translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation>Gerät parameter</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Set up Heating Element</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following heating element has been found and set up:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An unexpected error happened during the setup. Please verify the heating element is installed correctly and try again.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2806,10 +3007,6 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
         <translation>Schade!</translation>
     </message>
     <message>
-        <source>No things of this kind could be found...</source>
-        <translation>Kein Gerät wurde gefunden</translation>
-    </message>
-    <message>
         <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
         <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
     </message>
@@ -2847,7 +3044,7 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished">Benutzername</translation>
+        <translation>Benutzername</translation>
     </message>
     <message>
         <source>Thing reconfigured!</source>
@@ -2855,11 +3052,11 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     </message>
     <message>
         <source>Thing added!</source>
-        <translation type="unfinished">Thing hinzugefügt!</translation>
+        <translation>Thing hinzugefügt!</translation>
     </message>
     <message>
         <source>Uh oh</source>
-        <translation type="unfinished">Uh oh</translation>
+        <translation>Uh oh</translation>
     </message>
     <message>
         <source>All done. You can now start using %1.</source>
@@ -2872,6 +3069,10 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     <message>
         <source>Ok</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
+        <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
 </context>
 <context>

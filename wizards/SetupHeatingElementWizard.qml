@@ -407,7 +407,7 @@ Page {
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WordWrap
-                    text: qsTr("No things of this kind could be found...")
+                    text: qsTr("No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to 'Search again'.")
                 }
 
                 Label {
