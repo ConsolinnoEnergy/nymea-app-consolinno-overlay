@@ -64,7 +64,8 @@ void HemsManager::setEngine(Engine *engine)
 
         // Fetch initial data
         m_engine->jsonRpcClient()->sendCommand("Hems.GetUserConfigurations", QVariantMap(), this, "getUserConfigurationsResponse");
-        m_engine->jsonRpcClient()->sendCommand("Hems.GetConEMSState", QVariantMap(), this, "getConEMSStateResponse");
+        // This will crash if the Hems.GetConEMSState is not implemented on the server. No need to fetch this data initally
+        //m_engine->jsonRpcClient()->sendCommand("Hems.GetConEMSState", QVariantMap(), this, "getConEMSStateResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetAvailableUseCases", QVariantMap(), this, "getAvailableUseCasesResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHousholdPhaseLimit", QVariantMap(), this, "getHousholdPhaseLimitResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingConfigurations", QVariantMap(), this, "getHeatingConfigurationsResponse");
