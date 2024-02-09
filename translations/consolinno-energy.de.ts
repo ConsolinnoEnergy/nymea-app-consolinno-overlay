@@ -1627,6 +1627,43 @@ Mail service@consolinno.de</source>
         <source>Start setup</source>
         <translation>Einrichtung starten</translation>
     </message>
+    <message>
+        <source>&lt;h3&gt;Incompatible Software Versions&lt;/h3&gt;
+                &lt;p&gt;The software versions of your &quot;Consolinno Energy HEMS App&quot; (v%1) and your &quot;Leaflet HEMS End Device&quot; (v%2) are incompatible and currently only partially usable. Your &quot;Leaflet HEMS End Device&quot; will be automatically updated during the day.&lt;/p&gt;
+                &lt;p&gt;If you still receive this message after several hours, please contact our support:&lt;/p&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Phone: &lt;a href=&quot;tel:+4994120300333&quot;&gt;+49 941/ 20300 333&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;a href=&quot;mailto:service@consolinno.de&quot;&gt;service@consolinno.de&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;p&gt;We apologize for the temporary limitations in use.&lt;/p&gt;
+                &lt;p&gt;Best regards&lt;/p&gt;
+                &lt;p&gt;Your Consolinno Energy Team&lt;/p&gt;</source>
+        <translation>&lt;h3&gt;Inkompatible Softwareversionen&lt;/h3&gt;
+    &lt;p&gt;Die Softwareversionen Ihrer &quot;Consolinno Energy HEMS App&quot; (v%1) und Ihres &quot;Leaflet HEMS Endgeräts&quot; (v%2) sind inkompatibel und derzeit nur eingeschränkt nutzbar. Ihr &quot;Leaflet HEMS Endgerät&quot; wird im Laufe des Tages automatisch aktualisiert.&lt;/p&gt;
+    &lt;p&gt;Falls Sie diese Nachricht auch nach mehreren Stunden noch erhalten, kontaktieren Sie bitte unseren Support:&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Telefon: &lt;a href=&quot;tel:+4994120300333&quot;&gt;+49 941/ 20300 333&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;E-Mail: &lt;a href=&quot;mailto:service@consolinno.de&quot;&gt;service@consolinno.de&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;Wir entschuldigen uns für die vorübergehenden Einschränkungen in der Nutzung.&lt;/p&gt;
+    &lt;p&gt;Beste Grüße&lt;/p&gt;
+    &lt;p&gt;Ihr Consolinno Energy Team&lt;/p&gt;
+</translation>
+    </message>
+    <message>
+        <source>&lt;h3&gt;Consolinno Energy HEMS App was updated&lt;/h3&gt;
+            &lt;p&gt;Version 1.3.4 (January 18, 2024)&lt;/p&gt;
+            &lt;h4&gt;Fixed&lt;/h4&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Fixed missing time indicator in dashboard&lt;/li&gt;
+            &lt;/ul&gt;</source>
+        <translation>&lt;h3&gt;Consolinno Energy HEMS App wurde aktualisiert&lt;/h3&gt;
+            &lt;p&gt;Version 1.3.4 (18. Januar 2024)&lt;/p&gt;
+            &lt;h4&gt;Behoben&lt;/h4&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Fehlender Zeiger in der 24 Stunden-Ansicht&lt;/li&gt;
+            &lt;/ul&gt;</translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoWizardPageBase</name>

@@ -47,6 +47,40 @@ MainViewBase {
     property bool loading: engine.thingManager.fetchingData
                            || logsLoader.fetchingData
     property UserConfiguration userconfig
+
+    function compareSemanticVersions(version1, version2) {
+        // Returns 0 if version1 == version2
+        // Returns 1 if version1 > version2
+        // Returns -1 if version1 < version2
+
+        var v1 = version1.split('.').map(function(part) { return parseInt(part); });
+        var v2 = version2.split('.').map(function(part) { return parseInt(part); });
+
+        for (var i = 0; i < Math.max(v1.length, v2.length); i++) {
+            var num1 = i < v1.length ? v1[i] : 0;
+            var num2 = i < v2.length ? v2[i] : 0;
+
+            if (num1 < num2) {
+                return -1; // version1 is lower
+            } else if (num1 > num2) {
+                return 1; // version1 is higher
+            }
+        }
+
+        return 0; // versions are equal
+    }
+
+    function checkHEMSVersion(){
+        var minSysVersion = Configuration.minSysVersion
+            // Checks if System version is less or equal to minSysVersion
+            if ([-1].includes(compareSemanticVersions(engine.jsonRpcClient.experiences.Hems, minSysVersion)))
+            {
+                return false
+            }
+        return true
+    }
+
+
     EnergyManager {
         id: energyManager
         engine: _engine
@@ -97,6 +131,7 @@ MainViewBase {
             }
             return page
         }
+
 
         function exitWizard() {
             print("exiting wizard")
@@ -405,30 +440,55 @@ MainViewBase {
     }
 
     Component {
+        id: incompNotificationComponent
+        Popup {
+            property string message: ""
+            id: incompNotificationPopup
+            parent: root
+            x: Math.round((parent.width - width) / 2)
+            y: Math.round((parent.height - height) / 2)
+            width: parent.width * 0.9
+            modal: true
+            focus: true
+            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+            contentItem: Label {
+                Layout.fillWidth: true
+                Layout.topMargin: app.margins
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
+                wrapMode: Text.WordWrap
+                textFormat: Text.RichText
+                text: message
+            }
+        }
+    }
+
+
+    Component {
         id: startUpNotificationComponent
 
         Popup {
-
             property string message: ""
             id: startUpNotificationPopup
             parent: root
             x: Math.round((parent.width - width) / 2)
             y: Math.round((parent.height - height) / 2)
-            width: parent.width
+
+            width: parent.width * 0.9
             modal: true
             focus: true
             closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-            Label {
+            contentItem: Label {
                 Layout.fillWidth: true
-                Layout.topMargin: Style.margins
-                Layout.leftMargin: Style.margins
-                Layout.rightMargin: Style.margins
+                Layout.topMargin: app.margins
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
                 wrapMode: Text.WordWrap
+                textFormat: Text.RichText
                 text: message
             }
             onClosed: {
-                console.warn("shonwPopupsSetting.shown: ",
-                             shownPopupsSetting.shown)
+                console.debug("shonwPopupsSetting.shown: ", shownPopupsSetting.shown)
                 var shownPopups = shownPopupsSetting.shown
                 shownPopups.push(appVersion)
                 shownPopupsSetting.shown = shownPopups
@@ -441,21 +501,48 @@ MainViewBase {
         userconfig = hemsManager.userConfigurations.getUserConfiguration(
                     "528b3820-1b6d-4f37-aea7-a99d21d42e72")
     }
-
+    
     onVisibleChanged: {
-        console.debug(
-                    "Visibility of " + engine.jsonRpcClient.currentHost + " changed to " + visible)
+        console.debug("Visibility of " + engine.jsonRpcClient.currentHost.name + " changed to " + visible)
         if (visible) {
-            var notficationPopup = startUpNotificationComponent.createObject(
-                        root)
-            notficationPopup.message = qsTr("Consolinno HEMS App was updated to version %1.").arg(appVersion)
+            // Show message if app was updated
+            var notficationPopup = startUpNotificationComponent.createObject(root)
+            //notficationPopup.message = qsTr("Consolinno HEMS App was updated to version %1.").arg(appVersion)
+            notficationPopup.message=qsTr('<h3>Consolinno Energy HEMS App was updated</h3>
+            <p>Version 1.4.0 (January 18, 2024)</p>
+            <h4>Fixed</h4>
+            <ul>
+                <li>TODO</li>
+            </ul>')
             // If Popup not already open, open it
             if (notficationPopup.opened === false
                     && shownPopupsSetting.shown.indexOf(appVersion) === -1) {
                 notficationPopup.open()
             }
+
+            // Show message if HEMS version is not compatible
+            if (!checkHEMSVersion()) {
+                var incompNotificationPopup = incompNotificationComponent.createObject(root)
+//                incompNotificationPopup.message = qsTr("Consolinno HEMS App is not compatible with the HEMS system version running on %1. Please update your HEMS.").arg(engine.jsonRpcClient.currentHost.name)
+                
+                incompNotificationPopup.message=qsTr('<h3>Incompatible Software Versions</h3>
+                <p>The software versions of your "Consolinno Energy HEMS App" (v%1) and your "Leaflet HEMS End Device" (v%2) are incompatible and currently only partially usable. Your "Leaflet HEMS End Device" will be automatically updated during the day.</p>
+                <p>If you still receive this message after several hours, please contact our support:</p>
+                <ul>
+                    <li>Phone: <a href="tel:+4994120300333">+49 941/ 20300 333</a></li>
+                    <li>Email: <a href="mailto:service@consolinno.de">service@consolinno.de</a></li>
+                </ul>
+                <p>We apologize for the temporary limitations in use.</p>
+                <p>Best regards</p>
+                <p>Your Consolinno Energy Team</p>').arg(appVersion).arg(engine.jsonRpcClient.experiences.Hems)
+                // If Popup not already open, open it
+                if (incompNotificationPopup.opened === false) {
+                    incompNotificationPopup.open()
+                }
+            }
         }
     }
+
 
     ThingsProxy {
         id: evProxy
@@ -1180,6 +1267,7 @@ MainViewBase {
 
             Canvas {
                 id: timePickerCanvas
+                anchors.fill: parent
 
                 // Breaks on iOS!
                 //renderTarget: Canvas.FramebufferObject

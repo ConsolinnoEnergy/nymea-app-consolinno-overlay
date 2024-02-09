@@ -85,10 +85,8 @@
         <file>images/leaflet-ethernet-connect.png</file>
         <file>info/GridConsumptionInfo.qml</file>
         <file>images/heating_rod.svg</file>
-        <file>DebugRectangle.qml</file>
         <file>thingconfiguration/DebugCharts.qml</file>
         <file>thingconfiguration/ConEMSState.qml</file>
-        <file>mainviews/OutOfDate.qml</file>
         <file>mainviews/StartupNotificationPopup.qml</file>
     </qresource>
 </RCC>

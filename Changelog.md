@@ -4,6 +4,15 @@
 - Improved showing busy spinner in charging configuration view
 - Heating rod support 
 
+## [1.3.4 ]
+### Fixed
+- Missing time indicator in dashboard graph
+
+## [1.3.3 ]
+### Added
+- Notification after App update 
+- Notification on incompatibility of HEMS system version
+
 ## [1.3.0]
 ### Changed
 - Improved household phase limit configuration
