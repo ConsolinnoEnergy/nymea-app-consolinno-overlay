@@ -9,7 +9,6 @@ import "../optimization"
 Page {
     id: root
 
-
     header: NymeaHeader {
         text: qsTr("Optimization configuration")
         backButtonVisible: true
@@ -24,6 +23,7 @@ Page {
     }
 
     property HemsManager hemsManager
+
     ListModel {
         id: useCasesModel
         ListElement { text: qsTr("Blackout protection"); value: HemsManager.HemsUseCaseBlackoutProtection; visible: true }
@@ -81,7 +81,6 @@ Page {
             }
         }
     }
-
 
     EmptyViewPlaceholder {
         anchors { left: parent.left; right: parent.right; margins: app.margins }

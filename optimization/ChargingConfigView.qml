@@ -608,7 +608,7 @@ GenericConfigPage {
                         Label{
                             id: currentCurrentValue
 
-                            text: initializing ? 0 + " A": thing.stateByName("maxChargingCurrent").value + " A"
+                            text: (initializing ? 0 : thing.stateByName("currentPower").value) + " W"
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
