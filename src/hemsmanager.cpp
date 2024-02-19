@@ -137,11 +137,6 @@ HeatingElementConfigurations *HemsManager::heatingElementConfigurations() const
     return m_heatingElementConfigurations;
 }
 
-HeatingElementConfigurations *HemsManager::heatingElementConfigurations() const
-{
-    return m_heatingElementConfigurations;
-}
-
 ConEMSState *HemsManager::conEMSState() const
 {
     return m_conEMSState;
@@ -151,7 +146,6 @@ UserConfigurations *HemsManager::userConfigurations() const
 {
     return m_userConfigurations;
 }
-
 
 int HemsManager::setPvConfiguration(const QUuid &pvThingId, const QVariantMap &data)
 {
@@ -892,34 +886,6 @@ void HemsManager::addOrUpdateHeatingElementConfiguration(const QVariantMap &conf
 
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
     configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
-
-     if (newConfiguration){
-         qCDebug(dcHems()) << "HeatingElement configuration added" << configuration->heatingRodThingId();
-         m_heatingElementConfigurations->addConfiguration(configuration);
-
-     }else{
-        qCDebug(dcHems()) << "Heating Element configuration changed" << configuration->heatingRodThingId();
-        emit heatingElementConfigurationChanged(configuration);
-
-     }
-}
-
-void HemsManager::addOrUpdateHeatingElementConfiguration(const QVariantMap &configurationMap)
-{
-
-    QUuid heatingElementUuid = configurationMap.value("heatingRodThingId").toUuid();
-    HeatingElementConfiguration *configuration = m_heatingElementConfigurations->getHeatingElementConfiguration(heatingElementUuid);
-    bool newConfiguration = false;
-    if(!configuration){
-        newConfiguration = true;
-        configuration = new HeatingElementConfiguration(this);
-
-
-        configuration->setHeatingRodThingId(heatingElementUuid);
-    }
-
-
-    configuration->setMaxPower(configurationMap.value("maxPower").toDouble());
 
      if (newConfiguration){
          qCDebug(dcHems()) << "HeatingElement configuration added" << configuration->heatingRodThingId();

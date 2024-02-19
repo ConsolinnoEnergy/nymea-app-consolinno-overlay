@@ -699,7 +699,7 @@ GenericConfigPage {
                             text:  status.state == 3 ? qsTr("Configure charging mode") : qsTr("Reconfigure charging mode" )
                             onClicked: {
                                 busyOverlay.shown = true
-                        hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: false, optimizationMode:9})
+                                hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: false, optimizationMode:9})
                             }
                         }
                     }
@@ -1210,21 +1210,23 @@ GenericConfigPage {
 
                             }
 
-                    function compute_OptimizationMode(){
-                        var mode = comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode
-                        if(isAnyOfModesSelected([pv_excess, simple_pv_excess])){
-                            // single digit
-                            var gridConsumptionOption = gridConsumptionloadingmod.model.get(gridConsumptionloadingmod.currentIndex).mode
-                            mode = mode + gridConsumptionOption
+                            function compute_OptimizationMode(){
+                                var mode = comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode
+                                if(isAnyOfModesSelected([pv_excess, simple_pv_excess])){
+                                    // single digit
+                                    var gridConsumptionOption = gridConsumptionloadingmod.model.get(gridConsumptionloadingmod.currentIndex).mode
+                                    mode = mode + gridConsumptionOption
+                                }
+                                return mode
+                            }
                         }
-                        return mode
                     }
                 }
             }
-        }
-    }
-    BusyOverlay {
-        id: busyOverlay
-    }
+            BusyOverlay {
+                id: busyOverlay
+            }
 
+        }
+    ]
 }
