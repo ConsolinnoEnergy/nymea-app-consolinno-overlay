@@ -1397,15 +1397,15 @@ MainViewBase {
                                                         "thing": thing
                                                     })
                                     }
-                                } else if(thing.name === 'Heizstab') {
-                                    pageStack.push(
-                                                "../devicepages/HeatingElementDevicePage.qml",
-                                                {
-                                                    "thing": thing
-                                                })
-                                }
+                                //} else if(thing.name === 'Heizstab') {
+                                //    pageStack.push(
+                                //                "../devicepages/HeatingElementDevicePage.qml",
+                                //                {
+                                //                    "thing": thing
+                                //                })
+                                //}
 
-                                else {
+                                } else {
                                     pageStack.push(
                                                 "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                                 {
@@ -1437,51 +1437,6 @@ MainViewBase {
         }
 
 
-        /**
-        Canvas {
-            id: timePickerCanvas
-            anchors.fill: parent
-
-
-
-            // Breaks on iOS!
-            //renderTarget: Canvas.FramebufferObject
-            renderStrategy: Canvas.Cooperative
-
-            onPaint: {
-//              paint timePicker canvas
-                var ctx = getContext("2d");
-                ctx.reset();
-                ctx.save();
-                var xTranslate = chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2
-                var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
-                ctx.translate(xTranslate, yTranslate)
-
-                ctx.strokeStyle = "black"
-                ctx.fillStyle = "black"
-
-                ctx.beginPath();
-                ctx.setLineDash([1,0])
-                ctx.lineWidth = 5
-                ctx.moveTo(0, -chartView.plotArea.height / 2 + innerCircle.radius)
-                ctx.lineTo(0, -(chartView.plotArea.width + 20) / 2)
-                ctx.stroke();
-                ctx.closePath();
-
-                ctx.beginPath();
-                ctx.moveTo(-15, -chartView.plotArea.height / 2)
-                ctx.lineTo(15, -chartView.plotArea.height / 2)
-                ctx.lineTo(0, -chartView.plotArea.height / 2 + 20)
-                ctx.lineTo(-15, -chartView.plotArea.height / 2)
-                ctx.fill()
-                ctx.closePath();
-
-                ctx.restore();
-
-            }
-        }
-
-**/
         Canvas {
             id: circleCanvas
             anchors.fill: parent
@@ -1569,27 +1524,7 @@ MainViewBase {
         }
     }
 
-    /*
-    Rectangle {
-        anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
-        height: Style.hugeMargins
-        z: -1
-        gradient: Gradient {
-            GradientStop { position: 0; color: "transparent" }
-            GradientStop { position: 1; color: Style.accentColor }
-        }
 
-        Image {
-            anchors.centerIn: parent
-            width: Math.min(parent.width, 700)
-            height: parent.height
-            source: "/ui/images/intro-bg-graphic.svg"
-            sourceSize.width: width
-            fillMode: Image.PreserveAspectCrop
-            verticalAlignment: Image.AlignTop
-        }
-    }
-*/
     EmptyViewPlaceholder {
         anchors {
             left: parent.left
