@@ -330,10 +330,6 @@
         <translation>Batterieinhalt</translation>
     </message>
     <message>
-        <source>Charging current</source>
-        <translation>Ladestrom</translation>
-    </message>
-    <message>
         <source>Energy charged</source>
         <translation>Geladene Energie</translation>
     </message>
@@ -376,6 +372,14 @@
     <message>
         <source>Reconfigure charging mode</source>
         <translation>Lademodus ändern</translation>
+    </message>
+    <message>
+        <source>Target charging current</source>
+        <translation type="unfinished">Ladestrom (Soll)</translation>
+    </message>
+    <message>
+        <source>Actual charging current</source>
+        <translation type="unfinished">Ladestrom (Ist)</translation>
     </message>
 </context>
 <context>
@@ -460,46 +464,10 @@
     </message>
 </context>
 <context>
-    <name>ConEMSObserver</name>
+    <name>ConEMSState</name>
     <message>
-        <source>Charging Controller</source>
-        <translation>Ladekontroller</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation>Unbekannt</translation>
-    </message>
-    <message>
-        <source>Running</source>
-        <translation>Läuft</translation>
-    </message>
-    <message>
-        <source>Optimizer Busy</source>
-        <translation>Optimierer beschäftigt</translation>
-    </message>
-    <message>
-        <source>Restarting</source>
-        <translation>Restarting</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation>Fehler</translation>
-    </message>
-    <message>
-        <source>ConEMS Observer</source>
-        <translation>ConEMS Beobachter</translation>
-    </message>
-    <message>
-        <source>Active controller: </source>
-        <translation>Active Regler</translation>
-    </message>
-    <message>
-        <source>:  Current State:  </source>
-        <translation>:  Status:  </translation>
-    </message>
-    <message>
-        <source>Heat pump Controller</source>
-        <translation>Wärmepumpenkontroller</translation>
+        <source>ConEMS State</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1710,17 +1678,12 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>&lt;h3&gt;Consolinno Energy HEMS App was updated&lt;/h3&gt;
-            &lt;p&gt;Version 1.3.4 (January 18, 2024)&lt;/p&gt;
+            &lt;p&gt;Version 1.4.0 (January 18, 2024)&lt;/p&gt;
             &lt;h4&gt;Fixed&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;Fixed missing time indicator in dashboard&lt;/li&gt;
+                &lt;li&gt;TODO&lt;/li&gt;
             &lt;/ul&gt;</source>
-        <translation>&lt;h3&gt;Consolinno Energy HEMS App wurde aktualisiert&lt;/h3&gt;
-            &lt;p&gt;Version 1.3.4 (18. Januar 2024)&lt;/p&gt;
-            &lt;h4&gt;Behoben&lt;/h4&gt;
-            &lt;ul&gt;
-                &lt;li&gt;Fehlender Zeiger in der 24 Stunden-Ansicht&lt;/li&gt;
-            &lt;/ul&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1755,6 +1718,13 @@ Mail service@consolinno.de</source>
     <message>
         <source>Phone number: </source>
         <translation>Telefonnummer: </translation>
+    </message>
+</context>
+<context>
+    <name>DebugCharts</name>
+    <message>
+        <source>Debug Charts</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2426,6 +2396,20 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     <message>
         <source>Optimization configuration</source>
         <translation>Optimierungseinstellungen</translation>
+    </message>
+    <message>
+        <source>Heating Element</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OutOfDate</name>
+    <message>
+        <source>This version of the App (%3) is not compatibile with the software running on your Consolinno HEMS system (%2) .
+Please upgrade your Consolinno HEMS system software to at least version %1.
+
+Please refer to our service if you have any questions: service@consolinno.de</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

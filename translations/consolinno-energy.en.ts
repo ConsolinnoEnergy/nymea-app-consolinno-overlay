@@ -330,10 +330,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Charging current</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Energy charged</source>
         <translation type="unfinished"></translation>
     </message>
@@ -375,6 +371,14 @@
     </message>
     <message>
         <source>Reconfigure charging mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target charging current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actual charging current</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -460,45 +464,9 @@
     </message>
 </context>
 <context>
-    <name>ConEMSObserver</name>
+    <name>ConEMSState</name>
     <message>
-        <source>Charging Controller</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Running</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Optimizer Busy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Restarting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ConEMS Observer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Active controller: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>:  Current State:  </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Heat pump Controller</source>
+        <source>ConEMS State</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1701,10 +1669,10 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>&lt;h3&gt;Consolinno Energy HEMS App was updated&lt;/h3&gt;
-            &lt;p&gt;Version 1.3.4 (January 18, 2024)&lt;/p&gt;
+            &lt;p&gt;Version 1.4.0 (January 18, 2024)&lt;/p&gt;
             &lt;h4&gt;Fixed&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;Fixed missing time indicator in dashboard&lt;/li&gt;
+                &lt;li&gt;TODO&lt;/li&gt;
             &lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1740,6 +1708,13 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Phone number: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DebugCharts</name>
+    <message>
+        <source>Debug Charts</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2406,6 +2381,20 @@ the system, and a charging process is started, charging is prioritized.</source>
     </message>
     <message>
         <source>Optimization configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heating Element</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OutOfDate</name>
+    <message>
+        <source>This version of the App (%3) is not compatibile with the software running on your Consolinno HEMS system (%2) .
+Please upgrade your Consolinno HEMS system software to at least version %1.
+
+Please refer to our service if you have any questions: service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

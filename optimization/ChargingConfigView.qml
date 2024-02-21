@@ -51,8 +51,17 @@ GenericConfigPage {
         return false
     }
 
-    title: root.thing.name
+    function calcChargingCurrent(){
+        // get the current power of the charger and null if not available
+        var power = thing.stateByName("currentPower")
+        var phaseCount = thing.stateByName("phaseCount").value
+        if (phaseCount === 0 | power === null){
+            return " – "
+        }
+        return power.value/(230*phaseCount)
+    }
 
+    title: root.thing.name
 
     // Connections to update the ChargingSessionConfiguration  and the ChargingConfiguration values
     Connections {
@@ -87,7 +96,8 @@ GenericConfigPage {
                     console.info("Going into running mode...")
                     //batteryLevelRowLayout.visible = true
                     //energyBatteryLayout.visible = true
-                    currentCurrentRowLayout.visible = true
+                    maxCurrentRowLayout.visible = true
+                    measuredCurrentRowLayout.visible = true
                     energyChargedLayout.visible = true
                     initializing = false
                 }
@@ -96,7 +106,8 @@ GenericConfigPage {
                     console.info("Going into pending mode...")
                     //batteryLevelRowLayout.visible = true
                     //energyBatteryLayout.visible = true
-                    currentCurrentRowLayout.visible = true
+                    maxCurrentRowLayout.visible = true
+                    measuredCurrentRowLayout.visible = true
                     energyChargedLayout.visible = true
                     initializing = false
                 }
@@ -113,7 +124,8 @@ GenericConfigPage {
                 if (!chargingConfiguration.optimizationEnabled){
                     batteryLevelRowLayout.visible = false
                     energyBatteryLayout.visible = false
-                    currentCurrentRowLayout.visible = false
+                    maxCurrentRowLayout.visible = false
+                    measuredCurrentRowLayout.visible = false
                     energyChargedLayout.visible = false
                     status.visible = false
                     initializing = false
@@ -125,7 +137,8 @@ GenericConfigPage {
                         initializing = true
                         batteryLevelRowLayout.visible = false
                         energyBatteryLayout.visible = false
-                        currentCurrentRowLayout.visible = true
+                        maxCurrentRowLayout.visible = true
+                        measuredCurrentRowLayout.visible = true
                         energyChargedLayout.visible = true
                         batteryLevelValue.text  = 0 + " %"
                         energyChargedValue.text = 0 + " kWh"
@@ -137,7 +150,8 @@ GenericConfigPage {
                         initializing = true
                         batteryLevelRowLayout.visible = true
                         energyBatteryLayout.visible = true
-                        currentCurrentRowLayout.visible = true
+                        maxCurrentRowLayout.visible = true
+                        measuredCurrentRowLayout.visible = true
                         energyChargedLayout.visible = true
                         batteryLevelValue.text  = 0 + " %"
                         energyChargedValue.text = 0 + " kWh"
@@ -594,21 +608,38 @@ GenericConfigPage {
                     }
 
                     RowLayout{
-                        id: currentCurrentRowLayout
+                        id: maxCurrentRowLayout
 
                         visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
 
                         Label{
-                            id: currentCurrentLabel
+                            id: maxCurrentLabel
 
                             Layout.fillWidth: true
-                            text: qsTr("Charging current")
+                            text: qsTr("Target charging current")
                         }
 
                         Label{
-                            id: currentCurrentValue
+                            id: maxCurrentValue
+                            text: (initializing ? 0 : thing.stateByName("maxChargingCurrent").value) + " A"
+                            Layout.alignment: Qt.AlignRight
+                            Layout.rightMargin: 0
+                        }
+                    }
+                    RowLayout{
+                        id: measuredCurrentRowLayout
 
-                            text: (initializing ? 0 : thing.stateByName("currentPower").value) + " W"
+                        visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
+
+                        Label{
+                            id: measuredCurrentLabel
+                            Layout.fillWidth: true
+                            text: qsTr("Actual charging current")
+                        }
+
+                        Label{
+                            id: measuredCurrentValue
+                            text: (initializing ? 0 : calcChargingCurrent()) + " A" 
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
