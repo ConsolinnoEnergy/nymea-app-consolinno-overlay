@@ -1397,15 +1397,8 @@ MainViewBase {
                                                         "thing": thing
                                                     })
                                     }
-                                } else if(thing.name === 'Heizstab') {
-                                    pageStack.push(
-                                                "../devicepages/HeatingElementDevicePage.qml",
-                                                {
-                                                    "thing": thing
-                                                })
-                                }
 
-                                else {
+                                } else {
                                     pageStack.push(
                                                 "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                                 {
