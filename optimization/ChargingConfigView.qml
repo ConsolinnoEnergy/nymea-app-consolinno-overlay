@@ -66,6 +66,16 @@ GenericConfigPage {
         return power.value/(230*phaseCount)
     }
 
+    function getChargingPower(){
+        // get the current power of the charger and null if not available
+        var power = thing.stateByName("currentPower")
+        if ( power === null){
+            return " – "
+        }
+        return power.value
+    }
+
+
     title: root.thing.name
     headerOptionsVisible: false
 
@@ -108,8 +118,11 @@ GenericConfigPage {
                     console.info("Going into running mode...")
                     //batteryLevelRowLayout.visible = true
                     //energyBatteryLayout.visible = true
-                    maxCurrentRowLayout.visible = true
-                    measuredCurrentRowLayout.visible = true
+                    if (settings.showHiddenOptions)
+                    {
+                        maxCurrentRowLayout.visible = true
+                        measuredCurrentRowLayout.visible = true
+                    }
                     energyChargedLayout.visible = true
                     initializing = false
                 }
@@ -118,8 +131,11 @@ GenericConfigPage {
                     console.info("Going into pending mode...")
                     //batteryLevelRowLayout.visible = true
                     //energyBatteryLayout.visible = true
-                    maxCurrentRowLayout.visible = true
-                    measuredCurrentRowLayout.visible = true
+                    if (settings.showHiddenOptions)
+                    {
+                        maxCurrentRowLayout.visible = true
+                        measuredCurrentRowLayout.visible = true
+                    }
                     energyChargedLayout.visible = true
                     initializing = false
                 }
@@ -149,8 +165,11 @@ GenericConfigPage {
                         initializing = true
                         batteryLevelRowLayout.visible = false
                         energyBatteryLayout.visible = false
-                        maxCurrentRowLayout.visible = true
-                        measuredCurrentRowLayout.visible = true
+                        if (settings.showHiddenOptions)
+                        {
+                            maxCurrentRowLayout.visible = true
+                            measuredCurrentRowLayout.visible = true
+                        }
                         energyChargedLayout.visible = true
                         batteryLevelValue.text  = 0 + " %"
                         energyChargedValue.text = 0 + " kWh"
@@ -162,7 +181,11 @@ GenericConfigPage {
                         initializing = true
                         batteryLevelRowLayout.visible = true
                         energyBatteryLayout.visible = true
-                        maxCurrentRowLayout.visible = true
+                        if (settings.showHiddenOptions)
+                        {
+                            maxCurrentRowLayout.visible = true
+                            measuredCurrentRowLayout.visible = true
+                        }
                         measuredCurrentRowLayout.visible = true
                         energyChargedLayout.visible = true
                         batteryLevelValue.text  = 0 + " %"
@@ -620,9 +643,29 @@ GenericConfigPage {
                     }
 
                     RowLayout{
-                        id: maxCurrentRowLayout
+                        id: chargingPowerRowLayout
 
                         visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
+
+                        Label{
+                            id: chargingPowerLabel
+
+                            Layout.fillWidth: true
+                            text: qsTr("Charging power")
+                        }
+
+                        Label{
+                            id: chargingPowerValue
+                            text: (initializing ? 0 : getChargingPower()) + " W"
+                            Layout.alignment: Qt.AlignRight
+                            Layout.rightMargin: 0
+                        }
+                    }
+
+                    RowLayout{
+                        id: maxCurrentRowLayout
+
+                        visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn() && settings.showHiddenOptions
 
                         Label{
                             id: maxCurrentLabel
@@ -641,7 +684,7 @@ GenericConfigPage {
                     RowLayout{
                         id: measuredCurrentRowLayout
 
-                        visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
+                        visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn() && settings.showHiddenOptions
 
                         Label{
                             id: measuredCurrentLabel

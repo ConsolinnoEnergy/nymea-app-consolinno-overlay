@@ -381,6 +381,10 @@
         <source>Actual charging current</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Charging power</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
