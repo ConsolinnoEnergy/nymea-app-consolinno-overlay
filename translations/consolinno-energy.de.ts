@@ -375,11 +375,15 @@
     </message>
     <message>
         <source>Target charging current</source>
-        <translation type="unfinished">Ladestrom (Soll)</translation>
+        <translation>Ladestrom (Soll)</translation>
     </message>
     <message>
         <source>Actual charging current</source>
-        <translation type="unfinished">Ladestrom (Ist)</translation>
+        <translation>Ladestrom (Ist)</translation>
+    </message>
+    <message>
+        <source>Charging power</source>
+        <translation>Ladeleistung</translation>
     </message>
 </context>
 <context>
