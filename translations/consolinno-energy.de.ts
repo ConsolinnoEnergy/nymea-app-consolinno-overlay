@@ -2303,7 +2303,7 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     </message>
     <message>
         <source>(The settings can be found in the wrench menu under &lt;font color=&quot;#87BD26&quot;&gt; Optimization Settings &lt;/font&gt;).</source>
-        <translation type="unfinished">(Die Einstellungen sind zu finden im Schraubenschlüsselmenü unter &lt;font color=&quot;#87BD26&quot;&gt; Optimierungseinstellungen &lt;/font&gt;).</translation>
+        <translation>(Die Einstellungen sind zu finden im Schraubenschlüsselmenü unter &lt;font color=&quot;#87BD26&quot;&gt; Optimierungseinstellungen &lt;/font&gt;).</translation>
     </message>
 </context>
 <context>
