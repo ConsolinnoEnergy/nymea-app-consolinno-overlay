@@ -62,6 +62,7 @@ GenericConfigPage {
     }
 
     title: root.thing.name
+    headerOptionsVisible: false
 
     // Connections to update the ChargingSessionConfiguration  and the ChargingConfiguration values
     Connections {
@@ -639,7 +640,7 @@ GenericConfigPage {
 
                         Label{
                             id: measuredCurrentValue
-                            text: (initializing ? 0 : calcChargingCurrent()) + " A" 
+                            text: (initializing ? 0 : calcChargingCurrent()) + " A"
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }

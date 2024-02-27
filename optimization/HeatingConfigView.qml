@@ -18,6 +18,7 @@ GenericConfigPage {
                                                      thing.id)
 
     title: root.thing.name
+    headerOptionsVisible: false
 
     content: [
         ColumnLayout{
