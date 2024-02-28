@@ -12,6 +12,7 @@ Item {
     property alias content: content.data
     property alias title: titleText.text
     property alias headerOptionsModel: menuListRepeater.model
+    property alias headerOptionsVisible: headerOptionsButton.enabled
 
     ListModel {
         id: menuListModel
@@ -83,6 +84,8 @@ Item {
                     }
 
                     Item {
+                        id: headerOptionsButton
+
                         Layout.fillHeight: true
                         Layout.fillWidth: false
                         Layout.preferredWidth: 48
@@ -92,10 +95,12 @@ Item {
                             height: 24
                             anchors.centerIn: parent
                             source: "/ui/images/navigation-menu.svg"
+                            visible: parent.enabled
                         }
 
                         MouseArea {
                             anchors.fill: parent
+                            enabled: parent.enabled
                             onClicked: {
                                 menu.open();
                             }

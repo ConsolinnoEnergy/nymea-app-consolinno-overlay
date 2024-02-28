@@ -72,7 +72,7 @@ Item {
     }
 
     function checkValue() {
-        if(textInput.text < textInput.validator.bottom || textInput.text > textInput.validator.top) {
+        if(parseInt(textInput.text) < textInput.validator.bottom || parseInt(textInput.text) > textInput.validator.top) {
             root.errorMessage = qsTr("Please enter a value between ") + textInput.validator.bottom + qsTr(" and ") + textInput.validator.top + qsTr(" ");
             return;
         }

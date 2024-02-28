@@ -375,11 +375,15 @@
     </message>
     <message>
         <source>Target charging current</source>
-        <translation type="unfinished">Ladestrom (Soll)</translation>
+        <translation>Ladestrom (Soll)</translation>
     </message>
     <message>
         <source>Actual charging current</source>
-        <translation type="unfinished">Ladestrom (Ist)</translation>
+        <translation>Ladestrom (Ist)</translation>
+    </message>
+    <message>
+        <source>Charging power</source>
+        <translation>Ladeleistung</translation>
     </message>
 </context>
 <context>
@@ -2303,7 +2307,7 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     </message>
     <message>
         <source>(The settings can be found in the wrench menu under &lt;font color=&quot;#87BD26&quot;&gt; Optimization Settings &lt;/font&gt;).</source>
-        <translation type="unfinished">(Die Einstellungen sind zu finden im Schraubenschlüsselmenü unter &lt;font color=&quot;#87BD26&quot;&gt; Optimierungseinstellungen &lt;/font&gt;).</translation>
+        <translation>(Die Einstellungen sind zu finden im Schraubenschlüsselmenü unter &lt;font color=&quot;#87BD26&quot;&gt; Optimierungseinstellungen &lt;/font&gt;).</translation>
     </message>
 </context>
 <context>

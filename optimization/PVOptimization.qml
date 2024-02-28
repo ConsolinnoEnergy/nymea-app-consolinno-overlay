@@ -196,11 +196,14 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: false
             label: qsTr("Peak power")
-            text: pvConfiguration.kwPeak
+            text: pvConfiguration.kwPeak.toLocaleString(Qt.locale())
             unit: qsTr("kW")
 
             validator: DoubleValidator {
                 bottom: 1
+                top: 30
+                decimals: 2
+                notation: "StandardNotation"
             }
         }
 

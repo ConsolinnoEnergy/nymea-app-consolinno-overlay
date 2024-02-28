@@ -40,7 +40,12 @@ GenericConfigPage {
     property int pv_optimized: ChargingConfigView.ChargingMode.PV_OPTIMIZED
     property int pv_excess: ChargingConfigView.ChargingMode.PV_EXCESS
     property int simple_pv_excess: ChargingConfigView.ChargingMode.SIMPLE_PV_EXCESS
-    property ConEMSState conState: hemsManager.conEMSState
+    // uncomment when the backend is ready for ConEMS state
+    //property ConEMSState conState: hemsManager.conEMSState
+
+    function timer() {
+        return Qt.createQmlObject("import QtQuick 2.0; Timer {}", root);
+    }
 
     function isCarPluggedIn()
     {
@@ -61,16 +66,32 @@ GenericConfigPage {
         return power.value/(230*phaseCount)
     }
 
+    function getChargingPower(){
+        // get the current power of the charger and null if not available
+        var power = thing.stateByName("currentPower")
+        if ( power === null){
+            return " – "
+        }
+        return power.value
+    }
+
+
     title: root.thing.name
+    headerOptionsVisible: false
 
     // Connections to update the ChargingSessionConfiguration  and the ChargingConfiguration values
     Connections {
         target: hemsManager
         onConEMSStateChanged: {
+
+
+            /**
             if (conState.currentState.operating_state === 1) // RUNNING
             {
+
                 busyOverlay.shown = false
             }
+            **/
 
         }
 
@@ -79,7 +100,8 @@ GenericConfigPage {
             console.info("Charging session configuration changed...")
             if (chargingSessionConfiguration.evChargerThingId === thing.id){
 
-                //busyOverlay.shown = false
+                // uncomment when the backend is ready for ConEMS state
+                busyOverlay.shown = false
 
                 batteryLevelValue.text  = chargingSessionConfiguration.batteryLevel  + " %"
                 energyChargedValue.text = chargingSessionConfiguration.energyCharged.toFixed(2) + " kWh"
@@ -96,8 +118,11 @@ GenericConfigPage {
                     console.info("Going into running mode...")
                     //batteryLevelRowLayout.visible = true
                     //energyBatteryLayout.visible = true
-                    maxCurrentRowLayout.visible = true
-                    measuredCurrentRowLayout.visible = true
+                    if (settings.showHiddenOptions)
+                    {
+                        maxCurrentRowLayout.visible = true
+                        measuredCurrentRowLayout.visible = true
+                    }
                     energyChargedLayout.visible = true
                     initializing = false
                 }
@@ -106,8 +131,11 @@ GenericConfigPage {
                     console.info("Going into pending mode...")
                     //batteryLevelRowLayout.visible = true
                     //energyBatteryLayout.visible = true
-                    maxCurrentRowLayout.visible = true
-                    measuredCurrentRowLayout.visible = true
+                    if (settings.showHiddenOptions)
+                    {
+                        maxCurrentRowLayout.visible = true
+                        measuredCurrentRowLayout.visible = true
+                    }
                     energyChargedLayout.visible = true
                     initializing = false
                 }
@@ -137,8 +165,11 @@ GenericConfigPage {
                         initializing = true
                         batteryLevelRowLayout.visible = false
                         energyBatteryLayout.visible = false
-                        maxCurrentRowLayout.visible = true
-                        measuredCurrentRowLayout.visible = true
+                        if (settings.showHiddenOptions)
+                        {
+                            maxCurrentRowLayout.visible = true
+                            measuredCurrentRowLayout.visible = true
+                        }
                         energyChargedLayout.visible = true
                         batteryLevelValue.text  = 0 + " %"
                         energyChargedValue.text = 0 + " kWh"
@@ -150,7 +181,11 @@ GenericConfigPage {
                         initializing = true
                         batteryLevelRowLayout.visible = true
                         energyBatteryLayout.visible = true
-                        maxCurrentRowLayout.visible = true
+                        if (settings.showHiddenOptions)
+                        {
+                            maxCurrentRowLayout.visible = true
+                            measuredCurrentRowLayout.visible = true
+                        }
                         measuredCurrentRowLayout.visible = true
                         energyChargedLayout.visible = true
                         batteryLevelValue.text  = 0 + " %"
@@ -608,9 +643,29 @@ GenericConfigPage {
                     }
 
                     RowLayout{
-                        id: maxCurrentRowLayout
+                        id: chargingPowerRowLayout
 
                         visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
+
+                        Label{
+                            id: chargingPowerLabel
+
+                            Layout.fillWidth: true
+                            text: qsTr("Charging power")
+                        }
+
+                        Label{
+                            id: chargingPowerValue
+                            text: (initializing ? 0 : getChargingPower()) + " W"
+                            Layout.alignment: Qt.AlignRight
+                            Layout.rightMargin: 0
+                        }
+                    }
+
+                    RowLayout{
+                        id: maxCurrentRowLayout
+
+                        visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn() && settings.showHiddenOptions
 
                         Label{
                             id: maxCurrentLabel
@@ -629,7 +684,7 @@ GenericConfigPage {
                     RowLayout{
                         id: measuredCurrentRowLayout
 
-                        visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
+                        visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn() && settings.showHiddenOptions
 
                         Label{
                             id: measuredCurrentLabel
@@ -639,7 +694,7 @@ GenericConfigPage {
 
                         Label{
                             id: measuredCurrentValue
-                            text: (initializing ? 0 : calcChargingCurrent()) + " A" 
+                            text: (initializing ? 0 : calcChargingCurrent()) + " A"
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
@@ -729,7 +784,6 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text:  status.state == 3 ? qsTr("Configure charging mode") : qsTr("Reconfigure charging mode" )
                             onClicked: {
-                                busyOverlay.shown = true
                                 hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: false, optimizationMode:9})
                             }
                         }
