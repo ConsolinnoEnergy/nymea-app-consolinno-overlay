@@ -10,17 +10,20 @@ import "../delegates"
 
 Page {
     id: root
+
     signal done(bool skip, bool abort, bool back);
     signal countChanged()
+
+    property var deleteThingID: null;
 
     header: NymeaHeader {
         text: qsTr("Setup wallbox")
         onBackPressed: root.done(false, false, true)
     }
 
-
     QtObject {
         id: d
+
         property var vendorId: null
         property ThingDescriptor thingDescriptor: null
         property var discoveryParams: []
@@ -32,7 +35,6 @@ Page {
         property var params: []
 
         function pairThing(thingClass, thing) {
-
             switch (thingClass.setupMethod) {
                 // Just Add
             case 0:
@@ -60,52 +62,53 @@ Page {
             }
 
             busyOverlay.shown = true;
-
         }
     }
 
     ThingDiscovery {
         id: discovery
+
         engine: _engine
     }
 
     StackView {
         id: internalPageStack
+
         anchors.fill: parent
     }
-
 
     Connections {
         target: engine.thingManager
         onAddThingReply: {
-
             busyOverlay.shown = false;
             var thing = engine.thingManager.things.getThing(thingId)
             pageStack.push(setupEvChargerComponent, {thingError: thingError, thing: thing, message: displayMessage})
-
         }
     }
 
+    ConsolinnoWarningPopup {
+        id: deleteWarningPopup
+
+        anchors.centerIn: parent
+    }
 
     ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
         width: Math.min(parent.width - Style.margins * 2, 300)
+        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
 
         ColumnLayout{
             Layout.fillWidth: true
             Layout.fillHeight: true
 
             Label {
-                Layout.fillWidth: true
                 text: qsTr("Integrated wallbox:")
+                Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignLeft
                 Layout.alignment: Qt.AlignLeft
-
             }
 
-            VerticalDivider
-            {
+            VerticalDivider {
                 Layout.preferredWidth: app.width - 2* Style.margins
                 dividerColor: Material.accent
                 Layout.bottomMargin: 0
@@ -113,57 +116,54 @@ Page {
 
             Flickable{
                 id: evChargerFlickable
-                clip: true
-                Layout.topMargin: 0
-                Layout.bottomMargin: 0
-                width: parent.width
-                height: parent.height
-                contentHeight: evChargerList.height
-                contentWidth: app.width
-                visible: evProxy.count !== 0
 
+                Layout.fillHeight: true
+                Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: app.height/3
                 Layout.preferredWidth: app.width
+                contentHeight: evChargerList.implicitHeight
+                visible: evProxy.count !== 0
                 flickableDirection: Flickable.VerticalFlick
+                clip: true
 
                 ColumnLayout{
                     id: evChargerList
-                    Layout.preferredWidth: app.width
-                    Layout.fillHeight: true
+
+                    anchors.fill: parent
+
                     Repeater{
                         id: evChargerRepeater
-                        Layout.preferredWidth: app.width
+
                         model: ThingsProxy {
                             id: evProxy
+
                             engine: _engine
                             shownInterfaces: ["evcharger"]
                         }
-                        delegate: ItemDelegate{
-                            Layout.preferredWidth: app.width
-                            contentItem: ConsolinnoItemDelegate{
-                                Layout.fillWidth: true
-                                iconName: "../images/ev-charger.svg"
-                                progressive: false
-                                text: evProxy.get(index) ? evProxy.get(index).name : ""
-                                onClicked: {
-                                }
+
+                        delegate: NymeaSwipeDelegate{
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: Style.smallDelegateHeight
+                            iconName: "../images/ev-charger.svg"
+                            progressive: false
+                            text: evProxy.get(index) ? evProxy.get(index).name : ""
+                            canDelete: true
+                            onDeleteClicked: {
+                                deleteThingID = evProxy.getThing(model.id)
+                                deleteWarningPopup.visible = true;
                             }
                         }
-
-
                     }
                 }
-
             }
-
-
 
             Rectangle{
                 Layout.preferredHeight: app.height/3
                 Layout.fillWidth: true
                 visible: evProxy.count === 0
                 color: Material.background
+
                 Text {
                     text: qsTr("There is no wallbox set up yet.")
                     color: Material.foreground
@@ -173,25 +173,24 @@ Page {
                 }
             }
 
-
-            VerticalDivider
-            {
+            VerticalDivider {
                 Layout.preferredWidth: app.width - 2* Style.margins
                 dividerColor: Material.accent
             }
-
         }
 
         ColumnLayout {
             Layout.topMargin: 0
+
             Label {
-                Layout.fillWidth: true
                 text: qsTr("Add wallboxes:")
+                Layout.fillWidth: true
                 wrapMode: Text.WordWrap
             }
 
             ComboBox {
                 id: thingClassComboBox
+
                 Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"
                 valueRole: "id"
@@ -215,14 +214,16 @@ Page {
 
             Popup {
                 id: wallboxLimitPopup
+
                 parent: Overlay.overlay
-                x: Math.round((parent.width - width) / 2)
-                y: Math.round((parent.height - height) / 2)
                 width: parent.width
                 height: 100
+                x: Math.round((parent.width - width) / 2)
+                y: Math.round((parent.height - height) / 2)
                 modal: true
                 focus: true
                 closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+
                 contentItem: Label {
                     Layout.fillWidth: true
                     Layout.topMargin: app.margins
@@ -235,9 +236,10 @@ Page {
 
             Button {
                 id: addButton
-                text: qsTr("add")
+
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
+                text: qsTr("add")
                 opacity:  (evChargerRepeater.model.count > 0) ? 0.3 : 1.0
                 onClicked:    {
                     // Actually not needed when button is
@@ -248,18 +250,22 @@ Page {
                     internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue})
                 }
             }
+
             Button {
                 id: nextStepButton
-                text: qsTr("Next step")
-                font.capitalization: Font.AllUppercase
-                font.pixelSize: 15
+
                 Layout.topMargin: 5
                 Layout.preferredWidth: 200
                 Layout.preferredHeight: addButton.height - 9
+                text: qsTr("Next step")
+                font.capitalization: Font.AllUppercase
+                font.pixelSize: 15
 
-                contentItem:Row{
-                    Text{
+                contentItem: Row{
+
+                    Text {
                         id: nextStepButtonText
+
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
                         text: nextStepButton.text
@@ -273,9 +279,9 @@ Page {
 
                     Image{
                         id: headerImage
+
                         anchors.right : parent.right
                         anchors.verticalCenter:  parent.verticalCenter
-
                         sourceSize.width: 18
                         sourceSize.height: 18
                         source: "../images/next.svg"
@@ -287,7 +293,6 @@ Page {
                             }
                         }
                     }
-
                 }
 
                 background: Rectangle{
@@ -302,13 +307,9 @@ Page {
                 onClicked:{
                     root.done(true, false, false)
                 }
-
             }
         }
-
     }
-
-
 
     // This Component Looks at the thingClass and decides based on the createMethod, which "Route" of the
     // Setup we should take
@@ -325,9 +326,7 @@ Page {
             property var thingClass: engine.thingManager.thingClasses.getThingClass(thingClassId)
             property var thing: null
 
-
             Component.onCompleted: {
-
                 // if discovery and user. Always Discovery
                 if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
 
@@ -342,26 +341,20 @@ Page {
                 }// not supported yet
                 else if (thingClass.createMethods.indexOf("CreateMethodUser") !== -1) {
                     pageStack.push(paramsPage, {thingClass: thingClass})
-
                 }
-
             }
-
-
-
-
-
         }
     }
 
     // discoveryParams: Params necessary for Discovery
     Component {
         id: discoveryParamsPage
+
         SettingsPageBase {
+            id: discoveryParamsView
 
             property ThingClass thingClass
 
-            id: discoveryParamsView
             title: qsTr("Discover %1").arg(thingClass.displayName)
 
             SettingsPageSectionHeader {
@@ -370,6 +363,7 @@ Page {
 
             Repeater {
                 id: paramRepeater
+
                 model: thingClass ? thingClass.discoveryParamTypes : null
                 delegate: ParamDelegate {
                     Layout.fillWidth: true
@@ -381,6 +375,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.margins: app.margins
                 text: "Next"
+
                 onClicked: {
                     var paramTypes = thingClass.discoveryParamTypes;
                     d.discoveryParams = [];
@@ -413,8 +408,6 @@ Page {
                 onBackPressed: pageStack.pop()
             }
 
-
-
             SettingsPageSectionHeader {
                 text: qsTr("The following devices were found:")
                 visible: !discovery.busy && discoveryProxy.count > 0
@@ -423,11 +416,13 @@ Page {
             Repeater {
                 model: ThingDiscoveryProxy {
                     id: discoveryProxy
+
                     thingDiscovery: discovery
                     showAlreadyAdded: thing !== null
                     showNew: thing === null
                     //filterThingId: root.thing ? root.thing.id : ""
                 }
+
                 delegate: NymeaItemDelegate {
                     Layout.fillWidth: true
                     text: model.name
@@ -448,6 +443,7 @@ Page {
                 visible: !discovery.busy && discoveryProxy.count === 0
                 spacing: app.margins
                 Layout.preferredHeight: discoveryView.height - discoveryView.header.height - retryButton.height - app.margins * 3
+
                 Label {
                     text: qsTr("Too bad...")
                     font.pixelSize: app.largeFont
@@ -455,6 +451,7 @@ Page {
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     horizontalAlignment: Text.AlignHCenter
                 }
+
                 Label {
                     text: qsTr("No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to 'Search again'.")
                     Layout.fillWidth: true
@@ -472,10 +469,11 @@ Page {
                             : discovery.displayMessage
                     wrapMode: Text.WordWrap
                 }
-
             }
+
             Button {
                 id: retryButton
+
                 Layout.fillWidth: true
                 Layout.margins: app.margins
                 text: qsTr("Search again")
@@ -493,7 +491,6 @@ Page {
             property Thing thing
             property ThingClass thingClass
 
-
             title: thing ? qsTr("Reconfigure %1").arg(thing.name) : qsTr("Set up %1").arg(thingClass.displayName)
 
             SettingsPageSectionHeader {
@@ -502,6 +499,7 @@ Page {
 
             TextField {
                 id: nameTextField
+
                 text: (d.thingName ? d.thingName : thingClass.displayName)
                       + (thingClass.id.toString().match(/\{?f0dd4c03-0aca-42cc-8f34-9902457b05de\}?/) ? " (" + PlatformHelper.machineHostname + ")" : "")
                 Layout.fillWidth: true
@@ -511,12 +509,13 @@ Page {
 
             Label{
                 id: nameExplain
+
                 text: qsTr("Please change name if necessary")
                 Layout.alignment: Qt.AlignTop
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
-                verticalAlignment: Text.AlignTop
                 Layout.topMargin: 0
+                verticalAlignment: Text.AlignTop
                 color: Style.accentColor
                 font.pixelSize: 12
             }
@@ -528,7 +527,9 @@ Page {
 
             Repeater {
                 id: paramRepeater
+
                 model: engine.jsonRpcClient.ensureServerVersion("1.12") || d.thingDescriptor == null ?  thingClass.paramTypes : null
+
                 delegate: ParamDelegate {
                     //                            Layout.preferredHeight: 60
                     Layout.fillWidth: true
@@ -550,8 +551,8 @@ Page {
                 Layout.fillWidth: true
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
-
                 text: "OK"
+
                 onClicked: {
                     var params = []
                     for (var i = 0; i < paramRepeater.count; i++) {
@@ -568,24 +569,18 @@ Page {
                     d.params = params
                     d.name = nameTextField.text
                     d.pairThing(thingClass, thing);
-
-
                 }
             }
-
         }
-
-
     }
-
 
     BusyOverlay {
         id: busyOverlay
     }
 
-
     Component {
         id: setupEvChargerComponent
+
         Page {
             id: setupEnergyMeterPage
 
@@ -619,10 +614,9 @@ Page {
             }
 
             ColumnLayout {
-                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
                 width: Math.min(parent.width - Style.margins * 2, 300)
+                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
                 spacing: Style.margins
-
 
                 Item {
                     Layout.fillWidth: true
@@ -634,7 +628,6 @@ Page {
                     }
                 }
 
-
                 ColumnLayout {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
@@ -642,17 +635,17 @@ Page {
                     spacing: Style.margins
 
                     Label {
+                        text: qsTr("The following charging point or wallbox has been found and set up:")
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The following charging point or wallbox has been found and set up:")
                         horizontalAlignment: Text.AlignHCenter
                     }
 
                     Label {
+                        text: thing.name
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
                         font.bold: true
-                        text: thing.name
                     }
 
                     ColorIcon {
@@ -663,14 +656,13 @@ Page {
                         color: Style.accentColor
                         size: Style.hugeIconSize * 3
                     }
-
                 }
 
                 Label {
+                    text: qsTr("An unexpected error happened during the setup. Please verify the chargingpoint or wallbox is installed correctly and try again.")
                     Layout.fillWidth: true
                     Layout.margins: Style.margins
                     wrapMode: Text.WordWrap
-                    text: qsTr("An unexpected error happened during the setup. Please verify the chargingpoint or wallbox is installed correctly and try again.")
                     visible: setupEnergyMeterPage.thingError != Thing.ThingErrorNoError
                 }
 
@@ -678,15 +670,13 @@ Page {
                     spacing: 0
                     Layout.alignment: Qt.AlignHCenter
 
-
                     Button {
+                        text: qsTr("Next")
                         Layout.alignment: Qt.AlignHCenter
                         Layout.preferredWidth: 200
-                        text: qsTr("Next")
                         onClicked: pageStack.pop(root)
                     }
                 }
-
             }
         }
     }

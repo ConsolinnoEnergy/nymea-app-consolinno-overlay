@@ -9,7 +9,7 @@ import "../delegates"
 Page {
     id: root
 
-    signal done(bool skip, bool abort);
+    signal done(bool skip, bool abort);z
 
     header: NymeaHeader {
         text: qsTr("Setup energy meter")
@@ -20,6 +20,7 @@ Page {
 
     QtObject {
         id: d
+
         property var vendorId: null
         property ThingDescriptor thingDescriptor: null
         property var discoveryParams: []
@@ -73,36 +74,33 @@ Page {
 
     ThingDiscovery {
         id: discovery
+
         engine: _engine
     }
 
     StackView {
         id: internalPageStack
+
         anchors.fill: parent
     }
-
 
     Connections {
         target: engine.thingManager
         onAddThingReply: {
-
             busyOverlay.shown = false;
             var thing = engine.thingManager.things.getThing(thingId)
-
             pageStack.push(setupEnergyMeterComponent, {thingError: thingError, thing: thing, message: displayMessage})
-
         }
     }
 
-
-
     ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
         width: Math.min(parent.width - Style.margins * 2, 300)
+        anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
         spacing: Style.margins
 
         ColumnLayout {
             Layout.topMargin: Style.margins
+
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Please select your model:")
@@ -111,6 +109,7 @@ Page {
 
             ComboBox {
                 id: thingClassComboBox
+
                 Layout.fillWidth: true
                 textRole: "displayName"
                 valueRole: "id"
@@ -139,7 +138,6 @@ Page {
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
                 onClicked: internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue})
-
             }
         }
     }
@@ -159,9 +157,7 @@ Page {
             property var thingClass: engine.thingManager.thingClasses.getThingClass(thingClassId)
             property var thing: null
 
-
             Component.onCompleted: {
-
                 // if discovery and user. Always Discovery
                 if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
 
@@ -176,27 +172,20 @@ Page {
                 }// not supported yet
                 else if (thingClass.createMethods.indexOf("CreateMethodUser") !== -1) {
                     pageStack.push(paramsPage, {thingClass: thingClass})
-
                 }
-
             }
-
-
-
-
-
         }
     }
-
 
     // discoveryParams: Params necessary for Discovery
     Component {
         id: discoveryParamsPage
+
         SettingsPageBase {
+            id: discoveryParamsView
 
             property ThingClass thingClass
 
-            id: discoveryParamsView
             title: qsTr("Discover %1").arg(thingClass.displayName)
 
             SettingsPageSectionHeader {
@@ -205,7 +194,9 @@ Page {
 
             Repeater {
                 id: paramRepeater
+
                 model: thingClass ? thingClass.discoveryParamTypes : null
+
                 delegate: ParamDelegate {
                     Layout.fillWidth: true
                     paramType: thingClass.discoveryParamTypes.get(index)
@@ -216,6 +207,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.margins: app.margins
                 text: "Next"
+
                 onClicked: {
                     var paramTypes = thingClass.discoveryParamTypes;
                     d.discoveryParams = [];
@@ -246,10 +238,7 @@ Page {
                 text: qsTr("Discover %1").arg(thingClass.displayName)
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
-
             }
-
-
 
             SettingsPageSectionHeader {
                 text: qsTr("The following devices were found:")
@@ -259,10 +248,12 @@ Page {
             Repeater {
                 model: ThingDiscoveryProxy {
                     id: discoveryProxy
+
                     thingDiscovery: discovery
                     showAlreadyAdded: thing !== null
                     showNew: thing === null
                 }
+
                 delegate: NymeaItemDelegate {
                     Layout.fillWidth: true
                     text: model.name
@@ -280,9 +271,10 @@ Page {
             busyText: qsTr("Searching for things...")
 
             ColumnLayout {
+                Layout.preferredHeight: discoveryView.height - discoveryView.header.height - retryButton.height - app.margins * 3
                 visible: !discovery.busy && discoveryProxy.count === 0
                 spacing: app.margins
-                Layout.preferredHeight: discoveryView.height - discoveryView.header.height - retryButton.height - app.margins * 3
+
                 Label {
                     text: qsTr("Too bad...")
                     font.pixelSize: app.largeFont
@@ -290,32 +282,34 @@ Page {
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     horizontalAlignment: Text.AlignHCenter
                 }
+
                 Label {
                     text: qsTr("No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to 'Search again'.")
                     Layout.fillWidth: true
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-                    wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
+                    wrapMode: Text.WordWrap
                 }
 
                 Label {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-                    horizontalAlignment: Text.AlignHCenter
                     text: discovery.displayMessage.length === 0 ?
                               qsTr("Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.")
                             : discovery.displayMessage
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
+                    horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WordWrap
                 }
 
             }
             Button {
                 id: retryButton
+
                 Layout.fillWidth: true
                 Layout.margins: app.margins
                 text: qsTr("Search again")
-                onClicked: discovery.discoverThings(thingClass.id, d.discoveryParams)
                 visible: !discovery.busy
+                onClicked: discovery.discoverThings(thingClass.id, d.discoveryParams)
             }
         }
     }
@@ -325,9 +319,9 @@ Page {
 
         SettingsPageBase {
             id: paramsView
+
             property Thing thing
             property ThingClass thingClass
-
 
             title: thing ? qsTr("Reconfigure %1").arg(thing.name) : qsTr("Set up %1").arg(thingClass.displayName)
 
@@ -337,6 +331,7 @@ Page {
 
             TextField {
                 id: nameTextField
+
                 text: (d.thingName ? d.thingName : thingClass.displayName)
                       + (thingClass.id.toString().match(/\{?f0dd4c03-0aca-42cc-8f34-9902457b05de\}?/) ? " (" + PlatformHelper.machineHostname + ")" : "")
                 Layout.fillWidth: true
@@ -344,15 +339,15 @@ Page {
                 Layout.rightMargin: app.margins
             }
 
-
             Label{
                 id: nameExplain
+
                 text: qsTr("Please change name if necessary")
                 Layout.alignment: Qt.AlignTop
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
-                verticalAlignment: Text.AlignTop
                 Layout.topMargin: 0
+                verticalAlignment: Text.AlignTop
                 color: Style.accentColor
                 font.pixelSize: 12
             }
@@ -364,7 +359,9 @@ Page {
 
             Repeater {
                 id: paramRepeater
+
                 model: engine.jsonRpcClient.ensureServerVersion("1.12") || d.thingDescriptor == null ?  thingClass.paramTypes : null
+
                 delegate: ParamDelegate {
                     Layout.fillWidth: true
                     enabled: !model.readOnly
@@ -385,8 +382,8 @@ Page {
                 Layout.fillWidth: true
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
-
                 text: "OK"
+
                 onClicked: {
                     var params = []
                     for (var i = 0; i < paramRepeater.count; i++) {
@@ -403,31 +400,20 @@ Page {
                     d.params = params
                     d.name = nameTextField.text
                     d.pairThing(thingClass, thing);
-
-
                 }
             }
-
         }
-
-
     }
 
     BusyOverlay {
         id: busyOverlay
     }
 
-
-
     Component {
         id: setupEnergyMeterComponent
+
         Page {
             id: setupEnergyMeterPage
-
-            header: NymeaHeader {
-                text: qsTr("Setup energy meter")
-                onBackPressed: pageStack.pop()
-            }
 
             property ThingDescriptor thingDescriptor: null
 
@@ -435,6 +421,11 @@ Page {
             property int thingError: Thing.ThingErrorNoError
 
             property Thing thing: null
+
+            header: NymeaHeader {
+                text: qsTr("Setup energy meter")
+                onBackPressed: pageStack.pop()
+            }
 
             Component.onCompleted: {
                 pendingCallId = engine.thingManager.addDiscoveredThing(thingDescriptor.thingClassId, thingDescriptor.id, thingDescriptor.name, {})
@@ -452,10 +443,9 @@ Page {
             }
 
             ColumnLayout {
-                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
                 width: Math.min(parent.width - Style.margins * 2, 300)
+                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
                 spacing: Style.margins
-
 
                 Item {
                     Layout.fillWidth: true
@@ -467,7 +457,6 @@ Page {
                     }
                 }
 
-
                 ColumnLayout {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
@@ -475,17 +464,17 @@ Page {
                     spacing: Style.margins
 
                     Label {
-                        Layout.fillWidth: true
-                        wrapMode: Text.WordWrap
                         text: qsTr("The following energy meter has been found and set up:")
+                        Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
+                        wrapMode: Text.WordWrap
                     }
 
                     Label {
+                        text: thing.name
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
                         font.bold: true
-                        text: thing.name
                     }
 
                     ColorIcon {
@@ -496,24 +485,24 @@ Page {
                         color: Style.accentColor
                         size: Style.hugeIconSize * 3
                     }
-
                 }
 
                 Label {
+                    text: qsTr("An unexpected error happened during the setup. Please verify the energy meter is installed correctly and try again.")
                     Layout.fillWidth: true
                     Layout.margins: Style.margins
                     wrapMode: Text.WordWrap
-                    text: qsTr("An unexpected error happened during the setup. Please verify the energy meter is installed correctly and try again.")
                     visible: setupEnergyMeterPage.thingError != Thing.ThingErrorNoError
                 }
+
                 ColumnLayout{
                     spacing: 0
                     Layout.alignment: Qt.AlignHCenter
 
                     Button {
+                        Layout.preferredWidth: 200
                         Layout.alignment: Qt.AlignHCenter
                         text: qsTr("Next")
-                        Layout.preferredWidth: 200
                         onClicked: root.done(false, false)
                     }
                 }

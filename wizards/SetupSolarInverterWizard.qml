@@ -15,15 +15,17 @@ Page {
 
     signal done(bool skip, bool abort, bool back);
 
+    property var deleteThingID: null;
+
     header: NymeaHeader {
         text: qsTr("Setup solar inverter")
         backButtonVisible: true
         onBackPressed: root.done(false, false, true)
     }
 
-
     HemsManager{
         id: hemsManager
+
         engine: _engine
     }
 
@@ -39,12 +41,13 @@ Page {
         property var name: ""
         property var params: []
         property var thing: null
+        property var thingToRemove: null
 
         function pairThing(thingClass, thing) {
             d.thing = thing
 
             switch (thingClass.setupMethod) {
-            // Just Add
+                // Just Add
             case 0:
                 if (thing) {
                     if (d.thingDescriptor) {
@@ -80,38 +83,31 @@ Page {
                     }
                 }
                 break;
-
-
-
-
             }
 
             busyOverlay.shown = true;
-
         }
     }
 
     ThingDiscovery {
         id: discovery
+
         engine: _engine
     }
 
     StackView {
         id: internalPageStack
+
         anchors.fill: parent
     }
-
 
     Connections {
         target: engine.thingManager
 
         onAddThingReply: {
-
             busyOverlay.shown = false;
             var thing = engine.thingManager.things.getThing(thingId)
-
             pageStack.push(setupInverterComponent, {thingError: thingError, thing: thing, message: displayMessage})
-
         }
 
         onConfirmPairingReply: {
@@ -125,11 +121,9 @@ Page {
                 busyOverlay.shown = false;
                 pageStack.push(resultsPage, {thingError: thingError, message: displayMessage});
                 return;
-
             }
 
             d.pairingTransactionId = pairingTransactionId;
-
 
             switch (setupMethod) {
             case "SetupMethodPushButton":
@@ -146,103 +140,124 @@ Page {
             }
         }
 
+        onRemoveThingReply: {
+            if (!d.thingToRemove) {
+                return;
+            }
 
+            switch (thingError) {
+            case Thing.ThingErrorNoError:
+                d.thingToRemove = null;
+                return;
+            case Thing.ThingErrorThingInRule:
+                //                var removeMethodComponent = Qt.createComponent(Qt.resolvedUrl("../components/RemoveThingMethodDialog.qml"))
+                //                var popup = removeMethodComponent.createObject(root, {thing: d.thingToRemove, rulesList: ruleIds});
+                //                popup.open();
+                return;
+            default:
+                //                var errorDialog = Qt.createComponent(Qt.resolvedUrl("../components/ErrorDialog.qml"))
+                //                var popup = errorDialog.createObject(root, {error: thingError})
+                //                popup.open();
+            }
+        }
+    }
 
+    ConsolinnoWarningPopup {
+        id: deleteWarningPopup
 
+        anchors.centerIn: parent
     }
 
     ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
         width: Math.min(parent.width - Style.margins * 2, 300)
 
-
-    ColumnLayout{
-        Layout.fillWidth: true
-        Layout.fillHeight: true
-
-        Label {
+        ColumnLayout{
             Layout.fillWidth: true
-            text: qsTr("Integrated solar inverter:")
-            wrapMode: Text.WordWrap
-            Layout.alignment: Qt.AlignLeft
-            horizontalAlignment: Text.AlignLeft
-        }
+            Layout.fillHeight: true
 
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("Integrated solar inverter:")
+                wrapMode: Text.WordWrap
+                Layout.alignment: Qt.AlignLeft
+                horizontalAlignment: Text.AlignLeft
+            }
 
-        VerticalDivider
-        {
-            Layout.preferredWidth: app.width - 2* Style.margins
-            dividerColor: Material.accent
-        }
+            VerticalDivider
+            {
+                Layout.preferredWidth: app.width - 2* Style.margins
+                dividerColor: Material.accent
+            }
 
-        Flickable{
-            id: energyMeterFlickable
-            clip: true
-            width: parent.width
-            height: parent.height
-            contentHeight: energyMeterList.height
-            contentWidth: app.width
-            visible: emProxy.count !== 0
+            Flickable{
+                id: energyMeterFlickable
 
-            Layout.alignment: Qt.AlignHCenter
-            Layout.preferredHeight: app.height/3
-            Layout.preferredWidth: app.width
-            flickableDirection: Flickable.VerticalFlick
-
-            ColumnLayout{
-                id: energyMeterList
-                Layout.preferredWidth: app.width
                 Layout.fillHeight: true
-                Repeater{
-                    id: solarInverterRepeater
-                    Layout.preferredWidth: app.width
-                    model: ThingsProxy {
-                        id: emProxy
-                        engine: _engine
-                        shownInterfaces: ["solarinverter"]
-                    }
-                    delegate: ItemDelegate{
-                        Layout.preferredWidth: app.width
-                        contentItem: ConsolinnoItemDelegate{
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredHeight: app.height/3
+                Layout.preferredWidth: app.width
+                contentHeight: energyMeterList.implicitHeight
+                visible: emProxy.count !== 0
+                flickableDirection: Flickable.VerticalFlick
+                clip: true
+
+                ColumnLayout{
+                    id: energyMeterList
+
+                    anchors.fill: parent
+
+                    Repeater{
+                        id: solarInverterRepeater
+
+                        model: ThingsProxy {
+                            id: emProxy
+
+                            engine: _engine
+                            shownInterfaces: ["solarinverter"]
+                        }
+
+                        delegate: NymeaSwipeDelegate{
                             Layout.fillWidth: true
+                            Layout.preferredHeight: Style.smallDelegateHeight
                             iconName: "../images/weathericons/weather-clear-day.svg"
                             progressive: false
                             text: emProxy.get(index) ? emProxy.get(index).name : ""
-                            onClicked: {
+                            canDelete: true
+                            onDeleteClicked: {
+                                deleteThingID = emProxy.getThing(model.id)
+                                deleteWarningPopup.visible = true;
                             }
                         }
                     }
-
-
                 }
             }
 
-        }
+            Rectangle{
+                Layout.preferredHeight: app.height/3
+                Layout.fillWidth: true
+                visible: emProxy.count === 0
+                color: Material.background
 
-        Rectangle{
-        Layout.preferredHeight: app.height/3
-        Layout.fillWidth: true
-        visible: emProxy.count === 0
-        color: Material.background
-        Text {
-            text: qsTr("There is no inverter set up yet.")
-            color: Material.foreground
-            anchors.fill: parent
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-        }
-        }
+                Text {
+                    text: qsTr("There is no inverter set up yet.")
+                    color: Material.foreground
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+            }
 
-        VerticalDivider
-        {
-            Layout.preferredWidth: app.width - 2* Style.margins
-            dividerColor: Material.accent
+            VerticalDivider {
+                Layout.preferredWidth: app.width - 2* Style.margins
+                dividerColor: Material.accent
+            }
         }
-
-    }
 
         ColumnLayout {
             Layout.topMargin: Style.margins
+
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Add solar Inverter: ")
@@ -251,6 +266,7 @@ Page {
 
             ComboBox {
                 id: thingClassComboBox
+
                 Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"
                 valueRole: "id"
@@ -273,32 +289,38 @@ Page {
             }
             Button {
                 id: addButton
-                text: qsTr("add")
-                //color: Style.accentColor
+
                 Layout.preferredWidth: 200
                 //Layout.alignment: Qt.AlignHCenter
                 Layout.alignment: Qt.AlignLeft
+                text: qsTr("add")
+                //color: Style.accentColor
                 onClicked: internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue})
             }
 
             // Having 0 Solar inverter will be supporter at a later stage
             Button {
                 id: nextStepButton
+
+                Layout.preferredWidth: 200
+                Layout.preferredHeight: addButton.height - 9
                 text: qsTr("Next step")
                 font.capitalization: Font.AllUppercase
                 font.pixelSize: 15
-                Layout.preferredWidth: 200
-                Layout.preferredHeight: addButton.height - 9
                 // background fucks up the margin between the buttons, thats why wee need this topMargin
                 Layout.topMargin: 5
 
                 contentItem:Row{
                     Text{
                         id: nextStepButtonText
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
+
+
                         text: nextStepButton.text
                         font: nextStepButton.font
+                        anchors {
+                            horizontalCenter: parent.horizontalCenter
+                            verticalCenter: parent.verticalCenter
+                        }
                         opacity: enabled ? 1.0 : 0.3
                         color: Style.consolinnoHighlightForeground
                         horizontalAlignment: Text.AlignHCenter
@@ -308,12 +330,15 @@ Page {
 
                     Image{
                         id: headerImage
-                        anchors.right : parent.right
-                        anchors.verticalCenter:  parent.verticalCenter
 
                         sourceSize.width: 18
                         sourceSize.height: 18
                         source: "../images/next.svg"
+
+                        anchors {
+                            right: parent.right
+                            verticalCenter: parent.verticalCenter
+                        }
 
                         layer{
                             enabled: true
@@ -322,7 +347,6 @@ Page {
                             }
                         }
                     }
-
                 }
 
                 background: Rectangle{
@@ -339,19 +363,16 @@ Page {
                         root.done(true, false, false)
                     }
                 }
-
             }
         }
-
     }
 
-
-// This Component Looks at the thingClass and decides based on the createMethod, which "Route" of the
-// Setup we should take
+    // This Component Looks at the thingClass and decides based on the createMethod, which "Route" of the
+    // Setup we should take
     // tested and supported are atm:
-        // ThingDiscovery
-        // ThingDiscovery with discoveryParams
-        // User
+    // ThingDiscovery
+    // ThingDiscovery with discoveryParams
+    // User
 
     Component {
         id: creatingMethodDecider
@@ -362,9 +383,7 @@ Page {
             property var thingClassId: null
             property var thingClass: engine.thingManager.thingClasses.getThingClass(thingClassId)
 
-
             Component.onCompleted: {
-
                 // if discovery and user. Always Discovery
                 if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
 
@@ -403,25 +422,19 @@ Page {
                         }
                     }
                 }
-
             }
-
-
-
-
-
         }
     }
 
-
-// discoveryParams: Params necessary for Discovery
+    // discoveryParams: Params necessary for Discovery
     Component {
         id: discoveryParamsPage
+
         SettingsPageBase {
+            id: discoveryParamsView
 
             property ThingClass thingClass
 
-            id: discoveryParamsView
             title: qsTr("Discover %1").arg(thingClass.displayName)
 
             SettingsPageSectionHeader {
@@ -430,6 +443,7 @@ Page {
 
             Repeater {
                 id: paramRepeater
+
                 model: thingClass ? thingClass.discoveryParamTypes : null
                 delegate: ParamDelegate {
                     Layout.fillWidth: true
@@ -441,6 +455,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.margins: app.margins
                 text: "Next"
+
                 onClicked: {
                     var paramTypes = thingClass.discoveryParamTypes;
                     d.discoveryParams = [];
@@ -471,15 +486,11 @@ Page {
                 text: qsTr("Discover %1").arg(thingClass.displayName)
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
-
             }
-
-
 
             SettingsPageSectionHeader {
                 text: qsTr("The following devices were found:")
                 visible: !discovery.busy && discoveryProxy.count > 0
-
             }
 
             Repeater {
@@ -510,6 +521,7 @@ Page {
                 visible: !discovery.busy && discoveryProxy.count === 0
                 spacing: app.margins
                 Layout.preferredHeight: discoveryView.height - discoveryView.header.height - retryButton.height - app.margins * 3
+
                 Label {
                     text: qsTr("Too bad...")
                     font.pixelSize: app.largeFont
@@ -517,6 +529,7 @@ Page {
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     horizontalAlignment: Text.AlignHCenter
                 }
+
                 Label {
                     text: qsTr("No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to 'Search again'.")
                     Layout.fillWidth: true
@@ -534,10 +547,11 @@ Page {
                             : discovery.displayMessage
                     wrapMode: Text.WordWrap
                 }
-
             }
+
             Button {
                 id: retryButton
+
                 Layout.fillWidth: true
                 Layout.margins: app.margins
                 text: qsTr("Search again")
@@ -547,15 +561,14 @@ Page {
         }
     }
 
-
     Component {
         id: paramsPage
 
         SettingsPageBase {
             id: paramsView
+
             property Thing thing
             property ThingClass thingClass
-
 
             title: thing ? qsTr("Reconfigure %1").arg(thing.name) : qsTr("Set up %1").arg(thingClass.displayName)
 
@@ -565,6 +578,7 @@ Page {
 
             TextField {
                 id: nameTextField
+
                 text: (d.thingName ? d.thingName : thingClass.displayName)
                       + (thingClass.id.toString().match(/\{?f0dd4c03-0aca-42cc-8f34-9902457b05de\}?/) ? " (" + PlatformHelper.machineHostname + ")" : "")
                 Layout.fillWidth: true
@@ -575,6 +589,7 @@ Page {
 
             Label{
                 id: nameExplain
+
                 text: qsTr("Please change name if necessary")
                 Layout.alignment: Qt.AlignTop
                 Layout.leftMargin: app.margins
@@ -585,7 +600,6 @@ Page {
                 font.pixelSize: 12
             }
 
-
             SettingsPageSectionHeader {
                 text: qsTr("Thing parameters")
                 visible: paramRepeater.count > 0
@@ -593,9 +607,10 @@ Page {
 
             Repeater {
                 id: paramRepeater
+
                 model: engine.jsonRpcClient.ensureServerVersion("1.12") || d.thingDescriptor == null ?  thingClass.paramTypes : null
                 delegate: ParamDelegate {
-//                            Layout.preferredHeight: 60
+                    //                            Layout.preferredHeight: 60
                     Layout.fillWidth: true
                     enabled: !model.readOnly
                     paramType: thingClass.paramTypes.get(index)
@@ -615,8 +630,8 @@ Page {
                 Layout.fillWidth: true
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
-
                 text: "OK"
+
                 onClicked: {
                     var params = []
                     for (var i = 0; i < paramRepeater.count; i++) {
@@ -633,24 +648,18 @@ Page {
                     d.params = params
                     d.name = nameTextField.text
                     d.pairThing(thingClass, thing);
-
-
                 }
             }
-
         }
-
-
     }
-
 
     BusyOverlay {
         id: busyOverlay
     }
 
-
     Component {
         id: setupInverterComponent
+
         Page {
             id: setupEnergyMeterPage
 
@@ -660,7 +669,6 @@ Page {
             property int thingError: Thing.ThingErrorNoError
 
             property Thing thing: null
-
 
             header: NymeaHeader {
                 text: qsTr("Solar inverter")
@@ -672,13 +680,10 @@ Page {
                 pendingCallId = engine.thingManager.addDiscoveredThing(thingDescriptor.thingClassId, thing.id, thing.name, {})
             }
 
-
-
             ColumnLayout {
                 anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
-
 
                 Item {
                     Layout.fillWidth: true
@@ -689,7 +694,6 @@ Page {
                         anchors.centerIn: parent
                     }
                 }
-
 
                 ColumnLayout {
                     Layout.fillWidth: true
@@ -720,7 +724,6 @@ Page {
                         color: Style.accentColor
                         size: Style.hugeIconSize * 3
                     }
-
                 }
 
                 Label {
@@ -747,22 +750,20 @@ Page {
                                     pageStack.pop(root)
                                     //root.done(false, false)
                                 })
-
                             }
-
                         }
-
                     }
                 }
             }
         }
     }
 
-
     Component {
         id: pairingPageComponent
+
         SettingsPageBase {
             id: pairingPage
+
             property var thing
             property var transactionId
 
@@ -777,6 +778,7 @@ Page {
 
             Label {
                 id: textLabel
+
                 Layout.fillWidth: true
                 Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                 wrapMode: Text.WordWrap
@@ -784,6 +786,7 @@ Page {
 
             TextField {
                 id: usernameTextField
+
                 Layout.fillWidth: true
                 Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                 placeholderText: qsTr("Username")
@@ -792,12 +795,12 @@ Page {
 
             ConsolinnoPasswordTextField {
                 id: pinTextField
+
                 Layout.fillWidth: true
                 Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                 visible: pairingPage.setupMethod === "SetupMethodDisplayPin" || pairingPage.setupMethod === "SetupMethodEnterPin" || pairingPage.setupMethod === "SetupMethodUserAndPassword"
                 signup: false
             }
-
 
             Button {
                 Layout.fillWidth: true
@@ -816,6 +819,7 @@ Page {
 
         Page {
             id: resultsView
+
             header: NymeaHeader {
                 text: qsTr("Reconfigure %1").arg(d.thingName)
                 onBackPressed: pageStack.pop()
@@ -833,6 +837,7 @@ Page {
                 width: Math.min(500, parent.width - app.margins * 2)
                 anchors.centerIn: parent
                 spacing: app.margins * 2
+
                 Label {
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
@@ -841,6 +846,7 @@ Page {
                     font.pixelSize: app.largeFont
                     color: Style.accentColor
                 }
+
                 Label {
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignHCenter
@@ -854,7 +860,6 @@ Page {
                     wrapMode: Text.WordWrap
                     text: resultsView.message
                 }
-
 
                 Button {
                     Layout.fillWidth: true
@@ -886,8 +891,4 @@ Page {
             }
         }
     }
-
-
-
-
 }

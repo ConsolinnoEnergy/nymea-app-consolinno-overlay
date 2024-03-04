@@ -16,14 +16,16 @@ Page {
     signal done(bool skip, bool abort, bool back);
     signal countChanged()
 
+    property var deleteThingID: null;
+
     header: NymeaHeader {
         text: qsTr("Setup heat pump")
         onBackPressed: root.done(false, false, true)
     }
 
-
     QtObject {
         id: d
+
         property var vendorId: null
         property ThingDescriptor thingDescriptor: null
         property var discoveryParams: []
@@ -35,9 +37,8 @@ Page {
         property var params: []
 
         function pairThing(thingClass, thing) {
-
             switch (thingClass.setupMethod) {
-            // Just Add
+                // Just Add
             case 0:
                 if (thing) {
                     if (d.thingDescriptor) {
@@ -53,121 +54,119 @@ Page {
                     }
                 }
                 break;
-            // If any Plugin comes up with one of those setupMethods to be implemented, Look up SetupSolarInverterWizard and look at
-            // the implementation there. Its more than just this case and you need a bit of stuff
-            // However I couldnt implement it yet, since there is no Heatpump yet, which needs this Method.
+                // If any Plugin comes up with one of those setupMethods to be implemented, Look up SetupSolarInverterWizard and look at
+                // the implementation there. Its more than just this case and you need a bit of stuff
+                // However I couldnt implement it yet, since there is no Heatpump yet, which needs this Method.
 
-            // Display Pin
+                // Display Pin
             case 1:
-            // EnterPin
+                // EnterPin
             case 2:
-            // PushButton
+                // PushButton
             case 3:
-            // OAuth
+                // OAuth
             case 4:
-            // User and Password
+                // User and Password
             case 5:
             }
 
             busyOverlay.shown = true;
-
         }
     }
 
     ThingDiscovery {
         id: discovery
+
         engine: _engine
     }
 
     StackView {
         id: internalPageStack
+
         anchors.fill: parent
     }
-
 
     Connections {
         target: engine.thingManager
         onAddThingReply: {
-
             busyOverlay.shown = false;
             var thing = engine.thingManager.things.getThing(thingId)
-
             pageStack.push(setupHeatPumpComponent, {thingError: thingError, thing: thing, message: displayMessage})
-
         }
     }
 
+    ConsolinnoWarningPopup {
+        id: deleteWarningPopup
 
+        anchors.centerIn: parent
+    }
 
 
     ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom;left: parent.left; right: parent.right; margins: Style.margins }
         width: Math.min(parent.width - Style.margins * 2, 300)
+        anchors { top: parent.top; bottom: parent.bottom;left: parent.left; right: parent.right; margins: Style.margins }
         //spacing: Style.margins
-
 
         ColumnLayout{
             Layout.fillWidth: true
             Layout.fillHeight: true
 
             Label {
-                Layout.fillWidth: true
                 text: qsTr("Integrated heat pumps")
+                Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 Layout.alignment: Qt.AlignLeft
                 horizontalAlignment: Text.AlignLeft
             }
 
-
-            VerticalDivider
-            {
+            VerticalDivider {
                 Layout.preferredWidth: app.width - 2* Style.margins
                 dividerColor: Material.accent
             }
 
             Flickable{
                 id: heatpumpFlickable
-                clip: true
-                width: parent.width
-                height: parent.height
-                contentHeight: heatpumpList.height
-                contentWidth: app.width
-                visible: hpProxy.count !== 0
 
+                Layout.fillHeight: true
+                Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: app.height/3
                 Layout.preferredWidth: app.width
+                contentHeight: heatpumpList.implicitHeight
+                visible: hpProxy.count !== 0
                 flickableDirection: Flickable.VerticalFlick
+                clip: true
 
                 ColumnLayout{
                     id: heatpumpList
-                    Layout.preferredWidth: app.width
-                    Layout.fillHeight: true
+
+                    anchors.fill: parent
+
                     Repeater{
                         id: heatpumpRepeater
-                        Layout.preferredWidth: app.width
+
                         model: ThingsProxy {
                             id: hpProxy
+
                             engine: _engine
                             // smartgridheatpump and simpleheatpump extend heatpump
                             shownInterfaces: ["heatpump", "smartgridheatpump", "simpleheatpump"]
                         }
-                        delegate: ItemDelegate{
-                            Layout.preferredWidth: app.width
-                            contentItem: ConsolinnoItemDelegate{
-                                Layout.fillWidth: true
-                                iconName: "../images/thermostat/heating.svg"
-                                progressive: false
-                                text: hpProxy.get(index) ? hpProxy.get(index).name : ""
-                                onClicked: {
-                                }
+
+                        delegate: NymeaSwipeDelegate{
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: Style.smallDelegateHeight
+                            iconName: "../images/thermostat/heating.svg"
+                            progressive: false
+                            text: hpProxy.get(index) ? hpProxy.get(index).name : ""
+                            canDelete: true
+                            onDeleteClicked: {
+                                deleteThingID = hpProxy.getThing(model.id)
+                                deleteWarningPopup.visible = true;
                             }
                         }
-
-
                     }
                 }
-
             }
 
             Rectangle{
@@ -175,19 +174,17 @@ Page {
                 Layout.fillWidth: true
                 visible: hpProxy.count === 0
                 color: Material.background
+
                 Text {
                     text: qsTr("There is no heat pump set up yet.")
-                    color: Material.foreground
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
+                    color: Material.foreground
                 }
             }
 
-
-
-            VerticalDivider
-            {
+            VerticalDivider {
                 Layout.preferredWidth: app.width - 2* Style.margins
                 dividerColor: Material.accent
             }
@@ -195,14 +192,16 @@ Page {
 
         ColumnLayout {
             Layout.topMargin: Style.margins
+
             Label {
-                Layout.fillWidth: true
                 text: qsTr("Add heat pumps:")
+                Layout.fillWidth: true
                 wrapMode: Text.WordWrap
             }
 
             ComboBox {
                 id: thingClassComboBox
+
                 Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"
                 valueRole: "id"
@@ -214,8 +213,8 @@ Page {
         }
 
         ColumnLayout {
-            spacing: 0
             Layout.alignment: Qt.AlignHCenter
+            spacing: 0
 
             Button {
                 text: qsTr("cancel")
@@ -227,14 +226,16 @@ Page {
 
             Popup {
                 id: heatpumpLimitPopup
+
                 parent: Overlay.overlay
-                x: Math.round((parent.width - width) / 2)
-                y: Math.round((parent.height - height) / 2)
                 width: parent.width
                 height: 100
+                x: Math.round((parent.width - width) / 2)
+                y: Math.round((parent.height - height) / 2)
                 modal: true
                 focus: true
                 closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+
                 contentItem: Label {
                     Layout.fillWidth: true
                     Layout.topMargin: app.margins
@@ -247,10 +248,12 @@ Page {
 
             Button {
                 id: addButton
-                text: qsTr("add")
+
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
+                text: qsTr("add")
                 opacity:  (heatpumpRepeater.model.count > 0) ? 0.3 : 1.0
+
                 onClicked:    {
                     // Actually not needed when button is
                     if (heatpumpRepeater.model.count > 0)  {
@@ -263,18 +266,20 @@ Page {
 
             Button {
                 id: nextStepButton
-                text: qsTr("Next step")
-                font.capitalization: Font.AllUppercase
-                font.pixelSize: 15
+
                 Layout.preferredWidth: 200
                 Layout.preferredHeight: addButton.height - 9
                 Layout.alignment: Qt.AlignHCenter
                 // background fucks up the margin between the buttons, thats why wee need this topMargin
                 Layout.topMargin: 5
+                text: qsTr("Next step")
+                font.capitalization: Font.AllUppercase
+                font.pixelSize: 15
 
-                contentItem:Row{
-                    Text{
+                contentItem: Row{
+                    Text {
                         id: nextStepButtonText
+
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
                         text: nextStepButton.text
@@ -286,11 +291,10 @@ Page {
                         elide: Text.ElideRight
                     }
 
-                    Image{
+                    Image {
                         id: headerImage
                         anchors.right : parent.right
                         anchors.verticalCenter:  parent.verticalCenter
-
                         sourceSize.width: 18
                         sourceSize.height: 18
                         source: "../images/next.svg"
@@ -302,7 +306,6 @@ Page {
                             }
                         }
                     }
-
                 }
 
                 background: Rectangle{
@@ -313,13 +316,10 @@ Page {
                     radius: 4
                 }
 
-
                 onClicked: root.done(true, false, false)
             }
         }
-
     }
-
 
     // This Component Looks at the thingClass and decides based on the createMethod, which "Route" of the
     // Setup we should take
@@ -336,12 +336,9 @@ Page {
             property var thingClass: engine.thingManager.thingClasses.getThingClass(thingClassId)
             property var thing: null
 
-
             Component.onCompleted: {
-
                 // if discovery and user. Always Discovery
                 if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
-
                     if (thingClass["discoveryParamTypes"].count > 0) {
                         // ThingDiscovery with discoveryParams
                         pageStack.push(discoveryParamsPage, {thingClass: thingClass})
@@ -354,20 +351,19 @@ Page {
                 else if (thingClass.createMethods.indexOf("CreateMethodUser") !== -1) {
                     pageStack.push(paramsPage, {thingClass: thingClass})
                 }
-
             }
-
         }
     }
 
     // discoveryParams: Params necessary for Discovery
     Component {
         id: discoveryParamsPage
+
         SettingsPageBase {
+            id: discoveryParamsView
 
             property ThingClass thingClass
 
-            id: discoveryParamsView
             title: qsTr("Discover %1").arg(thingClass.displayName)
 
             SettingsPageSectionHeader {
@@ -376,7 +372,9 @@ Page {
 
             Repeater {
                 id: paramRepeater
+
                 model: thingClass ? thingClass.discoveryParamTypes : null
+
                 delegate: ParamDelegate {
                     Layout.fillWidth: true
                     paramType: thingClass.discoveryParamTypes.get(index)
@@ -387,6 +385,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.margins: app.margins
                 text: "Next"
+
                 onClicked: {
                     var paramTypes = thingClass.discoveryParamTypes;
                     d.discoveryParams = [];
@@ -417,7 +416,6 @@ Page {
                 text: qsTr("Discover %1").arg(thingClass.displayName)
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
-
             }
 
             SettingsPageSectionHeader {
@@ -428,6 +426,7 @@ Page {
             Repeater {
                 model: ThingDiscoveryProxy {
                     id: discoveryProxy
+
                     thingDiscovery: discovery
                     showAlreadyAdded: thing !== null
                     showNew: thing === null
@@ -450,15 +449,16 @@ Page {
             busyText: qsTr("Searching for things...")
 
             ColumnLayout {
-                visible: !discovery.busy && discoveryProxy.count === 0
-                spacing: app.margins
                 Layout.preferredHeight: discoveryView.height - discoveryView.header.height - retryButton.height - app.margins * 3
+                spacing: app.margins
+                visible: !discovery.busy && discoveryProxy.count === 0
+
                 Label {
                     text: qsTr("Too bad...")
-                    font.pixelSize: app.largeFont
                     Layout.fillWidth: true
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     horizontalAlignment: Text.AlignHCenter
+                    font.pixelSize: app.largeFont
                 }
                 Label {
                     text: qsTr("No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to 'Search again'.")
@@ -469,23 +469,24 @@ Page {
                 }
 
                 Label {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-                    horizontalAlignment: Text.AlignHCenter
                     text: discovery.displayMessage.length === 0 ?
                               qsTr("Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.")
                             : discovery.displayMessage
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
+                    horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WordWrap
                 }
-
             }
+
             Button {
                 id: retryButton
+
                 Layout.fillWidth: true
                 Layout.margins: app.margins
                 text: qsTr("Search again")
-                onClicked: discovery.discoverThings(thingClass.id, d.discoveryParams)
                 visible: !discovery.busy
+                onClicked: discovery.discoverThings(thingClass.id, d.discoveryParams)
             }
         }
     }
@@ -495,9 +496,9 @@ Page {
 
         SettingsPageBase {
             id: paramsView
+
             property Thing thing
             property ThingClass thingClass
-
 
             title: thing ? qsTr("Reconfigure %1").arg(thing.name) : qsTr("Set up %1").arg(thingClass.displayName)
 
@@ -507,6 +508,7 @@ Page {
 
             TextField {
                 id: nameTextField
+
                 text: (d.thingName ? d.thingName : thingClass.displayName)
                       + (thingClass.id.toString().match(/\{?f0dd4c03-0aca-42cc-8f34-9902457b05de\}?/) ? " (" + PlatformHelper.machineHostname + ")" : "")
                 Layout.fillWidth: true
@@ -516,16 +518,16 @@ Page {
 
             Label{
                 id: nameExplain
+
                 text: qsTr("Please change name if necessary")
                 Layout.alignment: Qt.AlignTop
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
-                verticalAlignment: Text.AlignTop
                 Layout.topMargin: 0
+                verticalAlignment: Text.AlignTop
                 color: Style.accentColor
                 font.pixelSize: 12
             }
-
 
             SettingsPageSectionHeader {
                 text: qsTr("Thing parameters")
@@ -534,7 +536,9 @@ Page {
 
             Repeater {
                 id: paramRepeater
+
                 model: engine.jsonRpcClient.ensureServerVersion("1.12") || d.thingDescriptor == null ?  thingClass.paramTypes : null
+
                 delegate: ParamDelegate {
                     Layout.fillWidth: true
                     enabled: !model.readOnly
@@ -555,8 +559,8 @@ Page {
                 Layout.fillWidth: true
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
-
                 text: "OK"
+
                 onClicked: {
                     var params = []
                     for (var i = 0; i < paramRepeater.count; i++) {
@@ -573,40 +577,23 @@ Page {
                     d.params = params
                     d.name = nameTextField.text
                     d.pairThing(thingClass, thing);
-
-
                 }
             }
-
         }
-
-
     }
-
 
     BusyOverlay {
         id: busyOverlay
     }
 
-
-
-
-
-
-
-
     Component {
         id: setupHeatPumpComponent
+
         Page {
             id: setupHeatPumpPage
 
-            header: NymeaHeader {
-                text: qsTr("Heat pump")
-                backButtonVisible: false
-                //onBackPressed: pageStack.pop(root)
-            }
-
             property ThingDescriptor thingDescriptor: null
+            property Thing thing: null
 
             //added
             property var thingClassId: null
@@ -615,11 +602,13 @@ Page {
             property int pendingCallId: -1
             property int thingError: Thing.ThingErrorNoError
 
-            property Thing thing: null
-
+            header: NymeaHeader {
+                text: qsTr("Heat pump")
+                backButtonVisible: false
+                //onBackPressed: pageStack.pop(root)
+            }
 
             function getParams(){
-
                 var params = []
                 for (var i = 0; i < thingClass.paramTypes.count; i++)
                 {
@@ -627,13 +616,9 @@ Page {
                     param.paramTypeId = thingClass.paramTypes.get(i).id
                     param.value = thingClass.paramTypes.get(i).defaultValue
                     params.push(param)
-
                 }
 
                 return params
-
-
-
             }
 
             Component.onCompleted: {
@@ -644,18 +629,17 @@ Page {
                     var thingclassparams = getParams()
                     engine.thingManager.addThing(thingClassId, thingClass.displayName , thingclassparams);
                 }
-
             }
-
 
             HemsManager{
                 id: hemsManager
+
                 engine: _engine
             }
 
-
             Connections {
                 target: engine.thingManager
+
                 onAddThingReply: {
                     root.countChanged()
                     if (commandId == setupHeatPumpPage.pendingCallId) {
@@ -668,8 +652,8 @@ Page {
             }
 
             ColumnLayout {
-                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
                 width: Math.min(parent.width - Style.margins * 2, 300)
+                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
                 spacing: Style.margins
 
                 Item {
@@ -682,25 +666,24 @@ Page {
                     }
                 }
 
-
                 ColumnLayout {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    visible: setupHeatPumpPage.pendingCallId == -1 && setupHeatPumpPage.thingError == Thing.ThingErrorNoError
                     spacing: Style.margins
+                    visible: setupHeatPumpPage.pendingCallId == -1 && setupHeatPumpPage.thingError == Thing.ThingErrorNoError
 
                     Label {
-                        Layout.fillWidth: true
-                        wrapMode: Text.WordWrap
                         text: qsTr("The following heat pump has been found and set up:")
+                        Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
+                        wrapMode: Text.WordWrap
                     }
 
                     Label {
+                        text: thing.name
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
                         font.bold: true
-                        text: thing.name
                     }
 
                     ColorIcon {
@@ -711,41 +694,34 @@ Page {
                         color: Style.accentColor
                         size: Style.hugeIconSize * 3
                     }
-
                 }
 
                 Label {
+                    text: qsTr("An unexpected error happened during the setup. Please verify the heat pump is installed correctly and try again.")
                     Layout.fillWidth: true
                     Layout.margins: Style.margins
-                    wrapMode: Text.WordWrap
-                    text: qsTr("An unexpected error happened during the setup. Please verify the heat pump is installed correctly and try again.")
                     visible: setupHeatPumpPage.thingError != Thing.ThingErrorNoError
+                    wrapMode: Text.WordWrap
                 }
 
                 ColumnLayout{
                     spacing: 0
                     Layout.alignment: Qt.AlignHCenter
 
-
                     Button {
                         Layout.alignment: Qt.AlignHCenter
                         text: qsTr("Next")
                         Layout.preferredWidth: 200
-                        onClicked:{
 
+                        onClicked:{
                             if (thing){
                                 var page = pageStack.push("../optimization/HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatPumpThing: thing, directionID: 1})
                                 page.done.connect(function(){
                                     pageStack.pop(root)
                                 })
                             }else{
-
                                 pageStack.pop(root)
                             }
-
-
-
-
                         }
                     }
                 }

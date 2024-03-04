@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="96" viewBox="0 0 96 96">
+  <defs>
+    <clipPath id="clip-Icon_Warning_red_thicker">
+      <rect width="96" height="96"/>
+    </clipPath>
+  </defs>
+  <g id="Icon_Warning_red_thicker" data-name="Icon Warning – red thicker" clip-path="url(#clip-Icon_Warning_red_thicker)">
+    <g id="layer1" transform="translate(67.857 -79.01)">
+      <g id="g4845" transform="translate(373.505 516.505) rotate(-90)">
+        <g id="g4778" transform="translate(575.943 611) rotate(180)">
+          <g id="g4780" transform="translate(575.77 611) rotate(180)">
+            <rect id="rect4782" width="96" height="96" transform="translate(437.827 -345.362) rotate(180)" fill="none"/>
+            <path id="path4157" d="M363.944-368.966c-.022.016-.035.04-.057.057s-.057.03-.082.051Z" fill="#f37b8e"/>
+            <path id="path4344" d="M363.931-417.8l-.139-.107c.025.02.057.031.082.051s.035.04.057.057Z" fill="#f37b8e"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <path id="warning-svgrepo-com" d="M45.36,66.581h.047M45.36,50.719V34.856M12.389,87.731H78.33c7.252,0,11.77-8.853,8.116-15.9L53.476,8.216c-3.626-7-12.607-7-16.233,0L4.273,71.828C.619,78.878,5.137,87.731,12.389,87.731Z" transform="translate(2.64 2.65)" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+  </g>
+</svg>

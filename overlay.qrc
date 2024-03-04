@@ -100,5 +100,7 @@
         <file>devicepages/HeatingElementDevicePage.qml</file>
         <file>optimization/HeatingElementOptimization.qml</file>
         <file>mainviews/StartupNotificationPopup.qml</file>
+        <file>images/warning-icon.svg</file>
+        <file>components/ConsolinnoWarningPopup.qml</file>
     </qresource>
 </RCC>
