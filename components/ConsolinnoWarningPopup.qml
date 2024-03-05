@@ -7,6 +7,10 @@ import Nymea 1.0
 Popup {
     id: root
 
+    property alias descriptionText: descriptionText.text
+
+    signal deleteClicked()
+
     implicitWidth: parent.width / 1.5
     modal: true
 
@@ -71,7 +75,6 @@ Popup {
                     top: titleText.bottom
                     topMargin: Style.margins
                 }
-                text: qsTr('This action cannot be undone. All the values associate with %1 will be lost.').arg('<span> <b>' + deleteThingID.name + '</b> </span>')
                 font.pixelSize: Style.font.pixelSize
                 horizontalAlignment: Text.AlignHCenter
                 topPadding: Style.smallMargins
@@ -131,9 +134,7 @@ Popup {
                 }
 
                 onClicked: {
-                    deleteButton.text = deleteThingID.name;
-                    //                            d.thingToRemove = thing;
-                    //                            engine.thingManager.removeThing(d.thingToRemove.id)
+                    root.deleteClicked();
                 }
             }
         }

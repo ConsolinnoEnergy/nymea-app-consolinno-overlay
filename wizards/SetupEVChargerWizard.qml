@@ -14,8 +14,6 @@ Page {
     signal done(bool skip, bool abort, bool back);
     signal countChanged()
 
-    property var deleteThingID: null;
-
     header: NymeaHeader {
         text: qsTr("Setup wallbox")
         onBackPressed: root.done(false, false, true)
@@ -33,6 +31,8 @@ Page {
         property int addRequestId: 0
         property var name: ""
         property var params: []
+        property var thingToRemove: null
+
 
         function pairThing(thingClass, thing) {
             switch (thingClass.setupMethod) {
@@ -79,10 +79,19 @@ Page {
 
     Connections {
         target: engine.thingManager
+
         onAddThingReply: {
             busyOverlay.shown = false;
             var thing = engine.thingManager.things.getThing(thingId)
             pageStack.push(setupEvChargerComponent, {thingError: thingError, thing: thing, message: displayMessage})
+        }
+
+        onRemoveThingReply: {
+            deleteWarningPopup.visible = false
+
+            if (!d.thingToRemove) {
+                return;
+            }
         }
     }
 
@@ -90,6 +99,10 @@ Page {
         id: deleteWarningPopup
 
         anchors.centerIn: parent
+        descriptionText: qsTr('This action cannot be undone. All the values associate with %1 will be lost.').arg('<span> <b>' + d.thingToRemove.name + '</b> </span>')
+        onDeleteClicked: {
+            engine.thingManager.removeThing(d.thingToRemove.id)
+        }
     }
 
     ColumnLayout {
@@ -150,7 +163,7 @@ Page {
                             text: evProxy.get(index) ? evProxy.get(index).name : ""
                             canDelete: true
                             onDeleteClicked: {
-                                deleteThingID = evProxy.getThing(model.id)
+                                d.thingToRemove = evProxy.getThing(model.id)
                                 deleteWarningPopup.visible = true;
                             }
                         }

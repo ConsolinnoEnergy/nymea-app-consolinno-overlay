@@ -15,8 +15,6 @@ Page {
 
     signal done(bool skip, bool abort, bool back);
 
-    property var deleteThingID: null;
-
     header: NymeaHeader {
         text: qsTr("Setup solar inverter")
         backButtonVisible: true
@@ -141,23 +139,10 @@ Page {
         }
 
         onRemoveThingReply: {
+            deleteWarningPopup.visible = false
+
             if (!d.thingToRemove) {
                 return;
-            }
-
-            switch (thingError) {
-            case Thing.ThingErrorNoError:
-                d.thingToRemove = null;
-                return;
-            case Thing.ThingErrorThingInRule:
-                //                var removeMethodComponent = Qt.createComponent(Qt.resolvedUrl("../components/RemoveThingMethodDialog.qml"))
-                //                var popup = removeMethodComponent.createObject(root, {thing: d.thingToRemove, rulesList: ruleIds});
-                //                popup.open();
-                return;
-            default:
-                //                var errorDialog = Qt.createComponent(Qt.resolvedUrl("../components/ErrorDialog.qml"))
-                //                var popup = errorDialog.createObject(root, {error: thingError})
-                //                popup.open();
             }
         }
     }
@@ -166,6 +151,10 @@ Page {
         id: deleteWarningPopup
 
         anchors.centerIn: parent
+        descriptionText: qsTr('This action cannot be undone. All the values associate with %1 will be lost.').arg('<span> <b>' + d.thingToRemove.name + '</b> </span>')
+        onDeleteClicked: {
+            engine.thingManager.removeThing(d.thingToRemove.id)
+        }
     }
 
     ColumnLayout {
@@ -226,7 +215,7 @@ Page {
                             text: emProxy.get(index) ? emProxy.get(index).name : ""
                             canDelete: true
                             onDeleteClicked: {
-                                deleteThingID = emProxy.getThing(model.id)
+                                d.thingToRemove = emProxy.getThing(model.id);
                                 deleteWarningPopup.visible = true;
                             }
                         }
