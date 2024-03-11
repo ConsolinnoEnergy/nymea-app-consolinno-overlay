@@ -260,7 +260,9 @@ Page {
                                                                            latitudeInput.text),
                                                            "roofPitch": roofpitchInput.text,
                                                            "alignment": alignment.currentValue,
-                                                           "kwPeak": peakPowerInput.text
+                                                           "kwPeak": Number.fromLocaleString(
+                                                                           Qt.locale(),
+                                                                           peakPowerInput.text) 
                                                        })
                         root.done()
                     } else {
@@ -281,7 +283,9 @@ Page {
                                                         latitudeInput.text),
                                         "roofPitch": roofpitchInput.text,
                                         "alignment": alignment.currentValue,
-                                        "kwPeak": peakPowerInput.text
+                                        "kwPeak": Number.fromLocaleString(
+                                                        Qt.locale(),
+                                                        peakPowerInput.text)
                                     })
                     }
                 }
