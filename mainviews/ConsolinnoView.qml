@@ -302,6 +302,7 @@ MainViewBase {
                 return
             }
 
+            /** Disabled for now, WIP
             if((!wizardSettings.heatingElementDone) || (!manualWizardSettings.heatingElementDone)) {
                 var page = d.pushPage("/ui/wizards/SetupHeatingElementWizard.qml")
                 page.done.connect(function (skip, abort, back) {
@@ -326,6 +327,7 @@ MainViewBase {
                 wizardSettings.heatingElementDone = true
                 return;
             }
+            **/
 
             if (!blackoutProtectionSetting.blackoutProtectionDone) {
                 var page = d.pushPage(
