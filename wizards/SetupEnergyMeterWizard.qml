@@ -9,7 +9,7 @@ import "../delegates"
 Page {
     id: root
 
-    signal done(bool skip, bool abort);z
+    signal done(bool skip, bool abort);
 
     header: NymeaHeader {
         text: qsTr("Setup energy meter")

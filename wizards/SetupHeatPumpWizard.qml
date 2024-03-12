@@ -95,8 +95,7 @@ Page {
         }
 
         onRemoveThingReply: {
-            deleteWarningPopup.visible = false
-
+            deleteWarningPopup.close()
             if (!d.thingToRemove) {
                 return;
             }
@@ -107,12 +106,11 @@ Page {
         id: deleteWarningPopup
 
         anchors.centerIn: parent
-        descriptionText: qsTr('This action cannot be undone. All the values associate with %1 will be lost.').arg('<span> <b>' + d.thingToRemove.name + '</b> </span>')
+        descriptionText: qsTr('Are you sure you want to delete %1 and all associated settings?').arg('<span> <b>' + d.thingToRemove.name + '</b> </span>')
         onDeleteClicked: {
             engine.thingManager.removeThing(d.thingToRemove.id)
         }
     }
-
 
     ColumnLayout {
         width: Math.min(parent.width - Style.margins * 2, 300)
@@ -174,7 +172,7 @@ Page {
                             canDelete: true
                             onDeleteClicked: {
                                 d.thingToRemove = hpProxy.getThing(model.id)
-                                deleteWarningPopup.visible = true;
+                                deleteWarningPopup.open()
                             }
                         }
                     }

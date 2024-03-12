@@ -965,6 +965,21 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>ConsolinnoErrorPopup</name>
+    <message>
+        <source>Oh snap!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An unexpected error happened. Sorry about that.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoImprint</name>
     <message>
         <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
@@ -1678,6 +1693,21 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>ConsolinnoWarningPopup</name>
+    <message>
+        <source>Delete device?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoWizardPageBase</name>
     <message>
         <source>Back</source>
@@ -1745,6 +1775,10 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>In order for your %1 system to be useful, go ahead and add some things.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete %1 and all associated settings?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2624,6 +2658,10 @@ Please refer to our service if you have any questions: service@consolinno.de</so
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Are you sure you want to delete %1 and all associated settings?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -2810,6 +2848,10 @@ Please refer to our service if you have any questions: service@consolinno.de</so
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Are you sure you want to delete %1 and all associated settings?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SetupHeatingElementWizard</name>
@@ -2911,6 +2953,10 @@ Please refer to our service if you have any questions: service@consolinno.de</so
     </message>
     <message>
         <source>An unexpected error happened during the setup. Please verify the heating element is installed correctly and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete %1 and all associated settings?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3042,6 +3088,10 @@ Please refer to our service if you have any questions: service@consolinno.de</so
     </message>
     <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete %1 and all associated settings?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

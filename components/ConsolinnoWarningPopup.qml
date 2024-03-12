@@ -61,7 +61,7 @@ Popup {
                     topMargin: Style.smallMargins
                 }
 
-                text: qsTr('Are you sure?')
+                text: qsTr('Delete device?')
                 font.bold: true
                 font.pixelSize: Style.bigFont.pixelSize
                 horizontalAlignment: Text.AlignHCenter

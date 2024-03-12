@@ -41,6 +41,7 @@ Page {
     Connections {
         target: engine.thingManager
         onRemoveThingReply: {
+            deleteWarningPopup.close();
             if (!d.thingToRemove) {
                 return;
             }
@@ -59,6 +60,16 @@ Page {
                 var popup = errorDialog.createObject(root, {error: thingError})
                 popup.open();
             }
+        }
+    }
+
+    ConsolinnoWarningPopup {
+        id: deleteWarningPopup
+
+        anchors.centerIn: parent
+        descriptionText: qsTr('Are you sure you want to delete %1 and all associated settings?').arg('<span> <b>' + d.thingToRemove.name + '</b> </span>')
+        onDeleteClicked: {
+            engine.thingManager.removeThing(d.thingToRemove.id)
         }
     }
 
@@ -122,7 +133,7 @@ Page {
                 }
                 onDeleteClicked: {
                     d.thingToRemove = thing;
-                    engine.thingManager.removeThing(d.thingToRemove.id)
+                    deleteWarningPopup.open();
                 }
             }
         }
