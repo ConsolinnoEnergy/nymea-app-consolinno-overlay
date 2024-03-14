@@ -1682,12 +1682,29 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>&lt;h3&gt;Consolinno Energy HEMS App was updated&lt;/h3&gt;
-            &lt;p&gt;Version 1.4.0 (January 18, 2024)&lt;/p&gt;
-            &lt;h4&gt;Fixed&lt;/h4&gt;
+            &lt;p&gt;Version 1.4.0 (March 18, 2024)&lt;/p&gt;
+            &lt;h4&gt;New&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;TODO&lt;/li&gt;
+                &lt;li&gt;Harmonized design in the commissioning wizard&lt;/li&gt;
+                &lt;li&gt;Error messages in the PV configuration &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;h4&gt;Improvements&lt;/h4&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Burger menu: Connections to leaflets are scrollable&lt;/li&gt;
+                &lt;li&gt;Feedback on charging:  Display of the current charging power &lt;/li&gt;
             &lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h3&gt;Consolinno Energy HEMS App wurde aktualisiert&lt;/h3&gt;
+&lt;p&gt;Version 1.4.0 (18. März 2024)&lt;/p&gt;
+&lt;h4&gt;Neu&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;Harmonisiertes Design im Inbetriebnahme-Assistenten&lt;/li&gt;
+    &lt;li&gt;Fehlermeldungen in der PV-Konfiguration&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Verbesserungen&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;Burgermenu: Verbindungen zu Leaflets sind scrollbar&lt;/li&gt;
+    &lt;li&gt;Feedback zum Laden:  Anzeige der aktuellen Ladeleistung &lt;/li&gt;
+&lt;/ul&gt;</translation>
     </message>
 </context>
 <context>

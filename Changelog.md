@@ -1,8 +1,10 @@
-## [1.4.0 - unreleased ]
+## [1.4.0]
 ### Added
-- Added Debug charts and ConEMS state
-- Improved showing busy spinner in charging configuration view
-- Heating rod support 
+- Harmonized design in the commissioning wizard
+- Error messages in the PV configuration 
+### Changed
+- Burger menu: Connections to leaflets are scrollable
+- Feedback on charging:  Display of the current charging power
 
 ## [1.3.4 ]
 ### Fixed

@@ -1672,10 +1672,16 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>&lt;h3&gt;Consolinno Energy HEMS App was updated&lt;/h3&gt;
-            &lt;p&gt;Version 1.4.0 (January 18, 2024)&lt;/p&gt;
-            &lt;h4&gt;Fixed&lt;/h4&gt;
+            &lt;p&gt;Version 1.4.0 (March 18, 2024)&lt;/p&gt;
+            &lt;h4&gt;New&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;TODO&lt;/li&gt;
+                &lt;li&gt;Harmonized design in the commissioning wizard&lt;/li&gt;
+                &lt;li&gt;Error messages in the PV configuration &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;h4&gt;Improvements&lt;/h4&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Burger menu: Connections to leaflets are scrollable&lt;/li&gt;
+                &lt;li&gt;Feedback on charging:  Display of the current charging power &lt;/li&gt;
             &lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
