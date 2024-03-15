@@ -105,6 +105,14 @@ Page {
             Layout.fillHeight: false
             label: qsTr("Latitude")
             text: pvConfiguration.latitude.toLocaleString(Qt.locale())
+
+            validator: DoubleValidator {
+                bottom: 30
+                top: 60
+                decimals: 4
+                notation: "StandardNotation"
+            }
+
         }
 
         ConsolinnoPVTextField {
@@ -116,8 +124,8 @@ Page {
             text: pvConfiguration.longitude.toLocaleString(Qt.locale())
 
             validator: DoubleValidator {
-                bottom: -180
-                top: 180
+                bottom: -10 
+                top: 30
                 decimals: 4
                 notation: "StandardNotation"
             }
