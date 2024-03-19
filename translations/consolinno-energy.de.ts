@@ -1709,7 +1709,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Delete</source>
