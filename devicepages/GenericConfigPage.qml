@@ -77,8 +77,10 @@ Item {
                         Label {
                             id: titleText
 
+                            width: parent.width
                             anchors.centerIn: parent
                             font.pixelSize: 20
+                            elide: Text.ElideRight
                         }
                     }
 
