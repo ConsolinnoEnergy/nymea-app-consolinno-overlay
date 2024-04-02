@@ -62,7 +62,7 @@ Page {
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 id: consumptionDescription
-                text: qsTr("In the middle of the dashboard you can see the consumption of the last 24 hours. The yellow area shows your produced energy. If more energy is produced than consumed, power is fed into the grid visible on the blue area. If more energy is consumed than produced, then energy is drawn from the grid visible on the blue area. The other colored areas represent the energy consumption of the different devices such as a wallbox or a heat pump.")
+                text: qsTr("In the middle of the dashboard you can see the consumption of the last 24 hours. The yellow area shows your produced energy. If more energy is produced than consumed, power is fed into the grid visible on the blue area. If more energy is consumed than produced, then energy is drawn from the grid visible on the red area. The other colored areas represent the energy consumption of the different devices such as a wallbox or a heat pump.")
             }
             Label{
                 Layout.fillWidth: true
