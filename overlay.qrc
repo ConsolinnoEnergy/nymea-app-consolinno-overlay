@@ -102,5 +102,7 @@
         <file>mainviews/StartupNotificationPopup.qml</file>
         <file>images/warning-icon.svg</file>
         <file>components/ConsolinnoWarningPopup.qml</file>
+        <file>info/Help/SecurityPage.qml</file>
+        <file>info/Help/HelpInfoPage.qml</file>
     </qresource>
 </RCC>

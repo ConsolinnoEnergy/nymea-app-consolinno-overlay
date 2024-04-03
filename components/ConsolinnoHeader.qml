@@ -23,6 +23,7 @@ Item {
 
     signal backPressed();
     signal menuPressed();
+    signal infoPressed();
 
     function showInfo(text, isError, isSticky) {
         if (isError === undefined) isError = false;
@@ -89,6 +90,13 @@ Item {
                     color: Material.foreground
                 }
 
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    root.infoPressed();
+                }
             }
         }
 

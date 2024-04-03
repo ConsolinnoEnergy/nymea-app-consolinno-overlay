@@ -17,6 +17,10 @@ Page {
         text: qsTr("Help")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
+        onInfoPressed: {
+            pageStack.push("HelpInfoPage.qml")
+        }
+
         show_Image: true
 
     }
@@ -113,53 +117,28 @@ Page {
         }
 
         RowLayout{
-            Label{
-                id: infoManual
+            VerticalDivider
+            {
+                Layout.fillWidth: true
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
-                Layout.topMargin: 20
-                Layout.fillWidth: true
-                text: qsTr("Under 'Manual' you will find current instructions for the app.")
-                wrapMode: Text.WordWrap
+                dividerColor: Material.accent
             }
-
         }
+
 
         RowLayout{
-            Label{
-                id: infoDevice
+            ConsolinnoItemDelegate{
+                id: security
+
+                Layout.fillWidth: true
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
-                Layout.topMargin: 10
-                Layout.fillWidth: true
-                wrapMode: Text.WordWrap
-                text: qsTr("If you have any problems with your system, please contact the installer. Under 'Installation contact' the installer's details are stored (if he has entered them in the app).")
-
+                text: qsTr("IT Security")
+                onClicked:{
+                    pageStack.push("SecurityPage.qml")
+                }
             }
-
         }
-
-        RowLayout{
-            Label{
-                id: infoLeaflet
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                Layout.topMargin: 10
-                Layout.fillWidth: true
-                wrapMode: Text.WordWrap
-                text: qsTr("If there is a problem with the Leaflet itself, then contact Consolinno's service.")
-
-            }
-
-        }
-
-
-
-
-
-
-
     }
-
-
 }

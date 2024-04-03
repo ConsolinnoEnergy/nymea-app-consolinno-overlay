@@ -2154,6 +2154,25 @@ the system, and a charging process is started, charging is prioritized.</source>
     </message>
 </context>
 <context>
+    <name>HelpInfoPage</name>
+    <message>
+        <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Under &apos;Manual&apos; you will find current instructions for the app.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you have any problems with your system, please contact the installer. Under &apos;Installation contact&apos; the installer&apos;s details are stored (if he has entered them in the app).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there is a problem with the Leaflet itself, then contact Consolinno&apos;s service.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>HelpPage</name>
     <message>
         <source>Help</source>
@@ -2172,15 +2191,7 @@ the system, and a charging process is started, charging is prioritized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Under &apos;Manual&apos; you will find current instructions for the app.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If you have any problems with your system, please contact the installer. Under &apos;Installation contact&apos; the installer&apos;s details are stored (if he has entered them in the app).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If there is a problem with the Leaflet itself, then contact Consolinno&apos;s service.</source>
+        <source>IT Security</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2539,6 +2550,33 @@ Please refer to our service if you have any questions: service@consolinno.de</so
         <source></source>
         <comment>example: &quot;and temperature &gt; 5&quot;</comment>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>SecurityPage</name>
+    <message>
+        <source>IT Security</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IT security tips</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;We recommend the &lt;a href=&quot;https://www.bsi.bund.de/DE/Themen/Verbraucherinnen-und-Verbraucher/Informationen-und-Empfehlungen/Cyber-Sicherheitsempfehlungen/cyber-sicherheitsempfehlungen_node.html&quot;&gt; basis tips&lt;/a&gt; from the BSI. &lt;/p&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Security incidents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can report incidents via E-Mail: &lt;a href=&quot;itsecurity@consolinno.de&quot;&gt;itsecurity@consolinno.de&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;For security experts, please see &lt;a href=&quot;https://consolinno.de/.well-known/security.txt&quot;&gt;https://consolinno.de/.well-known/security.txt&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
