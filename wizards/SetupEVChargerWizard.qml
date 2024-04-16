@@ -461,18 +461,7 @@ Page {
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
-                }
-
-                Label {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-                    horizontalAlignment: Text.AlignHCenter
-                    text: discovery.displayMessage.length === 0 ?
-                              qsTr("Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.")
-                            : discovery.displayMessage
-                    wrapMode: Text.WordWrap
-                }
-
+                }                
             }
             Button {
                 id: retryButton

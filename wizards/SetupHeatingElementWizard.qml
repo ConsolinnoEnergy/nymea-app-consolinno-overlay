@@ -409,16 +409,6 @@ Page {
                     wrapMode: Text.WordWrap
                     text: qsTr("No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to 'Search again'.")
                 }
-
-                Label {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-                    horizontalAlignment: Text.AlignHCenter
-                    wrapMode: Text.WordWrap
-                    text: discovery.displayMessage.length === 0 ?
-                              qsTr("Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.")
-                            : discovery.displayMessage
-                }
             }
 
             Button {
