@@ -33,8 +33,9 @@ Page {
         Column {
             Layout.fillWidth: true
 
-            SettingsPageSectionHeader {
+            Label {
                 text: qsTr("IT security tips")
+                font.bold: true
             }
 
             Label {
@@ -51,8 +52,9 @@ Page {
         Column {
             Layout.fillWidth: true
 
-            SettingsPageSectionHeader {
+            Label {
                 text: qsTr("Security incidents")
+                font.bold: true
             }
 
             Label {

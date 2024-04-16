@@ -964,21 +964,6 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
-    <name>ConsolinnoErrorPopup</name>
-    <message>
-        <source>Oh snap!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>An unexpected error happened. Sorry about that.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ConsolinnoImprint</name>
     <message>
         <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
