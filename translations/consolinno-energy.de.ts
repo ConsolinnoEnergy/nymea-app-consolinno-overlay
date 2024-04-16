@@ -2599,10 +2599,6 @@ Please refer to our service if you have any questions: service@consolinno.de</so
         <translation>Schade!</translation>
     </message>
     <message>
-        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
-        <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
-    </message>
-    <message>
         <source>Search again</source>
         <translation>Erneut suchen</translation>
     </message>
@@ -2684,10 +2680,6 @@ Please refer to our service if you have any questions: service@consolinno.de</so
     <message>
         <source>Too bad...</source>
         <translation>Schade!</translation>
-    </message>
-    <message>
-        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
-        <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
     </message>
     <message>
         <source>Search again</source>
@@ -2785,10 +2777,6 @@ Please refer to our service if you have any questions: service@consolinno.de</so
         <translation>Schade!</translation>
     </message>
     <message>
-        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
-        <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
-    </message>
-    <message>
         <source>Search again</source>
         <translation>Erneut suchen</translation>
     </message>
@@ -2882,10 +2870,6 @@ Please refer to our service if you have any questions: service@consolinno.de</so
     <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
-    </message>
-    <message>
-        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
-        <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
     </message>
     <message>
         <source>Search again</source>
@@ -2989,10 +2973,6 @@ Please refer to our service if you have any questions: service@consolinno.de</so
     <message>
         <source>Too bad...</source>
         <translation>Schade!</translation>
-    </message>
-    <message>
-        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
-        <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
     </message>
     <message>
         <source>Search again</source>
