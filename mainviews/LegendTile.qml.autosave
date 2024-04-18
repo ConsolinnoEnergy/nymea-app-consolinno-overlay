@@ -55,6 +55,11 @@ MouseArea {
 
     function getLabeltext(power) {
         if(root.connected != 1){
+            //return "⚠️ Offline"
+            //return "⚡ Offline"
+            //return "⛔ Offline"
+            //return "❗ Offline"
+            //return "🔌 Offline"
             return "🌩️ Offline"
         }
         if (currentPowerState != null) {
