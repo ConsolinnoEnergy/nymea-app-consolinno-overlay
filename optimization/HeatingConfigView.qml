@@ -82,7 +82,6 @@ GenericConfigPage {
                     {Id: "operatingMode", name: qsTr("Operating mode: "), value: translateNymeaHeatpumpValues(thing.stateByName("sgReadyMode") ? thing.stateByName("sgReadyMode").value : null), component: stringValues, unit: ""},
                     {Id: "configuartionData", name: qsTr("Configuration data: "), component: configValues,
                         params:[
-                            {name: qsTr("Floor heating area"), value: heatingconfig.floorHeatingArea, unit: "m²"},
                             {name: qsTr("Maximal electrical power"), value: heatingconfig.maxElectricalPower, unit: "kW"},
                         ]
 

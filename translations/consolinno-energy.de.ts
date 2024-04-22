@@ -1996,10 +1996,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Floor heating area</source>
-        <translation type="unfinished">Beheizte Fläche</translation>
-    </message>
-    <message>
         <source>Maximal electrical power</source>
         <translation type="unfinished">Maximale elektrische Leistung</translation>
     </message>
