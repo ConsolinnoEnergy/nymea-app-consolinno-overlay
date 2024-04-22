@@ -2556,11 +2556,11 @@ Please refer to our service if you have any questions: service@consolinno.de</so
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can report incidents via E-Mail: &lt;a href=&quot;itsecurity@consolinno.de&quot;&gt;itsecurity@consolinno.de&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;For security experts, please see &lt;a href=&quot;https://consolinno.de/.well-known/security.txt&quot;&gt;https://consolinno.de/.well-known/security.txt&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;For security experts, please see &lt;a href=&quot;https://consolinno.de/.well-known/security.txt&quot;&gt;https://consolinno.de/.well-known/security.txt&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can report incidents via E-Mail: &lt;br&gt; &lt;a href=&quot;itsecurity@consolinno.de&quot;&gt;itsecurity@consolinno.de&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

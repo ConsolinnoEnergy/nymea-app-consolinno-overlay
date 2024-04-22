@@ -59,7 +59,7 @@ Page {
 
             Label {
                 width: parent.width
-                text: qsTr('<html><style type="text/css"></style><p>You can report incidents via E-Mail: <a href="itsecurity@consolinno.de">itsecurity@consolinno.de</a> </p></html>')
+                text: qsTr('<html><style type="text/css"></style><p>You can report incidents via E-Mail: <br> <a href="itsecurity@consolinno.de">itsecurity@consolinno.de</a> </p></html>')
 
                 onLinkActivated:{
                     Qt.openUrlExternally(link)
