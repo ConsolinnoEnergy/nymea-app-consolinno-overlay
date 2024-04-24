@@ -1,3 +1,7 @@
+## [1.5.0]
+### Added
+- Improved interaction with edge backend 
+
 ## [1.4.0]
 ### Added
 - Harmonized design in the commissioning wizard
