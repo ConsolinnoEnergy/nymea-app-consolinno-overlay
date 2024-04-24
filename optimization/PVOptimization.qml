@@ -105,6 +105,14 @@ Page {
             Layout.fillHeight: false
             label: qsTr("Latitude")
             text: pvConfiguration.latitude.toLocaleString(Qt.locale())
+
+            validator: DoubleValidator {
+                bottom: 30
+                top: 60
+                decimals: 4
+                notation: "StandardNotation"
+            }
+
         }
 
         ConsolinnoPVTextField {
@@ -116,8 +124,8 @@ Page {
             text: pvConfiguration.longitude.toLocaleString(Qt.locale())
 
             validator: DoubleValidator {
-                bottom: -180
-                top: 180
+                bottom: -10 
+                top: 30
                 decimals: 4
                 notation: "StandardNotation"
             }
@@ -196,11 +204,14 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: false
             label: qsTr("Peak power")
-            text: pvConfiguration.kwPeak
+            text: pvConfiguration.kwPeak.toLocaleString(Qt.locale())
             unit: qsTr("kW")
 
             validator: DoubleValidator {
                 bottom: 1
+                top: 30
+                decimals: 2
+                notation: "StandardNotation"
             }
         }
 
@@ -257,7 +268,9 @@ Page {
                                                                            latitudeInput.text),
                                                            "roofPitch": roofpitchInput.text,
                                                            "alignment": alignment.currentValue,
-                                                           "kwPeak": peakPowerInput.text
+                                                           "kwPeak": Number.fromLocaleString(
+                                                                           Qt.locale(),
+                                                                           peakPowerInput.text) 
                                                        })
                         root.done()
                     } else {
@@ -278,7 +291,9 @@ Page {
                                                         latitudeInput.text),
                                         "roofPitch": roofpitchInput.text,
                                         "alignment": alignment.currentValue,
-                                        "kwPeak": peakPowerInput.text
+                                        "kwPeak": Number.fromLocaleString(
+                                                        Qt.locale(),
+                                                        peakPowerInput.text)
                                     })
                     }
                 }

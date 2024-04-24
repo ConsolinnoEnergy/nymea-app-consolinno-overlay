@@ -302,6 +302,7 @@ MainViewBase {
                 return
             }
 
+            /** Disabled for now, WIP
             if((!wizardSettings.heatingElementDone) || (!manualWizardSettings.heatingElementDone)) {
                 var page = d.pushPage("/ui/wizards/SetupHeatingElementWizard.qml")
                 page.done.connect(function (skip, abort, back) {
@@ -326,6 +327,7 @@ MainViewBase {
                 wizardSettings.heatingElementDone = true
                 return;
             }
+            **/
 
             if (!blackoutProtectionSetting.blackoutProtectionDone) {
                 var page = d.pushPage(
@@ -537,11 +539,18 @@ MainViewBase {
             var notficationPopup = startUpNotificationComponent.createObject(root)
             //notficationPopup.message = qsTr("Consolinno HEMS App was updated to version %1.").arg(appVersion)
             notficationPopup.message=qsTr('<h3>Consolinno Energy HEMS App was updated</h3>
-            <p>Version 1.4.0 (January 18, 2024)</p>
-            <h4>Fixed</h4>
+            <p>Version 1.4.0 (March 18, 2024)</p>
+            <h4>New</h4>
             <ul>
-                <li>TODO</li>
-            </ul>')
+                <li>Harmonized design in the commissioning wizard</li>
+                <li>Error messages in the PV configuration </li>
+            </ul>
+            <h4>Improvements</h4>
+            <ul>
+                <li>Burger menu: Connections to leaflets are scrollable</li>
+                <li>Feedback on charging:  Display of the current charging power </li>
+            </ul>'
+            )
             // If Popup not already open, open it
             if (notficationPopup.opened === false
                     && shownPopupsSetting.shown.indexOf(appVersion) === -1) {
@@ -1397,15 +1406,8 @@ MainViewBase {
                                                         "thing": thing
                                                     })
                                     }
-                                } else if(thing.name === 'Heizstab') {
-                                    pageStack.push(
-                                                "../devicepages/HeatingElementDevicePage.qml",
-                                                {
-                                                    "thing": thing
-                                                })
-                                }
 
-                                else {
+                                } else {
                                     pageStack.push(
                                                 "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                                 {

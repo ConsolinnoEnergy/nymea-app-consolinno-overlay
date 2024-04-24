@@ -381,12 +381,16 @@
         <source>Actual charging current</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Charging power</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
     <message>
         <source>Charging</source>
-        <translation type="unfinished">Laden</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -784,8 +788,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Please connect your Leaflet device (LAN port 1) to your network. Be sure the device running this App (Smartphone, PC) is connected to the same network.</source>
-        <translation>Bitte verbinden Sie das Leaflet (1. LAN-Buchse) mit dem Netzwerk. Stellen Sie sicher, dass Ihr Gerät (Smartphone, PC) mit dem selben Netzwerk verbunden ist.
-</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Remote proxy</source>
@@ -809,7 +812,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished">Zurück</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Privacy Policy and License Agreement
@@ -830,7 +833,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished">Weiter</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1669,10 +1672,16 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>&lt;h3&gt;Consolinno Energy HEMS App was updated&lt;/h3&gt;
-            &lt;p&gt;Version 1.4.0 (January 18, 2024)&lt;/p&gt;
-            &lt;h4&gt;Fixed&lt;/h4&gt;
+            &lt;p&gt;Version 1.4.0 (March 18, 2024)&lt;/p&gt;
+            &lt;h4&gt;New&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;TODO&lt;/li&gt;
+                &lt;li&gt;Harmonized design in the commissioning wizard&lt;/li&gt;
+                &lt;li&gt;Error messages in the PV configuration &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;h4&gt;Improvements&lt;/h4&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Burger menu: Connections to leaflets are scrollable&lt;/li&gt;
+                &lt;li&gt;Feedback on charging:  Display of the current charging power &lt;/li&gt;
             &lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1681,11 +1690,11 @@ Mail service@consolinno.de</source>
     <name>ConsolinnoWizardPageBase</name>
     <message>
         <source>Back</source>
-        <translation type="unfinished">Zurück</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished">Weiter</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1846,7 +1855,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Charging</source>
-        <translation type="unfinished">Laden</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Discharging</source>
@@ -2285,7 +2294,7 @@ the system, and a charging process is started, charging is prioritized.</source>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished">Weiter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>(The settings can be found in the wrench menu under &lt;font color=&quot;#87BD26&quot;&gt; Optimization Settings &lt;/font&gt;).</source>
@@ -2566,7 +2575,7 @@ Please refer to our service if you have any questions: service@consolinno.de</so
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished">Weiter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Discover %1</source>
@@ -2653,7 +2662,7 @@ Please refer to our service if you have any questions: service@consolinno.de</so
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished">Weiter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Discover %1</source>
@@ -2740,7 +2749,7 @@ Please refer to our service if you have any questions: service@consolinno.de</so
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished">Weiter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>There is no heat pump set up yet.</source>
@@ -2851,7 +2860,7 @@ Please refer to our service if you have any questions: service@consolinno.de</so
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished">Weiter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The following devices were found:</source>
@@ -2958,7 +2967,7 @@ Please refer to our service if you have any questions: service@consolinno.de</so
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished">Weiter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Discover %1</source>
