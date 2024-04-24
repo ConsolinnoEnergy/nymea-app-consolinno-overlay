@@ -40,8 +40,7 @@ GenericConfigPage {
     property int pv_optimized: ChargingConfigView.ChargingMode.PV_OPTIMIZED
     property int pv_excess: ChargingConfigView.ChargingMode.PV_EXCESS
     property int simple_pv_excess: ChargingConfigView.ChargingMode.SIMPLE_PV_EXCESS
-    // uncomment when the backend is ready for ConEMS state
-    //property ConEMSState conState: hemsManager.conEMSState
+    property ConEMSState conState: hemsManager.conEMSState
 
     function timer() {
         return Qt.createQmlObject("import QtQuick 2.0; Timer {}", root);
@@ -83,25 +82,17 @@ GenericConfigPage {
     Connections {
         target: hemsManager
         onConEMSStateChanged: {
-
-
-            /**
             if (conState.currentState.operating_state === 1) // RUNNING
             {
 
                 busyOverlay.shown = false
             }
-            **/
-
         }
 
         onChargingSessionConfigurationChanged:
         {
             console.info("Charging session configuration changed...")
             if (chargingSessionConfiguration.evChargerThingId === thing.id){
-
-                // uncomment when the backend is ready for ConEMS state
-                busyOverlay.shown = false
 
                 batteryLevelValue.text  = chargingSessionConfiguration.batteryLevel  + " %"
                 energyChargedValue.text = chargingSessionConfiguration.energyCharged.toFixed(2) + " kWh"
@@ -785,6 +776,7 @@ GenericConfigPage {
                             text:  status.state == 3 ? qsTr("Configure charging mode") : qsTr("Reconfigure charging mode" )
                             onClicked: {
                                 hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: false, optimizationMode:9})
+                                busyOverlay.shown = true
                             }
                         }
                     }
