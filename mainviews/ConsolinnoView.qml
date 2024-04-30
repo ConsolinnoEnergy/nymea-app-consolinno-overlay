@@ -1264,11 +1264,12 @@ MainViewBase {
                             horizontalAlignment: Text.AlignHCenter
                             color: "white"
                             text: '<span style="font-size:' + Style.bigFont.pixelSize + 'px">'
-                                  + (energyManager.currentPowerConsumption
-                                     < 1000 ? energyManager.currentPowerConsumption : energyManager.currentPowerConsumption / 1000).toFixed(
+                                  + (energyManager.currentPowerConsumptionAverage
+                                     < 1000 ? energyManager.currentPowerConsumptionAverage : energyManager.currentPowerConsumptionAverage / 1000).toFixed(
                                       1) + '</span> <span style="font-size:'
                                   + Style.smallFont.pixelSize + 'px">'
-                                  + (energyManager.currentPowerConsumption
+                                // TODO add some kind of mean value calculation for currentPowerConsumptionAverage
+                                  + (energyManager.currentPowerConsumptionAverage
                                      < 1000 ? "W" : "kW") + '</span>'
                         }
 
