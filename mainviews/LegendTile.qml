@@ -22,6 +22,12 @@ MouseArea {
 
 
     readonly property double currentPower: root.currentPowerState ? root.currentPowerState.value.toFixed(0) : 0
+    Average {
+        id: currentPowerAverage
+        windowSize: 10
+    }
+
+
     readonly property State batteryLevelState: isBattery ? thing.stateByName("batteryLevel") : null
 
     readonly property color currentColor: currentPower <= 0 ? root.negativeColor : root.color
@@ -52,9 +58,11 @@ MouseArea {
     }
 
     function getLabeltext(power) {
-        if (currentPowerState != null) {
-            return Math.abs(power) + " W"
+        currentPowerAverage.next(power)
+        if (currentPowerAverage.value != null) {
+            return Math.floor(Math.abs(currentPowerAverage.value)) + " W"
         }
+        
         return "–"
     }
 

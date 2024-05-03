@@ -5,6 +5,7 @@ HEADERS += \
     $$PWD/Configurations/chargingsessionconfiguration.h \
     $$PWD/Configurations/chargingsessionconfigurations.h \
     $$PWD/Configurations/conemsstate.h \
+    $$PWD/Configurations/average.h \
     $$PWD/Configurations/heatingconfigurations.h \
     $$PWD/Configurations/heatingelementconfiguration.h \
     $$PWD/Configurations/heatingelementconfigurations.h \
@@ -25,6 +26,7 @@ SOURCES += \
     $$PWD/Configurations/chargingsessionconfiguration.cpp \
     $$PWD/Configurations/chargingsessionconfigurations.cpp \
     $$PWD/Configurations/conemsstate.cpp \
+    $$PWD/Configurations/average.cpp \
     $$PWD/Configurations/heatingconfiguration.cpp \
     $$PWD/Configurations/heatingconfigurations.cpp \
     $$PWD/Configurations/heatingelementconfiguration.cpp \
