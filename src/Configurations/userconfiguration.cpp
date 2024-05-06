@@ -70,3 +70,14 @@ void UserConfiguration::setInstallerWorkplace(const QString &installerWorkplace)
 {
     m_installerWorkplace = installerWorkplace;
 }
+
+
+bool UserConfiguration::averagingPowerEnabled() const
+{
+    return m_averagingPowerEnabled;
+}
+
+void UserConfiguration::setAveragingPowerEnabled(const bool averagingPowerEnabled)
+{
+    m_averagingPowerEnabled = averagingPowerEnabled;
+}

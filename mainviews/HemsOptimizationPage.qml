@@ -16,6 +16,7 @@ Page {
     }
 
     property HemsManager hemsManager
+    property UserConfiguration userconfig
     ListModel {
         id: useCasesModel
         ListElement { text: qsTr("Optimization configuration"); value: 0; visible: true}
@@ -62,7 +63,7 @@ Page {
                         })
                         break;
                     case 2:
-                        pageStack.push(Qt.resolvedUrl("../optimization/DeveloperConfig.qml"), { hemsManager: hemsManager})
+                        pageStack.push(Qt.resolvedUrl("../optimization/DeveloperConfig.qml"), { hemsManager: hemsManager, userconfig: userconfig})
                         break;
                     }
                 }

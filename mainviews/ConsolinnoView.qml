@@ -106,7 +106,8 @@ MainViewBase {
             "visible": hemsManager.available && rootMeter != null,
             "trigger": function () {
                 var page = pageStack.push("HemsOptimizationPage.qml", {
-                                              "hemsManager": hemsManager
+                                              "hemsManager": hemsManager,
+                                              "userconfig": userconfig
                                           })
                 page.startWizard.connect(function () {
                     pageStack.pop(pageStack.get(0))
@@ -860,6 +861,7 @@ MainViewBase {
                         isRootmeter: true
                         color: lsdChart.rootMeterAcquisitionColor
                         negativeColor: lsdChart.rootMeterReturnColor
+                        userconfig: userconfig
                         onClicked: {
                             print("Clicked root meter", index, thing.name)
                             pageStack.push(
@@ -877,6 +879,7 @@ MainViewBase {
                             visible: producers.get(index).id !== rootMeter.id
                             color: lsdChart.producersColor
                             thing: producers.get(index)
+                            userconfig: userconfig
                             onClicked: {
                                 print("Clicked producer", index, thing.name)
                                 pageStack.push(
@@ -1263,14 +1266,11 @@ MainViewBase {
                             textFormat: Text.RichText
                             horizontalAlignment: Text.AlignHCenter
                             color: "white"
+                            property double powerLabel: userconfig.averagingPowerEnabled ? energyManager.currentPowerConsumptionAverage : energyManager.currentPowerConsumption
                             text: '<span style="font-size:' + Style.bigFont.pixelSize + 'px">'
-                                  + (energyManager.currentPowerConsumptionAverage
-                                     < 1000 ? energyManager.currentPowerConsumptionAverage : energyManager.currentPowerConsumptionAverage / 1000).toFixed(
-                                      1) + '</span> <span style="font-size:'
-                                  + Style.smallFont.pixelSize + 'px">'
-                                // TODO add some kind of mean value calculation for currentPowerConsumptionAverage
-                                  + (energyManager.currentPowerConsumptionAverage
-                                     < 1000 ? "W" : "kW") + '</span>'
+                                + (powerLabel < 1000 ? powerLabel : powerLabel / 1000).toFixed(1) 
+                                + '</span> <span style="font-size:' + Style.smallFont.pixelSize + 'px">'
+                                + (powerLabel < 1000 ? "W" : "kW") + '</span>'
                         }
 
                         Label {
@@ -1365,6 +1365,7 @@ MainViewBase {
                         delegate: LegendTile {
                             color: lsdChart.consumersColors[index]
                             thing: consumers.get(index)
+                            userconfig: userconfig
                             onClicked: {
                                 print("Clicked consumer", index, thing.name)
                                 if (thing.thingClass.interfaces.indexOf(
@@ -1425,6 +1426,7 @@ MainViewBase {
                         delegate: LegendTile {
                             color: lsdChart.batteriesColor
                             thing: batteries.get(index)
+                            userconfig: userconfig
                             onClicked: {
                                 print("Clicked battery", index, thing.name)
                                 pageStack.push(
