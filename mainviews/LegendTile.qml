@@ -22,7 +22,7 @@ MouseArea {
 
 
     readonly property double currentPower: root.currentPowerState ? root.currentPowerState.value.toFixed(0) : 0
-    Average {
+    MovingAverage {
         id: currentPowerAverage
         windowSize: 10
     }
