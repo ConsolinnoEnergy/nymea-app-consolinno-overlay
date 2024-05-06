@@ -537,20 +537,7 @@ MainViewBase {
         if (visible) {
             // Show message if app was updated
             var notficationPopup = startUpNotificationComponent.createObject(root)
-            //notficationPopup.message = qsTr("Consolinno HEMS App was updated to version %1.").arg(appVersion)
-            notficationPopup.message=qsTr('<h3>Consolinno Energy HEMS App was updated</h3>
-            <p>Version 1.4.0 (March 18, 2024)</p>
-            <h4>New</h4>
-            <ul>
-                <li>Harmonized design in the commissioning wizard</li>
-                <li>Error messages in the PV configuration </li>
-            </ul>
-            <h4>Improvements</h4>
-            <ul>
-                <li>Burger menu: Connections to leaflets are scrollable</li>
-                <li>Feedback on charging:  Display of the current charging power </li>
-            </ul>'
-            )
+            notficationPopup.message=qsTr('CHANGENOTIFICATION_PLACEHOLDER')
             // If Popup not already open, open it
             if (notficationPopup.opened === false
                     && shownPopupsSetting.shown.indexOf(appVersion) === -1) {
