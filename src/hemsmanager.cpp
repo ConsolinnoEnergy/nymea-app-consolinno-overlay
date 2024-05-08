@@ -964,3 +964,13 @@ void HemsManager::updateAvailableUsecases(const QStringList &useCasesList)
     }
 }
 
+bool HemsManager::averagingPowerEnabled() const
+{
+    return m_averagingPowerEnabled;
+}
+
+void HemsManager::setAveragingPowerEnabled(const bool averagingPowerEnabled)
+{
+    m_averagingPowerEnabled = averagingPowerEnabled;
+    emit averagingPowerEnabledChanged();
+}

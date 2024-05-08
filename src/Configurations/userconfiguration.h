@@ -16,7 +16,6 @@ class UserConfiguration : public QObject
     Q_PROPERTY(QString installerEmail READ installerEmail WRITE setInstallerEmail NOTIFY installerEmailChanged)
     Q_PROPERTY(QString installerPhoneNr READ installerPhoneNr WRITE setInstallerPhoneNr NOTIFY installerPhoneNrChanged)
     Q_PROPERTY(QString installerWorkplace READ installerWorkplace WRITE setInstallerWorkplace NOTIFY installerWorkplaceChanged)
-    Q_PROPERTY(bool averagingPowerEnabled READ averagingPowerEnabled WRITE setAveragingPowerEnabled NOTIFY averagingPowerEnabledChanged)
 
 
 
@@ -45,9 +44,6 @@ public:
     QString installerWorkplace() const;
     void setInstallerWorkplace(const QString &installerWorkplace);
 
-    bool averagingPowerEnabled() const;
-    void setAveragingPowerEnabled(const bool averagingPowerEnabled);
-
 
 
 
@@ -59,7 +55,6 @@ signals:
     void installerEmailChanged(QString installerEmail);
     void installerPhoneNrChanged(QString installerPhoneNr);
     void installerWorkplaceChanged(QString installerWorkplace);
-    void averagingPowerEnabledChanged(bool averagingPowerEnabled);
 
 
 
@@ -71,7 +66,6 @@ private:
     QString m_installerEmail = "";
     QString m_installerPhoneNr = "";
     QString m_installerWorkplace = "";
-    bool m_averagingPowerEnabled = false;
 
 };
 

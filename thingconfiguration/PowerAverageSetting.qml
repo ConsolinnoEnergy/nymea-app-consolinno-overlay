@@ -11,7 +11,7 @@ Page {
     id: root
 
 
-    property UserConfiguration userconfig
+    property HemsManager hemsManager
 
 
 
@@ -36,8 +36,8 @@ Page {
             id: averagingPowerEnabledSwitch
             Layout.fillWidth: true
             text: qsTr("Averaging power enabled (considers the last 10 values)")
-            checked: userconfig.averagingPowerEnabled
-            onToggled: userconfig.averagingPowerEnabled = checked
+            checked: hemsManager.averagingPowerEnabled
+            onToggled: hemsManager.averagingPowerEnabled = checked
         }
 
 

@@ -106,8 +106,7 @@ MainViewBase {
             "visible": hemsManager.available && rootMeter != null,
             "trigger": function () {
                 var page = pageStack.push("HemsOptimizationPage.qml", {
-                                              "hemsManager": hemsManager,
-                                              "userconfig": userconfig
+                                              "hemsManager": hemsManager
                                           })
                 page.startWizard.connect(function () {
                     pageStack.pop(pageStack.get(0))
@@ -861,7 +860,7 @@ MainViewBase {
                         isRootmeter: true
                         color: lsdChart.rootMeterAcquisitionColor
                         negativeColor: lsdChart.rootMeterReturnColor
-                        userconfig: userconfig
+                        averagingEnabled: hemsManager.averagingPowerEnabled
                         onClicked: {
                             print("Clicked root meter", index, thing.name)
                             pageStack.push(
@@ -879,7 +878,7 @@ MainViewBase {
                             visible: producers.get(index).id !== rootMeter.id
                             color: lsdChart.producersColor
                             thing: producers.get(index)
-                            userconfig: userconfig
+                            averagingEnabled: hemsManager.averagingPowerEnabled
                             onClicked: {
                                 print("Clicked producer", index, thing.name)
                                 pageStack.push(
@@ -1266,7 +1265,7 @@ MainViewBase {
                             textFormat: Text.RichText
                             horizontalAlignment: Text.AlignHCenter
                             color: "white"
-                            property double powerLabel: userconfig.averagingPowerEnabled ? energyManager.currentPowerConsumptionAverage : energyManager.currentPowerConsumption
+                            property double powerLabel: hemsManager.averagingPowerEnabled ? energyManager.currentPowerConsumptionAverage : energyManager.currentPowerConsumption
                             text: '<span style="font-size:' + Style.bigFont.pixelSize + 'px">'
                                 + (powerLabel < 1000 ? powerLabel : powerLabel / 1000).toFixed(1) 
                                 + '</span> <span style="font-size:' + Style.smallFont.pixelSize + 'px">'
@@ -1276,7 +1275,7 @@ MainViewBase {
                         Label {
                             id: mainviewTestingLabel
                             Layout.fillWidth: true
-                            text: qsTr("Total current power usage")
+                            text: hemsManager.averagingPowerEnabled ? qsTr("Total current power usage (average)") : qsTr("Total current power usage")
 
                             horizontalAlignment: Text.AlignHCenter
                             wrapMode: Text.WordWrap
@@ -1365,7 +1364,7 @@ MainViewBase {
                         delegate: LegendTile {
                             color: lsdChart.consumersColors[index]
                             thing: consumers.get(index)
-                            userconfig: userconfig
+                            averagingEnabled: hemsManager.averagingPowerEnabled
                             onClicked: {
                                 print("Clicked consumer", index, thing.name)
                                 if (thing.thingClass.interfaces.indexOf(
@@ -1426,7 +1425,7 @@ MainViewBase {
                         delegate: LegendTile {
                             color: lsdChart.batteriesColor
                             thing: batteries.get(index)
-                            userconfig: userconfig
+                            averagingEnabled: hemsManager.averagingPowerEnabled
                             onClicked: {
                                 print("Clicked battery", index, thing.name)
                                 pageStack.push(

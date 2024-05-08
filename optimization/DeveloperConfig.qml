@@ -20,7 +20,6 @@ Page {
     }
 
     property HemsManager hemsManager
-    property UserConfiguration userconfig
 
     Component.onCompleted: {
         //menuEntriesModel.append({ text: "ConEMS Observer", link: "../thingconfiguration/ConEMSObserver.qml", attributes: {hemsManager: hemsManager} })
@@ -42,8 +41,7 @@ Page {
                                     "text": "Power Averaging",
                                     "link": "../thingconfiguration/PowerAverageSetting.qml",
                                     "attributes": {
-                                        "hemsManager": hemsManager,
-                                        "userconfig": userconfig
+                                        "hemsManager": hemsManager
                                     }
                                 })
         //menuEntriesModel.append({ text: "ChargingOptimization ConfigTest", link: "../optimization/ChargingOptimization.qml", attributes: {hemsManager: hemsManager} })
