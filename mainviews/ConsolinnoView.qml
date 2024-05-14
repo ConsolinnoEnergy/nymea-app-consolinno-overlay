@@ -860,7 +860,7 @@ MainViewBase {
                         isRootmeter: true
                         color: lsdChart.rootMeterAcquisitionColor
                         negativeColor: lsdChart.rootMeterReturnColor
-                        averagingEnabled: hemsManager.averagingPowerEnabled
+                        averagingPowerEnabled: hemsManager.averagingPowerEnabled
                         onClicked: {
                             print("Clicked root meter", index, thing.name)
                             pageStack.push(
@@ -878,7 +878,7 @@ MainViewBase {
                             visible: producers.get(index).id !== rootMeter.id
                             color: lsdChart.producersColor
                             thing: producers.get(index)
-                            averagingEnabled: hemsManager.averagingPowerEnabled
+                            averagingPowerEnabled: hemsManager.averagingPowerEnabled
                             onClicked: {
                                 print("Clicked producer", index, thing.name)
                                 pageStack.push(
@@ -1275,7 +1275,7 @@ MainViewBase {
                         Label {
                             id: mainviewTestingLabel
                             Layout.fillWidth: true
-                            text: hemsManager.averagingPowerEnabled ? qsTr("Total current power usage (average)") : qsTr("Total current power usage")
+                            text: qsTr("Total current power usage")
 
                             horizontalAlignment: Text.AlignHCenter
                             wrapMode: Text.WordWrap
@@ -1364,7 +1364,7 @@ MainViewBase {
                         delegate: LegendTile {
                             color: lsdChart.consumersColors[index]
                             thing: consumers.get(index)
-                            averagingEnabled: hemsManager.averagingPowerEnabled
+                            averagingPowerEnabled: hemsManager.averagingPowerEnabled
                             onClicked: {
                                 print("Clicked consumer", index, thing.name)
                                 if (thing.thingClass.interfaces.indexOf(
@@ -1425,7 +1425,7 @@ MainViewBase {
                         delegate: LegendTile {
                             color: lsdChart.batteriesColor
                             thing: batteries.get(index)
-                            averagingEnabled: hemsManager.averagingPowerEnabled
+                            averagingPowerEnabled: hemsManager.averagingPowerEnabled
                             onClicked: {
                                 print("Clicked battery", index, thing.name)
                                 pageStack.push(

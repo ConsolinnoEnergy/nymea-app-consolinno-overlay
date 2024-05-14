@@ -27,9 +27,7 @@ MouseArea {
         windowSize: 10
     }
 
-    // property UserConfiguration userconfig
-    // property bool averagingEnabled: userconfig ? userconfig.averagingPowerEnabled : true
-    property bool averagingEnabled
+    property bool averagingPowerEnabled
 
     readonly property State batteryLevelState: isBattery ? thing.stateByName("batteryLevel") : null
 
@@ -62,7 +60,7 @@ MouseArea {
 
     function getLabeltext(power) {
         var value = power
-        if (averagingEnabled === true) {
+        if (averagingPowerEnabled === true) {
             currentPowerAverage.next(power)
             value = currentPowerAverage.value
         }

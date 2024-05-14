@@ -169,7 +169,7 @@ private:
     ConEMSState *m_conEMSState = nullptr;
     UserConfigurations *m_userConfigurations = nullptr;
     HeatingElementConfigurations *m_heatingElementConfigurations = nullptr;
-    bool m_averagingPowerEnabled = false;
+    bool m_averagingPowerEnabled = true;
 
     void addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateChargingConfiguration(const QVariantMap &configurationMap);
