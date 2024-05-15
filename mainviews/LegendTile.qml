@@ -55,7 +55,7 @@ MouseArea {
 
     function getLabeltext(power) {
         if(root.connected != 1){
-            return "🌩️ Offline"
+            return "Offline"
         }
         if (currentPowerState != null) {
             return Math.abs(power) + " W"
@@ -93,101 +93,102 @@ MouseArea {
     }
 
     Item {
-        id: content
-        anchors.fill: parent
-//        visible: false
-        ColumnLayout {
-            id: layout
-            width: parent.width
-            spacing: Style.smallMargins
+            id: content
+            anchors.fill: parent
+            ColumnLayout {
+                id: layout
+                width: parent.width
+                spacing: Style.smallMargins
 
-
-            Rectangle {
-                Layout.fillWidth: true
-                Layout.preferredHeight: headerLabel.height + Style.margins
-                color: Qt.darker(root.currentColor, 1.3)
-
-                Label {
-                    // here is the issue with the different textsizes
-                    id: headerLabel
-                    width: parent.width  //- Style.margins
-                    text: getLabeltext(root.currentPower)
-                    elide: Text.ElideRight
-                    color: "white"
-                    horizontalAlignment: Text.AlignHCenter
-
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
-
-            ColorIcon {
-                size: Style.iconSize
-                Layout.alignment: Qt.AlignCenter
-                name: !root.thing || root.isBattery ? "" : thingToIcon(root.thing)
-                color: "#3b3b3b"
-                visible: !root.isBattery
-            }
-
-            Rectangle {
-                id: batteryRect
-                Layout.fillWidth: true
-                Layout.leftMargin: Style.margins + 5
-                Layout.rightMargin: Style.margins + 8
-                Layout.topMargin: Style.smallMargins
-                Layout.preferredHeight: 15
-                visible: root.isBattery
-
-                radius: 2
-                color: "#2f2e2d"
                 Rectangle {
-                    anchors {
-                        verticalCenter: parent.verticalCenter
-                        horizontalCenter: parent.left
-                    }
-                    height: 8
-                    width: 6
-                    radius: 2
-                    color: parent.color
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: headerLabel.height + Style.margins
+                    color: Qt.darker(root.currentColor, 1.3)
+
+                    Label {
+                        // here is the issue with the different textsizes
+                        id: headerLabel
+                        width: parent.width //- Style.margins
+                        //text: getLabeltext(root.currentPower)
+                        elide: Text.ElideRight
+                        color: "white"
+                        horizontalAlignment: Text.AlignHCenter
+
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: root.connectedState
+                                    ? "<img src='" + Qt.resolvedUrl("ui/images/connections/cloud-error-red.svg") + "' width='20' height='20'/>&nbsp;" + getLabeltext(root.currentPower)
+                                    : getLabeltext(root.currentPower)
+                    } 
                 }
-                // those are the rectangles, which show how much the batterie is loaded
-                RowLayout {
-                    anchors.fill: parent
-                    anchors.margins: 2
-                    spacing: 2
-                    Repeater {
-                        model: 10
-                        delegate: Rectangle {
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            color: root.batteryLevelState && root.batteryLevelState.value >= (10 - index) * 10 ? "#98b945" : batteryRect.color
-                            radius: 2
+
+                ColorIcon {
+                    size: Style.iconSize
+                    Layout.alignment: Qt.AlignCenter
+                    name: !root.thing || root.isBattery ? "" : thingToIcon(root.thing)
+                    color: "#3b3b3b"
+                    visible: !root.isBattery
+                }
+
+                Rectangle {
+                    id: batteryRect
+                    Layout.fillWidth: true
+                    Layout.leftMargin: Style.margins + 5
+                    Layout.rightMargin: Style.margins + 8
+                    Layout.topMargin: Style.smallMargins
+                    Layout.preferredHeight: 15
+                    visible: root.isBattery
+
+                    radius: 2
+                    color: "#2f2e2d"
+                    Rectangle {
+                        anchors {
+                            verticalCenter: parent.verticalCenter
+                            horizontalCenter: parent.left
+                        }
+                        height: 8
+                        width: 6
+                        radius: 2
+                        color: parent.color
+                    }
+                    // those are the rectangles, which show how much the batterie is loaded
+                    RowLayout {
+                        anchors.fill: parent
+                        anchors.margins: 2
+                        spacing: 2
+                        Repeater {
+                            model: 10
+                            delegate: Rectangle {
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                color: root.batteryLevelState && root.batteryLevelState.value >= (10 - index) * 10 ? "#98b945" : batteryRect.color
+                                radius: 2
+                            }
                         }
                     }
                 }
-            }
 
-            Label {
-                Layout.fillWidth: true
-                horizontalAlignment: Text.AlignHCenter
-                Layout.leftMargin: Style.smallMargins
-                Layout.rightMargin: Style.smallMargins
-                Layout.bottomMargin: Style.smallMargins
-                font: Style.smallFont
-                text: root.thing ? root.thing.name : ""
-                elide: Text.ElideRight
-                color: "black"
+                Label {
+                    Layout.fillWidth: true
+                    horizontalAlignment: Text.AlignHCenter
+                    Layout.leftMargin: Style.smallMargins
+                    Layout.rightMargin: Style.smallMargins
+                    Layout.bottomMargin: Style.smallMargins
+                    font: Style.smallFont
+                    text: root.thing ? root.thing.name : ""
+                    elide: Text.ElideRight
+                    color: "black"
+                }
             }
         }
-    }
 
-    OpacityMask {
-        anchors.fill: parent
-        source: ShaderEffectSource {
+        OpacityMask {
             anchors.fill: parent
-            sourceItem: content
-            live: true
-            hideSource: true
+            source: ShaderEffectSource {
+                anchors.fill: parent
+                sourceItem: content
+                live: true
+                hideSource: true
+            }
+            maskSource: background
         }
-        maskSource: background
     }
-}
