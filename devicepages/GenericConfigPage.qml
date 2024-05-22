@@ -13,6 +13,10 @@ Item {
     property alias title: titleText.text
     property alias headerOptionsModel: menuListRepeater.model
 
+    //attribute for disconnect Error
+    readonly property State connectedState: thing ? thing.stateByName("connected") : null
+    readonly property double connected: root.connectedState ? root.connectedState.value.toFixed(0) : 1
+
     ListModel {
         id: menuListModel
 
@@ -104,7 +108,6 @@ Item {
                 }
             }
         }
-
         Item {
             id: content
 
@@ -166,6 +169,46 @@ Item {
                         pageStack.push(Qt.resolvedUrl(model.page), {thing: root.thing })
                     }
                 }
+            }
+        }
+    }
+    Item {
+        visible: root.connectedState
+        width: parent.width
+        height: connectedText.height
+        anchors {
+            bottom: parent.bottom
+            left: parent.left
+            right: parent.right
+            margins: 20
+        }
+        Label {
+            id: connectedText
+            width: parent.width
+            wrapMode: Text.WordWrap
+            horizontalAlignment: Text.AlignHCenter
+            textFormat: Text.RichText
+            padding: 20;
+            font.pixelSize: 16
+            color: "#194D25"
+            background: Rectangle {
+                border.color: "#ffa31c"
+                border.width: 2
+                radius: 8
+            }
+            leftPadding: 45
+            text: qsTr("Data unavailable from the device. Displayed values may not be accurate. HEMS functioning properly.").arg(qsTr("Disconnected"))
+        }
+        Image {
+            id: icon
+            source: "/ui/images/connections/cloud-error-red.svg" // Set the path to your icon
+            width: 24
+            height: 24
+            anchors {
+                top: parent.top
+                left: parent.left
+                leftMargin: 15
+                topMargin: 18
             }
         }
     }

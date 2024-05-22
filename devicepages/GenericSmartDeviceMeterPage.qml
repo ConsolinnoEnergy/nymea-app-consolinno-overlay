@@ -6,6 +6,7 @@ import Nymea 1.0
 import "../components"
 import "../customviews"
 
+
 GenericConfigPage {
     id: root
 
@@ -39,7 +40,6 @@ GenericConfigPage {
 
     readonly property bool isCharging: root.chargingState && root.chargingState.value === "charging"
     readonly property bool isDischarging: root.chargingState && root.chargingState.value === "discharging"
-
 
     title: root.thing.name
 

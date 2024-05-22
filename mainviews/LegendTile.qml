@@ -116,7 +116,7 @@ MouseArea {
 
                         anchors.verticalCenter: parent.verticalCenter
                         text: root.connectedState
-                                    ? "<img src='" + Qt.resolvedUrl("ui/images/connections/cloud-error-red.svg") + "' width='20' height='20'/>&nbsp;" + getLabeltext(root.currentPower)
+                                    ? "<img src='" + Qt.resolvedUrl("/ui/images/connections/cloud-error-red.svg") + "' width='20' height='20'/>&nbsp;" + getLabeltext(root.currentPower)
                                     : getLabeltext(root.currentPower)
                     } 
                 }
