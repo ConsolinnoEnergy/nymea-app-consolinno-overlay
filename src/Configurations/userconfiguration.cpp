@@ -70,3 +70,5 @@ void UserConfiguration::setInstallerWorkplace(const QString &installerWorkplace)
 {
     m_installerWorkplace = installerWorkplace;
 }
+
+

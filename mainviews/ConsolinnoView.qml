@@ -302,6 +302,7 @@ MainViewBase {
                 return
             }
 
+            /** Disabled for now, WIP
             if((!wizardSettings.heatingElementDone) || (!manualWizardSettings.heatingElementDone)) {
                 var page = d.pushPage("/ui/wizards/SetupHeatingElementWizard.qml")
                 page.done.connect(function (skip, abort, back) {
@@ -326,6 +327,7 @@ MainViewBase {
                 wizardSettings.heatingElementDone = true
                 return;
             }
+            **/
 
             if (!blackoutProtectionSetting.blackoutProtectionDone) {
                 var page = d.pushPage(
@@ -537,11 +539,18 @@ MainViewBase {
             var notficationPopup = startUpNotificationComponent.createObject(root)
             //notficationPopup.message = qsTr("Consolinno HEMS App was updated to version %1.").arg(appVersion)
             notficationPopup.message=qsTr('<h3>Consolinno Energy HEMS App was updated</h3>
-            <p>Version 1.4.0 (January 18, 2024)</p>
-            <h4>Fixed</h4>
+            <p>Version 1.4.0 (March 18, 2024)</p>
+            <h4>New</h4>
             <ul>
-                <li>TODO</li>
-            </ul>')
+                <li>Harmonized design in the commissioning wizard</li>
+                <li>Error messages in the PV configuration </li>
+            </ul>
+            <h4>Improvements</h4>
+            <ul>
+                <li>Burger menu: Connections to leaflets are scrollable</li>
+                <li>Feedback on charging:  Display of the current charging power </li>
+            </ul>'
+            )
             // If Popup not already open, open it
             if (notficationPopup.opened === false
                     && shownPopupsSetting.shown.indexOf(appVersion) === -1) {
@@ -851,6 +860,7 @@ MainViewBase {
                         isRootmeter: true
                         color: lsdChart.rootMeterAcquisitionColor
                         negativeColor: lsdChart.rootMeterReturnColor
+                        averagingPowerEnabled: hemsManager.averagingPowerEnabled
                         onClicked: {
                             print("Clicked root meter", index, thing.name)
                             pageStack.push(
@@ -868,6 +878,7 @@ MainViewBase {
                             visible: producers.get(index).id !== rootMeter.id
                             color: lsdChart.producersColor
                             thing: producers.get(index)
+                            averagingPowerEnabled: hemsManager.averagingPowerEnabled
                             onClicked: {
                                 print("Clicked producer", index, thing.name)
                                 pageStack.push(
@@ -1254,13 +1265,11 @@ MainViewBase {
                             textFormat: Text.RichText
                             horizontalAlignment: Text.AlignHCenter
                             color: "white"
+                            property double powerLabel: hemsManager.averagingPowerEnabled ? energyManager.currentPowerConsumptionAverage : energyManager.currentPowerConsumption
                             text: '<span style="font-size:' + Style.bigFont.pixelSize + 'px">'
-                                  + (energyManager.currentPowerConsumption
-                                     < 1000 ? energyManager.currentPowerConsumption : energyManager.currentPowerConsumption / 1000).toFixed(
-                                      1) + '</span> <span style="font-size:'
-                                  + Style.smallFont.pixelSize + 'px">'
-                                  + (energyManager.currentPowerConsumption
-                                     < 1000 ? "W" : "kW") + '</span>'
+                                + (powerLabel < 1000 ? powerLabel : powerLabel / 1000).toFixed(1) 
+                                + '</span> <span style="font-size:' + Style.smallFont.pixelSize + 'px">'
+                                + (powerLabel < 1000 ? "W" : "kW") + '</span>'
                         }
 
                         Label {
@@ -1355,6 +1364,7 @@ MainViewBase {
                         delegate: LegendTile {
                             color: lsdChart.consumersColors[index]
                             thing: consumers.get(index)
+                            averagingPowerEnabled: hemsManager.averagingPowerEnabled
                             onClicked: {
                                 print("Clicked consumer", index, thing.name)
                                 if (thing.thingClass.interfaces.indexOf(
@@ -1397,15 +1407,8 @@ MainViewBase {
                                                         "thing": thing
                                                     })
                                     }
-                                } else if(thing.name === 'Heizstab') {
-                                    pageStack.push(
-                                                "../devicepages/HeatingElementDevicePage.qml",
-                                                {
-                                                    "thing": thing
-                                                })
-                                }
 
-                                else {
+                                } else {
                                     pageStack.push(
                                                 "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                                 {
@@ -1422,6 +1425,7 @@ MainViewBase {
                         delegate: LegendTile {
                             color: lsdChart.batteriesColor
                             thing: batteries.get(index)
+                            averagingPowerEnabled: hemsManager.averagingPowerEnabled
                             onClicked: {
                                 print("Clicked battery", index, thing.name)
                                 pageStack.push(

@@ -37,6 +37,13 @@ Page {
                                         "hemsManager": hemsManager
                                     }
                                 })
+        menuEntriesModel.append({
+                                    "text": "Power Averaging",
+                                    "link": "../thingconfiguration/PowerAverageSetting.qml",
+                                    "attributes": {
+                                        "hemsManager": hemsManager
+                                    }
+                                })
         //menuEntriesModel.append({ text: "ChargingOptimization ConfigTest", link: "../optimization/ChargingOptimization.qml", attributes: {hemsManager: hemsManager} })
     }
 

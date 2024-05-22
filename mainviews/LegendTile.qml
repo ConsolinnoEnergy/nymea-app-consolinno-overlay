@@ -24,6 +24,14 @@ MouseArea {
 
     readonly property double currentPower: root.currentPowerState ? root.currentPowerState.value.toFixed(0) : 0
     readonly property double connected: root.connectedState ? root.connectedState.value.toFixed(0) : 1
+
+    MovingAverage {
+        id: currentPowerAverage
+        windowSize: 10
+    }
+
+    property bool averagingPowerEnabled
+
     readonly property State batteryLevelState: isBattery ? thing.stateByName("batteryLevel") : null
 
     readonly property color currentColor: currentPower <= 0 ? root.negativeColor : root.color
@@ -54,12 +62,18 @@ MouseArea {
     }
 
     function getLabeltext(power) {
+        var value = power
         if(root.connected != 1){
             return "Offline"
+        } 
+        if (averagingPowerEnabled === true) {
+            currentPowerAverage.next(power)
+            value = currentPowerAverage.value
         }
-        if (currentPowerState != null) {
-            return Math.abs(power) + " W"
+        if (value != null) {
+            return Math.floor(Math.abs(value)) + " W"
         }
+        
         return "–"
     }
 
