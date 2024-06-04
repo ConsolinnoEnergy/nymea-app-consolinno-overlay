@@ -1275,7 +1275,7 @@ MainViewBase {
                         Label {
                             id: mainviewTestingLabel
                             Layout.fillWidth: true
-                            text: qsTr("Total current power usage")
+                            text: qsTr("Total current power")
 
                             horizontalAlignment: Text.AlignHCenter
                             wrapMode: Text.WordWrap
