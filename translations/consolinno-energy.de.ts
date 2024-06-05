@@ -1682,17 +1682,12 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;h3&gt;Consolinno Energy HEMS App wurde aktualisiert&lt;/h3&gt;
-            &lt;p&gt;Version 1.5.0 (10. Mai 2024)&lt;/p&gt;
-            &lt;h4&gt;Neu&lt;/h4&gt;
-            &lt;ul&gt;
-                &lt;li&gt;TODO&lt;/li&gt;
-                &lt;li&gt;TODO&lt;/li&gt;
-            &lt;/ul&gt;
+        <translation type="unfinished">&lt;h3&gt;Consolinno Energy HEMS App wurde aktualisiert&lt;/h3&gt;
+            &lt;p&gt;Version 1.5.0 (05. Juni 2024)&lt;/p&gt;
             &lt;h4&gt;Verbesserungen&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;TODO&lt;/li&gt;
-                &lt;li&gt;TODO&lt;/li&gt;
+                &lt;li&gt;Optimierung der Wärmepumpe: Steuerung basiert auf aktuellen Überschuss&lt;/li&gt;
+                &lt;li&gt;Allgemeine Stabilität der App&lt;/li&gt;
             &lt;/ul&gt;</translation>
     </message>
 </context>
