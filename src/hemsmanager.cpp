@@ -911,7 +911,12 @@ void HemsManager::addOrUpdateConEMSState(const QVariantMap &ConEMSStateMap)
     {
 
         m_conEMSState->setTimestamp(ConEMSStateMap.value("timestamp").toLongLong());
-        m_conEMSState->setCurrentState(jsonResponse.object());
+        // Also check if the state iteself has changed
+        if(m_conEMSState->currentState() != ConEMSStateMap.value("currentState"))
+        {
+            m_conEMSState->setCurrentState(jsonResponse.object());
+            emit conEMSOperatingStateChanged(m_conEMSState);
+        }
 
         qCDebug(dcHems()) << "ConEMS state changed (" << m_conEMSState->timestamp() << ")";
         emit conEMSStateChanged(m_conEMSState);

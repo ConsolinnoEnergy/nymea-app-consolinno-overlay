@@ -99,6 +99,7 @@ signals:
     void chargingConfigurationChanged(ChargingConfiguration *configuration);
     void chargingOptimizationConfigurationChanged(ChargingOptimizationConfiguration *configuration);
     void conEMSStateChanged(ConEMSState *state);
+    void conEMSOperatingStateChanged(ConEMSState *state);
     void pvConfigurationChanged(PvConfiguration *configuration);
     void userConfigurationChanged(UserConfiguration *configuration);
     void heatingElementConfigurationChanged(HeatingElementConfiguration *configuration);
