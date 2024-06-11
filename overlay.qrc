@@ -100,5 +100,9 @@
         <file>devicepages/HeatingElementDevicePage.qml</file>
         <file>optimization/HeatingElementOptimization.qml</file>
         <file>mainviews/StartupNotificationPopup.qml</file>
+        <file>optimization/DynamicElectricityRate.qml</file>
+        <file>optimization/DynamicElectricityRateFeedback.qml</file>
+        <file>mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml</file>
+        <file>optimization/DynamicElectricityRateSettings.qml</file>
     </qresource>
 </RCC>

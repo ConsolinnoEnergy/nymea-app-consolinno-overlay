@@ -35,6 +35,12 @@ Page {
         shownInterfaces: ["smartmeterproducer"]
     }
 
+    ThingsProxy {
+        id: electrics
+        engine: _engine
+        shownInterfaces: ["dynamicelectricitypricing"]
+    }
+
     Flickable {
         id: flickable
         anchors.fill: parent
@@ -56,6 +62,13 @@ Page {
                 columns: Math.max(1, rawColumns - (rawColumns % 2))
                 rowSpacing: 0
                 columnSpacing: 0
+
+                ConsolinnoDynamicElectricPricingHistory {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: width
+                    visible: electrics.count > 0
+                    electrics: electrics
+                }
 
                 ConsolinnoPowerBalanceHistory {
                     Layout.fillWidth: true
@@ -102,6 +115,7 @@ Page {
                     consumerColors: root.consumersColors
                     consumers: consumers
                 }
+
             }
         }
     }
