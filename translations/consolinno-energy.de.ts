@@ -1686,7 +1686,7 @@ Mail service@consolinno.de</source>
             &lt;p&gt;Version 1.5.0 (05. Juni 2024)&lt;/p&gt;
             &lt;h4&gt;Verbesserungen&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;Optimierung der Wärmepumpe: Steuerung basiert auf aktuellen Überschuss&lt;/li&gt;
+                &lt;li&gt;Optimierung der Wärmepumpe: Steuerung basiert auf aktuellem Überschuss&lt;/li&gt;
                 &lt;li&gt;Allgemeine Stabilität der App&lt;/li&gt;
             &lt;/ul&gt;</translation>
     </message>
