@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+
 #include "engine.h"
 #include "Configurations/heatingconfigurations.h"
 #include "Configurations/chargingconfigurations.h"
@@ -12,7 +13,7 @@
 #include "Configurations/conemsstate.h"
 #include "Configurations/chargingoptimizationconfigurations.h"
 #include "Configurations/heatingelementconfigurations.h"
-
+#include "Configurations/dynamicelectricpricingconfiguration.h"
 #include "Configurations/conemsstate.h"
 
 
@@ -27,6 +28,7 @@ class HemsManager : public QObject
     Q_PROPERTY(HemsUseCases availableUseCases READ availableUseCases NOTIFY availableUseCasesChanged)
     Q_PROPERTY(uint housholdPhaseLimit READ housholdPhaseLimit NOTIFY housholdPhaseLimitChanged)
     Q_PROPERTY(HeatingConfigurations *heatingConfigurations READ heatingConfigurations CONSTANT)
+    //Q_PROPERTY(DynamicElectricPricingConfiguration *dynamicElectricPricingConfiguration READ dynamicElectricPricingConfiguration CONSTANT)
     Q_PROPERTY(ChargingConfigurations *chargingConfigurations READ chargingConfigurations CONSTANT)
     Q_PROPERTY(ChargingOptimizationConfigurations *chargingOptimizationConfigurations READ chargingOptimizationConfigurations CONSTANT)
     Q_PROPERTY(PvConfigurations *pvConfigurations READ pvConfigurations CONSTANT)
@@ -74,6 +76,7 @@ public:
     ConEMSState *conEMSState() const;
     UserConfigurations *userConfigurations() const;
     HeatingElementConfigurations *heatingElementConfigurations() const;
+    //DynamicElectricPricingConfiguration *dynamicElectricPricingConfiguration() const;
 
     // write and read
     Q_INVOKABLE int setPvConfiguration(const QUuid &pvThingId, const QVariantMap &data);
@@ -130,7 +133,7 @@ private slots:
     Q_INVOKABLE void getConEMSStateResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getUserConfigurationsResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getHeatingElementConfigurationsResponse(int commandId, const QVariantMap &data);
-
+    //Q_INVOKABLE void getDynamicElectricPricingConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setHousholdPhaseLimitResponse(int commandId, const QVariantMap &data);
 
     Q_INVOKABLE void setPvConfigurationResponse(int commandId, const QVariantMap &data);
@@ -141,7 +144,7 @@ private slots:
     Q_INVOKABLE void setConEMSStateResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setUserConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setHeatingElementConfigurationResponse(int commandId, const QVariantMap &data);
-
+    //Q_INVOKABLE void setDynamicElectricPricingConfigurationResponse(int commandId, const QVariantMap &data);
 private:
     QPointer<Engine> m_engine = nullptr;
     bool m_fetchingData = false;
@@ -158,6 +161,7 @@ private:
     ConEMSState *m_conEMSState = nullptr;
     UserConfigurations *m_userConfigurations = nullptr;
     HeatingElementConfigurations *m_heatingElementConfigurations = nullptr;
+    //DynamicElectricPricingConfiguration *m_dynamicElectricPricingConfigurations = nullptr;
 
     void addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateChargingConfiguration(const QVariantMap &configurationMap);
@@ -167,6 +171,7 @@ private:
     void addOrUpdateConEMSState(const QVariantMap &configurationMap);
     void addOrUpdateUserConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateHeatingElementConfiguration(const QVariantMap &configurationMap);
+    //void addOrUpdateDynamicElectricPricingConfiguration(const QVariantMap &configurationMap);
 
     void updateAvailableUsecases(const QStringList &useCasesList);
     HemsManager::HemsUseCases unpackUseCases(const QStringList &useCasesList);

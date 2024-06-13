@@ -12,85 +12,116 @@ import "../optimization"
 Page {
 
     header: NymeaHeader {
-        visible: false
+        visible: true
         text: qsTr("Dynamic Electricity Settings")
         backButtonVisible: true
         onBackPressed: {
-            if(directionID == 0) {
-                pageStack.pop()
-            }
-
+            pageStack.pop()
         }
 
     }
 
     ColumnLayout {
-     Layout.alignment: Qt.AlignHCenter
+        anchors.fill: parent
+        anchors.margins: app.margins
 
         RowLayout{
             Layout.fillWidth: true
-
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Current Market Price:")
-            }
+                text: qsTr("Current Market Price")
 
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("0.27")
             }
 
 
+            TextField {
+                Layout.preferredWidth: 60
+                Layout.rightMargin: 10
+                text: "0.27"
+                maximumLength: 5
+
+            }
+
+            Label {
+                text: qsTr("ct")
+            }
         }
 
         RowLayout{
             Layout.fillWidth: true
-
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Average Market Price:")
-            }
+                text: qsTr("Average Market Price")
 
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("0.27")
             }
 
 
+            TextField {
+                Layout.preferredWidth: 60
+                Layout.rightMargin: 10
+                text: "0.27"
+                maximumLength: 5
+
+            }
+
+            Label {
+                text: qsTr("ct")
+            }
         }
 
         RowLayout{
             Layout.fillWidth: true
-
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Lowest Market Price:")
-            }
+                text: qsTr("Lowest Market Price")
 
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("0.27")
             }
 
 
+            TextField {
+                Layout.preferredWidth: 60
+                Layout.rightMargin: 10
+                text: "0.27"
+                maximumLength: 5
+
+            }
+
+            Label {
+                text: qsTr("ct")
+            }
         }
 
         RowLayout{
             Layout.fillWidth: true
-
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Highest Market Price:")
-            }
+                text: qsTr("Highest Market Price")
 
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("0.27")
             }
 
 
+            TextField {
+                Layout.preferredWidth: 60
+                Layout.rightMargin: 10
+                text: "0.27"
+                maximumLength: 5
+
+            }
+
+            Label {
+                text: qsTr("ct")
+            }
         }
 
+        Button {
+            id: savebutton
+
+            Layout.fillWidth: true
+            text: qsTr("Save")
+            onClicked: {
+
+            }
+        }
 
     }
 

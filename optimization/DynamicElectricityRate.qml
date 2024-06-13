@@ -11,7 +11,10 @@ import "../optimization"
 
 Page {
     id: root
+
     property HemsManager hemsManager
+    property ConEMSState conState: hemsManager.conEMSState
+    property string name
 
     property int directionID: 0
 
@@ -67,20 +70,6 @@ Page {
             Layout.preferredWidth: app.width
             flickableDirection: Flickable.VerticalFlick
 
-            Rectangle{
-            Layout.preferredHeight: app.height/3
-            Layout.fillWidth: true
-            visible: erProxy.count === 0
-            color: Material.background
-                Text {
-                    text: qsTr("There is no rate set up yet")
-                    color: Material.foreground
-                    anchors.fill: parent
-                    horizontalAlignment: Text.AlignLeft
-                    verticalAlignment: Text.AlignLeft
-                }
-            }
-
             ColumnLayout{
                 id: energyRateFlickableList
                 Layout.preferredWidth: app.width
@@ -91,7 +80,7 @@ Page {
                     model: ThingsProxy {
                         id: erProxy
                         engine: _engine
-                        shownInterfaces: ["connectable"]
+                        shownInterfaces: ["dynamicelectricitypricing"]
                     }
                     delegate: ItemDelegate{
                         Layout.preferredWidth: app.width
@@ -109,6 +98,20 @@ Page {
 
         }
 
+        Rectangle{
+        Layout.preferredHeight: app.height/3
+        Layout.fillWidth: true
+        visible: erProxy.count === 0
+        color: Material.background
+            Text {
+                text: qsTr("There is no rate set up yet")
+                color: Material.foreground
+                anchors.fill: parent
+                horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignLeft
+            }
+        }
+
         VerticalDivider
         {
             Layout.preferredWidth: app.width - 2* Style.margins
@@ -119,7 +122,7 @@ Page {
 
         ColumnLayout {
             Layout.topMargin: Style.margins
-            visible: false
+            visible: true
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Add Rate: ")
@@ -133,8 +136,7 @@ Page {
                 valueRole: "id"
                 model: ThingClassesProxy {
                     engine: _engine
-                    filterInterface: "connectable"
-                    filterDisplayName: "Tibber"
+                    filterInterface: "dynamicelectricitypricing"
                     includeProvidedInterfaces: true
                 }
             }
@@ -143,7 +145,7 @@ Page {
         ColumnLayout {
             spacing: 0
             Layout.alignment: Qt.AlignHCenter
-            visible: false
+            visible: true
             Button {
                 text: qsTr("cancel")
                 Layout.preferredWidth: 200
@@ -159,79 +161,8 @@ Page {
                 Layout.alignment: Qt.AlignLeft
                 visible: true
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("../optimization/DynamicElectricityRateFeedback.qml"), { hemsManager: hemsManager })
+                    //pageStack.push(Qt.resolvedUrl("../optimization/DynamicElectricityRateFeedback.qml"))
                 }
-                    //internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue})
-            }
-
-            Button {
-                id: nextStepButton
-                text: qsTr("Next step")
-                font.capitalization: Font.AllUppercase
-                font.pixelSize: 15
-                Layout.preferredWidth: 200
-                Layout.preferredHeight: addButton.height - 9
-                Layout.topMargin: 5
-
-                contentItem:Row{
-                    Text{
-                        id: nextStepButtonText
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: nextStepButton.text
-                        font: nextStepButton.font
-                        opacity: enabled ? 1.0 : 0.3
-                        color: Style.consolinnoHighlightForeground
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        elide: Text.ElideRight
-                    }
-
-                    Image{
-                        anchors.right : parent.right
-                        anchors.verticalCenter:  parent.verticalCenter
-
-                        sourceSize.width: 18
-                        sourceSize.height: 18
-                        source: "../images/next.svg"
-
-                        layer{
-                            enabled: true
-                            effect: ColorOverlay{
-                                color: Style.consolinnoHighlightForeground
-                            }
-                        }
-                    }
-
-                }
-
-                background: Rectangle{
-                    height: parent.height
-                    width: parent.width
-                    border.color: Material.background
-                    color: energyRateRepeater.count > 0  ? Style.consolinnoHighlight : "grey"
-                    radius: 4
-                }
-
-                Layout.alignment: Qt.AlignHCenter
-                onClicked:{
-                    if (energyRateRepeater.count >0){
-                        root.done(true, false, false)
-                    }
-                }
-
-            }
-        }
-
-        ColumnLayout {
-            visible: true
-            spacing: 0
-            Layout.alignment: Qt.AlignHCenter
-
-            Loader {
-                id: settingsLoader
-                property bool showPage: false
-                source: Qt.resolvedUrl("../optimization/DynamicElectricityRateSettings.qml")
             }
         }
 

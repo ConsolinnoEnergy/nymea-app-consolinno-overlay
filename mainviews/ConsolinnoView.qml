@@ -626,6 +626,12 @@ MainViewBase {
         engine: _engine
         shownInterfaces: ["heatpump"]
     }
+    ThingsProxy {
+        id: electrics
+        engine: _engine
+        shownInterfaces: ["dynamicelectricitypricing"]
+    }
+
 
     PowerBalanceLogs {
         id: powerBalanceLogs
@@ -659,6 +665,7 @@ MainViewBase {
         readonly property color batteryChargeColor: batteriesColor
         readonly property color batteryDischargeColor: "#F7B772"
         readonly property color consumedColor: "#ADB9E3"
+        readonly property color electricsColor: "#E056F5"
         readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
 
         Canvas {
@@ -726,6 +733,14 @@ MainViewBase {
                                                    batteries.get(i).stateByName(
                                                        "currentPower").value))
                 }
+
+                for (var i = 0; i < electrics.count; i++) {
+                    maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
+                                                   electrics.get(i).stateByName(
+                                                       "priceSeries").value))
+                    console.error(electrics.get(i))
+                }
+
 
                 var totalTop = rootMeter ? 1 : 0
                 totalTop += producers.count
@@ -887,6 +902,21 @@ MainViewBase {
                             }
                         }
                     }
+
+                    Repeater {
+                        id: electricsRepeater
+                        model: electrics
+                        delegate: LegendTile {
+                            visible: electrics.get(index).id !== rootMeter.id
+                            color: lsdChart.electricsColor
+                            thing: electrics.get(index)
+                            onClicked: {
+
+                            }
+                        }
+                    }
+
+
                 }
             }
 

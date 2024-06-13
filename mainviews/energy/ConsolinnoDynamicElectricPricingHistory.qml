@@ -10,6 +10,8 @@ Item {
 
     property ThingsProxy electrics: null
 
+    property HemsManager hemsManager
+    property ConEMSState conState: hemsManager.conEMSState
 
     QtObject {
 
@@ -32,6 +34,7 @@ Item {
             date.setTime(date.getTime() + 2000)
             return date;
         }
+
     }
 
 
@@ -157,7 +160,7 @@ Item {
                     min: d.startTime
                     max: d.endTime
                     format: "hh:mm"
-                    tickCount: 6
+                    tickCount: 8
                     labelsFont: Style.extraSmallFont
                     gridVisible: false
                     minorGridVisible: false
@@ -242,6 +245,7 @@ Item {
                     width: tooltipLayout.implicitWidth + Style.smallMargins * 2
                     height: tooltipLayout.implicitHeight + Style.smallMargins * 2
 
+
                     ColumnLayout {
                         id: tooltipLayout
                         anchors {
@@ -263,7 +267,7 @@ Item {
                                 //property double rawValue: d.startTime //toolTip.entry ? toolTip.entry.consumption : 0
                                 //property double displayValue: 25
                                 //property string unit: "Cents / kwWh"
-                                text: d.startTime.toLocaleString(Qt.locale(), Locale.ShortFormat) //"%1: %2 %3".arg().arg(displayValue.toFixed(2)).arg(unit)
+                                text: d.startTime.toLocaleString(Qt.locale(), Locale.ShortFormat) //conState.currentState //"%1: %2 %3".arg().arg(displayValue.toFixed(2)).arg(unit)
                                 font: Style.extraSmallFont
                             }
                         }

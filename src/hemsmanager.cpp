@@ -4,6 +4,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+#include "Configurations/dynamicelectricpricingconfiguration.h"
 #include "logging.h"
 
 NYMEA_LOGGING_CATEGORY(dcHems, "Hems");
@@ -15,6 +16,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
     m_chargingOptimizationConfigurations = new ChargingOptimizationConfigurations(this);
     m_pvConfigurations = new PvConfigurations(this);
     m_heatingElementConfigurations = new HeatingElementConfigurations(this);
+    //m_dynamicElectricPricingConfigurations = new DynamicElectricPricingConfiguration(this);
     m_chargingSessionConfigurations = new ChargingSessionConfigurations(this);
     m_conEMSState = new ConEMSState();
     m_userConfigurations = new UserConfigurations(this);
@@ -137,6 +139,11 @@ HeatingElementConfigurations *HemsManager::heatingElementConfigurations() const
 {
     return m_heatingElementConfigurations;
 }
+/*
+DynamicElectricPricingConfiguration *HemsManager::dynamicElectricPricingConfiguration() const
+{
+    return m_dynamicElectricPricingConfigurations;
+}*/
 
 ConEMSState *HemsManager::conEMSState() const
 {

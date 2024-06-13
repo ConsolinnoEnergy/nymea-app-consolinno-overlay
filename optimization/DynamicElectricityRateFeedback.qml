@@ -15,7 +15,6 @@ import "../optimization"
 Page {
     id: root
     property HemsManager hemsManager
-
     property int directionID: 0
 
     signal done(bool skip, bool abort, bool back);
@@ -89,6 +88,7 @@ Page {
                 Layout.alignment: Qt.AlignHCenter
                 //Layout.alignment: Qt.AlignHCenter
                 onClicked: {
+                    pageStack.pop()
                 }
 
             }
