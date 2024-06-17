@@ -76,6 +76,7 @@ Item {
 
             onTabSelected: {
                 d.now = new Date()
+                console.error(electrics)
             }
         }
 
@@ -83,7 +84,7 @@ Item {
             Layout.fillWidth: true
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
-            text: "Average Price: "
+            text: qsTr("Average Price: ")
         }
 
         Item {

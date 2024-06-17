@@ -734,14 +734,6 @@ MainViewBase {
                                                        "currentPower").value))
                 }
 
-                for (var i = 0; i < electrics.count; i++) {
-                    maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
-                                                   electrics.get(i).stateByName(
-                                                       "priceSeries").value))
-                    console.error(electrics.get(i))
-                }
-
-
                 var totalTop = rootMeter ? 1 : 0
                 totalTop += producers.count
 
@@ -911,7 +903,9 @@ MainViewBase {
                             color: lsdChart.electricsColor
                             thing: electrics.get(index)
                             onClicked: {
-
+                                print("Clicked producer", index, thing.name)
+                                //console.error(index, thing.stateValue(thing.thingClass.stateTypes.findByName("currentMarketPrice").id))
+                                console.error(thing.stateByName("currentMarketPrice"))
                             }
                         }
                     }
