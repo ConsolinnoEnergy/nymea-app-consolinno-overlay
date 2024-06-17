@@ -16,14 +16,14 @@ MouseArea {
     property color negativeColor: root.color
     property Thing thing: null
     readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
-    //readonly property State currentElectricPriceState: thing.stateByName("currentMarketPrice") ? thing.stateValue(thing.thingClass.stateTypes.findByName("currentMarketPrice").id) : null
+    readonly property State currentMarketPriceState: thing ? thing.stateByName("currentMarketPrice") : null
     readonly property bool isProducer: thing && thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0
     readonly property bool isBattery: thing && thing.thingClass.interfaces.indexOf("energystorage") >= 0
     property bool isRootmeter: false
-
+    property bool isElectric: false
 
     readonly property double currentPower: root.currentPowerState ? root.currentPowerState.value.toFixed(0) : 0
-    //readonly property double currentElectricPrice: root.currentElectricPriceState ? root.currentElectricPriceState.toFixed(0) : 0
+    readonly property double currentMarketPrice: root.currentMarketPriceState ? root.currentMarketPriceState.value.toFixed(2) : 0
     readonly property State batteryLevelState: isBattery ? thing.stateByName("batteryLevel") : null
 
     readonly property color currentColor: currentPower <= 0 ? root.negativeColor : root.color
@@ -54,12 +54,14 @@ MouseArea {
     }
 
     function getLabeltext(power) {
-        //console.error(currentPowerState)
-        //console.error(currentElectricPriceState)
-        if (currentPowerState != null) {
+        console.error(currentMarketPrice)
+        if (currentPowerState != null && isElectric == false) {
             return Math.abs(power) + " W"
+        }else if(isElectric == true){
+            return Math.abs(power) + " ct"
+        }else{
+            return "–"
         }
-        return "–"
     }
 
 
@@ -109,7 +111,7 @@ MouseArea {
                     // here is the issue with the different textsizes
                     id: headerLabel
                     width: parent.width //- Style.margins
-                    text: currentPowerState ? getLabeltext(root.currentPower) : getLabeltext(root.currentElectricPrice)
+                    text: isElectric != true ? getLabeltext(root.currentPower) : getLabeltext(root.currentElectricPrice)
                     elide: Text.ElideRight
                     color: "white"
                     horizontalAlignment: Text.AlignHCenter

@@ -709,6 +709,9 @@ MainViewBase {
                 var maxCurrentPower = rootMeter ? Math.abs(
                                                       rootMeter.stateByName(
                                                           "currentPower").value) : 0
+
+                var currentPrice = electrics ? Math.abs(electrics.get(index).stateValue("d5b066e2-7a20-49a1-b8f4-5a48021f8d70")) : 0
+
                 for (var i = 0; i < producers.count; i++) {
                     maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
                                                    producers.get(i).stateByName(
@@ -733,6 +736,12 @@ MainViewBase {
                                                    batteries.get(i).stateByName(
                                                        "currentPower").value))
                 }
+                for (var i = 0; i < electrics.count; i++) {
+                    currentPrice = Math.max(currentPrice, Math.abs(
+                                                   electrics.get(i).stateValue("d5b066e2-7a20-49a1-b8f4-5a48021f8d70")))
+                }
+
+                //console.error(currentPrice)
 
                 var totalTop = rootMeter ? 1 : 0
                 totalTop += producers.count
@@ -759,6 +768,20 @@ MainViewBase {
                                          xTranslate, yTranslate)
                     }
                 }
+                /*
+                for (var i = 0; i < electrics.count; i++) {
+
+                    var electric = electrics.get(i)
+                    if (electric.id !== rootMeter.id) {
+                        var tile = legendElectricsRepeater.itemAt(i)
+                        drawAnimatedLine(ctx, electric.stateValue(
+                                             "d5b066e2-7a20-49a1-b8f4-5a48021f8d70"), tile,
+                                         false, (i + 1) - ((totalTop - 1) / 2),
+                                         currentPrice, false,
+                                         xTranslate, yTranslate)
+                    }
+                }*/
+
 
                 var totalBottom = consumers.count + batteries.count
 
@@ -896,16 +919,17 @@ MainViewBase {
                     }
 
                     Repeater {
-                        id: electricsRepeater
+                        id: legendElectricsRepeater
                         model: electrics
                         delegate: LegendTile {
                             visible: electrics.get(index).id !== rootMeter.id
                             color: lsdChart.electricsColor
                             thing: electrics.get(index)
+                            isElectric: true
                             onClicked: {
                                 print("Clicked producer", index, thing.name)
                                 //console.error(index, thing.stateValue(thing.thingClass.stateTypes.findByName("currentMarketPrice").id))
-                                console.error(thing.stateByName("currentMarketPrice"))
+                                console.error(thing.hasState("d5b066e2-7a20-49a1-b8f4-5a48021f8d70"))
                             }
                         }
                     }
