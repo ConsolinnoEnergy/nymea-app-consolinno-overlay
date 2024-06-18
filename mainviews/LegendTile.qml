@@ -54,11 +54,10 @@ MouseArea {
     }
 
     function getLabeltext(power) {
-        console.error(currentMarketPrice)
-        if (currentPowerState != null && isElectric == false) {
+        if (currentPowerState != null) {
             return Math.abs(power) + " W"
         }else if(isElectric == true){
-            return Math.abs(power) + " ct"
+            return Math.abs(power) + " CT"
         }else{
             return "–"
         }
@@ -111,7 +110,7 @@ MouseArea {
                     // here is the issue with the different textsizes
                     id: headerLabel
                     width: parent.width //- Style.margins
-                    text: isElectric != true ? getLabeltext(root.currentPower) : getLabeltext(root.currentElectricPrice)
+                    text: isElectric == true ? getLabeltext(root.currentMarketPrice) : getLabeltext(root.currentPower)
                     elide: Text.ElideRight
                     color: "white"
                     horizontalAlignment: Text.AlignHCenter

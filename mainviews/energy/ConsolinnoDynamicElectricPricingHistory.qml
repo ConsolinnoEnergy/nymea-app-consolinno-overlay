@@ -8,10 +8,15 @@ import "qrc:/ui/components"
 Item {
     id: root
 
-    property ThingsProxy electrics: null
-
     property HemsManager hemsManager
     property ConEMSState conState: hemsManager.conEMSState
+    property string averagePrice: ""
+
+    property ThingsProxy electrics: ThingsProxy {
+        engine: _engine
+        shownInterfaces: ["dynamicelectricitypricing"]
+    }
+
 
     QtObject {
 
@@ -25,7 +30,7 @@ Item {
 
         readonly property var startTime: {
             var date = new Date(now);
-            date.setTime(date.getTime() - range * 60000 + 2000);
+            date.setTime(date.getTime() - range * 60000);
             return date;
         }
 
@@ -36,6 +41,8 @@ Item {
         }
 
     }
+
+
 
 
     Component {
@@ -64,7 +71,7 @@ Item {
             model: ListModel {
                 ListElement {
                     modelData: qsTr("today")
-                    sampleRate: 16
+                    sampleRate: 30
                     range: 360 // 6 Hours: 6 * 60
                 }
                 ListElement {
@@ -76,14 +83,22 @@ Item {
 
             onTabSelected: {
                 d.now = new Date()
+                //console.error(electrics.get(0).stateByName("averagePrice").value.toString())
+                console.error(electrics.get(0).stateByName("highestPrice").value.toFixed(0))
             }
+        }
+
+        Component.onCompleted: {
+            averagePrice = electrics.get(0).stateByName("averagePrice").value.toFixed(0).toString();
+            valueAxis.adjustMax(electrics.get(0).stateByName("highestPrice").value);
         }
 
         Text {
             Layout.fillWidth: true
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
-            text: electrics. qsTr("Average Price: ")
+            font.pixelSize: 13
+            text: "Average Market Price: " + (averagePrice) + " ct"
         }
 
         Item {
@@ -148,7 +163,7 @@ Item {
                             y: parent.height / (valueAxis.tickCount - 1) * index - font.pixelSize / 2
                             width: parent.width - Style.smallMargins
                             horizontalAlignment: Text.AlignRight
-                            text: ((valueAxis.max - (index * valueAxis.max / (valueAxis.tickCount - 1))) / 1000).toFixed(2) + " ct" //linke Seite vom Graphen
+                            text: ((valueAxis.max - (index * valueAxis.max / (valueAxis.tickCount - 1))) / 1) + " ct" //linke Seite vom Graphen
                             verticalAlignment: Text.AlignTop
                             font: Style.extraSmallFont
                         }
@@ -235,6 +250,8 @@ Item {
 
                     property int idx: Math.min(d.visibleValues, Math.max(0, Math.round(mouseArea.mouseX * d.visibleValues / mouseArea.width)))
                     property var timestamp: new Date(Math.min(d.endTime.getTime(), Math.max(d.startTime, d.startTime.getTime() + (idx * d.sampleRate * 60000))))
+                    //property ThingsProxy entry: electrics.get(0).
+
 
                     property int xOnRight: Math.max(0, mouseArea.mouseX) + Style.smallMargins
                     property int xOnLeft: Math.min(mouseArea.width, mouseArea.mouseX) - Style.smallMargins - width

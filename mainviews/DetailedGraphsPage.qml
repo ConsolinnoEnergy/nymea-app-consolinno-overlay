@@ -67,7 +67,6 @@ Page {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     visible: electrics.count > 0
-                    electrics: electrics
                 }
 
                 ConsolinnoPowerBalanceHistory {
