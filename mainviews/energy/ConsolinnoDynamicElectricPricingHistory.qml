@@ -10,13 +10,18 @@ Item {
 
     property HemsManager hemsManager
     property ConEMSState conState: hemsManager.conEMSState
+    property int validSince: 0
+    property int validUntil: 0
+    property int currentSlot: 0
     property string averagePrice: ""
+    property double currentPrice: 0
 
     property ThingsProxy electrics: ThingsProxy {
         engine: _engine
         shownInterfaces: ["dynamicelectricitypricing"]
     }
 
+    readonly property Thing thing: electrics ? electrics.get(0) : null
 
     QtObject {
 
@@ -26,11 +31,11 @@ Item {
 
         readonly property int range: selectionTabs.currentValue.range
         readonly property int sampleRate: selectionTabs.currentValue.sampleRate
-        readonly property int visibleValues: range / sampleRate
+        readonly property int visibleValues: range
 
         readonly property var startTime: {
             var date = new Date(now);
-            date.setTime(date.getTime() - range * 60000);
+            date.setTime(date.getTime() - range * 60000 + 2000);
             return date;
         }
 
@@ -40,10 +45,20 @@ Item {
             return date;
         }
 
+
+        readonly property var startTimeSince: {
+            var date = new Date(now);
+            date.setTime(validSince * 1000);
+            return date;
+        }
+
+        readonly property var endTimeUntil: {
+            var date = new Date(now);
+            date.setTime(validUntil * 1000);
+            return date;
+        }
+
     }
-
-
-
 
     Component {
         id: lineSeriesComponent
@@ -72,7 +87,7 @@ Item {
                 ListElement {
                     modelData: qsTr("today")
                     sampleRate: 30
-                    range: 360 // 6 Hours: 6 * 60
+                    range: 660 // 11 Hours: 11 * 60
                 }
                 ListElement {
                     modelData: qsTr("tommorow")
@@ -84,13 +99,20 @@ Item {
             onTabSelected: {
                 d.now = new Date()
                 //console.error(electrics.get(0).stateByName("averagePrice").value.toString())
-                console.error(electrics.get(0).stateByName("highestPrice").value.toFixed(0))
+                console.error(validSince)
+                console.error(d.startTimeSince)
+                console.error(validUntil)
+                console.error(d.endTimeUntil)
             }
         }
 
         Component.onCompleted: {
-            averagePrice = electrics.get(0).stateByName("averagePrice").value.toFixed(0).toString();
-            valueAxis.adjustMax(electrics.get(0).stateByName("highestPrice").value);
+            validSince = thing.stateByName("validSince").value
+            validUntil = thing.stateByName("validUntil").value
+            currentSlot = thing.stateByName("currentSlot").value
+            currentPrice = thing.stateByName("currentMarketPrice").value
+            averagePrice = thing.stateByName("averagePrice").value.toFixed(0).toString();
+            valueAxis.adjustMax(thing.stateByName("highestPrice").value);
         }
 
         Text {
@@ -172,10 +194,10 @@ Item {
 
                 DateTimeAxis {
                     id: dateTimeAxis
-                    min: d.startTime
-                    max: d.endTime
-                    format: "hh:mm"
-                    tickCount: 8
+                    min: d.startTimeSince
+                    max: d.endTimeUntil
+                    format: "HH:mm"
+                    tickCount: 5
                     labelsFont: Style.extraSmallFont
                     gridVisible: false
                     minorGridVisible: false
@@ -204,11 +226,13 @@ Item {
                         id: pricingUpperSeries
                     }
 
-                    function addEntry(entry) {
-
+                    function addEntry(currentPrice,currentSlot) {
+                        pricingUpperSeries.append(0,currentSlot *1000 + 2000)
+                        pricingUpperSeries.append(currentPrice,currentSlot * 1000)
+                        pricingUpperSeries.append(0,currentSlot *1000 + 1000)
                     }
                     function insertEntry(index, entry) {
-
+                        //pricingUpperSeries.insert()
                     }
                 }
 
@@ -228,9 +252,7 @@ Item {
                 property int startMouseX: 0
                 property bool dragging: false
                 property bool tooltipping: false
-
                 property var startDatetime: null
-
 
                 Rectangle {
                     height: parent.height

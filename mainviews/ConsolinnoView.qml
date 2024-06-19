@@ -710,7 +710,7 @@ MainViewBase {
                                                       rootMeter.stateByName(
                                                           "currentPower").value) : 0
 
-                var currentPrice = electrics ? Math.abs(electrics.get(0).stateByName(
+                var currentPrice = electrics.count > 0 ? Math.abs(electrics.get(0).stateByName(
                                                             "currentMarketPrice").value) : 0
 
                 //console.error(currentPrice)
