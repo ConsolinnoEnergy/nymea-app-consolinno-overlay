@@ -23,8 +23,16 @@ Item {
 
     readonly property Thing thing: electrics ? electrics.get(0) : null
 
-    QtObject {
+    property LogsModelNg thingHistory: LogsModelNg{
+        id: logsModelNg
+        engine: _engine
+        thingId: electrics.get(0).id
+        live: true
+        graphSeries: pricingUpperSeries
+        viewStartTime: dateTimeAxis.min
+    }
 
+    QtObject {
         id: d
 
         property date now: new Date()
@@ -87,7 +95,7 @@ Item {
                 ListElement {
                     modelData: qsTr("today")
                     sampleRate: 30
-                    range: 660 // 11 Hours: 11 * 60
+                    range: 60 // 11 Hours: 11 * 60
                 }
                 ListElement {
                     modelData: qsTr("tommorow")
@@ -99,10 +107,7 @@ Item {
             onTabSelected: {
                 d.now = new Date()
                 //console.error(electrics.get(0).stateByName("averagePrice").value.toString())
-                console.error(validSince)
-                console.error(d.startTimeSince)
-                console.error(validUntil)
-                console.error(d.endTimeUntil)
+                console.error(logsModelNg)
             }
         }
 
@@ -112,7 +117,7 @@ Item {
             currentSlot = thing.stateByName("currentSlot").value
             currentPrice = thing.stateByName("currentMarketPrice").value
             averagePrice = thing.stateByName("averagePrice").value.toFixed(0).toString();
-            valueAxis.adjustMax(thing.stateByName("highestPrice").value);
+            valueAxis.adjustMax(thing.stateByName("highestPrice").value); //thing.stateByName("highestPrice").value
         }
 
         Text {
@@ -145,14 +150,15 @@ Item {
                 ActivityIndicator {
                     x: chartView.plotArea.x + (chartView.plotArea.width - width) / 2
                     y: chartView.plotArea.y + (chartView.plotArea.height - height) / 2 + (chartView.plotArea.height / 8)
-                    visible: false
+                    visible: thingHistory.busy
                     opacity: .5
                 }
+
                 Label {
                     x: chartView.plotArea.x + (chartView.plotArea.width - width) / 2
                     y: chartView.plotArea.y + (chartView.plotArea.height - height) / 2 + (chartView.plotArea.height / 8)
                     text: qsTr("No data available")
-                    visible: true
+                    visible: thingHistory.busy
                     font: Style.smallFont
                     opacity: .5
                 }
@@ -169,7 +175,7 @@ Item {
                     shadesVisible: false
 
                     function adjustMax(value) {
-                        max = Math.max(max, Math.ceil(value / 100) * 100)
+                        max = Math.max(max, Math.ceil(value))
                     }
                 }
 
@@ -185,7 +191,7 @@ Item {
                             y: parent.height / (valueAxis.tickCount - 1) * index - font.pixelSize / 2
                             width: parent.width - Style.smallMargins
                             horizontalAlignment: Text.AlignRight
-                            text: ((valueAxis.max - (index * valueAxis.max / (valueAxis.tickCount - 1))) / 1) + " ct" //linke Seite vom Graphen
+                            text: (Math.ceil(valueAxis.max - (index * valueAxis.max / (valueAxis.tickCount - 1))) / 1) + " ct" //linke Seite vom Graphen
                             verticalAlignment: Text.AlignTop
                             font: Style.extraSmallFont
                         }
@@ -210,11 +216,10 @@ Item {
                     id: consumptionSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: Style.gray
-                    borderWidth: 0
-                    borderColor: color
+                    color: 'transparent'
+                    borderWidth: 2
+                    borderColor: Style.green
                     name: qsTr("Unknown")
-                    opacity: .2
 
                     lowerSeries: LineSeries {
                         id: zeroSeries
@@ -222,20 +227,33 @@ Item {
                         XYPoint { x: dateTimeAxis.max.getTime(); y: 0 }
 
                     }
+
                     upperSeries: LineSeries {
                         id: pricingUpperSeries
-                    }
+                        onPointAdded: {
+                            var newPoint = pricingUpperSeries.at(index)
 
-                    function addEntry(currentPrice,currentSlot) {
-                        pricingUpperSeries.append(0,currentSlot *1000 + 2000)
-                        pricingUpperSeries.append(currentPrice,currentSlot * 1000)
-                        pricingUpperSeries.append(0,currentSlot *1000 + 1000)
-                    }
-                    function insertEntry(index, entry) {
-                        //pricingUpperSeries.insert()
+                            if(newPoint.x > zeroSeries.at(0).x){
+                                zeroSeries.replace(0, newPoint.x, 0)
+                            }
+                            if (newPoint.x < zeroSeries.at(1).x) {
+                                zeroSeries.replace(1, newPoint.x, 0)
+                            }
+                            if (newPoint.x <= dateTimeAxis.max.getTime() || logsModelNg.busy) {
+                                return;
+                            }
+
+                            var diffMaxToNew = newPoint.x - dateTimeAxis.max.getTime();
+                            if (diffMaxToNew < 1000 * 60 * 5) {
+                                chartView.animationOptions = ChartView.NoAnimation;
+                                var newMin = dateTimeAxis.min.getTime() + diffMaxToNew;
+                                dateTimeAxis.max = new Date(newPoint.x);
+                                dateTimeAxis.min = new Date(newMin);
+                                chartView.animationOptions = NymeaUtils.chartsAnimationOptions;
+                            }
+                        }
                     }
                 }
-
             }
 
             MouseArea {
@@ -271,8 +289,8 @@ Item {
                     backgroundRect: Qt.rect(mouseArea.x + toolTip.x, mouseArea.y + toolTip.y, toolTip.width, toolTip.height)
 
                     property int idx: Math.min(d.visibleValues, Math.max(0, Math.round(mouseArea.mouseX * d.visibleValues / mouseArea.width)))
-                    property var timestamp: new Date(Math.min(d.endTime.getTime(), Math.max(d.startTime, d.startTime.getTime() + (idx * d.sampleRate * 60000))))
-                    //property ThingsProxy entry: electrics.get(0).
+                    property var timestamp: new Date(Math.min(d.endTimeUntil.getTime(), Math.max(d.startTimeSince, d.startTimeSince.getTime() + (idx * d.sampleRate * 60000))))
+                   //property LogsModelNg entry: logsModelNg.findClosest(timestamp)
 
 
                     property int xOnRight: Math.max(0, mouseArea.mouseX) + Style.smallMargins
@@ -284,6 +302,13 @@ Item {
                     width: tooltipLayout.implicitWidth + Style.smallMargins * 2
                     height: tooltipLayout.implicitHeight + Style.smallMargins * 2
 
+                    function test(){
+
+                        idx = Math.min(d.visibleValues, Math.max(0, Math.round(mouseArea.mouseX * d.visibleValues / mouseArea.width)))
+                        timestamp = new Date(Math.min(d.endTimeUntil.getTime(), Math.max(d.startTimeSince, d.startTimeSince.getTime() + (idx * 7 * 60000))))
+
+                        console.error(timestamp)
+                    }
 
                     ColumnLayout {
                         id: tooltipLayout
@@ -300,13 +325,13 @@ Item {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: consumptionSeries.color
+                                color: Style.green
                             }
                             Label {
                                 //property double rawValue: d.startTime //toolTip.entry ? toolTip.entry.consumption : 0
                                 //property double displayValue: 25
                                 //property string unit: "Cents / kwWh"
-                                text: d.startTime.toLocaleString(Qt.locale(), Locale.ShortFormat) //conState.currentState //"%1: %2 %3".arg().arg(displayValue.toFixed(2)).arg(unit)
+                                text: "Test"//"%1: %2 %3".arg().arg(displayValue.toFixed(2)).arg(unit)
                                 font: Style.extraSmallFont
                             }
                         }
