@@ -1,6 +1,6 @@
 #include "dynamicelectricpricingconfiguration.h"
 
-DynamicElectricPricingConfiguration::DynamicElectricPricingConfiguration()
+DynamicElectricPricingConfiguration::DynamicElectricPricingConfiguration(QObject *parent) : QObject(parent)
 {
 
 }
@@ -22,7 +22,11 @@ bool DynamicElectricPricingConfiguration::optimizationEnabled() const
 
 void DynamicElectricPricingConfiguration::setOptimizationEnabled(bool optimizationEnabled)
 {
+    if (m_optimizationEnabled == optimizationEnabled)
+        return;
+
     m_optimizationEnabled = optimizationEnabled;
+    emit optimizationEnabledChanged(m_optimizationEnabled);
 }
 
 double DynamicElectricPricingConfiguration::maxElectricalPower() const

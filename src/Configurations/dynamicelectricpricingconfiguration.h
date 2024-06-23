@@ -12,7 +12,7 @@ class DynamicElectricPricingConfiguration : public QObject
     Q_PROPERTY(double maxElectricalPower READ maxElectricalPower WRITE setMaxElectricalPower NOTIFY maxElectricalPowerChanged)
 
 public:
-    explicit DynamicElectricPricingConfiguration();
+    explicit DynamicElectricPricingConfiguration(QObject *parent = nullptr);
 
     QUuid dynamicElectricPricingThingID() const;
     void setDynamicElectricPricingThingID(const QUuid &dynamicElectricPricingThingID);

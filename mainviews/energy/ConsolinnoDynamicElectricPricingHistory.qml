@@ -37,32 +37,25 @@ Item {
 
         property date now: new Date()
 
-        readonly property int range: selectionTabs.currentValue.range
-        readonly property int sampleRate: selectionTabs.currentValue.sampleRate
-        readonly property int visibleValues: range
-
-        readonly property var startTime: {
-            var date = new Date(now);
-            date.setTime(date.getTime() - range * 60000 + 2000);
-            return date;
-        }
-
-        readonly property var endTime: {
-            var date = new Date(now);
-            date.setTime(date.getTime() + 2000)
-            return date;
-        }
-
-
         readonly property var startTimeSince: {
             var date = new Date(now);
-            date.setTime(validSince * 1000);
+            if(selectionTabs.currentIndex == 0){
+                date.setTime(validSince * 1000);
+            }else{
+                date.setTime((validSince + 133200) * 1000);
+            }
             return date;
         }
 
         readonly property var endTimeUntil: {
             var date = new Date(now);
-            date.setTime(validUntil * 1000);
+            if(selectionTabs.currentIndex == 0){
+                date.setTime(validUntil * 1000);
+            }else{
+                date.setTime((validUntil + 86400) * 1000);
+            }
+
+
             return date;
         }
 
@@ -94,20 +87,18 @@ Item {
             model: ListModel {
                 ListElement {
                     modelData: qsTr("today")
-                    sampleRate: 30
-                    range: 60 // 11 Hours: 11 * 60
                 }
                 ListElement {
                     modelData: qsTr("tommorow")
-                    sampleRate: 24
-                    range: 1440 // 1 Day: 24 * 60
                 }
             }
 
             onTabSelected: {
                 d.now = new Date()
-                //console.error(electrics.get(0).stateByName("averagePrice").value.toString())
-                console.error(logsModelNg)
+                console.error(dateTimeAxis.min)
+                pricingUpperSeries.clear();
+
+
             }
         }
 
@@ -117,7 +108,7 @@ Item {
             currentSlot = thing.stateByName("currentSlot").value
             currentPrice = thing.stateByName("currentMarketPrice").value
             averagePrice = thing.stateByName("averagePrice").value.toFixed(0).toString();
-            valueAxis.adjustMax(thing.stateByName("highestPrice").value); //thing.stateByName("highestPrice").value
+            valueAxis.adjustMax(thing.stateByName("highestPrice").value);
         }
 
         Text {
@@ -221,24 +212,21 @@ Item {
                     borderColor: Style.green
                     name: qsTr("Unknown")
 
-                    lowerSeries: LineSeries {
-                        id: zeroSeries
-                        XYPoint { x: dateTimeAxis.min.getTime(); y: 0 }
-                        XYPoint { x: dateTimeAxis.max.getTime(); y: 0 }
-
-                    }
 
                     upperSeries: LineSeries {
                         id: pricingUpperSeries
                         onPointAdded: {
-                            var newPoint = pricingUpperSeries.at(index)
+                            var newPoint = 0;
 
-                            if(newPoint.x > zeroSeries.at(0).x){
-                                zeroSeries.replace(0, newPoint.x, 0)
+                            if(currentPrice < averagePrice){
+                                newPoint =  pricingUpperSeries.at(index);
+                                consumptionSeries.borderColor = Style.green;
+                            }else{
+                                newPoint = pricingUpperSeriesAbove.at(index)
+                                consumptionSeriesAbove.borderColor = Style.red;
                             }
-                            if (newPoint.x < zeroSeries.at(1).x) {
-                                zeroSeries.replace(1, newPoint.x, 0)
-                            }
+
+
                             if (newPoint.x <= dateTimeAxis.max.getTime() || logsModelNg.busy) {
                                 return;
                             }
@@ -253,8 +241,70 @@ Item {
                             }
                         }
                     }
+
+                    onHovered: {
+                        findClosestPoint(point);
+                    }
+
+                    function findClosestPoint(point){
+
+                        var searchIdx = Math.floor(pricingUpperSeries.count / 2);
+                        var prevIdx = 0;
+                        var nextIdx = pricingUpperSeries.count - 1;
+
+                        while (prevIdx + 1 != nextIdx) {
+                            if(point.x < pricingUpperSeries.at(searchIdx).x){
+                                prevIdx = searchIdx;
+                            }else if(point.x > pricingUpperSeries.at(searchIdx).x ){
+                                nextIdx = searchIdx;
+                            }
+
+                            searchIdx = prevIdx + Math.floor((nextIdx - prevIdx) / 2);
+                        }
+
+                        var diffToPrevious = Math.abs(point.x - pricingUpperSeries.at(prevIdx).x);
+                        var diffToNext = Math.abs(point.x - pricingUpperSeries.at(prevIdx).x);
+                        var closestPoint = diffToPrevious < diffToNext ? pricingUpperSeries.at(prevIdx) : pricingUpperSeries.at(nextIdx);
+
+
+                        toolTip.currentValueY = closestPoint.y
+                    }
                 }
+
+                AreaSeries {
+                    id: consumptionSeriesAbove
+                    axisX: dateTimeAxis
+                    axisY: valueAxis
+                    color: 'transparent'
+                    borderWidth: 2
+                    borderColor: Style.red
+                    name: qsTr("Unknown")
+
+                    upperSeries: LineSeries {
+                        id: pricingUpperSeriesAbove
+                    }
+
+                }
+
+                /*
+                ScatterSeries {
+                    id: selectedValue
+                    color: Style.green
+                    markerSize: 5
+                    borderWidth: 2
+                    borderColor: Style.green
+                    axisX: dateTimeAxis
+                    axisY: valueAxis
+                    pointLabelsVisible: true
+                    pointLabelsColor: Style.foregroundColor
+                    pointLabelsFont.pixelSize: app.smallFont
+                    pointLabelsFormat: "@yPoint"
+                    pointLabelsClipping: false
+
+                }*/
+
             }
+
 
             MouseArea {
                 id: mouseArea
@@ -265,10 +315,9 @@ Item {
                 anchors.bottomMargin: chartView.height - chartView.plotArea.height - chartView.plotArea.y
 
                 hoverEnabled: true
-                preventStealing: tooltipping || dragging
+                preventStealing: tooltipping
 
                 property int startMouseX: 0
-                property bool dragging: false
                 property bool tooltipping: false
                 property var startDatetime: null
 
@@ -277,21 +326,18 @@ Item {
                     width: 1
                     color: Style.foregroundColor
                     x: Math.min(mouseArea.width - 1, Math.max(0, mouseArea.mouseX))
-                    visible: (mouseArea.containsMouse || mouseArea.tooltipping) && !mouseArea.dragging
+                    visible: (mouseArea.containsMouse || mouseArea.tooltipping)
                 }
 
                 //Mouseover Details in Graph
                 NymeaToolTip {
                     id: toolTip
-                    visible: (mouseArea.containsMouse || mouseArea.tooltipping) && !mouseArea.dragging
+                    visible: (mouseArea.containsMouse || mouseArea.tooltipping)
 
-                    backgroundItem: chartView
+                    backgroundItem: pricingUpperSeries
                     backgroundRect: Qt.rect(mouseArea.x + toolTip.x, mouseArea.y + toolTip.y, toolTip.width, toolTip.height)
 
-                    property int idx: Math.min(d.visibleValues, Math.max(0, Math.round(mouseArea.mouseX * d.visibleValues / mouseArea.width)))
-                    property var timestamp: new Date(Math.min(d.endTimeUntil.getTime(), Math.max(d.startTimeSince, d.startTimeSince.getTime() + (idx * d.sampleRate * 60000))))
-                   //property LogsModelNg entry: logsModelNg.findClosest(timestamp)
-
+                    property var currentValueY: 0
 
                     property int xOnRight: Math.max(0, mouseArea.mouseX) + Style.smallMargins
                     property int xOnLeft: Math.min(mouseArea.width, mouseArea.mouseX) - Style.smallMargins - width
@@ -301,14 +347,6 @@ Item {
 
                     width: tooltipLayout.implicitWidth + Style.smallMargins * 2
                     height: tooltipLayout.implicitHeight + Style.smallMargins * 2
-
-                    function test(){
-
-                        idx = Math.min(d.visibleValues, Math.max(0, Math.round(mouseArea.mouseX * d.visibleValues / mouseArea.width)))
-                        timestamp = new Date(Math.min(d.endTimeUntil.getTime(), Math.max(d.startTimeSince, d.startTimeSince.getTime() + (idx * 7 * 60000))))
-
-                        console.error(timestamp)
-                    }
 
                     ColumnLayout {
                         id: tooltipLayout
@@ -322,22 +360,17 @@ Item {
                             font: Style.smallFont
                         }
                         RowLayout {
-                            Rectangle {
-                                width: Style.extraSmallFont.pixelSize
-                                height: width
-                                color: Style.green
-                            }
                             Label {
-                                //property double rawValue: d.startTime //toolTip.entry ? toolTip.entry.consumption : 0
-                                //property double displayValue: 25
-                                //property string unit: "Cents / kwWh"
-                                text: "Test"//"%1: %2 %3".arg().arg(displayValue.toFixed(2)).arg(unit)
+                                property string unit: "Cents / kwWh"
+                                text: "%1 %2".arg(toolTip.currentValueY).arg(unit)
                                 font: Style.extraSmallFont
                             }
                         }
                     }
                 }
             }
+
+
         }
     }
 }

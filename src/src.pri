@@ -6,6 +6,7 @@ HEADERS += \
     $$PWD/Configurations/chargingsessionconfigurations.h \
     $$PWD/Configurations/conemsstate.h \
     $$PWD/Configurations/dynamicelectricpricingconfiguration.h \
+    $$PWD/Configurations/dynamicelectricpricingconfigurations.h \
     $$PWD/Configurations/heatingconfigurations.h \
     $$PWD/Configurations/heatingelementconfiguration.h \
     $$PWD/Configurations/heatingelementconfigurations.h \
@@ -27,6 +28,7 @@ SOURCES += \
     $$PWD/Configurations/chargingsessionconfigurations.cpp \
     $$PWD/Configurations/conemsstate.cpp \
     $$PWD/Configurations/dynamicelectricpricingconfiguration.cpp \
+    $$PWD/Configurations/dynamicelectricpricingconfigurations.cpp \
     $$PWD/Configurations/heatingconfiguration.cpp \
     $$PWD/Configurations/heatingconfigurations.cpp \
     $$PWD/Configurations/heatingelementconfiguration.cpp \
