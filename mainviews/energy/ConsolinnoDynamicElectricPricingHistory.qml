@@ -60,7 +60,7 @@ Item {
             Layout.fillWidth: true
             Layout.margins: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
-            text: qsTr("Dynamic electro price")
+            text: qsTr("Dynamic electricity price")
             visible: root.titleVisible
         }
 
@@ -303,7 +303,7 @@ Item {
                             font: Style.smallFont
                         }
                         Label {
-                            property string unit: "Cents / kWh"
+                            property string unit: qsTr("Cents / kWh")
                             text: {
                                 let x = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000// +"XXX"+toolTip.idx
                                 let val = "";

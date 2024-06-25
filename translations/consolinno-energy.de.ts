@@ -968,6 +968,37 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>ConsolinnoDynamicElectricPricingHistory</name>
+    <message>
+        <source>today</source>
+        <translation type="unfinished">Heute</translation>
+    </message>
+    <message>
+        <source>tomorrow</source>
+        <translation type="unfinished">Morgen</translation>
+    </message>
+    <message>
+        <source>Average Market Price: </source>
+        <translation type="unfinished">Durchschnittlicher Marktpreis: </translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation type="unfinished">Keine Daten verfügbar</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Unbekannt</translation>
+    </message>
+    <message>
+        <source>Dynamic electricity price</source>
+        <translation>Dynamischer Strompreis</translation>
+    </message>
+    <message>
+        <source>Cents / kWh</source>
+        <translation type="unfinished">Cent / kWh</translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoImprint</name>
     <message>
         <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
@@ -1780,6 +1811,79 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>DynamicElectricityRate</name>
+    <message>
+        <source>Dynamic Electricity Rate</source>
+        <translation type="unfinished">Dynamische Strompreise</translation>
+    </message>
+    <message>
+        <source>Submitted Rate:</source>
+        <translation type="unfinished">Gewählte Anbieter:</translation>
+    </message>
+    <message>
+        <source>There is no rate set up yet</source>
+        <translation type="unfinished">Es sind noch keine Tarife angelegt</translation>
+    </message>
+    <message>
+        <source>Add Rate: </source>
+        <translation type="unfinished">Tarif hinzufügen: </translation>
+    </message>
+    <message>
+        <source>cancel</source>
+        <translation type="unfinished">abbrechen</translation>
+    </message>
+    <message>
+        <source>add</source>
+        <translation type="unfinished">hinzufügen</translation>
+    </message>
+</context>
+<context>
+    <name>DynamicElectricityRateFeedback</name>
+    <message>
+        <source>Dynamic Electricity Rate</source>
+        <translation type="unfinished">Dynamische Strompreise</translation>
+    </message>
+    <message>
+        <source>The following Electric Rate is submitted</source>
+        <translation type="unfinished">Der Folgende Tarif wurde ausgewählt</translation>
+    </message>
+    <message>
+        <source>next</source>
+        <translation type="unfinished">weiter</translation>
+    </message>
+</context>
+<context>
+    <name>DynamicElectricityRateSettings</name>
+    <message>
+        <source>Dynamic Electricity Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current Market Price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ct</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Average Market Price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lowest Market Price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Highest Market Price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Speichern</translation>
+    </message>
+</context>
+<context>
     <name>EnergyManagerInfo</name>
     <message>
         <source>Energymanager</source>
@@ -2207,6 +2311,10 @@ the system, and a charging process is started, charging is prioritized.</source>
     <message>
         <source>Comissioning</source>
         <translation>Inbetriebnahme</translation>
+    </message>
+    <message>
+        <source>Dynamic Electricity Rate</source>
+        <translation type="unfinished">Dynamische Strompreise</translation>
     </message>
 </context>
 <context>
