@@ -7,30 +7,18 @@ import "qrc:/ui/components"
 
 Item {
     id: root
-
-    property HemsManager hemsManager
-    property ConEMSState conState: hemsManager.conEMSState
     property int validSince: 0
     property int validUntil: 0
-    property int currentSlot: 0
     property string averagePrice: ""
     property double currentPrice: 0
+    property var prices: []
 
     property ThingsProxy electrics: ThingsProxy {
         engine: _engine
         shownInterfaces: ["dynamicelectricitypricing"]
     }
 
-    readonly property Thing thing: electrics ? electrics.get(0) : null
-
-    property LogsModelNg thingHistory: LogsModelNg{
-        id: logsModelNg
-        engine: _engine
-        thingId: electrics.get(0).id
-        live: true
-        graphSeries: pricingUpperSeries
-        viewStartTime: dateTimeAxis.min
-    }
+    readonly property Thing thing: root.electrics ? root.electrics.get(0) : null
 
     QtObject {
         id: d
@@ -50,12 +38,10 @@ Item {
         readonly property var endTimeUntil: {
             var date = new Date(now);
             if(selectionTabs.currentIndex == 0){
-                date.setTime(validUntil * 1000);
+                date.setTime((validUntil + 3600) * 1000 );
             }else{
                 date.setTime((validUntil + 86400) * 1000);
             }
-
-
             return date;
         }
 
@@ -83,32 +69,31 @@ Item {
             Layout.fillWidth: true
             Layout.leftMargin: Style.smallMargins
             Layout.rightMargin: Style.smallMargins
+            visible: false
             currentIndex: 0
             model: ListModel {
                 ListElement {
                     modelData: qsTr("today")
                 }
                 ListElement {
-                    modelData: qsTr("tommorow")
+                    modelData: qsTr("tomorrow")
                 }
             }
 
             onTabSelected: {
                 d.now = new Date()
-                console.error(dateTimeAxis.min)
-                pricingUpperSeries.clear();
-
-
+                console.error(d.endTimeUntil)
             }
         }
 
         Component.onCompleted: {
             validSince = thing.stateByName("validSince").value
             validUntil = thing.stateByName("validUntil").value
-            currentSlot = thing.stateByName("currentSlot").value
             currentPrice = thing.stateByName("currentMarketPrice").value
             averagePrice = thing.stateByName("averagePrice").value.toFixed(0).toString();
-            valueAxis.adjustMax(thing.stateByName("highestPrice").value);
+            valueAxis.adjustMax(thing.stateByName("averagePrice").value);
+
+            consumptionSeries.insertEntry(thing.stateByName("priceSeries").value)
         }
 
         Text {
@@ -116,7 +101,7 @@ Item {
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 13
-            text: "Average Market Price: " + (averagePrice) + " ct"
+            text: qsTr("Average Market Price: ") + (averagePrice) + " ct"
         }
 
         Item {
@@ -141,7 +126,7 @@ Item {
                 ActivityIndicator {
                     x: chartView.plotArea.x + (chartView.plotArea.width - width) / 2
                     y: chartView.plotArea.y + (chartView.plotArea.height - height) / 2 + (chartView.plotArea.height / 8)
-                    visible: thingHistory.busy
+                    visible: false
                     opacity: .5
                 }
 
@@ -149,7 +134,7 @@ Item {
                     x: chartView.plotArea.x + (chartView.plotArea.width - width) / 2
                     y: chartView.plotArea.y + (chartView.plotArea.height - height) / 2 + (chartView.plotArea.height / 8)
                     text: qsTr("No data available")
-                    visible: thingHistory.busy
+                    visible: false
                     font: Style.smallFont
                     opacity: .5
                 }
@@ -166,7 +151,7 @@ Item {
                     shadesVisible: false
 
                     function adjustMax(value) {
-                        max = Math.max(max, Math.ceil(value))
+                        max = Math.max(max, Math.ceil(value) * 2)
                     }
                 }
 
@@ -182,7 +167,7 @@ Item {
                             y: parent.height / (valueAxis.tickCount - 1) * index - font.pixelSize / 2
                             width: parent.width - Style.smallMargins
                             horizontalAlignment: Text.AlignRight
-                            text: (Math.ceil(valueAxis.max - (index * valueAxis.max / (valueAxis.tickCount - 1))) / 1) + " ct" //linke Seite vom Graphen
+                            text: (Math.ceil(valueAxis.max - (index * valueAxis.max / (valueAxis.tickCount - 1)))) + " ct" //linke Seite vom Graphen
                             verticalAlignment: Text.AlignTop
                             font: Style.extraSmallFont
                         }
@@ -208,66 +193,33 @@ Item {
                     axisX: dateTimeAxis
                     axisY: valueAxis
                     color: 'transparent'
-                    borderWidth: 2
+                    borderWidth: 1
                     borderColor: Style.green
                     name: qsTr("Unknown")
 
-
                     upperSeries: LineSeries {
                         id: pricingUpperSeries
-                        onPointAdded: {
-                            var newPoint = 0;
-
-                            if(currentPrice < averagePrice){
-                                newPoint =  pricingUpperSeries.at(index);
-                                consumptionSeries.borderColor = Style.green;
-                            }else{
-                                newPoint = pricingUpperSeriesAbove.at(index)
-                                consumptionSeriesAbove.borderColor = Style.red;
-                            }
-
-
-                            if (newPoint.x <= dateTimeAxis.max.getTime() || logsModelNg.busy) {
-                                return;
-                            }
-
-                            var diffMaxToNew = newPoint.x - dateTimeAxis.max.getTime();
-                            if (diffMaxToNew < 1000 * 60 * 5) {
-                                chartView.animationOptions = ChartView.NoAnimation;
-                                var newMin = dateTimeAxis.min.getTime() + diffMaxToNew;
-                                dateTimeAxis.max = new Date(newPoint.x);
-                                dateTimeAxis.min = new Date(newMin);
-                                chartView.animationOptions = NymeaUtils.chartsAnimationOptions;
-                            }
-                        }
                     }
 
-                    onHovered: {
-                        findClosestPoint(point);
-                    }
+                    function insertEntry(value){
+                        var lastObjectValue = value[Object.keys(value)[Object.keys(value).length - 1]];
 
-                    function findClosestPoint(point){
+                        var i = 0;
+                        for (const item in value){
+                            const date = new Date(item);
+                            var z = date.getTime();
+                            prices.push([z,value[item]])
 
-                        var searchIdx = Math.floor(pricingUpperSeries.count / 2);
-                        var prevIdx = 0;
-                        var nextIdx = pricingUpperSeries.count - 1;
-
-                        while (prevIdx + 1 != nextIdx) {
-                            if(point.x < pricingUpperSeries.at(searchIdx).x){
-                                prevIdx = searchIdx;
-                            }else if(point.x > pricingUpperSeries.at(searchIdx).x ){
-                                nextIdx = searchIdx;
+                            if(i == 0){
+                                i = 1
+                                z = z - 600000
                             }
 
-                            searchIdx = prevIdx + Math.floor((nextIdx - prevIdx) / 2);
+                            pricingUpperSeriesAbove.append(z,averagePrice);
+                            pricingUpperSeries.append(z,value[item]);
                         }
-
-                        var diffToPrevious = Math.abs(point.x - pricingUpperSeries.at(prevIdx).x);
-                        var diffToNext = Math.abs(point.x - pricingUpperSeries.at(prevIdx).x);
-                        var closestPoint = diffToPrevious < diffToNext ? pricingUpperSeries.at(prevIdx) : pricingUpperSeries.at(nextIdx);
-
-
-                        toolTip.currentValueY = closestPoint.y
+                        pricingUpperSeriesAbove.append(z + 6000000, averagePrice);
+                        pricingUpperSeries.append(z + 6000000, lastObjectValue);
                     }
                 }
 
@@ -276,7 +228,7 @@ Item {
                     axisX: dateTimeAxis
                     axisY: valueAxis
                     color: 'transparent'
-                    borderWidth: 2
+                    borderWidth: 1
                     borderColor: Style.red
                     name: qsTr("Unknown")
 
@@ -285,23 +237,6 @@ Item {
                     }
 
                 }
-
-                /*
-                ScatterSeries {
-                    id: selectedValue
-                    color: Style.green
-                    markerSize: 5
-                    borderWidth: 2
-                    borderColor: Style.green
-                    axisX: dateTimeAxis
-                    axisY: valueAxis
-                    pointLabelsVisible: true
-                    pointLabelsColor: Style.foregroundColor
-                    pointLabelsFont.pixelSize: app.smallFont
-                    pointLabelsFormat: "@yPoint"
-                    pointLabelsClipping: false
-
-                }*/
 
             }
 
@@ -337,7 +272,10 @@ Item {
                     backgroundItem: pricingUpperSeries
                     backgroundRect: Qt.rect(mouseArea.x + toolTip.x, mouseArea.y + toolTip.y, toolTip.width, toolTip.height)
 
-                    property var currentValueY: 0
+                    property double currentValueY: 0
+                    property int idx: mouseArea.mouseX
+                    property int timeSince: new Date(d.startTimeSince).getTime()
+                    property var timestamp: (new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())
 
                     property int xOnRight: Math.max(0, mouseArea.mouseX) + Style.smallMargins
                     property int xOnLeft: Math.min(mouseArea.width, mouseArea.mouseX) - Style.smallMargins - width
@@ -356,16 +294,33 @@ Item {
                             margins: Style.smallMargins
                         }
                         Label {
-                            text: d.startTime.toLocaleString(Qt.locale(), Locale.ShortFormat)
+                            text: {
+                                let x = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000// +"XXX"+toolTip.idx
+                                x = new Date(x).toLocaleString(Qt.locale(), Locale.ShortFormat);
+                                d.startTimeSince.toLocaleString(Qt.locale(), Locale.ShortFormat)
+                                return x;
+                            }
                             font: Style.smallFont
                         }
-                        RowLayout {
-                            Label {
-                                property string unit: "Cents / kwWh"
-                                text: "%1 %2".arg(toolTip.currentValueY).arg(unit)
-                                font: Style.extraSmallFont
+                        Label {
+                            property string unit: "Cents / kWh"
+                            text: {
+                                let x = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000// +"XXX"+toolTip.idx
+                                let val = "";
+                                for(const item in prices) {
+                                    if(x >= prices[item][0] || x === prices[item][0]) {
+                                        val = prices[item][1]
+                                    } else {
+                                        break;
+                                    }
+
+                                }
+                                val = Number.parseFloat(val).toFixed(2);
+                                return "%1 %2".arg(val).arg(unit)
                             }
+                            font: Style.extraSmallFont
                         }
+
                     }
                 }
             }

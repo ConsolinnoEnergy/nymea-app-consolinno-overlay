@@ -16,6 +16,7 @@ Page {
     id: root
     property HemsManager hemsManager
     property int directionID: 0
+    property string thingName: ""
 
     signal done(bool skip, bool abort, bool back);
 
@@ -54,7 +55,7 @@ Page {
                 id: electricityRate
                 Layout.preferredWidth: app.width - 2*Style.margins
                 color: Material.foreground
-                text: qsTr("Tibber")
+                text: qsTr(thingName)
                 Layout.alignment: Qt.AlignCenter
                 horizontalAlignment: Text.Center
             }

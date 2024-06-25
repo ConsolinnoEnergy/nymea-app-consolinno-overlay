@@ -321,7 +321,7 @@ int HemsManager::setDynamicElectricPricingConfiguration(const QUuid &electricThi
     params.insert("dynamicElectricPricingConfiguration", config);
     qCWarning(dcHems()) << "Set electric configuration" << params;
 
-    return m_engine->jsonRpcClient()->sendCommand("Hems.SetDynamicElectricPricingConfigurations", params, this, "setDynamicElectricPricingConfigurationResponse");
+    return m_engine->jsonRpcClient()->sendCommand("Hems.setDynamicElectricPricingConfiguration", params, this, "setDynamicElectricPricingConfigurationResponse");
 }
 
 
@@ -843,8 +843,6 @@ void HemsManager::addOrUpdateDynamicElectricPricingConfiguration(const QVariantM
 
     configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
-
-
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Electric configuration added" << configuration->dynamicElectricPricingThingID();

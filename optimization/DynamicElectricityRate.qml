@@ -13,8 +13,9 @@ Page {
     id: root
 
     property HemsManager hemsManager
-    property ConEMSState conState: hemsManager.conEMSState
     property string name
+
+    readonly property Thing thing: erProxy ? erProxy.get(0) : null
 
     property int directionID: 0
 
@@ -31,6 +32,16 @@ Page {
         }
 
     }
+
+    QtObject {
+        id: d
+        property int pendingCallId: -1
+    }
+
+    Connections {
+        target: hemsManager
+    }
+
 
     ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
@@ -161,7 +172,8 @@ Page {
                 Layout.alignment: Qt.AlignLeft
                 visible: true
                 onClicked: {
-                    //pageStack.push(Qt.resolvedUrl("../optimization/DynamicElectricityRateFeedback.qml"))
+                    d.pendingCallId = hemsManager.setDynamicElectricPricingConfiguration(thing.id, {"optimizationEnabled": true} )
+                    pageStack.push(Qt.resolvedUrl("../optimization/DynamicElectricityRateFeedback.qml"), {thingName: energyRateComboBox.currentText} )
                 }
             }
         }
