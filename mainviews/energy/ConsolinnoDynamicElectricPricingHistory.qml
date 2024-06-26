@@ -82,7 +82,6 @@ Item {
 
             onTabSelected: {
                 d.now = new Date()
-                console.error(d.endTimeUntil)
             }
         }
 
@@ -91,8 +90,11 @@ Item {
             validUntil = thing.stateByName("validUntil").value
             currentPrice = thing.stateByName("currentMarketPrice").value
             averagePrice = thing.stateByName("averagePrice").value.toFixed(0).toString();
-            valueAxis.adjustMax(thing.stateByName("averagePrice").value);
 
+            let minPrice = thing.stateByName("lowestPrice").value
+            let maxPrice = thing.stateByName("highestPrice").value
+
+            valueAxis.adjustMax(minPrice,maxPrice);
             consumptionSeries.insertEntry(thing.stateByName("priceSeries").value)
         }
 
@@ -119,9 +121,6 @@ Item {
                 margins.bottom: Style.smallIconSize + Style.margins
 
                 legend.visible: false
-                legend.alignment: Qt.AlignBottom
-                legend.font: Style.extraSmallFont
-                legend.labelColor: Style.foregroundColor
 
                 ActivityIndicator {
                     x: chartView.plotArea.x + (chartView.plotArea.width - width) / 2
@@ -146,12 +145,14 @@ Item {
                     labelFormat: ""
                     gridLineColor: Style.tileOverlayColor
                     labelsVisible: false
+                    tickCount: 5
                     lineVisible: false
                     titleVisible: false
                     shadesVisible: false
 
-                    function adjustMax(value) {
-                        max = Math.max(max, Math.ceil(value) * 2)
+                    function adjustMax(minPrice,maxPrice) {
+                        max = maxPrice + 5
+                        min = minPrice >= 10 ? minPrice - 10 : minPrice
                     }
                 }
 
@@ -167,7 +168,7 @@ Item {
                             y: parent.height / (valueAxis.tickCount - 1) * index - font.pixelSize / 2
                             width: parent.width - Style.smallMargins
                             horizontalAlignment: Text.AlignRight
-                            text: (Math.ceil(valueAxis.max - (index * valueAxis.max / (valueAxis.tickCount - 1)))) + " ct" //linke Seite vom Graphen
+                            text: (Math.ceil(valueAxis.max - index * (valueAxis.max - valueAxis.min) / (valueAxis.tickCount - 1))) + " ct"  //linke Seite vom Graphen
                             verticalAlignment: Text.AlignTop
                             font: Style.extraSmallFont
                         }
@@ -195,7 +196,6 @@ Item {
                     color: 'transparent'
                     borderWidth: 1
                     borderColor: Style.green
-                    name: qsTr("Unknown")
 
                     upperSeries: LineSeries {
                         id: pricingUpperSeries
@@ -203,6 +203,8 @@ Item {
 
                     function insertEntry(value){
                         var lastObjectValue = value[Object.keys(value)[Object.keys(value).length - 1]];
+
+
 
                         var i = 0;
                         for (const item in value){
@@ -230,7 +232,6 @@ Item {
                     color: 'transparent'
                     borderWidth: 1
                     borderColor: Style.red
-                    name: qsTr("Unknown")
 
                     upperSeries: LineSeries {
                         id: pricingUpperSeriesAbove
@@ -240,6 +241,45 @@ Item {
 
             }
 
+            RowLayout {
+                anchors { left: parent.left; bottom: parent.bottom; right: parent.right }
+                height: Style.smallIconSize
+                Row {
+                    spacing: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: 20
+                    Rectangle {
+                        anchors.verticalCenter: parent.verticalCenter
+                        color: Style.green
+                        width: 8
+                        height: 8
+                    }
+                    Text {
+                        anchors.verticalCenter: parent.verticalCenter
+                        font: Style.smallFont
+                        text: qsTr("Current market price")
+                    }
+                }
+
+                Row {
+                    spacing: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: parent.right
+                    anchors.rightMargin: 5
+                    Rectangle {
+                        anchors.verticalCenter: parent.verticalCenter
+                        color: Style.red
+                        width: 8
+                        height: 8
+                    }
+                    Text {
+                        anchors.verticalCenter: parent.verticalCenter
+                        font: Style.smallFont
+                        text: qsTr("Average market price")
+                    }
+                }
+            }
 
             MouseArea {
                 id: mouseArea
