@@ -15,7 +15,7 @@ Page {
     property HemsManager hemsManager
     property string name
 
-    readonly property Thing thing: erProxy ? erProxy.get(0) : null
+    readonly property Thing thing: currentThing ? currentThing.get(0) : null
 
     property int directionID: 0
 
@@ -133,7 +133,7 @@ Page {
 
         ColumnLayout {
             Layout.topMargin: Style.margins
-            visible: true
+            visible: erProxy.count === 0
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Add Rate: ")
@@ -146,6 +146,7 @@ Page {
                 textRole: "displayName"
                 valueRole: "id"
                 model: ThingClassesProxy {
+                    id: currentThing
                     engine: _engine
                     filterInterface: "dynamicelectricitypricing"
                     includeProvidedInterfaces: true
@@ -170,13 +171,32 @@ Page {
                 text: qsTr("add")
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignLeft
-                visible: true
+                visible: erProxy.count === 0
                 onClicked: {
-                    d.pendingCallId = hemsManager.setDynamicElectricPricingConfiguration(thing.id, {"optimizationEnabled": true} )
+                    currentThing.engine.thingManager.addThing(energyRateComboBox.currentValue, energyRateComboBox.currentText, 0)
                     pageStack.push(Qt.resolvedUrl("../optimization/DynamicElectricityRateFeedback.qml"), {thingName: energyRateComboBox.currentText} )
                 }
             }
+
+
         }
+
+        VerticalDivider
+        {
+            Layout.preferredWidth: app.width - 2* Style.margins
+            dividerColor: Material.accent
+            visible: erProxy.count !== 0
+        }
+
+        ColumnLayout {
+            visible: erProxy.count !== 0
+            Layout.alignment: Qt.AlignHCenter
+            Layout.preferredHeight: 200
+            Text {
+               text: qsTr("There are currently no settings options available")
+            }
+        }
+
 
     }
 }
