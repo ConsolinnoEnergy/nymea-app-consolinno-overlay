@@ -11,7 +11,7 @@ Item {
     property int validUntil: 0
     property string averagePrice: ""
     property double currentPrice: 0
-    property var prices: []
+    property var prices: ({})
 
     property ThingsProxy electrics: ThingsProxy {
         engine: _engine
@@ -205,10 +205,33 @@ Item {
                         var lastObjectValue = value[Object.keys(value)[Object.keys(value).length - 1]];
 
                         var i = 0;
+                        let lastChange = 0;
+                        let lastChangeTimestamp = 0;
+                        let identicalIndexes = [];
+
                         for (const item in value){
                             const date = new Date(item);
                             var z = date.getTime();
-                            prices.push([z,value[item]])
+
+                            if(lastChange !== value[item]) {
+                                lastChangeTimestamp = z;
+
+                                for(const ts of identicalIndexes) {
+                                    prices[ts].end = z;
+                                }
+
+                                identicalIndexes = [z];
+                            }
+                            else {
+                                identicalIndexes.push(z);
+                            }
+
+                            lastChange = value[item];
+
+                            prices[z] = {
+                                start: lastChangeTimestamp,
+                                value: value[item]
+                            };
 
                             if(i == 0){
                                 i = 1
@@ -286,6 +309,27 @@ Item {
                     width: tooltipLayout.implicitWidth + Style.smallMargins * 2
                     height: tooltipLayout.implicitHeight + Style.smallMargins * 2
 
+                    function getQuaterlyTimestamp(timestamp) {
+                       const currTime = new Date(timestamp);
+                       const currMinutes = currTime.getMinutes();
+                       const modRes = currMinutes % 15;
+
+                       if(modRes !== 0) {
+                           if(modRes < 8) {
+                               currTime.setMinutes(currMinutes - modRes);
+                           }
+                           else {
+                               currTime.setMinutes(currMinutes + (15 - modRes));
+                           }
+
+                           currTime.setSeconds(0);
+                           return currTime.getTime();
+                       }
+                       else {
+                           return timestamp;
+                       }
+                   }
+
                     ColumnLayout {
                         id: tooltipLayout
                         anchors {
@@ -296,9 +340,16 @@ Item {
                         Label {
                             text: {
                                 let x = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000// +"XXX"+toolTip.idx
-                                x = new Date(x).toLocaleString(Qt.locale(), Locale.ShortFormat);
+
                                 d.startTimeSince.toLocaleString(Qt.locale(), Locale.ShortFormat)
-                                return x;
+
+                                let val = prices[toolTip.getQuaterlyTimestamp(x)].start;
+                                val = new Date(val).toLocaleString(Qt.locale(), Locale.ShortFormat);
+
+                                let endVal = prices[toolTip.getQuaterlyTimestamp(x)].end;
+                                endVal = new Date(endVal).toLocaleString(Qt.locale(), Locale.ShortFormat);
+
+                                return val + " - " + endVal;
                             }
                             font: Style.smallFont
                         }
@@ -306,15 +357,8 @@ Item {
                             property string unit: qsTr("Cents / kWh")
                             text: {
                                 let x = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000// +"XXX"+toolTip.idx
-                                let val = "";
-                                for(const item in prices) {
-                                    if(x >= prices[item][0] || x === prices[item][0]) {
-                                        val = prices[item][1]
-                                    } else {
-                                        break;
-                                    }
+                                let val = prices[toolTip.getQuaterlyTimestamp(x)].value;
 
-                                }
                                 val = Number.parseFloat(val).toFixed(2);
                                 return "%1 %2".arg(val).arg(unit)
                             }
