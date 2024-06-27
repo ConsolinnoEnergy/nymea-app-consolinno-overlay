@@ -288,7 +288,7 @@ Item {
                 height: Style.smallIconSize
                 anchors.margins: Style.margins
                 Row {
-                    Layout.alignment: Qt.AlignRight
+                    Layout.alignment: Qt.AlignHCenter
                     spacing: 5
                     Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
@@ -304,6 +304,7 @@ Item {
                 }
 
                 Row {
+                    Layout.alignment: Qt.AlignHCenter
                     spacing: 5
                     Rectangle {
                         anchors.verticalCenter: parent.verticalCenter

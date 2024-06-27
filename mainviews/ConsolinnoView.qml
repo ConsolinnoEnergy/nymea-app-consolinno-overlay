@@ -713,8 +713,6 @@ MainViewBase {
                 var currentPrice = electrics.count > 0 ? Math.abs(electrics.get(0).stateByName(
                                                             "currentMarketPrice").value) : 0
 
-                //console.error(currentPrice)
-
                 for (var i = 0; i < producers.count; i++) {
                     maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
                                                    producers.get(i).stateByName(
@@ -772,20 +770,6 @@ MainViewBase {
                                          xTranslate, yTranslate)
                     }
                 }
-
-                for (var i = 0; i < electrics.count; i++) {
-
-                    var electric = electrics.get(i)
-                    if (electric.id !== rootMeter.id) {
-                        var tile = legendElectricsRepeater.itemAt(i)
-                        /*drawAnimatedLine(ctx, electric.stateByName(
-                                             "currentMarketPrice").value, tile,
-                                         false, (i + 1) - ((totalTop - 1) / 2),
-                                         currentPrice, false,
-                                         xTranslate, yTranslate)*/
-                    }
-                }
-
 
                 var totalBottom = consumers.count + batteries.count
 
