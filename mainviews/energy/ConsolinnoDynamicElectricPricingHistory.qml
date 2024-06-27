@@ -434,6 +434,7 @@ Item {
 
                                 let val = currentPrice.value;
 
+                                toolTip.y = mouseArea.height - (mouseArea.height * (Number.parseInt(val) / root.highestPrice));
                                 val = Number.parseFloat(val).toFixed(2);
                                 return "%1 %2".arg(val).arg(unit);
                             }
