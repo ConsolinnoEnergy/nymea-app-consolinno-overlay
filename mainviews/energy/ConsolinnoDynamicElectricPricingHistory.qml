@@ -282,14 +282,14 @@ Item {
 
             }
 
-            RowLayout {
+            GridLayout {
                 anchors { left: parent.left; bottom: parent.bottom; right: parent.right }
+                columns: 2
                 height: Style.smallIconSize
+                anchors.margins: Style.margins
                 Row {
+                    Layout.alignment: Qt.AlignRight
                     spacing: 5
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.leftMargin: 20
                     Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
                         color: Style.green
@@ -298,16 +298,13 @@ Item {
                     }
                     Text {
                         anchors.verticalCenter: parent.verticalCenter
-                        font: Style.smallFont
+                        font: Style.extraSmallFont
                         text: qsTr("Current market price")
                     }
                 }
 
                 Row {
                     spacing: 5
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.right: parent.right
-                    anchors.rightMargin: 5
                     Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
                         color: Style.red
@@ -316,7 +313,7 @@ Item {
                     }
                     Text {
                         anchors.verticalCenter: parent.verticalCenter
-                        font: Style.smallFont
+                        font: Style.extraSmallFont
                         text: qsTr("Average market price")
                     }
                 }

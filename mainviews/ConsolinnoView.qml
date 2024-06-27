@@ -934,7 +934,7 @@ MainViewBase {
                             isElectric: true
                             onClicked: {
                                 print("Clicked producer", index, thing.name)
-                                //console.error(index, thing.stateValue("44ca03a9-602b-4fa7-8350-67c819647a85"))
+                                pageStack.push("/ui/devicepages/PageWraper.qml")
                             }
                         }
                     }
