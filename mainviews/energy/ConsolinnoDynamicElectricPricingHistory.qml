@@ -63,7 +63,7 @@ Item {
             Layout.margins: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             text: qsTr("Dynamic electricity price")
-            visible: root.titleVisible
+            visible: true
         }
 
         SelectionTabs {
@@ -88,6 +88,8 @@ Item {
         }
 
         Component.onCompleted: {
+            if(!thing)
+                return;
             validSince = thing.stateByName("validSince").value
             validUntil = thing.stateByName("validUntil").value
             currentPrice = thing.stateByName("currentMarketPrice").value
@@ -348,7 +350,6 @@ Item {
                     id: toolTip
                     visible: (mouseArea.containsMouse || mouseArea.tooltipping)
 
-                    backgroundItem: pricingUpperSeries
                     backgroundRect: Qt.rect(mouseArea.x + toolTip.x, mouseArea.y + toolTip.y, toolTip.width, toolTip.height)
 
                     property double currentValueY: 0
@@ -395,6 +396,10 @@ Item {
                         }
                         Label {
                             text: {
+                                if(!mouseArea.containsMouse) {
+                                    return "";
+                                }
+
                                 let hoveredTime = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000;
 
                                 d.startTimeSince.toLocaleString(Qt.locale(), Locale.ShortFormat);
@@ -420,6 +425,10 @@ Item {
                         Label {
                             property string unit: qsTr("Cents / kWh")
                             text: {
+                                if(!mouseArea.containsMouse) {
+                                    return "";
+                                }
+
                                 let hoveredTime = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000;
 
                                 let currentPrice = prices[toolTip.getQuaterlyTimestamp(hoveredTime)];
