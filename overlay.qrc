@@ -104,5 +104,6 @@
         <file>optimization/DynamicElectricityRateFeedback.qml</file>
         <file>mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml</file>
         <file>optimization/DynamicElectricityRateSettings.qml</file>
+        <file>devicepages/PageWraper.qml</file>
     </qresource>
 </RCC>
