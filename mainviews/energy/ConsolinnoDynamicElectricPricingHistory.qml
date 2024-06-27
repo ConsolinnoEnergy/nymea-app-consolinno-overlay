@@ -204,45 +204,55 @@ Item {
                     function insertEntry(value){
                         var lastObjectValue = value[Object.keys(value)[Object.keys(value).length - 1]];
 
-
-
-                        var i = 0;
+                        var firstRun = true;
                         let lastChange = 0;
                         let lastChangeTimestamp = 0;
                         let identicalIndexes = [];
 
                         for (const item in value){
                             const date = new Date(item);
-                            var z = date.getTime();
+                            var currentTimestamp = date.getTime();
 
                             if(lastChange !== value[item]) {
-                                lastChangeTimestamp = z;
+                                lastChangeTimestamp = currentTimestamp;
 
                                 for(const ts of identicalIndexes) {
-                                    prices[ts].end = z;
+                                    prices[ts].end = currentTimestamp;
                                 }
 
-                                identicalIndexes = [z];
+                                identicalIndexes = [currentTimestamp];
                             }
                             else {
-                                identicalIndexes.push(z);
+                                identicalIndexes.push(currentTimestamp);
                             }
 
                             lastChange = value[item];
 
-                            prices[z] = {
+                            prices[currentTimestamp] = {
                                 start: lastChangeTimestamp,
                                 value: value[item]
                             };
 
-                            if(i == 0){
-                                i = 1
-                                z = z - 600000
+                            if(firstRun === true){
+                                firstRun = false;
+                                currentTimestamp = currentTimestamp - 600000;
                             }
 
-                            pricingUpperSeriesAbove.append(z,averagePrice);
-                            pricingUpperSeries.append(z,value[item]);
+                            pricingUpperSeriesAbove.append(currentTimestamp,averagePrice);
+                            pricingUpperSeries.append(currentTimestamp,value[item]);
                         }
+
+                        const todayMidnight = new Date(identicalIndexes[0]);
+                        todayMidnight.setDate(todayMidnight.getDate() +1);
+                        todayMidnight.setMinutes(0);
+                        todayMidnight.setHours(0);
+
+                        const todayMidnightTs = todayMidnight.getTime();
+
+                        for(const ts of identicalIndexes) {
+                            prices[ts].end = todayMidnightTs;
+                        }
+
                         pricingUpperSeriesAbove.append(z + 6000000, averagePrice);
                         pricingUpperSeries.append(z + 6000000, lastObjectValue);
                     }
@@ -338,7 +348,7 @@ Item {
                     property double currentValueY: 0
                     property int idx: mouseArea.mouseX
                     property int timeSince: new Date(d.startTimeSince).getTime()
-                    property var timestamp: (new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())
+                    property int timestamp: (new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())
 
                     property int xOnRight: Math.max(0, mouseArea.mouseX) + Style.smallMargins
                     property int xOnLeft: Math.min(mouseArea.width, mouseArea.mouseX) - Style.smallMargins - width
@@ -349,8 +359,8 @@ Item {
                     width: tooltipLayout.implicitWidth + Style.smallMargins * 2
                     height: tooltipLayout.implicitHeight + Style.smallMargins * 2
 
-                    function getQuaterlyTimestamp(timestamp) {
-                       const currTime = new Date(timestamp);
+                    function getQuaterlyTimestamp(ts) {
+                       const currTime = new Date(ts);
                        const currMinutes = currTime.getMinutes();
                        const modRes = currMinutes % 15;
 
@@ -366,7 +376,7 @@ Item {
                            return currTime.getTime();
                        }
                        else {
-                           return timestamp;
+                           return ts;
                        }
                    }
 
@@ -379,28 +389,45 @@ Item {
                         }
                         Label {
                             text: {
-                                let x = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000// +"XXX"+toolTip.idx
+                                let hoveredTime = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000;
 
-                                d.startTimeSince.toLocaleString(Qt.locale(), Locale.ShortFormat)
+                                d.startTimeSince.toLocaleString(Qt.locale(), Locale.ShortFormat);
 
-                                let val = prices[toolTip.getQuaterlyTimestamp(x)].start;
+                                let currentPrice = prices[toolTip.getQuaterlyTimestamp(hoveredTime)];
+
+                                if(!currentPrice || typeof currentPrice === "undefined") {
+                                    const priceKeys = Object.keys(prices);
+                                    const lastItem = priceKeys[priceKeys.length -1];
+                                    currentPrice = prices[lastItem];
+                                }
+
+                                let val = currentPrice.start;
                                 val = new Date(val).toLocaleString(Qt.locale(), Locale.ShortFormat);
 
-                                let endVal = prices[toolTip.getQuaterlyTimestamp(x)].end;
-                                endVal = new Date(endVal).toLocaleString(Qt.locale(), Locale.ShortFormat);
+                                let endVal = currentPrice.end;
+                                endVal = new Date(endVal).toTimeString(Qt.locale(), Locale.ShortFormat);
 
-                                return val + " - " + endVal;
+                                return val + " - " + endVal.slice(0, -3);
                             }
                             font: Style.smallFont
                         }
                         Label {
                             property string unit: qsTr("Cents / kWh")
                             text: {
-                                let x = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000// +"XXX"+toolTip.idx
-                                let val = prices[toolTip.getQuaterlyTimestamp(x)].value;
+                                let hoveredTime = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000;
+
+                                let currentPrice = prices[toolTip.getQuaterlyTimestamp(hoveredTime)];
+
+                                if(!currentPrice || typeof currentPrice === "undefined") {
+                                    const priceKeys = Object.keys(prices);
+                                    const lastItem = priceKeys[priceKeys.length -1];
+                                    currentPrice = prices[lastItem];
+                                }
+
+                                let val = currentPrice.value;
 
                                 val = Number.parseFloat(val).toFixed(2);
-                                return "%1 %2".arg(val).arg(unit)
+                                return "%1 %2".arg(val).arg(unit);
                             }
                             font: Style.extraSmallFont
                         }
