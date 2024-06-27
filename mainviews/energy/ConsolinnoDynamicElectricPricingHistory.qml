@@ -11,6 +11,8 @@ Item {
     property int validUntil: 0
     property string averagePrice: ""
     property double currentPrice: 0
+    property double lowestPrice: 0
+    property double highestPrice: 0
     property var prices: ({})
 
     property ThingsProxy electrics: ThingsProxy {
@@ -91,11 +93,9 @@ Item {
             currentPrice = thing.stateByName("currentMarketPrice").value
             averagePrice = thing.stateByName("averagePrice").value.toFixed(0).toString();
 
-            let minPrice = thing.stateByName("lowestPrice").value
-            let maxPrice = thing.stateByName("highestPrice").value
-
-            valueAxis.adjustMax(minPrice,maxPrice);
             consumptionSeries.insertEntry(thing.stateByName("priceSeries").value)
+            valueAxis.adjustMax(lowestPrice,highestPrice);
+
         }
 
         Text {
@@ -151,8 +151,8 @@ Item {
                     shadesVisible: false
 
                     function adjustMax(minPrice,maxPrice) {
-                        max = maxPrice + 5
-                        min = minPrice >= 10 ? minPrice - 10 : minPrice
+                        max = maxPrice + 5;
+                        min = minPrice;
                     }
                 }
 
@@ -212,6 +212,14 @@ Item {
                         for (const item in value){
                             const date = new Date(item);
                             var currentTimestamp = date.getTime();
+
+                            if(value[item] < lowestPrice){
+                                lowestPrice = value[item]
+                            }
+
+                            if(value[item] > highestPrice){
+                                highestPrice = value[item]
+                            }
 
                             if(lastChange !== value[item]) {
                                 lastChangeTimestamp = currentTimestamp;
