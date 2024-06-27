@@ -189,7 +189,7 @@ Page {
         }
 
         ColumnLayout {
-            visible: erProxy.count !== 0
+            visible: false
             Layout.alignment: Qt.AlignHCenter
             Layout.preferredHeight: 200
             Text {
