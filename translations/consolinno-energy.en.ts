@@ -986,15 +986,19 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unknown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Dynamic electricity price</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cents / kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current market price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Average market price</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1812,6 +1816,10 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are currently no settings options available</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

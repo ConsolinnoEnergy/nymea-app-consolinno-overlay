@@ -211,7 +211,7 @@ Item {
 
                         for (const item in value){
                             const date = new Date(item);
-                            var currentTimestamp = date.getTime();
+                            let currentTimestamp = date.getTime();
 
                             if(value[item] < lowestPrice){
                                 lowestPrice = value[item]
@@ -261,8 +261,8 @@ Item {
                             prices[ts].end = todayMidnightTs;
                         }
 
-                        pricingUpperSeriesAbove.append(z + 6000000, averagePrice);
-                        pricingUpperSeries.append(z + 6000000, lastObjectValue);
+                        pricingUpperSeriesAbove.append(todayMidnightTs + 6000000, averagePrice);
+                        pricingUpperSeries.append(todayMidnightTs + 6000000, lastObjectValue);
                     }
                 }
 

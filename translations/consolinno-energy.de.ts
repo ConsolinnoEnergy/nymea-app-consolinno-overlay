@@ -986,16 +986,20 @@ Mail service@consolinno.de</source>
         <translation type="unfinished">Keine Daten verfügbar</translation>
     </message>
     <message>
-        <source>Unknown</source>
-        <translation type="unfinished">Unbekannt</translation>
-    </message>
-    <message>
         <source>Dynamic electricity price</source>
         <translation>Dynamischer Strompreis</translation>
     </message>
     <message>
         <source>Cents / kWh</source>
         <translation type="unfinished">Cent / kWh</translation>
+    </message>
+    <message>
+        <source>Current market price</source>
+        <translation type="unfinished">Aktueller Marktpreis</translation>
+    </message>
+    <message>
+        <source>Average market price</source>
+        <translation type="unfinished">Durchschnittlicher Marktpreis</translation>
     </message>
 </context>
 <context>
@@ -1836,6 +1840,10 @@ Mail service@consolinno.de</source>
         <source>add</source>
         <translation type="unfinished">hinzufügen</translation>
     </message>
+    <message>
+        <source>There are currently no settings options available</source>
+        <translation type="unfinished">Es sind momentan keine Einstellungen verfügbar</translation>
+    </message>
 </context>
 <context>
     <name>DynamicElectricityRateFeedback</name>
@@ -1856,27 +1864,27 @@ Mail service@consolinno.de</source>
     <name>DynamicElectricityRateSettings</name>
     <message>
         <source>Dynamic Electricity Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Einstellungen Dynamische Preise</translation>
     </message>
     <message>
         <source>Current Market Price</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aktueller Marktpreis</translation>
     </message>
     <message>
         <source>ct</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ct</translation>
     </message>
     <message>
         <source>Average Market Price</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Durchschnittlicher Marktpreis</translation>
     </message>
     <message>
         <source>Lowest Market Price</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Niedrigster Marktpreis</translation>
     </message>
     <message>
         <source>Highest Market Price</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Höchste Marktpreis</translation>
     </message>
     <message>
         <source>Save</source>
