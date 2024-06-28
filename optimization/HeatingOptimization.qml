@@ -141,10 +141,37 @@ Page {
                 text: qsTr("kW")
             }
 
-
-
-
         }
+
+        ColumnLayout {
+            Layout.fillWidth: true
+            Label {
+                font: Style.Font
+                color: Style.green
+                text: qsTr("Grid-supportive-control")
+            }
+
+            Text {
+                Layout.fillWidth: true
+                font: Style.smallFont
+                wrapMode: Text.Wrap
+                text: qsTr("If the device musst be controlled in accordance with § 14a, the control must be activated and the nominal power must correspond to the registered power.")
+            }
+        }
+
+        RowLayout{
+            Layout.fillWidth: true
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("activated")
+
+            }
+
+            Switch {
+                id: gridSupportControl
+            }
+        }
+
 
 //        RowLayout{
 //            Layout.fillWidth: true

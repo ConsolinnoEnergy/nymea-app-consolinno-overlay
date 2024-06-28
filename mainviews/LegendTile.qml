@@ -19,6 +19,7 @@ MouseArea {
     readonly property bool isProducer: thing && thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0
     readonly property bool isBattery: thing && thing.thingClass.interfaces.indexOf("energystorage") >= 0
     property bool isRootmeter: false
+    property bool isPowerConnection: false
 
 
     readonly property double currentPower: root.currentPowerState ? root.currentPowerState.value.toFixed(0) : 0
@@ -102,6 +103,26 @@ MouseArea {
                 color: Qt.darker(root.currentColor, 1.3)
 
                 Label {
+                    width: parent.width
+                    anchors.verticalCenter: parent.left
+                    Image {
+                        id: gridControlNotification
+                        width: 25
+                        height: 25
+                        source: "/ui/images/attention.svg"
+                        visible: isRootmeter
+                    }
+
+                    ColorOverlay {
+                        anchors.fill: gridControlNotification
+                        source: gridControlNotification
+                        color: Style.white
+                        visible: isRootmeter
+                    }
+                }
+
+                Label {
+
                     // here is the issue with the different textsizes
                     id: headerLabel
                     width: parent.width //- Style.margins

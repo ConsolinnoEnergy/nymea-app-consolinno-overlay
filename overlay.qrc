@@ -100,5 +100,6 @@
         <file>devicepages/HeatingElementDevicePage.qml</file>
         <file>optimization/HeatingElementOptimization.qml</file>
         <file>mainviews/StartupNotificationPopup.qml</file>
+        <file>optimization/EvChargerOptimization.qml</file>
     </qresource>
 </RCC>

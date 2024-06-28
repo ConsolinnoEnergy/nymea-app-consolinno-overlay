@@ -683,7 +683,17 @@ Page {
                         Layout.alignment: Qt.AlignHCenter
                         Layout.preferredWidth: 200
                         text: qsTr("Next")
-                        onClicked: pageStack.pop(root)
+                        onClicked: {
+                            if (thing){
+                                var page = pageStack.push("../optimization/EvChargerOptimization.qml", { directionID: 1})
+                                page.done.connect(function(){
+                                    pageStack.pop(root)
+                                })
+                            }else{
+
+                                pageStack.pop(root)
+                            }
+                        }
                     }
                 }
 
