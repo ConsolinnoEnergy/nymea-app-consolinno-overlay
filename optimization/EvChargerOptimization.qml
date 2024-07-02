@@ -71,7 +71,7 @@ Page {
                 Layout.fillWidth: true
                 font: Style.smallFont
                 wrapMode: Text.Wrap
-                text: qsTr("If the device musst be controlled in accordance with § 14a, the control must be activated and the nominal power must correspond to the registered power.")
+                text: qsTr("If the device musst be controlled in accordance with § 14a, the control must be activated.")
             }
         }
 

@@ -13,6 +13,7 @@ Page {
     property HeatingConfiguration heatingConfiguration
     property Thing heatPumpThing
     property int directionID: 0
+    property bool isSetup: false
     signal done()
 
     //property bool heatMeterIncluded: heatPumpThing.thingClass.interfaces.includes("heatmeter")
@@ -145,6 +146,7 @@ Page {
 
         ColumnLayout {
             Layout.fillWidth: true
+            visible: isSetup
             Label {
                 font: Style.Font
                 color: Style.green
@@ -161,6 +163,7 @@ Page {
 
         RowLayout{
             Layout.fillWidth: true
+            visible: isSetup
             Label {
                 Layout.fillWidth: true
                 text: qsTr("activated")

@@ -21,7 +21,7 @@ Page {
         ListElement { text: qsTr("Optimization configuration"); value: 0; visible: true}
         ListElement { text: qsTr("Comissioning"); value: 1; visible: true}
         ListElement { text: qsTr("Development"); value: 2; visible: false}
-
+        //ListElement { text: qsTr("Grid Supportive Control"); value: 3; visible: false}
         // value is set to an integer for pieces which are either going to be migrated to a different location or deleted
     }
 
@@ -43,7 +43,10 @@ Page {
                         return "../images/configure.svg"
                     if (model.value === 2)
                         return "../images/configure.svg"
-
+                    /*
+                    if (model.value === 3)
+                        return "../images/configure.svg"
+                    */
 
 
                 }
@@ -64,6 +67,10 @@ Page {
                     case 2:
                         pageStack.push(Qt.resolvedUrl("../optimization/DeveloperConfig.qml"), { hemsManager: hemsManager})
                         break;
+                    /*
+                    case 3:
+                        pageStack.push(Qt.resolvedUrl("../optimization/GridSupportiveControlConfig.qml"), { hemsManager: hemsManager})
+                        break;*/
                     }
                 }
             }

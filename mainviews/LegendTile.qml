@@ -104,22 +104,34 @@ MouseArea {
 
                 Label {
                     width: parent.width
-                    anchors.verticalCenter: parent.left
-                    Image {
-                        id: gridControlNotification
-                        width: 25
-                        height: 25
-                        source: "/ui/images/attention.svg"
+                    anchors.verticalCenter: parent.verticalCenter
+                    Rectangle {
+                        Layout.fillWidth: true
+                        color: "white"
+                        width: 19
+                        height: 19
+                        radius: 180
+                        border.width: 2
+                        border.color: Style.red
                         visible: isRootmeter
-                    }
 
-                    ColorOverlay {
-                        anchors.fill: gridControlNotification
-                        source: gridControlNotification
-                        color: Style.white
-                        visible: isRootmeter
+                        Image {
+                            anchors.fill: parent
+                            anchors.margins: border.width
+                            fillMode: Image.PreserveAspectFit
+                            source: "/ui/images/attention.svg"
+                            visible: isRootmeter
+
+                            layer {
+                                enabled: true
+                                effect: ColorOverlay {
+                                    color: Style.red
+                                }
+                            }
+                        }
                     }
                 }
+
 
                 Label {
 
@@ -130,9 +142,10 @@ MouseArea {
                     elide: Text.ElideRight
                     color: "white"
                     horizontalAlignment: Text.AlignHCenter
-
                     anchors.verticalCenter: parent.verticalCenter
                 }
+
+
             }
 
             ColorIcon {

@@ -101,5 +101,6 @@
         <file>optimization/HeatingElementOptimization.qml</file>
         <file>mainviews/StartupNotificationPopup.qml</file>
         <file>optimization/EvChargerOptimization.qml</file>
+        <file>optimization/GridSupportiveControlConfig.qml</file>
     </qresource>
 </RCC>
