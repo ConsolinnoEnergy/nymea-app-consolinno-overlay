@@ -40,6 +40,7 @@ GenericConfigPage {
     readonly property bool isCharging: root.chargingState && root.chargingState.value === "charging"
     readonly property bool isDischarging: root.chargingState && root.chargingState.value === "discharging"
 
+    property bool isRootmeter: false
 
     title: root.thing.name
 
@@ -53,13 +54,120 @@ GenericConfigPage {
                 thing: root.thing
             }
 
+            Flickable {
+                id: notificationScrollView
+                anchors.top: parent.top
+                height: root.isRootmeter ? (parent.height / 3) : 0
+                width: parent.width
+                contentWidth: infoElement.width
+                contentHeight: infoElement.implicitHeight
+                clip: true
+                visible: root.isRootmeter
+
+                ColumnLayout {
+                    id: infoElement
+                    width: root.width
+                    anchors.top: parent.top
+
+                    property var testItems: [
+                        { "header": "Grid-supportive control", "content": "The consumption is <b>temporarily reduced</b> tp §14 minimum", "prio": "warning" },
+                        { "header": "Header 2", "content": "This is the content of the second item.", "prio": "warning" },
+                        { "header": "Oh no the table", "content": "It's broken", "prio": "danger" },
+                        { "header": "Oh look", "content": "The table was fixed", "prio": "positive" },
+                        { "header": "Header 3", "content": "This is the content of the third item.", "prio": "warning" },
+                        { "header": "Info for tables", "content": "Never stack bricks on a glass table", "prio": "info" },
+                    ]
+
+                    property var infoColors: {
+                        "info": "#4287f5",
+                        "positive": "#32a852",
+                        "warning": "#fc9d03",
+                        "danger": "#eb4034"
+                    }
+
+                    property string infoColor: "#fc9d03"
+
+                    Repeater {
+                        model: infoElement.testItems
+
+                        Rectangle {
+                            width: infoElement.width - 40
+                            Layout.alignment: Qt.AlignHCenter
+                            radius: 10
+                            color: "#faf9f5"
+                            border.width: 1
+                            border.color: infoElement.infoColors[modelData.prio]
+                            implicitHeight: alertContainer.implicitHeight + 20
+
+                            ColumnLayout {
+                                id: alertContainer
+                                anchors.fill: parent
+                                spacing: 1
+
+                                Item {
+                                    Layout.preferredHeight: 10
+                                }
+
+
+                                RowLayout {
+                                    width: parent.width
+                                    spacing: 5
+
+                                    Item {
+                                        Layout.preferredWidth: 10
+                                    }
+
+                                    Rectangle {
+                                        width: 20
+                                        height: 20
+                                        radius: 10  // Makes the rectangle a circle
+                                        color: "white"
+                                        border.color: infoElement.infoColors[modelData.prio]
+                                        border.width: 2
+                                        RowLayout.alignment: Qt.AlignVCenter
+
+                                        Label {
+                                            text: "!"
+                                            anchors.centerIn: parent
+                                            font.bold: true
+                                            color: infoElement.infoColors[modelData.prio]
+                                        }
+                                    }
+
+                                    Label {
+                                        font.pixelSize: 16
+                                        text: modelData.header
+                                        font.bold: true
+                                        wrapMode: Text.WordWrap
+                                        Layout.fillWidth: true
+                                        Layout.preferredWidth: parent.width - 20
+                                    }
+                                }
+                                Label {
+                                    font.pixelSize: 16
+                                    text: modelData.content
+                                    wrapMode: Text.WordWrap
+                                    Layout.fillWidth: true
+                                    Layout.preferredWidth: parent.width - 20
+                                    leftPadding: 40
+                                }
+
+                                Item {
+                                    Layout.preferredHeight: 10
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             CircleBackground {
                 id: background
                 width: parent.width / 1.5
                 height: width
                 iconSource: ""
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: parent.top
+                anchors.top: notificationScrollView.bottom
                 anchors.topMargin: 16
 
                 onColor: {

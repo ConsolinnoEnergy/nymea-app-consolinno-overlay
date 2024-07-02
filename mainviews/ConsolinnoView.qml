@@ -852,7 +852,8 @@ MainViewBase {
                             pageStack.push(
                                         "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                         {
-                                            "thing": thing
+                                            "thing": thing,
+                                            "isRootmeter": isRootmeter
                                         })
                         }
                     }
