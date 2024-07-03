@@ -10,8 +10,8 @@ import "../delegates"
 Page {
     id: root
     property HemsManager hemsManager
-
-    property ChargingConfiguration chargingConfiguration
+    property Thing thing
+    property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
     property int directionID: 0
     signal done()
 
@@ -28,8 +28,7 @@ Page {
 
     Connections {
         target: hemsManager
-        /*
-        onSetHeatingConfigurationReply: {
+        onSetChargingConfigurationReply: {
             if (commandId == d.pendingCallId) {
                 d.pendingCallId = -1
 
@@ -51,7 +50,6 @@ Page {
                 popup.open();
             }
         }
-        */
     }
 
     ColumnLayout {
@@ -117,18 +115,8 @@ Page {
             text: qsTr("Save")
             onClicked: {
 
-                if (savebutton.validated)
-                {
                     hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {carThingId: chargingConfiguration.carThingId, controllableLocalSystem: gridSupportControl.checked})
                     root.done()
-                }
-                else
-                {
-                    // for now this is the way how we show the user that some attributes are invalid
-                    // TO DO: Show which ones are invalid
-                    footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
-                }
-
             }
         }
 
