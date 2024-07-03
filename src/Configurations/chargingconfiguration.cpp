@@ -76,8 +76,6 @@ void ChargingConfiguration::setTargetPercentage(uint targetPercentage)
     emit targetPercentageChanged(m_targetPercentage);
 }
 
-
-
 int ChargingConfiguration::optimizationMode() const
 {
     return m_optimizationMode;
@@ -106,7 +104,15 @@ void ChargingConfiguration::setUniqueIdentifier(QUuid uniqueIdentifier)
     emit uniqueIdentifierChanged(m_uniqueIdentifier);
 }
 
+bool ChargingConfiguration::controllableLocalSystem() const
+{
+    return m_controllableLocalSystem;
+}
 
+void ChargingConfiguration::setControllableLocalSystem(const bool controllableLocalSystem)
+{
+    m_controllableLocalSystem = controllableLocalSystem;
+}
 
 
 

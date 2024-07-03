@@ -202,6 +202,7 @@ qCritical() << "setHeatingElementConfiguration" << data;
         dummyConfig.insert("heatingRodThingId", heatingRodThingId);
         dummyConfig.insert("maxElectricalPower", 0);
         dummyConfig.insert("optimizationEnabled",true);
+        dummyConfig.insert("controllableLocalSystem", false);
 
         addOrUpdateHeatingElementConfiguration(dummyConfig);
         // and get the dummy Config
@@ -245,6 +246,7 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
         dummyConfig.insert("floorHeatingArea", 0);
         dummyConfig.insert("maxElectricalPower", 0);
         dummyConfig.insert("maxThermalEnergy",  0);
+        dummyConfig.insert("controllableLocalSystem", false);
 
         addOrUpdateHeatingConfiguration(dummyConfig);
         // and get the dummy Config
@@ -290,6 +292,7 @@ int HemsManager::setChargingOptimizationConfiguration(const QUuid &evChargerThin
         dummyConfig.insert("i_value", 0.001);
         dummyConfig.insert("d_value", 0);
         dummyConfig.insert("setpoint", 0);
+        dummyConfig.insert("controllableLocalSystem", false);
         addOrUpdateChargingOptimizationConfiguration(dummyConfig);
         // and get the dummy Config
         configuration =  m_chargingOptimizationConfigurations->getChargingOptimizationConfiguration(evChargerThingId);
@@ -739,7 +742,7 @@ void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurati
     configuration->setFloorHeatingArea(configurationMap.value("floorHeatingArea").toDouble());
     configuration->setMaxThermalEnergy(configurationMap.value("maxThermalEnergy").toDouble());
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
-
+    configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 
 
     if (newConfiguration) {
@@ -769,6 +772,7 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
     configuration->setEndTime(configurationMap.value("endTime").toString());
     configuration->setTargetPercentage(configurationMap.value("targetPercentage").toUInt());
     configuration->setUniqueIdentifier(configurationMap.value("uniqueIdentifier").toUuid());
+    configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Charging configuration added" << configuration->evChargerThingId();
@@ -887,6 +891,7 @@ void HemsManager::addOrUpdateHeatingElementConfiguration(const QVariantMap &conf
 
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
     configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
+    configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 
      if (newConfiguration){
          qCDebug(dcHems()) << "HeatingElement configuration added" << configuration->heatingRodThingId();

@@ -10,7 +10,8 @@ import "../delegates"
 Page {
     id: root
     property HemsManager hemsManager
-    property Thing evChargerThing
+
+    property ChargingConfiguration chargingConfiguration
     property int directionID: 0
     signal done()
 
@@ -85,6 +86,7 @@ Page {
 
             Switch {
                 id: gridSupportControl
+                checked: chargingConfiguration.controllableLocalSystem
             }
         }
 
@@ -102,7 +104,6 @@ Page {
             Layout.fillWidth: true
             Layout.leftMargin: app.margins
             Layout.rightMargin: app.margins
-            //text: qsTr("For a better optimization you can please insert the upper data, so our optimizer has the information it needs.")
             wrapMode: Text.WordWrap
             font.pixelSize: app.smallFont
 
@@ -111,52 +112,25 @@ Page {
 
         Button {
             id: savebutton
-            //property bool validated: floorHeatingAreaId.floorHeatingArea_validated && maxElectricalPower.maxElectricalPower_validated
 
             Layout.fillWidth: true
             text: qsTr("Save")
             onClicked: {
 
-                root.done()
-            /*
                 if (savebutton.validated)
                 {
-                    if (directionID == 1){
-                        hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text,})
-
-                        root.done()
-                    }else if(directionID == 0){
-                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text,})
-
-                    }
-
+                    hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {carThingId: chargingConfiguration.carThingId, controllableLocalSystem: gridSupportControl.checked})
+                    root.done()
                 }
                 else
                 {
                     // for now this is the way how we show the user that some attributes are invalid
                     // TO DO: Show which ones are invalid
                     footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
-
-
                 }
-            */
 
             }
         }
-
-        // only visible if installation mode (directionID == 1)
-//        Button {
-//            id: passbutton
-//            visible: directionID === 1
-
-//            Layout.fillWidth: true
-//            text: qsTr("skip")
-//            onClicked: {
-//                root.done()
-//            }
-//        }
-
-
 
     }
 }

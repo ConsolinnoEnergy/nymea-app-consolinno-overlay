@@ -64,3 +64,4 @@ void ChargingOptimizationConfiguration::setSetpoint(const float setpoint)
 {
     m_setpoint = setpoint;
 }
+

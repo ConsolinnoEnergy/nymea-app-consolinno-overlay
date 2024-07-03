@@ -163,7 +163,7 @@ Page {
 
         RowLayout{
             Layout.fillWidth: true
-            visible: isSetup
+            visible: true
             Label {
                 Layout.fillWidth: true
                 text: qsTr("activated")
@@ -172,6 +172,12 @@ Page {
 
             Switch {
                 id: gridSupportControl
+                onCheckedChanged: {
+                    console.error(heatingConfiguration.controllableLocalSystem)
+                    console.error(gridSupportControl.checked)
+                }
+
+                Component.onCompleted: checked = heatingConfiguration.controllableLocalSystem
             }
         }
 
@@ -263,11 +269,11 @@ Page {
                 if (savebutton.validated)
                 {
                     if (directionID == 1){
-                        hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text,})
+                        hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text, controllableLocalSystem: gridSupportControl.checked,})
 
                         root.done()
                     }else if(directionID == 0){
-                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text,})
+                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text, controllableLocalSystem: gridSupportControl.checked,})
 
                     }
 

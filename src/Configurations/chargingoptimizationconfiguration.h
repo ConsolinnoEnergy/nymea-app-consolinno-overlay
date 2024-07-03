@@ -52,7 +52,6 @@ private:
     float m_d_value = 0;
     float m_setpoint = 0;
 
-
 };
 
 #endif // CHARGINGOPTIMIZATIONCONFIGURATION_H

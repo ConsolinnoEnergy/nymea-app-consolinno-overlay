@@ -15,7 +15,7 @@ class ChargingConfiguration : public QObject
     Q_PROPERTY(uint targetPercentage READ targetPercentage WRITE setTargetPercentage NOTIFY targetPercentageChanged)
     Q_PROPERTY(int optimizationMode READ optimizationMode WRITE setOptimizationMode NOTIFY optimizationModeChanged)
     Q_PROPERTY(QUuid uniqueIdentifier READ uniqueIdentifier WRITE setUniqueIdentifier NOTIFY uniqueIdentifierChanged)
-
+    Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
 
 public:
 
@@ -50,6 +50,9 @@ public:
     QUuid uniqueIdentifier() const;
     void setUniqueIdentifier(QUuid uniqueIdentifier);
 
+    bool controllableLocalSystem() const;
+    void setControllableLocalSystem(const bool controllableLocalSystem);
+
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void carThingIdChanged(const QUuid &carThingId);
@@ -57,6 +60,7 @@ signals:
     void targetPercentageChanged(uint targetPercentage);
     void optimizationModeChanged(int optimizationMode);
     void uniqueIdentifierChanged(QUuid uniqueIdentifier);
+    void controllableLocalSystemChanged(bool controllableLocalSystem);
 
 private:
     QUuid m_evChargerThingId;
@@ -66,7 +70,7 @@ private:
     uint m_targetPercentage = 100;
     int m_optimizationMode = 0;
     QUuid m_uniqueIdentifier = "2e2d25c5-57c7-419a-b294-881f11ed01c4";
-
+    bool m_controllableLocalSystem = false;
 };
 
 #endif // CHARGINGCONFIGURATION_H

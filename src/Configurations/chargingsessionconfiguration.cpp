@@ -140,4 +140,12 @@ void ChargingSessionConfiguration::setTimestamp(int timstamp)
     emit timestampChanged(m_timestamp);
 }
 
+bool ChargingSessionConfiguration::controllableLocalSystem() const
+{
+    return m_controllableLocalSystem;
+}
 
+void ChargingSessionConfiguration::setControllableLocalSystem(const bool &controllableLocalSystem)
+{
+    m_controllableLocalSystem = controllableLocalSystem;
+}
