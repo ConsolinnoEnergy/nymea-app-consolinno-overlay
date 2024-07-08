@@ -54,14 +54,11 @@ GenericConfigPage {
                 thing: root.thing
             }
 
-            Flickable {
-                id: notificationScrollView
+            Item {
+                id: notificationsContainer
                 anchors.top: parent.top
-                height: root.isRootmeter ? (parent.height / 3) : 0
+                height: root.isRootmeter ? (infoElement.implicitHeight) : 0
                 width: parent.width
-                contentWidth: infoElement.width
-                contentHeight: infoElement.implicitHeight
-                clip: true
                 visible: root.isRootmeter
 
                 ColumnLayout {
@@ -78,6 +75,19 @@ GenericConfigPage {
                         { "header": "Info for tables", "content": "Never stack bricks on a glass table", "prio": "info" },
                     ]
 
+                    property var states: {
+                        "limited": {
+                            "header": "Grid-supportive control",
+                            "content": "The consumption is <b>temporarily reduced</b> tp §14 minimum",
+                            "color": "warning"
+                        },
+                        "blocked": {
+                            "header": "Grid-supportive control",
+                            "content": "The consumption is <b>temporarily blocked</b> by the network operator",
+                            "color": "danger"
+                        }
+                    }
+
                     property var infoColors: {
                         "info": "#4287f5",
                         "positive": "#32a852",
@@ -86,9 +96,7 @@ GenericConfigPage {
                     }
 
                     property string infoColor: "#fc9d03"
-
-                    Repeater {
-                        model: infoElement.testItems
+                    property string currentState: "blocked"
 
                         Rectangle {
                             width: infoElement.width - 40
@@ -96,7 +104,7 @@ GenericConfigPage {
                             radius: 10
                             color: "#faf9f5"
                             border.width: 1
-                            border.color: infoElement.infoColors[modelData.prio]
+                            border.color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
                             implicitHeight: alertContainer.implicitHeight + 20
 
                             ColumnLayout {
@@ -122,7 +130,7 @@ GenericConfigPage {
                                         height: 20
                                         radius: 10  // Makes the rectangle a circle
                                         color: "white"
-                                        border.color: infoElement.infoColors[modelData.prio]
+                                        border.color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
                                         border.width: 2
                                         RowLayout.alignment: Qt.AlignVCenter
 
@@ -130,13 +138,13 @@ GenericConfigPage {
                                             text: "!"
                                             anchors.centerIn: parent
                                             font.bold: true
-                                            color: infoElement.infoColors[modelData.prio]
+                                            color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
                                         }
                                     }
 
                                     Label {
                                         font.pixelSize: 16
-                                        text: modelData.header
+                                        text: infoElement.states[infoElement.currentState].header
                                         font.bold: true
                                         wrapMode: Text.WordWrap
                                         Layout.fillWidth: true
@@ -145,7 +153,7 @@ GenericConfigPage {
                                 }
                                 Label {
                                     font.pixelSize: 16
-                                    text: modelData.content
+                                    text: infoElement.states[infoElement.currentState].content
                                     wrapMode: Text.WordWrap
                                     Layout.fillWidth: true
                                     Layout.preferredWidth: parent.width - 20
@@ -157,17 +165,16 @@ GenericConfigPage {
                                 }
                             }
                         }
-                    }
                 }
             }
 
             CircleBackground {
                 id: background
                 width: parent.width / 1.5
-                height: width
+                height: parent.height / 2
                 iconSource: ""
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: notificationScrollView.bottom
+                anchors.top: notificationsContainer.bottom
                 anchors.topMargin: 16
 
                 onColor: {
