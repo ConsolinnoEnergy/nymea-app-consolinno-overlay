@@ -16,14 +16,16 @@ MouseArea {
     property color negativeColor: root.color
     property Thing thing: null
     readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
+    readonly property State currentMarketPriceState: thing ? thing.stateByName("currentMarketPrice") : null
     readonly property bool isProducer: thing && thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0
     readonly property bool isBattery: thing && thing.thingClass.interfaces.indexOf("energystorage") >= 0
     property bool isRootmeter: false
     property bool isNotify: false
     property bool isPowerConnection: false
-
+    property bool isElectric: false
 
     readonly property double currentPower: root.currentPowerState ? root.currentPowerState.value.toFixed(0) : 0
+    readonly property double currentMarketPrice: root.currentMarketPriceState ? root.currentMarketPriceState.value.toFixed(2) : 0
     readonly property State batteryLevelState: isBattery ? thing.stateByName("batteryLevel") : null
     readonly property color currentColor: currentPower <= 0 ? root.negativeColor : root.color
     Rectangle {
@@ -55,8 +57,11 @@ MouseArea {
     function getLabeltext(power) {
         if (currentPowerState != null) {
             return Math.abs(power) + " W"
+        }else if(isElectric == true){
+            return Math.abs(power) + " CT"
+        }else{
+            return "–"
         }
-        return "–"
     }
 
 
@@ -138,7 +143,7 @@ MouseArea {
                     // here is the issue with the different textsizes
                     id: headerLabel
                     width: parent.width //- Style.margins
-                    text: getLabeltext(root.currentPower)
+                    text: isElectric == true ? getLabeltext(root.currentMarketPrice) : getLabeltext(root.currentPower)
                     elide: Text.ElideRight
                     color: "white"
                     horizontalAlignment: Text.AlignHCenter

@@ -614,6 +614,12 @@ MainViewBase {
         shownInterfaces: ["heatpump"]
     }
     ThingsProxy {
+        id: electrics
+        engine: _engine
+        shownInterfaces: ["dynamicelectricitypricing"]
+    }
+
+    ThingsProxy {
         id: gridSupport
         engine: _engine
         shownInterfaces: ["gridsupport"]
@@ -650,6 +656,7 @@ MainViewBase {
         readonly property color batteryChargeColor: batteriesColor
         readonly property color batteryDischargeColor: "#F7B772"
         readonly property color consumedColor: "#ADB9E3"
+        readonly property color electricsColor: "#E056F5"
         readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
 
         Canvas {
@@ -693,6 +700,10 @@ MainViewBase {
                 var maxCurrentPower = rootMeter ? Math.abs(
                                                       rootMeter.stateByName(
                                                           "currentPower").value) : 0
+
+                var currentPrice = electrics.count > 0 ? Math.abs(electrics.get(0).stateByName(
+                                                            "currentMarketPrice").value) : 0
+
                 for (var i = 0; i < producers.count; i++) {
                     maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
                                                    producers.get(i).stateByName(
@@ -717,6 +728,13 @@ MainViewBase {
                                                    batteries.get(i).stateByName(
                                                        "currentPower").value))
                 }
+                for (var i = 0; i < electrics.count; i++) {
+                    currentPrice = Math.max(currentPrice, Math.abs(
+                                                   electrics.get(i).stateByName(
+                                                    "currentMarketPrice").value))
+                }
+
+
 
                 var totalTop = rootMeter ? 1 : 0
                 totalTop += producers.count
@@ -849,6 +867,7 @@ MainViewBase {
                         id: rootMeterTile
                         thing: rootMeter
                         isRootmeter: true
+                        isElectric: false
                         isNotify: gridSupport ? /*gridSupport.get(0).stateByName("plimActive").value*/ true : false
                         color: lsdChart.rootMeterAcquisitionColor
                         negativeColor: lsdChart.rootMeterReturnColor
@@ -871,6 +890,7 @@ MainViewBase {
                             visible: producers.get(index).id !== rootMeter.id
                             color: lsdChart.producersColor
                             thing: producers.get(index)
+                            isElectric: false
                             onClicked: {
                                 print("Clicked producer", index, thing.name)
                                 pageStack.push(
@@ -881,6 +901,23 @@ MainViewBase {
                             }
                         }
                     }
+
+                    Repeater {
+                        id: legendElectricsRepeater
+                        model: electrics
+                        delegate: LegendTile {
+                            visible: electrics.get(index).id !== rootMeter.id
+                            color: lsdChart.electricsColor
+                            thing: electrics.get(index)
+                            isElectric: true
+                            onClicked: {
+                                print("Clicked producer", index, thing.name)
+                                pageStack.push("/ui/devicepages/PageWraper.qml")
+                            }
+                        }
+                    }
+
+
                 }
             }
 
