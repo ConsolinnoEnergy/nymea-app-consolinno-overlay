@@ -1943,6 +1943,37 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>EvChargerOptimization</name>
+    <message>
+        <source>Wallbox configuration</source>
+        <translation type="unfinished">Wallbox Konfiguration</translation>
+    </message>
+    <message>
+        <source>Could not save configuration. One of the parameters is invalid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Could not save configuration. The thing is not valid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+    </message>
+    <message>
+        <source>activated</source>
+        <translation type="unfinished">Aktiviert</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Speichern</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control</source>
+        <translation type="unfinished">Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>If the device must be controlled according to §14a, then this setting must be enabled.</source>
+        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit $ 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
+    </message>
+</context>
+<context>
     <name>GenericDeviceHistoryPage</name>
     <message>
         <source>States</source>
@@ -2019,6 +2050,18 @@ Mail service@consolinno.de</source>
         <source>At the current rate, the battery will last until %1.</source>
         <translation>Bei der aktuellen Rate wird die Batterie bis %1 halten.</translation>
     </message>
+    <message>
+        <source>Grid-Supportive Control</source>
+        <translation type="unfinished">Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to §14a minimum.</source>
+        <translation type="unfinished">Die Einspeisung is &lt;b&gt;temporär reduziert&lt;/b&gt; auf das Minium von $14a.</translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
+        <translation type="unfinished">Die Einspeisung ist &lt;b&gt;temporär blockiert&lt;/b&gt; durch den Netzbetreiber.</translation>
+    </message>
 </context>
 <context>
     <name>GridConsumptionInfo</name>
@@ -2041,6 +2084,13 @@ Mail service@consolinno.de</source>
     <message>
         <source>Behaviour on grid consumption</source>
         <translation>Verhalten bei Netzbezug</translation>
+    </message>
+</context>
+<context>
+    <name>GridSupportiveControlConfig</name>
+    <message>
+        <source>Grid Supportive Control</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2244,6 +2294,18 @@ the system, and a charging process is started, charging is prioritized.</source>
     <message>
         <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
         <translation>Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
+    </message>
+    <message>
+        <source>Grid-supportive-control</source>
+        <translation type="unfinished">Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>activated</source>
+        <translation type="unfinished">Aktiviert</translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
     </message>
 </context>
 <context>
@@ -2521,6 +2583,10 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     <message>
         <source>Heating Element</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging</source>
+        <translation type="unfinished">Laden</translation>
     </message>
 </context>
 <context>

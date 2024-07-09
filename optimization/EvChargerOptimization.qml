@@ -63,14 +63,14 @@ Page {
             Label {
                 font: Style.Font
                 color: Style.green
-                text: qsTr("Grid-supportive-control")
+                text: qsTr("Grid-supportive control")
             }
 
             Text {
                 Layout.fillWidth: true
                 font: Style.smallFont
                 wrapMode: Text.Wrap
-                text: qsTr("If the device musst be controlled in accordance with § 14a, the control must be activated.")
+                text: qsTr("If the device must be controlled according to §14a, then this setting must be enabled.")
             }
         }
 

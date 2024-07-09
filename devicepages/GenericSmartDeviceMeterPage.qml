@@ -69,20 +69,18 @@ GenericConfigPage {
 
                     property var states: {
                         "limited": {
-                            "header": "Grid-supportive control",
-                            "content": "The consumption is <b>temporarily reduced</b> tp §14 minimum",
+                            "header": qsTr("Grid-Supportive Control"),
+                            "content": qsTr("The consumption is <b>temporarily reduced</b> to §14a minimum."),
                             "color": "warning"
                         },
                         "blocked": {
-                            "header": "Grid-supportive control",
-                            "content": "The consumption is <b>temporarily blocked</b> by the network operator",
+                            "header": qsTr("Grid-Supportive Control"),
+                            "content": qsTr("The consumption is <b>temporarily blocked</b> by the network operator."),
                             "color": "danger"
                         }
                     }
 
                     property var infoColors: {
-                        "info": "#4287f5",
-                        "positive": "#32a852",
                         "warning": "#fc9d03",
                         "danger": "#eb4034"
                     }
