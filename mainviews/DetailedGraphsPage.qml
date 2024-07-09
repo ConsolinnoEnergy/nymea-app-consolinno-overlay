@@ -17,7 +17,7 @@ Page {
     property EnergyManager energyManager: null
     property var totalColors: []
     property var consumersColors: []
-
+    property bool isDynamicPrice: true
 
     readonly property Thing rootMeter: engine.thingManager.fetchingData ? null : engine.thingManager.things.getThing(energyManager.rootMeterId)
 
@@ -66,6 +66,7 @@ Page {
                 ConsolinnoDynamicElectricPricingHistory {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
+                    isDynamicPrice: root.isDynamicPrice
                     visible: electrics.count > 0
                 }
 

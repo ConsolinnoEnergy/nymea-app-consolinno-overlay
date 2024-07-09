@@ -90,6 +90,8 @@ MouseArea {
     function thingToIcon(thing) {
         if(isRootmeter)
             return Qt.resolvedUrl("/ui/images/grid.svg")
+        if(isElectric)
+            return Qt.resolvedUrl("/ui/images/energy.svg")
         return ifacesToIcon(thing.thingClass.interfaces)
     }
 

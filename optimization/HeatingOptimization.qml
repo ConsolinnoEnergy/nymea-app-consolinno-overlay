@@ -68,7 +68,6 @@ Page {
             wrapMode: Text.WordWrap
 
         }
-
 //        RowLayout {
 //            Layout.fillWidth: true
 
@@ -84,7 +83,7 @@ Page {
 
 //        }
 
-
+        /*
         RowLayout{
             Layout.fillWidth: true
             Label {
@@ -113,8 +112,7 @@ Page {
 
 
 
-        }
-
+        }*/
 
         RowLayout{
             Layout.fillWidth: true
@@ -144,29 +142,11 @@ Page {
 
         }
 
-        ColumnLayout {
-            Layout.fillWidth: true
-            visible: true
-            Label {
-                font: Style.Font
-                color: Style.green
-                text: qsTr("Grid-supportive-control")
-            }
-
-            Text {
-                Layout.fillWidth: true
-                font: Style.smallFont
-                wrapMode: Text.Wrap
-                text: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
-            }
-        }
-
         RowLayout{
             Layout.fillWidth: true
-            visible: true
             Label {
                 Layout.fillWidth: true
-                text: qsTr("activated")
+                text: qsTr("Grid-supportive-control")
 
             }
 
@@ -176,6 +156,22 @@ Page {
             }
         }
 
+        ColumnLayout {
+            Layout.fillWidth: true
+
+            Text {
+                Layout.fillWidth: true
+                font: Style.smallFont
+                wrapMode: Text.Wrap
+                text: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
+            }
+        }
+
+        Item {
+            // place holder
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+        }
 
 //        RowLayout{
 //            Layout.fillWidth: true
@@ -231,13 +227,6 @@ Page {
 //                    // TODO: Select a heat meter from the things and show it here. Allow to reassign a heat meter and remove the assignment
 //                }
 
-        Item {
-            // place holder
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
-
-
 
         // potential footer for the config app, as a way to show the user that certain attributes where invalid.
         Label {
@@ -254,7 +243,7 @@ Page {
 
         Button {
             id: savebutton
-            property bool validated: floorHeatingAreaId.floorHeatingArea_validated && maxElectricalPower.maxElectricalPower_validated
+            property bool validated: maxElectricalPower.maxElectricalPower_validated
 
 
             Layout.fillWidth: true
@@ -264,11 +253,11 @@ Page {
                 if (savebutton.validated)
                 {
                     if (directionID == 1){
-                        hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text, controllableLocalSystem: gridSupportControl.checked,})
+                        hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, maxElectricalPower: maxElectricalPower.text, controllableLocalSystem: gridSupportControl.checked,})
 
                         root.done()
                     }else if(directionID == 0){
-                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text, controllableLocalSystem: gridSupportControl.checked,})
+                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, maxElectricalPower: maxElectricalPower.text, controllableLocalSystem: gridSupportControl.checked,})
                     }
 
                 }

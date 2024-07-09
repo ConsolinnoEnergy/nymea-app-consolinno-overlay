@@ -58,27 +58,11 @@ Page {
         anchors.margins: app.margins
 
 
-        ColumnLayout {
-            Layout.fillWidth: true
-            Label {
-                font: Style.Font
-                color: Style.green
-                text: qsTr("Grid-supportive control")
-            }
-
-            Text {
-                Layout.fillWidth: true
-                font: Style.smallFont
-                wrapMode: Text.Wrap
-                text: qsTr("If the device must be controlled according to §14a, then this setting must be enabled.")
-            }
-        }
-
         RowLayout{
             Layout.fillWidth: true
             Label {
                 Layout.fillWidth: true
-                text: qsTr("activated")
+                text: qsTr("Grid-supportive control")
 
             }
 
@@ -87,6 +71,18 @@ Page {
                 checked: chargingConfiguration.controllableLocalSystem
 
                 Component.onCompleted: checked = chargingConfiguration.controllableLocalSystem
+            }
+        }
+
+
+        ColumnLayout {
+            Layout.fillWidth: true
+
+            Text {
+                Layout.fillWidth: true
+                font: Style.smallFont
+                wrapMode: Text.Wrap
+                text: qsTr("If the device must be controlled according to §14a, then this setting must be enabled.")
             }
         }
 

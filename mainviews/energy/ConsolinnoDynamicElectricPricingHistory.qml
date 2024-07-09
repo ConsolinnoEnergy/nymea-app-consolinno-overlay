@@ -15,6 +15,8 @@ Item {
     property double highestPrice: 0
     property var prices: ({})
 
+    property bool isDynamicPrice: false
+
     property ThingsProxy electrics: ThingsProxy {
         engine: _engine
         shownInterfaces: ["dynamicelectricitypricing"]
@@ -97,7 +99,14 @@ Item {
 
             consumptionSeries.insertEntry(thing.stateByName("priceSeries").value)
             valueAxis.adjustMax(lowestPrice,highestPrice);
+        }
 
+        Text {
+            Layout.fillWidth: true
+            Layout.topMargin: Style.smallMargins
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: 13
+            text: qsTr("Current Market Price: ") + (currentPrice) + " ct"
         }
 
         Text {
@@ -248,6 +257,8 @@ Item {
                                 currentTimestamp = currentTimestamp - 600000;
                             }
 
+                            checkTimeInterval(currentTimestamp,value[item])
+
                             pricingUpperSeriesAbove.append(currentTimestamp,averagePrice);
                             pricingUpperSeries.append(currentTimestamp,value[item]);
                         }
@@ -266,6 +277,24 @@ Item {
                         pricingUpperSeriesAbove.append(todayMidnightTs + 6000000, averagePrice);
                         pricingUpperSeries.append(todayMidnightTs + 6000000, lastObjectValue);
                     }
+
+
+                    function checkTimeInterval(timestamp,valueItem){
+                        let currentMinutes = d.now.getMinutes()
+                        let intervalStart = new Date(d.now);
+                        intervalStart.setMinutes(currentMinutes - (currentMinutes % 15))
+                        intervalStart.setSeconds(0)
+                        intervalStart.setMilliseconds(0)
+
+                        let intervalEnd = new Date(intervalStart)
+                        intervalEnd.setMinutes(intervalStart.getMinutes() + 15)
+
+                        if(timestamp >= intervalStart && timestamp < intervalEnd){
+                            currentValuePoint.append(timestamp,valueItem)
+                        }
+                    }
+
+
                 }
 
                 AreaSeries {
@@ -282,6 +311,14 @@ Item {
 
                 }
 
+                ScatterSeries {
+                    id: currentValuePoint
+                    borderColor: "red"
+                    color: "red"
+                    markerSize: isDynamicPrice ? 5 : parent.height / 80
+                    axisX: dateTimeAxis
+                    axisY: valueAxis
+                }
             }
 
             GridLayout {

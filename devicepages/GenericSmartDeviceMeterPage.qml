@@ -86,7 +86,7 @@ GenericConfigPage {
                     }
 
                     property string infoColor: "#fc9d03"
-                    property string currentState: isNotify && isRootmeter ? "limited" : isNotify && isRootmeter ? "blocked" : ""
+                    property string currentState: isNotify && isRootmeter ? "blocked" : isNotify && isRootmeter ? "limited" : ""
 
                         Rectangle {
                             width: infoElement.width - 40
