@@ -1001,6 +1001,10 @@ Mail service@consolinno.de</source>
         <source>Average market price</source>
         <translation type="unfinished">Durchschnittlicher Marktpreis</translation>
     </message>
+    <message>
+        <source>Current Market Price: </source>
+        <translation type="unfinished">Aktueller Marktpreis: </translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoImprint</name>
@@ -1957,10 +1961,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <source>activated</source>
-        <translation type="unfinished">Aktiviert</translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation type="unfinished">Speichern</translation>
     </message>
@@ -1970,7 +1970,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>If the device must be controlled according to §14a, then this setting must be enabled.</source>
-        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit $ 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
+        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
     </message>
 </context>
 <context>
@@ -2056,7 +2056,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>The consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to §14a minimum.</source>
-        <translation type="unfinished">Die Einspeisung is &lt;b&gt;temporär reduziert&lt;/b&gt; auf das Minium von $14a.</translation>
+        <translation type="unfinished">Die Einspeisung is &lt;b&gt;temporär reduziert&lt;/b&gt; auf das Minium von § 14a.</translation>
     </message>
     <message>
         <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
@@ -2272,14 +2272,6 @@ the system, and a charging process is started, charging is prioritized.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <source>Floor heating area</source>
-        <translation>Beheizte Fläche</translation>
-    </message>
-    <message>
-        <source>m²</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Maximal electrical power</source>
         <translation>Maximale elektrische Leistung</translation>
     </message>
@@ -2298,10 +2290,6 @@ the system, and a charging process is started, charging is prioritized.</source>
     <message>
         <source>Grid-supportive-control</source>
         <translation type="unfinished">Netzdienlichkeit</translation>
-    </message>
-    <message>
-        <source>activated</source>
-        <translation type="unfinished">Aktiviert</translation>
     </message>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>

@@ -1001,6 +1001,10 @@ Mail service@consolinno.de</source>
         <source>Average market price</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Current Market Price: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoImprint</name>
@@ -1946,10 +1950,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>activated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2261,14 +2261,6 @@ the system, and a charging process is started, charging is prioritized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Floor heating area</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>m²</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Maximal electrical power</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2286,10 +2278,6 @@ the system, and a charging process is started, charging is prioritized.</source>
     </message>
     <message>
         <source>Grid-supportive-control</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>activated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
