@@ -51,7 +51,7 @@ public:
     void setUniqueIdentifier(QUuid uniqueIdentifier);
 
     bool controllableLocalSystem() const;
-    void setControllableLocalSystem(const bool controllableLocalSystem);
+    void setControllableLocalSystem(bool controllableLocalSystem);
 
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);

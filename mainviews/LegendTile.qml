@@ -19,12 +19,12 @@ MouseArea {
     readonly property bool isProducer: thing && thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0
     readonly property bool isBattery: thing && thing.thingClass.interfaces.indexOf("energystorage") >= 0
     property bool isRootmeter: false
+    property bool isNotify: false
     property bool isPowerConnection: false
 
 
     readonly property double currentPower: root.currentPowerState ? root.currentPowerState.value.toFixed(0) : 0
     readonly property State batteryLevelState: isBattery ? thing.stateByName("batteryLevel") : null
-
     readonly property color currentColor: currentPower <= 0 ? root.negativeColor : root.color
     Rectangle {
         id: background
@@ -113,14 +113,14 @@ MouseArea {
                         radius: 180
                         border.width: 2
                         border.color: Style.red
-                        visible: isRootmeter
+                        visible: isRootmeter && isNotify
 
                         Image {
                             anchors.fill: parent
                             anchors.margins: border.width
                             fillMode: Image.PreserveAspectFit
                             source: "/ui/images/attention.svg"
-                            visible: isRootmeter
+                            visible: isRootmeter && isNotify
 
                             layer {
                                 enabled: true

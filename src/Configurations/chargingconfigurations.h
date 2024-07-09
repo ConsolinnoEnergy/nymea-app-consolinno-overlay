@@ -20,6 +20,7 @@ public:
         RoleEndTime,
         RoleTargetPercentage,
         RoleUniqueIdentifier,
+        RoleControllableLocalSystem,
     };
     Q_ENUM(Role);
 

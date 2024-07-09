@@ -41,6 +41,7 @@ GenericConfigPage {
     readonly property bool isDischarging: root.chargingState && root.chargingState.value === "discharging"
 
     property bool isRootmeter: false
+    property bool isNotify: false
 
     title: root.thing.name
 
@@ -66,15 +67,6 @@ GenericConfigPage {
                     width: root.width
                     anchors.top: parent.top
 
-                    property var testItems: [
-                        { "header": "Grid-supportive control", "content": "The consumption is <b>temporarily reduced</b> tp §14 minimum", "prio": "warning" },
-                        { "header": "Header 2", "content": "This is the content of the second item.", "prio": "warning" },
-                        { "header": "Oh no the table", "content": "It's broken", "prio": "danger" },
-                        { "header": "Oh look", "content": "The table was fixed", "prio": "positive" },
-                        { "header": "Header 3", "content": "This is the content of the third item.", "prio": "warning" },
-                        { "header": "Info for tables", "content": "Never stack bricks on a glass table", "prio": "info" },
-                    ]
-
                     property var states: {
                         "limited": {
                             "header": "Grid-supportive control",
@@ -96,7 +88,7 @@ GenericConfigPage {
                     }
 
                     property string infoColor: "#fc9d03"
-                    property string currentState: "blocked"
+                    property string currentState: isNotify && isRootmeter ? "limited" : isNotify && isRootmeter ? "blocked" : ""
 
                         Rectangle {
                             width: infoElement.width - 40

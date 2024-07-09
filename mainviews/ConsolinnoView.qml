@@ -613,7 +613,11 @@ MainViewBase {
         engine: _engine
         shownInterfaces: ["heatpump"]
     }
-
+    ThingsProxy {
+        id: gridSupport
+        engine: _engine
+        shownInterfaces: ["gridsupport"]
+    }
     PowerBalanceLogs {
         id: powerBalanceLogs
         engine: _engine
@@ -845,15 +849,17 @@ MainViewBase {
                         id: rootMeterTile
                         thing: rootMeter
                         isRootmeter: true
+                        isNotify: gridSupport ? /*gridSupport.get(0).stateByName("plimActive").value*/ true : false
                         color: lsdChart.rootMeterAcquisitionColor
                         negativeColor: lsdChart.rootMeterReturnColor
-                        onClicked: {
+                        onClicked: {             
                             print("Clicked root meter", index, thing.name)
                             pageStack.push(
                                         "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                         {
                                             "thing": thing,
-                                            "isRootmeter": isRootmeter
+                                            "isRootmeter": isRootmeter,
+                                            "isNotify": isNotify
                                         })
                         }
                     }

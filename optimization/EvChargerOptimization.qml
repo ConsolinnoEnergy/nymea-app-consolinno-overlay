@@ -85,6 +85,8 @@ Page {
             Switch {
                 id: gridSupportControl
                 checked: chargingConfiguration.controllableLocalSystem
+
+                Component.onCompleted: checked = chargingConfiguration.controllableLocalSystem
             }
         }
 
@@ -110,15 +112,15 @@ Page {
 
         Button {
             id: savebutton
-            property var carThingID: ""
             Layout.fillWidth: true
             text: qsTr("Save")
             onClicked: {
                     // Check if carThingId is not 00000000-0000-0000-0000-000000000000 and set it to a random uuid if so
-                    if (chargingConfiguration.carThingId.toString() === "{00000000-0000-0000-0000-000000000000}") {
+                    if (chargingConfiguration.carThingId.toString() === "{00000000-0000-0000-0000-000000000000}" || chargingConfiguration.carThingId === null) {
                         chargingConfiguration.carThingId = "91849ca3-f49f-49bc-a99c-f01075d050b0"
                     }
-                    hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {carThingId: chargingConfiguration.carThingId, controllableLocalSystem: gridSupportControl.checked})
+
+                    d.pendingCallId = hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {controllableLocalSystem: gridSupportControl.checked,})
                     root.done()
             }
         }

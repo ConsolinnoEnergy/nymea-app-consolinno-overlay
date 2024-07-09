@@ -109,7 +109,7 @@ bool ChargingConfiguration::controllableLocalSystem() const
     return m_controllableLocalSystem;
 }
 
-void ChargingConfiguration::setControllableLocalSystem(const bool controllableLocalSystem)
+void ChargingConfiguration::setControllableLocalSystem(bool controllableLocalSystem)
 {
     m_controllableLocalSystem = controllableLocalSystem;
 }

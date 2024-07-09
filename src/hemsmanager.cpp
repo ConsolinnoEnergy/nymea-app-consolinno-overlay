@@ -339,6 +339,7 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
         dummyConfig.insert("carThingId", "{00000000-0000-0000-0000-000000000000}");
         dummyConfig.insert("endTime", "0:00:00");
         dummyConfig.insert("targetPercentage", 100);
+        dummyConfig.insert("controllableLocalSystem", false);
 
         addOrUpdateChargingConfiguration(dummyConfig);
         // and get the dummy Config

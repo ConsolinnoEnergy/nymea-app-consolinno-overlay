@@ -146,7 +146,7 @@ Page {
 
         ColumnLayout {
             Layout.fillWidth: true
-            visible: isSetup
+            visible: true
             Label {
                 font: Style.Font
                 color: Style.green
@@ -172,11 +172,6 @@ Page {
 
             Switch {
                 id: gridSupportControl
-                onCheckedChanged: {
-                    console.error(heatingConfiguration.controllableLocalSystem)
-                    console.error(gridSupportControl.checked)
-                }
-
                 Component.onCompleted: checked = heatingConfiguration.controllableLocalSystem
             }
         }
@@ -274,7 +269,6 @@ Page {
                         root.done()
                     }else if(directionID == 0){
                         d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, floorHeatingArea: floorHeatingAreaId.text, maxElectricalPower: maxElectricalPower.text, controllableLocalSystem: gridSupportControl.checked,})
-
                     }
 
                 }
