@@ -33,13 +33,15 @@ GenericConfigPage {
         NO_OPTIMIZATION = 0,
         PV_OPTIMIZED = 1,
         PV_EXCESS = 2,
-        SIMPLE_PV_EXCESS = 3
+        SIMPLE_PV_EXCESS = 3,
+        DYN_PRICING = 4
     }
 
     property int no_optimization: ChargingConfigView.ChargingMode.NO_OPTIMIZATION
     property int pv_optimized: ChargingConfigView.ChargingMode.PV_OPTIMIZED
     property int pv_excess: ChargingConfigView.ChargingMode.PV_EXCESS
     property int simple_pv_excess: ChargingConfigView.ChargingMode.SIMPLE_PV_EXCESS
+    property int dyn_pricing: ChargingConfigView.ChargingMode.DYN_PRICING
     property ConEMSState conState: hemsManager.conEMSState
 
     function timer() {
@@ -149,7 +151,7 @@ GenericConfigPage {
                     initializing = false
                 }
                 else if(chargingConfiguration.optimizationEnabled){
-                    if (chargingIsAnyOf([simple_pv_excess, no_optimization]))
+                    if (chargingIsAnyOf([simple_pv_excess, no_optimization, dyn_pricing]))
                     {
                         status.visible = thing.stateByName("pluggedIn")
                         initializing = true
@@ -242,6 +244,9 @@ GenericConfigPage {
         }
         if (opti_mode >= 3000 && opti_mode < 4000) {
             return simple_pv_excess
+        }
+        if (opti_mode >= 4000 && opti_mode < 5000) {
+            return dyn_pricing 
         }
     }
 
@@ -419,13 +424,17 @@ GenericConfigPage {
                                 {
                                     return qsTr("Solar only")
                                 }
+                                else if (chargingIsAnyOf([dyn_pricing]))
+                                {
+                                    return qsTr("Dynamic pricing")
+                                }
                             }
                         }
                     }
 
                     RowLayout{
                         Layout.topMargin: 15
-                        visible:  chargingIsAnyOf([simple_pv_excess])
+                        visible:  chargingIsAnyOf([simple_pv_excess, dyn_pricing]) 
                         Label{
                             id: ongridConsumptionLabel
                             Layout.fillWidth: true
@@ -456,7 +465,7 @@ GenericConfigPage {
 
                     RowLayout{
                         Layout.topMargin: 15
-                        visible: !([pv_excess, simple_pv_excess, no_optimization].includes(getChargingMode(chargingConfiguration.optimizationMode)))
+                        visible: !([pv_excess, simple_pv_excess, no_optimization, dyn_pricing].includes(getChargingMode(chargingConfiguration.optimizationMode)))
 
                         Label{
                             id: targetChargeReachedLabel
@@ -481,7 +490,7 @@ GenericConfigPage {
 
 
                     RowLayout{
-                        visible: chargingIsAnyOf([simple_pv_excess, no_optimization]) ? false : true
+                        visible: chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization]) ? false : true
                         Layout.topMargin: 15
 
                         Label{
@@ -570,7 +579,7 @@ GenericConfigPage {
 
                     RowLayout{
                         function isVisible() {
-                            if (chargingIsAnyOf([simple_pv_excess, no_optimization]))
+                            if (chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization]))
                             {
                                 return false
                             }
@@ -601,7 +610,7 @@ GenericConfigPage {
 
                     RowLayout{
                         function isVisible() {
-                            if (chargingIsAnyOf([simple_pv_excess, no_optimization]))
+                            if (chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization]))
                             {
                                 return false
                             }
@@ -907,10 +916,20 @@ GenericConfigPage {
                                 Layout.fillWidth: true
 
                                 model: ListModel{
+                                    id: dynamicModel
                                     ListElement{key: qsTr("Charge always"); value: "No Optimization"; mode: 0}
                                     ListElement{key: qsTr("Solar only"); value: "Simple-Pv-Only"; mode: 3000;}
-                                    ListElement{key: qsTr("Next trip"); value: "Pv-Optimized"; mode: 1000}
-                                    //ListElement{key: qsTr("PV excess only"); value: "Pv-Only"; mode: 2000}
+                                    ListElement{key: qsTr("Next trip"); value: "Pv-Optimized"; mode: 1000;}
+                                }
+
+                                Component.onCompleted: {
+                                    addDynamicComboBoxItems();
+                                }
+
+                                function addDynamicComboBoxItems() {
+                                    if (settings.showHiddenOptions){
+                                        dynamicModel.append({"key": qsTr("Dynamic pricing"), "value": "Dynamic-pricing", "mode": 4000});
+                                    }
                                 }
 
                                 textRole: "key"
@@ -1185,7 +1204,7 @@ GenericConfigPage {
 
                         RowLayout {
                             Layout.fillWidth: true
-                            visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess,])
+                            visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing])
 
                             Label{
                                 id: gridConsumptionLabel
@@ -1203,7 +1222,7 @@ GenericConfigPage {
                         }
 
                         ComboBox {
-                            visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess,])
+                            visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing])
                             id: gridConsumptionloadingmod
                             Layout.fillWidth: true
                             model: ListModel{
@@ -1238,13 +1257,13 @@ GenericConfigPage {
                             text: qsTr("Save")
                             onClicked: {
                                 // if simple PV excess mode is used set the batteryLevel to 1
-                                if(isAnyOfModesSelected([simple_pv_excess, no_optimization])){
+                                if(isAnyOfModesSelected([simple_pv_excess, no_optimization, dyn_pricing])){
                                     batteryLevel.value = 1
                                     targetPercentageSlider.value = 100
                                 }
 
                                 // Set the endTime to maximum value for all modes except pv_optimized
-                                if(isAnyOfModesSelected([pv_excess, simple_pv_excess, no_optimization])){
+                                if(isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing, no_optimization])){
                                     endTimeSlider.value = 24*60
                                 }
 
@@ -1288,7 +1307,7 @@ GenericConfigPage {
 
                             function compute_OptimizationMode(){
                                 var mode = comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode
-                                if(isAnyOfModesSelected([pv_excess, simple_pv_excess])){
+                                if(isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])){
                                     // single digit
                                     var gridConsumptionOption = gridConsumptionloadingmod.model.get(gridConsumptionloadingmod.currentIndex).mode
                                     mode = mode + gridConsumptionOption
