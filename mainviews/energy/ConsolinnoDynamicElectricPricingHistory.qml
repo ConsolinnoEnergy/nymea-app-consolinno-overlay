@@ -42,7 +42,7 @@ Item {
         readonly property var endTimeUntil: {
             var date = new Date(now);
             if(selectionTabs.currentIndex == 0){
-                date.setTime((validUntil + 3600) * 1000 );
+                date.setTime((validUntil + 3600) * 1000);
             }else{
                 date.setTime((validUntil + 86400) * 1000);
             }
@@ -106,7 +106,7 @@ Item {
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 13
-            text: qsTr("Current Market Price: ") + (currentPrice) + " ct"
+            text: qsTr("Current Market Price: ") + (currentPrice.toFixed(0)) + " ct"
         }
 
         Text {
@@ -257,7 +257,7 @@ Item {
                                 currentTimestamp = currentTimestamp - 600000;
                             }
 
-                            checkTimeInterval(currentTimestamp,value[item])
+                            //checkTimeInterval(currentTimestamp,value[item])
 
                             pricingUpperSeriesAbove.append(currentTimestamp,averagePrice);
                             pricingUpperSeries.append(currentTimestamp,value[item]);
@@ -294,7 +294,6 @@ Item {
                         }
                     }
 
-
                 }
 
                 AreaSeries {
@@ -319,6 +318,19 @@ Item {
                     axisX: dateTimeAxis
                     axisY: valueAxis
                 }
+
+                Timer {
+                    property bool isOn: false
+                    interval: isOn ? 5000 : 100
+                    running: true
+                    repeat: true
+                    onTriggered: {
+                        isOn = true;
+                        var currentTime = new Date().getTime()
+                        currentValuePoint.append(currentTime, currentPrice)
+                    }
+                }
+
             }
 
             GridLayout {
@@ -479,7 +491,7 @@ Item {
                                 let val = currentPrice.value;
 
                                 toolTip.y = mouseArea.height - (mouseArea.height * (Number.parseInt(val) / root.highestPrice));
-                                val = Number.parseFloat(val).toFixed(2);
+                                val = Number.parseFloat(val).toFixed(0);
                                 return "%1 %2".arg(val).arg(unit);
                             }
                             font: Style.extraSmallFont

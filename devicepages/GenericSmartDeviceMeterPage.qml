@@ -41,7 +41,7 @@ GenericConfigPage {
     readonly property bool isDischarging: root.chargingState && root.chargingState.value === "discharging"
 
     property bool isRootmeter: false
-    property bool isNotify: false
+    property string isNotify: ""
 
     title: root.thing.name
 
@@ -60,7 +60,7 @@ GenericConfigPage {
                 anchors.top: parent.top
                 height: root.isRootmeter ? (infoElement.implicitHeight) : 0
                 width: parent.width
-                visible: root.isRootmeter
+                visible: (isNotify === "shutoff" || isNotify === "limited") && isRootmeter
 
                 ColumnLayout {
                     id: infoElement
@@ -86,7 +86,7 @@ GenericConfigPage {
                     }
 
                     property string infoColor: "#fc9d03"
-                    property string currentState: isNotify && isRootmeter ? "blocked" : isNotify && isRootmeter ? "limited" : ""
+                    property string currentState: isNotify === "shutoff" && isRootmeter ? "blocked" : isNotify === "limited" && isRootmeter ? "limited" : "unrestricted"
 
                         Rectangle {
                             width: infoElement.width - 40

@@ -82,6 +82,7 @@ Page {
                 Layout.fillWidth: true
                 font: Style.smallFont
                 wrapMode: Text.Wrap
+                color: "#194D25"
                 text: qsTr("If the device must be controlled according to §14a, then this setting must be enabled.")
             }
         }
@@ -116,7 +117,7 @@ Page {
                         chargingConfiguration.carThingId = "91849ca3-f49f-49bc-a99c-f01075d050b0"
                     }
 
-                    d.pendingCallId = hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {controllableLocalSystem: gridSupportControl.checked,})
+                    d.pendingCallId = hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {carThingId: chargingConfiguration.carThingId, controllableLocalSystem: gridSupportControl.checked,})
                     root.done()
             }
         }
