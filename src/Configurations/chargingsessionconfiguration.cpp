@@ -145,7 +145,7 @@ bool ChargingSessionConfiguration::controllableLocalSystem() const
     return m_controllableLocalSystem;
 }
 
-void ChargingSessionConfiguration::setControllableLocalSystem(const bool &controllableLocalSystem)
+void ChargingSessionConfiguration::setControllableLocalSystem(bool controllableLocalSystem)
 {
     m_controllableLocalSystem = controllableLocalSystem;
 }

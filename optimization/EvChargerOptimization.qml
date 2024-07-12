@@ -68,8 +68,6 @@ Page {
 
             Switch {
                 id: gridSupportControl
-                checked: chargingConfiguration.controllableLocalSystem
-
                 Component.onCompleted: checked = chargingConfiguration.controllableLocalSystem
             }
         }
@@ -117,7 +115,12 @@ Page {
                         chargingConfiguration.carThingId = "91849ca3-f49f-49bc-a99c-f01075d050b0"
                     }
 
-                    d.pendingCallId = hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {carThingId: chargingConfiguration.carThingId, controllableLocalSystem: gridSupportControl.checked,})
+                    if(directionID === 1){
+                       hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {controllableLocalSystem: gridSupportControl.checked,})
+                    }else{
+                        d.pendingCallId = hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {optimizationEnabled: gridSupportControl.checked, controllableLocalSystem: gridSupportControl.checked,})
+                    }
+
                     root.done()
             }
         }

@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtCharts 2.3
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.2
+import QtGraphicalEffects 1.15
 import Nymea 1.0
 import "qrc:/ui/components"
 
@@ -312,9 +313,10 @@ Item {
 
                 ScatterSeries {
                     id: currentValuePoint
-                    borderColor: "red"
-                    color: "red"
+                    borderColor: Style.green
+                    color: Style.green
                     markerSize: isDynamicPrice ? 5 : parent.height / 80
+                    markerShape: AbstractSeries.MarkerShapeCircle
                     axisX: dateTimeAxis
                     axisY: valueAxis
                 }

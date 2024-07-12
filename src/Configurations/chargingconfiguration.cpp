@@ -111,7 +111,12 @@ bool ChargingConfiguration::controllableLocalSystem() const
 
 void ChargingConfiguration::setControllableLocalSystem(bool controllableLocalSystem)
 {
+    if (m_controllableLocalSystem == controllableLocalSystem)
+        return;
+
     m_controllableLocalSystem = controllableLocalSystem;
+    emit controllableLocalSystemChanged(m_controllableLocalSystem);
+
 }
 
 

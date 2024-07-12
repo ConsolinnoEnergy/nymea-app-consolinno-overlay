@@ -77,7 +77,7 @@ public:
     void setTimestamp(const int timestamp);
 
     bool controllableLocalSystem() const;
-    void setControllableLocalSystem(const bool &controllableLocalSystem);
+    void setControllableLocalSystem(bool controllableLocalSystem);
 
     bool operator == (const ChargingSessionConfiguration &other) const;
     bool operator != (const ChargingSessionConfiguration &other) const;

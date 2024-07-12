@@ -154,6 +154,11 @@ Page {
             }
         }
 
+        Item {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+        }
+
         ColumnLayout {
             spacing: 0
             Layout.alignment: Qt.AlignHCenter

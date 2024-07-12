@@ -696,7 +696,8 @@ MainViewBase {
                 ctx.strokeStyle = Style.foregroundColor
                 ctx.fillStyle = Style.foregroundColor
 
-                lsdChart.currentGridValueState = gridSupport ? gridSupport.get(0).stateByName("plimStatus").value : ""
+
+                lsdChart.currentGridValueState = gridSupport.get(0) !== null ? gridSupport.get(0).stateByName("plimStatus").value : ""
 
                 var maxCurrentPower = rootMeter ? Math.abs(
                                                       rootMeter.stateByName(
