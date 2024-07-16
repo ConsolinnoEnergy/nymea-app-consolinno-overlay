@@ -1019,7 +1019,7 @@ MainViewBase {
                     color: lsdChart.producersColor
                     borderColor: "transparent"
                     borderWidth: 0
-                    lowerSeries: zeroSeries
+                    lowerSeries: upperSeries
                     upperSeries: LineSeries {
                         id: productionUpperSeries
                         Component.onCompleted: {
@@ -1066,7 +1066,7 @@ MainViewBase {
                     color: lsdChart.rootMeterAcquisitionColor
                     borderColor: "transparent"
                     borderWidth: 0
-                    lowerSeries: zeroSeries
+                    lowerSeries: upperSeries
                     //                    visible: false
                     upperSeries: LineSeries {
                         id: acquisitionUpperSeries
