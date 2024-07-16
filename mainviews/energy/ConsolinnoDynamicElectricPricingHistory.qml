@@ -486,9 +486,10 @@ Item {
                                 let dynamicVal = currentPrice.value;
 
                                 const scaleValue = valueAxis.max + (valueAxis.min > 0 ? 0 : (valueAxis.min * (-1)));
-                                dynamicVal += 9;
 
-                                toolTip.y = mouseArea.height - (mouseArea.height * (dynamicVal / scaleValue));
+                                dynamicVal += valueAxis.min < 0 ? (valueAxis.min * (-1)) : 0;
+
+                                toolTip.y = mouseArea.height - (mouseArea.height * (dynamicVal / scaleValue)) - toolTip.height - 2;
                                 const val = currentPrice.value.toFixed(2);
                                 return "%1 %2".arg(val).arg(unit);
                             }
