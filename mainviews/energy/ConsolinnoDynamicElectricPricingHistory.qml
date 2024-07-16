@@ -164,7 +164,7 @@ Item {
 
                     function adjustMax(minPrice,maxPrice) {
                         max = maxPrice + 5;
-                        min = minPrice;
+                        min = minPrice <= 0 ? minPrice - 5 : minPrice;
                     }
                 }
 
@@ -208,6 +208,10 @@ Item {
                     color: 'transparent'
                     borderWidth: 1
                     borderColor: Style.green
+
+                    lowerSeries: LineSeries {
+                        id: pricingLowerSeries
+                    }
 
                     upperSeries: LineSeries {
                         id: pricingUpperSeries
@@ -258,10 +262,9 @@ Item {
                                 currentTimestamp = currentTimestamp - 600000;
                             }
 
-                            //checkTimeInterval(currentTimestamp,value[item])
-
                             pricingUpperSeriesAbove.append(currentTimestamp,averagePrice);
                             pricingUpperSeries.append(currentTimestamp,value[item]);
+                            pricingLowerSeries.append(currentTimestamp,value[item]);
                         }
 
                         const todayMidnight = new Date(identicalIndexes[0]);
@@ -278,23 +281,6 @@ Item {
                         pricingUpperSeriesAbove.append(todayMidnightTs + 6000000, averagePrice);
                         pricingUpperSeries.append(todayMidnightTs + 6000000, lastObjectValue);
                     }
-
-
-                    function checkTimeInterval(timestamp,valueItem){
-                        let currentMinutes = d.now.getMinutes()
-                        let intervalStart = new Date(d.now);
-                        intervalStart.setMinutes(currentMinutes - (currentMinutes % 15))
-                        intervalStart.setSeconds(0)
-                        intervalStart.setMilliseconds(0)
-
-                        let intervalEnd = new Date(intervalStart)
-                        intervalEnd.setMinutes(intervalStart.getMinutes() + 15)
-
-                        if(timestamp >= intervalStart && timestamp < intervalEnd){
-                            currentValuePoint.append(timestamp,valueItem)
-                        }
-                    }
-
                 }
 
                 AreaSeries {
@@ -302,11 +288,16 @@ Item {
                     axisX: dateTimeAxis
                     axisY: valueAxis
                     color: 'transparent'
-                    borderWidth: 1
+                    borderWidth: 2
                     borderColor: Style.red
 
                     upperSeries: LineSeries {
                         id: pricingUpperSeriesAbove
+                    }
+
+                    lowerSeries: LineSeries {
+                        XYPoint { x: dateTimeAxis.min.getTime(); y: 0 }
+                        XYPoint { x: dateTimeAxis.max.getTime(); y: 0 }
                     }
 
                 }
@@ -329,7 +320,9 @@ Item {
                     onTriggered: {
                         isOn = true;
                         var currentTime = new Date().getTime()
+                        currentValuePoint.remove(0)
                         currentValuePoint.append(currentTime, currentPrice)
+
                     }
                 }
 
@@ -467,7 +460,7 @@ Item {
                                 val = new Date(val).toLocaleString(Qt.locale(), Locale.ShortFormat);
 
                                 let endVal = currentPrice.end;
-                                endVal = new Date(endVal).toTimeString(Qt.locale(), Locale.ShortFormat);
+                                endVal = new Date(endVal).toLocaleTimeString(Qt.locale(), Locale.ShortFormat) + ":00";
 
                                 return val + " - " + endVal.slice(0, -3);
                             }
@@ -492,7 +485,7 @@ Item {
 
                                 let val = currentPrice.value;
 
-                                toolTip.y = mouseArea.height - (mouseArea.height * (Number.parseInt(val) / root.highestPrice));
+                                toolTip.y = mouseArea.height - (Number.parseInt(val) <= 4 ? 100 : 0)  - (mouseArea.height * (Number.parseInt(val) / root.highestPrice));
                                 val = Number.parseFloat(val).toFixed(0);
                                 return "%1 %2".arg(val).arg(unit);
                             }
