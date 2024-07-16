@@ -483,10 +483,13 @@ Item {
                                     currentPrice = prices[lastItem];
                                 }
 
-                                let val = currentPrice.value;
+                                let dynamicVal = currentPrice.value;
 
-                                toolTip.y = mouseArea.height - (Number.parseInt(val) <= 4 ? 100 : 0)  - (mouseArea.height * (Number.parseInt(val) / root.highestPrice));
-                                val = Number.parseFloat(val).toFixed(0);
+                                const scaleValue = valueAxis.max + (valueAxis.min > 0 ? 0 : (valueAxis.min * (-1)));
+                                dynamicVal += 9;
+
+                                toolTip.y = mouseArea.height - (mouseArea.height * (dynamicVal / scaleValue));
+                                const val = currentPrice.value.toFixed(2);
                                 return "%1 %2".arg(val).arg(unit);
                             }
                             font: Style.extraSmallFont
