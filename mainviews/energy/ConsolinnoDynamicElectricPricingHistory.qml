@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtCharts 2.3
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.2
+import QtGraphicalEffects 1.15
 import Nymea 1.0
 import "qrc:/ui/components"
 
@@ -42,7 +43,7 @@ Item {
         readonly property var endTimeUntil: {
             var date = new Date(now);
             if(selectionTabs.currentIndex == 0){
-                date.setTime((validUntil + 3600) * 1000 );
+                date.setTime((validUntil + 3600) * 1000);
             }else{
                 date.setTime((validUntil + 86400) * 1000);
             }
@@ -106,7 +107,7 @@ Item {
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 13
-            text: qsTr("Current Market Price: ") + (currentPrice) + " ct"
+            text: qsTr("Current Market Price: ") + (currentPrice.toFixed(0)) + " ct"
         }
 
         Text {
@@ -163,7 +164,7 @@ Item {
 
                     function adjustMax(minPrice,maxPrice) {
                         max = maxPrice + 5;
-                        min = minPrice;
+                        min = minPrice <= 0 ? minPrice - 5 : minPrice;
                     }
                 }
 
@@ -207,6 +208,10 @@ Item {
                     color: 'transparent'
                     borderWidth: 1
                     borderColor: Style.green
+
+                    lowerSeries: LineSeries {
+                        id: pricingLowerSeries
+                    }
 
                     upperSeries: LineSeries {
                         id: pricingUpperSeries
@@ -257,10 +262,9 @@ Item {
                                 currentTimestamp = currentTimestamp - 600000;
                             }
 
-                            checkTimeInterval(currentTimestamp,value[item])
-
                             pricingUpperSeriesAbove.append(currentTimestamp,averagePrice);
                             pricingUpperSeries.append(currentTimestamp,value[item]);
+                            pricingLowerSeries.append(currentTimestamp,value[item]);
                         }
 
                         const todayMidnight = new Date(identicalIndexes[0]);
@@ -277,24 +281,6 @@ Item {
                         pricingUpperSeriesAbove.append(todayMidnightTs + 6000000, averagePrice);
                         pricingUpperSeries.append(todayMidnightTs + 6000000, lastObjectValue);
                     }
-
-
-                    function checkTimeInterval(timestamp,valueItem){
-                        let currentMinutes = d.now.getMinutes()
-                        let intervalStart = new Date(d.now);
-                        intervalStart.setMinutes(currentMinutes - (currentMinutes % 15))
-                        intervalStart.setSeconds(0)
-                        intervalStart.setMilliseconds(0)
-
-                        let intervalEnd = new Date(intervalStart)
-                        intervalEnd.setMinutes(intervalStart.getMinutes() + 15)
-
-                        if(timestamp >= intervalStart && timestamp < intervalEnd){
-                            currentValuePoint.append(timestamp,valueItem)
-                        }
-                    }
-
-
                 }
 
                 AreaSeries {
@@ -302,23 +288,44 @@ Item {
                     axisX: dateTimeAxis
                     axisY: valueAxis
                     color: 'transparent'
-                    borderWidth: 1
+                    borderWidth: 2
                     borderColor: Style.red
 
                     upperSeries: LineSeries {
                         id: pricingUpperSeriesAbove
                     }
 
+                    lowerSeries: LineSeries {
+                        XYPoint { x: dateTimeAxis.min.getTime(); y: 0 }
+                        XYPoint { x: dateTimeAxis.max.getTime(); y: 0 }
+                    }
+
                 }
 
                 ScatterSeries {
                     id: currentValuePoint
-                    borderColor: "red"
-                    color: "red"
+                    borderColor: Style.green
+                    color: Style.green
                     markerSize: isDynamicPrice ? 5 : parent.height / 80
+                    markerShape: AbstractSeries.MarkerShapeCircle
                     axisX: dateTimeAxis
                     axisY: valueAxis
                 }
+
+                Timer {
+                    property bool isOn: false
+                    interval: isOn ? 5000 : 100
+                    running: true
+                    repeat: true
+                    onTriggered: {
+                        isOn = true;
+                        var currentTime = new Date().getTime()
+                        currentValuePoint.remove(0)
+                        currentValuePoint.append(currentTime, currentPrice)
+
+                    }
+                }
+
             }
 
             GridLayout {
@@ -453,7 +460,7 @@ Item {
                                 val = new Date(val).toLocaleString(Qt.locale(), Locale.ShortFormat);
 
                                 let endVal = currentPrice.end;
-                                endVal = new Date(endVal).toTimeString(Qt.locale(), Locale.ShortFormat);
+                                endVal = new Date(endVal).toLocaleTimeString(Qt.locale(), Locale.ShortFormat) + ":00";
 
                                 return val + " - " + endVal.slice(0, -3);
                             }
@@ -476,10 +483,13 @@ Item {
                                     currentPrice = prices[lastItem];
                                 }
 
-                                let val = currentPrice.value;
+                                let dynamicVal = currentPrice.value;
 
-                                toolTip.y = mouseArea.height - (mouseArea.height * (Number.parseInt(val) / root.highestPrice));
-                                val = Number.parseFloat(val).toFixed(2);
+                                const scaleValue = valueAxis.max + (valueAxis.min > 0 ? 0 : (valueAxis.min * (-1)));
+                                dynamicVal += 9;
+
+                                toolTip.y = mouseArea.height - (mouseArea.height * (dynamicVal / scaleValue));
+                                const val = currentPrice.value.toFixed(2);
                                 return "%1 %2".arg(val).arg(unit);
                             }
                             font: Style.extraSmallFont

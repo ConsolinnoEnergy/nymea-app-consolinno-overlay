@@ -15,12 +15,13 @@ MouseArea {
     property color color: "white"
     property color negativeColor: root.color
     property Thing thing: null
+    property string isNotify: ""
     readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
     readonly property State currentMarketPriceState: thing ? thing.stateByName("currentMarketPrice") : null
     readonly property bool isProducer: thing && thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0
     readonly property bool isBattery: thing && thing.thingClass.interfaces.indexOf("energystorage") >= 0
     property bool isRootmeter: false
-    property bool isNotify: false
+
     property bool isPowerConnection: false
     property bool isElectric: false
 
@@ -28,6 +29,7 @@ MouseArea {
     readonly property double currentMarketPrice: root.currentMarketPriceState ? root.currentMarketPriceState.value.toFixed(2) : 0
     readonly property State batteryLevelState: isBattery ? thing.stateByName("batteryLevel") : null
     readonly property color currentColor: currentPower <= 0 ? root.negativeColor : root.color
+
     Rectangle {
         id: background
         anchors.fill: parent
@@ -58,7 +60,7 @@ MouseArea {
         if (currentPowerState != null) {
             return Math.abs(power) + " W"
         }else if(isElectric == true){
-            return Math.abs(power) + " CT"
+            return Math.abs(power.toFixed(0)) + " CT"
         }else{
             return "–"
         }
@@ -120,14 +122,14 @@ MouseArea {
                         radius: 180
                         border.width: 2
                         border.color: Style.red
-                        visible: isRootmeter && isNotify
+                        visible: (isNotify === "shutoff" || isNotify === "limited") && isRootmeter
 
                         Image {
                             anchors.fill: parent
                             anchors.margins: border.width
                             fillMode: Image.PreserveAspectFit
                             source: "/ui/images/attention.svg"
-                            visible: isRootmeter && isNotify
+                            visible: (isNotify === "shutoff" || isNotify === "limited") && isRootmeter
 
                             layer {
                                 enabled: true

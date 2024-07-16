@@ -580,7 +580,6 @@ MainViewBase {
         shownInterfaces: ["energymeter"]
     }
     readonly property Thing rootMeter: engine.thingManager.fetchingData ? null : engine.thingManager.things.getThing(energyManager.rootMeterId)
-
     ThingsProxy {
         id: evChargersProxy
         engine: _engine
@@ -618,7 +617,6 @@ MainViewBase {
         engine: _engine
         shownInterfaces: ["dynamicelectricitypricing"]
     }
-
     ThingsProxy {
         id: gridSupport
         engine: _engine
@@ -658,6 +656,7 @@ MainViewBase {
         readonly property color consumedColor: "#ADB9E3"
         readonly property color electricsColor: "#E056F5"
         readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
+        property string currentGridValueState: ""
 
         Canvas {
             id: linesCanvas
@@ -697,6 +696,9 @@ MainViewBase {
                 ctx.strokeStyle = Style.foregroundColor
                 ctx.fillStyle = Style.foregroundColor
 
+
+                lsdChart.currentGridValueState = gridSupport.get(0) !== null ? gridSupport.get(0).stateByName("plimStatus").value : ""
+
                 var maxCurrentPower = rootMeter ? Math.abs(
                                                       rootMeter.stateByName(
                                                           "currentPower").value) : 0
@@ -733,7 +735,6 @@ MainViewBase {
                                                    electrics.get(i).stateByName(
                                                     "currentMarketPrice").value))
                 }
-
 
 
                 var totalTop = rootMeter ? 1 : 0
@@ -838,7 +839,6 @@ MainViewBase {
                 ctx.closePath()
             }
         }
-
         ColumnLayout {
             id: layout
             anchors.fill: parent
@@ -856,6 +856,8 @@ MainViewBase {
                     linesCanvas.requestPaint()
                 }
 
+
+
                 RowLayout {
                     id: topLegend
                     Layout.fillWidth: true
@@ -868,10 +870,10 @@ MainViewBase {
                         thing: rootMeter
                         isRootmeter: true
                         isElectric: false
-                        isNotify: gridSupport ? /*gridSupport.get(0).stateByName("plimActive").value*/ true : false
+                        isNotify: lsdChart.currentGridValueState
                         color: lsdChart.rootMeterAcquisitionColor
                         negativeColor: lsdChart.rootMeterReturnColor
-                        onClicked: {             
+                        onClicked: {
                             print("Clicked root meter", index, thing.name)
                             pageStack.push(
                                         "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
@@ -881,6 +883,7 @@ MainViewBase {
                                             "isNotify": isNotify
                                         })
                         }
+
                     }
 
                     Repeater {
@@ -911,8 +914,10 @@ MainViewBase {
                             thing: electrics.get(index)
                             isElectric: true
                             onClicked: {
+
                                 print("Clicked producer", index, thing.name)
                                 pageStack.push("/ui/devicepages/PageWraper.qml")
+
                             }
                         }
                     }

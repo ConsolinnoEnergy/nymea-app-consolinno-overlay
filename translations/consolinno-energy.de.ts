@@ -2056,11 +2056,11 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>The consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to §14a minimum.</source>
-        <translation type="unfinished">Die Einspeisung is &lt;b&gt;temporär reduziert&lt;/b&gt; auf das Minium von § 14a.</translation>
+        <translation type="unfinished">Der Verbrauch ist &lt;b&gt;temporär reduziert&lt;/b&gt; auf das Minium von § 14a.</translation>
     </message>
     <message>
         <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
-        <translation type="unfinished">Die Einspeisung ist &lt;b&gt;temporär blockiert&lt;/b&gt; durch den Netzbetreiber.</translation>
+        <translation type="unfinished">Der Verbrauch ist &lt;b&gt;temporär blockiert&lt;/b&gt; durch den Netzbetreiber.</translation>
     </message>
 </context>
 <context>
