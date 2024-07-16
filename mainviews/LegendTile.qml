@@ -30,14 +30,19 @@ MouseArea {
     readonly property State batteryLevelState: isBattery ? thing.stateByName("batteryLevel") : null
     readonly property color currentColor: currentPower <= 0 ? root.negativeColor : root.color
 
+
     Rectangle {
         id: background
         anchors.fill: parent
-        radius: Style.cornerRadius
-        color: root.currentColor
+        radius: 5 
+        //color: root.currentColor
+        // color light gray
+        color: "#fefefe"
+        // border in root.currentColor
+        border.color: root.currentColor
         Behavior on color { ColorAnimation { duration: 200 } }
     }
-
+    
     function isDark(color) {
         var r, g, b;
         if (color.constructor.name === "Object") {
@@ -218,6 +223,7 @@ MouseArea {
     }
 
     OpacityMask {
+        id: mask
         anchors.fill: parent
         source: ShaderEffectSource {
             anchors.fill: parent
@@ -227,4 +233,15 @@ MouseArea {
         }
         maskSource: background
     }
+    DropShadow {
+        anchors.fill: background
+        z: -1
+        horizontalOffset: 2
+        verticalOffset: 2
+        radius: 8.0
+        samples: 17
+        color: "#80000000"
+        source: background
+    }
+
 }
