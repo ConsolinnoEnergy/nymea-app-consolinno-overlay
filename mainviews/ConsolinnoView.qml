@@ -1223,6 +1223,30 @@ MainViewBase {
                     }
                 }
 
+                   DropShadow {
+        anchors.fill: outerCircle
+        cached: true
+        horizontalOffset: 3
+        verticalOffset: 3
+        radius: 8.0
+        samples: 16
+        color: "#80000000"
+        source: outerCircle
+    }
+    Rectangle {
+                    id: outerCircle
+                    z:-1
+                    x: chartView.plotArea.x  - 20
+                    y: chartView.plotArea.y - 20
+                    width: chartView.plotArea.width + 39
+                    height: chartView.plotArea.height + 39
+                    radius: width / 2
+                    color: "transparent"
+                    border.color: "#ffffff"
+
+    }
+
+
                 Rectangle {
                     id: innerCircle
                     x: chartView.plotArea.x + width / 2
@@ -1260,6 +1284,7 @@ MainViewBase {
                     border.width: 1
                     antialiasing: true
                     border.color: "#ffffff"
+                    
 
                     //visible: false
                     MouseArea {
@@ -1523,7 +1548,7 @@ MainViewBase {
         Canvas {
             id: circleCanvas
             anchors.fill: parent
-
+            
             Timer {
                 running: true
                 repeat: true
@@ -1606,6 +1631,8 @@ MainViewBase {
             }
         }
     }
+
+
 
     /*
     Rectangle {
