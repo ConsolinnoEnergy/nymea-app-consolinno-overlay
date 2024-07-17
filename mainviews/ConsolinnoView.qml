@@ -1072,7 +1072,7 @@ MainViewBase {
                     color: lsdChart.producersColor
                     borderColor: "transparent"
                     borderWidth: 0
-                    lowerSeries: upperSeries
+                    lowerSeries: zeroSeries
                     upperSeries: LineSeries {
                         id: productionUpperSeries
                         Component.onCompleted: {
