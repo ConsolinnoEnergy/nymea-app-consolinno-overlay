@@ -35,7 +35,7 @@ Item {
             if(selectionTabs.currentIndex == 0){
                 date.setTime(validSince * 1000);
             }else{
-                date.setTime((validSince + 133200) * 1000);
+                date.setTime((validSince + 86400) * 1000);
             }
             return date;
         }
@@ -43,9 +43,17 @@ Item {
         readonly property var endTimeUntil: {
             var date = new Date(now);
             if(selectionTabs.currentIndex == 0){
-                date.setTime((validUntil + 3600) * 1000);
+                const today = new Date();
+                const validUntilDate = new Date(validUntil*1000);
+
+                let adjustTime = 3660;
+
+                if(today.getDate() < validUntilDate.getDate())
+                    adjustTime = -86340;
+
+                date.setTime((validUntil + adjustTime) * 1000);
             }else{
-                date.setTime((validUntil + 86400) * 1000);
+                date.setTime((validUntil + 60) * 1000);
             }
             return date;
         }
@@ -74,7 +82,7 @@ Item {
             Layout.fillWidth: true
             Layout.leftMargin: Style.smallMargins
             Layout.rightMargin: Style.smallMargins
-            visible: false
+            visible: true
             currentIndex: 0
             model: ListModel {
                 ListElement {
@@ -86,7 +94,7 @@ Item {
             }
 
             onTabSelected: {
-                d.now = new Date()
+                d.now = new Date();
             }
         }
 
@@ -163,8 +171,9 @@ Item {
                     shadesVisible: false
 
                     function adjustMax(minPrice,maxPrice) {
-                        max = maxPrice + 5;
-                        min = minPrice <= 0 ? minPrice - 5 : minPrice;
+                        max = Math.ceil(maxPrice) + 1;
+                        max += 4 - (max % 4);
+                        min = minPrice <= 0 ? minPrice - 5 : 0;
                     }
                 }
 
@@ -259,6 +268,8 @@ Item {
 
                             if(firstRun === true){
                                 firstRun = false;
+                                highestPrice = value[item]
+                                lowestPrice = value[item]
                                 currentTimestamp = currentTimestamp - 600000;
                             }
 
@@ -450,6 +461,9 @@ Item {
 
                                 let currentPrice = prices[toolTip.getQuaterlyTimestamp(hoveredTime)];
 
+                                if(!currentPrice)
+                                    return qsTr("No prices available, yet");
+
                                 if(!currentPrice || typeof currentPrice === "undefined") {
                                     const priceKeys = Object.keys(prices);
                                     const lastItem = priceKeys[priceKeys.length -1];
@@ -476,6 +490,9 @@ Item {
                                 let hoveredTime = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000;
 
                                 let currentPrice = prices[toolTip.getQuaterlyTimestamp(hoveredTime)];
+
+                                if(!currentPrice)
+                                    return "";
 
                                 if(!currentPrice || typeof currentPrice === "undefined") {
                                     const priceKeys = Object.keys(prices);
