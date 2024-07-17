@@ -28,7 +28,7 @@ GenericConfigPage {
     property var pageSelectedCar: carThing.name === null ? qsTr("no car selected") : carThing.name
     property bool initializing: false
     property int currentValue : 0
-    property int thresholdPrice: 0
+    property double thresholdPrice: 0
 
     enum ChargingMode {
         NO_OPTIMIZATION = 0,
@@ -218,6 +218,12 @@ GenericConfigPage {
         filterInterface: "electricvehicle"
         includeProvidedInterfaces: true
         groupByInterface: true
+    }
+
+    ThingsProxy {
+        id: dynamicPrice
+        engine: _engine
+        shownInterfaces: ["dynamicelectricitypricing"]
     }
 
     // check if there exists a Simulated Car which is plugged in
@@ -446,7 +452,7 @@ GenericConfigPage {
                         Label{
                             id: pausingModes
 
-                            text: chargingConfiguration.optimizationEnabled ? selectMode(true) : " — "
+                            text: chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationEnabled) : " — "
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
 
@@ -1078,6 +1084,7 @@ GenericConfigPage {
                             visible: isAnyOfModesSelected([dyn_pricing])
 
                             RowLayout {
+                                id: priceRow
                                 Label {
                                     id: averagePriceLimitigId
 
@@ -1096,41 +1103,64 @@ GenericConfigPage {
                                             text: qsTr("-")
                                             onClicked: {
                                                 currentValue = currentValue - 1
+                                                priceRow.getThresholdPrice()
                                             }
                                             onPressAndHold: {
                                                 currentValue = currentValue - 10
+                                                priceRow.getThresholdPrice()
                                             }
                                         }
+
                                         TextField {
+                                            id: currentValueField
                                             text: currentValue
                                             horizontalAlignment: Qt.AlignHCenter
                                             verticalAlignment: Qt.AlignVCenter
-                                            Layout.fillWidth: true
                                         }
+
+                                        Label {
+                                            text: "%"
+                                        }
+
                                         ToolButton {
                                             text: qsTr("+")
                                             onClicked: {
                                                 currentValue = currentValue + 1
+                                                priceRow.getThresholdPrice()
                                             }
                                             onPressAndHold: {
                                                 currentValue = currentValue + 10
+                                                priceRow.getThresholdPrice()
                                             }
                                         }
+
                                     }
 
-                                    Component.onCompleted: currentValue = 0
                                 }
 
-                            }
-
-                            RowLayout {
-                                Label {
-                                    text: qsTr("Currently corresponds to a market price of") + thresholdPrice
+                                Component.onCompleted: {
+                                    currentValue = 0
+                                    getThresholdPrice()
                                 }
+
+                                function getThresholdPrice(){
+                                    let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
+                                    let currentValue = parseInt(currentValueField.text)
+                                    thresholdPrice = (averagePrice * ((currentValue >= 0) ? (1 + (currentValue / 100)) : (1 - (currentValue / 100)))).toFixed(2)
+                                }
+
                             }
 
                         }
 
+                        RowLayout {
+                            Layout.preferredWidth: app.width
+                            Layout.topMargin: 5
+                            visible: isAnyOfModesSelected([dyn_pricing])
+                            Label {
+                                text: qsTr("Currently corresponds to a market price of ") + thresholdPrice
+                            }
+                        }
 
                         RowLayout{
                             visible: isAnyOfModesSelected([pv_optimized, pv_excess])
