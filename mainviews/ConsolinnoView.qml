@@ -797,47 +797,93 @@ MainViewBase {
                 // end draw Animated Line
             }
 
-            function drawAnimatedLine(ctx, currentPower, tile, bottom, index, relativeTo, inverted, xTranslate, yTranslate) {
-                ctx.beginPath()
-                // rM : max = x : 5
-                ctx.lineWidth = Math.abs(currentPower) / Math.abs(
-                            relativeTo) * 5 + 1
-                ctx.setLineDash([5, 2])
-                var tilePosition = tile.mapToItem(linesCanvas,
-                                                  tile.width / 2, 0)
-                if (!bottom) {
-                    tilePosition.y = tile.height
-                }
 
-                var startX = tilePosition.x - xTranslate
-                var startY = tilePosition.y - yTranslate
-                var endX = 10 * index
-                var endY = -chartView.plotArea.height / 2
-                if (bottom) {
-                    endY = chartView.plotArea.height / 2
-                }
+           function drawAnimatedLine(ctx, currentPower, tile, bottom, index, relativeTo, inverted, xTranslate, yTranslate) {
+               ctx.beginPath()
+               // rM : max = x : 5
+               ctx.lineWidth = Math.abs(currentPower) / Math.abs(
+                           relativeTo) * 5 + 1
+               ctx.setLineDash([5, 2])
+               var tilePosition = tile.mapToItem(linesCanvas,
+                                                 tile.width / 2, 0)
+               if (!bottom) {
+                   tilePosition.y = tile.height
+               }
 
-                var height = startY - endY
+               var startX = tilePosition.x - xTranslate
+               var startY = tilePosition.y - yTranslate
+               var endX = 10 * index
+               var endY = -chartView.plotArea.height / 2
+               if (bottom) {
+                   endY = chartView.plotArea.height / 2
+               }
 
-                var extensionLength = ctx.lineWidth * 7 // 5 + 2 dash segments from setLineDash
-                var progress = currentPower
-                        === 0 ? 0 : currentPower > 0 ? lineAnimationProgress : 1
-                                                       - lineAnimationProgress
-                if (inverted) {
-                    progress = 1 - progress
-                }
-                var extensionStartY = startY - extensionLength * progress
-                if (bottom) {
-                    extensionStartY = startY + extensionLength * progress
-                }
+               var height = startY - endY
 
-                ctx.moveTo(startX, extensionStartY)
-                ctx.lineTo(startX, startY)
-                ctx.bezierCurveTo(startX, endY + height / 2, endX,
-                                  startY - height / 2, endX, endY)
-                ctx.stroke()
-                ctx.closePath()
-            }
+               var extensionLength = ctx.lineWidth * 7 // 5 + 2 dash segments from setLineDash
+               var progress = currentPower
+                       === 0 ? 0 : currentPower > 0 ? lineAnimationProgress : 1
+                                                      - lineAnimationProgress
+               if (inverted) {
+                   progress = 1 - progress
+               }
+               var extensionStartY = startY - extensionLength * progress
+               if (bottom) {
+                   extensionStartY = startY + extensionLength * progress
+               }
+
+               ctx.moveTo(startX, extensionStartY)
+               ctx.lineTo(startX, startY)
+               ctx.bezierCurveTo(startX, endY + height / 2, endX,
+                                 startY - height / 2, endX, endY)
+               ctx.stroke()
+               ctx.closePath()
+           }
+
+
+          
+
+           // function drawAnimatedLine(ctx, currentPower, tile, bottom, index, relativeTo, inverted, xTranslate, yTranslate) {
+           //     ctx.beginPath()
+           //     // rM : max = x : 5
+           //     ctx.lineWidth = Math.abs(currentPower) / Math.abs(
+           //                 relativeTo) * 5 + 1
+           //     ctx.setLineDash([5, 2])
+           //     var tilePosition = tile.mapToItem(linesCanvas,
+           //                                       tile.width / 2, 0)
+           //     if (!bottom) {
+           //         tilePosition.y = tile.height
+           //     }
+
+           //     var startX = tilePosition.x - xTranslate
+           //     var startY = tilePosition.y - yTranslate
+           //     var endX = 10 * index
+           //     var endY = -chartView.plotArea.height / 2
+           //     if (bottom) {
+           //         endY = chartView.plotArea.height / 2
+           //     }
+
+           //     var height = startY - endY
+
+           //     var extensionLength = ctx.lineWidth * 7 // 5 + 2 dash segments from setLineDash
+           //     var progress = currentPower
+           //             === 0 ? 0 : currentPower > 0 ? lineAnimationProgress : 1
+           //                                            - lineAnimationProgress
+           //     if (inverted) {
+           //         progress = 1 - progress
+           //     }
+           //     var extensionStartY = startY - extensionLength * progress
+           //     if (bottom) {
+           //         extensionStartY = startY + extensionLength * progress
+           //     }
+
+           //     ctx.moveTo(startX, extensionStartY)
+           //     ctx.lineTo(startX, startY)
+           //     ctx.bezierCurveTo(startX, endY + height / 2, endX,
+           //                       startY - height / 2, endX, endY)
+           //     ctx.stroke()
+           //     ctx.closePath()
+           // }
         }
         ColumnLayout {
             id: layout
@@ -1247,6 +1293,27 @@ MainViewBase {
     }
 
 
+                DropShadow {
+                    anchors.fill: innerCircle
+                    cached: true
+                    horizontalOffset: 3
+                    verticalOffset: 3
+                    radius: 8.0
+                    samples: 16
+                    color: "#80000000"
+                    source: innerCircle
+                }
+                InnerShadow{
+                    anchors.fill: innerCircle
+                    cached: true
+                    horizontalOffset: 3
+                    verticalOffset: 3
+                    radius: 8.0
+                    z: 1
+                    samples: 16
+                    color: "#fefefe"
+                    source: innerCircle
+                }
                 Rectangle {
                     id: innerCircle
                     x: chartView.plotArea.x + width / 2
@@ -1254,36 +1321,11 @@ MainViewBase {
                     width: chartView.plotArea.width / 2
                     height: chartView.plotArea.height / 2
                     radius: width / 2
+                    border.color: "#f0f0f0"
+                    color: "white"
 
-                    RadialGradient {
-                        id: grad
-                        anchors.fill: parent
-                        gradient: Gradient {
-                            GradientStop {
-                                position: 0.0
-                                //color: "#949494"
-                                color: "#b6b6b6"
-                            }
-                            GradientStop {
-                                position: 0.8
-                                //color: "white"
-                                color: "#b6b6b6"
-                            }
-                        }
-                    }
-
-                    layer.enabled: true
-                    layer.effect: OpacityMask {
-                        id: mask
-                        maskSource: Rectangle {
-                            height: grad.height
-                            width: grad.width
-                            radius: width / 2 - 1
-                        }
-                    }
-                    border.width: 1
+                    border.width: width/20
                     antialiasing: true
-                    border.color: "#ffffff"
                     
 
                     //visible: false
@@ -1323,7 +1365,7 @@ MainViewBase {
                             Layout.fillWidth: true
                             textFormat: Text.RichText
                             horizontalAlignment: Text.AlignHCenter
-                            color: "white"
+                            color: "#464646"
                             text: '<span style="font-size:' + Style.bigFont.pixelSize + 'px">'
                                   + (energyManager.currentPowerConsumption
                                      < 1000 ? energyManager.currentPowerConsumption : energyManager.currentPowerConsumption / 1000).toFixed(
@@ -1341,7 +1383,7 @@ MainViewBase {
                             horizontalAlignment: Text.AlignHCenter
                             wrapMode: Text.WordWrap
                             elide: Text.ElideMiddle
-                            color: "white"
+                            color: "#b0b0b0"
                             font: Style.smallFont
                             visible: innerCircle.height > 120
                         }
@@ -1582,7 +1624,7 @@ MainViewBase {
                     ctx.rotate(i * sliceAngle - timeDiffRotation)
                     ctx.beginPath()
                     //ctx.strokeStyle = i % 2 == 0 ? Style.gray : Style.darkGray; //alternating colors
-                    ctx.strokeStyle = "#d7d7d7" // could also be achieved with only a circle
+                    ctx.strokeStyle = "#f0f0f0" // could also be achieved with only a circle
                     ctx.arc(0, 0, (chartView.plotArea.width + circleWidth) / 2,
                             0, sliceAngle)
                     ctx.stroke()
