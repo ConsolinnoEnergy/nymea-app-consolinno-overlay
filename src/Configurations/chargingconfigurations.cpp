@@ -31,6 +31,8 @@ QVariant ChargingConfigurations::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->uniqueIdentifier();
     case RoleControllableLocalSystem:
         return m_list.at(index.row())->controllableLocalSystem();
+    case RolePriceThreshold:
+        return m_list.at(index.row())->priceThreshold();
     }
     return QVariant();
 }
@@ -46,6 +48,7 @@ QHash<int, QByteArray> ChargingConfigurations::roleNames() const
     roles.insert(RoleTargetPercentage, "targetPercentage");
     roles.insert(RoleUniqueIdentifier, "uniqueIdentifier");
     roles.insert(RoleControllableLocalSystem, "controllableLocalSystem");
+    roles.insert(RolePriceThreshold, "priceThreshold");
     return roles;
 }
 
@@ -100,6 +103,11 @@ void ChargingConfigurations::addConfiguration(ChargingConfiguration *chargingCon
     connect(chargingConfiguration, &ChargingConfiguration::controllableLocalSystemChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(chargingConfiguration));
         emit dataChanged(idx, idx, {RoleControllableLocalSystem});
+    });
+
+    connect(chargingConfiguration, &ChargingConfiguration::priceThresholdChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(chargingConfiguration));
+        emit dataChanged(idx, idx, {RolePriceThreshold});
     });
 
     endInsertRows();

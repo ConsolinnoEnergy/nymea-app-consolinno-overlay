@@ -16,6 +16,7 @@ class ChargingConfiguration : public QObject
     Q_PROPERTY(int optimizationMode READ optimizationMode WRITE setOptimizationMode NOTIFY optimizationModeChanged)
     Q_PROPERTY(QUuid uniqueIdentifier READ uniqueIdentifier WRITE setUniqueIdentifier NOTIFY uniqueIdentifierChanged)
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
+    Q_PROPERTY(float priceThreshold READ priceThreshold WRITE setPriceThreshold NOTIFY priceThresholdChanged)
 
 public:
 
@@ -53,6 +54,9 @@ public:
     bool controllableLocalSystem() const;
     void setControllableLocalSystem(bool controllableLocalSystem);
 
+    float priceThreshold() const;
+    void setPriceThreshold(float priceThreshold);
+
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void carThingIdChanged(const QUuid &carThingId);
@@ -61,6 +65,7 @@ signals:
     void optimizationModeChanged(int optimizationMode);
     void uniqueIdentifierChanged(QUuid uniqueIdentifier);
     void controllableLocalSystemChanged(bool controllableLocalSystem);
+    void priceThresholdChanged(float priceThreshold);
 
 private:
     QUuid m_evChargerThingId;
@@ -71,6 +76,7 @@ private:
     int m_optimizationMode = 0;
     QUuid m_uniqueIdentifier = "2e2d25c5-57c7-419a-b294-881f11ed01c4";
     bool m_controllableLocalSystem = false;
+    float m_priceThreshold = 0.0;
 };
 
 #endif // CHARGINGCONFIGURATION_H

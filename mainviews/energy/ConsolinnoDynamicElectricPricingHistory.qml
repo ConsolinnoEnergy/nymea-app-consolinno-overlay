@@ -99,6 +99,7 @@ Item {
             averagePrice = thing.stateByName("averagePrice").value.toFixed(0).toString();
 
             consumptionSeries.insertEntry(thing.stateByName("priceSeries").value)
+            console.error(lowestPrice)
             valueAxis.adjustMax(lowestPrice,highestPrice);
         }
 

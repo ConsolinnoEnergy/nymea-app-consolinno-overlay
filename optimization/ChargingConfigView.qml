@@ -27,7 +27,8 @@ GenericConfigPage {
     property Thing thing
     property var pageSelectedCar: carThing.name === null ? qsTr("no car selected") : carThing.name
     property bool initializing: false
-
+    property int currentValue : 0
+    property int thresholdPrice: 0
 
     enum ChargingMode {
         NO_OPTIMIZATION = 0,
@@ -434,7 +435,60 @@ GenericConfigPage {
 
                     RowLayout{
                         Layout.topMargin: 15
-                        visible:  chargingIsAnyOf([simple_pv_excess, dyn_pricing]) 
+                        visible: chargingIsAnyOf([dyn_pricing])
+                        Label{
+                            id: pausingModeLabel
+
+                            Layout.fillWidth: true
+                            text: qsTr("Pausing")
+                        }
+
+                        Label{
+                            id: pausingModes
+
+                            text: chargingConfiguration.optimizationEnabled ? selectMode(true) : " — "
+                            Layout.alignment: Qt.AlignRight
+                            Layout.rightMargin: 0
+
+                            function selectMode(){
+
+                                if (true)
+                                {
+                                    return qsTr("Pausing active")
+                                }
+                                else if (true)
+                                {
+                                    return qsTr("Charge with minimum current")
+                                }
+                            }
+                        }
+                    }
+
+
+                    RowLayout{
+                        Layout.topMargin: 15
+                        visible: chargingIsAnyOf([dyn_pricing])
+                        Label{
+                            id: priceLimitLabel
+
+                            Layout.fillWidth: true
+                            text: qsTr("Price limit")
+                        }
+
+                        Label{
+                            id: priceLimit
+                            property int averagePriceProzent : 12;
+                            property int averagePrice: 12;
+                            text: qsTr('Average price - ') + (averagePriceProzent + " %") +" / " + (averagePrice) + " ct";
+                            Layout.alignment: Qt.AlignRight
+                            Layout.rightMargin: 0
+                        }
+                    }
+
+
+                    RowLayout{
+                        Layout.topMargin: 15
+                        visible:  chargingIsAnyOf([simple_pv_excess])
                         Label{
                             id: ongridConsumptionLabel
                             Layout.fillWidth: true
@@ -920,16 +974,7 @@ GenericConfigPage {
                                     ListElement{key: qsTr("Charge always"); value: "No Optimization"; mode: 0}
                                     ListElement{key: qsTr("Solar only"); value: "Simple-Pv-Only"; mode: 3000;}
                                     ListElement{key: qsTr("Next trip"); value: "Pv-Optimized"; mode: 1000;}
-                                }
-
-                                Component.onCompleted: {
-                                    addDynamicComboBoxItems();
-                                }
-
-                                function addDynamicComboBoxItems() {
-                                    if (settings.showHiddenOptions){
-                                        dynamicModel.append({"key": qsTr("Dynamic pricing"), "value": "Dynamic-pricing", "mode": 4000});
-                                    }
+                                    ListElement{key: qsTr("Dynamic pricing"); value: "Dynamic-pricing"; mode: 4000}
                                 }
 
                                 textRole: "key"
@@ -954,8 +999,141 @@ GenericConfigPage {
                             }
                         }
 
+                        RowLayout {
+                            Layout.preferredWidth: app.width
+                            Layout.topMargin: 10
+                            visible: isAnyOfModesSelected([dyn_pricing])
+
+                            RowLayout {
+                                id: pausingModeRowid
+
+                                Layout.fillWidth: true
+
+                                Label {
+                                    id: pausingModeid
+
+                                    text: qsTr("Pausing: ")
+                                }
+
+                                InfoButton{
+                                    id: pausingModeInfoButton
+
+                                    push: "PausingInfo.qml"
+                                    Layout.fillWidth: true
+                                    Layout.alignment: Qt.AlignTop
+                                }
+                            }
+
+                            ComboBox {
+                                id: comboboxPausingMode
+                                Layout.fillWidth: true
+
+                                model: ListModel{
+                                    id: dynamicModelPrice
+                                    ListElement{key: qsTr("Pausing active"); value: 200;}
+                                    ListElement{key: qsTr("Charge with minimum current"); value: 0;}
+                                }
+
+                                textRole: "key"
+                                contentItem: Text{
+                                    text: parent.displayText
+                                    width: parent.width
+                                    color: Material.foreground
+                                    verticalAlignment: Text.AlignVCenter;
+                                    horizontalAlignment: Text.AlignLeft;
+                                    leftPadding: app.margins
+                                    elide: Text.ElideRight
+                                }
+
+                            }
+                        }
+
+                        RowLayout {
+                            Layout.preferredWidth: app.width
+                            Layout.topMargin: 10
+                            visible: isAnyOfModesSelected([dyn_pricing])
+
+                            RowLayout {
+
+                                Label {
+                                    id: priceLimitigId
+
+                                    text: qsTr("Price limit: ")
+                                }
+
+                                InfoButton{
+                                    id: priceLimitInfoButton
+
+                                    push: "PriceLimitInfo.qml"
+                                    Layout.fillWidth: true
+                                    Layout.alignment: Qt.AlignTop
+                                }
+
+                            }
+                        }
+
+                        RowLayout {
+                            Layout.preferredWidth: app.width
+                            Layout.topMargin: 5
+                            visible: isAnyOfModesSelected([dyn_pricing])
+
+                            RowLayout {
+                                Label {
+                                    id: averagePriceLimitigId
+
+                                    text: qsTr("average price: ")
+                                }
+
+                                ToolBar {
+
+                                    background: Rectangle {
+                                        color: "transparent"
+                                    }
+
+                                    RowLayout {
+                                        anchors.fill: parent
+                                        ToolButton {
+                                            text: qsTr("-")
+                                            onClicked: {
+                                                currentValue = currentValue - 1
+                                            }
+                                            onPressAndHold: {
+                                                currentValue = currentValue - 10
+                                            }
+                                        }
+                                        TextField {
+                                            text: currentValue
+                                            horizontalAlignment: Qt.AlignHCenter
+                                            verticalAlignment: Qt.AlignVCenter
+                                            Layout.fillWidth: true
+                                        }
+                                        ToolButton {
+                                            text: qsTr("+")
+                                            onClicked: {
+                                                currentValue = currentValue + 1
+                                            }
+                                            onPressAndHold: {
+                                                currentValue = currentValue + 10
+                                            }
+                                        }
+                                    }
+
+                                    Component.onCompleted: currentValue = 0
+                                }
+
+                            }
+
+                            RowLayout {
+                                Label {
+                                    text: qsTr("Currently corresponds to a market price of") + thresholdPrice
+                                }
+                            }
+
+                        }
+
+
                         RowLayout{
-                            visible:  isAnyOfModesSelected([pv_optimized, pv_excess])
+                            visible: isAnyOfModesSelected([pv_optimized, pv_excess])
                             Layout.topMargin: 10
 
                             ColumnLayout{
@@ -1204,7 +1382,7 @@ GenericConfigPage {
 
                         RowLayout {
                             Layout.fillWidth: true
-                            visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing])
+                            visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess])
 
                             Label{
                                 id: gridConsumptionLabel
@@ -1222,7 +1400,7 @@ GenericConfigPage {
                         }
 
                         ComboBox {
-                            visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing])
+                            visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess])
                             id: gridConsumptionloadingmod
                             Layout.fillWidth: true
                             model: ListModel{
@@ -1248,6 +1426,12 @@ GenericConfigPage {
                             font.pixelSize: app.smallFont
                             text: qsTr("please select a car")
                             visible: false
+                        }
+
+                        Item {
+                            // place holder
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
                         }
 
                         Button {

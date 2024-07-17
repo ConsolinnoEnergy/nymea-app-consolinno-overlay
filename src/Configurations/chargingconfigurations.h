@@ -21,6 +21,7 @@ public:
         RoleTargetPercentage,
         RoleUniqueIdentifier,
         RoleControllableLocalSystem,
+        RolePriceThreshold,
     };
     Q_ENUM(Role);
 

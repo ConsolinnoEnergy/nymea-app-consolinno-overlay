@@ -119,6 +119,18 @@ void ChargingConfiguration::setControllableLocalSystem(bool controllableLocalSys
 
 }
 
+float ChargingConfiguration::priceThreshold() const {
+    return m_priceThreshold;
+}
+
+void ChargingConfiguration::setPriceThreshold(float priceThreshold) {
+
+    if (m_priceThreshold == priceThreshold)
+        return;
+
+    m_priceThreshold = priceThreshold;
+    emit priceThresholdChanged(m_priceThreshold);
+}
 
 
 

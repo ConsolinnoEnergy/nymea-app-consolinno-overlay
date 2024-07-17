@@ -107,5 +107,7 @@
         <file>devicepages/PageWraper.qml</file>
         <file>optimization/EvChargerOptimization.qml</file>
         <file>optimization/GridSupportiveControlConfig.qml</file>
+        <file>info/PausingInfo.qml</file>
+        <file>info/PriceLimitInfo.qml</file>
     </qresource>
 </RCC>
