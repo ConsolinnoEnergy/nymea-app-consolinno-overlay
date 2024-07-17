@@ -669,7 +669,7 @@ MainViewBase {
             NumberAnimation {
                 target: linesCanvas
                 property: "lineAnimationProgress"
-                duration: 1000
+                duration: 2500
                 loops: Animation.Infinite
                 from: 0
                 to: 1
@@ -679,211 +679,218 @@ MainViewBase {
             onLineAnimationProgressChanged: requestPaint()
 
             onPaint: {
-                //              repainting lines canvas
-                var ctx = getContext("2d")
-                ctx.reset()
-                ctx.save()
-                var xTranslate = chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2
-                var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
-                ctx.translate(xTranslate, yTranslate)
+            var ctx = getContext("2d")
+            ctx.reset()
+            ctx.save()
+            var xTranslate = chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2
+            var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
+            ctx.translate(xTranslate, yTranslate)
 
-                ctx.beginPath()
-                ctx.fillStyle = Material.background
-                ctx.arc(0, 0, chartView.plotArea.width / 2, 0, 2 * Math.PI)
-                ctx.fill()
-                ctx.closePath()
+            ctx.beginPath()
+            ctx.fillStyle = Material.background
+            ctx.arc(0, 0, chartView.plotArea.width / 2, 0, 2 * Math.PI)
+            ctx.fill()
+            ctx.closePath()
 
-                ctx.strokeStyle = Style.foregroundColor
-                ctx.fillStyle = Style.foregroundColor
+            ctx.strokeStyle = Style.foregroundColor
+            ctx.fillStyle = Style.foregroundColor
 
 
-                lsdChart.currentGridValueState = gridSupport.get(0) !== null ? gridSupport.get(0).stateByName("plimStatus").value : ""
+            lsdChart.currentGridValueState = gridSupport.get(0) !== null ? gridSupport.get(0).stateByName("plimStatus").value : ""
 
-                var maxCurrentPower = rootMeter ? Math.abs(
-                                                      rootMeter.stateByName(
-                                                          "currentPower").value) : 0
+            var maxCurrentPower = rootMeter ? Math.abs(
+                rootMeter.stateByName(
+                    "currentPower").value) : 0
 
-                var currentPrice = electrics.count > 0 ? Math.abs(electrics.get(0).stateByName(
-                                                            "currentMarketPrice").value) : 0
+            var currentPrice = electrics.count > 0 ? Math.abs(electrics.get(0).stateByName(
+                "currentMarketPrice").value) : 0
 
-                for (var i = 0; i < producers.count; i++) {
-                    maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
-                                                   producers.get(i).stateByName(
-                                                       "currentPower").value))
+            for (var i = 0; i < producers.count; i++) {
+                maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
+                    producers.get(i).stateByName(
+                        "currentPower").value))
+            }
+            for (var i = 0; i < consumers.count; i++) {
+                if (consumers.get(i).thingClass.interfaces.indexOf(
+                        "smartmeterconsumer") >= 0) {
+                    maxCurrentPower = Math.max(
+                        maxCurrentPower,
+                        Math.abs(consumers.get(i).stateByName(
+                            "currentPower").value))
                 }
-                for (var i = 0; i < consumers.count; i++) {
-                    if (consumers.get(i).thingClass.interfaces.indexOf(
-                                "smartmeterconsumer") >= 0) {
-                        maxCurrentPower = Math.max(
-                                    maxCurrentPower,
-                                    Math.abs(consumers.get(i).stateByName(
-                                                 "currentPower").value))
-                    }
-                }
-                for (var i = 0; i < producers.count; i++) {
-                    maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
-                                                   producers.get(i).stateByName(
-                                                       "currentPower").value))
-                }
-                for (var i = 0; i < batteries.count; i++) {
-                    maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
-                                                   batteries.get(i).stateByName(
-                                                       "currentPower").value))
-                }
-                for (var i = 0; i < electrics.count; i++) {
-                    currentPrice = Math.max(currentPrice, Math.abs(
-                                                   electrics.get(i).stateByName(
-                                                    "currentMarketPrice").value))
-                }
-
-
-                var totalTop = rootMeter ? 1 : 0
-                totalTop += producers.count
-
-                // dashed lines from rootMeter
-                if (rootMeter) {
-                    drawAnimatedLine(ctx, rootMeter.stateByName(
-                                         "currentPower").value, rootMeterTile,
-                                     false, -(totalTop - 1) / 2,
-                                     maxCurrentPower, true, xTranslate,
-                                     yTranslate)
-                }
-
-                for (var i = 0; i < producers.count; i++) {
-
-                    // draw every producer, but not the rootMeter as producer, since it is already drawn.
-                    var producer = producers.get(i)
-                    if (producer.id !== rootMeter.id) {
-                        var tile = legendProducersRepeater.itemAt(i)
-                        drawAnimatedLine(ctx, producer.stateByName(
-                                             "currentPower").value, tile,
-                                         false, (i + 1) - ((totalTop - 1) / 2),
-                                         maxCurrentPower, false,
-                                         xTranslate, yTranslate)
-                    }
-                }
-
-                var totalBottom = consumers.count + batteries.count
-
-                for (var i = 0; i < consumers.count; i++) {
-                    var consumer = consumers.get(i)
-                    var tile = legendConsumersRepeater.itemAt(i)
-                    if (consumer.thingClass.interfaces.indexOf(
-                                "smartmeterconsumer") >= 0) {
-                        drawAnimatedLine(
-                                    ctx, consumer.stateByName(
-                                        "currentPower").value, tile,
-                                    true, i - ((totalBottom - 1) / 2), maxCurrentPower,
-                                    false, xTranslate, yTranslate)
-                    } else {
-                        // draws line for consumers without power monitoring
-                        drawAnimatedLine(ctx, 0, tile, true,
-                                         i - ((totalBottom - 1) / 2),
-                                         maxCurrentPower, false, xTranslate,
-                                         yTranslate)
-                    }
-                }
-
-                for (var i = 0; i < batteries.count; i++) {
-                    var battery = batteries.get(i)
-                    var tile = legendBatteriesRepeater.itemAt(i)
-                    drawAnimatedLine(
-                                ctx, battery.stateByName(
-                                    "currentPower").value, tile,
-                                true, consumers.count + i - ((totalBottom - 1) / 2),
-                                maxCurrentPower, false, xTranslate, yTranslate)
-                }
-
-                // end draw Animated Line
+            }
+            for (var i = 0; i < producers.count; i++) {
+                maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
+                    producers.get(i).stateByName(
+                        "currentPower").value))
+            }
+            for (var i = 0; i < batteries.count; i++) {
+                maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
+                    batteries.get(i).stateByName(
+                        "currentPower").value))
+            }
+            for (var i = 0; i < electrics.count; i++) {
+                currentPrice = Math.max(currentPrice, Math.abs(
+                    electrics.get(i).stateByName(
+                        "currentMarketPrice").value))
             }
 
 
-           function drawAnimatedLine(ctx, currentPower, tile, bottom, index, relativeTo, inverted, xTranslate, yTranslate) {
-               ctx.beginPath()
-               // rM : max = x : 5
-               ctx.lineWidth = Math.abs(currentPower) / Math.abs(
-                           relativeTo) * 5 + 1
-               ctx.setLineDash([5, 2])
-               var tilePosition = tile.mapToItem(linesCanvas,
-                                                 tile.width / 2, 0)
-               if (!bottom) {
-                   tilePosition.y = tile.height
-               }
+            var totalTop = rootMeter ? 1 : 0
+            totalTop += producers.count
 
-               var startX = tilePosition.x - xTranslate
-               var startY = tilePosition.y - yTranslate
-               var endX = 10 * index
-               var endY = -chartView.plotArea.height / 2
-               if (bottom) {
-                   endY = chartView.plotArea.height / 2
-               }
+            // dashed lines from rootMeter
+            if (rootMeter) {
+                drawAnimatedLine(ctx, rootMeter.stateByName(
+                        "currentPower").value, rootMeterTile,
+                    false, -(totalTop - 1) / 2,
+                    maxCurrentPower, true, xTranslate,
+                    yTranslate)
+            }
 
-               var height = startY - endY
+            for (var i = 0; i < producers.count; i++) {
 
-               var extensionLength = ctx.lineWidth * 7 // 5 + 2 dash segments from setLineDash
-               var progress = currentPower
-                       === 0 ? 0 : currentPower > 0 ? lineAnimationProgress : 1
-                                                      - lineAnimationProgress
-               if (inverted) {
-                   progress = 1 - progress
-               }
-               var extensionStartY = startY - extensionLength * progress
-               if (bottom) {
-                   extensionStartY = startY + extensionLength * progress
-               }
+                // draw every producer, but not the rootMeter as producer, since it is already drawn.
+                var producer = producers.get(i)
+                if (producer.id !== rootMeter.id) {
+                    var tile = legendProducersRepeater.itemAt(i)
+                    drawAnimatedLine(ctx, producer.stateByName(
+                            "currentPower").value, tile,
+                        false, (i + 1) - ((totalTop - 1) / 2),
+                        maxCurrentPower, false,
+                        xTranslate, yTranslate)
+                }
+            }
 
-               ctx.moveTo(startX, extensionStartY)
-               ctx.lineTo(startX, startY)
-               ctx.bezierCurveTo(startX, endY + height / 2, endX,
-                                 startY - height / 2, endX, endY)
-               ctx.stroke()
-               ctx.closePath()
-           }
+            var totalBottom = consumers.count + batteries.count
+
+            for (var i = 0; i < consumers.count; i++) {
+                var consumer = consumers.get(i)
+                var tile = legendConsumersRepeater.itemAt(i)
+                if (consumer.thingClass.interfaces.indexOf(
+                        "smartmeterconsumer") >= 0) {
+                    drawAnimatedLine(
+                        ctx, consumer.stateByName(
+                            "currentPower").value, tile,
+                        true, i - ((totalBottom - 1) / 2), maxCurrentPower,
+                        false, xTranslate, yTranslate)
+                } else {
+                    // draws line for consumers without power monitoring
+                    drawAnimatedLine(ctx, 0, tile, true,
+                        i - ((totalBottom - 1) / 2),
+                        maxCurrentPower, false, xTranslate,
+                        yTranslate)
+                }
+            }
+
+            for (var i = 0; i < batteries.count; i++) {
+                var battery = batteries.get(i)
+                var tile = legendBatteriesRepeater.itemAt(i)
+                drawAnimatedLine(
+                    ctx, battery.stateByName(
+                        "currentPower").value, tile,
+                    true, consumers.count + i - ((totalBottom - 1) / 2),
+                    maxCurrentPower, false, xTranslate, yTranslate)
+            }
+
+            // end draw Animated Line
+            }
 
 
-          
+            function drawAnimatedLine(ctx, currentPower, tile, bottom, index, relativeTo, inverted, xTranslate, yTranslate) {
+                ctx.beginPath()
+                // rM : max = x : 5
+                var relativeSize = Math.abs(currentPower) / Math.abs(relativeTo) * 5 + 1
+                ctx.lineWidth = relativeSize
+                //ctx.setLineDash([5, 2])
+                // set color based on  tile color
+                //ctx.strokeStyle = "#a0a0a0"
+                ctx.strokeStyle = "#c0c0c0"
 
-           // function drawAnimatedLine(ctx, currentPower, tile, bottom, index, relativeTo, inverted, xTranslate, yTranslate) {
-           //     ctx.beginPath()
-           //     // rM : max = x : 5
-           //     ctx.lineWidth = Math.abs(currentPower) / Math.abs(
-           //                 relativeTo) * 5 + 1
-           //     ctx.setLineDash([5, 2])
-           //     var tilePosition = tile.mapToItem(linesCanvas,
-           //                                       tile.width / 2, 0)
-           //     if (!bottom) {
-           //         tilePosition.y = tile.height
-           //     }
+                var tilePosition = tile.mapToItem(linesCanvas,
+                    tile.width / 2, 0)
+                if (!bottom) {
+                    tilePosition.y = tile.height
+                }
 
-           //     var startX = tilePosition.x - xTranslate
-           //     var startY = tilePosition.y - yTranslate
-           //     var endX = 10 * index
-           //     var endY = -chartView.plotArea.height / 2
-           //     if (bottom) {
-           //         endY = chartView.plotArea.height / 2
-           //     }
+                var startX = tilePosition.x - xTranslate
+                var startY = tilePosition.y - yTranslate
+                var endX = 10 * index
+                var endY = -chartView.plotArea.height / 2
+                if (bottom) {
+                    endY = chartView.plotArea.height / 2
+                }
 
-           //     var height = startY - endY
+                var height = startY - endY
 
-           //     var extensionLength = ctx.lineWidth * 7 // 5 + 2 dash segments from setLineDash
-           //     var progress = currentPower
-           //             === 0 ? 0 : currentPower > 0 ? lineAnimationProgress : 1
-           //                                            - lineAnimationProgress
-           //     if (inverted) {
-           //         progress = 1 - progress
-           //     }
-           //     var extensionStartY = startY - extensionLength * progress
-           //     if (bottom) {
-           //         extensionStartY = startY + extensionLength * progress
-           //     }
+                ctx.moveTo(startX, startY)
+                ctx.bezierCurveTo(startX, endY + height / 2, endX,
+                    startY - height / 2, endX, endY)
+                ctx.stroke()
+                // Get path for later use
 
-           //     ctx.moveTo(startX, extensionStartY)
-           //     ctx.lineTo(startX, startY)
-           //     ctx.bezierCurveTo(startX, endY + height / 2, endX,
-           //                       startY - height / 2, endX, endY)
-           //     ctx.stroke()
-           //     ctx.closePath()
-           // }
+                var progress = currentPower ===
+                    0 ? 0 : currentPower > 0 ? lineAnimationProgress : 1 -
+                    lineAnimationProgress
+
+                if (!inverted) {
+                    progress = 1 - progress
+                }
+                // Get the point at the given length
+                var length = getBezierLength(startX, startY, startX, endY + height / 2, endX, startY - height / 2, endX, endY);
+                length = Math.min(length * 0.95, length);
+                var point = getPointAtLength(startX, startY, startX, endY + height / 2, endX, startY - height / 2, endX, endY, length * progress);
+                //var point2 = getPointAtLength(startX, startY, startX, endY + height / 2, endX, startY - height / 2, endX, endY, length * progress - length/2) ;
+
+                var relativeSizePoint = Math.max(Math.min(8, relativeSize * 2), 4)
+
+                // Draw a circle at the calculated point
+                ctx.beginPath();
+                if (currentPower > 0) {
+                    ctx.fillStyle = tile.color
+                } else {
+                    // negative color if existing else use color
+                    ctx.fillStyle = tile.negativeColor ? tile.negativeColor : tile.color
+                }
+                ctx.arc(point.x, point.y, relativeSizePoint, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            function getBezierPoint(t, startX, startY, cp1X, cp1Y, cp2X, cp2Y, endX, endY) {
+                var x = Math.pow(1 - t, 3) * startX + 3 * Math.pow(1 - t, 2) * t * cp1X + 3 * (1 - t) * Math.pow(t, 2) * cp2X + Math.pow(t, 3) * endX;
+                var y = Math.pow(1 - t, 3) * startY + 3 * Math.pow(1 - t, 2) * t * cp1Y + 3 * (1 - t) * Math.pow(t, 2) * cp2Y + Math.pow(t, 3) * endY;
+                return {
+                    x: x,
+                    y: y
+                };
+            }
+
+            function getBezierLength(startX, startY, cp1X, cp1Y, cp2X, cp2Y, endX, endY) {
+                var length = 0;
+                var previousPoint = {
+                    x: startX,
+                    y: startY
+                };
+                var steps = 100; // Increase steps for more accuracy
+
+                for (var i = 1; i <= steps; i++) {
+                    var t = i / steps;
+                    var point = getBezierPoint(t, startX, startY, cp1X, cp1Y, cp2X, cp2Y, endX, endY);
+                    var dx = point.x - previousPoint.x;
+                    var dy = point.y - previousPoint.y;
+                    length += Math.sqrt(dx * dx + dy * dy);
+                    previousPoint = point;
+                }
+
+                return length;
+            }
+
+            function getPointAtLength(startX, startY, cp1X, cp1Y, cp2X, cp2Y, endX, endY, length) {
+                var totalLength = getBezierLength(startX, startY, cp1X, cp1Y, cp2X, cp2Y, endX, endY);
+                var t = length / totalLength;
+                return getBezierPoint(t, startX, startY, cp1X, cp1Y, cp2X, cp2Y, endX, endY);
+            }
         }
         ColumnLayout {
             id: layout
@@ -1369,8 +1376,8 @@ MainViewBase {
                             text: '<span style="font-size:' + Style.bigFont.pixelSize + 'px">'
                                   + (energyManager.currentPowerConsumption
                                      < 1000 ? energyManager.currentPowerConsumption : energyManager.currentPowerConsumption / 1000).toFixed(
-                                      1) + '</span> <span style="font-size:'
-                                  + Style.smallFont.pixelSize + 'px">'
+                                      0) + '</span> <span style="font-size:'
+                                  + Style.bigFont.pixelSize + 'px">'
                                   + (energyManager.currentPowerConsumption
                                      < 1000 ? "W" : "kW") + '</span>'
                         }
@@ -1384,7 +1391,7 @@ MainViewBase {
                             wrapMode: Text.WordWrap
                             elide: Text.ElideMiddle
                             color: "#b0b0b0"
-                            font: Style.smallFont
+                            font.pixelSize: 11
                             visible: innerCircle.height > 120
                         }
 
