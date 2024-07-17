@@ -1005,6 +1005,10 @@ Mail service@consolinno.de</source>
         <source>Current Market Price: </source>
         <translation type="unfinished">Aktueller Marktpreis: </translation>
     </message>
+    <message>
+        <source>No prices available, yet</source>
+        <translation type="unfinished">Noch keine Preise verfügbar</translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoImprint</name>
