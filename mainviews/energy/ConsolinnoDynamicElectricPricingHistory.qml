@@ -46,7 +46,7 @@ Item {
                 const today = new Date();
                 const validUntilDate = new Date(validUntil*1000);
 
-                let adjustTime = 3660;
+                let adjustTime = 60;
 
                 if(today.getDate() < validUntilDate.getDate())
                     adjustTime = -86340;
