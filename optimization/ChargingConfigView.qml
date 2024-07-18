@@ -451,9 +451,22 @@ GenericConfigPage {
 
                         Label{
                             id: priceLimit
-                            text: qsTr('Average price ') + (currentValue + " %") +" / " + (thresholdPrice) + " ct";
+                            property double priceThresholdProcentage: chargingConfiguration.priceThreshold
+                            text: qsTr('Average price ') + (priceThresholdProcentage + " %") +" / " + (thresholdPrice) + " ct";
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
+
+                            Component.onCompleted: {
+                                priceRow.getThresholdPrice(priceThresholdProcentage)
+                            }
+
+                            Timer{
+                               repeat: true
+                               interval: 10000
+                               onTriggered: {
+                                   priceRow.getThresholdPrice(priceThresholdProcentage)
+                               }
+                            }
                         }
                     }
 
@@ -1116,9 +1129,11 @@ GenericConfigPage {
                                     getThresholdPrice()
                                 }
 
-                                function getThresholdPrice(){
+                                function getThresholdPrice(valueProcent = 0){
+
+                                    console.error(valueProcent)
                                     let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
-                                    let currentValue = parseInt(currentValueField.text)
+                                    let currentValue = (valueProcent > 0) ? valueProcent : parseInt(currentValueField.text)
                                     thresholdPrice = (averagePrice * (1 + currentValue / 100)).toFixed(2)
                                 }
 
@@ -1434,7 +1449,7 @@ GenericConfigPage {
                                     var optimizationMode = compute_OptimizationMode()
 
                                     hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
-                                    hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode, priceThreshold: thresholdPrice})
+                                    hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode, priceThreshold: currentValue})
 
                                     optimizationPage.done()
                                     pageStack.pop()

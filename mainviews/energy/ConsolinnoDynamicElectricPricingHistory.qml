@@ -240,19 +240,22 @@ Item {
                         let lastChangeTimestamp = 0;
                         let identicalIndexes = [];
 
+
+
                         for (const item in value){
                             const date = new Date(item);
                             let currentTimestamp = date.getTime();
+                            let itemValue = value[item];
 
-                            if(value[item] < lowestPrice){
-                                lowestPrice = value[item]
+                            if(itemValue < lowestPrice){
+                                lowestPrice = itemValue
                             }
 
-                            if(value[item] > highestPrice){
-                                highestPrice = value[item]
+                            if(itemValue > highestPrice){
+                                highestPrice = itemValue
                             }
 
-                            if(lastChange !== value[item]) {
+                            if(lastChange !== itemValue) {
                                 lastChangeTimestamp = currentTimestamp;
 
                                 for(const ts of identicalIndexes) {
@@ -265,23 +268,23 @@ Item {
                                 identicalIndexes.push(currentTimestamp);
                             }
 
-                            lastChange = value[item];
+                            lastChange = itemValue;
 
                             prices[currentTimestamp] = {
                                 start: lastChangeTimestamp,
-                                value: value[item]
+                                value: itemValue
                             };
 
                             if(firstRun === true){
                                 firstRun = false;
-                                highestPrice = value[item]
-                                lowestPrice = value[item]
+                                highestPrice = itemValue
+                                lowestPrice = itemValue
                                 currentTimestamp = currentTimestamp - 600000;
                             }
 
                             pricingUpperSeriesAbove.append(currentTimestamp,averagePrice);
-                            pricingUpperSeries.append(currentTimestamp,value[item]);
-                            pricingLowerSeries.append(currentTimestamp,value[item]);
+                            pricingUpperSeries.append(currentTimestamp,itemValue);
+                            pricingLowerSeries.append(currentTimestamp,itemValue);
                         }
 
                         const todayMidnight = new Date(identicalIndexes[0]);
@@ -336,9 +339,21 @@ Item {
                     repeat: true
                     onTriggered: {
                         isOn = true;
+                        var currentDate = new Date()
                         var currentTime = new Date().getTime()
+
+                        currentDate.setMinutes(45)
+                        currentDate.setSeconds(0)
+                        currentDate.setMilliseconds(0)
+
                         currentValuePoint.remove(0)
-                        currentValuePoint.append(currentTime, currentPrice)
+
+                        if(currentTime <= currentDate.getTime()){
+                            currentValuePoint.append(currentTime, currentPrice)
+                        }else{
+                            currentValuePoint.append(currentDate.getTime(), currentPrice)
+                        }
+
 
                     }
                 }
