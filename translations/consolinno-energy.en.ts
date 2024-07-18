@@ -385,6 +385,50 @@
         <source>Charging power</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Dynamic pricing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pausing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pausing active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Price limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Average price - </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pausing: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Price limit: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>average price: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Currently corresponds to a market price of </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -437,6 +481,14 @@
     </message>
     <message>
         <source>The charging modes &lt;font color=&quot;#87BD26&quot;&gt;Solar power only&lt;/font&gt; and &lt;font color=&quot;#87BD26&quot;&gt;Always charging&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;#87BD26&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dynamic Tariff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In dynamic tariff charging mode, charging takes place at maximum charging current as soon as the price falls below the set price limit. At times when charging does not take place because the price limit is exceeded, charging takes place if there is a PV surplus. If the price limit is changed, this limit is preselected the next time it is plugged in.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2655,6 +2707,28 @@ Please refer to our service if you have any questions: service@consolinno.de</so
     </message>
     <message>
         <source>west</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PausingInfo</name>
+    <message>
+        <source>Pausing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some vehicles cannot handle an interruption in the charging process, i.e. charging can no longer be continued after an interruption in the charging process if, for example, the electricity price falls below the price limit again after a pause. If problems occur, the option &lt;font color=&quot;#87BD26&quot;&gt;&apos;Charging with minimum power&apos;&lt;/font&gt; should be selected. With this setting, charging continues at minimum power even if the price limit is exceeded.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PriceLimitInfo</name>
+    <message>
+        <source>Price limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The price limit is defined based on the average price, e.g. average price -10%. This means that charging takes place as soon as the price is cheaper than the average price -10% calculated for the day. The price limit is valid until a new price limit is entered, even after unplugging and plugging in again.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
