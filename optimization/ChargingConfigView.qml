@@ -443,38 +443,6 @@ GenericConfigPage {
                         Layout.topMargin: 15
                         visible: chargingIsAnyOf([dyn_pricing])
                         Label{
-                            id: pausingModeLabel
-
-                            Layout.fillWidth: true
-                            text: qsTr("Pausing")
-                        }
-
-                        Label{
-                            id: pausingModes
-
-                            text: chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationEnabled) : " — "
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
-
-                            function selectMode(){
-
-                                if (true)
-                                {
-                                    return qsTr("Pausing active")
-                                }
-                                else if (true)
-                                {
-                                    return qsTr("Charge with minimum current")
-                                }
-                            }
-                        }
-                    }
-
-
-                    RowLayout{
-                        Layout.topMargin: 15
-                        visible: chargingIsAnyOf([dyn_pricing])
-                        Label{
                             id: priceLimitLabel
 
                             Layout.fillWidth: true
@@ -483,9 +451,7 @@ GenericConfigPage {
 
                         Label{
                             id: priceLimit
-                            property int averagePriceProzent : 12;
-                            property int averagePrice: 12;
-                            text: qsTr('Average price - ') + (averagePriceProzent + " %") +" / " + (averagePrice) + " ct";
+                            text: qsTr('Average price ') + (currentValue + " %") +" / " + (thresholdPrice) + " ct";
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
@@ -494,7 +460,7 @@ GenericConfigPage {
 
                     RowLayout{
                         Layout.topMargin: 15
-                        visible:  chargingIsAnyOf([simple_pv_excess])
+                        visible:  chargingIsAnyOf([simple_pv_excess, dyn_pricing])
                         Label{
                             id: ongridConsumptionLabel
                             Layout.fillWidth: true
@@ -519,9 +485,6 @@ GenericConfigPage {
 
                         }
                     }
-
-
-
 
                     RowLayout{
                         Layout.topMargin: 15
@@ -1008,38 +971,48 @@ GenericConfigPage {
                         RowLayout {
                             Layout.preferredWidth: app.width
                             Layout.topMargin: 10
-                            visible: isAnyOfModesSelected([dyn_pricing])
 
                             RowLayout {
-                                id: pausingModeRowid
-
                                 Layout.fillWidth: true
 
                                 Label {
                                     id: pausingModeid
-
+                                    visible:  isAnyOfModesSelected([dyn_pricing])
                                     text: qsTr("Pausing: ")
                                 }
 
                                 InfoButton{
                                     id: pausingModeInfoButton
-
+                                    visible:  isAnyOfModesSelected([dyn_pricing])
                                     push: "PausingInfo.qml"
                                     Layout.fillWidth: true
                                     Layout.alignment: Qt.AlignTop
                                 }
+
+                                Label{
+                                    id: gridConsumptionLabel
+                                    visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess])
+                                    text: qsTr("Behaviour on grid consumption:")
+                                }
+
+                                InfoButton{
+                                    id: gridConsumptionInfoButton
+                                    visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess])
+                                    push: "GridConsumptionInfo.qml"
+                                    Layout.fillWidth: true
+                                    Layout.alignment: Qt.AlignTop
+                                }
+
                             }
 
                             ComboBox {
-                                id: comboboxPausingMode
+                                visible:  isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])
+                                id: gridConsumptionloadingmod
                                 Layout.fillWidth: true
-
                                 model: ListModel{
-                                    id: dynamicModelPrice
-                                    ListElement{key: qsTr("Pausing active"); value: 200;}
-                                    ListElement{key: qsTr("Charge with minimum current"); value: 0;}
+                                    ListElement{key: qsTr("Charge with minimum current"); mode: 0}
+                                    ListElement{key: qsTr("Pause charging"); mode: 200}
                                 }
-
                                 textRole: "key"
                                 contentItem: Text{
                                     text: parent.displayText
@@ -1050,8 +1023,8 @@ GenericConfigPage {
                                     leftPadding: app.margins
                                     elide: Text.ElideRight
                                 }
-
                             }
+
                         }
 
                         RowLayout {
@@ -1410,36 +1383,6 @@ GenericConfigPage {
                             }
                         }
 
-                        RowLayout {
-                            Layout.fillWidth: true
-                            visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess])
-
-                            Label{
-                                id: gridConsumptionLabel
-
-                                text: qsTr("Behaviour on grid consumption:")
-                            }
-
-                            InfoButton{
-                                id: gridConsumptionInfoButton
-
-                                push: "GridConsumptionInfo.qml"
-                                Layout.fillWidth: true
-                                Layout.alignment: Qt.AlignTop
-                            }
-                        }
-
-                        ComboBox {
-                            visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess])
-                            id: gridConsumptionloadingmod
-                            Layout.fillWidth: true
-                            model: ListModel{
-                                ListElement{key: qsTr("Charge with minimum current"); mode: 0}
-                                ListElement{key: qsTr("Pause charging"); mode: 200}
-                            }
-                            textRole: "key"
-                        }
-
                         Item {
                             // place holder
                             Layout.fillHeight: true
@@ -1491,7 +1434,7 @@ GenericConfigPage {
                                     var optimizationMode = compute_OptimizationMode()
 
                                     hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
-                                    hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode })
+                                    hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode, priceThreshold: thresholdPrice})
 
                                     optimizationPage.done()
                                     pageStack.pop()

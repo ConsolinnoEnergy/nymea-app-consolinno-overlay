@@ -390,19 +390,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Pausing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pausing active</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Price limit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Average price - </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -427,6 +415,10 @@
     </message>
     <message>
         <source>Currently corresponds to a market price of </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Average price </source>
         <translation type="unfinished"></translation>
     </message>
 </context>

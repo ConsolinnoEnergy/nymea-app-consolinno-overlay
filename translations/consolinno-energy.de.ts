@@ -390,20 +390,8 @@
         <translation type="unfinished">Dynamischer Tarif</translation>
     </message>
     <message>
-        <source>Pausing</source>
-        <translation type="unfinished">Pausieren</translation>
-    </message>
-    <message>
-        <source>Pausing active</source>
-        <translation type="unfinished">Pausieren aktiv</translation>
-    </message>
-    <message>
         <source>Price limit</source>
         <translation type="unfinished">Preisgrenze</translation>
-    </message>
-    <message>
-        <source>Average price - </source>
-        <translation type="unfinished">Durchschnittspreis - </translation>
     </message>
     <message>
         <source>Pausing: </source>
@@ -428,6 +416,10 @@
     <message>
         <source>Currently corresponds to a market price of </source>
         <translation type="unfinished">Entspricht aktuell einem Marktpreis von </translation>
+    </message>
+    <message>
+        <source>Average price </source>
+        <translation type="unfinished">Durchschnittspreis </translation>
     </message>
 </context>
 <context>
