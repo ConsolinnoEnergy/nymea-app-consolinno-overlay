@@ -95,6 +95,10 @@ Item {
 
             onTabSelected: {
                 d.now = new Date();
+
+                const pricelength = Object.keys(prices).length;
+                noDataLabel.visible = selectionTabs.currentIndex && pricelength < 97;
+                noDataIndicator.visible = selectionTabs.currentIndex && pricelength < 97;
             }
         }
 
@@ -107,7 +111,6 @@ Item {
             averagePrice = thing.stateByName("averagePrice").value.toFixed(0).toString();
 
             consumptionSeries.insertEntry(thing.stateByName("priceSeries").value)
-            console.error(lowestPrice)
             valueAxis.adjustMax(lowestPrice,highestPrice);
         }
 
@@ -144,6 +147,7 @@ Item {
                 legend.visible: false
 
                 ActivityIndicator {
+                    id: noDataIndicator
                     x: chartView.plotArea.x + (chartView.plotArea.width - width) / 2
                     y: chartView.plotArea.y + (chartView.plotArea.height - height) / 2 + (chartView.plotArea.height / 8)
                     visible: false
@@ -151,6 +155,7 @@ Item {
                 }
 
                 Label {
+                    id: noDataLabel
                     x: chartView.plotArea.x + (chartView.plotArea.width - width) / 2
                     y: chartView.plotArea.y + (chartView.plotArea.height - height) / 2 + (chartView.plotArea.height / 8)
                     text: qsTr("No data available")
