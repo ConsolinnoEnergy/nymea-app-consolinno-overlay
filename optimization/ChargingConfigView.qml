@@ -1146,7 +1146,7 @@ GenericConfigPage {
                                 function getThresholdPrice(){
                                     let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
                                     let currentValue = parseInt(currentValueField.text)
-                                    thresholdPrice = (averagePrice * ((currentValue >= 0) ? (1 + (currentValue / 100)) : (1 - (currentValue / 100)))).toFixed(2)
+                                    thresholdPrice = (averagePrice * (1 + currentValue / 100)).toFixed(2)
                                 }
 
                             }
