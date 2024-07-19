@@ -457,14 +457,18 @@ GenericConfigPage {
                             Layout.rightMargin: 0
 
                             Component.onCompleted: {
-                                priceRow.getThresholdPrice(priceThresholdProcentage)
+                                let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
+                                thresholdPrice = (averagePrice * (1 + priceThresholdProcentage / 100)).toFixed(2)
                             }
 
                             Timer{
+                               property bool firstRun: false
                                repeat: true
-                               interval: 10000
+                               interval: firstRun == false ? 100 : 10000
                                onTriggered: {
-                                   priceRow.getThresholdPrice(priceThresholdProcentage)
+                                   firstRun = true
+                                   let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
+                                   thresholdPrice = (averagePrice * (1 + priceThresholdProcentage / 100)).toFixed(2)
                                }
                             }
                         }
@@ -1129,11 +1133,9 @@ GenericConfigPage {
                                     getThresholdPrice()
                                 }
 
-                                function getThresholdPrice(valueProcent = 0){
-
-                                    console.error(valueProcent)
+                                function getThresholdPrice(){
                                     let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
-                                    let currentValue = (valueProcent > 0) ? valueProcent : parseInt(currentValueField.text)
+                                    let currentValue = parseInt(currentValueField.text)
                                     thresholdPrice = (averagePrice * (1 + currentValue / 100)).toFixed(2)
                                 }
 

@@ -99,6 +99,15 @@ Item {
                 const pricelength = Object.keys(prices).length;
                 noDataLabel.visible = selectionTabs.currentIndex && pricelength < 97;
                 noDataIndicator.visible = selectionTabs.currentIndex && pricelength < 97;
+
+                if(pricelength < 97 && selectionTabs.currentIndex == 1){
+                    consumptionSeries.visible = false
+                    consumptionSeriesAbove.visible = false
+                }else{
+                    consumptionSeries.visible = true
+                    consumptionSeriesAbove.visible = true
+                }
+
             }
         }
 
