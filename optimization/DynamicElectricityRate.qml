@@ -154,6 +154,62 @@ Page {
             }
         }
 
+        ColumnLayout {
+            visible: erProxy.count !== 0
+
+            Layout.preferredWidth: app.width
+
+            RowLayout {
+                Layout.topMargin: 10
+                Label {
+                    text: qsTr("Settings:")
+                }
+            }
+
+            VerticalDivider
+            {
+                Layout.preferredWidth: app.width - 2* Style.margins
+                dividerColor: Material.accent
+            }
+
+            RowLayout {
+
+                Label {
+                    text: qsTr("Charges")
+                    //Layout.fillWidth: true
+                }
+
+                TextField {
+                    text: "12"
+                    horizontalAlignment: Qt.AlignHCenter
+                    verticalAlignment: Qt.AlignVCenter
+                    Layout.preferredWidth: 60
+                    maximumLength: 100
+                }
+
+                Label {
+                    Layout.leftMargin: 5
+                    text: qsTr("ct/kWh")
+                }
+
+            }
+
+            RowLayout {
+
+                Label {
+                    text: qsTr("includes taxes")
+                    //Layout.fillWidth: true
+                }
+
+                Switch {
+                    id: includeTaxes
+                }
+
+            }
+
+        }
+
+
         Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
@@ -178,8 +234,7 @@ Page {
                 Layout.alignment: Qt.AlignLeft
                 visible: erProxy.count === 0
                 onClicked: {
-                    currentThing.engine.thingManager.addThing(energyRateComboBox.currentValue, energyRateComboBox.currentText, 0)
-                    pageStack.push(Qt.resolvedUrl("../optimization/DynamicElectricityRateFeedback.qml"), {thingName: energyRateComboBox.currentText} )
+                    pageStack.push(Qt.resolvedUrl("../optimization/DynamicElectricityRateSettings.qml"), {thing: currentThing, thingValue: energyRateComboBox.currentValue, thingName: energyRateComboBox.currentText, } )
                 }
             }
 

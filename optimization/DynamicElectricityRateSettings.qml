@@ -10,10 +10,25 @@ import "../delegates"
 import "../optimization"
 
 Page {
+    id: root
+    property HemsManager hemsManager
+    property int directionID: 0
+    property Thing thing: null
+    property string thingName: ""
+    property string thingValue: ""
+
+    signal done(bool skip, bool abort, bool back);
+
+    ThingClassesProxy {
+        id: thing
+        engine: _engine
+        filterInterface: "dynamicelectricitypricing"
+        includeProvidedInterfaces: true
+    }
 
     header: NymeaHeader {
         visible: true
-        text: qsTr("Dynamic Electricity Settings")
+        text: qsTr("Tariff Settings")
         backButtonVisible: true
         onBackPressed: {
             pageStack.pop()
@@ -29,7 +44,7 @@ Page {
             Layout.fillWidth: true
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Current Market Price")
+                text: qsTr("Taxes")
 
             }
 
@@ -37,80 +52,32 @@ Page {
             TextField {
                 Layout.preferredWidth: 60
                 Layout.rightMargin: 10
-                text: "0.27"
-                maximumLength: 5
+                text: "12"
+                maximumLength: 100
 
             }
 
             Label {
-                text: qsTr("ct")
+                text: qsTr("ct/kWh")
             }
         }
 
-        RowLayout{
+        RowLayout {
             Layout.fillWidth: true
             Label {
+                text: qsTr("includes taxes")
                 Layout.fillWidth: true
-                text: qsTr("Average Market Price")
-
             }
 
-
-            TextField {
-                Layout.preferredWidth: 60
-                Layout.rightMargin: 10
-                text: "0.27"
-                maximumLength: 5
-
+            Switch {
+                id: includeTaxes
             }
 
-            Label {
-                text: qsTr("ct")
-            }
         }
 
-        RowLayout{
+        Item {
+            Layout.fillHeight: true
             Layout.fillWidth: true
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Lowest Market Price")
-
-            }
-
-
-            TextField {
-                Layout.preferredWidth: 60
-                Layout.rightMargin: 10
-                text: "0.27"
-                maximumLength: 5
-
-            }
-
-            Label {
-                text: qsTr("ct")
-            }
-        }
-
-        RowLayout{
-            Layout.fillWidth: true
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Highest Market Price")
-
-            }
-
-
-            TextField {
-                Layout.preferredWidth: 60
-                Layout.rightMargin: 10
-                text: "0.27"
-                maximumLength: 5
-
-            }
-
-            Label {
-                text: qsTr("ct")
-            }
         }
 
         Button {
@@ -120,6 +87,8 @@ Page {
             text: qsTr("Save")
             onClicked: {
 
+                thing.engine.thingManager.addThing(thingValue, thingName, 0)
+                pageStack.push(Qt.resolvedUrl("../optimization/DynamicElectricityRateFeedback.qml"), {thingName: thingName } )
             }
         }
 
