@@ -1880,6 +1880,26 @@ Mail service@consolinno.de</source>
         <source>There are currently no settings options available</source>
         <translation type="unfinished">Es sind momentan keine Einstellungen verfügbar</translation>
     </message>
+    <message>
+        <source>Settings:</source>
+        <translation type="unfinished">Einstellungen:</translation>
+    </message>
+    <message>
+        <source>Charges</source>
+        <translation type="unfinished">Abgaben</translation>
+    </message>
+    <message>
+        <source>ct/kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The electricity price is made up of the current stock market price as well as grid fees, taxes and charges.</source>
+        <translation type="unfinished">Der Strompreis setzt sich aus dem aktuellen Börsenpreis sowie Netzentgelten, Steuern und Abgaben zusammen.</translation>
+    </message>
+    <message>
+        <source>Includes taxes</source>
+        <translation type="unfinished">Inklusive Steuern</translation>
+    </message>
 </context>
 <context>
     <name>DynamicElectricityRateFeedback</name>
@@ -1899,32 +1919,28 @@ Mail service@consolinno.de</source>
 <context>
     <name>DynamicElectricityRateSettings</name>
     <message>
-        <source>Dynamic Electricity Settings</source>
-        <translation type="unfinished">Einstellungen Dynamische Preise</translation>
-    </message>
-    <message>
-        <source>Current Market Price</source>
-        <translation type="unfinished">Aktueller Marktpreis</translation>
-    </message>
-    <message>
-        <source>ct</source>
-        <translation type="unfinished">ct</translation>
-    </message>
-    <message>
-        <source>Average Market Price</source>
-        <translation type="unfinished">Durchschnittlicher Marktpreis</translation>
-    </message>
-    <message>
-        <source>Lowest Market Price</source>
-        <translation type="unfinished">Niedrigster Marktpreis</translation>
-    </message>
-    <message>
-        <source>Highest Market Price</source>
-        <translation type="unfinished">Höchste Marktpreis</translation>
-    </message>
-    <message>
         <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>Tariff Settings</source>
+        <translation type="unfinished">Tarif-Einstellungen</translation>
+    </message>
+    <message>
+        <source>ct/kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The electricity price is made up of the current stock market price as well as grid fees, taxes and charges.</source>
+        <translation type="unfinished">Der Strompreis setzt sich aus dem aktuellen Börsenpreis sowie Netzentgelten, Steuern und Abgaben zusammen.</translation>
+    </message>
+    <message>
+        <source>Charges</source>
+        <translation type="unfinished">Abgaben</translation>
+    </message>
+    <message>
+        <source>Includes taxes</source>
+        <translation type="unfinished">Inklusive Steuern</translation>
     </message>
 </context>
 <context>

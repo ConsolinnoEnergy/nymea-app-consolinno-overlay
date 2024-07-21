@@ -44,17 +44,16 @@ Page {
             Layout.fillWidth: true
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Taxes")
+                text: qsTr("Charges")
 
             }
 
-
             TextField {
-                Layout.preferredWidth: 60
-                Layout.rightMargin: 10
                 text: "12"
+                horizontalAlignment: Qt.AlignHCenter
+                verticalAlignment: Qt.AlignVCenter
+                Layout.preferredWidth: 60
                 maximumLength: 100
-
             }
 
             Label {
@@ -65,7 +64,7 @@ Page {
         RowLayout {
             Layout.fillWidth: true
             Label {
-                text: qsTr("includes taxes")
+                text: qsTr("Includes taxes")
                 Layout.fillWidth: true
             }
 
@@ -73,6 +72,16 @@ Page {
                 id: includeTaxes
             }
 
+        }
+
+        ColumnLayout {
+            Label {
+                text: qsTr("The electricity price is made up of the current stock market price as well as grid fees, taxes and charges.")
+                Layout.fillWidth: true
+                wrapMode: Text.WordWrap
+                Layout.preferredWidth: app.width
+
+            }
         }
 
         Item {

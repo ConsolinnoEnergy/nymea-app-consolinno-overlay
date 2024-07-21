@@ -84,11 +84,11 @@ Page {
             Button {
                 id: nextButton
                 text: qsTr("next")
-                //color: Style.accentColor
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                //Layout.alignment: Qt.AlignHCenter
                 onClicked: {
+                    pageStack.pop()
+                    pageStack.pop()
                     pageStack.pop()
                 }
 

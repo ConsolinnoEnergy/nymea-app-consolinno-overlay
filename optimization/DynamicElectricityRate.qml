@@ -44,13 +44,15 @@ Page {
 
 
     ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
-        width: Math.min(parent.width - Style.margins * 2, 300)
+        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right }
+        width: parent.width
 
 
         ColumnLayout {
             Layout.fillWidth: true
             Layout.fillHeight: true
+            Layout.leftMargin: 5
+            Layout.rightMargin: 5
 
             Label {
             Layout.fillWidth: true
@@ -63,7 +65,7 @@ Page {
 
         VerticalDivider
         {
-            Layout.preferredWidth: app.width - 2* Style.margins
+            Layout.preferredWidth: app.width
             dividerColor: Material.accent
         }
 
@@ -125,7 +127,7 @@ Page {
 
         VerticalDivider
         {
-            Layout.preferredWidth: app.width - 2* Style.margins
+            Layout.preferredWidth: app.width
             dividerColor: Material.accent
         }
 
@@ -136,13 +138,14 @@ Page {
             visible: erProxy.count === 0
             Label {
                 Layout.fillWidth: true
+                Layout.leftMargin: 5
                 text: qsTr("Add Rate: ")
                 wrapMode: Text.WordWrap
             }
 
             ComboBox {
                 id: energyRateComboBox
-                Layout.preferredWidth: app.width - 2*Style.margins
+                Layout.preferredWidth: app.width
                 textRole: "displayName"
                 valueRole: "id"
                 model: ThingClassesProxy {
@@ -161,6 +164,8 @@ Page {
 
             RowLayout {
                 Layout.topMargin: 10
+                Layout.leftMargin: 5
+                Layout.rightMargin: 5
                 Label {
                     text: qsTr("Settings:")
                 }
@@ -168,15 +173,16 @@ Page {
 
             VerticalDivider
             {
-                Layout.preferredWidth: app.width - 2* Style.margins
+                Layout.preferredWidth: app.width
                 dividerColor: Material.accent
             }
 
             RowLayout {
-
+                Layout.leftMargin: 5
+                Layout.rightMargin: 5
                 Label {
                     text: qsTr("Charges")
-                    //Layout.fillWidth: true
+                    Layout.fillWidth: true
                 }
 
                 TextField {
@@ -188,17 +194,18 @@ Page {
                 }
 
                 Label {
-                    Layout.leftMargin: 5
+                    Layout.rightMargin: 10
                     text: qsTr("ct/kWh")
                 }
 
             }
 
             RowLayout {
-
+                Layout.leftMargin: 5
+                Layout.rightMargin: 5
                 Label {
-                    text: qsTr("includes taxes")
-                    //Layout.fillWidth: true
+                    text: qsTr("Includes taxes")
+                    Layout.fillWidth: true
                 }
 
                 Switch {
@@ -207,12 +214,32 @@ Page {
 
             }
 
+            ColumnLayout {
+                Layout.leftMargin: 5
+                Layout.rightMargin: 5
+                Label {
+                    text: qsTr("The electricity price is made up of the current stock market price as well as grid fees, taxes and charges.")
+                    Layout.fillWidth: true
+                    leftPadding: 5
+                    rightPadding: 5
+                    wrapMode: Text.WordWrap
+                    Layout.preferredWidth: app.width
+
+                }
+            }
+
         }
 
 
         Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
+        }
+
+        VerticalDivider
+        {
+            Layout.preferredWidth: app.width
+            dividerColor: Material.accent
         }
 
         ColumnLayout {
@@ -237,26 +264,6 @@ Page {
                     pageStack.push(Qt.resolvedUrl("../optimization/DynamicElectricityRateSettings.qml"), {thing: currentThing, thingValue: energyRateComboBox.currentValue, thingName: energyRateComboBox.currentText, } )
                 }
             }
-
-
         }
-
-        VerticalDivider
-        {
-            Layout.preferredWidth: app.width - 2* Style.margins
-            dividerColor: Material.accent
-            visible: erProxy.count !== 0
-        }
-
-        ColumnLayout {
-            visible: false
-            Layout.alignment: Qt.AlignHCenter
-            Layout.preferredHeight: 200
-            Text {
-               text: qsTr("There are currently no settings options available")
-            }
-        }
-
-
     }
 }

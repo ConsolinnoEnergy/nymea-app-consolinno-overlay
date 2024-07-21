@@ -128,7 +128,7 @@ Item {
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 13
-            text: qsTr("Current Market Price: ") + (currentPrice.toFixed(0)) + " ct"
+            text: qsTr("Current Market Price: ") + (currentPrice.toFixed(2)) + " ct"
         }
 
         Text {

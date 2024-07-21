@@ -1869,6 +1869,26 @@ Mail service@consolinno.de</source>
         <source>There are currently no settings options available</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Settings:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charges</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ct/kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The electricity price is made up of the current stock market price as well as grid fees, taxes and charges.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Includes taxes</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DynamicElectricityRateFeedback</name>
@@ -1888,31 +1908,27 @@ Mail service@consolinno.de</source>
 <context>
     <name>DynamicElectricityRateSettings</name>
     <message>
-        <source>Dynamic Electricity Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current Market Price</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ct</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Average Market Price</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Lowest Market Price</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Highest Market Price</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tariff Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ct/kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The electricity price is made up of the current stock market price as well as grid fees, taxes and charges.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charges</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Includes taxes</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
