@@ -441,45 +441,16 @@ GenericConfigPage {
 
                     RowLayout{
                         Layout.topMargin: 15
-                        visible: chargingIsAnyOf([dyn_pricing])
-                        Label{
-                            id: priceLimitLabel
-
-                            Layout.fillWidth: true
-                            text: qsTr("Price limit")
-                        }
-
-                        Label{
-                            id: priceLimit
-                            property double priceThresholdProcentage: chargingConfiguration.priceThreshold
-                            text: qsTr('Average price ') + (priceThresholdProcentage + " %") +" / " + (thresholdPrice) + " ct";
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
-
-                            Component.onCompleted: {
-                                let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
-                                thresholdPrice = (averagePrice * (1 + priceThresholdProcentage / 100)).toFixed(2)
-                            }
-
-                            Timer{
-                               property bool firstRun: false
-                               repeat: true
-                               interval: firstRun == false ? 100 : 10000
-                               onTriggered: {
-                                   firstRun = true
-                                   let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
-                                   thresholdPrice = (averagePrice * (1 + priceThresholdProcentage / 100)).toFixed(2)
-                               }
-                            }
-                        }
-                    }
-
-
-                    RowLayout{
-                        Layout.topMargin: 15
                         visible:  chargingIsAnyOf([simple_pv_excess, dyn_pricing])
                         Label{
                             id: ongridConsumptionLabel
+                            visible: chargingIsAnyOf([dyn_pricing])
+                            Layout.fillWidth: true
+                            text: qsTr("Pausing")
+                        }
+
+                        Label{
+                            visible: chargingIsAnyOf([simple_pv_excess])
                             Layout.fillWidth: true
                             text: qsTr("On grid consumption")
                         }
@@ -502,6 +473,43 @@ GenericConfigPage {
 
                         }
                     }
+
+                    RowLayout{
+                        Layout.topMargin: 15
+                        visible: chargingIsAnyOf([dyn_pricing])
+                        Label{
+                            id: priceLimitLabel
+
+                            Layout.fillWidth: true
+                            text: qsTr("Price limit")
+                        }
+
+                        Label{
+                            id: priceLimit
+                            property double priceThresholdProcentage: chargingConfiguration.priceThreshold
+                            text: qsTr('Average price ') + (priceThresholdProcentage + " %") +" / " + (thresholdPrice) + " ct";
+                            Layout.alignment: Qt.AlignRight
+                            Layout.rightMargin: 0
+
+                            Component.onCompleted: {
+                                let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
+                                thresholdPrice = (averagePrice * (1 + priceThresholdProcentage / 100)).toFixed(2)
+                                currentValue = (chargingConfiguration.priceThreshold != -10 ? chargingConfiguration.priceThreshold : -10)
+                            }
+
+                            Timer{
+                               property bool firstRun: false
+                               repeat: true
+                               interval: firstRun == false ? 100 : 10000
+                               onTriggered: {
+                                   firstRun = true
+                                   let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
+                                   thresholdPrice = (averagePrice * (1 + priceThresholdProcentage / 100)).toFixed(2)
+                               }
+                            }
+                        }
+                    }
+
 
                     RowLayout{
                         Layout.topMargin: 15
@@ -1129,7 +1137,6 @@ GenericConfigPage {
                                 }
 
                                 Component.onCompleted: {
-                                    currentValue = 0
                                     getThresholdPrice()
                                 }
 

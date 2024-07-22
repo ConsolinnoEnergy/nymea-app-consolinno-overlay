@@ -60,7 +60,7 @@ MouseArea {
         if (currentPowerState != null) {
             return Math.abs(power) + " W"
         }else if(isElectric == true){
-            return Math.abs(power.toFixed(0)) + " CT"
+            return power + " CT"
         }else{
             return "–"
         }

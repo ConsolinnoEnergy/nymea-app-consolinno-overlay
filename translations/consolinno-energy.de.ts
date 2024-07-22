@@ -421,6 +421,10 @@
         <source>Average price </source>
         <translation type="unfinished">Durchschnittspreis </translation>
     </message>
+    <message>
+        <source>Pausing</source>
+        <translation type="unfinished">Pausieren</translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
