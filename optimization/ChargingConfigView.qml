@@ -494,7 +494,7 @@ GenericConfigPage {
                             Component.onCompleted: {
                                 let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
                                 thresholdPrice = (averagePrice * (1 + priceThresholdProcentage / 100)).toFixed(2)
-                                currentValue = (chargingConfiguration.priceThreshold != -10 ? chargingConfiguration.priceThreshold : -10)
+                                currentValue = (currentValue === 0 && chargingConfiguration.priceThreshold === 0 ? -10 : chargingConfiguration.priceThreshold )
                             }
 
                             Timer{
