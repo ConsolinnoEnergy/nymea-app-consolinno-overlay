@@ -996,34 +996,43 @@ GenericConfigPage {
                         RowLayout {
                             Layout.preferredWidth: app.width
                             Layout.topMargin: 10
+                            visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
 
                             RowLayout {
                                 Layout.fillWidth: true
 
-                                Label {
-                                    id: pausingModeid
-                                    visible:  isAnyOfModesSelected([dyn_pricing])
-                                    text: qsTr("Pausing: ")
-                                }
-
-                                InfoButton{
-                                    id: pausingModeInfoButton
-                                    visible:  isAnyOfModesSelected([dyn_pricing])
-                                    push: "PausingInfo.qml"
-                                    Layout.fillWidth: true
-                                    Layout.alignment: Qt.AlignTop
-                                }
-
                                 Label{
                                     id: gridConsumptionLabel
-                                    visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess])
+                                    visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
                                     text: qsTr("Behaviour on grid consumption:")
                                 }
 
                                 InfoButton{
                                     id: gridConsumptionInfoButton
-                                    visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess])
+                                    visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
                                     push: "GridConsumptionInfo.qml"
+                                    Layout.fillWidth: true
+                                    Layout.alignment: Qt.AlignTop
+                                }
+                            }
+                        }
+
+                        RowLayout {
+                            Layout.preferredWidth: app.width
+                            Layout.topMargin: 10
+
+                            RowLayout {
+                                Layout.fillWidth: true
+                                visible: isAnyOfModesSelected([dyn_pricing])
+
+                                Label {
+                                    id: pausingModeid
+                                    text: qsTr("Pausing: ")
+                                }
+
+                                InfoButton{
+                                    id: pausingModeInfoButton
+                                    push: "PausingInfo.qml"
                                     Layout.fillWidth: true
                                     Layout.alignment: Qt.AlignTop
                                 }
@@ -1031,9 +1040,10 @@ GenericConfigPage {
                             }
 
                             ComboBox {
-                                visible:  isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])
+                                visible: isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])
                                 id: gridConsumptionloadingmod
                                 Layout.fillWidth: true
+                                Layout.leftMargin: 10
                                 model: ListModel{
                                     ListElement{key: qsTr("Charge with minimum current"); mode: 0}
                                     ListElement{key: qsTr("Pause charging"); mode: 200}
