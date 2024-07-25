@@ -507,7 +507,7 @@ GenericConfigPage {
                             Component.onCompleted: {
                                 let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
                                 thresholdPrice = (averagePrice * (1 + priceThresholdProcentage / 100)).toFixed(2)
-                                currentValue = (chargingConfiguration.priceThreshold != -10 ? chargingConfiguration.priceThreshold : -10)
+                                currentValue = (currentValue === 0 && chargingConfiguration.priceThreshold === 0 ? -10 : chargingConfiguration.priceThreshold )
                             }
 
                             Timer{
@@ -1010,42 +1010,48 @@ GenericConfigPage {
                         RowLayout {
                             Layout.preferredWidth: app.width
                             Layout.topMargin: 10
+                            visible: isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing])
 
                             RowLayout {
                                 Layout.fillWidth: true
 
-                                Label {
-                                    id: pausingModeid
-                                    visible:  isAnyOfModesSelected([dyn_pricing])
-                                    text: qsTr("Pausing: ")
-                                }
-
-                                InfoButton{
-                                    id: pausingModeInfoButton
-                                    visible:  isAnyOfModesSelected([dyn_pricing])
-                                    push: "PausingInfo.qml"
-                                    Layout.fillWidth: true
-                                    Layout.alignment: Qt.AlignTop
-                                }
-
                                 Label{
                                     id: gridConsumptionLabel
-                                    visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess])
+                                    visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
                                     text: qsTr("Behaviour on grid consumption:")
                                 }
 
                                 InfoButton{
                                     id: gridConsumptionInfoButton
-                                    visible:  isAnyOfModesSelected([pv_excess, simple_pv_excess])
+                                    visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
                                     push: "GridConsumptionInfo.qml"
                                     Layout.fillWidth: true
                                     Layout.alignment: Qt.AlignTop
                                 }
 
+                                Label {
+                                    id: pausingModeid
+                                    visible: isAnyOfModesSelected([dyn_pricing])
+                                    text: qsTr("Pausing: ")
+                                }
+
+                                InfoButton{
+                                    id: pausingModeInfoButton
+                                    visible: isAnyOfModesSelected([dyn_pricing])
+                                    push: "PausingInfo.qml"
+                                    Layout.fillWidth: true
+                                    Layout.alignment: Qt.AlignTop
+                                }
+
                             }
+                        }
+
+                        RowLayout {
+                            Layout.preferredWidth: app.width
+                            Layout.topMargin: 10
 
                             ComboBox {
-                                visible:  isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])
+                                visible: isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])
                                 id: gridConsumptionloadingmod
                                 Layout.fillWidth: true
                                 model: ListModel{

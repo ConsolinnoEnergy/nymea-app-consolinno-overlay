@@ -122,7 +122,10 @@ Page {
                 }
                 onDeleteClicked: {
                     d.thingToRemove = thing;
-                    engine.thingManager.removeThing(d.thingToRemove.id)
+                    if(d.thingToRemove.thingClass.name !== "gridsupport"){
+                        engine.thingManager.removeThing(d.thingToRemove.id)
+                    }
+
                 }
             }
         }
