@@ -1498,6 +1498,7 @@ GenericConfigPage {
                             ColumnLayout {
                                 anchors.fill: parent
                                 spacing: 0
+                                visible: isAnyOfModesSelected([dyn_pricing])
 
                                 Component.onCompleted: {
                                     const dpThing = dynamicPrice.get(0)
@@ -1644,9 +1645,6 @@ GenericConfigPage {
                                                     const date = new Date(item);
                                                     let currentTimestamp = date.getTime();
                                                     let itemValue = value[item];
-
-                                                    console.error(date.toLocaleTimeString());
-
                                                     if(itemValue < lowestPrice){
                                                         lowestPrice = itemValue
                                                     }
@@ -1682,12 +1680,10 @@ GenericConfigPage {
                                                         currentTimestamp = currentTimestamp - 600000;
                                                     }
 
-                                                    pricingUpperSeriesAbove.append(currentTimestamp,averagePrice);
-                                                    console.error("threshold: " + thresholdPrice);
-                                                    console.error("current: " + itemValue);
+                                                    pricingUpperSeriesAbove.append(currentTimestamp,thresholdPrice);
                                                     if(itemValue < thresholdPrice) {
-                                                        pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),averagePrice);
-                                                        pricingCurrentLimitSeries.append(currentTimestamp,averagePrice);
+                                                        pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),thresholdPrice);
+                                                        pricingCurrentLimitSeries.append(currentTimestamp,thresholdPrice);
                                                     }
                                                     else {
                                                         pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),0);
@@ -1709,8 +1705,8 @@ GenericConfigPage {
                                                     prices[ts].end = todayMidnightTs;
                                                 }
 
-                                                pricingUpperSeriesAbove.append(todayMidnightTs + 6000000, averagePrice);
-                                                pricingCurrentLimitSeries.append(todayMidnightTs + 6000000, averagePrice);
+                                                pricingUpperSeriesAbove.append(todayMidnightTs + 6000000, thresholdPrice);
+                                                pricingCurrentLimitSeries.append(todayMidnightTs + 6000000, thresholdPrice);
                                                 pricingUpperSeries.append(todayMidnightTs + 6000000, lastObjectValue);
                                             }
                                         }
@@ -1732,43 +1728,6 @@ GenericConfigPage {
                                                 XYPoint { x: dateTimeAxis.max.getTime(); y: -100 }
                                             }
                                         }
-
-                                        ScatterSeries {
-                                            id: currentValuePoint
-                                            borderColor: Style.green
-                                            color: Style.green
-                                            markerSize: isDynamicPrice ? 5 : parent.height / 80
-                                            markerShape: AbstractSeries.MarkerShapeCircle
-                                            axisX: dateTimeAxis
-                                            axisY: valueAxis
-                                        }
-
-                                        Timer {
-                                            property bool isOn: false
-                                            interval: isOn ? 5000 : 100
-                                            running: true
-                                            repeat: true
-                                            onTriggered: {
-                                                isOn = true;
-                                                var currentDate = new Date()
-                                                var currentTime = new Date().getTime()
-
-                                                currentDate.setMinutes(45)
-                                                currentDate.setSeconds(0)
-                                                currentDate.setMilliseconds(0)
-
-                                                currentValuePoint.remove(0)
-
-                                                if(currentTime <= currentDate.getTime()){
-                                                    currentValuePoint.append(currentTime, currentPrice)
-                                                }else{
-                                                    currentValuePoint.append(currentDate.getTime(), currentPrice)
-                                                }
-
-
-                                            }
-                                        }
-
                                     }
 
                                     MouseArea {
