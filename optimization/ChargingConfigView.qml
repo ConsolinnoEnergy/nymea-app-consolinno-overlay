@@ -982,7 +982,16 @@ GenericConfigPage {
                                     ListElement{key: qsTr("Charge always"); value: "No Optimization"; mode: 0}
                                     ListElement{key: qsTr("Solar only"); value: "Simple-Pv-Only"; mode: 3000;}
                                     ListElement{key: qsTr("Next trip"); value: "Pv-Optimized"; mode: 1000;}
-                                    ListElement{key: qsTr("Dynamic pricing"); value: "Dynamic-pricing"; mode: 4000}
+                                }
+
+                                Component.onCompleted: {
+                                    addDynamicComboBoxItems();
+                                }
+
+                                function addDynamicComboBoxItems() {
+                                    if (dynamicPrice.count > 0){
+                                        dynamicModel.append({"key": qsTr("Dynamic pricing"), "value": "Dynamic-pricing", "mode": 4000});
+                                    }
                                 }
 
                                 textRole: "key"

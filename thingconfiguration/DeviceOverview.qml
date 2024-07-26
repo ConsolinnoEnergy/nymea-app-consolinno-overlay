@@ -111,7 +111,7 @@ Page {
                 groupByInterface: true
                 nameFilter: filterInput.shown ? filterInput.text : ""
                 hideTagId: "hiddenInDeviceView"
-                hiddenThingIds: ["63f3073c-6200-44dd-b853-d35352f7cdef"]
+                hiddenInterfaces: ["gridsupport"]
             }
 
             delegate: ThingDelegate {
