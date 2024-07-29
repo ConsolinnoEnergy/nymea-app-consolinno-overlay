@@ -1126,11 +1126,20 @@ GenericConfigPage {
 
                                     RowLayout {
                                         anchors.fill: parent
+                                        property var debounceTimer: Timer {
+                                            interval: 1000
+                                            repeat: false
+                                            running: false
+                                            onTriggered: {
+                                                pricingCurrentLimitSeries.clear();
+                                                pricingUpperSeriesAbove.clear();
+                                                consumptionSeries.insertEntry(dynamicPrice.get(0).stateByName("priceSeries").value, true);
+                                            }
+                                        }
+
                                         function redrawChart() {
-                                            pricingCurrentLimitSeries.clear();
-                                            pricingUpperSeries.clear();
-                                            pricingUpperSeriesAbove.clear();
-                                            consumptionSeries.insertEntry(dynamicPrice.get(0).stateByName("priceSeries").value);
+                                            debounceTimer.stop();
+                                            debounceTimer.start();
                                         }
 
                                         ToolButton {
@@ -1523,7 +1532,7 @@ GenericConfigPage {
                                     currentPrice = dpThing.stateByName("currentMarketPrice").value
                                     averagePrice = dpThing.stateByName("averagePrice").value.toFixed(0).toString();
 
-                                    consumptionSeries.insertEntry(dpThing.stateByName("priceSeries").value)
+                                    consumptionSeries.insertEntry(dpThing.stateByName("priceSeries").value, false)
                                     valueAxis.adjustMax(lowestPrice,highestPrice);
                                 }
 
@@ -1577,6 +1586,10 @@ GenericConfigPage {
                                                 max = Math.ceil(maxPrice) + 1;
                                                 max += 4 - (max % 4);
                                                 min = minPrice <= 0 ? minPrice - 5 : 0;
+
+                                                if(min < 0) {
+                                                    max += 4 - ((max + min * (-1)) % 4);
+                                                }
                                             }
                                         }
 
@@ -1640,7 +1653,7 @@ GenericConfigPage {
                                                 id: pricingUpperSeries
                                             }
 
-                                            function insertEntry(value){
+                                            function insertEntry(value, onlyThreshold){
                                                 var lastObjectValue = value[Object.keys(value)[Object.keys(value).length - 1]];
                                                 let currentValue = parseInt(currentValueField.text)
                                                 const thresholdPrice = (averagePrice * (1 + currentValue / 100)).toFixed(2)
@@ -1689,18 +1702,20 @@ GenericConfigPage {
                                                         currentTimestamp = currentTimestamp - 600000;
                                                     }
 
-                                                    pricingUpperSeriesAbove.append(currentTimestamp,thresholdPrice);
                                                     if(itemValue < thresholdPrice) {
                                                         pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),thresholdPrice);
                                                         pricingCurrentLimitSeries.append(currentTimestamp,thresholdPrice);
                                                     }
                                                     else {
-                                                        pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),0);
-                                                        pricingCurrentLimitSeries.append(currentTimestamp,0);
+                                                        pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),valueAxis.min -5);
+                                                        pricingCurrentLimitSeries.append(currentTimestamp,valueAxis.min - 5);
                                                     }
 
-                                                    pricingUpperSeries.append(currentTimestamp - (60000 * 15) + 1,itemValue);
-                                                    pricingUpperSeries.append(currentTimestamp,itemValue);
+                                                    pricingUpperSeriesAbove.append(currentTimestamp,thresholdPrice);
+                                                    if(!onlyThreshold) {
+                                                        pricingUpperSeries.append(currentTimestamp - (60000 * 15) + 1,itemValue);
+                                                        pricingUpperSeries.append(currentTimestamp,itemValue);
+                                                    }
                                                 }
 
                                                 const todayMidnight = new Date(identicalIndexes[0]);
@@ -1714,9 +1729,12 @@ GenericConfigPage {
                                                     prices[ts].end = todayMidnightTs;
                                                 }
 
+                                                pricingCurrentLimitSeries.append(todayMidnightTs + 6000000, valueAxis.min - 5);
                                                 pricingUpperSeriesAbove.append(todayMidnightTs + 6000000, thresholdPrice);
-                                                pricingCurrentLimitSeries.append(todayMidnightTs + 6000000, thresholdPrice);
-                                                pricingUpperSeries.append(todayMidnightTs + 6000000, lastObjectValue);
+
+                                                if(!onlyThreshold) {
+                                                    pricingUpperSeries.append(todayMidnightTs + 6000000, lastObjectValue);
+                                                }
                                             }
                                         }
 
