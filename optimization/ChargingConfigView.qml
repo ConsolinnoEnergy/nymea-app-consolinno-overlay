@@ -982,15 +982,12 @@ GenericConfigPage {
                                     ListElement{key: qsTr("Charge always"); value: "No Optimization"; mode: 0}
                                     ListElement{key: qsTr("Solar only"); value: "Simple-Pv-Only"; mode: 3000;}
                                     ListElement{key: qsTr("Next trip"); value: "Pv-Optimized"; mode: 1000;}
-                                }
-
-                                Component.onCompleted: {
-                                    addDynamicComboBoxItems();
+                                    ListElement{key: qsTr("Dynamic pricing"); value: "Dynamic-pricing"; mode: 4000;}
                                 }
 
                                 function addDynamicComboBoxItems() {
-                                    if (dynamicPrice.count > 0){
-                                        dynamicModel.append({"key": qsTr("Dynamic pricing"), "value": "Dynamic-pricing", "mode": 4000});
+                                    if (dynamicPrice.count === 0){
+                                        dynamicModel.remove(3)
                                     }
                                 }
 
@@ -1007,11 +1004,15 @@ GenericConfigPage {
                                     // visible: parent.devOnly && settings.showHiddenOptions | !parent.devOnly
                                 }
 
-                                currentIndex: userconfig.defaultChargingMode
+                                currentIndex: (userconfig.defaultChargingMode == 3 && dynamicPrice.count == 0) ? userconfig.defaultChargingMode - 1 : userconfig.defaultChargingMode
                                 onCurrentIndexChanged:
                                 {
                                     endTimeSlider.computeFeasibility()
                                     endTimeSlider.feasibilityText()
+                                }
+
+                                Component.onCompleted: {
+                                    addDynamicComboBoxItems();
                                 }
                             }
                         }
@@ -1019,7 +1020,7 @@ GenericConfigPage {
                         RowLayout {
                             Layout.preferredWidth: app.width
                             Layout.topMargin: 10
-                            visible: isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing])
+                            //visible: isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing])
 
                             RowLayout {
                                 Layout.fillWidth: true
