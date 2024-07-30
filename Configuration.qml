@@ -16,6 +16,8 @@ ConfigurationBase {
     // Identifier used for branding (e.g. to register for push notifications)
     property string branding: "consolinno"
 
+    // Identifier used for legal text (e.g. privacy policy)
+    property string companyName: "Hanwha Q CELLS GmbH"
 
     // Branding names visible to the user
     property string appBranding: "Consolinno Energy"
