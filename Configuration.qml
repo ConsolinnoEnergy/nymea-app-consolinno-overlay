@@ -33,6 +33,11 @@ ConfigurationBase {
     property string termsOfConditionsUrl: "https://consolinno.de/hems-agb/"
     property string downloadMedia: "https://www.q-cells.de/privatkunden/services/downloadbereich#"
 
+    property string companyAddress: "Sonnenallee 17 - 21"
+    property string companyZip: "06766"
+    property string companyLocation: "Bitterfeld-Wolfen"
+    property string companyTel: "+49 (0)3494 6699-0"
+
     property ListModel softwareLinksApp: ListModel {
         ListElement { component: "Suru icons"; url: "https://github.com/snwh/suru-icon-theme" }
         ListElement { component: "Ubuntu font"; url: "https://design.ubuntu.com/font" }
