@@ -110,6 +110,8 @@ Page {
                 engine: _engine
                 groupByInterface: true
                 nameFilter: filterInput.shown ? filterInput.text : ""
+                hideTagId: "hiddenInDeviceView"
+                hiddenInterfaces: ["gridsupport"]
             }
 
             delegate: ThingDelegate {
@@ -123,6 +125,7 @@ Page {
                 onDeleteClicked: {
                     d.thingToRemove = thing;
                     engine.thingManager.removeThing(d.thingToRemove.id)
+
                 }
             }
         }

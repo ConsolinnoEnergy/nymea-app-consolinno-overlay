@@ -421,6 +421,10 @@
         <source>Average price </source>
         <translation type="unfinished">Durchschnittspreis </translation>
     </message>
+    <message>
+        <source>Pausing</source>
+        <translation type="unfinished">Pausieren</translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -1962,40 +1966,12 @@ Mail service@consolinno.de</source>
         <translation>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Hoch&lt;/li&gt;: </translation>
     </message>
     <message>
-        <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Off&lt;/li&gt;: </source>
-        <translation>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Aus&lt;/li&gt;: </translation>
-    </message>
-    <message>
         <source>Charging Mode</source>
         <translation>Lademodus</translation>
     </message>
     <message>
         <source>Battery Level</source>
         <translation>Batteriezustand</translation>
-    </message>
-    <message>
-        <source>The energy manager controls the heat pump to maximize the consumption of its own solar electricity. The control is carried out by a schedule generated in advance and based on a prediction of the surplus solar power. The schedule contains so-called control recommendations according to the SG-Ready standard.  Depending on the predicted PV surplus, the heat pump will be switched to increased operation or a recommendation for increased operation will be given.</source>
-        <translation>Der Energiemanager steuert die Wärmepumpe so, dass der Verbrauch des eigenen Solarstroms maximiert wird. Die Steuerung erfolgt durch einem in Voraus erzeugten Fahrplan und basiert auf einer Vorhersage des überschüssigen Solarstroms. Der Fahrplan enthält sog. Anfahrtsempfehlungen nach dem SG-Ready Standard.  Je nach vorhergesagten PV-Überschuss wird die Wärmepumpe in einen erhöhten Betrieb geschalten werden oder eine Empfehlung zum erhöhten Betrieb gegeben.</translation>
-    </message>
-    <message>
-        <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </source>
-        <translation> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </translation>
-    </message>
-    <message>
-        <source>the energy manager does not intervene.</source>
-        <translation>Der Energiemanager greift nicht ein.</translation>
-    </message>
-    <message>
-        <source>recommendation for increased operation, the heat pump will decide if this is possible depending on the current temperature range.</source>
-        <translation>Empfehlung zu erhöhtem Betrieb, die Wärmepumpe wird je nach momentanen Temperaturbereich entscheiden, ob dies möglich ist.</translation>
-    </message>
-    <message>
-        <source>energy manager switches heat pump to increased operation.</source>
-        <translation>Energiemanager schaltet Wärmepumpe in erhöhten Betrieb.</translation>
-    </message>
-    <message>
-        <source>a temporary shutdown by the grid operator to avoid grid overload.</source>
-        <translation>eine zeitlich begrenzte Abschaltung durch den Netzbetreiber, um Netzüberlastung zu vermeiden.</translation>
     </message>
     <message>
         <source>The operating status indicates the control of the heat pump:</source>
@@ -2006,8 +1982,44 @@ Mail service@consolinno.de</source>
         <translation>Bitte beachten Sie, dass der Fahrplan durch die Vorhersage der PV-Produktion mit einer gewissen Ungenauigkeit behaftet ist. Falls keine ausreichende PV-Produktion vorhergesagt wurde, kann es sein dass die Wärmepumpe trotz Sonnenschein nicht in erhöhten Betrieb geschalten wird. Oder umgekehrt falls die Vorhersage von ausreichend PV-Überschuss ausgeht, in der Realität aber weniger PV-Überschuss vorhanden ist, kann es zu Netzbezug kommen.</translation>
     </message>
     <message>
-        <source>Operating status:</source>
-        <translation>Betriebszustand:</translation>
+        <source>Optimization of the heat pump</source>
+        <translation type="unfinished">Optimierung der Wärmepumpe</translation>
+    </message>
+    <message>
+        <source>The heat pump is controlled via SG-ready states so that the available PV surplus is optimally utilized. A certain amount of PV surplus must be available for a certain period of time (currently 15 minutes) for an SG ready state to be switched.</source>
+        <translation type="unfinished">Die Wärmepumpe wird über SG-Ready-Zustände so gesteuert, dass vorhandener PV-Überschuss optimal ausgenutzt wird. Es muss für einen bestimmten Zeitraum (aktuell 15 Minuten), eine bestimmte Menge an PV-Überschuss vorhanden sein, damit ein SG-Ready-Zustand geschaltet wird.</translation>
+    </message>
+    <message>
+        <source>If the PV surplus is more than 50 % of the nominal output of the heat pump, SG ready state 3 is switched for at least 30 minutes (recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range).</source>
+        <translation type="unfinished">Beträgt der PV-Überschuss mehr als 50 % der Nennleistung der Wärmepumpe, wird SG-Ready-Zustand 3 für mind. 30 Minuten geschaltet (Empfehlung zu erhöhtem Betrieb, die Wärmepumpe entscheidet je nach momentanem Temperaturbereich, ob dies möglich ist).</translation>
+    </message>
+    <message>
+        <source>If the PV surplus is more than 80 % of the nominal output of the heat pump, then SG ready state 4 is switched for at least 30 minutes (definitive start-up command, if this is possible within the scope of the control settings).</source>
+        <translation type="unfinished">Beträgt der PV-Überschuss mehr als 80 % der Nennleistung der Wärmepumpe, dann wird SG-Ready-Zustand 4 für mind. 30 Minuten geschaltet (Definitiver Anlaufbefehl, sofern dies im Rahmen der Regeleinstellungen möglich ist).</translation>
+    </message>
+    <message>
+        <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Off (= EVU block)&lt;/li&gt;: </source>
+        <translation type="unfinished"> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Aus (= EVU-Sperre)&lt;/li&gt;: </translation>
+    </message>
+    <message>
+        <source>Start-up block, is not used for optimization</source>
+        <translation type="unfinished">Anfahrtssperre, wird nicht zur Optimierung verwendet</translation>
+    </message>
+    <message>
+        <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </source>
+        <translation type="unfinished">&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </translation>
+    </message>
+    <message>
+        <source>Standard status, optimizer makes no specification</source>
+        <translation type="unfinished">Standardzustand, der Optimierer macht keine Vorgaben</translation>
+    </message>
+    <message>
+        <source>Recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range.</source>
+        <translation type="unfinished">Empfehlung für erhöhten Betrieb, die Wärmepumpe entscheidet in Abhängigkeit vom aktuellen Temperaturbereich, ob dies möglich ist.</translation>
+    </message>
+    <message>
+        <source>Definitive start-up command, if this is possible within the scope of the control settings</source>
+        <translation type="unfinished">Definitiver Einschaltbefehl, wenn dies im Rahmen der Steuerungseinstellungen möglich ist</translation>
     </message>
 </context>
 <context>

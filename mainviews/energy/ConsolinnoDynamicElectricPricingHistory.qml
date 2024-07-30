@@ -233,10 +233,6 @@ Item {
                     borderWidth: 1
                     borderColor: Style.green
 
-                    lowerSeries: LineSeries {
-                        id: pricingLowerSeries
-                    }
-
                     upperSeries: LineSeries {
                         id: pricingUpperSeries
                     }
@@ -292,8 +288,8 @@ Item {
                             }
 
                             pricingUpperSeriesAbove.append(currentTimestamp,averagePrice);
+                            pricingUpperSeries.append(currentTimestamp - (60000 * 15),itemValue);
                             pricingUpperSeries.append(currentTimestamp,itemValue);
-                            pricingLowerSeries.append(currentTimestamp,itemValue);
                         }
 
                         const todayMidnight = new Date(identicalIndexes[0]);
