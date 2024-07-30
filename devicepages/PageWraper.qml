@@ -18,6 +18,7 @@ Page {
     Loader{
         anchors.fill: parent
         Layout.preferredHeight: parent / 2
+        property bool isWraper: true
         source: "qrc:/ui/mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml"
     }
 }

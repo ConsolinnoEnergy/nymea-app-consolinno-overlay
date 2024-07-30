@@ -233,6 +233,10 @@ Item {
                     borderWidth: 1
                     borderColor: Style.green
 
+                    lowerSeries: LineSeries {
+                        id: pricingLowerSeries
+                    }
+
                     upperSeries: LineSeries {
                         id: pricingUpperSeries
                     }
@@ -290,6 +294,9 @@ Item {
                             pricingUpperSeriesAbove.append(currentTimestamp,averagePrice);
                             pricingUpperSeries.append(currentTimestamp - (60000 * 15),itemValue);
                             pricingUpperSeries.append(currentTimestamp,itemValue);
+
+                            pricingLowerSeries.append(currentTimestamp - (60000 * 15),itemValue);
+                            pricingLowerSeries.append(currentTimestamp,itemValue);
                         }
 
                         const todayMidnight = new Date(identicalIndexes[0]);
@@ -366,6 +373,7 @@ Item {
             }
 
             GridLayout {
+                id: chartLegend
                 anchors { left: parent.left; bottom: parent.bottom; right: parent.right }
                 columns: 2
                 height: Style.smallIconSize
@@ -543,7 +551,20 @@ Item {
                 }
             }
 
-
         }
+
+        RowLayout {
+            id: toogleTaxesCharges
+            Layout.alignment: Qt.AlignHCenter
+            visible: !isDynamicPrice
+            Label {
+                text: qsTr("incl. Charges & Taxes")
+            }
+
+            Switch {
+                id: taxesCharges
+            }
+        }
+
     }
 }

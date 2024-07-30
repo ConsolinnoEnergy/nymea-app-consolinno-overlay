@@ -1057,6 +1057,10 @@ Mail service@consolinno.de</source>
         <source>No prices available, yet</source>
         <translation type="unfinished">Noch keine Preise verfügbar</translation>
     </message>
+    <message>
+        <source>incl. Charges &amp; Taxes</source>
+        <translation type="unfinished">Inkl. Steuern &amp; Abgaben</translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoImprint</name>
@@ -1881,16 +1885,8 @@ Mail service@consolinno.de</source>
         <translation type="unfinished">hinzufügen</translation>
     </message>
     <message>
-        <source>There are currently no settings options available</source>
-        <translation type="unfinished">Es sind momentan keine Einstellungen verfügbar</translation>
-    </message>
-    <message>
         <source>Settings:</source>
         <translation type="unfinished">Einstellungen:</translation>
-    </message>
-    <message>
-        <source>Charges</source>
-        <translation type="unfinished">Abgaben</translation>
     </message>
     <message>
         <source>ct/kWh</source>
@@ -1901,15 +1897,20 @@ Mail service@consolinno.de</source>
         <translation type="unfinished">Der Strompreis setzt sich aus dem aktuellen Börsenpreis sowie Netzentgelten, Steuern und Abgaben zusammen.</translation>
     </message>
     <message>
-        <source>Includes taxes</source>
-        <translation type="unfinished">Inklusive Steuern</translation>
+        <source>Taxes and charges</source>
+        <translation type="unfinished">Steuern und Abgaben</translation>
     </message>
-</context>
-<context>
-    <name>DynamicElectricityRateFeedback</name>
     <message>
-        <source>Dynamic Electricity Rate</source>
-        <translation type="unfinished">Dynamische Strompreise</translation>
+        <source>save</source>
+        <translation type="unfinished">Speichern</translation>
+    </message>
+    <message>
+        <source>Tariff Settings</source>
+        <translation type="unfinished">Tarif-Einstellungen</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Speichern</translation>
     </message>
     <message>
         <source>The following Electric Rate is submitted</source>
@@ -1918,33 +1919,6 @@ Mail service@consolinno.de</source>
     <message>
         <source>next</source>
         <translation type="unfinished">weiter</translation>
-    </message>
-</context>
-<context>
-    <name>DynamicElectricityRateSettings</name>
-    <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
-    </message>
-    <message>
-        <source>Tariff Settings</source>
-        <translation type="unfinished">Tarif-Einstellungen</translation>
-    </message>
-    <message>
-        <source>ct/kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The electricity price is made up of the current stock market price as well as grid fees, taxes and charges.</source>
-        <translation type="unfinished">Der Strompreis setzt sich aus dem aktuellen Börsenpreis sowie Netzentgelten, Steuern und Abgaben zusammen.</translation>
-    </message>
-    <message>
-        <source>Charges</source>
-        <translation type="unfinished">Abgaben</translation>
-    </message>
-    <message>
-        <source>Includes taxes</source>
-        <translation type="unfinished">Inklusive Steuern</translation>
     </message>
 </context>
 <context>

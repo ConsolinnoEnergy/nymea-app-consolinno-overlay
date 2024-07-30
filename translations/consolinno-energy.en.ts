@@ -1057,6 +1057,10 @@ Mail service@consolinno.de</source>
         <source>No prices available, yet</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>incl. Charges &amp; Taxes</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoImprint</name>
@@ -1870,15 +1874,7 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>There are currently no settings options available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Settings:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Charges</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1890,14 +1886,19 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Includes taxes</source>
+        <source>Taxes and charges</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>DynamicElectricityRateFeedback</name>
     <message>
-        <source>Dynamic Electricity Rate</source>
+        <source>save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tariff Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1906,33 +1907,6 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>next</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>DynamicElectricityRateSettings</name>
-    <message>
-        <source>Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tariff Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ct/kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The electricity price is made up of the current stock market price as well as grid fees, taxes and charges.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Charges</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Includes taxes</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
