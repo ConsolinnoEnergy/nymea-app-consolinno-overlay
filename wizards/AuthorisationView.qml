@@ -32,14 +32,14 @@ ConsolinnoWizardPageBase {
             wrapMode: Text.WordWrap
             Layout.alignment: Qt.AlignCenter
             horizontalAlignment: Text.AlignHCenter
-            text: qsTr("To comission devices with the Leaflet, you must be authorized. Otherwise the warranty expires.")
+            text: qsTr("To comission devices with the %1, you must be authorized. Otherwise the warranty expires.").arg(Configuration.coreBranding)
         }
 
 
         CheckBox{
         id: authorisationCheckbox
         Layout.alignment: Qt.AlignCenter
-        text: qsTr("I am authorized to operate the Leaflet")
+        text: qsTr("I am authorized to operate the %1").arg(Configuration.coreBranding)
         }
 
 
