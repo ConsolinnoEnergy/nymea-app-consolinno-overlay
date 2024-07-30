@@ -480,7 +480,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
                     text: qsTr("Anschrift des Lizenzgebers
-%1, Franz-Mayer-Straße 1, 93053 Regensburg").arg(Configuration.companyName)
+%1, %2").arg(Configuration.companyName).arg(Configuration.companyAddress)
 
                 }
 
@@ -490,8 +490,8 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("Tel 0941 20300 333
-Mail %1").arg(Configuration.serviceEmail)
+                    text: qsTr("Tel %1
+Mail %2").arg(Configuration.companyTel).arg(Configuration.serviceEmail)
 
                 }
 
@@ -744,10 +744,10 @@ Mail %1").arg(Configuration.serviceEmail)
                             " </b></p>"+
                             " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>vertreten"+
                             " durch den Geschäftsführer</p>"+
-                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>Franz-Mayer-Straße"+
-                            " 1</p>"+
-                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>93053"+
-                            " Regensburg</p>"+
+                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>"+Configuration.companyAddress+" "+
+                            " </p>"+
+                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>"+Configuration.companyZip+""+
+                            " "+Configuration.companyLocation+"</p>"+
                             " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'><br/>"+
                             " "+
                             " </p>"+
@@ -760,10 +760,10 @@ Mail %1").arg(Configuration.serviceEmail)
                             " Hanitsch</p>"+
                             " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>Datenschutz "+
                             " hoch 4 GmbH</p>"+
-                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>Franz-Mayer-Str."+
-                            " 1</p>"+
-                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>93053"+
-                            " Regensburg</p>"+
+                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>"+Configuration.companyAddress+""+
+                            " </p>"+
+                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>"+Configuration.companyZip+""+
+                            " "+Configuration.companyLocation+"</p>"+
                             " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'><br/>"+
                             " "+
                             " </p>"+
@@ -889,10 +889,10 @@ Mail %1").arg(Configuration.serviceEmail)
                             " Post:</p>"+
                             " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>"+Configuration.companyName+""+
                             " </p>"+
-                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>Franz-Mayer-Straße"+
-                            " 1</p>"+
-                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>93053"+
-                            " Regensburg</p>"+
+                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>"+Configuration.companyAddress+""+
+                            " </p>"+
+                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>"+Configuration.companyZip+""+
+                            " "+Configuration.companyLocation+"</p>"+
                             " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'><br/>"+
                             " "+
                             " </p>"+
