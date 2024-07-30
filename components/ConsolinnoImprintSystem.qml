@@ -72,7 +72,7 @@ Item {
             Layout.rightMargin: app.margins
             wrapMode: Text.WordWrap
             font.bold: true
-            text: "Copyright (C) %1 Consolinno Energy GmbH".arg(new Date().getFullYear())
+            text: "Copyright (C) %1 %2".arg(new Date().getFullYear()).arg(Configuration.companyName)
 
 
         }

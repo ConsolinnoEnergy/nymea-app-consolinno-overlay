@@ -255,7 +255,7 @@ Page {
 " </p>"+
 " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'><span lang='en-US'>Per"+
 " Email:</span></p>"+
-" <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>info@consolinno.de</p>"+
+" <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>"+Configuration.serviceEmail+"</p>"+
 " <p class='western' style='margin-bottom: 0cm'><br/>"+
 " "+
 " </p>"+
