@@ -47,7 +47,7 @@ ConsolinnoWizardPageBase {
                 Layout.margins: Style.margins
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
-                text: qsTr("Your Leaflet is now configured. The following devices have been set up:")
+                text: qsTr("Your %1 is now configured. The following devices have been set up:").arg(Configuration.coreBranding)
             }
             ListView {
                 Layout.fillWidth: true

@@ -57,7 +57,7 @@ ConsolinnoWizardPageBase {
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
                     //readOnly: true
-                    text: qsTr("(1) Consolinno Energy GmbH hat eine Software entwickelt, welche als Applikation auf Android und IOS-Systemen benutzt werden kann. Die Software verbindet sich mit einem Energy Management Systems genannt Leaflet HEMS. Das hat dann die Aufgabe in Verbindung mit einer Photovoltaikanlage den Eigenverbrauch der PV-Energie zu maximieren. Parallel ist die Funktion Black-out Schutz integriert. Damit wird der Ladestrom einer Ladeeinrichtung dynamisch begrenzt. Es kommt nicht zum Auslösen der Sicherung.")
+                    text: qsTr("(1) %1 hat eine Software entwickelt, welche als Applikation auf Android und IOS-Systemen benutzt werden kann. Die Software verbindet sich mit einem Energy Management Systems genannt Leaflet HEMS. Das hat dann die Aufgabe in Verbindung mit einer Photovoltaikanlage den Eigenverbrauch der PV-Energie zu maximieren. Parallel ist die Funktion Black-out Schutz integriert. Damit wird der Ladestrom einer Ladeeinrichtung dynamisch begrenzt. Es kommt nicht zum Auslösen der Sicherung.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -97,7 +97,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(2) Die Software wird von der Consolinno Energy GmbH kostenfrei Kunden vom HEMS über Appstores angeboten.")
+                    text: qsTr("(2) Die Software wird von der %1 kostenfrei Kunden vom HEMS über Appstores angeboten.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -126,7 +126,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(1) Consolinno Energy GmbH gewährt dem Kunden das ausschließliche Recht die in der Vereinbarung näher beschriebene Software innerhalb Deutschlands zu nutzen. Es wird ein nicht-ausschließliches und nicht-übertragbares Nutzungsrecht an der Software eingeräumt.")
+                    text: qsTr("(1) %1 gewährt dem Kunden das ausschließliche Recht die in der Vereinbarung näher beschriebene Software innerhalb Deutschlands zu nutzen. Es wird ein nicht-ausschließliches und nicht-übertragbares Nutzungsrecht an der Software eingeräumt.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -162,7 +162,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(4) Der Kunde ist nicht berechtigt, die Software zu verändern und zu bearbeiten, es sei denn, es handelt sich bei der Änderung bzw. Bearbeitung um eine für die vertragsgemäße Nutzung der Software erforderliche Beseitigung eines Mangels, mit welcher sich die Consolinno Energy GmbH in Verzug befindet.")
+                    text: qsTr("(4) Der Kunde ist nicht berechtigt, die Software zu verändern und zu bearbeiten, es sei denn, es handelt sich bei der Änderung bzw. Bearbeitung um eine für die vertragsgemäße Nutzung der Software erforderliche Beseitigung eines Mangels, mit welcher sich die %1 in Verzug befindet.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -209,7 +209,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(1) Consolinno Energy GmbH liefert die Software an den Kunden über den Appstore von Apple oder Google aus.")
+                    text: qsTr("(1) %1 liefert die Software an den Kunden über den Appstore von Apple oder Google aus.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -218,7 +218,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(2) Neben der Software wird Consolinno Energy GmbH dem Kunden eine Installationsanleitung des Gerätes HEMS sowie eine Dokumentation zum Download anbieten.")
+                    text: qsTr("(2) Neben der Software wird %1 dem Kunden eine Installationsanleitung des Gerätes HEMS sowie eine Dokumentation zum Download anbieten.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -227,7 +227,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("3) Consolinno Energy GmbH schuldet keine Installation der Software auf den Systemen des Kunden; für diese ist der Kunde allein ver-antwortlich.")
+                    text: qsTr("3) %1 schuldet keine Installation der Software auf den Systemen des Kunden; für diese ist der Kunde allein ver-antwortlich.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -246,7 +246,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(1) Consolinno Energy GmbH ist zur Aufrechterhaltung der vertraglich vereinbarten Beschaffenheit der Software während der Vertragslaufzeit ('Instandhaltung') verpflichtet. Die vertraglich geschuldete Beschaffenheit der Software bestimmt sich nach der zugesagten Funktion des HEMS Produktes. Up Dates erfolgen über eine Internetverbindung.")
+                    text: qsTr("(1) %1 ist zur Aufrechterhaltung der vertraglich vereinbarten Beschaffenheit der Software während der Vertragslaufzeit ('Instandhaltung') verpflichtet. Die vertraglich geschuldete Beschaffenheit der Software bestimmt sich nach der zugesagten Funktion des HEMS Produktes. Up Dates erfolgen über eine Internetverbindung.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -255,7 +255,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(2) Consolinno Energy GmbH ist zu einer Änderung, Anpassung und Weiterentwicklung der Software nur dann verpflichtet, wenn das mit dem Kunden gesondert vereinbart ist. Ohne eine solche gesonderte Vereinbarung ist die Consolinno Energy GmbH nicht zu einer Weiterentwicklung der Software verpflichtet.")
+                    text: qsTr("(2) %1 ist zu einer Änderung, Anpassung und Weiterentwicklung der Software nur dann verpflichtet, wenn das mit dem Kunden gesondert vereinbart ist. Ohne eine solche gesonderte Vereinbarung ist die %1 nicht zu einer Weiterentwicklung der Software verpflichtet.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -275,7 +275,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(1) Sollte dem Kunden Mängel an der Software, am Gerät oder an der Dokumentation feststellen, so hat der Kunde das der Consolinno Energy GmbH mitzuteilen. Das kann zum Beispiel per Mail erfolgen.")
+                    text: qsTr("(1) Sollte dem Kunden Mängel an der Software, am Gerät oder an der Dokumentation feststellen, so hat der Kunde das der %1 mitzuteilen. Das kann zum Beispiel per Mail erfolgen.").arg(Configuration.companyName)
 
                 }
 
@@ -295,7 +295,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(3) Consolinno Energy GmbH wird die angezeigten Mängel an der Software und an der Dokumentation innerhalb einer angemessenen Frist zu beheben. Im Rahmen der Mängelbeseitigung hat Consolinno Energy GmbH ein Wahlrecht zwischen Nachbesserung und Ersatzlieferung. Die Kosten der Mängelbeseitigung trägt Consolinno Energy GmbH. Kosten für Ausfall, entgangener Gewinn, Ein- und Ausbaukosten oder ähnliches werden nicht erstattet.")
+                    text: qsTr("(3) %1 wird die angezeigten Mängel an der Software und an der Dokumentation innerhalb einer angemessenen Frist zu beheben. Im Rahmen der Mängelbeseitigung hat %1 ein Wahlrecht zwischen Nachbesserung und Ersatzlieferung. Die Kosten der Mängelbeseitigung trägt %1. Kosten für Ausfall, entgangener Gewinn, Ein- und Ausbaukosten oder ähnliches werden nicht erstattet.").arg(Configuration.companyName)
 
                 }
 
@@ -344,7 +344,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(2) Im Übrigen ist eine Haftung der Consolinno Energy GmbH für direkte und indirekte Schäden ausgeschlossen.")
+                    text: qsTr("(2) Im Übrigen ist eine Haftung der %1 für direkte und indirekte Schäden ausgeschlossen.").arg(Configuration.companyName)
 
                 }
 
@@ -408,7 +408,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(4) Consolinno Energy GmbH kann die Pflege des Programmes ohne nennen von Gründen einstellen")
+                    text: qsTr("(4) %1 kann die Pflege des Programmes ohne nennen von Gründen einstellen").arg(Configuration.companyName)
 
                 }
 
@@ -480,7 +480,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
                     text: qsTr("Anschrift des Lizenzgebers
-Consolinno Energy GmbH, Franz-Mayer-Straße 1, 93053 Regensburg")
+%1, Franz-Mayer-Straße 1, 93053 Regensburg").arg(Configuration.companyName)
 
                 }
 
@@ -491,7 +491,7 @@ Consolinno Energy GmbH, Franz-Mayer-Straße 1, 93053 Regensburg")
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
                     text: qsTr("Tel 0941 20300 333
-Mail service@consolinno.de")
+Mail %1").arg(Configuration.serviceEmail)
 
                 }
 
@@ -598,7 +598,7 @@ Mail service@consolinno.de")
                             horizontalAlignment: Text.AlignHCenter
                             wrapMode: Text.WordWrap
                             font: Style.bigFont
-                            text: qsTr('Welcome to Consolinno HEMS!')
+                            text: qsTr('Welcome to %1 HEMS!').arg(Configuration.branding)
                         }
 
                         Button {
@@ -740,8 +740,8 @@ Mail service@consolinno.de")
                             " <p class='western' style='margin-bottom: 0cm'><br/>"+
                             " "+
                             " </p>"+
-                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'><b>Consolinno"+
-                            " Energy GmbH</b></p>"+
+                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'><b>"+Configuration.companyName+" "+
+                            " </b></p>"+
                             " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>vertreten"+
                             " durch den Geschäftsführer</p>"+
                             " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>Franz-Mayer-Straße"+
@@ -887,8 +887,8 @@ Mail service@consolinno.de")
                             " </p>"+
                             " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>Per"+
                             " Post:</p>"+
-                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>Consolinno"+
-                            " Energy GmbH</p>"+
+                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>"+Configuration.companyName+""+
+                            " </p>"+
                             " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>Franz-Mayer-Straße"+
                             " 1</p>"+
                             " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>93053"+
@@ -898,7 +898,7 @@ Mail service@consolinno.de")
                             " </p>"+
                             " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'><span lang='en-US'>Per"+
                             " Email:</span></p>"+
-                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>info@consolinno.de</p>"+
+                            " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>"+Configuration.serviceEmail+"</p>"+
                             " <p class='western' style='margin-bottom: 0cm'><br/>"+
                             " "+
                             " </p>"+
@@ -1086,13 +1086,13 @@ Mail service@consolinno.de")
                             " (Emailadresse und Passwort) in der Datenbank gespeichert werden."+
                             " Diese Einwilligung kann ich jederzeit mit Wirkung für die Zukunft"+
                             " widerrufen, indem ich mich an die Adresse in der"+
-                            " <font color='#0000ff'><u><a href='https://hems.consolinno.de/datenschutz/'>https://hems.consolinno.de/datenschutz/</a></u></font>"+
+                            " <font color='#0000ff'><u><a href='"+Configuration.privacyPolicyUrl+"'>"+Configuration.privacyPolicyUrl+"</a></u></font>"+
                             " wende und um Löschung meines Benutzerkontos bitte. Um diesen Vorgang"+
                             " zu protokollieren, wird meine IP-Adresse, sowie Datum und Uhrzeit der"+
                             " Registrierung in einer Datenbank gespeichert und erst wieder"+
                             " gelöscht, wenn ich die Einwilligung widerrufe, sofern eine"+
                             " weitergehende Speicherung nicht rechtlich erforderlich ist. Die AGB"+
-                            " unter <font color='#0000ff'><u><a href='https://hems.consolinno.de/agb'>https://hems.consolinno.de/agb</a>/</u></font>"+
+                            " unter <font color='#0000ff'><u><a href='"+Configuration.termsOfConditionsUrl+"'>"+Configuration.termsOfConditionsUrl+"</a>/</u></font>"+
                             " habe ich gelesen und verstanden.</p>"+
                             " <p class='western' style='margin-left: 0.64cm; margin-bottom: 0cm'><br/>"+
                             " "+
