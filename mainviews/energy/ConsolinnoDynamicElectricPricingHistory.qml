@@ -360,13 +360,13 @@ Item {
 
                         currentValuePoint.remove(0)
 
+                        currentPrice = thing.stateByName("currentMarketPrice").value
+
                         if(currentTime <= currentDate.getTime()){
                             currentValuePoint.append(currentTime, currentPrice)
                         }else{
                             currentValuePoint.append(currentDate.getTime(), currentPrice)
                         }
-
-
                     }
                 }
 
