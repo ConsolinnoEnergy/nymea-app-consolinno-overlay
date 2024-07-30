@@ -102,7 +102,7 @@ Page {
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
                 Layout.fillWidth: true
-                text: qsTr("Service Consolinno")
+                text: qsTr("Service %1 ").arg(Configuration.appBranding)
                 onClicked:{
 
                     pageStack.push("ServicePage.qml")
@@ -147,7 +147,7 @@ Page {
                 Layout.topMargin: 10
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
-                text: qsTr("If there is a problem with the Leaflet itself, then contact Consolinno's service.")
+                text: qsTr("If there is a problem with the Leaflet itself, then contact %1 service.").arg(Configuration.appBranding)
 
             }
 
