@@ -97,7 +97,7 @@ Page {
 " <p class='western' style='margin-bottom: 0cm'><br/>"+
 " "+
 " </p>"+
-" <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'><b>Consolinno"+
+" <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'><b>"+Configuration.appBranding+
 " Energy GmbH</b></p>"+
 " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>vertreten"+
 " durch den Geschäftsführer</p>"+
@@ -244,7 +244,7 @@ Page {
 " </p>"+
 " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>Per"+
 " Post:</p>"+
-" <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>Consolinno"+
+" <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>"+Configuration.appBranding+
 " Energy GmbH</p>"+
 " <p class='western' style='margin-left: 1.25cm; margin-bottom: 0cm'>Franz-Mayer-Straße"+
 " 1</p>"+
@@ -443,13 +443,13 @@ Page {
 " (Emailadresse und Passwort) in der Datenbank gespeichert werden."+
 " Diese Einwilligung kann ich jederzeit mit Wirkung für die Zukunft"+
 " widerrufen, indem ich mich an die Adresse in der"+
-" <font color='#0000ff'><u><a href='https://hems.consolinno.de/datenschutz/'>https://hems.consolinno.de/datenschutz/</a></u></font>"+
+" <font color='#0000ff'><u><a href='"+Configuration.privacyPolicyUrl+"'>"+Configuration.privacyPolicyUrl+"</a></u></font>"+
 " wende und um Löschung meines Benutzerkontos bitte. Um diesen Vorgang"+
 " zu protokollieren, wird meine IP-Adresse, sowie Datum und Uhrzeit der"+
 " Registrierung in einer Datenbank gespeichert und erst wieder"+
 " gelöscht, wenn ich die Einwilligung widerrufe, sofern eine"+
 " weitergehende Speicherung nicht rechtlich erforderlich ist. Die AGB"+
-" unter <font color='#0000ff'><u><a href='https://hems.consolinno.de/agb'>https://hems.consolinno.de/agb</a>/</u></font>"+
+" unter <font color='#0000ff'><u><a href='"+Configuration.termsOfConditionsUrl+"'>"+Configuration.termsOfConditionsUrl+"</a>/</u></font>"+
 " habe ich gelesen und verstanden.</p>"+
 " <p class='western' style='margin-left: 0.64cm; margin-bottom: 0cm'><br/>"+
 " "+
