@@ -14,14 +14,18 @@ ConfigurationBase {
     property string minSysVersion: "1.2.0"
 
     // Identifier used for branding (e.g. to register for push notifications)
-    property string branding: "consolinno"
+    property string branding: "Q CELLS"
 
     // Identifier used for legal text (e.g. privacy policy)
     property string companyName: "Hanwha Q CELLS GmbH"
 
     // Branding names visible to the user
-    property string appBranding: "Consolinno Energy"
+    property string appBranding: "Q CELLS"
     property string coreBranding: "Leaflet"
+
+    //Branding contact-email
+    property string contactEmail: "meinesolaranlage@q-cells.com"
+    property string serviceEmail: "service@energie.q-cells.de"
 
     // Will be shown in About page
     property string githubLink: "https://github.com/ConsolinnoEnergy/nymea-app"
