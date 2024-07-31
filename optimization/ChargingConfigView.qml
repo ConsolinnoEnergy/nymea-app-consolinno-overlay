@@ -1656,8 +1656,6 @@ GenericConfigPage {
 
                                             function insertEntry(value, onlyThreshold){
                                                 var lastObjectValue = value[Object.keys(value)[Object.keys(value).length - 1]];
-                                                let currentValue = parseInt(currentValueField.text)
-                                                const thresholdPrice = (averagePrice * (1 + currentValue / 100)).toFixed(2)
 
                                                 var firstRun = true;
                                                 let lastChange = 0;

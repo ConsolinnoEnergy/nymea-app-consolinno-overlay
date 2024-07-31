@@ -117,7 +117,7 @@ Item {
             validSince = thing.stateByName("validSince").value
             validUntil = thing.stateByName("validUntil").value
             currentPrice = thing.stateByName("currentMarketPrice").value
-            averagePrice = thing.stateByName("averagePrice").value.toFixed(0).toString();
+            averagePrice = thing.stateByName("averagePrice").value.toFixed(2).toString();
 
             consumptionSeries.insertEntry(thing.stateByName("priceSeries").value)
             valueAxis.adjustMax(lowestPrice,highestPrice);
