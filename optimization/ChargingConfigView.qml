@@ -1000,8 +1000,6 @@ GenericConfigPage {
                                     horizontalAlignment: Text.AlignLeft;
                                     leftPadding: app.margins
                                     elide: Text.ElideRight
-                                    // Not working:
-                                    // visible: parent.devOnly && settings.showHiddenOptions | !parent.devOnly
                                 }
 
                                 currentIndex: (userconfig.defaultChargingMode == 3 && dynamicPrice.count == 0) ? userconfig.defaultChargingMode - 1 : userconfig.defaultChargingMode
@@ -1009,10 +1007,12 @@ GenericConfigPage {
                                 {
                                     endTimeSlider.computeFeasibility()
                                     endTimeSlider.feasibilityText()
+                                    comboboxloadingmod.currentIndex === 3 ? gridConsumptionloadingmod.currentIndex = 1 : gridConsumptionloadingmod.currentIndex = 0
                                 }
 
                                 Component.onCompleted: {
                                     addDynamicComboBoxItems();
+                                    comboboxloadingmod.currentIndex === 3 ? gridConsumptionloadingmod.currentIndex = 1 : gridConsumptionloadingmod.currentIndex = 0
                                 }
                             }
                         }
@@ -1020,7 +1020,6 @@ GenericConfigPage {
                         RowLayout {
                             Layout.preferredWidth: app.width
                             Layout.topMargin: 10
-                            //visible: isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing])
 
                             RowLayout {
                                 Layout.fillWidth: true
@@ -1035,8 +1034,8 @@ GenericConfigPage {
                                     id: gridConsumptionInfoButton
                                     visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
                                     push: "GridConsumptionInfo.qml"
-                                    Layout.fillWidth: true
-                                    Layout.alignment: Qt.AlignTop
+                                    anchors.left: gridConsumptionLabel.right
+                                    anchors.leftMargin:  5
                                 }
 
                                 Label {
@@ -1049,8 +1048,8 @@ GenericConfigPage {
                                     id: pausingModeInfoButton
                                     visible: isAnyOfModesSelected([dyn_pricing])
                                     push: "PausingInfo.qml"
-                                    Layout.fillWidth: true
-                                    Layout.alignment: Qt.AlignTop
+                                    anchors.left: pausingModeid.right
+                                    anchors.leftMargin:  5
                                 }
 
                             }
@@ -1099,8 +1098,8 @@ GenericConfigPage {
                                     id: priceLimitInfoButton
 
                                     push: "PriceLimitInfo.qml"
-                                    Layout.fillWidth: true
-                                    Layout.alignment: Qt.AlignTop
+                                    anchors.left: priceLimitigId.right
+                                    anchors.leftMargin:  5
                                 }
 
                             }
