@@ -31,30 +31,33 @@ Item {
         property date now: new Date()
 
         readonly property var startTimeSince: {
-            var date = new Date(now);
+            var date = new Date();
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+
             if(selectionTabs.currentIndex == 0){
-                date.setTime(validSince * 1000);
+
             }else{
-                date.setTime((validSince + 86400) * 1000);
+                date.setDate(date.getDate()+1);
             }
+
+            console.error("time since: " + date.toLocaleString());
             return date;
         }
 
         readonly property var endTimeUntil: {
-            var date = new Date(now);
+            var date = new Date();
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+
             if(selectionTabs.currentIndex == 0){
-                const today = new Date();
-                const validUntilDate = new Date(validUntil*1000);
-
-                let adjustTime = 60;
-
-                if(today.getDate() < validUntilDate.getDate())
-                    adjustTime = -86340;
-
-                date.setTime((validUntil + adjustTime) * 1000);
+                date.setDate(date.getDate()+1);
             }else{
-                date.setTime((validUntil + 60) * 1000);
+                date.setDate(date.getDate()+2);
             }
+            console.error("time until: " + date.toLocaleString());
             return date;
         }
 
@@ -313,7 +316,7 @@ Item {
                     axisX: dateTimeAxis
                     axisY: valueAxis
                     color: 'transparent'
-                    borderWidth: 2
+                    borderWidth: 1
                     borderColor: Style.red
 
                     upperSeries: LineSeries {
@@ -321,8 +324,8 @@ Item {
                     }
 
                     lowerSeries: LineSeries {
-                        XYPoint { x: dateTimeAxis.min.getTime(); y: 0 }
-                        XYPoint { x: dateTimeAxis.max.getTime(); y: 0 }
+                        XYPoint { x: dateTimeAxis.min.getTime(); y: -100 }
+                        XYPoint { x: dateTimeAxis.max.getTime(); y: -100 }
                     }
 
                 }
