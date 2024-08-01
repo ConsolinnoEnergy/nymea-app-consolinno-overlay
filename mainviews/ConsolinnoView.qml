@@ -883,7 +883,6 @@ MainViewBase {
                                             "isNotify": isNotify
                                         })
                         }
-
                     }
 
                     Repeater {
@@ -914,15 +913,11 @@ MainViewBase {
                             thing: electrics.get(index)
                             isElectric: true
                             onClicked: {
-
                                 print("Clicked producer", index, thing.name)
                                 pageStack.push("/ui/devicepages/PageWraper.qml")
-
                             }
                         }
                     }
-
-
                 }
             }
 

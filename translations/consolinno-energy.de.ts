@@ -65,6 +65,37 @@
     </message>
 </context>
 <context>
+    <name>AddNewThings</name>
+    <message>
+        <source>Set up new thing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vendor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Looking for something else?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Try to install more plugins.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Install plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AuthorisationView</name>
     <message>
         <source>Authorisation page</source>
@@ -424,6 +455,18 @@
     <message>
         <source>Pausing</source>
         <translation type="unfinished">Pausieren</translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation type="unfinished">Keine Daten verfügbar</translation>
+    </message>
+    <message>
+        <source>No prices available, yet</source>
+        <translation type="unfinished">Noch keine Preise verfügbar</translation>
+    </message>
+    <message>
+        <source>Cents / kWh</source>
+        <translation type="unfinished">Cent / kWh</translation>
     </message>
 </context>
 <context>
@@ -1857,10 +1900,6 @@ Mail service@consolinno.de</source>
 <context>
     <name>DynamicElectricityRate</name>
     <message>
-        <source>Dynamic Electricity Rate</source>
-        <translation type="unfinished">Dynamische Strompreise</translation>
-    </message>
-    <message>
         <source>Submitted Rate:</source>
         <translation type="unfinished">Gewählte Anbieter:</translation>
     </message>
@@ -1884,20 +1923,24 @@ Mail service@consolinno.de</source>
         <source>There are currently no settings options available</source>
         <translation type="unfinished">Es sind momentan keine Einstellungen verfügbar</translation>
     </message>
+    <message>
+        <source>Dynamic electricity tariff</source>
+        <translation type="unfinished">Dynamischer Stromtarif</translation>
+    </message>
 </context>
 <context>
     <name>DynamicElectricityRateFeedback</name>
     <message>
-        <source>Dynamic Electricity Rate</source>
-        <translation type="unfinished">Dynamische Strompreise</translation>
+        <source>to the dashboard</source>
+        <translation type="unfinished">ZURÜCK ZUM DASHBOARD</translation>
     </message>
     <message>
-        <source>The following Electric Rate is submitted</source>
-        <translation type="unfinished">Der Folgende Tarif wurde ausgewählt</translation>
+        <source>The following tariff is submitted:</source>
+        <translation type="unfinished">Der folgende Stromtarif wurde eingerichtet:</translation>
     </message>
     <message>
-        <source>next</source>
-        <translation type="unfinished">weiter</translation>
+        <source>Dynamic electricity tariff</source>
+        <translation type="unfinished">Dynamischer Stromtarif</translation>
     </message>
 </context>
 <context>
@@ -2415,8 +2458,8 @@ the system, and a charging process is started, charging is prioritized.</source>
         <translation>Inbetriebnahme</translation>
     </message>
     <message>
-        <source>Dynamic Electricity Rate</source>
-        <translation type="unfinished">Dynamische Strompreise</translation>
+        <source>Dynamic electricity tariff</source>
+        <translation type="unfinished">Dynamischer Stromtarif</translation>
     </message>
 </context>
 <context>

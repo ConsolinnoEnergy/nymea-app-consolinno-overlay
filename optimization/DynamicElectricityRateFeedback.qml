@@ -9,9 +9,6 @@ import "../components"
 import "../delegates"
 import "../optimization"
 
-// This is the Development Page
-// This is only visible if the Hidden Options are activated, so if you push something be sure it is disabled.
-// In order to add something to the development page do the following step:
 Page {
     id: root
     property HemsManager hemsManager
@@ -21,7 +18,7 @@ Page {
     signal done(bool skip, bool abort, bool back);
 
     header: NymeaHeader {
-        text: qsTr("Dynamic Electricity Rate")
+        text: qsTr("Dynamic electricity tariff")
         Layout.preferredWidth: app.width - 2*Style.margins
         backButtonVisible: true
         onBackPressed: {
@@ -45,7 +42,7 @@ Page {
                 Layout.preferredWidth: app.width - 2*Style.margins
                 Layout.preferredHeight: 50
                 color: Material.foreground
-                text: qsTr("The following Electric Rate is submitted")
+                text: qsTr("The following tariff is submitted:")
                 wrapMode: Text.WordWrap
                 Layout.alignment: Qt.AlignHCenter
                 horizontalAlignment: Text.Center
@@ -83,12 +80,13 @@ Page {
 
             Button {
                 id: nextButton
-                text: qsTr("next")
-                //color: Style.accentColor
-                Layout.preferredWidth: 200
+                text: qsTr("to the dashboard")
+                Layout.preferredWidth: 250
                 Layout.alignment: Qt.AlignHCenter
-                //Layout.alignment: Qt.AlignHCenter
                 onClicked: {
+                    pageStack.pop()
+                    pageStack.pop()
+                    pageStack.pop()
                     pageStack.pop()
                 }
 

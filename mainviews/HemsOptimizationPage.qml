@@ -21,7 +21,7 @@ Page {
         ListElement { text: qsTr("Optimization configuration"); value: 0; visible: true}
         ListElement { text: qsTr("Comissioning"); value: 1; visible: true}
         ListElement { text: qsTr("Development"); value: 2; visible: false}
-        ListElement { text: qsTr("Dynamic Electricity Rate"); value: 3; visible: true}
+        ListElement { text: qsTr("Dynamic electricity tariff"); value: 3; visible: true}
         // value is set to an integer for pieces which are either going to be migrated to a different location or deleted
     }
 

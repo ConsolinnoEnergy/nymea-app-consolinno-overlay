@@ -1162,7 +1162,10 @@ GenericConfigPage {
                                             text: currentValue
                                             horizontalAlignment: Qt.AlignHCenter
                                             verticalAlignment: Qt.AlignVCenter
-
+                                            validator: IntValidator {
+                                                bottom: -100
+                                                top: 100
+                                            }
                                             onTextChanged: {
                                                 currentValue = currentValueField.text
                                                 priceRow.getThresholdPrice()
