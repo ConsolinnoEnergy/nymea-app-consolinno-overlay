@@ -1146,12 +1146,12 @@ GenericConfigPage {
                                         ToolButton {
                                             text: qsTr("-")
                                             onClicked: {
-                                                currentValue = currentValue - 1
+                                                currentValue = currentValue > -100 ? currentValue - 1 : -100
                                                 priceRow.getThresholdPrice()
                                                 parent.redrawChart();
                                             }
                                             onPressAndHold: {
-                                                currentValue = currentValue - 10
+                                                currentValue = currentValue > -100 ? currentValue - 10 : -100
                                                 priceRow.getThresholdPrice()
                                                 parent.redrawChart();
                                             }
@@ -1162,9 +1162,8 @@ GenericConfigPage {
                                             text: currentValue
                                             horizontalAlignment: Qt.AlignHCenter
                                             verticalAlignment: Qt.AlignVCenter
-                                            validator: IntValidator {
-                                                bottom: -100
-                                                top: 100
+                                            validator: RegExpValidator {
+                                                regExp: /^-?(100|[1-9]?[0-9])$/
                                             }
                                             onTextChanged: {
                                                 currentValue = currentValueField.text
@@ -1180,12 +1179,12 @@ GenericConfigPage {
                                         ToolButton {
                                             text: qsTr("+")
                                             onClicked: {
-                                                currentValue = currentValue + 1
+                                                currentValue = currentValue < 100 ? currentValue + 1 : 100
                                                 priceRow.getThresholdPrice()
                                                 parent.redrawChart();
                                             }
                                             onPressAndHold: {
-                                                currentValue = currentValue + 10
+                                                currentValue = currentValue < 100 ? currentValue + 10 : 100
                                                 priceRow.getThresholdPrice()
                                                 parent.redrawChart();
                                             }
