@@ -76,7 +76,7 @@ Item {
             Layout.fillWidth: true
             Layout.margins: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
-            text: qsTr("Dynamic electricity price")
+            text: qsTr("Dynamic electricity tariff")
             visible: true
         }
 

@@ -1077,10 +1077,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished">Keine Daten verfügbar</translation>
     </message>
     <message>
-        <source>Dynamic electricity price</source>
-        <translation>Dynamischer Strompreis</translation>
-    </message>
-    <message>
         <source>Cents / kWh</source>
         <translation type="unfinished">Cent / kWh</translation>
     </message>
@@ -1099,6 +1095,10 @@ Mail service@consolinno.de</source>
     <message>
         <source>No prices available, yet</source>
         <translation type="unfinished">Noch keine Preise verfügbar</translation>
+    </message>
+    <message>
+        <source>Dynamic electricity tariff</source>
+        <translation type="unfinished">Dynamischer Stromtarif</translation>
     </message>
 </context>
 <context>
