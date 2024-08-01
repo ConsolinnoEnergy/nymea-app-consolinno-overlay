@@ -41,8 +41,6 @@ Item {
             }else{
                 date.setDate(date.getDate()+1);
             }
-
-            console.error("time since: " + date.toLocaleString());
             return date;
         }
 
@@ -57,7 +55,6 @@ Item {
             }else{
                 date.setDate(date.getDate()+2);
             }
-            console.error("time until: " + date.toLocaleString());
             return date;
         }
 
