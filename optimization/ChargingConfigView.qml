@@ -1477,9 +1477,8 @@ GenericConfigPage {
 
                         Item {
                             id: rootChart
-                            anchors.top: feasibilityMessage.bottom
-                            height: 300
-                            width: parent.width
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
 
                             QtObject {
                                 id: d
