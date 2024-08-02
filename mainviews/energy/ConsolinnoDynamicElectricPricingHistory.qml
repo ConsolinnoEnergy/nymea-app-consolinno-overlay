@@ -339,7 +339,7 @@ Item {
 
                 Timer {
                     property bool isOn: false
-                    interval: isOn ? 5000 : 100
+                    interval: isOn ? 60000 : 100
                     running: true
                     repeat: true
                     onTriggered: {

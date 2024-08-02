@@ -41,8 +41,6 @@ GenericConfigPage {
     property double highestPrice: 0
     property var prices: ({})
 
-    property bool isDynamicPrice: false
-
     enum ChargingMode {
         NO_OPTIMIZATION = 0,
         PV_OPTIMIZED = 1,
@@ -889,10 +887,10 @@ GenericConfigPage {
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.top: parent.top
+                        anchors.bottom: parent.bottom
                         anchors.topMargin: app.margins
                         anchors.rightMargin: app.margins
                         anchors.margins: app.margins
-                        anchors.fill: parent
 
                         RowLayout {
                             Layout.fillWidth: true
@@ -974,9 +972,8 @@ GenericConfigPage {
 
                             ComboBox {
                                 id: comboboxloadingmod
-
                                 Layout.fillWidth: true
-
+                                Layout.leftMargin: 20
                                 model: ListModel{
                                     id: dynamicModel
                                     ListElement{key: qsTr("Charge always"); value: "No Optimization"; mode: 0}
@@ -1016,6 +1013,264 @@ GenericConfigPage {
                                 }
                             }
                         }
+
+                        ColumnLayout{
+                            visible: isAnyOfModesSelected([pv_optimized, pv_excess])
+                            //Slider 1
+                            RowLayout{
+                                visible: isAnyOfModesSelected([pv_optimized, pv_excess])
+                                spacing: 0
+                                Layout.topMargin: 10
+
+                                ColumnLayout{
+                                    Row{
+                                        Label{
+                                            id: batteryid
+
+                                            text: qsTr("Battery level: ") + batteryLevel.value +" %"
+                                        }
+
+                                        InfoButton{
+                                            push: "BatteryLevel.qml"
+                                            anchors.left: batteryid.right
+                                            anchors.leftMargin:  5
+                                        }
+                                    }
+
+                                    Slider {
+                                        id: batteryLevel
+
+                                        Layout.fillWidth: true
+                                        from: 0
+                                        to: 100
+                                        stepSize: 1
+                                        // when entering the Optimization page -> get values from holdingItem (selected Car)
+                                        //                            Component.onCompleted:
+                                        //                            {
+                                        //                                    if (carSelector.holdingItem !== false){
+                                        //                                        value = carSelector.holdingItem.stateByName("batteryLevel").value
+                                        //                                    }
+                                        //                            }
+
+                                        onPositionChanged:
+                                        {
+                                            // if the "new Car" option is not picked do something
+                                            if (carSelector.holdingItem !== false){
+                                                if (value  >= targetPercentageSlider.value)
+                                                {
+                                                    if (value === 100){
+                                                        value = 99
+                                                    }
+
+                                                    targetPercentageSlider.value = value +1
+                                                }
+
+                                                endTimeSlider.computeFeasibility()
+                                                endTimeSlider.feasibilityText()
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            //Slider 2
+                            RowLayout{
+                                visible:  isAnyOfModesSelected([pv_optimized, pv_excess])
+                                ColumnLayout {
+                                    spacing: 0
+                                    Row{
+                                        Label {
+                                            id: targetCharge
+
+                                            text: qsTr("Target charge %1%").arg(targetPercentageSlider.value)
+                                        }
+
+                                        InfoButton{
+                                            push: "TargetChargeInfo.qml"
+                                            anchors.left: targetCharge.right
+                                            anchors.leftMargin:  5
+                                        }
+                                    }
+
+                                    Slider {
+                                        id: targetPercentageSlider
+
+                                        Layout.fillWidth: true
+                                        from: 0
+                                        to: 100
+                                        stepSize: 1
+                                        value: 0
+
+                                        Component.onCompleted: {
+                                            if (carSelector.holdingItem !== false){
+                                                //                                    value = chargingConfiguration.targetPercentage
+                                                endTimeSlider.computeFeasibility()
+                                                endTimeSlider.feasibilityText()
+                                            }
+                                        }
+                                        onPositionChanged: {
+                                            if (carSelector.holdingItem !== false){
+                                                endTimeSlider.computeFeasibility()
+                                                endTimeSlider.feasibilityText()
+
+                                                if (value <= batteryLevel.value)
+                                                {
+                                                    if (value === 100){
+                                                        value = batteryLevel.value
+                                                    }else{
+                                                        value = batteryLevel.value + 1
+                                                    }
+                                                }
+                                                //                                    if (value == 0){
+
+                                                //                                        value = 1
+                                                //                                    }
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            //Slider 3 Label
+                            RowLayout{
+                                Layout.fillWidth: true
+                                visible:  isAnyOfModesSelected([pv_optimized])
+
+                                Label {
+                                    id: endTimeLabel
+
+                                    Layout.fillWidth: true
+                                    property var today: new Date()
+                                    property var endTime: new Date(today.getTime() + endTimeSlider.value * 60000)
+                                    text: qsTr("Ending time: ") + endTime.toLocaleString(Qt.locale("de-DE"), "dd.MM HH:mm")
+
+                                    function endTimeValidityPrediction(d){
+                                        switch (d){
+                                        case 1:
+                                            feasibilityMessage.visible = true
+
+                                            break
+                                        case 2:
+                                            feasibilityMessage.visible = false
+                                            break
+
+                                        }
+                                        return
+                                    }
+                                }
+                            }
+
+                            //Slider 3
+                            RowLayout{
+                                Layout.fillWidth: true
+                                //Layout.alignment: Qt.AlignTop
+                                visible:   isAnyOfModesSelected([pv_optimized])
+
+                                Slider {
+                                    id: endTimeSlider
+
+                                    Layout.fillWidth: true
+                                    implicitWidth: backgroundEndTimeSlider.implicitWidth
+                                    property int chargingConfigHours: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours()
+                                    property int chargingConfigMinutes: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes()
+                                    property int nextDay: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() < 0 ? 1 : 0
+                                    property int targetSOC: targetPercentageSlider.value
+
+                                    property real minimumChargingthreshhold
+                                    property real maximumChargingthreshhold
+
+                                    property var batteryLevel
+                                    property var capacityInAh
+                                    property var batteryContentInAh
+                                    property var minChargingCurrent
+
+                                    from: 0
+                                    to: 24*60
+                                    stepSize: 1
+                                    //         from config hours      from config minutes         current hours                    current minutes                 add a day if negative (since it means it is the next day)
+                                    value: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() + nextDay*24*60
+
+                                    background: ChargingConfigSliderBackground{
+                                        id: backgroundEndTimeSlider
+
+                                        Layout.fillWidth: true
+                                        infeasibleSectionWidth: Math.min(endTimeSlider.width * endTimeSlider.maximumChargingthreshhold/(24*60), endTimeSlider.width )
+                                        feasibleSectionWidth:  Math.min(endTimeSlider.width - infeasibleSectionWidth, endTimeSlider.width)
+                                    }
+
+                                    onPositionChanged: {
+                                        feasibilityText()
+                                    }
+
+                                    function feasibilityText(){
+                                        if (value < maximumChargingthreshhold){
+                                            endTimeLabel.endTimeValidityPrediction(1)
+                                        }
+                                        else{
+                                            endTimeLabel.endTimeValidityPrediction(2)
+                                        }
+                                    }
+
+                                    function computeFeasibility(){
+
+                                        // TODo: Determine charging Voltage of wallbox
+                                        //       How many phases does the wallbox have
+                                        if (carSelector.holdingItem !== false){
+                                            var maxChargingCurrent = thing.stateByName("maxChargingCurrent").maxValue
+
+
+                                            var loadingVoltage = thing.stateByName("phaseCount").value * 230
+
+                                            for (let i = 0; i < carSelector.holdingItem.thingClass.stateTypes.count; i++){
+
+                                                var thingStateId = carSelector.holdingItem.thingClass.stateTypes.get(i).id
+
+                                                if (carSelector.holdingItem.thingClass.stateTypes.get(i).name === "capacity" ){
+                                                    // capacity in KWh
+                                                    var capacity = carSelector.holdingItem.states.getState(thingStateId).value
+                                                    capacityInAh = (capacity*1000)/loadingVoltage
+                                                }
+                                                if (carSelector.holdingItem.thingClass.stateTypes.get(i).name === "minChargingCurrent" ){
+
+                                                    minChargingCurrent = carSelector.holdingItem.states.getState(thingStateId).value
+                                                }
+
+                                            }
+
+                                            batteryContentInAh = capacityInAh * batteryLevel.value/100
+
+                                            var targetSOCinAh = capacityInAh * targetSOC/100
+
+                                            var necessaryTimeinHMinCharg = (targetSOCinAh - batteryContentInAh)/minChargingCurrent
+                                            var necessaryTimeinHMaxCharg = (targetSOCinAh - batteryContentInAh)/maxChargingCurrent
+
+
+                                            minimumChargingthreshhold = necessaryTimeinHMinCharg*60
+                                            maximumChargingthreshhold = necessaryTimeinHMaxCharg*60
+
+                                        }
+                                    }
+                                }
+                            }
+
+                            //Slider error
+                            RowLayout{
+                                visible: isAnyOfModesSelected([pv_optimized])
+
+                                Label
+                                {
+                                    id: feasibilityMessage
+                                    Layout.fillHeight: true
+                                    Layout.fillWidth: true
+                                    Layout.alignment: Qt.AlignRight
+                                    text: qsTr("In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time")
+                                    Material.foreground: Material.Red
+                                    visible: false
+                                    wrapMode: Text.WordWrap
+                                }
+                            }
+
+                        }
+
 
                         RowLayout {
                             Layout.preferredWidth: app.width
@@ -1112,14 +1367,15 @@ GenericConfigPage {
 
                             RowLayout {
                                 id: priceRow
+
                                 Label {
                                     id: averagePriceLimitigId
-
                                     text: qsTr("average price: ")
+                                    Layout.fillWidth: true
                                 }
 
                                 ToolBar {
-
+                                    Layout.leftMargin: 20
                                     background: Rectangle {
                                         color: "transparent"
                                     }
@@ -1161,6 +1417,7 @@ GenericConfigPage {
                                             text: currentValue
                                             horizontalAlignment: Qt.AlignHCenter
                                             verticalAlignment: Qt.AlignVCenter
+                                            Layout.preferredWidth: 70
                                             validator: RegExpValidator {
                                                 regExp: /^-?(100|[1-9]?[0-9])$/
                                             }
@@ -1175,7 +1432,7 @@ GenericConfigPage {
                                             text: "%"
                                         }
 
-                                        ToolButton {
+                                        ToolButton { 
                                             text: qsTr("+")
                                             onClicked: {
                                                 currentValue = currentValue < 100 ? currentValue + 1 : 100
@@ -1216,254 +1473,6 @@ GenericConfigPage {
                             }
                         }
 
-                        RowLayout{
-                            visible: isAnyOfModesSelected([pv_optimized, pv_excess])
-                            Layout.topMargin: 10
-
-                            ColumnLayout{
-                                Row{
-                                    Label{
-                                        id: batteryid
-
-                                        text: qsTr("Battery level: ") + batteryLevel.value +" %"
-                                    }
-
-                                    InfoButton{
-                                        push: "BatteryLevel.qml"
-                                        anchors.left: batteryid.right
-                                        anchors.leftMargin:  5
-                                    }
-                                }
-
-                                Slider {
-                                    id: batteryLevel
-
-                                    Layout.fillWidth: true
-                                    from: 0
-                                    to: 100
-                                    stepSize: 1
-                                    // when entering the Optimization page -> get values from holdingItem (selected Car)
-                                    //                            Component.onCompleted:
-                                    //                            {
-                                    //                                    if (carSelector.holdingItem !== false){
-                                    //                                        value = carSelector.holdingItem.stateByName("batteryLevel").value
-                                    //                                    }
-                                    //                            }
-
-                                    onPositionChanged:
-                                    {
-                                        // if the "new Car" option is not picked do something
-                                        if (carSelector.holdingItem !== false){
-                                            if (value  >= targetPercentageSlider.value)
-                                            {
-                                                if (value === 100){
-                                                    value = 99
-                                                }
-
-                                                targetPercentageSlider.value = value +1
-                                            }
-
-                                            endTimeSlider.computeFeasibility()
-                                            endTimeSlider.feasibilityText()
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        RowLayout{
-                            visible:  isAnyOfModesSelected([pv_optimized, pv_excess])
-                            ColumnLayout {
-                                spacing: 0
-                                Row{
-                                    Label {
-                                        id: targetCharge
-
-                                        text: qsTr("Target charge %1%").arg(targetPercentageSlider.value)
-                                    }
-
-                                    InfoButton{
-                                        push: "TargetChargeInfo.qml"
-                                        anchors.left: targetCharge.right
-                                        anchors.leftMargin:  5
-                                    }
-                                }
-
-                                Slider {
-                                    id: targetPercentageSlider
-
-                                    Layout.fillWidth: true
-                                    from: 0
-                                    to: 100
-                                    stepSize: 1
-                                    value: 0
-
-                                    Component.onCompleted: {
-                                        if (carSelector.holdingItem !== false){
-                                            //                                    value = chargingConfiguration.targetPercentage
-                                            endTimeSlider.computeFeasibility()
-                                            endTimeSlider.feasibilityText()
-                                        }
-                                    }
-                                    onPositionChanged: {
-                                        if (carSelector.holdingItem !== false){
-                                            endTimeSlider.computeFeasibility()
-                                            endTimeSlider.feasibilityText()
-
-                                            if (value <= batteryLevel.value)
-                                            {
-                                                if (value === 100){
-                                                    value = batteryLevel.value
-                                                }else{
-                                                    value = batteryLevel.value + 1
-                                                }
-                                            }
-                                            //                                    if (value == 0){
-
-                                            //                                        value = 1
-                                            //                                    }
-
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        RowLayout{
-                            Layout.fillWidth: true
-                            visible:  isAnyOfModesSelected([pv_optimized])
-
-                            Label {
-                                id: endTimeLabel
-
-                                Layout.fillWidth: true
-                                property var today: new Date()
-                                property var endTime: new Date(today.getTime() + endTimeSlider.value * 60000)
-                                text: qsTr("Ending time: ") + endTime.toLocaleString(Qt.locale("de-DE"), "dd.MM HH:mm")
-
-                                function endTimeValidityPrediction(d){
-                                    switch (d){
-                                    case 1:
-                                        feasibilityMessage.visible = true
-
-                                        break
-                                    case 2:
-                                        feasibilityMessage.visible = false
-                                        break
-
-                                    }
-                                    return
-                                }
-                            }
-                        }
-
-                        RowLayout {
-                            Layout.fillWidth: true
-                            visible:   isAnyOfModesSelected([pv_optimized])
-
-                            Slider {
-                                id: endTimeSlider
-
-                                Layout.fillWidth: true
-                                implicitWidth: backgroundEndTimeSlider.implicitWidth
-                                property int chargingConfigHours: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours()
-                                property int chargingConfigMinutes: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes()
-                                property int nextDay: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() < 0 ? 1 : 0
-                                property int targetSOC: targetPercentageSlider.value
-
-                                property real minimumChargingthreshhold
-                                property real maximumChargingthreshhold
-
-                                property var batteryLevel
-                                property var capacityInAh
-                                property var batteryContentInAh
-                                property var minChargingCurrent
-
-                                from: 0
-                                to: 24*60
-                                stepSize: 1
-                                //         from config hours      from config minutes         current hours                    current minutes                 add a day if negative (since it means it is the next day)
-                                value: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() + nextDay*24*60
-
-                                background: ChargingConfigSliderBackground{
-                                    id: backgroundEndTimeSlider
-
-                                    Layout.fillWidth: true
-                                    infeasibleSectionWidth: Math.min(endTimeSlider.width * endTimeSlider.maximumChargingthreshhold/(24*60), endTimeSlider.width )
-                                    feasibleSectionWidth:  Math.min(endTimeSlider.width - infeasibleSectionWidth, endTimeSlider.width)
-                                }
-
-                                onPositionChanged: {
-                                    feasibilityText()
-                                }
-
-                                function feasibilityText(){
-                                    if (value < maximumChargingthreshhold){
-                                        endTimeLabel.endTimeValidityPrediction(1)
-                                    }
-                                    else{
-                                        endTimeLabel.endTimeValidityPrediction(2)
-                                    }
-                                }
-
-                                function computeFeasibility(){
-
-                                    // TODo: Determine charging Voltage of wallbox
-                                    //       How many phases does the wallbox have
-                                    if (carSelector.holdingItem !== false){
-                                        var maxChargingCurrent = thing.stateByName("maxChargingCurrent").maxValue
-
-
-                                        var loadingVoltage = thing.stateByName("phaseCount").value * 230
-
-                                        for (let i = 0; i < carSelector.holdingItem.thingClass.stateTypes.count; i++){
-
-                                            var thingStateId = carSelector.holdingItem.thingClass.stateTypes.get(i).id
-
-                                            if (carSelector.holdingItem.thingClass.stateTypes.get(i).name === "capacity" ){
-                                                // capacity in KWh
-                                                var capacity = carSelector.holdingItem.states.getState(thingStateId).value
-                                                capacityInAh = (capacity*1000)/loadingVoltage
-                                            }
-                                            if (carSelector.holdingItem.thingClass.stateTypes.get(i).name === "minChargingCurrent" ){
-
-                                                minChargingCurrent = carSelector.holdingItem.states.getState(thingStateId).value
-                                            }
-
-                                        }
-
-                                        batteryContentInAh = capacityInAh * batteryLevel.value/100
-
-                                        var targetSOCinAh = capacityInAh * targetSOC/100
-
-                                        var necessaryTimeinHMinCharg = (targetSOCinAh - batteryContentInAh)/minChargingCurrent
-                                        var necessaryTimeinHMaxCharg = (targetSOCinAh - batteryContentInAh)/maxChargingCurrent
-
-
-                                        minimumChargingthreshhold = necessaryTimeinHMinCharg*60
-                                        maximumChargingthreshhold = necessaryTimeinHMaxCharg*60
-
-                                    }
-                                }
-                            }
-                        }
-
-                        RowLayout
-                        {
-                            visible: isAnyOfModesSelected([pv_optimized])
-
-                            Label
-                            {
-                                id: feasibilityMessage
-                                Layout.fillWidth: true
-                                Layout.alignment: Qt.AlignRight
-                                text: qsTr("In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time")
-                                Material.foreground: Material.Red
-                                visible: false
-                                wrapMode: Text.WordWrap
-                            }
-                        }
-
                         Label {
                             id: footer
 
@@ -1480,7 +1489,6 @@ GenericConfigPage {
                             id: rootChart
                             Layout.fillWidth: true
                             Layout.fillHeight: true
-
                             QtObject {
                                 id: d
 
@@ -1900,7 +1908,6 @@ GenericConfigPage {
                                 }
                             }
                         }
-
 
                         Button {
                             id: savebutton

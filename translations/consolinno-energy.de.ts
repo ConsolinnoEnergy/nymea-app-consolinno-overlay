@@ -2780,7 +2780,7 @@ Please refer to our service if you have any questions: service@consolinno.de</so
     </message>
     <message>
         <source>Some vehicles cannot handle an interruption in the charging process, i.e. charging can no longer be continued after an interruption in the charging process if, for example, the electricity price falls below the price limit again after a pause. If problems occur, the option &lt;font color=&quot;#87BD26&quot;&gt;&apos;Charging with minimum power&apos;&lt;/font&gt; should be selected. With this setting, charging continues at minimum power even if the price limit is exceeded.</source>
-        <translation type="unfinished">Manche Fahrzeuge können mit einer Unterbrechung des Ladevorgangs nicht umgehen, d.h. nach einer Unterbrechung des Ladevorgangs kann nicht mehr weitergeladen werden, z.B. wenn der Strompreis nach Pausieren wieder unter die Preisgrenze fällt. Falls es zu Problemen kommt sollte die Option &lt;font color=&quot;#87BD26&quot;&gt;&apos;Laden mit minimaler Leistung&apos;&lt;/font&gt; gewählt werden. Mit dieser Einstellung wird auch wenn die Preisgrenze überschritten wird mit minimalen Strom weitergeladen.</translation>
+        <translation type="unfinished">Manche Fahrzeuge können mit einer Unterbrechung des Ladevorgangs nicht umgehen, d.h. nach einer Unterbrechung des Ladevorgangs kann nicht mehr weitergeladen werden, z.B. wenn der Strompreis nach Pausieren wieder unter die Preisgrenze fällt. Falls es zu Problemen kommt sollte die Option &lt;font color=&quot;#87BD26&quot;&gt;„Laden mit minimaler Leistung“&lt;/font&gt; gewählt werden. Mit dieser Einstellung wird auch wenn die Preisgrenze überschritten wird mit minimalen Strom weitergeladen.</translation>
     </message>
 </context>
 <context>
@@ -2791,7 +2791,7 @@ Please refer to our service if you have any questions: service@consolinno.de</so
     </message>
     <message>
         <source>The price limit is defined based on the average price, e.g. average price -10%. This means that charging takes place as soon as the price is cheaper than the average price -10% calculated for the day. The price limit is valid until a new price limit is entered, even after unplugging and plugging in again.</source>
-        <translation type="unfinished">Die Preisgrenze wird ausgehend vom durchschnittlichen Preis definiert definiert z.B. Durchschnittspreis -10%. Das bedeutet, dass geladen wird, sobald der Preis günstiger ist als der für den Tag berechnete Durchschnittspreis -10%. 
+        <translation type="unfinished">Die Preisgrenze wird ausgehend vom durchschnittlichen Preis definiert z.B. Durchschnittspreis -10%. Das bedeutet, dass geladen wird, sobald der Preis günstiger ist als der für den Tag berechnete Durchschnittspreis -10%. 
 Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine neue Preisgrenze eingegeben wird.</translation>
     </message>
 </context>
