@@ -1469,7 +1469,7 @@ GenericConfigPage {
                             Layout.topMargin: 5
                             visible: isAnyOfModesSelected([dyn_pricing])
                             Label {
-                                text: qsTr("Currently corresponds to a market price of ") + thresholdPrice
+                                text: qsTr("Currently corresponds to a market price of %1 ct").arg(thresholdPrice)
                             }
                         }
 
