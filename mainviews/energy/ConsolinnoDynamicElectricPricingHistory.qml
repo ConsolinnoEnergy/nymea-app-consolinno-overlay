@@ -233,6 +233,10 @@ Item {
                     borderWidth: 1
                     borderColor: Style.green
 
+                    lowerSeries: LineSeries {
+                        id: pricingLowerSeries
+                    }
+
                     upperSeries: LineSeries {
                         id: pricingUpperSeries
                     }
@@ -288,8 +292,13 @@ Item {
                             }
 
                             pricingUpperSeriesAbove.append(currentTimestamp,averagePrice);
+                            pricingLowerSeriesAbove.append(currentTimestamp,averagePrice);
+
                             pricingUpperSeries.append(currentTimestamp - (60000 * 15),itemValue);
                             pricingUpperSeries.append(currentTimestamp,itemValue);
+
+                            pricingLowerSeries.append(currentTimestamp - (60000 * 15),itemValue);
+                            pricingLowerSeries.append(currentTimestamp,itemValue);
                         }
 
                         const todayMidnight = new Date(identicalIndexes[0]);
@@ -321,8 +330,11 @@ Item {
                     }
 
                     lowerSeries: LineSeries {
-                        XYPoint { x: dateTimeAxis.min.getTime(); y: -100 }
-                        XYPoint { x: dateTimeAxis.max.getTime(); y: -100 }
+
+                        id: pricingLowerSeriesAbove
+
+                        //XYPoint { x: dateTimeAxis.min.getTime(); y: -100 }
+                        //XYPoint { x: dateTimeAxis.max.getTime(); y: -100 }
                     }
 
                 }

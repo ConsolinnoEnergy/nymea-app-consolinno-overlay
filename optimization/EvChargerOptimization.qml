@@ -111,14 +111,15 @@ Page {
             text: qsTr("Save")
             onClicked: {
                     // Check if carThingId is not 00000000-0000-0000-0000-000000000000 and set it to a random uuid if so
+
                     if (chargingConfiguration.carThingId.toString() === "{00000000-0000-0000-0000-000000000000}" || chargingConfiguration.carThingId === null) {
                         chargingConfiguration.carThingId = "91849ca3-f49f-49bc-a99c-f01075d050b0"
                     }
 
                     if(directionID === 1){
-                       hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {controllableLocalSystem: gridSupportControl.checked,})
+                       hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {optimizationEnabled: false, controllableLocalSystem: gridSupportControl.checked,})
                     }else{
-                        d.pendingCallId = hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {optimizationEnabled: gridSupportControl.checked, controllableLocalSystem: gridSupportControl.checked,})
+                        d.pendingCallId = hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {optimizationEnabled: false, controllableLocalSystem: gridSupportControl.checked,})
                     }
 
                     root.done()

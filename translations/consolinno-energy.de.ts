@@ -445,10 +445,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Currently corresponds to a market price of </source>
-        <translation type="unfinished">Entspricht aktuell einem Marktpreis von </translation>
-    </message>
-    <message>
         <source>Average price </source>
         <translation type="unfinished">Durchschnittspreis </translation>
     </message>
@@ -467,6 +463,10 @@
     <message>
         <source>Cents / kWh</source>
         <translation type="unfinished">Cent / kWh</translation>
+    </message>
+    <message>
+        <source>Currently corresponds to a market price of: %1 ct.</source>
+        <translation type="unfinished">Entspricht aktuell einem Marktpreis von: %1 ct.</translation>
     </message>
 </context>
 <context>
