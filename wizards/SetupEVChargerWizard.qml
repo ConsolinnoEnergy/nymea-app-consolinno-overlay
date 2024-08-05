@@ -37,7 +37,8 @@ Page {
                 // Just Add
             case 0:
                 if (d.thingDescriptor) {
-                    engine.thingManager.addDiscoveredThing(thingClass.id, d.thingDescriptor.id, d.name, params);
+                    var test = engine.thingManager.addDiscoveredThing(thingClass.id, d.thingDescriptor.id, d.name, params);
+                    console.error(test)
                 } else {
                     engine.thingManager.addThing(thingClass.id, d.name, params);
                 }
@@ -567,7 +568,7 @@ Page {
 
                     d.params = params
                     d.name = nameTextField.text
-                    d.pairThing(thingClass, thing);
+                    d.pairThing(thingClass,thing);
 
 
                 }
@@ -603,7 +604,7 @@ Page {
             }
 
             Component.onCompleted: {
-                pendingCallId = engine.thingManager.addDiscoveredThing(thingDescriptor.thingClassId, thingDescriptor.id, thingDescriptor.name, {})
+                pendingCallId = engine.thingManager.addDiscoveredThing(thingDescriptor.thingClassId, thingDescriptor.id, thingDescriptor.name, {controllableLocalSystem: true})
             }
 
             HemsManager{

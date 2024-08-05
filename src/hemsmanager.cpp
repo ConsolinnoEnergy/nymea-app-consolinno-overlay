@@ -387,7 +387,7 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
         dummyConfig.insert("evChargerThingId", evChargerThingId);
         dummyConfig.insert("optimizationEnabled", false);
         dummyConfig.insert("optimizationMode", 0);
-        dummyConfig.insert("carThingId", "{00000000-0000-0000-0000-000000000000}");
+        //dummyConfig.insert("carThingId", "{00000000-0000-0000-0000-000000000000}");
         dummyConfig.insert("endTime", "0:00:00");
         dummyConfig.insert("targetPercentage", 100);
         dummyConfig.insert("controllableLocalSystem", false);
@@ -872,7 +872,7 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
 
     configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
     configuration->setOptimizationMode(configurationMap.value("optimizationMode").toInt());
-    configuration->setCarThingId(configurationMap.value("carThingId").toUuid());
+    //configuration->setCarThingId(configurationMap.value("carThingId").toUuid());
     configuration->setEndTime(configurationMap.value("endTime").toString());
     configuration->setTargetPercentage(configurationMap.value("targetPercentage").toUInt());
     configuration->setUniqueIdentifier(configurationMap.value("uniqueIdentifier").toUuid());

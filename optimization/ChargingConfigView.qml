@@ -1389,6 +1389,7 @@ GenericConfigPage {
                                             onTriggered: {
                                                 pricingCurrentLimitSeries.clear();
                                                 pricingUpperSeriesAbove.clear();
+                                                pricingLowerSeriesAbove.clear();
                                                 consumptionSeries.insertEntry(dynamicPrice.get(0).stateByName("priceSeries").value, true);
                                             }
                                         }
@@ -1738,6 +1739,7 @@ GenericConfigPage {
 
                                                 pricingCurrentLimitSeries.append(todayMidnightTs + 6000000, valueAxis.min - 5);
                                                 pricingUpperSeriesAbove.append(todayMidnightTs + 6000000, thresholdPrice);
+                                                pricingLowerSeriesAbove.append(todayMidnightTs + 6000000, thresholdPrice);
 
                                                 if(!onlyThreshold) {
                                                     pricingUpperSeries.append(todayMidnightTs + 6000000, lastObjectValue);
@@ -1750,7 +1752,7 @@ GenericConfigPage {
                                             axisX: dateTimeAxis
                                             axisY: valueAxis
                                             color: 'transparent'
-                                            borderWidth: 2
+                                            borderWidth: 1
                                             borderColor: Style.red
 
                                             upperSeries: LineSeries {
@@ -1758,8 +1760,10 @@ GenericConfigPage {
                                             }
 
                                             lowerSeries: LineSeries {
+                                                id: pricingLowerSeriesAbove
+                                                /*
                                                 XYPoint { x: dateTimeAxis.min.getTime()-10; y: -100 }
-                                                XYPoint { x: dateTimeAxis.max.getTime(); y: -100 }
+                                                XYPoint { x: dateTimeAxis.max.getTime(); y: -100 } */
                                             }
                                         }
                                     }
