@@ -102,20 +102,20 @@
         <translation>Autorisierung</translation>
     </message>
     <message>
-        <source>To comission devices with the Leaflet, you must be authorized. Otherwise the warranty expires.</source>
-        <translation>Nur Personen mit ausreichenden Fachkenntnissen sollten Geräte in Betrieb nehmen. Andernfalls kann es zu einer Beeinträchtigung der Funktionsweise des Leaflets führen. </translation>
-    </message>
-    <message>
-        <source>I am authorized to operate the Leaflet</source>
-        <translation>Zur Kenntnis genommen.</translation>
-    </message>
-    <message>
         <source>next</source>
         <translation>weiter</translation>
     </message>
     <message>
         <source>cancel</source>
         <translation>abbrechen</translation>
+    </message>
+    <message>
+        <source>To comission devices with the %1, you must be authorized. Otherwise the warranty expires.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I am authorized to operate the %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -576,12 +576,12 @@
 <context>
     <name>Configuration</name>
     <message>
-        <source>Consolinno</source>
-        <translation>Consolinno</translation>
-    </message>
-    <message>
         <source>Help</source>
         <translation>Hilfe</translation>
+    </message>
+    <message>
+        <source>Q CELLS</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -694,10 +694,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(1) Consolinno Energy GmbH hat eine Software entwickelt, welche als Applikation auf Android und IOS-Systemen benutzt werden kann. Die Software verbindet sich mit einem Energy Management Systems genannt Leaflet HEMS. Das hat dann die Aufgabe in Verbindung mit einer Photovoltaikanlage den Eigenverbrauch der PV-Energie zu maximieren. Parallel ist die Funktion Black-out Schutz integriert. Damit wird der Ladestrom einer Ladeeinrichtung dynamisch begrenzt. Es kommt nicht zum Auslösen der Sicherung.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Die Software ermöglicht es, durch die Steuerung einer E-Ladeeinrichtung, einer Wärmepumpe, Hausgeräte (Waschmaschine, Trockner, Spülmaschine) und dem Einbinden einer Batterie den Eigenbedarf der erzeugten PV-Energie signifikant zu steigern.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -710,19 +706,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(2) Die Software wird von der Consolinno Energy GmbH kostenfrei Kunden vom HEMS über Appstores angeboten.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>(3) Die Kunden sind für das ordnungsgemäße Installieren der Hard- und Software verantwortlich.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>2.Lizenzgegenstand</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(1) Consolinno Energy GmbH gewährt dem Kunden das ausschließliche Recht die in der Vereinbarung näher beschriebene Software innerhalb Deutschlands zu nutzen. Es wird ein nicht-ausschließliches und nicht-übertragbares Nutzungsrecht an der Software eingeräumt.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -735,10 +723,6 @@
     </message>
     <message>
         <source>(3) Im Übrigen ist der Kunde zu einer Vervielfältigung oder Überlassung an Dritte nicht berechtigt, soweit gesetzlich nicht anderes bestimmt.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(4) Der Kunde ist nicht berechtigt, die Software zu verändern und zu bearbeiten, es sei denn, es handelt sich bei der Änderung bzw. Bearbeitung um eine für die vertragsgemäße Nutzung der Software erforderliche Beseitigung eines Mangels, mit welcher sich die Consolinno Energy GmbH in Verzug befindet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -758,27 +742,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(1) Consolinno Energy GmbH liefert die Software an den Kunden über den Appstore von Apple oder Google aus.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(2) Neben der Software wird Consolinno Energy GmbH dem Kunden eine Installationsanleitung des Gerätes HEMS sowie eine Dokumentation zum Download anbieten.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>3) Consolinno Energy GmbH schuldet keine Installation der Software auf den Systemen des Kunden; für diese ist der Kunde allein ver-antwortlich.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>5.Instandhaltung</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(1) Consolinno Energy GmbH ist zur Aufrechterhaltung der vertraglich vereinbarten Beschaffenheit der Software während der Vertragslaufzeit (&apos;Instandhaltung&apos;) verpflichtet. Die vertraglich geschuldete Beschaffenheit der Software bestimmt sich nach der zugesagten Funktion des HEMS Produktes. Up Dates erfolgen über eine Internetverbindung.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(2) Consolinno Energy GmbH ist zu einer Änderung, Anpassung und Weiterentwicklung der Software nur dann verpflichtet, wenn das mit dem Kunden gesondert vereinbart ist. Ohne eine solche gesonderte Vereinbarung ist die Consolinno Energy GmbH nicht zu einer Weiterentwicklung der Software verpflichtet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -786,15 +750,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(1) Sollte dem Kunden Mängel an der Software, am Gerät oder an der Dokumentation feststellen, so hat der Kunde das der Consolinno Energy GmbH mitzuteilen. Das kann zum Beispiel per Mail erfolgen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>(2) Ein Mangel liegt nicht vor, wenn die vom Kunden verwendete Hardware und /oder Software nicht den spezifizierten Anforderungen entspricht.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(3) Consolinno Energy GmbH wird die angezeigten Mängel an der Software und an der Dokumentation innerhalb einer angemessenen Frist zu beheben. Im Rahmen der Mängelbeseitigung hat Consolinno Energy GmbH ein Wahlrecht zwischen Nachbesserung und Ersatzlieferung. Die Kosten der Mängelbeseitigung trägt Consolinno Energy GmbH. Kosten für Ausfall, entgangener Gewinn, Ein- und Ausbaukosten oder ähnliches werden nicht erstattet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -803,10 +759,6 @@
     </message>
     <message>
         <source>8.Haftung</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(2) Im Übrigen ist eine Haftung der Consolinno Energy GmbH für direkte und indirekte Schäden ausgeschlossen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -832,10 +784,6 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(4) Consolinno Energy GmbH kann die Pflege des Programmes ohne nennen von Gründen einstellen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>11.Schlussbestimmungen</source>
         <translation type="unfinished"></translation>
     </message>
@@ -857,16 +805,6 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>(5) Ausschließlicher Gerichtsstand für alle Streitigkeiten aus oder im Zusammenhang mit dem Lizenzvertrag ist der Sitz des Lizenzgebers, Regensburg. Der Lizenzgeber bleibt berechtigt, am allgemeinen Gerichtsstand der Lizenznehmerin zu klagen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Anschrift des Lizenzgebers
-Consolinno Energy GmbH, Franz-Mayer-Straße 1, 93053 Regensburg</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tel 0941 20300 333
-Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -902,10 +840,6 @@ Mail service@consolinno.de</source>
         <translation></translation>
     </message>
     <message>
-        <source>Welcome to Consolinno HEMS!</source>
-        <translation>Willkommen zum Consolinno HEMS!</translation>
-    </message>
-    <message>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
@@ -933,6 +867,714 @@ Mail service@consolinno.de</source>
     <message>
         <source>SSL:</source>
         <translation>SSL:</translation>
+    </message>
+    <message>
+        <source>(1) %1 hat eine Software entwickelt, welche als Applikation auf Android und IOS-Systemen benutzt werden kann. Die Software verbindet sich mit einem Energy Management Systems genannt Leaflet HEMS. Das hat dann die Aufgabe in Verbindung mit einer Photovoltaikanlage den Eigenverbrauch der PV-Energie zu maximieren. Parallel ist die Funktion Black-out Schutz integriert. Damit wird der Ladestrom einer Ladeeinrichtung dynamisch begrenzt. Es kommt nicht zum Auslösen der Sicherung.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(2) Die Software wird von der %1 kostenfrei Kunden vom HEMS über Appstores angeboten.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(1) %1 gewährt dem Kunden das ausschließliche Recht die in der Vereinbarung näher beschriebene Software innerhalb Deutschlands zu nutzen. Es wird ein nicht-ausschließliches und nicht-übertragbares Nutzungsrecht an der Software eingeräumt.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(4) Der Kunde ist nicht berechtigt, die Software zu verändern und zu bearbeiten, es sei denn, es handelt sich bei der Änderung bzw. Bearbeitung um eine für die vertragsgemäße Nutzung der Software erforderliche Beseitigung eines Mangels, mit welcher sich die %1 in Verzug befindet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(1) %1 liefert die Software an den Kunden über den Appstore von Apple oder Google aus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(2) Neben der Software wird %1 dem Kunden eine Installationsanleitung des Gerätes HEMS sowie eine Dokumentation zum Download anbieten.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3) %1 schuldet keine Installation der Software auf den Systemen des Kunden; für diese ist der Kunde allein ver-antwortlich.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(1) %1 ist zur Aufrechterhaltung der vertraglich vereinbarten Beschaffenheit der Software während der Vertragslaufzeit (&apos;Instandhaltung&apos;) verpflichtet. Die vertraglich geschuldete Beschaffenheit der Software bestimmt sich nach der zugesagten Funktion des HEMS Produktes. Up Dates erfolgen über eine Internetverbindung.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(2) %1 ist zu einer Änderung, Anpassung und Weiterentwicklung der Software nur dann verpflichtet, wenn das mit dem Kunden gesondert vereinbart ist. Ohne eine solche gesonderte Vereinbarung ist die %1 nicht zu einer Weiterentwicklung der Software verpflichtet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(1) Sollte dem Kunden Mängel an der Software, am Gerät oder an der Dokumentation feststellen, so hat der Kunde das der %1 mitzuteilen. Das kann zum Beispiel per Mail erfolgen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(3) %1 wird die angezeigten Mängel an der Software und an der Dokumentation innerhalb einer angemessenen Frist zu beheben. Im Rahmen der Mängelbeseitigung hat %1 ein Wahlrecht zwischen Nachbesserung und Ersatzlieferung. Die Kosten der Mängelbeseitigung trägt %1. Kosten für Ausfall, entgangener Gewinn, Ein- und Ausbaukosten oder ähnliches werden nicht erstattet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(2) Im Übrigen ist eine Haftung der %1 für direkte und indirekte Schäden ausgeschlossen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(4) %1 kann die Pflege des Programmes ohne nennen von Gründen einstellen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anschrift des Lizenzgebers
+%1, %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tel %1
+Mail %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welcome to %1 HEMS!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;We process your personal data according to the current regulations of the Federal Republic of Germany and the European Union (EU). The protection of your personal information is our highest priority. Below you will find information about which data we process, in what form, on what legal basis, for what purpose, and for how long, to what extent you have the right to object, and how you can exercise this right. If your consent is required, it will be indicated at the relevant point, and you will have the option to grant or withhold it. Of course, even after granting your consent, you have the right to withdraw it at any time.&lt;font color=&apos;#333333&apos;&gt;&amp;nbsp;&lt;/font&gt;&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;h3 class=&apos;western&apos;&gt;1. Responsible Party&lt;span style=&apos;font-weight: normal&apos;&gt;&lt;a class=&apos;sdfootnoteanc&apos; name=&apos;sdfootnote1anc&apos; href=&apos;#sdfootnote1sym&apos;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/span&gt;&lt;br/&gt;
+  Responsible according to data protection regulations is:&lt;/h3&gt;
+&lt;/ol&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;b&gt;%2&lt;/b&gt;&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;represented by the managing director&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;%3&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;%1 %4&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;The responsible company data protection officer (bDSB) is:&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Niklas Hanitsch&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Datenschutz hoch 4 GmbH&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;%3&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;%1 %4&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;a name=&apos;_Hlk514794356&apos;&gt;&lt;/a&gt;We would like to point out your &lt;u&gt;right to lodge a complaint with the supervisory authority&lt;/u&gt; according to Art. 77 GDPR. Every data subject has the right to lodge a complaint with the supervisory authority, regardless of other legal remedies, if they believe that the processing of their personal data violates the General Data Protection Regulation.&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;The contact details of the supervisory authority responsible for the controller are:&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;font color=&apos;#000000&apos;&gt;&lt;span style=&apos;background: #ffffff&apos;&gt;Bavarian State Office for Data Protection Supervision&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Promenade 18&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;91522 Ansbach&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;ol start=&apos;2&apos;&gt;
+  &lt;h3 class=&apos;western&apos;&gt;2. Information about Your Rights as a Data Subject&lt;/h3&gt;
+  &lt;ol&gt;
+    &lt;h3 class=&apos;western&apos;&gt;&lt;a name=&apos;_Ref513466093&apos;&gt;&lt;/a&gt;2.1&lt;/h3&gt; If &lt;u&gt;legal requirements are met&lt;/u&gt;, you have - unless there is a legal exception - &lt;font color=&apos;#141414&apos;&gt;the following rights regarding your personal data:&lt;/font&gt;
+  &lt;/ol&gt;
+&lt;/ol&gt;
+&lt;p style=&apos;margin-left: 1.33cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Right to &lt;u&gt;&lt;b&gt;information&lt;/b&gt;&lt;/u&gt; (Art. 15 GDPR): You have the right to request information from the controller about whether personal data concerning you is being processed. If so, you have the right to obtain information about this personal data and related additional information.&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Right to &lt;u&gt;&lt;b&gt;rectification&lt;/b&gt;&lt;/u&gt; (Art. 16 GDPR): You have the right to request the immediate correction of inaccurate personal data concerning you. Taking into account the purposes of the processing, you have the right to request the completion of incomplete personal data – including by providing a supplementary statement.&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Right to &lt;u&gt;&lt;b&gt;erasure&lt;/b&gt;&lt;/u&gt; (Art. 17 GDPR): You have the right to request the immediate deletion of personal data concerning you from the controller, and the controller is obliged to delete personal data immediately if one of the reasons under Art. 17(1) GDPR applies and no exception applies.&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Right to &lt;u&gt;&lt;b&gt;restriction of processing&lt;/b&gt;&lt;/u&gt; (Art. 18 GDPR): You have the right to request the restriction (formerly: blocking) of the processing of your personal data from the controller if one of the conditions under Art. 18(1) GDPR applies and no exception applies.&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Right to &lt;u&gt;&lt;b&gt;data portability&lt;/b&gt;&lt;/u&gt; (Art. 20 GDPR): You have the right to receive the personal data concerning you, which you have provided to a controller, in a structured, commonly used, and machine-readable format, and you have the right to transmit this data to another controller without hindrance from the controller to whom the personal data was provided, provided the further conditions of Art. 20(1) GDPR are met and no exception applies.&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Right to &lt;u&gt;&lt;b&gt;object to processing&lt;/b&gt;&lt;/u&gt; (Art. 21 GDPR): You have the right to object at any time, on grounds relating to your particular situation, to the processing of personal data concerning you which is based on Art. 6(1) sentence 1 lit. e) (public interest or exercise of official authority) or f) (protection of legitimate interests) GDPR.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p style=&apos;margin-left: 2.6cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;ol start=&apos;2&apos;&gt;
+
+&lt;p class=&apos;western&apos;&gt;2.2 If you wish to obtain further information about your personal data or have additional questions regarding the processing of the personal data you have provided to us, or if you want to request correction or deletion of your data, please contact the address provided in Section &lt;span style=&apos;background: #c0c0c0&apos;&gt;3.&lt;/span&gt; &lt;span style=&apos;text-decoration: none&apos;&gt;“Exercise of the&lt;/span&gt; Right of Objection and Withdrawal&lt;span style=&apos;text-decoration: none&apos;&gt;”&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;ol start=&apos;3&apos;&gt;
+  &lt;h3 class=&apos;western&apos;&gt;&lt;a name=&apos;_Ref514808556&apos;&gt;&lt;/a&gt;&lt;a name=&apos;_Ref493089160&apos;&gt;&lt;/a&gt;3. Exercise of the Right of Objection and Withdrawal&lt;/h3&gt;
+&lt;/ol&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;span style=&apos;font-weight: normal&apos;&gt;You may have the right to object to the processing of your data (see Section &lt;span style=&apos;background: #c0c0c0&apos;&gt;2.1&lt;/span&gt; last bullet point). Additionally, you have the right to withdraw any consent you have given us with future effect. In this case, we will immediately cease processing your data for that purpose. You can submit an objection or withdrawal at any time informally by mail, fax, or email.&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 0.61cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;span lang=&apos;en-US&apos;&gt;By Mail:&lt;/span&gt;&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt; %2&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt; %3&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt; %1 %4&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;span lang=&apos;en-US&apos;&gt;By Email:&lt;/span&gt;&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt; %5&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;ol start=&apos;4&apos;&gt;
+  &lt;h3 class=&apos;western&apos;&gt;4. Use of Hardware and Mobile Application (App)&lt;/h3&gt;
+  &lt;ol&gt;
+    &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;4.1 Type and Scope of Data Processing:&lt;/b&gt;&lt;/h3&gt;
+    &lt;p&gt;When using our hardware and accessing our app, it is technically necessary to process various data, particularly to enable use and ensure error-free communication between your device and our cloud. Automated data collected and logged in a so-called log file include:&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Date and time of access&lt;/li&gt;
+      &lt;li&gt;Hardware type and version (including serial number)&lt;/li&gt;
+      &lt;li&gt;Operating system type and version&lt;/li&gt;
+      &lt;li&gt;IP addresses of devices&lt;/li&gt;
+      &lt;li&gt;The IP address of your connection&lt;/li&gt;
+      &lt;li&gt;Access provider&lt;/li&gt;
+      &lt;li&gt;Data of connected mobile devices (manufacturer, type), stored exclusively on the hardware&lt;/li&gt;
+      &lt;li&gt;Data of devices integrated into the smart home system (operating statuses, operating hours, energy consumption, system status, system settings, installation location, error codes, measurements such as temperatures), stored exclusively on the hardware&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;We generally collect this data in a non-personalized form. In exceptional cases, the identification with a natural person cannot be avoided. For additional data processing within the scope of the beta test, please refer to Section 6 below.&lt;/p&gt;
+  &lt;/ol&gt;
+&lt;/ol&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;b&gt;4.2 Purpose:&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;This is done to enable the use of hardware and software, particularly for internal technical processing (connection establishment), system security, technical administration of the system and network infrastructure, and optimization of our offering and product. We reserve the right to review the log file afterwards if there is a specific indication of a legitimate suspicion of illegal or abusive use.&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt;4.3 Legal Basis:&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;The temporary processing of the data and the log file occurs on the basis of legitimate interest for the above-mentioned purpose according to Art. 6(1) sentence 1 lit. f) GDPR and for the fulfillment of the contract with you according to Art. 6(1) sentence 1 lit. b) GDPR.&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt;4.4 Recipients of the Data:&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;The anonymized data is necessarily forwarded to our hosting provider, who physically and technically manages our web server:
+**Hosting Provider:** Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt;4.5 Storage Duration and Deletion:&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;The IP address is only stored with remote access. Data storage is based on legal regulations.&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt;4.6 Objection or Withdrawal:&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;This data processing is necessary for the operation of our hardware and software. Therefore, any objection is subject to an appropriate balancing of interests.&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;h3 class=&apos;western&apos;&gt;&lt;a name=&apos;_Ref493089341&apos;&gt;&lt;/a&gt;5. Registration&lt;/h3&gt;
+&lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;5.1 Type and Scope of Data Processing:&lt;/b&gt;&lt;/h3&gt;
+&lt;p&gt;You have the option to register in our app. Your consent is required for this. To successfully complete the registration process, we need the following data from you:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Email address&lt;/li&gt;
+  &lt;li&gt;Password&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;During registration, your IP address along with the date and time is also stored. A personal evaluation generally does not take place, subject to participation in the beta test (see Section 6). However, we reserve the right to review the stored data afterwards if there is a specific indication of a legitimate suspicion of abusive registration.&lt;/p&gt;
+
+&lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;5.2 Purpose:&lt;/b&gt;&lt;/h3&gt;
+&lt;p&gt;Registration provides you with the ability to use certain services or perform actions that are not possible without registration. This is done for the following purposes:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Operation of hardware and software&lt;/li&gt;
+  &lt;li&gt;Use of the app&lt;/li&gt;
+  &lt;li&gt;Use of the cloud&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Your data is stored in our system to allow you to use our services without having to re-enter your data every time. Your email address will be used by us to send you confirmation emails for changes you have made to your profile data or for password recovery, as well as to inform you about necessary software updates. We will only send you other emails if you wish and have given us your consent for this purpose. The storage of your IP address along with the date and time is done for abuse prevention.&lt;/p&gt;
+
+&lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;5.3 Legal Basis:&lt;/b&gt;&lt;/h3&gt;
+&lt;p&gt;The processing of the data is based on your consent according to Art. 6(1) sentence 1 lit. a) GDPR.&lt;/p&gt;
+
+&lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;5.4 Storage Duration and Deletion:&lt;/b&gt;&lt;/h3&gt;
+&lt;p&gt;The data is generally stored as long as you do not cancel your registration and no legal retention periods are in place.&lt;/p&gt;
+
+&lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;5.5 Objection or Withdrawal:&lt;/b&gt;&lt;/h3&gt;
+&lt;p&gt;You have the right to cancel your registration at any time and to change your stored data as well as to withdraw your given consent with future effect. You can change your password at any time yourself. In case of cancellation and/or withdrawal, access to the hardware and software will no longer be possible.&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; align=&apos;left&apos; style=&apos;margin-bottom: 0cm; line-height: 100%&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm; page-break-before: always&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p style=&apos;margin-left: 1.27cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt;6. Given Consents&lt;/b&gt;&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;Where necessary, you may have given us consents for the processing of your personal data. In this case, we have documented your consent. We are legally obligated to keep the text of each consent available to you at any time. You can of course withdraw any given consents with future effect at any time. You can find out how to exercise your right of withdrawal under Section &lt;span style=&apos;background: #c0c0c0&apos;&gt;3.&lt;/span&gt; &lt;span style=&apos;text-decoration: none&apos;&gt;“Exercise of the&lt;/span&gt; Right of Objection and Withdrawal&lt;span style=&apos;text-decoration: none&apos;&gt;”&lt;/span&gt;.&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;b&gt;Consent for Registration of a User Account:&lt;/b&gt;&lt;/p&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;I would like to open a user account to be able to log into the app. For this purpose, I consent to my data (email address and password) being stored in the database. I can withdraw this consent at any time with future effect by contacting the address in the &lt;font color=&apos;#0000ff&apos;&gt;&lt;u&gt;&lt;a href=&apos;%6&apos;&gt;%6&lt;/a&gt;&lt;/u&gt;&lt;/font&gt; and requesting deletion of my user account. To document this process, my IP address, as well as the date and time of registration, will be stored in a database and will only be deleted when I withdraw my consent, unless further storage is legally required. The terms and conditions at &lt;font color=&apos;#0000ff&apos;&gt;&lt;u&gt;&lt;a href=&apos;%7&apos;&gt;%7&lt;/a&gt;/&lt;/u&gt;&lt;/font&gt; have been read and understood.&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;h3 class=&apos;western&apos;&gt;&lt;br/&gt;&lt;/h3&gt;
+
+&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt;7. Electronic Mail (Email) / Contact&lt;/b&gt;&lt;/p&gt;
+&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt;7.1 Information sent unencrypted via Electronic Mail (Email) may potentially be read by third parties during transmission. We usually cannot verify your identity and do not know who the actual owner of an email address is. Secure communication via simple email is therefore not guaranteed. Like many providers, we use filters against unwanted advertising (“SPAM filters”), which in some cases may automatically classify and delete normal emails as unwanted advertising. Emails containing harmful programs (“viruses”) will be automatically deleted. If you want to send us sensitive messages, we recommend sending them by conventional mail.&lt;/b&gt;&lt;/p&gt;
+
+&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt;7.2 Type and Scope of Data Processing:&lt;/b&gt; If you contact us, your data, your IP address, as well as the date and time will be stored.&lt;/p&gt;
+&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt;7.3 Purpose:&lt;/b&gt; This is done particularly for communication purposes and to protect our systems against abuse.&lt;/p&gt;
+&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt;7.4 Legal Basis:&lt;/b&gt; The processing of the data is carried out on the basis of legitimate interest for the above-mentioned purpose according to Art. 6(1) sentence 1 lit. f) GDPR.&lt;/p&gt;
+&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt;7.5 Storage Duration and Deletion:&lt;/b&gt; The data will only be deleted if no contractual or legal obligations to retain them exist.&lt;/p&gt;
+&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt;7.6 Objection or Withdrawal:&lt;/b&gt; You may object to contact via email at any time. In this case, no further correspondence via email can take place.&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;8. Validity&lt;/b&gt;&lt;/h3&gt;
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;We are continually working to develop our hardware and software and to use new technologies. Therefore, it may be necessary to change or adapt this privacy policy. We reserve the right to modify this statement at any time with future effect. Please visit this page regularly and review the current privacy policy from time to time.&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;div id=&apos;sdfootnote1&apos;&gt;
+  &lt;p class=&apos;sdfootnote-western&apos;&gt;
+    &lt;a class=&apos;sdfootnotesym&apos; name=&apos;sdfootnote1sym&apos; href=&apos;#sdfootnote1anc&apos;&gt;1&lt;/a&gt;
+    &lt;font size=&apos;1&apos; style=&apos;font-size: 8pt&apos;&gt;For better readability, the simultaneous use of male, female, and diverse language forms (m/f/d) is omitted. All personal designations apply equally to all genders.&lt;/font&gt;
+  &lt;/p&gt;
+&lt;/div&gt;
+                              </source>
+        <translation type="unfinished">&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;Wir verarbeiten Ihre
+                              personenbezogenen Daten nach den aktuellen Regelungen der
+                              Bundesrepublik Deutschland und der Europäischen Union (EU). Dabei
+                              hat der Schutz Ihrer persönlichen Informationen höchste Priorität.
+                              Im Folgenden erfahren Sie, welche Daten wir in welcher Form aufgrund
+                              welcher Rechtsgrundlage zu welchem Zweck wie lange verarbeiten,
+                              inwieweit Ihnen ein Widerspruchsrecht zusteht und wie sie dieses
+                              ausüben können. Sollte Ihre Einwilligung notwendig sein, so wird
+                              Ihnen dies an entsprechender Stelle angezeigt und Sie haben die
+                              Möglichkeit, diese zu erteilen oder von einer Erteilung abzusehen.
+                              Selbstverständlich haben Sie auch nach Erteilung Ihrer Einwilligung
+                              jederzeit das Recht, diese zu widerrufen.&lt;font color=&apos;#333333&apos;&gt;&amp;nbsp;&lt;/font&gt;&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;ol&gt;
+                              &lt;h3 class=&apos;western&apos;&gt; 1. Verantwortlicher&lt;span style=&apos;font-weight: normal&apos;&gt;&lt;a class=&apos;sdfootnoteanc&apos; name=&apos;sdfootnote1anc&apos; href=&apos;#sdfootnote1sym&apos;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/span&gt;&lt;br/&gt;
+                              Verantwortlich
+                              im Sinne der datenschutzrechtlichen Bestimmungen ist:&lt;/h3&gt;
+                              &lt;/ol&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;b&gt; %2
+                              &lt;/b&gt;&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;vertreten
+                              durch den Geschäftsführer&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt; %3
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt; %1
+                               %4&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Der
+                              zuständige betriebliche Datenschutzbeauftragte (bDSB) ist:&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Niklas
+                              Hanitsch&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Datenschutz
+                              hoch 4 GmbH&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;  %3
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;  %1
+                               %4&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;a name=&apos;_Hlk514794356&apos;&gt;&lt;/a&gt;
+                              Wir möchten Sie an dieser Stelle auf das &lt;u&gt;Recht zur Beschwerde bei
+                              der Aufsichtsbehörde&lt;/u&gt; gemäß Art. 77 DSGVO hinweisen. Demnach
+                              hat jede betroffene Person unbeschadet eines anderweitigen
+                              Rechtsbehelfs das Recht auf Beschwerde bei der Aufsichtsbehörde,
+                              wenn sie der Ansicht ist, dass die Verarbeitung der sie betreffenden
+                              personenbezogenen Daten gegen die Datenschutz-Grundverordnung
+                              verstößt.&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Die
+                              Kontaktdaten der für den Verantwortlichen zuständigen
+                              Aufsichtsbehörde lauten:&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;font color=&apos;#000000&apos;&gt;&lt;span style=&apos;background: #ffffff&apos;&gt;Bayerisches
+                              Landesamt für Datenschutzaufsicht&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Promenade
+                              18&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;91522
+                              Ansbach&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;ol start=&apos;2&apos;&gt;
+                              &lt;h3 class=&apos;western&apos;&gt; 2. Information über Ihre Rechte als betroffene
+                              Person&lt;/h3&gt;
+                              &lt;ol&gt;
+                              &lt;h3 class=&apos;western&apos;&gt;&lt;a name=&apos;_Ref513466093&apos;&gt;&lt;/a&gt; 2.1 &lt;/h3&gt; Bei &lt;u&gt;Vorliegen
+                              der gesetzlichen Voraussetzungen&lt;/u&gt; haben Sie - sofern nicht ein
+                              gesetzlicher Ausnahmefall gegeben ist - &lt;font color=&apos;#141414&apos;&gt;folgende
+                              Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:&lt;/font&gt;
+                              &lt;/ol&gt;
+                              &lt;/ol&gt;
+                              &lt;p style=&apos;margin-left: 1.33cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;ul&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Recht auf &lt;u&gt;&lt;b&gt;Auskunft&lt;/b&gt;&lt;/u&gt;
+                              (Art. 15 DSGVO): Sie haben das Recht, von dem Verantwortlichen eine
+                              Auskunft darüber zu verlangen, ob Sie betreffende personenbezogene
+                              Daten verarbeitet werden. Ist dies der Fall, so haben Sie das Recht
+                              auf Auskunft über diese personenbezogenen Daten und damit im
+                              Zusammenhang stehende weitergehende Informationen.&lt;/p&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Recht auf &lt;u&gt;&lt;b&gt;Berichtigung&lt;/b&gt;&lt;/u&gt;
+                              (Art. 16 DSGVO): Sie haben das Recht, von dem Verantwortlichen
+                              unverzüglich die Berichtigung Sie betreffender unrichtiger
+                              personenbezogener Daten zu verlangen. Unter Berücksichtigung der
+                              Zwecke der Verarbeitung haben Sie das Recht, die Vervollständigung
+                              unvollständiger personenbezogener Daten – auch mittels einer
+                              ergänzenden Erklärung – zu verlangen.&lt;/p&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Recht auf &lt;u&gt;&lt;b&gt;Löschung&lt;/b&gt;&lt;/u&gt;
+                              (Art. 17 DSGVO): Sie haben das Recht, von dem Verantwortlichen zu
+                              verlangen, dass Sie betreffende personenbezogene Daten unverzüglich
+                              gelöscht werden, und der Verantwortliche ist verpﬂichtet,
+                              personenbezogene Daten unverzüglich zu löschen, sofern einer der
+                              Gründe des Art. 17 Abs. 1 DSGVO zutrifft und kein
+                              Ausnahmetatbestand eingreift.&lt;/p&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Recht auf &lt;u&gt;&lt;b&gt;Einschränkung der
+                              Verarbeitung&lt;/b&gt;&lt;/u&gt; (Art. 18 DSGVO): Sie haben das Recht, von dem
+                              Verantwortlichen die Einschränkung der Verarbeitung (ehemals:
+                              Sperre) Ihrer personenbezogenen Daten zu verlangen, wenn eine der
+                              Voraussetzungen des Art. 18 Abs. 1 DSGVO gegeben ist und kein
+                              Ausnahmetatbestand eingreift.&lt;/p&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Recht auf &lt;u&gt;&lt;b&gt;Datenübertragbarkeit&lt;/b&gt;&lt;/u&gt;
+                              (Art. 20 DSGVO): Sie haben das Recht, die Sie betreffenden
+                              personenbezogenen Daten, die sie einem Verantwortlichen
+                              bereitgestellt haben, in einem strukturierten, gängigen und
+                              maschinenlesbaren Format zu erhalten, und sie haben das Recht, diese
+                              Daten einem anderen Verantwortlichen ohne Behinderung durch den
+                              Verantwortlichen, dem die personenbezogenen Daten bereitgestellt
+                              wurden, zu übermitteln, sofern die weiteren Voraussetzungen des
+                              Art. 20 Abs. 1 DSGVO gegeben sind und kein Ausnahmetatbestand
+                              eingreift.&lt;/p&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Recht auf &lt;u&gt;&lt;b&gt;Widerspruch gegen
+                              die Verarbeitung&lt;/b&gt;&lt;/u&gt; (Art. 21 DSGVO): Sie haben das Recht, aus
+                              Gründen, die sich aus ihrer besonderen Situation ergeben, jederzeit
+                              gegen die Verarbeitung sie betreffender personenbezogener Daten, die
+                              aufgrund von Art. 6 Abs. 1 Satz 1 lit. e) (öffentliches Interesse
+                              oder Ausübung öffentlicher Gewalt) oder f) (Wahrung berechtigter
+                              Interessen) DSGVO erfolgt, Widerspruch einzulegen.&lt;/p&gt;
+                              &lt;/ul&gt;
+                              &lt;p style=&apos;margin-left: 2.6cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;ol&gt;
+                              &lt;ol start=&apos;2&apos;&gt;
+                              &lt;h3 class=&apos;western&apos;&gt; 2.2 &lt;/h3&gt; Wenn Sie darüber hinaus Auskunft über
+                              Ihre personenbezogenen Daten wünschen oder weitergehende Fragen
+                              über die Verarbeitung Ihrer uns überlassenen personenbezogenen
+                              Daten haben, sowie eine Korrektur oder Löschung Ihrer Daten
+                              veranlassen möchten, so wenden Sie sich bitte an die unter Ziffer
+                              &lt;span style=&apos;background: #c0c0c0&apos;&gt;3.&lt;/span&gt; &lt;span style=&apos;text-decoration: none&apos;&gt;&amp;quot;Ausübung
+                              des &lt;/span&gt;Widerspruchs- und Widerrufsrechts&lt;span style=&apos;text-decoration: none&apos;&gt;&amp;quot;&lt;/span&gt;
+                              angegebene Kontaktadresse.
+                              &lt;/ol&gt;
+                              &lt;/ol&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;ol start=&apos;3&apos;&gt;
+                              &lt;h3 class=&apos;western&apos;&gt;&lt;a name=&apos;_Ref514808556&apos;&gt;&lt;/a&gt;&lt;a name=&apos;_Ref493089160&apos;&gt;&lt;/a&gt;
+                              3. Ausübung des Widerspruchs- und Widerrufsrechts&lt;/h3&gt;
+                              &lt;/ol&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;span style=&apos;font-weight: normal&apos;&gt;Sie
+                              haben ggf. das Recht, der Verarbeitung Ihrer Daten &lt;/span&gt;zu
+                              widersprechen (siehe Ziffer &lt;span style=&apos;background: #c0c0c0&apos;&gt;2.1&lt;/span&gt;
+                              letztes Aufzählungszeichen). Zudem haben Sie das Recht, eine an uns
+                              erteilte Einwilligung mit Wirkung für die Zukunft zu widerrufen. In
+                              diesem Fall werden wir die Verarbeitung Ihrer Daten zu diesem Zweck
+                              unverzüglich unterlassen. Einen Widerspruch oder Widerruf können
+                              Sie jederzeit formlos per Post, Telefax oder Email an uns
+                              übermitteln.&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.61cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Per
+                              Post:&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;  %2
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;  %3
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;  %1
+                               %4&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;span lang=&apos;en-US&apos;&gt;Per
+                              Email:&lt;/span&gt;&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt; %5&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;ol start=&apos;4&apos;&gt;
+                              &lt;h3 class=&apos;western&apos;&gt; 4. Nutzung der Hardware und der mobilen&lt;/h3&gt;
+                              Applikation (App)
+                              &lt;ol&gt;
+                              &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;4.1 Art und Umfang der Datenverarbeitung:&lt;/h3&gt;&lt;/b&gt;
+                              Bei der Benutzung unserer Hardware und dem Aufruf unserer App ist
+                              es technisch notwendig verschiedene Daten zu verarbeiten,
+                              insbesondere damit die Nutzung und eine fehlerfreie Kommunikation
+                              zwischen Ihrem Endgerät und unserer Cloud möglich ist. Dabei
+                              werden automatisiert folgende Daten erhoben und in einer
+                              sogenannten Log-Datei protokolliert:
+                              &lt;/ol&gt;
+                              &lt;/ol&gt;
+                              &lt;p style=&apos;margin-left: 1.33cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;ol&gt;
+                              &lt;ul&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Datum und Uhrzeit des Zugriffs&lt;/p&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Hardwaretyp und -version (inkl.
+                              Seriennummer)&lt;/p&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Betriebssystemtyp und -version&lt;/p&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;IP-Adressen der Geräte&lt;/p&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Die IP-Adresse Ihres Anschlusses&lt;/p&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Zugangsprovider&lt;/p&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Daten verbundener Mobilgeräte
+                              (Hersteller, Typ), Speicherung ausschließlich auf der Hardware&lt;/p&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Daten der im Smart Home System
+                              eingebundenen Geräte (Betriebszustände, Betriebsstunden,
+                              Energieverbrauch, Systemstatus, Anlageneinstellungen, Standort der
+                              Anlage, Fehlercodes, Messwerte wie z.B. Temperaturen), Speicherung
+                              ausschließlich auf der Hardware&lt;/p&gt;
+                              &lt;/ul&gt;
+                              &lt;/ol&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Wir
+                              erheben diese Daten grundsätzlich in nicht in personenbezogener
+                              Form. In Ausnahmefällen lässt sich die Beziehbarkeit zu einer
+                              natürlichen Person nicht vermeiden. Für die zusätzliche
+                              Datenverarbeitung im Rahmen des Beta-Tests beachten Sie bitte die
+                              nachfolgende Ziffer 6.&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;ol&gt;
+                              &lt;ol start=&apos;2&apos;&gt;
+                              &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt; 4.2 Zweck: &lt;/h3&gt;&lt;/b&gt;Dies geschieht, um die
+                              Nutzung der Hard- und Software überhaupt zu ermöglichen,
+                              insbesondere zum Zwecke der systeminternen technischen Verarbeitung
+                              (Verbindungsaufbau), der Systemsicherheit, der technischen
+                              Administration der System- und Netzinfrastruktur sowie zur
+                              Optimierung unseres Angebotes und Produktes. Wir behalten es uns
+                              vor, die Log-Datei nachträglich zu überprüfen, wenn aufgrund
+                              konkreter Anhaltspunkte der berechtigte Verdacht einer
+                              rechtswidrigen oder Nutzung besteht.
+                              &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt; 4.3 Rechtsgrundlage:&lt;/h3&gt;&lt;/b&gt; Die vorübergehende
+                              Verarbeitung der Daten und der Log-Datei erfolgt aus berechtigtem
+                              Interesse zu oben genanntem Zweck gem. Art. 6 Abs. 1 Satz 1 lit. f)
+                              DSGVO sowie zur Erfüllung des Vertrags mit Ihnen, gem. Art. 6 Abs.
+                              1 Satz 1 lit. b) DSGVO.
+                              &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;&lt;/h3&gt;4.4 Empfänger der Daten:&lt;/b&gt; Die
+                              anonymisierten Daten werden notwendigerweise an unseren
+                              Hostinganbieter weitergeleitet, bei dem unser Webserver physisch
+                              und technisch verwaltet wird:
+                              &lt;/p&gt;
+                              Hostinganbieter: Hetzner Online GmbH,
+                              Industriestr. 25, 91710 Gunzenhausen
+
+                              &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;4.5 Speicherdauer und Löschung:&lt;/h3&gt;&lt;/b&gt; Die
+                              IP-Adresse wird nur bei einem Fernzugriff bei uns gespeichert. Die
+                              Datenspeicherung orientiert sich an den gesetzlichen Regelungen.
+                              &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;4.6 Widerspruch oder Widerruf:&lt;/h3&gt; &lt;/b&gt;Diese
+                              Datenverarbeitung ist für den Betrieb unserer Hard- und Software
+                              zwingend erforderlich. Daher unterliegt ein etwaiger Widerspruch
+                              einer entsprechenden Interessensabwägung.
+
+                              &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;h3 class=&apos;western&apos;&gt;&lt;a name=&apos;_Ref493089341&apos;&gt;&lt;/a&gt; 5. Registrierung&lt;/h3&gt;
+                              &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;5.1 Art und Umfang der Datenverarbeitung:&lt;/h3&gt;&lt;/b&gt;
+                              Sie haben die Möglichkeit, sich in unserer App zu registrieren.
+                              Hierzu ist Ihre Einwilligung erforderlich. Um diesen
+                              Registrierungsvorgang erfolgreich durchführen zu können,
+                              benötigen wir folgende Daten von Ihnen:
+                              &lt;p style=&apos;margin-left: 1.33cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;ul&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Emailadresse&lt;/p&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Passwort&lt;/p&gt;
+                              &lt;/ul&gt;
+                              &lt;p style=&apos;margin-left: 1.33cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              Bei der Registrierung wird zudem Ihre IP-Adresse
+                              nebst Datum und Uhrzeit gespeichert. Eine personenbezogene Auswertung
+                              findet grundsätzlich nicht statt, vorbehaltlich der Teilnahme am
+                              Beta-Test (siehe Ziffer 6). Wir behalten uns jedoch vor, die
+                              gespeicherten Daten nachträglich zu überprüfen, wenn aufgrund
+                              konkreter Anhaltspunkte der berechtigte Verdacht einer
+                              missbräuchlichen Registrierung besteht.
+                              &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt; 5.2 Zweck: &lt;/h3&gt;&lt;/b&gt;Eine Registrierung bietet
+                              Ihnen die Möglichkeit, bestimmte Leistungen in Anspruch zu nehmen
+                              oder Handlungen auszuführen, die ohne Registrierung nicht möglich
+                              sind. Dies geschieht zu folgenden Zwecken:
+                              &lt;p style=&apos;margin-left: 1.33cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;ul&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Betrieb der Hard- und Software&lt;/p&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Benutzung der App&lt;/p&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Nutzung der Cloud&lt;/p&gt;
+                              &lt;/ul&gt;
+                              &lt;p style=&apos;margin-left: 1.33cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              Ihre Daten werden in unserem System hinterlegt,
+                              um Ihnen die Möglichkeit zu bieten, unsere Leistungen in Anspruch zu
+                              nehmen, ohne jedes Mal Ihre Daten erneut eingeben zu müssen. Ihre
+                              Emailadresse wird von uns dazu verwendet, um Ihnen Bestätigungsmails
+                              für von Ihnen veranlasste Änderungen Ihrer Profildaten oder zur
+                              Wiederherstellung Ihres Passworts zukommen lassen zu können sowie um
+                              Sie über notwendige Aktualisierungen der Software zu informieren.
+                              Andere Emails senden wir Ihnen nur zu, wenn Sie dies wünschen und
+                              uns zu diesem Zwecke Ihre Einwilligung erteilt haben. Die Speicherung
+                              Ihrer IP-Adresse nebst Datum und Uhrzeit erfolgt zur
+                              Missbrauchsprävention.
+                              &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt; 5.3 Rechtsgrundlage:&lt;/h3&gt;&lt;/b&gt; Die Verarbeitung
+                              der Daten erfolgt aufgrund Ihrer Einwilligung gem. Art. 6 Abs. 1
+                              Satz 1 lit. a) DSGVO.
+                              &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt; 5.4 Speicherdauer und Löschung:  &lt;/h3&gt;&lt;/b&gt;Die
+                              Daten werden grundsätzlich solange gespeichert, bis Sie Ihre
+                              Registrierung kündigen und keine gesetzlichen Aufbewahrungsfristen
+                              mehr bestehen.
+                              +
+                              &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt; 5.5 Widerspruch oder Widerruf: &lt;/h3&gt;&lt;/b&gt;Sie haben
+                              das Recht, Ihre Registrierung jederzeit zu kündigen und Ihre
+                              gespeicherten Daten zu ändern sowie Ihre erteilte Einwilligung mit
+                              Wirkung für die Zukunft zu widerrufen. Sie können die Änderung
+                              Ihres Passworts jederzeit selbst veranlassen. Bei Kündigung
+                              und/oder Widerruf ist der Zugriff auf die Hard- und Software dann
+                              nicht mehr möglich.
+                              &lt;p class=&apos;western&apos; align=&apos;left&apos; style=&apos;margin-bottom: 0cm; line-height: 100%&apos;&gt;
+                              &lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm; page-break-before: always&apos;&gt;
+                              &lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p style=&apos;margin-left: 1.27cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                                  &lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt; 6. Erteilte Einwilligungen&lt;/b&gt;&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;Soweit
+                              erforderlich haben Sie uns ggf. Einwilligungen zur Verarbeitung Ihrer
+                              personenbezogenen Daten erteilt. In diesem Fall haben wir Ihre
+                              Einwilligung jeweils protokolliert. Wir sind gesetzlich verpflichtet,
+                              den Text der jeweiligen Einwilligung jederzeit für Sie abrufbar zu
+                              halten. Selbstverständlich können Sie uns erteilte Einwilligungen
+                              jederzeit mit Wirkung für die Zukunft widerrufen. Wie Sie Ihr
+                              Widerrufsrecht ausüben können, erfahren Sie unter Ziffer &lt;span style=&apos;background: #c0c0c0&apos;&gt;3.&lt;/span&gt;
+                              &lt;span style=&apos;text-decoration: none&apos;&gt;&amp;quot;Ausübung des &lt;/span&gt;Widerspruchs-
+                              und Widerrufsrechts&lt;span style=&apos;text-decoration: none&apos;&gt;&amp;quot;&lt;/span&gt;.&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;b&gt;Einwilligung
+                              für die Registrierung eines Benutzerkontos:&lt;/b&gt;&lt;/p&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;ich
+                              möchte ein Benutzerkonto eröffnen, um mich in der App anmelden zu
+                              können. Zu diesem Zweck willige ich ein, dass meine Daten
+                              (Emailadresse und Passwort) in der Datenbank gespeichert werden.
+                              Diese Einwilligung kann ich jederzeit mit Wirkung für die Zukunft
+                              widerrufen, indem ich mich an die Adresse in der
+                              &lt;font color=&apos;#0000ff&apos;&gt;&lt;u&gt;&lt;a href=&apos;%6&apos;&gt;%6&lt;/a&gt;&lt;/u&gt;&lt;/font&gt;
+                              wende und um Löschung meines Benutzerkontos bitte. Um diesen Vorgang
+                              zu protokollieren, wird meine IP-Adresse, sowie Datum und Uhrzeit der
+                              Registrierung in einer Datenbank gespeichert und erst wieder
+                              gelöscht, wenn ich die Einwilligung widerrufe, sofern eine
+                              weitergehende Speicherung nicht rechtlich erforderlich ist. Die AGB
+                              unter &lt;font color=&apos;#0000ff&apos;&gt;&lt;u&gt;&lt;a href=&apos;%7&apos;&gt;%7&lt;/a&gt;/&lt;/u&gt;&lt;/font&gt;
+                              habe ich gelesen und verstanden.&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;h3 class=&apos;western&apos;&gt;&lt;br/&gt;
+
+                              &lt;/h3&gt;
+                              &lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt; 7. Elektronische Post (Email) /
+                              Kontaktaufnahme&lt;/b&gt;&lt;/p&gt;
+                              &lt;p style=&apos;margin-bottom: 0cm&apos;&gt; 7.1 Informationen, die Sie
+                              unverschlüsselt per Elektronischer Post (Email) an uns senden,
+                              können möglicherweise auf dem Übertragungsweg von Dritten
+                              gelesen werden. Wir können in der Regel auch Ihre Identität nicht
+                              überprüfen und wissen nicht, wer wirklicher Inhaber einer
+                              Emailadresse ist. Eine rechtssichere Kommunikation durch einfache
+                              Email ist daher nicht gewährleistet. Wie viele Anbieter setzen wir
+                              Filter gegen unerwünschte Werbung („SPAM-Filter“) ein, die in
+                              einigen Fällen auch normale Emails fälschlicherweise automatisch
+                              als unerwünschte Werbung einordnen und löschen. Emails, die
+                              schädigende Programme („Viren“) enthalten, werden von uns in
+                              jedem Fall automatisch gelöscht. Wenn Sie schutzwürdige
+                              Nachrichten an uns senden wollen, empfehlen wir, die Nachricht auf
+                              konventionellem Postwege an uns zu senden.
+                              &lt;/p&gt;
+                              &lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt; 7.2 Art und Umfang der
+                              Datenverarbeitung: &lt;/b&gt;Im Falle der Kontaktaufnahme mit uns werden
+                              Ihre Daten, Ihre IP-Adresse sowie Datum und Uhrzeit gespeichert.&lt;/p&gt;
+                              &lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt; 7.3 Zweck: &lt;/b&gt;Dies geschieht
+                              insbesondere zu Kommunikationszwecken und zum Schutz unserer
+                              Systeme gegen Missbrauch.&lt;/p&gt;
+                              &lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt; 7.4 Rechtsgrundlage: &lt;/b&gt;Die
+                              Verarbeitung der Daten erfolgt aus berechtigtem Interesse zu oben
+                              genanntem Zweck gem. Art. 6 Abs. 1 Satz 1 lit. f) DSGVO.&lt;/p&gt;
+                              &lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt; 7.5 Speicherdauer und Löschung:
+                              &lt;/b&gt;Die Daten werden erst dann gelöscht, falls keine vertraglichen
+                              oder gesetzlichen Verpflichtungen einer Löschung entgegenstehen.&lt;/p&gt;
+                              &lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt; 7.6 Widerspruch oder Widerruf:&lt;/b&gt;
+                              Sie können der Kontaktaufnahme per Email jederzeit widersprechen.
+                              In diesem Fall kann keine weitere Korrespondenz via Email
+                              stattfinden.&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; align=&apos;left&apos; style=&apos;margin-bottom: 0cm; line-height: 100%&apos;&gt;
+                              &lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm; page-break-before: always&apos;&gt;
+                              &lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt;Gültigkeit&lt;/b&gt;&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;Wir
+                              sind stets bemüht, unsere Hard- und Software weiterzuentwickeln und
+                              neue Technologien einzusetzen. Daher kann es notwendig werden, diese
+                              Datenschutzerklärung zu ändern, bzw. anzupassen. Wir behalten uns
+                              daher das Recht vor, diese Erklärung jederzeit mit Wirkung für die
+                              Zukunft zu ändern. Bitte besuchen Sie daher diese Seite regelmäßig
+                              und lesen Sie die jeweils aktuelle Datenschutzerklärung von Zeit zu
+                              Zeit erneut durch.&lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+                              &lt;/p&gt;
+                              &lt;div id=&apos;sdfootnote1&apos;&gt;&lt;p class=&apos;sdfootnote-western&apos;&gt;&lt;a class=&apos;sdfootnotesym&apos; name=&apos;sdfootnote1sym&apos; href=&apos;#sdfootnote1anc&apos;&gt;1&lt;/a&gt;&lt;font size=&apos;1&apos; style=&apos;font-size: 8pt&apos;&gt;
+                              Aus Gründen der besseren Lesbarkeit wird auf die gleichzeitige
+                              Verwendung der Sprachformen männlich, weiblich und divers (m/w/d)
+                              verzichtet. Sämtliche Personenbezeichnungen gelten gleichermaßen
+                              für alle Geschlechter.&lt;/font&gt;&lt;/p&gt;
+                              &lt;/div&gt;
+                              </translation>
     </message>
 </context>
 <context>
@@ -1800,29 +2442,6 @@ Mail service@consolinno.de</source>
         <translation>Einrichtung starten</translation>
     </message>
     <message>
-        <source>&lt;h3&gt;Incompatible Software Versions&lt;/h3&gt;
-                &lt;p&gt;The software versions of your &quot;Consolinno Energy HEMS App&quot; (v%1) and your &quot;Leaflet HEMS End Device&quot; (v%2) are incompatible and currently only partially usable. Your &quot;Leaflet HEMS End Device&quot; will be automatically updated during the day.&lt;/p&gt;
-                &lt;p&gt;If you still receive this message after several hours, please contact our support:&lt;/p&gt;
-                &lt;ul&gt;
-                    &lt;li&gt;Phone: &lt;a href=&quot;tel:+4994120300333&quot;&gt;+49 941/ 20300 333&lt;/a&gt;&lt;/li&gt;
-                    &lt;li&gt;Email: &lt;a href=&quot;mailto:service@consolinno.de&quot;&gt;service@consolinno.de&lt;/a&gt;&lt;/li&gt;
-                &lt;/ul&gt;
-                &lt;p&gt;We apologize for the temporary limitations in use.&lt;/p&gt;
-                &lt;p&gt;Best regards&lt;/p&gt;
-                &lt;p&gt;Your Consolinno Energy Team&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Inkompatible Softwareversionen&lt;/h3&gt;
-    &lt;p&gt;Die Softwareversionen Ihrer &quot;Consolinno Energy HEMS App&quot; (v%1) und Ihres &quot;Leaflet HEMS Endgeräts&quot; (v%2) sind inkompatibel und derzeit nur eingeschränkt nutzbar. Ihr &quot;Leaflet HEMS Endgerät&quot; wird im Laufe des Tages automatisch aktualisiert.&lt;/p&gt;
-    &lt;p&gt;Falls Sie diese Nachricht auch nach mehreren Stunden noch erhalten, kontaktieren Sie bitte unseren Support:&lt;/p&gt;
-    &lt;ul&gt;
-        &lt;li&gt;Telefon: &lt;a href=&quot;tel:+4994120300333&quot;&gt;+49 941/ 20300 333&lt;/a&gt;&lt;/li&gt;
-        &lt;li&gt;E-Mail: &lt;a href=&quot;mailto:service@consolinno.de&quot;&gt;service@consolinno.de&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-    &lt;p&gt;Wir entschuldigen uns für die vorübergehenden Einschränkungen in der Nutzung.&lt;/p&gt;
-    &lt;p&gt;Beste Grüße&lt;/p&gt;
-    &lt;p&gt;Ihr Consolinno Energy Team&lt;/p&gt;
-</translation>
-    </message>
-    <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;Consolinno Energy HEMS App wurde aktualisiert&lt;/h3&gt;
             &lt;p&gt;Version 1.6.0 (20. August 2024)&lt;/p&gt;
@@ -1831,6 +2450,19 @@ Mail service@consolinno.de</source>
                 &lt;li&gt;Lademodus “dynamischer Tarif”&lt;/li&gt;
                 &lt;li&gt;Netzdienliche Steuerung nach § 14a über Relais&lt;/li&gt;
             &lt;/ul&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;h3&gt;Incompatible Software Versions&lt;/h3&gt;
+                &lt;p&gt;The software versions of your &quot;%3 App&quot; (v%1) and your &quot;Leaflet HEMS End Device&quot; (v%2) are incompatible and currently only partially usable. Your &quot;Leaflet HEMS End Device&quot; will be automatically updated during the day.&lt;/p&gt;
+                &lt;p&gt;If you still receive this message after several hours, please contact our support:&lt;/p&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Phone: &lt;a href=&quot;tel:+4994120300333&quot;&gt;+49 941/ 20300 333&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;a href=&quot;mailto:%4&quot;&gt;%4&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;p&gt;We apologize for the temporary limitations in use.&lt;/p&gt;
+                &lt;p&gt;Best regards&lt;/p&gt;
+                &lt;p&gt;Your %5 Team&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2426,10 +3058,6 @@ the system, and a charging process is started, charging is prioritized.</source>
         <translation>Kontaktdaten Installation</translation>
     </message>
     <message>
-        <source>Service Consolinno</source>
-        <translation>Consolinno Service</translation>
-    </message>
-    <message>
         <source>Under &apos;Manual&apos; you will find current instructions for the app.</source>
         <translation>Unter &quot;Bedienungsanleitungen&quot; finden Sie aktuelle Anleitungen zur App</translation>
     </message>
@@ -2438,8 +3066,12 @@ the system, and a charging process is started, charging is prioritized.</source>
         <translation>Bei Problem mit Ihrer Anlage, wenden Sie sich an den Installateur. Unter &quot;Kontaktdaten Installation&quot; sind die Daten des Installateurs gespeichert (falls er diese in der App hinterlegt hat).</translation>
     </message>
     <message>
-        <source>If there is a problem with the Leaflet itself, then contact Consolinno&apos;s service.</source>
-        <translation>Falls ein Problem mit dem Leaflet selbst besteht, dann wenden Sie sich an den Service von Consolinno.</translation>
+        <source>Service %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there is a problem with the Leaflet itself, then contact %1 service.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2599,8 +3231,8 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
         <translation>Bedienungsanleitung</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can find current manuals for Consolinno HEMS in the download area of our &lt;a href=&quot;https://consolinno.de/hems/#downloads&quot;&gt;Website&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;Sie finden aktuelle Anleitungen zum Consolinno HEMS auf dem Downloadbereich unserer&lt;a href=&quot;https://consolinno.de/hems/#downloads&quot;&gt;Webseite&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can find current manuals for %1 in the download area of our &lt;a href=&quot;%2&quot;&gt;Website&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2821,6 +3453,475 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <source>Yes I agree to open a Useraccount, according to part 6 </source>
         <translation>Ja ich möchte wie in Teil 6 beschrieben ein Benutzerkonto eröffnen</translation>
     </message>
+    <message>
+        <source> &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;Wir verarbeiten Ihre
+ personenbezogenen Daten nach den aktuellen Regelungen der
+ Bundesrepublik Deutschland und der Europäischen Union (EU). Dabei
+ hat der Schutz Ihrer persönlichen Informationen höchste Priorität.
+ Im Folgenden erfahren Sie, welche Daten wir in welcher Form aufgrund
+ welcher Rechtsgrundlage zu welchem Zweck wie lange verarbeiten,
+ inwieweit Ihnen ein Widerspruchsrecht zusteht und wie sie dieses
+ ausüben können. Sollte Ihre Einwilligung notwendig sein, so wird
+ Ihnen dies an entsprechender Stelle angezeigt und Sie haben die
+ Möglichkeit, diese zu erteilen oder von einer Erteilung abzusehen.
+ Selbstverständlich haben Sie auch nach Erteilung Ihrer Einwilligung
+ jederzeit das Recht, diese zu widerrufen.&lt;font color=&apos;#333333&apos;&gt;&amp;nbsp;&lt;/font&gt;&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;ol&gt;
+ &lt;h3 class=&apos;western&apos;&gt; 1. Verantwortlicher&lt;span style=&apos;font-weight: normal&apos;&gt;&lt;a class=&apos;sdfootnoteanc&apos; name=&apos;sdfootnote1anc&apos; href=&apos;#sdfootnote1sym&apos;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/span&gt;&lt;br/&gt;
+ Verantwortlich
+ im Sinne der datenschutzrechtlichen Bestimmungen ist:&lt;/h3&gt;
+ &lt;/ol&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;b&gt; Configuration.appBranding+
+ Energy GmbH&lt;/b&gt;&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;vertreten
+ durch den Geschäftsführer&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Franz-Mayer-Straße
+ 1&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;93053
+ Regensburg&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Der
+ zuständige betriebliche Datenschutzbeauftragte (bDSB) ist:&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Niklas
+ Hanitsch&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Datenschutz
+ hoch 4 GmbH&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Franz-Mayer-Str.
+ 1&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;93053
+ Regensburg&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;a name=&apos;_Hlk514794356&apos;&gt;&lt;/a&gt;
+ Wir möchten Sie an dieser Stelle auf das &lt;u&gt;Recht zur Beschwerde bei
+ der Aufsichtsbehörde&lt;/u&gt; gemäß Art. 77 DSGVO hinweisen. Demnach
+ hat jede betroffene Person unbeschadet eines anderweitigen
+ Rechtsbehelfs das Recht auf Beschwerde bei der Aufsichtsbehörde,
+ wenn sie der Ansicht ist, dass die Verarbeitung der sie betreffenden
+ personenbezogenen Daten gegen die Datenschutz-Grundverordnung
+ verstößt.&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Die
+ Kontaktdaten der für den Verantwortlichen zuständigen
+ Aufsichtsbehörde lauten:&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;font color=&apos;#000000&apos;&gt;&lt;span style=&apos;background: #ffffff&apos;&gt;Bayerisches
+ Landesamt für Datenschutzaufsicht&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Promenade
+ 18&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;91522
+ Ansbach&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;ol start=&apos;2&apos;&gt;
+ &lt;h3 class=&apos;western&apos;&gt; 2. Information über Ihre Rechte als betroffene
+ Person&lt;/h3&gt;
+ &lt;ol&gt;
+ &lt;h3 class=&apos;western&apos;&gt;&lt;a name=&apos;_Ref513466093&apos;&gt;&lt;/a&gt; 2.1 Bei &lt;u&gt;Vorliegen
+ der gesetzlichen Voraussetzungen&lt;/u&gt; haben Sie - sofern nicht ein
+ gesetzlicher Ausnahmefall gegeben ist - &lt;font color=&apos;#141414&apos;&gt;folgende
+ Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:&lt;/font&gt;&lt;/h3&gt;
+ &lt;/ol&gt;
+ &lt;/ol&gt;
+ &lt;p style=&apos;margin-left: 1.33cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Recht auf &lt;u&gt;&lt;b&gt;Auskunft&lt;/b&gt;&lt;/u&gt;
+ (Art. 15 DSGVO): Sie haben das Recht, von dem Verantwortlichen eine
+ Auskunft darüber zu verlangen, ob Sie betreffende personenbezogene
+ Daten verarbeitet werden. Ist dies der Fall, so haben Sie das Recht
+ auf Auskunft über diese personenbezogenen Daten und damit im
+ Zusammenhang stehende weitergehende Informationen.&lt;/p&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Recht auf &lt;u&gt;&lt;b&gt;Berichtigung&lt;/b&gt;&lt;/u&gt;
+ (Art. 16 DSGVO): Sie haben das Recht, von dem Verantwortlichen
+ unverzüglich die Berichtigung Sie betreffender unrichtiger
+ personenbezogener Daten zu verlangen. Unter Berücksichtigung der
+ Zwecke der Verarbeitung haben Sie das Recht, die Vervollständigung
+ unvollständiger personenbezogener Daten – auch mittels einer
+ ergänzenden Erklärung – zu verlangen.&lt;/p&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Recht auf &lt;u&gt;&lt;b&gt;Löschung&lt;/b&gt;&lt;/u&gt;
+ (Art. 17 DSGVO): Sie haben das Recht, von dem Verantwortlichen zu
+ verlangen, dass Sie betreffende personenbezogene Daten unverzüglich
+ gelöscht werden, und der Verantwortliche ist verpﬂichtet,
+ personenbezogene Daten unverzüglich zu löschen, sofern einer der
+ Gründe des Art. 17 Abs. 1 DSGVO zutrifft und kein
+ Ausnahmetatbestand eingreift.&lt;/p&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Recht auf &lt;u&gt;&lt;b&gt;Einschränkung der
+ Verarbeitung&lt;/b&gt;&lt;/u&gt; (Art. 18 DSGVO): Sie haben das Recht, von dem
+ Verantwortlichen die Einschränkung der Verarbeitung (ehemals:
+ Sperre) Ihrer personenbezogenen Daten zu verlangen, wenn eine der
+ Voraussetzungen des Art. 18 Abs. 1 DSGVO gegeben ist und kein
+ Ausnahmetatbestand eingreift.&lt;/p&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Recht auf &lt;u&gt;&lt;b&gt;Datenübertragbarkeit&lt;/b&gt;&lt;/u&gt;
+ (Art. 20 DSGVO): Sie haben das Recht, die Sie betreffenden
+ personenbezogenen Daten, die sie einem Verantwortlichen
+ bereitgestellt haben, in einem strukturierten, gängigen und
+ maschinenlesbaren Format zu erhalten, und sie haben das Recht, diese
+ Daten einem anderen Verantwortlichen ohne Behinderung durch den
+ Verantwortlichen, dem die personenbezogenen Daten bereitgestellt
+ wurden, zu übermitteln, sofern die weiteren Voraussetzungen des
+ Art. 20 Abs. 1 DSGVO gegeben sind und kein Ausnahmetatbestand
+ eingreift.&lt;/p&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Recht auf &lt;u&gt;&lt;b&gt;Widerspruch gegen
+ die Verarbeitung&lt;/b&gt;&lt;/u&gt; (Art. 21 DSGVO): Sie haben das Recht, aus
+ Gründen, die sich aus ihrer besonderen Situation ergeben, jederzeit
+ gegen die Verarbeitung sie betreffender personenbezogener Daten, die
+ aufgrund von Art. 6 Abs. 1 Satz 1 lit. e) (öffentliches Interesse
+ oder Ausübung öffentlicher Gewalt) oder f) (Wahrung berechtigter
+ Interessen) DSGVO erfolgt, Widerspruch einzulegen.&lt;/p&gt;
+ &lt;/ul&gt;
+ &lt;p style=&apos;margin-left: 2.6cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;ol&gt;
+ &lt;ol start=&apos;2&apos;&gt;
+ &lt;h3 class=&apos;western&apos;&gt; 2.2 Wenn Sie darüber hinaus Auskunft über
+ Ihre personenbezogenen Daten wünschen oder weitergehende Fragen
+ über die Verarbeitung Ihrer uns überlassenen personenbezogenen
+ Daten haben, sowie eine Korrektur oder Löschung Ihrer Daten
+ veranlassen möchten, so wenden Sie sich bitte an die unter Ziffer
+ &lt;span style=&apos;background: #c0c0c0&apos;&gt;3.&lt;/span&gt; &lt;span style=&apos;text-decoration: none&apos;&gt;&amp;quot;Ausübung
+ des &lt;/span&gt;Widerspruchs- und Widerrufsrechts&lt;span style=&apos;text-decoration: none&apos;&gt;&amp;quot;&lt;/span&gt;
+ angegebene Kontaktadresse.&lt;/h3&gt;
+ &lt;/ol&gt;
+ &lt;/ol&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;ol start=&apos;3&apos;&gt;
+ &lt;h3 class=&apos;western&apos;&gt;&lt;a name=&apos;_Ref514808556&apos;&gt;&lt;/a&gt;&lt;a name=&apos;_Ref493089160&apos;&gt;&lt;/a&gt;
+ 3. Ausübung des Widerspruchs- und Widerrufsrechts&lt;/h3&gt;
+ &lt;/ol&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;span style=&apos;font-weight: normal&apos;&gt;Sie
+ haben ggf. das Recht, der Verarbeitung Ihrer Daten &lt;/span&gt;zu
+ widersprechen (siehe Ziffer &lt;span style=&apos;background: #c0c0c0&apos;&gt;2.1&lt;/span&gt;
+ letztes Aufzählungszeichen). Zudem haben Sie das Recht, eine an uns
+ erteilte Einwilligung mit Wirkung für die Zukunft zu widerrufen. In
+ diesem Fall werden wir die Verarbeitung Ihrer Daten zu diesem Zweck
+ unverzüglich unterlassen. Einen Widerspruch oder Widerruf können
+ Sie jederzeit formlos per Post, Telefax oder Email an uns
+ übermitteln.&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.61cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Per
+ Post:&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt; Configuration.appBranding+
+ Energy GmbH&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Franz-Mayer-Straße
+ 1&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;93053
+ Regensburg&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;&lt;span lang=&apos;en-US&apos;&gt;Per
+ Email:&lt;/span&gt;&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt; Configuration.serviceEmail&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;ol start=&apos;4&apos;&gt;
+ &lt;h3 class=&apos;western&apos;&gt; 4. Nutzung der Hardware und der mobilen&lt;/h3&gt;
+ Applikation (App)
+ &lt;ol&gt;
+ &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;4.1 Art und Umfang der Datenverarbeitung:&lt;/h3&gt;&lt;/b&gt;
+ Bei der Benutzung unserer Hardware und dem Aufruf unserer App ist
+ es technisch notwendig verschiedene Daten zu verarbeiten,
+ insbesondere damit die Nutzung und eine fehlerfreie Kommunikation
+ zwischen Ihrem Endgerät und unserer Cloud möglich ist. Dabei
+ werden automatisiert folgende Daten erhoben und in einer
+ sogenannten Log-Datei protokolliert:
+ &lt;/ol&gt;
+ &lt;/ol&gt;
+ &lt;p style=&apos;margin-left: 1.33cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;ol&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Datum und Uhrzeit des Zugriffs&lt;/p&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Hardwaretyp und -version (inkl.
+ Seriennummer)&lt;/p&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Betriebssystemtyp und -version&lt;/p&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;IP-Adressen der Geräte&lt;/p&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Die IP-Adresse Ihres Anschlusses&lt;/p&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Zugangsprovider&lt;/p&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Daten verbundener Mobilgeräte
+ (Hersteller, Typ), Speicherung ausschließlich auf der Hardware&lt;/p&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Daten der im Smart Home System
+ eingebundenen Geräte (Betriebszustände, Betriebsstunden,
+ Energieverbrauch, Systemstatus, Anlageneinstellungen, Standort der
+ Anlage, Fehlercodes, Messwerte wie z.B. Temperaturen), Speicherung
+ ausschließlich auf der Hardware&lt;/p&gt;
+ &lt;/ul&gt;
+ &lt;/ol&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 1.25cm; margin-bottom: 0cm&apos;&gt;Wir
+ erheben diese Daten grundsätzlich in nicht in personenbezogener
+ Form. In Ausnahmefällen lässt sich die Beziehbarkeit zu einer
+ natürlichen Person nicht vermeiden. Für die zusätzliche
+ Datenverarbeitung im Rahmen des Beta-Tests beachten Sie bitte die
+ nachfolgende Ziffer 6.&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;ol&gt;
+ &lt;ol start=&apos;2&apos;&gt;
+ &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt; 4.2 Zweck: &lt;/h3&gt;&lt;/b&gt;Dies geschieht, um die
+ Nutzung der Hard- und Software überhaupt zu ermöglichen,
+ insbesondere zum Zwecke der systeminternen technischen Verarbeitung
+ (Verbindungsaufbau), der Systemsicherheit, der technischen
+ Administration der System- und Netzinfrastruktur sowie zur
+ Optimierung unseres Angebotes und Produktes. Wir behalten es uns
+ vor, die Log-Datei nachträglich zu überprüfen, wenn aufgrund
+ konkreter Anhaltspunkte der berechtigte Verdacht einer
+ rechtswidrigen oder Nutzung besteht.
+ &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt; 4.3 Rechtsgrundlage:&lt;/h3&gt;&lt;/b&gt; Die vorübergehende
+ Verarbeitung der Daten und der Log-Datei erfolgt aus berechtigtem
+ Interesse zu oben genanntem Zweck gem. Art. 6 Abs. 1 Satz 1 lit. f)
+ DSGVO sowie zur Erfüllung des Vertrags mit Ihnen, gem. Art. 6 Abs.
+ 1 Satz 1 lit. b) DSGVO.
+ &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;&lt;/h3&gt;4.4 Empfänger der Daten:&lt;/b&gt; Die
+ anonymisierten Daten werden notwendigerweise an unseren
+ Hostinganbieter weitergeleitet, bei dem unser Webserver physisch
+ und technisch verwaltet wird:
+ &lt;/p&gt;
+ Hostinganbieter: Hetzner Online GmbH,
+ Industriestr. 25, 91710 Gunzenhausen
+
+ &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;4.5 Speicherdauer und Löschung:&lt;/h3&gt;&lt;/b&gt; Die
+ IP-Adresse wird nur bei einem Fernzugriff bei uns gespeichert. Die
+ Datenspeicherung orientiert sich an den gesetzlichen Regelungen.
+ &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;4.6 Widerspruch oder Widerruf:&lt;/h3&gt; &lt;/b&gt;Diese
+ Datenverarbeitung ist für den Betrieb unserer Hard- und Software
+ zwingend erforderlich. Daher unterliegt ein etwaiger Widerspruch
+ einer entsprechenden Interessensabwägung.
+
+ &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;h3 class=&apos;western&apos;&gt;&lt;a name=&apos;_Ref493089341&apos;&gt;&lt;/a&gt; 5. Registrierung&lt;/h3&gt;
+ &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt;5.1 Art und Umfang der Datenverarbeitung:&lt;/h3&gt;&lt;/b&gt;
+ Sie haben die Möglichkeit, sich in unserer App zu registrieren.
+ Hierzu ist Ihre Einwilligung erforderlich. Um diesen
+ Registrierungsvorgang erfolgreich durchführen zu können,
+ benötigen wir folgende Daten von Ihnen:
+ &lt;p style=&apos;margin-left: 1.33cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Emailadresse&lt;/p&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Passwort&lt;/p&gt;
+ &lt;/ul&gt;
+ &lt;p style=&apos;margin-left: 1.33cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ Bei der Registrierung wird zudem Ihre IP-Adresse
+ nebst Datum und Uhrzeit gespeichert. Eine personenbezogene Auswertung
+ findet grundsätzlich nicht statt, vorbehaltlich der Teilnahme am
+ Beta-Test (siehe Ziffer 6). Wir behalten uns jedoch vor, die
+ gespeicherten Daten nachträglich zu überprüfen, wenn aufgrund
+ konkreter Anhaltspunkte der berechtigte Verdacht einer
+ missbräuchlichen Registrierung besteht.
+ &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt; 5.2 Zweck: &lt;/h3&gt;&lt;/b&gt;Eine Registrierung bietet
+ Ihnen die Möglichkeit, bestimmte Leistungen in Anspruch zu nehmen
+ oder Handlungen auszuführen, die ohne Registrierung nicht möglich
+ sind. Dies geschieht zu folgenden Zwecken:
+ &lt;p style=&apos;margin-left: 1.33cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Betrieb der Hard- und Software&lt;/p&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Benutzung der App&lt;/p&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;Nutzung der Cloud&lt;/p&gt;
+ &lt;/ul&gt;
+ &lt;p style=&apos;margin-left: 1.33cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ Ihre Daten werden in unserem System hinterlegt,
+ um Ihnen die Möglichkeit zu bieten, unsere Leistungen in Anspruch zu
+ nehmen, ohne jedes Mal Ihre Daten erneut eingeben zu müssen. Ihre
+ Emailadresse wird von uns dazu verwendet, um Ihnen Bestätigungsmails
+ für von Ihnen veranlasste Änderungen Ihrer Profildaten oder zur
+ Wiederherstellung Ihres Passworts zukommen lassen zu können sowie um
+ Sie über notwendige Aktualisierungen der Software zu informieren.
+ Andere Emails senden wir Ihnen nur zu, wenn Sie dies wünschen und
+ uns zu diesem Zwecke Ihre Einwilligung erteilt haben. Die Speicherung
+ Ihrer IP-Adresse nebst Datum und Uhrzeit erfolgt zur
+ Missbrauchsprävention.
+ &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt; 5.3 Rechtsgrundlage:&lt;/h3&gt;&lt;/b&gt; Die Verarbeitung
+ der Daten erfolgt aufgrund Ihrer Einwilligung gem. Art. 6 Abs. 1
+ Satz 1 lit. a) DSGVO.
+ &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt; 5.4 Speicherdauer und Löschung:  &lt;/h3&gt;&lt;/b&gt;Die
+ Daten werden grundsätzlich solange gespeichert, bis Sie Ihre
+ Registrierung kündigen und keine gesetzlichen Aufbewahrungsfristen
+ mehr bestehen.
+
+ &lt;h3 class=&apos;western&apos;&gt;&lt;b&gt; 5.5 Widerspruch oder Widerruf: &lt;/h3&gt;&lt;/b&gt;Sie haben
+ das Recht, Ihre Registrierung jederzeit zu kündigen und Ihre
+ gespeicherten Daten zu ändern sowie Ihre erteilte Einwilligung mit
+ Wirkung für die Zukunft zu widerrufen. Sie können die Änderung
+ Ihres Passworts jederzeit selbst veranlassen. Bei Kündigung
+ und/oder Widerruf ist der Zugriff auf die Hard- und Software dann
+ nicht mehr möglich.
+ &lt;p class=&apos;western&apos; align=&apos;left&apos; style=&apos;margin-bottom: 0cm; line-height: 100%&apos;&gt;
+ &lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm; page-break-before: always&apos;&gt;
+ &lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p style=&apos;margin-left: 1.27cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+     &lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt; 6. Erteilte Einwilligungen&lt;/b&gt;&lt;a class=&apos;sdfootnoteanc&apos; name=&apos;sdfootnote2anc&apos; href=&apos;#sdfootnote2sym&apos;&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;Soweit
+ erforderlich haben Sie uns ggf. Einwilligungen zur Verarbeitung Ihrer
+ personenbezogenen Daten erteilt. In diesem Fall haben wir Ihre
+ Einwilligung jeweils protokolliert. Wir sind gesetzlich verpflichtet,
+ den Text der jeweiligen Einwilligung jederzeit für Sie abrufbar zu
+ halten. Selbstverständlich können Sie uns erteilte Einwilligungen
+ jederzeit mit Wirkung für die Zukunft widerrufen. Wie Sie Ihr
+ Widerrufsrecht ausüben können, erfahren Sie unter Ziffer &lt;span style=&apos;background: #c0c0c0&apos;&gt;3.&lt;/span&gt;
+ &lt;span style=&apos;text-decoration: none&apos;&gt;&amp;quot;Ausübung des &lt;/span&gt;Widerspruchs-
+ und Widerrufsrechts&lt;span style=&apos;text-decoration: none&apos;&gt;&amp;quot;&lt;/span&gt;.&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;b&gt;Einwilligung
+ für die Registrierung eines Benutzerkontos:&lt;/b&gt;&lt;/p&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;ich
+ möchte ein Benutzerkonto eröffnen, um mich in der App anmelden zu
+ können. Zu diesem Zweck willige ich ein, dass meine Daten
+ (Emailadresse und Passwort) in der Datenbank gespeichert werden.
+ Diese Einwilligung kann ich jederzeit mit Wirkung für die Zukunft
+ widerrufen, indem ich mich an die Adresse in der
+ &lt;font color=&apos;#0000ff&apos;&gt;&lt;u&gt;&lt;a href=&apos; Configuration.privacyPolicyUrl&apos;&gt; Configuration.privacyPolicyUrl&lt;/a&gt;&lt;/u&gt;&lt;/font&gt;
+ wende und um Löschung meines Benutzerkontos bitte. Um diesen Vorgang
+ zu protokollieren, wird meine IP-Adresse, sowie Datum und Uhrzeit der
+ Registrierung in einer Datenbank gespeichert und erst wieder
+ gelöscht, wenn ich die Einwilligung widerrufe, sofern eine
+ weitergehende Speicherung nicht rechtlich erforderlich ist. Die AGB
+ unter &lt;font color=&apos;#0000ff&apos;&gt;&lt;u&gt;&lt;a href=&apos;Configuration.termsOfConditionsUrl&apos;&gt; Configuration.termsOfConditionsUrl&lt;/a&gt;/&lt;/u&gt;&lt;/font&gt;
+ habe ich gelesen und verstanden.&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;h3 class=&apos;western&apos;&gt;&lt;br/&gt;
+
+ &lt;/h3&gt;
+ &lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt; 7. Elektronische Post (Email) /
+ Kontaktaufnahme&lt;/b&gt;&lt;/p&gt;
+ &lt;p style=&apos;margin-bottom: 0cm&apos;&gt; 7.1 Informationen, die Sie
+ unverschlüsselt per Elektronischer Post (Email) an uns senden,
+ können möglicherweise auf dem Übertragungsweg von Dritten
+ gelesen werden. Wir können in der Regel auch Ihre Identität nicht
+ überprüfen und wissen nicht, wer wirklicher Inhaber einer
+ Emailadresse ist. Eine rechtssichere Kommunikation durch einfache
+ Email ist daher nicht gewährleistet. Wie viele Anbieter setzen wir
+ Filter gegen unerwünschte Werbung („SPAM-Filter“) ein, die in
+ einigen Fällen auch normale Emails fälschlicherweise automatisch
+ als unerwünschte Werbung einordnen und löschen. Emails, die
+ schädigende Programme („Viren“) enthalten, werden von uns in
+ jedem Fall automatisch gelöscht. Wenn Sie schutzwürdige
+ Nachrichten an uns senden wollen, empfehlen wir, die Nachricht auf
+ konventionellem Postwege an uns zu senden.
+ &lt;/p&gt;
+ &lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt; 7.2 Art und Umfang der
+ Datenverarbeitung: &lt;/b&gt;Im Falle der Kontaktaufnahme mit uns werden
+ Ihre Daten, Ihre IP-Adresse sowie Datum und Uhrzeit gespeichert.&lt;/p&gt;
+ &lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt; 7.3 Zweck: &lt;/b&gt;Dies geschieht
+ insbesondere zu Kommunikationszwecken und zum Schutz unserer
+ Systeme gegen Missbrauch.&lt;/p&gt;
+ &lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt; 7.4 Rechtsgrundlage: &lt;/b&gt;Die
+ Verarbeitung der Daten erfolgt aus berechtigtem Interesse zu oben
+ genanntem Zweck gem. Art. 6 Abs. 1 Satz 1 lit. f) DSGVO.&lt;/p&gt;
+ &lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt; 7.5 Speicherdauer und Löschung:
+ &lt;/b&gt;Die Daten werden erst dann gelöscht, falls keine vertraglichen
+ oder gesetzlichen Verpflichtungen einer Löschung entgegenstehen.&lt;/p&gt;
+ &lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt; 7.6 Widerspruch oder Widerruf:&lt;/b&gt;
+ Sie können der Kontaktaufnahme per Email jederzeit widersprechen.
+ In diesem Fall kann keine weitere Korrespondenz via Email
+ stattfinden.&lt;/p&gt;
+ &lt;p class=&apos;western&apos; align=&apos;left&apos; style=&apos;margin-bottom: 0cm; line-height: 100%&apos;&gt;
+ &lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm; page-break-before: always&apos;&gt;
+ &lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;li&gt;&lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;b&gt;Gültigkeit&lt;/b&gt;&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;Wir
+ sind stets bemüht, unsere Hard- und Software weiterzuentwickeln und
+ neue Technologien einzusetzen. Daher kann es notwendig werden, diese
+ Datenschutzerklärung zu ändern, bzw. anzupassen. Wir behalten uns
+ daher das Recht vor, diese Erklärung jederzeit mit Wirkung für die
+ Zukunft zu ändern. Bitte besuchen Sie daher diese Seite regelmäßig
+ und lesen Sie die jeweils aktuelle Datenschutzerklärung von Zeit zu
+ Zeit erneut durch.&lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;p class=&apos;western&apos; style=&apos;margin-left: 0.64cm; margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+
+ &lt;/p&gt;
+ &lt;div id=&apos;sdfootnote1&apos;&gt;&lt;p class=&apos;sdfootnote-western&apos;&gt;&lt;a class=&apos;sdfootnotesym&apos; name=&apos;sdfootnote1sym&apos; href=&apos;#sdfootnote1anc&apos;&gt;1&lt;/a&gt;&lt;font size=&apos;1&apos; style=&apos;font-size: 8pt&apos;&gt;
+ Aus Gründen der besseren Lesbarkeit wird auf die gleichzeitige
+ Verwendung der Sprachformen männlich, weiblich und divers (m/w/d)
+ verzichtet. Sämtliche Personenbezeichnungen gelten gleichermaßen
+ für alle Geschlechter.&lt;/font&gt;&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div id=&apos;sdfootnote2&apos;&gt;&lt;p class=&apos;sdfootnote-western&apos;&gt;&lt;a class=&apos;sdfootnotesym&apos; name=&apos;sdfootnote2sym&apos; href=&apos;#sdfootnote2anc&apos;&gt;2&lt;/a&gt;&lt;font size=&apos;1&apos; style=&apos;font-size: 8pt&apos;&gt;
+ Dieser Einwilligungstext muss auch bei der erstmaligen Registrierung
+ angezeigt und angefragt werden. Das Kästchen zum Setzen des Hakens
+ darf nicht vorausgefüllt sein. Die Registrierung ist nachhaltig zu
+ dokumentieren.&lt;/font&gt;&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div title=&apos;footer&apos;&gt;&lt;p align=&apos;right&apos; style=&apos;margin-top: 0.65cm; margin-bottom: 0cm&apos;&gt;
+ &lt;font size=&apos;1&apos; style=&apos;font-size: 8pt&apos;&gt;Seite &lt;/font&gt;&lt;font size=&apos;1&apos; style=&apos;font-size: 8pt&apos;&gt;&lt;b&gt;&lt;span style=&apos;background: #c0c0c0&apos;&gt;&lt;sdfield type=PAGE subtype=RANDOM format=PAGE&gt;7&lt;/sdfield&gt;&lt;/span&gt;&lt;/b&gt;&lt;/font&gt;&lt;font size=&apos;1&apos; style=&apos;font-size: 8pt&apos;&gt;
+ von &lt;/font&gt;&lt;font size=&apos;1&apos; style=&apos;font-size: 8pt&apos;&gt;&lt;b&gt;&lt;span style=&apos;background: #c0c0c0&apos;&gt;&lt;sdfield type=DOCSTAT subtype=PAGE format=PAGE&gt;7&lt;/sdfield&gt;&lt;/span&gt;&lt;/b&gt;&lt;/font&gt;&lt;/p&gt;
+ &lt;p style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;
+ &lt;/p&gt;
+ &lt;/div&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>S:</name>
@@ -2833,16 +3934,16 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
 <context>
     <name>ServicePage</name>
     <message>
-        <source>Service Consolinno</source>
-        <translation>Service Consolinno</translation>
-    </message>
-    <message>
         <source>If there are problems with the Leaflet, please refer to our service adress: </source>
         <translation>Bei Problemen mit dem Leaflet wenden sie sich an unserere Serviceadresse</translation>
     </message>
     <message>
-        <source>service@consolinno.de</source>
-        <translation>service@consolinno.de</translation>
+        <source>Service %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2940,12 +4041,12 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Wenn notwendig, bitte den Namen ändern</translation>
     </message>
     <message>
-        <source>At the moment, Consolinno HEMS can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
-        <translation>Momentan kann das Consolinno HEMS nur eine Wallbox ansteuern. Das Unterstützen von mehreren Wallboxen ist für ein zukünftiges Release geplant.</translation>
-    </message>
-    <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
+    </message>
+    <message>
+        <source>At the moment, %1 HEMS can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3126,12 +4227,12 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Wenn notwendig, bitte den Namen ändern</translation>
     </message>
     <message>
-        <source>At the moment, Consolinno HEMS can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
-        <translation>Momentan kann das Consolinno HEMS nur eine Wärmepumpe ansteuern. Das Unterstützen von mehreren Wärmepumpen ist für ein zukünftiges Release geplant.</translation>
-    </message>
-    <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
+    </message>
+    <message>
+        <source>At the moment, %1 HEMS can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3398,16 +4499,16 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Gratulation!</translation>
     </message>
     <message>
-        <source>Your Leaflet is now configured. The following devices have been set up:</source>
-        <translation>Dein Leaflet ist jetzt eingerichtet. Die folgenden Geräte wurden konfiguriert:</translation>
-    </message>
-    <message>
         <source>to the Dashboard</source>
         <translation>zum Dashboard</translation>
     </message>
     <message>
         <source>Installed Devices</source>
         <translation>Installierte Geräte</translation>
+    </message>
+    <message>
+        <source>Your %1 is now configured. The following devices have been set up:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
