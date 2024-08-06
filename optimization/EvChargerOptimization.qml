@@ -110,18 +110,11 @@ Page {
             Layout.fillWidth: true
             text: qsTr("Save")
             onClicked: {
-                    // Check if carThingId is not 00000000-0000-0000-0000-000000000000 and set it to a random uuid if so
-                    /*
-                    if (chargingConfiguration.carThingId.toString() === "{00000000-0000-0000-0000-000000000000}" || chargingConfiguration.carThingId === null) {
-                        //chargingConfiguration.carThingId = "00000000-0000-0000-0000-000000000000" //"91849ca3-f49f-49bc-a99c-f01075d050b0"
-                    }
-                    */
                     hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {optimizationMode: 9, controllableLocalSystem: gridSupportControl.checked,})
-                    console.error(chargingConfiguration.controllableLocalSystem)
-                    if(directionID === 1){
-                       //hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {optimizationEnabled: false, controllableLocalSystem: gridSupportControl.checked,})
-                    }else{
-                        //d.pendingCallId = hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {optimizationEnabled: false, controllableLocalSystem: gridSupportControl.checked,})
+
+                    if(directionID !== 1){
+                        console.error(chargingConfiguration.controllableLocalSystem)
+                        pageStack.pop()
                     }
 
                     root.done()

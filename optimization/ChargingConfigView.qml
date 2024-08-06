@@ -953,8 +953,6 @@ GenericConfigPage {
                             RowLayout{
                                 id: chargingModeRowid
 
-                                Layout.fillWidth: true
-
                                 Label {
                                     id: chargingModeid
 
@@ -963,17 +961,17 @@ GenericConfigPage {
 
                                 InfoButton{
                                     id: chargingModeInfoButton
-
+                                    Layout.rightMargin: 15
                                     push: "ChargingModeInfo.qml"
                                     Layout.fillWidth: true
                                     Layout.alignment: Qt.AlignTop
                                 }
                             }
 
+
                             ComboBox {
                                 id: comboboxloadingmod
                                 Layout.fillWidth: true
-                                Layout.leftMargin: 20
                                 model: ListModel{
                                     id: dynamicModel
                                     ListElement{key: qsTr("Charge always"); value: "No Optimization"; mode: 0}
@@ -1333,12 +1331,11 @@ GenericConfigPage {
                                     elide: Text.ElideRight
                                 }
                             }
-
                         }
 
                         RowLayout {
                             Layout.preferredWidth: app.width
-                            Layout.topMargin: 10
+                            Layout.topMargin: 5
                             visible: isAnyOfModesSelected([dyn_pricing])
 
                             RowLayout {
@@ -1372,10 +1369,11 @@ GenericConfigPage {
                                     id: averagePriceLimitigId
                                     text: qsTr("average price: ")
                                     Layout.fillWidth: true
+                                    Layout.rightMargin: 10
                                 }
 
                                 ToolBar {
-                                    Layout.leftMargin: 20
+
                                     background: Rectangle {
                                         color: "transparent"
                                     }
@@ -1465,12 +1463,16 @@ GenericConfigPage {
 
                         }
 
+
+
+
                         RowLayout {
-                            Layout.preferredWidth: app.width
+                            Layout.preferredWidth: parent.width
                             Layout.topMargin: 5
                             visible: isAnyOfModesSelected([dyn_pricing])
                             Label {
                                 text: qsTr("Currently corresponds to a market price of: %1 ct.").arg(thresholdPrice)
+                                font.pixelSize: 13
                             }
                         }
 

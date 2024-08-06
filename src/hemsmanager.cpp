@@ -387,7 +387,7 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
         dummyConfig.insert("evChargerThingId", evChargerThingId);
         dummyConfig.insert("optimizationEnabled", false);
         dummyConfig.insert("optimizationMode", 0);
-        //dummyConfig.insert("carThingId", "{00000000-0000-0000-0000-000000000000}");
+        dummyConfig.insert("carThingId", "{00000000-0000-0000-0000-000000000000}");
         dummyConfig.insert("endTime", "0:00:00");
         dummyConfig.insert("targetPercentage", 100);
         dummyConfig.insert("controllableLocalSystem", false);
@@ -400,6 +400,7 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
 
     // Make a MetaObject of an configuration
     const QMetaObject *metaObj = configuration->metaObject();
+
     // add the values from data which match with the MetaObject
     QVariantMap config;
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
@@ -409,7 +410,20 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
                 config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
             }else{
                 //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
-                config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
+                //
+                /*
+                if(data.value(metaObj->property(i).name()) != "00000000-0000-0000-0000-000000000000"){
+                    config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration));
+                }*/
+                std::string test = "carThingId";
+                if(test.compare(metaObj->property(i).name()) != 0 && configuration->carThingId() == "00000000-0000-0000-0000-000000000000"){
+                    config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration));
+                }else if(configuration->carThingId() != "00000000-0000-0000-0000-000000000000"){
+                    config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration));
+                }else{
+
+                }
+
             }
     }
 
@@ -872,7 +886,7 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
 
     configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
     configuration->setOptimizationMode(configurationMap.value("optimizationMode").toInt());
-    //configuration->setCarThingId(configurationMap.value("carThingId").toUuid());
+    configuration->setCarThingId(configurationMap.value("carThingId").toUuid());
     configuration->setEndTime(configurationMap.value("endTime").toString());
     configuration->setTargetPercentage(configurationMap.value("targetPercentage").toUInt());
     configuration->setUniqueIdentifier(configurationMap.value("uniqueIdentifier").toUuid());
