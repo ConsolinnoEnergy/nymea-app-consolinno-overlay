@@ -745,10 +745,7 @@ GenericConfigPage {
                         Button{
                             Layout.fillWidth: true
                             text: qsTr("Configure Charging")
-                            background: Rectangle{
-                                color: isCarPluggedIn() ? "#87BD26" : "lightgrey"
-                                radius: 4
-                            }
+                            enabled: isCarPluggedIn()
 
                             onClicked: {
                                 if (isCarPluggedIn()){
