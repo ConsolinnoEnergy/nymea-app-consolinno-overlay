@@ -45,7 +45,7 @@ ConsolinnoWizardPageBase {
                     font.bold: true
                     font.pixelSize: 15
                     wrapMode: Text.WordWrap
-                    text: qsTr("1. Allgemeines")
+                    text: qsTr("1. General")
                 }
 
                 Text{
@@ -57,7 +57,7 @@ ConsolinnoWizardPageBase {
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
                     //readOnly: true
-                    text: qsTr("(1) %1 hat eine Software entwickelt, welche als Applikation auf Android und IOS-Systemen benutzt werden kann. Die Software verbindet sich mit einem Energy Management Systems genannt Leaflet HEMS. Das hat dann die Aufgabe in Verbindung mit einer Photovoltaikanlage den Eigenverbrauch der PV-Energie zu maximieren. Parallel ist die Funktion Black-out Schutz integriert. Damit wird der Ladestrom einer Ladeeinrichtung dynamisch begrenzt. Es kommt nicht zum Auslösen der Sicherung.").arg(Configuration.companyName)
+                    text: qsTr("(1) %1 has developed a software that can be used as an application on Android and IOS systems. The software connects to an energy management system called Leaflet HEMS. This then has the task of maximizing the self-consumption of PV energy in conjunction with a photovoltaic system. The black-out protection function is also integrated. This dynamically limits the charging current of a charging device. The fuse does not trip.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -68,7 +68,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("Die Software ermöglicht es, durch die Steuerung einer E-Ladeeinrichtung, einer Wärmepumpe, Hausgeräte (Waschmaschine, Trockner, Spülmaschine) und dem Einbinden einer Batterie den Eigenbedarf der erzeugten PV-Energie signifikant zu steigern.")
+                    text: qsTr("The software makes it possible to significantly increase the self-consumption of the generated PV energy by controlling an e-charging device, a heat pump, household appliances (washing machine, dryer, dishwasher) and by integrating a battery.")
                 }
 
                 Text{
@@ -77,7 +77,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("Dadurch wird CO2 und Kosten eingespart.")
+                    text: qsTr("This saves CO2 and costs.")
                 }
 
                 Text{
@@ -88,7 +88,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("Diese allgemeinen Lizenzbestimmungen gelten für sämtliche Lizenzverträge mit dem Kunden über die Module der Software und dem HEMS Produkt.")
+                    text: qsTr("These general license terms apply to all license agreements with the customer regarding the software modules and the HEMS product.")
                 }
 
                 Text{
@@ -97,7 +97,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(2) Die Software wird von der %1 kostenfrei Kunden vom HEMS über Appstores angeboten.").arg(Configuration.companyName)
+                    text: qsTr("(2) The software is offered by %1 free of charge to HEMS customers via app stores.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -106,7 +106,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(3) Die Kunden sind für das ordnungsgemäße Installieren der Hard- und Software verantwortlich.")
+                    text: qsTr("(3) Customers are responsible for the proper installation of hardware and software.")
                 }
 
 
@@ -117,7 +117,7 @@ ConsolinnoWizardPageBase {
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
                     font.bold: true
-                    text: qsTr("2.Lizenzgegenstand")
+                    text: qsTr("2. License object")
                 }
 
                 Text{
@@ -126,7 +126,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(1) %1 gewährt dem Kunden das ausschließliche Recht die in der Vereinbarung näher beschriebene Software innerhalb Deutschlands zu nutzen. Es wird ein nicht-ausschließliches und nicht-übertragbares Nutzungsrecht an der Software eingeräumt.").arg(Configuration.companyName)
+                    text: qsTr("(1) %1 grants the customer the exclusive right to use the software described in more detail in the agreement within Germany. A non-exclusive and non-transferable right to use the software is granted.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -135,7 +135,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(2) Soweit dies für die vertragsgemäße Nutzung erforderlich ist, darf die Software vervielfältigt werden.")
+                    text: qsTr("(2) The software may be reproduced to the extent necessary for the contractual use.")
                 }
 
                 Text{
@@ -144,7 +144,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("Über die Appstores kann der Kunde mit dem jeweiligen Betriebssystem das Programm laden und installieren")
+                    text: qsTr("The customer can download and install the program using the respective operating system via the app stores.")
                 }
 
                 Text{
@@ -153,7 +153,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(3) Im Übrigen ist der Kunde zu einer Vervielfältigung oder Überlassung an Dritte nicht berechtigt, soweit gesetzlich nicht anderes bestimmt.")
+                    text: qsTr("(3) Furthermore, the customer is not entitled to copy or transfer the software to third parties, unless otherwise provided by law.")
                 }
 
                 Text{
@@ -162,7 +162,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(4) Der Kunde ist nicht berechtigt, die Software zu verändern und zu bearbeiten, es sei denn, es handelt sich bei der Änderung bzw. Bearbeitung um eine für die vertragsgemäße Nutzung der Software erforderliche Beseitigung eines Mangels, mit welcher sich die %1 in Verzug befindet.").arg(Configuration.companyName)
+                    text: qsTr("(4) The customer is not entitled to change or edit the software unless the change or editing is necessary to eliminate a defect that is necessary for the contractual use of the software and with which %1 is in default.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -172,7 +172,7 @@ ConsolinnoWizardPageBase {
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
                     font.bold: true
-                    text: qsTr("3.Lizenzgebühr")
+                    text: qsTr("3.License fee")
                 }
 
                 Text{
@@ -181,7 +181,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(1) Der Kunde hat mit dem Erwerb des HEMS-Gerätes die Software kostenfrei von den APP Stores geladen und kann diese benutzen.")
+                    text: qsTr("(1) By purchasing the HEMS device, the customer has downloaded the software free of charge from the APP Stores and can use it.")
                 }
 
                 Text{
@@ -190,7 +190,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(2) Im Rahmen der Weiterentwicklung können Softwaremodule auch für eine unbefristete Nutzungsdauer käuflich erworben werden.")
+                    text: qsTr("(2) As part of further development, software modules can also be purchased for an unlimited period of use.")
                 }
 
                 Text{
@@ -200,7 +200,7 @@ ConsolinnoWizardPageBase {
                     wrapMode: Text.WordWrap
                     font.bold: true
                     font.pixelSize: 15
-                    text: qsTr("4.Softwareauslieferung und Installation")
+                    text: qsTr("4.Software delivery and installation")
                 }
 
                 Text{
@@ -209,7 +209,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(1) %1 liefert die Software an den Kunden über den Appstore von Apple oder Google aus.").arg(Configuration.companyName)
+                    text: qsTr("(1) %1 delivers the software to the customer via the Apple or Google app store.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -218,7 +218,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(2) Neben der Software wird %1 dem Kunden eine Installationsanleitung des Gerätes HEMS sowie eine Dokumentation zum Download anbieten.").arg(Configuration.companyName)
+                    text: qsTr("(2) In addition to the software, %1 will offer the customer installation instructions for the HEMS device as well as documentation for download.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -227,7 +227,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("3) %1 schuldet keine Installation der Software auf den Systemen des Kunden; für diese ist der Kunde allein ver-antwortlich.").arg(Configuration.companyName)
+                    text: qsTr("(3) %1 is not responsible for installing the software on the customer's systems; the customer is solely responsible for this.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -237,7 +237,7 @@ ConsolinnoWizardPageBase {
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
                     font.bold: true
-                    text: qsTr("5.Instandhaltung")
+                    text: qsTr("5. Maintenance")
                 }
 
                 Text{
@@ -246,7 +246,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(1) %1 ist zur Aufrechterhaltung der vertraglich vereinbarten Beschaffenheit der Software während der Vertragslaufzeit ('Instandhaltung') verpflichtet. Die vertraglich geschuldete Beschaffenheit der Software bestimmt sich nach der zugesagten Funktion des HEMS Produktes. Up Dates erfolgen über eine Internetverbindung.").arg(Configuration.companyName)
+                    text: qsTr("(1) %1 is obliged to maintain the contractually agreed quality of the software during the term of the contract ('maintenance'). The contractually agreed quality of the software is determined by the promised function of the HEMS product. Updates are carried out via an Internet connection.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -255,7 +255,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(2) %1 ist zu einer Änderung, Anpassung und Weiterentwicklung der Software nur dann verpflichtet, wenn das mit dem Kunden gesondert vereinbart ist. Ohne eine solche gesonderte Vereinbarung ist die %1 nicht zu einer Weiterentwicklung der Software verpflichtet.").arg(Configuration.companyName)
+                    text: qsTr("(2) %1 is only obliged to change, adapt or further develop the software if this has been separately agreed with the customer. Without such a separate agreement, %1 is not obliged to further develop the software.").arg(Configuration.companyName)
                 }
 
                 Text{
@@ -265,7 +265,7 @@ ConsolinnoWizardPageBase {
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
                     font.bold: true
-                    text: qsTr("6.Gewährleistung")
+                    text: qsTr("6.Warranty")
 
                 }
 
@@ -275,7 +275,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(1) Sollte dem Kunden Mängel an der Software, am Gerät oder an der Dokumentation feststellen, so hat der Kunde das der %1 mitzuteilen. Das kann zum Beispiel per Mail erfolgen.").arg(Configuration.companyName)
+                    text: qsTr("(1) If the customer discovers defects in the software, the device or the documentation, the customer must inform %1. This can be done, for example, by email.").arg(Configuration.companyName)
 
                 }
 
@@ -285,7 +285,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(2) Ein Mangel liegt nicht vor, wenn die vom Kunden verwendete Hardware und /oder Software nicht den spezifizierten Anforderungen entspricht.")
+                    text: qsTr("(2) A defect does not exist if the hardware and/or software used by the customer does not meet the specified requirements.")
 
                 }
 
@@ -295,7 +295,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(3) %1 wird die angezeigten Mängel an der Software und an der Dokumentation innerhalb einer angemessenen Frist zu beheben. Im Rahmen der Mängelbeseitigung hat %1 ein Wahlrecht zwischen Nachbesserung und Ersatzlieferung. Die Kosten der Mängelbeseitigung trägt %1. Kosten für Ausfall, entgangener Gewinn, Ein- und Ausbaukosten oder ähnliches werden nicht erstattet.").arg(Configuration.companyName)
+                    text: qsTr("(3) %1 will remedy the reported defects in the software and documentation within a reasonable period of time. When remedying the defect, %1 has the right to choose between repair and replacement delivery. %1 will bear the costs of remedying the defect. Costs for downtime, lost profits, installation and removal costs or similar will not be reimbursed.").arg(Configuration.companyName)
 
                 }
 
@@ -305,7 +305,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(4) Schlägt die hierin geschuldete Mängelbeseitigung fehl, ist die Kunde zur außerordentlichen Kündigung des betreffenden Vertrages gemäß § 543 Abs. 2 S. 1 Nr. 1 BGB berechtigt.")
+                    text: qsTr("(4) If the remedy of defects owed here fails, the customer is entitled to extraordinary termination of the contract in question in accordance with Section 543 Paragraph 2 Sentence 1 No. 1 of the German Civil Code (BGB).")
 
                 }
 
@@ -316,7 +316,7 @@ ConsolinnoWizardPageBase {
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
                     font.bold: true
-                    text: qsTr("8.Haftung")
+                    text: qsTr("8. Liability")
 
                 }
 
@@ -326,15 +326,15 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(1) Der Lizenzgeber haftet unbeschränkt:
+                    text: qsTr("(1) The licensor is liable without limitation:
 
-· bei Arglist, Vorsatz oder grober Fahrlässigkeit;
+· in the event of malice, intent or gross negligence;
 
-· im Rahmen einer von ihm ausdrücklich übernommenen Garantie;
+· within the scope of a guarantee expressly given by him;
 
-· für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit;
+· for damages resulting from injury to life, body or health;
 
-· nach den Vorschriften des Produkthaftungsgesetzes")
+· in accordance with the provisions of the Product Liability Act")
 
                 }
 
@@ -344,7 +344,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(2) Im Übrigen ist eine Haftung der %1 für direkte und indirekte Schäden ausgeschlossen.").arg(Configuration.companyName)
+                    text: qsTr("(2) Furthermore, %1’s liability for direct and indirect damages is excluded.").arg(Configuration.companyName)
 
                 }
 
@@ -356,7 +356,7 @@ ConsolinnoWizardPageBase {
                     font.pixelSize: 15
                     text: qsTr("(3) Open Source
 
-Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelten für diese Module die entsprechende Garantie und Haftungsbedingungen. Sollte das nicht möglich sein, dann gilt die Regelung im jeweiligen Anwenderland.")
+Open source modules are included in the APP and in the device software. The corresponding guarantee and liability conditions apply to these modules. If this is not possible, the regulations in the respective user country apply.")
 
                 }
 
@@ -367,7 +367,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
                     font.bold: true
-                    text: qsTr("9.Vertragsdauer und Vertragsbeendigung")
+                    text: qsTr("9. Contract duration and termination")
 
                 }
 
@@ -377,7 +377,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(1) Der Lizenzvertrag tritt mit der Akzeptanz der Lizenzbestimmungen vor der Installation in Kraft in gilt auf unbestimmte Dauer.")
+                    text: qsTr("(1) The license agreement comes into force upon acceptance of the license terms prior to installation and is valid for an indefinite period.")
 
                 }
 
@@ -387,7 +387,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(2) Das Recht beider Parteien zur jederzeitigen außerordentlichen und fristlosen Kündigung aus wichtigem Grund bleibt unberührt. Ein wichtiger Grund liegt insbesondere vor, wenn der Lizenzgeber oder die Lizenznehmerin vorsätzlich oder fahrlässig gegen eine wesentliche Pflicht aus diesen Lizenzbestimmungen verstößt und deswegen der kündigenden Partei das Festhalten am Lizenzvertrag nicht mehr zumutbar ist. Der Lizenzgeber ist hiernach insbesondere zur außerordentlichen und fristlosen Kündigung des Lizenzvertrages berechtigt, wenn die Lizenznehmerin die ihr eingeräumten Nutzungsbefugnisse überschreitet und ihre Verletzungshandlungen nicht innerhalb einer angemessenen Frist abstellt, wenn der Lizenzgeber diese zuvor zur Unterlassung dieser Verletzungshandlungen abgemahnt hat.")
+                    text: qsTr("(2) The right of both parties to terminate the contract at any time for good cause and without notice remains unaffected. Good cause exists in particular if the licensor or licensee intentionally or negligently violates a material obligation under these license terms and conditions and the terminating party can therefore no longer reasonably be expected to adhere to the license agreement. The licensor is therefore entitled to terminate the license agreement for good cause and without notice if the licensee exceeds the rights of use granted to it and does not stop its infringements within a reasonable period of time, if the licensor has previously warned the licensee to refrain from these infringements.")
 
                 }
 
@@ -398,7 +398,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(3) Die Kündigung des Lizenzvertrages bedarf der Schriftform.")
+                    text: qsTr("(3) Termination of the License Agreement must be in writing.")
 
                 }
 
@@ -408,7 +408,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(4) %1 kann die Pflege des Programmes ohne nennen von Gründen einstellen").arg(Configuration.companyName)
+                    text: qsTr("(4) %1 may stop maintaining the program without giving reasons").arg(Configuration.companyName)
 
                 }
 
@@ -419,7 +419,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
                     font.bold: true
-                    text: qsTr("11.Schlussbestimmungen")
+                    text: qsTr("11. Final provisions")
 
                 }
 
@@ -429,7 +429,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(1) Sollte eine dieser Lizenzbestimmungen oder eine später in diesen Lizenzvertrag aufgenommene Bestimmung ganz oder teilweise nichtig oder undurchführbar sein oder werden oder sollte sich eine Lücke in diesen Lizenzbestimmungen herausstellen, wird dadurch die Wirksamkeit der übrigen Bestimmungen nicht berührt (Erhaltung). Es ist der ausdrückliche Wille der Parteien, hierdurch die Wirksamkeit der übrigen Bestimmungen unter allen Umständen aufrechtzuerhalten und damit § 139 BGB insgesamt abzubedingen. Anstelle der nichtigen oder undurchführbaren Bestimmung oder zur Ausfüllung der Lücke gilt mit Rückwirkung diejenige wirksame und durchführbare Regelung als bestimmt, die rechtlich und wirtschaftlich dem am nächsten kommt, was die Parteien gewollt haben oder nach dem Sinn und Zweck des Lizenzvertrages gewollt hätten, wenn sie diesen Punkt bei Abschluss dieser Vereinbarung bzw. bei Aufnahme der Bestimmung bedacht hätten; beruht die Nichtigkeit einer Bestimmung auf einem darin festgelegten Maß der Leistung oder der Zeit (Frist oder Termin), so gilt die Bestimmung mit einem dem ursprünglichen Maß am nächsten kommenden rechtlich zulässigen Maß als vereinbart (Ersetzungsfiktion). Ist die Ersetzungsfiktion nicht möglich, ist anstelle der nichtigen oder undurchführbaren Bestimmung oder zur Schließung der Lücke eine Bestimmung bzw. Regelung nach inhaltlicher Maßgabe des vorstehenden Satzes zu treffen (Ersetzungsverpflichtung). Betrifft die Nichtigkeit oder Lücke eine beurkundungspflichtige Bestimmung, so ist die Regelung bzw. die Bestimmung in notariell beurkundeter Form zu vereinbaren.")
+                    text: qsTr("(1) Should one of these license terms or a provision later included in this license agreement be or become invalid or unenforceable in whole or in part, or should a gap in these license terms emerge, the validity of the remaining provisions shall not be affected thereby (preservation). It is the express intention of the parties to maintain the validity of the remaining provisions under all circumstances and thus to waive Section 139 of the German Civil Code (BGB) in its entirety. Instead of the invalid or unenforceable provision or to fill the gap, the effective and enforceable provision shall be deemed to have been determined with retroactive effect, which legally and economically comes closest to what the parties wanted or would have wanted according to the spirit and purpose of the license agreement if they had considered this point when concluding this agreement or when including the provision; if the invalidity of a provision is based on a level of performance or time (deadline or date) specified therein, the provision shall be deemed to have been agreed with a legally permissible level that comes closest to the original level (fiction of replacement). If the fiction of replacement is not possible, a provision or regulation must be made in place of the invalid or unenforceable provision or to close the gap in accordance with the content of the previous sentence (obligation to replace). If the invalidity or gap concerns a provision that requires notarization, the regulation or provision must be agreed in notarized form.")
 
                 }
 
@@ -439,7 +439,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(2) Änderungen und Ergänzungen des betreffenden Lizenzvertrages einschließlich dieser Klausel bedürfen der Schriftform, soweit nicht etwas anderes bestimmt ist")
+                    text: qsTr("(2) Any amendments or additions to the relevant licence agreement, including this clause, must be made in writing unless otherwise specified.")
 
                 }
 
@@ -449,7 +449,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(3) Die Parteien dürfen den Lizenzvertrag sowie Rechte und Pflichten aus dem Lizenzvertrag nur mit vorheriger schriftlicher Zustimmung der jeweils anderen Partei auf einen Dritten übertragen.")
+                    text: qsTr("(3) The parties may only transfer the License Agreement and any rights and obligations arising from the License Agreement to a third party with the prior written consent of the other party.")
 
                 }
 
@@ -459,7 +459,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(4) Die Geltung der Allgemeinen Geschäftsbedingungen der Lizenznehmerin werden ausdrücklich ausgeschlossen.")
+                    text: qsTr("(4) The validity of the licensee’s general terms and conditions is expressly excluded.")
 
                 }
 
@@ -469,7 +469,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(5) Ausschließlicher Gerichtsstand für alle Streitigkeiten aus oder im Zusammenhang mit dem Lizenzvertrag ist der Sitz des Lizenzgebers, Regensburg. Der Lizenzgeber bleibt berechtigt, am allgemeinen Gerichtsstand der Lizenznehmerin zu klagen.")
+                    text: qsTr("(5) The exclusive place of jurisdiction for all disputes arising from or in connection with the license agreement is the registered office of the licensor, Regensburg. The licensor remains entitled to bring an action at the general place of jurisdiction of the licensee.")
 
                 }
 
@@ -479,7 +479,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("Anschrift des Lizenzgebers
+                    text: qsTr("Licensor address
 %1, %2").arg(Configuration.companyName).arg(Configuration.companyAddress)
 
                 }

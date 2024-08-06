@@ -3,8 +3,8 @@ pragma Singleton
 import QtQuick 2.5
 
 ConfigurationBase {
-    systemName: "Leaflet HEMS"
-    appName: "Consolinno HEMS"
+    systemName: "Q.Home HEMS"
+    appName: "Q Cells HEMS"
     appId: "hems.consolinno.energy"
 
 
@@ -21,7 +21,7 @@ ConfigurationBase {
 
     // Branding names visible to the user
     property string appBranding: "Q CELLS"
-    property string coreBranding: "Leaflet"
+    property string coreBranding: "Q.Home"
 
     //Branding contact-email
     property string contactEmail: "meinesolaranlage@q-cells.com"
