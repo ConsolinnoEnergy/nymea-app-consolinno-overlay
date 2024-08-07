@@ -1471,7 +1471,7 @@ GenericConfigPage {
                             Layout.topMargin: 5
                             visible: isAnyOfModesSelected([dyn_pricing])
                             Label {
-                                text: qsTr("Currently corresponds to a market price of: %1 ct.").arg(thresholdPrice)
+                                text: qsTr("Currently corresponds to a market price of: %1 ct/kWh.").arg(thresholdPrice)
                                 font.pixelSize: 13
                             }
                         }
@@ -1871,7 +1871,7 @@ GenericConfigPage {
                                                     font: Style.smallFont
                                                 }
                                                 Label {
-                                                    property string unit: qsTr("Cents / kWh")
+                                                    property string unit: qsTr("ct/kWh")
                                                     text: {
                                                         if(!mouseArea.containsMouse) {
                                                             return "";

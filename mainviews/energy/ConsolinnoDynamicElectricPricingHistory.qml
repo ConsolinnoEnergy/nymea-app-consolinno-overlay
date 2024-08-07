@@ -128,7 +128,7 @@ Item {
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 13
-            text: qsTr("Current Market Price: ") + (currentPrice.toFixed(2)) + " ct"
+            text: qsTr("Current Market Price: ") + (currentPrice.toFixed(2)) + " ct/kWh"
         }
 
         Text {
@@ -136,7 +136,7 @@ Item {
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 13
-            text: qsTr("Average Market Price: ") + (averagePrice) + " ct"
+            text: qsTr("Average Market Price: ") + (averagePrice) + " ct/kWh"
         }
 
         Item {
@@ -520,7 +520,7 @@ Item {
                             font: Style.smallFont
                         }
                         Label {
-                            property string unit: qsTr("Cents / kWh")
+                            property string unit: qsTr("ct/kWh")
                             text: {
                                 if(!mouseArea.containsMouse) {
                                     return "";
