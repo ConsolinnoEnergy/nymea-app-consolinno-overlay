@@ -498,7 +498,7 @@ GenericConfigPage {
                         Label{
                             id: priceLimit
                             property double priceThresholdProcentage: chargingConfiguration.priceThreshold
-                            text: qsTr('Average price ') + (priceThresholdProcentage + " %") +" / " + (thresholdPrice) + " ct/kWh";
+                            text: qsTr('Average price ') + (priceThresholdProcentage + " %") +" (" + (thresholdPrice) + " ct/kWh)";
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
 
