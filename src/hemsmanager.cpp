@@ -387,7 +387,7 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
         dummyConfig.insert("evChargerThingId", evChargerThingId);
         dummyConfig.insert("optimizationEnabled", false);
         dummyConfig.insert("optimizationMode", 0);
-        //dummyConfig.insert("carThingId", "{00000000-0000-0000-0000-000000000000}");
+        dummyConfig.insert("carThingId", "{00000000-0000-0000-0000-000000000000}");
         dummyConfig.insert("endTime", "0:00:00");
         dummyConfig.insert("targetPercentage", 100);
         dummyConfig.insert("controllableLocalSystem", false);
@@ -405,10 +405,10 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
         if(data.contains(metaObj->property(i).name()))
             {
-                //qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
+                qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
                 config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
             }else{
-                //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
+                qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
                 config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
             }
     }
@@ -872,7 +872,7 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
 
     configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
     configuration->setOptimizationMode(configurationMap.value("optimizationMode").toInt());
-    //configuration->setCarThingId(configurationMap.value("carThingId").toUuid());
+    configuration->setCarThingId(configurationMap.value("carThingId").toUuid());
     configuration->setEndTime(configurationMap.value("endTime").toString());
     configuration->setTargetPercentage(configurationMap.value("targetPercentage").toUInt());
     configuration->setUniqueIdentifier(configurationMap.value("uniqueIdentifier").toUuid());
@@ -904,6 +904,7 @@ void HemsManager::addOrUpdateChargingOptimizationConfiguration(const QVariantMap
     configuration->setI_value(configurationMap.value("i_value").toFloat());
     configuration->setD_value(configurationMap.value("d_value").toFloat());
     configuration->setSetpoint(configurationMap.value("setpoint").toFloat());
+    configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Charging Optimization configuration added" << configuration->evChargerThingId();
