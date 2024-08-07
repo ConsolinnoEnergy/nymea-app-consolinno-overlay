@@ -406,24 +406,11 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
         if(data.contains(metaObj->property(i).name()))
             {
-                //qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
+                qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
                 config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
             }else{
-                //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
-                //
-                /*
-                if(data.value(metaObj->property(i).name()) != "00000000-0000-0000-0000-000000000000"){
-                    config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration));
-                }*/
-                std::string test = "carThingId";
-                if(test.compare(metaObj->property(i).name()) != 0 && configuration->carThingId() == "00000000-0000-0000-0000-000000000000"){
-                    config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration));
-                }else if(configuration->carThingId() != "00000000-0000-0000-0000-000000000000"){
-                    config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration));
-                }else{
-
-                }
-
+                qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
+                config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
             }
     }
 
@@ -918,6 +905,7 @@ void HemsManager::addOrUpdateChargingOptimizationConfiguration(const QVariantMap
     configuration->setI_value(configurationMap.value("i_value").toFloat());
     configuration->setD_value(configurationMap.value("d_value").toFloat());
     configuration->setSetpoint(configurationMap.value("setpoint").toFloat());
+    configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Charging Optimization configuration added" << configuration->evChargerThingId();
