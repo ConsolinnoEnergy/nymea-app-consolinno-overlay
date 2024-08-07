@@ -330,11 +330,7 @@ Item {
                     }
 
                     lowerSeries: LineSeries {
-
                         id: pricingLowerSeriesAbove
-
-                        //XYPoint { x: dateTimeAxis.min.getTime(); y: -100 }
-                        //XYPoint { x: dateTimeAxis.max.getTime(); y: -100 }
                     }
 
                 }

@@ -504,8 +504,8 @@ GenericConfigPage {
 
                             Component.onCompleted: {
                                 let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
-                                thresholdPrice = (averagePrice * (1 + priceThresholdProcentage / 100)).toFixed(2)
-                                currentValue = (currentValue === 0 && chargingConfiguration.priceThreshold === 0 ? -10 : chargingConfiguration.priceThreshold )
+                                thresholdPrice = (averagePrice * (1 + priceLimit.priceThresholdProcentage / 100)).toFixed(2)
+                                //numberInput.text = (numberInput.text === 0 && chargingConfiguration.priceThreshold === 0 ? -10 : chargingConfiguration.priceThreshold )
                             }
 
                             Timer{
@@ -515,7 +515,8 @@ GenericConfigPage {
                                onTriggered: {
                                    firstRun = true
                                    let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
-                                   thresholdPrice = (averagePrice * (1 + priceThresholdProcentage / 100)).toFixed(2)
+                                   thresholdPrice = (averagePrice * (1 + parseInt(numberInput.text) / 100)).toFixed(2)
+                                   console.error(thresholdPrice)
                                }
                             }
                         }
@@ -1372,92 +1373,42 @@ GenericConfigPage {
                                     Layout.rightMargin: 10
                                 }
 
-                                ToolBar {
-
-                                    background: Rectangle {
-                                        color: "transparent"
+                                property var debounceTimer: Timer {
+                                    interval: 1000
+                                    repeat: false
+                                    running: false
+                                    onTriggered: {
+                                        pricingCurrentLimitSeries.clear();
+                                        pricingUpperSeriesAbove.clear();
+                                        pricingLowerSeriesAbove.clear();
+                                        consumptionSeries.insertEntry(dynamicPrice.get(0).stateByName("priceSeries").value, true);
                                     }
-
-                                    RowLayout {
-                                        anchors.fill: parent
-                                        property var debounceTimer: Timer {
-                                            interval: 1000
-                                            repeat: false
-                                            running: false
-                                            onTriggered: {
-                                                pricingCurrentLimitSeries.clear();
-                                                pricingUpperSeriesAbove.clear();
-                                                pricingLowerSeriesAbove.clear();
-                                                consumptionSeries.insertEntry(dynamicPrice.get(0).stateByName("priceSeries").value, true);
-                                            }
-                                        }
-
-                                        function redrawChart() {
-                                            debounceTimer.stop();
-                                            debounceTimer.start();
-                                        }
-
-                                        ToolButton {
-                                            text: qsTr("-")
-                                            onClicked: {
-                                                currentValue = currentValue > -100 ? currentValue - 1 : -100
-                                                priceRow.getThresholdPrice()
-                                                parent.redrawChart();
-                                            }
-                                            onPressAndHold: {
-                                                currentValue = currentValue > -100 ? currentValue - 10 : -100
-                                                priceRow.getThresholdPrice()
-                                                parent.redrawChart();
-                                            }
-                                        }
-
-                                        TextField {
-                                            id: currentValueField
-                                            text: currentValue
-                                            horizontalAlignment: Qt.AlignHCenter
-                                            verticalAlignment: Qt.AlignVCenter
-                                            Layout.preferredWidth: 70
-                                            validator: RegExpValidator {
-                                                regExp: /^-?(100|[1-9]?[0-9])$/
-                                            }
-                                            onTextChanged: {
-                                                currentValue = currentValueField.text
-                                                priceRow.getThresholdPrice()
-                                                parent.redrawChart();
-                                            }
-                                        }
-
-                                        Label {
-                                            text: "%"
-                                        }
-
-                                        ToolButton { 
-                                            text: qsTr("+")
-                                            onClicked: {
-                                                currentValue = currentValue < 100 ? currentValue + 1 : 100
-                                                priceRow.getThresholdPrice()
-                                                parent.redrawChart();
-                                            }
-                                            onPressAndHold: {
-                                                currentValue = currentValue < 100 ? currentValue + 10 : 100
-                                                priceRow.getThresholdPrice()
-                                                parent.redrawChart();
-                                            }
-                                        }
-
-                                    }
-
                                 }
+
+                                ConsolinnoNumberInput {
+                                    id: numberInput
+                                    currentValue: (numberInput.text === 0 && chargingConfiguration.priceThreshold === 0 ? -10 : chargingConfiguration.priceThreshold )
+                                    maxLimit: 100
+                                    minLimit: -100
+                                    unit: "%"
+                                    averagePrice: dynamicPrice.get(0).stateByName("averagePrice").value
+                                    timer: priceRow.debounceTimer
+                                }
+
+
+                                /*
+                                 */
 
                                 Component.onCompleted: {
-                                    getThresholdPrice()
+                                    //getThresholdPrice()
                                 }
 
+                                /*
                                 function getThresholdPrice(){
                                     let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
-                                    let currentValue = parseInt(currentValueField.text)
+                                    let currentValue = parseInt(numberInput.text)
                                     thresholdPrice = (averagePrice * (1 + currentValue / 100)).toFixed(2)
-                                }
+                                }*/
 
                             }
 
@@ -1541,7 +1492,7 @@ GenericConfigPage {
                                     currentPrice = dpThing.stateByName("currentMarketPrice").value
                                     averagePrice = dpThing.stateByName("averagePrice").value.toFixed(0).toString();
 
-                                    consumptionSeries.insertEntry(dpThing.stateByName("priceSeries").value, false)
+                                    consumptionSeries.insertEntry(dpThing.stateByName("priceSeries").value, false);
                                     valueAxis.adjustMax(lowestPrice,highestPrice);
                                 }
 
@@ -1940,7 +1891,7 @@ GenericConfigPage {
                                     var optimizationMode = compute_OptimizationMode()
 
                                     hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
-                                    hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode, priceThreshold: currentValue})
+                                    hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode, priceThreshold: numberInput.text})
 
                                     optimizationPage.done()
                                     pageStack.pop()

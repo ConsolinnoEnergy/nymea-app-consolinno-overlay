@@ -110,5 +110,6 @@
         <file>info/PausingInfo.qml</file>
         <file>info/PriceLimitInfo.qml</file>
         <file>thingconfiguration/AddNewThings.qml</file>
+        <file>components/ConsolinnoNumberInput.qml</file>
     </qresource>
 </RCC>
