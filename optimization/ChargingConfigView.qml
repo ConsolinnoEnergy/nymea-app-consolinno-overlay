@@ -1498,23 +1498,20 @@ GenericConfigPage {
                                 property date now: new Date()
 
                                 readonly property var startTimeSince: {
-                                    var date = new Date(now);
-                                    date.setTime(validSince * 1000);
+                                    var date = new Date();
+                                    date.setHours(0);
+                                    date.setMinutes(0);
+                                    date.setSeconds(0);
 
                                     return date;
                                 }
 
                                 readonly property var endTimeUntil: {
-                                    var date = new Date(now);
-                                    const today = new Date();
-                                    const validUntilDate = new Date(validUntil*1000);
-
-                                    let adjustTime = 60;
-
-                                    if(today.getDate() < validUntilDate.getDate())
-                                        adjustTime = -86340;
-
-                                    date.setTime((validUntil + adjustTime) * 1000);
+                                    var date = new Date();
+                                    date.setHours(0);
+                                    date.setMinutes(0);
+                                    date.setSeconds(0);
+                                    date.setDate(date.getDate()+1);
                                     return date;
                                 }
 
