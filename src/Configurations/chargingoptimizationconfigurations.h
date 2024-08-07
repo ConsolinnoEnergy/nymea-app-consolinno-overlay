@@ -20,7 +20,8 @@ public:
         RoleP_Value,
         RoleI_Value,
         RoleD_Value,
-        RoleSetpoint
+        RoleSetpoint,
+        RoleControllableLocalSystem
 
     };
     Q_ENUM(Role);

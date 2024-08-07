@@ -11,6 +11,7 @@ Page {
     id: root
     property HemsManager hemsManager
     property Thing thing
+    property ChargingOptimizationConfiguration chargingOptimizationConfiguration: hemsManager.chargingOptimizationConfigurations.getChargingOptimizationConfiguration(thing.id)
     property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
     property int directionID: 0
     signal done()
@@ -28,7 +29,7 @@ Page {
 
     Connections {
         target: hemsManager
-        onSetChargingConfigurationReply: {
+        onSetChargingOptimizationConfigurationReply: {
             if (commandId == d.pendingCallId) {
                 d.pendingCallId = -1
 
@@ -68,7 +69,7 @@ Page {
 
             Switch {
                 id: gridSupportControl
-                Component.onCompleted: checked = chargingConfiguration.controllableLocalSystem
+                Component.onCompleted: checked = chargingOptimizationConfiguration.controllableLocalSystem
             }
         }
 
@@ -110,13 +111,10 @@ Page {
             Layout.fillWidth: true
             text: qsTr("Save")
             onClicked: {
-                    hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId, {optimizationMode: 9, controllableLocalSystem: gridSupportControl.checked,})
-
+                    hemsManager.setChargingOptimizationConfiguration(chargingConfiguration.evChargerThingId, {controllableLocalSystem: gridSupportControl.checked,})
                     if(directionID !== 1){
-                        console.error(chargingConfiguration.controllableLocalSystem)
                         pageStack.pop()
                     }
-
                     root.done()
             }
         }
