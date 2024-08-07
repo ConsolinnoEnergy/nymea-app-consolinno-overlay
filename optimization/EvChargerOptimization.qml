@@ -112,6 +112,9 @@ Page {
             text: qsTr("Save")
             onClicked: {
                     hemsManager.setChargingOptimizationConfiguration(chargingConfiguration.evChargerThingId, {controllableLocalSystem: gridSupportControl.checked,})
+                    if(directionID !== 1){
+                        pageStack.pop()
+                    }
                     root.done()
             }
         }

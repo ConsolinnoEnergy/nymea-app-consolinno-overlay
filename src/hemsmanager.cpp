@@ -400,6 +400,7 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
 
     // Make a MetaObject of an configuration
     const QMetaObject *metaObj = configuration->metaObject();
+
     // add the values from data which match with the MetaObject
     QVariantMap config;
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
