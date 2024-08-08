@@ -1265,6 +1265,24 @@ Open source modules are included in the APP and in the device software. The corr
         <source>Source code availability</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Anyone can obtain the source code of these software components from us on a data carrier (CD-ROM, DVD or USB stick) if a request is made to our customer service department at the following address within three years after delivery of the product to the customer or as long as we offer spare parts or support for the product:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please provide the following product data:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>- Product name
+- Software version
+- Serial number - if known</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>and transfer an amount of money in advance, based on the information provided by the support, to cover the costs of creating and sending the disk. Alternatively, the source code can be downloaded free of charge.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoImprintSystem</name>

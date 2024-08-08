@@ -1730,6 +1730,26 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
         <source>Source code availability</source>
         <translation>Verfügbarkeit des Quelltexts</translation>
     </message>
+    <message>
+        <source>Anyone can obtain the source code of these software components from us on a data carrier (CD-ROM, DVD or USB stick) if a request is made to our customer service department at the following address within three years after delivery of the product to the customer or as long as we offer spare parts or support for the product:</source>
+        <translation type="unfinished">Jedermann kann den Quellcode dieser Softwarebestandteile von uns auf einem Datenträger (CD-ROM, DVD oder USB-Stick) erhalten, wenn innerhalb von drei Jahren nach der Auslieferung des Produkts an den Kunden oder solange, wie wir Ersatzteile oder Support für das Produkt anbieten, eine Anfrage an unsere Kundenbetreuung an folgende Adresse gestellt wird:</translation>
+    </message>
+    <message>
+        <source>Please provide the following product data:</source>
+        <translation type="unfinished">Geben Sie bitte folgende Produktdaten an:</translation>
+    </message>
+    <message>
+        <source>- Product name
+- Software version
+- Serial number - if known</source>
+        <translation type="unfinished">- Produktname
+- Software-Version
+- Seriennummer - falls bekannt</translation>
+    </message>
+    <message>
+        <source>and transfer an amount of money in advance, based on the information provided by the support, to cover the costs of creating and sending the disk. Alternatively, the source code can be downloaded free of charge.</source>
+        <translation type="unfinished">und überweisen Sie anhand der vom Support bereitgestellten Informationen vorab einen Geldbetrag, um die Kosten für Erstellung und Versenden des Datenträgers zu decken. Alternativ kann der Quellcode auch kostenfrei heruntergeladen werden.</translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoImprintSystem</name>
