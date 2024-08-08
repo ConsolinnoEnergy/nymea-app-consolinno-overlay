@@ -530,10 +530,7 @@ Mail %2").arg(Configuration.companyTel).arg(Configuration.serviceEmail)
             Layout.alignment: Qt.AlignHCenter
             text: readCheckbox.checked ? qsTr('next') : qsTr('cancel')
             Layout.preferredWidth: 200
-            background: Rectangle{
-                color: readCheckbox.checked  ? '#87BD26' : 'grey'
-                radius: 4
-            }
+            enabled: readCheckbox.checked
 
 
             onClicked: {
@@ -943,10 +940,7 @@ Mail %2").arg(Configuration.companyTel).arg(Configuration.serviceEmail)
                     text: policyCheckbox.checked && accountCheckbox.checked ? qsTr('next') : qsTr('cancel')
                     //color: policyCheckbox.checked ? Style.accentColor : Style.yellow
                     Layout.preferredWidth: 200
-                    background: Rectangle{
-                        color: policyCheckbox.checked && accountCheckbox.checked ? '#87BD26' : 'grey'
-                        radius: 4
-                    }
+                    enabled: policyCheckbox.checked && accountCheckbox.checked
 
 
                     onClicked: {
@@ -1006,10 +1000,6 @@ Mail %2").arg(Configuration.companyTel).arg(Configuration.serviceEmail)
                     text: qsTr('next')
                     //color: Style.accentColor
                     Layout.preferredWidth: 200
-                    background: Rectangle{
-                        color: Style.accentColor
-                        radius: 4
-                    }
 
                     onClicked: {
                         connectionInfoPage.next()
