@@ -461,11 +461,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cents / kWh</source>
+        <source>ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Currently corresponds to a market price of: %1 ct.</source>
+        <source>Currently corresponds to a market price of %1 ct/kWh.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1077,10 +1077,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cents / kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Current market price</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1098,6 +1094,10 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Dynamic electricity tariff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

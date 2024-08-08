@@ -68,6 +68,23 @@ GenericConfigPage {
         }
         return false
     }
+    
+    function relPrice2AbsPrice(relPrice){
+        let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
+        let minPrice = dynamicPrice.get(0).stateByName("lowestPrice").value
+        let maxPrice = dynamicPrice.get(0).stateByName("highestPrice").value
+        if (averagePrice == minPrice || averagePrice == maxPrice){
+            return averagePrice
+        }
+        if (relPrice <= 0){
+            thresholdPrice = averagePrice - 0.01 * relPrice * (minPrice - averagePrice)
+        }else{
+            thresholdPrice = 0.01 * relPrice * (maxPrice - averagePrice) + averagePrice
+        }
+        thresholdPrice = thresholdPrice.toFixed(2)
+        return thresholdPrice
+    }
+
 
     function calcChargingCurrent(){
         // get the current power of the charger and null if not available
@@ -503,8 +520,7 @@ GenericConfigPage {
                             Layout.rightMargin: 0
 
                             Component.onCompleted: {
-                                let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
-                                thresholdPrice = (averagePrice * (1 + priceThresholdProcentage / 100)).toFixed(2)
+                                thresholdPrice = relPrice2AbsPrice(priceThresholdProcentage)
                                 currentValue = (currentValue === 0 && chargingConfiguration.priceThreshold === 0 ? -10 : chargingConfiguration.priceThreshold )
                             }
 
@@ -1454,9 +1470,8 @@ GenericConfigPage {
                                 }
 
                                 function getThresholdPrice(){
-                                    let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
                                     let currentValue = parseInt(currentValueField.text)
-                                    thresholdPrice = (averagePrice * (1 + currentValue / 100)).toFixed(2)
+                                    thresholdPrice = relPrice2AbsPrice(currentValue)
                                 }
 
                             }
@@ -1471,7 +1486,7 @@ GenericConfigPage {
                             Layout.topMargin: 5
                             visible: isAnyOfModesSelected([dyn_pricing])
                             Label {
-                                text: qsTr("Currently corresponds to a market price of: %1 ct/kWh.").arg(thresholdPrice)
+                                text: qsTr("Currently corresponds to a market price of %1 ct/kWh.").arg(thresholdPrice)
                                 font.pixelSize: 13
                             }
                         }
