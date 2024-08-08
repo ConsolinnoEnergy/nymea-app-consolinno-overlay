@@ -37,8 +37,7 @@ Page {
                 // Just Add
             case 0:
                 if (d.thingDescriptor) {
-                    var test = engine.thingManager.addDiscoveredThing(thingClass.id, d.thingDescriptor.id, d.name, params);
-                    console.error(test)
+                    engine.thingManager.addDiscoveredThing(thingClass.id, d.thingDescriptor.id, d.name, params);
                 } else {
                     engine.thingManager.addThing(thingClass.id, d.name, params);
                 }

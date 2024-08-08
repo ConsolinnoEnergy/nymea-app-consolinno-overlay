@@ -25,6 +25,8 @@ RowLayout{
     property alias text: currentValueField.text
     property alias price: root.thresholdPrice
 
+    property var callbackFunction
+
     signal clicked();
     signal pressAndHold();
 
@@ -42,12 +44,6 @@ RowLayout{
             root.thresholdPrice = (root.averagePrice * (1 + currentValue / 100)).toFixed(2)
         }
 
-        function redrawChart() {
-            timer.stop();
-            timer.start();
-        }
-
-
         RowLayout {
             anchors.fill: parent
 
@@ -56,15 +52,14 @@ RowLayout{
                 onClicked: {
                     root.clicked();
                     toolBar.getThresholdPrice();
-                    toolBar.redrawChart();
                     currentValue = currentValue > minLimit ? currentValue - 1 : minLimit
-
+                    callbackFunction();
                 }
                 onPressAndHold: {
                     root.pressAndHold()
                     toolBar.getThresholdPrice();
-                    toolBar.redrawChart();
                     currentValue = currentValue > minLimit ? currentValue - 10 : minLimit
+                    callbackFunction();
                 }
             }
 
@@ -80,7 +75,7 @@ RowLayout{
                 onTextChanged: {
                     currentValue = currentValueField.text
                     toolBar.getThresholdPrice();
-                    toolBar.redrawChart();
+                    callbackFunction();
                 }
             }
 
@@ -93,13 +88,13 @@ RowLayout{
                 onClicked: {
                     root.clicked();
                     toolBar.getThresholdPrice()
-                    toolBar.redrawChart();
+                    callbackFunction();
                     currentValue = currentValue < maxLimit ? currentValue + 1 : maxLimit
                 }
                 onPressAndHold: {
                     root.pressAndHold()
                     toolBar.getThresholdPrice()
-                    toolBar.redrawChart();
+                    callbackFunction();
                     currentValue = currentValue < maxLimit ? currentValue + 10 : maxLimit
                 }
             }

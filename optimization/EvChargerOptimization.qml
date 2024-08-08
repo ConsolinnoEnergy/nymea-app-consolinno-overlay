@@ -111,7 +111,7 @@ Page {
             Layout.fillWidth: true
             text: qsTr("Save")
             onClicked: {
-                    hemsManager.setChargingOptimizationConfiguration(chargingOptimizationConfiguration.evChargerThingId, {controllableLocalSystem: gridSupportControl.checked})
+                    pendingCallId = hemsManager.setChargingOptimizationConfiguration(chargingConfiguration.evChargerThingId, {controllableLocalSystem: gridSupportControl.checked})
                     if(directionID !== 1){
                         pageStack.pop()
                     }

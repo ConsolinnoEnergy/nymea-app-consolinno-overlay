@@ -183,8 +183,7 @@ Page {
                 property ThingClass thingClass: thingClassesProxy.get(index)
 
                 onClicked: {
-                    root.startWizard(thingClass)
-                    console.error(electrics.get(0).thingClass.id)
+                    root.startWizard(thingClass);
                 }
             }
 

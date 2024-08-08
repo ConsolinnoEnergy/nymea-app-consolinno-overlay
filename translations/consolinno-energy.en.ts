@@ -437,18 +437,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Average price </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Pausing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -461,11 +449,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Currently corresponds to a market price of: %1 ct/kWh.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Currently corresponds to a market price of %1 ct/kWh.</source>
+        <source>Average price %1 % (%2 ct/kWh)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1278,6 +1270,17 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>ConsolinnoNumberInput</name>
+    <message>
+        <source>-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoPVTextField</name>
     <message>
         <source>°</source>
@@ -1914,6 +1917,10 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Dynamic electricity tariff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to add thing: ThingErrorHardwareFailure</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

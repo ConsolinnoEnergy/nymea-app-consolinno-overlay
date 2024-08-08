@@ -437,18 +437,6 @@
         <translation type="unfinished">Durchschnittspreis: </translation>
     </message>
     <message>
-        <source>-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Average price </source>
-        <translation type="unfinished">Durchschnittspreis </translation>
-    </message>
-    <message>
         <source>Pausing</source>
         <translation type="unfinished">Pausieren</translation>
     </message>
@@ -461,12 +449,16 @@
         <translation>Noch keine Preise verfügbar</translation>
     </message>
     <message>
-        <source>ct/kWh</source>
-        <translation>ct/kWh</translation>
+        <source>Currently corresponds to a market price of: %1 ct/kWh.</source>
+        <translation type="unfinished">Entspricht aktuell einem Marktpreis von: %1 ct/kWh.</translation>
     </message>
     <message>
-        <source>Currently corresponds to a market price of %1 ct/kWh.</source>
-        <translation>Entspricht aktuell einem Marktpreis von %1 ct/kWh.</translation>
+        <source>ct/kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Average price %1 % (%2 ct/kWh)</source>
+        <translation type="unfinished">Durchschnittspreis %1 % (%2 ct/kWh)</translation>
     </message>
 </context>
 <context>
@@ -1278,6 +1270,17 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>ConsolinnoNumberInput</name>
+    <message>
+        <source>-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoPVTextField</name>
     <message>
         <source>°</source>
@@ -1926,6 +1929,10 @@ Mail service@consolinno.de</source>
     <message>
         <source>Dynamic electricity tariff</source>
         <translation type="unfinished">Dynamischer Stromtarif</translation>
+    </message>
+    <message>
+        <source>Failed to add thing: ThingErrorHardwareFailure</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

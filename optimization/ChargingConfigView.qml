@@ -510,12 +510,14 @@ GenericConfigPage {
 
                             Layout.fillWidth: true
                             text: qsTr("Price limit")
+                            font.pixelSize: 15
                         }
 
                         Label{
                             id: priceLimit
-                            property double priceThresholdProcentage: chargingConfiguration.priceThreshold
-                            text: qsTr('Average price ') + (priceThresholdProcentage + " %") +" (" + (thresholdPrice) + " ct/kWh)";
+                            property double priceThresholdProcentage: chargingConfiguration.priceThreshold;
+                            text: qsTr('Average price %1 % (%2 ct/kWh)').arg(priceThresholdProcentage).arg(thresholdPrice);
+                            font.pixelSize: 13
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
 
@@ -530,9 +532,8 @@ GenericConfigPage {
                                interval: firstRun == false ? 100 : 10000
                                onTriggered: {
                                    firstRun = true
-                                   let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
-                                   thresholdPrice = (averagePrice * (1 + parseInt(numberInput.text) / 100)).toFixed(2)
-                                   console.error(thresholdPrice)
+                                   let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value;
+                                   thresholdPrice = (averagePrice * (1 + priceLimit.priceThresholdProcentage / 100)).toFixed(2);
                                }
                             }
                         }
@@ -1297,6 +1298,7 @@ GenericConfigPage {
                                 Label{
                                     id: gridConsumptionLabel
                                     visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
+                                    font.pixelSize: 15
                                     text: qsTr("Behaviour on grid consumption:")
                                 }
 
@@ -1401,6 +1403,12 @@ GenericConfigPage {
                                     }
                                 }
 
+
+                                function redrawChart() {
+                                    debounceTimer.stop();
+                                    debounceTimer.start();
+                                }
+
                                 ConsolinnoNumberInput {
                                     id: numberInput
                                     currentValue: (numberInput.text === 0 && chargingConfiguration.priceThreshold === 0 ? -10 : chargingConfiguration.priceThreshold )
@@ -1408,29 +1416,11 @@ GenericConfigPage {
                                     minLimit: -100
                                     unit: "%"
                                     averagePrice: dynamicPrice.get(0).stateByName("averagePrice").value
-                                    timer: priceRow.debounceTimer
+
+                                    callbackFunction: function() {
+                                        priceRow.redrawChart();
+                                    }
                                 }
-
-
-                                /*
-                                 */
-
-                                Component.onCompleted: {
-                                    //getThresholdPrice()
-                                }
-
-                                /*
-                                function getThresholdPrice(){
-<<<<<<< HEAD
-                                    let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
-                                    let currentValue = parseInt(numberInput.text)
-                                    thresholdPrice = (averagePrice * (1 + currentValue / 100)).toFixed(2)
-                                }*/
-=======
-                                    let currentValue = parseInt(currentValueField.text)
-                                    thresholdPrice = relPrice2AbsPrice(currentValue)
-                                }
->>>>>>> cc105f8 (Fix price calculation)
 
                             }
 
@@ -1444,7 +1434,7 @@ GenericConfigPage {
                             Layout.topMargin: 5
                             visible: isAnyOfModesSelected([dyn_pricing])
                             Label {
-                                text: qsTr("Currently corresponds to a market price of %1 ct/kWh.").arg(thresholdPrice)
+                                text: qsTr("Currently corresponds to a market price of: %1 ct/kWh.").arg(numberInput.price)
                                 font.pixelSize: 13
                             }
                         }
@@ -1643,6 +1633,8 @@ GenericConfigPage {
                                                 let lastChangeTimestamp = 0;
                                                 let identicalIndexes = [];
 
+                                                thresholdPrice = parseFloat(numberInput.price)
+
                                                 for (const item in value){
                                                     const date = new Date(item);
                                                     let currentTimestamp = date.getTime();
@@ -1733,9 +1725,6 @@ GenericConfigPage {
 
                                             lowerSeries: LineSeries {
                                                 id: pricingLowerSeriesAbove
-                                                /*
-                                                XYPoint { x: dateTimeAxis.min.getTime()-10; y: -100 }
-                                                XYPoint { x: dateTimeAxis.max.getTime(); y: -100 } */
                                             }
                                         }
                                     }
