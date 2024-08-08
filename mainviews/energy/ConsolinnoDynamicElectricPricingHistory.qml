@@ -103,6 +103,10 @@ Item {
                 if(pricelength < 97 && selectionTabs.currentIndex == 1){
                     consumptionSeries.visible = false
                     consumptionSeriesAbove.visible = false
+                    pricingLowerSeriesAbove.visible = false
+                }else if(selectionTabs.currentIndex == 1 && pricelength > 97){
+                    consumptionSeriesAbove.visible = false
+                    pricingLowerSeriesAbove.visible = false
                 }else{
                     consumptionSeries.visible = true
                     consumptionSeriesAbove.visible = true
@@ -321,6 +325,7 @@ Item {
                     id: consumptionSeriesAbove
                     axisX: dateTimeAxis
                     axisY: valueAxis
+                    visible: true
                     color: 'transparent'
                     borderWidth: 1
                     borderColor: Style.red
