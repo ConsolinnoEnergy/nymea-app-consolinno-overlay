@@ -454,19 +454,19 @@
     </message>
     <message>
         <source>No data available</source>
-        <translation type="unfinished">Keine Daten verfügbar</translation>
+        <translation>Keine Daten verfügbar</translation>
     </message>
     <message>
         <source>No prices available, yet</source>
-        <translation type="unfinished">Noch keine Preise verfügbar</translation>
+        <translation>Noch keine Preise verfügbar</translation>
     </message>
     <message>
-        <source>Cents / kWh</source>
-        <translation type="unfinished">Cent / kWh</translation>
+        <source>ct/kWh</source>
+        <translation>ct/kWh</translation>
     </message>
     <message>
-        <source>Currently corresponds to a market price of: %1 ct.</source>
-        <translation type="unfinished">Entspricht aktuell einem Marktpreis von: %1 ct.</translation>
+        <source>Currently corresponds to a market price of %1 ct/kWh.</source>
+        <translation>Entspricht aktuell einem Marktpreis von %1 ct/kWh.</translation>
     </message>
 </context>
 <context>
@@ -1077,10 +1077,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished">Keine Daten verfügbar</translation>
     </message>
     <message>
-        <source>Cents / kWh</source>
-        <translation type="unfinished">Cent / kWh</translation>
-    </message>
-    <message>
         <source>Current market price</source>
         <translation type="unfinished">Aktueller Marktpreis</translation>
     </message>
@@ -1099,6 +1095,10 @@ Mail service@consolinno.de</source>
     <message>
         <source>Dynamic electricity tariff</source>
         <translation type="unfinished">Dynamischer Stromtarif</translation>
+    </message>
+    <message>
+        <source>ct/kWh</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
