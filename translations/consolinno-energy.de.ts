@@ -68,31 +68,31 @@
     <name>AddNewThings</name>
     <message>
         <source>Set up new thing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Neues &quot;Thing&quot; hinzufügen</translation>
     </message>
     <message>
         <source>Vendor</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hersteller</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alle</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Typ</translation>
     </message>
     <message>
         <source>Looking for something else?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Suchen Sie etwas anderes?</translation>
     </message>
     <message>
         <source>Try to install more plugins.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Versuchen Sie, weitere Plugins zu installieren.</translation>
     </message>
     <message>
         <source>Install plugins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Plugins installieren</translation>
     </message>
 </context>
 <context>
