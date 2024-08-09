@@ -39,7 +39,7 @@ Page {
     id: root
 
     property string filterInterface: ""
-
+    property var thingsListId: []
     header: NymeaHeader {
         text: qsTr("Set up new thing")
         onBackPressed: {
@@ -158,6 +158,32 @@ Page {
                 shownInterfaces: ["gridsupport"]
             }
 
+            ThingsProxy {
+                id: evCharger
+                engine: _engine
+                shownInterfaces: ["evcharger"]
+            }
+
+            ThingsProxy {
+                id: heatPump
+                engine: _engine
+                shownInterfaces: ["heatpump"]
+            }
+
+            ThingClassesProxy {
+                id: thingClassesProxyEvCharger
+                engine: _engine
+                filterInterface: "evcharger"
+                includeProvidedInterfaces: true
+            }
+
+            ThingClassesProxy {
+                id: thingClassesProxyHeatPump
+                engine: _engine
+                filterInterface: "heatpump"
+                includeProvidedInterfaces: true
+            }
+
             model: ThingClassesProxy {
                 id: thingClassesProxy
                 engine: _engine
@@ -166,7 +192,6 @@ Page {
                 filterVendorId: vendorFilterComboBox.currentIndex >= 0 ? vendorsFilterModel.get(vendorFilterComboBox.currentIndex).vendorId : ""
                 filterString: displayNameFilterField.displayText
                 groupByInterface: true
-                hiddenThingClassIds: electrics.count === 1 && gridSupport.count === 1 ? [electrics.get(0).thingClass.id.toString(),gridSupport.get(0).thingClass.id.toString()] : electrics.count === 1 ? [electrics.get(0).thingClass.id.toString()] : gridSupport.count === 1 ? [gridSupport.get(0).thingClass.id.toString()] : ""
             }
 
             onContentYChanged: print("contentY", contentY, contentHeight, originY)
@@ -184,6 +209,30 @@ Page {
 
                 onClicked: {
                     root.startWizard(thingClass);
+                }
+
+                Component.onCompleted: {
+                    if(evCharger.count === 1){
+                        for(let i = 0; i < thingClassesProxyEvCharger.count; i++){
+                            thingsListId[thingsListId.length] = thingClassesProxyEvCharger.get(i).id.toString()
+                        }
+                    }
+
+                    if(heatPump.count === 1){
+                        for(let i = 0; i < thingClassesProxyHeatPump.count; i++){
+                            thingsListId[thingsListId.length] = thingClassesProxyHeatPump.get(i).id.toString()
+                        }
+                    }
+
+                    if(gridSupport.count === 1){
+                        thingsListId[thingsListId.length] = gridSupport.get(0).thingClass.id.toString()
+                    }
+
+                    if(electrics.count === 1){
+                       thingsListId[thingsListId.length] = electrics.get(0).thingClass.id.toString()
+                    }
+
+                    thingClassesProxy.hiddenThingClassIds = thingsListId
                 }
             }
 
