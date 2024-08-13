@@ -128,7 +128,7 @@ Item {
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 13
-            text: qsTr("Current Market Price: ") + (currentPrice.toFixed(2)) + " ct/kWh"
+            text: qsTr("Current Market Price: ") + (+currentPrice.toFixed(2)).toLocaleString() + " ct/kWh"
         }
 
         Text {
@@ -136,7 +136,7 @@ Item {
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 13
-            text: qsTr("Average Market Price: ") + (averagePrice) + " ct/kWh"
+            text: qsTr("Average Market Price: ") + (+averagePrice).toLocaleString() + " ct/kWh"
         }
 
         Item {
@@ -546,7 +546,7 @@ Item {
                                 dynamicVal += valueAxis.min < 0 ? (valueAxis.min * (-1)) : 0;
 
                                 toolTip.y = mouseArea.height - (mouseArea.height * (dynamicVal / scaleValue)) - toolTip.height - 2;
-                                const val = currentPrice.value.toFixed(2);
+                                const val = (+currentPrice.value.toFixed(2)).toLocaleString();
                                 return "%1 %2".arg(val).arg(unit);
                             }
                             font: Style.extraSmallFont
