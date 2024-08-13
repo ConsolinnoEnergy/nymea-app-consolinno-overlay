@@ -1294,13 +1294,29 @@ MainViewBase {
                             textFormat: Text.RichText
                             horizontalAlignment: Text.AlignHCenter
                             color: "white"
-                            text: '<span style="font-size:' + Style.bigFont.pixelSize + 'px">'
-                                  + (energyManager.currentPowerConsumption
-                                     < 1000 ? energyManager.currentPowerConsumption : energyManager.currentPowerConsumption / 1000).toFixed(
-                                      1) + '</span> <span style="font-size:'
-                                  + Style.smallFont.pixelSize + 'px">'
-                                  + (energyManager.currentPowerConsumption
-                                     < 1000 ? "W" : "kW") + '</span>'
+                            text: getText()
+
+                            function getText() {
+                                const powerConsumption = energyManager.currentPowerConsumption;
+                                const bigFontSize = Style.bigFont.pixelSize;
+                                const smallFontSize = Style.smallFont.pixelSize;
+
+                                let displayPower = powerConsumption < 1000 
+                                    ? powerConsumption 
+                                    : powerConsumption / 1000;
+
+                                displayPower = displayPower.toFixed(1); 
+                                let displayPowerStr = (+displayPower).toLocaleString();
+
+                                const unit = powerConsumption < 1000 
+                                    ? "W" 
+                                    : "kW";
+
+                                const powerSpan = `<span style="font-size:${bigFontSize}px">${displayPowerStr}</span>`;
+                                const unitSpan = `<span style="font-size:${smallFontSize}px">${unit}</span>`;
+
+                                return powerSpan + " " + unitSpan;
+                            }
                         }
 
                         Label {
