@@ -125,8 +125,8 @@ GenericConfigPage {
             if (chargingSessionConfiguration.evChargerThingId === thing.id){
 
                 batteryLevelValue.text  = chargingSessionConfiguration.batteryLevel  + " %"
-                energyChargedValue.text = chargingSessionConfiguration.energyCharged.toFixed(2) + " kWh"
-                energyBatteryValue.text = chargingSessionConfiguration.energyBattery.toFixed(2) + " kWh"
+                energyChargedValue.text = (+chargingSessionConfiguration.energyCharged.toFixed(2)).toLocaleString() + " kWh"
+                energyBatteryValue.text = (+chargingSessionConfiguration.energyBattery.toFixed(2)).toLocaleString() + " kWh"
                 if (chargingSessionConfiguration.state === 2){
                     var duration = chargingSessionConfiguration.duration
                     var hours   = Math.floor(duration/3600)
@@ -214,6 +214,9 @@ GenericConfigPage {
                         energyBatteryValue.text = 0 + " kWh"
                         durationValue.text = " — "
 
+                    }
+                    if (chargingIsAnyOf([dyn_pricing])){
+                        priceLimit.text = priceLimit.getText()
                     }
 
 
@@ -495,7 +498,7 @@ GenericConfigPage {
                                 }
                                 else if (getChargingModeOpts(chargingConfiguration.optimizationMode)[0] === 2)
                                 {
-                                    return qsTr("Pause")
+                                    return qsTr("enabled")
                                 }
                             }
 
@@ -528,13 +531,15 @@ GenericConfigPage {
                             function getText(){
                                 if (priceThresholdProcentage < 0)
                                 {
-                                    return (thresholdPrice + " ct/kWh ") + "(↓" +  (Math.abs(priceThresholdProcentage) + " %)")
+                                    return (thresholdPrice.toLocaleString() + " ct/kWh ") + "(↓" +  (Math.abs(priceThresholdProcentage.toLocaleString()) + " %)")
                                 }
                                 else{
-                                    return (thresholdPrice + " ct/kWh ") + "(↑" +  (Math.abs(priceThresholdProcentage) + " %)")
+                                    return (thresholdPrice.toLocaleString() + " ct/kWh ") + "(↑" +  (Math.abs(priceThresholdProcentage.toLocaleString()) + " %)")
                                 }
                             }
 
+                            // Probably not needed anymore, should be checked at next refactoring.
+                            // Leaving this untouched for now
                             Timer{
                                property bool firstRun: false
                                repeat: true
@@ -720,7 +725,7 @@ GenericConfigPage {
                         Label{
                             id: energyBatteryValue
 
-                            text: chargingSessionConfiguration.energyBattery.toFixed(2) + " kWh"
+                            text: (+chargingSessionConfiguration.energyBattery.toFixed(2)).toLocaleString() + " kWh"
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
@@ -1496,7 +1501,7 @@ GenericConfigPage {
                             Layout.topMargin: 5
                             visible: isAnyOfModesSelected([dyn_pricing])
                             Label {
-                                text: qsTr("Currently corresponds to a market price of %1 ct/kWh.").arg(thresholdPrice)
+                                text: qsTr("Currently corresponds to a market price of %1 ct/kWh.").arg(thresholdPrice.toLocaleString())
                                 font.pixelSize: 13
                             }
                         }
@@ -1922,7 +1927,7 @@ GenericConfigPage {
                                                         dynamicVal += valueAxis.min < 0 ? (valueAxis.min * (-1)) : 0;
 
                                                         toolTip.y = mouseArea.height - (mouseArea.height * (dynamicVal / scaleValue)) - toolTip.height - 2;
-                                                        const val = currentPrice.value.toFixed(2);
+                                                        const val = (+currentPrice.value.toFixed(2)).toLocaleString();
                                                         return "%1 %2".arg(val).arg(unit);
                                                     }
                                                     font: Style.extraSmallFont

@@ -389,10 +389,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Pause</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Charging deactivated. Please choose a charging mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -445,10 +441,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Average price </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Pausing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -466,6 +458,10 @@
     </message>
     <message>
         <source>Currently corresponds to a market price of %1 ct/kWh.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>enabled</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

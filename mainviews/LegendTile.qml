@@ -61,22 +61,26 @@ MouseArea {
         return ((r * 299 + g * 587 + b * 114) / 1000) < 200
     }
 
-    function getLabeltext(power) {
+    function getLabeltext(value) {
+        let unit = ""
         if (currentPowerState != null) {
-            return Math.abs(power) + " W"
+            value = Math.abs(value)
+            unit = " W"
+            return value + unit // No need for localization here
         }else if(isElectric == true) {
             // Round to fit in 3 digits for prices smaller 1000 ct/kWh
-            if (Math.abs(power) < 10.0) {
-                return Math.round(power * 100) / 100 + " ct/kWh"
-            }else if (Math.abs(power) < 100.0) {
-                return Math.round(power * 10) / 10 + " ct/kWh"
+            unit = " ct/kWh"
+            if (Math.abs(value) < 10.0) {
+                value = Math.round(value * 100) / 100
+            }else if (Math.abs(value) < 100.0) {
+                value = Math.round(value * 10) / 10
             }else{
-                return Math.round(power) + " ct/kWh"
+                value = Math.round(value)
             }
-
         }else{
             return "–"
         }
+        return value.toLocaleString() + unit
     }
 
 
