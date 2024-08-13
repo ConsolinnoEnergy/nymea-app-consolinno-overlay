@@ -515,13 +515,24 @@ GenericConfigPage {
                         Label{
                             id: priceLimit
                             property double priceThresholdProcentage: chargingConfiguration.priceThreshold
-                            text: qsTr('Average price ') + (priceThresholdProcentage + " %") +" (" + (thresholdPrice) + " ct/kWh)";
+                            text: getText()
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
 
                             Component.onCompleted: {
                                 thresholdPrice = relPrice2AbsPrice(priceThresholdProcentage)
                                 currentValue = (currentValue === 0 && chargingConfiguration.priceThreshold === 0 ? -10 : chargingConfiguration.priceThreshold )
+                                priceLimit.text = getText()
+                            }
+
+                            function getText(){
+                                if (priceThresholdProcentage < 0)
+                                {
+                                    return (thresholdPrice + " ct/kWh ") + "(↓" +  (Math.abs(priceThresholdProcentage) + " %)")
+                                }
+                                else{
+                                    return (thresholdPrice + " ct/kWh ") + "(↑" +  (Math.abs(priceThresholdProcentage) + " %)")
+                                }
                             }
 
                             Timer{
@@ -530,13 +541,12 @@ GenericConfigPage {
                                interval: firstRun == false ? 100 : 10000
                                onTriggered: {
                                    firstRun = true
-                                   let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
-                                   thresholdPrice = (averagePrice * (1 + priceThresholdProcentage / 100)).toFixed(2)
+                                   thresholdPrice = relPrice2AbsPrice(priceThresholdProcentage)
+                                   priceLimit.text = getText()
                                }
                             }
                         }
                     }
-
 
                     RowLayout{
                         Layout.topMargin: 15
