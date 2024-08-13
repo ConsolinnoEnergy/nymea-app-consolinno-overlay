@@ -70,6 +70,36 @@ GenericConfigPage {
                 }
             }
 
+            RowLayout{
+                Layout.fillWidth: true
+                Layout.topMargin: 10
+
+                Label{
+                    Layout.fillWidth: true
+                    text: qsTr("Suggested consumption:")
+                    Layout.leftMargin:  15
+                }
+
+                // TODO: actually load suggested consumption
+                Label{
+                    text: "1000 W"
+                }
+            }
+
+            Row{
+                Layout.fillWidth: true
+                Layout.leftMargin: 15
+                Layout.topMargin: 10
+
+                Label
+                {
+                    text: qsTr("Heatingpump state: ")
+                    font.bold: true
+                    font.pixelSize: 22
+
+                }
+            }
+
             Repeater
             {
                 id: optimizerRepeater
@@ -81,14 +111,14 @@ GenericConfigPage {
                 // tbd: Configurationdata tab finishing
                 model: [
                     {Id: "operatingMode", name: qsTr("Operating mode: "), value: translateNymeaHeatpumpValues(thing.stateByName("sgReadyMode") ? thing.stateByName("sgReadyMode").value : null), component: stringValues, unit: ""},
-                    {Id: "configuartionData", name: qsTr("Configuration data: "), component: configValues,
+                    /*{Id: "configuartionData", name: qsTr("Configuration data: "), component: configValues,
                         params:[
                             {name: qsTr("Floor heating area"), value: heatingconfig.floorHeatingArea, unit: "m²"},
                             {name: qsTr("Maximal electrical power"), value: heatingconfig.maxElectricalPower, unit: "kW"},
                         ]
 
 
-                    },
+                    },*/
                     {Id: "outdoorTemperature", name: qsTr("Outdoor temperature"), value: thing.stateByName("outdoorTemperature") ? thing.stateByName("outdoorTemperature").value : null , unit: "°C" , component: stringValues},
                     {Id: "hotWaterTemperature", name: qsTr("Hot water temperature"), value: thing.stateByName("hotWaterTemperature") ? thing.stateByName("hotWaterTemperature").value : null , unit: "°C" , component: stringValues},
                     {Id: "returnTemperature", name: qsTr("Return temperature"), value: thing.stateByName("returnTemperature")? thing.stateByName("returnTemperature").value : null , unit: "°C", component: stringValues},
