@@ -155,12 +155,6 @@ Page {
 
         }
 
-        infofooter: [
-            {headline: qsTr("Charging Mode"), Link: "ChargingModeInfo"},
-            {headline: qsTr("Battery Level"), Link: "BatteryLevel"},
-
-        ]
-
 
 
     }

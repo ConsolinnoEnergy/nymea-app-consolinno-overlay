@@ -16,7 +16,6 @@ Item {
     property var summaryText: false
     property alias body: bodyContainer.children
     property var infofooter: false
-    signal furtherReading(var link)
     ScrollView{
         clip: true
         id: infoscroller
@@ -81,59 +80,6 @@ Item {
             height: childrenRect.height
             visible: body !== null ? true : false
             Layout.bottomMargin: 15
-
-        }
-
-
-
-        Item{
-            id: footerContainer
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignBottom
-            Layout.leftMargin: app.margins +10
-            Layout.rightMargin: app.margins +10
-            visible: infofooter ? true: false
-
-            ColumnLayout{
-                id: footerLayout
-                Layout.fillWidth: true
-                Label{
-                    id: furtherReading
-                    Layout.fillWidth: true
-                    text: qsTr("Further Readings:")
-                    font.bold: true
-                    font.pixelSize: 17
-                }
-                Repeater{
-                    id: footerRepeater
-                    model: infofooter
-                    Layout.fillWidth: true
-                    delegate: ItemDelegate{
-                        Layout.fillWidth: true
-                        RowLayout{
-                            Layout.fillWidth: true
-                            ConsolinnoItemDelegate{
-                                Layout.minimumWidth: app.width - 3*app.margins
-                                text: modelData.headline
-                                id: infoLink
-
-                                onClicked:
-                                {
-                                    stack.replace(Qt.resolvedUrl("../info/" + modelData.Link + ".qml"), {stack: stack} )
-
-
-
-                                }
-
-                            }
-                        }
-
-                    }
-
-
-                }
-            }
-
 
         }
     }
