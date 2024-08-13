@@ -389,10 +389,6 @@
         <translation>Minimalstrom</translation>
     </message>
     <message>
-        <source>Pause</source>
-        <translation>Pausieren</translation>
-    </message>
-    <message>
         <source>Charging deactivated. Please choose a charging mode.</source>
         <translation>Laden deaktiviert. Bitte wählen Sie einen Lademodus.</translation>
     </message>
@@ -445,10 +441,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Average price </source>
-        <translation type="unfinished">Durchschnittspreis </translation>
-    </message>
-    <message>
         <source>Pausing</source>
         <translation type="unfinished">Pausieren</translation>
     </message>
@@ -467,6 +459,10 @@
     <message>
         <source>Currently corresponds to a market price of %1 ct/kWh.</source>
         <translation>Entspricht aktuell einem Marktpreis von %1 ct/kWh.</translation>
+    </message>
+    <message>
+        <source>enabled</source>
+        <translation>aktiviert</translation>
     </message>
 </context>
 <context>
@@ -1098,7 +1094,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>ct/kWh</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ct/kWh</translation>
     </message>
 </context>
 <context>

@@ -498,7 +498,7 @@ GenericConfigPage {
                                 }
                                 else if (getChargingModeOpts(chargingConfiguration.optimizationMode)[0] === 2)
                                 {
-                                    return qsTr("Pause")
+                                    return qsTr("enabled")
                                 }
                             }
 
