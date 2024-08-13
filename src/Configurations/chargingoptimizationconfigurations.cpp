@@ -28,6 +28,8 @@ QVariant ChargingOptimizationConfigurations::data(const QModelIndex &index, int 
         return m_list.at(index.row())->d_value();
     case RoleSetpoint:
         return m_list.at(index.row())->setpoint();
+    case RoleControllableLocalSystem:
+        return m_list.at(index.row())->controllableLocalSystem();
     }
     return QVariant();
 }
@@ -41,6 +43,7 @@ QHash<int, QByteArray> ChargingOptimizationConfigurations::roleNames() const
     roles.insert(RoleI_Value, "i_value");
     roles.insert(RoleD_Value, "d_value");
     roles.insert(RoleSetpoint, "setpoint");
+    roles.insert(RoleControllableLocalSystem, "controllableLocalSystem");
     return roles;
 }
 
@@ -82,6 +85,10 @@ void ChargingOptimizationConfigurations::addConfiguration(ChargingOptimizationCo
     connect(chargingOptimizationConfiguration, &ChargingOptimizationConfiguration::setpointChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(chargingOptimizationConfiguration));
         emit dataChanged(idx, idx, {RoleSetpoint});
+    });
+    connect(chargingOptimizationConfiguration, &ChargingOptimizationConfiguration::controllableLocalSystemChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(chargingOptimizationConfiguration));
+        emit dataChanged(idx, idx, {RoleControllableLocalSystem});
     });
 
 

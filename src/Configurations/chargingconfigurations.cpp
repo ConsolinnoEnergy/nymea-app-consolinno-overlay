@@ -80,6 +80,7 @@ void ChargingConfigurations::addConfiguration(ChargingConfiguration *chargingCon
         emit dataChanged(idx, idx, {RoleOptimizationMode});
     });
 
+
     connect(chargingConfiguration, &ChargingConfiguration::carThingIdChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(chargingConfiguration));
         emit dataChanged(idx, idx, {RoleCarThingId});

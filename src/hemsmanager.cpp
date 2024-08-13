@@ -400,15 +400,16 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
 
     // Make a MetaObject of an configuration
     const QMetaObject *metaObj = configuration->metaObject();
+
     // add the values from data which match with the MetaObject
     QVariantMap config;
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
         if(data.contains(metaObj->property(i).name()))
             {
-                //qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
+                qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
                 config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
             }else{
-                //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
+                qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
                 config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
             }
     }
@@ -904,6 +905,7 @@ void HemsManager::addOrUpdateChargingOptimizationConfiguration(const QVariantMap
     configuration->setI_value(configurationMap.value("i_value").toFloat());
     configuration->setD_value(configurationMap.value("d_value").toFloat());
     configuration->setSetpoint(configurationMap.value("setpoint").toFloat());
+    configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Charging Optimization configuration added" << configuration->evChargerThingId();

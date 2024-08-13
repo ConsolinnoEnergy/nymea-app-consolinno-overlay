@@ -22,7 +22,7 @@ Page {
     signal done(bool skip, bool abort, bool back);
 
     header: NymeaHeader {
-        text: qsTr("Dynamic Electricity Rate")
+        text: qsTr("Dynamic electricity tariff")
         backButtonVisible: true
         onBackPressed: {
             if(directionID == 0) {
@@ -178,11 +178,23 @@ Page {
                 Layout.alignment: Qt.AlignLeft
                 visible: erProxy.count === 0
                 onClicked: {
-                    currentThing.engine.thingManager.addThing(energyRateComboBox.currentValue, energyRateComboBox.currentText, 0)
-                    pageStack.push(Qt.resolvedUrl("../optimization/DynamicElectricityRateFeedback.qml"), {thingName: energyRateComboBox.currentText} )
+                    timer1.start()
                 }
             }
 
+
+            Timer {
+                id: timer1
+
+                interval: 300
+                running: false
+                repeat: false
+
+                onTriggered: {
+                    currentThing.engine.thingManager.addThing(energyRateComboBox.currentValue, energyRateComboBox.currentText, 0)
+                    pageStack.push(Qt.resolvedUrl("../optimization/DynamicElectricityRateFeedback.qml"), {thingName: energyRateComboBox.currentText})
+                }
+            }
 
         }
 

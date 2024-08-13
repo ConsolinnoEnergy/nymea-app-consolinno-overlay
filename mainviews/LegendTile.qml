@@ -64,8 +64,16 @@ MouseArea {
     function getLabeltext(power) {
         if (currentPowerState != null) {
             return Math.abs(power) + " W"
-        }else if(isElectric == true){
-            return Math.abs(power.toFixed(0)) + " CT"
+        }else if(isElectric == true) {
+            // Round to fit in 3 digits for prices smaller 1000 ct/kWh
+            if (Math.abs(power) < 10.0) {
+                return Math.round(power * 100) / 100 + " ct/kWh"
+            }else if (Math.abs(power) < 100.0) {
+                return Math.round(power * 10) / 10 + " ct/kWh"
+            }else{
+                return Math.round(power) + " ct/kWh"
+            }
+
         }else{
             return "–"
         }

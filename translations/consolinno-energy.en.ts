@@ -65,6 +65,37 @@
     </message>
 </context>
 <context>
+    <name>AddNewThings</name>
+    <message>
+        <source>Set up new thing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vendor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Looking for something else?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Try to install more plugins.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Install plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AuthorisationView</name>
     <message>
         <source>Authorisation page</source>
@@ -414,11 +445,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Currently corresponds to a market price of </source>
+        <source>Average price </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Average price </source>
+        <source>Pausing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No prices available, yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ct/kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Currently corresponds to a market price of %1 ct/kWh.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1030,14 +1077,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dynamic electricity price</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cents / kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Current market price</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1051,6 +1090,14 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>No prices available, yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dynamic electricity tariff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1842,10 +1889,6 @@ Mail service@consolinno.de</source>
 <context>
     <name>DynamicElectricityRate</name>
     <message>
-        <source>Dynamic Electricity Rate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Submitted Rate:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1869,19 +1912,23 @@ Mail service@consolinno.de</source>
         <source>There are currently no settings options available</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Dynamic electricity tariff</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DynamicElectricityRateFeedback</name>
     <message>
-        <source>Dynamic Electricity Rate</source>
+        <source>to the dashboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The following Electric Rate is submitted</source>
+        <source>The following tariff is submitted:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>next</source>
+        <source>Dynamic electricity tariff</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1935,39 +1982,11 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Off&lt;/li&gt;: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Charging Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Battery Level</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The energy manager controls the heat pump to maximize the consumption of its own solar electricity. The control is carried out by a schedule generated in advance and based on a prediction of the surplus solar power. The schedule contains so-called control recommendations according to the SG-Ready standard.  Depending on the predicted PV surplus, the heat pump will be switched to increased operation or a recommendation for increased operation will be given.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the energy manager does not intervene.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>recommendation for increased operation, the heat pump will decide if this is possible depending on the current temperature range.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>energy manager switches heat pump to increased operation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>a temporary shutdown by the grid operator to avoid grid overload.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1979,7 +1998,43 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Operating status:</source>
+        <source>Optimization of the heat pump</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heat pump is controlled via SG-ready states so that the available PV surplus is optimally utilized. A certain amount of PV surplus must be available for a certain period of time (currently 15 minutes) for an SG ready state to be switched.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If the PV surplus is more than 50 % of the nominal output of the heat pump, SG ready state 3 is switched for at least 30 minutes (recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If the PV surplus is more than 80 % of the nominal output of the heat pump, then SG ready state 4 is switched for at least 30 minutes (definitive start-up command, if this is possible within the scope of the control settings).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Off (= EVU block)&lt;/li&gt;: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start-up block, is not used for optimization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Standard status, optimizer makes no specification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Definitive start-up command, if this is possible within the scope of the control settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2391,7 +2446,7 @@ the system, and a charging process is started, charging is prioritized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dynamic Electricity Rate</source>
+        <source>Dynamic electricity tariff</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

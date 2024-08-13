@@ -29,7 +29,7 @@ Page {
             id: bodyItem
                 Label{
                     Layout.fillWidth: true
-                    text: qsTr("Operating status:")
+                    text: qsTr("Optimization of the heat pump")
                     leftPadding: app.margins +10
                     rightPadding: app.margins +10
                     font.bold: true
@@ -43,7 +43,29 @@ Page {
                     wrapMode: Text.WordWrap
                     Layout.preferredWidth: app.width
 
-                    text: qsTr("The energy manager controls the heat pump to maximize the consumption of its own solar electricity. The control is carried out by a schedule generated in advance and based on a prediction of the surplus solar power. The schedule contains so-called control recommendations according to the SG-Ready standard.  Depending on the predicted PV surplus, the heat pump will be switched to increased operation or a recommendation for increased operation will be given.")
+                    text: qsTr("The heat pump is controlled via SG-ready states so that the available PV surplus is optimally utilized. A certain amount of PV surplus must be available for a certain period of time (currently 15 minutes) for an SG ready state to be switched.")
+
+                }
+
+                Label{
+                    Layout.fillWidth: true
+                    leftPadding: app.margins +10
+                    rightPadding: app.margins +10
+                    wrapMode: Text.WordWrap
+                    Layout.preferredWidth: app.width
+
+                    text: qsTr("If the PV surplus is more than 50 % of the nominal output of the heat pump, SG ready state 3 is switched for at least 30 minutes (recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range).")
+
+                }
+
+                Label{
+                    Layout.fillWidth: true
+                    leftPadding: app.margins +10
+                    rightPadding: app.margins +10
+                    wrapMode: Text.WordWrap
+                    Layout.preferredWidth: app.width
+
+                    text: qsTr("If the PV surplus is more than 80 % of the nominal output of the heat pump, then SG ready state 4 is switched for at least 30 minutes (definitive start-up command, if this is possible within the scope of the control settings).")
 
                 }
 
@@ -65,7 +87,7 @@ Page {
                     Layout.preferredWidth: app.width
                     font.bold: true
 
-                    text: qsTr(" <ul style = 'list-style-type:circle;'> <li>Standard</li>: ")
+                    text: qsTr(" <ul style = 'list-style-type:circle;'> <li>Off (= EVU block)</li>: ")
 
                 }
                 Label{
@@ -75,7 +97,28 @@ Page {
                     wrapMode: Text.WordWrap
                     Layout.topMargin: 0
                     Layout.preferredWidth: app.width
-                    text: qsTr("the energy manager does not intervene.")
+                    text: qsTr("Start-up block, is not used for optimization")
+
+                }
+
+                Label{
+                    Layout.fillWidth: true
+                    leftPadding: app.margins -2
+                    rightPadding: app.margins +10
+                    wrapMode: Text.WordWrap
+                    Layout.preferredWidth: app.width
+                    font.bold: true
+
+                    text: qsTr("<ul style = 'list-style-type:circle;'> <li>Standard</li>: ")
+
+                }
+                Label{
+                    Layout.fillWidth: true
+                    leftPadding: app.margins +35
+                    rightPadding: app.margins +10
+                    wrapMode: Text.WordWrap
+                    Layout.preferredWidth: app.width
+                    text: qsTr("Standard status, optimizer makes no specification")
 
                 }
 
@@ -93,10 +136,11 @@ Page {
                 Label{
                     Layout.fillWidth: true
                     leftPadding: app.margins +35
+
                     rightPadding: app.margins +10
                     wrapMode: Text.WordWrap
                     Layout.preferredWidth: app.width
-                    text: qsTr("recommendation for increased operation, the heat pump will decide if this is possible depending on the current temperature range.")
+                    text: qsTr("Recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range.")
 
                 }
 
@@ -114,32 +158,10 @@ Page {
                 Label{
                     Layout.fillWidth: true
                     leftPadding: app.margins +35
-
                     rightPadding: app.margins +10
                     wrapMode: Text.WordWrap
                     Layout.preferredWidth: app.width
-                    text: qsTr("energy manager switches heat pump to increased operation.")
-
-                }
-
-                Label{
-                    Layout.fillWidth: true
-                    leftPadding: app.margins -2
-                    rightPadding: app.margins +10
-                    wrapMode: Text.WordWrap
-                    Layout.preferredWidth: app.width
-                    font.bold: true
-
-                    text: qsTr("<ul style = 'list-style-type:circle;'> <li>Off</li>: ")
-
-                }
-                Label{
-                    Layout.fillWidth: true
-                    leftPadding: app.margins +35
-                    rightPadding: app.margins +10
-                    wrapMode: Text.WordWrap
-                    Layout.preferredWidth: app.width
-                    text: qsTr("a temporary shutdown by the grid operator to avoid grid overload.")
+                    text: qsTr("Definitive start-up command, if this is possible within the scope of the control settings")
 
                 }
 

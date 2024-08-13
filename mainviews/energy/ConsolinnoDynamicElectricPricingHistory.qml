@@ -31,29 +31,29 @@ Item {
         property date now: new Date()
 
         readonly property var startTimeSince: {
-            var date = new Date(now);
+            var date = new Date();
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+
             if(selectionTabs.currentIndex == 0){
-                date.setTime(validSince * 1000);
+
             }else{
-                date.setTime((validSince + 86400) * 1000);
+                date.setDate(date.getDate()+1);
             }
             return date;
         }
 
         readonly property var endTimeUntil: {
-            var date = new Date(now);
+            var date = new Date();
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+
             if(selectionTabs.currentIndex == 0){
-                const today = new Date();
-                const validUntilDate = new Date(validUntil*1000);
-
-                let adjustTime = 60;
-
-                if(today.getDate() < validUntilDate.getDate())
-                    adjustTime = -86340;
-
-                date.setTime((validUntil + adjustTime) * 1000);
+                date.setDate(date.getDate()+1);
             }else{
-                date.setTime((validUntil + 60) * 1000);
+                date.setDate(date.getDate()+2);
             }
             return date;
         }
@@ -73,7 +73,7 @@ Item {
             Layout.fillWidth: true
             Layout.margins: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
-            text: qsTr("Dynamic electricity price")
+            text: qsTr("Dynamic electricity tariff")
             visible: true
         }
 
@@ -99,6 +99,15 @@ Item {
                 const pricelength = Object.keys(prices).length;
                 noDataLabel.visible = selectionTabs.currentIndex && pricelength < 97;
                 noDataIndicator.visible = selectionTabs.currentIndex && pricelength < 97;
+
+                if(pricelength < 97 && selectionTabs.currentIndex == 1){
+                    consumptionSeries.visible = false
+                    consumptionSeriesAbove.visible = false
+                }else{
+                    consumptionSeries.visible = true
+                    consumptionSeriesAbove.visible = true
+                }
+
             }
         }
 
@@ -108,7 +117,7 @@ Item {
             validSince = thing.stateByName("validSince").value
             validUntil = thing.stateByName("validUntil").value
             currentPrice = thing.stateByName("currentMarketPrice").value
-            averagePrice = thing.stateByName("averagePrice").value.toFixed(0).toString();
+            averagePrice = thing.stateByName("averagePrice").value.toFixed(2).toString();
 
             consumptionSeries.insertEntry(thing.stateByName("priceSeries").value)
             valueAxis.adjustMax(lowestPrice,highestPrice);
@@ -119,7 +128,7 @@ Item {
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 13
-            text: qsTr("Current Market Price: ") + (currentPrice.toFixed(0)) + " ct"
+            text: qsTr("Current Market Price: ") + (currentPrice.toFixed(2)) + " ct/kWh"
         }
 
         Text {
@@ -127,7 +136,7 @@ Item {
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 13
-            text: qsTr("Average Market Price: ") + (averagePrice) + " ct"
+            text: qsTr("Average Market Price: ") + (averagePrice) + " ct/kWh"
         }
 
         Item {
@@ -283,7 +292,12 @@ Item {
                             }
 
                             pricingUpperSeriesAbove.append(currentTimestamp,averagePrice);
+                            pricingLowerSeriesAbove.append(currentTimestamp,averagePrice);
+
+                            pricingUpperSeries.append(currentTimestamp - (60000 * 15),itemValue);
                             pricingUpperSeries.append(currentTimestamp,itemValue);
+
+                            pricingLowerSeries.append(currentTimestamp - (60000 * 15),itemValue);
                             pricingLowerSeries.append(currentTimestamp,itemValue);
                         }
 
@@ -308,7 +322,7 @@ Item {
                     axisX: dateTimeAxis
                     axisY: valueAxis
                     color: 'transparent'
-                    borderWidth: 2
+                    borderWidth: 1
                     borderColor: Style.red
 
                     upperSeries: LineSeries {
@@ -316,8 +330,11 @@ Item {
                     }
 
                     lowerSeries: LineSeries {
-                        XYPoint { x: dateTimeAxis.min.getTime(); y: 0 }
-                        XYPoint { x: dateTimeAxis.max.getTime(); y: 0 }
+
+                        id: pricingLowerSeriesAbove
+
+                        //XYPoint { x: dateTimeAxis.min.getTime(); y: -100 }
+                        //XYPoint { x: dateTimeAxis.max.getTime(); y: -100 }
                     }
 
                 }
@@ -334,7 +351,7 @@ Item {
 
                 Timer {
                     property bool isOn: false
-                    interval: isOn ? 5000 : 100
+                    interval: isOn ? 60000 : 100
                     running: true
                     repeat: true
                     onTriggered: {
@@ -347,6 +364,7 @@ Item {
                         currentDate.setMilliseconds(0)
 
                         currentValuePoint.remove(0)
+                        currentPrice = thing.stateByName("currentMarketPrice").value
 
                         if(currentTime <= currentDate.getTime()){
                             currentValuePoint.append(currentTime, currentPrice)
@@ -502,7 +520,7 @@ Item {
                             font: Style.smallFont
                         }
                         Label {
-                            property string unit: qsTr("Cents / kWh")
+                            property string unit: qsTr("ct/kWh")
                             text: {
                                 if(!mouseArea.containsMouse) {
                                     return "";
