@@ -215,6 +215,9 @@ GenericConfigPage {
                         durationValue.text = " — "
 
                     }
+                    if (chargingIsAnyOf([dyn_pricing])){
+                        priceLimit.text = priceLimit.getText()
+                    }
 
 
                 }
@@ -535,6 +538,8 @@ GenericConfigPage {
                                 }
                             }
 
+                            // Probably not needed anymore, should be checked at next refactoring.
+                            // Leaving this untouched for now
                             Timer{
                                property bool firstRun: false
                                repeat: true
