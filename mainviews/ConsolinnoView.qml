@@ -646,14 +646,7 @@ MainViewBase {
         visible: rootMeter != null
 
         property int hours: 24
-        readonly property var consumersColors: ["#F7B772", "#ACE3E2", "#ADB9E3", "#639F86", "#FF8954", "#D9F6C5", "#437BC4", "#AA5DC2", "#C6C73F"]
-        readonly property color rootMeterAcquisitionColor: "#F37B8E"
-        readonly property color rootMeterReturnColor: "#45B4E4"
-        readonly property color producersColor: "#FCE487"
-        readonly property color batteriesColor: "#BDD786"
-        readonly property color batteryChargeColor: batteriesColor
-        readonly property color batteryDischargeColor: "#F7B772"
-        readonly property color consumedColor: "#ADB9E3"
+        readonly property var consumersColors: Configuration.consumerColors
         readonly property color electricsColor: "#E056F5"
         readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
         property string currentGridValueState: ""
@@ -871,8 +864,8 @@ MainViewBase {
                         isRootmeter: true
                         isElectric: false
                         isNotify: lsdChart.currentGridValueState
-                        color: lsdChart.rootMeterAcquisitionColor
-                        negativeColor: lsdChart.rootMeterReturnColor
+                        color: Configuration.rootMeterAcquisitionColor
+                        negativeColor: Configuration.rootMeterReturnColor
                         onClicked: {
                             print("Clicked root meter", index, thing.name)
                             pageStack.push(
@@ -890,7 +883,7 @@ MainViewBase {
                         model: producers
                         delegate: LegendTile {
                             visible: producers.get(index).id !== rootMeter.id
-                            color: lsdChart.producersColor
+                            color: Configuration.producersColor
                             thing: producers.get(index)
                             isElectric: false
                             onClicked: {
@@ -1011,7 +1004,7 @@ MainViewBase {
                     id: productionSeries
                     axisAngular: axisAngular
                     axisRadial: axisRadial
-                    color: lsdChart.producersColor
+                    color: Configuration.producersColor
                     borderColor: "transparent"
                     borderWidth: 0
                     lowerSeries: zeroSeries
@@ -1058,7 +1051,7 @@ MainViewBase {
                     id: acquisitionSeries
                     axisAngular: axisAngular
                     axisRadial: axisRadial
-                    color: lsdChart.rootMeterAcquisitionColor
+                    color: Configuration.rootMeterAcquisitionColor
                     borderColor: "transparent"
                     borderWidth: 0
                     lowerSeries: zeroSeries
@@ -1092,7 +1085,7 @@ MainViewBase {
                     id: returnSeries
                     axisAngular: axisAngular
                     axisRadial: axisRadial
-                    color: lsdChart.rootMeterReturnColor
+                    color: Configuration.rootMeterReturnColor
                     borderColor: "transparent"
                     borderWidth: 0
                     //                    visible: false
@@ -1126,7 +1119,7 @@ MainViewBase {
                     id: storageSeries
                     axisAngular: axisAngular
                     axisRadial: axisRadial
-                    color: lsdChart.batteriesColor
+                    color: Configuration.batteriesColor
                     borderColor: "transparent"
                     borderWidth: 0
                     //                    visible: false
@@ -1273,7 +1266,7 @@ MainViewBase {
                         }
                         onClicked: pageStack.push("DetailedGraphsPage.qml", {
                                                       "energyManager": energyManager,
-                                                      "totalColors": lsdChart.totalColors,
+                                                      "totalColors": Configuration.totalColors,
                                                       "consumersColors": lsdChart.consumersColors
                                                   })
                     }
@@ -1469,7 +1462,7 @@ MainViewBase {
                         id: legendBatteriesRepeater
                         model: batteries
                         delegate: LegendTile {
-                            color: lsdChart.batteriesColor
+                            color: Configuration.batteriesColor
                             thing: batteries.get(index)
                             onClicked: {
                                 print("Clicked battery", index, thing.name)

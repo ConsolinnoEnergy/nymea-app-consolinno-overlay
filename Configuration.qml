@@ -38,6 +38,17 @@ ConfigurationBase {
     property string companyLocation: "Bitterfeld-Wolfen"
     property string companyTel: "+49 (0)3494 6699-0"
 
+    property var consumerColors: ["#F7B772", "#ACE3E2", "#ADB9E3", "#639F86", "#FF8954", "#D9F6C5", "#437BC4", "#AA5DC2", "#C6C73F"]
+    readonly property color rootMeterAcquisitionColor: "#F37B8E"
+    readonly property color rootMeterReturnColor: "#45B4E4"
+    readonly property color producersColor: "#FCE487"
+    readonly property color batteriesColor: "#BDD786"
+    readonly property color batteryChargeColor: batteriesColor
+    readonly property color batteryDischargeColor: "#F7B772"
+    readonly property color consumedColor: "#ADB9E3"
+    readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
+
+
     property ListModel softwareLinksApp: ListModel {
         ListElement { component: "Suru icons"; url: "https://github.com/snwh/suru-icon-theme" }
         ListElement { component: "Ubuntu font"; url: "https://design.ubuntu.com/font" }
