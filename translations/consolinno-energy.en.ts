@@ -476,6 +476,18 @@
         <source>Below price limit</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Current Price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 ct/kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Below price limit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -1540,7 +1552,7 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>From PV: %1 %2</source>
+        <source>From Grid: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
