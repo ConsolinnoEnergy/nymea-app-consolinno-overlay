@@ -86,7 +86,7 @@ ChartView {
             Label {
                 property double absValue: Math.abs(Math.min(0, energyManager.currentPowerProduction))
                 text: "%1 %2"
-                .arg((absValue / (absValue > 1000 ? 1000 : 1)).toFixed(1))
+                .arg((absValue / (absValue > 1000 ? 1000 : 1)).toLocalString().toFixed(1))
                 .arg(absValue > 1000 ? "kW" : "W")
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
@@ -109,7 +109,7 @@ ChartView {
                 property double absValue: productionBalanceSeries.toConsumers
                 color: Qt.darker(totalColors[0], 1.1)
                 text: "%1 %2"
-                .arg((absValue / (absValue > 1000 ? 1000 : 1)).toFixed(1))
+                .arg((absValue / (absValue > 1000 ? 1000 : 1)).toLocalString().toFixed(1))
                 .arg(absValue > 1000 ? "kW" : "W")
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
@@ -130,7 +130,7 @@ ChartView {
             Label {
                 color: Qt.darker(totalColors[3], 1.1)
                 property double absValue: productionBalanceSeries.toGrid
-                text: "%1 %2".arg((absValue / (absValue > 1000 ? 1000 : 1)).toFixed(1))
+                text: "%1 %2".arg((absValue / (absValue > 1000 ? 1000 : 1)).toLocalString().toFixed(1))
                 .arg(absValue > 1000 ? "kW" : "W")
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
@@ -150,7 +150,7 @@ ChartView {
             Label {
                 color: Qt.darker(totalColors[4], 1.1)
                 property double absValue: productionBalanceSeries.toStorage
-                text: "%1 %2".arg((absValue / (absValue > 1000 ? 1000 : 1)).toFixed(1))
+                text: "%1 %2".arg((absValue / (absValue > 1000 ? 1000 : 1)).toLocalString().toFixed(1))
                 .arg(absValue > 1000 ? "kW" : "W")
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter

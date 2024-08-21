@@ -68,31 +68,31 @@
     <name>AddNewThings</name>
     <message>
         <source>Set up new thing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Neues &quot;Thing&quot; hinzufügen</translation>
     </message>
     <message>
         <source>Vendor</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hersteller</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alle</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Typ</translation>
     </message>
     <message>
         <source>Looking for something else?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Suchen Sie etwas anderes?</translation>
     </message>
     <message>
         <source>Try to install more plugins.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Versuchen Sie, weitere Plugins zu installieren.</translation>
     </message>
     <message>
         <source>Install plugins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Plugins installieren</translation>
     </message>
 </context>
 <context>
@@ -463,6 +463,18 @@
     <message>
         <source>enabled</source>
         <translation>aktiviert</translation>
+    </message>
+    <message>
+        <source>Current Price</source>
+        <translation type="unfinished">Aktueller Preis</translation>
+    </message>
+    <message>
+        <source>%1 ct/kWh</source>
+        <translation type="unfinished">%1 ct/kWh</translation>
+    </message>
+    <message>
+        <source>Below price limit</source>
+        <translation type="unfinished">Preisgrenze unterschritten</translation>
     </message>
 </context>
 <context>
@@ -1362,10 +1374,6 @@ Mail service@consolinno.de</source>
         <translation>Keine Daten verfügbar</translation>
     </message>
     <message>
-        <source>From self production</source>
-        <translation>Eigenproduktion</translation>
-    </message>
-    <message>
         <source>To battery</source>
         <translation>Batterie</translation>
     </message>
@@ -1375,7 +1383,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>From battery</source>
-        <translation>Batterie</translation>
+        <translation type="unfinished">Batterie</translation>
     </message>
     <message>
         <source>From grid</source>
@@ -1412,6 +1420,10 @@ Mail service@consolinno.de</source>
     <message>
         <source>From battery: %1 %2</source>
         <translation>Von Batterie: %1 %2</translation>
+    </message>
+    <message>
+        <source>From PV</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1484,34 +1496,6 @@ Mail service@consolinno.de</source>
         <translation>Meine Verbrauchshistorie</translation>
     </message>
     <message>
-        <source>Self production</source>
-        <translation>Eigenproduktion</translation>
-    </message>
-    <message>
-        <source>From battery</source>
-        <translation>Batterie</translation>
-    </message>
-    <message>
-        <source>From grid</source>
-        <translation>Netzbezug</translation>
-    </message>
-    <message>
-        <source>Total consumption: %1 %2</source>
-        <translation>Gesamtverbrauch: %1 %2</translation>
-    </message>
-    <message>
-        <source>Self production: %1 %2</source>
-        <translation>Eigenproduktion: %1 %2</translation>
-    </message>
-    <message>
-        <source>From battery: %1 %2</source>
-        <translation>Von Batterie: %1 %2</translation>
-    </message>
-    <message>
-        <source>From grid: %1 %2</source>
-        <translation>Netzbezug: %1 %2</translation>
-    </message>
-    <message>
         <source>Hours</source>
         <translation>Stunden</translation>
     </message>
@@ -1530,6 +1514,34 @@ Mail service@consolinno.de</source>
     <message>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
+    </message>
+    <message>
+        <source>From PV</source>
+        <translation type="unfinished">Von PV</translation>
+    </message>
+    <message>
+        <source>From Battery</source>
+        <translation type="unfinished">Von Batterie</translation>
+    </message>
+    <message>
+        <source>From Grid</source>
+        <translation type="unfinished">Netzbezug</translation>
+    </message>
+    <message>
+        <source>Total Consumption: %1 %2</source>
+        <translation type="unfinished">Gesamt Verbrauch: %1 %2</translation>
+    </message>
+    <message>
+        <source>From PV: %1 %2</source>
+        <translation type="unfinished">Von PV: %1 %2</translation>
+    </message>
+    <message>
+        <source>From Battery: %1 %2</source>
+        <translation type="unfinished">Von Batterie: %1 %2</translation>
+    </message>
+    <message>
+        <source>From Grid: %1 %2</source>
+        <translation type="unfinished">Netzbezug: %1 %2</translation>
     </message>
 </context>
 <context>
@@ -1922,6 +1934,10 @@ Mail service@consolinno.de</source>
     <message>
         <source>Dynamic electricity tariff</source>
         <translation type="unfinished">Dynamischer Stromtarif</translation>
+    </message>
+    <message>
+        <source>Failed to add thing: ThingErrorHardwareFailure</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2666,10 +2682,6 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     <message>
         <source>Optimization configuration</source>
         <translation>Optimierungseinstellungen</translation>
-    </message>
-    <message>
-        <source>Heating Element</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Charging</source>

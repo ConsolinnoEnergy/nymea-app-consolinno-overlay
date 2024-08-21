@@ -513,7 +513,7 @@ StatsBase {
                             margins: Style.smallMargins
                         }
                         Label {
-                            text: d.config.toLongLabel(toolTip.timestamp)
+                            text: d.config.toLongLabel(toolTip.timestamp).toLocaleString()
                             font: Style.smallFont
                         }
 
@@ -527,7 +527,7 @@ StatsBase {
                                         var consumer = consumerDelegate.thing
                                         var entry = {
                                             consumer: consumer,
-                                            value: consumersRepeater.itemAt(i).barSet.at(toolTip.idx).toFixed(2),
+                                            value: consumersRepeater.itemAt(i).barSet.at(toolTip.idx).toFixed(2).toLocaleString(),
                                             indexInModel: i
                                         }
                                         unsorted.push(entry)
@@ -555,7 +555,7 @@ StatsBase {
                                     color: consumerColors[model.indexInModel]
                                 }
                                 Label {
-                                    text: "%1: %2 kWh".arg(model.consumer.name).arg(model.value)
+                                    text: "%1: %2 kWh".arg(model.consumer.name).arg(model.value).toLocaleString()
                                     font: Style.extraSmallFont
                                 }
                             }

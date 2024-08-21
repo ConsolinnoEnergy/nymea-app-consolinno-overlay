@@ -464,6 +464,18 @@
         <source>enabled</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Current Price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 ct/kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Below price limit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -1362,10 +1374,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>From self production</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>To battery</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1411,6 +1419,10 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>From battery: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From PV</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1504,31 +1516,31 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Self production</source>
+        <source>From PV</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>From battery</source>
+        <source>From Battery</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>From grid</source>
+        <source>From Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Total consumption: %1 %2</source>
+        <source>Total Consumption: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Self production: %1 %2</source>
+        <source>From PV: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>From battery: %1 %2</source>
+        <source>From Battery: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>From grid: %1 %2</source>
+        <source>From Grid: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1910,6 +1922,10 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Dynamic electricity tariff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to add thing: ThingErrorHardwareFailure</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2650,10 +2666,6 @@ the system, and a charging process is started, charging is prioritized.</source>
     </message>
     <message>
         <source>Optimization configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Heating Element</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

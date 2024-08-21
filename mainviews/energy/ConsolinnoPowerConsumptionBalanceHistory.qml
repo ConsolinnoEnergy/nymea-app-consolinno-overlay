@@ -298,7 +298,7 @@ Item {
                     color: totalColors[1]
                     borderWidth: 0
                     borderColor: null
-                    name: qsTr("Self production")
+                    name: qsTr("From PV")
             //      visible: false
 
                     lowerSeries: LineSeries {
@@ -360,7 +360,7 @@ Item {
                     color: totalColors[4]
                     borderWidth: 0
                     borderColor: null
-                    name: qsTr("From battery")
+                    name: qsTr("From Battery")
                     visible: root.batteries.count > 0
 
                     lowerSeries: selfProductionUpperSeries
@@ -388,7 +388,7 @@ Item {
                     color: totalColors[2]
                     borderWidth: 0
                     borderColor: null
-                    name: qsTr("From grid")
+                    name: qsTr("From Grid")
             //      visible: false
 
                     lowerSeries: storageUpperSeries
@@ -538,7 +538,7 @@ Item {
                             property double value: toolTip.entry ? Math.max(0, toolTip.entry.consumption) : 0
                             property bool translate: value >= 1000
                             property double translatedValue: value / (translate ? 1000 : 1)
-                            text: qsTr("Total consumption: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
+                            text: qsTr("Total Consumption: %1 %2").arg(translatedValue.toFixed(2).toLocaleString()).arg(translate ? "kW" : "W")
                             font: Style.extraSmallFont
                         }
 
@@ -557,7 +557,7 @@ Item {
                                 property double value: toolTip.entry ? Math.max(0, -toolTip.entry.production) : 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
-                                text: qsTr("Self production: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
+                                text: qsTr("From PV: %1 %2").arg(translatedValue.toFixed(2).toLocaleString()).arg(translate ? "kW" : "W")
                                 font: Style.extraSmallFont
                             }
                         }
@@ -577,7 +577,7 @@ Item {
                                 property double value: toolTip.entry ? Math.max(0, -toolTip.entry.storage) : 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
-                                text: qsTr("From battery: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
+                                text: qsTr("From Battery: %1 %2").arg(translatedValue.toFixed(2).toLocaleString()).arg(translate ? "kW" : "W")
                                 font: Style.extraSmallFont
                             }
                         }
@@ -596,7 +596,7 @@ Item {
                                 property double value: toolTip.entry ? Math.max(0, toolTip.entry.acquisition) : 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
-                                text: qsTr("From grid: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
+                                text: qsTr("From Grid: %1 %2").arg(translatedValue.toFixed(2).toLocaleString()).arg(translate ? "kW" : "W")
                                 font: Style.extraSmallFont
                             }
                         }

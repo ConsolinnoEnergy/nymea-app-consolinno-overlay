@@ -731,9 +731,6 @@ void HemsManager::getUserConfigurationsResponse(int commandId, const QVariantMap
     }
 }
 
-
-
-
 void HemsManager::setHousholdPhaseLimitResponse(int commandId, const QVariantMap &data)
 {
     qCDebug(dcHems()) << "Set houshold phase limit response" << data.value("hemsError").toString();

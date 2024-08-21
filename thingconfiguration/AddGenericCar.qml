@@ -214,7 +214,7 @@ Page {
                         Layout.rightMargin: 0
                         horizontalAlignment: Text.AlignRight
                         id: maximumChargingLimitLabel
-                        text: maximumChargingSlider.value + "%"
+                        text: (maximumChargingSlider.value + "%").toLocaleString()
                     }
 
                 }
@@ -246,7 +246,7 @@ Page {
                         Layout.rightMargin: 0
                         horizontalAlignment: Text.AlignRight
                         id: minimumChargingCurrentLabel
-                        text: minimumChargingCurrentSlider.value + " A"
+                        text: (minimumChargingCurrentSlider.value + " A").toLocaleString()
                     }
 
                 }

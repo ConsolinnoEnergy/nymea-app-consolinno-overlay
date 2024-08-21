@@ -68,7 +68,7 @@ GenericConfigPage {
         }
         return false
     }
-    
+
     function relPrice2AbsPrice(relPrice){
         let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
         let minPrice = dynamicPrice.get(0).stateByName("lowestPrice").value
@@ -160,10 +160,7 @@ GenericConfigPage {
                     energyChargedLayout.visible = true
                     initializing = false
                 }
-
             }
-
-
         }
 
         onChargingConfigurationChanged:
@@ -284,7 +281,7 @@ GenericConfigPage {
             return simple_pv_excess
         }
         if (opti_mode >= 4000 && opti_mode < 5000) {
-            return dyn_pricing 
+            return dyn_pricing
         }
     }
 
@@ -471,7 +468,7 @@ GenericConfigPage {
                     }
 
                     RowLayout{
-                        Layout.topMargin: 15
+                        Layout.topMargin: 10
                         visible:  chargingIsAnyOf([simple_pv_excess, dyn_pricing])
                         Label{
                             id: ongridConsumptionLabel
@@ -506,7 +503,7 @@ GenericConfigPage {
                     }
 
                     RowLayout{
-                        Layout.topMargin: 15
+                        Layout.topMargin: 10
                         visible: chargingIsAnyOf([dyn_pricing])
                         Label{
                             id: priceLimitLabel
@@ -553,6 +550,50 @@ GenericConfigPage {
                         }
                     }
 
+
+                    RowLayout{
+                        Layout.topMargin: 10
+                        visible: chargingIsAnyOf([dyn_pricing])
+
+                        Label{
+                            Layout.fillWidth: true
+                            text: qsTr("Current Price")
+                        }
+
+                        Label{
+                            id: currentMarketPrice
+                            text: qsTr("%1 ct/kWh").arg((Math.round(currentPrice * 100) / 100).toLocaleString());
+                            Layout.alignment: Qt.AlignRight
+                            Layout.rightMargin: 0
+
+                            Component.onCompleted: {
+                                currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value;
+                            }
+                        }
+                    }
+
+                    RowLayout{
+                        Layout.topMargin: 10
+                        visible: chargingIsAnyOf([dyn_pricing])
+                        id: belowPriceLimit
+                        Label{
+                            Layout.fillWidth: true
+                            text: qsTr("Below price limit")
+                        }
+
+                        Rectangle{
+                            width: 17
+                            height: 17
+                            Layout.rightMargin: 0
+                            Layout.alignment: Qt.AlignRight
+                            color: (currentPrice <= thresholdPrice) ? "#87BD26" : "#CD5C5C"
+                            border.color: "black"
+                            border.width: 0
+                            radius: width*0.5
+                        }
+
+                    }
+
                     RowLayout{
                         Layout.topMargin: 15
                         visible: !([pv_excess, simple_pv_excess, no_optimization, dyn_pricing].includes(getChargingMode(chargingConfiguration.optimizationMode)))
@@ -593,7 +634,7 @@ GenericConfigPage {
                         Label{
                             id: targetCharge
 
-                            text: isCarPluggedIn() ?(chargingConfiguration.optimizationEnabled ? chargingConfiguration.targetPercentage + " %" : " — " ) : " — "
+                            text: isCarPluggedIn() ?(chargingConfiguration.optimizationEnabled ? chargingConfiguration.targetPercentage.toLocaleString() + " %" : " — " ) : " — "
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
@@ -692,7 +733,7 @@ GenericConfigPage {
                         Label{
                             id: batteryLevelValue
 
-                            text: chargingSessionConfiguration.batteryLevel + " %"
+                            text: chargingSessionConfiguration.batteryLevel.toLocaleString() + " %"
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
@@ -745,7 +786,7 @@ GenericConfigPage {
 
                         Label{
                             id: chargingPowerValue
-                            text: (initializing ? 0 : getChargingPower()) + " W"
+                            text: ((initializing ? 0 : getChargingPower()) + " W").toLocaleString()
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
@@ -765,7 +806,7 @@ GenericConfigPage {
 
                         Label{
                             id: maxCurrentValue
-                            text: (initializing ? 0 : thing.stateByName("maxChargingCurrent").value) + " A"
+                            text: (initializing ? 0 : thing.stateByName("maxChargingCurrent").value).toLocaleString() + " A"
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
@@ -783,7 +824,7 @@ GenericConfigPage {
 
                         Label{
                             id: measuredCurrentValue
-                            text: (initializing ? 0 : calcChargingCurrent()) + " A"
+                            text: (initializing ? 0 : calcChargingCurrent()).toLocaleString() + " A"
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
@@ -804,7 +845,7 @@ GenericConfigPage {
                         Label{
                             id: energyChargedValue
 
-                            text: chargingSessionConfiguration.energyCharged.toFixed(2) + " kWh"
+                            text: (chargingSessionConfiguration.energyCharged.toFixed(2) + " kWh").toLocaleString()
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
@@ -829,7 +870,7 @@ GenericConfigPage {
                             property int duration: chargingSessionConfiguration.duration
                             property int hours: duration/3600
                             property int minutes: (duration - hours*3600)/60
-                            text: (hours === 0) ? minutes +  "min " : hours+ "h " + minutes + "min"
+                            text: ((hours === 0) ? minutes +  "min " : hours+ "h " + minutes + "min").toLocaleString()
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
@@ -1447,7 +1488,7 @@ GenericConfigPage {
                                             text: currentValue
                                             horizontalAlignment: Qt.AlignHCenter
                                             verticalAlignment: Qt.AlignVCenter
-                                            Layout.preferredWidth: 70
+                                            Layout.preferredWidth: 50
                                             validator: RegExpValidator {
                                                 regExp: /^-?(100|[1-9]?[0-9])$/
                                             }
@@ -1462,7 +1503,7 @@ GenericConfigPage {
                                             text: "%"
                                         }
 
-                                        ToolButton { 
+                                        ToolButton {
                                             text: qsTr("+")
                                             onClicked: {
                                                 currentValue = currentValue < 100 ? currentValue + 1 : 100

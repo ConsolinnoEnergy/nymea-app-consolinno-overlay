@@ -111,11 +111,8 @@ Page {
             Layout.fillWidth: true
             text: qsTr("Save")
             onClicked: {
-                    hemsManager.setChargingOptimizationConfiguration(chargingConfiguration.evChargerThingId, {controllableLocalSystem: gridSupportControl.checked,})
-                    if(directionID !== 1){
-                        pageStack.pop()
-                    }
-                    root.done()
+                    d.pendingCallId = hemsManager.setChargingOptimizationConfiguration(chargingConfiguration.evChargerThingId, {controllableLocalSystem: gridSupportControl.checked})
+                    root.done();
             }
         }
     }

@@ -87,7 +87,7 @@ ChartView {
 
             Label {
                 text: "%1 %2"
-                .arg((energyManager.currentPowerConsumption / (energyManager.currentPowerConsumption > 1000 ? 1000 : 1)).toFixed(1))
+                .arg((energyManager.currentPowerConsumption / (energyManager.currentPowerConsumption > 1000 ? 1000 : 1)).toLocalString().toFixed(1))
                 .arg(energyManager.currentPowerConsumption > 1000 ? "kW" : "W")
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
@@ -110,7 +110,7 @@ ChartView {
                 property double absValue: consumptionBalanceSeries.fromGrid
                 color: totalColors[2]
                 text: "%1 %2"
-                .arg((absValue / (absValue > 1000 ? 1000 : 1)).toFixed(1))
+                .arg((absValue / (absValue > 1000 ? 1000 : 1)).toLocalString().toFixed(1))
                 .arg(absValue > 1000 ? "kW" : "W")
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
@@ -131,7 +131,7 @@ ChartView {
             Label {
                 color: Qt.darker(totalColors[1], 1.1)
                 property double absValue: consumptionBalanceSeries.fromProduction
-                text: "%1 %2".arg((absValue / (absValue > 1000 ? 1000 : 1)).toFixed(1))
+                text: "%1 %2".arg((absValue / (absValue > 1000 ? 1000 : 1)).toLocalString().toFixed(1))
                 .arg(absValue > 1000 ? "kW" : "W")
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
@@ -151,7 +151,7 @@ ChartView {
             Label {
                 color: Qt.darker(totalColors[5], 1.1)
                 property double absValue: consumptionBalanceSeries.fromStorage
-                text: "%1 %2".arg((absValue / (absValue > 1000 ? 1000 : 1)).toFixed(1))
+                text: "%1 %2".arg((absValue / (absValue > 1000 ? 1000 : 1)).toLocalString().toFixed(1))
                 .arg(absValue > 1000 ? "kW" : "W")
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter

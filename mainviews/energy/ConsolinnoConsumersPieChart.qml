@@ -179,7 +179,7 @@ Item {
                         //   summation of all consumers. In this particular chart that would be nonsense so in the end we'll only lose the "unknown" power consumption in such a setup
                         property double finalTotal: Math.max(energyManager.currentPowerConsumption, d.consumersSummation)
                         text: "%1 %2"
-                        .arg((finalTotal / (finalTotal > 1000 ? 1000 : 1)).toFixed(1))
+                        .arg((finalTotal / (finalTotal > 1000 ? 1000 : 1)).toFixed(1).toLocaleString())
                         .arg(finalTotal > 1000 ? "kW" : "W")
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
@@ -213,7 +213,7 @@ Item {
                         Label {
                             color: d.thingsColorMap.hasOwnProperty(consumer) ? d.thingsColorMap[consumer] : "transparent"
                             text: "%1 %2"
-                            .arg((consumerDelegate.value / (consumerDelegate.value > 1000 ? 1000 : 1)).toFixed(1))
+                            .arg((consumerDelegate.value / (consumerDelegate.value > 1000 ? 1000 : 1)).toFixed(1).toLocaleString())
                             .arg(consumerDelegate.value > 1000 ? "kW" : "W")
                             Layout.fillWidth: true
                             horizontalAlignment: Text.AlignHCenter

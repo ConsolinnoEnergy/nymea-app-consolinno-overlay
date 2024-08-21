@@ -507,6 +507,7 @@ Item {
                         Row {
                             anchors.centerIn: parent
                             spacing: Style.smallMargins
+
                             ColorIcon {
                                 name: app.interfacesToIcon(legendDelegate.thing.thingClass.interfaces)
                                 size: Style.smallIconSize
@@ -686,7 +687,7 @@ Item {
                                 property double rawValue: toolTip.entry ? toolTip.entry.consumption : 0
                                 property double displayValue: rawValue >= 1000 ? rawValue / 1000 : rawValue
                                 property string unit: rawValue >= 1000 ? "kW" : "W"
-                                text:  "%1: %2 %3".arg(qsTr("Total")).arg(displayValue.toFixed(2)).arg(unit)
+                                text:  "%1: %2 %3".arg(qsTr("Total")).arg(displayValue.toFixed(2).toLocaleString()).arg(unit)
                                 font: Style.extraSmallFont
                             }
                         }
@@ -708,7 +709,7 @@ Item {
                                     property double rawValue: entry ? entry.currentPower : 0
                                     property double displayValue: rawValue >= 1000 ? rawValue / 1000 : rawValue
                                     property string unit: rawValue >= 1000 ? "kW" : "W"
-                                    text:  "%1: %2 %3".arg(chartItem.thing.name).arg(displayValue.toFixed(2)).arg(unit)
+                                    text:  "%1: %2 %3".arg(chartItem.thing.name).arg(displayValue.toFixed(2).toLocaleString()).arg(unit)
                                     font: Style.extraSmallFont
                                 }
                             }
