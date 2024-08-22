@@ -1813,11 +1813,11 @@ Mail service@consolinno.de</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;Consolinno Energy HEMS App wurde aktualisiert&lt;/h3&gt;
-            &lt;p&gt;Version 1.5.0 (05. Juni 2024)&lt;/p&gt;
-            &lt;h4&gt;Verbesserungen&lt;/h4&gt;
+            &lt;p&gt;Version 1.6.0 (20. August 2024)&lt;/p&gt;
+            &lt;h4&gt;Neu&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;Optimierung der Wärmepumpe: Steuerung basiert auf aktuellem Überschuss&lt;/li&gt;
-                &lt;li&gt;Allgemeine Stabilität der App&lt;/li&gt;
+                &lt;li&gt;Lademodus “dynamischer Tarif”&lt;/li&gt;
+                &lt;li&gt;Netzdienliche Steuerung nach § 14a über Relais&lt;/li&gt;
             &lt;/ul&gt;</translation>
     </message>
 </context>

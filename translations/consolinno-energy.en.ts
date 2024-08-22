@@ -1803,11 +1803,11 @@ Mail service@consolinno.de</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;Consolinno Energy HEMS App was updated&lt;/h3&gt;
-            &lt;p&gt;Version 1.5.0 (June 05, 2024)&lt;/p&gt;
-            &lt;h4&gt;Improvements&lt;/h4&gt;
+            &lt;p&gt;Version 1.6.0 (August 20, 2024)&lt;/p&gt;
+            &lt;h4&gt;New&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;Optimization of the heat pump: control based on current surplus&lt;/li&gt;
-                &lt;li&gt;General stability of the app&lt;/li&gt;
+                &lt;li&gt;‘Dynamic tariff’ charging mode&lt;/li&gt;
+                &lt;li&gt;Grid-supportive control according to § 14a via relay&lt;/li&gt;
             &lt;/ul&gt;</translation>
     </message>
 </context>
