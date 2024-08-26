@@ -51,6 +51,13 @@ Page {
                 var popup = comp.createObject(app, {props} )
                 popup.open();
             }
+
+            /*
+            if(thingError === Thing.ThingErrorHardwareFailure){
+
+            }else if(thingError !== Thing.ThingErrorHardwareFailure){
+
+            }*/
         }
     }
 
