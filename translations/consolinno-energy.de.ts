@@ -1423,7 +1423,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>From PV</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Von PV</translation>
     </message>
 </context>
 <context>
@@ -1540,8 +1540,20 @@ Mail service@consolinno.de</source>
         <translation type="unfinished">Von Batterie: %1 %2</translation>
     </message>
     <message>
-        <source>From Grid: %1 %2</source>
-        <translation type="unfinished">Netzbezug: %1 %2</translation>
+        <source>No data available</source>
+        <translation>Keine Daten verfügbar</translation>
+    </message>
+    <message>
+        <source>From PV</source>
+        <translation type="unfinished">Von PV</translation>
+    </message>
+    <message>
+        <source>From Battery</source>
+        <translation type="unfinished">Von Batterie</translation>
+    </message>
+    <message>
+        <source>From PV: %1 %2</source>
+        <translation type="unfinished">Von PV: %1 %2</translation>
     </message>
 </context>
 <context>

@@ -695,7 +695,6 @@ Item {
                                     rotation: 90
                                     anchors.centerIn: minus
                                 }
-
                             }
                         }
                         Label {

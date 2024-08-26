@@ -1540,7 +1540,7 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>From Grid: %1 %2</source>
+        <source>From PV: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
