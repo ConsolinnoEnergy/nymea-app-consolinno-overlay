@@ -476,18 +476,6 @@
         <source>Below price limit</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Current Price</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 ct/kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Below price limit</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
