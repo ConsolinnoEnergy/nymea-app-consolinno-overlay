@@ -39,7 +39,26 @@ Page {
     }
 
     Connections {
-        target: hemsManager
+        target: currentThing.engine.thingManager
+
+        onAddThingReply: {
+            if(!thingError)
+            {
+                pageStack.push(Qt.resolvedUrl("../optimization/DynamicElectricityRateFeedback.qml"), {thingName: energyRateComboBox.currentText})
+            }else{
+                let props = qsTr("Failed to add thing: ThingErrorHardwareFailure");
+                var comp = Qt.createComponent("../components/ErrorDialog.qml")
+                var popup = comp.createObject(app, {props} )
+                popup.open();
+            }
+
+            /*
+            if(thingError === Thing.ThingErrorHardwareFailure){
+
+            }else if(thingError !== Thing.ThingErrorHardwareFailure){
+
+            }*/
+        }
     }
 
 
@@ -192,7 +211,6 @@ Page {
 
                 onTriggered: {
                     currentThing.engine.thingManager.addThing(energyRateComboBox.currentValue, energyRateComboBox.currentText, 0)
-                    pageStack.push(Qt.resolvedUrl("../optimization/DynamicElectricityRateFeedback.qml"), {thingName: energyRateComboBox.currentText})
                 }
             }
 
