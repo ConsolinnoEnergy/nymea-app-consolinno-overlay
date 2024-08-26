@@ -1374,10 +1374,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>From self production</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>To battery</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1423,6 +1419,10 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>From battery: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From PV</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1516,14 +1516,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Self production</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>From battery</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>From grid</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1532,15 +1524,23 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Self production: %1 %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>From battery: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>From grid: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From PV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From Battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From PV: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

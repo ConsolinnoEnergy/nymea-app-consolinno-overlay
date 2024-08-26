@@ -287,7 +287,7 @@ Item {
                     color: totalColors[1]
 //                    borderWidth: 2
                     borderColor: null
-                    name: qsTr("From self production")
+                    name: qsTr("From PV")
                     opacity: d.selectedSeries == null || d.selectedSeries == selfProductionConsumptionSeries ? 1 : 0.3
             //        visible: false
 
@@ -516,9 +516,17 @@ Item {
                         anchors.centerIn: parent
                         spacing: Style.smallMargins
                         ColorIcon {
+                            id: sun
                             name: "weathericons/weather-clear-day"
                             size: Style.smallIconSize
                             color: Qt.darker(totalColors[1], 1.1)
+                            Rectangle{
+                                color: Qt.darker(totalColors[1], 1.1)
+                                height: 12 / 2
+                                width: 12 / 2
+                                radius: sun.width / 2
+                                anchors.centerIn: sun
+                            }
                         }
                         Label {
                             width: parent.parent.width - x
@@ -546,9 +554,18 @@ Item {
                                 color: totalColors[2]
                             }
                             ColorIcon {
+                                id: arrowDown
                                 name: "arrow-down"
                                 size: Style.smallIconSize
                                 color: totalColors[2]
+
+                                Rectangle {
+                                    color: totalColors[2]
+                                    height: 9
+                                    width: 4
+                                    rotation: 180
+                                    anchors.centerIn: arrowDown
+                                }
                             }
                         }
                         Label {
@@ -577,9 +594,18 @@ Item {
                                 color: totalColors[3]
                             }
                             ColorIcon {
+                                id: arrowUp
                                 name: "arrow-up"
                                 size: Style.smallIconSize
                                 color: totalColors[3]
+
+                                Rectangle {
+                                    color: totalColors[3]
+                                    height: 10
+                                    width: 4
+                                    rotation: 180
+                                    anchors.centerIn: arrowUp
+                                }
                             }
                         }
                         Label {
@@ -609,9 +635,26 @@ Item {
                                 color: totalColors[4]
                             }
                             ColorIcon {
+                                id: plus
                                 name: "plus"
                                 size: Style.smallIconSize
                                 color: totalColors[4]
+
+                                Rectangle {
+                                    color: totalColors[4]
+                                    height: 10
+                                    width: 2
+                                    rotation: 90
+                                    anchors.centerIn: plus
+                                }
+
+                                Rectangle {
+                                    color: totalColors[4]
+                                    height: 10
+                                    width: 2
+                                    rotation: 180
+                                    anchors.centerIn: plus
+                                }
                             }
                         }
                         Label {
@@ -641,9 +684,18 @@ Item {
                                 color: totalColors[5]
                             }
                             ColorIcon {
+                                id: minus
                                 name: "minus"
                                 size: Style.smallIconSize
                                 color: totalColors[5]
+
+                                Rectangle {
+                                    color: totalColors[5]
+                                    height: 10
+                                    width: 2
+                                    rotation: 90
+                                    anchors.centerIn: minus
+                                }
                             }
                         }
                         Label {

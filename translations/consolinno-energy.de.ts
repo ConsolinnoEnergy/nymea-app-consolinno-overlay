@@ -1374,10 +1374,6 @@ Mail service@consolinno.de</source>
         <translation>Keine Daten verfügbar</translation>
     </message>
     <message>
-        <source>From self production</source>
-        <translation>Eigenproduktion</translation>
-    </message>
-    <message>
         <source>To battery</source>
         <translation>Batterie</translation>
     </message>
@@ -1424,6 +1420,10 @@ Mail service@consolinno.de</source>
     <message>
         <source>From battery: %1 %2</source>
         <translation>Von Batterie: %1 %2</translation>
+    </message>
+    <message>
+        <source>From PV</source>
+        <translation type="unfinished">Von PV</translation>
     </message>
 </context>
 <context>
@@ -1496,24 +1496,12 @@ Mail service@consolinno.de</source>
         <translation>Meine Verbrauchshistorie</translation>
     </message>
     <message>
-        <source>Self production</source>
-        <translation>Eigenproduktion</translation>
-    </message>
-    <message>
-        <source>From battery</source>
-        <translation>Batterie</translation>
-    </message>
-    <message>
         <source>From grid</source>
         <translation>Netzbezug</translation>
     </message>
     <message>
         <source>Total consumption: %1 %2</source>
         <translation>Gesamtverbrauch: %1 %2</translation>
-    </message>
-    <message>
-        <source>Self production: %1 %2</source>
-        <translation>Eigenproduktion: %1 %2</translation>
     </message>
     <message>
         <source>From battery: %1 %2</source>
@@ -1542,6 +1530,18 @@ Mail service@consolinno.de</source>
     <message>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
+    </message>
+    <message>
+        <source>From PV</source>
+        <translation type="unfinished">Von PV</translation>
+    </message>
+    <message>
+        <source>From Battery</source>
+        <translation type="unfinished">Von Batterie</translation>
+    </message>
+    <message>
+        <source>From PV: %1 %2</source>
+        <translation type="unfinished">Von PV: %1 %2</translation>
     </message>
 </context>
 <context>
