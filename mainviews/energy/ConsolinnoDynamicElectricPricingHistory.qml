@@ -114,6 +114,7 @@ Item {
         Component.onCompleted: {
             if(!thing)
                 return;
+
             validSince = thing.stateByName("validSince").value
             validUntil = thing.stateByName("validUntil").value
             currentPrice = thing.stateByName("currentMarketPrice").value
@@ -186,10 +187,14 @@ Item {
                     shadesVisible: false
 
                     function adjustMax(minPrice,maxPrice) {
+                        min = 0
+                        max = 1
+
                         max = Math.ceil(maxPrice) + 1;
                         max += 4 - (max % 4);
                         min = minPrice <= 0 ? minPrice - 5 : 0;
                     }
+
                 }
 
                 Item {
@@ -242,6 +247,7 @@ Item {
                     }
 
                     function insertEntry(value){
+
                         var lastObjectValue = value[Object.keys(value)[Object.keys(value).length - 1]];
 
                         var firstRun = true;

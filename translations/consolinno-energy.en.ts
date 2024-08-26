@@ -464,6 +464,18 @@
         <source>enabled</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Current Price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 ct/kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Below price limit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -1912,6 +1924,10 @@ Mail service@consolinno.de</source>
         <source>Dynamic electricity tariff</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Failed to add thing: ThingErrorHardwareFailure</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DynamicElectricityRateFeedback</name>
@@ -2650,10 +2666,6 @@ the system, and a charging process is started, charging is prioritized.</source>
     </message>
     <message>
         <source>Optimization configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Heating Element</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -578,6 +578,47 @@ GenericConfigPage {
                         }
                     }
 
+                    RowLayout{
+                        Layout.topMargin: 10
+                        visible: chargingIsAnyOf([dyn_pricing])
+
+                        Label{
+                            Layout.fillWidth: true
+                            text: qsTr("Current Price")
+                        }
+
+                        Label{
+                            id: currentMarketPrice
+                            text: qsTr("%1 ct/kWh").arg((Math.round(currentPrice * 100) / 100).toLocaleString());
+                            Layout.alignment: Qt.AlignRight
+                            Layout.rightMargin: 0
+
+                            Component.onCompleted: {
+                                currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value;
+                            }
+                        }
+                    }
+
+                    RowLayout{
+                        Layout.topMargin: 10
+                        visible: chargingIsAnyOf([dyn_pricing])
+                        id: belowPriceLimit
+                        Label{
+                            Layout.fillWidth: true
+                            text: qsTr("Below price limit")
+                        }
+
+                        Rectangle{
+                            width: 17
+                            height: 17
+                            Layout.rightMargin: 0
+                            Layout.alignment: Qt.AlignRight
+                            color: (currentPrice <= thresholdPrice) ? "#87BD26" : "#CD5C5C"
+                            border.color: "black"
+                            border.width: 0
+                            radius: width*0.5
+                        }
+                    }
 
                     RowLayout{
                         visible: chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization]) ? false : true
@@ -1447,7 +1488,7 @@ GenericConfigPage {
                                             text: currentValue
                                             horizontalAlignment: Qt.AlignHCenter
                                             verticalAlignment: Qt.AlignVCenter
-                                            Layout.preferredWidth: 70
+                                            Layout.preferredWidth: 50
                                             validator: RegExpValidator {
                                                 regExp: /^-?(100|[1-9]?[0-9])$/
                                             }

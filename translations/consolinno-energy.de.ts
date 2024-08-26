@@ -434,11 +434,11 @@
     </message>
     <message>
         <source>-</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">-</translation>
     </message>
     <message>
         <source>+</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">+</translation>
     </message>
     <message>
         <source>Pausing</source>
@@ -463,6 +463,18 @@
     <message>
         <source>enabled</source>
         <translation>aktiviert</translation>
+    </message>
+    <message>
+        <source>Current Price</source>
+        <translation type="unfinished">Aktueller Preis</translation>
+    </message>
+    <message>
+        <source>%1 ct/kWh</source>
+        <translation type="unfinished">%1 ct/kWh</translation>
+    </message>
+    <message>
+        <source>Below price limit</source>
+        <translation type="unfinished">Preisgrenze unterschritten</translation>
     </message>
 </context>
 <context>
@@ -1923,6 +1935,10 @@ Mail service@consolinno.de</source>
         <source>Dynamic electricity tariff</source>
         <translation type="unfinished">Dynamischer Stromtarif</translation>
     </message>
+    <message>
+        <source>Failed to add thing: ThingErrorHardwareFailure</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DynamicElectricityRateFeedback</name>
@@ -2666,10 +2682,6 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     <message>
         <source>Optimization configuration</source>
         <translation>Optimierungseinstellungen</translation>
-    </message>
-    <message>
-        <source>Heating Element</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Charging</source>
