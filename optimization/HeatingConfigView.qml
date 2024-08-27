@@ -43,7 +43,7 @@ GenericConfigPage {
                 Label{
                     id: consumptionValue
 
-                    text: thing.stateByName("currentPower").value + " W"
+                    text: (+thing.stateByName("currentPower").value).toLocaleString() + " W"
                 }
             }
 
@@ -210,7 +210,7 @@ GenericConfigPage {
 
                         property double numberValue: Number(delegateValue)
 
-                        text: ( numberValue ? numberValue.toFixed(1) : delegateValue) + delegateUnit
+                        text: ( numberValue ? (+numberValue.toFixed(1)).toLocaleString() : delegateValue.toLocaleString()) + delegateUnit
                     }
                 }
             }

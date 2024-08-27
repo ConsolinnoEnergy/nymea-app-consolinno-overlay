@@ -336,11 +336,7 @@ Item {
                     }
 
                     lowerSeries: LineSeries {
-
                         id: pricingLowerSeriesAbove
-
-                        //XYPoint { x: dateTimeAxis.min.getTime(); y: -100 }
-                        //XYPoint { x: dateTimeAxis.max.getTime(); y: -100 }
                     }
 
                 }
@@ -362,23 +358,13 @@ Item {
                     repeat: true
                     onTriggered: {
                         isOn = true;
-                        var currentDate = new Date()
-                        var currentTime = new Date().getTime()
+                        var currentTime = new Date();
 
-                        currentDate.setMinutes(45)
-                        currentDate.setSeconds(0)
-                        currentDate.setMilliseconds(0)
+                        currentValuePoint.remove(0);
+                        currentPrice = thing.stateByName("currentMarketPrice").value;
+                        currentTime.setTime(currentTime.getTime() - (15 * 60 * 1000));
 
-                        currentValuePoint.remove(0)
-                        currentPrice = thing.stateByName("currentMarketPrice").value
-
-                        if(currentTime <= currentDate.getTime()){
-                            currentValuePoint.append(currentTime, currentPrice)
-                        }else{
-                            currentValuePoint.append(currentDate.getTime(), currentPrice)
-                        }
-
-
+                        currentValuePoint.append(currentTime.getTime(), currentPrice);
                     }
                 }
 

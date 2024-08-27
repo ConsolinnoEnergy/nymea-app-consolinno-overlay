@@ -845,8 +845,8 @@ Item {
                                                    : 0
                             property bool translate: value >= 1000
                             property double translatedValue: value / (translate ? 1000 : 1)
-                            text: toolTip.entry.acquisition >= 0 ? qsTr("Consumed: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
-                                                                 : qsTr("Produced: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
+                            text: toolTip.entry.acquisition >= 0 ? qsTr("Consumed: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
+                                                                 : qsTr("Produced: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                             font: Style.smallFont
                         }
 //                        Label {
@@ -874,8 +874,8 @@ Item {
                                 property double value: toolTip.entry ? Math.abs(toolTip.entry.acquisition) : 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
-                                text: toolTip.entry.acquisition >= 0 ? qsTr("From grid: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
-                                                                     : qsTr("To grid: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
+                                text: toolTip.entry.acquisition >= 0 ? qsTr("From grid: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
+                                                                     : qsTr("To grid: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                                 font: Style.extraSmallFont
                             }
                         }
@@ -896,8 +896,8 @@ Item {
                                 property double value: toolTip.entry ? Math.min(Math.max(0, toolTip.entry.consumption), -toolTip.entry.production) : 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
-                                text: toolTip.entry.acquisition >= 0 ? qsTr("From self production: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
-                                                                     : qsTr("Consumed: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
+                                text: toolTip.entry.acquisition >= 0 ? qsTr("From self production: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
+                                                                     : qsTr("Consumed: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                                 font: Style.extraSmallFont
                             }
                         }
@@ -919,8 +919,8 @@ Item {
                                 property double value: toolTip.entry ? Math.abs(toolTip.entry.storage) : 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
-                                text: toolTip.entry.storage > 0 ? qsTr("To battery: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W") :
-                                                                    qsTr("From battery: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
+                                text: toolTip.entry.storage > 0 ? qsTr("To battery: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W") :
+                                                                    qsTr("From battery: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                                 font: Style.extraSmallFont
                             }
                         }

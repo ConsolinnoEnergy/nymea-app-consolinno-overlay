@@ -665,7 +665,7 @@ StatsBase {
                                 color: totalColors[0]
                             }
                             Label {
-                                text: d.startOffset !== undefined ? qsTr("Consumed: %1 kWh").arg(consumptionSet.at(toolTip.idx).toFixed(2)) : ""
+                                text: d.startOffset !== undefined ? qsTr("Consumed: %1 kWh").arg((+consumptionSet.at(toolTip.idx).toFixed(2)).toLocaleString()) : ""
                                 font: Style.extraSmallFont
                             }
                         }
@@ -677,7 +677,7 @@ StatsBase {
                                 color: totalColors[1]
                             }
                             Label {
-                                text: d.startOffset !== undefined ? qsTr("Produced: %1 kWh").arg(productionSet.at(toolTip.idx).toFixed(2)) : ""
+                                text: d.startOffset !== undefined ? qsTr("Produced: %1 kWh").arg((+productionSet.at(toolTip.idx).toFixed(2)).toLocaleString()) : ""
                                 font: Style.extraSmallFont
                             }
                         }
@@ -688,7 +688,7 @@ StatsBase {
                                 color: totalColors[2]
                             }
                             Label {
-                                text: d.startOffset !== undefined ? qsTr("From grid: %1 kWh").arg(acquisitionSet.at(toolTip.idx).toFixed(2)) :""
+                                text: d.startOffset !== undefined ? qsTr("From grid: %1 kWh").arg((+acquisitionSet.at(toolTip.idx).toFixed(2)).toLocaleString()) :""
                                 font: Style.extraSmallFont
                             }
                         }
@@ -699,7 +699,7 @@ StatsBase {
                                 color: totalColors[3]
                             }
                             Label {
-                                text: d.startOffset !== undefined ? qsTr("To grid: %1 kWh").arg(returnSet.at(toolTip.idx).toFixed(2)) : ""
+                                text: d.startOffset !== undefined ? qsTr("To grid: %1 kWh").arg((+returnSet.at(toolTip.idx).toFixed(2)).toLocaleString()) : ""
                                 font: Style.extraSmallFont
                             }
                         }

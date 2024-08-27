@@ -92,7 +92,7 @@ Page {
                                 id: pvalue
                                 Layout.minimumWidth: 55
                                 Layout.maximumWidth: 55
-                                text: chargingOptimizationconfig.p_value
+                                text: (+chargingOptimizationconfig.p_value).toLocaleString()
                                 validator: DoubleValidator{
                                     bottom: -180
                                     top: 180
@@ -113,7 +113,7 @@ Page {
                                 id: ivalue
                                 Layout.minimumWidth: 55
                                 Layout.maximumWidth: 55
-                                text: chargingOptimizationconfig.i_value
+                                text: (+chargingOptimizationconfig.i_value).toLocaleString()
                                 validator: DoubleValidator{
                                     bottom: -180
                                     top: 180
@@ -134,7 +134,7 @@ Page {
                                 id: dvalue
                                 Layout.minimumWidth: 55
                                 Layout.maximumWidth: 55
-                                text: chargingOptimizationconfig.d_value
+                                text: (+chargingOptimizationconfig.d_value).toLocaleString()
                                 validator: DoubleValidator{
                                     bottom: -180
                                     top: 180

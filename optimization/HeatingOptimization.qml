@@ -128,7 +128,7 @@ Page {
                 property bool maxElectricalPower_validated
                 Layout.preferredWidth: 60
                 Layout.rightMargin: 8
-                text: heatingConfiguration.maxElectricalPower
+                text: (+heatingConfiguration.maxElectricalPower).toLocaleString()
                 maximumLength: 10
                 validator: DoubleValidator{bottom: 1 }
 

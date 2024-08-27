@@ -555,7 +555,7 @@ StatsBase {
                                     color: consumerColors[model.indexInModel]
                                 }
                                 Label {
-                                    text: "%1: %2 kWh".arg(model.consumer.name).arg(model.value)
+                                    text: "%1: %2 kWh".arg(model.consumer.name).arg((+model.value).toLocaleString())
                                     font: Style.extraSmallFont
                                 }
                             }
