@@ -103,10 +103,9 @@ Item {
                 if(pricelength < 97 && selectionTabs.currentIndex == 1){
                     consumptionSeries.visible = false
                     consumptionSeriesAbove.visible = false
-                    pricingLowerSeriesAbove.visible = false
-                }else if(selectionTabs.currentIndex == 1 && pricelength > 97){
+                }else if(pricelength > 97 && selectionTabs.currentIndex == 1){
+                    consumptionSeries.visible = true
                     consumptionSeriesAbove.visible = false
-                    pricingLowerSeriesAbove.visible = false
                 }else{
                     consumptionSeries.visible = true
                     consumptionSeriesAbove.visible = true
