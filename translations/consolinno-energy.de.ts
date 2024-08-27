@@ -81,6 +81,7 @@
     <message>
         <source>Type</source>
         <translation type="unfinished">Typ</translation>
+        <translation type="unfinished">Typ</translation>
     </message>
     <message>
         <source>Looking for something else?</source>
