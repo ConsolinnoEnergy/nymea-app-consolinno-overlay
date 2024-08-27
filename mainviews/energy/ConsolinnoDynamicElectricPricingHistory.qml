@@ -371,7 +371,7 @@ Item {
 
                         currentValuePoint.remove(0);
                         currentPrice = thing.stateByName("currentMarketPrice").value;
-                        currentTime.setTime(currentTime.getTime() - (15 * 60 * 1000) );
+                        currentTime.setTime(currentTime.getTime() - (15 * 60 * 1000));
 
                         currentValuePoint.append(currentTime.getTime(), currentPrice);
                     }

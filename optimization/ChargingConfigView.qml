@@ -102,7 +102,7 @@ GenericConfigPage {
         if ( power === null){
             return " – "
         }
-        return power.value
+        return power.value.toLocaleString()
     }
 
 
@@ -827,7 +827,7 @@ GenericConfigPage {
 
                         Label{
                             id: chargingPowerValue
-                            text: ((initializing ? 0 : getChargingPower()) + " W").toLocaleString()
+                            text: (initializing ? 0 : (+getChargingPower()).toLocaleString()) + " W"
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
@@ -886,7 +886,7 @@ GenericConfigPage {
                         Label{
                             id: energyChargedValue
 
-                            text: (chargingSessionConfiguration.energyCharged.toFixed(2) + " kWh").toLocaleString()
+                            text: (+chargingSessionConfiguration.energyCharged.toFixed(2)).toLocaleString() + " kWh"
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
@@ -1872,9 +1872,6 @@ GenericConfigPage {
 
                                             lowerSeries: LineSeries {
                                                 id: pricingLowerSeriesAbove
-                                                /*
-                                                XYPoint { x: dateTimeAxis.min.getTime()-10; y: -100 }
-                                                XYPoint { x: dateTimeAxis.max.getTime(); y: -100 } */
                                             }
                                         }
                                     }

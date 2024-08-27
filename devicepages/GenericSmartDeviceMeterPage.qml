@@ -229,7 +229,7 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             horizontalAlignment: Text.AlignHCenter
                             font: Style.largeFont
-                            text: "%1 %2".arg(root.cleanVale).arg(root.unit)
+                            text: "%1 %2".arg((+root.cleanVale).toLocaleString()).arg(root.unit)
                         }
 
                         Label {
@@ -264,7 +264,7 @@ GenericConfigPage {
                             horizontalAlignment: Text.AlignHCenter
                             font: Style.bigFont
                             visible: batteryLevelState
-                            text: "%1 %".arg(batteryLevelState ? batteryLevelState.value : "")
+                            text: "%1 %".arg(batteryLevelState ? (+batteryLevelState.value).toLocaleString() : "")
                         }
                     }
 
@@ -305,13 +305,13 @@ GenericConfigPage {
                     property int n: Math.round(remainingHours)
 
                     text: root.isConsumer
-                          ? qsTr("Total Consumption: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + root.totalEnergyConsumedState.value.toFixed(2) + "</span>")
+                          ? qsTr("Total Consumption: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + (+root.totalEnergyConsumedState.value.toFixed(2)).toLocaleString() + "</span>")
                           : root.isProducer
-                            ? qsTr("Total Production: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + root.totalEnergyProducedState.value.toFixed(2) + "</span>")
+                            ? qsTr("Total Production: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + (+root.totalEnergyProducedState.value.toFixed(2)).toLocaleString() + "</span>")
                             : root.isEnergyMeter
-                              ? qsTr("Total Acquisition: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + root.totalEnergyConsumedState.value.toFixed(2) + "</span>") + "<br>" + qsTr("Total Return: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + root.totalEnergyProducedState.value.toFixed(2) + "</span>")
+                              ? qsTr("Total Acquisition: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + (+root.totalEnergyConsumedState.value.toFixed(2)).toLocaleString() + "</span>") + "<br>" + qsTr("Total Return: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + (+root.totalEnergyProducedState.value.toFixed(2)).toLocaleString() + "</span>")
                               : root.isBattery && isCharging
-                                ? qsTr("At the current rate, the battery will be fully charged at %1.").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + endTime.toLocaleTimeString(Locale.ShortFormat) + "</span>")
+                                ? qsTr("At the current rate, the battery will be fully charged at %1.").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + endTime.toLocaleTimeString(Locale.ShortFormat)+ "</span>")
                                 : root.isBattery && isDischarging
                                   ? qsTr("At the current rate, the battery will last until %1.").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + endTime.toLocaleTimeString(Locale.ShortFormat) + "</span>")
                                   : ""
