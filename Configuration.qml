@@ -38,6 +38,10 @@ ConfigurationBase {
     property string companyLocation: "Bitterfeld-Wolfen"
     property string companyTel: "+49 (0)3494 6699-0"
 
+    // Button
+    readonly property color buttonColor: "#001C77"
+    readonly property color buttonTextColor: "#ffffff"
+
     property var consumerColors: ["#F7B772", "#ACE3E2", "#ADB9E3", "#639F86", "#FF8954", "#D9F6C5", "#437BC4", "#AA5DC2", "#C6C73F"]
     readonly property color rootMeterAcquisitionColor: "#F37B8E"
     readonly property color rootMeterReturnColor: "#45B4E4"
