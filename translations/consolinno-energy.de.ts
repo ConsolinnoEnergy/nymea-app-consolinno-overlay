@@ -81,15 +81,14 @@
     <message>
         <source>Type</source>
         <translation type="unfinished">Typ</translation>
-        <translation type="unfinished">Typ</translation>
     </message>
     <message>
         <source>Looking for something else?</source>
-        <translation type="unfinished">Suchen Sie etwas anderes?</translation>
+        <translation type="unfinished">Suchen Sie nach etwas anderem?</translation>
     </message>
     <message>
         <source>Try to install more plugins.</source>
-        <translation type="unfinished">Versuchen Sie, weitere Plugins zu installieren.</translation>
+        <translation type="unfinished">Versuchen Sie, mehr Plugins zu installieren.</translation>
     </message>
     <message>
         <source>Install plugins</source>
