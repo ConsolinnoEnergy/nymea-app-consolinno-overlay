@@ -629,7 +629,6 @@ GenericConfigPage {
                         }
 
                         Label{
-                            id: currentMarketPrice
                             text: qsTr("%1 ct/kWh").arg((Math.round(currentPrice * 100) / 100).toLocaleString());
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
@@ -643,7 +642,6 @@ GenericConfigPage {
                     RowLayout{
                         Layout.topMargin: 10
                         visible: chargingIsAnyOf([dyn_pricing])
-                        id: belowPriceLimit
                         Label{
                             Layout.fillWidth: true
                             text: qsTr("Below price limit")
