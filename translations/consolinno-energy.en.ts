@@ -527,15 +527,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The charging modes &lt;font color=&quot;#87BD26&quot;&gt;Solar power only&lt;/font&gt; and &lt;font color=&quot;#87BD26&quot;&gt;Always charging&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;#87BD26&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Dynamic Tariff</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>In dynamic tariff charging mode, charging takes place at maximum charging current as soon as the price falls below the set price limit. At times when charging does not take place because the price limit is exceeded, charging takes place if there is a PV surplus. If the price limit is changed, this limit is preselected the next time it is plugged in.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The charging modes &lt;font color=&quot;#87BD26&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;#87BD26&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;#87BD26&quot;&gt;Dynamic tariff&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;#87BD26&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
