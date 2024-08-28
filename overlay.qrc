@@ -8,6 +8,13 @@
         <file>styles/light/Background.qml</file>
         <file>SOURCE_AVAIL_de_DE.txt</file>
         <file>SOURCE_AVAIL_en_US.txt</file>
+        <file alias="/ui/appsettings/AboutPage.qml">ui/appsettings/AboutPage.qml</file>
+        <file alias="/ui/appsettings/AppLogPage.qml">ui/appsettings/AppLogPage.qml</file>
+        <file alias="/ui/appsettings/AppSettingsPage.qml">ui/appsettings/ConsolinnoAppSettingsPage.qml</file>
+        <file alias="/ui/appsettings/CloudLoginPage.qml">ui/appsettings/CloudLoginPage.qml</file>
+        <file alias="/ui/appsettings/DeveloperOptionsPage.qml">ui/appsettings/DeveloperOptionsPage.qml</file>
+        <file alias="/ui/appsettings/LoggingCategories.qml">ui/appsettings/LoggingCategories.qml</file>
+        <file alias="/ui/appsettings/LookAndFeelSettingsPage.qml">ui/appsettings/ConsolinnoLookAndFeelSettingsPage.qml</file>
     </qresource>
     <qresource prefix="/ui">
         <file>system/ConsolinnoUsersSettingsPage.qml</file>
