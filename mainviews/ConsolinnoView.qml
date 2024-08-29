@@ -648,7 +648,6 @@ MainViewBase {
         property int hours: 24
         readonly property var consumersColors: Configuration.consumerColors
         readonly property color electricsColor: "#E056F5"
-        readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
         property string currentGridValueState: ""
 
         Canvas {

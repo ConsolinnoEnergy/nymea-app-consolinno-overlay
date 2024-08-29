@@ -2496,6 +2496,19 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                 &lt;p&gt;Your %5 Team&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&lt;h3&gt;Incompatible Software Versions&lt;/h3&gt;
+                &lt;p&gt;The software versions of your &quot;%3 App&quot; (v%1) and your &quot;Leaflet HEMS End Device&quot; (v%2) are incompatible and currently only partially usable. Your &quot;Leaflet HEMS End Device&quot; will be automatically updated during the day.&lt;/p&gt;
+                &lt;p&gt;If you still receive this message after several hours, please contact our support:&lt;/p&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;Phone: &lt;a href=&quot;tel:+4994120300333&quot;&gt;+49 941/ 20300 333&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;a href=&quot;mailto:%4&quot;&gt;%4&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;p&gt;We apologize for the temporary limitations in use.&lt;/p&gt;
+                &lt;p&gt;Best regards&lt;/p&gt;
+                &lt;p&gt;Your %5 Team&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoWizardPageBase</name>
