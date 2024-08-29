@@ -595,7 +595,7 @@ Mail %2").arg(Configuration.companyTel).arg(Configuration.serviceEmail)
                             horizontalAlignment: Text.AlignHCenter
                             wrapMode: Text.WordWrap
                             font: Style.bigFont
-                            text: qsTr('Welcome to %1 HEMS!').arg(Configuration.branding)
+                            text: qsTr('Welcome to %1!').arg(Configuration.branding)
                         }
 
                         Button {

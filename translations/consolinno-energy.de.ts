@@ -646,10 +646,6 @@ Mail %2</source>
 Mail %2</translation>
     </message>
     <message>
-        <source>Welcome to %1 HEMS!</source>
-        <translation type="unfinished">Willkommen zu %1 HEMS!</translation>
-    </message>
-    <message>
         <source>&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;We process your personal data according to the current regulations of the Federal Republic of Germany and the European Union (EU). The protection of your personal information is our highest priority. Below you will find information about which data we process, in what form, on what legal basis, for what purpose, and for how long, to what extent you have the right to object, and how you can exercise this right. If your consent is required, it will be indicated at the relevant point, and you will have the option to grant or withhold it. Of course, even after granting your consent, you have the right to withdraw it at any time.&lt;font color=&apos;#333333&apos;&gt;&amp;nbsp;&lt;/font&gt;&lt;/p&gt;
 &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
 &lt;ol&gt;
@@ -1488,6 +1484,10 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     <message>
         <source>2. License object</source>
         <translation type="unfinished">2.Lizenzgegenstand</translation>
+    </message>
+    <message>
+        <source>Welcome to %1!</source>
+        <translation type="unfinished">Willkommen zu %1!</translation>
     </message>
 </context>
 <context>
