@@ -109,5 +109,6 @@
         <file>info/PausingInfo.qml</file>
         <file>info/PriceLimitInfo.qml</file>
         <file>thingconfiguration/AddNewThings.qml</file>
+        <file>images/leaflet-ethernet-connect.png</file>
     </qresource>
 </RCC>
