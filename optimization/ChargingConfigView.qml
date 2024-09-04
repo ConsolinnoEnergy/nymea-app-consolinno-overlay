@@ -1256,13 +1256,6 @@ GenericConfigPage {
                                     //         from config hours      from config minutes         current hours                    current minutes                 add a day if negative (since it means it is the next day)
                                     value: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() + nextDay*24*60
 
-                                    background: ChargingConfigSliderBackground{
-                                        id: backgroundEndTimeSlider
-
-                                        Layout.fillWidth: true
-                                        infeasibleSectionWidth: Math.min(endTimeSlider.width * endTimeSlider.maximumChargingthreshhold/(24*60), endTimeSlider.width )
-                                        feasibleSectionWidth:  Math.min(endTimeSlider.width - infeasibleSectionWidth, endTimeSlider.width)
-                                    }
 
                                     onPositionChanged: {
                                         feasibilityText()
