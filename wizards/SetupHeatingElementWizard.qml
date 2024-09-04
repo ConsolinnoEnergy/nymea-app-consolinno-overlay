@@ -655,7 +655,7 @@ Page {
 
                         onClicked:{
                             if (thing){
-                                var page = pageStack.push("../optimization/HeatingElementConfigurationView.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatPumpThing: thing, directionID: 1})
+                                var page = pageStack.push("../optimization/HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatPumpThing: thing, directionID: 1})
                                 page.done.connect(function(){
                                     pageStack.pop(root)
                                 })

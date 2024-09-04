@@ -40,7 +40,26 @@ Page {
                 onClicked: pageStack.push("HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration: heatingConfiguration, heatPumpThing: heatPumpThing })
             }
         }
+
+        Repeater {
+            id: testrepeater
+
+            model: hemsManager.heatingElementConfigurations
+            delegate: NymeaItemDelegate {
+
+                property HeatingElementConfiguration heatingElementConfiguration: hemsManager.heatingElementConfigurations.getHeatingElementConfiguration(model.heatingRodThingId)
+                property Thing heatingElementThing: engine.thingManager.things.getThing(model.heatingRodThingId)
+
+                Layout.fillWidth: true
+                iconName: "../images/sensors/water.svg"
+                progressive: true
+                text: heatingElementThing.name
+                onClicked: pageStack.push("HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingElementConfiguration: heatingElementConfiguration, thing: heatingElementThing })
+            }
+        }
+
     }
+
 
     Component.onCompleted: {
         // FIXME: directly open if there is only one heatpump to save a click

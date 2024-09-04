@@ -143,6 +143,7 @@ MainViewBase {
             wizardSettings.solarPanelDone = false
             wizardSettings.evChargerDone = false
             wizardSettings.heatPumpDone = false
+            wizardSettings.heatingElementDone = false
             wizardSettings.authorisation = false
             wizardSettings.installerData = false
         }
@@ -151,6 +152,7 @@ MainViewBase {
             manualWizardSettings.solarPanelDone = false
             manualWizardSettings.evChargerDone = false
             manualWizardSettings.heatPumpDone = false
+            manualWizardSettings.heatingElementDone = false
             manualWizardSettings.authorisation = false
             manualWizardSettings.installerData = false
             manualWizardSettings.energymeter = false
@@ -164,6 +166,7 @@ MainViewBase {
             manualWizardSettings.solarPanelDone = true
             manualWizardSettings.evChargerDone = true
             manualWizardSettings.heatPumpDone = true
+            manualWizardSettings.heatingElementDone = true
             manualWizardSettings.authorisation = true
             manualWizardSettings.installerData = true
             manualWizardSettings.energymeter = true
@@ -302,7 +305,7 @@ MainViewBase {
                 return
             }
 
-            /** Disabled for now, WIP
+            //Disabled for now, WIP
             if((!wizardSettings.heatingElementDone) || (!manualWizardSettings.heatingElementDone)) {
                 var page = d.pushPage("/ui/wizards/SetupHeatingElementWizard.qml")
                 page.done.connect(function (skip, abort, back) {
@@ -327,7 +330,7 @@ MainViewBase {
                 wizardSettings.heatingElementDone = true
                 return;
             }
-            **/
+
 
             if (!blackoutProtectionSetting.blackoutProtectionDone) {
                 var page = d.pushPage(

@@ -11,7 +11,7 @@ Page {
 
     property HemsManager hemsManager
     property HeatingElementConfiguration heatingElementConfiguration
-    property Thing thing
+    property Thing heatPumpThing
     property int directionID: 0
 
     header: NymeaHeader {
@@ -69,7 +69,7 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: false
             label: qsTr("Max power")
-            text: heatingElementConfiguration.maxElectricalPower.toLocaleString(Qt.locale())
+            text: typeof heatingElementConfiguration.maxElectricalPower !== "null" ? "3,00" : heatingElementConfiguration.maxElectricalPower.toLocaleString(Qt.locale())
             unit: qsTr("kW")
 
             validator: DoubleValidator {
@@ -82,8 +82,7 @@ Page {
 
             Layout.fillWidth: true
             text: qsTr("Operating mode (Solar Only)")
-            warningText: checked ? qsTr("The heater is operated only with solar power. If a wallbox is connected to
-the system, and a charging process is started, charging is prioritized.") : qsTr("The heating element is not controlled by the HEMS.")
+            warningText: qsTr("The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.")
         }
 
         //margins filler
@@ -104,7 +103,7 @@ the system, and a charging process is started, charging is prioritized.") : qsTr
                                                 maxPowerInput.text) !== 0) {
 
                         header.text = maxPowerInput.text
-                        hemsManager.setHeatingElementConfiguration(thing.id, {
+                        hemsManager.setHeatingElementConfiguration(heatPumpThing.id, {
                                                                        "maxElectricalPower": Number.fromLocaleString(
                                                                                        Qt.locale(),
                                                                                        maxPowerInput.text),
@@ -118,7 +117,7 @@ the system, and a charging process is started, charging is prioritized.") : qsTr
                                                 maxPowerInput.text) !== 0) {
 
                         d.pendingCallId = hemsManager.setHeatingElementConfiguration(
-                                    thing.id, {
+                                    heatPumpThing.id, {
                                         "maxElectricalPower": Number.fromLocaleString(
                                                         Qt.locale(),
                                                         maxPowerInput.text),
