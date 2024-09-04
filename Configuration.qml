@@ -3,8 +3,8 @@ pragma Singleton
 import QtQuick 2.5
 
 ConfigurationBase {
-    systemName: "Q.Home HEMS"
-    appName: "Q Cells HEMS"
+    systemName: "Q.HOME CONTROL"
+    appName: "Q.HOME CONTROL"
     appId: "hems.consolinno.energy"
 
 
@@ -14,14 +14,14 @@ ConfigurationBase {
     property string minSysVersion: "1.3.0"
 
     // Identifier used for branding (e.g. to register for push notifications)
-    property string branding: "Q CELLS"
+    property string branding: "Q.HOME CONTROL"
 
     // Identifier used for legal text (e.g. privacy policy)
     property string companyName: "Hanwha Q CELLS GmbH"
 
     // Branding names visible to the user
-    property string appBranding: "Q CELLS"
-    property string coreBranding: "Q.Home"
+    property string appBranding: "Q.HOME CONTROL"
+    property string coreBranding: "Q.HOME CONTROL"
 
     //Branding contact-email
     property string contactEmail: "meinesolaranlage@q-cells.com"
