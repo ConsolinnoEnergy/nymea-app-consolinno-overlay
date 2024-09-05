@@ -54,7 +54,7 @@ Page {
                 iconName: "../images/sensors/water.svg"
                 progressive: true
                 text: heatingElementThing.name
-                onClicked: pageStack.push("HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingElementConfiguration: heatingElementConfiguration, thing: heatingElementThing })
+                onClicked: pageStack.push("HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingElementConfiguration: heatingElementConfiguration, heatRodThing: heatingElementThing })
             }
         }
 

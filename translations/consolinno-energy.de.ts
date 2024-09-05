@@ -2285,11 +2285,11 @@ Mail service@consolinno.de</source>
     <name>HeatingElementDevicePage</name>
     <message>
         <source>Operating Mode (Solar Only)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der Betriebsmodus &quot;Nur Solar&quot;</translation>
     </message>
     <message>
         <source>Active</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">aktiv</translation>
     </message>
     <message>
         <source>Off</source>
@@ -2297,46 +2297,46 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Not available</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nicht verfügbar</translation>
     </message>
     <message>
         <source>The heating is operated only with solar power.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der Heizstab wird nur mit Solarstrom betrieben.</translation>
     </message>
     <message>
         <source>The operating mode (Solar Only) is turned off. The settings can be changed in the optimization settings.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der Betriebsmodus &quot; Nur Solar&quot; ist daktiviert. Die Einstellung kann unter Optimierungseinstellungen geändert werden.</translation>
     </message>
     <message>
         <source>The operating mode (Solar Only) is not available because a charging process is currently being prioritized.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der Betriebsmodus &quot;Nur Solar&quot; ist nicht verfügbar weil gerade ein Ladevorgang priorisiert wird.</translation>
     </message>
     <message>
         <source>Current Temperature</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aktuelle Temperatur</translation>
     </message>
     <message>
         <source>Current Consumption</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Momentaner Verbrauch</translation>
     </message>
     <message>
         <source> W</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> W</translation>
     </message>
     <message>
         <source>Total Consumption</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Insgesamter Verbrauch</translation>
     </message>
     <message>
         <source> kWh</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> kWh</translation>
     </message>
 </context>
 <context>
     <name>HeatingElementOptimization</name>
     <message>
         <source>Heating Element Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Heizstabkonfiguration</translation>
     </message>
     <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
@@ -2348,7 +2348,7 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Max power</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maximale Leistung</translation>
     </message>
     <message>
         <source>kW</source>
@@ -2356,19 +2356,14 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Operating mode (Solar Only)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The heater is operated only with solar power. If a wallbox is connected to
-the system, and a charging process is started, charging is prioritized.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The heating element is not controlled by the HEMS.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Betriebsmodus (nur Solar)</translation>
     </message>
     <message>
         <source>Ok</source>
+        <translation type="unfinished">Ok</translation>
+    </message>
+    <message>
+        <source>The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

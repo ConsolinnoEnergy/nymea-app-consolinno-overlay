@@ -1457,6 +1457,13 @@ MainViewBase {
                                                     })
                                     }
 
+                                } else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0) {
+                                    pageStack.push(
+                                                "/ui/devicepages/HeatingElementDevicePage.qml",
+                                                {
+                                                    "hemsManager": hemsManager,
+                                                    "thing": thing
+                                                })
                                 } else {
                                     pageStack.push(
                                                 "/ui/devicepages/GenericSmartDeviceMeterPage.qml",

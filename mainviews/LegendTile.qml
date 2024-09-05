@@ -20,6 +20,7 @@ MouseArea {
     readonly property State currentMarketPriceState: thing ? thing.stateByName("currentMarketPrice") : null
     readonly property bool isProducer: thing && thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0
     readonly property bool isBattery: thing && thing.thingClass.interfaces.indexOf("energystorage") >= 0
+    readonly property bool isHeatingRod: thing && thing.thingClass.interfaces.indexOf("smartmeterconsumer") >= 0
     property bool isRootmeter: false
 
     property bool isPowerConnection: false
@@ -94,7 +95,7 @@ MouseArea {
         case "smartgridheatpump":
             return Qt.resolvedUrl("/ui/images/heatpump.svg")
         case "smartheatingrod":
-            return Qt.resolvedUrl("/ui/images/heating_rod.svg")
+            return Qt.resolvedUrl("/ui/images/sensors/water.svg")
         default:
             return app.interfaceToIcon(name)
         }

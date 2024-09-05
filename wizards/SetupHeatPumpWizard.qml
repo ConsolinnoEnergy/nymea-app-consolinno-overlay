@@ -743,9 +743,6 @@ Page {
                                 pageStack.pop(root)
                             }
 
-
-
-
                         }
                     }
                 }

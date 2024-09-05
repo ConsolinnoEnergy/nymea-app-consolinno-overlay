@@ -2348,16 +2348,11 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The heater is operated only with solar power. If a wallbox is connected to
-the system, and a charging process is started, charging is prioritized.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The heating element is not controlled by the HEMS.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
