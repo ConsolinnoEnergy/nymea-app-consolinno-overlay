@@ -2364,7 +2364,11 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der Heizstab wird nur mit Solarstrom betrieben. Falls eine Wallbox im System vorhanden ist, und ein Ladevorgang gestartet wird, wird das Laden priorisiert.</translation>
+    </message>
+    <message>
+        <source>The heating element is not controlled by the HEMS.</source>
+        <translation type="unfinished">Der Heizstab wird durch das HEMS nicht gesteuert.</translation>
     </message>
 </context>
 <context>

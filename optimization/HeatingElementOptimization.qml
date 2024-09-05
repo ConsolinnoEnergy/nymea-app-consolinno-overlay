@@ -83,7 +83,7 @@ Page {
 
             Layout.fillWidth: true
             text: qsTr("Operating mode (Solar Only)")
-            warningText: operatingModeSwitch.checked ? qsTr("The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.") : "The heating element is not controlled by the HEMS."
+            warningText: operatingModeSwitch.checked ? qsTr("The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.") : qsTr("The heating element is not controlled by the HEMS.")
         }
 
         //margins filler
@@ -102,7 +102,6 @@ Page {
 
                     if (Number.fromLocaleString(Qt.locale(),
                                                 maxPowerInput.text) !== 0) {
-
                         //header.text = maxPowerInput.text
                         hemsManager.setHeatingElementConfiguration(heatRodThing.id, { "maxElectricalPower": Number.fromLocaleString(Qt.locale(), maxPowerInput.text), "optimizationEnabled": operatingModeSwitch.checked, controllableLocalSystem: false})
                         root.done()
@@ -111,7 +110,6 @@ Page {
                 } else if (directionID === 0) {
                     if (Number.fromLocaleString(Qt.locale(),
                                                 maxPowerInput.text) !== 0) {
-
                         d.pendingCallId = hemsManager.setHeatingElementConfiguration( heatRodThing.id, { "maxElectricalPower": Number.fromLocaleString(Qt.locale(),maxPowerInput.text),"optimizationEnabled": operatingModeSwitch.checked, controllableLocalSystem: false})
                     }
                 }

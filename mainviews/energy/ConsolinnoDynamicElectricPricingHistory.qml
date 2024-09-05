@@ -96,14 +96,16 @@ Item {
             onTabSelected: {
                 d.now = new Date();
 
-                const pricelength = Object.keys(prices).length;
-                noDataLabel.visible = selectionTabs.currentIndex && pricelength < 97;
-                noDataIndicator.visible = selectionTabs.currentIndex && pricelength < 97;
+                let arrLength = 192;
 
-                if(pricelength < 97 && selectionTabs.currentIndex == 1){
+                const pricelength = Object.keys(prices).length;
+                noDataLabel.visible = selectionTabs.currentIndex && pricelength < arrLength;
+                noDataIndicator.visible = selectionTabs.currentIndex && pricelength < arrLength;
+
+                if(pricelength < arrLength && selectionTabs.currentIndex == 1){
                     consumptionSeries.visible = false
                     consumptionSeriesAbove.visible = false
-                }else if(pricelength > 97 && selectionTabs.currentIndex == 1){
+                }else if(pricelength >= arrLength && selectionTabs.currentIndex == 1){
                     consumptionSeries.visible = true
                     consumptionSeriesAbove.visible = false
                 }else{

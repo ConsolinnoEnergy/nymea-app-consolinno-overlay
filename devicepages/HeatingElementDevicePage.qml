@@ -51,7 +51,7 @@ GenericConfigPage {
                         Layout.fillHeight: true
 
                         Rectangle {
-                            width: 120
+                            width: 100
                             height: operatingModeValueText.height + 10
                             anchors.right: parent.right
                             radius: Style.smallMargins
@@ -67,7 +67,7 @@ GenericConfigPage {
 
                             Label {
                                 id: operatingModeValueText
-
+                                Layout.leftMargin: 10
                                 anchors.centerIn: parent
                                 color: Style.white
                                 text: {
@@ -86,7 +86,7 @@ GenericConfigPage {
 
                 Label {
                     id: toolTipText
-
+                    Layout.topMargin: 5
                     Layout.fillWidth: true
                     text: {
                         if(root.operatingModeStatus === 1) {
@@ -105,24 +105,24 @@ GenericConfigPage {
 
             ConsolinnoRowLabelValue {
                 Layout.fillWidth: true
-
+                Layout.topMargin: 5
                 label: qsTr("Current Temperature")
-                value: root.currentTemperature && root.currentTemperature.value
+                value: (+root.currentTemperature).toLocaleString() && (+root.currentTemperature.value).toLocaleString()
                 visible: root.currentTemperature
             }
 
             ConsolinnoRowLabelValue {
                 Layout.fillWidth: true
-
+                Layout.topMargin: 5
                 label: qsTr("Current Consumption")
-                value: root.currentConsumption.value + qsTr(" W")
+                value: (+root.currentConsumption.value).toLocaleString() + qsTr(" W")
             }
 
             ConsolinnoRowLabelValue {
                 Layout.fillWidth: true
 
                 label: qsTr("Total Consumption")
-                value: root.totalConsumption.value.toFixed(2) + qsTr(" kWh")
+                value: (+root.totalConsumption.value.toFixed(2)).toLocaleString() + qsTr(" kWh")
             }
         }
     ]
