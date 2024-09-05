@@ -3133,19 +3133,19 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <name>SetupHeatingElementWizard</name>
     <message>
         <source>Setup heating element</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Heizstab einrichten</translation>
     </message>
     <message>
         <source>Integrated heating elements</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eingerichtete Heizstäbe</translation>
     </message>
     <message>
         <source>There is no heating element set up yet.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bis jetzt sind keine Heizstäbe eingerichtet.</translation>
     </message>
     <message>
         <source>Add heating element: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Füge Heizstab hinzu: </translation>
     </message>
     <message>
         <source>cancel</source>
