@@ -2285,11 +2285,11 @@ Mail service@consolinno.de</source>
     <name>HeatingElementDevicePage</name>
     <message>
         <source>Operating Mode (Solar Only)</source>
-        <translation type="unfinished">Der Betriebsmodus &quot;Nur Solar&quot;</translation>
+        <translation type="unfinished">Betriebsmodus &quot;Nur Solar&quot;</translation>
     </message>
     <message>
         <source>Active</source>
-        <translation type="unfinished">aktiv</translation>
+        <translation type="unfinished">Aktiv</translation>
     </message>
     <message>
         <source>Off</source>
@@ -3225,15 +3225,15 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Set up Heating Element</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Heizstab Konfiguration</translation>
     </message>
     <message>
         <source>The following heating element has been found and set up:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der folgende Heizstab wurde gefunden und eingerichtet:</translation>
     </message>
     <message>
         <source>An unexpected error happened during the setup. Please verify the heating element is installed correctly and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Während der Einrichtung ist ein unerwarteter Fehler aufgetreten. Bitte überprüfen Sie, ob der Heizstab korrekt installiert ist, und versuchen Sie es erneut.</translation>
     </message>
 </context>
 <context>

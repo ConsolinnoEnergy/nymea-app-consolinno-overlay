@@ -38,6 +38,7 @@ QHash<int, QByteArray> HeatingElementConfigurations::roleNames() const
     roles.insert(RoleHeatingRodThingId, "heatingRodThingId");
     roles.insert(RoleMaxElectricalPower, "maxElectricalPower");
     roles.insert(RoleOptimizationEnabled, "optimizationEnabled");
+    roles.insert(RoleControllableLocalSystemEnabled, "controllableLocalSystemEnabled");
     return roles;
 }
 
@@ -75,6 +76,11 @@ void HeatingElementConfigurations::addConfiguration(HeatingElementConfiguration 
     connect(heatingElementConfiguration, &HeatingElementConfiguration::optimizationEnabledChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(heatingElementConfiguration));
         emit dataChanged(idx, idx, {RoleOptimizationEnabled});
+    });
+
+    connect(heatingElementConfiguration, &HeatingElementConfiguration::optimizationEnabledChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(heatingElementConfiguration));
+        emit dataChanged(idx, idx, {RoleControllableLocalSystemEnabled});
     });
 
     endInsertRows();
