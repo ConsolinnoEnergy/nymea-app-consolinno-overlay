@@ -35,4 +35,6 @@ StyleBase {
     yellow: "#eec00a"
     blue: "#329eba"
 
+    fontFamily: "NotoSans"
+
 }
