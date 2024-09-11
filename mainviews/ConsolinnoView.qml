@@ -92,7 +92,7 @@ MainViewBase {
     }
 
     headerButtons: [{
-            "iconSource": "/ui/images/info.svg",
+            "iconSource": Configuration.infoIcon !== "" ? "/ui/images/"+Configuration.infoIcon : "/ui/images/info.svg",
             "color": Material.foreground,
             "visible": true,
             "trigger": function () {
@@ -101,7 +101,7 @@ MainViewBase {
                                })
             }
         }, {
-            "iconSource": "/ui/images/configure.svg",
+            "iconSource": Configuration.settingsIcon !== "" ? "/ui/images/"+Configuration.settingsIcon : "/ui/images/configure.svg",
             "color": Style.iconColor,
             "visible": hemsManager.available && rootMeter != null,
             "trigger": function () {

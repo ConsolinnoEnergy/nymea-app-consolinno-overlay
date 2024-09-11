@@ -45,7 +45,7 @@ Item {
         HeaderButton {
             id: menuButton
             objectName: "headerMenuButton"
-            imageSource: "../images/navigation-menu.svg"
+            imageSource: Configuration.menuIcon !== "" ? "../images/"+Configuration.menuIcon : "../images/navigation-menu.svg"
             visible: false
             onClicked: root.menuPressed();
         }

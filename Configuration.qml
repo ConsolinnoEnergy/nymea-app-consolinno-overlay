@@ -55,6 +55,18 @@ ConfigurationBase {
     //change null value to have different font or set null to have standard font
     property string fontFamily: null
 
+    //custom Icons
+    readonly property string gridIcon: "gridQ.svg"
+    readonly property string heatpumpIcon: "heatpumpQ.svg"
+    readonly property string heatingRoadIcon: ""
+    readonly property string energyIcon: ""
+    readonly property string inventorIcon: "inverterQ.svg"
+    readonly property string settingsIcon: "settingsQ.svg"
+    readonly property string evchargerIcon: "wallboxQ.svg"
+    readonly property string batteryIcon: "batteryQ.svg"
+    readonly property string infoIcon: "infoQ.svg"
+    readonly property string menuIcon: "menuQ.svg"
+
     property ListModel softwareLinksApp: ListModel {
         ListElement { component: "Suru icons"; url: "https://github.com/snwh/suru-icon-theme" }
         ListElement { component: "Ubuntu font"; url: "https://design.ubuntu.com/font" }

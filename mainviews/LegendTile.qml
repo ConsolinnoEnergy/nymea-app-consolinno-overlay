@@ -90,11 +90,37 @@ MouseArea {
     }
 
     function ifaceToIcon(name) {
+        let icon = "";
         switch (name) {
         case "smartgridheatpump":
-            return Qt.resolvedUrl("/ui/images/heatpump.svg")
+            if(Configuration.heatpumpIcon !== ""){
+                icon = "/ui/images/"+Configuration.heatpumpIcon
+            }else{
+                icon = "/ui/images/heatpump.svg"
+            }
+            return Qt.resolvedUrl(icon)
         case "smartheatingrod":
-            return Qt.resolvedUrl("/ui/images/heating_rod.svg")
+            if(Configuration.heatingRoadIcon !== ""){
+                icon = "/ui/images/"+Configuration.heatingRoadIcon
+            }else{
+                icon = "/ui/images/heating_rod.svg"
+            }
+            return Qt.resolvedUrl(icon)
+        case "energystorage":
+            if(Configuration.batteryIcon !== ""){
+                icon = "/ui/images/"+Configuration.batteryIcon
+                return Qt.resolvedUrl(icon)
+            }
+        case "evcharger":
+            if(Configuration.evchargerIcon !== ""){
+                icon = "/ui/images/"+Configuration.evchargerIcon
+                return Qt.resolvedUrl(icon)
+            }
+        case "solarinverter":
+            if(Configuration.inventorIcon !== ""){
+                icon = "/ui/images/"+Configuration.inventorIcon
+                return Qt.resolvedUrl(icon)
+            }
         default:
             return app.interfaceToIcon(name)
         }
@@ -102,8 +128,15 @@ MouseArea {
 
 
     function thingToIcon(thing) {
-        if(isRootmeter)
-            return Qt.resolvedUrl("/ui/images/grid.svg")
+        let icon = ""
+        if(isRootmeter){
+            if(Configuration.gridIcon !== ""){
+                icon = "/ui/images/"+Configuration.gridIcon;
+            }else{
+                icon = "/ui/images/grid.svg"
+            }
+            return Qt.resolvedUrl(icon);
+        }
         if(isElectric)
             return Qt.resolvedUrl("/ui/images/energy.svg")
         return ifacesToIcon(thing.thingClass.interfaces)

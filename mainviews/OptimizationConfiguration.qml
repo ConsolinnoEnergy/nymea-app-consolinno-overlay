@@ -45,14 +45,33 @@ Page {
             delegate: NymeaItemDelegate {
                 Layout.fillWidth: true
                 iconName: {
-                    if (model.value === HemsManager.HemsUseCaseBlackoutProtection)
-                        return "../images/attention.svg"
+                    let icon = "";
+                    if (model.value === HemsManager.HemsUseCaseBlackoutProtection){
+                        if(Configuration.infoIcon !== ""){
+                            icon = "../images/"+Configuration.infoIcon
+                        }else{
+                            icon = "../images/attention.svg"
+                        }
+                        return icon;
+                    }
                     if (model.value === HemsManager.HemsUseCaseHeating)
                         return "../images/thermostat/heating.svg"
-                    if (model.value === HemsManager.HemsUseCaseCharging)
-                        return "../images/ev-charger.svg"
-                    if (model.value === HemsManager.HemsUseCasePv)
-                        return"../images/weathericons/weather-clear-day.svg"
+                    if (model.value === HemsManager.HemsUseCaseCharging){
+                        if(Configuration.evchargerIcon !== ""){
+                            icon = "../images/"+Configuration.evchargerIcon
+                        }else{
+                            icon = "../images/ev-charger.svg"
+                        }
+                        return icon;
+                    }
+                    if (model.value === HemsManager.HemsUseCasePv){
+                        if(Configuration.inventorIcon !== ""){
+                            icon = "../images/"+Configuration.inventorIcon
+                        }else{
+                            icon = "../images/weathericons/weather-clear-day.svg"
+                        }
+                        return icon;
+                    }
                     if (model.value === HemsManager.HemsUseCaseHeatingElement)
                         return"../images/sensors/water.svg"
                 }
