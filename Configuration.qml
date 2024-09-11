@@ -52,6 +52,8 @@ ConfigurationBase {
     readonly property color consumedColor: "#ADB9E3"
     readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
 
+    //change null value to have different font or set null to have standard font
+    property string fontFamily: null
 
     property ListModel softwareLinksApp: ListModel {
         ListElement { component: "Suru icons"; url: "https://github.com/snwh/suru-icon-theme" }

@@ -1,6 +1,6 @@
 pragma Singleton
 import QtQuick 2.0
-import "../../ui"
+import "../../ui/"
 
 StyleBase {
 
@@ -34,5 +34,8 @@ StyleBase {
     darkGray: "#717171"
     yellow: "#eec00a"
     blue: "#329eba"
+
+    fontFamily: Configuration.fontFamily
+    //fontFamily: ""
 
 }
