@@ -646,10 +646,6 @@
         <translation>Suche nach Deinem Leaflet...</translation>
     </message>
     <message>
-        <source>We&apos;ve detected multiple Leaflets in your network. Please select the one you&apos;d like to set up.</source>
-        <translation>Wir haben mehrere Leaflets im Netzwerk gefunden. Bitte das Gerät auswählen, das eingerichtet werden soll.</translation>
-    </message>
-    <message>
         <source>Please wait while your Leaflet is being discovered.</source>
         <translation>Bitte warten währen nach dem Leaflet gesucht wird.</translation>
     </message>
@@ -692,10 +688,6 @@
     <message>
         <source>Yes I read the Term of Use and agree</source>
         <translation>Ja ich habe die Nutzungsbedingungen gelesen</translation>
-    </message>
-    <message>
-        <source>Please connect your Leaflet device (LAN port 1) to your network. Be sure the device running this App (Smartphone, PC) is connected to the same network.</source>
-        <translation>Bitte verbinden Sie das Leaflet (1. LAN-Buchse) mit dem Netzwerk. Stellen Sie sicher, dass Ihr Gerät (Smartphone, PC) mit dem selben Netzwerk verbunden ist.</translation>
     </message>
     <message>
         <source>Remote proxy</source>
@@ -1587,6 +1579,14 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     <message>
         <source>Welcome to %1!</source>
         <translation type="unfinished">Willkommen zu %1!</translation>
+    </message>
+    <message>
+        <source>Please connect your device (LAN port 1) to your network. Be sure this app is also connected to the same network.</source>
+        <translation type="unfinished">Bitte verbinden Sie das Gerät (LAN Buchse 1) mit dem Netzwerk. Stellen Sie sicher, dass die App auch mit dem gleichen Netzwerk verbunden ist.</translation>
+    </message>
+    <message>
+        <source>Please select the device from the list that you want to set up. If no device is displayed in the list, please check the network connection! (Alternatively, a manual connection can also be established).</source>
+        <translation type="unfinished">Bitte das Gerät aus der Liste wählen, das eingerichtet werden soll. Wird kein Gerät in der Liste angezeigt bitte die Netzwerkverbindung prüfen! (Alternativ kann auch eine manuelle Verbindung hergestellt werden.)</translation>
     </message>
 </context>
 <context>
@@ -2482,19 +2482,6 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                 &lt;li&gt;Lademodus “dynamischer Tarif”&lt;/li&gt;
                 &lt;li&gt;Netzdienliche Steuerung nach § 14a über Relais&lt;/li&gt;
             &lt;/ul&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;h3&gt;Incompatible Software Versions&lt;/h3&gt;
-                &lt;p&gt;The software versions of your &quot;%3 App&quot; (v%1) and your &quot;Leaflet HEMS End Device&quot; (v%2) are incompatible and currently only partially usable. Your &quot;Leaflet HEMS End Device&quot; will be automatically updated during the day.&lt;/p&gt;
-                &lt;p&gt;If you still receive this message after several hours, please contact our support:&lt;/p&gt;
-                &lt;ul&gt;
-                    &lt;li&gt;Phone: &lt;a href=&quot;tel:+4994120300333&quot;&gt;+49 941/ 20300 333&lt;/a&gt;&lt;/li&gt;
-                    &lt;li&gt;Email: &lt;a href=&quot;mailto:%4&quot;&gt;%4&lt;/a&gt;&lt;/li&gt;
-                &lt;/ul&gt;
-                &lt;p&gt;We apologize for the temporary limitations in use.&lt;/p&gt;
-                &lt;p&gt;Best regards&lt;/p&gt;
-                &lt;p&gt;Your %5 Team&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;h3&gt;Incompatible Software Versions&lt;/h3&gt;

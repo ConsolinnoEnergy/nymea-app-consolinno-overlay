@@ -981,7 +981,7 @@ Mail %2").arg(Configuration.companyTel).arg(Configuration.serviceEmail)
                         Layout.fillWidth: true
                         Layout.leftMargin: app.margins
                         Layout.rightMargin: app.margins
-                        text: qsTr("Please connect your Leaflet device (LAN port 1) to your network. Be sure the device running this App (Smartphone, PC) is connected to the same network.")
+                        text: qsTr("Please connect your device (LAN port 1) to your network. Be sure this app is also connected to the same network.")
                     }
                 }
 
@@ -1040,7 +1040,7 @@ Mail %2").arg(Configuration.companyTel).arg(Configuration.serviceEmail)
                     wrapMode: Text.WordWrap
                     text: hostsProxy.count === 0
                           ? qsTr('Searching for your Leaflet...')
-                          : qsTr("We've detected multiple Leaflets in your network. Please select the one you'd like to set up.")
+                          : qsTr("Please select the device from the list that you want to set up. If no device is displayed in the list, please check the network connection! (Alternatively, a manual connection can also be established).")
                 }
 
                 ListView {

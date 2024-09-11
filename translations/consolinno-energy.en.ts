@@ -646,10 +646,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>We&apos;ve detected multiple Leaflets in your network. Please select the one you&apos;d like to set up.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Please wait while your Leaflet is being discovered.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -691,10 +687,6 @@
     </message>
     <message>
         <source>Yes I read the Term of Use and agree</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please connect your Leaflet device (LAN port 1) to your network. Be sure the device running this App (Smartphone, PC) is connected to the same network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1121,6 +1113,14 @@ Open source modules are included in the APP and in the device software. The corr
     </message>
     <message>
         <source>Welcome to %1!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please connect your device (LAN port 1) to your network. Be sure this app is also connected to the same network.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please select the device from the list that you want to set up. If no device is displayed in the list, please check the network connection! (Alternatively, a manual connection can also be established).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
