@@ -139,6 +139,8 @@ MouseArea {
         }
         if(isElectric)
             return Qt.resolvedUrl("/ui/images/energy.svg")
+        if(isBattery)
+            return Qt.resolvedUrl("/ui/images/"+Configuration.batteryIcon)
         return ifacesToIcon(thing.thingClass.interfaces)
     }
 
@@ -205,9 +207,9 @@ MouseArea {
             ColorIcon {
                 size: Style.iconSize
                 Layout.alignment: Qt.AlignCenter
-                name: !root.thing || root.isBattery ? "" : thingToIcon(root.thing)
+                name: !root.thing || Configuration.batteryIcon === "" && root.isBattery ? "" : thingToIcon(root.thing)
                 color: "#3b3b3b"
-                visible: !root.isBattery
+                visible: !root.isBattery || root.isBattery && Configuration.batteryIcon !== ""
             }
 
             Rectangle {
@@ -217,7 +219,7 @@ MouseArea {
                 Layout.rightMargin: Style.margins + 8
                 Layout.topMargin: Style.smallMargins
                 Layout.preferredHeight: 15
-                visible: root.isBattery
+                visible: root.isBattery && Configuration.batteryIcon === ""
 
                 radius: 2
                 color: "#2f2e2d"
@@ -236,6 +238,7 @@ MouseArea {
                     anchors.fill: parent
                     anchors.margins: 2
                     spacing: 2
+                    visible: root.isBattery && Configuration.batteryIcon === ""
                     Repeater {
                         model: 10
                         delegate: Rectangle {
@@ -257,7 +260,7 @@ MouseArea {
                 font: Style.smallFont
                 text: root.thing ? root.thing.name : ""
                 elide: Text.ElideRight
-                color: "black"
+                color: Configuration.mainMenuThingName
             }
         }
     }

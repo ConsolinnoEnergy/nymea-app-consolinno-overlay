@@ -1,4 +1,5 @@
 import QtQuick 2.8
+import QtGraphicalEffects 1.12
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.2
 import Nymea 1.0
@@ -43,38 +44,49 @@ Page {
         Repeater {
             model: useCasesModel
             delegate: NymeaItemDelegate {
+                id: test
                 Layout.fillWidth: true
                 iconName: {
                     let icon = "";
-                    if (model.value === HemsManager.HemsUseCaseBlackoutProtection){
-                        if(Configuration.infoIcon !== ""){
-                            icon = "../images/"+Configuration.infoIcon
-                        }else{
-                            icon = "../images/attention.svg"
-                        }
-                        return icon;
+                    switch (model.value) {
+                        case HemsManager.HemsUseCaseBlackoutProtection:
+                            icon = "../images/attention.svg";
+                            break;
+                        case HemsManager.HemsUseCaseHeating:
+                            icon = "../images/thermostat/heating.svg";
+                            break;
+                        case HemsManager.HemsUseCaseCharging:
+                            icon = Configuration.evchargerIcon !== "" ? "../images/" + Configuration.evchargerIcon : "../images/ev-charger.svg";
+                            break;
+                        case HemsManager.HemsUseCasePv:
+                            icon = Configuration.inventorIcon !== "" ? "../images/" + Configuration.inventorIcon : "../images/weathericons/weather-clear-day.svg";
+                            break;
+                        case HemsManager.HemsUseCaseHeatingElement:
+                            icon = "../images/sensors/water.svg";
+                            break;
                     }
-                    if (model.value === HemsManager.HemsUseCaseHeating)
-                        return "../images/thermostat/heating.svg"
-                    if (model.value === HemsManager.HemsUseCaseCharging){
-                        if(Configuration.evchargerIcon !== ""){
-                            icon = "../images/"+Configuration.evchargerIcon
-                        }else{
-                            icon = "../images/ev-charger.svg"
-                        }
-                        return icon;
-                    }
-                    if (model.value === HemsManager.HemsUseCasePv){
-                        if(Configuration.inventorIcon !== ""){
-                            icon = "../images/"+Configuration.inventorIcon
-                        }else{
-                            icon = "../images/weathericons/weather-clear-day.svg"
-                        }
-                        return icon;
-                    }
-                    if (model.value === HemsManager.HemsUseCaseHeatingElement)
-                        return"../images/sensors/water.svg"
+                    return icon;
                 }
+
+                Image {
+                    id: bug
+                    height: 25
+                    width: 25
+                    source: test.iconName
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: 15
+                    z: 2
+                }
+
+                ColorOverlay {
+                    anchors.fill: bug
+                    source: bug
+                    color: Style.buttonColor
+                    z: 3
+                }
+
+
                 text: model.text
                 visible: (hemsManager.availableUseCases & model.value) != 0 && (model.visible || settings.showHiddenOptions)
                 progressive: true
