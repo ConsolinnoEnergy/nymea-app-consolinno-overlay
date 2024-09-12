@@ -50,10 +50,6 @@ ConsolinnoWizardPageBase {
             Button {
                 Layout.alignment: Qt.AlignHCenter
                 text: qsTr("cancel")
-                background: Rectangle{
-                    color: "#87BD26"
-                    radius: 4
-                }
                 Layout.preferredWidth: 200
                 onClicked: {
                     pageStack.pop()
@@ -63,10 +59,7 @@ ConsolinnoWizardPageBase {
             Button {
                 Layout.alignment: Qt.AlignHCenter
                 text: qsTr("next")
-                background: Rectangle{
-                    color: authorisationCheckbox.checked  ? "#87BD26" : "grey"
-                    radius: 4
-                }
+                enabled: authorisationCheckbox.checked
                 Layout.preferredWidth: 200
                 onClicked: {
                     if (authorisationCheckbox.checked) {
