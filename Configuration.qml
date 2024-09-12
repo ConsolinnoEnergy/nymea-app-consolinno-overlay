@@ -56,16 +56,16 @@ ConfigurationBase {
     property string fontFamily: null
 
     //custom Icons
-    readonly property string gridIcon: ""
-    readonly property string heatpumpIcon: ""
+    readonly property string gridIcon: "gridQ.svg"
+    readonly property string heatpumpIcon: "heatpumpQ.svg"
     readonly property string heatingRoadIcon: ""
     readonly property string energyIcon: ""
-    readonly property string inventorIcon: ""
-    readonly property string settingsIcon: ""
-    readonly property string evchargerIcon: ""
-    readonly property string batteryIcon: ""
-    readonly property string infoIcon: ""
-    readonly property string menuIcon: ""
+    readonly property string inventorIcon: "inverterQ.svg"
+    readonly property string settingsIcon: "settingsQ.svg"
+    readonly property string evchargerIcon: "wallboxQ.svg"
+    readonly property string batteryIcon: "batteryQ.svg"
+    readonly property string infoIcon: "infoQ.svg"
+    readonly property string menuIcon: "menuQ.svg"
 
     //Main View
     readonly property string mainMenuThingName: "black"
