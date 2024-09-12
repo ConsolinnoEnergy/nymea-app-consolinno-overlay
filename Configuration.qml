@@ -42,11 +42,11 @@ ConfigurationBase {
     readonly property color buttonColor: "#001C77"
     readonly property color buttonTextColor: "#ffffff"
 
-    property var consumerColors: ["#F7B772", "#ACE3E2", "#ADB9E3", "#639F86", "#FF8954", "#D9F6C5", "#437BC4", "#AA5DC2", "#C6C73F"]
-    readonly property color rootMeterAcquisitionColor: "#F37B8E"
-    readonly property color rootMeterReturnColor: "#45B4E4"
-    readonly property color producersColor: "#FCE487"
-    readonly property color batteriesColor: "#BDD786"
+    property var consumerColors: ["#0095D6", "#ACE3E2", "#00C6C1", "#639F86", "#FF8954", "#D9F6C5", "#437BC4", "#AA5DC2", "#C6C73F"]
+    readonly property color rootMeterAcquisitionColor: "#9365FE"
+    readonly property color rootMeterReturnColor: "#0228A0"
+    readonly property color producersColor: "#FFDA00"
+    readonly property color batteriesColor: "#A1E2B7"
     readonly property color batteryChargeColor: batteriesColor
     readonly property color batteryDischargeColor: "#F7B772"
     readonly property color consumedColor: "#ADB9E3"
