@@ -7,7 +7,6 @@ import "qrc:/ui/components"
 
 Page {
     id: root
-
     header: NymeaHeader {
         backButtonVisible: true
         onBackPressed: {
@@ -20,4 +19,5 @@ Page {
         Layout.preferredHeight: parent / 2
         source: "qrc:/ui/mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml"
     }
+
 }

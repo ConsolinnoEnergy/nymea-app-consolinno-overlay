@@ -25,7 +25,7 @@ ConfigurationBase {
 
     //Branding contact-email
     property string contactEmail: "meinesolaranlage@q-cells.com"
-    property string serviceEmail: "service@energie.q-cells.de"
+    property string serviceEmail: "support.components@q-cells.com" //service@energie.q-cells.de
 
     // Will be shown in About page
     property string githubLink: "https://github.com/ConsolinnoEnergy/nymea-app"
@@ -42,18 +42,21 @@ ConfigurationBase {
     readonly property color buttonColor: "#001C77"
     readonly property color buttonTextColor: "#ffffff"
 
+    // Graph Color & LegendTiles Color
     property var consumerColors: ["#0095D6", "#ACE3E2", "#00C6C1", "#639F86", "#FF8954", "#D9F6C5", "#437BC4", "#AA5DC2", "#C6C73F"]
     readonly property color rootMeterAcquisitionColor: "#9365FE"
     readonly property color rootMeterReturnColor: "#0228A0"
     readonly property color producersColor: "#FFDA00"
+    readonly property color epexColor: "#7EC9A6"
+    readonly property color epexAveragePriceLineColor: "#CE092F"
     readonly property color batteriesColor: "#A1E2B7"
     readonly property color batteryChargeColor: batteriesColor
     readonly property color batteryDischargeColor: "#F7B772"
     readonly property color consumedColor: "#ADB9E3"
-    readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
+    readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor, epexColor, epexAveragePriceLineColor]
 
     //change null value to have different font or set null to have standard font
-    property string fontFamily: null
+    property string fontFamily: "NotoSans"
 
     //custom Icons
     readonly property string gridIcon: "gridQ.svg"
@@ -68,7 +71,7 @@ ConfigurationBase {
     readonly property string menuIcon: "menuQ.svg"
 
     //Main View
-    readonly property string mainMenuThingName: "black"
+    readonly property string mainMenuThingName: "white"
 
 
     property ListModel softwareLinksApp: ListModel {

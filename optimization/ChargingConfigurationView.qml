@@ -59,7 +59,7 @@ Page {
                 ColorOverlay {
                     anchors.fill: icon
                     source: icon
-                    color: Style.buttonColor
+                    color: Style.consolinnoMedium
                     z: 3
                 }
 

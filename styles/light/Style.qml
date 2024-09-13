@@ -6,7 +6,7 @@ StyleBase {
 
     property color consolinnoExtraDark: "#121926"
     property color consolinnoDark: "#0450c9"
-    property color consolinnoMedium: "#639df7"
+    property color consolinnoMedium: "#00C6C1" //icon color
     property color consolinnoLight: "#75a9fa"
     property color consolinnoExtraLight: "#75a9fa"
     property color consolinnoHighlight: "#75a9fa"

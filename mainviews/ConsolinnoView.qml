@@ -647,7 +647,7 @@ MainViewBase {
 
         property int hours: 24
         readonly property var consumersColors: Configuration.consumerColors
-        readonly property color electricsColor: "#E056F5"
+        readonly property color electricsColor: Configuration.epexColor //"#E056F5"
         property string currentGridValueState: ""
 
         Canvas {
@@ -906,7 +906,10 @@ MainViewBase {
                             isElectric: true
                             onClicked: {
                                 print("Clicked producer", index, thing.name)
-                                pageStack.push("/ui/devicepages/PageWraper.qml")
+                                pageStack.push("/ui/devicepages/PageWraper.qml",
+                                              {
+                                                "totalColors": Configuration.totalColors
+                                              })
                             }
                         }
                     }

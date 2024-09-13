@@ -15,7 +15,7 @@ Item {
     property double lowestPrice: 0
     property double highestPrice: 0
     property var prices: ({})
-
+    property var totalColors: Configuration.totalColors
     property bool isDynamicPrice: false
 
     property ThingsProxy electrics: ThingsProxy {
@@ -239,7 +239,7 @@ Item {
                     axisY: valueAxis
                     color: 'transparent'
                     borderWidth: 1
-                    borderColor: Style.green
+                    borderColor: (totalColors.length === 0) ? Style.green : totalColors[6]
 
                     lowerSeries: LineSeries {
                         id: pricingLowerSeries
@@ -332,7 +332,7 @@ Item {
                     axisY: valueAxis
                     color: 'transparent'
                     borderWidth: 1
-                    borderColor: Style.red
+                    borderColor: (totalColors.length === 0) ? Style.red : totalColors[7]
 
                     upperSeries: LineSeries {
                         id: pricingUpperSeriesAbove

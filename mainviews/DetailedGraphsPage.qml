@@ -68,6 +68,7 @@ Page {
                     Layout.preferredHeight: width
                     isDynamicPrice: root.isDynamicPrice
                     visible: electrics.count > 0
+                    totalColors: root.totalColors
                 }
 
                 ConsolinnoPowerBalanceHistory {
