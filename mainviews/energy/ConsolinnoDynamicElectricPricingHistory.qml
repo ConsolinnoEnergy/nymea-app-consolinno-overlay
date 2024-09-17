@@ -239,7 +239,7 @@ Item {
                     axisY: valueAxis
                     color: 'transparent'
                     borderWidth: 1
-                    borderColor: (totalColors.length === 0) ? Style.green : totalColors[6]
+                    borderColor: (totalColors.length === 0) ? Style.green : totalColors[7]
 
                     lowerSeries: LineSeries {
                         id: pricingLowerSeries
@@ -332,7 +332,7 @@ Item {
                     axisY: valueAxis
                     color: 'transparent'
                     borderWidth: 1
-                    borderColor: (totalColors.length === 0) ? Style.red : totalColors[7]
+                    borderColor: (totalColors.length === 0) ? Style.red : totalColors[8]
 
                     upperSeries: LineSeries {
                         id: pricingUpperSeriesAbove

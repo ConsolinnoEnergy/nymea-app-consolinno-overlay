@@ -1404,8 +1404,22 @@ MainViewBase {
                         id: legendConsumersRepeater
                         model: consumers
                         delegate: LegendTile {
-                            color: lsdChart.consumersColors[index]
                             thing: consumers.get(index)
+                            color: {
+
+                                if(thing.thingClass.interfaces.indexOf("heatpump") >= 0){
+                                    return lsdChart.consumersColors[0]
+                                }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
+                                    return lsdChart.consumersColors[2]
+                                }else{
+                                    return lsdChart.consumersColors[index]
+                                }
+
+                                /*}else if(thing.thingClass.interfaces.indexOf("heatpump") >= 0){
+                                    return lsdChart.consumersColors[2] */
+
+
+                            }
                             onClicked: {
                                 print("Clicked consumer", index, thing.name)
                                 if (thing.thingClass.interfaces.indexOf(

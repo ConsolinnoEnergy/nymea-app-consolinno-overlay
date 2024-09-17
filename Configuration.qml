@@ -47,13 +47,14 @@ ConfigurationBase {
     readonly property color rootMeterAcquisitionColor: "#9365FE"
     readonly property color rootMeterReturnColor: "#0228A0"
     readonly property color producersColor: "#FFDA00"
-    readonly property color epexColor: "#7EC9A6"
+    readonly property color epexColor: "#E056F5"
+    readonly property color epexColorLine: "#7EC9A6"
     readonly property color epexAveragePriceLineColor: "#CE092F"
     readonly property color batteriesColor: "#A1E2B7"
     readonly property color batteryChargeColor: batteriesColor
     readonly property color batteryDischargeColor: "#F7B772"
     readonly property color consumedColor: "#ADB9E3"
-    readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor, epexColor, epexAveragePriceLineColor]
+    readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor, epexColor, epexColorLine, epexAveragePriceLineColor]
 
     //change null value to have different font or set null to have standard font
     property string fontFamily: "NotoSans"

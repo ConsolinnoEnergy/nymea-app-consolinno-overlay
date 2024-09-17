@@ -26,6 +26,7 @@ GenericConfigPage {
     property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
     property ChargingSessionConfiguration chargingSessionConfiguration: hemsManager.chargingSessionConfigurations.getChargingSessionConfiguration(thing.id)
     property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
+    property var totalColors: Configuration.totalColors
     property Thing carThing
     property Thing thing
     property var pageSelectedCar: carThing.name === null ? qsTr("no car selected") : carThing.name
@@ -1716,7 +1717,7 @@ GenericConfigPage {
                                             axisY: valueAxis
                                             color: 'transparent'
                                             borderWidth: 1
-                                            borderColor: Style.green
+                                            borderColor: (totalColors.length === 0) ? Style.green : totalColors[7]
 
 
                                             upperSeries: LineSeries {
@@ -1813,7 +1814,7 @@ GenericConfigPage {
                                             axisY: valueAxis
                                             color: 'transparent'
                                             borderWidth: 1
-                                            borderColor: Style.red
+                                            borderColor: (totalColors.length === 0) ? Style.red : totalColors[8]
 
                                             upperSeries: LineSeries {
                                                 id: pricingUpperSeriesAbove
