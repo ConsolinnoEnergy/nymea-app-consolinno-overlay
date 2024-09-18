@@ -204,12 +204,36 @@ Page {
                     delegate: ItemDelegate{
                         Layout.preferredWidth: app.width
                         contentItem: ConsolinnoItemDelegate{
+                            id: icon
                             Layout.fillWidth: true
-                            iconName: "../images/weathericons/weather-clear-day.svg"
+                            iconName: {
+                                if(Configuration.inverterIcon !== ""){
+                                    return "/ui/images/"+Configuration.inverterIcon
+                                }else{
+                                    return "../images/weathericons/weather-clear-day.svg"
+                                }
+                            }
                             progressive: false
                             text: emProxy.get(index) ? emProxy.get(index).name : ""
                             onClicked: {
                             }
+
+                            Image {
+                                id: iconInvertor
+                                height: 25
+                                width: 25
+                                source: icon.iconName
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.left: parent.left
+                                anchors.leftMargin: 15
+                            }
+
+                            ColorOverlay {
+                                anchors.fill: iconInvertor
+                                source: iconInvertor
+                                color: Style.consolinnoMedium
+                            }
+
                         }
                     }
 
@@ -286,6 +310,7 @@ Page {
                 id: nextStepButton
                 text: qsTr("Next step")
                 font.capitalization: Font.AllUppercase
+                //color: Style.consolinnoMedium
                 font.pixelSize: 15
                 Layout.preferredWidth: 200
                 Layout.preferredHeight: addButton.height - 9
@@ -329,7 +354,7 @@ Page {
                     height: parent.height
                     width: parent.width
                     border.color: Material.background
-                    color: solarInverterRepeater.count > 0  ? Style.consolinnoHighlight : "grey"
+                    color: solarInverterRepeater.count > 0  ? Style.consolinnoMedium : "grey"
                     radius: 4
                 }
 

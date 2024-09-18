@@ -535,7 +535,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The charging modes &lt;font color=&quot;#87BD26&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;#87BD26&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;#87BD26&quot;&gt;Dynamic tariff&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;#87BD26&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
+        <source>The charging modes &lt;font color=&quot;%1&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;%1&quot;&gt;Dynamic tariff&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;%1&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2780,7 +2780,7 @@ the system, and a charging process is started, charging is prioritized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(The settings can be found in the wrench menu under &lt;font color=&quot;#87BD26&quot;&gt; Optimization Settings &lt;/font&gt;).</source>
+        <source>(The settings can be found in the wrench menu under &lt;font color=&quot;%1&quot;&gt; Optimization Settings &lt;/font&gt;).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2979,7 +2979,7 @@ Please refer to our service if you have any questions: service@consolinno.de</so
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Some vehicles cannot handle an interruption in the charging process, i.e. charging can no longer be continued after an interruption in the charging process if, for example, the electricity price falls below the price limit again after a pause. If problems occur, the option &lt;font color=&quot;#87BD26&quot;&gt;&apos;Charging with minimum power&apos;&lt;/font&gt; should be selected. With this setting, charging continues at minimum power even if the price limit is exceeded.</source>
+        <source>Some vehicles cannot handle an interruption in the charging process, i.e. charging can no longer be continued after an interruption in the charging process if, for example, the electricity price falls below the price limit again after a pause. If problems occur, the option &lt;font color=&quot;%1&quot;&gt;&apos;Charging with minimum power&apos;&lt;/font&gt; should be selected. With this setting, charging continues at minimum power even if the price limit is exceeded.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

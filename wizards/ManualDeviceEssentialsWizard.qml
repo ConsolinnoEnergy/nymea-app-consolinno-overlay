@@ -43,15 +43,11 @@ Page {
                     top: essentialText.bottom
                 }
                 wrapMode: Text.WordWrap
-                text: qsTr("(The settings can be found in the wrench menu under <font color=\"#87BD26\"> Optimization Settings </font>).")
+                text: qsTr("(The settings can be found in the wrench menu under <font color=\"%1\"> Optimization Settings </font>).").arg(Style.consolinnoMedium)
             }
 
             Button {
                 text: qsTr("Next")
-                background: Rectangle{
-                    color:  Style.buttonColor
-                    radius: 4
-                }
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                     verticalCenter: parent.verticalCenter

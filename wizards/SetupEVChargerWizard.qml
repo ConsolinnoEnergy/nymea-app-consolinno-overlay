@@ -37,8 +37,7 @@ Page {
                 // Just Add
             case 0:
                 if (d.thingDescriptor) {
-                    var test = engine.thingManager.addDiscoveredThing(thingClass.id, d.thingDescriptor.id, d.name, params);
-                    console.error(test)
+                    engine.thingManager.addDiscoveredThing(thingClass.id, d.thingDescriptor.id, d.name, params);
                 } else {
                     engine.thingManager.addThing(thingClass.id, d.name, params);
                 }
@@ -143,15 +142,40 @@ Page {
                         delegate: ItemDelegate{
                             Layout.preferredWidth: app.width
                             contentItem: ConsolinnoItemDelegate{
+                                id: iconEv
                                 Layout.fillWidth: true
-                                iconName: "../images/ev-charger.svg"
+                                iconName: {
+                                    if(Configuration.evchargerIcon !== ""){
+                                        return "/ui/images/"+Configuration.evchargerIcon
+                                    }else{
+                                        return "../images/ev-charger.svg"
+                                    }
+                                }
                                 progressive: false
                                 text: evProxy.get(index) ? evProxy.get(index).name : ""
                                 onClicked: {
                                 }
-                            }
-                        }
 
+                                Image {
+                                    id: iconEvCharger
+                                    height: 25
+                                    width: 25
+                                    source: iconEv.iconName
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.left: parent.left
+                                    anchors.leftMargin: 15
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: iconEvCharger
+                                    source: iconEvCharger
+                                    color: Style.consolinnoMedium
+                                }
+
+
+                            }
+
+                        }
 
                     }
                 }
@@ -295,7 +319,7 @@ Page {
                     height: parent.height
                     width: parent.width
                     border.color: Material.background
-                    color: Style.consolinnoHighlight
+                    color: Style.consolinnoMedium
                     radius: 4
                 }
 

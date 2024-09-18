@@ -535,8 +535,8 @@
         <translation type="unfinished">Im Lademodus dynamischer Tarif wird mit maximalem Ladestrom geladen,  sobald der Preis unter die eingestellte Preisgrenze fällt. In Zeiten in  denen nicht geladen wird, weil die Preisgrenze überschritten ist, wird  geladen, falls PV-Überschuss vorhanden ist. Wenn die Preisgrenze  verändert wird, ist diese Grenze beim nächsten Anstecken vorausgewählt.</translation>
     </message>
     <message>
-        <source>The charging modes &lt;font color=&quot;#87BD26&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;#87BD26&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;#87BD26&quot;&gt;Dynamic tariff&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;#87BD26&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
-        <translation type="unfinished">Die Lademodi &lt;font color=&quot;#87BD26&quot;&gt;„Nur Solarstrom“&lt;/font&gt;, &lt;font color=&quot;#87BD26&quot;&gt;„Immer Laden“&lt;/font&gt; sowie &lt;font color=&quot;#87BD26&quot;&gt;„Dynamischer Tarif“&lt;/font&gt; bleiben nachdem Abstecken weiterhin ausgewählt. Das heißt, wenn Sie wieder anstecken, ist der letzte gewählte Modus aktiv. Wenn Sie mit &lt;font color=&quot;#87BD26&quot;&gt;„Nächster Fahrt“&lt;/font&gt; geladen haben, dann müssen Sie bei Anstecken wieder einen Lademodus wählen.</translation>
+        <source>The charging modes &lt;font color=&quot;%1&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;%1&quot;&gt;Dynamic tariff&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;%1&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
+        <translation type="unfinished">Die Lademodi &lt;font color=&quot;%1&quot;&gt;„Nur Solarstrom“&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;„Immer Laden“&lt;/font&gt; sowie &lt;font color=&quot;%1&quot;&gt;„Dynamischer Tarif“&lt;/font&gt; bleiben nachdem Abstecken weiterhin ausgewählt. Das heißt, wenn Sie wieder anstecken, ist der letzte gewählte Modus aktiv. Wenn Sie mit &lt;font color=&quot;%1&quot;&gt;„Nächster Fahrt“&lt;/font&gt; geladen haben, dann müssen Sie bei Anstecken wieder einen Lademodus wählen.</translation>
     </message>
 </context>
 <context>
@@ -1586,7 +1586,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>Please select the device from the list that you want to set up. If no device is displayed in the list, please check the network connection! (Alternatively, a manual connection can also be established).</source>
-        <translation type="unfinished">Bitte das Gerät aus der Liste wählen, das eingerichtet werden soll. Wird kein Gerät in der Liste angezeigt bitte die Netzwerkverbindung prüfen! (Alternativ kann auch eine manuelle Verbindung hergestellt werden.)</translation>
+        <translation type="unfinished">Bitte das Gerät aus der Liste wählen, das eingerichtet werden soll. Wird kein Gerät in der Liste angezeigt bitte die Netzwerkverbindung prüfen! (Alternativ kann auch eine manuelle Verbindung hergestellt werden).</translation>
     </message>
 </context>
 <context>
@@ -3252,8 +3252,8 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
         <translation>Weiter</translation>
     </message>
     <message>
-        <source>(The settings can be found in the wrench menu under &lt;font color=&quot;#87BD26&quot;&gt; Optimization Settings &lt;/font&gt;).</source>
-        <translation>(Die Einstellungen sind zu finden im Schraubenschlüsselmenü unter &lt;font color=&quot;#87BD26&quot;&gt; Optimierungseinstellungen &lt;/font&gt;).</translation>
+        <source>(The settings can be found in the wrench menu under &lt;font color=&quot;%1&quot;&gt; Optimization Settings &lt;/font&gt;).</source>
+        <translation type="unfinished">(Die Einstellungen sind zu finden im Schraubenschlüsselmenü unter &lt;font color=&quot;%1&quot;&gt; Optimierungseinstellungen &lt;/font&gt;).</translation>
     </message>
 </context>
 <context>
@@ -3451,8 +3451,8 @@ Please refer to our service if you have any questions: service@consolinno.de</so
         <translation type="unfinished">Pausieren</translation>
     </message>
     <message>
-        <source>Some vehicles cannot handle an interruption in the charging process, i.e. charging can no longer be continued after an interruption in the charging process if, for example, the electricity price falls below the price limit again after a pause. If problems occur, the option &lt;font color=&quot;#87BD26&quot;&gt;&apos;Charging with minimum power&apos;&lt;/font&gt; should be selected. With this setting, charging continues at minimum power even if the price limit is exceeded.</source>
-        <translation type="unfinished">Manche Fahrzeuge können mit einer Unterbrechung des Ladevorgangs nicht umgehen, d.h. nach einer Unterbrechung des Ladevorgangs kann nicht mehr weitergeladen werden, z.B. wenn der Strompreis nach Pausieren wieder unter die Preisgrenze fällt. Falls es zu Problemen kommt sollte die Option &lt;font color=&quot;#87BD26&quot;&gt;„Laden mit minimaler Leistung“&lt;/font&gt; gewählt werden. Mit dieser Einstellung wird auch wenn die Preisgrenze überschritten wird mit minimalen Strom weitergeladen.</translation>
+        <source>Some vehicles cannot handle an interruption in the charging process, i.e. charging can no longer be continued after an interruption in the charging process if, for example, the electricity price falls below the price limit again after a pause. If problems occur, the option &lt;font color=&quot;%1&quot;&gt;&apos;Charging with minimum power&apos;&lt;/font&gt; should be selected. With this setting, charging continues at minimum power even if the price limit is exceeded.</source>
+        <translation type="unfinished">Manche Fahrzeuge können mit einer Unterbrechung des Ladevorgangs nicht umgehen, d.h. nach einer Unterbrechung des Ladevorgangs kann nicht mehr weitergeladen werden, z.B. wenn der Strompreis nach Pausieren wieder unter die Preisgrenze fällt. Falls es zu Problemen kommt sollte die Option &lt;font color=&quot;%1&quot;&gt;„Laden mit minimaler Leistung“&lt;/font&gt; gewählt werden. Mit dieser Einstellung wird auch wenn die Preisgrenze überschritten wird mit minimalen Strom weitergeladen.</translation>
     </message>
 </context>
 <context>

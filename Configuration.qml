@@ -62,9 +62,9 @@ ConfigurationBase {
     //custom Icons
     readonly property string gridIcon: "gridQ.svg"
     readonly property string heatpumpIcon: "heatpumpQ.svg"
-    readonly property string heatingRoadIcon: ""
+    readonly property string heatingRodIcon: ""
     readonly property string energyIcon: ""
-    readonly property string inventorIcon: "inverterQ.svg"
+    readonly property string inverterIcon: "inverterQ.svg"
     readonly property string settingsIcon: "settingsQ.svg"
     readonly property string evchargerIcon: "wallboxQ.svg"
     readonly property string batteryIcon: "batteryQ.svg"
