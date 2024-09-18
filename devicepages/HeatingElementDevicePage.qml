@@ -30,6 +30,7 @@ GenericConfigPage {
             spacing: Style.margins
 
             ColumnLayout {
+                visible: false
                 Layout.fillWidth: true
                 Layout.fillHeight: false
                 Layout.preferredHeight: operatingModeValueText.height + toolTipText.height
