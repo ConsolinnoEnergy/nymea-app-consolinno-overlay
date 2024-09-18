@@ -55,7 +55,7 @@ GenericConfigPage {
                             width: 100
                             height: operatingModeValueText.height + 10
                             anchors.right: parent.right
-                            radius: Style.smallMargins
+                            radius: 13
                             color: {
                                 if(root.operatingModeStatus === 1) {
                                     return "#008000"
@@ -87,7 +87,7 @@ GenericConfigPage {
 
                 Label {
                     id: toolTipText
-                    Layout.topMargin: 5
+                    Layout.topMargin: 13
                     Layout.fillWidth: true
                     text: {
                         if(root.operatingModeStatus === 1) {
@@ -106,7 +106,7 @@ GenericConfigPage {
 
             ConsolinnoRowLabelValue {
                 Layout.fillWidth: true
-                Layout.topMargin: 5
+                Layout.topMargin: 25
                 label: qsTr("Current Temperature")
                 value: (+root.currentTemperature).toLocaleString() && (+root.currentTemperature.value).toLocaleString()
                 visible: root.currentTemperature
@@ -114,7 +114,7 @@ GenericConfigPage {
 
             ConsolinnoRowLabelValue {
                 Layout.fillWidth: true
-                Layout.topMargin: 5
+                Layout.topMargin: 25
                 label: qsTr("Current Consumption")
                 value: (+root.currentConsumption.value).toLocaleString() + qsTr(" W")
             }
