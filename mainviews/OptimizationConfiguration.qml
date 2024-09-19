@@ -59,7 +59,7 @@ Page {
                             icon = Configuration.evchargerIcon !== "" ? "../images/" + Configuration.evchargerIcon : "../images/ev-charger.svg";
                             break;
                         case HemsManager.HemsUseCasePv:
-                            icon = Configuration.inventorIcon !== "" ? "../images/" + Configuration.inventorIcon : "../images/weathericons/weather-clear-day.svg";
+                            icon = Configuration.inverterIcon !== "" ? "../images/" + Configuration.inverterIcon : "../images/weathericons/weather-clear-day.svg";
                             break;
                         case HemsManager.HemsUseCaseHeatingElement:
                             icon = "../images/sensors/water.svg";

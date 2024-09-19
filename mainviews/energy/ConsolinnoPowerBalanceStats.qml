@@ -1,4 +1,5 @@
 import QtQuick 2.3
+import QtGraphicalEffects 1.12
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.2
 import QtCharts 2.3
@@ -406,8 +407,8 @@ StatsBase {
                         anchors.centerIn: parent
                         spacing: Style.smallMargins
                         ColorIcon {
-                            id:sun
-                            name: "weathericons/weather-clear-day"
+                            id: sun
+                            name: legend.selectIcons(Configuration.inverterIcon,"weathericons/weather-clear-day")
                             size: Style.smallIconSize
                             color: Qt.darker(totalColors[1], 1.1)
 
@@ -417,7 +418,24 @@ StatsBase {
                                 width: 12 / 2
                                 radius: sun.width / 2
                                 anchors.centerIn: sun
+                                visible: Configuration.inverterIcon === ""
                             }
+
+                            Image {
+                                id: sunIcon
+                                height: 25
+                                width: 25
+                                source: sun.name
+                                visible: Configuration.inverterIcon !== ""
+                            }
+
+                            ColorOverlay {
+                                anchors.fill: sunIcon
+                                source: sunIcon
+                                color: Qt.darker(totalColors[1], 1.1)
+                                visible: Configuration.inverterIcon !== ""
+                            }
+
                         }
                         Label {
                             width: parent.parent.width - x
@@ -439,7 +457,7 @@ StatsBase {
                         spacing: Style.smallMargins
                         Row {
                             ColorIcon {
-                                name: "power-grid"
+                                name: legend.selectIcons(Configuration.gridIcon,"power-grid")
                                 size: Style.smallIconSize
                                 color: totalColors[2]
                             }
@@ -476,8 +494,8 @@ StatsBase {
                         anchors.centerIn: parent
                         spacing: Style.smallMargins
                         Row {
-                            ColorIcon {
-                                name: "power-grid"
+                            ColorIcon {                   
+                                name: legend.selectIcons(Configuration.gridIcon,"power-grid")
                                 size: Style.smallIconSize
                                 color: totalColors[3]
                             }
@@ -504,6 +522,15 @@ StatsBase {
                             anchors.verticalCenter: parent.verticalCenter
                             font: Style.smallFont
                         }
+                    }
+                }
+
+                function selectIcons(customIcon,defaultIcon){
+                    if(customIcon !== ""){
+                        let newIcon = customIcon.split(".")
+                        return newIcon[0]
+                    }else{
+                        return defaultIcon
                     }
                 }
             }

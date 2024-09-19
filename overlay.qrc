@@ -1,13 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>styles/light/Style.qml</file>
-        <file>styles/light/Button.qml</file>
-        <file>styles/light/logo.svg</file>
-        <file>styles/light/logo-wide.svg</file>
-        <file>translations</file>
-        <file>styles/light/Background.qml</file>
-        <file>SOURCE_AVAIL_de_DE.txt</file>
-        <file>SOURCE_AVAIL_en_US.txt</file>
         <file>styles/light/fonts/NotoSans-Black.ttf</file>
         <file>styles/light/fonts/NotoSans-BlackItalic.ttf</file>
         <file>styles/light/fonts/NotoSans-Bold.ttf</file>
@@ -82,6 +74,14 @@
         <file>styles/light/fonts/NotoSans_SemiCondensed-SemiBoldItalic.ttf</file>
         <file>styles/light/fonts/NotoSans_SemiCondensed-Thin.ttf</file>
         <file>styles/light/fonts/NotoSans_SemiCondensed-ThinItalic.ttf</file>
+        <file>styles/light/Style.qml</file>
+        <file>styles/light/Button.qml</file>
+        <file>styles/light/logo.svg</file>
+        <file>styles/light/logo-wide.svg</file>
+        <file>translations</file>
+        <file>styles/light/Background.qml</file>
+        <file>SOURCE_AVAIL_de_DE.txt</file>
+        <file>SOURCE_AVAIL_en_US.txt</file>
     </qresource>
     <qresource prefix="/ui">
         <file>system/ConsolinnoUsersSettingsPage.qml</file>

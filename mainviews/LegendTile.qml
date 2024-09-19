@@ -100,8 +100,8 @@ MouseArea {
             }
             return Qt.resolvedUrl(icon)
         case "smartheatingrod":
-            if(Configuration.heatingRoadIcon !== ""){
-                icon = "/ui/images/"+Configuration.heatingRoadIcon
+            if(Configuration.heatingRodIcon !== ""){
+                icon = "/ui/images/"+Configuration.heatingRodIcon
             }else{
                 icon = "/ui/images/heating_rod.svg"
             }
@@ -117,8 +117,8 @@ MouseArea {
                 return Qt.resolvedUrl(icon)
             }
         case "solarinverter":
-            if(Configuration.inventorIcon !== ""){
-                icon = "/ui/images/"+Configuration.inventorIcon
+            if(Configuration.inverterIcon !== ""){
+                icon = "/ui/images/"+Configuration.inverterIcon
                 return Qt.resolvedUrl(icon)
             }
         default:

@@ -3,6 +3,7 @@ pragma Singleton
 import QtQuick 2.5
 
 ConfigurationBase {
+    id: configID
     systemName: "Q.Home HEMS"
     appName: "Q Cells HEMS"
     appId: "hems.consolinno.energy"
@@ -52,15 +53,42 @@ ConfigurationBase {
     readonly property color consumedColor: "#ADB9E3"
     readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
 
-    //change null value to have different font or set null to have standard font
-    property string fontFamily: null
+    //change "Ubuntu" value to different font or set "Ubuntu" to have standard font
+    property string fontFamily: "NotoSans"
+
+    //font size and font family
+    readonly property font extraSmallFont: Qt.font({
+        family: configID.fontFamily,
+        pixelSize: 10
+    })
+    readonly property font smallFont: Qt.font({
+        family: configID.fontFamily,
+        pixelSize: 13
+    })
+    readonly property font font: Qt.font({
+        family: configID.fontFamily,
+        pixelSize: 16
+    })
+    readonly property font bigFont: Qt.font({
+        family: configID.fontFamily,
+        pixelSize: 20
+    })
+    readonly property font largeFont: Qt.font({
+        family: configID.fontFamily,
+        pixelSize: 32
+    })
+    readonly property font hugeFont: Qt.font({
+        family: configID.fontFamily,
+        pixelSize: 46
+    })
+
 
     //custom Icons
-    readonly property string gridIcon: ""
+    readonly property string gridIcon: "gridQ.svg"
     readonly property string heatpumpIcon: ""
-    readonly property string heatingRoadIcon: ""
+    readonly property string heatingRodIcon: ""
     readonly property string energyIcon: ""
-    readonly property string inventorIcon: ""
+    readonly property string inverterIcon: "inverterQ.svg"
     readonly property string settingsIcon: ""
     readonly property string evchargerIcon: ""
     readonly property string batteryIcon: ""

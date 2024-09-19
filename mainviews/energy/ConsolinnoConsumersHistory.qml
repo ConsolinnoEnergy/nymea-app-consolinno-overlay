@@ -508,9 +508,50 @@ Item {
                             anchors.centerIn: parent
                             spacing: Style.smallMargins
                             ColorIcon {
-                                name: app.interfacesToIcon(legendDelegate.thing.thingClass.interfaces)
+                                name: {
+                                    for(let i = 0; i < legendDelegate.thing.thingClass.interfaces.length; i++){
+                                        let iconName = legendDelegate.thing.thingClass.interfaces[i];
+                                        switch (iconName) {
+                                        case "smartgridheatpump":
+                                            if(Configuration.heatpumpIcon !== ""){
+                                                return "/ui/images/"+Configuration.heatpumpIcon
+                                            }else{
+                                                return "/ui/images/heatpump.svg"
+                                            }
+                                        case "smartheatingrod":
+                                            if(Configuration.heatingRodIcon !== ""){
+                                                return "/ui/images/"+Configuration.heatingRodIcon
+                                            }else{
+                                                return "/ui/images/heating_rod.svg"
+                                            }
+                                        case "evcharger":
+                                            if(Configuration.evchargerIcon !== ""){
+                                                return "/ui/images/"+Configuration.evchargerIcon
+                                            }else{
+                                                return "/ui/images/ev-charger.svg"
+                                            }
+                                        default:
+                                            return app.interfacesToIcon(iconName)
+                                        }
+                                    }
+                                }
+
                                 size: Style.smallIconSize
-                                color: index >= 0 ? consumerColors[index] : "white"
+                                color: {
+
+                                    index >= 0 ? consumerColors[index] : "white"
+
+                                    /*
+                                    if(thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0){
+                                        return Configuration.totalColors[0]
+                                    }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
+                                        return Configuration.totalColors[1]
+                                    }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
+                                        return Configuration.totalColors[2]
+                                    }else{
+                                        return "white"
+                                    }*/
+                                }
                             }
                             Label {
                                 text: legendDelegate.thing.name
