@@ -59,7 +59,7 @@ Page {
                             icon = Configuration.evchargerIcon !== "" ? "../images/" + Configuration.evchargerIcon : "../images/ev-charger.svg";
                             break;
                         case HemsManager.HemsUseCasePv:
-                            icon = Configuration.inventorIcon !== "" ? "../images/" + Configuration.inventorIcon : "../images/weathericons/weather-clear-day.svg";
+                            icon = Configuration.inverterIcon !== "" ? "../images/" + Configuration.inverterIcon : "../images/weathericons/weather-clear-day.svg";
                             break;
                         case HemsManager.HemsUseCaseHeatingElement:
                             icon = "../images/sensors/water.svg";
@@ -69,21 +69,19 @@ Page {
                 }
 
                 Image {
-                    id: bug
+                    id: icons
                     height: 25
                     width: 25
                     source: iconButton.iconName
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.leftMargin: 15
-                    z: 2
                 }
 
                 ColorOverlay {
-                    anchors.fill: bug
-                    source: bug
+                    anchors.fill: icons
+                    source: icons
                     color: Style.consolinnoMedium
-                    z: 3
                 }
 
 

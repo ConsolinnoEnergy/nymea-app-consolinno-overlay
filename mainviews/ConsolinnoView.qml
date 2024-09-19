@@ -1411,12 +1411,13 @@ MainViewBase {
                                     return lsdChart.consumersColors[0]
                                 }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
                                     return lsdChart.consumersColors[2]
+                                }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
+                                    return lsdChart.consumersColors[4]
                                 }else{
                                     return lsdChart.consumersColors[index]
                                 }
 
-                                /*}else if(thing.thingClass.interfaces.indexOf("heatpump") >= 0){
-                                    return lsdChart.consumersColors[2] */
+
 
 
                             }

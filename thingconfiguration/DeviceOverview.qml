@@ -1,4 +1,5 @@
 import QtQuick 2.4
+import QtGraphicalEffects 1.12
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.2
 import "../components"
@@ -115,7 +116,13 @@ Page {
             }
 
             delegate: ThingDelegate {
+                id: icon
                 thing: thingsProxy.getThing(model.id)
+
+                iconName: {
+                    return app.interfacesToIcon(thing.thingClass.interfaces)
+                }
+
                 // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
                 // This check might be wrong for thingClasses with multiple create methods...
                 canDelete: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
@@ -125,7 +132,6 @@ Page {
                 onDeleteClicked: {
                     d.thingToRemove = thing;
                     engine.thingManager.removeThing(d.thingToRemove.id)
-
                 }
             }
         }

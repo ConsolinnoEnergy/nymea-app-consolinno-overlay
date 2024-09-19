@@ -1,4 +1,5 @@
 import QtQuick 2.5
+import QtGraphicalEffects 1.12
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.1
 import Nymea 1.0
@@ -177,7 +178,70 @@ Page {
                 width: parent.width
                 text: model.displayName
                 subText: engine.thingManager.vendors.getVendor(model.vendorId).displayName
-                iconName: app.interfacesToIcon(thingClass.interfaces)
+                iconName:{
+                    for (let i = 0; i < thingClass.interfaces.length; i++) {
+                        let icon = "";
+                        let interfaceIcons = thingClass.interfaces[i];
+                        switch (interfaceIcons) {
+                        case "smartgridheatpump":
+                            if(Configuration.heatpumpIcon !== ""){
+                                icon = "/ui/images/"+Configuration.heatpumpIcon
+                            }else{
+                                icon = "/ui/images/heatpump.svg"
+                            }
+                            return Qt.resolvedUrl(icon)
+                        case "simpleheatpump":
+                            if(Configuration.heatpumpIcon !== ""){
+                                icon = "/ui/images/"+Configuration.heatpumpIcon
+                            }else{
+                                icon = "/ui/images/heatpump.svg"
+                            }
+                            return Qt.resolvedUrl(icon)
+                        case "smartheatingrod":
+                            if(Configuration.heatingRodIcon !== ""){
+                                icon = "/ui/images/"+Configuration.heatingRodIcon
+                            }else{
+                                icon = "/ui/images/heating_rod.svg"
+                            }
+                            return Qt.resolvedUrl(icon)
+                        case "energystorage":
+                            if(Configuration.batteryIcon !== ""){
+                                icon = "/ui/images/"+Configuration.batteryIcon
+                                return Qt.resolvedUrl(icon)
+                            }
+                        case "evcharger":
+                            if(Configuration.evchargerIcon !== ""){
+                                icon = "/ui/images/"+Configuration.evchargerIcon
+                                return Qt.resolvedUrl(icon)
+                            }
+                        case "solarinverter":
+                            if(Configuration.inverterIcon !== ""){
+                                icon = "/ui/images/"+Configuration.inverterIcon
+                                return Qt.resolvedUrl(icon)
+                            }
+                        default:
+                            return app.interfaceToIcon(interfaceIcons)
+                        }
+
+                    }
+                }
+
+                Image {
+                    id: tileIcon
+                    height: 25
+                    width: 26
+                    source: tingClassDelegate.iconName
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: 15
+                }
+
+                ColorOverlay {
+                    anchors.fill: tileIcon
+                    source: tileIcon
+                    color: Style.consolinnoMedium
+                }
+
                 prominentSubText: false
                 wrapTexts: false
 
@@ -185,7 +249,6 @@ Page {
 
                 onClicked: {
                     root.startWizard(thingClass)
-                    console.error(electrics.get(0).thingClass.id)
                 }
 
                 Component.onCompleted: {
@@ -208,7 +271,7 @@ Page {
                    if(electrics.count === 1){
                       thingsListId[thingsListId.length] = electrics.get(0).thingClass.id.toString()
                    }else{
-                     thingsListId[thingsListId.length] = thingClassesProxyElectrics.get(0).id.toString()
+                      thingsListId[thingsListId.length] = thingClassesProxyElectrics.get(0).id.toString()
                    }
 
                    thingClassesProxy.hiddenThingClassIds = thingsListId

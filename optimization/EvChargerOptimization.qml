@@ -81,7 +81,7 @@ Page {
                 Layout.fillWidth: true
                 font: Style.smallFont
                 wrapMode: Text.Wrap
-                color: "#194D25"
+                color: Style.consolinnoMedium
                 text: qsTr("If the device must be controlled according to §14a, then this setting must be enabled.")
             }
         }
