@@ -94,9 +94,9 @@ MouseArea {
         switch (name) {
         case "smartgridheatpump":
             if(Configuration.heatpumpIcon !== ""){
-                icon = "/ui/images/"+Configuration.heatpumpIcon
+                icon = "qrc:/ui/images/"+Configuration.heatpumpIcon
             }else{
-                icon = "/ui/images/heatpump.svg"
+                icon = "qrc:/ui/images/heatpump.svg"
             }
             return Qt.resolvedUrl(icon)
         case "smartheatingrod":

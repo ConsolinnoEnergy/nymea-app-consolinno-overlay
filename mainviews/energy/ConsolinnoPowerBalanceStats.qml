@@ -423,16 +423,16 @@ StatsBase {
 
                             Image {
                                 id: sunIcon
-                                height: 25
-                                width: 25
-                                source: sun.name
+                                source: "qrc:/ui/images/"+Configuration.inverterIcon
+                                width: sun.size
+                                height: sun.size
                                 visible: Configuration.inverterIcon !== ""
                             }
 
                             ColorOverlay {
                                 anchors.fill: sunIcon
                                 source: sunIcon
-                                color: Qt.darker(totalColors[1], 1.1)
+                                color: sun.color
                                 visible: Configuration.inverterIcon !== ""
                             }
 
@@ -457,9 +457,26 @@ StatsBase {
                         spacing: Style.smallMargins
                         Row {
                             ColorIcon {
+                                id: gridDownID
                                 name: legend.selectIcons(Configuration.gridIcon,"power-grid")
                                 size: Style.smallIconSize
                                 color: totalColors[2]
+
+                                Image {
+                                    id: gridDown
+                                    source: "qrc:/ui/images/"+Configuration.gridIcon
+                                    width: gridDownID.size
+                                    height: gridDownID.size
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: gridDown
+                                    source: gridDown
+                                    color: gridDownID.color
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
                             }
                             ColorIcon {
                                 id: arrowDown
@@ -494,10 +511,27 @@ StatsBase {
                         anchors.centerIn: parent
                         spacing: Style.smallMargins
                         Row {
-                            ColorIcon {                   
+                            ColorIcon {
+                                id: gridUpID
                                 name: legend.selectIcons(Configuration.gridIcon,"power-grid")
                                 size: Style.smallIconSize
                                 color: totalColors[3]
+
+                                Image {
+                                    id: gridUp
+                                    source: "qrc:/ui/images/"+Configuration.gridIcon
+                                    width: gridUpID.size
+                                    height: gridUpID.size
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: gridUp
+                                    source: gridUp
+                                    color: gridUpID.color
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
                             }
                             ColorIcon {
                                 id: arrowUp
@@ -527,8 +561,8 @@ StatsBase {
 
                 function selectIcons(customIcon,defaultIcon){
                     if(customIcon !== ""){
-                        let newIcon = customIcon.split(".")
-                        return newIcon[0]
+                        //let newIcon = customIcon.split(".")
+                        return "qrc:/ui/images/"+customIcon
                     }else{
                         return defaultIcon
                     }

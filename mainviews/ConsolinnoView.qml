@@ -647,7 +647,7 @@ MainViewBase {
 
         property int hours: 24
         readonly property var consumersColors: Configuration.consumerColors
-        readonly property color electricsColor: "#E056F5"
+        readonly property color electricsColor: Configuration.epexColor
         property string currentGridValueState: ""
 
         Canvas {
@@ -882,7 +882,7 @@ MainViewBase {
                         model: producers
                         delegate: LegendTile {
                             visible: producers.get(index).id !== rootMeter.id
-                            color: Configuration.producersColor
+                            color: Configuration.inverterColor
                             thing: producers.get(index)
                             isElectric: false
                             onClicked: {
@@ -1003,7 +1003,7 @@ MainViewBase {
                     id: productionSeries
                     axisAngular: axisAngular
                     axisRadial: axisRadial
-                    color: Configuration.producersColor
+                    color: Configuration.inverterColor
                     borderColor: "transparent"
                     borderWidth: 0
                     lowerSeries: zeroSeries
@@ -1401,7 +1401,17 @@ MainViewBase {
                         id: legendConsumersRepeater
                         model: consumers
                         delegate: LegendTile {
-                            color: lsdChart.consumersColors[index]
+                            color: {
+                                if(thing.thingClass.interfaces.indexOf("heatpump") >= 0){
+                                    return Configuration.heatpumpColor
+                                }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
+                                    return Configuration.wallboxColor
+                                }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
+                                    return Configuration.heatingRodColor
+                                }else{
+                                    return lsdChart.consumersColors[index]
+                                }
+                            }
                             thing: consumers.get(index)
                             onClicked: {
                                 print("Clicked consumer", index, thing.name)

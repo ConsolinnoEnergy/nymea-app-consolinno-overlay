@@ -1,4 +1,5 @@
 import QtQuick 2.3
+import QtGraphicalEffects 1.12
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.2
 import QtCharts 2.3
@@ -345,6 +346,7 @@ StatsBase {
                             anchors.centerIn: parent
                             spacing: Style.smallMargins
                             ColorIcon {
+                                id: icons
                                 name: {
                                     for(let i = 0; i < legendDelegate.thing.thingClass.interfaces.length; i++){
                                         let iconName = legendDelegate.thing.thingClass.interfaces[i]
@@ -352,9 +354,9 @@ StatsBase {
                                         switch (iconName) {
                                         case "smartgridheatpump":
                                             if(Configuration.heatpumpIcon !== ""){
-                                                return "/ui/images/"+Configuration.heatpumpIcon
+                                                return "qrc:/ui/images/"+Configuration.heatpumpIcon
                                             }else{
-                                                return "/ui/images/heatpump.svg"
+                                                return "qrc:/ui/images/heatpump.svg"
                                             }
                                         case "smartheatingrod":
                                             if(Configuration.heatingRodIcon !== ""){
@@ -375,17 +377,30 @@ StatsBase {
                                 }
                                 size: Style.smallIconSize
                                 color: {
-                                    index >= 0 ? consumerColors[index] : "white"
-                                    /*
                                     if(thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0){
-                                        return Configuration.totalColors[0]
+                                        return Configuration.heatpumpColor
                                     }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
-                                        return Configuration.totalColors[1]
+                                        return Configuration.heatingRodColor
                                     }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
-                                        return Configuration.totalColors[2]
+                                        return Configuration.wallboxColor
                                     }else{
                                         return "white"
-                                    }*/
+                                    }
+                                }
+
+                                Image {
+                                    id: icon
+                                    source: icons.name
+                                    width: icons.size
+                                    height: icons.size
+                                    visible: Configuration.evchargerIcon !== "" || Configuration.heatingRodIcon !== "" || Configuration.heatpumpIcon
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: icon
+                                    source: icon
+                                    color: icons.color
+                                    visible: Configuration.evchargerIcon !== "" || Configuration.heatingRodIcon !== "" || Configuration.heatpumpIcon
                                 }
 
                             }

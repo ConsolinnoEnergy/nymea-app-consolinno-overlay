@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>styles/light/fonts/NotoSans-Black.ttf</file>
+     <!--<file>styles/light/fonts/NotoSans-Black.ttf</file>
         <file>styles/light/fonts/NotoSans-BlackItalic.ttf</file>
         <file>styles/light/fonts/NotoSans-Bold.ttf</file>
         <file>styles/light/fonts/NotoSans-BoldItalic.ttf</file>
@@ -73,7 +73,7 @@
         <file>styles/light/fonts/NotoSans_SemiCondensed-SemiBold.ttf</file>
         <file>styles/light/fonts/NotoSans_SemiCondensed-SemiBoldItalic.ttf</file>
         <file>styles/light/fonts/NotoSans_SemiCondensed-Thin.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-ThinItalic.ttf</file>
+        <file>styles/light/fonts/NotoSans_SemiCondensed-ThinItalic.ttf</file>-->
         <file>styles/light/Style.qml</file>
         <file>styles/light/Button.qml</file>
         <file>styles/light/logo.svg</file>

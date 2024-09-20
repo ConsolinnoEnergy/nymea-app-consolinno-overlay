@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtGraphicalEffects 1.12
 import QtCharts 2.2
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.2
@@ -517,15 +518,33 @@ Item {
                         spacing: Style.smallMargins
                         ColorIcon {
                             id: sun
-                            name: "weathericons/weather-clear-day"
+                            name: legend.selectIcons(Configuration.inverterIcon,"weathericons/weather-clear-day")
                             size: Style.smallIconSize
                             color: Qt.darker(totalColors[1], 1.1)
+
+                            Image {
+                                id: sunIcon
+                                source: "qrc:/ui/images/"+Configuration.inverterIcon
+                                width: sun.size
+                                height: sun.size
+                                visible: Configuration.inverterIcon !== ""
+                            }
+
+                            ColorOverlay {
+                                anchors.fill: sunIcon
+                                source: sunIcon
+                                color: sun.color
+                                visible: Configuration.inverterIcon !== ""
+                            }
+
+
                             Rectangle{
                                 color: Qt.darker(totalColors[1], 1.1)
                                 height: 12 / 2
                                 width: 12 / 2
                                 radius: sun.width / 2
                                 anchors.centerIn: sun
+                                visible: Configuration.inverterIcon === ""
                             }
                         }
                         Label {
@@ -549,9 +568,26 @@ Item {
                         spacing: Style.smallMargins
                         Row {
                             ColorIcon {
-                                name: "power-grid"
+                                id: gridDownID
+                                name: legend.selectIcons(Configuration.gridIcon,"power-grid")
                                 size: Style.smallIconSize
                                 color: totalColors[2]
+
+                                Image {
+                                    id: gridDown
+                                    source: "qrc:/ui/images/"+Configuration.gridIcon
+                                    width: gridDownID.size
+                                    height: gridDownID.size
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: gridDown
+                                    source: gridDown
+                                    color: gridDownID.color
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
                             }
                             ColorIcon {
                                 id: arrowDown
@@ -589,9 +625,26 @@ Item {
                         spacing: Style.smallMargins
                         Row {
                             ColorIcon {
-                                name: "power-grid"
+                                id: gridUpID
+                                name: legend.selectIcons(Configuration.gridIcon,"power-grid")
                                 size: Style.smallIconSize
                                 color: totalColors[3]
+
+                                Image {
+                                    id: gridUp
+                                    source: "qrc:/ui/images/"+Configuration.gridIcon
+                                    width: gridUpID.size
+                                    height: gridUpID.size
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: gridUp
+                                    source: gridUp
+                                    color: gridUpID.color
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
                             }
                             ColorIcon {
                                 id: arrowUp
@@ -630,9 +683,25 @@ Item {
                         spacing: Style.smallMargins
                         Row {
                             ColorIcon {
-                                name: "battery/battery-080"
+                                id: batteryPlusID
+                                name: legend.selectIcons(Configuration.batteryIcon,"battery/battery-080")
                                 size: Style.smallIconSize
                                 color: totalColors[4]
+
+                                Image {
+                                    id: batteryPlus
+                                    source: "qrc:/ui/images/"+Configuration.batteryIcon
+                                    width: batteryPlusID.size
+                                    height: batteryPlusID.size
+                                    visible: Configuration.batteryIcon !== ""
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: batteryPlus
+                                    source: batteryPlus
+                                    color: batteryPlusID.color
+                                    visible: Configuration.batteryIcon !== ""
+                                }
                             }
                             ColorIcon {
                                 id: plus
@@ -679,9 +748,25 @@ Item {
                         spacing: Style.smallMargins
                         Row {
                             ColorIcon {
-                                name: "battery/battery-040"
+                                id: batteryMinusID
+                                name: legend.selectIcons(Configuration.batteryIcon,"battery/battery-080")
                                 size: Style.smallIconSize
                                 color: totalColors[5]
+
+                                Image {
+                                    id: batteryMinus
+                                    source: "qrc:/ui/images/"+Configuration.batteryIcon
+                                    width: batteryMinusID.size
+                                    height: batteryMinusID.size
+                                    visible: Configuration.batteryIcon !== ""
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: batteryMinus
+                                    source: batteryMinus
+                                    color: batteryMinusID.color
+                                    visible: Configuration.batteryIcon !== ""
+                                }
                             }
                             ColorIcon {
                                 id: minus
@@ -706,6 +791,14 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             font: Style.smallFont
                         }
+                    }
+                }
+                function selectIcons(customIcon,defaultIcon){
+                    if(customIcon !== ""){
+                        //let newIcon = customIcon.split(".")
+                        return "qrc:/ui/images/"+customIcon
+                    }else{
+                        return defaultIcon
                     }
                 }
             }

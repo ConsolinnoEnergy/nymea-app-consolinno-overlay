@@ -43,52 +43,49 @@ ConfigurationBase {
     readonly property color buttonColor: "#001C77"
     readonly property color buttonTextColor: "#ffffff"
 
-    property var consumerColors: ["#F7B772", "#ACE3E2", "#ADB9E3", "#639F86", "#FF8954", "#D9F6C5", "#437BC4", "#AA5DC2", "#C6C73F"]
+    //readonly property color rootMeterAcquisitionColor: "#F37B8E"
+    //readonly property color rootMeterReturnColor: "#45B4E4"
+    //readonly property color producersColor: "#FCE487"
+    //readonly property color batteriesColor: "#BDD786"
+    //readonly property color batteryChargeColor: batteriesColor
+    //readonly property color batteryDischargeColor: "#F7B772"
+    //readonly property color consumedColor: "#ADB9E3"
+
+    //static things colors
+    //producers
     readonly property color rootMeterAcquisitionColor: "#F37B8E"
     readonly property color rootMeterReturnColor: "#45B4E4"
-    readonly property color producersColor: "#FCE487"
+    readonly property color inverterColor: "#FCE487"
+
+    //other things
+    readonly property color epexColor: "#E056F5"
+    readonly property color epexMainLineColor: "#6CCB56"
+    readonly property color epexAverageColor: "#C65B5A"
+
+    //other consumers
+    readonly property color heatpumpColor: "#F7B772"
+    readonly property color wallboxColor: "#ACE3E2"
+    readonly property color heatingRodColor: "#639F86"
+    readonly property color consumedColor: "#ADB9E3"
+
+    //batteries
     readonly property color batteriesColor: "#BDD786"
     readonly property color batteryChargeColor: batteriesColor
     readonly property color batteryDischargeColor: "#F7B772"
-    readonly property color consumedColor: "#ADB9E3"
-    readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
 
-    //change "Ubuntu" value to different font or set "Ubuntu" to have standard font
-    property string fontFamily: "NotoSans"
+    //static array of thing colors
+    property var consumerColors: ["#FF8954", "#D9F6C5", "#437BC4", "#AA5DC2", "#C6C73F"]
+    readonly property var totalColors: [consumedColor, inverterColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
 
-    //font size and font family
-    readonly property font extraSmallFont: Qt.font({
-        family: configID.fontFamily,
-        pixelSize: 10
-    })
-    readonly property font smallFont: Qt.font({
-        family: configID.fontFamily,
-        pixelSize: 13
-    })
-    readonly property font font: Qt.font({
-        family: configID.fontFamily,
-        pixelSize: 16
-    })
-    readonly property font bigFont: Qt.font({
-        family: configID.fontFamily,
-        pixelSize: 20
-    })
-    readonly property font largeFont: Qt.font({
-        family: configID.fontFamily,
-        pixelSize: 32
-    })
-    readonly property font hugeFont: Qt.font({
-        family: configID.fontFamily,
-        pixelSize: 46
-    })
-
+    //change "Ubuntu" string to set a different font or set "Ubuntu" to have standard font
+    property string fontFamily: "Ubuntu"
 
     //custom Icons
-    readonly property string gridIcon: "gridQ.svg"
+    readonly property string gridIcon: ""
     readonly property string heatpumpIcon: ""
     readonly property string heatingRodIcon: ""
     readonly property string energyIcon: ""
-    readonly property string inverterIcon: "inverterQ.svg"
+    readonly property string inverterIcon: ""
     readonly property string settingsIcon: ""
     readonly property string evchargerIcon: ""
     readonly property string batteryIcon: ""

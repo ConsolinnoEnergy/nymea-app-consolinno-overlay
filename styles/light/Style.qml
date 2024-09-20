@@ -36,6 +36,32 @@ StyleBase {
     blue: "#329eba"
 
     fontFamily: Configuration.fontFamily
-    //fontFamily: ""
+
+    //font size and font family
+    readonly property font extraSmallFont: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 10
+    })
+    readonly property font smallFont: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 13
+    })
+    readonly property font font: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 16
+    })
+    readonly property font bigFont: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 20
+    })
+    readonly property font largeFont: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 32
+    })
+    readonly property font hugeFont: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 46
+    })
+
 
 }
