@@ -1,4 +1,5 @@
 import QtQuick 2.3
+import QtGraphicalEffects 1.12
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.2
 import QtCharts 2.3
@@ -406,8 +407,8 @@ StatsBase {
                         anchors.centerIn: parent
                         spacing: Style.smallMargins
                         ColorIcon {
-                            id:sun
-                            name: "weathericons/weather-clear-day"
+                            id: sun
+                            name: legend.selectIcons(Configuration.inverterIcon,"weathericons/weather-clear-day")
                             size: Style.smallIconSize
                             color: Qt.darker(totalColors[1], 1.1)
 
@@ -417,7 +418,24 @@ StatsBase {
                                 width: 12 / 2
                                 radius: sun.width / 2
                                 anchors.centerIn: sun
+                                visible: Configuration.inverterIcon === ""
                             }
+
+                            Image {
+                                id: sunIcon
+                                source: "qrc:/ui/images/"+Configuration.inverterIcon
+                                width: sun.size
+                                height: sun.size
+                                visible: Configuration.inverterIcon !== ""
+                            }
+
+                            ColorOverlay {
+                                anchors.fill: sunIcon
+                                source: sunIcon
+                                color: sun.color
+                                visible: Configuration.inverterIcon !== ""
+                            }
+
                         }
                         Label {
                             width: parent.parent.width - x
@@ -439,9 +457,26 @@ StatsBase {
                         spacing: Style.smallMargins
                         Row {
                             ColorIcon {
-                                name: "power-grid"
+                                id: gridDownID
+                                name: legend.selectIcons(Configuration.gridIcon,"power-grid")
                                 size: Style.smallIconSize
                                 color: totalColors[2]
+
+                                Image {
+                                    id: gridDown
+                                    source: "qrc:/ui/images/"+Configuration.gridIcon
+                                    width: gridDownID.size
+                                    height: gridDownID.size
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: gridDown
+                                    source: gridDown
+                                    color: gridDownID.color
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
                             }
                             ColorIcon {
                                 id: arrowDown
@@ -477,9 +512,26 @@ StatsBase {
                         spacing: Style.smallMargins
                         Row {
                             ColorIcon {
-                                name: "power-grid"
+                                id: gridUpID
+                                name: legend.selectIcons(Configuration.gridIcon,"power-grid")
                                 size: Style.smallIconSize
                                 color: totalColors[3]
+
+                                Image {
+                                    id: gridUp
+                                    source: "qrc:/ui/images/"+Configuration.gridIcon
+                                    width: gridUpID.size
+                                    height: gridUpID.size
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: gridUp
+                                    source: gridUp
+                                    color: gridUpID.color
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
                             }
                             ColorIcon {
                                 id: arrowUp
@@ -504,6 +556,15 @@ StatsBase {
                             anchors.verticalCenter: parent.verticalCenter
                             font: Style.smallFont
                         }
+                    }
+                }
+
+                function selectIcons(customIcon,defaultIcon){
+                    if(customIcon !== ""){
+                        //let newIcon = customIcon.split(".")
+                        return "qrc:/ui/images/"+customIcon
+                    }else{
+                        return defaultIcon
                     }
                 }
             }

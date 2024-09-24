@@ -1717,7 +1717,7 @@ GenericConfigPage {
                                             axisY: valueAxis
                                             color: 'transparent'
                                             borderWidth: 1
-                                            borderColor: (totalColors.length === 0) ? Style.green : totalColors[7]
+                                            borderColor: Configuration.epexMainLineColor
 
 
                                             upperSeries: LineSeries {
@@ -1814,7 +1814,7 @@ GenericConfigPage {
                                             axisY: valueAxis
                                             color: 'transparent'
                                             borderWidth: 1
-                                            borderColor: (totalColors.length === 0) ? Style.red : totalColors[8]
+                                            borderColor: Configuration.epexAverageColor
 
                                             upperSeries: LineSeries {
                                                 id: pricingUpperSeriesAbove

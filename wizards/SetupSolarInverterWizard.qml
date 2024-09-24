@@ -217,23 +217,20 @@ Page {
                             text: emProxy.get(index) ? emProxy.get(index).name : ""
                             onClicked: {
                             }
-
                             Image {
                                 id: iconInvertor
-                                height: 25
-                                width: 25
+                                height: 24
+                                width: 24
                                 source: icon.iconName
                                 anchors.verticalCenter: parent.verticalCenter
                                 anchors.left: parent.left
-                                anchors.leftMargin: 15
+                                anchors.leftMargin: 16
                             }
-
                             ColorOverlay {
                                 anchors.fill: iconInvertor
                                 source: iconInvertor
                                 color: Style.consolinnoMedium
                             }
-
                         }
                     }
 
@@ -314,6 +311,7 @@ Page {
                 font.pixelSize: 15
                 Layout.preferredWidth: 200
                 Layout.preferredHeight: addButton.height - 9
+                // color: Style.consolinnoMedium
                 // background fucks up the margin between the buttons, thats why wee need this topMargin
                 Layout.topMargin: 5
 

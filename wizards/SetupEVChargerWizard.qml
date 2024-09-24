@@ -153,6 +153,20 @@ Page {
                                 }
                                 progressive: false
                                 text: evProxy.get(index) ? evProxy.get(index).name : ""
+                                Image {
+                                    id: iconEvCharger
+                                    height: 24
+                                    width: 24
+                                    source: iconEv.iconName
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.left: parent.left
+                                    anchors.leftMargin: 16
+                                }
+                                ColorOverlay {
+                                    anchors.fill: iconEvCharger
+                                    source: iconEvCharger
+                                    color: Style.consolinnoMedium
+                                }
                                 onClicked: {
                                 }
 
@@ -179,10 +193,7 @@ Page {
 
                     }
                 }
-
             }
-
-
 
             Rectangle{
                 Layout.preferredHeight: app.height/3

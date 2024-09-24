@@ -47,12 +47,12 @@ Page {
 
                 Image {
                     id: icon
-                    height: 25
-                    width: 25
+                    height: 24
+                    width: 24
                     source: configDelegate.iconName
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
-                    anchors.leftMargin: 15
+                    anchors.leftMargin: 16
                     z: 2
                 }
 

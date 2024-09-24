@@ -3,13 +3,23 @@ pragma Singleton
 import QtQuick 2.5
 
 ConfigurationBase {
+    id: configID
     systemName: "Q.HOME CONTROL"
     appName: "Q.HOME CONTROL"
     appId: "hems.consolinno.energy"
 
-
     connectionWizard: "/ui/wizards/ConnectionWizard.qml"
 
+    //////////////////////////////////////////////////////////////////////////////////////
+    //Main View
+    readonly property string mainMenuThingName: "white"
+
+    //change "Ubuntu" string to set a different font or set "Ubuntu" to have standard font
+    property string fontFamily: "NotoSans"
+
+    //Wizard Complete
+    property bool isIntroIcon: false
+    //////////////////////////////////////////////////////////////////////////////////////
     // Defines the minimal compatible HEMS version
     property string minSysVersion: "1.3.0"
 
@@ -22,42 +32,59 @@ ConfigurationBase {
     // Branding names visible to the user
     property string appBranding: "Q.HOME CONTROL"
     property string coreBranding: "Q.HOME CONTROL"
+    property string deviceName: "Q.HOME CONTROL"
 
     //Branding contact-email
     property string contactEmail: "meinesolaranlage@q-cells.com"
-    property string serviceEmail: "support.components@q-cells.com" //service@energie.q-cells.de
+    property string serviceEmail: "support.components@q-cells.com"
 
+    //Branding company
+    property string companyAddress: "Sonnenallee 17 - 21"
+    property string companyZip: "06766"
+    property string companyLocation: "Bitterfeld-Wolfen"
+    property string companyTel: "+49 (0)3494 6699-0"
+
+    //////////////////////////////////////////////////////////////////////////////////////
     // Will be shown in About page
     property string githubLink: "https://github.com/ConsolinnoEnergy/nymea-app"
     property string privacyPolicyUrl: "https://consolinno.de/hems-datenschutz/"
     property string termsOfConditionsUrl: "https://consolinno.de/hems-agb/"
     property string downloadMedia: "https://www.q-cells.de/privatkunden/services/downloadbereich#"
 
-    property string companyAddress: "Sonnenallee 17 - 21"
-    property string companyZip: "06766"
-    property string companyLocation: "Bitterfeld-Wolfen"
-    property string companyTel: "+49 (0)3494 6699-0"
+    //////////////////////////////////////////////////////////////////////////////////////
 
+    //Styles
     // Button
+    readonly property color iconColor: "#00C6C1"
     readonly property color buttonColor: "#001C77"
     readonly property color buttonTextColor: "#ffffff"
 
-    // Graph Color & LegendTiles Color
-    property var consumerColors: ["#0095D6", "#ACE3E2", "#00C6C1", "#639F86", "#FF8954", "#D9F6C5", "#437BC4", "#AA5DC2", "#C6C73F"]
-    readonly property color rootMeterAcquisitionColor: "#9365FE"
-    readonly property color rootMeterReturnColor: "#0228A0"
-    readonly property color producersColor: "#FFDA00"
-    readonly property color epexColor: "#E056F5"
-    readonly property color epexColorLine: "#7EC9A6"
-    readonly property color epexAveragePriceLineColor: "#CE092F"
-    readonly property color batteriesColor: "#A1E2B7"
-    readonly property color batteryChargeColor: batteriesColor
-    readonly property color batteryDischargeColor: "#F7B772"
-    readonly property color consumedColor: "#ADB9E3"
-    readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor, epexColor, epexColorLine, epexAveragePriceLineColor]
+    //static things colors
+    //producers
+    readonly property color rootMeterAcquisitionColor: "#1C3EAA"
+    readonly property color rootMeterReturnColor: "#01295F"
+    readonly property color inverterColor: "#1AA0DB"
 
-    //change null value to have different font or set null to have standard font
-    property string fontFamily: "NotoSans"
+    //other things
+    readonly property color epexColor: "#1ACCC8"
+    readonly property color epexMainLineColor: "#001C77"
+    readonly property color epexAverageColor: "#00C6C1"
+
+    //other consumers
+    readonly property color heatpumpColor: "#4ED6B2"
+    readonly property color wallboxColor: "#9DEAC6"
+    readonly property color heatingRodColor: "#C2E56C"
+    readonly property color consumedColor: "#F4BF65"
+
+    //batteries
+    readonly property color batteriesColor: "#93DE8E"
+    readonly property color batteryChargeColor: batteriesColor
+    readonly property color batteryDischargeColor: "#F4BF65"
+
+    //etc. colors
+    readonly property var totalColors: [consumedColor, inverterColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
+    property var consumerColors: ["#677EC6", "#66DDDA", "#437BC4", "#AA5DC2", "#66BFE6"]
+
 
     //custom Icons
     readonly property string gridIcon: "gridQ.svg"
@@ -70,10 +97,6 @@ ConfigurationBase {
     readonly property string batteryIcon: "batteryQ.svg"
     readonly property string infoIcon: "infoQ.svg"
     readonly property string menuIcon: "menuQ.svg"
-
-    //Main View
-    readonly property string mainMenuThingName: "white"
-
 
     property ListModel softwareLinksApp: ListModel {
         ListElement { component: "Suru icons"; url: "https://github.com/snwh/suru-icon-theme" }
@@ -98,6 +121,8 @@ ConfigurationBase {
         ListElement { component: "Ubuntu font licence, Version 1.0"; license: "UFL" }
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////
+    //Connection & Settings
     // Default value when manually adding a tunnel proxy
     property string defaultTunnelProxyUrl: "hems-remoteproxy.services.consolinno.de"
 
@@ -109,7 +134,7 @@ ConfigurationBase {
 
     // Shows Reboot button in general settings menu
     property bool hideRebootButton: false
-
+    //////////////////////////////////////////////////////////////////////////////////////
     // Additional MainViews
     property var additionalMainViews: ListModel {
         ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Q CELLS") ; icon: "leaf" }

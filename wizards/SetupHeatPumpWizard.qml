@@ -168,23 +168,20 @@ Page {
                                 text: hpProxy.get(index) ? hpProxy.get(index).name : ""
                                 onClicked: {
                                 }
-
                                 Image {
                                     id: iconHeating
-                                    height: 25
-                                    width: 25
+                                    height: 24
+                                    width: 24
                                     source: icon.iconName
                                     anchors.verticalCenter: parent.verticalCenter
                                     anchors.left: parent.left
-                                    anchors.leftMargin: 15
+                                    anchors.leftMargin: 16
                                 }
-
                                 ColorOverlay {
                                     anchors.fill: iconHeating
                                     source: iconHeating
                                     color: Style.consolinnoMedium
                                 }
-
                             }
                         }
 
@@ -326,7 +323,6 @@ Page {
                             }
                         }
                     }
-
                 }
 
                 background: Rectangle{
@@ -336,8 +332,6 @@ Page {
                     color: Style.consolinnoMedium
                     radius: 4
                 }
-
-
                 onClicked: root.done(true, false, false)
             }
         }

@@ -95,22 +95,22 @@ Item {
 
             onTabSelected: {
                 d.now = new Date();
-
                 const pricelength = Object.keys(prices).length;
-                noDataLabel.visible = selectionTabs.currentIndex && pricelength < 97;
-                noDataIndicator.visible = selectionTabs.currentIndex && pricelength < 97;
+                const priceLengthCount = 97;
 
-                if(pricelength < 97 && selectionTabs.currentIndex == 1){
+                noDataLabel.visible = selectionTabs.currentIndex && pricelength <= priceLengthCount;
+                noDataIndicator.visible = selectionTabs.currentIndex && pricelength <= priceLengthCount;
+
+                if(pricelength <= priceLengthCount && selectionTabs.currentIndex == 1){
                     consumptionSeries.visible = false
                     consumptionSeriesAbove.visible = false
-                }else if(pricelength > 97 && selectionTabs.currentIndex == 1){
+                }else if(pricelength > priceLengthCount && selectionTabs.currentIndex == 1){
                     consumptionSeries.visible = true
                     consumptionSeriesAbove.visible = false
                 }else{
                     consumptionSeries.visible = true
                     consumptionSeriesAbove.visible = true
                 }
-
             }
         }
 
@@ -239,7 +239,7 @@ Item {
                     axisY: valueAxis
                     color: 'transparent'
                     borderWidth: 1
-                    borderColor: (totalColors.length === 0) ? Style.green : totalColors[7]
+                    borderColor: Configuration.epexMainLineColor
 
                     lowerSeries: LineSeries {
                         id: pricingLowerSeries
@@ -332,7 +332,7 @@ Item {
                     axisY: valueAxis
                     color: 'transparent'
                     borderWidth: 1
-                    borderColor: (totalColors.length === 0) ? Style.red : totalColors[8]
+                    borderColor: Configuration.epexAverageColor
 
                     upperSeries: LineSeries {
                         id: pricingUpperSeriesAbove
@@ -346,8 +346,8 @@ Item {
 
                 ScatterSeries {
                     id: currentValuePoint
-                    borderColor: Style.green
-                    color: Style.green
+                    borderColor: Configuration.epexMainLineColor
+                    color: Configuration.epexMainLineColor
                     markerSize: isDynamicPrice ? 5 : parent.height / 80
                     markerShape: AbstractSeries.MarkerShapeCircle
                     axisX: dateTimeAxis
@@ -383,7 +383,7 @@ Item {
                     spacing: 5
                     Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
-                        color: Style.green
+                        color: Configuration.epexMainLineColor
                         width: 8
                         height: 8
                     }
@@ -399,7 +399,7 @@ Item {
                     spacing: 5
                     Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
-                        color: Style.red
+                        color: Configuration.epexAverageColor
                         width: 8
                         height: 8
                     }

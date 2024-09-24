@@ -6,7 +6,7 @@ StyleBase {
 
     property color consolinnoExtraDark: "#121926"
     property color consolinnoDark: "#0450c9"
-    property color consolinnoMedium: "#00C6C1" //icon / system color
+    property color consolinnoMedium: Configuration.iconColor
     property color consolinnoLight: "#75a9fa"
     property color consolinnoExtraLight: "#75a9fa"
     property color consolinnoHighlight: "#75a9fa"
@@ -23,8 +23,6 @@ StyleBase {
     backgroundColor: "white"
     foregroundColor: consolinnoExtraDark
 
-//    tileBackgroundColor: "white"
-//    tileOverlayColor: "#DDE8B4"
     tileOverlayIconColor: consolinnoDark
 
     accentColor: consolinnoMedium
@@ -36,5 +34,32 @@ StyleBase {
     blue: "#329eba"
 
     fontFamily: Configuration.fontFamily
+
+    //font size and font family
+    readonly property font extraSmallFont: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 10
+    })
+    readonly property font smallFont: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 13
+    })
+    readonly property font font: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 16
+    })
+    readonly property font bigFont: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 20
+    })
+    readonly property font largeFont: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 32
+    })
+    readonly property font hugeFont: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 46
+    })
+
 
 }
