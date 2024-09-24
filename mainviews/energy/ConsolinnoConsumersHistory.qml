@@ -470,7 +470,17 @@ Item {
                             series = chartView.createSeries(ChartView.SeriesTypeArea, thing.name, dateTimeAxis, valueAxis)
                             series.lowerSeries = lineSeriesComponent.createObject(series)
                             series.upperSeries = lineSeriesComponent.createObject(series)
-                            series.color = consumerColors[index]
+
+                            if(thing.thingClass.interfaces.indexOf("heatpump") >= 0){
+                                series.color = Configuration.heatpumpColor
+                            }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
+                                series.color = Configuration.wallboxColor
+                            }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
+                                series.color = Configuration.heatingRodColor
+                            }else{
+                                series.color = consumerColors[index]
+                            }
+
                             series.opacity = Qt.binding(function() {
                                 return d.selectedSeries == null || d.selectedSeries == series ? 1 : 0.3
                             })
@@ -518,7 +528,7 @@ Item {
                                             if(Configuration.heatpumpIcon !== ""){
                                                 return "qrc:/ui/images/"+Configuration.heatpumpIcon
                                             }else{
-                                                return "qrc:/ui/images/heatpump.svg"
+                                                return "qrc:/ui/images/thermostat/heating.svg"
                                             }
                                         case "smartheatingrod":
                                             if(Configuration.heatingRodIcon !== ""){
@@ -749,12 +759,23 @@ Item {
                             model: consumersRepeater.count
                             delegate: RowLayout {
                                 readonly property Item chartItem: consumersRepeater.itemAt(index)
+                                readonly property Thing thing: chartItem.series.get(index).name
                                 id: consumerToolTipDelegate
                                 opacity: d.selectedSeries == null || d.selectedSeries === chartItem.series ? 1 : 0.3
                                 Rectangle {
                                     width: Style.extraSmallFont.pixelSize
                                     height: width
-                                    color: index >= 0 ? consumerColors[index] : "white" //TODO: change colors of mouseover squars
+                                    color: {
+                                        if(chartItem.thing.thingClass.interfaces.indexOf("heatpump") >= 0){
+                                            return Configuration.heatpumpColor
+                                        }else if(chartItem.thing.thingClass.interfaces.indexOf("evcharger") >= 0){
+                                            return Configuration.wallboxColor
+                                        }else if(chartItem.thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
+                                            return Configuration.heatingRodColor
+                                        }else{
+                                           return consumerColors[index]
+                                        }
+                                    }
                                 }
 
                                 Label {

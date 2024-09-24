@@ -6,7 +6,7 @@ StyleBase {
 
     property color consolinnoExtraDark: "#193c4d"
     property color consolinnoDark: "#0450c9"
-    property color consolinnoMedium: "#639df7"
+    property color consolinnoMedium: Configuration.iconColor
     property color consolinnoLight: "#75a9fa"
     property color consolinnoExtraLight: "#75a9fa"
     property color consolinnoHighlight: "#75a9fa"
@@ -23,8 +23,6 @@ StyleBase {
     backgroundColor: "white"
     foregroundColor: consolinnoExtraDark
 
-//    tileBackgroundColor: "white"
-//    tileOverlayColor: "#DDE8B4"
     tileOverlayIconColor: consolinnoDark
 
     accentColor: consolinnoMedium

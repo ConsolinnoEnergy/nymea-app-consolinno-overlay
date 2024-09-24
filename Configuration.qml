@@ -11,6 +11,16 @@ ConfigurationBase {
 
     connectionWizard: "/ui/wizards/ConnectionWizard.qml"
 
+    //////////////////////////////////////////////////////////////////////////////////////
+    //Main View
+    readonly property string mainMenuThingName: "black"
+
+    //change "Ubuntu" string to set a different font or set "Ubuntu" to have standard font
+    property string fontFamily: "Ubuntu"
+
+    //Wizard Complete
+    property bool isIntroIcon: true
+    //////////////////////////////////////////////////////////////////////////////////////
     // Defines the minimal compatible HEMS version
     property string minSysVersion: "1.3.0"
 
@@ -23,33 +33,32 @@ ConfigurationBase {
     // Branding names visible to the user
     property string appBranding: "Q CELLS"
     property string coreBranding: "Q.Home"
+    property string deviceName: "Q.HOME CONTROL"
 
     //Branding contact-email
     property string contactEmail: "meinesolaranlage@q-cells.com"
-    property string serviceEmail: "service@energie.q-cells.de"
+    property string serviceEmail: "support.components@q-cells.com"
 
+    //Branding company
+    property string companyAddress: "Sonnenallee 17 - 21"
+    property string companyZip: "06766"
+    property string companyLocation: "Bitterfeld-Wolfen"
+    property string companyTel: "+49 (0)3494 6699-0"
+
+    //////////////////////////////////////////////////////////////////////////////////////
     // Will be shown in About page
     property string githubLink: "https://github.com/ConsolinnoEnergy/nymea-app"
     property string privacyPolicyUrl: "https://consolinno.de/hems-datenschutz/"
     property string termsOfConditionsUrl: "https://consolinno.de/hems-agb/"
     property string downloadMedia: "https://www.q-cells.de/privatkunden/services/downloadbereich#"
 
-    property string companyAddress: "Sonnenallee 17 - 21"
-    property string companyZip: "06766"
-    property string companyLocation: "Bitterfeld-Wolfen"
-    property string companyTel: "+49 (0)3494 6699-0"
+    //////////////////////////////////////////////////////////////////////////////////////
 
+    //Styles
     // Button
+    readonly property color iconColor: "#639df7"
     readonly property color buttonColor: "#001C77"
     readonly property color buttonTextColor: "#ffffff"
-
-    //readonly property color rootMeterAcquisitionColor: "#F37B8E"
-    //readonly property color rootMeterReturnColor: "#45B4E4"
-    //readonly property color producersColor: "#FCE487"
-    //readonly property color batteriesColor: "#BDD786"
-    //readonly property color batteryChargeColor: batteriesColor
-    //readonly property color batteryDischargeColor: "#F7B772"
-    //readonly property color consumedColor: "#ADB9E3"
 
     //static things colors
     //producers
@@ -77,9 +86,6 @@ ConfigurationBase {
     property var consumerColors: ["#FF8954", "#D9F6C5", "#437BC4", "#AA5DC2", "#C6C73F"]
     readonly property var totalColors: [consumedColor, inverterColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
 
-    //change "Ubuntu" string to set a different font or set "Ubuntu" to have standard font
-    property string fontFamily: "Ubuntu"
-
     //custom Icons
     readonly property string gridIcon: ""
     readonly property string heatpumpIcon: ""
@@ -92,10 +98,8 @@ ConfigurationBase {
     readonly property string infoIcon: ""
     readonly property string menuIcon: ""
 
-    //Main View
-    readonly property string mainMenuThingName: "black"
-
-
+    //////////////////////////////////////////////////////////////////////////////////////
+    //Help links
     property ListModel softwareLinksApp: ListModel {
         ListElement { component: "Suru icons"; url: "https://github.com/snwh/suru-icon-theme" }
         ListElement { component: "Ubuntu font"; url: "https://design.ubuntu.com/font" }
@@ -119,6 +123,8 @@ ConfigurationBase {
         ListElement { component: "Ubuntu font licence, Version 1.0"; license: "UFL" }
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////
+    //Connection & Settings
     // Default value when manually adding a tunnel proxy
     property string defaultTunnelProxyUrl: "hems-remoteproxy.services.consolinno.de"
 
@@ -130,7 +136,7 @@ ConfigurationBase {
 
     // Shows Reboot button in general settings menu
     property bool hideRebootButton: false
-
+    //////////////////////////////////////////////////////////////////////////////////////
     // Additional MainViews
     property var additionalMainViews: ListModel {
         ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Q CELLS") ; icon: "leaf" }

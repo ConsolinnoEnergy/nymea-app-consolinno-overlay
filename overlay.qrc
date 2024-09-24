@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-     <!--<file>styles/light/fonts/NotoSans-Black.ttf</file>
+     	<file>styles/light/fonts/NotoSans-Black.ttf</file>
         <file>styles/light/fonts/NotoSans-BlackItalic.ttf</file>
         <file>styles/light/fonts/NotoSans-Bold.ttf</file>
         <file>styles/light/fonts/NotoSans-BoldItalic.ttf</file>
@@ -8,7 +8,6 @@
         <file>styles/light/fonts/NotoSans-ExtraBoldItalic.ttf</file>
         <file>styles/light/fonts/NotoSans-ExtraLight.ttf</file>
         <file>styles/light/fonts/NotoSans-ExtraLightItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans-Italic-VariableFont_wdth,wght.ttf</file>
         <file>styles/light/fonts/NotoSans-Italic.ttf</file>
         <file>styles/light/fonts/NotoSans-Light.ttf</file>
         <file>styles/light/fonts/NotoSans-LightItalic.ttf</file>
@@ -19,61 +18,6 @@
         <file>styles/light/fonts/NotoSans-SemiBoldItalic.ttf</file>
         <file>styles/light/fonts/NotoSans-Thin.ttf</file>
         <file>styles/light/fonts/NotoSans-ThinItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans-VariableFont_wdth,wght.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-Black.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-BlackItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-Bold.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-BoldItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-ExtraBold.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-ExtraBoldItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-ExtraLight.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-ExtraLightItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-Italic.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-Light.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-LightItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-Medium.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-MediumItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-Regular.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-SemiBold.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-SemiBoldItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-Thin.ttf</file>
-        <file>styles/light/fonts/NotoSans_Condensed-ThinItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-Black.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-BlackItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-Bold.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-BoldItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-ExtraBold.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-ExtraBoldItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-ExtraLight.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-ExtraLightItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-Italic.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-Light.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-LightItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-Medium.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-MediumItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-Regular.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-SemiBold.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-SemiBoldItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-Thin.ttf</file>
-        <file>styles/light/fonts/NotoSans_ExtraCondensed-ThinItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-Black.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-BlackItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-Bold.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-BoldItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-ExtraBold.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-ExtraBoldItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-ExtraLight.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-ExtraLightItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-Italic.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-Light.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-LightItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-Medium.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-MediumItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-Regular.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-SemiBold.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-SemiBoldItalic.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-Thin.ttf</file>
-        <file>styles/light/fonts/NotoSans_SemiCondensed-ThinItalic.ttf</file>-->
         <file>styles/light/Style.qml</file>
         <file>styles/light/Button.qml</file>
         <file>styles/light/logo.svg</file>

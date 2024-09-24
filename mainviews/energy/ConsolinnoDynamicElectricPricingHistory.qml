@@ -95,22 +95,22 @@ Item {
 
             onTabSelected: {
                 d.now = new Date();
-
                 const pricelength = Object.keys(prices).length;
-                noDataLabel.visible = selectionTabs.currentIndex && pricelength < 97;
-                noDataIndicator.visible = selectionTabs.currentIndex && pricelength < 97;
+                const priceLengthCount = 97;
 
-                if(pricelength < 97 && selectionTabs.currentIndex == 1){
+                noDataLabel.visible = selectionTabs.currentIndex && pricelength <= priceLengthCount;
+                noDataIndicator.visible = selectionTabs.currentIndex && pricelength <= priceLengthCount;
+
+                if(pricelength <= priceLengthCount && selectionTabs.currentIndex == 1){
                     consumptionSeries.visible = false
                     consumptionSeriesAbove.visible = false
-                }else if(pricelength > 97 && selectionTabs.currentIndex == 1){
+                }else if(pricelength > priceLengthCount && selectionTabs.currentIndex == 1){
                     consumptionSeries.visible = true
                     consumptionSeriesAbove.visible = false
                 }else{
                     consumptionSeries.visible = true
                     consumptionSeriesAbove.visible = true
                 }
-
             }
         }
 

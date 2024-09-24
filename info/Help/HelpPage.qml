@@ -147,8 +147,7 @@ Page {
                 Layout.topMargin: 10
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
-                text: qsTr("If there is a problem with the Leaflet itself, then contact %1 service.").arg(Configuration.appBranding)
-
+                text: qsTr("If there is a problem with the %1 itself, then contact %2 service.").arg(Configuration.deviceName).arg(Configuration.appBranding)
             }
 
         }

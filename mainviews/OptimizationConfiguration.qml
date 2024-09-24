@@ -44,7 +44,7 @@ Page {
         Repeater {
             model: useCasesModel
             delegate: NymeaItemDelegate {
-                id: test
+                id: allIcons
                 Layout.fillWidth: true
                 iconName: {
                     let icon = "";
@@ -69,20 +69,20 @@ Page {
                 }
 
                 Image {
-                    id: bug
-                    height: 25
-                    width: 25
-                    source: test.iconName
+                    id: icons
+                    height: 24
+                    width: 24
+                    source: allIcons.iconName
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
-                    anchors.leftMargin: 15
+                    anchors.leftMargin: 16
                     z: 2
                 }
 
                 ColorOverlay {
-                    anchors.fill: bug
-                    source: bug
-                    color: Style.buttonColor
+                    anchors.fill: icons
+                    source: icons
+                    color: Style.consolinnoMedium
                     z: 3
                 }
 

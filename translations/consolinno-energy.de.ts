@@ -111,11 +111,11 @@
     </message>
     <message>
         <source>To comission devices with the %1, you must be authorized. Otherwise the warranty expires.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nur Personen mit ausreichenden Fachkenntnissen sollten Geräte in Betrieb nehmen. Andernfalls kann es zu einer Beeinträchtigung der Funktionsweise des %1 führen.</translation>
     </message>
     <message>
         <source>I am authorized to operate the %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ich bin berechtigt, die %1 zu bedienen</translation>
     </message>
 </context>
 <context>
@@ -535,8 +535,8 @@
         <translation type="unfinished">Im Lademodus dynamischer Tarif wird mit maximalem Ladestrom geladen,  sobald der Preis unter die eingestellte Preisgrenze fällt. In Zeiten in  denen nicht geladen wird, weil die Preisgrenze überschritten ist, wird  geladen, falls PV-Überschuss vorhanden ist. Wenn die Preisgrenze  verändert wird, ist diese Grenze beim nächsten Anstecken vorausgewählt.</translation>
     </message>
     <message>
-        <source>The charging modes &lt;font color=&quot;#87BD26&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;#87BD26&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;#87BD26&quot;&gt;Dynamic tariff&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;#87BD26&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
-        <translation type="unfinished">Die Lademodi &lt;font color=&quot;#87BD26&quot;&gt;„Nur Solarstrom“&lt;/font&gt;, &lt;font color=&quot;#87BD26&quot;&gt;„Immer Laden“&lt;/font&gt; sowie &lt;font color=&quot;#87BD26&quot;&gt;„Dynamischer Tarif“&lt;/font&gt; bleiben nachdem Abstecken weiterhin ausgewählt. Das heißt, wenn Sie wieder anstecken, ist der letzte gewählte Modus aktiv. Wenn Sie mit &lt;font color=&quot;#87BD26&quot;&gt;„Nächster Fahrt“&lt;/font&gt; geladen haben, dann müssen Sie bei Anstecken wieder einen Lademodus wählen.</translation>
+        <source>The charging modes &lt;font color=&quot;%1&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;%1&quot;&gt;Dynamic tariff&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;%1&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
+        <translation type="unfinished">Die Lademodi &lt;font color=&quot;%1&quot;&gt;„Nur Solarstrom“&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;„Immer Laden“&lt;/font&gt; sowie &lt;font color=&quot;%1&quot;&gt;„Dynamischer Tarif“&lt;/font&gt; bleiben nachdem Abstecken weiterhin ausgewählt. Das heißt, wenn Sie wieder anstecken, ist der letzte gewählte Modus aktiv. Wenn Sie mit &lt;font color=&quot;%1&quot;&gt;„Nächster Fahrt“&lt;/font&gt; geladen haben, dann müssen Sie bei Anstecken wieder einen Lademodus wählen.</translation>
     </message>
 </context>
 <context>
@@ -1586,7 +1586,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>Please select the device from the list that you want to set up. If no device is displayed in the list, please check the network connection! (Alternatively, a manual connection can also be established).</source>
-        <translation type="unfinished">Bitte das Gerät aus der Liste wählen, das eingerichtet werden soll. Wird kein Gerät in der Liste angezeigt bitte die Netzwerkverbindung prüfen! (Alternativ kann auch eine manuelle Verbindung hergestellt werden.)</translation>
+        <translation type="unfinished">Bitte das Gerät aus der Liste wählen, das eingerichtet werden soll. Wird kein Gerät in der Liste angezeigt bitte die Netzwerkverbindung prüfen! (Alternativ, kann auch eine manuelle Verbindung hergestellt werden).</translation>
     </message>
 </context>
 <context>
@@ -2281,15 +2281,15 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>Sorry, something went wrong during the setup. Try again please.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To complete the authentication, please press the test button again for 5 seconds until the status LED lights up green.</source>
         <translation type="unfinished">Um die Authentifizierung abzuschließen, drücken Sie bitte den Test-Taster erneut für 5 Sekunden, bis die Status-LED grün leuchtet.</translation>
     </message>
     <message>
-        <source>If the status LED flashes red briefly, you must repeat the authentication. (Go back to the connection page, press the test button briefly and select the leaflet again).</source>
-        <translation type="unfinished">Wenn die Status-LED kurz rot blinkt, müssen Sie die Authentifizierung wiederholen. (Gehen Sie zurück zur Verbindungsseite, betätigen Sie kurz die Test-Taste und wählen Sie erneut das Leaflet aus).</translation>
+        <source>If the status LED flashes red briefly, you must repeat the authentication. (Go back to the screen &quot;Discovered Devices&quot;, press the test button briefly and select the leaflet again).</source>
+        <translation type="unfinished">Wenn die Status-LED kurz rot blinkt, müssen Sie die Authentifizierung wiederholen. (Gehen Sie zurück zum Screen &quot;Gefundene Geräte&quot;, betätigen Sie kurz die Test-Taste und wählen Sie erneut das Leaflet aus).</translation>
+    </message>
+    <message>
+        <source>To complete the authentication, please press the &lt;b&gt;test button again for 5 seconds&lt;/b&gt; until the status LED lights up green.</source>
+        <translation type="unfinished">Um die Authentifizierung abzuschließen, drücken Sie bitte &lt;b&gt;den Test-Taster erneut für 5 Sekunden&lt;/b&gt;, bis die Status-LED grün leuchtet.</translation>
     </message>
 </context>
 <context>
@@ -2667,14 +2667,6 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;High&lt;/li&gt;: </source>
         <translation>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Hoch&lt;/li&gt;: </translation>
-    </message>
-    <message>
-        <source>Charging Mode</source>
-        <translation>Lademodus</translation>
-    </message>
-    <message>
-        <source>Battery Level</source>
-        <translation>Batteriezustand</translation>
     </message>
     <message>
         <source>The operating status indicates the control of the heat pump:</source>
@@ -3102,8 +3094,8 @@ the system, and a charging process is started, charging is prioritized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If there is a problem with the Leaflet itself, then contact %1 service.</source>
-        <translation type="unfinished"></translation>
+        <source>If there is a problem with the %1 itself, then contact %2 service.</source>
+        <translation type="unfinished">Falls ein Problem mit der %1 auftritt, kontaktieren Sie den %2-Service.</translation>
     </message>
 </context>
 <context>
@@ -3252,8 +3244,8 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
         <translation>Weiter</translation>
     </message>
     <message>
-        <source>(The settings can be found in the wrench menu under &lt;font color=&quot;#87BD26&quot;&gt; Optimization Settings &lt;/font&gt;).</source>
-        <translation>(Die Einstellungen sind zu finden im Schraubenschlüsselmenü unter &lt;font color=&quot;#87BD26&quot;&gt; Optimierungseinstellungen &lt;/font&gt;).</translation>
+        <source>(The settings can be found in the wrench menu under &lt;font color=&quot;%1&quot;&gt; Optimization Settings &lt;/font&gt;).</source>
+        <translation type="unfinished">(Die Einstellungen sind zu finden im Schraubenschlüsselmenü unter &lt;font color=&quot;%1&quot;&gt; Optimierungseinstellungen &lt;/font&gt;).</translation>
     </message>
 </context>
 <context>
@@ -3264,7 +3256,7 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     </message>
     <message>
         <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can find current manuals for %1 in the download area of our &lt;a href=&quot;%2&quot;&gt;Website&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;Aktuelle Handbücher für %1 finden Sie im unsererem Downloadbereich &lt;a href=&quot;%2&quot;&gt;Webseite&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3451,8 +3443,8 @@ Please refer to our service if you have any questions: service@consolinno.de</so
         <translation type="unfinished">Pausieren</translation>
     </message>
     <message>
-        <source>Some vehicles cannot handle an interruption in the charging process, i.e. charging can no longer be continued after an interruption in the charging process if, for example, the electricity price falls below the price limit again after a pause. If problems occur, the option &lt;font color=&quot;#87BD26&quot;&gt;&apos;Charging with minimum power&apos;&lt;/font&gt; should be selected. With this setting, charging continues at minimum power even if the price limit is exceeded.</source>
-        <translation type="unfinished">Manche Fahrzeuge können mit einer Unterbrechung des Ladevorgangs nicht umgehen, d.h. nach einer Unterbrechung des Ladevorgangs kann nicht mehr weitergeladen werden, z.B. wenn der Strompreis nach Pausieren wieder unter die Preisgrenze fällt. Falls es zu Problemen kommt sollte die Option &lt;font color=&quot;#87BD26&quot;&gt;„Laden mit minimaler Leistung“&lt;/font&gt; gewählt werden. Mit dieser Einstellung wird auch wenn die Preisgrenze überschritten wird mit minimalen Strom weitergeladen.</translation>
+        <source>Some vehicles cannot handle an interruption in the charging process, i.e. charging can no longer be continued after an interruption in the charging process if, for example, the electricity price falls below the price limit again after a pause. If problems occur, the option &lt;font color=&quot;%1&quot;&gt;&apos;Charging with minimum power&apos;&lt;/font&gt; should be selected. With this setting, charging continues at minimum power even if the price limit is exceeded.</source>
+        <translation type="unfinished">Manche Fahrzeuge können mit einer Unterbrechung des Ladevorgangs nicht umgehen, d.h. nach einer Unterbrechung des Ladevorgangs kann nicht mehr weitergeladen werden, z.B. wenn der Strompreis nach Pausieren wieder unter die Preisgrenze fällt. Falls es zu Problemen kommt sollte die Option &lt;font color=&quot;%1&quot;&gt;„Laden mit minimaler Leistung“&lt;/font&gt; gewählt werden. Mit dieser Einstellung wird auch wenn die Preisgrenze überschritten wird mit minimalen Strom weitergeladen.</translation>
     </message>
 </context>
 <context>
@@ -3685,16 +3677,16 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
 <context>
     <name>ServicePage</name>
     <message>
-        <source>If there are problems with the Leaflet, please refer to our service adress: </source>
-        <translation>Bei Problemen mit dem Leaflet wenden sie sich an unserere Serviceadresse</translation>
-    </message>
-    <message>
         <source>Service %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>%1</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there are problems with the %1, please refer to our service adress: </source>
+        <translation type="unfinished">Bei Problemen mit dem %1, wenden sie sich an unserere Serviceadresse: </translation>
     </message>
 </context>
 <context>
@@ -4259,7 +4251,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Your %1 is now configured. The following devices have been set up:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ihre %1 ist jetzt konfiguriert. Die folgenden Geräte wurden eingerichtet:</translation>
     </message>
 </context>
 <context>

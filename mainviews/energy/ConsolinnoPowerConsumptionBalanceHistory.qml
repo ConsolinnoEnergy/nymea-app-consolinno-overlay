@@ -357,7 +357,7 @@ Item {
                     id: storageSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[4]
+                    color: Configuration.batteryDischargeColor
                     borderWidth: 0
                     borderColor: null
                     name: qsTr("From Battery")
@@ -385,7 +385,7 @@ Item {
                     id: acquisitionSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[2]
+                    color: Configuration.rootMeterAcquisitionColor
                     borderWidth: 0
                     borderColor: null
                     name: qsTr("From grid")
@@ -566,7 +566,7 @@ Item {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: totalColors[4]
+                                color: Configuration.batteryDischargeColor
                             }
 
                             Label {

@@ -96,7 +96,7 @@ MouseArea {
             if(Configuration.heatpumpIcon !== ""){
                 icon = "qrc:/ui/images/"+Configuration.heatpumpIcon
             }else{
-                icon = "qrc:/ui/images/heatpump.svg"
+                icon = "qrc:/ui/images/thermostat/heating.svg"
             }
             return Qt.resolvedUrl(icon)
         case "smartheatingrod":

@@ -257,7 +257,7 @@ Page {
                     width: parent.width
                     height: parent.height
                     border.color: Material.background
-                    color: Style.consolinnoHighlight
+                    color: Style.consolinnoMedium
                     radius: 4
                 }
                 onClicked: root.done(true, false, false)

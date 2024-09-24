@@ -1161,7 +1161,16 @@ MainViewBase {
                             consumerSeries.lowerSeries = zeroSeries
                             consumerSeries.upperSeries = lineSeriesComponent.createObject(
                                         consumerSeries)
-                            consumerSeries.color = lsdChart.consumersColors[index]
+
+                            if(thing.thingClass.interfaces.indexOf("heatpump") >= 0){
+                                consumerSeries.color = Configuration.heatpumpColor
+                            }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
+                                consumerSeries.color = Configuration.wallboxColor
+                            }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
+                                consumerSeries.color = Configuration.heatingRodColor
+                            }else{
+                                consumerSeries.color = lsdChart.consumersColors[index]
+                            }
                             consumerSeries.borderWidth = 0
                             consumerSeries.borderColor = consumerSeries.color
                         }

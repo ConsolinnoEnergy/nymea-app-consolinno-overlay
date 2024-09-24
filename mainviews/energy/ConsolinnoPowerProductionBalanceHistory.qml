@@ -292,7 +292,7 @@ Item {
                     id: selfConsumptionSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[0]
+                    color: Configuration.consumedColor
                     borderWidth: 0
                     borderColor: null
                     name: qsTr("Consumed")
@@ -351,7 +351,7 @@ Item {
                     id: storageSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[4]
+                    color: Configuration.batteryChargeColor
                     borderWidth: 0
                     borderColor: null
                     visible: root.batteries.count > 0
@@ -380,7 +380,7 @@ Item {
                     id: acquisitionSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[3]
+                    color: Configuration.rootMeterReturnColor
                     borderWidth: 0
                     borderColor: null
                     name: qsTr("To grid")

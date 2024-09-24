@@ -158,9 +158,22 @@ StatsBase {
 
                 barSet = barSeries.append(consumerDelegate.thing.name, values)
                 barSet.opacity = d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? 1 : 0.3
+
                 barSet.color = Qt.binding(function() {
-                    var col= "#" + (d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? "FF" : "66") + consumerColors[index].slice(1)
-                    return(col)
+                    let consumerThingClass = consumerDelegate.thing.thingClass.interfaces;
+                    var col = "";
+
+                    if(consumerThingClass.indexOf("heatpump") >= 0){
+                        col= (d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? Configuration.heatpumpColor : Qt.darker(Configuration.heatpumpColor, 0.8))
+                    }else if(consumerThingClass.indexOf("evcharger") >= 0){
+                        col= (d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? Configuration.wallboxColor : Qt.darker(Configuration.wallboxColor, 0.8))
+                    }else if(consumerThingClass.indexOf("smartheatingrod") >= 0){
+                        col= (d.selectedThing == null || consumerDelegate.thing == d.selectedThing ?  Configuration.heatingRodColor : Qt.darker(Configuration.heatingRodColor, 0.8))
+                    }else{
+                        col= "#" + (d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? "FF" : "66") + consumerColors[index].slice(1)
+                    }
+
+                    return(col);
                     //return NymeaUtils.generateColor(Style.generationBaseColor, index, d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? 1 : 0.3)
                 })
                 barSet.borderColor = Qt.binding(function(){ return barSet.color})
@@ -356,7 +369,7 @@ StatsBase {
                                             if(Configuration.heatpumpIcon !== ""){
                                                 return "qrc:/ui/images/"+Configuration.heatpumpIcon
                                             }else{
-                                                return "qrc:/ui/images/heatpump.svg"
+                                                return "qrc:/ui/images/thermostat/heating.svg"
                                             }
                                         case "smartheatingrod":
                                             if(Configuration.heatingRodIcon !== ""){
@@ -377,15 +390,18 @@ StatsBase {
                                 }
                                 size: Style.smallIconSize
                                 color: {
-                                    if(thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0){
-                                        return Configuration.heatpumpColor
-                                    }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
-                                        return Configuration.heatingRodColor
-                                    }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
-                                        return Configuration.wallboxColor
+                                    let consumerThingClass = legendDelegate.thing.thingClass.interfaces;
+                                    var col = "";
+                                    if(consumerThingClass.indexOf("heatpump") >= 0){
+                                        col= (d.selectedThing == null || legendDelegate.thing == d.selectedThing ? Configuration.heatpumpColor : Qt.darker(Configuration.heatpumpColor, 0.8))
+                                    }else if(consumerThingClass.indexOf("evcharger") >= 0){
+                                        col= (d.selectedThing == null || legendDelegate.thing == d.selectedThing ? Configuration.wallboxColor : Qt.darker(Configuration.wallboxColor, 0.8))
+                                    }else if(consumerThingClass.indexOf("smartheatingrod") >= 0){
+                                        col= (d.selectedThing == null || legendDelegate.thing == d.selectedThing ?  Configuration.heatingRodColor : Qt.darker(Configuration.heatingRodColor, 0.8))
                                     }else{
-                                        return "white"
+                                        col= "#" + (d.selectedThing == null || legendDelegate.thing == d.selectedThing ? "FF" : "66") + consumerColors[index].slice(1)
                                     }
+                                    return(col)
                                 }
 
                                 Image {
@@ -607,7 +623,18 @@ StatsBase {
                                 Rectangle {
                                     width: Style.extraSmallFont.pixelSize
                                     height: width
-                                    color: consumerColors[model.indexInModel]
+                                    color: {
+                                        let consumerThingClass = model.consumer.thingClass.interfaces;
+                                        if(consumerThingClass.indexOf("heatpump") >= 0){
+                                            return Configuration.heatpumpColor;
+                                        }else if(consumerThingClass.indexOf("evcharger") >= 0){
+                                            return Configuration.wallboxColor;
+                                        }else if(consumerThingClass.indexOf("smartheatingrod") >= 0){
+                                            return Configuration.heatingRodColor;
+                                        }else{
+                                            return consumerColors[model.indexInModel]
+                                        }
+                                    }
                                 }
                                 Label {
                                     text: "%1: %2 kWh".arg(model.consumer.name).arg((+model.value).toLocaleString())

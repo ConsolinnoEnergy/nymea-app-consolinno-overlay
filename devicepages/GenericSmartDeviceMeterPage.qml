@@ -170,15 +170,17 @@ GenericConfigPage {
                 onColor: {
                     if (root.isBattery) {
                         if (root.isCharging) {
-                            return Style.purple
+                            return Configuration.batteriesColor
                         }
                         if (root.isDischarging) {
-                            return Style.orange
+                            return Configuration.batteryDischargeColor
                         }
-                        return Style.green
+                        return Configuration.batteriesColor
                     }
                     if (root.isEnergyMeter)
-                        return root.currentPowerState.value < 0 ? Style.green : Style.blue
+                        return root.currentPowerState.value < 0 ? Configuration.rootMeterReturnColor : Configuration.rootMeterAcquisitionColor
+                    if (root.isProducer)
+                        return isProduction ? Configuration.inverterColor : Configuration.consumedColor
                 }
 
                 Behavior on onColor { ColorAnimation { duration: Style.fastAnimationDuration } }
