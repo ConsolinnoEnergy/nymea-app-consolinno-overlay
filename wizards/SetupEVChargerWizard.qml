@@ -169,28 +169,8 @@ Page {
                                 }
                                 onClicked: {
                                 }
-
-                                Image {
-                                    id: iconEvCharger
-                                    height: 25
-                                    width: 25
-                                    source: iconEv.iconName
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    anchors.left: parent.left
-                                    anchors.leftMargin: 15
-                                }
-
-                                ColorOverlay {
-                                    anchors.fill: iconEvCharger
-                                    source: iconEvCharger
-                                    color: Style.consolinnoMedium
-                                }
-
-
                             }
-
                         }
-
                     }
                 }
             }

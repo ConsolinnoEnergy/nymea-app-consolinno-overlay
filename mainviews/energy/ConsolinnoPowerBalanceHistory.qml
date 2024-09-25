@@ -795,7 +795,6 @@ Item {
                 }
                 function selectIcons(customIcon,defaultIcon){
                     if(customIcon !== ""){
-                        //let newIcon = customIcon.split(".")
                         return "qrc:/ui/images/"+customIcon
                     }else{
                         return defaultIcon
