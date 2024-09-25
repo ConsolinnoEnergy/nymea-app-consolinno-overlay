@@ -8,8 +8,8 @@ import "../components"
 
 Page {
     id: root
-    header: ConsolinnoHeader {
-        text: qsTr("System settings12345")
+    header: NymeaHeader {
+        text: qsTr("System settings")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
