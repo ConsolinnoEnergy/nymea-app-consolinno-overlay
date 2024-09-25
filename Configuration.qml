@@ -132,6 +132,10 @@ ConfigurationBase {
 
     // Shows Reboot button in general settings menu
     property bool hideRebootButton: false
+
+    // Shows Developer button in general settings menu
+    property bool developerSettingsEnabled: false
+
     //////////////////////////////////////////////////////////////////////////////////////
     // Additional MainViews
     property var additionalMainViews: ListModel {
@@ -146,9 +150,9 @@ ConfigurationBase {
     magicEnabled: true
     networkSettingsEnabled: true
     apiSettingsEnabled: true
-    mqttSettingsEnabled: true
-    webServerSettingsEnabled: true
-    zigbeeSettingsEnabled: true
+    mqttSettingsEnabled: false
+    webServerSettingsEnabled: false
+    zigbeeSettingsEnabled: false
     modbusSettingsEnabled: true
     pluginSettingsEnabled: true
 
