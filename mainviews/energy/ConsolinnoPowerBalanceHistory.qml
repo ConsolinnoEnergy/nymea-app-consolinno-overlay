@@ -593,14 +593,40 @@ Item {
                                 id: arrowDown
                                 name: "arrow-down"
                                 size: Style.smallIconSize
-                                color: totalColors[2]
+                                color: gridDownID.color
 
                                 Rectangle {
-                                    color: totalColors[2]
-                                    height: 9
-                                    width: 4
+                                    color: parent.color
+                                    height: 8
+                                    width: 2
                                     rotation: 180
-                                    anchors.centerIn: arrowDown
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: 1
+                                    anchors.verticalCenterOffset: -1
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    height: 8
+                                    width: 2
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: -1
+                                    anchors.verticalCenterOffset: -1
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    radius: 1
+                                    height: 3
+                                    width: 3
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: 0
+                                    anchors.verticalCenterOffset: 3
                                 }
                             }
                         }
@@ -653,11 +679,37 @@ Item {
                                 color: totalColors[3]
 
                                 Rectangle {
-                                    color: totalColors[3]
-                                    height: 10
-                                    width: 4
+                                    color: parent.color
+                                    height: 8
+                                    width: 2
                                     rotation: 180
-                                    anchors.centerIn: arrowUp
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: 1
+                                    anchors.verticalCenterOffset: 1
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    height: 8
+                                    width: 2
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: -1
+                                    anchors.verticalCenterOffset: 1
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    radius: 2
+                                    height: 3
+                                    width: 3
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: 0
+                                    anchors.verticalCenterOffset: -2
                                 }
                             }
                         }
