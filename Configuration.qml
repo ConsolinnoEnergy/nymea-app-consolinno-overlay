@@ -152,9 +152,9 @@ ConfigurationBase {
     magicEnabled: true
     networkSettingsEnabled: true
     apiSettingsEnabled: true
-    mqttSettingsEnabled: true
-    webServerSettingsEnabled: true
-    zigbeeSettingsEnabled: true
+    mqttSettingsEnabled: false
+    webServerSettingsEnabled: false
+    zigbeeSettingsEnabled: false
     modbusSettingsEnabled: true
     pluginSettingsEnabled: true
 
