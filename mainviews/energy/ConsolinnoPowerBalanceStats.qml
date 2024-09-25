@@ -379,6 +379,7 @@ StatsBase {
                 MouseArea {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    opacity: d.selectedSet == null || d.selectedSet == consumptionSet ? 1 : 0.3
                     onClicked: d.selectSet(consumptionSet)
                     Row {
                         anchors.centerIn: parent
@@ -402,6 +403,7 @@ StatsBase {
                 MouseArea {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    opacity: d.selectedSet == null || d.selectedSet == productionSet ? 1 : 0.3
                     onClicked: d.selectSet(productionSet)
                     Row {
                         anchors.centerIn: parent
@@ -451,6 +453,7 @@ StatsBase {
                 MouseArea {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    opacity: d.selectedSet == null || d.selectedSet == acquisitionSet ? 1 : 0.3
                     onClicked: d.selectSet(acquisitionSet)
                     Row {
                         anchors.centerIn: parent
@@ -485,11 +488,37 @@ StatsBase {
                                 color: totalColors[2]
 
                                 Rectangle {
-                                    color: totalColors[2]
-                                    height: 9
-                                    width: 4
+                                    color: parent.color
+                                    height: 8
+                                    width: 2
                                     rotation: 180
-                                    anchors.centerIn: arrowDown
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: 1
+                                    anchors.verticalCenterOffset: -1
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    height: 8
+                                    width: 2
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: -1
+                                    anchors.verticalCenterOffset: -1
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    radius: 1
+                                    height: 4
+                                    width: 3
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: 0
+                                    anchors.verticalCenterOffset: 2
                                 }
                             }
                         }
@@ -506,6 +535,7 @@ StatsBase {
                 MouseArea {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    opacity: d.selectedSet == null || d.selectedSet == returnSet ? 1 : 0.3
                     onClicked: d.selectSet(returnSet)
                     Row {
                         anchors.centerIn: parent
@@ -540,11 +570,37 @@ StatsBase {
                                 color: totalColors[3]
 
                                 Rectangle {
-                                    color: totalColors[3]
-                                    height: 10
-                                    width: 4
+                                    color: parent.color
+                                    height: 8
+                                    width: 2
                                     rotation: 180
-                                    anchors.centerIn: arrowUp
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: 1
+                                    anchors.verticalCenterOffset: 1
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    height: 8
+                                    width: 2
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: -1
+                                    anchors.verticalCenterOffset: 1
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    radius: 2
+                                    height: 3
+                                    width: 3
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: 0
+                                    anchors.verticalCenterOffset: -2
                                 }
                             }
                         }
@@ -720,6 +776,7 @@ StatsBase {
 
                         RowLayout {
                             visible: root.hasProducers
+                            opacity: d.selectedSet == null || d.selectedSet == consumptionSet ? 1 : 0.3
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
@@ -732,6 +789,7 @@ StatsBase {
                         }
                         RowLayout {
                             visible: root.hasProducers
+                            opacity: d.selectedSet == null || d.selectedSet == productionSet ? 1 : 0.3
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
@@ -743,6 +801,7 @@ StatsBase {
                             }
                         }
                         RowLayout {
+                            opacity: d.selectedSet == null || d.selectedSet == acquisitionSet ? 1 : 0.3
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
@@ -754,6 +813,7 @@ StatsBase {
                             }
                         }
                         RowLayout {
+                            opacity: d.selectedSet == null || d.selectedSet == returnSet ? 1 : 0.3
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
