@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-     	<file>styles/light/fonts/NotoSans-Black.ttf</file>
+        <file>styles/light/fonts/NotoSans-Black.ttf</file>
         <file>styles/light/fonts/NotoSans-BlackItalic.ttf</file>
         <file>styles/light/fonts/NotoSans-Bold.ttf</file>
         <file>styles/light/fonts/NotoSans-BoldItalic.ttf</file>
@@ -29,6 +29,7 @@
     </qresource>
     <qresource prefix="/ui">
         <file>system/ConsolinnoUsersSettingsPage.qml</file>
+        <file>system/ConsolinnoSettingsPage.qml</file>
         <file>mainviews/ConsolinnoView.qml</file>
         <file>images/leaf.svg</file>
         <file>Configuration.qml</file>
