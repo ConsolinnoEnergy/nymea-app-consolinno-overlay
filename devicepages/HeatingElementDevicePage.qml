@@ -100,7 +100,7 @@ GenericConfigPage {
                     }
                     font: Style.smallFont
                     wrapMode: Text.WordWrap
-                    color: Style.darkGray
+                    color: Configuration.iconColor
                 }
             }
 
