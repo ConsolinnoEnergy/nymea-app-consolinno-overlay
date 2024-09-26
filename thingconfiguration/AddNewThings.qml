@@ -201,7 +201,7 @@ Page {
                             if(Configuration.heatingRodIcon !== ""){
                                 icon = "/ui/images/"+Configuration.heatingRodIcon
                             }else{
-                                icon = "/ui/images/heating_rod.svg"
+                                icon = "/ui/images/sensors/water.svg"
                             }
                             return Qt.resolvedUrl(icon)
                         case "energystorage":

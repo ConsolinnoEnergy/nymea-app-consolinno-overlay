@@ -137,8 +137,7 @@ Page {
                                 Layout.fillWidth: true
                                 iconName: "../images/sensors/water.svg"
                                 progressive: false
-                                //                                text: emProxy.get(index) ? emProxy.get(index).name : ""
-                                text: heProxy.shownInterfaces + heProxy.count
+                                text: heProxy.get(index).name
                             }
                         }
                     }
@@ -655,7 +654,7 @@ Page {
 
                         onClicked:{
                             if (thing){
-                                var page = pageStack.push("../optimization/HeatingElementConfigurationView.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatPumpThing: thing, directionID: 1})
+                                var page = pageStack.push("../optimization/HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatRodThing: thing, directionID: 1})
                                 page.done.connect(function(){
                                     pageStack.pop(root)
                                 })

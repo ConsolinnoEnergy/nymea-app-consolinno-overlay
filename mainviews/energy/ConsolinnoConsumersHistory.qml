@@ -534,7 +534,7 @@ Item {
                                             if(Configuration.heatingRodIcon !== ""){
                                                 return "/ui/images/"+Configuration.heatingRodIcon
                                             }else{
-                                                return "/ui/images/heating_rod.svg"
+                                                return "/ui/images/sensors/water.svg"
                                             }
                                         case "evcharger":
                                             if(Configuration.evchargerIcon !== ""){
