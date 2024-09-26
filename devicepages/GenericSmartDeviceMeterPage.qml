@@ -58,7 +58,7 @@ GenericConfigPage {
             Item {
                 id: notificationsContainer
                 anchors.top: parent.top
-                height: root.isRootmeter ? (infoElement.implicitHeight) : 0
+                height: infoElement.implicitHeight
                 width: parent.width
                 visible: (isNotify === "shutoff" || isNotify === "limited") && isRootmeter
 
@@ -88,73 +88,73 @@ GenericConfigPage {
                     property string infoColor: "#fc9d03"
                     property string currentState: isNotify === "shutoff" && isRootmeter ? "blocked" : isNotify === "limited" && isRootmeter ? "limited" : "unrestricted"
 
-                        Rectangle {
-                            width: infoElement.width - 40
-                            Layout.alignment: Qt.AlignHCenter
-                            radius: 10
-                            color: "#faf9f5"
-                            border.width: 1
-                            border.color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
-                            implicitHeight: alertContainer.implicitHeight + 20
+                    Rectangle {
+                        width: infoElement.width - 40
+                        Layout.alignment: Qt.AlignHCenter
+                        radius: 10
+                        color: "#faf9f5"
+                        border.width: 1
+                        border.color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
+                        implicitHeight: alertContainer.implicitHeight + 20
 
-                            ColumnLayout {
-                                id: alertContainer
-                                anchors.fill: parent
-                                spacing: 1
+                        ColumnLayout {
+                            id: alertContainer
+                            anchors.fill: parent
+                            spacing: 1
+
+                            Item {
+                                Layout.preferredHeight: 10
+                            }
+
+
+                            RowLayout {
+                                width: parent.width
+                                spacing: 5
 
                                 Item {
-                                    Layout.preferredHeight: 10
+                                    Layout.preferredWidth: 10
                                 }
 
-
-                                RowLayout {
-                                    width: parent.width
-                                    spacing: 5
-
-                                    Item {
-                                        Layout.preferredWidth: 10
-                                    }
-
-                                    Rectangle {
-                                        width: 20
-                                        height: 20
-                                        radius: 10  // Makes the rectangle a circle
-                                        color: "white"
-                                        border.color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
-                                        border.width: 2
-                                        RowLayout.alignment: Qt.AlignVCenter
-
-                                        Label {
-                                            text: "!"
-                                            anchors.centerIn: parent
-                                            font.bold: true
-                                            color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
-                                        }
-                                    }
+                                Rectangle {
+                                    width: 20
+                                    height: 20
+                                    radius: 10  // Makes the rectangle a circle
+                                    color: "white"
+                                    border.color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
+                                    border.width: 2
+                                    RowLayout.alignment: Qt.AlignVCenter
 
                                     Label {
-                                        font.pixelSize: 16
-                                        text: infoElement.states[infoElement.currentState].header
+                                        text: "!"
+                                        anchors.centerIn: parent
                                         font.bold: true
-                                        wrapMode: Text.WordWrap
-                                        Layout.fillWidth: true
-                                        Layout.preferredWidth: parent.width - 20
+                                        color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
                                     }
                                 }
+
                                 Label {
                                     font.pixelSize: 16
-                                    text: infoElement.states[infoElement.currentState].content
+                                    text: infoElement.states[infoElement.currentState].header
+                                    font.bold: true
                                     wrapMode: Text.WordWrap
                                     Layout.fillWidth: true
                                     Layout.preferredWidth: parent.width - 20
-                                    leftPadding: 40
-                                }
-
-                                Item {
-                                    Layout.preferredHeight: 10
                                 }
                             }
+                            Label {
+                                font.pixelSize: 16
+                                text: infoElement.states[infoElement.currentState].content
+                                wrapMode: Text.WordWrap
+                                Layout.fillWidth: true
+                                Layout.preferredWidth: parent.width - 20
+                                leftPadding: 40
+                            }
+
+                            Item {
+                                Layout.preferredHeight: 10
+                            }
                         }
+                    }
                 }
             }
 
