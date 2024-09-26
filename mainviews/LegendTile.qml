@@ -162,6 +162,9 @@ MouseArea {
                 Label {
                     width: parent.width
                     anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.horizontalCenterOffset: root.currentPower.toString().length >= 5 ? 1 : 10
+
                     Rectangle {
                         Layout.fillWidth: true
                         color: "white"

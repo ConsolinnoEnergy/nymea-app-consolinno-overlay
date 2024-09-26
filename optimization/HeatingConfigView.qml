@@ -42,7 +42,7 @@ GenericConfigPage {
 
                 Label{
                     id: consumptionValue
-
+                    Layout.rightMargin: 15
                     text: (+thing.stateByName("currentPower").value).toLocaleString() + " W"
                 }
             }
