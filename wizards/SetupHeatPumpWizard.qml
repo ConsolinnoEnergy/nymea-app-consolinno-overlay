@@ -761,9 +761,6 @@ Page {
                                 pageStack.pop(root)
                             }
 
-
-
-
                         }
                     }
                 }

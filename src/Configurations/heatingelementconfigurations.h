@@ -15,6 +15,7 @@ public:
      RoleHeatingRodThingId,
      RoleMaxElectricalPower,
      RoleOptimizationEnabled,
+     RoleControllableLocalSystemEnabled
     };
     Q_ENUM(Role);
 

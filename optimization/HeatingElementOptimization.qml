@@ -11,8 +11,9 @@ Page {
 
     property HemsManager hemsManager
     property HeatingElementConfiguration heatingElementConfiguration
-    property Thing thing
+    property Thing heatRodThing
     property int directionID: 0
+    signal done()
 
     header: NymeaHeader {
         text: qsTr("Heating Element Configuration")
@@ -31,23 +32,22 @@ Page {
 
             if (commandId === d.pendingCallId) {
                 d.pendingCallId = -1
+                let props = "";
                 switch (error) {
                 case "HemsErrorNoError":
                     pageStack.pop()
                     return
                 case "HemsErrorInvalidParameter":
-                    props.text = qsTr(
-                                "Could not save configuration. One of the parameters is invalid.")
+                    props.text = qsTr("Could not save configuration. One of the parameters is invalid.")
                     break
                 case "HemsErrorInvalidThing":
-                    props.text = qsTr(
-                                "Could not save configuration. The thing is not valid.")
+                    props.text = qsTr("Could not save configuration. The thing is not valid.")
                     break
                 default:
                     props.errorCode = error
                 }
                 var comp = Qt.createComponent("../components/ErrorDialog.qml")
-                var popup = comp.createObject(app, props)
+                var popup = comp.createObject(app, {props})
                 popup.open()
             }
         }
@@ -65,25 +65,27 @@ Page {
 
         ConsolinnoPVTextField {
             id: maxPowerInput
-
+            property bool maxElectricalPower_validated
             Layout.fillWidth: true
             Layout.fillHeight: false
             label: qsTr("Max power")
-            text: heatingElementConfiguration.maxElectricalPower.toLocaleString(Qt.locale())
+            text: (+heatingElementConfiguration.maxElectricalPower).toLocaleString()
             unit: qsTr("kW")
 
             validator: DoubleValidator {
                 bottom: 1
             }
+
+            onTextChanged: acceptableInput ? maxElectricalPower_validated = true : maxElectricalPower_validated = false
+
         }
 
         ConsolinnoSwitchDelegate {
             id: operatingModeSwitch
-
+            checked: heatingElementConfiguration.optimizationEnabled
             Layout.fillWidth: true
             text: qsTr("Operating mode (Solar Only)")
-            warningText: checked ? qsTr("The heater is operated only with solar power. If a wallbox is connected to
-the system, and a charging process is started, charging is prioritized.") : qsTr("The heating element is not controlled by the HEMS.")
+            warningText: operatingModeSwitch.checked ? qsTr("The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.") : qsTr("The heating element is not controlled by the HEMS.")
         }
 
         //margins filler
@@ -96,34 +98,25 @@ the system, and a charging process is started, charging is prioritized.") : qsTr
         Button {
             Layout.fillWidth: true
             text: qsTr("Ok")
+            property bool validated: maxPowerInput.maxElectricalPower_validated
 
             onClicked: {
+                let inputText = maxPowerInput.text
+                inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
                 if (directionID === 1) {
-
-                    if (Number.fromLocaleString(Qt.locale(),
-                                                maxPowerInput.text) !== 0) {
-
-                        header.text = maxPowerInput.text
-                        hemsManager.setHeatingElementConfiguration(thing.id, {
-                                                                       "maxElectricalPower": Number.fromLocaleString(
-                                                                                       Qt.locale(),
-                                                                                       maxPowerInput.text),
-                                                                       "optimizationEnabled": operatingModeSwitch.checked,
-                                                                   })
+                    if (validated) {
+                        d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, { "maxElectricalPower": parseFloat(inputText), "optimizationEnabled": operatingModeSwitch.checked, controllableLocalSystem: false})
                         root.done()
-                    } else {
+                    }else{
+                        let props = "";
+                        props = qsTr("Could not save configuration. One of the parameters is invalid.")
+                        var comp = Qt.createComponent("../components/ErrorDialog.qml")
+                        var popup = comp.createObject(app, {props})
+                        popup.open()
                     }
                 } else if (directionID === 0) {
-                    if (Number.fromLocaleString(Qt.locale(),
-                                                maxPowerInput.text) !== 0) {
-
-                        d.pendingCallId = hemsManager.setHeatingElementConfiguration(
-                                    thing.id, {
-                                        "maxElectricalPower": Number.fromLocaleString(
-                                                        Qt.locale(),
-                                                        maxPowerInput.text),
-                                        "optimizationEnabled": operatingModeSwitch.checked,
-                                    })
+                    if (validated) {
+                        d.pendingCallId = hemsManager.setHeatingElementConfiguration( heatRodThing.id, { "maxElectricalPower": parseFloat(inputText), "optimizationEnabled": operatingModeSwitch.checked, controllableLocalSystem: false})
                     }
                 }
             }

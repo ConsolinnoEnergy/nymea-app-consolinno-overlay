@@ -2547,16 +2547,15 @@ Open source modules are included in the APP and in the device software. The corr
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The heater is operated only with solar power. If a wallbox is connected to
-the system, and a charging process is started, charging is prioritized.</source>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The heating element is not controlled by the HEMS.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

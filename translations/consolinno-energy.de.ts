@@ -2941,11 +2941,11 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     <name>HeatingElementDevicePage</name>
     <message>
         <source>Operating Mode (Solar Only)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Betriebsmodus &quot;Nur Solar&quot;</translation>
     </message>
     <message>
         <source>Active</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aktiv</translation>
     </message>
     <message>
         <source>Off</source>
@@ -2953,46 +2953,46 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>Not available</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nicht verfügbar</translation>
     </message>
     <message>
         <source>The heating is operated only with solar power.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der Heizstab wird nur mit Solarstrom betrieben.</translation>
     </message>
     <message>
         <source>The operating mode (Solar Only) is turned off. The settings can be changed in the optimization settings.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der Betriebsmodus &quot; Nur Solar&quot; ist daktiviert. Die Einstellung kann unter Optimierungseinstellungen geändert werden.</translation>
     </message>
     <message>
         <source>The operating mode (Solar Only) is not available because a charging process is currently being prioritized.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der Betriebsmodus &quot;Nur Solar&quot; ist nicht verfügbar weil gerade ein Ladevorgang priorisiert wird.</translation>
     </message>
     <message>
         <source>Current Temperature</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aktuelle Temperatur</translation>
     </message>
     <message>
         <source>Current Consumption</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Momentaner Verbrauch</translation>
     </message>
     <message>
         <source> W</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> W</translation>
     </message>
     <message>
         <source>Total Consumption</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Insgesamter Verbrauch</translation>
     </message>
     <message>
         <source> kWh</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> kWh</translation>
     </message>
 </context>
 <context>
     <name>HeatingElementOptimization</name>
     <message>
         <source>Heating Element Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Heizstabkonfiguration</translation>
     </message>
     <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
@@ -3004,7 +3004,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>Max power</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maximale Leistung</translation>
     </message>
     <message>
         <source>kW</source>
@@ -3012,20 +3012,19 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>Operating mode (Solar Only)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The heater is operated only with solar power. If a wallbox is connected to
-the system, and a charging process is started, charging is prioritized.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The heating element is not controlled by the HEMS.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Betriebsmodus (nur Solar)</translation>
     </message>
     <message>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ok</translation>
+    </message>
+    <message>
+        <source>The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.</source>
+        <translation type="unfinished">Der Heizstab wird nur mit Solarstrom betrieben. Falls eine Wallbox im System vorhanden ist, und ein Ladevorgang gestartet wird, wird das Laden priorisiert.</translation>
+    </message>
+    <message>
+        <source>The heating element is not controlled by the HEMS.</source>
+        <translation type="unfinished">Der Heizstab wird durch das HEMS nicht gesteuert.</translation>
     </message>
 </context>
 <context>
@@ -3982,19 +3981,19 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <name>SetupHeatingElementWizard</name>
     <message>
         <source>Setup heating element</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Heizstab einrichten</translation>
     </message>
     <message>
         <source>Integrated heating elements</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eingerichtete Heizstäbe</translation>
     </message>
     <message>
         <source>There is no heating element set up yet.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bis jetzt sind keine Heizstäbe eingerichtet.</translation>
     </message>
     <message>
         <source>Add heating element: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Füge Heizstab hinzu: </translation>
     </message>
     <message>
         <source>cancel</source>
@@ -4070,15 +4069,15 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Set up Heating Element</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Heizstab Konfiguration</translation>
     </message>
     <message>
         <source>The following heating element has been found and set up:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Der folgende Heizstab wurde gefunden und eingerichtet:</translation>
     </message>
     <message>
         <source>An unexpected error happened during the setup. Please verify the heating element is installed correctly and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Während der Einrichtung ist ein unerwarteter Fehler aufgetreten. Bitte überprüfen Sie, ob der Heizstab korrekt installiert ist, und versuchen Sie es erneut.</translation>
     </message>
 </context>
 <context>
