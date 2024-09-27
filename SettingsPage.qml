@@ -2,14 +2,14 @@ import QtQuick 2.5
 import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.1
-import Nymea 1.0
 import NymeaApp.Utils 1.0
-import "../components"
+import Nymea 1.0
+import "qrc:../components"
 
 Page {
     id: root
     header: NymeaHeader {
-        text: qsTr("System settings")
+        text: qsTr("System settings1234567")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
@@ -69,7 +69,7 @@ Page {
                 iconSource: "../images/mqtt.svg"
                 text: qsTr("MQTT broker")
                 subText: qsTr("Configure the MQTT broker")
-                visible: engine.jsonRpcClient.ensureServerVersion("1.11") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) && Configuration.mqttSettingsEnabled
+                visible: engine.jsonRpcClient.ensureServerVersion("1.11") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) && Configuration.developerSettingsEnabled
                 onClicked: pageStack.push(Qt.resolvedUrl("system/MqttBrokerSettingsPage.qml"))
             }
 
@@ -88,7 +88,7 @@ Page {
                 iconSource: "../images/zigbee.svg"
                 text: qsTr("ZigBee")
                 subText: qsTr("Configure ZigBee networks")
-                visible: engine.jsonRpcClient.ensureServerVersion("5.3") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) && Configuration.zigbeeSettingsEnabled
+                visible: engine.jsonRpcClient.ensureServerVersion("5.3") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) && Configuration.developerSettingsEnabled
                 onClicked: pageStack.push(Qt.resolvedUrl("system/zigbee/ZigbeeSettingsPage.qml"))
             }
 
@@ -97,7 +97,7 @@ Page {
                 iconSource: "../images/z-wave.svg"
                 text: qsTr("Z-Wave")
                 subText: qsTr("Configure Z-Wave networks")
-                visible: engine.jsonRpcClient.ensureServerVersion("6.1") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) && Configuration.zwaveSettingsEnabled
+                visible: engine.jsonRpcClient.ensureServerVersion("6.1") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) && Configuration.developerSettingsEnabled
                 onClicked: pageStack.push(Qt.resolvedUrl("system/zwave/ZWaveSettingsPage.qml"))
             }
 
@@ -106,7 +106,7 @@ Page {
                 iconSource: "../images/modbus.svg"
                 text: qsTr("Modbus RTU")
                 subText: qsTr("Configure Modbus RTU master interfaces")
-                visible: engine.jsonRpcClient.ensureServerVersion("5.6") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) && Configuration.modbusSettingsEnabled
+                visible: engine.jsonRpcClient.ensureServerVersion("5.6") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) && Configuration.developerSettingsEnabled
                 onClicked: pageStack.push(Qt.resolvedUrl("system/ModbusRtuSettingsPage.qml"))
             }
 
