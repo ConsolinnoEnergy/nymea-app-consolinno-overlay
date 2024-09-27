@@ -11,7 +11,7 @@
     </qresource>
     <qresource prefix="/ui">
         <file>system/ConsolinnoUsersSettingsPage.qml</file>
-        <file>system/ConsolinnoSettingsPage.qml</file>
+        <file>SettingsPage.qml</file>
         <file>mainviews/ConsolinnoView.qml</file>
         <file>images/leaf.svg</file>
         <file>Configuration.qml</file>
@@ -111,5 +111,14 @@
         <file>info/PriceLimitInfo.qml</file>
         <file>thingconfiguration/AddNewThings.qml</file>
         <file>images/leaflet-ethernet-connect.png</file>
+        <file>images/batteryQ.svg</file>
+        <file>images/gridQ.svg</file>
+        <file>images/heatpumpQ.svg</file>
+        <file>images/infoQ.svg</file>
+        <file>images/inverterQ.svg</file>
+        <file>images/menuQ.svg</file>
+        <file>images/settingsQ.svg</file>
+        <file>images/wallboxQ.svg</file>
+        <file>system/NetworkSettingsPage.qml</file>
     </qresource>
 </RCC>
