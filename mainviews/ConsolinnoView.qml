@@ -1400,7 +1400,7 @@ MainViewBase {
                                            parent.width - Style.margins * 2)
                 implicitWidth: bottomLegend.implicitWidth
                 Layout.margins: Style.margins
-                Layout.preferredHeight: bottomLegend.implicitHeight
+                Layout.preferredHeight: tabsRepeater.count >= 2 ? bottomLegend.implicitHeight + 50 : bottomLegend.implicitHeight
                 contentWidth: bottomLegend.implicitWidth
                 Layout.alignment: Qt.AlignHCenter
                 onContentXChanged: {
@@ -1414,6 +1414,7 @@ MainViewBase {
                     Repeater {
                         id: legendConsumersRepeater
                         model: consumers
+
                         delegate: LegendTile {
                             color: {
                                 if(thing.thingClass.interfaces.indexOf("heatpump") >= 0){
