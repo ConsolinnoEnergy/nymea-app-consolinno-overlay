@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Consolinno HEMS
 Comment=A client application for the Consolinno HEMS system
-Icon=consolinno-energy
+Icon=zewhotherm-energy
 Terminal=false
 Type=Application
-Exec=consolinno-energy
+Exec=zewhotherm-energy
 Categories=Network;

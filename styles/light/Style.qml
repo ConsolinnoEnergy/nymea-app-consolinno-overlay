@@ -4,18 +4,18 @@ import "../../ui/"
 
 StyleBase {
 
-    property color consolinnoExtraDark: "#193c4d"
+    property color consolinnoExtraDark: "#1f264d"
     property color consolinnoDark: "#0450c9"
     property color consolinnoMedium: Configuration.iconColor
-    property color consolinnoLight: "#75a9fa"
-    property color consolinnoExtraLight: "#75a9fa"
-    property color consolinnoHighlight: "#75a9fa"
+    property color consolinnoLight: "#0069b5"
+    property color consolinnoExtraLight: "#0069b5"
+    property color consolinnoHighlight: "#0069b5"
     property color consolinnoHighlightForeground: "white"
 
     property real majorFontSize: 16
     property real screenMargins: 16
 
-    property color buttonColor: "#75a9fa"
+    property color buttonColor: "#0069b5"
     property real buttonFontSize: 16
     property real buttonTopPading: 16
     property real buttonLeftPadding: 32

@@ -4,9 +4,9 @@ import QtQuick 2.5
 
 ConfigurationBase {
     id: configID
-    systemName: "Q.Home HEMS"
-    appName: "Q Cells HEMS"
-    appId: "hems.consolinno.energy"
+    systemName: "Zewo Dynamics EnergieManager"
+    appName: "Zewo Dynamics EnergieManager"
+    appId: "hems.zewo.dynamics"
 
 
     connectionWizard: "/ui/wizards/ConnectionWizard.qml"
@@ -20,43 +20,40 @@ ConfigurationBase {
 
     //Wizard Complete
     property bool isIntroIcon: true
+    
     //////////////////////////////////////////////////////////////////////////////////////
     // Defines the minimal compatible HEMS version
     property string minSysVersion: "1.3.0"
 
     // Identifier used for branding (e.g. to register for push notifications)
-    property string branding: "Q CELLS"
+    property string branding: "Zewotherm Dynamics EnergieManager"
 
     // Identifier used for legal text (e.g. privacy policy)
-    property string companyName: "Hanwha Q CELLS GmbH"
+    property string companyName: "ZEWOTHERM Heating GmbH"
 
     // Branding names visible to the user
-    property string appBranding: "Q CELLS"
-    property string coreBranding: "Q.Home"
-    property string deviceName: "Q.HOME CONTROL"
+    property string appBranding: "Zewotherm"
+    property string coreBranding: "Zewotherm"
+    property string deviceName: "Zewotherm"
 
     //Branding contact-email
-    property string contactEmail: "meinesolaranlage@q-cells.com"
-    property string serviceEmail: "support.components@q-cells.com"
+    property string contactEmail: "info@zewotherm.de"
+    property string serviceEmail: "info@zewotherm.de"
 
-    //Branding company
-    property string companyAddress: "Sonnenallee 17 - 21"
-    property string companyZip: "06766"
-    property string companyLocation: "Bitterfeld-Wolfen"
-    property string companyTel: "+49 (0)3494 6699-0"
-
-    //////////////////////////////////////////////////////////////////////////////////////
     // Will be shown in About page
     property string githubLink: "https://github.com/ConsolinnoEnergy/nymea-app"
     property string privacyPolicyUrl: "https://consolinno.de/hems-datenschutz/"
     property string termsOfConditionsUrl: "https://consolinno.de/hems-agb/"
-    property string downloadMedia: "https://www.q-cells.de/privatkunden/services/downloadbereich#"
+    property string downloadMedia: "https://zewotherm.com/de/downloads/"
 
-    //////////////////////////////////////////////////////////////////////////////////////
+    property string companyAddress: "Gebrüder-Pauken-Str. 16 / 16 A"
+    property string companyZip: "56218"
+    property string companyLocation: "Mülheim Kärlich"
+    property string companyTel: "02642-90560"
 
     //Styles
     // Button
-    readonly property color iconColor: "#639df7"
+    readonly property color iconColor: "#001C77"
     readonly property color buttonColor: "#001C77"
     readonly property color buttonTextColor: "#ffffff"
 
@@ -139,7 +136,7 @@ ConfigurationBase {
     //////////////////////////////////////////////////////////////////////////////////////
     // Additional MainViews
     property var additionalMainViews: ListModel {
-        ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Q CELLS") ; icon: "leaf" }
+        ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Zewo") ; icon: "leaf" }
     }
 
     // Main views filter: Only those main views are enabled
