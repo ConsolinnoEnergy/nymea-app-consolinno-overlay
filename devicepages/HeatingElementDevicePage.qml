@@ -28,7 +28,8 @@ GenericConfigPage {
             }
 
             spacing: Style.margins
-
+            //Disabled for now
+            /*
             ColumnLayout {
                 visible: true
                 Layout.fillWidth: true
@@ -40,6 +41,7 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     Layout.fillHeight: false
                     spacing: Style.smallMargins
+                    visible: false
 
                     Label {
                         Layout.fillWidth: false
@@ -89,6 +91,7 @@ GenericConfigPage {
                     id: toolTipText
                     Layout.topMargin: 13
                     Layout.fillWidth: true
+                    visible: false
                     text: {
                         if(root.operatingModeStatus === 1) {
                             return qsTr("The heating is operated only with solar power.")
@@ -102,7 +105,7 @@ GenericConfigPage {
                     wrapMode: Text.WordWrap
                     color: Configuration.iconColor
                 }
-            }
+            }*/
 
             ConsolinnoRowLabelValue {
                 Layout.fillWidth: true
