@@ -8,7 +8,6 @@ ConfigurationBase {
     appName: "Zewo Dynamics EnergieManager"
     appId: "hems.zewo.dynamics"
 
-
     connectionWizard: "/ui/wizards/ConnectionWizard.qml"
 
     //////////////////////////////////////////////////////////////////////////////////////
@@ -19,7 +18,7 @@ ConfigurationBase {
     property string fontFamily: "Ubuntu"
 
     //Wizard Complete
-    property bool isIntroIcon: true
+    property bool isIntroIcon: false
     
     //////////////////////////////////////////////////////////////////////////////////////
     // Defines the minimal compatible HEMS version
@@ -152,8 +151,6 @@ ConfigurationBase {
     zigbeeSettingsEnabled: true
     modbusSettingsEnabled: true
     pluginSettingsEnabled: true
-
-
 
     mainMenuLinks: [ 
         {
