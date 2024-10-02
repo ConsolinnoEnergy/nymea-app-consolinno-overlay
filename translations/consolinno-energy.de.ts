@@ -1960,6 +1960,388 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
 </context>
 <context>
+    <name>ConsolinnoLookAndFeelSettingsPage</name>
+    <message>
+        <source>Look and feel</source>
+        <translation>Aussehen und Verhalten</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>Aussehen</translation>
+    </message>
+    <message>
+        <source>View mode</source>
+        <translation>Ansicht</translation>
+    </message>
+    <message>
+        <source>Windowed</source>
+        <translation>Fenster</translation>
+    </message>
+    <message>
+        <source>Maximized</source>
+        <translation>Maximiert</translation>
+    </message>
+    <message>
+        <source>Fullscreen</source>
+        <translation>Vollbild</translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation>Automatisch</translation>
+    </message>
+    <message>
+        <source>Regional</source>
+        <translation>Regional</translation>
+    </message>
+    <message>
+        <source>Unit system</source>
+        <translation>Einheitensystem</translation>
+    </message>
+    <message>
+        <source>Metric</source>
+        <translation>Metrisch</translation>
+    </message>
+    <message>
+        <source>Imperial</source>
+        <translation>Angloamerikanisch</translation>
+    </message>
+    <message>
+        <source>Behavior</source>
+        <translation>Verhalten</translation>
+    </message>
+    <message>
+        <source>Return to home on idle</source>
+        <translation>Bei Leerlauf zurück zum Startbildschirm</translation>
+    </message>
+    <message>
+        <source>Turn screen off when idle</source>
+        <translation>Bildschirm im Leerlauf ausschalten</translation>
+    </message>
+    <message>
+        <source>Screen off timeout</source>
+        <translation>Leerlaufzeit bis der Bildschirm ausgeschaltet wird</translation>
+    </message>
+    <message>
+        <source>seconds</source>
+        <translation>Sekunden</translation>
+    </message>
+    <message>
+        <source>Screen brightness</source>
+        <translation>Bildschirmhelligkeit</translation>
+    </message>
+    <message>
+        <source>Style changed</source>
+        <translation>Stil geändert</translation>
+    </message>
+    <message>
+        <source>The application needs to be restarted for style changes to take effect.</source>
+        <translation>Die Anwendung muss neu gestartet werden damit Stil-Änderungen wirksam werden.</translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoNetworkSettingsPage</name>
+    <message>
+        <source>Network settings</source>
+        <translation>Netzwerkeinstellungen</translation>
+    </message>
+    <message>
+        <source>No wireless hardware available.</source>
+        <translation>Keine Hardware für Funkverbindung verfügbar.</translation>
+    </message>
+    <message>
+        <source>The access point cannot be found.</source>
+        <translation>Der Access Point konnte nicht gefunden werden.</translation>
+    </message>
+    <message>
+        <source>The network interface cannot be found.</source>
+        <translation>Die Netzwerkschnittstelle konnte nicht gefunden werden.</translation>
+    </message>
+    <message>
+        <source>Invalid network device type.</source>
+        <translation>Ungültiges Netzwerkgerät.</translation>
+    </message>
+    <message>
+        <source>Wireless networking is disabled.</source>
+        <translation>Die Funkverbindung ist deaktiviert.</translation>
+    </message>
+    <message>
+        <source>The wireless connection failed.</source>
+        <translation>Die Funkverbindung ist fehlgeschlagen.</translation>
+    </message>
+    <message>
+        <source>Networking is disabled.</source>
+        <translation>Das Netzwerk ist deaktiviert.</translation>
+    </message>
+    <message>
+        <source>The network manager is not available.</source>
+        <translation>Der Netzwerk-Manager ist nicht verfügbar.</translation>
+    </message>
+    <message>
+        <source>An unexpected error happened.</source>
+        <translation>Ein unerwarteter Fehler ist aufgetreten.</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>Unbekannt</translation>
+    </message>
+    <message>
+        <source>Unmanaged</source>
+        <translation>Nicht verwaltet</translation>
+    </message>
+    <message>
+        <source>Unavailable</source>
+        <translation>Nicht verfügbar</translation>
+    </message>
+    <message>
+        <source>Disconnected</source>
+        <translation>Getrennt</translation>
+    </message>
+    <message>
+        <source>Deactivating</source>
+        <translation>Wird deaktiviert</translation>
+    </message>
+    <message>
+        <source>Failed</source>
+        <translation>Fehlgeschlagen</translation>
+    </message>
+    <message>
+        <source>Preparing</source>
+        <translation>Wird vorbereitet</translation>
+    </message>
+    <message>
+        <source>Configuring</source>
+        <translation>Wird eingerichtet</translation>
+    </message>
+    <message>
+        <source>Waiting for password</source>
+        <translation>Warte auf Passwort</translation>
+    </message>
+    <message>
+        <source>Setting IP configuration</source>
+        <translation>IP Konfiguration wird gesetzt</translation>
+    </message>
+    <message>
+        <source>Checking IP configuration</source>
+        <translation>IP Konfiguration wird überprüft</translation>
+    </message>
+    <message>
+        <source>Secondaries</source>
+        <translation>Zweitrangig</translation>
+    </message>
+    <message>
+        <source>Hosting access point</source>
+        <translation>Access Point bereit</translation>
+    </message>
+    <message>
+        <source>Connected</source>
+        <translation>Verbunden</translation>
+    </message>
+    <message>
+        <source>Network management is unavailable on this system.</source>
+        <translation>Die Netwerkverwaltung ist auf dieses System nicht verfügbar.</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation>Allgemein</translation>
+    </message>
+    <message>
+        <source>Current connection state</source>
+        <translation>Aktueller Verbindungs-Zustand</translation>
+    </message>
+    <message>
+        <source>Asleep</source>
+        <translation>Schlafend</translation>
+    </message>
+    <message>
+        <source>Disconnecting</source>
+        <translation>Wird getrennt</translation>
+    </message>
+    <message>
+        <source>Connecting</source>
+        <translation>Wird verbunden</translation>
+    </message>
+    <message>
+        <source>Locally connected</source>
+        <translation>Lokal verbunden</translation>
+    </message>
+    <message>
+        <source>Site connected</source>
+        <translation>Im Intra-Net verbunden</translation>
+    </message>
+    <message>
+        <source>Globally connected</source>
+        <translation>Global verbunden</translation>
+    </message>
+    <message>
+        <source>Networking enabled</source>
+        <translation>Netzwerk aktiviert</translation>
+    </message>
+    <message>
+        <source>Enable or disable networking altogether</source>
+        <translation>Aktiviere oder deaktiviere die gesamte Netzwerk-Funktionalität</translation>
+    </message>
+    <message>
+        <source>Disabling networking will disconnect all connected clients. Be aware that you will not be able to interact remotely with this %1 system any more. Do not proceed unless you know what your are doing.</source>
+        <translation>Das Deaktivieren der Netzwerk-Funktionalität wird alle verbunden Geräte trennen. Bitte beachte, dass es nicht mehr möglich sein wird über das Netzwerk mit diesem %1 System zu interagieren. Es wird nicht empfohlen fortzufahren insofern dies nicht ausdrücklich gewünscht ist.</translation>
+    </message>
+    <message>
+        <source>Do you want to proceed?</source>
+        <translation>Möchtest Du fortfahren?</translation>
+    </message>
+    <message>
+        <source>Disable networking?</source>
+        <translation>Netwerk deativieren?</translation>
+    </message>
+    <message>
+        <source>Wired network</source>
+        <translation>Kabelgebundenes Netzwerk</translation>
+    </message>
+    <message>
+        <source>No wired network interfaces available</source>
+        <translation>Kein Kabelnetzwerk vorhanden</translation>
+    </message>
+    <message>
+        <source>Plugged in</source>
+        <translation>Eingesteckt</translation>
+    </message>
+    <message>
+        <source>Unplugged</source>
+        <translation>Ausgesteckt</translation>
+    </message>
+    <message>
+        <source>Wireless network</source>
+        <translation>Funknetzwerk</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>Aktiv</translation>
+    </message>
+    <message>
+        <source>Enable or disable WiFi</source>
+        <translation>WLAN ein-/ausschalten</translation>
+    </message>
+    <message>
+        <source>Disabling WiFi will disconnect all clients connected via WiFi. Be aware that you will not be able to interact remotely with this %1 system any more unless a LAN cable is connected.</source>
+        <translation>Das Deaktivieren der WLAN-Verbindung wird alle über WLAN verbundenen Geräte trennen. Bitte beachte, dass es nicht mehr möglich sein wird mit diesem %1 System zu interagieren insofern kein Netzwerk-Kabel angeschlossen ist.</translation>
+    </message>
+    <message>
+        <source>Disable WiFi?</source>
+        <translation>WLAN ausschalten?</translation>
+    </message>
+    <message>
+        <source>No wireless network interfaces available</source>
+        <translation>Keine Schnittstellen für Funknetzwerke verfügbar</translation>
+    </message>
+    <message>
+        <source>WiFi networks</source>
+        <translation>WLAN Netzwerke</translation>
+    </message>
+    <message>
+        <source>Access Point</source>
+        <translation>Access Point</translation>
+    </message>
+    <message>
+        <source>SSID</source>
+        <translation>SSID</translation>
+    </message>
+    <message>
+        <source>Create Access Point</source>
+        <translation>Access Point erstellen</translation>
+    </message>
+    <message>
+        <source>Connect to wireless network</source>
+        <translation>Mit Funknetzwerk verbinden</translation>
+    </message>
+    <message>
+        <source>Hidden Network</source>
+        <translation>Verstecktes Netzwerk</translation>
+    </message>
+    <message>
+        <source>New wired connection</source>
+        <translation>Neue kabelgebundene Verbindung</translation>
+    </message>
+    <message>
+        <source>Method</source>
+        <translation>Methode</translation>
+    </message>
+    <message>
+        <source>Automatic (DHCP client)</source>
+        <translation>Automatisch (DHCP Client)</translation>
+    </message>
+    <message>
+        <source>Manual</source>
+        <translation>Bedienungsanleitung</translation>
+    </message>
+    <message>
+        <source>Shared (DHCP server)</source>
+        <translation>Geteilt (DHCP Server)</translation>
+    </message>
+    <message>
+        <source>Address settings</source>
+        <translation>Adresseinstellungen</translation>
+    </message>
+    <message>
+        <source>IP Address</source>
+        <translation>IP Adresse</translation>
+    </message>
+    <message>
+        <source>Gateway</source>
+        <translation>Gateway</translation>
+    </message>
+    <message>
+        <source>DNS</source>
+        <translation>DNS</translation>
+    </message>
+    <message>
+        <source>Create connection</source>
+        <translation>Verbindung erstellen</translation>
+    </message>
+    <message>
+        <source>Authenticate</source>
+        <translation>Authentifizierung</translation>
+    </message>
+    <message>
+        <source>Enter the password for %1</source>
+        <translation>Gib das Passwort für %1 ein</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Current connection</source>
+        <translation>Aktuelle Verbindung</translation>
+    </message>
+    <message>
+        <source>Connected to</source>
+        <translation>Verbunden mit</translation>
+    </message>
+    <message>
+        <source>IPv4 Address</source>
+        <translation>IPv4 Adresse</translation>
+    </message>
+    <message>
+        <source>IPv6 Address</source>
+        <translation>IPv6 Adresse</translation>
+    </message>
+    <message>
+        <source>MAC Address</source>
+        <translation>MAC Adresse</translation>
+    </message>
+    <message>
+        <source>Disconnect</source>
+        <translation>Trennen</translation>
+    </message>
+    <message>
+        <source>Signal strength</source>
+        <translation>Signalstärke</translation>
+    </message>
+    <message>
+        <source>WiFi frequency</source>
+        <translation>Funkfrequenz</translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoPVTextField</name>
     <message>
         <source>°</source>
@@ -2290,6 +2672,125 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     <message>
         <source>To complete the authentication, please press the &lt;b&gt;test button again for 5 seconds&lt;/b&gt; until the status LED lights up green.</source>
         <translation type="unfinished">Um die Authentifizierung abzuschließen, drücken Sie bitte &lt;b&gt;den Test-Taster erneut für 5 Sekunden&lt;/b&gt;, bis die Status-LED grün leuchtet.</translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoSettingsPage</name>
+    <message>
+        <source>System settings</source>
+        <translation>Systemeinstellungen</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation>Allgemein</translation>
+    </message>
+    <message>
+        <source>Change system name and time zone</source>
+        <translation>Ändere Systemname und Zeitzone</translation>
+    </message>
+    <message>
+        <source>User settings</source>
+        <translation>Benutzereinstellungen</translation>
+    </message>
+    <message>
+        <source>Configure who can log in</source>
+        <translation>Konfiguriere wer sich Verbinden darf</translation>
+    </message>
+    <message>
+        <source>Networking</source>
+        <translation>Netzwerk</translation>
+    </message>
+    <message>
+        <source>Configure the system&apos;s network connection</source>
+        <translation>Richte das Netzwerk dieses Systems ein</translation>
+    </message>
+    <message>
+        <source>Connection settings</source>
+        <translation>Verbindungseinstellungen</translation>
+    </message>
+    <message>
+        <source>Configure how applications can connect to this system</source>
+        <translation>Verwalte wie sich Anwendungen zu diesem System verbinden können</translation>
+    </message>
+    <message>
+        <source>MQTT broker</source>
+        <translation>MQTT Broker</translation>
+    </message>
+    <message>
+        <source>Configure the MQTT broker</source>
+        <translation>Konfiguriere den MQTT Broker</translation>
+    </message>
+    <message>
+        <source>Web server</source>
+        <translation>Web Server</translation>
+    </message>
+    <message>
+        <source>Configure the web server</source>
+        <translation>Konfiguriere den Web Server</translation>
+    </message>
+    <message>
+        <source>ZigBee</source>
+        <translation>ZigBee</translation>
+    </message>
+    <message>
+        <source>Configure ZigBee networks</source>
+        <translation>ZigBee-Netzwerke einrichten</translation>
+    </message>
+    <message>
+        <source>Z-Wave</source>
+        <translation>Z-Wave</translation>
+    </message>
+    <message>
+        <source>Configure Z-Wave networks</source>
+        <translation>Z-Wave Netzwerke einrichten</translation>
+    </message>
+    <message>
+        <source>Modbus RTU</source>
+        <translation>Modbus RTU</translation>
+    </message>
+    <message>
+        <source>Configure Modbus RTU master interfaces</source>
+        <translation>Modbug RTU Master Schnittstellen einrichten</translation>
+    </message>
+    <message>
+        <source>Plugins</source>
+        <translation>Plugins</translation>
+    </message>
+    <message>
+        <source>List and cofigure installed plugins</source>
+        <translation>Installierte Plugins auflisten und einrichten</translation>
+    </message>
+    <message>
+        <source>Developer tools</source>
+        <translation>Entwicklerwerkzeuge</translation>
+    </message>
+    <message>
+        <source>Access tools for debugging and error reporting</source>
+        <translation>Greife auf Werkzeuge und Fehleranalyse-Werkzeuge zu</translation>
+    </message>
+    <message>
+        <source>System update</source>
+        <translation>System-Aktualisierung</translation>
+    </message>
+    <message>
+        <source>Update your %1 system</source>
+        <translation>Update Dein %1 System</translation>
+    </message>
+    <message>
+        <source>Log viewer</source>
+        <translation>Systemprotokoll</translation>
+    </message>
+    <message>
+        <source>View system log</source>
+        <translation>Systemprotokoll anzeigen</translation>
+    </message>
+    <message>
+        <source>About %1</source>
+        <translation>Über %1</translation>
+    </message>
+    <message>
+        <source>Find server UUID and versions</source>
+        <translation>Finde Server UUID und Versionen</translation>
     </message>
 </context>
 <context>
