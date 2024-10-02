@@ -67,10 +67,6 @@
 <context>
     <name>AddNewThings</name>
     <message>
-        <source>Set up new thing</source>
-        <translation type="unfinished">Neues &quot;Thing&quot; hinzufügen</translation>
-    </message>
-    <message>
         <source>Vendor</source>
         <translation type="unfinished">Hersteller</translation>
     </message>
@@ -93,6 +89,10 @@
     <message>
         <source>Install plugins</source>
         <translation type="unfinished">Plugins installieren</translation>
+    </message>
+    <message>
+        <source>Set up new device</source>
+        <translation type="unfinished">Gerät hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -2557,16 +2557,16 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
         <translation>Inbetriebnahme-Assistent</translation>
     </message>
     <message>
-        <source>Add device manually</source>
-        <translation>Gerät manuell hinzufügen</translation>
-    </message>
-    <message>
         <source>There are no things set up yet.</source>
         <translation>Bis jetzt sind keine Things eingerichtet</translation>
     </message>
     <message>
         <source>In order for your %1 system to be useful, go ahead and add some things.</source>
         <translation>Damit ihr %1 System effizient arbeiten kann, fügen Sie bitte Things hinzu.</translation>
+    </message>
+    <message>
+        <source>Set up new device</source>
+        <translation type="unfinished">Gerät hinzufügen</translation>
     </message>
 </context>
 <context>

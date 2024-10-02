@@ -13,7 +13,7 @@ Page {
     property var thingsListId: []
 
     header: NymeaHeader {
-        text: qsTr("Set up new thing")
+        text: qsTr("Set up new device")
         onBackPressed: {
             pageStack.pop();
         }
