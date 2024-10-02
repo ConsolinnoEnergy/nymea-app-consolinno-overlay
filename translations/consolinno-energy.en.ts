@@ -67,10 +67,6 @@
 <context>
     <name>AddNewThings</name>
     <message>
-        <source>Set up new thing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Vendor</source>
         <translation type="unfinished"></translation>
     </message>
@@ -92,6 +88,10 @@
     </message>
     <message>
         <source>Install plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set up new device</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2089,15 +2089,15 @@ Open source modules are included in the APP and in the device software. The corr
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add device manually</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>There are no things set up yet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>In order for your %1 system to be useful, go ahead and add some things.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set up new device</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
