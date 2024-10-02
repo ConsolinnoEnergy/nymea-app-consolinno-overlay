@@ -85,7 +85,7 @@ Page {
 
         Button{
             id: addDevice
-            text: qsTr("Add device manually")
+            text: qsTr("Set up new device")
             Layout.alignment: Qt.AlignHCenter
             Layout.preferredWidth: 300
             Layout.minimumWidth: 100
