@@ -29,7 +29,7 @@
     </qresource>
     <qresource prefix="/ui">
         <file>system/ConsolinnoUsersSettingsPage.qml</file>
-        <file>SettingsPage.qml</file>
+        <file>ConsolinnoSettingsPage.qml</file>
         <file>mainviews/ConsolinnoView.qml</file>
         <file>images/leaf.svg</file>
         <file>Configuration.qml</file>
@@ -137,6 +137,7 @@
         <file>images/menuQ.svg</file>
         <file>images/settingsQ.svg</file>
         <file>images/wallboxQ.svg</file>
-        <file>system/NetworkSettingsPage.qml</file>
+        <file>system/ConsolinnoNetworkSettingsPage.qml</file>
+        <file>appsettings/ConsolinnoLookAndFeelSettingsPage.qml</file>
     </qresource>
 </RCC>
