@@ -4,12 +4,12 @@ import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.1
 import NymeaApp.Utils 1.0
 import Nymea 1.0
-import "qrc:../components"
+import "components"
 
 Page {
     id: root
     header: NymeaHeader {
-        text: qsTr("System settings1234567")
+        text: qsTr("System settings")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
@@ -43,7 +43,7 @@ Page {
                 subText: qsTr("Configure who can log in")
                 visible: engine.jsonRpcClient.ensureServerVersion("4.2")
                          && engine.jsonRpcClient.authenticated
-                onClicked: pageStack.push(Qt.resolvedUrl("system/UsersSettingsPage.qml"))
+                onClicked: pageStack.push(Qt.resolvedUrl("system/ConsolinnoUsersSettingsPage.qml"))
             }
 
             SettingsTile {
@@ -51,7 +51,8 @@ Page {
                 iconSource: "../images/connections/network-wifi.svg"
                 text: qsTr("Networking")
                 subText: qsTr("Configure the system's network connection")
-                visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) && Configuration.networkSettingsEnabled
+                visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
+                         && Configuration.networkSettingsEnabled
                 onClicked: pageStack.push(Qt.resolvedUrl("system/NetworkSettingsPage.qml"))
             }
 
@@ -60,7 +61,8 @@ Page {
                 iconSource: "../images/connections/network-vpn.svg"
                 text: qsTr("Connection settings")
                 subText: qsTr("Configure how applications can connect to this system")
-                visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) && Configuration.apiSettingsEnabled
+                visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
+                         && Configuration.apiSettingsEnabled
                 onClicked: pageStack.push(Qt.resolvedUrl("system/ConnectionInterfacesPage.qml"))
             }
 
@@ -69,7 +71,8 @@ Page {
                 iconSource: "../images/mqtt.svg"
                 text: qsTr("MQTT broker")
                 subText: qsTr("Configure the MQTT broker")
-                visible: engine.jsonRpcClient.ensureServerVersion("1.11") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) && Configuration.developerSettingsEnabled
+                visible: engine.jsonRpcClient.ensureServerVersion("1.11") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
+                         && Configuration.developerSettingsEnabled
                 onClicked: pageStack.push(Qt.resolvedUrl("system/MqttBrokerSettingsPage.qml"))
             }
 
@@ -79,7 +82,7 @@ Page {
                 text: qsTr("Web server")
                 subText: qsTr("Configure the web server")
                 visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
-                         && Configuration.webServerSettingsEnabled
+                         && Configuration.webServerSettingsEnabled && Configuration.developerSettingsEnabled
                 onClicked: pageStack.push(Qt.resolvedUrl("system/WebServerSettingsPage.qml"))
             }
 
@@ -88,7 +91,8 @@ Page {
                 iconSource: "../images/zigbee.svg"
                 text: qsTr("ZigBee")
                 subText: qsTr("Configure ZigBee networks")
-                visible: engine.jsonRpcClient.ensureServerVersion("5.3") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) && Configuration.developerSettingsEnabled
+                visible: engine.jsonRpcClient.ensureServerVersion("5.3") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
+                         && Configuration.developerSettingsEnabled
                 onClicked: pageStack.push(Qt.resolvedUrl("system/zigbee/ZigbeeSettingsPage.qml"))
             }
 
@@ -97,7 +101,8 @@ Page {
                 iconSource: "../images/z-wave.svg"
                 text: qsTr("Z-Wave")
                 subText: qsTr("Configure Z-Wave networks")
-                visible: engine.jsonRpcClient.ensureServerVersion("6.1") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) && Configuration.developerSettingsEnabled
+                visible: engine.jsonRpcClient.ensureServerVersion("6.1") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
+                         && Configuration.developerSettingsEnabled
                 onClicked: pageStack.push(Qt.resolvedUrl("system/zwave/ZWaveSettingsPage.qml"))
             }
 
@@ -106,7 +111,7 @@ Page {
                 iconSource: "../images/modbus.svg"
                 text: qsTr("Modbus RTU")
                 subText: qsTr("Configure Modbus RTU master interfaces")
-                visible: engine.jsonRpcClient.ensureServerVersion("5.6") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) && Configuration.developerSettingsEnabled
+                visible: engine.jsonRpcClient.ensureServerVersion("5.6") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
                 onClicked: pageStack.push(Qt.resolvedUrl("system/ModbusRtuSettingsPage.qml"))
             }
 
@@ -124,7 +129,8 @@ Page {
                 iconSource: "../images/sdk.svg"
                 text: qsTr("Developer tools")
                 subText: qsTr("Access tools for debugging and error reporting")
-                visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) && Configuration.developerSettingsEnabled
+                visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
+                         && Configuration.developerSettingsEnabled
                 onClicked: pageStack.push(Qt.resolvedUrl("system/DeveloperTools.qml"))
             }
 
