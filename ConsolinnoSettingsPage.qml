@@ -72,7 +72,7 @@ Page {
                 text: qsTr("MQTT broker")
                 subText: qsTr("Configure the MQTT broker")
                 visible: engine.jsonRpcClient.ensureServerVersion("1.11") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
-                         && Configuration.developerSettingsEnabled
+                         && settings.showHiddenOptions
                 onClicked: pageStack.push(Qt.resolvedUrl("system/MqttBrokerSettingsPage.qml"))
             }
 
@@ -82,7 +82,7 @@ Page {
                 text: qsTr("Web server")
                 subText: qsTr("Configure the web server")
                 visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
-                         && Configuration.webServerSettingsEnabled && Configuration.developerSettingsEnabled
+                         && Configuration.webServerSettingsEnabled && settings.showHiddenOptions
                 onClicked: pageStack.push(Qt.resolvedUrl("system/WebServerSettingsPage.qml"))
             }
 
@@ -92,7 +92,7 @@ Page {
                 text: qsTr("ZigBee")
                 subText: qsTr("Configure ZigBee networks")
                 visible: engine.jsonRpcClient.ensureServerVersion("5.3") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
-                         && Configuration.developerSettingsEnabled
+                         && settings.showHiddenOptions
                 onClicked: pageStack.push(Qt.resolvedUrl("system/zigbee/ZigbeeSettingsPage.qml"))
             }
 
@@ -102,7 +102,7 @@ Page {
                 text: qsTr("Z-Wave")
                 subText: qsTr("Configure Z-Wave networks")
                 visible: engine.jsonRpcClient.ensureServerVersion("6.1") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
-                         && Configuration.developerSettingsEnabled
+                         && settings.showHiddenOptions
                 onClicked: pageStack.push(Qt.resolvedUrl("system/zwave/ZWaveSettingsPage.qml"))
             }
 
