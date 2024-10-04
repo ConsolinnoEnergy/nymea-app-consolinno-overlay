@@ -1590,6 +1590,37 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
 </context>
 <context>
+    <name>ConsolinnoAppSettingsPage</name>
+    <message>
+        <source>App Settings</source>
+        <translation>App-Einstellungen</translation>
+    </message>
+    <message>
+        <source>Look &amp; feel</source>
+        <translation>Aussehen &amp; Verhalten</translation>
+    </message>
+    <message>
+        <source>Customize the app&apos;s look and behavior</source>
+        <translation>Aussehen und Verhalten der App anpassen</translation>
+    </message>
+    <message>
+        <source>Developer options</source>
+        <translation>Entwicklereinstellungen</translation>
+    </message>
+    <message>
+        <source>Access tools for debugging and error reporting</source>
+        <translation>Greife auf Werkzeuge und Fehleranalyse-Werkzeuge zu</translation>
+    </message>
+    <message>
+        <source>About %1</source>
+        <translation>Über %1</translation>
+    </message>
+    <message>
+        <source>Find app versions and licence information</source>
+        <translation>Finde App Versionen und Lizenzinformationen</translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoConsumerStats</name>
     <message>
         <source>Consumers totals</source>
@@ -2036,6 +2067,10 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     <message>
         <source>The application needs to be restarted for style changes to take effect.</source>
         <translation>Die Anwendung muss neu gestartet werden damit Stil-Änderungen wirksam werden.</translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished">Sprache</translation>
     </message>
 </context>
 <context>

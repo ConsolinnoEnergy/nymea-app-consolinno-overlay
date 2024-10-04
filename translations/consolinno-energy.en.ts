@@ -1125,6 +1125,37 @@ Open source modules are included in the APP and in the device software. The corr
     </message>
 </context>
 <context>
+    <name>ConsolinnoAppSettingsPage</name>
+    <message>
+        <source>App Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Look &amp; feel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Customize the app&apos;s look and behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Access tools for debugging and error reporting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find app versions and licence information</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoConsumerStats</name>
     <message>
         <source>Consumers totals</source>
@@ -1568,6 +1599,10 @@ Open source modules are included in the APP and in the device software. The corr
     </message>
     <message>
         <source>The application needs to be restarted for style changes to take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
