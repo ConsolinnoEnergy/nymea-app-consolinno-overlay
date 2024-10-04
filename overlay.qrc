@@ -139,5 +139,6 @@
         <file>images/wallboxQ.svg</file>
         <file>system/ConsolinnoNetworkSettingsPage.qml</file>
         <file>appsettings/ConsolinnoLookAndFeelSettingsPage.qml</file>
+        <file>appsettings/ConsolinnoAppSettingsPage.qml</file>
     </qresource>
 </RCC>
