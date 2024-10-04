@@ -2,12 +2,15 @@ import QtQuick 2.5
 import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.1
+import Qt.labs.folderlistmodel 2.1
 import Nymea 1.0
 import "../components"
 
 SettingsPageBase {
     id: root
     title: qsTr("Look and feel")
+
+    property var langArr: []
 
     SettingsPageSectionHeader {
         text: qsTr("Appearance")
@@ -105,6 +108,26 @@ SettingsPageBase {
         }
     }
 
+    FolderListModel {
+        id: folderModel
+        folder: "qrc:../translations/"
+        nameFilters: ["*.qm"]
+
+        onCountChanged:
+        {
+           for(let i = 0; i < folderModel.count; i++){
+
+               console.error(folderModel.get(i).fileName)
+
+               let langCode = folderModel[i].fileName.split(".");
+
+               if(!langArr.includes(langCode[1])){
+                   langArr.push(langCode[1]);
+               }
+           }
+        }
+    }
+
     RowLayout{
         Layout.fillWidth: true
         Layout.leftMargin: app.margins
@@ -113,13 +136,11 @@ SettingsPageBase {
             Layout.fillWidth: true
             text: qsTr("Language")
         }
+
         ComboBox {
-            id: languageComboBox
-            currentIndex: settings.units === "metric" ? 0 : 1
-            //model: [ qsTr("Metric"), qsTr("Imperial") ]
-            onActivated: {
-                //settings.units = index == 0 ? "metric" : "imperial";
-            }
+            id: comboBox
+            width: 200
+            model: langArr
         }
     }
 
