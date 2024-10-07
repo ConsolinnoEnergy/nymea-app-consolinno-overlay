@@ -109,6 +109,7 @@ SettingsPageBase {
         Layout.fillWidth: true
         Layout.leftMargin: app.margins
         Layout.rightMargin: app.margins
+        visible: false
         Label {
             Layout.fillWidth: true
             text: qsTr("Language")
