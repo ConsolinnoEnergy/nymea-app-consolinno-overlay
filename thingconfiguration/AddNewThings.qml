@@ -183,14 +183,7 @@ Page {
                         let icon = "";
                         let interfaceIcons = thingClass.interfaces[i];
                         switch (interfaceIcons) {
-                        case "smartgridheatpump":
-                            if(Configuration.heatpumpIcon !== ""){
-                                icon = "/ui/images/"+Configuration.heatpumpIcon
-                            }else{
-                                icon = "/ui/images/thermostat/heating.svg"
-                            }
-                            return Qt.resolvedUrl(icon)
-                        case "simpleheatpump":
+                        case "heatpump":
                             if(Configuration.heatpumpIcon !== ""){
                                 icon = "/ui/images/"+Configuration.heatpumpIcon
                             }else{
@@ -207,8 +200,10 @@ Page {
                         case "energystorage":
                             if(Configuration.batteryIcon !== ""){
                                 icon = "/ui/images/"+Configuration.batteryIcon
-                                return Qt.resolvedUrl(icon)
+                            }else{
+                                icon = "/ui/images/battery/battery-080.svg"
                             }
+                            return Qt.resolvedUrl(icon)
                         case "evcharger":
                             if(Configuration.evchargerIcon !== ""){
                                 icon = "/ui/images/"+Configuration.evchargerIcon
