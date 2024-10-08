@@ -27,7 +27,7 @@ ConfigurationBase {
     property string branding: "Q.HOME CONTROL"
 
     // Identifier used for legal text (e.g. privacy policy)
-    property string companyName: "Hanwha Q CELLS GmbH"
+    property string companyName: "Consolinno Energy GmbH"
 
     // Branding names visible to the user
     property string appBranding: "Q.HOME CONTROL"
@@ -35,21 +35,21 @@ ConfigurationBase {
     property string deviceName: "Q.HOME CONTROL"
 
     //Branding contact-email
-    property string contactEmail: "meinesolaranlage@q-cells.com"
-    property string serviceEmail: "support.components@q-cells.com"
+    property string contactEmail: "office@consolinno.de"
+    property string serviceEmail: "service@consolinno.de"
 
     //Branding company
-    property string companyAddress: "Sonnenallee 17 - 21"
-    property string companyZip: "06766"
-    property string companyLocation: "Bitterfeld-Wolfen"
-    property string companyTel: "+49 (0)3494 6699-0"
+    property string companyAddress: "Franz-Mayer-Straße 1"
+    property string companyZip: "93053"
+    property string companyLocation: "Regensburg"
+    property string companyTel: "+49 (0) 941 20 300 000"
 
     //////////////////////////////////////////////////////////////////////////////////////
     // Will be shown in About page
     property string githubLink: "https://github.com/ConsolinnoEnergy/nymea-app"
     property string privacyPolicyUrl: "https://consolinno.de/hems-datenschutz/"
     property string termsOfConditionsUrl: "https://consolinno.de/hems-agb/"
-    property string downloadMedia: "https://www.q-cells.de/privatkunden/services/downloadbereich#"
+    property string downloadMedia: "https://consolinno.de/produkte/energy-management-solutions/einfamilienhaeuser/#downloads"
 
     //////////////////////////////////////////////////////////////////////////////////////
 
@@ -141,7 +141,7 @@ ConfigurationBase {
     //////////////////////////////////////////////////////////////////////////////////////
     // Additional MainViews
     property var additionalMainViews: ListModel {
-        ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Q CELLS") ; icon: "leaf" }
+        ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Consolinno") ; icon: "leaf" }
     }
 
     // Main views filter: Only those main views are enabled
@@ -157,8 +157,6 @@ ConfigurationBase {
     zigbeeSettingsEnabled: true
     modbusSettingsEnabled: true
     pluginSettingsEnabled: true
-
-
 
     mainMenuLinks: [ 
         {

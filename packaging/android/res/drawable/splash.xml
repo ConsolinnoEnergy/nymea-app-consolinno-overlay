@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
     android:width="1024dp"
@@ -120,3 +121,15 @@
       android:strokeWidth="0.94343"
       android:fillColor="#ffffff"/>
 </vector>
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle" >
+            <solid android:color="#ffffff"/>
+        </shape>
+    </item>
+    <item android:drawable="@drawable/splash_light"
+        android:gravity="center" />
+</layer-list>
+>>>>>>> ab4edc2 (feat(whitelabel-main): whitelabel look of consolinno (main))

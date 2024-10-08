@@ -63,36 +63,68 @@ Page {
             rightMargin: Style.margins
         }
 
-        ConsolinnoPVTextField {
-            id: maxPowerInput
-            property bool maxElectricalPower_validated
-            Layout.fillWidth: true
-            Layout.fillHeight: false
-            label: qsTr("Max power")
-            text: (+heatingElementConfiguration.maxElectricalPower).toLocaleString()
-            unit: qsTr("kW")
 
-            validator: DoubleValidator {
-                bottom: 1
+        RowLayout{
+            Layout.fillWidth: true
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("Maximal electrical power")
             }
 
-            onTextChanged: acceptableInput ? maxElectricalPower_validated = true : maxElectricalPower_validated = false
+
+            TextField {
+                id: maxPowerInput
+                property bool maxElectricalPower_validated
+                Layout.preferredWidth: 60
+                Layout.rightMargin: 8
+                text: (+heatingElementConfiguration.maxElectricalPower).toLocaleString()
+                maximumLength: 10
+                validator: DoubleValidator{bottom: 1 }
+
+                onTextChanged: acceptableInput ?maxElectricalPower_validated = true : maxElectricalPower_validated = false
+            }
+
+            Label {
+                id: maxElectricalPowerunit
+                text: qsTr("kW")
+            }
 
         }
 
-        ConsolinnoSwitchDelegate {
-            id: operatingModeSwitch
-            checked: heatingElementConfiguration.optimizationEnabled
+        RowLayout{
             Layout.fillWidth: true
-            text: qsTr("Operating mode (Solar Only)")
-            warningText: operatingModeSwitch.checked ? qsTr("The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.") : qsTr("The heating element is not controlled by the HEMS.")
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("Operating mode (Solar Only)")
+            }
+
+            Switch {
+                id: operatingModeSwitch
+                Component.onCompleted: checked = heatingElementConfiguration.optimizationEnabled
+            }
         }
 
-        //margins filler
-        Item {
+        ColumnLayout {
             Layout.fillWidth: true
-            Layout.fillHeight: false
-            Layout.preferredHeight: Style.bigMargins
+
+            Text {
+                Layout.fillWidth: true
+                font: Style.smallFont
+                color: Style.consolinnoMedium
+                wrapMode: Text.Wrap
+                text: operatingModeSwitch.checked ? qsTr("The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.") : qsTr("The heating element is not controlled by the HEMS.")
+            }
+        }
+
+
+        Label {
+            id: footer
+            Layout.fillWidth: true
+            Layout.leftMargin: app.margins
+            Layout.rightMargin: app.margins
+            //text: qsTr("For a better optimization you can please insert the upper data, so our optimizer has the information it needs.")
+            wrapMode: Text.WordWrap
+            font.pixelSize: app.smallFont
         }
 
         Button {
