@@ -93,7 +93,7 @@ MouseArea {
     function ifaceToIcon(name) {
         let icon = "";
         switch (name) {
-        case "smartgridheatpump":
+        case "heatpump":
             if(Configuration.heatpumpIcon !== ""){
                 icon = "qrc:/ui/images/"+Configuration.heatpumpIcon
             }else{
