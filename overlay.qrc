@@ -129,14 +129,14 @@
         <file>info/PriceLimitInfo.qml</file>
         <file>thingconfiguration/AddNewThings.qml</file>
         <file>images/leaflet-ethernet-connect.png</file>
-        <file>images/batteryQ.svg</file>
-        <file>images/gridQ.svg</file>
-        <file>images/heatpumpQ.svg</file>
-        <file>images/infoQ.svg</file>
-        <file>images/inverterQ.svg</file>
-        <file>images/menuQ.svg</file>
-        <file>images/settingsQ.svg</file>
-        <file>images/wallboxQ.svg</file>
+        <file>images/QCells/batteryQ.svg</file>
+        <file>images/QCells/gridQ.svg</file>
+        <file>images/QCells/heatpumpQ.svg</file>
+        <file>images/QCells/infoQ.svg</file>
+        <file>images/QCells/inverterQ.svg</file>
+        <file>images/QCells/menuQ.svg</file>
+        <file>images/QCells/settingsQ.svg</file>
+        <file>images/QCells/wallboxQ.svg</file>
         <file>system/ConsolinnoNetworkSettingsPage.qml</file>
         <file>appsettings/ConsolinnoLookAndFeelSettingsPage.qml</file>
         <file>appsettings/ConsolinnoAppSettingsPage.qml</file>
