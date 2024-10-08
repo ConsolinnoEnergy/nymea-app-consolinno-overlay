@@ -4,8 +4,8 @@ import QtQuick 2.5
 
 ConfigurationBase {
     id: configID
-    systemName: "Q.Home HEMS"
-    appName: "Q Cells HEMS"
+    systemName: "Leaflet HEMS"
+    appName: "Consolinno HEMS"
     appId: "hems.consolinno.energy"
 
 
@@ -25,39 +25,39 @@ ConfigurationBase {
     property string minSysVersion: "1.3.0"
 
     // Identifier used for branding (e.g. to register for push notifications)
-    property string branding: "Q CELLS"
+    property string branding: "consolinno"
 
     // Identifier used for legal text (e.g. privacy policy)
-    property string companyName: "Hanwha Q CELLS GmbH"
+    property string companyName: "Consolinno Energy GmbH"
 
     // Branding names visible to the user
-    property string appBranding: "Q CELLS"
-    property string coreBranding: "Q.Home"
-    property string deviceName: "Q.HOME CONTROL"
+    property string appBranding: "Consolinno Energy"
+    property string coreBranding: "Leaflet"
+    property string deviceName: "Leaflet HEMS"
 
     //Branding contact-email
-    property string contactEmail: "meinesolaranlage@q-cells.com"
-    property string serviceEmail: "support.components@q-cells.com"
+    property string contactEmail: "office@consolinno.de"
+    property string serviceEmail: "service@consolinno.de"
 
     //Branding company
-    property string companyAddress: "Sonnenallee 17 - 21"
-    property string companyZip: "06766"
-    property string companyLocation: "Bitterfeld-Wolfen"
-    property string companyTel: "+49 (0)3494 6699-0"
+    property string companyAddress: "Franz-Mayer-Straße 1"
+    property string companyZip: "93053"
+    property string companyLocation: "Regensburg"
+    property string companyTel: "+49 (0) 941 20 300 000"
 
     //////////////////////////////////////////////////////////////////////////////////////
     // Will be shown in About page
     property string githubLink: "https://github.com/ConsolinnoEnergy/nymea-app"
     property string privacyPolicyUrl: "https://consolinno.de/hems-datenschutz/"
     property string termsOfConditionsUrl: "https://consolinno.de/hems-agb/"
-    property string downloadMedia: "https://www.q-cells.de/privatkunden/services/downloadbereich#"
+    property string downloadMedia: "https://consolinno.de/produkte/energy-management-solutions/einfamilienhaeuser/#downloads"
 
     //////////////////////////////////////////////////////////////////////////////////////
 
     //Styles
     // Button
-    readonly property color iconColor: "#639df7"
-    readonly property color buttonColor: "#001C77"
+    readonly property color iconColor: "#87BD26"
+    readonly property color buttonColor: "#87BD26"
     readonly property color buttonTextColor: "#ffffff"
 
     //static things colors
@@ -143,7 +143,7 @@ ConfigurationBase {
     //////////////////////////////////////////////////////////////////////////////////////
     // Additional MainViews
     property var additionalMainViews: ListModel {
-        ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Q CELLS") ; icon: "leaf" }
+        ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Consolinno") ; icon: "leaf" }
     }
 
     // Main views filter: Only those main views are enabled
@@ -159,8 +159,6 @@ ConfigurationBase {
     zigbeeSettingsEnabled: true
     modbusSettingsEnabled: true
     pluginSettingsEnabled: true
-
-
 
     mainMenuLinks: [ 
         {
