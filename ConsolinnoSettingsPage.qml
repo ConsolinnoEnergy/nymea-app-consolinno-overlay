@@ -53,7 +53,7 @@ Page {
                 subText: qsTr("Configure the system's network connection")
                 visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
                          && Configuration.networkSettingsEnabled
-                onClicked: pageStack.push(Qt.resolvedUrl("system/NetworkSettingsPage.qml"))
+                onClicked: pageStack.push(Qt.resolvedUrl("system/ConsolinnoNetworkSettingsPage.qml"))
             }
 
             SettingsTile {
