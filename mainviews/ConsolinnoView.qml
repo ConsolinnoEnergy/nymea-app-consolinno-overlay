@@ -552,15 +552,15 @@ MainViewBase {
                 //                incompNotificationPopup.message = qsTr("%2 App is not compatible with the HEMS system version running on %1. Please update your HEMS.").arg(engine.jsonRpcClient.currentHost.name).arg(Configuration.appName)
                 
                 incompNotificationPopup.message=qsTr('<h3>Incompatible Software Versions</h3>
-                <p>The software versions of your "%3 App" (v%1) and your "Leaflet HEMS End Device" (v%2) are incompatible and currently only partially usable. Your "Leaflet HEMS End Device" will be automatically updated during the day.</p>
+                <p>The software versions of your "%3 App" (v%1) and your "%6 End Device" (v%2) are incompatible and currently only partially usable. Your "%6 End Device" will be automatically updated during the day.</p>
                 <p>If you still receive this message after several hours, please contact our support:</p>
                 <ul>
-                    <li>Phone: <a href="tel:+4994120300333">+49 941/ 20300 333</a></li>
+                    <li>Phone: <a href="tel:%7">%7</a></li>
                     <li>Email: <a href="mailto:%4">%4</a></li>
                 </ul>
                 <p>We apologize for the temporary limitations in use.</p>
                 <p>Best regards</p>
-                <p>Your %5 Team</p>').arg(appVersion).arg(engine.jsonRpcClient.experiences.Hems).arg(Configuration.appName).arg(Configuration.serviceEmail).arg(Configuration.branding)
+                <p>Your %5 Team</p>').arg(appVersion).arg(engine.jsonRpcClient.experiences.Hems).arg(Configuration.appName).arg(Configuration.serviceEmail).arg(Configuration.branding).arg(Configuration.deviceName).arg(Configuration.companyTel)
                 // If Popup not already open, open it
                 if (incompNotificationPopup.opened === false) {
                     incompNotificationPopup.open()

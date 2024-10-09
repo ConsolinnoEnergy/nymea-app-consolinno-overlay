@@ -8,7 +8,6 @@ ConfigurationBase {
     appName: "Consolinno HEMS"
     appId: "hems.consolinno.energy"
 
-
     connectionWizard: "/ui/wizards/ConnectionWizard.qml"
 
     //////////////////////////////////////////////////////////////////////////////////////
@@ -87,7 +86,7 @@ ConfigurationBase {
     readonly property var totalColors: [consumedColor, inverterColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
 
     //custom Icons
-    readonly property string gridIcon: ""
+    readonly property string gridIcon: "QCells/created_gridQ.svg"
     readonly property string heatpumpIcon: ""
     readonly property string heatingRodIcon: ""
     readonly property string energyIcon: ""

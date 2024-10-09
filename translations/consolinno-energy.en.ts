@@ -580,7 +580,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Q CELLS</source>
+        <source>Consolinno</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2554,10 +2554,10 @@ Open source modules are included in the APP and in the device software. The corr
     </message>
     <message>
         <source>&lt;h3&gt;Incompatible Software Versions&lt;/h3&gt;
-                &lt;p&gt;The software versions of your &quot;%3 App&quot; (v%1) and your &quot;Leaflet HEMS End Device&quot; (v%2) are incompatible and currently only partially usable. Your &quot;Leaflet HEMS End Device&quot; will be automatically updated during the day.&lt;/p&gt;
+                &lt;p&gt;The software versions of your &quot;%3 App&quot; (v%1) and your &quot;%6 End Device&quot; (v%2) are incompatible and currently only partially usable. Your &quot;%6 End Device&quot; will be automatically updated during the day.&lt;/p&gt;
                 &lt;p&gt;If you still receive this message after several hours, please contact our support:&lt;/p&gt;
                 &lt;ul&gt;
-                    &lt;li&gt;Phone: &lt;a href=&quot;tel:+4994120300333&quot;&gt;+49 941/ 20300 333&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;Phone: &lt;a href=&quot;tel:%7&quot;&gt;%7&lt;/a&gt;&lt;/li&gt;
                     &lt;li&gt;Email: &lt;a href=&quot;mailto:%4&quot;&gt;%4&lt;/a&gt;&lt;/li&gt;
                 &lt;/ul&gt;
                 &lt;p&gt;We apologize for the temporary limitations in use.&lt;/p&gt;
@@ -3008,34 +3008,6 @@ Open source modules are included in the APP and in the device software. The corr
 <context>
     <name>HeatingElementDevicePage</name>
     <message>
-        <source>Operating Mode (Solar Only)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Active</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Not available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The heating is operated only with solar power.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The operating mode (Solar Only) is turned off. The settings can be changed in the optimization settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The operating mode (Solar Only) is not available because a charging process is currently being prioritized.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Current Temperature</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3071,10 +3043,6 @@ Open source modules are included in the APP and in the device software. The corr
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Max power</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>kW</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3092,6 +3060,10 @@ Open source modules are included in the APP and in the device software. The corr
     </message>
     <message>
         <source>The heating element is not controlled by the HEMS.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximal electrical power</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

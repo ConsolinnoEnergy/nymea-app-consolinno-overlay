@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.2
+import QtGraphicalEffects 1.12
 import "../components"
 import "../delegates"
 import Nymea 1.0
@@ -115,9 +116,55 @@ Page {
             }
 
             delegate: ThingDelegate {
+                property string iconPath: ""
                 thing: thingsProxy.getThing(model.id)
                 // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
                 // This check might be wrong for thingClasses with multiple create methods...
+
+                iconName: {
+                    let thingInterface = thing.thingClass.interfaces
+
+                    if (thingInterface.indexOf("energymeter") >= 0) {
+                        if(Configuration.gridIcon === ""){
+                            iconPath = "../images/grid.svg";
+                        }else{
+                            iconPath = "../images/" + Configuration.gridIcon;
+                        }
+                        return iconPath;
+                    } else if (thingInterface.indexOf("heatpump") >= 0) {
+                        if (Configuration.heatpumpIcon !== "") {
+                            iconPath = "../images/" + Configuration.heatpumpIcon;
+                        } else {
+                            iconPath = "../images/thermostat/heating.svg";
+                        }
+                        return iconPath;
+                    } else if (thingInterface.indexOf("smartheatingrod") >= 0) {
+                        if (Configuration.heatingRodIcon !== "") {
+                            iconPath = "../images/" + Configuration.heatingRodIcon;
+                        } else {
+                            iconPath = "../images/sensors/water.svg";
+                        }
+                        return iconPath;
+                    } else if (thingInterface.indexOf("energystorage") >= 0 && Configuration.batteryIcon !== "") {
+                        if (Configuration.batteryIcon !== "") {
+                            iconPath = "../images/" + Configuration.batteryIcon;
+                        }
+                        return iconPath;
+                    } else if (thingInterface.indexOf("evcharger") >= 0 && Configuration.evchargerIcon !== "") {
+                        if (Configuration.evchargerIcon !== "") {
+                            iconPath = "../images/" + Configuration.evchargerIcon;
+                        }
+                        return iconPath;
+                    } else if (thingInterface.indexOf("solarinverter") >= 0 && Configuration.inverterIcon !== "") {
+                        if (Configuration.inverterIcon !== "") {
+                            iconPath = "../images/" + Configuration.inverterIcon;
+                        }
+                        return iconPath;
+                    } else {
+                        return app.interfacesToIcon(thing.thingClass.interfaces);
+                    }
+                }
+
                 canDelete: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("ConfigureThingPage.qml"), {thing: thing})
@@ -125,7 +172,6 @@ Page {
                 onDeleteClicked: {
                     d.thingToRemove = thing;
                     engine.thingManager.removeThing(d.thingToRemove.id)
-
                 }
             }
         }
