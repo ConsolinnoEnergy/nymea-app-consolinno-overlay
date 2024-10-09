@@ -68,31 +68,31 @@
     <name>AddNewThings</name>
     <message>
         <source>Vendor</source>
-        <translation type="unfinished">Hersteller</translation>
+        <translation>Hersteller</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">Alle</translation>
+        <translation>Alle</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <source>Looking for something else?</source>
-        <translation type="unfinished">Suchen Sie nach etwas anderem?</translation>
+        <translation>Suchen Sie nach etwas anderem?</translation>
     </message>
     <message>
         <source>Try to install more plugins.</source>
-        <translation type="unfinished">Versuchen Sie, mehr Plugins zu installieren.</translation>
+        <translation>Versuchen Sie, mehr Plugins zu installieren.</translation>
     </message>
     <message>
         <source>Install plugins</source>
-        <translation type="unfinished">Plugins installieren</translation>
+        <translation>Plugins installieren</translation>
     </message>
     <message>
         <source>Set up new device</source>
-        <translation type="unfinished">Gerät hinzufügen</translation>
+        <translation>Gerät hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -115,7 +115,7 @@
     </message>
     <message>
         <source>I am authorized to operate the %1</source>
-        <translation type="unfinished">Ich bin berechtigt, die %1 zu bedienen</translation>
+        <translation type="unfinished">Ich bin berechtigt, %1 zu bedienen</translation>
     </message>
 </context>
 <context>
@@ -1755,43 +1755,43 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     <name>ConsolinnoDynamicElectricPricingHistory</name>
     <message>
         <source>today</source>
-        <translation type="unfinished">Heute</translation>
+        <translation>Heute</translation>
     </message>
     <message>
         <source>tomorrow</source>
-        <translation type="unfinished">Morgen</translation>
+        <translation>Morgen</translation>
     </message>
     <message>
         <source>Average Market Price: </source>
-        <translation type="unfinished">Durchschnittlicher Marktpreis: </translation>
+        <translation>Durchschnittlicher Marktpreis: </translation>
     </message>
     <message>
         <source>No data available</source>
-        <translation type="unfinished">Keine Daten verfügbar</translation>
+        <translation>Keine Daten verfügbar</translation>
     </message>
     <message>
         <source>Current market price</source>
-        <translation type="unfinished">Aktueller Marktpreis</translation>
+        <translation>Aktueller Marktpreis</translation>
     </message>
     <message>
         <source>Average market price</source>
-        <translation type="unfinished">Durchschnittlicher Marktpreis</translation>
+        <translation>Durchschnittlicher Marktpreis</translation>
     </message>
     <message>
         <source>Current Market Price: </source>
-        <translation type="unfinished">Aktueller Marktpreis: </translation>
+        <translation>Aktueller Marktpreis: </translation>
     </message>
     <message>
         <source>No prices available, yet</source>
-        <translation type="unfinished">Noch keine Preise verfügbar</translation>
+        <translation>Noch keine Preise verfügbar</translation>
     </message>
     <message>
         <source>Dynamic electricity tariff</source>
-        <translation type="unfinished">Dynamischer Stromtarif</translation>
+        <translation>Dynamischer Stromtarif</translation>
     </message>
     <message>
         <source>ct/kWh</source>
-        <translation type="unfinished">ct/kWh</translation>
+        <translation>ct/kWh</translation>
     </message>
 </context>
 <context>
@@ -2514,7 +2514,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>From PV</source>
-        <translation type="unfinished">Von PV</translation>
+        <translation>Von PV</translation>
     </message>
 </context>
 <context>
@@ -2624,15 +2624,15 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>From PV</source>
-        <translation type="unfinished">Von PV</translation>
+        <translation>Von PV</translation>
     </message>
     <message>
         <source>From Battery</source>
-        <translation type="unfinished">Von Batterie</translation>
+        <translation>Von Batterie</translation>
     </message>
     <message>
         <source>From PV: %1 %2</source>
-        <translation type="unfinished">Von PV: %1 %2</translation>
+        <translation>Von PV: %1 %2</translation>
     </message>
 </context>
 <context>
@@ -2694,19 +2694,19 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     <name>ConsolinnoPushButtonAuthPage</name>
     <message>
         <source>Complete Authentication</source>
-        <translation type="unfinished">Authentifizierung abschließen</translation>
+        <translation>Authentifizierung abschließen</translation>
     </message>
     <message>
         <source>Sorry, something went wrong during the setup. Try again please.</source>
-        <translation type="unfinished">Um die Authentifizierung abzuschließen, drücken Sie bitte den Test-Taster erneut für 5 Sekunden, bis die Status-LED grün leuchtet.</translation>
+        <translation>Um die Authentifizierung abzuschließen, drücken Sie bitte den Test-Taster erneut für 5 Sekunden, bis die Status-LED grün leuchtet.</translation>
     </message>
     <message>
         <source>If the status LED flashes red briefly, you must repeat the authentication. (Go back to the screen &quot;Discovered Devices&quot;, press the test button briefly and select the leaflet again).</source>
-        <translation type="unfinished">Wenn die Status-LED kurz rot blinkt, müssen Sie die Authentifizierung wiederholen. (Gehen Sie zurück zum Screen &quot;Gefundene Geräte&quot;, betätigen Sie kurz die Test-Taste und wählen Sie erneut das Leaflet aus).</translation>
+        <translation>Wenn die Status-LED kurz rot blinkt, müssen Sie die Authentifizierung wiederholen. (Gehen Sie zurück zum Screen &quot;Gefundene Geräte&quot;, betätigen Sie kurz die Test-Taste und wählen Sie erneut das Leaflet aus).</translation>
     </message>
     <message>
         <source>To complete the authentication, please press the &lt;b&gt;test button again for 5 seconds&lt;/b&gt; until the status LED lights up green.</source>
-        <translation type="unfinished">Um die Authentifizierung abzuschließen, drücken Sie bitte &lt;b&gt;den Test-Taster erneut für 5 Sekunden&lt;/b&gt;, bis die Status-LED grün leuchtet.</translation>
+        <translation>Um die Authentifizierung abzuschließen, drücken Sie bitte &lt;b&gt;den Test-Taster erneut für 5 Sekunden&lt;/b&gt;, bis die Status-LED grün leuchtet.</translation>
     </message>
 </context>
 <context>
