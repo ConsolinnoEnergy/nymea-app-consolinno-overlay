@@ -27,7 +27,7 @@ ConfigurationBase {
     property string branding: "Q.HOME CONTROL"
 
     // Identifier used for legal text (e.g. privacy policy)
-    property string companyName: "Consolinno Energy GmbH"
+    property string companyName: "Hanwha Q CELLS GmbH"
 
     // Branding names visible to the user
     property string appBranding: "Q.HOME CONTROL"
@@ -35,21 +35,21 @@ ConfigurationBase {
     property string deviceName: "Q.HOME CONTROL"
 
     //Branding contact-email
-    property string contactEmail: "office@consolinno.de"
-    property string serviceEmail: "service@consolinno.de"
+    property string contactEmail: "meinesolaranlage@q-cells.com"
+    property string serviceEmail: "support.components@q-cells.com"
 
     //Branding company
-    property string companyAddress: "Franz-Mayer-Straße 1"
-    property string companyZip: "93053"
-    property string companyLocation: "Regensburg"
-    property string companyTel: "+49 (0) 941 20 300 000"
+    property string companyAddress: "Sonnenallee 17 - 21"
+    property string companyZip: "06766"
+    property string companyLocation: "Bitterfeld-Wolfen"
+    property string companyTel: "+49 (0)3494 6699-0"
 
     //////////////////////////////////////////////////////////////////////////////////////
     // Will be shown in About page
     property string githubLink: "https://github.com/ConsolinnoEnergy/nymea-app"
     property string privacyPolicyUrl: "https://consolinno.de/hems-datenschutz/"
     property string termsOfConditionsUrl: "https://consolinno.de/hems-agb/"
-    property string downloadMedia: "https://consolinno.de/produkte/energy-management-solutions/einfamilienhaeuser/#downloads"
+    property string downloadMedia: "https://www.q-cells.de/privatkunden/services/downloadbereich#"
 
     //////////////////////////////////////////////////////////////////////////////////////
 
@@ -87,16 +87,16 @@ ConfigurationBase {
 
 
     //custom Icons
-    readonly property string gridIcon: "gridQ.svg"
-    readonly property string heatpumpIcon: "heatpumpQ.svg"
+    readonly property string gridIcon: "QCells/gridQ.svg"
+    readonly property string heatpumpIcon: "QCells/heatpumpQ.svg"
     readonly property string heatingRodIcon: ""
     readonly property string energyIcon: ""
-    readonly property string inverterIcon: "inverterQ.svg"
-    readonly property string settingsIcon: "settingsQ.svg"
-    readonly property string evchargerIcon: "wallboxQ.svg"
-    readonly property string batteryIcon: "batteryQ.svg"
-    readonly property string infoIcon: "infoQ.svg"
-    readonly property string menuIcon: "menuQ.svg"
+    readonly property string inverterIcon: "QCells/inverterQ.svg"
+    readonly property string settingsIcon: "QCells/settingsQ.svg"
+    readonly property string evchargerIcon: "QCells/wallboxQ.svg"
+    readonly property string batteryIcon: "QCells/batteryQ.svg"
+    readonly property string infoIcon: "QCells/infoQ.svg"
+    readonly property string menuIcon: "QCells/menuQ.svg"
 
     property ListModel softwareLinksApp: ListModel {
         ListElement { component: "Suru icons"; url: "https://github.com/snwh/suru-icon-theme" }
@@ -141,7 +141,7 @@ ConfigurationBase {
     //////////////////////////////////////////////////////////////////////////////////////
     // Additional MainViews
     property var additionalMainViews: ListModel {
-        ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Consolinno") ; icon: "leaf" }
+        ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Q CELLS") ; icon: "leaf" }
     }
 
     // Main views filter: Only those main views are enabled
@@ -158,12 +158,14 @@ ConfigurationBase {
     modbusSettingsEnabled: true
     pluginSettingsEnabled: true
 
-    mainMenuLinks: [ 
+
+
+    mainMenuLinks: [
         {
             text: qsTr("Help"),
             iconName: "../images/help.svg",
             page: "info/Help/HelpPage.qml"
         },
-    ] 
+    ]
 
     }
