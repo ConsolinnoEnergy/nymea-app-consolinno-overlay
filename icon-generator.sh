@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # check if rsvg-convert is installed
 if ! command -v rsvg-convert &> /dev/null; then
     echo "Error: rsvg-convert is not installed. Please install it and try again."
@@ -9,6 +8,14 @@ fi
 # Check if the correct number of arguments are provided
 filenames=("logo.svg" "logo_margin.svg" "logo_bg.svg" "logo_bg_round.svg" "logo_wide.svg" "logo_wide_margin.svg" "logo_wide_margin_bg.svg" "splash.svg")
 directory="./app-icons"
+
+if [[ ! -d "$directory/android/" ]]; then
+  echo "Error: The directory ./app-icons/android/ seems to be missing. It should contain the mipmap directories."
+  exit 1
+fi
+
+# copy adaptive icons to correct location
+cp -r $directory/android/* ./packaging/android/res/
 
 # Check for required files
 for filename in "${filenames[@]}"; do
@@ -80,6 +87,8 @@ rsvg-convert -w 512 -h 512 "$IMG_BG" -o "./packaging//android/store-icon.png"
 rsvg-convert -w 256 -h 256 "$IMG_BG" -o "./packaging//android/store-icon.svg"
 
 # res/
+# ignore drawable icons for now because of probable replacement by adaptive mipmap icons
+<<drawable_icons
 rsvg-convert -w 72 -h 72 "$INPUT_SVG" -o "./packaging//android/res/drawable-hdpi/icon.png"
 rsvg-convert -w 32 -h 32 "$INPUT_SVG" -o "./packaging//android/res/drawable-ldpi/icon.png"
 rsvg-convert -w 48 -h 48 "$INPUT_SVG" -o "./packaging//android/res/drawable-mdpi/icon.png"
@@ -87,6 +96,7 @@ rsvg-convert -w 96 -h 96 "$INPUT_SVG" -o "./packaging/android/res/drawable-xhdpi
 rsvg-convert -w 144 -h 144 "$INPUT_SVG" -o "./packaging/android/res/drawable-xxhdpi/icon.png"
 rsvg-convert -w 192 -h 192 "$INPUT_SVG" -o "./packaging/android/res/drawable-xxxhdpi/icon.png"
 rsvg-convert -w 192 -h 192 "$INPUT_SVG" -o "./packaging/android/res/drawable-xxxhdpi/icon.png"
+drawable_icons
 
 # iOS icons
 rsvg-convert -w 256 -h 256 "$INPUT_SVG" -o "./packaging/ios/AppIcon.svg"

@@ -1,2 +1,3 @@
 nymeaapp.properties
 *.qm
+packaging/android/res/mipmap-*/
