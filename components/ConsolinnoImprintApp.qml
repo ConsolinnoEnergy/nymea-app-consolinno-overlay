@@ -204,12 +204,23 @@ Item {
                     text: qsTr("Anyone can obtain the source code of these software components from us on a data carrier (CD-ROM, DVD or USB stick) if a request is made to our customer service department at the following address within three years after delivery of the product to the customer or as long as we offer spare parts or support for the product:")
                 }
 
+
+
+                Label{
+                    Layout.fillWidth: true
+                    Layout.topMargin: 5
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: app.smallFont
+                    text: '<html><style type="text/css"></style><a href="mailto:support.components@q-cells.com">support.components@q-cells.com</a></html>'
+                }
+
                 Label{
                     Layout.fillWidth: true
                     Layout.topMargin: 7
                     wrapMode: Text.WordWrap
                     font.pixelSize: app.smallFont
                     text: `${Configuration.companyName}\r\n${Configuration.companyAddress}\r\n${Configuration.companyZip} ${Configuration.companyLocation}\r\nTel: ${Configuration.companyTel}\r\nMail: ${Configuration.serviceEmail}`
+                    visible: false
                 }
 
                 Label{
@@ -218,6 +229,7 @@ Item {
                     wrapMode: Text.WordWrap
                     font.pixelSize: app.smallFont
                     text: qsTr("Please provide the following product data:")
+                    visible: false
                 }
 
                 Label{
@@ -228,6 +240,7 @@ Item {
                     text: qsTr("- Product name
 - Software version
 - Serial number - if known")
+                    visible: false
                 }
 
                 Label{
@@ -236,6 +249,7 @@ Item {
                     wrapMode: Text.WordWrap
                     font.pixelSize: app.smallFont
                     text: qsTr("and transfer an amount of money in advance, based on the information provided by the support, to cover the costs of creating and sending the disk. Alternatively, the source code can be downloaded free of charge.")
+                    visible: false
                 }
             }
         }
