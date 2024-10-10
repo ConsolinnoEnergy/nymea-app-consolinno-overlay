@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:930163413283:android:15334d6c030f7442c2bc96",
         "android_client_info": {
-          "package_name": "hems.consolinno.energy"
+          "package_name": "de.qcells.qhomecontrol"
         }
       },
       "oauth_client": [

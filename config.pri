@@ -1,8 +1,8 @@
-APPLICATION_NAME=consolinno-energy
-ORGANISATION_NAME=consolinno
+APPLICATION_NAME=qcells-homecontrol
+ORGANISATION_NAME=qcells
 
-PACKAGE_URN=hems.consolinno.energy
-PACKAGE_NAME=consolinno-energy
+PACKAGE_URN=de.qcells.qhomecontrol
+PACKAGE_NAME=qcells-homecontrol
 
 IOS_BUNDLE_PREFIX=consolinno.hems
 IOS_BUNDLE_NAME=energy
