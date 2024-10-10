@@ -4,7 +4,7 @@ import "../../ui/"
 
 StyleBase {
 
-    property color consolinnoExtraDark: "#193c4d"
+    property color consolinnoExtraDark: "#121926"
     property color consolinnoDark: "#0450c9"
     property color consolinnoMedium: Configuration.iconColor
     property color consolinnoLight: "#75a9fa"

@@ -4,101 +4,100 @@ import QtQuick 2.5
 
 ConfigurationBase {
     id: configID
-    systemName: "Leaflet HEMS"
-    appName: "Consolinno HEMS"
+    systemName: "Q.HOME CONTROL"
+    appName: "Q.HOME CONTROL"
     appId: "hems.consolinno.energy"
 
     connectionWizard: "/ui/wizards/ConnectionWizard.qml"
 
     //////////////////////////////////////////////////////////////////////////////////////
     //Main View
-    readonly property string mainMenuThingName: "black"
+    readonly property string mainMenuThingName: "white"
 
     //change "Ubuntu" string to set a different font or set "Ubuntu" to have standard font
-    property string fontFamily: "Ubuntu"
+    property string fontFamily: "NotoSans"
 
     //Wizard Complete
-    property bool isIntroIcon: true
+    property bool isIntroIcon: false
     //////////////////////////////////////////////////////////////////////////////////////
     // Defines the minimal compatible HEMS version
     property string minSysVersion: "1.3.0"
 
     // Identifier used for branding (e.g. to register for push notifications)
-    property string branding: "consolinno"
+    property string branding: "Q.HOME CONTROL"
 
     // Identifier used for legal text (e.g. privacy policy)
-    property string companyName: "Consolinno Energy GmbH"
+    property string companyName: "Hanwha Q CELLS GmbH"
 
     // Branding names visible to the user
-    property string appBranding: "Consolinno Energy"
-    property string coreBranding: "Leaflet"
-    property string deviceName: "Leaflet HEMS"
+    property string appBranding: "Q.HOME CONTROL"
+    property string coreBranding: "Q.HOME CONTROL"
+    property string deviceName: "Q.HOME CONTROL"
 
     //Branding contact-email
-    property string contactEmail: "office@consolinno.de"
-    property string serviceEmail: "service@consolinno.de"
+    property string contactEmail: "meinesolaranlage@q-cells.com"
+    property string serviceEmail: "support.components@q-cells.com"
 
     //Branding company
-    property string companyAddress: "Franz-Mayer-Straße 1"
-    property string companyZip: "93053"
-    property string companyLocation: "Regensburg"
-    property string companyTel: "+49 (0) 941 20 300 000"
+    property string companyAddress: "Sonnenallee 17 - 21"
+    property string companyZip: "06766"
+    property string companyLocation: "Bitterfeld-Wolfen"
+    property string companyTel: "+49 (0)3494 6699-0"
 
     //////////////////////////////////////////////////////////////////////////////////////
     // Will be shown in About page
     property string githubLink: "https://github.com/ConsolinnoEnergy/nymea-app"
     property string privacyPolicyUrl: "https://consolinno.de/hems-datenschutz/"
     property string termsOfConditionsUrl: "https://consolinno.de/hems-agb/"
-    property string downloadMedia: "https://consolinno.de/produkte/energy-management-solutions/einfamilienhaeuser/#downloads"
+    property string downloadMedia: "https://www.q-cells.de/privatkunden/services/downloadbereich#"
 
     //////////////////////////////////////////////////////////////////////////////////////
 
     //Styles
     // Button
-    readonly property color iconColor: "#87BD26"
-    readonly property color buttonColor: "#87BD26"
+    readonly property color iconColor: "#00C6C1"
+    readonly property color buttonColor: "#001C77"
     readonly property color buttonTextColor: "#ffffff"
 
     //static things colors
     //producers
-    readonly property color rootMeterAcquisitionColor: "#F37B8E"
-    readonly property color rootMeterReturnColor: "#45B4E4"
-    readonly property color inverterColor: "#FCE487"
+    readonly property color rootMeterAcquisitionColor: "#1C3EAA"
+    readonly property color rootMeterReturnColor: "#01295F"
+    readonly property color inverterColor: "#1AA0DB"
 
     //other things
-    readonly property color epexColor: "#E056F5"
-    readonly property color epexMainLineColor: "#6CCB56"
-    readonly property color epexAverageColor: "#C65B5A"
+    readonly property color epexColor: "#1ACCC8"
+    readonly property color epexMainLineColor: "#001C77"
+    readonly property color epexAverageColor: "#00C6C1"
 
     //other consumers
-    readonly property color heatpumpColor: "#F7B772"
-    readonly property color wallboxColor: "#ACE3E2"
-    readonly property color heatingRodColor: "#639F86"
-    readonly property color consumedColor: "#ADB9E3"
+    readonly property color heatpumpColor: "#4ED6B2"
+    readonly property color wallboxColor: "#9DEAC6"
+    readonly property color heatingRodColor: "#C2E56C"
+    readonly property color consumedColor: "#F4BF65"
 
     //batteries
-    readonly property color batteriesColor: "#BDD786"
+    readonly property color batteriesColor: "#93DE8E"
     readonly property color batteryChargeColor: batteriesColor
-    readonly property color batteryDischargeColor: "#F7B772"
+    readonly property color batteryDischargeColor: "#F4BF65"
 
-    //static array of thing colors
-    property var consumerColors: ["#FF8954", "#D9F6C5", "#437BC4", "#AA5DC2", "#C6C73F"]
+    //etc. colors
     readonly property var totalColors: [consumedColor, inverterColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
+    property var consumerColors: ["#677EC6", "#66DDDA", "#437BC4", "#AA5DC2", "#66BFE6"]
+
 
     //custom Icons
-    readonly property string gridIcon: "QCells/created_gridQ.svg"
-    readonly property string heatpumpIcon: ""
+    readonly property string gridIcon: "QCells/gridQ.svg"
+    readonly property string heatpumpIcon: "QCells/heatpumpQ.svg"
     readonly property string heatingRodIcon: ""
     readonly property string energyIcon: ""
-    readonly property string inverterIcon: ""
-    readonly property string settingsIcon: ""
-    readonly property string evchargerIcon: ""
-    readonly property string batteryIcon: ""
-    readonly property string infoIcon: ""
-    readonly property string menuIcon: ""
+    readonly property string inverterIcon: "QCells/inverterQ.svg"
+    readonly property string settingsIcon: "QCells/settingsQ.svg"
+    readonly property string evchargerIcon: "QCells/wallboxQ.svg"
+    readonly property string batteryIcon: "QCells/batteryQ.svg"
+    readonly property string infoIcon: "QCells/infoQ.svg"
+    readonly property string menuIcon: "QCells/menuQ.svg"
 
-    //////////////////////////////////////////////////////////////////////////////////////
-    //Help links
     property ListModel softwareLinksApp: ListModel {
         ListElement { component: "Suru icons"; url: "https://github.com/snwh/suru-icon-theme" }
         ListElement { component: "Ubuntu font"; url: "https://design.ubuntu.com/font" }
@@ -142,7 +141,7 @@ ConfigurationBase {
     //////////////////////////////////////////////////////////////////////////////////////
     // Additional MainViews
     property var additionalMainViews: ListModel {
-        ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Consolinno") ; icon: "leaf" }
+        ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Q CELLS") ; icon: "leaf" }
     }
 
     // Main views filter: Only those main views are enabled
@@ -159,12 +158,14 @@ ConfigurationBase {
     modbusSettingsEnabled: true
     pluginSettingsEnabled: true
 
-    mainMenuLinks: [ 
+
+
+    mainMenuLinks: [
         {
             text: qsTr("Help"),
             iconName: "../images/help.svg",
             page: "info/Help/HelpPage.qml"
         },
-    ] 
+    ]
 
     }
