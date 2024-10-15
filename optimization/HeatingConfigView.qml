@@ -66,23 +66,76 @@ GenericConfigPage {
                     stack: pageStack
                     push: "EnergyManagerInfo.qml"
                     anchors.left: energyManager.right
+                    anchors.top: energyManager.top
                     anchors.leftMargin:  5
+                    anchors.topMargin: 5
                 }
             }
 
-            RowLayout {
+            Repeater {
                 Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.topMargin: 5
 
-                Label {
+                // tbd: Configurationdata tab finishing
+                model: [
+                    {Id: "performanceTarget", name: qsTr("Performance target: "), value: thing.stateByName("performanceTarget") ? thing.stateByName("performanceTarget").value : 15.89, component: stringValues, unit: "W"},
+                ]
+
+
+                delegate: ItemDelegate{
+                    visible: true //modelData.value !==  null ? true : false
                     Layout.fillWidth: true
-                    Layout.leftMargin: 15
-                    text: qsTr("Performance target:")
+                    contentItem: ColumnLayout
+                    {
+                        Layout.fillWidth: true
+
+                        RowLayout{
+                            Layout.fillWidth: true
+
+                            Loader
+                            {
+                                id: optimizationParamsEnergyManger
+
+                                Binding{
+                                    target: optimizationParamsEnergyManger.item
+                                    property: "delegateValue"
+                                    value: modelData.value
+                                }
+
+                                Binding{
+                                    target: optimizationParamsEnergyManger.item
+                                    property: "delegateUnit"
+                                    value: modelData.unit
+                                }
+
+                                Binding{
+                                    target: optimizationParamsEnergyManger.item
+                                    property: "delegateName"
+                                    value: modelData.name
+                                }
+
+                                Binding{
+                                    target: optimizationParamsEnergyManger.item
+                                    property: "delegateParams"
+                                    value: modelData.params
+                                }
+                                Layout.fillWidth: true
+                                sourceComponent:
+                                {
+                                    switch(modelData.Id)
+                                    {
+                                        case "performanceTarget":
+                                        {
+                                            return modelData.component
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
 
-                Label {
-                    Layout.rightMargin: 15
-                    text: "12345"
-                }
             }
 
 
@@ -111,37 +164,170 @@ GenericConfigPage {
 
                 // tbd: Configurationdata tab finishing
                 model: [
-                    {Id: "operatingMode", name: qsTr("Operating mode: "), value: heatingPumpValues(thing.stateByName("sgReadyMode") ? thing.stateByName("sgReadyMode").value : null), component: stringValues, unit: ""},
-                    {Id: "currentConsumption", name: qsTr("Current consumption"), value: thing.stateByName("outdoorTemperature") ? thing.stateByName("outdoorTemperature").value : null , unit: "W" , component: stringValues},
-                    {Id: "totalAmountOfEnergy", name: qsTr("Total amount of energy"), value: thing.stateByName("outdoorTemperature") ? thing.stateByName("outdoorTemperature").value : null , unit: "kWh" , component: stringValues},
-                    {Id: "totalThermalEnergyGenerated", name: qsTr("Total thermal energy generated"), value: thing.stateByName("outdoorTemperature") ? thing.stateByName("outdoorTemperature").value : null , unit: "kWh" , component: stringValues},
-                    {Id: "outdoorTemperature", name: qsTr("Outdoor temperature"), value: thing.stateByName("outdoorTemperature") ? thing.stateByName("outdoorTemperature").value : null , unit: "°C" , component: stringValues},
-                    {Id: "coefficientOfPerformance", name: qsTr("COP"), value: thing.stateByName("outdoorTemperature") ? thing.stateByName("outdoorTemperature").value : null , unit: "W" , component: stringValues},
-                    {Id: "hotWaterTemperature", name: qsTr("Hot water temperature"), value: thing.stateByName("hotWaterTemperature") ? thing.stateByName("hotWaterTemperature").value : null , unit: "°C" , component: stringValues},
+                    {Id: "operatingMode", name: qsTr("Operating mode: "), value: heatingPumpValues(thing.stateByName("operatingMode") ? thing.stateByName("operatingMode").value : "STBY"), component: stringValues, unit: ""},
+                    {Id: "currentConsumption", name: qsTr("Current consumption"), value: thing.stateByName("currentConsumption") ? thing.stateByName("currentConsumption").value : 23.89 , unit: "W" , component: stringValues},
+                    {Id: "totalAmountOfEnergy", name: qsTr("Total amount of energy"), value: thing.stateByName("totalAmountOfEnergy") ? thing.stateByName("totalAmountOfEnergy").value : 34.78 , unit: "kWh" , component: stringValues},
+                    {Id: "totalThermalEnergyGenerated", name: qsTr("Total thermal energy generated"), value: thing.stateByName("totalThermalEnergyGenerated") ? thing.stateByName("totalThermalEnergyGenerated").value : 23.8 , unit: "kWh" , component: stringValues},
+                    {Id: "outdoorTemperature", name: qsTr("Outdoor temperature"), value: thing.stateByName("outdoorTemperature") ? thing.stateByName("outdoorTemperature").value : 20.789 , unit: "°C" , component: stringValues},
+                    {Id: "coefficientOfPerformance", name: qsTr("COP"), value: thing.stateByName("coefficientOfPerformance") ? thing.stateByName("coefficientOfPerformance").value : 23.89 , unit: "W" , component: stringValues},
+                    {Id: "hotWaterTemperature", name: qsTr("Hot water temperature"), value: thing.stateByName("hotWaterTemperature") ? thing.stateByName("hotWaterTemperature").value : 45.6 , unit: "°C" , component: stringValues},
                 ]
 
                 function heatingPumpValues(state){
-                    switch(something)
+                    switch(state)
                     {
-                        case"Off":
+                        case"STBY":
                         {
-                            return qsTr("Off")
+                            return qsTr("STBY")
                         }
-                        case "Start":
+                        case "CH":
                         {
-                            return qsTr("Start Pump")
+                            return qsTr("CH")
                         }
-                        case "Standard":
+                        case "DHW":
                         {
-                            return qsTr("Standard")
+                            return qsTr("DHW")
                         }
-                        case "Cooling":
+                        case "CC":
                         {
-                            return qsTr("Cooling")
+                            return qsTr("CC")
+                        }
+                        case "CIRCULATE":
+                        {
+                            return qsTr("CIRCULATE")
+                        }
+                        case "DEFROST":
+                        {
+                            return qsTr("DEFROST")
+                        }
+                        case "OFF":
+                        {
+                            return qsTr("OFF")
+                        }
+                        case "FROST":
+                        {
+                            return qsTr("FROST")
+                        }
+                        case "STBY-FROST":
+                        {
+                            return qsTr("STBY-FROST")
+                        }
+                        case "SUMMER":
+                        {
+                            return qsTr("SUMMER")
+                        }
+                        case "HOLIDAY":
+                        {
+                            return qsTr("HOLIDAY")
+                        }
+                        case "ERROR":
+                        {
+                            return qsTr("ERROR")
+                        }
+                        case "WARNING":
+                        {
+                            return qsTr("WARNING")
+                        }
+                        case "INFO-MESSAGE":
+                        {
+                            return qsTr("INFO-MESSAGE")
+                        }
+                        case "IME-BLOCK":
+                        {
+                            return qsTr("IME-BLOCK")
+                        }
+                        case "ELEASE-BLOCK":
+                        {
+                            return qsTr("ELEASE-BLOCK")
+                        }
+                        case "MINTEMP-BLOCK":
+                        {
+                            return qsTr("MINTEMP-BLOCK")
+                        }
+                        case "FIRMWARE-DOWNLOAD":
+                        {
+                            return qsTr("FIRMWARE-DOWNLOAD")
                         }
                     }
                 }
 
+                delegate: ItemDelegate{
+                    visible: true //modelData.value !==  null ? true : false
+                    id: optimizerInputs
+                    Layout.fillWidth: true
+                    contentItem: ColumnLayout
+                    {
+                        Layout.fillWidth: true
+
+                        RowLayout{
+                            Layout.fillWidth: true
+
+                            Loader
+                            {
+                                id: optimizationParams
+
+                                Binding{
+                                    target: optimizationParams.item
+                                    property: "delegateValue"
+                                    value: modelData.value
+                                }
+
+                                Binding{
+                                    target: optimizationParams.item
+                                    property: "delegateUnit"
+                                    value: modelData.unit
+                                }
+
+                                Binding{
+                                    target: optimizationParams.item
+                                    property: "delegateName"
+                                    value: modelData.name
+                                }
+
+                                Binding{
+                                    target: optimizationParams.item
+                                    property: "delegateParams"
+                                    value: modelData.params
+                                }
+                                Layout.fillWidth: true
+                                sourceComponent:
+                                {
+                                    switch(modelData.Id)
+                                    {
+                                        case "operatingMode":
+                                        {
+                                            return modelData.component
+                                        }
+                                        case "currentConsumption":
+                                        {
+                                            return modelData.component
+                                        }
+                                        case "totalAmountOfEnergy":
+                                        {
+                                            return modelData.component
+                                        }
+                                        case "totalThermalEnergyGenerated":
+                                        {
+                                            return modelData.component
+                                        }
+                                        case "outdoorTemperature":
+                                        {
+                                            return modelData.component
+                                        }
+                                        case "coefficientOfPerformance":
+                                        {
+                                            return modelData.component
+                                        }
+                                        case "hotWaterTemperature":
+                                        {
+                                            return modelData.component
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             Row {
@@ -161,9 +347,66 @@ GenericConfigPage {
             Repeater {
                 id: heatingPumpCircuitRepeater
                 model: [
-                    {Id: "flowTemperature", name: qsTr("Flow temperature"), value: thing.stateByName("flowTemperature")? thing.stateByName("flowTemperature").value : null , unit: "°C", component: stringValues},
-                    {Id: "returnTemperature", name: qsTr("Return temperature"), value: thing.stateByName("returnTemperature")? thing.stateByName("returnTemperature").value : null , unit: "°C", component: stringValues},
+                    {Id: "flowTemperature", name: qsTr("Flow temperature"), value: thing.stateByName("flowTemperature")? thing.stateByName("flowTemperature").value : 45 , unit: "°C", component: stringValues},
+                    {Id: "returnTemperature", name: qsTr("Return temperature"), value: thing.stateByName("returnTemperature")? thing.stateByName("returnTemperature").value : 56 , unit: "°C", component: stringValues},
                 ]
+
+                delegate: ItemDelegate{
+                    visible: true //modelData.value !==  null ? true : false
+                    Layout.fillWidth: true
+                    contentItem: ColumnLayout
+                    {
+                        Layout.fillWidth: true
+
+                        RowLayout{
+                            Layout.fillWidth: true
+
+                            Loader
+                            {
+                                id: optimizationParamsBottom
+
+                                Binding{
+                                    target: optimizationParamsBottom.item
+                                    property: "delegateValue"
+                                    value: modelData.value
+                                }
+
+                                Binding{
+                                    target: optimizationParamsBottom.item
+                                    property: "delegateUnit"
+                                    value: modelData.unit
+                                }
+
+                                Binding{
+                                    target: optimizationParamsBottom.item
+                                    property: "delegateName"
+                                    value: modelData.name
+                                }
+
+                                Binding{
+                                    target: optimizationParamsBottom.item
+                                    property: "delegateParams"
+                                    value: modelData.params
+                                }
+                                Layout.fillWidth: true
+                                sourceComponent:
+                                {
+                                    switch(modelData.Id)
+                                    {
+                                        case "flowTemperature":
+                                        {
+                                            return modelData.component
+                                        }
+                                        case "returnTemperature":
+                                        {
+                                            return modelData.component
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             Component{
@@ -188,7 +431,7 @@ GenericConfigPage {
 
                         property double numberValue: Number(delegateValue)
 
-                        text: ( numberValue ? (+numberValue.toFixed(1)).toLocaleString() : delegateValue.toLocaleString()) + delegateUnit
+                        text: ( numberValue && delegateName === "COP"? (+numberValue.toFixed(1)).toLocaleString() : numberValue ? (+numberValue.toFixed(0)).toLocaleString() : delegateValue.toLocaleString()) + delegateUnit
                     }
                 }
             }

@@ -3440,32 +3440,104 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
         <translation>Vorlauftemperatur</translation>
     </message>
     <message>
-        <source>Off</source>
-        <translation>Aus</translation>
+        <source>Performance target: </source>
+        <translation type="unfinished">Leistungsvorgabe: </translation>
     </message>
     <message>
-        <source>Standard</source>
-        <translation>Standard</translation>
+        <source>Heatpump condition: </source>
+        <translation type="unfinished">Zustand Wärmepumpe: </translation>
     </message>
     <message>
-        <source>Increased</source>
-        <translation>Erhöht</translation>
+        <source>Current consumption</source>
+        <translation type="unfinished">Aktuelle Leistungsaufnahme</translation>
     </message>
     <message>
-        <source>High</source>
-        <translation>Hoch</translation>
+        <source>Total amount of energy</source>
+        <translation type="unfinished">Gesamt Energiemenge</translation>
     </message>
     <message>
-        <source>Configuration data: </source>
+        <source>Total thermal energy generated</source>
+        <translation type="unfinished">Gesamte erzeugte thermische Energie</translation>
+    </message>
+    <message>
+        <source>COP</source>
+        <translation type="unfinished">COP</translation>
+    </message>
+    <message>
+        <source>STBY</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Floor heating area</source>
-        <translation type="unfinished">Beheizte Fläche</translation>
+        <source>CH</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Maximal electrical power</source>
-        <translation type="unfinished">Maximale elektrische Leistung</translation>
+        <source>DHW</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CIRCULATE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DEFROST</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OFF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FROST</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>STBY-FROST</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SUMMER</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>HOLIDAY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ERROR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WARNING</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>INFO-MESSAGE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IME-BLOCK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ELEASE-BLOCK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MINTEMP-BLOCK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FIRMWARE-DOWNLOAD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heating circuit: </source>
+        <translation type="unfinished">Heizkreis: </translation>
     </message>
 </context>
 <context>
