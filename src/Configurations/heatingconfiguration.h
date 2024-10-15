@@ -13,7 +13,7 @@ class HeatingConfiguration : public QObject
     Q_PROPERTY(double floorHeatingArea READ floorHeatingArea WRITE setFloorHeatingArea NOTIFY floorHeatingAreaChanged)
     Q_PROPERTY(double maxThermalEnergy READ maxThermalEnergy WRITE setMaxThermalEnergy NOTIFY maxThermalEnergyChanged)
     Q_PROPERTY(double maxElectricalPower READ maxElectricalPower WRITE setMaxElectricalPower NOTIFY maxElectricalPowerChanged)
-
+    Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
 
 public:
     explicit HeatingConfiguration(QObject *parent = nullptr);
@@ -41,6 +41,9 @@ public:
     QUuid heatMeterThingId() const;
     void setHeatMeterThingId(const QUuid &heatMeterThingId);
 
+    //
+    bool controllableLocalSystem() const;
+    void setControllableLocalSystem(bool controllableLocalSystem);
 signals:
 
     void maxThermalEnergyChanged(const double maxThermalEnergy);
@@ -48,6 +51,7 @@ signals:
     void floorHeatingAreaChanged(const double floorHeatingArea);
     void optimizationEnabledChanged(bool optimizationEnabled);
     void heatMeterThingIdChanged(const QUuid &heatMeterThingId);
+    void controllableLocalSystemChanged(bool controllableLocalSystem);
 
 private:
     QUuid m_heatPumpThingId;
@@ -58,6 +62,7 @@ private:
     double m_maxElectricalPower = 0;
     double m_maxThermalEnergy = 0;
     double m_floorHeatingArea = 0;
+    bool m_controllableLocalSystem = false;
 
 };
 

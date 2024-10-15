@@ -580,7 +580,6 @@ MainViewBase {
         shownInterfaces: ["energymeter"]
     }
     readonly property Thing rootMeter: engine.thingManager.fetchingData ? null : engine.thingManager.things.getThing(energyManager.rootMeterId)
-
     ThingsProxy {
         id: evChargersProxy
         engine: _engine
@@ -613,7 +612,16 @@ MainViewBase {
         engine: _engine
         shownInterfaces: ["heatpump"]
     }
-
+    ThingsProxy {
+        id: electrics
+        engine: _engine
+        shownInterfaces: ["dynamicelectricitypricing"]
+    }
+    ThingsProxy {
+        id: gridSupport
+        engine: _engine
+        shownInterfaces: ["gridsupport"]
+    }
     PowerBalanceLogs {
         id: powerBalanceLogs
         engine: _engine
@@ -646,7 +654,9 @@ MainViewBase {
         readonly property color batteryChargeColor: batteriesColor
         readonly property color batteryDischargeColor: "#F7B772"
         readonly property color consumedColor: "#ADB9E3"
+        readonly property color electricsColor: "#E056F5"
         readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
+        property string currentGridValueState: ""
 
         Canvas {
             id: linesCanvas
@@ -686,9 +696,16 @@ MainViewBase {
                 ctx.strokeStyle = Style.foregroundColor
                 ctx.fillStyle = Style.foregroundColor
 
+
+                lsdChart.currentGridValueState = gridSupport.get(0) !== null ? gridSupport.get(0).stateByName("plimStatus").value : ""
+
                 var maxCurrentPower = rootMeter ? Math.abs(
                                                       rootMeter.stateByName(
                                                           "currentPower").value) : 0
+
+                var currentPrice = electrics.count > 0 ? Math.abs(electrics.get(0).stateByName(
+                                                            "currentMarketPrice").value) : 0
+
                 for (var i = 0; i < producers.count; i++) {
                     maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
                                                    producers.get(i).stateByName(
@@ -713,6 +730,12 @@ MainViewBase {
                                                    batteries.get(i).stateByName(
                                                        "currentPower").value))
                 }
+                for (var i = 0; i < electrics.count; i++) {
+                    currentPrice = Math.max(currentPrice, Math.abs(
+                                                   electrics.get(i).stateByName(
+                                                    "currentMarketPrice").value))
+                }
+
 
                 var totalTop = rootMeter ? 1 : 0
                 totalTop += producers.count
@@ -816,7 +839,6 @@ MainViewBase {
                 ctx.closePath()
             }
         }
-
         ColumnLayout {
             id: layout
             anchors.fill: parent
@@ -834,6 +856,8 @@ MainViewBase {
                     linesCanvas.requestPaint()
                 }
 
+
+
                 RowLayout {
                     id: topLegend
                     Layout.fillWidth: true
@@ -845,6 +869,8 @@ MainViewBase {
                         id: rootMeterTile
                         thing: rootMeter
                         isRootmeter: true
+                        isElectric: false
+                        isNotify: lsdChart.currentGridValueState
                         color: lsdChart.rootMeterAcquisitionColor
                         negativeColor: lsdChart.rootMeterReturnColor
                         onClicked: {
@@ -852,7 +878,9 @@ MainViewBase {
                             pageStack.push(
                                         "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                         {
-                                            "thing": thing
+                                            "thing": thing,
+                                            "isRootmeter": isRootmeter,
+                                            "isNotify": isNotify
                                         })
                         }
                     }
@@ -864,6 +892,7 @@ MainViewBase {
                             visible: producers.get(index).id !== rootMeter.id
                             color: lsdChart.producersColor
                             thing: producers.get(index)
+                            isElectric: false
                             onClicked: {
                                 print("Clicked producer", index, thing.name)
                                 pageStack.push(
@@ -871,6 +900,21 @@ MainViewBase {
                                             {
                                                 "thing": thing
                                             })
+                            }
+                        }
+                    }
+
+                    Repeater {
+                        id: legendElectricsRepeater
+                        model: electrics
+                        delegate: LegendTile {
+                            visible: electrics.get(index).id !== rootMeter.id
+                            color: lsdChart.electricsColor
+                            thing: electrics.get(index)
+                            isElectric: true
+                            onClicked: {
+                                print("Clicked producer", index, thing.name)
+                                pageStack.push("/ui/devicepages/PageWraper.qml")
                             }
                         }
                     }
@@ -1250,13 +1294,29 @@ MainViewBase {
                             textFormat: Text.RichText
                             horizontalAlignment: Text.AlignHCenter
                             color: "white"
-                            text: '<span style="font-size:' + Style.bigFont.pixelSize + 'px">'
-                                  + (energyManager.currentPowerConsumption
-                                     < 1000 ? energyManager.currentPowerConsumption : energyManager.currentPowerConsumption / 1000).toFixed(
-                                      1) + '</span> <span style="font-size:'
-                                  + Style.smallFont.pixelSize + 'px">'
-                                  + (energyManager.currentPowerConsumption
-                                     < 1000 ? "W" : "kW") + '</span>'
+                            text: getText()
+
+                            function getText() {
+                                const powerConsumption = energyManager.currentPowerConsumption;
+                                const bigFontSize = Style.bigFont.pixelSize;
+                                const smallFontSize = Style.smallFont.pixelSize;
+
+                                let displayPower = powerConsumption < 1000 
+                                    ? powerConsumption 
+                                    : powerConsumption / 1000;
+
+                                displayPower = displayPower.toFixed(1); 
+                                let displayPowerStr = (+displayPower).toLocaleString();
+
+                                const unit = powerConsumption < 1000 
+                                    ? "W" 
+                                    : "kW";
+
+                                const powerSpan = `<span style="font-size:${bigFontSize}px">${displayPowerStr}</span>`;
+                                const unitSpan = `<span style="font-size:${smallFontSize}px">${unit}</span>`;
+
+                                return powerSpan + " " + unitSpan;
+                            }
                         }
 
                         Label {

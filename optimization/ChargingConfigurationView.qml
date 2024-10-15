@@ -41,7 +41,7 @@ Page {
                 iconName:  "../images/ev-charger.svg"
                 progressive: true
                 text: thing.name
-                onClicked: pageStack.push("ChargingConfigView.qml", { hemsManager: hemsManager, thing: thing })
+                onClicked: pageStack.push("EvChargerOptimization.qml", { hemsManager: hemsManager, thing: thing })
             }
         }
     }

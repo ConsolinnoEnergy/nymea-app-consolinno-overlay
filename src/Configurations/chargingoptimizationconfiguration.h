@@ -13,6 +13,8 @@ class ChargingOptimizationConfiguration : public QObject
     Q_PROPERTY(float i_value READ i_value WRITE setI_value NOTIFY reenableChargepointChanged)
     Q_PROPERTY(float d_value READ d_value WRITE setD_value NOTIFY reenableChargepointChanged)
     Q_PROPERTY(float setpoint READ setpoint WRITE setSetpoint NOTIFY reenableChargepointChanged)
+    Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
+
 
 public:
     explicit ChargingOptimizationConfiguration(QObject *parent = nullptr);
@@ -35,6 +37,9 @@ public:
     float setpoint() const;
     void setSetpoint(const float setpoint);
 
+    bool controllableLocalSystem() const;
+    void setControllableLocalSystem(bool controllableLocalSystem);
+
 
 signals:
     void reenableChargepointChanged(bool reenableChargepoint);
@@ -42,6 +47,7 @@ signals:
     void i_valueChanged(float i_value);
     void d_valueChanged(float d_value);
     void setpointChanged(float setpoint);
+    void controllableLocalSystemChanged(bool controllableLocalSystem);
 
 
 private:
@@ -51,7 +57,7 @@ private:
     float m_i_value = 0.0001;
     float m_d_value = 0;
     float m_setpoint = 0;
-
+    bool m_controllableLocalSystem = false;
 
 };
 

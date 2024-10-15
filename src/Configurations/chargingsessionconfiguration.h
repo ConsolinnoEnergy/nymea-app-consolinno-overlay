@@ -24,7 +24,7 @@ class ChargingSessionConfiguration : public QObject
     Q_PROPERTY(int state READ state WRITE setState NOTIFY stateChanged)
     Q_PROPERTY(QUuid sessionId READ sessionId WRITE setSessionId NOTIFY sessionIdChanged)
     Q_PROPERTY(int timestamp READ timestamp WRITE setTimestamp NOTIFY timestampChanged )
-
+    Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged )
 
 public:
     enum State {
@@ -76,6 +76,8 @@ public:
     int timestamp() const;
     void setTimestamp(const int timestamp);
 
+    bool controllableLocalSystem() const;
+    void setControllableLocalSystem(bool controllableLocalSystem);
 
     bool operator == (const ChargingSessionConfiguration &other) const;
     bool operator != (const ChargingSessionConfiguration &other) const;
@@ -94,6 +96,7 @@ signals:
     void energyChargedChanged(const float energy_charged);
     void energyBatteryChanged(const float energy_battery);
     void batteryLevelChanged(const int battery_level);
+    void controllableLocalSystemChanged(const bool &controllableLocalSystem);
 
 private:
     QUuid m_carThingId = "00000000-0000-0000-0000-000000000000";
@@ -110,12 +113,7 @@ private:
     int m_state;
     int m_timestamp;
 
-
-
-
-
-
-
+    bool m_controllableLocalSystem = false;
 
 };
 

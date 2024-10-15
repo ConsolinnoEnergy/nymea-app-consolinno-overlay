@@ -101,6 +101,25 @@ Page {
             Label{
                 Layout.topMargin: 15
                 Layout.fillWidth: true
+                text: qsTr("Dynamic Tariff")
+                leftPadding: app.margins +10
+                rightPadding: app.margins +10
+                font.bold: true
+                font.pixelSize: 17
+            }
+
+            Label{
+                Layout.fillWidth: true
+                leftPadding: app.margins +10
+                rightPadding: app.margins +10
+                wrapMode: Text.WordWrap
+                Layout.preferredWidth: app.width
+                text: qsTr("In dynamic tariff charging mode, charging takes place at maximum charging current as soon as the price falls below the set price limit. At times when charging does not take place because the price limit is exceeded, charging takes place if there is a PV surplus. If the price limit is changed, this limit is preselected the next time it is plugged in.")
+            }
+
+            Label{
+                Layout.topMargin: 15
+                Layout.fillWidth: true
                 text: qsTr("Behavior when unplugged")
                 leftPadding: app.margins +10
                 rightPadding: app.margins +10

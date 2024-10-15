@@ -65,6 +65,37 @@
     </message>
 </context>
 <context>
+    <name>AddNewThings</name>
+    <message>
+        <source>Set up new thing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vendor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Looking for something else?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Try to install more plugins.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Install plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AuthorisationView</name>
     <message>
         <source>Authorisation page</source>
@@ -358,10 +389,6 @@
         <translation>Minimalstrom</translation>
     </message>
     <message>
-        <source>Pause</source>
-        <translation>Pausieren</translation>
-    </message>
-    <message>
         <source>Charging deactivated. Please choose a charging mode.</source>
         <translation>Laden deaktiviert. Bitte wählen Sie einen Lademodus.</translation>
     </message>
@@ -384,6 +411,58 @@
     <message>
         <source>Charging power</source>
         <translation>Ladeleistung</translation>
+    </message>
+    <message>
+        <source>Dynamic pricing</source>
+        <translation type="unfinished">Dynamischer Tarif</translation>
+    </message>
+    <message>
+        <source>Price limit</source>
+        <translation type="unfinished">Preisgrenze</translation>
+    </message>
+    <message>
+        <source>Pausing: </source>
+        <translation type="unfinished">Pausieren: </translation>
+    </message>
+    <message>
+        <source>Price limit: </source>
+        <translation type="unfinished">Preisgrenze: </translation>
+    </message>
+    <message>
+        <source>average price: </source>
+        <translation type="unfinished">Durchschnittspreis: </translation>
+    </message>
+    <message>
+        <source>-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pausing</source>
+        <translation type="unfinished">Pausieren</translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation>Keine Daten verfügbar</translation>
+    </message>
+    <message>
+        <source>No prices available, yet</source>
+        <translation>Noch keine Preise verfügbar</translation>
+    </message>
+    <message>
+        <source>ct/kWh</source>
+        <translation>ct/kWh</translation>
+    </message>
+    <message>
+        <source>Currently corresponds to a market price of %1 ct/kWh.</source>
+        <translation>Entspricht aktuell einem Marktpreis von %1 ct/kWh.</translation>
+    </message>
+    <message>
+        <source>enabled</source>
+        <translation>aktiviert</translation>
     </message>
 </context>
 <context>
@@ -438,6 +517,14 @@
     <message>
         <source>The charging modes &lt;font color=&quot;#87BD26&quot;&gt;Solar power only&lt;/font&gt; and &lt;font color=&quot;#87BD26&quot;&gt;Always charging&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;#87BD26&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
         <translation>Die Lademodi &lt;font color=&quot;#87BD26&quot;&gt;„Nur Solarstrom“&lt;/font&gt; und &lt;font color=&quot;#87BD26&quot;&gt;„Immer Laden“&lt;/font&gt; bleiben nachdem Abstecken weiterhin ausgewählt. Das heißt, wenn Sie wieder anstecken, ist der letzte gewählte Modus aktiv. Wenn Sie mit &lt;font color=&quot;#87BD26&quot;&gt;„Nächster Fahrt“&lt;/font&gt; geladen haben, dann müssen Sie bei Anstecken wieder einen Lademodus wählen.</translation>
+    </message>
+    <message>
+        <source>Dynamic Tariff</source>
+        <translation type="unfinished">Dynamischer Tarif</translation>
+    </message>
+    <message>
+        <source>In dynamic tariff charging mode, charging takes place at maximum charging current as soon as the price falls below the set price limit. At times when charging does not take place because the price limit is exceeded, charging takes place if there is a PV surplus. If the price limit is changed, this limit is preselected the next time it is plugged in.</source>
+        <translation type="unfinished">Im Lademodus dynamischer Tarif wird mit maximalem Ladestrom geladen,  sobald der Preis unter die eingestellte Preisgrenze fällt. In Zeiten in  denen nicht geladen wird, weil die Preisgrenze überschritten ist, wird  geladen, falls PV-Überschuss vorhanden ist. Wenn die Preisgrenze  verändert wird, ist diese Grenze beim nächsten Anstecken vorausgewählt.</translation>
     </message>
 </context>
 <context>
@@ -965,6 +1052,49 @@ Mail service@consolinno.de</source>
     <message>
         <source>To battery</source>
         <translation>Batterie</translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoDynamicElectricPricingHistory</name>
+    <message>
+        <source>today</source>
+        <translation type="unfinished">Heute</translation>
+    </message>
+    <message>
+        <source>tomorrow</source>
+        <translation type="unfinished">Morgen</translation>
+    </message>
+    <message>
+        <source>Average Market Price: </source>
+        <translation type="unfinished">Durchschnittlicher Marktpreis: </translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation type="unfinished">Keine Daten verfügbar</translation>
+    </message>
+    <message>
+        <source>Current market price</source>
+        <translation type="unfinished">Aktueller Marktpreis</translation>
+    </message>
+    <message>
+        <source>Average market price</source>
+        <translation type="unfinished">Durchschnittlicher Marktpreis</translation>
+    </message>
+    <message>
+        <source>Current Market Price: </source>
+        <translation type="unfinished">Aktueller Marktpreis: </translation>
+    </message>
+    <message>
+        <source>No prices available, yet</source>
+        <translation type="unfinished">Noch keine Preise verfügbar</translation>
+    </message>
+    <message>
+        <source>Dynamic electricity tariff</source>
+        <translation type="unfinished">Dynamischer Stromtarif</translation>
+    </message>
+    <message>
+        <source>ct/kWh</source>
+        <translation type="unfinished">ct/kWh</translation>
     </message>
 </context>
 <context>
@@ -1683,11 +1813,11 @@ Mail service@consolinno.de</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;Consolinno Energy HEMS App wurde aktualisiert&lt;/h3&gt;
-            &lt;p&gt;Version 1.5.0 (05. Juni 2024)&lt;/p&gt;
-            &lt;h4&gt;Verbesserungen&lt;/h4&gt;
+            &lt;p&gt;Version 1.6.0 (20. August 2024)&lt;/p&gt;
+            &lt;h4&gt;Neu&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;Optimierung der Wärmepumpe: Steuerung basiert auf aktuellem Überschuss&lt;/li&gt;
-                &lt;li&gt;Allgemeine Stabilität der App&lt;/li&gt;
+                &lt;li&gt;Lademodus “dynamischer Tarif”&lt;/li&gt;
+                &lt;li&gt;Netzdienliche Steuerung nach § 14a über Relais&lt;/li&gt;
             &lt;/ul&gt;</translation>
     </message>
 </context>
@@ -1764,6 +1894,83 @@ Mail service@consolinno.de</source>
     </message>
 </context>
 <context>
+    <name>DynamicElectricityRate</name>
+    <message>
+        <source>Submitted Rate:</source>
+        <translation type="unfinished">Gewählte Anbieter:</translation>
+    </message>
+    <message>
+        <source>There is no rate set up yet</source>
+        <translation type="unfinished">Es sind noch keine Tarife angelegt</translation>
+    </message>
+    <message>
+        <source>Add Rate: </source>
+        <translation type="unfinished">Tarif hinzufügen: </translation>
+    </message>
+    <message>
+        <source>cancel</source>
+        <translation type="unfinished">abbrechen</translation>
+    </message>
+    <message>
+        <source>add</source>
+        <translation type="unfinished">hinzufügen</translation>
+    </message>
+    <message>
+        <source>There are currently no settings options available</source>
+        <translation type="unfinished">Es sind momentan keine Einstellungen verfügbar</translation>
+    </message>
+    <message>
+        <source>Dynamic electricity tariff</source>
+        <translation type="unfinished">Dynamischer Stromtarif</translation>
+    </message>
+</context>
+<context>
+    <name>DynamicElectricityRateFeedback</name>
+    <message>
+        <source>to the dashboard</source>
+        <translation type="unfinished">ZURÜCK ZUM DASHBOARD</translation>
+    </message>
+    <message>
+        <source>The following tariff is submitted:</source>
+        <translation type="unfinished">Der folgende Stromtarif wurde eingerichtet:</translation>
+    </message>
+    <message>
+        <source>Dynamic electricity tariff</source>
+        <translation type="unfinished">Dynamischer Stromtarif</translation>
+    </message>
+</context>
+<context>
+    <name>DynamicElectricityRateSettings</name>
+    <message>
+        <source>Dynamic Electricity Settings</source>
+        <translation type="unfinished">Einstellungen Dynamische Preise</translation>
+    </message>
+    <message>
+        <source>Current Market Price</source>
+        <translation type="unfinished">Aktueller Marktpreis</translation>
+    </message>
+    <message>
+        <source>ct</source>
+        <translation type="unfinished">ct</translation>
+    </message>
+    <message>
+        <source>Average Market Price</source>
+        <translation type="unfinished">Durchschnittlicher Marktpreis</translation>
+    </message>
+    <message>
+        <source>Lowest Market Price</source>
+        <translation type="unfinished">Niedrigster Marktpreis</translation>
+    </message>
+    <message>
+        <source>Highest Market Price</source>
+        <translation type="unfinished">Höchste Marktpreis</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Speichern</translation>
+    </message>
+</context>
+<context>
     <name>EnergyManagerInfo</name>
     <message>
         <source>Energymanager</source>
@@ -1782,40 +1989,12 @@ Mail service@consolinno.de</source>
         <translation>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Hoch&lt;/li&gt;: </translation>
     </message>
     <message>
-        <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Off&lt;/li&gt;: </source>
-        <translation>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Aus&lt;/li&gt;: </translation>
-    </message>
-    <message>
         <source>Charging Mode</source>
         <translation>Lademodus</translation>
     </message>
     <message>
         <source>Battery Level</source>
         <translation>Batteriezustand</translation>
-    </message>
-    <message>
-        <source>The energy manager controls the heat pump to maximize the consumption of its own solar electricity. The control is carried out by a schedule generated in advance and based on a prediction of the surplus solar power. The schedule contains so-called control recommendations according to the SG-Ready standard.  Depending on the predicted PV surplus, the heat pump will be switched to increased operation or a recommendation for increased operation will be given.</source>
-        <translation>Der Energiemanager steuert die Wärmepumpe so, dass der Verbrauch des eigenen Solarstroms maximiert wird. Die Steuerung erfolgt durch einem in Voraus erzeugten Fahrplan und basiert auf einer Vorhersage des überschüssigen Solarstroms. Der Fahrplan enthält sog. Anfahrtsempfehlungen nach dem SG-Ready Standard.  Je nach vorhergesagten PV-Überschuss wird die Wärmepumpe in einen erhöhten Betrieb geschalten werden oder eine Empfehlung zum erhöhten Betrieb gegeben.</translation>
-    </message>
-    <message>
-        <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </source>
-        <translation> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </translation>
-    </message>
-    <message>
-        <source>the energy manager does not intervene.</source>
-        <translation>Der Energiemanager greift nicht ein.</translation>
-    </message>
-    <message>
-        <source>recommendation for increased operation, the heat pump will decide if this is possible depending on the current temperature range.</source>
-        <translation>Empfehlung zu erhöhtem Betrieb, die Wärmepumpe wird je nach momentanen Temperaturbereich entscheiden, ob dies möglich ist.</translation>
-    </message>
-    <message>
-        <source>energy manager switches heat pump to increased operation.</source>
-        <translation>Energiemanager schaltet Wärmepumpe in erhöhten Betrieb.</translation>
-    </message>
-    <message>
-        <source>a temporary shutdown by the grid operator to avoid grid overload.</source>
-        <translation>eine zeitlich begrenzte Abschaltung durch den Netzbetreiber, um Netzüberlastung zu vermeiden.</translation>
     </message>
     <message>
         <source>The operating status indicates the control of the heat pump:</source>
@@ -1826,8 +2005,71 @@ Mail service@consolinno.de</source>
         <translation>Bitte beachten Sie, dass der Fahrplan durch die Vorhersage der PV-Produktion mit einer gewissen Ungenauigkeit behaftet ist. Falls keine ausreichende PV-Produktion vorhergesagt wurde, kann es sein dass die Wärmepumpe trotz Sonnenschein nicht in erhöhten Betrieb geschalten wird. Oder umgekehrt falls die Vorhersage von ausreichend PV-Überschuss ausgeht, in der Realität aber weniger PV-Überschuss vorhanden ist, kann es zu Netzbezug kommen.</translation>
     </message>
     <message>
-        <source>Operating status:</source>
-        <translation>Betriebszustand:</translation>
+        <source>Optimization of the heat pump</source>
+        <translation type="unfinished">Optimierung der Wärmepumpe</translation>
+    </message>
+    <message>
+        <source>The heat pump is controlled via SG-ready states so that the available PV surplus is optimally utilized. A certain amount of PV surplus must be available for a certain period of time (currently 15 minutes) for an SG ready state to be switched.</source>
+        <translation type="unfinished">Die Wärmepumpe wird über SG-Ready-Zustände so gesteuert, dass vorhandener PV-Überschuss optimal ausgenutzt wird. Es muss für einen bestimmten Zeitraum (aktuell 15 Minuten), eine bestimmte Menge an PV-Überschuss vorhanden sein, damit ein SG-Ready-Zustand geschaltet wird.</translation>
+    </message>
+    <message>
+        <source>If the PV surplus is more than 50 % of the nominal output of the heat pump, SG ready state 3 is switched for at least 30 minutes (recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range).</source>
+        <translation type="unfinished">Beträgt der PV-Überschuss mehr als 50 % der Nennleistung der Wärmepumpe, wird SG-Ready-Zustand 3 für mind. 30 Minuten geschaltet (Empfehlung zu erhöhtem Betrieb, die Wärmepumpe entscheidet je nach momentanem Temperaturbereich, ob dies möglich ist).</translation>
+    </message>
+    <message>
+        <source>If the PV surplus is more than 80 % of the nominal output of the heat pump, then SG ready state 4 is switched for at least 30 minutes (definitive start-up command, if this is possible within the scope of the control settings).</source>
+        <translation type="unfinished">Beträgt der PV-Überschuss mehr als 80 % der Nennleistung der Wärmepumpe, dann wird SG-Ready-Zustand 4 für mind. 30 Minuten geschaltet (Definitiver Anlaufbefehl, sofern dies im Rahmen der Regeleinstellungen möglich ist).</translation>
+    </message>
+    <message>
+        <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Off (= EVU block)&lt;/li&gt;: </source>
+        <translation type="unfinished"> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Aus (= EVU-Sperre)&lt;/li&gt;: </translation>
+    </message>
+    <message>
+        <source>Start-up block, is not used for optimization</source>
+        <translation type="unfinished">Anfahrtssperre, wird nicht zur Optimierung verwendet</translation>
+    </message>
+    <message>
+        <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </source>
+        <translation type="unfinished">&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </translation>
+    </message>
+    <message>
+        <source>Standard status, optimizer makes no specification</source>
+        <translation type="unfinished">Standardzustand, der Optimierer macht keine Vorgaben</translation>
+    </message>
+    <message>
+        <source>Recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range.</source>
+        <translation type="unfinished">Empfehlung für erhöhten Betrieb, die Wärmepumpe entscheidet in Abhängigkeit vom aktuellen Temperaturbereich, ob dies möglich ist.</translation>
+    </message>
+    <message>
+        <source>Definitive start-up command, if this is possible within the scope of the control settings</source>
+        <translation type="unfinished">Definitiver Einschaltbefehl, wenn dies im Rahmen der Steuerungseinstellungen möglich ist</translation>
+    </message>
+</context>
+<context>
+    <name>EvChargerOptimization</name>
+    <message>
+        <source>Wallbox configuration</source>
+        <translation type="unfinished">Wallbox Konfiguration</translation>
+    </message>
+    <message>
+        <source>Could not save configuration. One of the parameters is invalid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Could not save configuration. The thing is not valid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Speichern</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control</source>
+        <translation type="unfinished">Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>If the device must be controlled according to §14a, then this setting must be enabled.</source>
+        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
     </message>
 </context>
 <context>
@@ -1907,6 +2149,18 @@ Mail service@consolinno.de</source>
         <source>At the current rate, the battery will last until %1.</source>
         <translation>Bei der aktuellen Rate wird die Batterie bis %1 halten.</translation>
     </message>
+    <message>
+        <source>Grid-Supportive Control</source>
+        <translation type="unfinished">Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to §14a minimum.</source>
+        <translation type="unfinished">Der Verbrauch ist &lt;b&gt;temporär reduziert&lt;/b&gt; auf das Minium von § 14a.</translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
+        <translation type="unfinished">Der Verbrauch ist &lt;b&gt;temporär blockiert&lt;/b&gt; durch den Netzbetreiber.</translation>
+    </message>
 </context>
 <context>
     <name>GridConsumptionInfo</name>
@@ -1929,6 +2183,13 @@ Mail service@consolinno.de</source>
     <message>
         <source>Behaviour on grid consumption</source>
         <translation>Verhalten bei Netzbezug</translation>
+    </message>
+</context>
+<context>
+    <name>GridSupportiveControlConfig</name>
+    <message>
+        <source>Grid Supportive Control</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2110,14 +2371,6 @@ the system, and a charging process is started, charging is prioritized.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <source>Floor heating area</source>
-        <translation>Beheizte Fläche</translation>
-    </message>
-    <message>
-        <source>m²</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Maximal electrical power</source>
         <translation>Maximale elektrische Leistung</translation>
     </message>
@@ -2132,6 +2385,14 @@ the system, and a charging process is started, charging is prioritized.</source>
     <message>
         <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
         <translation>Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
+    </message>
+    <message>
+        <source>Grid-supportive-control</source>
+        <translation type="unfinished">Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
     </message>
 </context>
 <context>
@@ -2191,6 +2452,10 @@ the system, and a charging process is started, charging is prioritized.</source>
     <message>
         <source>Comissioning</source>
         <translation>Inbetriebnahme</translation>
+    </message>
+    <message>
+        <source>Dynamic electricity tariff</source>
+        <translation type="unfinished">Dynamischer Stromtarif</translation>
     </message>
 </context>
 <context>
@@ -2406,6 +2671,10 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
         <source>Heating Element</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Charging</source>
+        <translation type="unfinished">Laden</translation>
+    </message>
 </context>
 <context>
     <name>OutOfDate</name>
@@ -2497,6 +2766,29 @@ Please refer to our service if you have any questions: service@consolinno.de</so
     <message>
         <source>west</source>
         <translation>Westen</translation>
+    </message>
+</context>
+<context>
+    <name>PausingInfo</name>
+    <message>
+        <source>Pausing</source>
+        <translation type="unfinished">Pausieren</translation>
+    </message>
+    <message>
+        <source>Some vehicles cannot handle an interruption in the charging process, i.e. charging can no longer be continued after an interruption in the charging process if, for example, the electricity price falls below the price limit again after a pause. If problems occur, the option &lt;font color=&quot;#87BD26&quot;&gt;&apos;Charging with minimum power&apos;&lt;/font&gt; should be selected. With this setting, charging continues at minimum power even if the price limit is exceeded.</source>
+        <translation type="unfinished">Manche Fahrzeuge können mit einer Unterbrechung des Ladevorgangs nicht umgehen, d.h. nach einer Unterbrechung des Ladevorgangs kann nicht mehr weitergeladen werden, z.B. wenn der Strompreis nach Pausieren wieder unter die Preisgrenze fällt. Falls es zu Problemen kommt sollte die Option &lt;font color=&quot;#87BD26&quot;&gt;„Laden mit minimaler Leistung“&lt;/font&gt; gewählt werden. Mit dieser Einstellung wird auch wenn die Preisgrenze überschritten wird mit minimalen Strom weitergeladen.</translation>
+    </message>
+</context>
+<context>
+    <name>PriceLimitInfo</name>
+    <message>
+        <source>Price limit</source>
+        <translation type="unfinished">Preisgrenze</translation>
+    </message>
+    <message>
+        <source>The price limit is defined based on the average price, e.g. average price -10%. This means that charging takes place as soon as the price is cheaper than the average price -10% calculated for the day. The price limit is valid until a new price limit is entered, even after unplugging and plugging in again.</source>
+        <translation type="unfinished">Die Preisgrenze wird ausgehend vom durchschnittlichen Preis definiert z.B. Durchschnittspreis -10%. Das bedeutet, dass geladen wird, sobald der Preis günstiger ist als der für den Tag berechnete Durchschnittspreis -10%. 
+Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine neue Preisgrenze eingegeben wird.</translation>
     </message>
 </context>
 <context>

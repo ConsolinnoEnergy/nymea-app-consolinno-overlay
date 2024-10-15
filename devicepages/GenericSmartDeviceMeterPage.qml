@@ -40,6 +40,8 @@ GenericConfigPage {
     readonly property bool isCharging: root.chargingState && root.chargingState.value === "charging"
     readonly property bool isDischarging: root.chargingState && root.chargingState.value === "discharging"
 
+    property bool isRootmeter: false
+    property string isNotify: ""
 
     title: root.thing.name
 
@@ -53,13 +55,116 @@ GenericConfigPage {
                 thing: root.thing
             }
 
+            Item {
+                id: notificationsContainer
+                anchors.top: parent.top
+                height: root.isRootmeter ? (infoElement.implicitHeight) : 0
+                width: parent.width
+                visible: (isNotify === "shutoff" || isNotify === "limited") && isRootmeter
+
+                ColumnLayout {
+                    id: infoElement
+                    width: root.width
+                    anchors.top: parent.top
+
+                    property var states: {
+                        "limited": {
+                            "header": qsTr("Grid-Supportive Control"),
+                            "content": qsTr("The consumption is <b>temporarily reduced</b> to §14a minimum."),
+                            "color": "warning"
+                        },
+                        "blocked": {
+                            "header": qsTr("Grid-Supportive Control"),
+                            "content": qsTr("The consumption is <b>temporarily blocked</b> by the network operator."),
+                            "color": "danger"
+                        }
+                    }
+
+                    property var infoColors: {
+                        "warning": "#fc9d03",
+                        "danger": "#eb4034"
+                    }
+
+                    property string infoColor: "#fc9d03"
+                    property string currentState: isNotify === "shutoff" && isRootmeter ? "blocked" : isNotify === "limited" && isRootmeter ? "limited" : "unrestricted"
+
+                        Rectangle {
+                            width: infoElement.width - 40
+                            Layout.alignment: Qt.AlignHCenter
+                            radius: 10
+                            color: "#faf9f5"
+                            border.width: 1
+                            border.color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
+                            implicitHeight: alertContainer.implicitHeight + 20
+
+                            ColumnLayout {
+                                id: alertContainer
+                                anchors.fill: parent
+                                spacing: 1
+
+                                Item {
+                                    Layout.preferredHeight: 10
+                                }
+
+
+                                RowLayout {
+                                    width: parent.width
+                                    spacing: 5
+
+                                    Item {
+                                        Layout.preferredWidth: 10
+                                    }
+
+                                    Rectangle {
+                                        width: 20
+                                        height: 20
+                                        radius: 10  // Makes the rectangle a circle
+                                        color: "white"
+                                        border.color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
+                                        border.width: 2
+                                        RowLayout.alignment: Qt.AlignVCenter
+
+                                        Label {
+                                            text: "!"
+                                            anchors.centerIn: parent
+                                            font.bold: true
+                                            color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
+                                        }
+                                    }
+
+                                    Label {
+                                        font.pixelSize: 16
+                                        text: infoElement.states[infoElement.currentState].header
+                                        font.bold: true
+                                        wrapMode: Text.WordWrap
+                                        Layout.fillWidth: true
+                                        Layout.preferredWidth: parent.width - 20
+                                    }
+                                }
+                                Label {
+                                    font.pixelSize: 16
+                                    text: infoElement.states[infoElement.currentState].content
+                                    wrapMode: Text.WordWrap
+                                    Layout.fillWidth: true
+                                    Layout.preferredWidth: parent.width - 20
+                                    leftPadding: 40
+                                }
+
+                                Item {
+                                    Layout.preferredHeight: 10
+                                }
+                            }
+                        }
+                }
+            }
+
             CircleBackground {
                 id: background
                 width: parent.width / 1.5
-                height: width
+                height: parent.height / 2
                 iconSource: ""
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: parent.top
+                anchors.top: notificationsContainer.bottom
                 anchors.topMargin: 16
 
                 onColor: {

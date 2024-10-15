@@ -3,7 +3,7 @@
 ChargingConfiguration::ChargingConfiguration(QObject *parent) : QObject(parent)
 {
     QUuid carThingId;
-    m_carThingId = carThingId.createUuid();
+    m_carThingId = "00000000-0000-0000-0000-000000000000"; //"00000000-0000-0000-0000-000000000000"; //"91849ca3-f49f-49bc-a99c-f01075d050b0"
 
     QUuid uniqueIdentifier;
     m_uniqueIdentifier = uniqueIdentifier.createUuid();
@@ -76,8 +76,6 @@ void ChargingConfiguration::setTargetPercentage(uint targetPercentage)
     emit targetPercentageChanged(m_targetPercentage);
 }
 
-
-
 int ChargingConfiguration::optimizationMode() const
 {
     return m_optimizationMode;
@@ -106,8 +104,33 @@ void ChargingConfiguration::setUniqueIdentifier(QUuid uniqueIdentifier)
     emit uniqueIdentifierChanged(m_uniqueIdentifier);
 }
 
+bool ChargingConfiguration::controllableLocalSystem() const
+{
+    return m_controllableLocalSystem;
+}
 
+void ChargingConfiguration::setControllableLocalSystem(bool controllableLocalSystem)
+{
+    if (m_controllableLocalSystem == controllableLocalSystem)
+        return;
 
+    m_controllableLocalSystem = controllableLocalSystem;
+    emit controllableLocalSystemChanged(m_controllableLocalSystem);
+
+}
+
+float ChargingConfiguration::priceThreshold() const {
+    return m_priceThreshold;
+}
+
+void ChargingConfiguration::setPriceThreshold(float priceThreshold) {
+
+    if (m_priceThreshold == priceThreshold)
+        return;
+
+    m_priceThreshold = priceThreshold;
+    emit priceThresholdChanged(m_priceThreshold);
+}
 
 
 

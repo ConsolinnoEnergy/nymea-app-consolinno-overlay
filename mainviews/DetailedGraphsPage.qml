@@ -17,7 +17,7 @@ Page {
     property EnergyManager energyManager: null
     property var totalColors: []
     property var consumersColors: []
-
+    property bool isDynamicPrice: true
 
     readonly property Thing rootMeter: engine.thingManager.fetchingData ? null : engine.thingManager.things.getThing(energyManager.rootMeterId)
 
@@ -33,6 +33,12 @@ Page {
         id: producers
         engine: _engine
         shownInterfaces: ["smartmeterproducer"]
+    }
+
+    ThingsProxy {
+        id: electrics
+        engine: _engine
+        shownInterfaces: ["dynamicelectricitypricing"]
     }
 
     Flickable {
@@ -56,6 +62,13 @@ Page {
                 columns: Math.max(1, rawColumns - (rawColumns % 2))
                 rowSpacing: 0
                 columnSpacing: 0
+
+                ConsolinnoDynamicElectricPricingHistory {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: width
+                    isDynamicPrice: root.isDynamicPrice
+                    visible: electrics.count > 0
+                }
 
                 ConsolinnoPowerBalanceHistory {
                     Layout.fillWidth: true
@@ -102,6 +115,7 @@ Page {
                     consumerColors: root.consumersColors
                     consumers: consumers
                 }
+
             }
         }
     }

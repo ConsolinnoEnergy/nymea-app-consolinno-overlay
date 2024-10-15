@@ -65,7 +65,7 @@ Page {
                 font.pixelSize: Style.buttonFontSize
 
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("../thingconfiguration/NewThingPage.qml"))
+                    pageStack.push(Qt.resolvedUrl("../thingconfiguration/AddNewThings.qml"))
                 }
             }
         }

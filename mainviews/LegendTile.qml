@@ -15,16 +15,21 @@ MouseArea {
     property color color: "white"
     property color negativeColor: root.color
     property Thing thing: null
+    property string isNotify: ""
     readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
+    readonly property State currentMarketPriceState: thing ? thing.stateByName("currentMarketPrice") : null
     readonly property bool isProducer: thing && thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0
     readonly property bool isBattery: thing && thing.thingClass.interfaces.indexOf("energystorage") >= 0
     property bool isRootmeter: false
 
+    property bool isPowerConnection: false
+    property bool isElectric: false
 
     readonly property double currentPower: root.currentPowerState ? root.currentPowerState.value.toFixed(0) : 0
+    readonly property double currentMarketPrice: root.currentMarketPriceState ? root.currentMarketPriceState.value.toFixed(2) : 0
     readonly property State batteryLevelState: isBattery ? thing.stateByName("batteryLevel") : null
-
     readonly property color currentColor: currentPower <= 0 ? root.negativeColor : root.color
+
     Rectangle {
         id: background
         anchors.fill: parent
@@ -51,11 +56,26 @@ MouseArea {
         return ((r * 299 + g * 587 + b * 114) / 1000) < 200
     }
 
-    function getLabeltext(power) {
+    function getLabeltext(value) {
+        let unit = ""
         if (currentPowerState != null) {
-            return Math.abs(power) + " W"
+            value = Math.abs(value)
+            unit = " W"
+            return value + unit // No need for localization here
+        }else if(isElectric == true) {
+            // Round to fit in 3 digits for prices smaller 1000 ct/kWh
+            unit = " ct/kWh"
+            if (Math.abs(value) < 10.0) {
+                value = Math.round(value * 100) / 100
+            }else if (Math.abs(value) < 100.0) {
+                value = Math.round(value * 10) / 10
+            }else{
+                value = Math.round(value)
+            }
+        }else{
+            return "–"
         }
-        return "–"
+        return value.toLocaleString() + unit
     }
 
 
@@ -84,6 +104,8 @@ MouseArea {
     function thingToIcon(thing) {
         if(isRootmeter)
             return Qt.resolvedUrl("/ui/images/grid.svg")
+        if(isElectric)
+            return Qt.resolvedUrl("/ui/images/energy.svg")
         return ifacesToIcon(thing.thingClass.interfaces)
     }
 
@@ -102,16 +124,49 @@ MouseArea {
                 color: Qt.darker(root.currentColor, 1.3)
 
                 Label {
+                    width: parent.width
+                    anchors.verticalCenter: parent.verticalCenter
+                    Rectangle {
+                        Layout.fillWidth: true
+                        color: "white"
+                        width: 19
+                        height: 19
+                        radius: 180
+                        border.width: 2
+                        border.color: Style.red
+                        visible: (isNotify === "shutoff" || isNotify === "limited") && isRootmeter
+
+                        Image {
+                            anchors.fill: parent
+                            anchors.margins: border.width
+                            fillMode: Image.PreserveAspectFit
+                            source: "/ui/images/attention.svg"
+                            visible: (isNotify === "shutoff" || isNotify === "limited") && isRootmeter
+
+                            layer {
+                                enabled: true
+                                effect: ColorOverlay {
+                                    color: Style.red
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                Label {
+
                     // here is the issue with the different textsizes
                     id: headerLabel
                     width: parent.width //- Style.margins
-                    text: getLabeltext(root.currentPower)
+                    text: isElectric == true ? getLabeltext(root.currentMarketPrice) : getLabeltext(root.currentPower)
                     elide: Text.ElideRight
                     color: "white"
                     horizontalAlignment: Text.AlignHCenter
-
                     anchors.verticalCenter: parent.verticalCenter
                 }
+
+
             }
 
             ColorIcon {

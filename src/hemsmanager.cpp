@@ -15,6 +15,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
     m_chargingOptimizationConfigurations = new ChargingOptimizationConfigurations(this);
     m_pvConfigurations = new PvConfigurations(this);
     m_heatingElementConfigurations = new HeatingElementConfigurations(this);
+    m_dynamicElectricPricingConfigurations = new DynamicElectricPricingConfigurations(this);
     m_chargingSessionConfigurations = new ChargingSessionConfigurations(this);
     m_conEMSState = new ConEMSState();
     m_userConfigurations = new UserConfigurations(this);
@@ -74,6 +75,9 @@ void HemsManager::setEngine(Engine *engine)
         m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingOptimizationConfigurations", QVariantMap(), this, "getChargingOptimizationConfigurationsResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetPvConfigurations", QVariantMap(), this, "getPvConfigurationsResponse");
         m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingSessionConfigurations", QVariantMap(), this, "getChargingSessionConfigurationsResponse");
+
+        m_engine->jsonRpcClient()->sendCommand("Hems.GetDynamicElectricPricingConfigurations", QVariantMap(), this, "getDynamicElectricPricingConfigurationResponse");
+
         // Not working right now
         //m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingRodConfigurations", QVariantMap(), this, "getHeatingElementConfigurationsResponse");
 
@@ -136,6 +140,11 @@ PvConfigurations *HemsManager::pvConfigurations() const
 HeatingElementConfigurations *HemsManager::heatingElementConfigurations() const
 {
     return m_heatingElementConfigurations;
+}
+
+DynamicElectricPricingConfigurations *HemsManager::dynamicElectricPricingConfigurations() const
+{
+    return m_dynamicElectricPricingConfigurations;
 }
 
 ConEMSState *HemsManager::conEMSState() const
@@ -202,6 +211,7 @@ qCritical() << "setHeatingElementConfiguration" << data;
         dummyConfig.insert("heatingRodThingId", heatingRodThingId);
         dummyConfig.insert("maxElectricalPower", 0);
         dummyConfig.insert("optimizationEnabled",true);
+        dummyConfig.insert("controllableLocalSystem", false);
 
         addOrUpdateHeatingElementConfiguration(dummyConfig);
         // and get the dummy Config
@@ -245,6 +255,7 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
         dummyConfig.insert("floorHeatingArea", 0);
         dummyConfig.insert("maxElectricalPower", 0);
         dummyConfig.insert("maxThermalEnergy",  0);
+        dummyConfig.insert("controllableLocalSystem", false);
 
         addOrUpdateHeatingConfiguration(dummyConfig);
         // and get the dummy Config
@@ -274,6 +285,48 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
 }
 
 
+int HemsManager::setDynamicElectricPricingConfiguration(const QUuid &electricThingId, const QVariantMap &data)
+{
+
+    DynamicElectricPricingConfiguration *configuration = m_dynamicElectricPricingConfigurations->getElectricConfiguration(electricThingId);
+    // if the configuration does not exist yet. Set up a dummy configuration
+    // This ensures that if the Thing does not exist that the program wont crash
+    if (!configuration){
+        qCDebug(dcHems()) << "Adding a dummy Config" << electricThingId;
+        QVariantMap dummyConfig;
+        dummyConfig.insert("electricThingId", electricThingId);
+        dummyConfig.insert("optimizationEnabled", false);
+        dummyConfig.insert("maxElectricalPower", 0);
+
+        addOrUpdateDynamicElectricPricingConfiguration(dummyConfig);
+
+        // and get the dummy Config
+        configuration =  m_dynamicElectricPricingConfigurations->getElectricConfiguration(electricThingId);
+    }
+
+    // Make a MetaObject of an configuration
+    const QMetaObject *metaObj = configuration->metaObject();
+    // add the values from data which match with the MetaObject
+    QVariantMap config;
+    for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
+        if(data.contains(metaObj->property(i).name()))
+        {
+            //qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
+            config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
+        }else{
+            //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
+            config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
+        }
+    }
+
+    QVariantMap params;
+    params.insert("dynamicElectricPricingConfiguration", config);
+    qCWarning(dcHems()) << "Set electric configuration" << params;
+
+    return m_engine->jsonRpcClient()->sendCommand("Hems.setDynamicElectricPricingConfiguration", params, this, "setDynamicElectricPricingConfigurationResponse");
+}
+
+
 int HemsManager::setChargingOptimizationConfiguration(const QUuid &evChargerThingId, const QVariantMap &data )
 {
 
@@ -290,6 +343,7 @@ int HemsManager::setChargingOptimizationConfiguration(const QUuid &evChargerThin
         dummyConfig.insert("i_value", 0.001);
         dummyConfig.insert("d_value", 0);
         dummyConfig.insert("setpoint", 0);
+        dummyConfig.insert("controllableLocalSystem", false);
         addOrUpdateChargingOptimizationConfiguration(dummyConfig);
         // and get the dummy Config
         configuration =  m_chargingOptimizationConfigurations->getChargingOptimizationConfiguration(evChargerThingId);
@@ -336,6 +390,8 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
         dummyConfig.insert("carThingId", "{00000000-0000-0000-0000-000000000000}");
         dummyConfig.insert("endTime", "0:00:00");
         dummyConfig.insert("targetPercentage", 100);
+        dummyConfig.insert("controllableLocalSystem", false);
+        dummyConfig.insert("priceThreshold", 0);
 
         addOrUpdateChargingConfiguration(dummyConfig);
         // and get the dummy Config
@@ -344,15 +400,16 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
 
     // Make a MetaObject of an configuration
     const QMetaObject *metaObj = configuration->metaObject();
+
     // add the values from data which match with the MetaObject
     QVariantMap config;
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
         if(data.contains(metaObj->property(i).name()))
             {
-                //qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
+                qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
                 config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
             }else{
-                //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
+                qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
                 config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
             }
     }
@@ -521,7 +578,17 @@ void HemsManager::notificationReceived(const QVariantMap &data)
         qCDebug(dcHems()) << "Heating configuration removed" << params.value("heatPumpThingId").toUuid();
         m_heatingConfigurations->removeConfiguration(params.value("heatPumpThingId").toUuid());
     } else if (notification == "Hems.HeatingConfigurationChanged") {
-        addOrUpdateHeatingConfiguration(params.value("heatingConfiguration").toMap());   
+        addOrUpdateHeatingConfiguration(params.value("heatingConfiguration").toMap());
+
+
+    } else if (notification == "Hems.ElectricConfigurationAdded") {
+        addOrUpdateDynamicElectricPricingConfiguration(params.value("dynamicElectricPricingConfiguration").toMap());
+    } else if (notification == "Hems.ElectricConfigurationRemoved") {
+        qCDebug(dcHems()) << "Electric configuration removed" << params.value("electricThingId").toUuid();
+        m_dynamicElectricPricingConfigurations->removeConfiguration(params.value("electricThingId").toUuid());
+    } else if (notification == "Hems.ElectricConfigurationChanged") {
+        addOrUpdateDynamicElectricPricingConfiguration(params.value("dynamicElectricPricingConfiguration").toMap());
+
 
     } else if (notification == "Hems.PvConfigurationAdded") {
         addOrUpdatePvConfiguration(params.value("pvConfiguration").toMap());
@@ -567,6 +634,16 @@ void HemsManager::getHeatingConfigurationsResponse(int commandId, const QVariant
     qCDebug(dcHems()) << "Heating configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("heatingConfigurations").toList()) {
         addOrUpdateHeatingConfiguration(configurationVariant.toMap());
+    }
+}
+
+void HemsManager::getDynamicElectricPricingConfigurationResponse(int commandId, const QVariantMap &data)
+{
+
+    Q_UNUSED(commandId);
+    qCDebug(dcHems()) << "Electric configurations" << data;
+    foreach (const QVariant &configurationVariant, data.value("dynamicElectricPricingConfiguration").toList()) {
+        addOrUpdateDynamicElectricPricingConfiguration(configurationVariant.toMap());
     }
 }
 
@@ -669,6 +746,12 @@ void HemsManager::setHeatingConfigurationResponse(int commandId, const QVariantM
     emit setHeatingConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
+void HemsManager::setDynamicElectricPricingConfigurationResponse(int commandId, const QVariantMap &data)
+{
+    qCDebug(dcHems()) << "Set electric configuration response" << data.value("hemsError").toString();
+    emit setDynamicElectricPricingConfigurationReply(commandId, data.value("hemsError").toString());
+}
+
 void HemsManager::setPvConfigurationResponse(int commandId, const QVariantMap &data)
 {
     qCDebug(dcHems()) << "Set pv configuration response" << data.value("pvError").toString();
@@ -720,7 +803,6 @@ void HemsManager::setUserConfigurationResponse(int commandId, const QVariantMap 
     emit setUserConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
-
 void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap)
 {
     qCDebug(dcHems()) << "add or Update Heatpump Config configurationMap: " << configurationMap;
@@ -739,7 +821,7 @@ void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurati
     configuration->setFloorHeatingArea(configurationMap.value("floorHeatingArea").toDouble());
     configuration->setMaxThermalEnergy(configurationMap.value("maxThermalEnergy").toDouble());
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
-
+    configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 
 
     if (newConfiguration) {
@@ -748,6 +830,32 @@ void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurati
 
     } else {
         qCDebug(dcHems()) << "Heating configuration changed" << configuration->heatPumpThingId();
+
+    }
+}
+
+void HemsManager::addOrUpdateDynamicElectricPricingConfiguration(const QVariantMap &configurationMap)
+{
+    qCDebug(dcHems()) << "add or Update Electric Config configurationMap: " << configurationMap;
+    QUuid electricUuid = configurationMap.value("electricThingId").toUuid();
+
+    DynamicElectricPricingConfiguration *configuration = m_dynamicElectricPricingConfigurations->getElectricConfiguration(electricUuid);
+    bool newConfiguration = false;
+    if (!configuration) {
+        newConfiguration = true;
+        configuration = new DynamicElectricPricingConfiguration(this);
+        configuration->setDynamicElectricPricingThingID(electricUuid);
+    }
+
+    configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
+    configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
+
+    if (newConfiguration) {
+        qCDebug(dcHems()) << "Electric configuration added" << configuration->dynamicElectricPricingThingID();
+        m_dynamicElectricPricingConfigurations->addConfiguration(configuration);
+
+    } else {
+        qCDebug(dcHems()) << "Electric configuration changed" << configuration->dynamicElectricPricingThingID();
 
     }
 }
@@ -769,6 +877,8 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
     configuration->setEndTime(configurationMap.value("endTime").toString());
     configuration->setTargetPercentage(configurationMap.value("targetPercentage").toUInt());
     configuration->setUniqueIdentifier(configurationMap.value("uniqueIdentifier").toUuid());
+    configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
+    configuration->setPriceThreshold(configurationMap.value("priceThreshold").toFloat());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Charging configuration added" << configuration->evChargerThingId();
@@ -795,6 +905,7 @@ void HemsManager::addOrUpdateChargingOptimizationConfiguration(const QVariantMap
     configuration->setI_value(configurationMap.value("i_value").toFloat());
     configuration->setD_value(configurationMap.value("d_value").toFloat());
     configuration->setSetpoint(configurationMap.value("setpoint").toFloat());
+    configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Charging Optimization configuration added" << configuration->evChargerThingId();
@@ -887,6 +998,7 @@ void HemsManager::addOrUpdateHeatingElementConfiguration(const QVariantMap &conf
 
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
     configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
+    configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 
      if (newConfiguration){
          qCDebug(dcHems()) << "HeatingElement configuration added" << configuration->heatingRodThingId();

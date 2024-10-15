@@ -64,3 +64,15 @@ void ChargingOptimizationConfiguration::setSetpoint(const float setpoint)
 {
     m_setpoint = setpoint;
 }
+
+
+bool ChargingOptimizationConfiguration::controllableLocalSystem() const
+{
+    return m_controllableLocalSystem;
+}
+
+void ChargingOptimizationConfiguration::setControllableLocalSystem(bool controllableLocalSystem)
+{
+    m_controllableLocalSystem = controllableLocalSystem;
+}
+

@@ -43,6 +43,15 @@ void HeatingConfiguration::setHeatMeterThingId(const QUuid &heatMeterThingId)
     emit heatMeterThingIdChanged(m_heatMeterThingId);
 }
 
+bool HeatingConfiguration::controllableLocalSystem() const
+{
+    return m_controllableLocalSystem;
+}
+
+void HeatingConfiguration::setControllableLocalSystem(bool controllableLocalSystem)
+{
+    m_controllableLocalSystem = controllableLocalSystem;
+}
 
 
 double HeatingConfiguration::maxElectricalPower() const
