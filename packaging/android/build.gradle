@@ -71,7 +71,7 @@ android {
 
     buildToolsVersion androidBuildToolsVersion
 
-    namespace 'io.guh.nymeaapp'
+    namespace 'hems.consolinno.energy'
     buildFeatures.aidl = true
     packagingOptions {
         jniLibs {
