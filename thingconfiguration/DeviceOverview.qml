@@ -160,6 +160,13 @@ Page {
                             iconPath = "../images/" + Configuration.inverterIcon;
                         }
                         return iconPath;
+                    } else if (thingInterface.indexOf("dynamicelectricitypricing") >= 0) {
+                        if (Configuration.energyIcon !== "") {
+                            iconPath = "../images/" + Configuration.energyIcon;
+                        }else{
+                            iconPath = "/ui/images/energy.svg"
+                        }
+                        return iconPath;
                     } else {
                         return app.interfacesToIcon(thing.thingClass.interfaces);
                     }
