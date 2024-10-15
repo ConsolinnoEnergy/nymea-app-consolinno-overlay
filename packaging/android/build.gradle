@@ -71,6 +71,14 @@ android {
 
     buildToolsVersion androidBuildToolsVersion
 
+    namespace 'io.guh.nymeaapp'
+    buildFeatures.aidl = true
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -106,7 +114,7 @@ android {
     defaultConfig {
         resConfigs "en", "de", "ko", "it", "nl", "es"
         minSdkVersion = qtMinSdkVersion
-        targetSdkVersion = qtTargetSdkVersion
+        targetSdkVersion = 34
     }
 }
 
