@@ -3437,7 +3437,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>Flow temperature</source>
-        <translation>Vorlauftemperatur</translation>
+        <translation type="unfinished">Vorlauftemperatur</translation>
     </message>
     <message>
         <source>Performance target: </source>
