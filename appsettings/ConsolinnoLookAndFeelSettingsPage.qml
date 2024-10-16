@@ -4,6 +4,8 @@ import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.1
 import Qt.labs.folderlistmodel 2.1
 import Nymea 1.0
+//import com.example.LanguageSelector 1.0
+
 import "../components"
 
 SettingsPageBase {
@@ -112,20 +114,6 @@ SettingsPageBase {
         id: folderModel
         folder: "qrc:../translations/"
         nameFilters: ["*.qm"]
-
-        onCountChanged:
-        {
-           for(let i = 0; i < folderModel.count; i++){
-
-               console.error(folderModel.get(i).fileName)
-
-               let langCode = folderModel[i].fileName.split(".");
-
-               if(!langArr.includes(langCode[1])){
-                   langArr.push(langCode[1]);
-               }
-           }
-        }
     }
 
     RowLayout{
@@ -140,9 +128,43 @@ SettingsPageBase {
         ComboBox {
             id: comboBox
             width: 200
-            model: langArr
+
+            onCurrentIndexChanged: {
+                var current = comboBox.currentText;
+                if (current !== undefined && current !== null) {
+                    LanguageSelector.changeLanguage(current.toString());
+                } else {
+                    console.log("currentItem is undefined or null");
+                }
+            }
+
+            Connections {
+                target: folderModel
+
+                onCountChanged: {
+                    for(let i = 0; i < folderModel.count; i++){
+
+                        let langCode = folderModel.get(i, "fileName").split(".");
+
+                        if(!langArr.includes(langCode[1]) && langCode[0] === "consolinno-energy" && langCode[1] !== "en_US"){
+                            langArr.push(langCode[1]);
+                        }
+                    }
+
+                    comboBox.model = langArr
+                }
+            }
         }
     }
+
+    /*
+    Connections {
+        target: languageSelector
+        onLanguageChanged: {
+            comboBox.model = comboBox.model;
+        }
+    }*/
+
 
     SettingsPageSectionHeader {
         text: qsTr("Behavior")

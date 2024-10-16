@@ -2,10 +2,12 @@
 
 #include "hemsmanager.h"
 #include "Configurations/userconfigurations.h"
-
+#include "Configurations/LanguageSelector.h"
 
 void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
     qmlRegisterType<HemsManager>(uri, versionMajor, versionMinor, "HemsManager");
+    qmlRegisterUncreatableType<LanguageSelector>(uri, versionMajor, versionMinor, "LanguageSelector", "Get it from HemsManager");
+    qmlRegisterUncreatableType<ChargingConfiguration>(uri, versionMajor, versionMinor, "ChargingConfiguration", "Get it from HemsManager");
     qmlRegisterUncreatableType<ChargingConfiguration>(uri, versionMajor, versionMinor, "ChargingConfiguration", "Get it from HemsManager");
     qmlRegisterUncreatableType<ChargingConfigurations>(uri, versionMajor, versionMinor, "ChargingConfigurations", "Get it from HemsManager");
     qmlRegisterUncreatableType<HeatingConfiguration>(uri, versionMajor, versionMinor, "HeatingConfiguration", "Get it from HemsManager");

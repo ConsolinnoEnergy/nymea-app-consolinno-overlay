@@ -1,4 +1,5 @@
 HEADERS += \
+    $$PWD/Configurations/LanguageSelector.h \
     $$PWD/Configurations/chargingconfigurations.h \
     $$PWD/Configurations/chargingoptimizationconfiguration.h \
     $$PWD/Configurations/chargingoptimizationconfigurations.h \
@@ -20,6 +21,7 @@ HEADERS += \
     $$PWD/Configurations/userconfigurations.h
 
 SOURCES += \
+    $$PWD/Configurations/LanguageSelector.cpp \
     $$PWD/Configurations/chargingconfiguration.cpp \
     $$PWD/Configurations/chargingconfigurations.cpp \
     $$PWD/Configurations/chargingoptimizationconfiguration.cpp \
