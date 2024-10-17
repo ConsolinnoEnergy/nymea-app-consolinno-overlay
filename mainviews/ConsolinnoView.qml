@@ -1236,12 +1236,12 @@ MainViewBase {
                             GradientStop {
                                 position: 0.0
                                 //color: "#949494"
-                                color: "#b6b6b6"
+                                color: Configuration.mainInnerCicleFirst //"#b6b6b6" //Configuration.mainInnerCicleFirst
                             }
                             GradientStop {
                                 position: 0.8
                                 //color: "white"
-                                color: "#b6b6b6"
+                                color: Configuration.mainInnerCicleSecond //"#b6b6b6" //Configuration.mainInnerCicleSecond
                             }
                         }
                     }
@@ -1368,8 +1368,8 @@ MainViewBase {
                     var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
                     ctx.translate(xTranslate, yTranslate)
 
-                    ctx.strokeStyle = "gray"
-                    ctx.fillStyle = "gray"
+                    ctx.strokeStyle = Configuration.mainTimeNow
+                    ctx.fillStyle = Configuration.mainTimeNow
 
                     ctx.beginPath()
                     ctx.lineWidth = 3
@@ -1589,7 +1589,7 @@ MainViewBase {
                     ctx.rotate(i * sliceAngle - timeDiffRotation)
                     ctx.beginPath()
                     //ctx.strokeStyle = i % 2 == 0 ? Style.gray : Style.darkGray; //alternating colors
-                    ctx.strokeStyle = "#d7d7d7" // could also be achieved with only a circle
+                    ctx.strokeStyle = Configuration.mainTimeCircle // could also be achieved with only a circle //Color for inner circle
                     ctx.arc(0, 0, (chartView.plotArea.width + circleWidth) / 2,
                             0, sliceAngle)
                     ctx.stroke()
@@ -1601,7 +1601,7 @@ MainViewBase {
                     ctx.save()
                     ctx.rotate(i * sliceAngle - timeDiffRotation)
                     ctx.beginPath()
-                    ctx.strokeStyle = "#ffffff"
+                    ctx.strokeStyle = Configuration.mainTimeCircleDivider
                     ctx.arc(0, 0, (chartView.plotArea.width + circleWidth) / 2,
                             0, 0.005)
                     ctx.stroke()
@@ -1620,7 +1620,7 @@ MainViewBase {
                     tmpDate.setHours(startHour + i, 0, 0)
                     ctx.textAlign = 'center'
                     ctx.font = "" + Style.smallFont.pixelSize + "px " + Style.smallFont.family
-                    ctx.fillStyle = "Gray"
+                    ctx.fillStyle = Configuration.mainCircleTimeColor //gray
                     var textY = -(chartView.plotArea.height + circleWidth) / 2
                             + Style.smallFont.pixelSize / 2
                     // Just can't figure out where I'm missing thosw 2 pixels in the proper calculation (yet)...
