@@ -299,7 +299,7 @@ StatsBase {
                         label: qsTr("Consumed")
                         color:  {
                             var alpha = d.selectedSet == null || d.selectedSet == consumptionSet ? 1 : 0.3
-                            var col = totalColors[0]
+                            var col = Configuration.customColor && Configuration.customPowerSockerColor !== "" ? Configuration.customPowerSockerColor : totalColors[0]
                             return Qt.hsla(col.hslHue, col.hslSaturation, col.hslLightness, alpha)
                         }
                         borderColor: color
@@ -317,7 +317,7 @@ StatsBase {
                         label: qsTr("Produced")
                         color:{
                             var alpha = d.selectedSet == null || d.selectedSet == productionSet ? 1 : 0.3
-                            var col = totalColors[1]
+                            var col = Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : totalColors[1]
                             return Qt.hsla(col.hslHue, col.hslSaturation, col.hslLightness, alpha)
                         }
                         borderColor: color
@@ -335,7 +335,7 @@ StatsBase {
                         label: qsTr("From grid")
                         color: {
                             var alpha = d.selectedSet == null || d.selectedSet == acquisitionSet ? 1 : 0.3
-                            var col = totalColors[2]
+                            var col = Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2]
                             return Qt.hsla(col.hslHue, col.hslSaturation, col.hslLightness, alpha)
                         }
                         borderColor: color
@@ -353,7 +353,7 @@ StatsBase {
                         label: qsTr("To grid")
                         color: {
                             var alpha = d.selectedSet == null || d.selectedSet == returnSet ? 1 : 0.3
-                            var col = totalColors[3]
+                            var col = Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
                             return Qt.hsla(col.hslHue, col.hslSaturation, col.hslLightness, alpha)
                         }
                         borderColor: color
@@ -387,7 +387,7 @@ StatsBase {
                         ColorIcon {
                             name: "powersocket"
                             size: Style.smallIconSize
-                            color: totalColors[0]
+                            color: Configuration.customColor && Configuration.customPowerSockerColor !== "" ? Configuration.customPowerSockerColor : totalColors[0]
                         }
                         Label {
                             width: parent.parent.width - x
@@ -412,7 +412,7 @@ StatsBase {
                             id: sun
                             name: legend.selectIcons(Configuration.inverterIcon,"weathericons/weather-clear-day")
                             size: Style.smallIconSize
-                            color: Qt.darker(totalColors[1], 1.1)
+                            color: Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : Qt.darker(totalColors[1], 1.1)
 
                             Rectangle{
                                 color: Qt.darker(totalColors[1], 1.1)
@@ -463,7 +463,7 @@ StatsBase {
                                 id: gridDownID
                                 name: legend.selectIcons(Configuration.gridIcon,"power-grid")
                                 size: Style.smallIconSize
-                                color: totalColors[2]
+                                color: Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2]
 
                                 Image {
                                     id: gridDown
@@ -485,7 +485,7 @@ StatsBase {
                                 id: arrowDown
                                 name: "arrow-down"
                                 size: Style.smallIconSize
-                                color: totalColors[2]
+                                color: gridDownID.color
 
                                 Rectangle {
                                     color: parent.color
@@ -545,7 +545,7 @@ StatsBase {
                                 id: gridUpID
                                 name: legend.selectIcons(Configuration.gridIcon,"power-grid")
                                 size: Style.smallIconSize
-                                color: totalColors[3]
+                                color: Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
 
                                 Image {
                                     id: gridUp
@@ -567,7 +567,7 @@ StatsBase {
                                 id: arrowUp
                                 name: "arrow-up"
                                 size: Style.smallIconSize
-                                color: totalColors[3]
+                                color: gridUpID.color
 
                                 Rectangle {
                                     color: parent.color
@@ -780,7 +780,7 @@ StatsBase {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: totalColors[0]
+                                color: Configuration.customColor && Configuration.customPowerSockerColor !== "" ? Configuration.customPowerSockerColor : totalColors[0]
                             }
                             Label {
                                 text: d.startOffset !== undefined ? qsTr("Consumed: %1 kWh").arg((+consumptionSet.at(toolTip.idx).toFixed(2)).toLocaleString()) : ""
@@ -793,7 +793,7 @@ StatsBase {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: totalColors[1]
+                                color: Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : totalColors[1]
                             }
                             Label {
                                 text: d.startOffset !== undefined ? qsTr("Produced: %1 kWh").arg((+productionSet.at(toolTip.idx).toFixed(2)).toLocaleString()) : ""
@@ -805,7 +805,7 @@ StatsBase {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: totalColors[2]
+                                color: onfiguration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2]
                             }
                             Label {
                                 text: d.startOffset !== undefined ? qsTr("From grid: %1 kWh").arg((+acquisitionSet.at(toolTip.idx).toFixed(2)).toLocaleString()) :""
@@ -817,7 +817,7 @@ StatsBase {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: totalColors[3]
+                                color: Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
                             }
                             Label {
                                 text: d.startOffset !== undefined ? qsTr("To grid: %1 kWh").arg((+returnSet.at(toolTip.idx).toFixed(2)).toLocaleString()) : ""
