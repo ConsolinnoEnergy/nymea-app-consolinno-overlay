@@ -285,7 +285,7 @@ Item {
                     id: selfProductionConsumptionSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[1]
+                    color: Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : totalColors[1]
 //                    borderWidth: 2
                     borderColor: null
                     name: qsTr("From PV")
@@ -346,7 +346,7 @@ Item {
                     id: toStorageSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[4]
+                    color: Configuration.customColor && Configuration.customBatteryPlusColor !== "" ? Configuration.customBatteryPlusColor : totalColors[4]
                     borderWidth: 0
                     borderColor: null
                     opacity: d.selectedSeries == null || d.selectedSeries == toStorageSeries ? 1 : 0.3
@@ -376,7 +376,7 @@ Item {
                     id: returnSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[3]
+                    color: Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
                     borderWidth: 0
                     borderColor: null
                     name: qsTr("To grid")
@@ -405,7 +405,7 @@ Item {
                     id: fromStorageSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[5]
+                    color: Configuration.customColor && Configuration.customBatteryMinusColor !== "" ? Configuration.customBatteryMinusColor : totalColors[5]
                     borderWidth: 0
                     borderColor: null
                     name: qsTr("From battery")
@@ -434,7 +434,7 @@ Item {
                     id: acquisitionSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[2]
+                    color: Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2]
                     borderWidth: 0
                     borderColor: null
                     name: qsTr("From grid")
@@ -520,7 +520,7 @@ Item {
                             id: sun
                             name: legend.selectIcons(Configuration.inverterIcon,"weathericons/weather-clear-day")
                             size: Style.smallIconSize
-                            color: Qt.darker(totalColors[1], 1.1)
+                            color: Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : Qt.darker(totalColors[1], 1.1)
 
                             Image {
                                 id: sunIcon
@@ -539,7 +539,7 @@ Item {
 
 
                             Rectangle{
-                                color: Qt.darker(totalColors[1], 1.1)
+                                color: sun.color
                                 height: 12 / 2
                                 width: 12 / 2
                                 radius: sun.width / 2
@@ -571,7 +571,7 @@ Item {
                                 id: gridDownID
                                 name: legend.selectIcons(Configuration.gridIcon,"power-grid")
                                 size: Style.smallIconSize
-                                color: totalColors[2]
+                                color: Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2]
 
                                 Image {
                                     id: gridDown
@@ -654,7 +654,7 @@ Item {
                                 id: gridUpID
                                 name: legend.selectIcons(Configuration.gridIcon,"power-grid")
                                 size: Style.smallIconSize
-                                color: totalColors[3]
+                                color: Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
 
                                 Image {
                                     id: gridUp
@@ -676,7 +676,7 @@ Item {
                                 id: arrowUp
                                 name: "arrow-up"
                                 size: Style.smallIconSize
-                                color: totalColors[3]
+                                color: gridUpID.color
 
                                 Rectangle {
                                     color: parent.color
@@ -738,7 +738,7 @@ Item {
                                 id: batteryPlusID
                                 name: legend.selectIcons(Configuration.batteryIcon,"battery/battery-080")
                                 size: Style.smallIconSize
-                                color: totalColors[4]
+                                color: Configuration.customColor && Configuration.customBatteryPlusColor !== "" ? Configuration.customBatteryPlusColor : totalColors[4]
 
                                 Image {
                                     id: batteryPlus
@@ -759,10 +759,10 @@ Item {
                                 id: plus
                                 name: "plus"
                                 size: Style.smallIconSize
-                                color: totalColors[4]
+                                color: batteryPlusID.color
 
                                 Rectangle {
-                                    color: totalColors[4]
+                                    color: parent.color
                                     height: 10
                                     width: 2
                                     rotation: 90
@@ -770,7 +770,7 @@ Item {
                                 }
 
                                 Rectangle {
-                                    color: totalColors[4]
+                                    color: parent.color
                                     height: 10
                                     width: 2
                                     rotation: 180
@@ -803,7 +803,7 @@ Item {
                                 id: batteryMinusID
                                 name: legend.selectIcons(Configuration.batteryIcon,"battery/battery-080")
                                 size: Style.smallIconSize
-                                color: totalColors[5]
+                                color: Configuration.customColor && Configuration.customBatteryMinusColor !== "" ? Configuration.customBatteryMinusColor : totalColors[5]
 
                                 Image {
                                     id: batteryMinus
@@ -824,10 +824,10 @@ Item {
                                 id: minus
                                 name: "minus"
                                 size: Style.smallIconSize
-                                color: totalColors[5]
+                                color: batteryMinusID.color
 
                                 Rectangle {
-                                    color: totalColors[5]
+                                    color: parent.color
                                     height: 10
                                     width: 2
                                     rotation: 90
@@ -1006,7 +1006,7 @@ Item {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: toolTip.entry.acquisition >= 0 ? totalColors[2] : totalColors[3]
+                                color: toolTip.entry.acquisition >= 0 ? Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2] : Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
                             }
 
                             Label {
@@ -1028,7 +1028,7 @@ Item {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: totalColors[1]
+                                color: Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : totalColors[1]
                             }
 
                             Label {
@@ -1051,7 +1051,7 @@ Item {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: toolTip.entry.storage > 0 ? totalColors[4] : totalColors[5]
+                                color: toolTip.entry.storage > 0 ? Configuration.customColor && Configuration.customBatteryPlusColor !== "" ? Configuration.customBatteryPlusColor : totalColors[4] : Configuration.customColor && Configuration.customBatteryMinusColor !== "" ? Configuration.customBatteryMinusColor : totalColors[5]
                             }
 
                             Label {
