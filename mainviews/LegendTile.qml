@@ -122,6 +122,11 @@ MouseArea {
                 icon = "/ui/images/"+Configuration.inverterIcon
                 return Qt.resolvedUrl(icon)
             }
+        case "solarinverter":
+            if(Configuration.inverterIcon !== ""){
+                icon = "/ui/images/"+Configuration.inverterIcon
+                return Qt.resolvedUrl(icon)
+            }
         default:
             return app.interfaceToIcon(name)
         }
@@ -138,8 +143,14 @@ MouseArea {
             }
             return Qt.resolvedUrl(icon);
         }
-        if(isElectric)
-            return Qt.resolvedUrl("/ui/images/energy.svg")
+        if(isElectric){
+            if(Configuration.energyIcon !== ""){
+                icon = "/ui/images/"+Configuration.energyIcon;
+            }else{
+                icon = "/ui/images/energy.svg"
+            }
+            return Qt.resolvedUrl(icon);
+        }
         if(isBattery)
             return Qt.resolvedUrl("/ui/images/"+Configuration.batteryIcon)
         return ifacesToIcon(thing.thingClass.interfaces)

@@ -125,43 +125,43 @@ Page {
                     let thingInterface = thing.thingClass.interfaces
 
                     if (thingInterface.indexOf("energymeter") >= 0) {
-                        if(Configuration.gridIcon === ""){
+                        if(true){ //Configuration.gridIcon === ""
                             iconPath = "../images/grid.svg";
                         }else{
                             iconPath = "../images/" + Configuration.gridIcon;
                         }
                         return iconPath;
                     } else if (thingInterface.indexOf("heatpump") >= 0) {
-                        if (Configuration.heatpumpIcon !== "") {
+                        if (false) { //Configuration.heatpumpIcon !== ""
                             iconPath = "../images/" + Configuration.heatpumpIcon;
                         } else {
                             iconPath = "../images/thermostat/heating.svg";
                         }
                         return iconPath;
                     } else if (thingInterface.indexOf("smartheatingrod") >= 0) {
-                        if (Configuration.heatingRodIcon !== "") {
+                        if (false) { //Configuration.heatingRodIcon !== ""
                             iconPath = "../images/" + Configuration.heatingRodIcon;
                         } else {
                             iconPath = "../images/sensors/water.svg";
                         }
                         return iconPath;
-                    } else if (thingInterface.indexOf("energystorage") >= 0 && Configuration.batteryIcon !== "") {
+                    } else if (thingInterface.indexOf("energystorage") >= 0 && Configuration.batteryIcon !== "" && false) {
                         if (Configuration.batteryIcon !== "") {
                             iconPath = "../images/" + Configuration.batteryIcon;
                         }
                         return iconPath;
-                    } else if (thingInterface.indexOf("evcharger") >= 0 && Configuration.evchargerIcon !== "") {
+                    } else if (thingInterface.indexOf("evcharger") >= 0 && Configuration.evchargerIcon !== "" && false) {
                         if (Configuration.evchargerIcon !== "") {
                             iconPath = "../images/" + Configuration.evchargerIcon;
                         }
                         return iconPath;
-                    } else if (thingInterface.indexOf("solarinverter") >= 0 && Configuration.inverterIcon !== "") {
+                    } else if (thingInterface.indexOf("solarinverter") >= 0 && Configuration.inverterIcon !== "" && false) {
                         if (Configuration.inverterIcon !== "") {
                             iconPath = "../images/" + Configuration.inverterIcon;
                         }
                         return iconPath;
                     } else if (thingInterface.indexOf("dynamicelectricitypricing") >= 0) {
-                        if (Configuration.energyIcon !== "") {
+                        if (Configuration.energyIcon !== "" && false) {
                             iconPath = "../images/" + Configuration.energyIcon;
                         }else{
                             iconPath = "/ui/images/energy.svg"
