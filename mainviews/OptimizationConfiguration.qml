@@ -53,7 +53,11 @@ Page {
                             icon = "../images/attention.svg";
                             break;
                         case HemsManager.HemsUseCaseHeating:
-                            icon = "../images/thermostat/heating.svg";
+                            if(Configuration.heatpumpIcon !== ""){
+                                icon = "qrc:/ui/images/"+Configuration.heatpumpIcon;
+                            }else{
+                                icon = "../images/thermostat/heating.svg";
+                            }
                             break;
                         case HemsManager.HemsUseCaseCharging:
                             icon = Configuration.evchargerIcon !== "" ? "../images/" + Configuration.evchargerIcon : "../images/ev-charger.svg";
