@@ -250,28 +250,24 @@ Page {
             Layout.fillWidth: true
             text: qsTr("Save")
             onClicked: {
-
+                let inputText = maxElectricalPower.text
+                inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
                 if (savebutton.validated)
                 {
                     if (directionID == 1){
-                        hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, maxElectricalPower: maxElectricalPower.text, controllableLocalSystem: gridSupportControl.checked,})
-
+                        hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, maxElectricalPower: inputText, controllableLocalSystem: gridSupportControl.checked,})
                         root.done()
                     }else if(directionID == 0){
-                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, maxElectricalPower: maxElectricalPower.text, controllableLocalSystem: gridSupportControl.checked,})
+                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, maxElectricalPower: inputText, controllableLocalSystem: gridSupportControl.checked,})
+                        root.done()
                     }
-
                 }
                 else
                 {
                     // for now this is the way how we show the user that some attributes are invalid
                     // TO DO: Show which ones are invalid
                     footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
-
-
                 }
-
-
             }
         }
 

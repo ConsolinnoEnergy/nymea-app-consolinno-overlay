@@ -54,15 +54,8 @@ Page {
     }
 
     ColumnLayout {
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: parent.top
-            topMargin: Style.margins
-            leftMargin: Style.margins
-            rightMargin: Style.margins
-        }
-
+        anchors.fill: parent
+        anchors.margins: app.margins
 
         RowLayout{
             Layout.fillWidth: true
@@ -116,6 +109,11 @@ Page {
             }
         }
 
+        Item {
+            // place holder
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+        }
 
         Label {
             id: footer
@@ -140,15 +138,14 @@ Page {
                         d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, { "maxElectricalPower": parseFloat(inputText), "optimizationEnabled": operatingModeSwitch.checked, controllableLocalSystem: false})
                         root.done()
                     }else{
-                        let props = "";
-                        props = qsTr("Could not save configuration. One of the parameters is invalid.")
-                        var comp = Qt.createComponent("../components/ErrorDialog.qml")
-                        var popup = comp.createObject(app, {props})
-                        popup.open()
+                        footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
                     }
                 } else if (directionID === 0) {
                     if (validated) {
                         d.pendingCallId = hemsManager.setHeatingElementConfiguration( heatRodThing.id, { "maxElectricalPower": parseFloat(inputText), "optimizationEnabled": operatingModeSwitch.checked, controllableLocalSystem: false})
+                        root.done();
+                    }else{
+                        footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
                     }
                 }
             }
