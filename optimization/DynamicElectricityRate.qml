@@ -108,12 +108,38 @@ Page {
                     delegate: ItemDelegate{
                         Layout.preferredWidth: app.width
                         contentItem: ConsolinnoItemDelegate{
+                            id: energyIcon
                             Layout.fillWidth: true
-                            iconName: "../images/energy.svg"
+                            iconName: {
+                                if(Configuration.energyIcon !== ""){
+                                    return "/ui/images/"+Configuration.energyIcon;
+                                }else{
+                                    return "../images/energy.svg"
+                                }
+                            }
                             progressive: false
                             text: erProxy.get(index) ? erProxy.get(index).name : ""
                             onClicked: {
                             }
+
+                            Image {
+                                id: icons
+                                height: 24
+                                width: 24
+                                source: energyIcon.iconName
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.left: parent.left
+                                anchors.leftMargin: 16
+                                z: 2
+                            }
+
+                            ColorOverlay {
+                                anchors.fill: icons
+                                source: icons
+                                color: Style.consolinnoMedium
+                                z: 3
+                            }
+
                         }
                     }
                 }

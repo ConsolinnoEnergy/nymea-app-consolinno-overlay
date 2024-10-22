@@ -126,7 +126,7 @@ Item {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
                     wrapMode: Text.WordWrap
-                    text: qsTr("Only available on the local network. Please connect the device running this app to the same network as your Leaflet HEMS system, e.g. your home network.")
+                    text: qsTr("Only available on the local network. Please connect the device running this app to the same network as your %1 system, e.g. your home network.").arg(Configuration.deviceName)
                 }
             }
 

@@ -580,7 +580,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Zewo</source>
+        <source>Consolinno</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -639,14 +639,6 @@
     </message>
     <message>
         <source>Manual connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Searching for your Leaflet...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please wait while your Leaflet is being discovered.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -929,23 +921,11 @@ Mail %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(1) %1 has developed a software that can be used as an application on Android and IOS systems. The software connects to an energy management system called Leaflet HEMS. This then has the task of maximizing the self-consumption of PV energy in conjunction with a photovoltaic system. The black-out protection function is also integrated. This dynamically limits the charging current of a charging device. The fuse does not trip.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The software makes it possible to significantly increase the self-consumption of the generated PV energy by controlling an e-charging device, a heat pump, household appliances (washing machine, dryer, dishwasher) and by integrating a battery.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This saves CO2 and costs.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>These general license terms apply to all license agreements with the customer regarding the software modules and the HEMS product.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(2) The software is offered by %1 free of charge to HEMS customers via app stores.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -977,10 +957,6 @@ Mail %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(1) By purchasing the HEMS device, the customer has downloaded the software free of charge from the APP Stores and can use it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>(2) As part of further development, software modules can also be purchased for an unlimited period of use.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -993,19 +969,11 @@ Mail %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(2) In addition to the software, %1 will offer the customer installation instructions for the HEMS device as well as documentation for download.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>(3) %1 is not responsible for installing the software on the customer&apos;s systems; the customer is solely responsible for this.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>5. Maintenance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(1) %1 is obliged to maintain the contractually agreed quality of the software during the term of the contract (&apos;maintenance&apos;). The contractually agreed quality of the software is determined by the promised function of the HEMS product. Updates are carried out via an Internet connection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1121,6 +1089,38 @@ Open source modules are included in the APP and in the device software. The corr
     </message>
     <message>
         <source>Please select the device from the list that you want to set up. If no device is displayed in the list, please check the network connection! (Alternatively, a manual connection can also be established).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(1) %1 has developed a software that can be used as an application on Android and IOS systems. The software connects to an energy management system called %2. This then has the task of maximizing the self-consumption of PV energy in conjunction with a photovoltaic system. The black-out protection function is also integrated. This dynamically limits the charging current of a charging device. The fuse does not trip.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>These general license terms apply to all license agreements with the customer regarding the software modules and the %1 product.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(1) By purchasing the %1 device, the customer has downloaded the software free of charge from the APP Stores and can use it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(2) In addition to the software, %1 will offer the customer installation instructions for the %2 device as well as documentation for download.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(1) %1 is obliged to maintain the contractually agreed quality of the software during the term of the contract (&apos;maintenance&apos;). The contractually agreed quality of the software is determined by the promised function of the %2 product. Updates are carried out via an Internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching for your %1...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please wait while your %1 is being discovered.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(2) The software is offered by %1 free of charge to %2 customers via app stores.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1504,15 +1504,15 @@ Open source modules are included in the APP and in the device software. The corr
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Only available on the local network. Please connect the device running this app to the same network as your Leaflet HEMS system, e.g. your home network.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Visit the nymea website</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Software and Libraries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only available on the local network. Please connect the device running this app to the same network as your %1 system, e.g. your home network.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
