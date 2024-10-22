@@ -414,35 +414,35 @@
     </message>
     <message>
         <source>Dynamic pricing</source>
-        <translation type="unfinished">Dynamischer Tarif</translation>
+        <translation>Dynamischer Tarif</translation>
     </message>
     <message>
         <source>Price limit</source>
-        <translation type="unfinished">Preisgrenze</translation>
+        <translation>Preisgrenze</translation>
     </message>
     <message>
         <source>Pausing: </source>
-        <translation type="unfinished">Pausieren: </translation>
+        <translation>Pausieren: </translation>
     </message>
     <message>
         <source>Price limit: </source>
-        <translation type="unfinished">Preisgrenze: </translation>
+        <translation>Preisgrenze: </translation>
     </message>
     <message>
         <source>average price: </source>
-        <translation type="unfinished">Durchschnittspreis: </translation>
+        <translation>Durchschnittspreis: </translation>
     </message>
     <message>
         <source>-</source>
-        <translation type="unfinished">-</translation>
+        <translation>-</translation>
     </message>
     <message>
         <source>+</source>
-        <translation type="unfinished">+</translation>
+        <translation>+</translation>
     </message>
     <message>
         <source>Pausing</source>
-        <translation type="unfinished">Pausieren</translation>
+        <translation>Pausieren</translation>
     </message>
     <message>
         <source>No data available</source>
@@ -466,15 +466,15 @@
     </message>
     <message>
         <source>Current Price</source>
-        <translation type="unfinished">Aktueller Preis</translation>
+        <translation>Aktueller Preis</translation>
     </message>
     <message>
         <source>%1 ct/kWh</source>
-        <translation type="unfinished">%1 ct/kWh</translation>
+        <translation>%1 ct/kWh</translation>
     </message>
     <message>
         <source>Below price limit</source>
-        <translation type="unfinished">Preisgrenze unterschritten</translation>
+        <translation>Preisgrenze unterschritten</translation>
     </message>
 </context>
 <context>
@@ -528,15 +528,15 @@
     </message>
     <message>
         <source>Dynamic Tariff</source>
-        <translation type="unfinished">Dynamischer Tarif</translation>
+        <translation>Dynamischer Tarif</translation>
     </message>
     <message>
         <source>In dynamic tariff charging mode, charging takes place at maximum charging current as soon as the price falls below the set price limit. At times when charging does not take place because the price limit is exceeded, charging takes place if there is a PV surplus. If the price limit is changed, this limit is preselected the next time it is plugged in.</source>
-        <translation type="unfinished">Im Lademodus dynamischer Tarif wird mit maximalem Ladestrom geladen,  sobald der Preis unter die eingestellte Preisgrenze fällt. In Zeiten in  denen nicht geladen wird, weil die Preisgrenze überschritten ist, wird  geladen, falls PV-Überschuss vorhanden ist. Wenn die Preisgrenze  verändert wird, ist diese Grenze beim nächsten Anstecken vorausgewählt.</translation>
+        <translation>Im Lademodus dynamischer Tarif wird mit maximalem Ladestrom geladen,  sobald der Preis unter die eingestellte Preisgrenze fällt. In Zeiten in  denen nicht geladen wird, weil die Preisgrenze überschritten ist, wird  geladen, falls PV-Überschuss vorhanden ist. Wenn die Preisgrenze  verändert wird, ist diese Grenze beim nächsten Anstecken vorausgewählt.</translation>
     </message>
     <message>
         <source>The charging modes &lt;font color=&quot;%1&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;%1&quot;&gt;Dynamic tariff&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;%1&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
-        <translation type="unfinished">Die Lademodi &lt;font color=&quot;%1&quot;&gt;„Nur Solarstrom“&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;„Immer Laden“&lt;/font&gt; sowie &lt;font color=&quot;%1&quot;&gt;„Dynamischer Tarif“&lt;/font&gt; bleiben nachdem Abstecken weiterhin ausgewählt. Das heißt, wenn Sie wieder anstecken, ist der letzte gewählte Modus aktiv. Wenn Sie mit &lt;font color=&quot;%1&quot;&gt;„Nächster Fahrt“&lt;/font&gt; geladen haben, dann müssen Sie bei Anstecken wieder einen Lademodus wählen.</translation>
+        <translation>Die Lademodi &lt;font color=&quot;%1&quot;&gt;„Nur Solarstrom“&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;„Immer Laden“&lt;/font&gt; sowie &lt;font color=&quot;%1&quot;&gt;„Dynamischer Tarif“&lt;/font&gt; bleiben nachdem Abstecken weiterhin ausgewählt. Das heißt, wenn Sie wieder anstecken, ist der letzte gewählte Modus aktiv. Wenn Sie mit &lt;font color=&quot;%1&quot;&gt;„Nächster Fahrt“&lt;/font&gt; geladen haben, dann müssen Sie bei Anstecken wieder einen Lademodus wählen.</translation>
     </message>
 </context>
 <context>
@@ -580,7 +580,7 @@
         <translation>Hilfe</translation>
     </message>
     <message>
-        <source>Consolinno</source>
+        <source>Zewo</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2070,7 +2070,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished">Sprache</translation>
+        <translation>Sprache</translation>
     </message>
 </context>
 <context>
@@ -3111,38 +3111,38 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>Set up new device</source>
-        <translation type="unfinished">Gerät hinzufügen</translation>
+        <translation>Gerät hinzufügen</translation>
     </message>
 </context>
 <context>
     <name>DynamicElectricityRate</name>
     <message>
         <source>Submitted Rate:</source>
-        <translation type="unfinished">Gewählte Anbieter:</translation>
+        <translation>Gewählte Anbieter:</translation>
     </message>
     <message>
         <source>There is no rate set up yet</source>
-        <translation type="unfinished">Es sind noch keine Tarife angelegt</translation>
+        <translation>Es sind noch keine Tarife angelegt</translation>
     </message>
     <message>
         <source>Add Rate: </source>
-        <translation type="unfinished">Tarif hinzufügen: </translation>
+        <translation>Tarif hinzufügen: </translation>
     </message>
     <message>
         <source>cancel</source>
-        <translation type="unfinished">abbrechen</translation>
+        <translation>abbrechen</translation>
     </message>
     <message>
         <source>add</source>
-        <translation type="unfinished">hinzufügen</translation>
+        <translation>hinzufügen</translation>
     </message>
     <message>
         <source>There are currently no settings options available</source>
-        <translation type="unfinished">Es sind momentan keine Einstellungen verfügbar</translation>
+        <translation>Es sind momentan keine Einstellungen verfügbar</translation>
     </message>
     <message>
         <source>Dynamic electricity tariff</source>
-        <translation type="unfinished">Dynamischer Stromtarif</translation>
+        <translation>Dynamischer Stromtarif</translation>
     </message>
     <message>
         <source>Failed to add thing: ThingErrorHardwareFailure</source>
@@ -3153,46 +3153,46 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     <name>DynamicElectricityRateFeedback</name>
     <message>
         <source>to the dashboard</source>
-        <translation type="unfinished">ZURÜCK ZUM DASHBOARD</translation>
+        <translation>ZURÜCK ZUM DASHBOARD</translation>
     </message>
     <message>
         <source>The following tariff is submitted:</source>
-        <translation type="unfinished">Der folgende Stromtarif wurde eingerichtet:</translation>
+        <translation>Der folgende Stromtarif wurde eingerichtet:</translation>
     </message>
     <message>
         <source>Dynamic electricity tariff</source>
-        <translation type="unfinished">Dynamischer Stromtarif</translation>
+        <translation>Dynamischer Stromtarif</translation>
     </message>
 </context>
 <context>
     <name>DynamicElectricityRateSettings</name>
     <message>
         <source>Dynamic Electricity Settings</source>
-        <translation type="unfinished">Einstellungen Dynamische Preise</translation>
+        <translation>Einstellungen Dynamische Preise</translation>
     </message>
     <message>
         <source>Current Market Price</source>
-        <translation type="unfinished">Aktueller Marktpreis</translation>
+        <translation>Aktueller Marktpreis</translation>
     </message>
     <message>
         <source>ct</source>
-        <translation type="unfinished">ct</translation>
+        <translation>ct</translation>
     </message>
     <message>
         <source>Average Market Price</source>
-        <translation type="unfinished">Durchschnittlicher Marktpreis</translation>
+        <translation>Durchschnittlicher Marktpreis</translation>
     </message>
     <message>
         <source>Lowest Market Price</source>
-        <translation type="unfinished">Niedrigster Marktpreis</translation>
+        <translation>Niedrigster Marktpreis</translation>
     </message>
     <message>
         <source>Highest Market Price</source>
-        <translation type="unfinished">Höchste Marktpreis</translation>
+        <translation>Höchste Marktpreis</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
+        <translation>Speichern</translation>
     </message>
 </context>
 <context>
@@ -3266,27 +3266,27 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     <name>EvChargerOptimization</name>
     <message>
         <source>Wallbox configuration</source>
-        <translation type="unfinished">Wallbox Konfiguration</translation>
+        <translation>Wallbox Konfiguration</translation>
     </message>
     <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
-        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+        <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
     <message>
         <source>Could not save configuration. The thing is not valid.</source>
-        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+        <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <source>Grid-supportive control</source>
-        <translation type="unfinished">Netzdienlichkeit</translation>
+        <translation>Netzdienlichkeit</translation>
     </message>
     <message>
         <source>If the device must be controlled according to §14a, then this setting must be enabled.</source>
-        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
+        <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
     </message>
 </context>
 <context>
@@ -3387,7 +3387,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>If there is not enough PV surplus to charge, charging continues at minimum charging current (grid supply).</source>
-        <translation type="unfinished">Wenn nicht ausreichend PV-Überschuss zum Laden vorhanden ist, wird mit minimalen Ladestrom (Netzbezug) weitergeladen.</translation>
+        <translation>Wenn nicht ausreichend PV-Überschuss zum Laden vorhanden ist, wird mit minimalen Ladestrom (Netzbezug) weitergeladen.</translation>
     </message>
     <message>
         <source>Pausing charging:</source>
@@ -3406,7 +3406,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     <name>GridSupportiveControlConfig</name>
     <message>
         <source>Grid Supportive Control</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -3509,39 +3509,43 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     <name>HeatingElementOptimization</name>
     <message>
         <source>Heating Element Configuration</source>
-        <translation type="unfinished">Heizstabkonfiguration</translation>
+        <translation>Heizstabkonfiguration</translation>
     </message>
     <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
-        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+        <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
     <message>
         <source>Could not save configuration. The thing is not valid.</source>
-        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+        <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
         <source>kW</source>
-        <translation type="unfinished">kW</translation>
+        <translation>kW</translation>
     </message>
     <message>
         <source>Operating mode (Solar Only)</source>
-        <translation type="unfinished">Betriebsmodus (nur Solar)</translation>
+        <translation>Betriebsmodus (nur Solar)</translation>
     </message>
     <message>
         <source>Ok</source>
-        <translation type="unfinished">Ok</translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <source>The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.</source>
-        <translation type="unfinished">Der Heizstab wird nur mit Solarstrom betrieben. Falls eine Wallbox im System vorhanden ist, und ein Ladevorgang gestartet wird, wird das Laden priorisiert.</translation>
+        <translation>Der Heizstab wird nur mit Solarstrom betrieben. Falls eine Wallbox im System vorhanden ist, und ein Ladevorgang gestartet wird, wird das Laden priorisiert.</translation>
     </message>
     <message>
         <source>The heating element is not controlled by the HEMS.</source>
-        <translation type="unfinished">Der Heizstab wird durch das HEMS nicht gesteuert.</translation>
+        <translation>Der Heizstab wird durch das HEMS nicht gesteuert.</translation>
     </message>
     <message>
         <source>Maximal electrical power</source>
-        <translation type="unfinished">Maximale elektrische Leistung</translation>
+        <translation>Maximale elektrische Leistung</translation>
+    </message>
+    <message>
+        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
+        <translation>Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
     </message>
 </context>
 <context>
@@ -3576,11 +3580,11 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>Grid-supportive-control</source>
-        <translation type="unfinished">Netzdienlichkeit</translation>
+        <translation>Netzdienlichkeit</translation>
     </message>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
-        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
+        <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
     </message>
 </context>
 <context>
@@ -3607,11 +3611,11 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>Service %1 </source>
-        <translation type="unfinished"></translation>
+        <translation>Service %1 </translation>
     </message>
     <message>
         <source>If there is a problem with the %1 itself, then contact %2 service.</source>
-        <translation type="unfinished">Falls ein Problem mit der %1 auftritt, kontaktieren Sie den %2-Service.</translation>
+        <translation>Falls ein Problem mit der %1 auftritt, kontaktieren Sie den %2-Service.</translation>
     </message>
 </context>
 <context>
@@ -3643,7 +3647,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>Dynamic electricity tariff</source>
-        <translation type="unfinished">Dynamischer Stromtarif</translation>
+        <translation>Dynamischer Stromtarif</translation>
     </message>
 </context>
 <context>
@@ -3857,7 +3861,7 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     </message>
     <message>
         <source>Charging</source>
-        <translation type="unfinished">Laden</translation>
+        <translation>Laden</translation>
     </message>
 </context>
 <context>
@@ -3956,22 +3960,22 @@ Please refer to our service if you have any questions: service@consolinno.de</so
     <name>PausingInfo</name>
     <message>
         <source>Pausing</source>
-        <translation type="unfinished">Pausieren</translation>
+        <translation>Pausieren</translation>
     </message>
     <message>
         <source>Some vehicles cannot handle an interruption in the charging process, i.e. charging can no longer be continued after an interruption in the charging process if, for example, the electricity price falls below the price limit again after a pause. If problems occur, the option &lt;font color=&quot;%1&quot;&gt;&apos;Charging with minimum power&apos;&lt;/font&gt; should be selected. With this setting, charging continues at minimum power even if the price limit is exceeded.</source>
-        <translation type="unfinished">Manche Fahrzeuge können mit einer Unterbrechung des Ladevorgangs nicht umgehen, d.h. nach einer Unterbrechung des Ladevorgangs kann nicht mehr weitergeladen werden, z.B. wenn der Strompreis nach Pausieren wieder unter die Preisgrenze fällt. Falls es zu Problemen kommt sollte die Option &lt;font color=&quot;%1&quot;&gt;„Laden mit minimaler Leistung“&lt;/font&gt; gewählt werden. Mit dieser Einstellung wird auch wenn die Preisgrenze überschritten wird mit minimalen Strom weitergeladen.</translation>
+        <translation>Manche Fahrzeuge können mit einer Unterbrechung des Ladevorgangs nicht umgehen, d.h. nach einer Unterbrechung des Ladevorgangs kann nicht mehr weitergeladen werden, z.B. wenn der Strompreis nach Pausieren wieder unter die Preisgrenze fällt. Falls es zu Problemen kommt sollte die Option &lt;font color=&quot;%1&quot;&gt;„Laden mit minimaler Leistung“&lt;/font&gt; gewählt werden. Mit dieser Einstellung wird auch wenn die Preisgrenze überschritten wird mit minimalen Strom weitergeladen.</translation>
     </message>
 </context>
 <context>
     <name>PriceLimitInfo</name>
     <message>
         <source>Price limit</source>
-        <translation type="unfinished">Preisgrenze</translation>
+        <translation>Preisgrenze</translation>
     </message>
     <message>
         <source>The price limit is defined based on the average price, e.g. average price -10%. This means that charging takes place as soon as the price is cheaper than the average price -10% calculated for the day. The price limit is valid until a new price limit is entered, even after unplugging and plugging in again.</source>
-        <translation type="unfinished">Die Preisgrenze wird ausgehend vom durchschnittlichen Preis definiert z.B. Durchschnittspreis -10%. Das bedeutet, dass geladen wird, sobald der Preis günstiger ist als der für den Tag berechnete Durchschnittspreis -10%. 
+        <translation>Die Preisgrenze wird ausgehend vom durchschnittlichen Preis definiert z.B. Durchschnittspreis -10%. Das bedeutet, dass geladen wird, sobald der Preis günstiger ist als der für den Tag berechnete Durchschnittspreis -10%. 
 Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine neue Preisgrenze eingegeben wird.</translation>
     </message>
 </context>
@@ -4194,15 +4198,15 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <name>ServicePage</name>
     <message>
         <source>Service %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Service %1</translation>
     </message>
     <message>
         <source>%1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1</translation>
     </message>
     <message>
         <source>If there are problems with the %1, please refer to our service adress: </source>
-        <translation type="unfinished">Bei Problemen mit dem %1, wenden sie sich an unserere Serviceadresse: </translation>
+        <translation>Bei Problemen mit dem %1, wenden sie sich an unserere Serviceadresse: </translation>
     </message>
 </context>
 <context>
@@ -4305,7 +4309,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>At the moment, %1 HEMS can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
-        <translation type="unfinished"></translation>
+        <translation>Derzeit kann %1 HEMS nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant.</translation>
     </message>
 </context>
 <context>
@@ -4491,26 +4495,26 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>At the moment, %1 HEMS can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
-        <translation type="unfinished"></translation>
+        <translation>Derzeit kann %1 HEMS nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant.</translation>
     </message>
 </context>
 <context>
     <name>SetupHeatingElementWizard</name>
     <message>
         <source>Setup heating element</source>
-        <translation type="unfinished">Heizstab einrichten</translation>
+        <translation>Heizstab einrichten</translation>
     </message>
     <message>
         <source>Integrated heating elements</source>
-        <translation type="unfinished">Eingerichtete Heizstäbe</translation>
+        <translation>Eingerichtete Heizstäbe</translation>
     </message>
     <message>
         <source>There is no heating element set up yet.</source>
-        <translation type="unfinished">Bis jetzt sind keine Heizstäbe eingerichtet.</translation>
+        <translation>Bis jetzt sind keine Heizstäbe eingerichtet.</translation>
     </message>
     <message>
         <source>Add heating element: </source>
-        <translation type="unfinished">Füge Heizstab hinzu: </translation>
+        <translation>Füge Heizstab hinzu: </translation>
     </message>
     <message>
         <source>cancel</source>
@@ -4586,15 +4590,15 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Set up Heating Element</source>
-        <translation type="unfinished">Heizstab Konfiguration</translation>
+        <translation>Heizstab Konfiguration</translation>
     </message>
     <message>
         <source>The following heating element has been found and set up:</source>
-        <translation type="unfinished">Der folgende Heizstab wurde gefunden und eingerichtet:</translation>
+        <translation>Der folgende Heizstab wurde gefunden und eingerichtet:</translation>
     </message>
     <message>
         <source>An unexpected error happened during the setup. Please verify the heating element is installed correctly and try again.</source>
-        <translation type="unfinished">Während der Einrichtung ist ein unerwarteter Fehler aufgetreten. Bitte überprüfen Sie, ob der Heizstab korrekt installiert ist, und versuchen Sie es erneut.</translation>
+        <translation>Während der Einrichtung ist ein unerwarteter Fehler aufgetreten. Bitte überprüfen Sie, ob der Heizstab korrekt installiert ist, und versuchen Sie es erneut.</translation>
     </message>
 </context>
 <context>
@@ -4767,7 +4771,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Your %1 is now configured. The following devices have been set up:</source>
-        <translation type="unfinished">Ihre %1 ist jetzt konfiguriert. Die folgenden Geräte wurden eingerichtet:</translation>
+        <translation>Ihre %1 ist jetzt konfiguriert. Die folgenden Geräte wurden eingerichtet:</translation>
     </message>
 </context>
 <context>

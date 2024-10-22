@@ -134,10 +134,33 @@ Page {
                         delegate: ItemDelegate{
                             Layout.preferredWidth: app.width
                             contentItem: ConsolinnoItemDelegate{
+                                id: setupHeatingRoad
                                 Layout.fillWidth: true
-                                iconName: "../images/sensors/water.svg"
+                                iconName:{
+                                    if(Configuration.heatingRodIcon !== ""){
+                                        return "/ui/images/"+Configuration.heatingRodIcon;
+                                    }else{
+                                        return "../images/sensors/water.svg";
+                                    }
+                                }
                                 progressive: false
                                 text: heProxy.get(index).name
+
+                                Image {
+                                    id: iconHeatingRoad
+                                    height: 24
+                                    width: 24
+                                    source: setupHeatingRoad.iconName
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.left: parent.left
+                                    anchors.leftMargin: 16
+                                }
+                                ColorOverlay {
+                                    anchors.fill: iconHeatingRoad
+                                    source: iconHeatingRoad
+                                    color: Style.consolinnoMedium
+                                }
+
                             }
                         }
                     }

@@ -580,7 +580,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Consolinno</source>
+        <source>Zewo</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3064,6 +3064,10 @@ Open source modules are included in the APP and in the device software. The corr
     </message>
     <message>
         <source>Maximal electrical power</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
