@@ -57,7 +57,7 @@ ConsolinnoWizardPageBase {
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
                     //readOnly: true
-                    text: qsTr("(1) %1 has developed a software that can be used as an application on Android and IOS systems. The software connects to an energy management system called Leaflet HEMS. This then has the task of maximizing the self-consumption of PV energy in conjunction with a photovoltaic system. The black-out protection function is also integrated. This dynamically limits the charging current of a charging device. The fuse does not trip.").arg(Configuration.companyName)
+                    text: qsTr("(1) %1 has developed a software that can be used as an application on Android and IOS systems. The software connects to an energy management system called %2. This then has the task of maximizing the self-consumption of PV energy in conjunction with a photovoltaic system. The black-out protection function is also integrated. This dynamically limits the charging current of a charging device. The fuse does not trip.").arg(Configuration.companyName).arg(Configuration.deviceName)
                 }
 
                 Text{
@@ -88,7 +88,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("These general license terms apply to all license agreements with the customer regarding the software modules and the HEMS product.")
+                    text: qsTr("These general license terms apply to all license agreements with the customer regarding the software modules and the %1 product.").arg(Configuration.deviceName)
                 }
 
                 Text{
@@ -97,7 +97,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(2) The software is offered by %1 free of charge to HEMS customers via app stores.").arg(Configuration.companyName)
+                    text: qsTr("(2) The software is offered by %1 free of charge to %2 customers via app stores.").arg(Configuration.companyName).arg(Configuration.deviceName)
                 }
 
                 Text{
@@ -181,7 +181,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(1) By purchasing the HEMS device, the customer has downloaded the software free of charge from the APP Stores and can use it.")
+                    text: qsTr("(1) By purchasing the %1 device, the customer has downloaded the software free of charge from the APP Stores and can use it.").arg(Configuration.deviceName)
                 }
 
                 Text{
@@ -218,7 +218,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(2) In addition to the software, %1 will offer the customer installation instructions for the HEMS device as well as documentation for download.").arg(Configuration.companyName)
+                    text: qsTr("(2) In addition to the software, %1 will offer the customer installation instructions for the %2 device as well as documentation for download.").arg(Configuration.companyName).arg(Configuration.deviceName)
                 }
 
                 Text{
@@ -246,7 +246,7 @@ ConsolinnoWizardPageBase {
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("(1) %1 is obliged to maintain the contractually agreed quality of the software during the term of the contract ('maintenance'). The contractually agreed quality of the software is determined by the promised function of the HEMS product. Updates are carried out via an Internet connection.").arg(Configuration.companyName)
+                    text: qsTr("(1) %1 is obliged to maintain the contractually agreed quality of the software during the term of the contract ('maintenance'). The contractually agreed quality of the software is determined by the promised function of the %2 product. Updates are carried out via an Internet connection.").arg(Configuration.companyName).arg(Configuration.deviceName)
                 }
 
                 Text{
@@ -1039,7 +1039,7 @@ Mail %2").arg(Configuration.companyTel).arg(Configuration.serviceEmail)
                     Layout.margins: Style.margins
                     wrapMode: Text.WordWrap
                     text: hostsProxy.count === 0
-                          ? qsTr('Searching for your Leaflet...')
+                          ? qsTr('Searching for your %1...').arg(Configuration.deviceName)
                           : qsTr("Please select the device from the list that you want to set up. If no device is displayed in the list, please check the network connection! (Alternatively, a manual connection can also be established).")
                 }
 
@@ -1072,7 +1072,7 @@ Mail %2").arg(Configuration.companyTel).arg(Configuration.serviceEmail)
                         Label {
                             Layout.fillWidth: true
                             Layout.margins: Style.margins
-                            text: qsTr('Please wait while your Leaflet is being discovered.')
+                            text: qsTr('Please wait while your %1 is being discovered.').arg(Configuration.deviceName)
                             wrapMode: Text.WordWrap
                             horizontalAlignment: Text.AlignHCenter
                         }

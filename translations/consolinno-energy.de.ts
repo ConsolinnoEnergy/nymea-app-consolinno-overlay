@@ -580,7 +580,7 @@
         <translation>Hilfe</translation>
     </message>
     <message>
-        <source>Zewo</source>
+        <source>Consolinno</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -640,14 +640,6 @@
     <message>
         <source>Manual connection</source>
         <translation>Manuelle Verbindung</translation>
-    </message>
-    <message>
-        <source>Searching for your Leaflet...</source>
-        <translation>Suche nach Deinem Leaflet...</translation>
-    </message>
-    <message>
-        <source>Please wait while your Leaflet is being discovered.</source>
-        <translation>Bitte warten währen nach dem Leaflet gesucht wird.</translation>
     </message>
     <message>
         <source>Protocol</source>
@@ -1383,24 +1375,12 @@ Mail %2</translation>
         <translation type="unfinished">1. Allgemeines</translation>
     </message>
     <message>
-        <source>(1) %1 has developed a software that can be used as an application on Android and IOS systems. The software connects to an energy management system called Leaflet HEMS. This then has the task of maximizing the self-consumption of PV energy in conjunction with a photovoltaic system. The black-out protection function is also integrated. This dynamically limits the charging current of a charging device. The fuse does not trip.</source>
-        <translation type="unfinished">(1) %1 hat eine Software entwickelt, welche als Applikation auf Android und IOS-Systemen benutzt werden kann. Die Software verbindet sich mit einem Energy Management Systems genannt Leaflet HEMS. Das hat dann die Aufgabe in Verbindung mit einer Photovoltaikanlage den Eigenverbrauch der PV-Energie zu maximieren. Parallel ist die Funktion Black-out Schutz integriert. Damit wird der Ladestrom einer Ladeeinrichtung dynamisch begrenzt. Es kommt nicht zum Auslösen der Sicherung.</translation>
-    </message>
-    <message>
         <source>The software makes it possible to significantly increase the self-consumption of the generated PV energy by controlling an e-charging device, a heat pump, household appliances (washing machine, dryer, dishwasher) and by integrating a battery.</source>
         <translation type="unfinished">Die Software ermöglicht es, durch die Steuerung einer E-Ladeeinrichtung, einer Wärmepumpe, Hausgeräte (Waschmaschine, Trockner, Spülmaschine) und dem Einbinden einer Batterie den Eigenbedarf der erzeugten PV-Energie signifikant zu steigern.</translation>
     </message>
     <message>
         <source>This saves CO2 and costs.</source>
         <translation type="unfinished">Dadurch wird CO2 und Kosten eingespart.</translation>
-    </message>
-    <message>
-        <source>These general license terms apply to all license agreements with the customer regarding the software modules and the HEMS product.</source>
-        <translation type="unfinished">Diese allgemeinen Lizenzbestimmungen gelten für sämtliche Lizenzverträge mit dem Kunden über die Module der Software und dem HEMS Produkt.</translation>
-    </message>
-    <message>
-        <source>(2) The software is offered by %1 free of charge to HEMS customers via app stores.</source>
-        <translation type="unfinished">(2) Die Software wird von der %1 kostenfrei Kunden vom HEMS über Appstores angeboten.</translation>
     </message>
     <message>
         <source>(3) Customers are responsible for the proper installation of hardware and software.</source>
@@ -1431,10 +1411,6 @@ Mail %2</translation>
         <translation type="unfinished">3. Lizenzgebühr</translation>
     </message>
     <message>
-        <source>(1) By purchasing the HEMS device, the customer has downloaded the software free of charge from the APP Stores and can use it.</source>
-        <translation type="unfinished">(1) Der Kunde hat mit dem Erwerb des HEMS-Gerätes die Software kostenfrei von den APP Stores geladen und kann diese benutzen.</translation>
-    </message>
-    <message>
         <source>(2) As part of further development, software modules can also be purchased for an unlimited period of use.</source>
         <translation type="unfinished">(2) Im Rahmen der Weiterentwicklung können Softwaremodule auch für eine unbefristete Nutzungsdauer käuflich erworben werden.</translation>
     </message>
@@ -1447,20 +1423,12 @@ Mail %2</translation>
         <translation type="unfinished">(1) %1 liefert die Software an den Kunden über den Appstore von Apple oder Google aus.</translation>
     </message>
     <message>
-        <source>(2) In addition to the software, %1 will offer the customer installation instructions for the HEMS device as well as documentation for download.</source>
-        <translation type="unfinished">(2) Neben der Software wird %1 dem Kunden eine Installationsanleitung des Gerätes HEMS sowie eine Dokumentation zum Download anbieten.</translation>
-    </message>
-    <message>
         <source>(3) %1 is not responsible for installing the software on the customer&apos;s systems; the customer is solely responsible for this.</source>
         <translation type="unfinished">(3) %1 schuldet keine Installation der Software auf den Systemen des Kunden; für diese ist der Kunde allein ver-antwortlich.</translation>
     </message>
     <message>
         <source>5. Maintenance</source>
         <translation type="unfinished">5. Instandhaltung</translation>
-    </message>
-    <message>
-        <source>(1) %1 is obliged to maintain the contractually agreed quality of the software during the term of the contract (&apos;maintenance&apos;). The contractually agreed quality of the software is determined by the promised function of the HEMS product. Updates are carried out via an Internet connection.</source>
-        <translation type="unfinished">(1) %1 ist zur Aufrechterhaltung der vertraglich vereinbarten Beschaffenheit der Software während der Vertragslaufzeit (&apos;Instandhaltung&apos;) verpflichtet. Die vertraglich geschuldete Beschaffenheit der Software bestimmt sich nach der zugesagten Funktion des HEMS Produktes. Up Dates erfolgen über eine Internetverbindung.</translation>
     </message>
     <message>
         <source>(2) %1 is only obliged to change, adapt or further develop the software if this has been separately agreed with the customer. Without such a separate agreement, %1 is not obliged to further develop the software.</source>
@@ -1587,6 +1555,38 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     <message>
         <source>Please select the device from the list that you want to set up. If no device is displayed in the list, please check the network connection! (Alternatively, a manual connection can also be established).</source>
         <translation type="unfinished">Bitte das Gerät aus der Liste wählen, das eingerichtet werden soll. Wird kein Gerät in der Liste angezeigt bitte die Netzwerkverbindung prüfen! (Alternativ, kann auch eine manuelle Verbindung hergestellt werden).</translation>
+    </message>
+    <message>
+        <source>(1) %1 has developed a software that can be used as an application on Android and IOS systems. The software connects to an energy management system called %2. This then has the task of maximizing the self-consumption of PV energy in conjunction with a photovoltaic system. The black-out protection function is also integrated. This dynamically limits the charging current of a charging device. The fuse does not trip.</source>
+        <translation type="unfinished">(1) %1 hat eine Software entwickelt, welche als Applikation auf Android und IOS-Systemen benutzt werden kann. Die Software verbindet sich mit einem Energy Management Systems genannt %2. Das hat dann die Aufgabe in Verbindung mit einer Photovoltaikanlage den Eigenverbrauch der PV-Energie zu maximieren. Parallel ist die Funktion Black-out Schutz integriert. Damit wird der Ladestrom einer Ladeeinrichtung dynamisch begrenzt. Es kommt nicht zum Auslösen der Sicherung.</translation>
+    </message>
+    <message>
+        <source>These general license terms apply to all license agreements with the customer regarding the software modules and the %1 product.</source>
+        <translation type="unfinished">Diese allgemeinen Lizenzbestimmungen gelten für sämtliche Lizenzverträge mit dem Kunden über die Module der Software und dem %1 Produkt.</translation>
+    </message>
+    <message>
+        <source>(1) By purchasing the %1 device, the customer has downloaded the software free of charge from the APP Stores and can use it.</source>
+        <translation type="unfinished">(1) Der Kunde hat mit dem Erwerb des %1-Gerätes die Software kostenfrei von den APP Stores geladen und kann diese benutzen.</translation>
+    </message>
+    <message>
+        <source>(2) In addition to the software, %1 will offer the customer installation instructions for the %2 device as well as documentation for download.</source>
+        <translation type="unfinished">(2) Neben der Software wird %1 dem Kunden eine Installationsanleitung des Gerätes %2 sowie eine Dokumentation zum Download anbieten.</translation>
+    </message>
+    <message>
+        <source>(1) %1 is obliged to maintain the contractually agreed quality of the software during the term of the contract (&apos;maintenance&apos;). The contractually agreed quality of the software is determined by the promised function of the %2 product. Updates are carried out via an Internet connection.</source>
+        <translation type="unfinished">%1 ist zur Aufrechterhaltung der vertraglich vereinbarten Beschaffenheit der Software während der Vertragslaufzeit (&apos;Instandhaltung&apos;) verpflichtet. Die vertraglich geschuldete Beschaffenheit der Software bestimmt sich nach der zugesagten Funktion des %2 Produktes. Up Dates erfolgen über eine Internetverbindung.</translation>
+    </message>
+    <message>
+        <source>Searching for your %1...</source>
+        <translation type="unfinished">Suche nach Deinem %1...</translation>
+    </message>
+    <message>
+        <source>Please wait while your %1 is being discovered.</source>
+        <translation type="unfinished">Bitte warten währen nach dem %1 gesucht wird.</translation>
+    </message>
+    <message>
+        <source>(2) The software is offered by %1 free of charge to %2 customers via app stores.</source>
+        <translation type="unfinished">(2) Die Software wird von der %1 kostenfrei Kunden vom %2 über Appstores angeboten.</translation>
     </message>
 </context>
 <context>
@@ -1971,16 +1971,16 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
         <translation>Nur im lokalen Netzwerk verfügbar</translation>
     </message>
     <message>
-        <source>Only available on the local network. Please connect the device running this app to the same network as your Leaflet HEMS system, e.g. your home network.</source>
-        <translation>Nur im lokalen Netzwerk verfügbar. Bitte verbinden Sie das Gerät auf dem diese App läuft mit dem selben Netzwerk in dem sich das Leaflet HEMS System befindet, z.B. Ihr Heimnetzwerk.</translation>
-    </message>
-    <message>
         <source>Visit the nymea website</source>
         <translation>Besuchen Sie die nymea Webseite</translation>
     </message>
     <message>
         <source>Software and Libraries</source>
         <translation>Software und Bibliotheken</translation>
+    </message>
+    <message>
+        <source>Only available on the local network. Please connect the device running this app to the same network as your %1 system, e.g. your home network.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
