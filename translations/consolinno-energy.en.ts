@@ -2544,7 +2544,8 @@ Open source modules are included in the APP and in the device software. The corr
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>            &lt;p&gt;Version 1.6.0 (August 20, 2024)&lt;/p&gt;
+        <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
+            &lt;p&gt;Version 1.6.0 (August 20, 2024)&lt;/p&gt;
             &lt;h4&gt;New&lt;/h4&gt;
             &lt;ul&gt;
                 &lt;li&gt;‘Dynamic tariff’ charging mode&lt;/li&gt;
@@ -2563,10 +2564,6 @@ Open source modules are included in the APP and in the device software. The corr
                 &lt;p&gt;Best regards&lt;/p&gt;
                 &lt;p&gt;Your %5 Team&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;h3&gt; %1 App was updated &lt;/h3&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;h3&gt; %1 App was updated &lt;/h3&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>

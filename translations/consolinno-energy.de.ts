@@ -3011,7 +3011,8 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>            &lt;p&gt;Version 1.6.0 (20. August 2024)&lt;/p&gt;
+        <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert&lt;/h3&gt;
+            &lt;p&gt;Version 1.6.0 (20. August 2024)&lt;/p&gt;
             &lt;h4&gt;Neu&lt;/h4&gt;
             &lt;ul&gt;
                 &lt;li&gt;Lademodus “dynamischer Tarif”&lt;/li&gt;
@@ -3039,10 +3040,6 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                 &lt;p&gt;Wir entschuldigen uns für die vorübergehenden Einschränkungen in der Nutzung.&lt;/p&gt;
                 &lt;p&gt;Beste Grüße&lt;/p&gt;
                 &lt;p&gt;Ihr %5 Team&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;h3&gt; %1 App was updated &lt;/h3&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;h3&gt; %1 App wurde aktualisiert &lt;/h3&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
