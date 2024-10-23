@@ -2234,11 +2234,11 @@ Open source modules are included in the APP and in the device software. The corr
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If the status LED flashes red briefly, you must repeat the authentication. (Go back to the screen &quot;Discovered Devices&quot;, press the test button briefly and select the leaflet again).</source>
+        <source>To complete the authentication, please press the &lt;b&gt;test button again for 5 seconds&lt;/b&gt; until the status LED lights up green.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>To complete the authentication, please press the &lt;b&gt;test button again for 5 seconds&lt;/b&gt; until the status LED lights up green.</source>
+        <source>If the status LED flashes red briefly, you must repeat the authentication. (Go back to the screen &quot;Discovered Devices&quot;, press the test button briefly and select the %1 again).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2531,10 +2531,6 @@ Open source modules are included in the APP and in the device software. The corr
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Your leaflet is not set up yet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Please complete the setup wizard or manually configure your devices.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2563,6 +2559,10 @@ Open source modules are included in the APP and in the device software. The corr
                 &lt;p&gt;We apologize for the temporary limitations in use.&lt;/p&gt;
                 &lt;p&gt;Best regards&lt;/p&gt;
                 &lt;p&gt;Your %5 Team&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your %1 is not set up yet.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3059,16 +3059,16 @@ Open source modules are included in the APP and in the device software. The corr
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The heating element is not controlled by the HEMS.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Maximal electrical power</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heating element is not controlled by the %1.</source>
+        <translation type="unfinished">The heating element is not controlled by the %1.</translation>
     </message>
 </context>
 <context>
@@ -3829,7 +3829,7 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>At the moment, %1 HEMS can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
+        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4015,7 +4015,7 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>At the moment, %1 HEMS can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
+        <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

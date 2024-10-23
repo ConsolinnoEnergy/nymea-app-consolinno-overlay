@@ -75,7 +75,7 @@ Page {
         Label {
             Layout.fillWidth: true
             horizontalAlignment: Text.AlignHCenter
-            text: qsTr('If the status LED flashes red briefly, you must repeat the authentication. (Go back to the screen "Discovered Devices", press the test button briefly and select the leaflet again).')
+            text: qsTr('If the status LED flashes red briefly, you must repeat the authentication. (Go back to the screen "Discovered Devices", press the test button briefly and select the %1 again).').arg(Configuration.deviceName)
             wrapMode: Text.WordWrap
         }
 

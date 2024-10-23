@@ -105,7 +105,7 @@ Page {
                 font: Style.smallFont
                 color: Style.consolinnoMedium
                 wrapMode: Text.Wrap
-                text: operatingModeSwitch.checked ? qsTr("The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.") : qsTr("The heating element is not controlled by the HEMS.")
+                text: operatingModeSwitch.checked ? qsTr("The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.") : qsTr("The heating element is not controlled by the %1.").arg(Configuration.deviceName)
             }
         }
 

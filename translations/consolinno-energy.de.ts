@@ -716,7 +716,7 @@
     <message>
         <source>Privacy Policy and License Agreement
 (09/2022)</source>
-        <translation>Datenschutzerklärung HEMS (09/2022)</translation>
+        <translation type="unfinished">Datenschutzerklärung (09/2022)</translation>
     </message>
     <message>
         <source>SSL:</source>
@@ -2701,12 +2701,12 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
         <translation>Um die Authentifizierung abzuschließen, drücken Sie bitte den Test-Taster erneut für 5 Sekunden, bis die Status-LED grün leuchtet.</translation>
     </message>
     <message>
-        <source>If the status LED flashes red briefly, you must repeat the authentication. (Go back to the screen &quot;Discovered Devices&quot;, press the test button briefly and select the leaflet again).</source>
-        <translation>Wenn die Status-LED kurz rot blinkt, müssen Sie die Authentifizierung wiederholen. (Gehen Sie zurück zum Screen &quot;Gefundene Geräte&quot;, betätigen Sie kurz die Test-Taste und wählen Sie erneut das Leaflet aus).</translation>
-    </message>
-    <message>
         <source>To complete the authentication, please press the &lt;b&gt;test button again for 5 seconds&lt;/b&gt; until the status LED lights up green.</source>
         <translation>Um die Authentifizierung abzuschließen, drücken Sie bitte &lt;b&gt;den Test-Taster erneut für 5 Sekunden&lt;/b&gt;, bis die Status-LED grün leuchtet.</translation>
+    </message>
+    <message>
+        <source>If the status LED flashes red briefly, you must repeat the authentication. (Go back to the screen &quot;Discovered Devices&quot;, press the test button briefly and select the %1 again).</source>
+        <translation type="unfinished">Wenn die Status-LED kurz rot blinkt, müssen Sie die Authentifizierung wiederholen. (Gehen Sie zurück zum Screen &quot;Gefundene Geräte&quot;, betätigen Sie kurz die Test-Taste und wählen Sie erneut das %1 aus).</translation>
     </message>
 </context>
 <context>
@@ -2998,10 +2998,6 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
         <translation>Gesamter Energieverbrauch</translation>
     </message>
     <message>
-        <source>Your leaflet is not set up yet.</source>
-        <translation>Das Leaflet ist noch nicht eingerichtet.</translation>
-    </message>
-    <message>
         <source>Please complete the setup wizard or manually configure your devices.</source>
         <translation>Bitte vervollständige den Einrichtungsassistenten oder füge Deine Geräte manuell hinzu.</translation>
     </message>
@@ -3040,6 +3036,10 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                 &lt;p&gt;Wir entschuldigen uns für die vorübergehenden Einschränkungen in der Nutzung.&lt;/p&gt;
                 &lt;p&gt;Beste Grüße&lt;/p&gt;
                 &lt;p&gt;Ihr %5 Team&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Your %1 is not set up yet.</source>
+        <translation type="unfinished">Das %1 ist noch nicht eingerichtet.</translation>
     </message>
 </context>
 <context>
@@ -3536,16 +3536,16 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
         <translation>Der Heizstab wird nur mit Solarstrom betrieben. Falls eine Wallbox im System vorhanden ist, und ein Ladevorgang gestartet wird, wird das Laden priorisiert.</translation>
     </message>
     <message>
-        <source>The heating element is not controlled by the HEMS.</source>
-        <translation>Der Heizstab wird durch das HEMS nicht gesteuert.</translation>
-    </message>
-    <message>
         <source>Maximal electrical power</source>
         <translation>Maximale elektrische Leistung</translation>
     </message>
     <message>
         <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
         <translation>Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
+    </message>
+    <message>
+        <source>The heating element is not controlled by the %1.</source>
+        <translation type="unfinished">Der Heizstab wird durch das %1 nicht gesteuert.</translation>
     </message>
 </context>
 <context>
@@ -4311,8 +4311,8 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
     <message>
-        <source>At the moment, %1 HEMS can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
-        <translation>Derzeit kann %1 HEMS nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant.</translation>
+        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
+        <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant.</translation>
     </message>
 </context>
 <context>
@@ -4497,8 +4497,8 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
     <message>
-        <source>At the moment, %1 HEMS can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
-        <translation>Derzeit kann %1 HEMS nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant.</translation>
+        <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
+        <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant.</translation>
     </message>
 </context>
 <context>
