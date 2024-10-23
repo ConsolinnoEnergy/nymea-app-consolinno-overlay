@@ -16,6 +16,7 @@ GenericConfigPage {
     property Thing thing: null
 
     title: root.thing.name
+    headerOptionsVisible: false
 
     content: [
         ColumnLayout {
