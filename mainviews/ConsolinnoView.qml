@@ -1672,7 +1672,7 @@ MainViewBase {
                  && energyMetersProxy.count === 0
         property bool rootMeter: !engine.thingManager.fetchingData
                                  && root.rootMeter == null
-        title: qsTr("Your leaflet is not set up yet.")
+        title: qsTr("Your %1 is not set up yet.").arg(Configuration.deviceName)
         text: qsTr("Please complete the setup wizard or manually configure your devices.")
         imageSource: "/ui/images/leaf.svg"
         buttonText: qsTr("Start setup")

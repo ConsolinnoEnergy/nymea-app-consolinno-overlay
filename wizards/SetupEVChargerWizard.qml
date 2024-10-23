@@ -245,7 +245,7 @@ Page {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
                     wrapMode: Text.WordWrap
-                    text: qsTr("At the moment, %1 HEMS can only control one EV charger. Support for multiple EV chargers is planned for future releases.").arg(Configuration.appBranding)
+                    text: qsTr("At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.").arg(Configuration.deviceName)
                 }
             }
 
