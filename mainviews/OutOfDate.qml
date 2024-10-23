@@ -48,7 +48,7 @@ MainViewBase {
            anchors.centerIn: parent
            width: parent.width *0.8
            wrapMode: "WordWrap"
-           text: qsTr("This version of the App (%3) is not compatibile with the software running on your Consolinno HEMS system (%2) .\nPlease upgrade your Consolinno HEMS system software to at least version %1.\n\nPlease refer to our service if you have any questions: service@consolinno.de").arg(Configuration.minSysVersion).arg(engine.jsonRpcClient.experiences.Hems).arg(appVersion)
+           text: qsTr("This version of the App (%3) is not compatibile with the software running on your %4 system (%2) .\nPlease upgrade your %4 system software to at least version %1.\n\nPlease refer to our service if you have any questions: %5").arg(Configuration.minSysVersion).arg(engine.jsonRpcClient.experiences.Hems).arg(appVersion).arg(Configuration.appName).arg(Configuration.serviceEmail)
            font.pixelSize: 18
             }
 
