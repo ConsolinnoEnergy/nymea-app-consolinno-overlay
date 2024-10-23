@@ -2544,8 +2544,7 @@ Open source modules are included in the APP and in the device software. The corr
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation type="unfinished">&lt;h3&gt;Consolinno Energy HEMS App was updated&lt;/h3&gt;
-            &lt;p&gt;Version 1.6.0 (August 20, 2024)&lt;/p&gt;
+        <translation>            &lt;p&gt;Version 1.6.0 (August 20, 2024)&lt;/p&gt;
             &lt;h4&gt;New&lt;/h4&gt;
             &lt;ul&gt;
                 &lt;li&gt;‘Dynamic tariff’ charging mode&lt;/li&gt;
@@ -2564,6 +2563,10 @@ Open source modules are included in the APP and in the device software. The corr
                 &lt;p&gt;Best regards&lt;/p&gt;
                 &lt;p&gt;Your %5 Team&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;h3&gt; %1 App was updated &lt;/h3&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;html&gt;&lt;h3&gt; %1 App was updated &lt;/h3&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3386,11 +3389,14 @@ Open source modules are included in the APP and in the device software. The corr
 <context>
     <name>OutOfDate</name>
     <message>
-        <source>This version of the App (%3) is not compatibile with the software running on your Consolinno HEMS system (%2) .
-Please upgrade your Consolinno HEMS system software to at least version %1.
+        <source>This version of the App (%3) is not compatibile with the software running on your %4 system (%2) .
+Please upgrade your %4 system software to at least version %1.
 
-Please refer to our service if you have any questions: service@consolinno.de</source>
-        <translation type="unfinished"></translation>
+Please refer to our service if you have any questions: %5</source>
+        <translation type="unfinished">The current application version (%3) is incompatible with the software installed on your %4 system (%2).
+To ensure proper functionality, please update your %4 system software to version %1 or higher.
+
+For further assistance, please contact our support team at: %5</translation>
     </message>
 </context>
 <context>

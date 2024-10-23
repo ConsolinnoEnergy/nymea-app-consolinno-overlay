@@ -3011,8 +3011,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation type="unfinished">&lt;h3&gt;Consolinno Energy HEMS App wurde aktualisiert&lt;/h3&gt;
-            &lt;p&gt;Version 1.6.0 (20. August 2024)&lt;/p&gt;
+        <translation>            &lt;p&gt;Version 1.6.0 (20. August 2024)&lt;/p&gt;
             &lt;h4&gt;Neu&lt;/h4&gt;
             &lt;ul&gt;
                 &lt;li&gt;Lademodus “dynamischer Tarif”&lt;/li&gt;
@@ -3040,6 +3039,10 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
                 &lt;p&gt;Wir entschuldigen uns für die vorübergehenden Einschränkungen in der Nutzung.&lt;/p&gt;
                 &lt;p&gt;Beste Grüße&lt;/p&gt;
                 &lt;p&gt;Ihr %5 Team&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;h3&gt; %1 App was updated &lt;/h3&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;html&gt;&lt;h3&gt; %1 App wurde aktualisiert &lt;/h3&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3867,11 +3870,14 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
 <context>
     <name>OutOfDate</name>
     <message>
-        <source>This version of the App (%3) is not compatibile with the software running on your Consolinno HEMS system (%2) .
-Please upgrade your Consolinno HEMS system software to at least version %1.
+        <source>This version of the App (%3) is not compatibile with the software running on your %4 system (%2) .
+Please upgrade your %4 system software to at least version %1.
 
-Please refer to our service if you have any questions: service@consolinno.de</source>
-        <translation type="unfinished"></translation>
+Please refer to our service if you have any questions: %5</source>
+        <translation type="unfinished">Die aktuelle Version der Anwendung (%3) ist nicht mit der auf Ihrem %4 System (%2) installierten Software kompatibel.
+Bitte aktualisieren Sie die Software Ihres %4 Systems auf mindestens Version %1, um eine ordnungsgemäße Funktion zu gewährleisten.
+
+Für weitere Unterstützung wenden Sie sich bitte an unseren Service: %5</translation>
     </message>
 </context>
 <context>

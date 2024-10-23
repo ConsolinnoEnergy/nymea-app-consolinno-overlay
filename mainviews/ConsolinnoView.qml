@@ -538,8 +538,8 @@ MainViewBase {
         console.debug("Visibility of " + engine.jsonRpcClient.currentHost.name + " changed to " + visible)
         if (visible) {
             // Show message if app was updated
-            var notficationPopup = startUpNotificationComponent.createObject(root)
-            notficationPopup.message=qsTr('CHANGENOTIFICATION_PLACEHOLDER')
+            var notficationPopup = startUpNotificationComponent.createObject(root) 
+            notficationPopup.message= qsTr("<html><h3> %1 App was updated </h3></html>").arg(Configuration.appName) + qsTr('CHANGENOTIFICATION_PLACEHOLDER');
             // If Popup not already open, open it
             if (notficationPopup.opened === false
                     && shownPopupsSetting.shown.indexOf(appVersion) === -1) {
