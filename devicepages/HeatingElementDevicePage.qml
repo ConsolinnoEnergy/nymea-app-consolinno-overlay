@@ -112,7 +112,7 @@ GenericConfigPage {
                 Layout.fillWidth: true
                 Layout.topMargin: 25
                 label: qsTr("Current Temperature")
-                value: (+root.currentTemperature).toLocaleString() && (+root.currentTemperature.value).toLocaleString()
+                value: (+root.currentTemperature).toLocaleString() && (+root.currentTemperature.value).toLocaleString() + qsTr(" °C")
                 visible: root.currentTemperature
             }
 
