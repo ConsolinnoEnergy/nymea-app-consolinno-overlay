@@ -2987,80 +2987,8 @@ Open source modules are included in the APP and in the device software. The corr
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>STBY</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CH</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DHW</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CIRCULATE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DEFROST</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OFF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>FROST</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>STBY-FROST</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SUMMER</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>HOLIDAY</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ERROR</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>WARNING</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>INFO-MESSAGE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>IME-BLOCK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ELEASE-BLOCK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MINTEMP-BLOCK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>FIRMWARE-DOWNLOAD</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Heating circuit: </source>
-        <translation type="unfinished"></translation>
+        <source>Maximal electrical power</source>
+        <translation type="unfinished">Maximal electrical power</translation>
     </message>
 </context>
 <context>
@@ -3099,6 +3027,10 @@ Open source modules are included in the APP and in the device software. The corr
         <source> kWh</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source> °C</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HeatingElementOptimization</name>
@@ -3132,7 +3064,7 @@ Open source modules are included in the APP and in the device software. The corr
     </message>
     <message>
         <source>Maximal electrical power</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maximal electrical power</translation>
     </message>
     <message>
         <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
@@ -3159,7 +3091,7 @@ Open source modules are included in the APP and in the device software. The corr
     </message>
     <message>
         <source>Maximal electrical power</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maximal electrical power</translation>
     </message>
     <message>
         <source>kW</source>

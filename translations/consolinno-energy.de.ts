@@ -3558,23 +3558,27 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     <name>HeatingElementDevicePage</name>
     <message>
         <source>Current Temperature</source>
-        <translation type="unfinished">Aktuelle Temperatur</translation>
+        <translation>Aktuelle Temperatur</translation>
     </message>
     <message>
         <source>Current Consumption</source>
-        <translation type="unfinished">Momentaner Verbrauch</translation>
+        <translation>Momentaner Verbrauch</translation>
     </message>
     <message>
         <source> W</source>
-        <translation type="unfinished"> W</translation>
+        <translation> W</translation>
     </message>
     <message>
         <source>Total Consumption</source>
-        <translation type="unfinished">Insgesamter Verbrauch</translation>
+        <translation>Insgesamter Verbrauch</translation>
     </message>
     <message>
         <source> kWh</source>
-        <translation type="unfinished"> kWh</translation>
+        <translation> kWh</translation>
+    </message>
+    <message>
+        <source> °C</source>
+        <translation> °C</translation>
     </message>
 </context>
 <context>
@@ -3617,7 +3621,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>The heating element is not controlled by the %1.</source>
-        <translation type="unfinished">Der Heizstab wird durch das %1 nicht gesteuert.</translation>
+        <translation>Der Heizstab wird durch das %1 nicht gesteuert.</translation>
     </message>
 </context>
 <context>
