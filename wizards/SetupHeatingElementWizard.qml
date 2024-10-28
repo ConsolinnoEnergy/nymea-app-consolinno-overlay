@@ -279,7 +279,7 @@ Page {
                     width: parent.width
                     height: parent.height
                     border.color: Material.background
-                    color: Style.consolinnoMedium
+                    color: Configuration.secondButtonColor
                     radius: 4
                 }
                 onClicked: root.done(true, false, false)
