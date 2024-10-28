@@ -310,7 +310,7 @@ Page {
                     height: parent.height
                     width: parent.width
                     border.color: Material.background
-                    color: Style.consolinnoMedium
+                    color: Configuration.secondButtonColor
                     radius: 4
                 }
 
