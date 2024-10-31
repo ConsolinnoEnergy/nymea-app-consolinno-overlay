@@ -29,24 +29,6 @@ GenericConfigPage {
             anchors.topMargin: app.margins
             anchors.rightMargin: app.margins
 
-            RowLayout{
-                Layout.fillWidth: true
-                visible: false //thing && thing.stateByName("currentPower")
-
-                Label{
-                    Layout.fillWidth: true
-                    id: consumption
-                    text: qsTr("Current consumption:")
-                    Layout.leftMargin:  15
-                }
-
-                Label{
-                    id: consumptionValue
-                    Layout.rightMargin: 15
-                    text: (+thing.stateByName("currentPower").value).toLocaleString() + " W"
-                }
-            }
-
             Row{
                 Layout.fillWidth: true
                 Layout.leftMargin: 15
@@ -62,14 +44,6 @@ GenericConfigPage {
 
                 }
 
-                InfoButton{
-                    stack: pageStack
-                    push: "EnergyManagerInfo.qml"
-                    anchors.left: energyManager.right
-                    anchors.top: energyManager.top
-                    anchors.leftMargin:  5
-                    anchors.topMargin: 5
-                }
             }
 
             Repeater {
@@ -79,11 +53,12 @@ GenericConfigPage {
                 Layout.topMargin: 5
 
                 model: [
-                    {Id: "performanceTarget", name: qsTr("Performance target: "), value: thing.stateByName("performanceTarget") ? thing.stateByName("performanceTarget").value : 123 , unit: "", component: stringValues},
+                    {Id: "performanceTarget", name: qsTr("Performance target: "), value: thing.stateByName("actualPvSurplus") ? thing.stateByName("actualPvSurplus").value : null , unit: "", component: stringValues, paramsBool: true, paramsBoolPv: true},
+                    {Id: "operatingMode", name: qsTr("Operating mode: "), value: translateNymeaHeatpumpValues(thing.stateByName("sgReadyMode") ? thing.stateByName("sgReadyMode").value : null), component: stringValues, unit: "", paramsBool:true},
                 ]
 
                 delegate: ItemDelegate {
-                    visible: true //modelData.value !==  null ? true : false
+                    visible: modelData.value !==  null ? true : false
                     id: optimizerMainParams
                     Layout.fillWidth: true
                     contentItem: ColumnLayout
@@ -120,6 +95,11 @@ GenericConfigPage {
                                     property: "delegateParams"
                                     value: modelData.params
                                 }
+                                Binding{
+                                    target: optimizationParams.item
+                                    property: "delegateParamsBool"
+                                    value: modelData.paramsBool
+                                }
                                 Layout.fillWidth: true
                                 sourceComponent:
                                 {
@@ -129,12 +109,39 @@ GenericConfigPage {
                                         {
                                             return modelData.component
                                         }
+                                        case "operatingMode":
+                                        {
+                                            return modelData.component
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
+
+                function translateNymeaHeatpumpValues(something){
+                    switch(something)
+                    {
+                    case"Off":
+                    {
+                        return qsTr("Off")
+                    }
+                    case "Low":
+                    {
+                        return qsTr("Standard")
+                    }
+                    case "Standard":
+                    {
+                        return qsTr("Increased")
+                    }
+                    case "High":
+                    {
+                        return qsTr("High")
+                    }
+                    }
+                }
+
             }
 
 
@@ -163,13 +170,13 @@ GenericConfigPage {
 
                 // tbd: Configurationdata tab finishing
                 model: [
-                    {Id: "operatingMode", name: qsTr("Operating mode: "), value: heatingPumpValues(thing.stateByName("operatingMode") ? thing.stateByName("operatingMode").value : "STBY"), unit: "", component: stringValues},
-                    {Id: "currentConsumption", name: qsTr("Current consumption"), value: thing.stateByName("currentConsumption") ? thing.stateByName("currentConsumption").value : 12.56 , unit: "W", component: stringValues},
-                    {Id: "totalAmountOfEnergy", name: qsTr("Total amount of energy"), value: thing.stateByName("totalAmountOfEnergy") ? thing.stateByName("totalAmountOfEnergy").value : 12.89 , unit: "kWh", component: stringValues},
-                    {Id: "totalThermalEnergyGenerated", name: qsTr("Total thermal energy generated"), value: thing.stateByName("totalThermalEnergyGenerated") ? thing.stateByName("totalThermalEnergyGenerated").value : 13.56 , unit: "kWh", component: stringValues},
-                    {Id: "outdoorTemperature", name: qsTr("Outdoor temperature"), value: thing.stateByName("outdoorTemperature") ? thing.stateByName("outdoorTemperature").value : 15.56 , unit: "°C", component: stringValues},
-                    {Id: "coefficientOfPerformance", name: qsTr("COP"), value: thing.stateByName("coefficientOfPerformance") ? thing.stateByName("coefficientOfPerformance").value : 12.56 , unit: "W", component: stringValues},
-                    {Id: "hotWaterTemperature", name: qsTr("Hot water temperature"), value: thing.stateByName("hotWaterTemperature") ? thing.stateByName("hotWaterTemperature").value : 40.56 , unit: "°C", component: stringValues},
+                    {Id: "operatingMode", name: qsTr("Operating mode: "), value: heatingPumpValues(thing.stateByName("operatingMode") ? thing.stateByName("operatingMode").value : "STBY"), unit: "", component: stringValues, paramsBool:false},
+                    {Id: "currentConsumption", name: qsTr("Current consumption"), value: thing.stateByName("currentPower") ? thing.stateByName("currentPower").value : null , unit: "W", component: stringValues, paramsBool:false},
+                    {Id: "totalAmountOfEnergy", name: qsTr("Total amount of energy"), value: thing.stateByName("totalEnergyConsumed") ? thing.stateByName("totalEnergyConsumed").value : null , unit: "kWh", component: stringValues, paramsBool:false},
+                    {Id: "totalThermalEnergyGenerated", name: qsTr("Total thermal energy generated"), value: thing.stateByName("compressorTotalHeatOutput") ? thing.stateByName("compressorTotalHeatOutput").value : null , unit: "kWh", component: stringValues, paramsBool:false},
+                    {Id: "outdoorTemperature", name: qsTr("Outdoor temperature"), value: thing.stateByName("outdoorTemperature") ? thing.stateByName("outdoorTemperature").value : null , unit: "°C", component: stringValues, paramsBool:false},
+                    {Id: "coefficientOfPerformance", name: qsTr("COP"), value: thing.stateByName("coefficientOfPerformance") ? thing.stateByName("coefficientOfPerformance").value : null , unit: "W", component: stringValues, paramsBool:false},
+                    {Id: "hotWaterTemperature", name: qsTr("Hot water temperature"), value: thing.stateByName("hotWaterTemperature") ? thing.stateByName("hotWaterTemperature").value : null , unit: "°C", component: stringValues, paramsBool:false},
                 ]
 
                 function heatingPumpValues(state){
@@ -251,7 +258,7 @@ GenericConfigPage {
                 }
 
                 delegate: ItemDelegate{
-                    visible: true //modelData.value !==  null ? true : false
+                    visible: modelData.value !==  null ? true : false
                     id: optimizerInputs
                     Layout.fillWidth: true
                     contentItem: ColumnLayout
@@ -287,6 +294,11 @@ GenericConfigPage {
                                     target: optimizationMainParams.item
                                     property: "delegateParams"
                                     value: modelData.params
+                                }
+                                Binding{
+                                    target: optimizationMainParams.item
+                                    property: "delegateParamsBool"
+                                    value: modelData.paramsBool
                                 }
                                 Layout.fillWidth: true
                                 sourceComponent:
@@ -333,7 +345,7 @@ GenericConfigPage {
                 Layout.fillWidth: true
                 Layout.leftMargin: 15
                 Layout.topMargin: 10
-
+                visible: thing && (thing.stateByName("flowTemperature").value !== null || thing.stateByName("returnTemperature").value !== null)
                 Label
                 {
                     id: heatingPumpCircuit
@@ -346,12 +358,12 @@ GenericConfigPage {
 
             Repeater {
                 model: [
-                    {Id: "flowTemperature", name: qsTr("Flow temperature"), value: thing.stateByName("flowTemperature")? thing.stateByName("flowTemperature").value : 13.56 , unit: "°C", component: stringValues},
-                    {Id: "returnTemperature", name: qsTr("Return temperature"), value: thing.stateByName("returnTemperature")? thing.stateByName("returnTemperature").value : 12.5 , unit: "°C", component: stringValues},
+                    {Id: "flowTemperature", name: qsTr("Flow temperature"), value: thing.stateByName("flowTemperature")? thing.stateByName("flowTemperature").value : null , unit: "°C", component: stringValues, paramsBool:false},
+                    {Id: "returnTemperature", name: qsTr("Return temperature"), value: thing.stateByName("returnTemperature")? thing.stateByName("returnTemperature").value : null , unit: "°C", component: stringValues, paramsBool:false},
                 ]
 
                 delegate: ItemDelegate{
-                    visible: true //modelData.value !==  null ? true : false
+                    visible: modelData.value !==  null ? true : false
                     id: optimizer
                     Layout.fillWidth: true
                     contentItem: ColumnLayout
@@ -388,6 +400,11 @@ GenericConfigPage {
                                     property: "delegateParams"
                                     value: modelData.params
                                 }
+                                Binding{
+                                    target: optimizationMainParams.item
+                                    property: "delegateParamsBool"
+                                    value: modelData.paramsBool
+                                }
                                 Layout.fillWidth: true
                                 sourceComponent:
                                 {
@@ -417,13 +434,23 @@ GenericConfigPage {
                     property var delegateValue
                     property var delegateUnit
                     property var delegateParams
+                    property var delegateParamsBool
                     Layout.fillWidth: true
 
                     Label{
                         id: singleInput
-
-                        Layout.fillWidth: true
                         text: delegateName
+                        Layout.fillWidth: delegateParamsBool === true ? false : true
+                    }
+
+                    InfoButton{
+                        stack: pageStack
+                        push: paramsBoolPv === true ? "" : "EnergyManagerInfo.qml"
+                        anchors.left: singleInput.right
+                        anchors.top: singleInput.top
+                        anchors.leftMargin: 5
+                        Layout.fillWidth: true
+                        visible: delegateParamsBool
                     }
 
                     Label{
