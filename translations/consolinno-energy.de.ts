@@ -3429,7 +3429,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>Hot water temperature</source>
-        <translation>Heißwassertemperatur</translation>
+        <translation>Warmwassertemperatur</translation>
     </message>
     <message>
         <source>Return temperature</source>
