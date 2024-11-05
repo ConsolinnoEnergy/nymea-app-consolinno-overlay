@@ -2785,7 +2785,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>Configure Modbus RTU master interfaces</source>
-        <translation>Modbug RTU Master Schnittstellen einrichten</translation>
+        <translation>Modbus RTU Master Schnittstellen einrichten</translation>
     </message>
     <message>
         <source>Plugins</source>
