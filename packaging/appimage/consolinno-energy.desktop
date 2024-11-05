@@ -2,7 +2,8 @@
 Name=Consolinno HEMS
 Comment=A client application for the Consolinno HEMS system
 Icon=consolinno-energy
-Terminal=false
+Terminal=true
 Type=Application
-Exec=consolinno-energy
+Exec=consolinno-energy %u
 Categories=Network;
+MimeType=x-scheme-handler/consolinno-energy
