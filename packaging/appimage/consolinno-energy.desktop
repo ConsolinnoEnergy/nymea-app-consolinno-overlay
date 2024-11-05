@@ -6,4 +6,4 @@ Terminal=true
 Type=Application
 Exec=consolinno-energy %u
 Categories=Network;
-MimeType=x-scheme-handler/consolinno-energy
+MimeType=x-scheme-handler/consolinno-energy;
