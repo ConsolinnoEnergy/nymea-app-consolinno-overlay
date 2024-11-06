@@ -53,7 +53,7 @@ GenericConfigPage {
                 Layout.topMargin: 5
 
                 model: [
-                    {Id: "performanceTarget", name: qsTr("Performance target: "), value: thing.stateByName("actualPvSurplus") ? thing.stateByName("actualPvSurplus").value : null , unit: "", component: stringValues, params: false, paramsSurPlus: thing.stateByName("actualPvSurplus") ? true : false},
+                    {Id: "performanceTarget", name: qsTr("Performance target: "), value: thing.stateByName("actualPvSurplus") ? thing.stateByName("actualPvSurplus").value : null , unit: "W", component: stringValues, params: false, paramsSurPlus: thing.stateByName("actualPvSurplus") ? true : false},
                     {Id: "operatingMode", name: qsTr("Operating mode: "), value: translateNymeaHeatpumpValues(thing.stateByName("sgReadyMode") ? thing.stateByName("sgReadyMode").value : null), unit: "", component: stringValues, params: thing.stateByName("sgReadyMode") ? true : false, paramsSurPlus: false},
                 ]
 
@@ -392,7 +392,7 @@ GenericConfigPage {
 
                         property double numberValue: Number(delegateValue)
 
-                        text: ( numberValue && delegateName == "COP" ? (+numberValue.toFixed(1)).toLocaleString() : numberValue ? (+delegateValue.toFixed(0)).toLocaleString() : delegateValue.toLocaleString()) + delegateUnit
+                        text: ( numberValue && delegateName == "COP" ? (+numberValue.toFixed(1)).toLocaleString() : numberValue ? (+delegateValue.toFixed(0)).toLocaleString() : delegateValue.toLocaleString()) +" "+ delegateUnit
                     }
                 }
             }

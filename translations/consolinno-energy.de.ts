@@ -3441,7 +3441,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>Performance target: </source>
-        <translation type="unfinished">Leistungsvorgabe: </translation>
+        <translation>Übermittelter PV-Überschuss: </translation>
     </message>
     <message>
         <source>Heatpump condition: </source>
