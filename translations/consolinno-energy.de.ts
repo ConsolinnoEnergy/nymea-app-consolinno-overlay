@@ -4212,20 +4212,20 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation type="unfinished">Energiemanager</translation>
     </message>
     <message>
-        <source>The energy manager transmits the current photovoltaic surplus to the heat pump. The heat pump aims to utilize this surplus as efficiently as possible and operates at an increased level, provided this is feasible.</source>
-        <translation type="unfinished">Der Energiemanager übermittelt der Wärmepumpe den aktuellen PV-Überschuss. Die Wärmepumpe versucht den Überschuss möglichst auszunutzen und läuft in einem erhöhten Betrieb, sofern das möglich ist.</translation>
-    </message>
-    <message>
         <source>Optimization of the heat pump</source>
         <translation type="unfinished">Optimierung der Wärmepumpe</translation>
     </message>
     <message>
-        <source>Various settings of the heat pump play an essential role in this process, such as the minimum output, the activation and deactivation delay, as well as the permissible temperature increase.</source>
+        <source>The energy manager sends the heat pump the current PV surplus. The heat pump tries to use the surplus as much as possible and runs in increased operation if this is feasible.</source>
+        <translation type="unfinished">Der Energiemanager übermittelt der Wärmepumpe den aktuellen PV-Überschuss. Die Wärmepumpe versucht den Überschuss möglichst auszunutzen und läuft in einem erhöhten Betrieb, sofern das möglich ist.</translation>
+    </message>
+    <message>
+        <source>Various heat pump settings play a role here, such as the set minimum output, switch-on and switch-off delay, as well as the permitted temperature increase.</source>
         <translation type="unfinished">Dabei spielen verschiedene Einstellungen der Wärmepumpe eine Rolle wie eingestellte Mindestleistung, Einschalt-und Ausschaltverzögerung, sowie die erlaubte Temperaturerhöhung.</translation>
     </message>
     <message>
-        <source>If the heat pump consumes less surplus than expected, please consult your installer to review the settings.</source>
-        <translation type="unfinished">Sollte die Wärmepumpe weniger Überschuss verbrauchen als erwartet, wenden Sie sich bitte an Ihren Installateur, um die Einstellungen überprüfen zu lassen.</translation>
+        <source>If the heat pump consumes less surplus than expected, ask your installer to check the settings.</source>
+        <translation type="unfinished">Sollte die Wärmepumpe weniger Überschuss verbrauchen als erwartet, bitten Sie Ihren Installateur die Einstellungen zu prüfen.</translation>
     </message>
 </context>
 <context>

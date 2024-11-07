@@ -21,7 +21,6 @@ Page {
 
 
     InfoTextInterface{
-
         anchors.fill: parent
         summaryText: qsTr("The energy manager regulates the heat pump to maximize the consumption of its own solar power. If you switch off the optimization, the energy manager no longer affects the control of the heat pump.")
         body: ColumnLayout {
