@@ -175,7 +175,7 @@ GenericConfigPage {
                     {Id: "totalAmountOfEnergy", name: qsTr("Total amount of energy"), value: thing.stateByName("totalEnergyConsumed") ? thing.stateByName("totalEnergyConsumed").value : null , unit: "kWh", component: stringValues, params: false, paramsSurPlus: false},
                     {Id: "totalThermalEnergyGenerated", name: qsTr("Total thermal energy generated"), value: thing.stateByName("compressorTotalHeatOutput") ? thing.stateByName("compressorTotalHeatOutput").value : null , unit: "kWh", component: stringValues, params: false, paramsSurPlus: false},
                     {Id: "outdoorTemperature", name: qsTr("Outdoor temperature"), value: thing.stateByName("outdoorTemperature") ? thing.stateByName("outdoorTemperature").value : null , unit: "°C", component: stringValues, params: false, paramsSurPlus: false},
-                    {Id: "coefficientOfPerformance", name: qsTr("COP"), value: thing.stateByName("coefficientOfPerformance") ? thing.stateByName("coefficientOfPerformance").value : null , unit: "W", component: stringValues, params: false, paramsSurPlus: false},
+                    {Id: "coefficientOfPerformance", name: qsTr("COP"), value: thing.stateByName("coefficientOfPerformance") ? thing.stateByName("coefficientOfPerformance").value : null , unit: "", component: stringValues, params: false, paramsSurPlus: false},
                     {Id: "hotWaterTemperature", name: qsTr("Hot water temperature"), value: thing.stateByName("hotWaterTemperature") ? thing.stateByName("hotWaterTemperature").value : null , unit: "°C", component: stringValues, params: false, paramsSurPlus: false},
                 ]
 
