@@ -3008,11 +3008,11 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert&lt;/h3&gt;
-            &lt;p&gt;Version 1.6.0 (20. August 2024)&lt;/p&gt;
+            &lt;p&gt;Version 1.7.0 (30. November 2024)&lt;/p&gt;
             &lt;h4&gt;Neu&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;Lademodus “dynamischer Tarif”&lt;/li&gt;
-                &lt;li&gt;Netzdienliche Steuerung nach § 14a über Relais&lt;/li&gt;
+                &lt;li&gt;TODO&lt;/li&gt;
+                &lt;li&gt;TODO&lt;/li&gt;
             &lt;/ul&gt;</translation>
     </message>
     <message>
