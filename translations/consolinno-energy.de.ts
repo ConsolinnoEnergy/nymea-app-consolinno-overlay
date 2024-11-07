@@ -3412,10 +3412,6 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
 <context>
     <name>HeatingConfigView</name>
     <message>
-        <source>Current consumption:</source>
-        <translation>Momentaner Verbrauch</translation>
-    </message>
-    <message>
         <source>Energymanager: </source>
         <translation>Energiemanager</translation>
     </message>
@@ -3456,16 +3452,32 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
         <translation>Hoch</translation>
     </message>
     <message>
-        <source>Configuration data: </source>
-        <translation type="unfinished"></translation>
+        <source>Performance target: </source>
+        <translation>Übermittelter PV-Überschuss: </translation>
     </message>
     <message>
-        <source>Floor heating area</source>
-        <translation type="unfinished">Beheizte Fläche</translation>
+        <source>Heatpump condition: </source>
+        <translation>Zustand Wärmepumpe: </translation>
     </message>
     <message>
-        <source>Maximal electrical power</source>
-        <translation type="unfinished">Maximale elektrische Leistung</translation>
+        <source>Current consumption</source>
+        <translation>Aktuelle Leistungsaufnahme</translation>
+    </message>
+    <message>
+        <source>Total amount of energy</source>
+        <translation>Gesamt Energiemenge</translation>
+    </message>
+    <message>
+        <source>Total thermal energy generated</source>
+        <translation>Gesamte erzeugte thermische Energie</translation>
+    </message>
+    <message>
+        <source>COP</source>
+        <translation>COP</translation>
+    </message>
+    <message>
+        <source>Heating circuit: </source>
+        <translation>Heizkreis: </translation>
     </message>
 </context>
 <context>
@@ -4191,6 +4203,25 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
   &lt;/p&gt;
 &lt;/div&gt;</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PvSurplusInfo</name>
+    <message>
+        <source>Energymanager</source>
+        <translation>Energiemanager</translation>
+    </message>
+    <message>
+        <source>The energy manager sends the heat pump the current PV surplus. The heat pump tries to use the surplus as much as possible and runs in increased operation if this is feasible.</source>
+        <translation>Der Energiemanager übermittelt der Wärmepumpe den aktuellen PV-Überschuss. Die Wärmepumpe versucht den Überschuss möglichst auszunutzen und läuft in einem erhöhten Betrieb, sofern das möglich ist.</translation>
+    </message>
+    <message>
+        <source>Optimization of the heat pump</source>
+        <translation>Optimierung der Wärmepumpe</translation>
+    </message>
+    <message>
+        <source>Various heat pump settings play a role here, such as the set minimum output, switch-on and switch-off delay, as well as the permitted temperature increase. If the heat pump consumes less surplus than expected, ask your installer to check the settings.</source>
+        <translation>Dabei spielen verschiedene Einstellungen der Wärmepumpe eine Rolle wie eingestellte Mindestleistung, Einschalt-und Ausschaltverzögerung, sowie die erlaubte Temperaturerhöhung. Sollte die Wärmepumpe weniger Überschuss verbrauchen als erwartet, bitten Sie Ihren Installateur die Einstellungen zu prüfen.</translation>
     </message>
 </context>
 <context>

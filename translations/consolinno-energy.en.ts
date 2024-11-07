@@ -2935,10 +2935,6 @@ Open source modules are included in the APP and in the device software. The corr
 <context>
     <name>HeatingConfigView</name>
     <message>
-        <source>Current consumption:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Energymanager: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -2979,16 +2975,32 @@ Open source modules are included in the APP and in the device software. The corr
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Configuration data: </source>
+        <source>Performance target: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Floor heating area</source>
+        <source>Heatpump condition: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Maximal electrical power</source>
-        <translation type="unfinished">Maximal electrical power</translation>
+        <source>Current consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total amount of energy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total thermal energy generated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>COP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heating circuit: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3708,6 +3720,25 @@ For further assistance, please contact our support team at: %5</translation>
     &lt;font size=&apos;1&apos; style=&apos;font-size: 8pt&apos;&gt;For better readability, the simultaneous use of male, female, and diverse language forms (m/f/d) is omitted. All personal designations apply equally to all genders.&lt;/font&gt;
   &lt;/p&gt;
 &lt;/div&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PvSurplusInfo</name>
+    <message>
+        <source>Energymanager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The energy manager sends the heat pump the current PV surplus. The heat pump tries to use the surplus as much as possible and runs in increased operation if this is feasible.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optimization of the heat pump</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Various heat pump settings play a role here, such as the set minimum output, switch-on and switch-off delay, as well as the permitted temperature increase. If the heat pump consumes less surplus than expected, ask your installer to check the settings.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
