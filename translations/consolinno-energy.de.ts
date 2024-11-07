@@ -3412,10 +3412,6 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
 <context>
     <name>HeatingConfigView</name>
     <message>
-        <source>Current consumption:</source>
-        <translation>Momentaner Verbrauch</translation>
-    </message>
-    <message>
         <source>Energymanager: </source>
         <translation>Energiemanager</translation>
     </message>
@@ -3464,80 +3460,24 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
         <translation type="unfinished">COP</translation>
     </message>
     <message>
-        <source>STBY</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CH</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DHW</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CIRCULATE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DEFROST</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OFF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>FROST</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>STBY-FROST</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SUMMER</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>HOLIDAY</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ERROR</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>WARNING</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>INFO-MESSAGE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>IME-BLOCK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ELEASE-BLOCK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MINTEMP-BLOCK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>FIRMWARE-DOWNLOAD</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Heating circuit: </source>
         <translation type="unfinished">Heizkreis: </translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Standard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Increased</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>High</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4263,6 +4203,29 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
   &lt;/p&gt;
 &lt;/div&gt;</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PvSurplusInfo</name>
+    <message>
+        <source>Energymanager</source>
+        <translation type="unfinished">Energiemanager</translation>
+    </message>
+    <message>
+        <source>The energy manager transmits the current photovoltaic surplus to the heat pump. The heat pump aims to utilize this surplus as efficiently as possible and operates at an increased level, provided this is feasible.</source>
+        <translation type="unfinished">Der Energiemanager übermittelt der Wärmepumpe den aktuellen PV-Überschuss. Die Wärmepumpe versucht den Überschuss möglichst auszunutzen und läuft in einem erhöhten Betrieb, sofern das möglich ist.</translation>
+    </message>
+    <message>
+        <source>Optimization of the heat pump</source>
+        <translation type="unfinished">Optimierung der Wärmepumpe</translation>
+    </message>
+    <message>
+        <source>Various settings of the heat pump play an essential role in this process, such as the minimum output, the activation and deactivation delay, as well as the permissible temperature increase.</source>
+        <translation type="unfinished">Dabei spielen verschiedene Einstellungen der Wärmepumpe eine Rolle wie eingestellte Mindestleistung, Einschalt-und Ausschaltverzögerung, sowie die erlaubte Temperaturerhöhung.</translation>
+    </message>
+    <message>
+        <source>If the heat pump consumes less surplus than expected, please consult your installer to review the settings.</source>
+        <translation type="unfinished">Sollte die Wärmepumpe weniger Überschuss verbrauchen als erwartet, wenden Sie sich bitte an Ihren Installateur, um die Einstellungen überprüfen zu lassen.</translation>
     </message>
 </context>
 <context>

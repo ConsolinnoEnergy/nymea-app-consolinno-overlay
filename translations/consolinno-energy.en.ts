@@ -2935,10 +2935,6 @@ Open source modules are included in the APP and in the device software. The corr
 <context>
     <name>HeatingConfigView</name>
     <message>
-        <source>Current consumption:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Energymanager: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -2987,8 +2983,24 @@ Open source modules are included in the APP and in the device software. The corr
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Maximal electrical power</source>
-        <translation type="unfinished">Maximal electrical power</translation>
+        <source>Off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Standard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Increased</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>High</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heating circuit: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3708,6 +3720,29 @@ For further assistance, please contact our support team at: %5</translation>
     &lt;font size=&apos;1&apos; style=&apos;font-size: 8pt&apos;&gt;For better readability, the simultaneous use of male, female, and diverse language forms (m/f/d) is omitted. All personal designations apply equally to all genders.&lt;/font&gt;
   &lt;/p&gt;
 &lt;/div&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PvSurplusInfo</name>
+    <message>
+        <source>Energymanager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The energy manager transmits the current photovoltaic surplus to the heat pump. The heat pump aims to utilize this surplus as efficiently as possible and operates at an increased level, provided this is feasible.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optimization of the heat pump</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Various settings of the heat pump play an essential role in this process, such as the minimum output, the activation and deactivation delay, as well as the permissible temperature increase.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If the heat pump consumes less surplus than expected, please consult your installer to review the settings.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

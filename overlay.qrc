@@ -142,5 +142,6 @@
         <file>system/ConsolinnoNetworkSettingsPage.qml</file>
         <file>appsettings/ConsolinnoLookAndFeelSettingsPage.qml</file>
         <file>appsettings/ConsolinnoAppSettingsPage.qml</file>
+        <file>info/PvSurplusInfo.qml</file>
     </qresource>
 </RCC>
