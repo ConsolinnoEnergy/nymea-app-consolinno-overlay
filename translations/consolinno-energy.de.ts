@@ -3412,14 +3412,6 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
 <context>
     <name>HeatingConfigView</name>
     <message>
-        <source>Energymanager: </source>
-        <translation>Energiemanager</translation>
-    </message>
-    <message>
-        <source>Operating mode: </source>
-        <translation>Betriebsmodus</translation>
-    </message>
-    <message>
         <source>Outdoor temperature</source>
         <translation>Außentemperatur</translation>
     </message>
@@ -3452,14 +3444,6 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
         <translation>Hoch</translation>
     </message>
     <message>
-        <source>Performance target: </source>
-        <translation>Übermittelter PV-Überschuss: </translation>
-    </message>
-    <message>
-        <source>Heatpump condition: </source>
-        <translation>Zustand Wärmepumpe: </translation>
-    </message>
-    <message>
         <source>Current consumption</source>
         <translation>Aktuelle Leistungsaufnahme</translation>
     </message>
@@ -3476,8 +3460,24 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
         <translation>COP</translation>
     </message>
     <message>
-        <source>Heating circuit: </source>
-        <translation>Heizkreis: </translation>
+        <source>Energymanager</source>
+        <translation>Energiemanager</translation>
+    </message>
+    <message>
+        <source>Forwarded Solar Surplus</source>
+        <translation>Übermittelter PV-Überschuss</translation>
+    </message>
+    <message>
+        <source>Operating mode</source>
+        <translation>Betriebsmodus</translation>
+    </message>
+    <message>
+        <source>Heatpump condition</source>
+        <translation>Zustand Wärmepumpe</translation>
+    </message>
+    <message>
+        <source>Heating circuit</source>
+        <translation>Heizkreis</translation>
     </message>
 </context>
 <context>

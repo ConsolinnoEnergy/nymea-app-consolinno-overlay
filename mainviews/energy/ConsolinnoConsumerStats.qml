@@ -365,17 +365,23 @@ StatsBase {
                                         let iconName = legendDelegate.thing.thingClass.interfaces[i]
 
                                         switch (iconName) {
+                                        case "pvsurplusheatpump":
+                                            if(Configuration.heatpumpIcon !== ""){
+                                                return "qrc:/ui/images/"+Configuration.heatpumpIcon
+                                            }else{
+                                                return "qrc:/ui/images/heatpump.svg"
+                                            }
                                         case "smartgridheatpump":
                                             if(Configuration.heatpumpIcon !== ""){
                                                 return "qrc:/ui/images/"+Configuration.heatpumpIcon
                                             }else{
-                                                return "qrc:/ui/images/thermostat/heating.svg"
+                                                return "qrc:/ui/images/heatpump.svg"
                                             }
                                         case "smartheatingrod":
                                             if(Configuration.heatingRodIcon !== ""){
                                                 return "/ui/images/"+Configuration.heatingRodIcon
                                             }else{
-                                                return "/ui/images/sensors/water.svg"
+                                                return "/ui/images/heating_rod.svg"
                                             }
                                         case "evcharger":
                                             if(Configuration.evchargerIcon !== ""){

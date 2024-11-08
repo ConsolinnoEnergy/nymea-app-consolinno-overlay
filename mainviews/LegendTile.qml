@@ -97,14 +97,14 @@ MouseArea {
             if(Configuration.heatpumpIcon !== ""){
                 icon = "qrc:/ui/images/"+Configuration.heatpumpIcon
             }else{
-                icon = "qrc:/ui/images/thermostat/heating.svg"
+                icon = "qrc:/ui/images/heatpump.svg"
             }
             return Qt.resolvedUrl(icon)
         case "smartheatingrod":
             if(Configuration.heatingRodIcon !== ""){
                 icon = "/ui/images/"+Configuration.heatingRodIcon
             }else{
-                icon = "/ui/images/sensors/water.svg"
+                icon = "/ui/images/heating_rod.svg"
             }
             return Qt.resolvedUrl(icon)
         case "energystorage":

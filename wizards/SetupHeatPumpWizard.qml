@@ -161,7 +161,7 @@ Page {
                                     if(Configuration.heatpumpIcon !== ""){
                                         return "/ui/images/"+Configuration.heatpumpIcon;
                                     }else{
-                                        return "../images/thermostat/heating.svg";
+                                        return "../images/heatpump.svg";
                                     }
                                 }
                                 progressive: false

@@ -2935,14 +2935,6 @@ Open source modules are included in the APP and in the device software. The corr
 <context>
     <name>HeatingConfigView</name>
     <message>
-        <source>Energymanager: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Operating mode: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Outdoor temperature</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2975,14 +2967,6 @@ Open source modules are included in the APP and in the device software. The corr
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Performance target: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Heatpump condition: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Current consumption</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2999,7 +2983,23 @@ Open source modules are included in the APP and in the device software. The corr
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Heating circuit: </source>
+        <source>Energymanager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Forwarded Solar Surplus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operating mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heatpump condition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heating circuit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

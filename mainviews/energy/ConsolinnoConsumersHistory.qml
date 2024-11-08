@@ -528,13 +528,19 @@ Item {
                                             if(Configuration.heatpumpIcon !== ""){
                                                 return "qrc:/ui/images/"+Configuration.heatpumpIcon
                                             }else{
-                                                return "qrc:/ui/images/thermostat/heating.svg"
+                                                return "qrc:/ui/images/heatpump.svg"
+                                            }
+                                        case "pvsurplusheatpump":
+                                            if(Configuration.heatpumpIcon !== ""){
+                                                return "qrc:/ui/images/"+Configuration.heatpumpIcon
+                                            }else{
+                                                return "qrc:/ui/images/heatpump.svg"
                                             }
                                         case "smartheatingrod":
                                             if(Configuration.heatingRodIcon !== ""){
                                                 return "/ui/images/"+Configuration.heatingRodIcon
                                             }else{
-                                                return "/ui/images/sensors/water.svg"
+                                                return "/ui/images/heating_rod.svg"
                                             }
                                         case "evcharger":
                                             if(Configuration.evchargerIcon !== ""){
@@ -549,7 +555,7 @@ Item {
                                 }
                                 size: Style.smallIconSize
                                 color: {
-                                    if(thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0){
+                                    if(thing.thingClass.interfaces.indexOf("heatpump") >= 0){
                                         return Configuration.heatpumpColor
                                     }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
                                         return Configuration.heatingRodColor

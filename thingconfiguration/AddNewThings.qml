@@ -183,18 +183,32 @@ Page {
                         let icon = "";
                         let interfaceIcons = thingClass.interfaces[i];
                         switch (interfaceIcons) {
-                        case "heatpump":
+                        case "simpleheatpump":
                             if(Configuration.heatpumpIcon !== ""){
                                 icon = "/ui/images/"+Configuration.heatpumpIcon
                             }else{
-                                icon = "/ui/images/thermostat/heating.svg"
+                                icon = "/ui/images/heatpump.svg"
+                            }
+                            return Qt.resolvedUrl(icon)
+                        case "smartgridheatpump":
+                            if(Configuration.heatpumpIcon !== ""){
+                                icon = "/ui/images/"+Configuration.heatpumpIcon
+                            }else{
+                                icon = "/ui/images/heatpump.svg"
+                            }
+                            return Qt.resolvedUrl(icon)
+                        case "pvsurplusheatpump":
+                            if(Configuration.heatpumpIcon !== ""){
+                                icon = "/ui/images/"+Configuration.heatpumpIcon
+                            }else{
+                                icon = "/ui/images/heatpump.svg"
                             }
                             return Qt.resolvedUrl(icon)
                         case "smartheatingrod":
                             if(Configuration.heatingRodIcon !== ""){
                                 icon = "/ui/images/"+Configuration.heatingRodIcon
                             }else{
-                                icon = "/ui/images/sensors/water.svg"
+                                icon = "/ui/images/heating_rod.svg"
                             }
                             return Qt.resolvedUrl(icon)
                         case "energystorage":
@@ -240,7 +254,6 @@ Page {
 
                 onClicked: {
                     root.startWizard(thingClass)
-                    console.error(electrics.get(0).thingClass.id)
                 }
 
                 Component.onCompleted: {

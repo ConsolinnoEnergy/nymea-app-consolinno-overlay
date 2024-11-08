@@ -135,14 +135,14 @@ Page {
                         if (false) { //Configuration.heatpumpIcon !== ""
                             iconPath = "../images/" + Configuration.heatpumpIcon;
                         } else {
-                            iconPath = "../images/thermostat/heating.svg";
+                            iconPath = "../images/heatpump.svg";
                         }
                         return iconPath;
                     } else if (thingInterface.indexOf("smartheatingrod") >= 0) {
                         if (false) { //Configuration.heatingRodIcon !== ""
                             iconPath = "../images/" + Configuration.heatingRodIcon;
                         } else {
-                            iconPath = "../images/sensors/water.svg";
+                            iconPath = "../images/heating_rod.svg";
                         }
                         return iconPath;
                     } else if (thingInterface.indexOf("energystorage") >= 0 && Configuration.batteryIcon !== "" && false) {

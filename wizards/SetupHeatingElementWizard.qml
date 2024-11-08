@@ -140,7 +140,7 @@ Page {
                                     if(Configuration.heatingRodIcon !== ""){
                                         return "/ui/images/"+Configuration.heatingRodIcon;
                                     }else{
-                                        return "../images/sensors/water.svg";
+                                        return "../images/heating_rod.svg";
                                     }
                                 }
                                 progressive: false

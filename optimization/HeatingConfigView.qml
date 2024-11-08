@@ -38,7 +38,7 @@ GenericConfigPage {
                 {
                     id: energyManager
 
-                    text: qsTr("Energymanager: ")
+                    text: qsTr("Energymanager")
                     font.bold: true
                     font.pixelSize: 22
 
@@ -53,8 +53,8 @@ GenericConfigPage {
                 Layout.topMargin: 5
 
                 model: [
-                    {Id: "performanceTarget", name: qsTr("Performance target: "), value: thing.stateByName("actualPvSurplus") ? ((thing.stateByName("actualPvSurplus").value >= 0) ? 0 : thing.stateByName("actualPvSurplus").value) : null , unit: "W", component: stringValues, params: false, paramsSurPlus: thing.stateByName("actualPvSurplus") ? true : false},
-                    {Id: "operatingMode", name: qsTr("Operating mode: "), value: translateNymeaHeatpumpValues(thing.stateByName("sgReadyMode") ? thing.stateByName("sgReadyMode").value : null), unit: "", component: stringValues, params: thing.stateByName("sgReadyMode") ? true : false, paramsSurPlus: false},
+                    {Id: "performanceTarget", name: qsTr("Forwarded Solar Surplus"), value: thing.stateByName("actualPvSurplus") ? thing.stateByName("actualPvSurplus").value : null , unit: "W", component: stringValues, params: false, paramsSurPlus: thing.stateByName("actualPvSurplus") ? true : false},
+                    {Id: "operatingMode", name: qsTr("Operating mode"), value: translateNymeaHeatpumpValues(thing.stateByName("sgReadyMode") ? thing.stateByName("sgReadyMode").value : null), unit: "", component: stringValues, params: thing.stateByName("sgReadyMode") ? true : false, paramsSurPlus: false},
                 ]
 
                 delegate: ItemDelegate {
@@ -154,7 +154,7 @@ GenericConfigPage {
                 {
                     id: heatingPumpStates
 
-                    text: qsTr("Heatpump condition: ")
+                    text: qsTr("Heatpump condition")
                     font.bold: true
                     font.pixelSize: 22
                 }
@@ -170,7 +170,7 @@ GenericConfigPage {
 
                 // tbd: Configurationdata tab finishing
                 model: [
-                    {Id: "operatingMode", name: qsTr("Operating mode: "), value: thing.stateByName("systemStatus") ? thing.stateByName("systemStatus").value : null, unit: "", component: stringValues, params: false, paramsSurPlus: false},
+                    {Id: "operatingMode", name: qsTr("Operating mode"), value: thing.stateByName("systemStatus") ? thing.stateByName("systemStatus").value : null, unit: "", component: stringValues, params: false, paramsSurPlus: false},
                     {Id: "currentConsumption", name: qsTr("Current consumption"), value: thing.stateByName("currentPower") ? thing.stateByName("currentPower").value : null , unit: "W", component: stringValues, params: false, paramsSurPlus: false},
                     {Id: "totalAmountOfEnergy", name: qsTr("Total amount of energy"), value: thing.stateByName("totalEnergyConsumed") ? thing.stateByName("totalEnergyConsumed").value : null , unit: "kWh", component: stringValues, params: false, paramsSurPlus: false},
                     {Id: "totalThermalEnergyGenerated", name: qsTr("Total thermal energy generated"), value: thing.stateByName("compressorTotalHeatOutput") ? thing.stateByName("compressorTotalHeatOutput").value : null , unit: "kWh", component: stringValues, params: false, paramsSurPlus: false},
@@ -271,7 +271,7 @@ GenericConfigPage {
                 Label
                 {
                     id: heatingPumpCircuit
-                    text: qsTr("Heating circuit: ")
+                    text: qsTr("Heating circuit")
                     font.bold: true
                     font.pixelSize: 22
                 }
@@ -392,7 +392,7 @@ GenericConfigPage {
 
                         property double numberValue: Number(delegateValue)
 
-                        text: ( numberValue && delegateName == "COP" ? (+numberValue.toFixed(1)).toLocaleString() : numberValue ? (+delegateValue.toFixed(0)).toLocaleString() : delegateValue.toLocaleString()) +" "+ delegateUnit
+                        text: ( numberValue && delegateName == "COP" ? (((+delegateValue.toFixed(1)) <= 0) ? 0 : (+delegateValue.toFixed(1)).toLocaleString()) : numberValue ? (((+delegateValue.toFixed(0)) <= 0) ? 0 : (+delegateValue.toFixed(0)).toLocaleString()) : delegateValue.toLocaleString()) +" "+ delegateUnit
                     }
                 }
             }
