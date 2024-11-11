@@ -2901,6 +2901,10 @@ Open source modules are included in the APP and in the device software. The corr
         <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>unrestricted</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GridConsumptionInfo</name>
@@ -2939,10 +2943,6 @@ Open source modules are included in the APP and in the device software. The corr
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hot water temperature</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Return temperature</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2971,15 +2971,7 @@ Open source modules are included in the APP and in the device software. The corr
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Total amount of energy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Total thermal energy generated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>COP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3000,6 +2992,22 @@ Open source modules are included in the APP and in the device software. The corr
     </message>
     <message>
         <source>Heating circuit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Absorbed electrical energy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current COP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Average COP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Domestic hot water temperature</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

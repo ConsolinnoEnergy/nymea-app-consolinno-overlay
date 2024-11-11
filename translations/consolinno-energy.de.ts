@@ -3379,6 +3379,10 @@ Mail %2</translation>
         <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
         <translation type="unfinished">Der Verbrauch ist &lt;b&gt;temporär blockiert&lt;/b&gt; durch den Netzbetreiber.</translation>
     </message>
+    <message>
+        <source>unrestricted</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GridConsumptionInfo</name>
@@ -3417,10 +3421,6 @@ Mail %2</translation>
         <translation>Außentemperatur</translation>
     </message>
     <message>
-        <source>Hot water temperature</source>
-        <translation>Heißwassertemperatur</translation>
-    </message>
-    <message>
         <source>Return temperature</source>
         <translation>Rücklauftemperatur</translation>
     </message>
@@ -3449,16 +3449,8 @@ Mail %2</translation>
         <translation>Aktuelle Leistungsaufnahme</translation>
     </message>
     <message>
-        <source>Total amount of energy</source>
-        <translation>Gesamt Energiemenge</translation>
-    </message>
-    <message>
         <source>Total thermal energy generated</source>
         <translation>Gesamte erzeugte thermische Energie</translation>
-    </message>
-    <message>
-        <source>COP</source>
-        <translation>COP</translation>
     </message>
     <message>
         <source>Energymanager</source>
@@ -3479,6 +3471,22 @@ Mail %2</translation>
     <message>
         <source>Heating circuit</source>
         <translation>Heizkreis</translation>
+    </message>
+    <message>
+        <source>Absorbed electrical energy</source>
+        <translation>Aufgenommene elektrische Energie</translation>
+    </message>
+    <message>
+        <source>Current COP</source>
+        <translation>Aktueller COP</translation>
+    </message>
+    <message>
+        <source>Average COP</source>
+        <translation>Durchschnittlicher COP</translation>
+    </message>
+    <message>
+        <source>Domestic hot water temperature</source>
+        <translation>Brauchwassertemperatur</translation>
     </message>
 </context>
 <context>

@@ -77,12 +77,18 @@ GenericConfigPage {
                             "header": qsTr("Grid-Supportive Control"),
                             "content": qsTr("The consumption is <b>temporarily blocked</b> by the network operator."),
                             "color": "danger"
+                        },
+                        "unrestricted": {
+                            "header": qsTr("Grid-Supportive Control"),
+                            "content": qsTr("unrestricted"),
+                            "color": "none"
                         }
                     }
 
                     property var infoColors: {
                         "warning": "#fc9d03",
-                        "danger": "#eb4034"
+                        "danger": "#eb4034",
+                        "none": "#ffffff"
                     }
 
                     property string infoColor: "#fc9d03"

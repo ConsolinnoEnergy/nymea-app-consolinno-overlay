@@ -488,7 +488,7 @@ GenericConfigPage {
 
                         Label{
                             id: ongridConsumption
-                            text: getText()
+                            text: (typeof getText() === "undefined" ? "" : getText())
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                             function getText(){
