@@ -74,6 +74,12 @@ GenericConfigPage {
 
                                 Binding{
                                     target: optimizationParams.item
+                                    property: "delegateName"
+                                    value: modelData.name
+                                }
+
+                                Binding{
+                                    target: optimizationParams.item
                                     property: "delegateValue"
                                     value: modelData.value
                                 }
@@ -82,12 +88,6 @@ GenericConfigPage {
                                     target: optimizationParams.item
                                     property: "delegateUnit"
                                     value: modelData.unit
-                                }
-
-                                Binding{
-                                    target: optimizationParams.item
-                                    property: "delegateName"
-                                    value: modelData.name
                                 }
 
                                 Binding{
@@ -218,7 +218,7 @@ GenericConfigPage {
                                     value: modelData.params
                                 }
                                 Binding{
-                                    target: optimizationParams.item
+                                    target: optimizationMainParams.item
                                     property: "delegateParamsSurPlus"
                                     value: modelData.paramsSurPlus
                                 }
@@ -325,7 +325,7 @@ GenericConfigPage {
                                 }
 
                                 Binding{
-                                    target: optimizationParams.item
+                                    target: optimization.item
                                     property: "delegateParamsSurPlus"
                                     value: modelData.paramsSurPlus
                                 }
@@ -370,9 +370,7 @@ GenericConfigPage {
                     InfoButton{
                         stack: pageStack
                         push: "EnergyManagerInfo.qml"
-                        anchors.left: singleInput.right
-                        anchors.top: singleInput.top
-                        anchors.leftMargin: 5
+                        Layout.alignment: Qt.AlignTop
                         Layout.fillWidth: true
                         visible: delegateParams
                     }
@@ -380,9 +378,7 @@ GenericConfigPage {
                     InfoButton{
                         stack: pageStack
                         push: "PvSurplusInfo.qml"
-                        anchors.left: singleInput.right
-                        anchors.top: singleInput.top
-                        anchors.leftMargin: 5
+                        Layout.alignment: Qt.AlignTop
                         Layout.fillWidth: true
                         visible: delegateParamsSurPlus
                     }
@@ -392,7 +388,7 @@ GenericConfigPage {
 
                         property double numberValue: Number(delegateValue)
 
-                        text: ( numberValue && delegateName == "COP" ? (((+delegateValue.toFixed(1)) <= 0) ? 0 : (+delegateValue.toFixed(1)).toLocaleString()) : numberValue ? (((+delegateValue.toFixed(0)) <= 0) ? 0 : (+delegateValue.toFixed(0)).toLocaleString()) : delegateValue.toLocaleString()) +" "+ delegateUnit
+                        text: ( numberValue && delegateName == "COP" ? (((+delegateValue.toFixed(1)) <= 0) ? 0 : (+delegateValue.toFixed(1)).toLocaleString()) : numberValue ? (((+delegateValue.toFixed(0)) <= 0) ? 0 : (+delegateValue.toFixed(0)).toLocaleString()) : delegateValue) +" "+ delegateUnit
                     }
                 }
             }
