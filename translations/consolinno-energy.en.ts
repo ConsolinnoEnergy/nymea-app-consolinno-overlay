@@ -723,11 +723,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Tel %1
-Mail %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;We process your personal data according to the current regulations of the Federal Republic of Germany and the European Union (EU). The protection of your personal information is our highest priority. Below you will find information about which data we process, in what form, on what legal basis, for what purpose, and for how long, to what extent you have the right to object, and how you can exercise this right. If your consent is required, it will be indicated at the relevant point, and you will have the option to grant or withhold it. Of course, even after granting your consent, you have the right to withdraw it at any time.&lt;font color=&apos;#333333&apos;&gt;&amp;nbsp;&lt;/font&gt;&lt;/p&gt;
 &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
 &lt;ol&gt;
@@ -1071,11 +1066,6 @@ Open source modules are included in the APP and in the device software. The corr
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Licensor address
-%1, %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>2. License object</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1121,6 +1111,16 @@ Open source modules are included in the APP and in the device software. The corr
     </message>
     <message>
         <source>(2) The software is offered by %1 free of charge to %2 customers via app stores.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tel %1 Mail %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Licensor address
+%1,
+%2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

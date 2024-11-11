@@ -723,12 +723,6 @@
         <translation>SSL:</translation>
     </message>
     <message>
-        <source>Tel %1
-Mail %2</source>
-        <translation type="unfinished">Tel %1
-Mail %2</translation>
-    </message>
-    <message>
         <source>&lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;We process your personal data according to the current regulations of the Federal Republic of Germany and the European Union (EU). The protection of your personal information is our highest priority. Below you will find information about which data we process, in what form, on what legal basis, for what purpose, and for how long, to what extent you have the right to object, and how you can exercise this right. If your consent is required, it will be indicated at the relevant point, and you will have the option to grant or withhold it. Of course, even after granting your consent, you have the right to withdraw it at any time.&lt;font color=&apos;#333333&apos;&gt;&amp;nbsp;&lt;/font&gt;&lt;/p&gt;
 &lt;p class=&apos;western&apos; style=&apos;margin-bottom: 0cm&apos;&gt;&lt;br/&gt;&lt;/p&gt;
 &lt;ol&gt;
@@ -1535,12 +1529,6 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
         <translation type="unfinished">(5) Ausschließlicher Gerichtsstand für alle Streitigkeiten aus oder im Zusammenhang mit dem Lizenzvertrag ist der Sitz des Lizenzgebers, Regensburg. Der Lizenzgeber bleibt berechtigt, am allgemeinen Gerichtsstand der Lizenznehmerin zu klagen.</translation>
     </message>
     <message>
-        <source>Licensor address
-%1, %2</source>
-        <translation type="unfinished">Anschrift des Lizenzgebers
-%1, %2</translation>
-    </message>
-    <message>
         <source>2. License object</source>
         <translation type="unfinished">2.Lizenzgegenstand</translation>
     </message>
@@ -1587,6 +1575,19 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     <message>
         <source>(2) The software is offered by %1 free of charge to %2 customers via app stores.</source>
         <translation type="unfinished">(2) Die Software wird von der %1 kostenfrei Kunden vom %2 über Appstores angeboten.</translation>
+    </message>
+    <message>
+        <source>Tel %1 Mail %2</source>
+        <translation type="unfinished">Tel %1
+Mail %2</translation>
+    </message>
+    <message>
+        <source>Licensor address
+%1,
+%2</source>
+        <translation type="unfinished">Anschrift des Lizenzgebers 
+%1,
+%2</translation>
     </message>
 </context>
 <context>

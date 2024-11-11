@@ -479,8 +479,7 @@ Open source modules are included in the APP and in the device software. The corr
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("Licensor address
-%1, %2").arg(Configuration.companyName).arg(Configuration.companyAddress)
+                    text: qsTr("Licensor address\n%1,\n%2").arg(Configuration.companyName).arg(Configuration.companyAddress)
 
                 }
 
@@ -490,23 +489,10 @@ Open source modules are included in the APP and in the device software. The corr
                     Layout.preferredWidth: app.width - app.margins*2
                     wrapMode: Text.WordWrap
                     font.pixelSize: 15
-                    text: qsTr("Tel %1
-Mail %2").arg(Configuration.companyTel).arg(Configuration.serviceEmail)
+                    text: qsTr("Tel %1 Mail %2").arg(Configuration.companyTel).arg(Configuration.serviceEmail)
 
                 }
-
-
-
-
-
-
-
             }
-
-
-
-
-
         }
 
 
