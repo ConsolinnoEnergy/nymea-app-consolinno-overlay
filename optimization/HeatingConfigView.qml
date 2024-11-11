@@ -393,7 +393,7 @@ GenericConfigPage {
 
                         property double numberValue: Number(delegateValue)
 
-                        text: ( numberValue && delegateName == "COP" ? (((+delegateValue.toFixed(1)) <= 0) ? 0 : (+delegateValue.toFixed(1)).toLocaleString()) : numberValue ? (((delegateValue.toFixed(0)) <= 0) ? 0 : (delegateValue.toFixed(0)).toLocaleString()) : delegateValue) +" "+ delegateUnit
+                        text: ( numberValue && (delegateName == "Current COP" || delegateName == "Average COP")  ? (((+delegateValue.toFixed(1)) <= 0) ? 0 : (+delegateValue.toFixed(1)).toLocaleString()) : numberValue ? (((delegateValue.toFixed(0)) <= 0) ? 0 : (delegateValue.toFixed(0)).toLocaleString()) : delegateValue) +" "+ delegateUnit
                     }
                 }
             }
