@@ -81,7 +81,7 @@ GenericConfigPage {
                                     Binding{
                                         target: optimizationParams.item
                                         property: "delegateID"
-                                        value: modelData.name
+                                        value: modelData.Id
                                     }
 
                                     Binding{
@@ -182,13 +182,13 @@ GenericConfigPage {
 
                     model: [
                         {Id: "operatingMode", name: qsTr("Operating mode"), value: thing.stateByName("systemStatus") ? thing.stateByName("systemStatus").value : null, unit: "", component: stringValues, params: false, paramsSurPlus: false},
-                        {Id: "currentConsumption", name: qsTr("Current consumption"), value: thing.stateByName("currentPower") ? thing.stateByName("currentPower").value : null , unit: "W", component: stringValues, params: false, paramsSurPlus: false},
-                        {Id: "totalAmountOfEnergy", name: qsTr("Absorbed electrical energy"), value: thing.stateByName("totalEnergyConsumed") ? thing.stateByName("totalEnergyConsumed").value : null , unit: "kWh", component: stringValues, params: false, paramsSurPlus: false},
-                        {Id: "totalThermalEnergyGenerated", name: qsTr("Total thermal energy generated"), value: thing.stateByName("compressorTotalHeatOutput") ? thing.stateByName("compressorTotalHeatOutput").value : null , unit: "kWh", component: stringValues, params: false, paramsSurPlus: false},
+                        {Id: "currentConsumption", name: qsTr("Current consumption"), value: thing.stateByName("currentPower") ? thing.stateByName("currentPower").value : null, unit: "W", component: stringValues, params: false, paramsSurPlus: false},
+                        {Id: "totalAmountOfEnergy", name: qsTr("Absorbed electrical energy"), value: thing.stateByName("totalEnergyConsumed") ? thing.stateByName("totalEnergyConsumed").value : null, unit: "kWh", component: stringValues, params: false, paramsSurPlus: false},
+                        {Id: "totalThermalEnergyGenerated", name: qsTr("Total thermal energy generated"), value: thing.stateByName("compressorTotalHeatOutput") ? thing.stateByName("compressorTotalHeatOutput").value : null, unit: "kWh", component: stringValues, params: false, paramsSurPlus: false},
                         {Id: "outdoorTemperature", name: qsTr("Outdoor temperature"), value: thing.stateByName("outdoorTemperature") ? thing.stateByName("outdoorTemperature").value : null , unit: "°C", component: stringValues, params: false, paramsSurPlus: false},
-                        {Id: "currentCoefficientOfPerformance", name: qsTr("Current COP"), value: thing.stateByName("coefficientOfPerformance") ? thing.stateByName("coefficientOfPerformance").value : null , unit: "", component: stringValues, params: false, paramsSurPlus: false},
-                        {Id: "averageCoefficientOfPerformance", name: qsTr("Average COP"), value: thing.stateByName("averageCoefficientOfPerformance") ? thing.stateByName("averageCoefficientOfPerformance").value : null , unit: "", component: stringValues, params: false, paramsSurPlus: false},
-                        {Id: "hotWaterTemperature", name: qsTr("Domestic hot water temperature"), value: thing.stateByName("hotWaterTemperature") ? thing.stateByName("hotWaterTemperature").value : null , unit: "°C", component: stringValues, params: false, paramsSurPlus: false},
+                        {Id: "currentCoefficientOfPerformance", name: qsTr("Current COP"), value: thing.stateByName("coefficientOfPerformance") ? thing.stateByName("coefficientOfPerformance").value : null, unit: "", component: stringValues, params: false, paramsSurPlus: false},
+                        {Id: "averageCoefficientOfPerformance", name: qsTr("Average COP"), value: thing.stateByName("averageCoefficientOfPerformance") ? thing.stateByName("averageCoefficientOfPerformance").value : null, unit: "", component: stringValues, params: false, paramsSurPlus: false},
+                        {Id: "hotWaterTemperature", name: qsTr("Domestic hot water temperature"), value: thing.stateByName("hotWaterTemperature") ? thing.stateByName("hotWaterTemperature").value : null, unit: "°C", component: stringValues, params: false, paramsSurPlus: false},
                     ]
 
                     delegate: ItemDelegate{
@@ -209,7 +209,7 @@ GenericConfigPage {
                                     Binding{
                                         target: optimizationMainParams.item
                                         property: "delegateID"
-                                        value: modelData.value
+                                        value: modelData.Id
                                     }
 
                                     Binding{
@@ -303,12 +303,12 @@ GenericConfigPage {
                 Repeater {
 
                     model: [
-                        {Id: "flowTemperature", name: qsTr("Flow temperature"), value: thing.stateByName("flowTemperature")? thing.stateByName("flowTemperature").value : null , unit: "°C", component: stringValues, params: false, paramsSurPlus: false, sgready: true},
-                        {Id: "returnTemperature", name: qsTr("Return temperature"), value: thing.stateByName("returnTemperature")? thing.stateByName("returnTemperature").value : null , unit: "°C", component: stringValues, params: false, paramsSurPlus: false, sgready: thing.stateByName("sgReadyMode") ? true : false},
+                        {Id: "flowTemperature", name: qsTr("Flow temperature"), value: thing.stateByName("flowTemperature")? thing.stateByName("flowTemperature").value : null, unit: "°C", component: stringValues, params: false, paramsSurPlus: false},
+                        {Id: "returnTemperature", name: qsTr("Return temperature"), value: thing.stateByName("returnTemperature")? thing.stateByName("returnTemperature").value : null, unit: "°C", component: stringValues, params: false, paramsSurPlus: false},
                     ]
 
                     delegate: ItemDelegate{
-                        visible: modelData.value !== null && modelData.sgready ? true : false ? true : false
+                        visible: modelData.value !== null && thing.stateByName("returnTemperature").value >= 0 ? true : false
                         id: optimizer
                         Layout.fillWidth: true
                         contentItem: ColumnLayout
@@ -325,7 +325,7 @@ GenericConfigPage {
                                     Binding{
                                         target: optimization.item
                                         property: "delegateID"
-                                        value: modelData.value
+                                        value: modelData.Id
                                     }
 
                                     Binding{
@@ -383,7 +383,7 @@ GenericConfigPage {
                     id: stringValues
 
                     RowLayout {
-                        property var delegateID
+                        property string delegateID: ""
                         property var delegateName
                         property var delegateValue
                         property var delegateUnit
@@ -420,7 +420,7 @@ GenericConfigPage {
                             property string averageCOP : "averageCoefficientOfPerformance"
                             property double numberValue: Number(delegateValue)
 
-                            text: ( numberValue && (delegateID == currentCOP || delegateID == averageCOP) ? (((+delegateValue.toFixed(1)) <= 0) ? 0 : (+delegateValue.toFixed(1)).toLocaleString()) : numberValue ? (((delegateValue.toFixed(0)) <= 0) ? 0 : (delegateValue.toFixed(0)).toLocaleString()) : delegateValue) +" "+ delegateUnit;
+                            text: ( numberValue && (delegateID === currentCOP || delegateID === averageCOP) ? (((+delegateValue.toFixed(1)) <= 0) ? 0 : (+delegateValue.toFixed(1)).toLocaleString()) : numberValue ? (((delegateValue.toFixed(0)) <= 0) ? 0 : (delegateValue.toFixed(0)).toLocaleString()) : delegateValue) +" "+ delegateUnit;
                         }
                     }
                 }
