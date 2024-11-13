@@ -99,10 +99,10 @@ Item {
                 let arrLength = 192;
 
                 const pricelength = Object.keys(prices).length;
-                noDataLabel.visible = selectionTabs.currentIndex && pricelength <= arrLength;
-                noDataIndicator.visible = selectionTabs.currentIndex && pricelength <= arrLength;
+                noDataLabel.visible = selectionTabs.currentIndex && pricelength < arrLength;
+                noDataIndicator.visible = selectionTabs.currentIndex && pricelength < arrLength;
 
-                if(pricelength <= arrLength && selectionTabs.currentIndex == 1){
+                if(pricelength < arrLength && selectionTabs.currentIndex == 1){
                     consumptionSeries.visible = false
                     consumptionSeriesAbove.visible = false
                 }else{
