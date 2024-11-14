@@ -144,6 +144,8 @@ Page {
 
         RowLayout{
             Layout.fillWidth: true
+            visible: heatPumpThing.thingClass.interfaces.includes("smartgridheatpump")
+
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Grid-supportive-control")
@@ -158,6 +160,7 @@ Page {
 
         ColumnLayout {
             Layout.fillWidth: true
+            visible: heatPumpThing.thingClass.interfaces.includes("smartgridheatpump")
 
             Text {
                 Layout.fillWidth: true
