@@ -1570,7 +1570,7 @@ Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelt
     </message>
     <message>
         <source>Please wait while your %1 is being discovered.</source>
-        <translation type="unfinished">Bitte warten währen nach dem %1 gesucht wird.</translation>
+        <translation type="unfinished">Bitte warten während nach dem %1 gesucht wird.</translation>
     </message>
     <message>
         <source>(2) The software is offered by %1 free of charge to %2 customers via app stores.</source>
