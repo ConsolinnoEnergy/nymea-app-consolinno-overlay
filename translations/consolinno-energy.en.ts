@@ -2542,10 +2542,10 @@ Open source modules are included in the APP and in the device software. The corr
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
             &lt;p&gt;Version 1.7.0 (November 30, 2024)&lt;/p&gt;
-            &lt;h4&gt;New&lt;/h4&gt;
+            &lt;h4&gt;New features&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;TODO&lt;/li&gt;
-                &lt;li&gt;TODO&lt;/li&gt;
+                &lt;li&gt;PV-optimised operation of heating elements (Askoma)&lt;/li&gt;
+                &lt;li&gt;PV-optimised operation of self-regulating heat pumps (Lambda)&lt;/li&gt;
             &lt;/ul&gt;</translation>
     </message>
     <message>
