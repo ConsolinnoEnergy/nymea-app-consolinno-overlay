@@ -95,11 +95,11 @@ Page {
             }
         }
 
-
+        /*
         ListFilterInput {
             id: filterInput
             Layout.fillWidth: true
-        }
+        }*/
 
         GroupedListView {
             Layout.fillWidth: true
