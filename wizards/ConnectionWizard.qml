@@ -186,7 +186,7 @@ ConsolinnoWizardPageBase {
         ConsolinnoWizardPageBase {
             id: privacyPolicyPage
 
-            headerLabel: qsTr("Privacy Policy and License Agreement\n(09/2022)")
+            headerLabel: qsTr("Privacy Policy and License Agreement HEMS\n(11/2024)")
             showNextButton: false
             showBackButton: false
 
