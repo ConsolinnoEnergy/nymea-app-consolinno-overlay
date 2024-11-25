@@ -8,7 +8,7 @@ import Nymea 1.0
 ConsolinnoWizardPageBase {
     id: root
 
-    headerLabel: qsTr("Terms of Use")
+    headerLabel: qsTr("License Terms HEMS<br/>(as of 11/2024)")
     headerBackButtonVisible: false
     showBackButton: false
     showNextButton: false
@@ -186,7 +186,7 @@ ConsolinnoWizardPageBase {
         ConsolinnoWizardPageBase {
             id: privacyPolicyPage
 
-            headerLabel: qsTr("Privacy Policy and License Agreement HEMS\n(11/2024)")
+            headerLabel: qsTr("Privacy Policy and License Agreement HEMS<br/>(as of 11/2024)")
             showNextButton: false
             showBackButton: false
 

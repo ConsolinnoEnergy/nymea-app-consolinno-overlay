@@ -7,7 +7,7 @@ import "../../components"
 Page {
 
     header: NymeaHeader {
-        text: qsTr("Privacy policy and license agreement")
+        text: qsTr("License Terms HEMS<br/>(as of 11/2024)")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }

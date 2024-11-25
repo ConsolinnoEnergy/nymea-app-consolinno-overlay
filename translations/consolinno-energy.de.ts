@@ -674,10 +674,6 @@
         <translation>Ich bestätige, dass ich die Bestimmungen gelesen habe und akzeptiere.</translation>
     </message>
     <message>
-        <source>Terms of Use</source>
-        <translation>Nutzungsbedingungen</translation>
-    </message>
-    <message>
         <source>Yes I read the Term of Use and agree</source>
         <translation>Ja ich habe die Nutzungsbedingungen gelesen</translation>
     </message>
@@ -738,9 +734,12 @@
         <translation type="unfinished">Bitte warten während nach dem %1 gesucht wird.</translation>
     </message>
     <message>
-        <source>Privacy Policy and License Agreement HEMS
-(11/2024)</source>
-        <translation type="unfinished">Datenschutzerklärung HEMS (11/2024)</translation>
+        <source>License Terms HEMS&lt;br/&gt;(as of 11/2024)</source>
+        <translation type="unfinished">Lizenzbedingungen HEMS&lt;br/&gt;(Stand 11/2024)</translation>
+    </message>
+    <message>
+        <source>Privacy Policy and License Agreement HEMS&lt;br/&gt;(as of 11/2024)</source>
+        <translation type="unfinished">Datenschutzerklärung HEMS&lt;br/&gt;(Stand 11/2024)</translation>
     </message>
 </context>
 <context>
@@ -3163,10 +3162,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
 <context>
     <name>PrivacyPage</name>
     <message>
-        <source>Privacy policy and license agreement</source>
-        <translation>Datenschutz und Geschäftsbedingungen</translation>
-    </message>
-    <message>
         <source>I confirm that I have read the the agreement and am accepting it.</source>
         <translation>Ich bestätige, dass ich die Bestimmungen gelesen habe und akzeptiere.</translation>
     </message>
@@ -3177,6 +3172,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Yes I agree to open a Useraccount, according to part 6 </source>
         <translation>Ja ich möchte wie in Teil 6 beschrieben ein Benutzerkonto eröffnen</translation>
+    </message>
+    <message>
+        <source>License Terms HEMS&lt;br/&gt;(as of 11/2024)</source>
+        <translation type="unfinished">Lizenzbedingungen HEMS&lt;br/&gt;(Stand 11/2024)</translation>
     </message>
 </context>
 <context>

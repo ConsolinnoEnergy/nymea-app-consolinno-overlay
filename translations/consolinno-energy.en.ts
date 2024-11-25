@@ -674,10 +674,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Terms of Use</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Yes I read the Term of Use and agree</source>
         <translation type="unfinished"></translation>
     </message>
@@ -738,8 +734,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Privacy Policy and License Agreement HEMS
-(11/2024)</source>
+        <source>License Terms HEMS&lt;br/&gt;(as of 11/2024)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Privacy Policy and License Agreement HEMS&lt;br/&gt;(as of 11/2024)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3146,10 +3145,6 @@ For further assistance, please contact our support team at: %5</translation>
 <context>
     <name>PrivacyPage</name>
     <message>
-        <source>Privacy policy and license agreement</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>I confirm that I have read the the agreement and am accepting it.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3159,6 +3154,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Yes I agree to open a Useraccount, according to part 6 </source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>License Terms HEMS&lt;br/&gt;(as of 11/2024)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
