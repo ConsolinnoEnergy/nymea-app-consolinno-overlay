@@ -1353,9 +1353,7 @@ MainViewBase {
 
             Canvas {
                 id: timePickerCanvas
-                //anchors.fill: parent
-
-                Layout.alignment: Qt.AlignHCenter
+                anchors.fill: parent
 
                 // Breaks on iOS!
                 //renderTarget: Canvas.FramebufferObject
