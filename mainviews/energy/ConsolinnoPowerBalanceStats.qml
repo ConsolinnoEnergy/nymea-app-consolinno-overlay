@@ -805,7 +805,7 @@ StatsBase {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: onfiguration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2]
+                                color: Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2]
                             }
                             Label {
                                 text: d.startOffset !== undefined ? qsTr("From grid: %1 kWh").arg((+acquisitionSet.at(toolTip.idx).toFixed(2)).toLocaleString()) :""
