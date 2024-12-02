@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtGraphicalEffects 1.12
 import QtCharts 2.3
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.2
@@ -469,7 +470,17 @@ Item {
                             series = chartView.createSeries(ChartView.SeriesTypeArea, thing.name, dateTimeAxis, valueAxis)
                             series.lowerSeries = lineSeriesComponent.createObject(series)
                             series.upperSeries = lineSeriesComponent.createObject(series)
-                            series.color = consumerColors[index]
+
+                            if(thing.thingClass.interfaces.indexOf("heatpump") >= 0){
+                                series.color = Configuration.heatpumpColor
+                            }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
+                                series.color = Configuration.wallboxColor
+                            }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
+                                series.color = Configuration.heatingRodColor
+                            }else{
+                                series.color = consumerColors[index]
+                            }
+
                             series.opacity = Qt.binding(function() {
                                 return d.selectedSeries == null || d.selectedSeries == series ? 1 : 0.3
                             })
@@ -508,9 +519,68 @@ Item {
                             anchors.centerIn: parent
                             spacing: Style.smallMargins
                             ColorIcon {
-                                name: app.interfacesToIcon(legendDelegate.thing.thingClass.interfaces)
+                                id: icons
+                                name: {
+                                    for(let i = 0; i < legendDelegate.thing.thingClass.interfaces.length; i++){
+                                        let iconName = legendDelegate.thing.thingClass.interfaces[i];
+                                        switch (iconName) {
+                                        case "smartgridheatpump":
+                                            if(Configuration.heatpumpIcon !== ""){
+                                                return "qrc:/ui/images/"+Configuration.heatpumpIcon
+                                            }else{
+                                                return "qrc:/ui/images/heatpump.svg"
+                                            }
+                                        case "pvsurplusheatpump":
+                                            if(Configuration.heatpumpIcon !== ""){
+                                                return "qrc:/ui/images/"+Configuration.heatpumpIcon
+                                            }else{
+                                                return "qrc:/ui/images/heatpump.svg"
+                                            }
+                                        case "smartheatingrod":
+                                            if(Configuration.heatingRodIcon !== ""){
+                                                return "/ui/images/"+Configuration.heatingRodIcon
+                                            }else{
+                                                return "/ui/images/heating_rod.svg"
+                                            }
+                                        case "evcharger":
+                                            if(Configuration.evchargerIcon !== ""){
+                                                return "/ui/images/"+Configuration.evchargerIcon
+                                            }else{
+                                                return "/ui/images/ev-charger.svg"
+                                            }
+                                        default:
+                                            return app.interfaceToIcon(legendDelegate.thing.thingClass.interfaces)
+                                        }
+                                    }
+                                }
                                 size: Style.smallIconSize
-                                color: index >= 0 ? consumerColors[index] : "white"
+                                color: {
+                                    if(thing.thingClass.interfaces.indexOf("heatpump") >= 0){
+                                        return Configuration.heatpumpColor
+                                    }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
+                                        return Configuration.heatingRodColor
+                                    }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
+                                        return Configuration.wallboxColor
+                                    }else{
+                                        return "white"
+                                    }
+                                }
+
+                                Image {
+                                    id: icon
+                                    source: icons.name
+                                    width: icons.size
+                                    height: icons.size
+                                    visible: Configuration.evchargerIcon !== "" || Configuration.heatingRodIcon !== "" || Configuration.heatpumpIcon
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: icon
+                                    source: icon
+                                    color: icons.color
+                                    visible: Configuration.evchargerIcon !== "" || Configuration.heatingRodIcon !== "" || Configuration.heatpumpIcon
+                                }
+
                             }
                             Label {
                                 text: legendDelegate.thing.name
@@ -686,7 +756,7 @@ Item {
                                 property double rawValue: toolTip.entry ? toolTip.entry.consumption : 0
                                 property double displayValue: rawValue >= 1000 ? rawValue / 1000 : rawValue
                                 property string unit: rawValue >= 1000 ? "kW" : "W"
-                                text:  "%1: %2 %3".arg(qsTr("Total")).arg(displayValue.toFixed(2)).arg(unit)
+                                text:  "%1: %2 %3".arg(qsTr("Total")).arg((+displayValue.toFixed(2)).toLocaleString()).arg(unit)
                                 font: Style.extraSmallFont
                             }
                         }
@@ -695,12 +765,23 @@ Item {
                             model: consumersRepeater.count
                             delegate: RowLayout {
                                 readonly property Item chartItem: consumersRepeater.itemAt(index)
+                                readonly property Thing thing: chartItem.series.get(index).name
                                 id: consumerToolTipDelegate
                                 opacity: d.selectedSeries == null || d.selectedSeries === chartItem.series ? 1 : 0.3
                                 Rectangle {
                                     width: Style.extraSmallFont.pixelSize
                                     height: width
-                                    color: index >= 0 ? consumerColors[index] : "white"
+                                    color: {
+                                        if(chartItem.thing.thingClass.interfaces.indexOf("heatpump") >= 0){
+                                            return Configuration.heatpumpColor
+                                        }else if(chartItem.thing.thingClass.interfaces.indexOf("evcharger") >= 0){
+                                            return Configuration.wallboxColor
+                                        }else if(chartItem.thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
+                                            return Configuration.heatingRodColor
+                                        }else{
+                                           return consumerColors[index]
+                                        }
+                                    }
                                 }
 
                                 Label {
@@ -708,7 +789,7 @@ Item {
                                     property double rawValue: entry ? entry.currentPower : 0
                                     property double displayValue: rawValue >= 1000 ? rawValue / 1000 : rawValue
                                     property string unit: rawValue >= 1000 ? "kW" : "W"
-                                    text:  "%1: %2 %3".arg(chartItem.thing.name).arg(displayValue.toFixed(2)).arg(unit)
+                                    text:  "%1: %2 %3".arg(chartItem.thing.name).arg((+displayValue.toFixed(2)).toLocaleString()).arg(unit)
                                     font: Style.extraSmallFont
                                 }
                             }

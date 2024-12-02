@@ -32,16 +32,37 @@ ConsolinnoWizardPageBase {
             wrapMode: Text.WordWrap
             Layout.alignment: Qt.AlignCenter
             horizontalAlignment: Text.AlignHCenter
-            text: qsTr("To comission devices with the Leaflet, you must be authorized. Otherwise the warranty expires.")
+            text: qsTr("To comission devices with the %1, you must be authorized. Otherwise the warranty expires.").arg(Configuration.coreBranding)
         }
 
+        ColumnLayout {
+            spacing: Style.margins
+            Layout.alignment: Qt.AlignHCenter
 
-        CheckBox{
-        id: authorisationCheckbox
-        Layout.alignment: Qt.AlignCenter
-        text: qsTr("I am authorized to operate the Leaflet")
+            RowLayout {
+                spacing: Style.margins
+                Layout.alignment: Qt.AlignHCenter
+
+                CheckBox{
+                    id: authorisationCheckbox
+                }
+
+                Label {
+                    wrapMode: Text.WordWrap
+                    Layout.maximumWidth: parent.width * 0.8
+                    Layout.alignment: Qt.AlignHCenter
+                    horizontalAlignment: Text.AlignLeft
+                    text: qsTr("I am authorized to operate the %1").arg(Configuration.coreBranding)
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            authorisationCheckbox.checked = !authorisationCheckbox.checked
+                        }
+                    }
+                }
+            }
         }
-
 
         ColumnLayout {
             spacing: Style.margins
@@ -50,10 +71,6 @@ ConsolinnoWizardPageBase {
             Button {
                 Layout.alignment: Qt.AlignHCenter
                 text: qsTr("cancel")
-                background: Rectangle{
-                    color: "#87BD26"
-                    radius: 4
-                }
                 Layout.preferredWidth: 200
                 onClicked: {
                     pageStack.pop()
@@ -63,10 +80,7 @@ ConsolinnoWizardPageBase {
             Button {
                 Layout.alignment: Qt.AlignHCenter
                 text: qsTr("next")
-                background: Rectangle{
-                    color: authorisationCheckbox.checked  ? "#87BD26" : "grey"
-                    radius: 4
-                }
+                enabled: authorisationCheckbox.checked
                 Layout.preferredWidth: 200
                 onClicked: {
                     if (authorisationCheckbox.checked) {
@@ -80,14 +94,6 @@ ConsolinnoWizardPageBase {
                     }
                 }
             }
-
-
-
-
-
-
-
-
 
         }
 

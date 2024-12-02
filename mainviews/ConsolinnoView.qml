@@ -92,7 +92,7 @@ MainViewBase {
     }
 
     headerButtons: [{
-            "iconSource": "/ui/images/info.svg",
+            "iconSource": Configuration.infoIcon !== "" ? "/ui/images/"+Configuration.infoIcon : "/ui/images/info.svg",
             "color": Material.foreground,
             "visible": true,
             "trigger": function () {
@@ -101,7 +101,7 @@ MainViewBase {
                                })
             }
         }, {
-            "iconSource": "/ui/images/configure.svg",
+            "iconSource": Configuration.settingsIcon !== "" ? "/ui/images/"+Configuration.settingsIcon : "/ui/images/configure.svg",
             "color": Style.iconColor,
             "visible": hemsManager.available && rootMeter != null,
             "trigger": function () {
@@ -143,6 +143,7 @@ MainViewBase {
             wizardSettings.solarPanelDone = false
             wizardSettings.evChargerDone = false
             wizardSettings.heatPumpDone = false
+            wizardSettings.heatingElementDone = false
             wizardSettings.authorisation = false
             wizardSettings.installerData = false
         }
@@ -151,6 +152,7 @@ MainViewBase {
             manualWizardSettings.solarPanelDone = false
             manualWizardSettings.evChargerDone = false
             manualWizardSettings.heatPumpDone = false
+            manualWizardSettings.heatingElementDone = false
             manualWizardSettings.authorisation = false
             manualWizardSettings.installerData = false
             manualWizardSettings.energymeter = false
@@ -164,6 +166,7 @@ MainViewBase {
             manualWizardSettings.solarPanelDone = true
             manualWizardSettings.evChargerDone = true
             manualWizardSettings.heatPumpDone = true
+            manualWizardSettings.heatingElementDone = true
             manualWizardSettings.authorisation = true
             manualWizardSettings.installerData = true
             manualWizardSettings.energymeter = true
@@ -302,7 +305,6 @@ MainViewBase {
                 return
             }
 
-            /** Disabled for now, WIP
             if((!wizardSettings.heatingElementDone) || (!manualWizardSettings.heatingElementDone)) {
                 var page = d.pushPage("/ui/wizards/SetupHeatingElementWizard.qml")
                 page.done.connect(function (skip, abort, back) {
@@ -327,7 +329,7 @@ MainViewBase {
                 wizardSettings.heatingElementDone = true
                 return;
             }
-            **/
+
 
             if (!blackoutProtectionSetting.blackoutProtectionDone) {
                 var page = d.pushPage(
@@ -536,8 +538,8 @@ MainViewBase {
         console.debug("Visibility of " + engine.jsonRpcClient.currentHost.name + " changed to " + visible)
         if (visible) {
             // Show message if app was updated
-            var notficationPopup = startUpNotificationComponent.createObject(root)
-            notficationPopup.message=qsTr('CHANGENOTIFICATION_PLACEHOLDER')
+            var notficationPopup = startUpNotificationComponent.createObject(root) 
+            notficationPopup.message= qsTr('CHANGENOTIFICATION_PLACEHOLDER');
             // If Popup not already open, open it
             if (notficationPopup.opened === false
                     && shownPopupsSetting.shown.indexOf(appVersion) === -1) {
@@ -547,18 +549,18 @@ MainViewBase {
             // Show message if HEMS version is not compatible
             if (!checkHEMSVersion()) {
                 var incompNotificationPopup = incompNotificationComponent.createObject(root)
-                //                incompNotificationPopup.message = qsTr("Consolinno HEMS App is not compatible with the HEMS system version running on %1. Please update your HEMS.").arg(engine.jsonRpcClient.currentHost.name)
+                //                incompNotificationPopup.message = qsTr("%2 App is not compatible with the HEMS system version running on %1. Please update your HEMS.").arg(engine.jsonRpcClient.currentHost.name).arg(Configuration.appName)
                 
                 incompNotificationPopup.message=qsTr('<h3>Incompatible Software Versions</h3>
-                <p>The software versions of your "Consolinno Energy HEMS App" (v%1) and your "Leaflet HEMS End Device" (v%2) are incompatible and currently only partially usable. Your "Leaflet HEMS End Device" will be automatically updated during the day.</p>
+                <p>The software versions of your "%3 App" (v%1) and your "%6 End Device" (v%2) are incompatible and currently only partially usable. Your "%6 End Device" will be automatically updated during the day.</p>
                 <p>If you still receive this message after several hours, please contact our support:</p>
                 <ul>
-                    <li>Phone: <a href="tel:+4994120300333">+49 941/ 20300 333</a></li>
-                    <li>Email: <a href="mailto:service@consolinno.de">service@consolinno.de</a></li>
+                    <li>Phone: <a href="tel:%7">%7</a></li>
+                    <li>Email: <a href="mailto:%4">%4</a></li>
                 </ul>
                 <p>We apologize for the temporary limitations in use.</p>
                 <p>Best regards</p>
-                <p>Your Consolinno Energy Team</p>').arg(appVersion).arg(engine.jsonRpcClient.experiences.Hems)
+                <p>Your %5 Team</p>').arg(appVersion).arg(engine.jsonRpcClient.experiences.Hems).arg(Configuration.appName).arg(Configuration.serviceEmail).arg(Configuration.branding).arg(Configuration.deviceName).arg(Configuration.companyTel)
                 // If Popup not already open, open it
                 if (incompNotificationPopup.opened === false) {
                     incompNotificationPopup.open()
@@ -646,16 +648,8 @@ MainViewBase {
         visible: rootMeter != null
 
         property int hours: 24
-        readonly property var consumersColors: ["#F7B772", "#ACE3E2", "#ADB9E3", "#639F86", "#FF8954", "#D9F6C5", "#437BC4", "#AA5DC2", "#C6C73F"]
-        readonly property color rootMeterAcquisitionColor: "#F37B8E"
-        readonly property color rootMeterReturnColor: "#45B4E4"
-        readonly property color producersColor: "#FCE487"
-        readonly property color batteriesColor: "#BDD786"
-        readonly property color batteryChargeColor: batteriesColor
-        readonly property color batteryDischargeColor: "#F7B772"
-        readonly property color consumedColor: "#ADB9E3"
-        readonly property color electricsColor: "#E056F5"
-        readonly property var totalColors: [consumedColor, producersColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
+        readonly property var consumersColors: Configuration.consumerColors
+        readonly property color electricsColor: Configuration.epexColor
         property string currentGridValueState: ""
 
         Canvas {
@@ -871,8 +865,8 @@ MainViewBase {
                         isRootmeter: true
                         isElectric: false
                         isNotify: lsdChart.currentGridValueState
-                        color: lsdChart.rootMeterAcquisitionColor
-                        negativeColor: lsdChart.rootMeterReturnColor
+                        color: Configuration.rootMeterAcquisitionColor
+                        negativeColor: Configuration.rootMeterReturnColor
                         onClicked: {
                             print("Clicked root meter", index, thing.name)
                             pageStack.push(
@@ -890,7 +884,7 @@ MainViewBase {
                         model: producers
                         delegate: LegendTile {
                             visible: producers.get(index).id !== rootMeter.id
-                            color: lsdChart.producersColor
+                            color: Configuration.inverterColor
                             thing: producers.get(index)
                             isElectric: false
                             onClicked: {
@@ -1011,7 +1005,7 @@ MainViewBase {
                     id: productionSeries
                     axisAngular: axisAngular
                     axisRadial: axisRadial
-                    color: lsdChart.producersColor
+                    color: Configuration.inverterColor
                     borderColor: "transparent"
                     borderWidth: 0
                     lowerSeries: zeroSeries
@@ -1058,7 +1052,7 @@ MainViewBase {
                     id: acquisitionSeries
                     axisAngular: axisAngular
                     axisRadial: axisRadial
-                    color: lsdChart.rootMeterAcquisitionColor
+                    color: Configuration.rootMeterAcquisitionColor
                     borderColor: "transparent"
                     borderWidth: 0
                     lowerSeries: zeroSeries
@@ -1092,7 +1086,7 @@ MainViewBase {
                     id: returnSeries
                     axisAngular: axisAngular
                     axisRadial: axisRadial
-                    color: lsdChart.rootMeterReturnColor
+                    color: Configuration.rootMeterReturnColor
                     borderColor: "transparent"
                     borderWidth: 0
                     //                    visible: false
@@ -1126,7 +1120,7 @@ MainViewBase {
                     id: storageSeries
                     axisAngular: axisAngular
                     axisRadial: axisRadial
-                    color: lsdChart.batteriesColor
+                    color: Configuration.batteriesColor
                     borderColor: "transparent"
                     borderWidth: 0
                     //                    visible: false
@@ -1169,7 +1163,16 @@ MainViewBase {
                             consumerSeries.lowerSeries = zeroSeries
                             consumerSeries.upperSeries = lineSeriesComponent.createObject(
                                         consumerSeries)
-                            consumerSeries.color = lsdChart.consumersColors[index]
+
+                            if(thing.thingClass.interfaces.indexOf("heatpump") >= 0){
+                                consumerSeries.color = Configuration.heatpumpColor
+                            }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
+                                consumerSeries.color = Configuration.wallboxColor
+                            }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
+                                consumerSeries.color = Configuration.heatingRodColor
+                            }else{
+                                consumerSeries.color = lsdChart.consumersColors[index]
+                            }
                             consumerSeries.borderWidth = 0
                             consumerSeries.borderColor = consumerSeries.color
                         }
@@ -1233,12 +1236,12 @@ MainViewBase {
                             GradientStop {
                                 position: 0.0
                                 //color: "#949494"
-                                color: "#b6b6b6"
+                                color: Configuration.mainInnerCicleFirst //"#b6b6b6" //Configuration.mainInnerCicleFirst
                             }
                             GradientStop {
                                 position: 0.8
                                 //color: "white"
-                                color: "#b6b6b6"
+                                color: Configuration.mainInnerCicleSecond //"#b6b6b6" //Configuration.mainInnerCicleSecond
                             }
                         }
                     }
@@ -1273,7 +1276,7 @@ MainViewBase {
                         }
                         onClicked: pageStack.push("DetailedGraphsPage.qml", {
                                                       "energyManager": energyManager,
-                                                      "totalColors": lsdChart.totalColors,
+                                                      "totalColors": Configuration.totalColors,
                                                       "consumersColors": lsdChart.consumersColors
                                                   })
                     }
@@ -1365,8 +1368,8 @@ MainViewBase {
                     var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
                     ctx.translate(xTranslate, yTranslate)
 
-                    ctx.strokeStyle = "gray"
-                    ctx.fillStyle = "gray"
+                    ctx.strokeStyle = Configuration.mainTimeNow
+                    ctx.fillStyle = Configuration.mainTimeNow
 
                     ctx.beginPath()
                     ctx.lineWidth = 3
@@ -1394,7 +1397,7 @@ MainViewBase {
                                            parent.width - Style.margins * 2)
                 implicitWidth: bottomLegend.implicitWidth
                 Layout.margins: Style.margins
-                Layout.preferredHeight: bottomLegend.implicitHeight
+                Layout.preferredHeight: tabsRepeater.count >= 2 ? bottomLegend.implicitHeight + 50 : bottomLegend.implicitHeight
                 contentWidth: bottomLegend.implicitWidth
                 Layout.alignment: Qt.AlignHCenter
                 onContentXChanged: {
@@ -1408,8 +1411,19 @@ MainViewBase {
                     Repeater {
                         id: legendConsumersRepeater
                         model: consumers
+
                         delegate: LegendTile {
-                            color: lsdChart.consumersColors[index]
+                            color: {
+                                if(thing.thingClass.interfaces.indexOf("heatpump") >= 0){
+                                    return Configuration.heatpumpColor
+                                }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
+                                    return Configuration.wallboxColor
+                                }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
+                                    return Configuration.heatingRodColor
+                                }else{
+                                    return lsdChart.consumersColors[index]
+                                }
+                            }
                             thing: consumers.get(index)
                             onClicked: {
                                 print("Clicked consumer", index, thing.name)
@@ -1454,6 +1468,13 @@ MainViewBase {
                                                     })
                                     }
 
+                                } else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0) {
+                                    pageStack.push(
+                                                "/ui/devicepages/HeatingElementDevicePage.qml",
+                                                {
+                                                    "hemsManager": hemsManager,
+                                                    "thing": thing
+                                                })
                                 } else {
                                     pageStack.push(
                                                 "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
@@ -1469,7 +1490,7 @@ MainViewBase {
                         id: legendBatteriesRepeater
                         model: batteries
                         delegate: LegendTile {
-                            color: lsdChart.batteriesColor
+                            color: Configuration.batteriesColor
                             thing: batteries.get(index)
                             onClicked: {
                                 print("Clicked battery", index, thing.name)
@@ -1568,7 +1589,7 @@ MainViewBase {
                     ctx.rotate(i * sliceAngle - timeDiffRotation)
                     ctx.beginPath()
                     //ctx.strokeStyle = i % 2 == 0 ? Style.gray : Style.darkGray; //alternating colors
-                    ctx.strokeStyle = "#d7d7d7" // could also be achieved with only a circle
+                    ctx.strokeStyle = Configuration.mainTimeCircle // could also be achieved with only a circle //Color for inner circle
                     ctx.arc(0, 0, (chartView.plotArea.width + circleWidth) / 2,
                             0, sliceAngle)
                     ctx.stroke()
@@ -1580,7 +1601,7 @@ MainViewBase {
                     ctx.save()
                     ctx.rotate(i * sliceAngle - timeDiffRotation)
                     ctx.beginPath()
-                    ctx.strokeStyle = "#ffffff"
+                    ctx.strokeStyle = Configuration.mainTimeCircleDivider
                     ctx.arc(0, 0, (chartView.plotArea.width + circleWidth) / 2,
                             0, 0.005)
                     ctx.stroke()
@@ -1599,7 +1620,7 @@ MainViewBase {
                     tmpDate.setHours(startHour + i, 0, 0)
                     ctx.textAlign = 'center'
                     ctx.font = "" + Style.smallFont.pixelSize + "px " + Style.smallFont.family
-                    ctx.fillStyle = "Gray"
+                    ctx.fillStyle = Configuration.mainCircleTimeColor //gray
                     var textY = -(chartView.plotArea.height + circleWidth) / 2
                             + Style.smallFont.pixelSize / 2
                     // Just can't figure out where I'm missing thosw 2 pixels in the proper calculation (yet)...
@@ -1651,7 +1672,7 @@ MainViewBase {
                  && energyMetersProxy.count === 0
         property bool rootMeter: !engine.thingManager.fetchingData
                                  && root.rootMeter == null
-        title: qsTr("Your leaflet is not set up yet.")
+        title: qsTr("Your %1 is not set up yet.").arg(Configuration.deviceName)
         text: qsTr("Please complete the setup wizard or manually configure your devices.")
         imageSource: "/ui/images/leaf.svg"
         buttonText: qsTr("Start setup")

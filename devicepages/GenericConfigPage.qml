@@ -94,7 +94,7 @@ Item {
                             width: 24
                             height: 24
                             anchors.centerIn: parent
-                            source: "/ui/images/navigation-menu.svg"
+                            source: Configuration.menuIcon !== "" ? "../images/"+Configuration.menuIcon : "../images/navigation-menu.svg"
                             visible: parent.enabled
                         }
 

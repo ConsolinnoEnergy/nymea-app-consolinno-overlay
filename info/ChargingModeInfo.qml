@@ -133,7 +133,7 @@ Page {
                 rightPadding: app.margins +10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
-                text: qsTr("The charging modes <font color=\"#87BD26\">Solar power only</font> and <font color=\"#87BD26\">Always charging</font> remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with <font color=\"#87BD26\">Next trip</font>, you must select a charging mode again when you plug in.")
+                text: qsTr("The charging modes <font color=\"%1\">Solar power only</font>, <font color=\"%1\">Always charging</font> and <font color=\"%1\">Dynamic tariff</font> remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with <font color=\"%1\">Next trip</font>, you must select a charging mode again when you plug in.").arg(Style.consolinnoMedium)
             }
 
         }

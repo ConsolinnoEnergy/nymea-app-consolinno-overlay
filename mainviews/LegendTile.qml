@@ -20,6 +20,7 @@ MouseArea {
     readonly property State currentMarketPriceState: thing ? thing.stateByName("currentMarketPrice") : null
     readonly property bool isProducer: thing && thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0
     readonly property bool isBattery: thing && thing.thingClass.interfaces.indexOf("energystorage") >= 0
+    readonly property bool isHeatingRod: thing && thing.thingClass.interfaces.indexOf("smartmeterconsumer") >= 0
     property bool isRootmeter: false
 
     property bool isPowerConnection: false
@@ -90,11 +91,42 @@ MouseArea {
     }
 
     function ifaceToIcon(name) {
+        let icon = "";
         switch (name) {
-        case "smartgridheatpump":
-            return Qt.resolvedUrl("/ui/images/heatpump.svg")
+        case "heatpump":
+            if(Configuration.heatpumpIcon !== ""){
+                icon = "qrc:/ui/images/"+Configuration.heatpumpIcon
+            }else{
+                icon = "qrc:/ui/images/heatpump.svg"
+            }
+            return Qt.resolvedUrl(icon)
         case "smartheatingrod":
-            return Qt.resolvedUrl("/ui/images/heating_rod.svg")
+            if(Configuration.heatingRodIcon !== ""){
+                icon = "/ui/images/"+Configuration.heatingRodIcon
+            }else{
+                icon = "/ui/images/heating_rod.svg"
+            }
+            return Qt.resolvedUrl(icon)
+        case "energystorage":
+            if(Configuration.batteryIcon !== ""){
+                icon = "/ui/images/"+Configuration.batteryIcon
+                return Qt.resolvedUrl(icon)
+            }
+        case "evcharger":
+            if(Configuration.evchargerIcon !== ""){
+                icon = "/ui/images/"+Configuration.evchargerIcon
+                return Qt.resolvedUrl(icon)
+            }
+        case "solarinverter":
+            if(Configuration.inverterIcon !== ""){
+                icon = "/ui/images/"+Configuration.inverterIcon
+                return Qt.resolvedUrl(icon)
+            }
+        case "solarinverter":
+            if(Configuration.inverterIcon !== ""){
+                icon = "/ui/images/"+Configuration.inverterIcon
+                return Qt.resolvedUrl(icon)
+            }
         default:
             return app.interfaceToIcon(name)
         }
@@ -102,10 +134,25 @@ MouseArea {
 
 
     function thingToIcon(thing) {
-        if(isRootmeter)
-            return Qt.resolvedUrl("/ui/images/grid.svg")
-        if(isElectric)
-            return Qt.resolvedUrl("/ui/images/energy.svg")
+        let icon = ""
+        if(isRootmeter){
+            if(Configuration.gridIcon !== ""){
+                icon = "/ui/images/"+Configuration.gridIcon;
+            }else{
+                icon = "/ui/images/grid.svg"
+            }
+            return Qt.resolvedUrl(icon);
+        }
+        if(isElectric){
+            if(Configuration.energyIcon !== ""){
+                icon = "/ui/images/"+Configuration.energyIcon;
+            }else{
+                icon = "/ui/images/energy.svg"
+            }
+            return Qt.resolvedUrl(icon);
+        }
+        if(isBattery)
+            return Qt.resolvedUrl("/ui/images/"+Configuration.batteryIcon)
         return ifacesToIcon(thing.thingClass.interfaces)
     }
 
@@ -126,6 +173,9 @@ MouseArea {
                 Label {
                     width: parent.width
                     anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.horizontalCenterOffset: root.currentPower.toString().length >= 5 ? 1 : 10
+
                     Rectangle {
                         Layout.fillWidth: true
                         color: "white"
@@ -172,9 +222,9 @@ MouseArea {
             ColorIcon {
                 size: Style.iconSize
                 Layout.alignment: Qt.AlignCenter
-                name: !root.thing || root.isBattery ? "" : thingToIcon(root.thing)
+                name: !root.thing || Configuration.batteryIcon === "" && root.isBattery ? "" : thingToIcon(root.thing)
                 color: "#3b3b3b"
-                visible: !root.isBattery
+                visible: !root.isBattery || root.isBattery && Configuration.batteryIcon !== ""
             }
 
             Rectangle {
@@ -184,7 +234,7 @@ MouseArea {
                 Layout.rightMargin: Style.margins + 8
                 Layout.topMargin: Style.smallMargins
                 Layout.preferredHeight: 15
-                visible: root.isBattery
+                visible: root.isBattery && Configuration.batteryIcon === ""
 
                 radius: 2
                 color: "#2f2e2d"
@@ -203,6 +253,7 @@ MouseArea {
                     anchors.fill: parent
                     anchors.margins: 2
                     spacing: 2
+                    visible: root.isBattery && Configuration.batteryIcon === ""
                     Repeater {
                         model: 10
                         delegate: Rectangle {
@@ -224,7 +275,7 @@ MouseArea {
                 font: Style.smallFont
                 text: root.thing ? root.thing.name : ""
                 elide: Text.ElideRight
-                color: "black"
+                color: Configuration.mainMenuThingName
             }
         }
     }

@@ -16,6 +16,7 @@ GenericConfigPage {
     property Thing thing: null
 
     title: root.thing.name
+    headerOptionsVisible: false
 
     content: [
         ColumnLayout {
@@ -28,8 +29,10 @@ GenericConfigPage {
             }
 
             spacing: Style.margins
-
+            //Disabled for now
+            /*
             ColumnLayout {
+                visible: true
                 Layout.fillWidth: true
                 Layout.fillHeight: false
                 Layout.preferredHeight: operatingModeValueText.height + toolTipText.height
@@ -39,6 +42,7 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     Layout.fillHeight: false
                     spacing: Style.smallMargins
+                    visible: false
 
                     Label {
                         Layout.fillWidth: false
@@ -51,10 +55,10 @@ GenericConfigPage {
                         Layout.fillHeight: true
 
                         Rectangle {
-                            width: 120
+                            width: 100
                             height: operatingModeValueText.height + 10
                             anchors.right: parent.right
-                            radius: Style.smallMargins
+                            radius: 13
                             color: {
                                 if(root.operatingModeStatus === 1) {
                                     return "#008000"
@@ -67,7 +71,7 @@ GenericConfigPage {
 
                             Label {
                                 id: operatingModeValueText
-
+                                Layout.leftMargin: 10
                                 anchors.centerIn: parent
                                 color: Style.white
                                 text: {
@@ -86,8 +90,9 @@ GenericConfigPage {
 
                 Label {
                     id: toolTipText
-
+                    Layout.topMargin: 13
                     Layout.fillWidth: true
+                    visible: false
                     text: {
                         if(root.operatingModeStatus === 1) {
                             return qsTr("The heating is operated only with solar power.")
@@ -99,30 +104,30 @@ GenericConfigPage {
                     }
                     font: Style.smallFont
                     wrapMode: Text.WordWrap
-                    color: Style.darkGray
+                    color: Configuration.iconColor
                 }
-            }
+            }*/
 
             ConsolinnoRowLabelValue {
                 Layout.fillWidth: true
-
+                Layout.topMargin: 25
                 label: qsTr("Current Temperature")
-                value: root.currentTemperature && root.currentTemperature.value
+                value: (root.currentTemperature === null) ? 0 : (+root.currentTemperature.value).toLocaleString() + qsTr(" °C")
                 visible: root.currentTemperature
             }
 
             ConsolinnoRowLabelValue {
                 Layout.fillWidth: true
-
+                Layout.topMargin: 25
                 label: qsTr("Current Consumption")
-                value: root.currentConsumption.value + qsTr(" W")
+                value: (+root.currentConsumption.value).toLocaleString() + qsTr(" W")
             }
 
             ConsolinnoRowLabelValue {
                 Layout.fillWidth: true
 
                 label: qsTr("Total Consumption")
-                value: root.totalConsumption.value.toFixed(2) + qsTr(" kWh")
+                value: (+root.totalConsumption.value.toFixed(2)).toLocaleString() + qsTr(" kWh")
             }
         }
     ]

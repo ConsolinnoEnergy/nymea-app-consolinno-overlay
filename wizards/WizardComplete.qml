@@ -21,11 +21,20 @@ ConsolinnoWizardPageBase {
         anchors.fill: parent
         anchors.topMargin: Style.margins
         spacing: Style.hugeMargins
+
+        Item {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            visible: Configuration.isIntroIcon !== true
+        }
+
         Image {
+            id: introIcon
             Layout.fillWidth: true
             Layout.preferredHeight: parent.height / 4
             source: "/ui/images/intro-bg-graphic.svg"
             fillMode: Image.PreserveAspectFit
+            visible: Configuration.isIntroIcon
         }
 
         ColumnLayout {
@@ -47,7 +56,7 @@ ConsolinnoWizardPageBase {
                 Layout.margins: Style.margins
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
-                text: qsTr("Your Leaflet is now configured. The following devices have been set up:")
+                text: qsTr("Your %1 is now configured. The following devices have been set up:").arg(Configuration.deviceName)
             }
             ListView {
                 Layout.fillWidth: true

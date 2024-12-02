@@ -134,11 +134,33 @@ Page {
                         delegate: ItemDelegate{
                             Layout.preferredWidth: app.width
                             contentItem: ConsolinnoItemDelegate{
+                                id: setupHeatingRoad
                                 Layout.fillWidth: true
-                                iconName: "../images/sensors/water.svg"
+                                iconName:{
+                                    if(Configuration.heatingRodIcon !== ""){
+                                        return "/ui/images/"+Configuration.heatingRodIcon;
+                                    }else{
+                                        return "../images/heating_rod.svg";
+                                    }
+                                }
                                 progressive: false
-                                //                                text: emProxy.get(index) ? emProxy.get(index).name : ""
-                                text: heProxy.shownInterfaces + heProxy.count
+                                text: heProxy.get(index).name
+
+                                Image {
+                                    id: iconHeatingRoad
+                                    height: 24
+                                    width: 24
+                                    source: setupHeatingRoad.iconName
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.left: parent.left
+                                    anchors.leftMargin: 16
+                                }
+                                ColorOverlay {
+                                    anchors.fill: iconHeatingRoad
+                                    source: iconHeatingRoad
+                                    color: Style.consolinnoMedium
+                                }
+
                             }
                         }
                     }
@@ -257,7 +279,7 @@ Page {
                     width: parent.width
                     height: parent.height
                     border.color: Material.background
-                    color: Style.consolinnoHighlight
+                    color: Configuration.secondButtonColor
                     radius: 4
                 }
                 onClicked: root.done(true, false, false)
@@ -655,7 +677,7 @@ Page {
 
                         onClicked:{
                             if (thing){
-                                var page = pageStack.push("../optimization/HeatingElementConfigurationView.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatPumpThing: thing, directionID: 1})
+                                var page = pageStack.push("../optimization/HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatRodThing: thing, directionID: 1})
                                 page.done.connect(function(){
                                     pageStack.pop(root)
                                 })

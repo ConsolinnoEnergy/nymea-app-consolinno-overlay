@@ -68,14 +68,14 @@ Page {
         Label {
             Layout.fillWidth: true
             horizontalAlignment: Text.AlignHCenter
-            text: qsTr("To complete the authentication, please press the test button again for 5 seconds until the status LED lights up green.").arg(Configuration.systemName)
+            text: qsTr("To complete the authentication, please press the <b>test button again for 5 seconds</b> until the status LED lights up green.").arg(Configuration.systemName)
             wrapMode: Text.WordWrap
         }
 
         Label {
             Layout.fillWidth: true
             horizontalAlignment: Text.AlignHCenter
-            text: qsTr("If the status LED flashes red briefly, you must repeat the authentication. (Go back to the connection page, press the test button briefly and select the leaflet again).")
+            text: qsTr('If the status LED flashes red briefly, you must repeat the authentication. (Go back to the screen "Discovered Devices", press the test button briefly and select the %1 again).').arg(Configuration.deviceName)
             wrapMode: Text.WordWrap
         }
 

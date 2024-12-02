@@ -1,4 +1,5 @@
 import QtQuick 2.8
+import QtGraphicalEffects 1.12
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.2
 import Nymea 1.0
@@ -43,19 +44,53 @@ Page {
         Repeater {
             model: useCasesModel
             delegate: NymeaItemDelegate {
+                id: allIcons
                 Layout.fillWidth: true
                 iconName: {
-                    if (model.value === HemsManager.HemsUseCaseBlackoutProtection)
-                        return "../images/attention.svg"
-                    if (model.value === HemsManager.HemsUseCaseHeating)
-                        return "../images/thermostat/heating.svg"
-                    if (model.value === HemsManager.HemsUseCaseCharging)
-                        return "../images/ev-charger.svg"
-                    if (model.value === HemsManager.HemsUseCasePv)
-                        return"../images/weathericons/weather-clear-day.svg"
-                    if (model.value === HemsManager.HemsUseCaseHeatingElement)
-                        return"../images/sensors/water.svg"
+                    let icon = "";
+                    switch (model.value) {
+                        case HemsManager.HemsUseCaseBlackoutProtection:
+                            icon = "../images/attention.svg";
+                            break;
+                        case HemsManager.HemsUseCaseHeating:
+                            if(Configuration.heatpumpIcon !== ""){
+                                icon = "qrc:/ui/images/"+Configuration.heatpumpIcon;
+                            }else{
+                                icon = "../images/thermostat/heating.svg";
+                            }
+                            break;
+                        case HemsManager.HemsUseCaseCharging:
+                            icon = Configuration.evchargerIcon !== "" ? "../images/" + Configuration.evchargerIcon : "../images/ev-charger.svg";
+                            break;
+                        case HemsManager.HemsUseCasePv:
+                            icon = Configuration.inverterIcon !== "" ? "../images/" + Configuration.inverterIcon : "../images/weathericons/weather-clear-day.svg";
+                            break;
+                        case HemsManager.HemsUseCaseHeatingElement:
+                            icon = "../images/sensors/water.svg";
+                            break;
+                    }
+                    return icon;
                 }
+
+                Image {
+                    id: icons
+                    height: 24
+                    width: 24
+                    source: allIcons.iconName
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: 16
+                    z: 2
+                }
+
+                ColorOverlay {
+                    anchors.fill: icons
+                    source: icons
+                    color: Style.consolinnoMedium
+                    z: 3
+                }
+
+
                 text: model.text
                 visible: (hemsManager.availableUseCases & model.value) != 0 && (model.visible || settings.showHiddenOptions)
                 progressive: true

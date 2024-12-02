@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtGraphicalEffects 1.12
 import QtCharts 2.2
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.2
@@ -284,10 +285,10 @@ Item {
                     id: selfProductionConsumptionSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[1]
+                    color: Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : totalColors[1]
 //                    borderWidth: 2
                     borderColor: null
-                    name: qsTr("From self production")
+                    name: qsTr("From PV")
                     opacity: d.selectedSeries == null || d.selectedSeries == selfProductionConsumptionSeries ? 1 : 0.3
             //        visible: false
 
@@ -345,7 +346,7 @@ Item {
                     id: toStorageSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[4]
+                    color: Configuration.customColor && Configuration.customBatteryPlusColor !== "" ? Configuration.customBatteryPlusColor : totalColors[4]
                     borderWidth: 0
                     borderColor: null
                     opacity: d.selectedSeries == null || d.selectedSeries == toStorageSeries ? 1 : 0.3
@@ -375,7 +376,7 @@ Item {
                     id: returnSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[3]
+                    color: Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
                     borderWidth: 0
                     borderColor: null
                     name: qsTr("To grid")
@@ -404,7 +405,7 @@ Item {
                     id: fromStorageSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[5]
+                    color: Configuration.customColor && Configuration.customBatteryMinusColor !== "" ? Configuration.customBatteryMinusColor : totalColors[5]
                     borderWidth: 0
                     borderColor: null
                     name: qsTr("From battery")
@@ -433,7 +434,7 @@ Item {
                     id: acquisitionSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[2]
+                    color: Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2]
                     borderWidth: 0
                     borderColor: null
                     name: qsTr("From grid")
@@ -516,9 +517,35 @@ Item {
                         anchors.centerIn: parent
                         spacing: Style.smallMargins
                         ColorIcon {
-                            name: "weathericons/weather-clear-day"
+                            id: sun
+                            name: legend.selectIcons(Configuration.inverterIcon,"weathericons/weather-clear-day")
                             size: Style.smallIconSize
-                            color: Qt.darker(totalColors[1], 1.1)
+                            color: Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : Qt.darker(totalColors[1], 1.1)
+
+                            Image {
+                                id: sunIcon
+                                source: "qrc:/ui/images/"+Configuration.inverterIcon
+                                width: sun.size
+                                height: sun.size
+                                visible: Configuration.inverterIcon !== ""
+                            }
+
+                            ColorOverlay {
+                                anchors.fill: sunIcon
+                                source: sunIcon
+                                color: sun.color
+                                visible: Configuration.inverterIcon !== ""
+                            }
+
+
+                            Rectangle{
+                                color: sun.color
+                                height: 12 / 2
+                                width: 12 / 2
+                                radius: sun.width / 2
+                                anchors.centerIn: sun
+                                visible: Configuration.inverterIcon === ""
+                            }
                         }
                         Label {
                             width: parent.parent.width - x
@@ -541,14 +568,66 @@ Item {
                         spacing: Style.smallMargins
                         Row {
                             ColorIcon {
-                                name: "power-grid"
+                                id: gridDownID
+                                name: legend.selectIcons(Configuration.gridIcon,"power-grid")
                                 size: Style.smallIconSize
-                                color: totalColors[2]
+                                color: Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2]
+
+                                Image {
+                                    id: gridDown
+                                    source: "qrc:/ui/images/"+Configuration.gridIcon
+                                    width: gridDownID.size
+                                    height: gridDownID.size
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: gridDown
+                                    source: gridDown
+                                    color: gridDownID.color
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
                             }
                             ColorIcon {
+                                id: arrowDown
                                 name: "arrow-down"
                                 size: Style.smallIconSize
-                                color: totalColors[2]
+                                color: gridDownID.color
+
+                                Rectangle {
+                                    color: parent.color
+                                    height: 8
+                                    width: 2
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: 1
+                                    anchors.verticalCenterOffset: -1
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    height: 8
+                                    width: 2
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: -1
+                                    anchors.verticalCenterOffset: -1
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    radius: 1
+                                    height: 3
+                                    width: 3
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: 0
+                                    anchors.verticalCenterOffset: 3
+                                }
                             }
                         }
                         Label {
@@ -572,14 +651,66 @@ Item {
                         spacing: Style.smallMargins
                         Row {
                             ColorIcon {
-                                name: "power-grid"
+                                id: gridUpID
+                                name: legend.selectIcons(Configuration.gridIcon,"power-grid")
                                 size: Style.smallIconSize
-                                color: totalColors[3]
+                                color: Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
+
+                                Image {
+                                    id: gridUp
+                                    source: "qrc:/ui/images/"+Configuration.gridIcon
+                                    width: gridUpID.size
+                                    height: gridUpID.size
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: gridUp
+                                    source: gridUp
+                                    color: gridUpID.color
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
                             }
                             ColorIcon {
+                                id: arrowUp
                                 name: "arrow-up"
                                 size: Style.smallIconSize
-                                color: totalColors[3]
+                                color: gridUpID.color
+
+                                Rectangle {
+                                    color: parent.color
+                                    height: 8
+                                    width: 2
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: 1
+                                    anchors.verticalCenterOffset: 1
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    height: 8
+                                    width: 2
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: -1
+                                    anchors.verticalCenterOffset: 1
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    radius: 2
+                                    height: 3
+                                    width: 3
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: 0
+                                    anchors.verticalCenterOffset: -2
+                                }
                             }
                         }
                         Label {
@@ -604,14 +735,47 @@ Item {
                         spacing: Style.smallMargins
                         Row {
                             ColorIcon {
-                                name: "battery/battery-080"
+                                id: batteryPlusID
+                                name: legend.selectIcons(Configuration.batteryIcon,"battery/battery-080")
                                 size: Style.smallIconSize
-                                color: totalColors[4]
+                                color: Configuration.customColor && Configuration.customBatteryPlusColor !== "" ? Configuration.customBatteryPlusColor : totalColors[4]
+
+                                Image {
+                                    id: batteryPlus
+                                    source: "qrc:/ui/images/"+Configuration.batteryIcon
+                                    width: batteryPlusID.size
+                                    height: batteryPlusID.size
+                                    visible: Configuration.batteryIcon !== ""
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: batteryPlus
+                                    source: batteryPlus
+                                    color: batteryPlusID.color
+                                    visible: Configuration.batteryIcon !== ""
+                                }
                             }
                             ColorIcon {
+                                id: plus
                                 name: "plus"
                                 size: Style.smallIconSize
-                                color: totalColors[4]
+                                color: batteryPlusID.color
+
+                                Rectangle {
+                                    color: parent.color
+                                    height: 10
+                                    width: 2
+                                    rotation: 90
+                                    anchors.centerIn: plus
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    height: 10
+                                    width: 2
+                                    rotation: 180
+                                    anchors.centerIn: plus
+                                }
                             }
                         }
                         Label {
@@ -636,14 +800,39 @@ Item {
                         spacing: Style.smallMargins
                         Row {
                             ColorIcon {
-                                name: "battery/battery-040"
+                                id: batteryMinusID
+                                name: legend.selectIcons(Configuration.batteryIcon,"battery/battery-080")
                                 size: Style.smallIconSize
-                                color: totalColors[5]
+                                color: Configuration.customColor && Configuration.customBatteryMinusColor !== "" ? Configuration.customBatteryMinusColor : totalColors[5]
+
+                                Image {
+                                    id: batteryMinus
+                                    source: "qrc:/ui/images/"+Configuration.batteryIcon
+                                    width: batteryMinusID.size
+                                    height: batteryMinusID.size
+                                    visible: Configuration.batteryIcon !== ""
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: batteryMinus
+                                    source: batteryMinus
+                                    color: batteryMinusID.color
+                                    visible: Configuration.batteryIcon !== ""
+                                }
                             }
                             ColorIcon {
+                                id: minus
                                 name: "minus"
                                 size: Style.smallIconSize
-                                color: totalColors[5]
+                                color: batteryMinusID.color
+
+                                Rectangle {
+                                    color: parent.color
+                                    height: 10
+                                    width: 2
+                                    rotation: 90
+                                    anchors.centerIn: minus
+                                }
                             }
                         }
                         Label {
@@ -654,6 +843,14 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             font: Style.smallFont
                         }
+                    }
+                }
+                function selectIcons(customIcon,defaultIcon){
+                    if(customIcon !== ""){
+                        //let newIcon = customIcon.split(".")
+                        return "qrc:/ui/images/"+customIcon
+                    }else{
+                        return defaultIcon
                     }
                 }
             }
@@ -793,8 +990,8 @@ Item {
                                                    : 0
                             property bool translate: value >= 1000
                             property double translatedValue: value / (translate ? 1000 : 1)
-                            text: toolTip.entry.acquisition >= 0 ? qsTr("Consumed: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
-                                                                 : qsTr("Produced: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
+                            text: toolTip.entry.acquisition >= 0 ? qsTr("Consumed: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
+                                                                 : qsTr("Produced: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                             font: Style.smallFont
                         }
 //                        Label {
@@ -809,7 +1006,7 @@ Item {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: toolTip.entry.acquisition >= 0 ? totalColors[2] : totalColors[3]
+                                color: toolTip.entry.acquisition >= 0 ? Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2] : Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
                             }
 
                             Label {
@@ -822,8 +1019,8 @@ Item {
                                 property double value: toolTip.entry ? Math.abs(toolTip.entry.acquisition) : 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
-                                text: toolTip.entry.acquisition >= 0 ? qsTr("From grid: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
-                                                                     : qsTr("To grid: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
+                                text: toolTip.entry.acquisition >= 0 ? qsTr("From grid: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
+                                                                     : qsTr("To grid: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                                 font: Style.extraSmallFont
                             }
                         }
@@ -831,7 +1028,7 @@ Item {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: totalColors[1]
+                                color: Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : totalColors[1]
                             }
 
                             Label {
@@ -844,8 +1041,8 @@ Item {
                                 property double value: toolTip.entry ? Math.min(Math.max(0, toolTip.entry.consumption), -toolTip.entry.production) : 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
-                                text: toolTip.entry.acquisition >= 0 ? qsTr("From self production: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
-                                                                     : qsTr("Consumed: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
+                                text: toolTip.entry.acquisition >= 0 ? qsTr("From self production: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
+                                                                     : qsTr("Consumed: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                                 font: Style.extraSmallFont
                             }
                         }
@@ -854,7 +1051,7 @@ Item {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: toolTip.entry.storage > 0 ? totalColors[4] : totalColors[5]
+                                color: toolTip.entry.storage > 0 ? Configuration.customColor && Configuration.customBatteryPlusColor !== "" ? Configuration.customBatteryPlusColor : totalColors[4] : Configuration.customColor && Configuration.customBatteryMinusColor !== "" ? Configuration.customBatteryMinusColor : totalColors[5]
                             }
 
                             Label {
@@ -867,8 +1064,8 @@ Item {
                                 property double value: toolTip.entry ? Math.abs(toolTip.entry.storage) : 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
-                                text: toolTip.entry.storage > 0 ? qsTr("To battery: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W") :
-                                                                    qsTr("From battery: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
+                                text: toolTip.entry.storage > 0 ? qsTr("To battery: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W") :
+                                                                    qsTr("From battery: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                                 font: Style.extraSmallFont
                             }
                         }

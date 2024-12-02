@@ -1,4 +1,5 @@
 import QtQuick 2.3
+import QtGraphicalEffects 1.12
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.2
 import QtCharts 2.3
@@ -298,7 +299,7 @@ StatsBase {
                         label: qsTr("Consumed")
                         color:  {
                             var alpha = d.selectedSet == null || d.selectedSet == consumptionSet ? 1 : 0.3
-                            var col = totalColors[0]
+                            var col = Configuration.customColor && Configuration.customPowerSockerColor !== "" ? Configuration.customPowerSockerColor : totalColors[0]
                             return Qt.hsla(col.hslHue, col.hslSaturation, col.hslLightness, alpha)
                         }
                         borderColor: color
@@ -316,7 +317,7 @@ StatsBase {
                         label: qsTr("Produced")
                         color:{
                             var alpha = d.selectedSet == null || d.selectedSet == productionSet ? 1 : 0.3
-                            var col = totalColors[1]
+                            var col = Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : totalColors[1]
                             return Qt.hsla(col.hslHue, col.hslSaturation, col.hslLightness, alpha)
                         }
                         borderColor: color
@@ -334,7 +335,7 @@ StatsBase {
                         label: qsTr("From grid")
                         color: {
                             var alpha = d.selectedSet == null || d.selectedSet == acquisitionSet ? 1 : 0.3
-                            var col = totalColors[2]
+                            var col = Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2]
                             return Qt.hsla(col.hslHue, col.hslSaturation, col.hslLightness, alpha)
                         }
                         borderColor: color
@@ -352,7 +353,7 @@ StatsBase {
                         label: qsTr("To grid")
                         color: {
                             var alpha = d.selectedSet == null || d.selectedSet == returnSet ? 1 : 0.3
-                            var col = totalColors[3]
+                            var col = Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
                             return Qt.hsla(col.hslHue, col.hslSaturation, col.hslLightness, alpha)
                         }
                         borderColor: color
@@ -378,6 +379,7 @@ StatsBase {
                 MouseArea {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    opacity: d.selectedSet == null || d.selectedSet == consumptionSet ? 1 : 0.3
                     onClicked: d.selectSet(consumptionSet)
                     Row {
                         anchors.centerIn: parent
@@ -385,7 +387,7 @@ StatsBase {
                         ColorIcon {
                             name: "powersocket"
                             size: Style.smallIconSize
-                            color: totalColors[0]
+                            color: Configuration.customColor && Configuration.customPowerSockerColor !== "" ? Configuration.customPowerSockerColor : totalColors[0]
                         }
                         Label {
                             width: parent.parent.width - x
@@ -401,14 +403,41 @@ StatsBase {
                 MouseArea {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    opacity: d.selectedSet == null || d.selectedSet == productionSet ? 1 : 0.3
                     onClicked: d.selectSet(productionSet)
                     Row {
                         anchors.centerIn: parent
                         spacing: Style.smallMargins
                         ColorIcon {
-                            name: "weathericons/weather-clear-day"
+                            id: sun
+                            name: legend.selectIcons(Configuration.inverterIcon,"weathericons/weather-clear-day")
                             size: Style.smallIconSize
-                            color: Qt.darker(totalColors[1], 1.1)
+                            color: Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : Qt.darker(totalColors[1], 1.1)
+
+                            Rectangle{
+                                color: Qt.darker(totalColors[1], 1.1)
+                                height: 12 / 2
+                                width: 12 / 2
+                                radius: sun.width / 2
+                                anchors.centerIn: sun
+                                visible: Configuration.inverterIcon === ""
+                            }
+
+                            Image {
+                                id: sunIcon
+                                source: "qrc:/ui/images/"+Configuration.inverterIcon
+                                width: sun.size
+                                height: sun.size
+                                visible: Configuration.inverterIcon !== ""
+                            }
+
+                            ColorOverlay {
+                                anchors.fill: sunIcon
+                                source: sunIcon
+                                color: sun.color
+                                visible: Configuration.inverterIcon !== ""
+                            }
+
                         }
                         Label {
                             width: parent.parent.width - x
@@ -424,20 +453,73 @@ StatsBase {
                 MouseArea {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    opacity: d.selectedSet == null || d.selectedSet == acquisitionSet ? 1 : 0.3
                     onClicked: d.selectSet(acquisitionSet)
                     Row {
                         anchors.centerIn: parent
                         spacing: Style.smallMargins
                         Row {
                             ColorIcon {
-                                name: "power-grid"
+                                id: gridDownID
+                                name: legend.selectIcons(Configuration.gridIcon,"power-grid")
                                 size: Style.smallIconSize
-                                color: totalColors[2]
+                                color: Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2]
+
+                                Image {
+                                    id: gridDown
+                                    source: "qrc:/ui/images/"+Configuration.gridIcon
+                                    width: gridDownID.size
+                                    height: gridDownID.size
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: gridDown
+                                    source: gridDown
+                                    color: gridDownID.color
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
                             }
                             ColorIcon {
+                                id: arrowDown
                                 name: "arrow-down"
                                 size: Style.smallIconSize
-                                color: totalColors[2]
+                                color: gridDownID.color
+
+                                Rectangle {
+                                    color: parent.color
+                                    height: 8
+                                    width: 2
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: 1
+                                    anchors.verticalCenterOffset: -1
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    height: 8
+                                    width: 2
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: -1
+                                    anchors.verticalCenterOffset: -1
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    radius: 1
+                                    height: 4
+                                    width: 3
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: 0
+                                    anchors.verticalCenterOffset: 2
+                                }
                             }
                         }
                         Label {
@@ -453,20 +535,73 @@ StatsBase {
                 MouseArea {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    opacity: d.selectedSet == null || d.selectedSet == returnSet ? 1 : 0.3
                     onClicked: d.selectSet(returnSet)
                     Row {
                         anchors.centerIn: parent
                         spacing: Style.smallMargins
                         Row {
                             ColorIcon {
-                                name: "power-grid"
+                                id: gridUpID
+                                name: legend.selectIcons(Configuration.gridIcon,"power-grid")
                                 size: Style.smallIconSize
-                                color: totalColors[3]
+                                color: Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
+
+                                Image {
+                                    id: gridUp
+                                    source: "qrc:/ui/images/"+Configuration.gridIcon
+                                    width: gridUpID.size
+                                    height: gridUpID.size
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: gridUp
+                                    source: gridUp
+                                    color: gridUpID.color
+                                    visible: Configuration.gridIcon !== ""
+                                }
+
                             }
                             ColorIcon {
+                                id: arrowUp
                                 name: "arrow-up"
                                 size: Style.smallIconSize
-                                color: totalColors[3]
+                                color: gridUpID.color
+
+                                Rectangle {
+                                    color: parent.color
+                                    height: 8
+                                    width: 2
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: 1
+                                    anchors.verticalCenterOffset: 1
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    height: 8
+                                    width: 2
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: -1
+                                    anchors.verticalCenterOffset: 1
+                                }
+
+                                Rectangle {
+                                    color: parent.color
+                                    radius: 2
+                                    height: 3
+                                    width: 3
+                                    rotation: 180
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenterOffset: 0
+                                    anchors.verticalCenterOffset: -2
+                                }
                             }
                         }
                         Label {
@@ -477,6 +612,15 @@ StatsBase {
                             anchors.verticalCenter: parent.verticalCenter
                             font: Style.smallFont
                         }
+                    }
+                }
+
+                function selectIcons(customIcon,defaultIcon){
+                    if(customIcon !== ""){
+                        //let newIcon = customIcon.split(".")
+                        return "qrc:/ui/images/"+customIcon
+                    }else{
+                        return defaultIcon
                     }
                 }
             }
@@ -632,47 +776,51 @@ StatsBase {
 
                         RowLayout {
                             visible: root.hasProducers
+                            opacity: d.selectedSet == null || d.selectedSet == consumptionSet ? 1 : 0.3
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: totalColors[0]
+                                color: Configuration.customColor && Configuration.customPowerSockerColor !== "" ? Configuration.customPowerSockerColor : totalColors[0]
                             }
                             Label {
-                                text: d.startOffset !== undefined ? qsTr("Consumed: %1 kWh").arg(consumptionSet.at(toolTip.idx).toFixed(2)) : ""
+                                text: d.startOffset !== undefined ? qsTr("Consumed: %1 kWh").arg((+consumptionSet.at(toolTip.idx).toFixed(2)).toLocaleString()) : ""
                                 font: Style.extraSmallFont
                             }
                         }
                         RowLayout {
                             visible: root.hasProducers
+                            opacity: d.selectedSet == null || d.selectedSet == productionSet ? 1 : 0.3
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: totalColors[1]
+                                color: Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : totalColors[1]
                             }
                             Label {
-                                text: d.startOffset !== undefined ? qsTr("Produced: %1 kWh").arg(productionSet.at(toolTip.idx).toFixed(2)) : ""
+                                text: d.startOffset !== undefined ? qsTr("Produced: %1 kWh").arg((+productionSet.at(toolTip.idx).toFixed(2)).toLocaleString()) : ""
                                 font: Style.extraSmallFont
                             }
                         }
                         RowLayout {
+                            opacity: d.selectedSet == null || d.selectedSet == acquisitionSet ? 1 : 0.3
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: totalColors[2]
+                                color: Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2]
                             }
                             Label {
-                                text: d.startOffset !== undefined ? qsTr("From grid: %1 kWh").arg(acquisitionSet.at(toolTip.idx).toFixed(2)) :""
+                                text: d.startOffset !== undefined ? qsTr("From grid: %1 kWh").arg((+acquisitionSet.at(toolTip.idx).toFixed(2)).toLocaleString()) :""
                                 font: Style.extraSmallFont
                             }
                         }
                         RowLayout {
+                            opacity: d.selectedSet == null || d.selectedSet == returnSet ? 1 : 0.3
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: totalColors[3]
+                                color: Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
                             }
                             Label {
-                                text: d.startOffset !== undefined ? qsTr("To grid: %1 kWh").arg(returnSet.at(toolTip.idx).toFixed(2)) : ""
+                                text: d.startOffset !== undefined ? qsTr("To grid: %1 kWh").arg((+returnSet.at(toolTip.idx).toFixed(2)).toLocaleString()) : ""
                                 font: Style.extraSmallFont
                             }
                         }

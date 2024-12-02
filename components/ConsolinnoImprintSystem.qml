@@ -72,9 +72,7 @@ Item {
             Layout.rightMargin: app.margins
             wrapMode: Text.WordWrap
             font.bold: true
-            text: "Copyright (C) %1 Consolinno Energy GmbH".arg(new Date().getFullYear())
-
-
+            text: "Copyright (C) %1 %2".arg(new Date().getFullYear()).arg("Consolinno Energy GmbH")
         }
 
         Label {
@@ -128,7 +126,7 @@ Item {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
                     wrapMode: Text.WordWrap
-                    text: qsTr("Only available on the local network. Please connect the device running this app to the same network as your Leaflet HEMS system, e.g. your home network.")
+                    text: qsTr("Only available on the local network. Please connect the device running this app to the same network as your %1 system, e.g. your home network.").arg(Configuration.deviceName)
                 }
             }
 

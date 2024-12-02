@@ -67,10 +67,6 @@
 <context>
     <name>AddNewThings</name>
     <message>
-        <source>Set up new thing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Vendor</source>
         <translation type="unfinished"></translation>
     </message>
@@ -94,6 +90,10 @@
         <source>Install plugins</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Set up new device</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AuthorisationView</name>
@@ -102,19 +102,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>To comission devices with the Leaflet, you must be authorized. Otherwise the warranty expires.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>I am authorized to operate the Leaflet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To comission devices with the %1, you must be authorized. Otherwise the warranty expires.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I am authorized to operate the %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -464,6 +464,18 @@
         <source>enabled</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Current Price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 ct/kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Below price limit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -515,15 +527,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The charging modes &lt;font color=&quot;#87BD26&quot;&gt;Solar power only&lt;/font&gt; and &lt;font color=&quot;#87BD26&quot;&gt;Always charging&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;#87BD26&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Dynamic Tariff</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>In dynamic tariff charging mode, charging takes place at maximum charging current as soon as the price falls below the set price limit. At times when charging does not take place because the price limit is exceeded, charging takes place if there is a PV surplus. If the price limit is changed, this limit is preselected the next time it is plugged in.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The charging modes &lt;font color=&quot;%1&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;%1&quot;&gt;Dynamic tariff&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;%1&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -564,11 +576,11 @@
 <context>
     <name>Configuration</name>
     <message>
-        <source>Consolinno</source>
+        <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Help</source>
+        <source>Consolinno</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -630,18 +642,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Searching for your Leaflet...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>We&apos;ve detected multiple Leaflets in your network. Please select the one you&apos;d like to set up.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please wait while your Leaflet is being discovered.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Protocol</source>
         <translation type="unfinished"></translation>
     </message>
@@ -674,207 +674,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Terms of Use</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>1. Allgemeines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(1) Consolinno Energy GmbH hat eine Software entwickelt, welche als Applikation auf Android und IOS-Systemen benutzt werden kann. Die Software verbindet sich mit einem Energy Management Systems genannt Leaflet HEMS. Das hat dann die Aufgabe in Verbindung mit einer Photovoltaikanlage den Eigenverbrauch der PV-Energie zu maximieren. Parallel ist die Funktion Black-out Schutz integriert. Damit wird der Ladestrom einer Ladeeinrichtung dynamisch begrenzt. Es kommt nicht zum Auslösen der Sicherung.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Die Software ermöglicht es, durch die Steuerung einer E-Ladeeinrichtung, einer Wärmepumpe, Hausgeräte (Waschmaschine, Trockner, Spülmaschine) und dem Einbinden einer Batterie den Eigenbedarf der erzeugten PV-Energie signifikant zu steigern.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dadurch wird CO2 und Kosten eingespart.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Diese allgemeinen Lizenzbestimmungen gelten für sämtliche Lizenzverträge mit dem Kunden über die Module der Software und dem HEMS Produkt.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(2) Die Software wird von der Consolinno Energy GmbH kostenfrei Kunden vom HEMS über Appstores angeboten.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(3) Die Kunden sind für das ordnungsgemäße Installieren der Hard- und Software verantwortlich.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>2.Lizenzgegenstand</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(1) Consolinno Energy GmbH gewährt dem Kunden das ausschließliche Recht die in der Vereinbarung näher beschriebene Software innerhalb Deutschlands zu nutzen. Es wird ein nicht-ausschließliches und nicht-übertragbares Nutzungsrecht an der Software eingeräumt.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(2) Soweit dies für die vertragsgemäße Nutzung erforderlich ist, darf die Software vervielfältigt werden.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Über die Appstores kann der Kunde mit dem jeweiligen Betriebssystem das Programm laden und installieren</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(3) Im Übrigen ist der Kunde zu einer Vervielfältigung oder Überlassung an Dritte nicht berechtigt, soweit gesetzlich nicht anderes bestimmt.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(4) Der Kunde ist nicht berechtigt, die Software zu verändern und zu bearbeiten, es sei denn, es handelt sich bei der Änderung bzw. Bearbeitung um eine für die vertragsgemäße Nutzung der Software erforderliche Beseitigung eines Mangels, mit welcher sich die Consolinno Energy GmbH in Verzug befindet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>3.Lizenzgebühr</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(1) Der Kunde hat mit dem Erwerb des HEMS-Gerätes die Software kostenfrei von den APP Stores geladen und kann diese benutzen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(2) Im Rahmen der Weiterentwicklung können Softwaremodule auch für eine unbefristete Nutzungsdauer käuflich erworben werden.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>4.Softwareauslieferung und Installation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(1) Consolinno Energy GmbH liefert die Software an den Kunden über den Appstore von Apple oder Google aus.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(2) Neben der Software wird Consolinno Energy GmbH dem Kunden eine Installationsanleitung des Gerätes HEMS sowie eine Dokumentation zum Download anbieten.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>3) Consolinno Energy GmbH schuldet keine Installation der Software auf den Systemen des Kunden; für diese ist der Kunde allein ver-antwortlich.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>5.Instandhaltung</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(1) Consolinno Energy GmbH ist zur Aufrechterhaltung der vertraglich vereinbarten Beschaffenheit der Software während der Vertragslaufzeit (&apos;Instandhaltung&apos;) verpflichtet. Die vertraglich geschuldete Beschaffenheit der Software bestimmt sich nach der zugesagten Funktion des HEMS Produktes. Up Dates erfolgen über eine Internetverbindung.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(2) Consolinno Energy GmbH ist zu einer Änderung, Anpassung und Weiterentwicklung der Software nur dann verpflichtet, wenn das mit dem Kunden gesondert vereinbart ist. Ohne eine solche gesonderte Vereinbarung ist die Consolinno Energy GmbH nicht zu einer Weiterentwicklung der Software verpflichtet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>6.Gewährleistung</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(1) Sollte dem Kunden Mängel an der Software, am Gerät oder an der Dokumentation feststellen, so hat der Kunde das der Consolinno Energy GmbH mitzuteilen. Das kann zum Beispiel per Mail erfolgen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(2) Ein Mangel liegt nicht vor, wenn die vom Kunden verwendete Hardware und /oder Software nicht den spezifizierten Anforderungen entspricht.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(3) Consolinno Energy GmbH wird die angezeigten Mängel an der Software und an der Dokumentation innerhalb einer angemessenen Frist zu beheben. Im Rahmen der Mängelbeseitigung hat Consolinno Energy GmbH ein Wahlrecht zwischen Nachbesserung und Ersatzlieferung. Die Kosten der Mängelbeseitigung trägt Consolinno Energy GmbH. Kosten für Ausfall, entgangener Gewinn, Ein- und Ausbaukosten oder ähnliches werden nicht erstattet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(4) Schlägt die hierin geschuldete Mängelbeseitigung fehl, ist die Kunde zur außerordentlichen Kündigung des betreffenden Vertrages gemäß § 543 Abs. 2 S. 1 Nr. 1 BGB berechtigt.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>8.Haftung</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(2) Im Übrigen ist eine Haftung der Consolinno Energy GmbH für direkte und indirekte Schäden ausgeschlossen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(3) Open Source
-
-Open Source Module sind in der APP und in der Gerätesoftware enthalten. Es gelten für diese Module die entsprechende Garantie und Haftungsbedingungen. Sollte das nicht möglich sein, dann gilt die Regelung im jeweiligen Anwenderland.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>9.Vertragsdauer und Vertragsbeendigung</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(1) Der Lizenzvertrag tritt mit der Akzeptanz der Lizenzbestimmungen vor der Installation in Kraft in gilt auf unbestimmte Dauer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(2) Das Recht beider Parteien zur jederzeitigen außerordentlichen und fristlosen Kündigung aus wichtigem Grund bleibt unberührt. Ein wichtiger Grund liegt insbesondere vor, wenn der Lizenzgeber oder die Lizenznehmerin vorsätzlich oder fahrlässig gegen eine wesentliche Pflicht aus diesen Lizenzbestimmungen verstößt und deswegen der kündigenden Partei das Festhalten am Lizenzvertrag nicht mehr zumutbar ist. Der Lizenzgeber ist hiernach insbesondere zur außerordentlichen und fristlosen Kündigung des Lizenzvertrages berechtigt, wenn die Lizenznehmerin die ihr eingeräumten Nutzungsbefugnisse überschreitet und ihre Verletzungshandlungen nicht innerhalb einer angemessenen Frist abstellt, wenn der Lizenzgeber diese zuvor zur Unterlassung dieser Verletzungshandlungen abgemahnt hat.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(3) Die Kündigung des Lizenzvertrages bedarf der Schriftform.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(4) Consolinno Energy GmbH kann die Pflege des Programmes ohne nennen von Gründen einstellen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>11.Schlussbestimmungen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(1) Sollte eine dieser Lizenzbestimmungen oder eine später in diesen Lizenzvertrag aufgenommene Bestimmung ganz oder teilweise nichtig oder undurchführbar sein oder werden oder sollte sich eine Lücke in diesen Lizenzbestimmungen herausstellen, wird dadurch die Wirksamkeit der übrigen Bestimmungen nicht berührt (Erhaltung). Es ist der ausdrückliche Wille der Parteien, hierdurch die Wirksamkeit der übrigen Bestimmungen unter allen Umständen aufrechtzuerhalten und damit § 139 BGB insgesamt abzubedingen. Anstelle der nichtigen oder undurchführbaren Bestimmung oder zur Ausfüllung der Lücke gilt mit Rückwirkung diejenige wirksame und durchführbare Regelung als bestimmt, die rechtlich und wirtschaftlich dem am nächsten kommt, was die Parteien gewollt haben oder nach dem Sinn und Zweck des Lizenzvertrages gewollt hätten, wenn sie diesen Punkt bei Abschluss dieser Vereinbarung bzw. bei Aufnahme der Bestimmung bedacht hätten; beruht die Nichtigkeit einer Bestimmung auf einem darin festgelegten Maß der Leistung oder der Zeit (Frist oder Termin), so gilt die Bestimmung mit einem dem ursprünglichen Maß am nächsten kommenden rechtlich zulässigen Maß als vereinbart (Ersetzungsfiktion). Ist die Ersetzungsfiktion nicht möglich, ist anstelle der nichtigen oder undurchführbaren Bestimmung oder zur Schließung der Lücke eine Bestimmung bzw. Regelung nach inhaltlicher Maßgabe des vorstehenden Satzes zu treffen (Ersetzungsverpflichtung). Betrifft die Nichtigkeit oder Lücke eine beurkundungspflichtige Bestimmung, so ist die Regelung bzw. die Bestimmung in notariell beurkundeter Form zu vereinbaren.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(2) Änderungen und Ergänzungen des betreffenden Lizenzvertrages einschließlich dieser Klausel bedürfen der Schriftform, soweit nicht etwas anderes bestimmt ist</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(3) Die Parteien dürfen den Lizenzvertrag sowie Rechte und Pflichten aus dem Lizenzvertrag nur mit vorheriger schriftlicher Zustimmung der jeweils anderen Partei auf einen Dritten übertragen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(4) Die Geltung der Allgemeinen Geschäftsbedingungen der Lizenznehmerin werden ausdrücklich ausgeschlossen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(5) Ausschließlicher Gerichtsstand für alle Streitigkeiten aus oder im Zusammenhang mit dem Lizenzvertrag ist der Sitz des Lizenzgebers, Regensburg. Der Lizenzgeber bleibt berechtigt, am allgemeinen Gerichtsstand der Lizenznehmerin zu klagen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Anschrift des Lizenzgebers
-Consolinno Energy GmbH, Franz-Mayer-Straße 1, 93053 Regensburg</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tel 0941 20300 333
-Mail service@consolinno.de</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Yes I read the Term of Use and agree</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(1) Der Lizenzgeber haftet unbeschränkt:
-
-· bei Arglist, Vorsatz oder grober Fahrlässigkeit;
-
-· im Rahmen einer von ihm ausdrücklich übernommenen Garantie;
-
-· für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit;
-
-· nach den Vorschriften des Produkthaftungsgesetzes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please connect your Leaflet device (LAN port 1) to your network. Be sure the device running this App (Smartphone, PC) is connected to the same network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -894,16 +694,7 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Welcome to Consolinno HEMS!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Privacy Policy and License Agreement
-(09/2022)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -920,6 +711,65 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welcome to %1!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please connect your device (LAN port 1) to your network. Be sure this app is also connected to the same network.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please select the device from the list that you want to set up. If no device is displayed in the list, please check the network connection! (Alternatively, a manual connection can also be established).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching for your %1...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please wait while your %1 is being discovered.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>License Terms HEMS&lt;br/&gt;(as of 11/2024)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Privacy Policy and License Agreement HEMS&lt;br/&gt;(as of 11/2024)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoAppSettingsPage</name>
+    <message>
+        <source>App Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Look &amp; feel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Customize the app&apos;s look and behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Access tools for debugging and error reporting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find app versions and licence information</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1206,6 +1056,24 @@ Mail service@consolinno.de</source>
         <source>Source code availability</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Anyone can obtain the source code of these software components from us on a data carrier (CD-ROM, DVD or USB stick) if a request is made to our customer service department at the following address within three years after delivery of the product to the customer or as long as we offer spare parts or support for the product:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please provide the following product data:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>- Product name
+- Software version
+- Serial number - if known</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>and transfer an amount of money in advance, based on the information provided by the support, to cover the costs of creating and sending the disk. Alternatively, the source code can be downloaded free of charge.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoImprintSystem</name>
@@ -1254,10 +1122,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Only available on the local network. Please connect the device running this app to the same network as your Leaflet HEMS system, e.g. your home network.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Visit the nymea website</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1265,11 +1129,401 @@ Mail service@consolinno.de</source>
         <source>Software and Libraries</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Only available on the local network. Please connect the device running this app to the same network as your %1 system, e.g. your home network.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoItemDelegate</name>
     <message>
         <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoLookAndFeelSettingsPage</name>
+    <message>
+        <source>Look and feel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Windowed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximized</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fullscreen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Regional</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unit system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Metric</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imperial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Return to home on idle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turn screen off when idle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Screen off timeout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>seconds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Screen brightness</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Style changed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The application needs to be restarted for style changes to take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoNetworkSettingsPage</name>
+    <message>
+        <source>Network settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No wireless hardware available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The access point cannot be found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The network interface cannot be found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid network device type.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wireless networking is disabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The wireless connection failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Networking is disabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The network manager is not available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An unexpected error happened.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unmanaged</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unavailable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disconnected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deactivating</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preparing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configuring</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Setting IP configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Checking IP configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Secondaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hosting access point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Network management is unavailable on this system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current connection state</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Asleep</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disconnecting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connecting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locally connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Site connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Globally connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Networking enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable networking altogether</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disabling networking will disconnect all connected clients. Be aware that you will not be able to interact remotely with this %1 system any more. Do not proceed unless you know what your are doing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you want to proceed?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable networking?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wired network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No wired network interfaces available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugged in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unplugged</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wireless network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable WiFi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disabling WiFi will disconnect all clients connected via WiFi. Be aware that you will not be able to interact remotely with this %1 system any more unless a LAN cable is connected.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable WiFi?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No wireless network interfaces available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WiFi networks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Access Point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SSID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create Access Point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connect to wireless network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hidden Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New wired connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic (DHCP client)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shared (DHCP server)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Address settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IP Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gateway</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DNS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Authenticate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter the password for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connected to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv4 Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IPv6 Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MAC Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Signal strength</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WiFi frequency</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1362,10 +1616,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>From self production</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>To battery</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1411,6 +1661,10 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>From battery: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From PV</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1504,14 +1758,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Self production</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>From battery</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>From grid</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1520,15 +1766,23 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Self production: %1 %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>From battery: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>From grid: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From PV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From Battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From PV: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1598,11 +1852,130 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>To complete the authentication, please press the test button again for 5 seconds until the status LED lights up green.</source>
+        <source>To complete the authentication, please press the &lt;b&gt;test button again for 5 seconds&lt;/b&gt; until the status LED lights up green.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If the status LED flashes red briefly, you must repeat the authentication. (Go back to the connection page, press the test button briefly and select the leaflet again).</source>
+        <source>If the status LED flashes red briefly, you must repeat the authentication. (Go back to the screen &quot;Discovered Devices&quot;, press the test button briefly and select the %1 again).</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoSettingsPage</name>
+    <message>
+        <source>System settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change system name and time zone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure who can log in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Networking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure the system&apos;s network connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connection settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure how applications can connect to this system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MQTT broker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure the MQTT broker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Web server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure the web server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ZigBee</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure ZigBee networks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Z-Wave</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure Z-Wave networks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modbus RTU</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure Modbus RTU master interfaces</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List and cofigure installed plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Access tools for debugging and error reporting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update your %1 system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log viewer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View system log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find server UUID and versions</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1776,10 +2149,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Your leaflet is not set up yet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Please complete the setup wizard or manually configure your devices.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1788,27 +2157,31 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>CHANGENOTIFICATION_PLACEHOLDER</source>
+        <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
+            &lt;p&gt;Version 1.7.0 (November 30, 2024)&lt;/p&gt;
+            &lt;h4&gt;New features&lt;/h4&gt;
+            &lt;ul&gt;
+                &lt;li&gt;PV-optimised operation of heating elements (Askoma)&lt;/li&gt;
+                &lt;li&gt;PV-optimised operation of self-regulating heat pumps (Lambda)&lt;/li&gt;
+            &lt;/ul&gt;</translation>
+    </message>
+    <message>
         <source>&lt;h3&gt;Incompatible Software Versions&lt;/h3&gt;
-                &lt;p&gt;The software versions of your &quot;Consolinno Energy HEMS App&quot; (v%1) and your &quot;Leaflet HEMS End Device&quot; (v%2) are incompatible and currently only partially usable. Your &quot;Leaflet HEMS End Device&quot; will be automatically updated during the day.&lt;/p&gt;
+                &lt;p&gt;The software versions of your &quot;%3 App&quot; (v%1) and your &quot;%6 End Device&quot; (v%2) are incompatible and currently only partially usable. Your &quot;%6 End Device&quot; will be automatically updated during the day.&lt;/p&gt;
                 &lt;p&gt;If you still receive this message after several hours, please contact our support:&lt;/p&gt;
                 &lt;ul&gt;
-                    &lt;li&gt;Phone: &lt;a href=&quot;tel:+4994120300333&quot;&gt;+49 941/ 20300 333&lt;/a&gt;&lt;/li&gt;
-                    &lt;li&gt;Email: &lt;a href=&quot;mailto:service@consolinno.de&quot;&gt;service@consolinno.de&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;Phone: &lt;a href=&quot;tel:%7&quot;&gt;%7&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;Email: &lt;a href=&quot;mailto:%4&quot;&gt;%4&lt;/a&gt;&lt;/li&gt;
                 &lt;/ul&gt;
                 &lt;p&gt;We apologize for the temporary limitations in use.&lt;/p&gt;
                 &lt;p&gt;Best regards&lt;/p&gt;
-                &lt;p&gt;Your Consolinno Energy Team&lt;/p&gt;</source>
+                &lt;p&gt;Your %5 Team&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation type="unfinished">&lt;h3&gt;Consolinno Energy HEMS App was updated&lt;/h3&gt;
-            &lt;p&gt;Version 1.6.0 (August 20, 2024)&lt;/p&gt;
-            &lt;h4&gt;New&lt;/h4&gt;
-            &lt;ul&gt;
-                &lt;li&gt;‘Dynamic tariff’ charging mode&lt;/li&gt;
-                &lt;li&gt;Grid-supportive control according to § 14a via relay&lt;/li&gt;
-            &lt;/ul&gt;</translation>
+        <source>Your %1 is not set up yet.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1870,15 +2243,15 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add device manually</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>There are no things set up yet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>In order for your %1 system to be useful, go ahead and add some things.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set up new device</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1910,6 +2283,10 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>Dynamic electricity tariff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to add thing: ThingErrorHardwareFailure</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1975,14 +2352,6 @@ Mail service@consolinno.de</source>
     </message>
     <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;High&lt;/li&gt;: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Charging Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Battery Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2150,6 +2519,10 @@ Mail service@consolinno.de</source>
         <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>unrestricted</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GridConsumptionInfo</name>
@@ -2184,23 +2557,7 @@ Mail service@consolinno.de</source>
 <context>
     <name>HeatingConfigView</name>
     <message>
-        <source>Current consumption:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Energymanager: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Operating mode: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Outdoor temperature</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hot water temperature</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2228,15 +2585,47 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Configuration data: </source>
+        <source>Current consumption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Floor heating area</source>
+        <source>Total thermal energy generated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Maximal electrical power</source>
+        <source>Energymanager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Forwarded Solar Surplus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operating mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heatpump condition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heating circuit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Absorbed electrical energy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current COP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Average COP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Domestic hot water temperature</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2257,34 +2646,6 @@ Mail service@consolinno.de</source>
 <context>
     <name>HeatingElementDevicePage</name>
     <message>
-        <source>Operating Mode (Solar Only)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Active</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Not available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The heating is operated only with solar power.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The operating mode (Solar Only) is turned off. The settings can be changed in the optimization settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The operating mode (Solar Only) is not available because a charging process is currently being prioritized.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Current Temperature</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2304,6 +2665,10 @@ Mail service@consolinno.de</source>
         <source> kWh</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source> °C</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HeatingElementOptimization</name>
@@ -2320,10 +2685,6 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Max power</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>kW</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2332,17 +2693,24 @@ Mail service@consolinno.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The heater is operated only with solar power. If a wallbox is connected to
-the system, and a charging process is started, charging is prioritized.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The heating element is not controlled by the HEMS.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ok</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximal electrical power</source>
+        <translation type="unfinished">Maximal electrical power</translation>
+    </message>
+    <message>
+        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heating element is not controlled by the %1.</source>
+        <translation type="unfinished">The heating element is not controlled by the %1.</translation>
     </message>
 </context>
 <context>
@@ -2361,7 +2729,7 @@ the system, and a charging process is started, charging is prioritized.</source>
     </message>
     <message>
         <source>Maximal electrical power</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maximal electrical power</translation>
     </message>
     <message>
         <source>kW</source>
@@ -2399,10 +2767,6 @@ the system, and a charging process is started, charging is prioritized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Service Consolinno</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Under &apos;Manual&apos; you will find current instructions for the app.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2411,7 +2775,11 @@ the system, and a charging process is started, charging is prioritized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If there is a problem with the Leaflet itself, then contact Consolinno&apos;s service.</source>
+        <source>Service %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there is a problem with the %1 itself, then contact %2 service.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2557,7 +2925,7 @@ the system, and a charging process is started, charging is prioritized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(The settings can be found in the wrench menu under &lt;font color=&quot;#87BD26&quot;&gt; Optimization Settings &lt;/font&gt;).</source>
+        <source>(The settings can be found in the wrench menu under &lt;font color=&quot;%1&quot;&gt; Optimization Settings &lt;/font&gt;).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2568,7 +2936,7 @@ the system, and a charging process is started, charging is prioritized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can find current manuals for Consolinno HEMS in the download area of our &lt;a href=&quot;https://consolinno.de/hems/#downloads&quot;&gt;Website&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can find current manuals for %1 in the download area of our &lt;a href=&quot;%2&quot;&gt;Website&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2653,10 +3021,6 @@ the system, and a charging process is started, charging is prioritized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Heating Element</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Charging</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2664,11 +3028,14 @@ the system, and a charging process is started, charging is prioritized.</source>
 <context>
     <name>OutOfDate</name>
     <message>
-        <source>This version of the App (%3) is not compatibile with the software running on your Consolinno HEMS system (%2) .
-Please upgrade your Consolinno HEMS system software to at least version %1.
+        <source>This version of the App (%3) is not compatibile with the software running on your %4 system (%2) .
+Please upgrade your %4 system software to at least version %1.
 
-Please refer to our service if you have any questions: service@consolinno.de</source>
-        <translation type="unfinished"></translation>
+Please refer to our service if you have any questions: %5</source>
+        <translation type="unfinished">The current application version (%3) is incompatible with the software installed on your %4 system (%2).
+To ensure proper functionality, please update your %4 system software to version %1 or higher.
+
+For further assistance, please contact our support team at: %5</translation>
     </message>
 </context>
 <context>
@@ -2760,7 +3127,7 @@ Please refer to our service if you have any questions: service@consolinno.de</so
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Some vehicles cannot handle an interruption in the charging process, i.e. charging can no longer be continued after an interruption in the charging process if, for example, the electricity price falls below the price limit again after a pause. If problems occur, the option &lt;font color=&quot;#87BD26&quot;&gt;&apos;Charging with minimum power&apos;&lt;/font&gt; should be selected. With this setting, charging continues at minimum power even if the price limit is exceeded.</source>
+        <source>Some vehicles cannot handle an interruption in the charging process, i.e. charging can no longer be continued after an interruption in the charging process if, for example, the electricity price falls below the price limit again after a pause. If problems occur, the option &lt;font color=&quot;%1&quot;&gt;&apos;Charging with minimum power&apos;&lt;/font&gt; should be selected. With this setting, charging continues at minimum power even if the price limit is exceeded.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2778,10 +3145,6 @@ Please refer to our service if you have any questions: service@consolinno.de</so
 <context>
     <name>PrivacyPage</name>
     <message>
-        <source>Privacy policy and license agreement</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>I confirm that I have read the the agreement and am accepting it.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2791,6 +3154,29 @@ Please refer to our service if you have any questions: service@consolinno.de</so
     </message>
     <message>
         <source>Yes I agree to open a Useraccount, according to part 6 </source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>License Terms HEMS&lt;br/&gt;(as of 11/2024)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PvSurplusInfo</name>
+    <message>
+        <source>Energymanager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The energy manager sends the heat pump the current PV surplus. The heat pump tries to use the surplus as much as possible and runs in increased operation if this is feasible.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optimization of the heat pump</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Various heat pump settings play a role here, such as the set minimum output, switch-on and switch-off delay, as well as the permitted temperature increase. If the heat pump consumes less surplus than expected, ask your installer to check the settings.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2805,15 +3191,15 @@ Please refer to our service if you have any questions: service@consolinno.de</so
 <context>
     <name>ServicePage</name>
     <message>
-        <source>Service Consolinno</source>
+        <source>Service %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If there are problems with the Leaflet, please refer to our service adress: </source>
+        <source>%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>service@consolinno.de</source>
+        <source>If there are problems with the %1, please refer to our service adress: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2912,11 +3298,11 @@ Please refer to our service if you have any questions: service@consolinno.de</so
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>At the moment, Consolinno HEMS can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
+        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
+        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3098,11 +3484,11 @@ Please refer to our service if you have any questions: service@consolinno.de</so
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>At the moment, Consolinno HEMS can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
+        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
+        <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3370,15 +3756,15 @@ Please refer to our service if you have any questions: service@consolinno.de</so
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Your Leaflet is now configured. The following devices have been set up:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>to the Dashboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Installed Devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your %1 is now configured. The following devices have been set up:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

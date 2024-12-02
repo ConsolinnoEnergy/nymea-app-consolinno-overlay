@@ -1,4 +1,5 @@
 import QtQuick 2.12
+import QtGraphicalEffects 1.12
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
@@ -38,10 +39,30 @@ Page {
 
 
                 Layout.fillWidth: true
-                iconName:  "../images/ev-charger.svg"
+                iconName: Configuration.evchargerIcon !== "" ? "../images/" + Configuration.evchargerIcon : "../images/ev-charger.svg";
                 progressive: true
                 text: thing.name
                 onClicked: pageStack.push("EvChargerOptimization.qml", { hemsManager: hemsManager, thing: thing })
+
+
+                Image {
+                    id: icon
+                    height: 24
+                    width: 24
+                    source: configDelegate.iconName
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: 16
+                    z: 2
+                }
+
+                ColorOverlay {
+                    anchors.fill: icon
+                    source: icon
+                    color: Style.consolinnoMedium
+                    z: 3
+                }
+
             }
         }
     }

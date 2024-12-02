@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.2
+import QtGraphicalEffects 1.12
 import "../components"
 import "../delegates"
 import Nymea 1.0
@@ -85,7 +86,7 @@ Page {
 
         Button{
             id: addDevice
-            text: qsTr("Add device manually")
+            text: qsTr("Set up new device")
             Layout.alignment: Qt.AlignHCenter
             Layout.preferredWidth: 300
             Layout.minimumWidth: 100
@@ -94,11 +95,11 @@ Page {
             }
         }
 
-
-//        ListFilterInput {
-//            id: filterInput
-//            Layout.fillWidth: true
-//        }
+        /*
+        ListFilterInput {
+            id: filterInput
+            Layout.fillWidth: true
+        }*/
 
         GroupedListView {
             Layout.fillWidth: true
@@ -115,9 +116,62 @@ Page {
             }
 
             delegate: ThingDelegate {
+                property string iconPath: ""
                 thing: thingsProxy.getThing(model.id)
                 // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
                 // This check might be wrong for thingClasses with multiple create methods...
+
+                iconName: {
+                    let thingInterface = thing.thingClass.interfaces
+
+                    if (thingInterface.indexOf("energymeter") >= 0) {
+                        if(true){ //Configuration.gridIcon === ""
+                            iconPath = "../images/grid.svg";
+                        }else{
+                            iconPath = "../images/" + Configuration.gridIcon;
+                        }
+                        return iconPath;
+                    } else if (thingInterface.indexOf("heatpump") >= 0) {
+                        if (false) { //Configuration.heatpumpIcon !== ""
+                            iconPath = "../images/" + Configuration.heatpumpIcon;
+                        } else {
+                            iconPath = "../images/heatpump.svg";
+                        }
+                        return iconPath;
+                    } else if (thingInterface.indexOf("smartheatingrod") >= 0) {
+                        if (false) { //Configuration.heatingRodIcon !== ""
+                            iconPath = "../images/" + Configuration.heatingRodIcon;
+                        } else {
+                            iconPath = "../images/heating_rod.svg";
+                        }
+                        return iconPath;
+                    } else if (thingInterface.indexOf("energystorage") >= 0 && Configuration.batteryIcon !== "" && false) {
+                        if (Configuration.batteryIcon !== "") {
+                            iconPath = "../images/" + Configuration.batteryIcon;
+                        }
+                        return iconPath;
+                    } else if (thingInterface.indexOf("evcharger") >= 0 && Configuration.evchargerIcon !== "" && false) {
+                        if (Configuration.evchargerIcon !== "") {
+                            iconPath = "../images/" + Configuration.evchargerIcon;
+                        }
+                        return iconPath;
+                    } else if (thingInterface.indexOf("solarinverter") >= 0 && Configuration.inverterIcon !== "" && false) {
+                        if (Configuration.inverterIcon !== "") {
+                            iconPath = "../images/" + Configuration.inverterIcon;
+                        }
+                        return iconPath;
+                    } else if (thingInterface.indexOf("dynamicelectricitypricing") >= 0) {
+                        if (Configuration.energyIcon !== "" && false) {
+                            iconPath = "../images/" + Configuration.energyIcon;
+                        }else{
+                            iconPath = "/ui/images/energy.svg"
+                        }
+                        return iconPath;
+                    } else {
+                        return app.interfacesToIcon(thing.thingClass.interfaces);
+                    }
+                }
+
                 canDelete: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("ConfigureThingPage.qml"), {thing: thing})
@@ -125,7 +179,6 @@ Page {
                 onDeleteClicked: {
                     d.thingToRemove = thing;
                     engine.thingManager.removeThing(d.thingToRemove.id)
-
                 }
             }
         }

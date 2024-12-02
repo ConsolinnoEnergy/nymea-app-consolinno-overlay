@@ -1,4 +1,5 @@
 import QtQuick 2.3
+import QtGraphicalEffects 1.12
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.2
 import QtCharts 2.3
@@ -157,9 +158,22 @@ StatsBase {
 
                 barSet = barSeries.append(consumerDelegate.thing.name, values)
                 barSet.opacity = d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? 1 : 0.3
+
                 barSet.color = Qt.binding(function() {
-                    var col= "#" + (d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? "FF" : "66") + consumerColors[index].slice(1)
-                    return(col)
+                    let consumerThingClass = consumerDelegate.thing.thingClass.interfaces;
+                    var col = "";
+
+                    if(consumerThingClass.indexOf("heatpump") >= 0){
+                        col= (d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? Configuration.heatpumpColor : Qt.darker(Configuration.heatpumpColor, 0.8))
+                    }else if(consumerThingClass.indexOf("evcharger") >= 0){
+                        col= (d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? Configuration.wallboxColor : Qt.darker(Configuration.wallboxColor, 0.8))
+                    }else if(consumerThingClass.indexOf("smartheatingrod") >= 0){
+                        col= (d.selectedThing == null || consumerDelegate.thing == d.selectedThing ?  Configuration.heatingRodColor : Qt.darker(Configuration.heatingRodColor, 0.8))
+                    }else{
+                        col= "#" + (d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? "FF" : "66") + consumerColors[index].slice(1)
+                    }
+
+                    return(col);
                     //return NymeaUtils.generateColor(Style.generationBaseColor, index, d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? 1 : 0.3)
                 })
                 barSet.borderColor = Qt.binding(function(){ return barSet.color})
@@ -345,9 +359,72 @@ StatsBase {
                             anchors.centerIn: parent
                             spacing: Style.smallMargins
                             ColorIcon {
-                                name: app.interfacesToIcon(legendDelegate.thing.thingClass.interfaces)
+                                id: icons
+                                name: {
+                                    for(let i = 0; i < legendDelegate.thing.thingClass.interfaces.length; i++){
+                                        let iconName = legendDelegate.thing.thingClass.interfaces[i]
+
+                                        switch (iconName) {
+                                        case "pvsurplusheatpump":
+                                            if(Configuration.heatpumpIcon !== ""){
+                                                return "qrc:/ui/images/"+Configuration.heatpumpIcon
+                                            }else{
+                                                return "qrc:/ui/images/heatpump.svg"
+                                            }
+                                        case "smartgridheatpump":
+                                            if(Configuration.heatpumpIcon !== ""){
+                                                return "qrc:/ui/images/"+Configuration.heatpumpIcon
+                                            }else{
+                                                return "qrc:/ui/images/heatpump.svg"
+                                            }
+                                        case "smartheatingrod":
+                                            if(Configuration.heatingRodIcon !== ""){
+                                                return "/ui/images/"+Configuration.heatingRodIcon
+                                            }else{
+                                                return "/ui/images/heating_rod.svg"
+                                            }
+                                        case "evcharger":
+                                            if(Configuration.evchargerIcon !== ""){
+                                                return "/ui/images/"+Configuration.evchargerIcon
+                                            }else{
+                                                return "/ui/images/ev-charger.svg"
+                                            }
+                                        default:
+                                            return app.interfacesToIcon(legendDelegate.thing.thingClass.interfaces)
+                                        }
+                                    }
+                                }
                                 size: Style.smallIconSize
-                                color: index >= 0 ? consumerColors[index]  : "white"
+                                color: {
+                                    let consumerThingClass = legendDelegate.thing.thingClass.interfaces;
+                                    var col = "";
+                                    if(consumerThingClass.indexOf("heatpump") >= 0){
+                                        col= (d.selectedThing == null || legendDelegate.thing == d.selectedThing ? Configuration.heatpumpColor : Qt.darker(Configuration.heatpumpColor, 0.8))
+                                    }else if(consumerThingClass.indexOf("evcharger") >= 0){
+                                        col= (d.selectedThing == null || legendDelegate.thing == d.selectedThing ? Configuration.wallboxColor : Qt.darker(Configuration.wallboxColor, 0.8))
+                                    }else if(consumerThingClass.indexOf("smartheatingrod") >= 0){
+                                        col= (d.selectedThing == null || legendDelegate.thing == d.selectedThing ?  Configuration.heatingRodColor : Qt.darker(Configuration.heatingRodColor, 0.8))
+                                    }else{
+                                        col= "#" + (d.selectedThing == null || legendDelegate.thing == d.selectedThing ? "FF" : "66") + consumerColors[index].slice(1)
+                                    }
+                                    return(col)
+                                }
+
+                                Image {
+                                    id: icon
+                                    source: icons.name
+                                    width: icons.size
+                                    height: icons.size
+                                    visible: Configuration.evchargerIcon !== "" || Configuration.heatingRodIcon !== "" || Configuration.heatpumpIcon
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: icon
+                                    source: icon
+                                    color: icons.color
+                                    visible: Configuration.evchargerIcon !== "" || Configuration.heatingRodIcon !== "" || Configuration.heatpumpIcon
+                                }
+
                             }
                             Label {
                                 text: legendDelegate.thing.name
@@ -552,10 +629,21 @@ StatsBase {
                                 Rectangle {
                                     width: Style.extraSmallFont.pixelSize
                                     height: width
-                                    color: consumerColors[model.indexInModel]
+                                    color: {
+                                        let consumerThingClass = model.consumer.thingClass.interfaces;
+                                        if(consumerThingClass.indexOf("heatpump") >= 0){
+                                            return Configuration.heatpumpColor;
+                                        }else if(consumerThingClass.indexOf("evcharger") >= 0){
+                                            return Configuration.wallboxColor;
+                                        }else if(consumerThingClass.indexOf("smartheatingrod") >= 0){
+                                            return Configuration.heatingRodColor;
+                                        }else{
+                                            return consumerColors[model.indexInModel]
+                                        }
+                                    }
                                 }
                                 Label {
-                                    text: "%1: %2 kWh".arg(model.consumer.name).arg(model.value)
+                                    text: "%1: %2 kWh".arg(model.consumer.name).arg((+model.value).toLocaleString())
                                     font: Style.extraSmallFont
                                 }
                             }

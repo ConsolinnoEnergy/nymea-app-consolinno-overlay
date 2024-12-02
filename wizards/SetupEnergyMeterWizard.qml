@@ -1,4 +1,5 @@
 import QtQuick 2.9
+import QtGraphicalEffects 1.15
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.9
 import "qrc:/ui/components"
@@ -267,7 +268,28 @@ Page {
                     Layout.fillWidth: true
                     text: model.name
                     subText: model.description
-                    iconName: app.interfacesToIcon(discoveryView.thingClass.interfaces)
+                    iconName: {
+                        if(Configuration.gridIcon !== ""){
+                            return "/ui/images/"+Configuration.evchargerIcon
+                        }else{
+                            return "../images/grid.svg"
+                        }
+                    }
+                    progressive: false
+                    Image {
+                        id: iconEvCharger
+                        height: 24
+                        width: 24
+                        source: iconEv.iconName
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.left: parent.left
+                        anchors.leftMargin: 16
+                    }
+                    ColorOverlay {
+                        anchors.fill: iconEvCharger
+                        source: iconEvCharger
+                        color: Style.consolinnoMedium
+                    }
                     onClicked: {
                         d.thingDescriptor = discoveryProxy.get(index);
                         d.thingName = model.name;

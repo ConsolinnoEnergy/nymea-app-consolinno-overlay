@@ -58,7 +58,7 @@ GenericConfigPage {
             Item {
                 id: notificationsContainer
                 anchors.top: parent.top
-                height: root.isRootmeter ? (infoElement.implicitHeight) : 0
+                height: infoElement.implicitHeight
                 width: parent.width
                 visible: (isNotify === "shutoff" || isNotify === "limited") && isRootmeter
 
@@ -77,84 +77,90 @@ GenericConfigPage {
                             "header": qsTr("Grid-Supportive Control"),
                             "content": qsTr("The consumption is <b>temporarily blocked</b> by the network operator."),
                             "color": "danger"
+                        },
+                        "unrestricted": {
+                            "header": qsTr("Grid-Supportive Control"),
+                            "content": qsTr("unrestricted"),
+                            "color": "none"
                         }
                     }
 
                     property var infoColors: {
                         "warning": "#fc9d03",
-                        "danger": "#eb4034"
+                        "danger": "#eb4034",
+                        "none": "#ffffff"
                     }
 
                     property string infoColor: "#fc9d03"
                     property string currentState: isNotify === "shutoff" && isRootmeter ? "blocked" : isNotify === "limited" && isRootmeter ? "limited" : "unrestricted"
 
-                        Rectangle {
-                            width: infoElement.width - 40
-                            Layout.alignment: Qt.AlignHCenter
-                            radius: 10
-                            color: "#faf9f5"
-                            border.width: 1
-                            border.color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
-                            implicitHeight: alertContainer.implicitHeight + 20
+                    Rectangle {
+                        width: infoElement.width - 40
+                        Layout.alignment: Qt.AlignHCenter
+                        radius: 10
+                        color: "#faf9f5"
+                        border.width: 1
+                        border.color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
+                        implicitHeight: alertContainer.implicitHeight + 20
 
-                            ColumnLayout {
-                                id: alertContainer
-                                anchors.fill: parent
-                                spacing: 1
+                        ColumnLayout {
+                            id: alertContainer
+                            anchors.fill: parent
+                            spacing: 1
+
+                            Item {
+                                Layout.preferredHeight: 10
+                            }
+
+
+                            RowLayout {
+                                width: parent.width
+                                spacing: 5
 
                                 Item {
-                                    Layout.preferredHeight: 10
+                                    Layout.preferredWidth: 10
                                 }
 
-
-                                RowLayout {
-                                    width: parent.width
-                                    spacing: 5
-
-                                    Item {
-                                        Layout.preferredWidth: 10
-                                    }
-
-                                    Rectangle {
-                                        width: 20
-                                        height: 20
-                                        radius: 10  // Makes the rectangle a circle
-                                        color: "white"
-                                        border.color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
-                                        border.width: 2
-                                        RowLayout.alignment: Qt.AlignVCenter
-
-                                        Label {
-                                            text: "!"
-                                            anchors.centerIn: parent
-                                            font.bold: true
-                                            color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
-                                        }
-                                    }
+                                Rectangle {
+                                    width: 20
+                                    height: 20
+                                    radius: 10  // Makes the rectangle a circle
+                                    color: "white"
+                                    border.color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
+                                    border.width: 2
+                                    RowLayout.alignment: Qt.AlignVCenter
 
                                     Label {
-                                        font.pixelSize: 16
-                                        text: infoElement.states[infoElement.currentState].header
+                                        text: "!"
+                                        anchors.centerIn: parent
                                         font.bold: true
-                                        wrapMode: Text.WordWrap
-                                        Layout.fillWidth: true
-                                        Layout.preferredWidth: parent.width - 20
+                                        color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
                                     }
                                 }
+
                                 Label {
                                     font.pixelSize: 16
-                                    text: infoElement.states[infoElement.currentState].content
+                                    text: infoElement.states[infoElement.currentState].header
+                                    font.bold: true
                                     wrapMode: Text.WordWrap
                                     Layout.fillWidth: true
                                     Layout.preferredWidth: parent.width - 20
-                                    leftPadding: 40
-                                }
-
-                                Item {
-                                    Layout.preferredHeight: 10
                                 }
                             }
+                            Label {
+                                font.pixelSize: 16
+                                text: infoElement.states[infoElement.currentState].content
+                                wrapMode: Text.WordWrap
+                                Layout.fillWidth: true
+                                Layout.preferredWidth: parent.width - 20
+                                leftPadding: 40
+                            }
+
+                            Item {
+                                Layout.preferredHeight: 10
+                            }
                         }
+                    }
                 }
             }
 
@@ -170,15 +176,17 @@ GenericConfigPage {
                 onColor: {
                     if (root.isBattery) {
                         if (root.isCharging) {
-                            return Style.purple
+                            return Configuration.batteriesColor
                         }
                         if (root.isDischarging) {
-                            return Style.orange
+                            return Configuration.batteryDischargeColor
                         }
-                        return Style.green
+                        return Configuration.batteriesColor
                     }
                     if (root.isEnergyMeter)
-                        return root.currentPowerState.value < 0 ? Style.green : Style.blue
+                        return root.currentPowerState.value < 0 ? Configuration.rootMeterReturnColor : Configuration.rootMeterAcquisitionColor
+                    if (root.isProducer)
+                        return isProduction ? Configuration.inverterColor : Configuration.consumedColor
                 }
 
                 Behavior on onColor { ColorAnimation { duration: Style.fastAnimationDuration } }
@@ -229,7 +237,7 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             horizontalAlignment: Text.AlignHCenter
                             font: Style.largeFont
-                            text: "%1 %2".arg(root.cleanVale).arg(root.unit)
+                            text: "%1 %2".arg((+root.cleanVale).toLocaleString()).arg(root.unit)
                         }
 
                         Label {
@@ -264,7 +272,7 @@ GenericConfigPage {
                             horizontalAlignment: Text.AlignHCenter
                             font: Style.bigFont
                             visible: batteryLevelState
-                            text: "%1 %".arg(batteryLevelState ? batteryLevelState.value : "")
+                            text: "%1 %".arg(batteryLevelState ? (+batteryLevelState.value).toLocaleString() : "")
                         }
                     }
 
@@ -305,13 +313,13 @@ GenericConfigPage {
                     property int n: Math.round(remainingHours)
 
                     text: root.isConsumer
-                          ? qsTr("Total Consumption: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + root.totalEnergyConsumedState.value.toFixed(2) + "</span>")
+                          ? qsTr("Total Consumption: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + (+root.totalEnergyConsumedState.value.toFixed(2)).toLocaleString() + "</span>")
                           : root.isProducer
-                            ? qsTr("Total Production: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + root.totalEnergyProducedState.value.toFixed(2) + "</span>")
+                            ? qsTr("Total Production: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + (+root.totalEnergyProducedState.value.toFixed(2)).toLocaleString() + "</span>")
                             : root.isEnergyMeter
-                              ? qsTr("Total Acquisition: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + root.totalEnergyConsumedState.value.toFixed(2) + "</span>") + "<br>" + qsTr("Total Return: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + root.totalEnergyProducedState.value.toFixed(2) + "</span>")
+                              ? qsTr("Total Acquisition: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + (+root.totalEnergyConsumedState.value.toFixed(2)).toLocaleString() + "</span>") + "<br>" + qsTr("Total Return: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + (+root.totalEnergyProducedState.value.toFixed(2)).toLocaleString() + "</span>")
                               : root.isBattery && isCharging
-                                ? qsTr("At the current rate, the battery will be fully charged at %1.").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + endTime.toLocaleTimeString(Locale.ShortFormat) + "</span>")
+                                ? qsTr("At the current rate, the battery will be fully charged at %1.").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + endTime.toLocaleTimeString(Locale.ShortFormat)+ "</span>")
                                 : root.isBattery && isDischarging
                                   ? qsTr("At the current rate, the battery will last until %1.").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + endTime.toLocaleTimeString(Locale.ShortFormat) + "</span>")
                                   : ""

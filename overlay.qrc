@@ -11,6 +11,7 @@
     </qresource>
     <qresource prefix="/ui">
         <file>system/ConsolinnoUsersSettingsPage.qml</file>
+        <file>ConsolinnoSettingsPage.qml</file>
         <file>mainviews/ConsolinnoView.qml</file>
         <file>images/leaf.svg</file>
         <file>Configuration.qml</file>
@@ -82,7 +83,6 @@
         <file>mainviews/energy/ConsolinnoPowerBalanceHistory.qml</file>
         <file>components/ConsolinnoImprintSystem.qml</file>
         <file>components/ConsolinnoImprintApp.qml</file>
-        <file>images/leaflet-ethernet-connect.png</file>
         <file>info/GridConsumptionInfo.qml</file>
         <file>images/heating_rod.svg</file>
         <file>thingconfiguration/DebugCharts.qml</file>
@@ -110,5 +110,12 @@
         <file>info/PausingInfo.qml</file>
         <file>info/PriceLimitInfo.qml</file>
         <file>thingconfiguration/AddNewThings.qml</file>
+        <file>images/leaflet-ethernet-connect.png</file>
+        <file>system/ConsolinnoNetworkSettingsPage.qml</file>
+        <file>appsettings/ConsolinnoLookAndFeelSettingsPage.qml</file>
+        <file>appsettings/ConsolinnoAppSettingsPage.qml</file>
+        <file>info/PvSurplusInfo.qml</file>
+        <file>privacy_agreement_de_DE.html</file>
+        <file>terms_of_use_de_DE.html</file>
     </qresource>
 </RCC>

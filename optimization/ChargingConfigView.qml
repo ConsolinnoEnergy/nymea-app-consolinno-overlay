@@ -102,7 +102,7 @@ GenericConfigPage {
         if ( power === null){
             return " – "
         }
-        return power.value
+        return power.value.toLocaleString()
     }
 
 
@@ -488,7 +488,7 @@ GenericConfigPage {
 
                         Label{
                             id: ongridConsumption
-                            text: getText()
+                            text: (typeof getText() === "undefined" ? "" : getText())
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                             function getText(){
@@ -578,6 +578,47 @@ GenericConfigPage {
                         }
                     }
 
+                    RowLayout{
+                        Layout.topMargin: 10
+                        visible: chargingIsAnyOf([dyn_pricing])
+
+                        Label{
+                            Layout.fillWidth: true
+                            text: qsTr("Current Price")
+                        }
+
+                        Label{
+                            id: currentMarketPrice
+                            text: qsTr("%1 ct/kWh").arg((Math.round(currentPrice * 100) / 100).toLocaleString());
+                            Layout.alignment: Qt.AlignRight
+                            Layout.rightMargin: 0
+
+                            Component.onCompleted: {
+                                currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value;
+                            }
+                        }
+                    }
+
+                    RowLayout{
+                        Layout.topMargin: 10
+                        visible: chargingIsAnyOf([dyn_pricing])
+                        id: belowPriceLimit
+                        Label{
+                            Layout.fillWidth: true
+                            text: qsTr("Below price limit")
+                        }
+
+                        Rectangle{
+                            width: 17
+                            height: 17
+                            Layout.rightMargin: 0
+                            Layout.alignment: Qt.AlignRight
+                            color: (currentPrice <= thresholdPrice) ? "#87BD26" : "#CD5C5C"
+                            border.color: "black"
+                            border.width: 0
+                            radius: width*0.5
+                        }
+                    }
 
                     RowLayout{
                         visible: chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization]) ? false : true
@@ -745,7 +786,7 @@ GenericConfigPage {
 
                         Label{
                             id: chargingPowerValue
-                            text: (initializing ? 0 : getChargingPower()) + " W"
+                            text: (initializing ? 0 : (+getChargingPower()).toLocaleString()) + " kW"
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
@@ -804,7 +845,7 @@ GenericConfigPage {
                         Label{
                             id: energyChargedValue
 
-                            text: chargingSessionConfiguration.energyCharged.toFixed(2) + " kWh"
+                            text: (+chargingSessionConfiguration.energyCharged.toFixed(2)).toLocaleString() + " kWh"
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
@@ -844,10 +885,7 @@ GenericConfigPage {
                         Button{
                             Layout.fillWidth: true
                             text: qsTr("Configure Charging")
-                            background: Rectangle{
-                                color: isCarPluggedIn() ? "#87BD26" : "lightgrey"
-                                radius: 4
-                            }
+                            enabled: isCarPluggedIn()
 
                             onClicked: {
                                 if (isCarPluggedIn()){
@@ -1218,13 +1256,6 @@ GenericConfigPage {
                                     //         from config hours      from config minutes         current hours                    current minutes                 add a day if negative (since it means it is the next day)
                                     value: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() + nextDay*24*60
 
-                                    background: ChargingConfigSliderBackground{
-                                        id: backgroundEndTimeSlider
-
-                                        Layout.fillWidth: true
-                                        infeasibleSectionWidth: Math.min(endTimeSlider.width * endTimeSlider.maximumChargingthreshhold/(24*60), endTimeSlider.width )
-                                        feasibleSectionWidth:  Math.min(endTimeSlider.width - infeasibleSectionWidth, endTimeSlider.width)
-                                    }
 
                                     onPositionChanged: {
                                         feasibilityText()
@@ -1447,7 +1478,7 @@ GenericConfigPage {
                                             text: currentValue
                                             horizontalAlignment: Qt.AlignHCenter
                                             verticalAlignment: Qt.AlignVCenter
-                                            Layout.preferredWidth: 70
+                                            Layout.preferredWidth: 50
                                             validator: RegExpValidator {
                                                 regExp: /^-?(100|[1-9]?[0-9])$/
                                             }
@@ -1685,7 +1716,7 @@ GenericConfigPage {
                                             axisY: valueAxis
                                             color: 'transparent'
                                             borderWidth: 1
-                                            borderColor: Style.green
+                                            borderColor: Configuration.epexMainLineColor
 
 
                                             upperSeries: LineSeries {
@@ -1782,7 +1813,7 @@ GenericConfigPage {
                                             axisY: valueAxis
                                             color: 'transparent'
                                             borderWidth: 1
-                                            borderColor: Style.red
+                                            borderColor: Configuration.epexAverageColor
 
                                             upperSeries: LineSeries {
                                                 id: pricingUpperSeriesAbove
@@ -1790,9 +1821,6 @@ GenericConfigPage {
 
                                             lowerSeries: LineSeries {
                                                 id: pricingLowerSeriesAbove
-                                                /*
-                                                XYPoint { x: dateTimeAxis.min.getTime()-10; y: -100 }
-                                                XYPoint { x: dateTimeAxis.max.getTime(); y: -100 } */
                                             }
                                         }
                                     }

@@ -204,11 +204,32 @@ Page {
                     delegate: ItemDelegate{
                         Layout.preferredWidth: app.width
                         contentItem: ConsolinnoItemDelegate{
+                            id: icon
                             Layout.fillWidth: true
-                            iconName: "../images/weathericons/weather-clear-day.svg"
+                            iconName: {
+                                if(Configuration.inverterIcon !== ""){
+                                    return "/ui/images/"+Configuration.inverterIcon
+                                }else{
+                                    return "../images/weathericons/weather-clear-day.svg"
+                                }
+                            }
                             progressive: false
                             text: emProxy.get(index) ? emProxy.get(index).name : ""
                             onClicked: {
+                            }
+                            Image {
+                                id: iconInvertor
+                                height: 24
+                                width: 24
+                                source: icon.iconName
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.left: parent.left
+                                anchors.leftMargin: 16
+                            }
+                            ColorOverlay {
+                                anchors.fill: iconInvertor
+                                source: iconInvertor
+                                color: Style.consolinnoMedium
                             }
                         }
                     }
@@ -289,6 +310,7 @@ Page {
                 font.pixelSize: 15
                 Layout.preferredWidth: 200
                 Layout.preferredHeight: addButton.height - 9
+                // color: Style.consolinnoMedium
                 // background fucks up the margin between the buttons, thats why wee need this topMargin
                 Layout.topMargin: 5
 
@@ -329,7 +351,7 @@ Page {
                     height: parent.height
                     width: parent.width
                     border.color: Material.background
-                    color: solarInverterRepeater.count > 0  ? Style.consolinnoHighlight : "grey"
+                    color: solarInverterRepeater.count > 0  ? Configuration.secondButtonColor : "grey"
                     radius: 4
                 }
 

@@ -96,24 +96,26 @@ Item {
             onTabSelected: {
                 d.now = new Date();
 
-                const pricelength = Object.keys(prices).length;
-                noDataLabel.visible = selectionTabs.currentIndex && pricelength < 97;
-                noDataIndicator.visible = selectionTabs.currentIndex && pricelength < 97;
+                let arrLength = 192;
 
-                if(pricelength < 97 && selectionTabs.currentIndex == 1){
+                const pricelength = Object.keys(prices).length;
+                noDataLabel.visible = selectionTabs.currentIndex && pricelength < arrLength;
+                noDataIndicator.visible = selectionTabs.currentIndex && pricelength < arrLength;
+
+                if(pricelength < arrLength && selectionTabs.currentIndex == 1){
                     consumptionSeries.visible = false
                     consumptionSeriesAbove.visible = false
                 }else{
                     consumptionSeries.visible = true
                     consumptionSeriesAbove.visible = true
                 }
-
             }
         }
 
         Component.onCompleted: {
             if(!thing)
                 return;
+
             validSince = thing.stateByName("validSince").value
             validUntil = thing.stateByName("validUntil").value
             currentPrice = thing.stateByName("currentMarketPrice").value
@@ -186,10 +188,14 @@ Item {
                     shadesVisible: false
 
                     function adjustMax(minPrice,maxPrice) {
+                        min = 0
+                        max = 1
+
                         max = Math.ceil(maxPrice) + 1;
                         max += 4 - (max % 4);
                         min = minPrice <= 0 ? minPrice - 5 : 0;
                     }
+
                 }
 
                 Item {
@@ -231,7 +237,7 @@ Item {
                     axisY: valueAxis
                     color: 'transparent'
                     borderWidth: 1
-                    borderColor: Style.green
+                    borderColor: Configuration.epexMainLineColor
 
                     lowerSeries: LineSeries {
                         id: pricingLowerSeries
@@ -242,6 +248,7 @@ Item {
                     }
 
                     function insertEntry(value){
+
                         var lastObjectValue = value[Object.keys(value)[Object.keys(value).length - 1]];
 
                         var firstRun = true;
@@ -323,26 +330,22 @@ Item {
                     axisY: valueAxis
                     color: 'transparent'
                     borderWidth: 1
-                    borderColor: Style.red
+                    borderColor: Configuration.epexAverageColor
 
                     upperSeries: LineSeries {
                         id: pricingUpperSeriesAbove
                     }
 
                     lowerSeries: LineSeries {
-
                         id: pricingLowerSeriesAbove
-
-                        //XYPoint { x: dateTimeAxis.min.getTime(); y: -100 }
-                        //XYPoint { x: dateTimeAxis.max.getTime(); y: -100 }
                     }
 
                 }
 
                 ScatterSeries {
                     id: currentValuePoint
-                    borderColor: Style.green
-                    color: Style.green
+                    borderColor: Configuration.epexMainLineColor
+                    color: Configuration.epexMainLineColor
                     markerSize: isDynamicPrice ? 5 : parent.height / 80
                     markerShape: AbstractSeries.MarkerShapeCircle
                     axisX: dateTimeAxis
@@ -356,23 +359,13 @@ Item {
                     repeat: true
                     onTriggered: {
                         isOn = true;
-                        var currentDate = new Date()
-                        var currentTime = new Date().getTime()
+                        var currentTime = new Date();
 
-                        currentDate.setMinutes(45)
-                        currentDate.setSeconds(0)
-                        currentDate.setMilliseconds(0)
+                        currentValuePoint.remove(0);
+                        currentPrice = thing.stateByName("currentMarketPrice").value;
+                        currentTime.setTime(currentTime.getTime() - (15 * 60 * 1000));
 
-                        currentValuePoint.remove(0)
-                        currentPrice = thing.stateByName("currentMarketPrice").value
-
-                        if(currentTime <= currentDate.getTime()){
-                            currentValuePoint.append(currentTime, currentPrice)
-                        }else{
-                            currentValuePoint.append(currentDate.getTime(), currentPrice)
-                        }
-
-
+                        currentValuePoint.append(currentTime.getTime(), currentPrice);
                     }
                 }
 
@@ -388,7 +381,7 @@ Item {
                     spacing: 5
                     Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
-                        color: Style.green
+                        color: Configuration.epexMainLineColor
                         width: 8
                         height: 8
                     }
@@ -404,7 +397,7 @@ Item {
                     spacing: 5
                     Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
-                        color: Style.red
+                        color: Configuration.epexAverageColor
                         width: 8
                         height: 8
                     }

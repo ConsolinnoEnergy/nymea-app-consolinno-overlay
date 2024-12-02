@@ -1,21 +1,21 @@
 pragma Singleton
 import QtQuick 2.0
-import "../../ui"
+import "../../ui/"
 
 StyleBase {
 
-    property color consolinnoExtraDark: "#194D25"
-    property color consolinnoDark: "#194D25"
-    property color consolinnoMedium: "#87BD26"
-    property color consolinnoLight: "#BDD758"
-    property color consolinnoExtraLight: "#BDD758"
-    property color consolinnoHighlight: "#189521"
-    property color consolinnoHighlightForeground: "white"
+    property color consolinnoExtraDark: "#193c4d"
+    property color consolinnoDark: "#0450c9"
+    property color consolinnoMedium: Configuration.iconColor
+    property color consolinnoLight: "#75a9fa"
+    property color consolinnoExtraLight: "#75a9fa"
+    property color consolinnoHighlight: "#75a9fa"
+    property color consolinnoHighlightForeground: Configuration.highlightForeground //"black"
 
     property real majorFontSize: 16
     property real screenMargins: 16
 
-    property color buttonColor: "#87BD26"
+    property color buttonColor: "#75a9fa"
     property real buttonFontSize: 16
     property real buttonTopPading: 16
     property real buttonLeftPadding: 32
@@ -23,8 +23,6 @@ StyleBase {
     backgroundColor: "white"
     foregroundColor: consolinnoExtraDark
 
-//    tileBackgroundColor: "white"
-//    tileOverlayColor: "#DDE8B4"
     tileOverlayIconColor: consolinnoDark
 
     accentColor: consolinnoMedium
@@ -34,5 +32,34 @@ StyleBase {
     darkGray: "#717171"
     yellow: "#eec00a"
     blue: "#329eba"
+
+    fontFamily: Configuration.fontFamily
+
+    //font size and font family
+    readonly property font extraSmallFont: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 10
+    })
+    readonly property font smallFont: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 13
+    })
+    readonly property font font: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 16
+    })
+    readonly property font bigFont: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 20
+    })
+    readonly property font largeFont: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 32
+    })
+    readonly property font hugeFont: Qt.font({
+        family: Configuration.fontFamily,
+        pixelSize: 46
+    })
+
 
 }

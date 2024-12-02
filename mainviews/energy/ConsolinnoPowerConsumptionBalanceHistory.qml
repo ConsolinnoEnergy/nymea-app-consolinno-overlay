@@ -298,7 +298,7 @@ Item {
                     color: totalColors[1]
                     borderWidth: 0
                     borderColor: null
-                    name: qsTr("Self production")
+                    name: qsTr("From PV")
             //      visible: false
 
                     lowerSeries: LineSeries {
@@ -357,10 +357,10 @@ Item {
                     id: storageSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[4]
+                    color: Configuration.batteryDischargeColor
                     borderWidth: 0
                     borderColor: null
-                    name: qsTr("From battery")
+                    name: qsTr("From Battery")
                     visible: root.batteries.count > 0
 
                     lowerSeries: selfProductionUpperSeries
@@ -385,7 +385,7 @@ Item {
                     id: acquisitionSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: totalColors[2]
+                    color: Configuration.rootMeterAcquisitionColor
                     borderWidth: 0
                     borderColor: null
                     name: qsTr("From grid")
@@ -538,7 +538,7 @@ Item {
                             property double value: toolTip.entry ? Math.max(0, toolTip.entry.consumption) : 0
                             property bool translate: value >= 1000
                             property double translatedValue: value / (translate ? 1000 : 1)
-                            text: qsTr("Total consumption: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
+                            text: qsTr("Total consumption: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                             font: Style.extraSmallFont
                         }
 
@@ -557,7 +557,7 @@ Item {
                                 property double value: toolTip.entry ? Math.max(0, -toolTip.entry.production) : 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
-                                text: qsTr("Self production: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
+                                text: qsTr("From PV: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                                 font: Style.extraSmallFont
                             }
                         }
@@ -566,7 +566,7 @@ Item {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: totalColors[4]
+                                color: Configuration.batteryDischargeColor
                             }
 
                             Label {
@@ -577,7 +577,7 @@ Item {
                                 property double value: toolTip.entry ? Math.max(0, -toolTip.entry.storage) : 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
-                                text: qsTr("From battery: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
+                                text: qsTr("From battery: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                                 font: Style.extraSmallFont
                             }
                         }
@@ -596,7 +596,7 @@ Item {
                                 property double value: toolTip.entry ? Math.max(0, toolTip.entry.acquisition) : 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
-                                text: qsTr("From grid: %1 %2").arg(translatedValue.toFixed(2)).arg(translate ? "kW" : "W")
+                                text: qsTr("From grid: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                                 font: Style.extraSmallFont
                             }
                         }

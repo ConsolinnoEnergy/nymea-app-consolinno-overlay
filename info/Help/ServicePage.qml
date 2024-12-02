@@ -13,7 +13,7 @@ Page {
 
     header: ConsolinnoHeader {
         id: header
-        text: qsTr("Service Consolinno")
+        text: qsTr("Service %1").arg(Configuration.appBranding)
         backButtonVisible: true
         onBackPressed: pageStack.pop()
         show_Image: false
@@ -32,7 +32,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
-                text: qsTr("If there are problems with the Leaflet, please refer to our service adress: ")
+                text: qsTr("If there are problems with the %1, please refer to our service adress: ").arg(Configuration.deviceName)
                 wrapMode: Text.WordWrap
             }
 
@@ -44,7 +44,7 @@ Page {
                 Layout.topMargin: 10
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
-                text: qsTr("service@consolinno.de")
+                text: qsTr("%1").arg(Configuration.serviceEmail)
             }
 
         }

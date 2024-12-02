@@ -155,11 +155,32 @@ Page {
                         delegate: ItemDelegate{
                             Layout.preferredWidth: app.width
                             contentItem: ConsolinnoItemDelegate{
+                                id: icon
                                 Layout.fillWidth: true
-                                iconName: "../images/thermostat/heating.svg"
+                                iconName:{
+                                    if(Configuration.heatpumpIcon !== ""){
+                                        return "/ui/images/"+Configuration.heatpumpIcon;
+                                    }else{
+                                        return "../images/heatpump.svg";
+                                    }
+                                }
                                 progressive: false
                                 text: hpProxy.get(index) ? hpProxy.get(index).name : ""
                                 onClicked: {
+                                }
+                                Image {
+                                    id: iconHeating
+                                    height: 24
+                                    width: 24
+                                    source: icon.iconName
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.left: parent.left
+                                    anchors.leftMargin: 16
+                                }
+                                ColorOverlay {
+                                    anchors.fill: iconHeating
+                                    source: iconHeating
+                                    color: Style.consolinnoMedium
                                 }
                             }
                         }
@@ -241,7 +262,7 @@ Page {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
                     wrapMode: Text.WordWrap
-                    text: qsTr("At the moment, Consolinno HEMS can only control one heatpump. Support for multiple heatpumps is planned for future releases.")
+                    text: qsTr("At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.").arg(Configuration.deviceName)
                 }
             }
 
@@ -302,18 +323,15 @@ Page {
                             }
                         }
                     }
-
                 }
 
                 background: Rectangle{
                     height: parent.height
                     width: parent.width
                     border.color: Material.background
-                    color: Style.consolinnoHighlight
+                    color: Configuration.secondButtonColor
                     radius: 4
                 }
-
-
                 onClicked: root.done(true, false, false)
             }
         }
@@ -742,9 +760,6 @@ Page {
 
                                 pageStack.pop(root)
                             }
-
-
-
 
                         }
                     }

@@ -72,9 +72,7 @@ Item {
             Layout.rightMargin: app.margins
             wrapMode: Text.WordWrap
             font.bold: true
-            text: "Copyright (C) %1 Consolinno Energy GmbH".arg(new Date().getFullYear())
-
-
+            text: "Copyright (C) %1 %2".arg(new Date().getFullYear()).arg("Consolinno Energy GmbH")
         }
 
         Label {
@@ -194,21 +192,50 @@ Item {
             font.bold: true
             text: qsTr("Source code availability")
         }
-            Label{
+            ColumnLayout {
                 Layout.fillWidth: true
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
-                wrapMode: Text.WordWrap
-                font.pixelSize: app.smallFont
-                Component.onCompleted: {
-                    var xhr = new XMLHttpRequest;
-                    xhr.open("GET", "../../SOURCE_AVAIL_" + Qt.locale().name + ".txt" );
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === XMLHttpRequest.DONE) {
-                            text = xhr.responseText
-                        }
-                    };
-                    xhr.send();
+
+                Label{
+                    Layout.fillWidth: true
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: app.smallFont
+                    text: qsTr("Anyone can obtain the source code of these software components from us on a data carrier (CD-ROM, DVD or USB stick) if a request is made to our customer service department at the following address within three years after delivery of the product to the customer or as long as we offer spare parts or support for the product:")
+                }
+
+                Label{
+                    Layout.fillWidth: true
+                    Layout.topMargin: 7
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: app.smallFont
+                    text: `${Configuration.companyName}\r\n${Configuration.companyAddress}\r\n${Configuration.companyZip} ${Configuration.companyLocation}\r\nTel: ${Configuration.companyTel}\r\nMail: ${Configuration.serviceEmail}`
+                }
+
+                Label{
+                    Layout.fillWidth: true
+                    Layout.topMargin: 7
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: app.smallFont
+                    text: qsTr("Please provide the following product data:")
+                }
+
+                Label{
+                    Layout.fillWidth: true
+                    Layout.topMargin: 7
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: app.smallFont
+                    text: qsTr("- Product name
+- Software version
+- Serial number - if known")
+                }
+
+                Label{
+                    Layout.fillWidth: true
+                    Layout.topMargin: 7
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: app.smallFont
+                    text: qsTr("and transfer an amount of money in advance, based on the information provided by the support, to cover the costs of creating and sending the disk. Alternatively, the source code can be downloaded free of charge.")
                 }
             }
         }
