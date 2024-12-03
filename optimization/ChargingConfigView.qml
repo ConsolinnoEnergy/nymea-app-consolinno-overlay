@@ -98,11 +98,16 @@ GenericConfigPage {
 
     function getChargingPower(){
         // get the current power of the charger and null if not available
-        var power = thing.stateByName("currentPower")
-        if ( power === null){
-            return " – "
+        var power = thing.stateByName("currentPower");
+        if ( power === null || isNaN(power.value) ){
+            return " – ";
         }
-        return power.value.toLocaleString()
+
+        if(power.value % 2 === 0) {
+            return power.value;
+        }
+
+        return parseFloat(power.value.toFixed(2)).toLocaleString();
     }
 
 
@@ -786,7 +791,7 @@ GenericConfigPage {
 
                         Label{
                             id: chargingPowerValue
-                            text: (initializing ? 0 : (isNaN(getChargingPower()) ? " - " : (+getChargingPower()).toLocaleString()))  + " kW"
+                            text: (initializing ? 0 : getChargingPower()) + " kW"
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
