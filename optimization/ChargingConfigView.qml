@@ -786,7 +786,7 @@ GenericConfigPage {
 
                         Label{
                             id: chargingPowerValue
-                            text: (initializing ? 0 : (+getChargingPower()).toLocaleString()) + " kW"
+                            text: (initializing ? 0 : (isNaN(getChargingPower()) ? " - " : (+getChargingPower()).toLocaleString()))  + " kW"
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
