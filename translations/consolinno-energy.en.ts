@@ -2167,12 +2167,20 @@
             &lt;/ul&gt;</translation>
     </message>
     <message>
+        <source>Your %1 is not set up yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Email: &lt;a href=&apos;mailto:%1&apos;&gt;%1&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&lt;h3&gt;Incompatible Software Versions&lt;/h3&gt;
                 &lt;p&gt;The software versions of your &quot;%3 App&quot; (v%1) and your &quot;%6 End Device&quot; (v%2) are incompatible and currently only partially usable. Your &quot;%6 End Device&quot; will be automatically updated during the day.&lt;/p&gt;
                 &lt;p&gt;If you still receive this message after several hours, please contact our support:&lt;/p&gt;
                 &lt;ul&gt;
-                    &lt;li&gt;Phone: &lt;a href=&quot;tel:%7&quot;&gt;%7&lt;/a&gt;&lt;/li&gt;
-                    &lt;li&gt;Email: &lt;a href=&quot;mailto:%4&quot;&gt;%4&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;%7&lt;/li&gt;
+                    &lt;li&gt;%4&lt;/li&gt;
                 &lt;/ul&gt;
                 &lt;p&gt;We apologize for the temporary limitations in use.&lt;/p&gt;
                 &lt;p&gt;Best regards&lt;/p&gt;
@@ -2180,7 +2188,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Your %1 is not set up yet.</source>
+        <source>Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
