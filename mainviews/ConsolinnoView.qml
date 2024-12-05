@@ -551,16 +551,19 @@ MainViewBase {
                 var incompNotificationPopup = incompNotificationComponent.createObject(root)
                 //                incompNotificationPopup.message = qsTr("%2 App is not compatible with the HEMS system version running on %1. Please update your HEMS.").arg(engine.jsonRpcClient.currentHost.name).arg(Configuration.appName)
                 
+                let phone = (Configuration.companyTel !== "") ? qsTr("Phone: <a href='tel:%1'>%1</a>").arg(Configuration.companyTel) : ""
+                let mail = qsTr("Email: <a href='mailto:%1'>%1</a>").arg(Configuration.serviceEmail)
+
                 incompNotificationPopup.message=qsTr('<h3>Incompatible Software Versions</h3>
                 <p>The software versions of your "%3 App" (v%1) and your "%6 End Device" (v%2) are incompatible and currently only partially usable. Your "%6 End Device" will be automatically updated during the day.</p>
                 <p>If you still receive this message after several hours, please contact our support:</p>
                 <ul>
-                    <li>Phone: <a href="tel:%7">%7</a></li>
-                    <li>Email: <a href="mailto:%4">%4</a></li>
+                    <li>%7</li>
+                    <li>%4</li>
                 </ul>
                 <p>We apologize for the temporary limitations in use.</p>
                 <p>Best regards</p>
-                <p>Your %5 Team</p>').arg(appVersion).arg(engine.jsonRpcClient.experiences.Hems).arg(Configuration.appName).arg(Configuration.serviceEmail).arg(Configuration.branding).arg(Configuration.deviceName).arg(Configuration.companyTel)
+                <p>Your %5 Team</p>').arg(appVersion).arg(engine.jsonRpcClient.experiences.Hems).arg(Configuration.appName).arg(mail).arg(Configuration.branding).arg(Configuration.deviceName).arg(phone)
                 // If Popup not already open, open it
                 if (incompNotificationPopup.opened === false) {
                     incompNotificationPopup.open()
