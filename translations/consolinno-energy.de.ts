@@ -2625,10 +2625,6 @@
         <translation>Heizkreis</translation>
     </message>
     <message>
-        <source>Absorbed electrical energy</source>
-        <translation>Aufgenommene elektrische Energie</translation>
-    </message>
-    <message>
         <source>Current COP</source>
         <translation>Aktueller COP</translation>
     </message>
@@ -2639,6 +2635,10 @@
     <message>
         <source>Domestic hot water temperature</source>
         <translation>Brauchwassertemperatur</translation>
+    </message>
+    <message>
+        <source>Absorbed elec. energy</source>
+        <translation>Aufgenommene el. Energie</translation>
     </message>
 </context>
 <context>
