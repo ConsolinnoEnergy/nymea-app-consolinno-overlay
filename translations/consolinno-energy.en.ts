@@ -2613,10 +2613,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Absorbed electrical energy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Current COP</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2626,6 +2622,10 @@
     </message>
     <message>
         <source>Domestic hot water temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Absorbed elec. energy</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
