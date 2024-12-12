@@ -140,6 +140,7 @@ MainViewBase {
         }
 
         function resetWizardSettings() {
+            wizardSettings.modBusDone = false
             wizardSettings.solarPanelDone = false
             wizardSettings.evChargerDone = false
             wizardSettings.heatPumpDone = false
@@ -149,6 +150,7 @@ MainViewBase {
         }
 
         function resetManualWizardSettings() {
+            manualWizardSettings.modBusDone = false
             manualWizardSettings.solarPanelDone = false
             manualWizardSettings.evChargerDone = false
             manualWizardSettings.heatPumpDone = false
@@ -163,6 +165,7 @@ MainViewBase {
         }
 
         function initialManualWizardSettings() {
+            manualWizardSettings.modBusDone = true
             manualWizardSettings.solarPanelDone = true
             manualWizardSettings.evChargerDone = true
             manualWizardSettings.heatPumpDone = true
@@ -221,6 +224,33 @@ MainViewBase {
                 return
             }
 
+            if ((!wizardSettings.modBusDone)
+                    || !manualWizardSettings.modBusDone) {
+                var page = d.pushPage(
+                            "/ui/system/ConsolinnoModbusRtuSettingsPage.qml")
+                page.done.connect(function (skip, abort, back) {
+
+                    if (back) {
+                        energyMeterWiazrdSkipped = false
+                        manualWizardSettings.energymeter = false
+                        pageStack.pop()
+                        return
+                    }
+
+                    if (abort) {
+                        manualWizardSettings.modBusDone = true
+                        exitWizard()
+                        return
+                    }
+                    wizardSettings.modBusDone = true
+                    manualWizardSettings.modBusDone = true
+                    setup(true)
+                })
+                wizardSettings.modBusDone = true
+                return
+            }
+
+
             if ((!wizardSettings.solarPanelDone)
                     || !manualWizardSettings.solarPanelDone) {
                 var page = d.pushPage(
@@ -229,7 +259,7 @@ MainViewBase {
 
                     if (back) {
                         energyMeterWiazrdSkipped = false
-                        manualWizardSettings.energymeter = false
+                        manualWizardSettings.modBusDone = false
                         pageStack.pop()
                         return
                     }
@@ -437,6 +467,7 @@ MainViewBase {
     Settings {
         id: wizardSettings
         category: "setupWizard"
+        property bool modBusDone: false
         property bool solarPanelDone: false
         property bool evChargerDone: false
         property bool heatPumpDone: false
@@ -448,6 +479,7 @@ MainViewBase {
     Settings {
         id: manualWizardSettings
         category: "manualSetupWizard"
+        property bool modBusDone: true
         property bool solarPanelDone: true
         property bool evChargerDone: true
         property bool heatPumpDone: true
