@@ -112,7 +112,7 @@ Page {
                 text: qsTr("Modbus RTU")
                 subText: qsTr("Configure Modbus RTU master interfaces")
                 visible: engine.jsonRpcClient.ensureServerVersion("5.6") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
-                onClicked: pageStack.push(Qt.resolvedUrl("system/ConsolinnoModbusRtuSettingsPage.qml"))
+                onClicked: pageStack.push(Qt.resolvedUrl("system/ConsolinnoModbusRtuSettingsPage.qml"),{settingsWizard: false})
             }
 
             SettingsTile {
