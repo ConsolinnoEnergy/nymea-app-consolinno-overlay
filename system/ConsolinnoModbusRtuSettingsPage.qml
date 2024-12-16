@@ -37,7 +37,7 @@ import Nymea 1.0
 
 Page {
     id: root
-
+    property bool settingsWizard: true
     signal done(bool skip, bool abort);
 
     header: NymeaHeader {
@@ -282,6 +282,7 @@ Page {
         ColumnLayout {
             spacing: 0
             Layout.alignment: Qt.AlignHCenter
+            visible: settingsWizard
 
             Button {
                 Layout.alignment: Qt.AlignHCenter
