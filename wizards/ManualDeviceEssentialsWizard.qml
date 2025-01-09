@@ -42,12 +42,12 @@ Page {
             text: qsTr("If a heat pump or an inverter is added, the settings for optimization must be entered.\n\n After adding a heat pump or a wallbox, the blackout protection must be adjusted accordingly.\n")
         }
 
-            MouseArea {
-                width: parent.width
-                height: screenGuideText.height
-                anchors {
-                    top: essentialText.bottom
-                }
+        MouseArea {
+            width: parent.width
+            height: screenGuideText.height
+            Layout.leftMargin: screenWrapper.labelMargins
+            Layout.rightMargin: screenWrapper.labelMargins
+            Layout.fillWidth: true
 
                 Label {
                     width: parent.width
@@ -58,6 +58,10 @@ Page {
 
                 onClicked: pageStack.push(Qt.resolvedUrl("../mainviews/OptimizationConfiguration.qml"), { hemsManager: hemsManager })
             }
+
+        ColumnLayout {
+            Layout.alignment: Qt.AlignCenter
+            spacing: 50
 
 
             Button {
