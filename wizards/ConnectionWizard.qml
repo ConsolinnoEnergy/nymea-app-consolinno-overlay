@@ -84,6 +84,14 @@ ConsolinnoWizardPageBase {
         }
     }
 
+    Component.onCompleted: {
+        if(openFromBrowser === true && HostAddress !== "" ){
+            var host = nymeaDiscovery.nymeaHosts.createWanHost('Remote Connection', 'nymeas://'+ HostAddress + ":" + Port)
+            engine.jsonRpcClient.addToken(Uuid, Token);
+            engine.jsonRpcClient.connectToHost(host)
+        }
+    }
+
     Component{
         id: demoModeComponent
 
