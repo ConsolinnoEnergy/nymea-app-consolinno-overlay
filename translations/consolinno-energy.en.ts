@@ -2444,12 +2444,11 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;h3&gt;The app has been updated.&lt;/h3&gt;
+        <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
             &lt;p&gt;Version 1.7.1 (December 11, 2024)&lt;/p&gt;
-            &lt;h4&gt;Improvements&lt;/h4&gt;
+            &lt;h4&gt;New features&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;Fix various UI  issues&lt;/li&gt;
-                &lt;li&gt;Fix the incompatibility notice&lt;/li&gt;
+                &lt;li&gt;TODO&lt;/li&gt;
             &lt;/ul&gt;</translation>
     </message>
     <message>
