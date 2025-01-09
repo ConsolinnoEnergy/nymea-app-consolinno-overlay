@@ -2455,11 +2455,10 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert&lt;/h3&gt;
-            &lt;p&gt;Version 1.7.0 (30. November 2024)&lt;/p&gt;
+            &lt;p&gt;Version 1.8.0 (2025)&lt;/p&gt;
             &lt;h4&gt;Neue Funktionen&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;PV-optimierter Betrieb von Heizstäben (Askoma)&lt;/li&gt;
-                &lt;li&gt;PV-optimierter Betrieb von selbstregulierenden Wärmepumpen (Lambda)&lt;/li&gt;
+                &lt;li&gt;TODO&lt;/li&gt;
             &lt;/ul&gt;</translation>
     </message>
     <message>

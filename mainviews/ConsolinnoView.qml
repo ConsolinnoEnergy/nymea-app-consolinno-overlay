@@ -182,7 +182,7 @@ MainViewBase {
 
             if ((energyMetersProxy.count === 0 && !wizardSettings.authorisation)
                     || !manualWizardSettings.authorisation) {
-                var page = d.pushPage("/ui/wizards/AuthorisationView.qml")
+                var page = d.pushPage("/ui/wizards/AuthorisationView.qml", { "hemsManager": hemsManager })
                 page.done.connect(function (abort, accepted) {
                     if (accepted) {
                         manualWizardSettings.authorisation = true
