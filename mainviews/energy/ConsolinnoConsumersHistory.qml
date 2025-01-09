@@ -549,9 +549,10 @@ Item {
                                                 return "/ui/images/ev-charger.svg"
                                             }
                                         default:
-                                            return app.interfaceToIcon(legendDelegate.thing.thingClass.interfaces)
+                                            return app.interfacesToIcon(legendDelegate.thing.thingClass.interfaces)
                                         }
                                     }
+
                                 }
                                 size: Style.smallIconSize
                                 color: {

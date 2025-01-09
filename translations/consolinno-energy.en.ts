@@ -1225,6 +1225,292 @@
     </message>
 </context>
 <context>
+    <name>ConsolinnoModbusRtuAddMasterPage</name>
+    <message>
+        <source>Add a new Modbus RTU master</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serial ports</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select a serial port.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are no serial ports available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please make sure the Modbus RTU interface is connected to the system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RJ45 connector</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>14-pin connector</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure Modbus RTU master</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serial port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manufacturer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serialnumber</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Baud rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Data bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Request retries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Request timeout [ms]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoModbusRtuSettingsPage</name>
+    <message>
+        <source>Modbus-RTU-Interfaces</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Modbus RTU master</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The serial port is not available any more.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modbus is not supported on this platform.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Modbus RTU hardware could not be found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The selected Modbus RTU master does not exist any more.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to connect to the Modbus RTU master.
+
+Maybe the hardware is already in use.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>The specified timeout value is not valid.
+
+Use a timeout value greater or equal to 10 ms.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown baud rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No parity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Even parity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Odd parity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Space parity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark parity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown parity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>5 data bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>6 data bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>7 data bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>8 data bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown data bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One stop bit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One and a half stop bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two stop bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown stop bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Note: If you intend to connect a device via &lt;b&gt;Modbus-RTU&lt;/b&gt;, please verify the Modbus interface settings to ensure they are compatible with the connected device. If you wish to use a different interface, please add another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available interfaces:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disconnected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modbus-RTU is not supported on this platform.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No devices discovered</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RJ45 connector</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>14-pin connector</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next Step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modbus-RTU-Interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove Modbus RTU Interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove this Modbus RTU Interface?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please note that all related things will stop working until you assign a new Modbus RTU Interface to them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connection status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UUID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Baud rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Data bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Request retries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Request timeout [ms]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconfigure</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoNetworkSettingsPage</name>
     <message>
         <source>Network settings</source>
