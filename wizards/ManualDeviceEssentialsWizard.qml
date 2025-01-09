@@ -18,6 +18,8 @@ Page {
         }
     }
 
+    property HemsManager hemsManager
+
     ColumnLayout {
         id: screenWrapper
         Layout.fillWidth: true
@@ -40,20 +42,23 @@ Page {
             text: qsTr("If a heat pump or an inverter is added, the settings for optimization must be entered.\n\n After adding a heat pump or a wallbox, the blackout protection must be adjusted accordingly.\n")
         }
 
-        Label {
-            id: screenGuideText
+            MouseArea {
+                width: parent.width
+                height: screenGuideText.height
+                anchors {
+                    top: essentialText.bottom
+                }
 
-            Layout.leftMargin: screenWrapper.labelMargins
-            Layout.rightMargin: screenWrapper.labelMargins
-            Layout.fillWidth: true
-            horizontalAlignment: Text.AlignLeft
-            wrapMode: Text.WordWrap
-            text: qsTr("(The settings can be found in the wrench menu under <font color=\"%1\"> Optimization Settings </font>).").arg(Style.consolinnoMedium)
-        }
+                Label {
+                    width: parent.width
+                    id: screenGuideText
+                    wrapMode: Text.WordWrap
+                    text: qsTr("(The settings can be found in the wrench menu under <font color=\"%1\"> Optimization Settings </font>).").arg(Style.consolinnoMedium)
+                }
 
-        ColumnLayout {
-            Layout.alignment: Qt.AlignHCenter
-            spacing: 0
+                onClicked: pageStack.push(Qt.resolvedUrl("../mainviews/OptimizationConfiguration.qml"), { hemsManager: hemsManager })
+            }
+
 
             Button {
                 text: qsTr("Next")
