@@ -44,9 +44,9 @@ Page {
         MouseArea {
             width: parent.width
             height: screenGuideText.height
-            anchors {
-                top: essentialText.bottom
-            }
+            Layout.leftMargin: screenWrapper.labelMargins
+            Layout.rightMargin: screenWrapper.labelMargins
+            Layout.fillWidth: true
 
             Label {
                 width: parent.width
@@ -59,8 +59,8 @@ Page {
         }
 
         ColumnLayout {
-            Layout.alignment: Qt.AlignHCenter
-            spacing: 0
+            Layout.alignment: Qt.AlignCenter
+            spacing: 50
 
 
             Button {
