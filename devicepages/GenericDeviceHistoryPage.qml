@@ -268,13 +268,13 @@ GenericConfigPage {
                 target: stateDelegateLoader.item
                 property: "from"
                 value: stateDelegate.thingState.minValue
-                when: stateDelegateLoader.item.hasOwnProperty("from")
+                when: stateDelegateLoader.source.length > 1
             }
             Binding {
                 target: stateDelegateLoader.item
                 property: "to"
                 value: stateDelegate.thingState.maxValue
-                when: stateDelegateLoader.item.hasOwnProperty("to")
+                when: stateDelegateLoader.source.length > 1
             }
             Binding {
                 target: stateDelegateLoader.item.hasOwnProperty("unit") ? stateDelegateLoader.item : null
