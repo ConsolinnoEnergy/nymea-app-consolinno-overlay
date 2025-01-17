@@ -347,7 +347,6 @@ Item {
                     borderColor: Configuration.epexMainLineColor
                     color: Configuration.epexMainLineColor
                     markerSize: isDynamicPrice ? 5 : parent.height / 80
-                    markerShape: AbstractSeries.MarkerShapeCircle
                     axisX: dateTimeAxis
                     axisY: valueAxis
                 }
