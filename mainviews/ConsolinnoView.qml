@@ -1353,46 +1353,6 @@ MainViewBase {
                 }
             }
 
-            Canvas {
-                id: timePickerCanvas
-                anchors.fill: parent
-
-                // Breaks on iOS!
-                //renderTarget: Canvas.FramebufferObject
-                renderStrategy: Canvas.Cooperative
-
-                onPaint: {
-                    //              paint timePicker canvas
-                    var ctx = getContext("2d");
-                    ctx.reset();
-                    ctx.save();
-                    var xTranslate = chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2
-                    var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
-                    ctx.translate(xTranslate, yTranslate)
-
-                    ctx.strokeStyle = Configuration.mainTimeNow
-                    ctx.fillStyle = Configuration.mainTimeNow
-
-                    ctx.beginPath()
-                    ctx.lineWidth = 3
-                    ctx.moveTo(0,
-                               -chartView.plotArea.height / 2 + innerCircle.radius)
-                    ctx.lineTo(0, -(chartView.plotArea.width + 20) / 2)
-                    ctx.stroke()
-                    ctx.closePath()
-
-                    ctx.beginPath()
-                    ctx.moveTo(-15, -chartView.plotArea.height / 2)
-                    ctx.lineTo(15, -chartView.plotArea.height / 2)
-                    ctx.lineTo(0, -chartView.plotArea.height / 2 + 20)
-                    ctx.lineTo(-15, -chartView.plotArea.height / 2)
-                    ctx.fill()
-                    ctx.closePath()
-
-                    ctx.restore()
-                }
-            }
-
             Flickable {
                 Layout.preferredWidth: Math.min(
                                            implicitWidth,
@@ -1507,6 +1467,46 @@ MainViewBase {
                         }
                     }
                 }
+            }
+        }
+
+        Canvas {
+            id: timePickerCanvas
+            anchors.fill: layout
+
+            // Breaks on iOS!
+            //renderTarget: Canvas.FramebufferObject
+            renderStrategy: Canvas.Cooperative
+
+            onPaint: {
+                //              paint timePicker canvas
+                var ctx = getContext("2d");
+                ctx.reset();
+                ctx.save();
+                var xTranslate = chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2
+                var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
+                ctx.translate(xTranslate, yTranslate)
+
+                ctx.strokeStyle = Configuration.mainTimeNow
+                ctx.fillStyle = Configuration.mainTimeNow
+
+                ctx.beginPath()
+                ctx.lineWidth = 3
+                ctx.moveTo(0,
+                           -chartView.plotArea.height / 2 + innerCircle.radius)
+                ctx.lineTo(0, -(chartView.plotArea.width + 20) / 2)
+                ctx.stroke()
+                ctx.closePath()
+
+                ctx.beginPath()
+                ctx.moveTo(-15, -chartView.plotArea.height / 2)
+                ctx.lineTo(15, -chartView.plotArea.height / 2)
+                ctx.lineTo(0, -chartView.plotArea.height / 2 + 20)
+                ctx.lineTo(-15, -chartView.plotArea.height / 2)
+                ctx.fill()
+                ctx.closePath()
+
+                ctx.restore()
             }
         }
 
