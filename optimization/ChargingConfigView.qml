@@ -315,7 +315,7 @@ GenericConfigPage {
                 anchors.top: parent.top
                 width: app.width
                 height: app.height
-                contentHeight: infoColumnLayout.implicitHeight + stateOfLoadingColumnLayout.implicitHeight + statusColumnLayout.implicitHeight + header.height + 100
+                contentHeight: infoColumnLayout.implicitHeight + stateOfLoadingColumnLayout.implicitHeight + statusColumnLayout.implicitHeight + 100
                 contentWidth: app.width
 
                 ColumnLayout {
