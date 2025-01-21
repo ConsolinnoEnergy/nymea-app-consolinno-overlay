@@ -749,7 +749,7 @@ MainViewBase {
 
                     // draw every producer, but not the rootMeter as producer, since it is already drawn.
                     var producer = producers.get(i)
-                    if (producer.id !== rootMeter.id) {
+                    if (rootMeter && producer.id !== rootMeter.id) {
                         var tile = legendProducersRepeater.itemAt(i)
                         drawAnimatedLine(ctx, producer.stateByName(
                                              "currentPower").value, tile,
@@ -885,7 +885,7 @@ MainViewBase {
                         id: legendProducersRepeater
                         model: producers
                         delegate: LegendTile {
-                            visible: producers.get(index).id !== rootMeter.id
+                            visible: rootMeter && producers.get(index).id !== rootMeter.id
                             color: Configuration.inverterColor
                             thing: producers.get(index)
                             isElectric: false
@@ -904,7 +904,7 @@ MainViewBase {
                         id: legendElectricsRepeater
                         model: electrics
                         delegate: LegendTile {
-                            visible: electrics.get(index).id !== rootMeter.id
+                            visible: rootMeter && electrics.get(index).id !== rootMeter.id
                             color: lsdChart.electricsColor
                             thing: electrics.get(index)
                             isElectric: true
