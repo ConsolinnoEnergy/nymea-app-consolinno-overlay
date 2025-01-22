@@ -1363,17 +1363,17 @@ GenericConfigPage {
 
                             Rectangle {
                                 Layout.preferredWidth: pausingModeid.width
-                                visible: isAnyOfModesSelected([dyn_pricing])
                                 Label {
                                     id: pausingModeid
                                     text: qsTr("Pausing: ")
+                                    visible: isAnyOfModesSelected([dyn_pricing])
                                 }
                             }
                             Rectangle {
                                 Layout.fillWidth: true
-                                visible: isAnyOfModesSelected([dyn_pricing])
 
                                 InfoButton{
+                                    visible: isAnyOfModesSelected([dyn_pricing])
                                     id: pausingModeInfoButton
                                     push: "PausingInfo.qml"
                                 }
@@ -1407,7 +1407,6 @@ GenericConfigPage {
 
                         RowLayout {
                             Layout.topMargin: 5
-                            visible: isAnyOfModesSelected([dyn_pricing])
                             spacing: 5
                             Layout.fillWidth: true
 
@@ -1415,7 +1414,7 @@ GenericConfigPage {
                                 Layout.preferredWidth: priceLimitigId.width
                                 Label {
                                     id: priceLimitigId
-
+                                    visible: isAnyOfModesSelected([dyn_pricing])
                                     text: qsTr("Price limit: ")
                                 }
                             }
@@ -1424,7 +1423,7 @@ GenericConfigPage {
 
                                 InfoButton{
                                     id: priceLimitInfoButton
-
+                                    visible: isAnyOfModesSelected([dyn_pricing])
                                     push: "PriceLimitInfo.qml"
                                 }
                             }
