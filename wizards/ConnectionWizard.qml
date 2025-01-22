@@ -22,6 +22,7 @@ ConsolinnoWizardPageBase {
     }
 
     content: ColumnLayout {
+        id: contentLayout
         anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins; right: parent.right; left: parent.left }
         //width: Math.min(parent.width, 450)
 
@@ -55,7 +56,7 @@ ConsolinnoWizardPageBase {
             CheckBox{
                 id: readCheckbox
                 Layout.alignment: Qt.AlignHCenter
-
+                font.pixelSize:  app.height >= 600 || app.width >= 1000 ? ( app.height + ( app.width - 105) ) / 100 : (app.height + ( app.width - 150) ) / 70
             }
 
             Label {
@@ -63,6 +64,7 @@ ConsolinnoWizardPageBase {
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignLeft
                 text: qsTr("Yes I read the Term of Use and agree")
+                font.pixelSize:  app.height >= 600 && app.width >= 1000 ? ( app.height + ( app.width - 105) ) / 100 : (app.height + ( app.width - 150) ) / 70
             }
         }
 
