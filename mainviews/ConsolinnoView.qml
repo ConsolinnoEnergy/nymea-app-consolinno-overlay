@@ -782,7 +782,7 @@ MainViewBase {
 
                     // draw every producer, but not the rootMeter as producer, since it is already drawn.
                     var producer = producers.get(i)
-                    if (producer.id !== rootMeter.id) {
+                    if (rootMeter && producer.id !== rootMeter.id) {
                         var tile = legendProducersRepeater.itemAt(i)
                         drawAnimatedLine(ctx, producer.stateByName(
                                              "currentPower").value, tile,
@@ -918,7 +918,7 @@ MainViewBase {
                         id: legendProducersRepeater
                         model: producers
                         delegate: LegendTile {
-                            visible: producers.get(index).id !== rootMeter.id
+                            visible: rootMeter && producers.get(index).id !== rootMeter.id
                             color: Configuration.inverterColor
                             thing: producers.get(index)
                             isElectric: false
@@ -937,7 +937,7 @@ MainViewBase {
                         id: legendElectricsRepeater
                         model: electrics
                         delegate: LegendTile {
-                            visible: electrics.get(index).id !== rootMeter.id
+                            visible: rootMeter && electrics.get(index).id !== rootMeter.id
                             color: lsdChart.electricsColor
                             thing: electrics.get(index)
                             isElectric: true
@@ -1386,46 +1386,6 @@ MainViewBase {
                 }
             }
 
-            Canvas {
-                id: timePickerCanvas
-                anchors.fill: parent
-
-                // Breaks on iOS!
-                //renderTarget: Canvas.FramebufferObject
-                renderStrategy: Canvas.Cooperative
-
-                onPaint: {
-                    //              paint timePicker canvas
-                    var ctx = getContext("2d");
-                    ctx.reset();
-                    ctx.save();
-                    var xTranslate = chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2
-                    var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
-                    ctx.translate(xTranslate, yTranslate)
-
-                    ctx.strokeStyle = Configuration.mainTimeNow
-                    ctx.fillStyle = Configuration.mainTimeNow
-
-                    ctx.beginPath()
-                    ctx.lineWidth = 3
-                    ctx.moveTo(0,
-                               -chartView.plotArea.height / 2 + innerCircle.radius)
-                    ctx.lineTo(0, -(chartView.plotArea.width + 20) / 2)
-                    ctx.stroke()
-                    ctx.closePath()
-
-                    ctx.beginPath()
-                    ctx.moveTo(-15, -chartView.plotArea.height / 2)
-                    ctx.lineTo(15, -chartView.plotArea.height / 2)
-                    ctx.lineTo(0, -chartView.plotArea.height / 2 + 20)
-                    ctx.lineTo(-15, -chartView.plotArea.height / 2)
-                    ctx.fill()
-                    ctx.closePath()
-
-                    ctx.restore()
-                }
-            }
-
             Flickable {
                 Layout.preferredWidth: Math.min(
                                            implicitWidth,
@@ -1538,6 +1498,46 @@ MainViewBase {
                         }
                     }
                 }
+            }
+        }
+
+        Canvas {
+            id: timePickerCanvas
+            anchors.fill: layout
+
+            // Breaks on iOS!
+            //renderTarget: Canvas.FramebufferObject
+            renderStrategy: Canvas.Cooperative
+
+            onPaint: {
+                //              paint timePicker canvas
+                var ctx = getContext("2d");
+                ctx.reset();
+                ctx.save();
+                var xTranslate = chartView.x + chartView.plotArea.x + chartView.plotArea.width / 2
+                var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
+                ctx.translate(xTranslate, yTranslate)
+
+                ctx.strokeStyle = Configuration.mainTimeNow
+                ctx.fillStyle = Configuration.mainTimeNow
+
+                ctx.beginPath()
+                ctx.lineWidth = 3
+                ctx.moveTo(0,
+                           -chartView.plotArea.height / 2 + innerCircle.radius)
+                ctx.lineTo(0, -(chartView.plotArea.width + 20) / 2)
+                ctx.stroke()
+                ctx.closePath()
+
+                ctx.beginPath()
+                ctx.moveTo(-15, -chartView.plotArea.height / 2)
+                ctx.lineTo(15, -chartView.plotArea.height / 2)
+                ctx.lineTo(0, -chartView.plotArea.height / 2 + 20)
+                ctx.lineTo(-15, -chartView.plotArea.height / 2)
+                ctx.fill()
+                ctx.closePath()
+
+                ctx.restore()
             }
         }
 

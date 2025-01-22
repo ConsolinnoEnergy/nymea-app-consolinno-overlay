@@ -315,7 +315,7 @@ GenericConfigPage {
                 anchors.top: parent.top
                 width: app.width
                 height: app.height
-                contentHeight: infoColumnLayout.implicitHeight + stateOfLoadingColumnLayout.implicitHeight + statusColumnLayout.implicitHeight + header.height + 100
+                contentHeight: infoColumnLayout.implicitHeight + stateOfLoadingColumnLayout.implicitHeight + statusColumnLayout.implicitHeight + 100
                 contentWidth: app.width
 
                 ColumnLayout {
@@ -1241,7 +1241,6 @@ GenericConfigPage {
                                     id: endTimeSlider
 
                                     Layout.fillWidth: true
-                                    implicitWidth: backgroundEndTimeSlider.implicitWidth
                                     property int chargingConfigHours: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours()
                                     property int chargingConfigMinutes: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes()
                                     property int nextDay: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() < 0 ? 1 : 0
@@ -1340,38 +1339,44 @@ GenericConfigPage {
                         RowLayout {
                             Layout.preferredWidth: app.width
                             Layout.topMargin: 10
+                            Layout.bottomMargin: 10
+                            Layout.fillWidth: true
+                            spacing: 5
 
-                            RowLayout {
-                                Layout.fillWidth: true
-
+                            Rectangle {
+                                Layout.preferredWidth: gridConsumptionLabel.width
+                                visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
                                 Label{
                                     id: gridConsumptionLabel
-                                    visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
                                     text: qsTr("Behaviour on grid consumption:")
                                 }
+                            }
+                            Rectangle {
+                                Layout.fillWidth: true
+                                visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
 
                                 InfoButton{
                                     id: gridConsumptionInfoButton
-                                    visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
                                     push: "GridConsumptionInfo.qml"
-                                    anchors.left: gridConsumptionLabel.right
-                                    anchors.leftMargin:  5
                                 }
+                            }
 
+                            Rectangle {
+                                Layout.preferredWidth: pausingModeid.width
                                 Label {
                                     id: pausingModeid
-                                    visible: isAnyOfModesSelected([dyn_pricing])
                                     text: qsTr("Pausing: ")
+                                    visible: isAnyOfModesSelected([dyn_pricing])
                                 }
+                            }
+                            Rectangle {
+                                Layout.fillWidth: true
 
                                 InfoButton{
-                                    id: pausingModeInfoButton
                                     visible: isAnyOfModesSelected([dyn_pricing])
+                                    id: pausingModeInfoButton
                                     push: "PausingInfo.qml"
-                                    anchors.left: pausingModeid.right
-                                    anchors.leftMargin:  5
                                 }
-
                             }
                         }
 
@@ -1401,26 +1406,26 @@ GenericConfigPage {
                         }
 
                         RowLayout {
-                            Layout.preferredWidth: app.width
                             Layout.topMargin: 5
-                            visible: isAnyOfModesSelected([dyn_pricing])
+                            spacing: 5
+                            Layout.fillWidth: true
 
-                            RowLayout {
-
+                            Rectangle {
+                                Layout.preferredWidth: priceLimitigId.width
                                 Label {
                                     id: priceLimitigId
-
+                                    visible: isAnyOfModesSelected([dyn_pricing])
                                     text: qsTr("Price limit: ")
                                 }
+                            }
+                            Rectangle {
+                                Layout.fillWidth: true
 
                                 InfoButton{
                                     id: priceLimitInfoButton
-
+                                    visible: isAnyOfModesSelected([dyn_pricing])
                                     push: "PriceLimitInfo.qml"
-                                    anchors.left: priceLimitigId.right
-                                    anchors.leftMargin:  5
                                 }
-
                             }
                         }
 
@@ -1979,7 +1984,6 @@ GenericConfigPage {
                             id: savebutton
 
                             Layout.fillWidth: true
-                            Layout.alignment: bottom
                             text: qsTr("Save")
                             onClicked: {
                                 // if simple PV excess mode is used set the batteryLevel to 1
