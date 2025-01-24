@@ -175,7 +175,7 @@ Page {
 
             delegate: NymeaItemDelegate {
                 id: tingClassDelegate
-                width: parent.width
+                width: root.width
                 text: model.displayName
                 subText: engine.thingManager.vendors.getVendor(model.vendorId).displayName
                 iconName:{
