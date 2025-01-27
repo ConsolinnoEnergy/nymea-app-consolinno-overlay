@@ -297,7 +297,7 @@ Item {
                     axisY: valueAxis
                     color: totalColors[1]
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "#00000000"
                     name: qsTr("From PV")
             //      visible: false
 
@@ -359,7 +359,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.batteryDischargeColor
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "#00000000"
                     name: qsTr("From Battery")
                     visible: root.batteries.count > 0
 
@@ -387,7 +387,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.rootMeterAcquisitionColor
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "#00000000"
                     name: qsTr("From grid")
             //      visible: false
 

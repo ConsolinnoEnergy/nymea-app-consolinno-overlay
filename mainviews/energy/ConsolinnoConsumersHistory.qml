@@ -766,7 +766,7 @@ Item {
                             model: consumersRepeater.count
                             delegate: RowLayout {
                                 readonly property Item chartItem: consumersRepeater.itemAt(index)
-                                readonly property Thing thing: chartItem.series.get(index).name
+                                // readonly property Thing thing: chartItem.series.get(index).name
                                 id: consumerToolTipDelegate
                                 opacity: d.selectedSeries == null || d.selectedSeries === chartItem.series ? 1 : 0.3
                                 Rectangle {
