@@ -294,7 +294,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.consumedColor
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "#00000000"
                     name: qsTr("Consumed")
             //        visible: false
 
@@ -353,7 +353,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.batteryChargeColor
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "#00000000"
                     visible: root.batteries.count > 0
                     name: qsTr("To battery")
 
@@ -382,7 +382,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.rootMeterReturnColor
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "#00000000"
                     name: qsTr("To grid")
             //        visible: false
 
@@ -522,7 +522,7 @@ Item {
                             margins: Style.smallMargins
                         }
                         Label {
-                            text: toolTip.entry.timestamp.toLocaleString(Qt.locale(), Locale.ShortFormat)
+                            text: toolTip.entry ? toolTip.entry.timestamp.toLocaleString(Qt.locale(), Locale.ShortFormat) : ""
                             font: Style.smallFont
                         }
 
