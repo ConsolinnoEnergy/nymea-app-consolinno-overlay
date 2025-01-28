@@ -524,7 +524,7 @@ Item {
 
                             Image {
                                 id: sunIcon
-                                source: "qrc:/ui/images/"+Configuration.inverterIcon
+                                source: Configuration.inverterIcon ? "qrc:/ui/images/"+Configuration.inverterIcon : ""
                                 width: sun.size
                                 height: sun.size
                                 visible: Configuration.inverterIcon !== ""
@@ -575,7 +575,7 @@ Item {
 
                                 Image {
                                     id: gridDown
-                                    source: "qrc:/ui/images/"+Configuration.gridIcon
+                                    source: Configuration.gridIcon ? "qrc:/ui/images/"+Configuration.gridIcon : ""
                                     width: gridDownID.size
                                     height: gridDownID.size
                                     visible: Configuration.gridIcon !== ""
@@ -658,7 +658,7 @@ Item {
 
                                 Image {
                                     id: gridUp
-                                    source: "qrc:/ui/images/"+Configuration.gridIcon
+                                    source: Configuration.gridIcon ? "qrc:/ui/images/"+Configuration.gridIcon : ""
                                     width: gridUpID.size
                                     height: gridUpID.size
                                     visible: Configuration.gridIcon !== ""
@@ -742,7 +742,7 @@ Item {
 
                                 Image {
                                     id: batteryPlus
-                                    source: "qrc:/ui/images/"+Configuration.batteryIcon
+                                    source: Configuration.batteryIcon ? "qrc:/ui/images/"+Configuration.batteryIcon : ""
                                     width: batteryPlusID.size
                                     height: batteryPlusID.size
                                     visible: Configuration.batteryIcon !== ""
@@ -807,7 +807,7 @@ Item {
 
                                 Image {
                                     id: batteryMinus
-                                    source: "qrc:/ui/images/"+Configuration.batteryIcon
+                                    source: Configuration.batteryIcon ? "qrc:/ui/images/"+Configuration.batteryIcon : ""
                                     width: batteryMinusID.size
                                     height: batteryMinusID.size
                                     visible: Configuration.batteryIcon !== ""
