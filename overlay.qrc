@@ -117,5 +117,6 @@
         <file>info/PvSurplusInfo.qml</file>
         <file>privacy_agreement_de_DE.html</file>
         <file>terms_of_use_de_DE.html</file>
+        <file>optimization/BatteryConfigView.qml</file>
     </qresource>
 </RCC>

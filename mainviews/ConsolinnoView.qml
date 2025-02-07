@@ -1498,8 +1498,9 @@ MainViewBase {
                             onClicked: {
                                 print("Clicked battery", index, thing.name)
                                 pageStack.push(
-                                            "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
+                                            "/ui/optimization/BatteryConfigView.qml",
                                             {
+                                                "hemsManager": hemsManager,
                                                 "thing": thing
                                             })
                             }
