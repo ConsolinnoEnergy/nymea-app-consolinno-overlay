@@ -30,6 +30,7 @@ class HemsManager : public QObject
     Q_PROPERTY(uint housholdPhaseLimit READ housholdPhaseLimit NOTIFY housholdPhaseLimitChanged)
     Q_PROPERTY(HeatingConfigurations *heatingConfigurations READ heatingConfigurations CONSTANT)
     Q_PROPERTY(DynamicElectricPricingConfigurations *dynamicElectricPricingConfigurations READ dynamicElectricPricingConfigurations CONSTANT)
+    Q_PROPERTY(BatteryConfigurations *batteryConfigurations READ batteryConfigurations CONSTANT)
     Q_PROPERTY(ChargingConfigurations *chargingConfigurations READ chargingConfigurations CONSTANT)
     Q_PROPERTY(ChargingOptimizationConfigurations *chargingOptimizationConfigurations READ chargingOptimizationConfigurations CONSTANT)
     Q_PROPERTY(PvConfigurations *pvConfigurations READ pvConfigurations CONSTANT)
