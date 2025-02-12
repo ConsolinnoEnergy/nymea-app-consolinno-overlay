@@ -532,6 +532,7 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
         qCDebug(dcHems()) << "Adding a dummy Config" << batteryThingId;
         QVariantMap dummyConfig;
         dummyConfig.insert("heatPumpThingId", batteryThingId);
+        dummyConfig.insert("optimizationEnabled", true);
         dummyConfig.insert("priceThreshold", 0);
         dummyConfig.insert("relativePriceEnabled", false);
         dummyConfig.insert("chargeOnce", false);

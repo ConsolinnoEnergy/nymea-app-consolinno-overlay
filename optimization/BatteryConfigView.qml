@@ -15,13 +15,14 @@ import "../devicepages"
 
 GenericConfigPage {
     id: root
-
+    property Thing thing
     property HemsManager hemsManager
     property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
     readonly property State batteryLevelState: root.thing.stateByName("batteryLevel")
     readonly property State currentPowerState: root.thing.stateByName("currentPower")
+    property BatteryConfiguration batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id)
 
-    property Thing thing
+
     property int currentValue : 0
     property double thresholdPrice: 0
 
@@ -53,7 +54,8 @@ GenericConfigPage {
     }
 
     Component.onCompleted: {
-        currentValue = -10;
+        currentValue = -10
+        currentValue = batteryConfiguration.priceThreshold
     }
 
     ThingsProxy {
@@ -109,7 +111,7 @@ GenericConfigPage {
 
                 Switch {
                     id: optimizationControler
-                    //Component.onCompleted: checked = chargingOptimizationConfiguration.controllableLocalSystem
+                    Component.onCompleted: checked = batteryConfiguration.controllableLocalSystem
                 }
             }
 
@@ -123,7 +125,7 @@ GenericConfigPage {
 
                 Switch {
                     id: chargeOnceControler
-                    //Component.onCompleted: checked = chargingOptimizationConfiguration.controllableLocalSystem
+                    Component.onCompleted: checked = batteryConfiguration.chargeOnce
                 }
             }
 
@@ -678,14 +680,14 @@ GenericConfigPage {
                     text: qsTr("Save")
 
                     onClicked: {
-                        hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": true, "priceThreshold": -20, "relativePriceEnabled": false, "chargeOnce": false, "controllableLocalSystem": false} )
+                        //hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": true, "priceThreshold": currentValue, "relativePriceEnabled": false, "chargeOnce": chargeOnceControler.checked, "controllableLocalSystem": optimizationControler.checked} )
                     }
                 }
             }
         }
 
         Item {
-            visible: !chargeOnceControler.checked || !optimizationControler.checked
+            visible: !optimizationControler.checked
             Layout.fillHeight: true
             Layout.fillWidth: true
         }
