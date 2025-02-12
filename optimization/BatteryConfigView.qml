@@ -21,8 +21,6 @@ GenericConfigPage {
     readonly property State batteryLevelState: root.thing.stateByName("batteryLevel")
     readonly property State currentPowerState: root.thing.stateByName("currentPower")
 
-    property BatteryConfiguration batteryConfiguration: hemsManager.BatteryConfiguration
-
     property Thing thing
     property int currentValue : 0
     property double thresholdPrice: 0
@@ -117,7 +115,7 @@ GenericConfigPage {
 
             // Charge once
             RowLayout {
-                visible: !optimizationControler.checked
+                visible: optimizationControler.checked
                 Label {
                     Layout.fillWidth: true
                     text: qsTr("Charge once")
@@ -132,7 +130,8 @@ GenericConfigPage {
             // Price Limit
             RowLayout {
                 id: priceRow
-                visible: !chargeOnceControler.checked && !optimizationControler.checked
+                visible: optimizationControler.checked
+                enabled: chargeOnceControler.checked ? false : true
                 Label {
                     Layout.fillWidth: true
                     text: qsTr("Price limit")
@@ -167,12 +166,12 @@ GenericConfigPage {
                         ToolButton {
                             text: qsTr("-")
                             onClicked: {
-                                currentValue = currentValue > -100 ? currentValue - 1 : -100
+                                currentValue = currentValue > -500 ? currentValue - 1 : -500
                                 priceRow.getThresholdPrice()
                                 parent.redrawChart();
                             }
                             onPressAndHold: {
-                                currentValue = currentValue > -100 ? currentValue - 10 : -100
+                                currentValue = currentValue > -500 ? currentValue - 10 : -500
                                 priceRow.getThresholdPrice()
                                 parent.redrawChart();
                             }
@@ -183,9 +182,9 @@ GenericConfigPage {
                             text: currentValue
                             horizontalAlignment: Qt.AlignHCenter
                             verticalAlignment: Qt.AlignVCenter
-                            Layout.preferredWidth: 50
+                            Layout.preferredWidth: 55
                             validator: RegExpValidator {
-                                regExp: /^-?(100|[1-9]?[0-9])$/
+                                regExp: /^-?(500|[1-9]?[0-9])$/
                             }
                             onTextChanged: {
                                 currentValue = currentValueField.text
@@ -195,18 +194,18 @@ GenericConfigPage {
                         }
 
                         Label {
-                            text: "%"
+                            text: "ct/kWh"
                         }
 
                         ToolButton {
                             text: qsTr("+")
                             onClicked: {
-                                currentValue = currentValue < 100 ? currentValue + 1 : 100
+                                currentValue = currentValue < 500 ? currentValue + 1 : 500
                                 priceRow.getThresholdPrice()
                                 parent.redrawChart();
                             }
                             onPressAndHold: {
-                                currentValue = currentValue < 100 ? currentValue + 10 : 100
+                                currentValue = currentValue < 500 ? currentValue + 10 : 500
                                 priceRow.getThresholdPrice()
                                 parent.redrawChart();
                             }
@@ -225,21 +224,22 @@ GenericConfigPage {
             }
 
             // Pricing of ct/kWh
-            RowLayout {
+            /*RowLayout {
                 id: displayText
-                visible: !chargeOnceControler.checked && !optimizationControler.checked
+                visible: optimizationControler.checked
                 Label {
                     Layout.fillWidth: true
                     text: qsTr("Currently corresponds to a market price of %1 ct/kWh.").arg(thresholdPrice.toLocaleString())
                     font.pixelSize: 13
                 }
-            }
+            }*/
 
             // Graph Header
             RowLayout {
                 Layout.topMargin: 15
                 Layout.fillWidth: true
-                visible: !chargeOnceControler.checked && !optimizationControler.checked
+                visible: optimizationControler.checked
+                enabled: chargeOnceControler.checked ? false : true
                 Label {
                     text: qsTr("Charging Plan")
                     font.pixelSize: 15
@@ -248,7 +248,8 @@ GenericConfigPage {
 
             // Graph Info Today
             RowLayout {
-                visible: !chargeOnceControler.checked && !optimizationControler.checked
+                visible: optimizationControler.checked
+                enabled: chargeOnceControler.checked ? false : true
                 Component.onCompleted: {
                     const dpThing = dynamicPrice.get(0)
                     if(!dpThing)
