@@ -119,6 +119,69 @@
     </message>
 </context>
 <context>
+    <name>BatteryConfigView</name>
+    <message>
+        <source>Could not save configuration. One of the parameters is invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not save configuration. The thing is not valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charge (+) / Discharge (-) Power</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optimization enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charge once</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Price limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging Plan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No prices available, yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ct/kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>State of Charge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hint for using EPEX prices: The price contains no local fees and margin of electricity provider.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BatteryLevel</name>
     <message>
         <source>BatteryLevel</source>

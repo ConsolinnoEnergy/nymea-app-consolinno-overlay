@@ -64,8 +64,6 @@ void HeatingConfiguration::setMaxElectricalPower(const double &maxElectricalPowe
     m_maxElectricalPower = maxElectricalPower;
 }
 
-
-
 double HeatingConfiguration::maxThermalEnergy() const
 {
     return m_maxThermalEnergy;
@@ -75,7 +73,6 @@ void HeatingConfiguration::setMaxThermalEnergy(const double &maxThermalEnergy)
 {
     m_maxThermalEnergy = maxThermalEnergy;
 }
-
 
 double HeatingConfiguration::floorHeatingArea() const
 {
