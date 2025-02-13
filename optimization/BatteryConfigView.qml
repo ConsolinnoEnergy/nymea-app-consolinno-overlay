@@ -51,7 +51,6 @@ GenericConfigPage {
                 let props = "";
                 switch (error) {
                 case "HemsErrorNoError":
-                    pageStack.pop();
                     return
                 case "HemsErrorInvalidParameter":
                     props.text = qsTr("Could not save configuration. One of the parameters is invalid.")
@@ -165,6 +164,7 @@ GenericConfigPage {
                         if(!optimizationController.checked){
                             chargeOnceController.checked = false;
                         }
+                        //saveSettings()
                     }
                     Component.onCompleted: {
                         checked = batteryConfiguration.optimizationEnabled
@@ -230,10 +230,12 @@ GenericConfigPage {
                             onClicked: {
                                 currentValue = currentValue > -500 ? currentValue - 1 : -500
                                 parent.redrawChart();
+                                //saveSettings()
                             }
                             onPressAndHold: {
                                 currentValue = currentValue > -500 ? currentValue - 10 : -500
                                 parent.redrawChart();
+                                //saveSettings()
                             }
                         }
 
@@ -243,12 +245,16 @@ GenericConfigPage {
                             horizontalAlignment: Qt.AlignHCenter
                             verticalAlignment: Qt.AlignVCenter
                             Layout.preferredWidth: 55
-                            validator: RegExpValidator {
-                                regExp: /^-?(500|[1-9]?[0-9])$/
-                            }
+                            //validator: DoubleValidator {
+                            //    bottom: -500.0
+                            //    top: 500.0
+                            //    decimals: 1
+                            //    notation: DoubleValidator.StandardNotation
+                            //}
                             onTextChanged: {
                                 currentValue = currentValueField.text
                                 parent.redrawChart();
+                                //saveSettings()
                             }
                         } 
 
@@ -261,6 +267,7 @@ GenericConfigPage {
                             onClicked: {
                                 currentValue = currentValue < 500 ? currentValue + 1 : 500
                                 parent.redrawChart();
+                                //saveSettings()
                             }
                             onPressAndHold: {
                                 currentValue = currentValue < 500 ? currentValue + 10 : 500
@@ -269,6 +276,15 @@ GenericConfigPage {
                         }
                     }
                 }
+
+                Component.onCompleted: {
+                    //getThresholdPrice()
+                }
+                /*
+                function getThresholdPrice(){
+                    let currentValue = parseInt(currentValueField.text)
+                    thresholdPrice = relPrice2AbsPrice(currentValue)
+                }*/
             }
 
             // Pricing of ct/kWh
