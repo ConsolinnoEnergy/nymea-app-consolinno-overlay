@@ -51,7 +51,6 @@ GenericConfigPage {
                 let props = "";
                 switch (error) {
                 case "HemsErrorNoError":
-                    pageStack.pop()
                     return
                 case "HemsErrorInvalidParameter":
                     props.text = qsTr("Could not save configuration. One of the parameters is invalid.")
@@ -66,6 +65,13 @@ GenericConfigPage {
                 var popup = comp.createObject(app, {props})
                 popup.open()
             }
+        }
+
+        onBatteryConfigurationChanged: {
+            console.error("Battery Config Changed")
+            optimizationController.checked = batteryConfiguration.optimizationEnabled
+            chargeOnceController.checked = batteryConfiguration.chargeOnce
+            currentValue = batteryConfiguration.priceThreshold
         }
     }
 
@@ -86,9 +92,20 @@ GenericConfigPage {
         return thresholdPrice
     }
 
+
+    function saveSettings()
+    {
+        rootObject.pendingCallId = hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": optimizationController.checked, 
+                        "priceThreshold": currentValue, 
+                        "relativePriceEnabled": false, 
+                        "chargeOnce": chargeOnceController.checked, 
+                        "controllableLocalSystem": optimizationController.checked})
+    }
+
+
     Component.onCompleted: {
         let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
-        currentValue = (batteryConfiguration === null) ? averagePrice : batteryConfiguration.priceThreshold
+        currentValue = batteryConfiguration.priceThreshold
     }
 
     ThingsProxy {
@@ -143,29 +160,28 @@ GenericConfigPage {
                 }
 
                 Switch {
-                    id: optimizationControler
+                    id: optimizationController
                     onClicked: {
-                        if(!optimizationControler.checked){
-                            chargeOnceControler.checked = false;
-                            currentValue = (batteryConfiguration === null) ? averagePrice : batteryConfiguration.priceThreshold
+                        if(!optimizationController.checked){
+                            chargeOnceController.checked = false;
                         }
                     }
                     Component.onCompleted: {
-                        checked = batteryConfiguration.controllableLocalSystem
+                        checked = batteryConfiguration.optimizationEnabled
                     }
                 }
             }
 
             // Charge once
             RowLayout {
-                visible: optimizationControler.checked
+                visible: optimizationController.checked
                 Label {
                     Layout.fillWidth: true
                     text: qsTr("Charge once")
                 }
 
                 Switch {
-                    id: chargeOnceControler
+                    id: chargeOnceController
                     Component.onCompleted: {
                         checked = batteryConfiguration.chargeOnce
                     }
@@ -176,8 +192,8 @@ GenericConfigPage {
             // Price Limit
             RowLayout {
                 id: priceRow
-                visible: optimizationControler.checked
-                enabled: chargeOnceControler.checked ? false : true
+                visible: optimizationController.checked
+                enabled: chargeOnceController.checked ? false : true
                 Label {
                     Layout.fillWidth: true
                     text: qsTr("Price limit")
@@ -221,20 +237,23 @@ GenericConfigPage {
                             }
                         }
 
-                        TextField {
+                       TextField {
                             id: currentValueField
                             text: currentValue
                             horizontalAlignment: Qt.AlignHCenter
                             verticalAlignment: Qt.AlignVCenter
                             Layout.preferredWidth: 55
-                            validator: RegExpValidator {
-                                regExp: /^-?(500|[1-9]?[0-9])$/
-                            }
+                            //validator: DoubleValidator {
+                            //    bottom: -500.0
+                            //    top: 500.0
+                            //    decimals: 1
+                            //    notation: DoubleValidator.StandardNotation
+                            //}
                             onTextChanged: {
                                 currentValue = currentValueField.text
                                 parent.redrawChart();
                             }
-                        }
+                        } 
 
                         Label {
                             text: "ct/kWh"
@@ -258,8 +277,8 @@ GenericConfigPage {
             // Pricing of ct/kWh
             ColumnLayout {
                 id: displayText
-                visible: optimizationControler.checked
-                enabled: chargeOnceControler.checked ? false : true
+                visible: optimizationController.checked
+                enabled: chargeOnceController.checked ? false : true
                 Label {
                     wrapMode: Text.WordWrap
                     Layout.fillWidth: true
@@ -272,8 +291,8 @@ GenericConfigPage {
             RowLayout {
                 Layout.topMargin: 15
                 Layout.fillWidth: true
-                visible: optimizationControler.checked
-                enabled: chargeOnceControler.checked ? false : true
+                visible: optimizationController.checked
+                enabled: chargeOnceController.checked ? false : true
                 Label {
                     text: qsTr("Charging Plan")
                     font.pixelSize: 15
@@ -282,8 +301,8 @@ GenericConfigPage {
 
             // Graph Info Today
             RowLayout {
-                visible: optimizationControler.checked
-                enabled: chargeOnceControler.checked ? false : true
+                visible: optimizationController.checked
+                enabled: chargeOnceController.checked ? false : true
                 Component.onCompleted: {
                     const dpThing = dynamicPrice.get(0)
                     if(!dpThing)
@@ -342,7 +361,7 @@ GenericConfigPage {
                         id: chartView
                         anchors.fill: parent
 
-                        backgroundColor:  chargeOnceControler.checked ? "whitesmoke" : "transparent"
+                        backgroundColor:  chargeOnceController.checked ? "whitesmoke" : "transparent"
                         margins.left: 0
                         margins.right: 0
                         margins.top: 0
@@ -708,14 +727,14 @@ GenericConfigPage {
                     text: qsTr("Save")
 
                     onClicked: {
-                        rootObject.pendingCallId = hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": true, "priceThreshold": currentValue, "relativePriceEnabled": false, "chargeOnce": chargeOnceControler.checked, "controllableLocalSystem": optimizationControler.checked})
-                    }
+                        saveSettings()
+                        }
                 }
             }
         }
 
         Item {
-            visible: !optimizationControler.checked
+            visible: !optimizationController.checked
             Layout.fillHeight: true
             Layout.fillWidth: true
         }

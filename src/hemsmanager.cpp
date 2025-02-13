@@ -529,7 +529,6 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
     // if the configuration does not exist yet. Set up a dummy configuration
     // This ensures that if the Thing does not exist that the program wont crash
     if (!configuration){
-        qCDebug(dcHems()) << "Adding a dummy Config" << batteryThingId;
         QVariantMap dummyConfig;
         dummyConfig.insert("batteryThingId", batteryThingId);
         dummyConfig.insert("optimizationEnabled", true);
@@ -704,7 +703,7 @@ void HemsManager::getBatteryConfigurationResponse(int commandId, const QVariantM
 
     Q_UNUSED(commandId);
     qCDebug(dcHems()) << "Battery configurations" << data;
-    foreach (const QVariant &configurationVariant, data.value("batteryConfiguration").toList()) {
+    foreach (const QVariant &configurationVariant, data.value("batteryConfigurations").toList()) {
         addOrUpdateBatteryConfiguration(configurationVariant.toMap());
     }
 }
@@ -951,7 +950,7 @@ void HemsManager::addOrUpdateBatteryConfiguration(const QVariantMap &configurati
 
     } else {
         qCDebug(dcHems()) << "Battery configuration changed" << configuration->batteryThingId();
-
+        emit batteryConfigurationChanged(configuration);
     }
 }
 
