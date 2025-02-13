@@ -119,6 +119,69 @@
     </message>
 </context>
 <context>
+    <name>BatteryConfigView</name>
+    <message>
+        <source>Could not save configuration. One of the parameters is invalid.</source>
+        <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Could not save configuration. The thing is not valid.</source>
+        <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Charge (+) / Discharge (-) Power</source>
+        <translation>Lade(+) / Entlade(-) Leistung</translation>
+    </message>
+    <message>
+        <source>Optimization enabled</source>
+        <translation>Optimierung aktiviert</translation>
+    </message>
+    <message>
+        <source>Charge once</source>
+        <translation>Einmalige Aufladung</translation>
+    </message>
+    <message>
+        <source>Price limit</source>
+        <translation>Preisschwelle</translation>
+    </message>
+    <message>
+        <source>-</source>
+        <translation>-</translation>
+    </message>
+    <message>
+        <source>+</source>
+        <translation>+</translation>
+    </message>
+    <message>
+        <source>Charging Plan</source>
+        <translation>Ladeplan</translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation>Keine Daten verfügbar</translation>
+    </message>
+    <message>
+        <source>No prices available, yet</source>
+        <translation>Noch keine Preise verfügbar</translation>
+    </message>
+    <message>
+        <source>ct/kWh</source>
+        <translation>ct/kWh</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>State of Charge</source>
+        <translation>Ladezustand</translation>
+    </message>
+    <message>
+        <source>Hint for using EPEX prices: The price contains no local fees and margin of electricity provider.</source>
+        <translation>Hinweis zur Verwendung des EPEX Preises: Der Preis enthält keine Netzgebühren und keinen Aufschlag des Stromanbieters.</translation>
+    </message>
+</context>
+<context>
     <name>BatteryLevel</name>
     <message>
         <source>BatteryLevel</source>

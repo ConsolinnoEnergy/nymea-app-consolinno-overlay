@@ -28,7 +28,7 @@ GenericConfigPage {
 
     property int validSince: 0
     property int validUntil: 0
-    property string averagePrice: ""
+    property double averagePrice: 0
     property double currentPrice: 0
     property double lowestPrice: 0
     property double highestPrice: 0
@@ -37,8 +37,41 @@ GenericConfigPage {
     title: root.thing.name
     headerOptionsVisible: false
 
+    QtObject {
+        id: rootObject
+        property int pendingCallId: -1
+    }
+
+    Connections {
+        target: hemsManager
+        onSetBatteryConfigurationReply: {
+
+            if (commandId === rootObject.pendingCallId) {
+                rootObject.pendingCallId = -1
+                let props = "";
+                switch (error) {
+                case "HemsErrorNoError":
+                    pageStack.pop()
+                    return
+                case "HemsErrorInvalidParameter":
+                    props.text = qsTr("Could not save configuration. One of the parameters is invalid.")
+                    break
+                case "HemsErrorInvalidThing":
+                    props.text = qsTr("Could not save configuration. The thing is not valid.")
+                    break
+                default:
+                    props.errorCode = error
+                }
+                var comp = Qt.createComponent("../components/ErrorDialog.qml")
+                var popup = comp.createObject(app, {props})
+                popup.open()
+            }
+        }
+    }
+
+
     function relPrice2AbsPrice(relPrice){
-        let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
+        averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
         let minPrice = dynamicPrice.get(0).stateByName("lowestPrice").value
         let maxPrice = dynamicPrice.get(0).stateByName("highestPrice").value
         if (averagePrice === minPrice || averagePrice === maxPrice){
@@ -54,8 +87,8 @@ GenericConfigPage {
     }
 
     Component.onCompleted: {
-        currentValue = -10
-        currentValue = batteryConfiguration.priceThreshold
+        let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
+        currentValue = (batteryConfiguration === null) ? averagePrice : batteryConfiguration.priceThreshold
     }
 
     ThingsProxy {
@@ -76,7 +109,7 @@ GenericConfigPage {
             Layout.fillWidth: true
             Layout.topMargin: 30
             Label {
-                text: qsTr("Current Level")
+                text: qsTr("State of Charge")
                 Layout.fillWidth: true
 
             }
@@ -91,7 +124,7 @@ GenericConfigPage {
             Layout.topMargin: 15
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Current Power")
+                text: qsTr("Charge (+) / Discharge (-) Power")
             }
 
             Label {
@@ -111,7 +144,15 @@ GenericConfigPage {
 
                 Switch {
                     id: optimizationControler
-                    Component.onCompleted: checked = batteryConfiguration.controllableLocalSystem
+                    onClicked: {
+                        if(!optimizationControler.checked){
+                            chargeOnceControler.checked = false;
+                            currentValue = batteryConfiguration.priceThreshold !== "null" ? batteryConfiguration.priceThreshold : -10
+                        }
+                    }
+                    Component.onCompleted: {
+                        checked = batteryConfiguration.controllableLocalSystem
+                    }
                 }
             }
 
@@ -125,7 +166,10 @@ GenericConfigPage {
 
                 Switch {
                     id: chargeOnceControler
-                    Component.onCompleted: checked = batteryConfiguration.chargeOnce
+                    Component.onCompleted: {
+                        checked = batteryConfiguration.chargeOnce
+                    }
+
                 }
             }
 
@@ -169,12 +213,12 @@ GenericConfigPage {
                             text: qsTr("-")
                             onClicked: {
                                 currentValue = currentValue > -500 ? currentValue - 1 : -500
-                                priceRow.getThresholdPrice()
+                                //priceRow.getThresholdPrice()
                                 parent.redrawChart();
                             }
                             onPressAndHold: {
                                 currentValue = currentValue > -500 ? currentValue - 10 : -500
-                                priceRow.getThresholdPrice()
+                                //priceRow.getThresholdPrice()
                                 parent.redrawChart();
                             }
                         }
@@ -190,7 +234,7 @@ GenericConfigPage {
                             }
                             onTextChanged: {
                                 currentValue = currentValueField.text
-                                priceRow.getThresholdPrice()
+                                //priceRow.getThresholdPrice()
                                 parent.redrawChart();
                             }
                         }
@@ -203,12 +247,12 @@ GenericConfigPage {
                             text: qsTr("+")
                             onClicked: {
                                 currentValue = currentValue < 500 ? currentValue + 1 : 500
-                                priceRow.getThresholdPrice()
+                                //priceRow.getThresholdPrice()
                                 parent.redrawChart();
                             }
                             onPressAndHold: {
                                 currentValue = currentValue < 500 ? currentValue + 10 : 500
-                                priceRow.getThresholdPrice()
+                                //priceRow.getThresholdPrice()
                                 parent.redrawChart();
                             }
                         }
@@ -216,25 +260,27 @@ GenericConfigPage {
                 }
 
                 Component.onCompleted: {
-                    getThresholdPrice()
+                    //getThresholdPrice()
                 }
-
+                /*
                 function getThresholdPrice(){
                     let currentValue = parseInt(currentValueField.text)
                     thresholdPrice = relPrice2AbsPrice(currentValue)
-                }
+                }*/
             }
 
             // Pricing of ct/kWh
-            /*RowLayout {
+            ColumnLayout {
                 id: displayText
                 visible: optimizationControler.checked
+                enabled: chargeOnceControler.checked ? false : true
                 Label {
+                    wrapMode: Text.WordWrap
                     Layout.fillWidth: true
-                    text: qsTr("Currently corresponds to a market price of %1 ct/kWh.").arg(thresholdPrice.toLocaleString())
-                    font.pixelSize: 13
+                    text: qsTr("Hint for using EPEX prices: The price contains no local fees and margin of electricity provider.")
+                    font.pixelSize: 12
                 }
-            }*/
+            }
 
             // Graph Header
             RowLayout {
@@ -303,21 +349,20 @@ GenericConfigPage {
                 Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    Layout.minimumHeight: 100
+                    Layout.minimumHeight: 50
 
 
                     ChartView {
                         id: chartView
                         anchors.fill: parent
 
-                        backgroundColor: "transparent"
+                        backgroundColor:  chargeOnceControler.checked ? "whitesmoke" : "transparent"
                         margins.left: 0
                         margins.right: 0
                         margins.top: 0
                         margins.bottom: Style.smallIconSize + Style.margins
 
                         legend.visible: false
-
                         ActivityIndicator {
                             id: noDataIndicator
                             x: chartView.plotArea.x + (chartView.plotArea.width - width) / 2
@@ -347,7 +392,6 @@ GenericConfigPage {
                             lineVisible: false
                             titleVisible: false
                             shadesVisible: false
-
                             function adjustMax(minPrice,maxPrice) {
                                 max = Math.ceil(maxPrice) + 1;
                                 max += 4 - (max % 4);
@@ -400,7 +444,6 @@ GenericConfigPage {
                             color: '#ccc'
                             borderWidth: 1
                             borderColor: 'transparent'
-
                             upperSeries: LineSeries {
                                 id: pricingCurrentLimitSeries
                             }
@@ -413,7 +456,6 @@ GenericConfigPage {
                             color: 'transparent'
                             borderWidth: 1
                             borderColor: Configuration.epexMainLineColor
-
 
                             upperSeries: LineSeries {
                                 id: pricingUpperSeries
@@ -466,16 +508,16 @@ GenericConfigPage {
                                         currentTimestamp = currentTimestamp - 600000;
                                     }
 
-                                    if(itemValue < thresholdPrice) {
-                                        pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),thresholdPrice);
-                                        pricingCurrentLimitSeries.append(currentTimestamp,thresholdPrice);
+                                    if(itemValue < currentValue) {
+                                        pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),currentValue);
+                                        pricingCurrentLimitSeries.append(currentTimestamp,currentValue);
                                     }
                                     else {
                                         pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),valueAxis.min -5);
                                         pricingCurrentLimitSeries.append(currentTimestamp,valueAxis.min - 5);
                                     }
 
-                                    pricingUpperSeriesAbove.append(currentTimestamp,thresholdPrice);
+                                    pricingUpperSeriesAbove.append(currentTimestamp,currentValue);
                                     if(!onlyThreshold) {
                                         pricingUpperSeries.append(currentTimestamp - (60000 * 15) + 1,itemValue);
                                         pricingUpperSeries.append(currentTimestamp,itemValue);
@@ -494,8 +536,8 @@ GenericConfigPage {
                                 }
 
                                 pricingCurrentLimitSeries.append(todayMidnightTs + 6000000, valueAxis.min - 5);
-                                pricingUpperSeriesAbove.append(todayMidnightTs + 6000000, thresholdPrice);
-                                pricingLowerSeriesAbove.append(todayMidnightTs + 6000000, thresholdPrice);
+                                pricingUpperSeriesAbove.append(todayMidnightTs + 6000000, currentValue);
+                                pricingLowerSeriesAbove.append(todayMidnightTs + 6000000, currentValue);
 
                                 if(!onlyThreshold) {
                                     pricingUpperSeries.append(todayMidnightTs + 6000000, lastObjectValue);
@@ -680,7 +722,7 @@ GenericConfigPage {
                     text: qsTr("Save")
 
                     onClicked: {
-                        //hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": true, "priceThreshold": currentValue, "relativePriceEnabled": false, "chargeOnce": chargeOnceControler.checked, "controllableLocalSystem": optimizationControler.checked} )
+                        rootObject.pendingCallId = hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": true, "priceThreshold": currentValue, "relativePriceEnabled": false, "chargeOnce": chargeOnceControler.checked, "controllableLocalSystem": optimizationControler.checked})
                     }
                 }
             }
