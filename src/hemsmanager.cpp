@@ -531,7 +531,7 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
     if (!configuration){
         qCDebug(dcHems()) << "Adding a dummy Config" << batteryThingId;
         QVariantMap dummyConfig;
-        dummyConfig.insert("heatPumpThingId", batteryThingId);
+        dummyConfig.insert("batteryThingId", batteryThingId);
         dummyConfig.insert("optimizationEnabled", true);
         dummyConfig.insert("priceThreshold", 0);
         dummyConfig.insert("relativePriceEnabled", false);
@@ -639,7 +639,7 @@ void HemsManager::notificationReceived(const QVariantMap &data)
     } else if (notification == "Hems.BatteryConfigurationRemoved") {
         qCDebug(dcHems()) << "Battery configuration removed" << params.value("batteryThingId").toUuid();
         m_batteryConfigurations->removeConfiguration(params.value("batteryThingId").toUuid());
-    } else if (notification == "Hems.ElectricConfigurationChanged") {
+    } else if (notification == "Hems.BatteryConfigurationChanged") {
         addOrUpdateBatteryConfiguration(params.value("batteryConfiguration").toMap());
 
     } else if (notification == "Hems.PvConfigurationAdded") {

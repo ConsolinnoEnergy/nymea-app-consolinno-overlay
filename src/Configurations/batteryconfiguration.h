@@ -45,7 +45,7 @@ signals:
 private:
     QUuid m_batteryThingId;
     bool m_optimizationEnabled = true;
-    float m_priceThreshold = 0.0;
+    float m_priceThreshold = 0;
     bool m_relativePriceEnabled = false;
     bool m_chargeOnce = false;
     bool m_controllableLocalSystem = false;

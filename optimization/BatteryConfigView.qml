@@ -147,7 +147,7 @@ GenericConfigPage {
                     onClicked: {
                         if(!optimizationControler.checked){
                             chargeOnceControler.checked = false;
-                            currentValue = batteryConfiguration.priceThreshold !== "null" ? batteryConfiguration.priceThreshold : -10
+                            currentValue = (batteryConfiguration === null) ? averagePrice : batteryConfiguration.priceThreshold
                         }
                     }
                     Component.onCompleted: {
@@ -213,12 +213,10 @@ GenericConfigPage {
                             text: qsTr("-")
                             onClicked: {
                                 currentValue = currentValue > -500 ? currentValue - 1 : -500
-                                //priceRow.getThresholdPrice()
                                 parent.redrawChart();
                             }
                             onPressAndHold: {
                                 currentValue = currentValue > -500 ? currentValue - 10 : -500
-                                //priceRow.getThresholdPrice()
                                 parent.redrawChart();
                             }
                         }
@@ -234,7 +232,6 @@ GenericConfigPage {
                             }
                             onTextChanged: {
                                 currentValue = currentValueField.text
-                                //priceRow.getThresholdPrice()
                                 parent.redrawChart();
                             }
                         }
@@ -247,26 +244,15 @@ GenericConfigPage {
                             text: qsTr("+")
                             onClicked: {
                                 currentValue = currentValue < 500 ? currentValue + 1 : 500
-                                //priceRow.getThresholdPrice()
                                 parent.redrawChart();
                             }
                             onPressAndHold: {
                                 currentValue = currentValue < 500 ? currentValue + 10 : 500
-                                //priceRow.getThresholdPrice()
                                 parent.redrawChart();
                             }
                         }
                     }
                 }
-
-                Component.onCompleted: {
-                    //getThresholdPrice()
-                }
-                /*
-                function getThresholdPrice(){
-                    let currentValue = parseInt(currentValueField.text)
-                    thresholdPrice = relPrice2AbsPrice(currentValue)
-                }*/
             }
 
             // Pricing of ct/kWh
