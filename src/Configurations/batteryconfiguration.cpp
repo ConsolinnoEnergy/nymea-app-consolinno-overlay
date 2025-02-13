@@ -34,8 +34,6 @@ float BatteryConfiguration::priceThreshold() const {
 }
 
 void BatteryConfiguration::setPriceThreshold(float priceThreshold) {
-    if (m_priceThreshold == priceThreshold)
-        return;
 
     m_priceThreshold = priceThreshold;
     emit priceThresholdChanged(m_priceThreshold);
