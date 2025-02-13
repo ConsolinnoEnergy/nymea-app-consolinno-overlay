@@ -78,6 +78,7 @@ void HemsManager::setEngine(Engine *engine)
         m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingSessionConfigurations", QVariantMap(), this, "getChargingSessionConfigurationsResponse");
 
         m_engine->jsonRpcClient()->sendCommand("Hems.GetDynamicElectricPricingConfigurations", QVariantMap(), this, "getDynamicElectricPricingConfigurationResponse");
+        qCDebug(dcHems()) << "Initially getting BatteryConfigurations";
         m_engine->jsonRpcClient()->sendCommand("Hems.GetBatteryConfigurations", QVariantMap(), this, "getBatteryConfigurationResponse");
 
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingRodConfigurations", QVariantMap(), this, "getHeatingElementConfigurationsResponse");
@@ -525,10 +526,13 @@ int HemsManager::setUserConfiguration(const QVariantMap &data){
 
 int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVariantMap &data){
 
+    qCWarning(dcHems()) << "setBatteryConfiguration" << data;
     BatteryConfiguration *configuration = m_batteryConfigurations->getBatteryConfiguration(batteryThingId);
+    qCWarning(dcHems()) << "BatteryConfiguration:" << configuration;
     // if the configuration does not exist yet. Set up a dummy configuration
     // This ensures that if the Thing does not exist that the program wont crash
     if (!configuration){
+        qCWarning(dcHems()) << "Adding a dummy Config" << batteryThingId;
         QVariantMap dummyConfig;
         dummyConfig.insert("batteryThingId", batteryThingId);
         dummyConfig.insert("optimizationEnabled", true);
