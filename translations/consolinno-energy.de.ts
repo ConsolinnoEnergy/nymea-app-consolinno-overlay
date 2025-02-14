@@ -145,14 +145,6 @@
         <translation>Preisschwelle</translation>
     </message>
     <message>
-        <source>-</source>
-        <translation>-</translation>
-    </message>
-    <message>
-        <source>+</source>
-        <translation>+</translation>
-    </message>
-    <message>
         <source>Charging Plan</source>
         <translation>Ladeplan</translation>
     </message>
@@ -179,6 +171,14 @@
     <message>
         <source>Hint for using EPEX prices: The price contains no local fees and margin of electricity provider.</source>
         <translation>Hinweis zur Verwendung des EPEX Preises: Der Preis enthält keine Netzgebühren und keinen Aufschlag des Stromanbieters.</translation>
+    </message>
+    <message>
+        <source>Current price</source>
+        <translation>Aktueller Preis</translation>
+    </message>
+    <message>
+        <source>Below price limit</source>
+        <translation>Preisschwelle unterschritten</translation>
     </message>
 </context>
 <context>

@@ -145,14 +145,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Charging Plan</source>
         <translation type="unfinished"></translation>
     </message>
@@ -178,6 +170,14 @@
     </message>
     <message>
         <source>Hint for using EPEX prices: The price contains no local fees and margin of electricity provider.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Below price limit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
