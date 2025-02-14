@@ -46,10 +46,8 @@ QHash<int, QByteArray> BatteryConfigurations::roleNames() const
 
 BatteryConfiguration *BatteryConfigurations::getBatteryConfiguration(const QUuid &batteryThingId) const
 {
-    qWarning() << "BatteryConfigurations::getBatteryConfiguration";
     foreach (BatteryConfiguration *batteryConfig, m_list) {
         if (batteryConfig->batteryThingId() == batteryThingId) {
-            qWarning() << "BatteryConfiguration:" << batteryConfig;
             // print to stdout
             return batteryConfig;
         }

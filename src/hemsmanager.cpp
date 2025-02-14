@@ -702,7 +702,6 @@ void HemsManager::getBatteryConfigurationResponse(int commandId, const QVariantM
 {
 
     Q_UNUSED(commandId);
-    qCDebug(dcHems()) << "Battery configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("batteryConfigurations").toList()) {
         addOrUpdateBatteryConfiguration(configurationVariant.toMap());
     }
