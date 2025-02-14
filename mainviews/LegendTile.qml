@@ -100,6 +100,13 @@ MouseArea {
                 icon = "qrc:/ui/images/heatpump.svg"
             }
             return Qt.resolvedUrl(icon)
+        case "smartgridheatpump":
+            if(Configuration.heatpumpIcon !== ""){
+                icon = "qrc:/ui/images/"+Configuration.heatpumpIcon
+            }else{
+                icon = "qrc:/ui/images/heatpump.svg"
+            }
+            return Qt.resolvedUrl(icon)
         case "smartheatingrod":
             if(Configuration.heatingRodIcon !== ""){
                 icon = "/ui/images/"+Configuration.heatingRodIcon
