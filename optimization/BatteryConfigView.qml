@@ -51,6 +51,7 @@ GenericConfigPage {
                 let props = "";
                 switch (error) {
                 case "HemsErrorNoError":
+                    pageStack.pop();
                     return
                 case "HemsErrorInvalidParameter":
                     props.text = qsTr("Could not save configuration. One of the parameters is invalid.")
@@ -68,7 +69,6 @@ GenericConfigPage {
         }
 
         onBatteryConfigurationChanged: {
-            console.error("Battery Config Changed")
             optimizationController.checked = batteryConfiguration.optimizationEnabled
             chargeOnceController.checked = batteryConfiguration.chargeOnce
             currentValue = batteryConfiguration.priceThreshold
@@ -243,6 +243,9 @@ GenericConfigPage {
                             horizontalAlignment: Qt.AlignHCenter
                             verticalAlignment: Qt.AlignVCenter
                             Layout.preferredWidth: 55
+                            validator: RegExpValidator {
+                                regExp: /^-?(500|[1-9]?[0-9])$/
+                            }
                             //validator: DoubleValidator {
                             //    bottom: -500.0
                             //    top: 500.0
