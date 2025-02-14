@@ -51,6 +51,7 @@ GenericConfigPage {
                 let props = "";
                 switch (error) {
                 case "HemsErrorNoError":
+                    pageStack.pop();
                     return
                 case "HemsErrorInvalidParameter":
                     props.text = qsTr("Could not save configuration. One of the parameters is invalid.")
