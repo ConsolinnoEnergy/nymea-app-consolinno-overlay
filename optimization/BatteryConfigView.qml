@@ -23,7 +23,7 @@ GenericConfigPage {
     property BatteryConfiguration batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id)
 
 
-    property int currentValue : 0
+    property double currentValue : batteryConfiguration.priceThreshold
     property double thresholdPrice: 0
 
     property int validSince: 0
@@ -68,7 +68,6 @@ GenericConfigPage {
         }
 
         onBatteryConfigurationChanged: {
-            console.error("Battery Config Changed")
             optimizationController.checked = batteryConfiguration.optimizationEnabled
             chargeOnceController.checked = batteryConfiguration.chargeOnce
             currentValue = batteryConfiguration.priceThreshold
@@ -102,11 +101,13 @@ GenericConfigPage {
                         "controllableLocalSystem": optimizationController.checked})
     }
 
-
-    Component.onCompleted: {
-        let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
-        currentValue = batteryConfiguration.priceThreshold
+    function enableSave(obj)
+    {
+        console.log("enableSave")
+        console.log(obj)
+        saveButton.enabled = true
     }
+
 
     ThingsProxy {
         id: dynamicPrice
@@ -166,6 +167,7 @@ GenericConfigPage {
                             chargeOnceController.checked = false;
                         }
                         //saveSettings()
+                        enableSave(this)
                     }
                     Component.onCompleted: {
                         checked = batteryConfiguration.optimizationEnabled
@@ -186,7 +188,10 @@ GenericConfigPage {
                     Component.onCompleted: {
                         checked = batteryConfiguration.chargeOnce
                     }
-
+                    onClicked: {
+                        //saveSettings()
+                        enableSave(this)
+                    }
                 }
             }
 
@@ -208,8 +213,9 @@ GenericConfigPage {
 
                     RowLayout {
                         anchors.fill: parent
+                        spacing: 40
                         property var debounceTimer: Timer {
-                            interval: 1000
+                            interval: 500
                             repeat: false
                             running: false
                              onTriggered: {
@@ -226,58 +232,51 @@ GenericConfigPage {
                             debounceTimer.start();
                         }
 
-                        ToolButton {
-                            text: qsTr("-")
-                            onClicked: {
-                                currentValue = currentValue > -500 ? currentValue - 0.1 : -500
-                                //priceRow.getThresholdPrice()
-                                parent.redrawChart();
-                                //saveSettings()
-                            }
-                            onPressAndHold: {
-                                currentValue = currentValue > -500 ? currentValue - 5 : -500
-                                //priceRow.getThresholdPrice()
-                                parent.redrawChart();
-                                //saveSettings()
-                            }
-                        }
+SpinBox {
+    id: spinbox
+    from: -5000
+    value: 0
+    to: 5000 
+    stepSize: 1
+    width: 20
+    anchors.centerIn: parent
+    
+    property int decimals: 1
+    property real realValue: value / 10
 
-                       TextField {
-                            id: currentValueField
-                            text: currentValue
-                            horizontalAlignment: Qt.AlignHCenter
-                            verticalAlignment: Qt.AlignVCenter
-                            Layout.preferredWidth: 55
-                            //validator: DoubleValidator {
-                            //    bottom: -500.0
-                            //    top: 500.0
-                            //    decimals: 1
-                            //    notation: DoubleValidator.StandardNotation
-                            //}
-                            onTextChanged: {
-                                currentValue = currentValueField.text
-                                parent.redrawChart();
-                                //saveSettings()
-                            }
-                        } 
+    validator: DoubleValidator {
+        bottom: Math.min(spinbox.from, spinbox.to)
+        top:  Math.max(spinbox.from, spinbox.to)
+    }
 
-                        Label {
-                            text: "ct/kWh"
-                        }
+    textFromValue: function(value, locale) {
+        return Number(value / 10).toLocaleString(locale, 'f', spinbox.decimals)
+    }
 
-                        ToolButton {
-                            text: qsTr("+")
-                            onClicked: {
-                                currentValue = currentValue < 500 ? currentValue + 0.1 : 500
-                                parent.redrawChart();
-                                //saveSettings()
-                            }
-                            onPressAndHold: {
-                                currentValue = currentValue < 500 ? currentValue + 5 : 500
-                                parent.redrawChart();
-                                //saveSettings()
-                            }
-                        }
+    valueFromText: function(text, locale) {
+        return Number.fromLocaleString(locale, text) * 10
+    }
+
+    onValueChanged: {
+        //currentValue = value / 10
+        currentValue = Math.round(value * 100) / 1000
+        //priceRow.getThresholdPrice()
+        parent.redrawChart();
+        //saveSettings()
+        if (Math.round(currentValue * 10) != Math.round(batteryConfiguration.priceThreshold * 10)) {
+            enableSave(this)
+        }
+    }
+
+    Component.onCompleted: {
+        value = currentValue * 10
+    }
+}
+
+Label {
+    text: "ct/kWh"
+}
+                       
                     }
                 }
 
@@ -742,9 +741,11 @@ GenericConfigPage {
                     id: saveButton
                     Layout.fillWidth: true
                     text: qsTr("Save")
+                    enabled: false
 
                     onClicked: {
                         saveSettings()
+                        saveButton.enabled = false
                         }
                 }
             }
