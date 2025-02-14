@@ -1,4 +1,6 @@
 #include "batteryconfigurations.h"
+#include<QDebug>
+
 
 BatteryConfigurations::BatteryConfigurations(QObject *parent): QAbstractListModel(parent)
 {
@@ -44,9 +46,9 @@ QHash<int, QByteArray> BatteryConfigurations::roleNames() const
 
 BatteryConfiguration *BatteryConfigurations::getBatteryConfiguration(const QUuid &batteryThingId) const
 {
-
     foreach (BatteryConfiguration *batteryConfig, m_list) {
         if (batteryConfig->batteryThingId() == batteryThingId) {
+            // print to stdout
             return batteryConfig;
         }
     }
