@@ -246,12 +246,6 @@ GenericConfigPage {
                             validator: RegExpValidator {
                                 regExp: /^-?(500|[1-9]?[0-9])$/
                             }
-                            //validator: DoubleValidator {
-                            //    bottom: -500.0
-                            //    top: 500.0
-                            //    decimals: 1
-                            //    notation: DoubleValidator.StandardNotation
-                            //}
                             onTextChanged: {
                                 currentValue = currentValueField.text
                                 parent.redrawChart();
