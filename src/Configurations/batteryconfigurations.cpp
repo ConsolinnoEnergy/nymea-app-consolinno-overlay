@@ -48,7 +48,6 @@ BatteryConfiguration *BatteryConfigurations::getBatteryConfiguration(const QUuid
 {
     foreach (BatteryConfiguration *batteryConfig, m_list) {
         if (batteryConfig->batteryThingId() == batteryThingId) {
-            qWarning() << "BatteryConfiguration:" << batteryConfig;
             // print to stdout
             return batteryConfig;
         }
