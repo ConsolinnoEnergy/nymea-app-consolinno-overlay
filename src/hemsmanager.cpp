@@ -526,9 +526,7 @@ int HemsManager::setUserConfiguration(const QVariantMap &data){
 
 int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVariantMap &data){
 
-    qCWarning(dcHems()) << "setBatteryConfiguration" << data;
     BatteryConfiguration *configuration = m_batteryConfigurations->getBatteryConfiguration(batteryThingId);
-    qCWarning(dcHems()) << "BatteryConfiguration:" << configuration;
     // if the configuration does not exist yet. Set up a dummy configuration
     // This ensures that if the Thing does not exist that the program wont crash
     if (!configuration){
