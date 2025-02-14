@@ -23,7 +23,7 @@ GenericConfigPage {
     property BatteryConfiguration batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id)
 
 
-    property double currentValue : batteryConfiguration.priceThreshold
+    property double currentValue : batteryConfiguration.priceThreshold 
     property double thresholdPrice: 0
 
     property int validSince: 0
@@ -72,6 +72,25 @@ GenericConfigPage {
             chargeOnceController.checked = batteryConfiguration.chargeOnce
             currentValue = batteryConfiguration.priceThreshold
         }
+    }
+
+    Connections {
+        target: engine.thingManager
+        onThingStateChanged: (thingId, stateTypeId, value)=> {
+            if (thingId === dynamicPrice.get(0).id ) {
+                updatePrice()
+            }
+        }
+    }
+
+    Component.onCompleted: {
+        currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value
+    }
+
+
+    function updatePrice() {
+        currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value
+        currentPriceLabel.text = Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh"
     }
 
 
@@ -197,6 +216,21 @@ GenericConfigPage {
 
             // Price Limit
             RowLayout {
+                id: currentPriceRow
+                visible: optimizationController.checked
+                enabled: chargeOnceController.checked ? false : true
+                Label {
+                    Layout.fillWidth: true
+                    text: qsTr("Current price")
+                }
+
+                Label {
+                    id: currentPriceLabel
+                    text: Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh"
+                }
+            }
+
+            RowLayout {
                 id: priceRow
                 visible: optimizationController.checked
                 enabled: chargeOnceController.checked ? false : true
@@ -290,6 +324,28 @@ Label {
                 }*/
             }
 
+RowLayout{
+                        Layout.topMargin: 10
+                        id: belowPriceLimit
+                        enabled: chargeOnceController.checked ? false : true
+                        Label{
+                            Layout.fillWidth: true
+                            text: qsTr("Below price limit")
+                        }
+
+                        Rectangle{
+                            width: 17
+                            height: 17
+                            Layout.rightMargin: 0
+                            Layout.alignment: Qt.AlignRight
+                            color: (currentPrice <= currentValue) ? "#87BD26" : "#CD5C5C"
+                            border.color: "black"
+                            border.width: 0
+                            radius: width*0.5
+                        }
+                    }
+
+
             // Pricing of ct/kWh
             ColumnLayout {
                 id: displayText
@@ -302,6 +358,7 @@ Label {
                     font.pixelSize: 12
                 }
             }
+
 
             // Graph Header
             RowLayout {
