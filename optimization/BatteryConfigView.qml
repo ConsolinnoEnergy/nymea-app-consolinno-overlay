@@ -165,7 +165,7 @@ GenericConfigPage {
             }
 
             Label {
-                text: ("%1 W").arg(currentPowerState.value)
+                text: Math.round(currentPowerState.value) + " W"
             }
         }
 
