@@ -121,17 +121,6 @@ GenericConfigPage {
                         "controllableLocalSystem": optimizationController.checked})
     }
 
-
-
-    function saveSettings()
-    {
-        rootObject.pendingCallId = hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": optimizationController.checked, 
-                        "priceThreshold": currentValue, 
-                        "relativePriceEnabled": false, 
-                        "chargeOnce": chargeOnceController.checked, 
-                        "controllableLocalSystem": optimizationController.checked})
-    }
-
     function enableSave(obj)
     {
         saveButton.enabled = true
