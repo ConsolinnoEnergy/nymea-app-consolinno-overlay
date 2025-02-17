@@ -238,32 +238,30 @@ GenericConfigPage {
                 id: priceRow
                 visible: optimizationController.checked
                 enabled: chargeOnceController.checked ? false : true
+
                 Label {
                     Layout.fillWidth: true
                     text: qsTr("Price limit")
-
                 }
 
                 ToolBar {
+
                     background: Rectangle {
                         color: "transparent"
                     }
 
                     RowLayout {
-                        anchors.fill: parent
-                        spacing: 40
                         property var debounceTimer: Timer {
                             interval: 500
                             repeat: false
                             running: false
-                             onTriggered: {
+                            onTriggered: {
                                 pricingCurrentLimitSeries.clear();
                                 pricingUpperSeriesAbove.clear();
                                 pricingLowerSeriesAbove.clear();
                                 consumptionSeries.insertEntry(dynamicPrice.get(0).stateByName("priceSeries").value, true);
                             }
                         }
-
 
                         function redrawChart() {
                             debounceTimer.stop();
@@ -276,8 +274,8 @@ GenericConfigPage {
                             value: 0
                             to: 5000
                             stepSize: 1
-                            width: 20
-                            anchors.centerIn: parent
+
+                            Layout.preferredWidth: 160
 
                             property int decimals: 1
                             property real realValue: value / 10
@@ -296,11 +294,8 @@ GenericConfigPage {
                             }
 
                             onValueChanged: {
-                                //currentValue = value / 10
                                 currentValue = Math.round(value * 100) / 1000
-                                //priceRow.getThresholdPrice()
                                 parent.redrawChart();
-                                //saveSettings()
                                 if (Math.round(currentValue * 10) != Math.round(batteryConfiguration.priceThreshold * 10)) {
                                     enableSave(this)
                                 }
@@ -314,7 +309,6 @@ GenericConfigPage {
                         Label {
                             text: "ct/kWh"
                         }
-                       
                     }
                 }
 
@@ -331,6 +325,7 @@ GenericConfigPage {
             RowLayout{
                 Layout.topMargin: 10
                 id: belowPriceLimit
+                visible: optimizationController.checked
                 enabled: chargeOnceController.checked ? false : true
                 Label{
                     Layout.fillWidth: true
@@ -807,15 +802,9 @@ GenericConfigPage {
                     onClicked: {
                         saveSettings()
                         saveButton.enabled = false
-                        }
+                    }
                 }
             }
-        }
-
-        Item {
-            visible: !optimizationController.checked
-            Layout.fillHeight: true
-            Layout.fillWidth: true
         }
     }
 }
