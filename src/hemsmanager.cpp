@@ -78,7 +78,6 @@ void HemsManager::setEngine(Engine *engine)
         m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingSessionConfigurations", QVariantMap(), this, "getChargingSessionConfigurationsResponse");
 
         m_engine->jsonRpcClient()->sendCommand("Hems.GetDynamicElectricPricingConfigurations", QVariantMap(), this, "getDynamicElectricPricingConfigurationResponse");
-        qCDebug(dcHems()) << "Initially getting BatteryConfigurations";
         m_engine->jsonRpcClient()->sendCommand("Hems.GetBatteryConfigurations", QVariantMap(), this, "getBatteryConfigurationResponse");
 
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingRodConfigurations", QVariantMap(), this, "getHeatingElementConfigurationsResponse");
