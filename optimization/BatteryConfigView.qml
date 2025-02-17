@@ -122,8 +122,6 @@ GenericConfigPage {
 
     function enableSave(obj)
     {
-        console.log("enableSave")
-        console.log(obj)
         saveButton.enabled = true
     }
 
@@ -167,6 +165,12 @@ GenericConfigPage {
             Label {
                 text: Math.round(currentPowerState.value) + " W"
             }
+        }
+
+        Item {
+            visible: thing.thingClass.interfaces.indexOf("controllablebattery") === 0 ? false : true
+            Layout.fillHeight: true
+            Layout.fillWidth: true
         }
 
         ColumnLayout {
@@ -266,50 +270,50 @@ GenericConfigPage {
                             debounceTimer.start();
                         }
 
-SpinBox {
-    id: spinbox
-    from: -5000
-    value: 0
-    to: 5000 
-    stepSize: 1
-    width: 20
-    anchors.centerIn: parent
-    
-    property int decimals: 1
-    property real realValue: value / 10
+                        SpinBox {
+                            id: spinbox
+                            from: -5000
+                            value: 0
+                            to: 5000
+                            stepSize: 1
+                            width: 20
+                            anchors.centerIn: parent
 
-    validator: DoubleValidator {
-        bottom: Math.min(spinbox.from, spinbox.to)
-        top:  Math.max(spinbox.from, spinbox.to)
-    }
+                            property int decimals: 1
+                            property real realValue: value / 10
 
-    textFromValue: function(value, locale) {
-        return Number(value / 10).toLocaleString(locale, 'f', spinbox.decimals)
-    }
+                            validator: DoubleValidator {
+                                bottom: Math.min(spinbox.from, spinbox.to)
+                                top:  Math.max(spinbox.from, spinbox.to)
+                            }
 
-    valueFromText: function(text, locale) {
-        return Number.fromLocaleString(locale, text) * 10
-    }
+                            textFromValue: function(value, locale) {
+                                return Number(value / 10).toLocaleString(locale, 'f', spinbox.decimals)
+                            }
 
-    onValueChanged: {
-        //currentValue = value / 10
-        currentValue = Math.round(value * 100) / 1000
-        //priceRow.getThresholdPrice()
-        parent.redrawChart();
-        //saveSettings()
-        if (Math.round(currentValue * 10) != Math.round(batteryConfiguration.priceThreshold * 10)) {
-            enableSave(this)
-        }
-    }
+                            valueFromText: function(text, locale) {
+                                return Number.fromLocaleString(locale, text) * 10
+                            }
 
-    Component.onCompleted: {
-        value = currentValue * 10
-    }
-}
+                            onValueChanged: {
+                                //currentValue = value / 10
+                                currentValue = Math.round(value * 100) / 1000
+                                //priceRow.getThresholdPrice()
+                                parent.redrawChart();
+                                //saveSettings()
+                                if (Math.round(currentValue * 10) != Math.round(batteryConfiguration.priceThreshold * 10)) {
+                                    enableSave(this)
+                                }
+                            }
 
-Label {
-    text: "ct/kWh"
-}
+                            Component.onCompleted: {
+                                value = currentValue * 10
+                            }
+                        }
+
+                        Label {
+                            text: "ct/kWh"
+                        }
                        
                     }
                 }
@@ -324,26 +328,26 @@ Label {
                 }*/
             }
 
-RowLayout{
-                        Layout.topMargin: 10
-                        id: belowPriceLimit
-                        enabled: chargeOnceController.checked ? false : true
-                        Label{
-                            Layout.fillWidth: true
-                            text: qsTr("Below price limit")
-                        }
+            RowLayout{
+                Layout.topMargin: 10
+                id: belowPriceLimit
+                enabled: chargeOnceController.checked ? false : true
+                Label{
+                    Layout.fillWidth: true
+                    text: qsTr("Below price limit")
+                }
 
-                        Rectangle{
-                            width: 17
-                            height: 17
-                            Layout.rightMargin: 0
-                            Layout.alignment: Qt.AlignRight
-                            color: (currentPrice <= currentValue) ? "#87BD26" : "#CD5C5C"
-                            border.color: "black"
-                            border.width: 0
-                            radius: width*0.5
-                        }
-                    }
+                Rectangle{
+                    width: 17
+                    height: 17
+                    Layout.rightMargin: 0
+                    Layout.alignment: Qt.AlignRight
+                    color: (currentPrice <= currentValue) ? "#87BD26" : "#CD5C5C"
+                    border.color: "black"
+                    border.width: 0
+                    radius: width*0.5
+                }
+            }
 
 
             // Pricing of ct/kWh
