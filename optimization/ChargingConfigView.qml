@@ -1343,36 +1343,34 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             spacing: 5
 
-                            Rectangle {
-                                Layout.preferredWidth: gridConsumptionLabel.width
+                            RowLayout {
                                 visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
                                 Label{
                                     id: gridConsumptionLabel
                                     text: qsTr("Behaviour on grid consumption:")
+                                    font.pixelSize: 15
                                 }
                             }
-                            Rectangle {
+                            RowLayout {
                                 Layout.fillWidth: true
                                 visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
-
                                 InfoButton{
                                     id: gridConsumptionInfoButton
                                     push: "GridConsumptionInfo.qml"
                                 }
                             }
 
-                            Rectangle {
-                                Layout.preferredWidth: pausingModeid.width
+                            RowLayout {
                                 visible: isAnyOfModesSelected([dyn_pricing])
                                 Label {
                                     id: pausingModeid
                                     text: qsTr("Pausing: ")
+
                                 }
                             }
-                            Rectangle {
+                            RowLayout {
                                 Layout.fillWidth: true
                                 visible: isAnyOfModesSelected([dyn_pricing])
-
                                 InfoButton{
                                     id: pausingModeInfoButton
                                     push: "PausingInfo.qml"
@@ -1382,7 +1380,6 @@ GenericConfigPage {
 
                         RowLayout {
                             Layout.preferredWidth: app.width
-                            Layout.topMargin: 10
 
                             ComboBox {
                                 visible: isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])
