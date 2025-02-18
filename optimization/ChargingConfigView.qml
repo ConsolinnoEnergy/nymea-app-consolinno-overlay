@@ -914,7 +914,7 @@ GenericConfigPage {
 
                         Button{
                             Layout.fillWidth: true
-                            text:  status.state == 3 ? qsTr("Configure charging mode") : qsTr("Reconfigure charging mode" )
+                            text:  status.state == 3 ? qsTr("Configure charging mode") : qsTr("Cancel & reconfigure charging mode" )
                             onClicked: {
                                 hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: false, optimizationMode:9})
                                 busyOverlay.shown = true

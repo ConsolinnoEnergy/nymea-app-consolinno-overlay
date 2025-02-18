@@ -460,10 +460,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Reconfigure charging mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Target charging current</source>
         <translation type="unfinished"></translation>
     </message>
@@ -537,6 +533,10 @@
     </message>
     <message>
         <source>Below price limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel &amp; reconfigure charging mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
