@@ -460,10 +460,6 @@
         <translation>Lademodus konfiguieren</translation>
     </message>
     <message>
-        <source>Reconfigure charging mode</source>
-        <translation>Lademodus ändern</translation>
-    </message>
-    <message>
         <source>Target charging current</source>
         <translation>Ladestrom (Soll)</translation>
     </message>
@@ -538,6 +534,10 @@
     <message>
         <source>Below price limit</source>
         <translation>Preisgrenze unterschritten</translation>
+    </message>
+    <message>
+        <source>Cancel &amp; reconfigure charging mode</source>
+        <translation>Lademodus abbrechen &amp; ändern</translation>
     </message>
 </context>
 <context>
