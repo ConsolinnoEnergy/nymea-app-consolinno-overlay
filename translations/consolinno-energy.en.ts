@@ -2221,12 +2221,11 @@
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-            &lt;p&gt;Version 1.7.1 (December 11, 2024)&lt;/p&gt;
-            &lt;h4&gt;Improvements&lt;/h4&gt;
+        <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
+            &lt;p&gt;Version 1.8.0 (05. March 2025)&lt;/p&gt;
+            &lt;h4&gt;Feature&lt;/h4&gt;
             &lt;ul&gt;
-                &lt;li&gt;Fix various UI  issues&lt;/li&gt;
-                &lt;li&gt;Fix the incompatibility notice&lt;/li&gt;
+                &lt;li&gt;Detailed battery view added.&lt;/li&gt;
             &lt;/ul&gt;</translation>
     </message>
     <message>
