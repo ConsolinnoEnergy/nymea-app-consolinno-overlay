@@ -174,7 +174,7 @@ GenericConfigPage {
         }
 
         ColumnLayout {
-            visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 1
+            visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
 
             // Optimization enabled
             RowLayout {
