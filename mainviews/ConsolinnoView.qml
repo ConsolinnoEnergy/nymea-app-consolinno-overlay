@@ -572,7 +572,6 @@ MainViewBase {
         }
     }
 
-
     ThingsProxy {
         id: evProxy
         engine: _engine

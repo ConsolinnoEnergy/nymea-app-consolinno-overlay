@@ -2224,11 +2224,17 @@
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-            &lt;p&gt;Version 1.8.0 (05. März 2025)&lt;/p&gt;
-            &lt;h4&gt;Funktion&lt;/h4&gt;
-            &lt;ul&gt;
-                &lt;li&gt;Detaillierte Batterieansicht hinzugefügt.&lt;/li&gt;
-            &lt;/ul&gt;</translation>
+&lt;p&gt;Version 1.8.0 (05. März 2025)&lt;/p&gt;
+&lt;h4&gt;Neu&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;Beladen des Batteriespeichers nach Preissignal&lt;/li&gt;
+        &lt;ul&gt;
+            &lt;li&gt;FoxEss H3 (noch nicht H3 Pro)&lt;/li&gt;
+            &lt;li&gt;QCells G3 / G4&lt;/li&gt;
+            &lt;li&gt;Solax X3&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;li&gt;Verschiedene Stabilitätsverbesserungen&lt;/li&gt;
+&lt;/ul&gt;</translation>
     </message>
     <message>
         <source>Your %1 is not set up yet.</source>
