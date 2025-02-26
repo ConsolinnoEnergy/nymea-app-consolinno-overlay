@@ -168,7 +168,9 @@ GenericConfigPage {
         }
 
         Item {
-            visible: thing.thingClass.interfaces.indexOf("controllablebattery") === 0 ? false : true
+            property bool noDynPrice: dynamicPrice.count === 0 && thing.thingClass.interfaces.indexOf("controllablebattery") === 0
+            property bool noInterface: thing.thingClass.interfaces.indexOf("controllablebattery") === 0
+            visible: noDynPrice || noInterface ? false : true
             Layout.fillHeight: true
             Layout.fillWidth: true
         }
