@@ -119,6 +119,69 @@
     </message>
 </context>
 <context>
+    <name>BatteryConfigView</name>
+    <message>
+        <source>Could not save configuration. One of the parameters is invalid.</source>
+        <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Could not save configuration. The thing is not valid.</source>
+        <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Charge (+) / Discharge (-) Power</source>
+        <translation>Lade(+) / Entlade(-) Leistung</translation>
+    </message>
+    <message>
+        <source>Optimization enabled</source>
+        <translation>Optimierung aktiviert</translation>
+    </message>
+    <message>
+        <source>Charge once</source>
+        <translation>Einmalige Aufladung</translation>
+    </message>
+    <message>
+        <source>Price limit</source>
+        <translation>Preisschwelle</translation>
+    </message>
+    <message>
+        <source>Charging Plan</source>
+        <translation>Ladeplan</translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation>Keine Daten verfügbar</translation>
+    </message>
+    <message>
+        <source>No prices available, yet</source>
+        <translation>Noch keine Preise verfügbar</translation>
+    </message>
+    <message>
+        <source>ct/kWh</source>
+        <translation>ct/kWh</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>State of Charge</source>
+        <translation>Ladezustand</translation>
+    </message>
+    <message>
+        <source>Hint for using EPEX prices: The price contains no local fees and margin of electricity provider.</source>
+        <translation>Hinweis zur Verwendung des EPEX Preises: Der Preis enthält keine Netzgebühren und keinen Aufschlag des Stromanbieters.</translation>
+    </message>
+    <message>
+        <source>Current price</source>
+        <translation>Aktueller Preis</translation>
+    </message>
+    <message>
+        <source>Below price limit</source>
+        <translation>Preisschwelle unterschritten</translation>
+    </message>
+</context>
+<context>
     <name>BatteryLevel</name>
     <message>
         <source>BatteryLevel</source>
@@ -2160,13 +2223,18 @@
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;h3&gt;Die App wurde aktualisiert&lt;/h3&gt;
-            &lt;p&gt;Version 1.7.1 (11. Dezember 2024)&lt;/p&gt;
-            &lt;h4&gt;Verbesserungen&lt;/h4&gt;
-            &lt;ul&gt;
-                &lt;li&gt;Fix von verschiedenen Darstellungsfehlern&lt;/li&gt;
-                &lt;li&gt;Fix des Inkompatiblitätshinweis &lt;/li&gt;
-            &lt;/ul&gt;</translation>
+        <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
+&lt;p&gt;Version 1.8.0 (05. März 2025)&lt;/p&gt;
+&lt;h4&gt;Neu&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;Beladen des Batteriespeichers nach Preissignal&lt;/li&gt;
+        &lt;ul&gt;
+            &lt;li&gt;FoxEss H3 (noch nicht H3 Pro)&lt;/li&gt;
+            &lt;li&gt;QCells G3 / G4&lt;/li&gt;
+            &lt;li&gt;Solax X3&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;li&gt;Verschiedene Stabilitätsverbesserungen&lt;/li&gt;
+&lt;/ul&gt;</translation>
     </message>
     <message>
         <source>Your %1 is not set up yet.</source>

@@ -16,6 +16,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
     m_pvConfigurations = new PvConfigurations(this);
     m_heatingElementConfigurations = new HeatingElementConfigurations(this);
     m_dynamicElectricPricingConfigurations = new DynamicElectricPricingConfigurations(this);
+    m_batteryConfigurations = new BatteryConfigurations(this);
     m_chargingSessionConfigurations = new ChargingSessionConfigurations(this);
     m_conEMSState = new ConEMSState();
     m_userConfigurations = new UserConfigurations(this);
@@ -77,6 +78,7 @@ void HemsManager::setEngine(Engine *engine)
         m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingSessionConfigurations", QVariantMap(), this, "getChargingSessionConfigurationsResponse");
 
         m_engine->jsonRpcClient()->sendCommand("Hems.GetDynamicElectricPricingConfigurations", QVariantMap(), this, "getDynamicElectricPricingConfigurationResponse");
+        m_engine->jsonRpcClient()->sendCommand("Hems.GetBatteryConfigurations", QVariantMap(), this, "getBatteryConfigurationResponse");
 
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingRodConfigurations", QVariantMap(), this, "getHeatingElementConfigurationsResponse");
 
@@ -144,6 +146,11 @@ HeatingElementConfigurations *HemsManager::heatingElementConfigurations() const
 DynamicElectricPricingConfigurations *HemsManager::dynamicElectricPricingConfigurations() const
 {
     return m_dynamicElectricPricingConfigurations;
+}
+
+BatteryConfigurations *HemsManager::batteryConfigurations() const
+{
+    return m_batteryConfigurations;
 }
 
 ConEMSState *HemsManager::conEMSState() const
@@ -516,6 +523,45 @@ int HemsManager::setUserConfiguration(const QVariantMap &data){
     return  m_engine->jsonRpcClient()->sendCommand("Hems.SetUserConfiguration", params, this, "setUserConfigurationResponse");
 }
 
+int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVariantMap &data){
+
+    BatteryConfiguration *configuration = m_batteryConfigurations->getBatteryConfiguration(batteryThingId);
+    // if the configuration does not exist yet. Set up a dummy configuration
+    // This ensures that if the Thing does not exist that the program wont crash
+    if (!configuration){
+        qCWarning(dcHems()) << "Adding a dummy Config" << batteryThingId;
+        QVariantMap dummyConfig;
+        dummyConfig.insert("batteryThingId", batteryThingId);
+        dummyConfig.insert("optimizationEnabled", true);
+        dummyConfig.insert("priceThreshold", 0);
+        dummyConfig.insert("relativePriceEnabled", false);
+        dummyConfig.insert("chargeOnce", false);
+        dummyConfig.insert("controllableLocalSystem", false);
+
+        addOrUpdateBatteryConfiguration(dummyConfig);
+        // and get the dummy Config
+        configuration =  m_batteryConfigurations->getBatteryConfiguration(batteryThingId);
+    }
+
+    // Make a MetaObject of an configuration
+    const QMetaObject *metaObj = configuration->metaObject();
+    // add the values from data which match with the MetaObject
+    QVariantMap config;
+    for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
+        if(data.contains(metaObj->property(i).name()))
+        {
+            config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
+        }else{
+            config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
+        }
+    }
+
+    QVariantMap params;
+    params.insert("batteryConfiguration", config);
+    qCWarning(dcHems()) << "Set Battery configuration" << params;
+
+    return m_engine->jsonRpcClient()->sendCommand("Hems.SetBatteryConfiguration", params, this, "setBatteryConfigurationResponse");
+}
 
 // notification Handling -> atm mostly for added, removed, changed
 void HemsManager::notificationReceived(const QVariantMap &data)
@@ -588,6 +634,13 @@ void HemsManager::notificationReceived(const QVariantMap &data)
     } else if (notification == "Hems.ElectricConfigurationChanged") {
         addOrUpdateDynamicElectricPricingConfiguration(params.value("dynamicElectricPricingConfiguration").toMap());
 
+    } else if (notification == "Hems.BatteryConfigurationAdded") {
+        addOrUpdateBatteryConfiguration(params.value("batteryConfiguration").toMap());
+    } else if (notification == "Hems.BatteryConfigurationRemoved") {
+        qCDebug(dcHems()) << "Battery configuration removed" << params.value("batteryThingId").toUuid();
+        m_batteryConfigurations->removeConfiguration(params.value("batteryThingId").toUuid());
+    } else if (notification == "Hems.BatteryConfigurationChanged") {
+        addOrUpdateBatteryConfiguration(params.value("batteryConfiguration").toMap());
 
     } else if (notification == "Hems.PvConfigurationAdded") {
         addOrUpdatePvConfiguration(params.value("pvConfiguration").toMap());
@@ -643,6 +696,15 @@ void HemsManager::getDynamicElectricPricingConfigurationResponse(int commandId, 
     qCDebug(dcHems()) << "Electric configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("dynamicElectricPricingConfiguration").toList()) {
         addOrUpdateDynamicElectricPricingConfiguration(configurationVariant.toMap());
+    }
+}
+
+void HemsManager::getBatteryConfigurationResponse(int commandId, const QVariantMap &data)
+{
+
+    Q_UNUSED(commandId);
+    foreach (const QVariant &configurationVariant, data.value("batteryConfigurations").toList()) {
+        addOrUpdateBatteryConfiguration(configurationVariant.toMap());
     }
 }
 
@@ -730,9 +792,6 @@ void HemsManager::getUserConfigurationsResponse(int commandId, const QVariantMap
     }
 }
 
-
-
-
 void HemsManager::setHousholdPhaseLimitResponse(int commandId, const QVariantMap &data)
 {
     qCDebug(dcHems()) << "Set houshold phase limit response" << data.value("hemsError").toString();
@@ -750,6 +809,13 @@ void HemsManager::setDynamicElectricPricingConfigurationResponse(int commandId, 
     qCDebug(dcHems()) << "Set electric configuration response" << data.value("hemsError").toString();
     emit setDynamicElectricPricingConfigurationReply(commandId, data.value("hemsError").toString());
 }
+
+void HemsManager::setBatteryConfigurationResponse(int commandId, const QVariantMap &data)
+{
+    qCDebug(dcHems()) << "Set battery configuration response" << data.value("hemsError").toString();
+    emit setBatteryConfigurationReply(commandId, data.value("hemsError").toString());
+}
+
 
 void HemsManager::setPvConfigurationResponse(int commandId, const QVariantMap &data)
 {
@@ -856,6 +922,35 @@ void HemsManager::addOrUpdateDynamicElectricPricingConfiguration(const QVariantM
     } else {
         qCDebug(dcHems()) << "Electric configuration changed" << configuration->dynamicElectricPricingThingID();
 
+    }
+}
+
+void HemsManager::addOrUpdateBatteryConfiguration(const QVariantMap &configurationMap)
+{
+    qCDebug(dcHems()) << "add or Update Battery Config configurationMap: " << configurationMap;
+    QUuid batteryUuid = configurationMap.value("batteryThingId").toUuid();
+
+    BatteryConfiguration *configuration = m_batteryConfigurations->getBatteryConfiguration(batteryUuid);
+    bool newConfiguration = false;
+    if (!configuration) {
+        newConfiguration = true;
+        configuration = new BatteryConfiguration(this);
+        configuration->setBatteryThingId(batteryUuid);
+    }
+
+    configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
+    configuration->setPriceThreshold(configurationMap.value("priceThreshold").toFloat());
+    configuration->setRelativePriceEnabled(configurationMap.value("relativePriceEnabled").toBool());
+    configuration->setChargeOnce(configurationMap.value("chargeOnce").toBool());
+    configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
+
+    if (newConfiguration) {
+        qCDebug(dcHems()) << "Battery configuration added" << configuration->batteryThingId();
+        m_batteryConfigurations->addConfiguration(configuration);
+
+    } else {
+        qCDebug(dcHems()) << "Battery configuration changed" << configuration->batteryThingId();
+        emit batteryConfigurationChanged(configuration);
     }
 }
 

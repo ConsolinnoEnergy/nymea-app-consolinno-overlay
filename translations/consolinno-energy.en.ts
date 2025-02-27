@@ -119,6 +119,69 @@
     </message>
 </context>
 <context>
+    <name>BatteryConfigView</name>
+    <message>
+        <source>Could not save configuration. One of the parameters is invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not save configuration. The thing is not valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charge (+) / Discharge (-) Power</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optimization enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charge once</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Price limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging Plan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No prices available, yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ct/kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>State of Charge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hint for using EPEX prices: The price contains no local fees and margin of electricity provider.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Below price limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BatteryLevel</name>
     <message>
         <source>BatteryLevel</source>
@@ -2158,13 +2221,18 @@
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-            &lt;p&gt;Version 1.7.1 (December 11, 2024)&lt;/p&gt;
-            &lt;h4&gt;Improvements&lt;/h4&gt;
-            &lt;ul&gt;
-                &lt;li&gt;Fix various UI  issues&lt;/li&gt;
-                &lt;li&gt;Fix the incompatibility notice&lt;/li&gt;
-            &lt;/ul&gt;</translation>
+        <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
+&lt;p&gt;Version 1.8.0 (March 5, 2025)&lt;/p&gt;
+&lt;h4&gt;New&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;Battery storage charging based on price signals&lt;/li&gt;
+        &lt;ul&gt;
+            &lt;li&gt;FoxEss H3 (not yet H3 Pro)&lt;/li&gt;
+            &lt;li&gt;QCells G3 / G4&lt;/li&gt;
+            &lt;li&gt;Solax X3&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;li&gt;Various stability improvements&lt;/li&gt;
+&lt;/ul&gt;</translation>
     </message>
     <message>
         <source>Your %1 is not set up yet.</source>
