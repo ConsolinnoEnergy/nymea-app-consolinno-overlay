@@ -336,7 +336,7 @@ Item {
 
 
                     function calculateValue(entry) {
-                        return Math.max(0, -entry.production) - Math.max(0, -entry.acquisition) - Math.max(0, entry.storage)
+                        return Math.max(0, -entry.production) - (Math.max(0,entry.storage) - (Math.min(Math.max(0,entry.storage),Math.max(0,entry.acquisition)))) - Math.max(0,-entry.acquisition)
                     }
 
                     function addEntry(entry) {
@@ -359,7 +359,7 @@ Item {
 
 
                     function calculateValue(entry) {
-                        return selfConsumptionSeries.calculateValue(entry) + Math.max(0, entry.storage);
+                        return selfConsumptionSeries.calculateValue(entry) + Math.max(0,entry.storage) - Math.min(Math.max(0,entry.storage),Math.max(0,entry.acquisition));
                     }
 
                     function addEntry(entry) {
@@ -546,7 +546,7 @@ Item {
                                 Component.onCompleted: lowerSeries = selfConsumptionSeries.lowerSeries
                                 property XYSeries lowerSeries: null
 
-                                property double value: toolTip.entry ? Math.min(Math.max(0, toolTip.entry.consumption), -toolTip.entry.production) : 0
+                                property double value: Math.max(0, -toolTip.entry.production) - (Math.max(0,toolTip.entry.storage) - (Math.min(Math.max(0,toolTip.entry.storage),Math.max(0,toolTip.entry.acquisition)))) - Math.max(0,-toolTip.entry.acquisition)
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
                                 text: qsTr("Consumed: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
@@ -566,7 +566,7 @@ Item {
                                 Component.onCompleted: lowerSeries = storageSeries.lowerSeries
                                 property XYSeries lowerSeries: null
 
-                                property double value: toolTip.entry ? Math.max(0, toolTip.entry.storage) : 0
+                                property double value: toolTip.entry ? Math.max(0, toolTip.entry.storage) - Math.min(Math.max(0,toolTip.entry.storage),Math.max(0,toolTip.entry.acquisition)): 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
                                 text: qsTr("To battery: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")

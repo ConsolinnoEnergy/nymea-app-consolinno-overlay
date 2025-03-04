@@ -92,10 +92,11 @@ Item {
                 productionSeries.insertEntry(index + i, entry)
                 consumptionSeries.insertEntry(index + i, entry)
                 selfProductionConsumptionSeries.insertEntry(index + i, entry)
-                toStorageSeries.insertEntry(index + i, entry)
                 fromStorageSeries.insertEntry(index + i, entry)
-                returnSeries.insertEntry(index + i, entry)
                 acquisitionSeries.insertEntry(index + i, entry)
+                returnSeries.insertEntry(index + i, entry)
+                toStorageSeries.insertEntry(index + i, entry)
+                selfConsumptionSeries.insertEntry(index + i, entry)
                 if (entry.timestamp > d.now && new Date().getTime() - d.now.getTime() < 120000) {
                     d.now = entry.timestamp
                 }
@@ -103,11 +104,12 @@ Item {
         }
 
         onEntriesRemoved: {
-            acquisitionUpperSeries.removePoints(index, count)
             returnUpperSeries.removePoints(index, count)
-            fromStorageUpperSeries.removePoints(index, count)
             toStorageUpperSeries.removePoints(index, count)
-            selfProductionConsumptionUpperSeries.removePoints(index, count)
+            selfConsumptionUpperSeries.removePoints(index, count)
+            acquisitionUpperSeries.removePoints(index, count)
+            fromStorageUpperSeries.removePoints(index, count)
+            selfProductionUpperSeries.removePoints(index, count)
             productionSeries.removePoints(index, count)
             consumptionSeries.removePoints(index, count)
             zeroSeries.shrink()
@@ -281,15 +283,98 @@ Item {
                     labelsColor: Style.foregroundColor
                 }
 
+
+                AreaSeries {
+                    id: selfConsumptionSeries
+                    axisX: dateTimeAxis
+                    axisY: valueAxis
+                    color: Configuration.consumedColor
+                    borderWidth: 0
+                    borderColor: "#00000000"
+                    name: qsTr("Consumed")
+            //        visible: false
+                    lowerSeries: zeroSeries
+                    upperSeries: LineSeries {
+                        id: selfConsumptionUpperSeries
+                    }
+
+
+                    function calculateValue(entry) {
+                        return Math.max(0, -entry.production) + entry.acquisition - entry.storage
+                    }
+
+                    function addEntry(entry) {
+                        selfConsumptionUpperSeries.append(entry.timestamp.getTime(), calculateValue(entry))
+                    }
+                    function insertEntry(index, entry) {
+                        selfConsumptionUpperSeries.insert(index, entry.timestamp.getTime(), calculateValue(entry))
+                    }
+                }
+
+                AreaSeries {
+                    id: toStorageSeries
+                    axisX: dateTimeAxis
+                    axisY: valueAxis
+                    color: totalColors[4]
+                    borderWidth: 0
+                    borderColor: "#00000000"
+                    name: qsTr("To battery")
+
+
+                    function calculateValue(entry) {
+                        return selfConsumptionSeries.calculateValue(entry) + Math.max(0,entry.storage);
+                    }
+
+                    function addEntry(entry) {
+                        toStorageUpperSeries.append(entry.timestamp.getTime(), calculateValue(entry))
+                    }
+                    function insertEntry(index, entry) {
+                        toStorageUpperSeries.insert(index, entry.timestamp.getTime(), calculateValue(entry))
+                    }
+
+                    lowerSeries: selfConsumptionUpperSeries
+                    upperSeries: LineSeries {
+                        id: toStorageUpperSeries
+                    }
+                }
+
+
+                AreaSeries {
+                    id: returnSeries
+                    axisX: dateTimeAxis
+                    axisY: valueAxis
+                    color: totalColors[3]
+                    borderWidth: 0
+                    borderColor: "#00000000"
+                    name: qsTr("To grid")
+            //        visible: false
+
+
+                    function calculateValue(entry) {
+                        return toStorageSeries.calculateValue(entry) + Math.max(0, -entry.acquisition)
+                    }
+                    function addEntry(entry) {
+                        returnUpperSeries.append(entry.timestamp.getTime(), calculateValue(entry))
+                    }
+                    function insertEntry(index, entry) {
+                        returnUpperSeries.insert(index, entry.timestamp.getTime(), calculateValue(entry))
+                    }
+
+                    lowerSeries: toStorageUpperSeries
+                    upperSeries: LineSeries {
+                        id: returnUpperSeries
+                    }
+                }
+
                 AreaSeries {
                     id: selfProductionConsumptionSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
                     color: Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : totalColors[1]
 //                    borderWidth: 2
-                    borderColor: null
+                    borderColor: "#00000000"
                     name: qsTr("From PV")
-                    opacity: d.selectedSeries == null || d.selectedSeries == selfProductionConsumptionSeries ? 1 : 0.3
+                    opacity: d.selectedSeries == null || d.selectedSeries == selfProductionConsumptionSeries ? 1 : 0
             //        visible: false
 
                     onClicked: d.selectedSeries(selfProductionConsumptionSeries)
@@ -326,78 +411,19 @@ Item {
                     }
 
                     upperSeries: LineSeries {
-                        id: selfProductionConsumptionUpperSeries
+                        id: selfProductionUpperSeries
                     }
 
 
                     function calculateValue(entry) {
-                        return Math.max(0, -entry.production) - Math.max(0, -entry.acquisition) - Math.max(0, entry.storage)
+                        return Math.max(0, -entry.production)
                     }
 
                     function addEntry(entry) {
-                        selfProductionConsumptionUpperSeries.append(entry.timestamp.getTime(), calculateValue(entry))
+                        selfProductionUpperSeries.append(entry.timestamp.getTime(), calculateValue(entry))
                     }
                     function insertEntry(index, entry) {
-                        selfProductionConsumptionUpperSeries.insert(index, entry.timestamp.getTime(), calculateValue(entry))
-                    }
-                }
-
-                AreaSeries {
-                    id: toStorageSeries
-                    axisX: dateTimeAxis
-                    axisY: valueAxis
-                    color: Configuration.customColor && Configuration.customBatteryPlusColor !== "" ? Configuration.customBatteryPlusColor : totalColors[4]
-                    borderWidth: 0
-                    borderColor: null
-                    opacity: d.selectedSeries == null || d.selectedSeries == toStorageSeries ? 1 : 0.3
-                    visible: root.batteries.count > 0
-                    name: qsTr("To battery")
-
-                    onClicked: d.selectSeries(toStorageSeries)
-
-                    function calculateValue(entry) {
-                        return selfProductionConsumptionSeries.calculateValue(entry) + Math.max(0, entry.storage);
-                    }
-
-                    function addEntry(entry) {
-                        toStorageUpperSeries.append(entry.timestamp.getTime(), calculateValue(entry))
-                    }
-                    function insertEntry(index, entry) {
-                        toStorageUpperSeries.insert(index, entry.timestamp.getTime(), calculateValue(entry))
-                    }
-
-                    lowerSeries: selfProductionConsumptionUpperSeries
-                    upperSeries: LineSeries {
-                        id: toStorageUpperSeries
-                    }
-                }
-
-                AreaSeries {
-                    id: returnSeries
-                    axisX: dateTimeAxis
-                    axisY: valueAxis
-                    color: Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
-                    borderWidth: 0
-                    borderColor: null
-                    name: qsTr("To grid")
-                    opacity: d.selectedSeries == null || d.selectedSeries == returnSeries ? 1 : 0.3
-            //        visible: false
-
-                    onClicked: d.selectSeries(returnSeries)
-
-                    function calculateValue(entry) {
-                        return toStorageSeries.calculateValue(entry) + Math.max(0, -entry.acquisition)
-                    }
-                    function addEntry(entry) {
-                        returnUpperSeries.append(entry.timestamp.getTime(), calculateValue(entry))
-                    }
-                    function insertEntry(index, entry) {
-                        returnUpperSeries.insert(index, entry.timestamp.getTime(), calculateValue(entry))
-                    }
-
-                    lowerSeries: toStorageUpperSeries
-                    upperSeries: LineSeries {
-                        id: returnUpperSeries
+                        selfProductionUpperSeries.insert(index, entry.timestamp.getTime(), calculateValue(entry))
                     }
                 }
 
@@ -407,19 +433,18 @@ Item {
                     axisY: valueAxis
                     color: Configuration.customColor && Configuration.customBatteryMinusColor !== "" ? Configuration.customBatteryMinusColor : totalColors[5]
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "#00000000"
                     name: qsTr("From battery")
-                    opacity: d.selectedSeries == null || d.selectedSeries == fromStorageSeries ? 1 : 0.3
-                    visible: root.batteries.count > 0
+                    opacity: d.selectedSeries == null || d.selectedSeries == selfProductionConsumptionSeries ? 1 : 0
 
-                    onClicked: d.selectSeries(fromStorageSeries)
-                    lowerSeries: selfProductionConsumptionUpperSeries
+                    onClicked: d.selectSeries(selfProductionConsumptionSeries)
+                    lowerSeries: selfProductionUpperSeries
                     upperSeries: LineSeries {
                         id: fromStorageUpperSeries
                     }
 
                     function calculateValue(entry) {
-                        return selfProductionConsumptionSeries.calculateValue(entry) + Math.abs(Math.min(0, entry.storage));
+                        return selfProductionConsumptionSeries.calculateValue(entry) + (Math.max(0, -entry.storage));
                     }
 
                     function addEntry(entry) {
@@ -436,12 +461,12 @@ Item {
                     axisY: valueAxis
                     color: Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2]
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "#00000000"
                     name: qsTr("From grid")
-                    opacity: d.selectedSeries == null || d.selectedSeries == acquisitionSeries ? 1 : 0.3
+                    opacity: d.selectedSeries == null || d.selectedSeries == selfProductionConsumptionSeries ? 1 : 0
             //      visible: false
 
-                    onClicked: d.selectSeries(acquisitionSeries)
+                    onClicked: d.selectSeries(selfProductionConsumptionSeries)
 
                     lowerSeries: fromStorageUpperSeries
                     upperSeries: LineSeries {
@@ -458,6 +483,7 @@ Item {
                         acquisitionUpperSeries.insert(index, entry.timestamp.getTime(), calculateValue(entry))
                     }
                 }
+
 
                 LineSeries {
                     id: productionSeries
@@ -985,13 +1011,10 @@ Item {
                         Label {
                             Layout.fillWidth: true
                             elide: Text.ElideRight
-                            property double value: toolTip.entry
-                                                   ? (toolTip.entry.acquisition >= 0 ? toolTip.entry.consumption : Math.max(0, -toolTip.entry.production))
-                                                   : 0
+                            property double value: Math.max(0,toolTip.entry.acquisition) - toolTip.entry.production + Math.abs(Math.min(0, toolTip.entry.storage))
                             property bool translate: value >= 1000
                             property double translatedValue: value / (translate ? 1000 : 1)
-                            text: toolTip.entry.acquisition >= 0 ? qsTr("Consumed: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
-                                                                 : qsTr("Produced: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
+                            text: qsTr("System Energy: %1 kW").arg((value / 1000).toFixed(2))
                             font: Style.smallFont
                         }
 //                        Label {
@@ -1038,11 +1061,31 @@ Item {
                                 Component.onCompleted: lowerSeries = selfProductionConsumptionSeries.lowerSeries
                                 property XYSeries lowerSeries: null
 
+                                property double value: -toolTip.entry.production
+                                property bool translate: value >= 1000
+                                property double translatedValue: value / (translate ? 1000 : 1)
+                                text: qsTr("From self production: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
+                                font: Style.extraSmallFont
+                            }
+                        }
+                        RowLayout {
+                            Rectangle {
+                                width: Style.extraSmallFont.pixelSize
+                                height: width
+                                color: Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : totalColors[1]
+                            }
+
+                            Label {
+                                Layout.fillWidth: true
+                                elide: Text.ElideRight
+                                // Workaround for Qt bug that lowerSeries is non-notifyable and throws warnings
+                                Component.onCompleted: lowerSeries = selfProductionConsumptionSeries.lowerSeries
+                                property XYSeries lowerSeries: null
+
                                 property double value: toolTip.entry ? Math.min(Math.max(0, toolTip.entry.consumption), -toolTip.entry.production) : 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
-                                text: toolTip.entry.acquisition >= 0 ? qsTr("From self production: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
-                                                                     : qsTr("Consumed: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
+                                text: toolTip.entry.acquisition - toolTip.entry.storage >= 0 ? qsTr("Consumed: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W") : ""
                                 font: Style.extraSmallFont
                             }
                         }

@@ -264,7 +264,7 @@ Item {
                 }
 
                 // For debugging, to see the total graph and check if the other maths line up
-                AreaSeries {
+                    AreaSeries {
                     id: consumptionSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
@@ -274,10 +274,6 @@ Item {
                     opacity: .5
                     visible: false
 
-                    lowerSeries: zeroSeries
-                    upperSeries: LineSeries {
-                        id: consumptionUpperSeries
-                    }
 
                     function calculateValue(entry) {
                         return entry.consumption
@@ -288,8 +284,13 @@ Item {
                     function insertEntry(index, entry) {
                         consumptionUpperSeries.insert(index, entry.timestamp.getTime(), calculateValue(entry))
                     }
-                }
 
+                    lowerSeries: zeroSeries
+                    upperSeries: LineSeries {
+                        id: consumptionUpperSeries
+                    }
+                }
+ 
 
                 AreaSeries {
                     id: selfProductionSeries
@@ -301,6 +302,18 @@ Item {
                     name: qsTr("From PV")
             //      visible: false
 
+
+                    function calculateValue(entry) {
+                        return Math.max(0,-entry.production) - (Math.max(0,entry.storage) - (Math.min(Math.max(0,entry.storage),Math.max(0,entry.acquisition)))) - Math.max(0,-entry.acquisition);
+                    }
+
+                    function addEntry(entry) {
+                        selfProductionUpperSeries.append(entry.timestamp.getTime(), calculateValue(entry))
+                        selfProductionSeries.lowerSeries.append(entry.timestamp.getTime(), previousLowerValue);
+                    }
+                    function insertEntry(index, entry) {
+                        selfProductionUpperSeries.insert(index, entry.timestamp.getTime(), calculateValue(entry))
+                    }
                     lowerSeries: LineSeries {
                         id: zeroSeries
                         XYPoint { x: dateTimeAxis.min.getTime(); y: 0 }
@@ -336,21 +349,6 @@ Item {
                     upperSeries: LineSeries {
                         id: selfProductionUpperSeries
                     }
-
-                    function calculateValue(entry) {
-                        var value = entry.consumption - Math.max(0, entry.acquisition);
-                        if (entry.storage < 0) {
-                            value += entry.storage;
-                        }
-                        return value;
-                    }
-
-                    function addEntry(entry) {
-                        selfProductionUpperSeries.append(entry.timestamp.getTime(), calculateValue(entry))
-                    }
-                    function insertEntry(index, entry) {
-                        selfProductionUpperSeries.insert(index, entry.timestamp.getTime(), calculateValue(entry))
-                    }
                 }
 
                 AreaSeries {
@@ -361,12 +359,7 @@ Item {
                     borderWidth: 0
                     borderColor: null
                     name: qsTr("From Battery")
-                    visible: root.batteries.count > 0
 
-                    lowerSeries: selfProductionUpperSeries
-                    upperSeries: LineSeries {
-                        id: storageUpperSeries
-                    }
 
                     function calculateValue(entry) {
                         return selfProductionSeries.calculateValue(entry) + Math.abs(Math.min(0, entry.storage));
@@ -377,6 +370,10 @@ Item {
                     }
                     function insertEntry(index, entry) {
                         storageUpperSeries.insert(index, entry.timestamp.getTime(), calculateValue(entry))
+                    }
+                    lowerSeries: selfProductionUpperSeries
+                    upperSeries: LineSeries {
+                        id: storageUpperSeries
                     }
                 }
 
@@ -391,19 +388,21 @@ Item {
                     name: qsTr("From grid")
             //      visible: false
 
-                    lowerSeries: storageUpperSeries
-                    upperSeries: LineSeries {
-                        id: acquisitionUpperSeries
-                    }
 
                     function calculateValue(entry) {
-                        return storageSeries.calculateValue(entry) + Math.max(0, entry.acquisition)
+                        return storageSeries.calculateValue(entry) + Math.max(0, entry.acquisition) - Math.min(Math.max(0, entry.storage),Math.max(0,entry.acquisition));
                     }
                     function addEntry(entry) {
                         acquisitionUpperSeries.append(entry.timestamp.getTime(), calculateValue(entry))
                     }
+
                     function insertEntry(index, entry) {
                         acquisitionUpperSeries.insert(index, entry.timestamp.getTime(), calculateValue(entry))
+                    }
+
+                    lowerSeries: storageUpperSeries
+                    upperSeries: LineSeries {
+                        id: acquisitionUpperSeries
                     }
                 }
             }
@@ -535,7 +534,7 @@ Item {
                         }
 
                         Label {
-                            property double value: toolTip.entry ? Math.max(0, toolTip.entry.consumption) : 0
+                            property double value: toolTip.entry ? Math.max(0,-toolTip.entry.production) - toolTip.entry.storage + toolTip.entry.acquisition : 0
                             property bool translate: value >= 1000
                             property double translatedValue: value / (translate ? 1000 : 1)
                             text: qsTr("Total consumption: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
@@ -554,7 +553,7 @@ Item {
                                 Component.onCompleted: lowerSeries = selfProductionSeries.lowerSeries
                                 property XYSeries lowerSeries: null
 
-                                property double value: toolTip.entry ? Math.max(0, -toolTip.entry.production) : 0
+                                property double value: Math.max(0,-toolTip.entry.production) - (Math.max(0,toolTip.entry.storage) - (Math.min(Math.max(0,toolTip.entry.storage),Math.max(0,toolTip.entry.acquisition))))- Math.max(0,-toolTip.entry.acquisition);
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
                                 text: qsTr("From PV: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
@@ -574,7 +573,7 @@ Item {
                                 Component.onCompleted: lowerSeries = storageSeries.lowerSeries
                                 property XYSeries lowerSeries: null
 
-                                property double value: toolTip.entry ? Math.max(0, -toolTip.entry.storage) : 0
+                                property double value: Math.abs(Math.min(0, toolTip.entry.storage));
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
                                 text: qsTr("From battery: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
@@ -593,7 +592,7 @@ Item {
                                 Component.onCompleted: lowerSeries = acquisitionSeries.lowerSeries
                                 property XYSeries lowerSeries: null
 
-                                property double value: toolTip.entry ? Math.max(0, toolTip.entry.acquisition) : 0
+                                property double value: Math.max(0, toolTip.entry.acquisition) - Math.min(Math.max(0, toolTip.entry.storage),Math.max(0,toolTip.entry.acquisition));
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
                                 text: qsTr("From grid: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
