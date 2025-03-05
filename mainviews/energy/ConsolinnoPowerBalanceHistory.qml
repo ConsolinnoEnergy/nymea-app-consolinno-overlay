@@ -89,7 +89,6 @@ Item {
 
                 zeroSeries.ensureValue(entry.timestamp)
                 // For debugging, to see if the other maths line up with the plain production graph
-                productionSeries.insertEntry(index + i, entry)
                 consumptionSeries.insertEntry(index + i, entry)
                 selfProductionConsumptionSeries.insertEntry(index + i, entry)
                 fromStorageSeries.insertEntry(index + i, entry)
@@ -110,7 +109,6 @@ Item {
             acquisitionUpperSeries.removePoints(index, count)
             fromStorageUpperSeries.removePoints(index, count)
             selfProductionUpperSeries.removePoints(index, count)
-            productionSeries.removePoints(index, count)
             consumptionSeries.removePoints(index, count)
             zeroSeries.shrink()
         }
@@ -370,16 +368,22 @@ Item {
                     id: selfProductionConsumptionSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : totalColors[1]
-//                    borderWidth: 2
-                    borderColor: "#00000000"
+                    color: Qt.rgba(
+                        (totalColors[1]).r,
+                        (totalColors[1]).g,
+                        (totalColors[1]).b,
+                        (d.selectedSeries == null || d.selectedSeries == selfProductionConsumptionSeries) ? 1 : 0// Only change fill opacity
+                    )
+                    borderWidth: 2
+                    borderColor: totalColors[1]
                     name: qsTr("From PV")
-                    opacity: d.selectedSeries == null || d.selectedSeries == selfProductionConsumptionSeries ? 1 : 0
+                    //opacity: d.selectedSeries == null || d.selectedSeries == selfProductionConsumptionSeries ? 1 : 0
             //        visible: false
 
                     onClicked: d.selectedSeries(selfProductionConsumptionSeries)
                     lowerSeries: LineSeries {
                         id: zeroSeries
+                        visible: false
                         XYPoint { x: dateTimeAxis.min.getTime(); y: 0 }
                         XYPoint { x: dateTimeAxis.max.getTime(); y: 0 }
                         function ensureValue(timestamp) {
@@ -431,11 +435,14 @@ Item {
                     id: fromStorageSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: Configuration.customColor && Configuration.customBatteryMinusColor !== "" ? Configuration.customBatteryMinusColor : totalColors[5]
-                    borderWidth: 0
-                    borderColor: "#00000000"
+                    color: Qt.rgba(
+                        (totalColors[5]).r,
+                        (totalColors[5]).g,
+                        (totalColors[5]).b,
+                        (d.selectedSeries == null || d.selectedSeries == selfProductionConsumptionSeries) ? 1 : 0 // Only change fill opacity
+                    )
+                    borderColor: totalColors[5]
                     name: qsTr("From battery")
-                    opacity: d.selectedSeries == null || d.selectedSeries == selfProductionConsumptionSeries ? 1 : 0
 
                     onClicked: d.selectSeries(selfProductionConsumptionSeries)
                     lowerSeries: selfProductionUpperSeries
@@ -459,11 +466,15 @@ Item {
                     id: acquisitionSeries
                     axisX: dateTimeAxis
                     axisY: valueAxis
-                    color: Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2]
+                    color: Qt.rgba(
+                        (totalColors[2]).r,
+                        (totalColors[2]).g,
+                        (totalColors[2]).b,
+                        (d.selectedSeries == null || d.selectedSeries == selfProductionConsumptionSeries) ? 1 : 0 // Only change fill opacity
+                    )
                     borderWidth: 0
-                    borderColor: "#00000000"
+                    borderColor: totalColors[2]
                     name: qsTr("From grid")
-                    opacity: d.selectedSeries == null || d.selectedSeries == selfProductionConsumptionSeries ? 1 : 0
             //      visible: false
 
                     onClicked: d.selectSeries(selfProductionConsumptionSeries)
@@ -485,24 +496,6 @@ Item {
                 }
 
 
-                LineSeries {
-                    id: productionSeries
-                    axisX: dateTimeAxis
-                    axisY: valueAxis
-                    color: Style.white
-                    width: 1
-                    name: "Total production"
-
-                    function calculateValue(entry) {
-                        return Math.abs(Math.min(0, entry.production))
-                    }
-                    function addEntry(entry) {
-                        append(entry.timestamp.getTime(), calculateValue(entry))
-                    }
-                    function insertEntry(index, entry) {
-                        insert(index, entry.timestamp.getTime(), calculateValue(entry))
-                    }
-                }
 
                 LineSeries {
                     id: consumptionSeries
@@ -1069,27 +1062,6 @@ Item {
                             }
                         }
                         RowLayout {
-                            Rectangle {
-                                width: Style.extraSmallFont.pixelSize
-                                height: width
-                                color: Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : totalColors[1]
-                            }
-
-                            Label {
-                                Layout.fillWidth: true
-                                elide: Text.ElideRight
-                                // Workaround for Qt bug that lowerSeries is non-notifyable and throws warnings
-                                Component.onCompleted: lowerSeries = selfProductionConsumptionSeries.lowerSeries
-                                property XYSeries lowerSeries: null
-
-                                property double value: toolTip.entry ? Math.min(Math.max(0, toolTip.entry.consumption), -toolTip.entry.production) : 0
-                                property bool translate: value >= 1000
-                                property double translatedValue: value / (translate ? 1000 : 1)
-                                text: toolTip.entry.acquisition - toolTip.entry.storage >= 0 ? qsTr("Consumed: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W") : ""
-                                font: Style.extraSmallFont
-                            }
-                        }
-                        RowLayout {
                             visible: root.batteries.count > 0
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
@@ -1109,6 +1081,27 @@ Item {
                                 property double translatedValue: value / (translate ? 1000 : 1)
                                 text: toolTip.entry.storage > 0 ? qsTr("To battery: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W") :
                                                                     qsTr("From battery: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
+                                font: Style.extraSmallFont
+                            }
+                        }
+                        RowLayout {
+                            Rectangle {
+                                width: Style.extraSmallFont.pixelSize
+                                height: width
+                                color: Configuration.consumedColor
+                            }
+
+                            Label {
+                                Layout.fillWidth: true
+                                elide: Text.ElideRight
+                                // Workaround for Qt bug that lowerSeries is non-notifyable and throws warnings
+                                Component.onCompleted: lowerSeries = selfProductionConsumptionSeries.lowerSeries
+                                property XYSeries lowerSeries: null
+
+                                property double value: toolTip.entry ? Math.max(0, -toolTip.entry.production) + toolTip.entry.acquisition - toolTip.entry.storage : 0
+                                property bool translate: value >= 1000
+                                property double translatedValue: value / (translate ? 1000 : 1)
+                                text: toolTip.entry.acquisition - toolTip.entry.storage >= 0 ? qsTr("Consumed: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W") : ""
                                 font: Style.extraSmallFont
                             }
                         }
