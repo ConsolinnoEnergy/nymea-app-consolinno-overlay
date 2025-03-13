@@ -163,7 +163,7 @@ GenericConfigPage {
                     height: description.height + 10
                     Layout.alignment: Qt.AlignRight
 
-                    color: batteryChargingState.value === "charging" ? "green" : batteryChargingState.value === "discharging" ? "red" : "grey"
+                    color: batteryChargingState.value === "charging" ? Configuration.batteriesColor : batteryChargingState.value === "discharging" ? Configuration.batteryDischargeColor : Configuration.batteryIdleColor
                     radius: width*0.1
 
                     Label {

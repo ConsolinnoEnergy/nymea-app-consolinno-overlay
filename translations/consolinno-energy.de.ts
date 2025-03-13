@@ -181,11 +181,11 @@
     </message>
     <message>
         <source>Charging</source>
-        <translation>Laden</translation>
+        <translation>Lädt</translation>
     </message>
     <message>
         <source>Discharging</source>
-        <translation>Entladen</translation>
+        <translation>Entlädt</translation>
     </message>
     <message>
         <source>Idle</source>

@@ -184,7 +184,7 @@ GenericConfigPage {
                         if (root.isDischarging) {
                             return Configuration.batteryDischargeColor
                         }
-                        return Configuration.batteriesColor
+                        return Configuration.batteryIdleColor
                     }
                     if (root.isEnergyMeter)
                         return root.currentPowerState.value < 0 ? Configuration.rootMeterReturnColor : Configuration.rootMeterAcquisitionColor
