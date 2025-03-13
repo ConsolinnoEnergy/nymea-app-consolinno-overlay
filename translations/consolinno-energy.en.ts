@@ -2,6 +2,17 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
+    <name>ActivateInstantChargingInfo</name>
+    <message>
+        <source>Activate instant charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If the function is activated, the battery is charged once with the maximum charging current from the grid, regardless of the PV surplus or current electricity price. No discharging takes place during the charging process.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AddGenericCar</name>
     <message>
         <source>Add new car</source>
@@ -129,18 +140,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Charge (+) / Discharge (-) Power</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Optimization enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Charge once</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Price limit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -169,15 +168,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hint for using EPEX prices: The price contains no local fees and margin of electricity provider.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Current price</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Below price limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Discharging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Idle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Power</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging from grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tariff-guided charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate instant charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prices represent the pure exchange price without taxes and fees.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3822,6 +3853,25 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Maximum charging limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TariffGuidedChargingInfo</name>
+    <message>
+        <source>Tariff guided charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The battery is charged from the grid as soon as the price falls below the price limit.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It is advisable to choose a price limit below 0 cents. If the electricity exchange price falls below 0 cents, this means that there is surplus electricity in the grid. By charging your battery at these times, you can use this cheap electricity and consume it when electricity is more expensive.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In winter, when little to no PV electricity is expected, it can also make sense to charge at a higher price limit. Please note, however, that taxes and fees are added to the exchange price.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

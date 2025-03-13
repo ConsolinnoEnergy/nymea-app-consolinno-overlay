@@ -2,6 +2,17 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
+    <name>ActivateInstantChargingInfo</name>
+    <message>
+        <source>Activate instant charging</source>
+        <translation>Sofortladen aktivieren</translation>
+    </message>
+    <message>
+        <source>If the function is activated, the battery is charged once with the maximum charging current from the grid, regardless of the PV surplus or current electricity price. No discharging takes place during the charging process.</source>
+        <translation>Wird die Funktion aktiviert, wird die Batterie einmalig mit maximalem Ladestrom aus dem Netz geladen unabhängig von PV-Überschuss oder aktuellen Strompreis. Während des Ladevorgangs findet kein Entladen statt.</translation>
+    </message>
+</context>
+<context>
     <name>AddGenericCar</name>
     <message>
         <source>Add new car</source>
@@ -129,20 +140,8 @@
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <source>Charge (+) / Discharge (-) Power</source>
-        <translation>Lade(+) / Entlade(-) Leistung</translation>
-    </message>
-    <message>
-        <source>Optimization enabled</source>
-        <translation>Optimierung aktiviert</translation>
-    </message>
-    <message>
-        <source>Charge once</source>
-        <translation>Einmalige Aufladung</translation>
-    </message>
-    <message>
         <source>Price limit</source>
-        <translation>Preisschwelle</translation>
+        <translation>Preisgrenze</translation>
     </message>
     <message>
         <source>Charging Plan</source>
@@ -169,16 +168,48 @@
         <translation>Ladezustand</translation>
     </message>
     <message>
-        <source>Hint for using EPEX prices: The price contains no local fees and margin of electricity provider.</source>
-        <translation>Hinweis zur Verwendung des EPEX Preises: Der Preis enthält keine Netzgebühren und keinen Aufschlag des Stromanbieters.</translation>
-    </message>
-    <message>
         <source>Current price</source>
         <translation>Aktueller Preis</translation>
     </message>
     <message>
         <source>Below price limit</source>
         <translation>Preisschwelle unterschritten</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
+        <source>Charging</source>
+        <translation>Laden</translation>
+    </message>
+    <message>
+        <source>Discharging</source>
+        <translation>Entladen</translation>
+    </message>
+    <message>
+        <source>Idle</source>
+        <translation>Leerlauf</translation>
+    </message>
+    <message>
+        <source>Power</source>
+        <translation>Leistung</translation>
+    </message>
+    <message>
+        <source>Charging from grid</source>
+        <translation>Beladen aus dem Netz</translation>
+    </message>
+    <message>
+        <source>Tariff-guided charging</source>
+        <translation>Tarifgesteuertes Laden</translation>
+    </message>
+    <message>
+        <source>Activate instant charging</source>
+        <translation>Sofortladen aktivieren</translation>
+    </message>
+    <message>
+        <source>Prices represent the pure exchange price without taxes and fees.</source>
+        <translation>Preise entsprechen reinem Börsenpreis ohne Steuern und Abgaben.</translation>
     </message>
 </context>
 <context>
@@ -3840,6 +3871,25 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Maximum charging limit</source>
         <translation>Maximales Ladelimit</translation>
+    </message>
+</context>
+<context>
+    <name>TariffGuidedChargingInfo</name>
+    <message>
+        <source>Tariff guided charging</source>
+        <translation>Tarifgesteuertes Laden</translation>
+    </message>
+    <message>
+        <source>The battery is charged from the grid as soon as the price falls below the price limit.</source>
+        <translation>Die Batterie wird aus dem Netz geladen, sobald die Preisgrenze unterschritten wird.</translation>
+    </message>
+    <message>
+        <source>It is advisable to choose a price limit below 0 cents. If the electricity exchange price falls below 0 cents, this means that there is surplus electricity in the grid. By charging your battery at these times, you can use this cheap electricity and consume it when electricity is more expensive.</source>
+        <translation type="unfinished">Es empfiehlt sich eine Preisgrenze unter 0 ct zu wählen. Wenn der Börsenstrompreis unter 0 Cent fällt, bedeutet das, dass überschüssiger Strom im Netz vorhanden ist. Durch das Laden Ihrer Batterie zu diesen Zeiten nutzen Sie diesen günstigen Strom und können ihn verbrauchen, wenn der Strom teurer ist.</translation>
+    </message>
+    <message>
+        <source>In winter, when little to no PV electricity is expected, it can also make sense to charge at a higher price limit. Please note, however, that taxes and fees are added to the exchange price.</source>
+        <translation>Im Winter, wenn wenig bis kein PV-Strom zu erwarten ist, kann es auch sinnvoll sein bei einer höheren Preisgrenze zu laden. Beachten Sie aber das zum Börsenpreis noch Steuern und Abgaben hinzukommen.</translation>
     </message>
 </context>
 <context>
