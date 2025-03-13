@@ -1496,8 +1496,9 @@ MainViewBase {
                             thing: batteries.get(index)
                             onClicked: {
                                 print("Clicked battery", index, thing.name)
-                                pageStack.push(
-                                            "/ui/optimization/BatteryConfigView.qml",
+                                let noDynPrice = electrics.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 1 ? "/ui/optimization/BatteryConfigView.qml" : "/ui/devicepages/GenericSmartDeviceMeterPage.qml"
+                                let batteryView = thing.thingClass.interfaces.indexOf("controllablebattery") >= 1 ? "/ui/optimization/BatteryConfigView.qml" : "/ui/devicepages/GenericSmartDeviceMeterPage.qml"
+                                pageStack.push((noDynPrice || batteryView),
                                             {
                                                 "hemsManager": hemsManager,
                                                 "thing": thing
