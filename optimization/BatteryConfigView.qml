@@ -258,7 +258,7 @@ GenericConfigPage {
             // Charge once
             RowLayout {
                 Layout.topMargin: 5
-
+                visible: optimizationController.checked
                 Label {
                     text: qsTr("Activate instant charging")
                     color: "#194D25"
