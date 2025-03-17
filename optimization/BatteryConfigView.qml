@@ -26,6 +26,9 @@ GenericConfigPage {
 
     property double currentValue : batteryConfiguration.priceThreshold 
     property double thresholdPrice: 0
+    property double valueAxisUpdate: {
+        (0 > lowestPrice) ? valueAxisUpdate = lowestPrice :  valueAxisUpdate = -2
+    }
 
     property int validSince: 0
     property int validUntil: 0
@@ -384,6 +387,13 @@ GenericConfigPage {
                             onValueChanged: {
                                 currentValue = Math.round(value * 100) / 1000
                                 parent.redrawChart();
+
+                                console.error(valueAxisUpdate)
+                                if((valueAxisUpdate * 10) == spinbox.value){
+                                    valueAxisUpdate = valueAxisUpdate - 2;
+                                    valueAxis.adjustMax(valueAxisUpdate,highestPrice);
+                                }
+
                                 if (Math.round(currentValue * 10) != Math.round(batteryConfiguration.priceThreshold * 10)) {
                                     enableSave(this)
                                 }
@@ -426,7 +436,7 @@ GenericConfigPage {
                     height: 15
                     Layout.rightMargin: 0
                     Layout.alignment: Qt.AlignRight
-                    color: (currentPrice <= currentValue) ? "#87BD26" : chargeOnceController.checked ? "grey" : "#CD5C5C"
+                    color: chargeOnceController.checked ? "grey" : (currentPrice <= currentValue) ? "#87BD26" : "#CD5C5C"
                     border.color: "black"
                     border.width: 0
                     radius: width*0.5
