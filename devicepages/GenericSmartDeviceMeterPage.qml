@@ -43,16 +43,22 @@ GenericConfigPage {
     property bool isRootmeter: false
     property string isNotify: ""
 
+    headerOptionsVisible: isBattery ? false : true
+
     title: root.thing.name
 
     content: [
         Item {
             anchors.fill: parent
 
-            ThingInfoPane {
-                id: infoPane
-                anchors { left: parent.left; top: parent.top; right: parent.right }
-                thing: root.thing
+            Column {
+                visible: isBattery ? false : true
+
+                ThingInfoPane {
+                    id: infoPane
+                    anchors { left: parent.left; top: parent.top; right: parent.right }
+                    thing: root.thing
+                }
             }
 
             Item {
@@ -181,7 +187,7 @@ GenericConfigPage {
                         if (root.isDischarging) {
                             return Configuration.batteryDischargeColor
                         }
-                        return Configuration.batteriesColor
+                        return Configuration.batteryIdleColor
                     }
                     if (root.isEnergyMeter)
                         return root.currentPowerState.value < 0 ? Configuration.rootMeterReturnColor : Configuration.rootMeterAcquisitionColor

@@ -18,6 +18,7 @@ GenericConfigPage {
     property Thing thing
     property HemsManager hemsManager
     property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
+    readonly property State batteryChargingState: root.thing.stateByName("chargingState")
     readonly property State batteryLevelState: root.thing.stateByName("batteryLevel")
     readonly property State currentPowerState: root.thing.stateByName("currentPower")
     property BatteryConfiguration batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id)
@@ -139,84 +140,164 @@ GenericConfigPage {
         anchors.left: parent.left
         anchors.margins: app.margins
 
-        // Current Battery Level
+        //Status
         RowLayout {
             Layout.fillWidth: true
             Layout.topMargin: 30
+
+            Label {
+                text: qsTr("Status")
+                Layout.fillWidth: true
+                font.weight: Font.Bold
+                color: "#194D25"
+            }
+
+            ColumnLayout {
+                Layout.fillWidth: true
+                spacing: 0
+
+                Rectangle {
+                    id: status
+
+                    width: 120
+                    height: description.height + 10
+                    Layout.alignment: Qt.AlignRight
+
+                    color: batteryChargingState.value === "charging" ? Configuration.batteriesColor : batteryChargingState.value === "discharging" ? Configuration.batteryDischargeColor : Configuration.batteryIdleColor
+                    radius: width*0.1
+
+                    Label {
+                        id: description
+                        text: batteryChargingState.value === "charging" ? qsTr("Charging") : batteryChargingState.value === "discharging" ? qsTr("Discharging") : qsTr("Idle")
+                        color: "white"
+                        anchors.centerIn: parent
+                    }
+                }
+            }
+
+        }
+
+
+        // Current Battery Level
+        RowLayout {
+            Layout.fillWidth: true
+            Layout.topMargin: 5
             Label {
                 text: qsTr("State of Charge")
                 Layout.fillWidth: true
-
+                color: "#194D25"
             }
 
             Label {
                 text: ("%1 %").arg(batteryLevelState.value)
+                color: "#194D25"
             }
         }
 
         // Current Power
         RowLayout {
-            Layout.topMargin: 15
+            Layout.topMargin: 5
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Charge (+) / Discharge (-) Power")
+                text: qsTr("Power")
+                color: "#194D25"
             }
 
             Label {
-                text: Math.round(currentPowerState.value) + " W"
+                text: currentPowerState.value > 0 ? Math.round(currentPowerState.value) + " W" : (Math.round(currentPowerState.value) * -1) + " W"
+                color: "#194D25"
             }
         }
 
-        Item {
-            property bool noDynPrice: dynamicPrice.count === 0 && thing.thingClass.interfaces.indexOf("controllablebattery") === 0
-            property bool noInterface: thing.thingClass.interfaces.indexOf("controllablebattery") === 0
-            visible: noDynPrice || noInterface ? false : true
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+        RowLayout {
+            Layout.topMargin: 10
+            Label {
+                text: qsTr("Charging from grid")
+                font.weight: Font.Bold
+                color: "#194D25"
+            }
         }
 
         ColumnLayout {
             visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
+            id: columnContainer
 
             // Optimization enabled
             RowLayout {
                 Label {
-                    Layout.fillWidth: true
-                    text: qsTr("Optimization enabled")
+                    text: qsTr("Tariff-guided charging")
+                    color: "#194D25"
                 }
 
-                Switch {
-                    id: optimizationController
-                    onClicked: {
-                        if(!optimizationController.checked){
-                            chargeOnceController.checked = false;
+                InfoButton {
+                    id: chargingOptimizationInfo
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignTop
+                    push: "TariffGuidedChargingInfo.qml"
+                }
+
+                Column {
+                    Switch{
+                        spacing: 0
+                        height: 15
+                        id: optimizationController
+                        onClicked: {
+                            if(!optimizationController.checked){
+                                chargeOnceController.checked = false;
+                            }
+                            //saveSettings()
+                            enableSave(this)
                         }
-                        //saveSettings()
-                        enableSave(this)
-                    }
-                    Component.onCompleted: {
-                        checked = batteryConfiguration.optimizationEnabled
+                        Component.onCompleted: {
+                            checked = batteryConfiguration.optimizationEnabled
+                        }
                     }
                 }
             }
 
             // Charge once
             RowLayout {
+                Layout.topMargin: 5
                 visible: optimizationController.checked
                 Label {
-                    Layout.fillWidth: true
-                    text: qsTr("Charge once")
+                    text: qsTr("Activate instant charging")
+                    color: "#194D25"
                 }
 
-                Switch {
-                    id: chargeOnceController
-                    Component.onCompleted: {
-                        checked = batteryConfiguration.chargeOnce
+                InfoButton {
+                    id: chargingOnceInfo
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignTop
+                    push: "ActivateInstantChargingInfo.qml"
+                }
+
+                Column {
+                    Switch {
+                        spacing: 0
+                        height: 15
+                        id: chargeOnceController
+                        Component.onCompleted: {
+                            checked = batteryConfiguration.chargeOnce
+                        }
+                        onClicked: {
+                            //saveSettings()
+                            enableSave(this)
+                        }
                     }
-                    onClicked: {
-                        //saveSettings()
-                        enableSave(this)
-                    }
+                }
+            }
+
+        ColumnLayout {
+            id: columnLayer
+            property color labelColor: chargeOnceController.checked ? "grey" : "#194D25"
+            // Charging Plan Header
+            RowLayout {
+                Layout.topMargin: 15
+                visible: optimizationController.checked
+                Label {
+                    text: qsTr("Charging Plan")
+                    font.weight: Font.Bold
+                    color: columnLayer.labelColor
                 }
             }
 
@@ -224,15 +305,18 @@ GenericConfigPage {
             RowLayout {
                 id: currentPriceRow
                 visible: optimizationController.checked
-                enabled: chargeOnceController.checked ? false : true
+                Layout.topMargin: 5
+
                 Label {
                     Layout.fillWidth: true
                     text: qsTr("Current price")
+                    color: columnLayer.labelColor
                 }
 
                 Label {
                     id: currentPriceLabel
                     text: Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh"
+                    color: columnLayer.labelColor
                 }
             }
 
@@ -244,10 +328,11 @@ GenericConfigPage {
                 Label {
                     Layout.fillWidth: true
                     text: qsTr("Price limit")
+                    color: columnLayer.labelColor
                 }
 
                 ToolBar {
-
+                    Layout.preferredHeight: 35
                     background: Rectangle {
                         color: "transparent"
                     }
@@ -276,8 +361,9 @@ GenericConfigPage {
                             value: 0
                             to: 5000
                             stepSize: 1
-
-                            Layout.preferredWidth: 160
+                            Layout.preferredHeight: 35
+                            Layout.preferredWidth: 120
+                            Layout.rightMargin: 35
 
                             property int decimals: 1
                             property real realValue: value / 10
@@ -310,6 +396,7 @@ GenericConfigPage {
 
                         Label {
                             text: "ct/kWh"
+                            color: columnLayer.labelColor
                         }
                     }
                 }
@@ -325,56 +412,30 @@ GenericConfigPage {
             }
 
             RowLayout{
-                Layout.topMargin: 10
                 id: belowPriceLimit
                 visible: optimizationController.checked
                 enabled: chargeOnceController.checked ? false : true
                 Label{
                     Layout.fillWidth: true
                     text: qsTr("Below price limit")
+                    color: columnLayer.labelColor
                 }
 
                 Rectangle{
-                    width: 17
-                    height: 17
+                    width: 15
+                    height: 15
                     Layout.rightMargin: 0
                     Layout.alignment: Qt.AlignRight
-                    color: (currentPrice <= currentValue) ? "#87BD26" : "#CD5C5C"
+                    color: (currentPrice <= currentValue) ? "#87BD26" : chargeOnceController.checked ? "grey" : "#CD5C5C"
                     border.color: "black"
                     border.width: 0
                     radius: width*0.5
                 }
             }
 
-
-            // Pricing of ct/kWh
-            ColumnLayout {
-                id: displayText
-                visible: optimizationController.checked
-                enabled: chargeOnceController.checked ? false : true
-                Label {
-                    wrapMode: Text.WordWrap
-                    Layout.fillWidth: true
-                    text: qsTr("Hint for using EPEX prices: The price contains no local fees and margin of electricity provider.")
-                    font.pixelSize: 12
-                }
-            }
-
-
-            // Graph Header
-            RowLayout {
-                Layout.topMargin: 15
-                Layout.fillWidth: true
-                visible: optimizationController.checked
-                enabled: chargeOnceController.checked ? false : true
-                Label {
-                    text: qsTr("Charging Plan")
-                    font.pixelSize: 15
-                }
-            }
-
             // Graph Info Today
-            RowLayout {
+            ColumnLayout {
+                Layout.fillWidth: true
                 visible: optimizationController.checked
                 enabled: chargeOnceController.checked ? false : true
                 Component.onCompleted: {
@@ -426,10 +487,9 @@ GenericConfigPage {
                 }
 
                 Item {
-                    Layout.fillWidth: true
+                    Layout.fillWidth: parent.width
                     Layout.fillHeight: true
                     Layout.minimumHeight: 50
-
 
                     ChartView {
                         id: chartView
@@ -439,7 +499,7 @@ GenericConfigPage {
                         margins.left: 0
                         margins.right: 0
                         margins.top: 0
-                        margins.bottom: Style.smallIconSize + Style.margins
+                        margins.bottom: 0
 
                         legend.visible: false
                         ActivityIndicator {
@@ -640,6 +700,34 @@ GenericConfigPage {
                                 id: pricingLowerSeriesAbove
                             }
                         }
+
+                        ScatterSeries {
+                            id: currentValuePoint
+                            borderColor: Configuration.epexMainLineColor
+                            color: Configuration.epexMainLineColor
+                            markerSize: 8
+                            markerShape: AbstractSeries.MarkerShapeCircle
+                            axisX: dateTimeAxis
+                            axisY: valueAxis
+                        }
+
+                        Timer {
+                            property bool isOn: false
+                            interval: isOn ? 60000 : 100
+                            running: true
+                            repeat: true
+                            onTriggered: {
+                                isOn = true;
+                                var currentTime = new Date();
+
+                                currentValuePoint.remove(0);
+                                currentTime.setTime(currentTime.getTime() - (15 * 60 * 1000));
+
+                                currentValuePoint.append(currentTime.getTime(), currentPrice);
+                            }
+                        }
+
+
                     }
 
                     MouseArea {
@@ -781,14 +869,25 @@ GenericConfigPage {
                         }
                     }
                 }
-            }
 
+                Label {
+                    visible: optimizationController.checked
+                    wrapMode: Text.WordWrap
+                    Layout.fillWidth: true
+                    text: qsTr("Prices represent the pure exchange price without taxes and fees.")
+                    color: columnLayer.labelColor
+                    font.pixelSize: 12
+                }
+            }
 
             // Space divider
             Item {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
             }
+
+
+        }
 
             // Save Button
             RowLayout {
