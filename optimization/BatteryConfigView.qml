@@ -287,13 +287,17 @@ GenericConfigPage {
                 }
             }
 
+        ColumnLayout {
+            id: columnLayer
+            property color labelColor: chargeOnceController.checked ? "grey" : "#194D25"
+            // Charging Plan Header
             RowLayout {
                 Layout.topMargin: 15
                 visible: optimizationController.checked
                 Label {
                     text: qsTr("Charging Plan")
                     font.weight: Font.Bold
-                    color: "#194D25"
+                    color: columnLayer.labelColor
                 }
             }
 
@@ -301,18 +305,18 @@ GenericConfigPage {
             RowLayout {
                 id: currentPriceRow
                 visible: optimizationController.checked
-                enabled: chargeOnceController.checked ? false : true
                 Layout.topMargin: 5
+
                 Label {
                     Layout.fillWidth: true
                     text: qsTr("Current price")
-                    color: "#194D25"
+                    color: columnLayer.labelColor
                 }
 
                 Label {
                     id: currentPriceLabel
                     text: Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh"
-                    color: "#194D25"
+                    color: columnLayer.labelColor
                 }
             }
 
@@ -324,7 +328,7 @@ GenericConfigPage {
                 Label {
                     Layout.fillWidth: true
                     text: qsTr("Price limit")
-                    color: "#194D25"
+                    color: columnLayer.labelColor
                 }
 
                 ToolBar {
@@ -392,7 +396,7 @@ GenericConfigPage {
 
                         Label {
                             text: "ct/kWh"
-                            color: "#194D25"
+                            color: columnLayer.labelColor
                         }
                     }
                 }
@@ -414,7 +418,7 @@ GenericConfigPage {
                 Label{
                     Layout.fillWidth: true
                     text: qsTr("Below price limit")
-                    color: "#194D25"
+                    color: columnLayer.labelColor
                 }
 
                 Rectangle{
@@ -422,7 +426,7 @@ GenericConfigPage {
                     height: 15
                     Layout.rightMargin: 0
                     Layout.alignment: Qt.AlignRight
-                    color: (currentPrice <= currentValue) ? "#87BD26" : "#CD5C5C"
+                    color: (currentPrice <= currentValue) ? "#87BD26" : chargeOnceController.checked ? "grey" : "#CD5C5C"
                     border.color: "black"
                     border.width: 0
                     radius: width*0.5
@@ -871,7 +875,7 @@ GenericConfigPage {
                     wrapMode: Text.WordWrap
                     Layout.fillWidth: true
                     text: qsTr("Prices represent the pure exchange price without taxes and fees.")
-                    color: "#194D25"
+                    color: columnLayer.labelColor
                     font.pixelSize: 12
                 }
             }
@@ -881,6 +885,9 @@ GenericConfigPage {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
             }
+
+
+        }
 
             // Save Button
             RowLayout {
