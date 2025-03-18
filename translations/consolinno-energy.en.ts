@@ -8,7 +8,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If the function is activated, the battery is charged once with the maximum charging current from the grid, regardless of the PV surplus or current electricity price. No discharging takes place during the charging process.</source>
+        <source>When the function is activated, the battery is charged once with the maximum charging current from the grid – regardless of the PV surplus or the current electricity price. During the charging process, no discharging takes place.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
