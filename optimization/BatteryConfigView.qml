@@ -667,13 +667,15 @@ GenericConfigPage {
                                         currentTimestamp = currentTimestamp - 600000;
                                     }
 
-                                    if(itemValue < currentValue) {
-                                        pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),currentValue);
-                                        pricingCurrentLimitSeries.append(currentTimestamp,currentValue);
-                                    }
-                                    else {
-                                        pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),valueAxis.min -5);
-                                        pricingCurrentLimitSeries.append(currentTimestamp,valueAxis.min - 5);
+                                    if(currentValue >= lowestPrice) {
+                                        if(itemValue < currentValue) {
+                                            pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),currentValue);
+                                            pricingCurrentLimitSeries.append(currentTimestamp,currentValue);
+                                        }
+                                        else {
+                                            pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),valueAxis.min -5);
+                                            pricingCurrentLimitSeries.append(currentTimestamp,valueAxis.min - 5);
+                                        }
                                     }
 
                                     pricingUpperSeriesAbove.append(currentTimestamp,currentValue);
