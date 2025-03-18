@@ -388,8 +388,6 @@ GenericConfigPage {
                                 currentValue = Math.round(value * 100) / 1000
                                 parent.redrawChart();
 
-                                console.error(valueAxisUpdate)
-
                                 if(spinbox.value >= 0){
                                     valueAxisUpdate = -2;
                                     valueAxis.adjustMax((Math.ceil(lowestPrice)) ,highestPrice);
