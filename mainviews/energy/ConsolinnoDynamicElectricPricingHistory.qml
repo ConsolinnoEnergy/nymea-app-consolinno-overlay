@@ -122,7 +122,7 @@ Item {
             averagePrice = thing.stateByName("averagePrice").value.toFixed(2).toString();
 
             consumptionSeries.insertEntry(thing.stateByName("priceSeries").value)
-            valueAxis.adjustMax(lowestPrice,highestPrice);
+            valueAxis.adjustMax((Math.ceil(lowestPrice)),highestPrice);
         }
 
         Text {
@@ -194,6 +194,11 @@ Item {
                         max = Math.ceil(maxPrice) + 1;
                         max += 4 - (max % 4);
                         min = minPrice <= 0 ? minPrice - 5 : 0;
+
+                        if(min < 0) {
+                            max += 4 - ((max + min * (-1)) % 4);
+                        }
+
                     }
 
                 }

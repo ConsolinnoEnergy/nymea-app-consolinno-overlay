@@ -26,6 +26,9 @@ GenericConfigPage {
 
     property double currentValue : batteryConfiguration.priceThreshold 
     property double thresholdPrice: 0
+    property int valueAxisUpdate: {
+        (0 > lowestPrice) ? valueAxisUpdate = lowestPrice :  (currentValue < 0) ? valueAxisUpdate = currentValue - 2 : valueAxisUpdate = -2
+    }
 
     property int validSince: 0
     property int validUntil: 0
@@ -384,6 +387,15 @@ GenericConfigPage {
                             onValueChanged: {
                                 currentValue = Math.round(value * 100) / 1000
                                 parent.redrawChart();
+
+                                if(spinbox.value >= 0){
+                                    valueAxisUpdate = -2;
+                                    valueAxis.adjustMax((Math.ceil(lowestPrice)) ,highestPrice);
+                                }else if((valueAxisUpdate * 10) == spinbox.value){
+                                    valueAxisUpdate = valueAxisUpdate - 2;
+                                    valueAxis.adjustMax(valueAxisUpdate,highestPrice);
+                                }
+
                                 if (Math.round(currentValue * 10) != Math.round(batteryConfiguration.priceThreshold * 10)) {
                                     enableSave(this)
                                 }
@@ -426,7 +438,7 @@ GenericConfigPage {
                     height: 15
                     Layout.rightMargin: 0
                     Layout.alignment: Qt.AlignRight
-                    color: (currentPrice <= currentValue) ? "#87BD26" : chargeOnceController.checked ? "grey" : "#CD5C5C"
+                    color: chargeOnceController.checked ? "grey" : (currentPrice <= currentValue) ? "#87BD26" : "#CD5C5C"
                     border.color: "black"
                     border.width: 0
                     radius: width*0.5
@@ -453,7 +465,12 @@ GenericConfigPage {
                     averagePrice = dpThing.stateByName("averagePrice").value.toFixed(0).toString();
 
                     consumptionSeries.insertEntry(dpThing.stateByName("priceSeries").value, false)
-                    valueAxis.adjustMax(lowestPrice,highestPrice);
+
+                    if(currentValue < 0){
+                     valueAxis.adjustMax(valueAxisUpdate,highestPrice);
+                    }else{
+                     valueAxis.adjustMax((Math.ceil(lowestPrice)),highestPrice);
+                    }
                 }
 
                 QtObject {
@@ -647,13 +664,15 @@ GenericConfigPage {
                                         currentTimestamp = currentTimestamp - 600000;
                                     }
 
-                                    if(itemValue < currentValue) {
-                                        pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),currentValue);
-                                        pricingCurrentLimitSeries.append(currentTimestamp,currentValue);
-                                    }
-                                    else {
-                                        pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),valueAxis.min -5);
-                                        pricingCurrentLimitSeries.append(currentTimestamp,valueAxis.min - 5);
+                                    if(currentValue >= lowestPrice) {
+                                        if(itemValue < currentValue) {
+                                            pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),currentValue);
+                                            pricingCurrentLimitSeries.append(currentTimestamp,currentValue);
+                                        }
+                                        else {
+                                            pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),valueAxis.min -5);
+                                            pricingCurrentLimitSeries.append(currentTimestamp,valueAxis.min - 5);
+                                        }
                                     }
 
                                     pricingUpperSeriesAbove.append(currentTimestamp,currentValue);

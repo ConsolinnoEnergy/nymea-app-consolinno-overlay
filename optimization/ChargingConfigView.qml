@@ -1608,7 +1608,7 @@ GenericConfigPage {
                                     averagePrice = dpThing.stateByName("averagePrice").value.toFixed(0).toString();
 
                                     consumptionSeries.insertEntry(dpThing.stateByName("priceSeries").value, false)
-                                    valueAxis.adjustMax(lowestPrice,highestPrice);
+                                    valueAxis.adjustMax((Math.ceil(lowestPrice)), highestPrice);
                                 }
 
                                 Item {
