@@ -27,7 +27,8 @@ GenericConfigPage {
     property double currentValue : batteryConfiguration.priceThreshold 
     property double thresholdPrice: 0
     property double valueAxisUpdate: {
-        (0 > lowestPrice) ? valueAxisUpdate = lowestPrice :  valueAxisUpdate = -2
+        //(0 > lowestPrice) ? valueAxisUpdate = lowestPrice :  (currentValue < 0) ? valueAxisUpdate = currentValue - 2 : valueAxisUpdate = -2
+        (0 > lowestPrice) ? valueAxisUpdate = lowestPrice : valueAxisUpdate = -2
     }
 
     property int validSince: 0
@@ -388,11 +389,20 @@ GenericConfigPage {
                                 currentValue = Math.round(value * 100) / 1000
                                 parent.redrawChart();
 
-                                console.error(valueAxisUpdate)
-                                if((valueAxisUpdate * 10) == spinbox.value){
+                                /*
+                                if(spinbox.value >= 0){
+                                    valueAxisUpdate = -2;
+                                    valueAxis.adjustMax(lowestPrice,highestPrice);
+                                    console.error("Upper zero")
+                                }else if((valueAxisUpdate * 10) == spinbox.value){
+                                    console.error("Value is equal")
                                     valueAxisUpdate = valueAxisUpdate - 2;
                                     valueAxis.adjustMax(valueAxisUpdate,highestPrice);
-                                }
+                                }else if(spinbox.value < 0 && (valueAxisUpdate * 10) < 0){
+                                    console.error("Below zero")
+                                    valueAxisUpdate = valueAxisUpdate + 2;
+                                    valueAxis.adjustMax(valueAxisUpdate,highestPrice);
+                                }*/
 
                                 if (Math.round(currentValue * 10) != Math.round(batteryConfiguration.priceThreshold * 10)) {
                                     enableSave(this)
@@ -542,13 +552,14 @@ GenericConfigPage {
                             titleVisible: false
                             shadesVisible: false
                             function adjustMax(minPrice,maxPrice) {
+                                min = 0;
                                 max = Math.ceil(maxPrice) + 1;
                                 max += 4 - (max % 4);
                                 min = minPrice <= 0 ? minPrice - 5 : 0;
-
+                                /*
                                 if(min < 0) {
                                     max += 4 - ((max + min * (-1)) % 4);
-                                }
+                                }*/
                             }
                         }
 
