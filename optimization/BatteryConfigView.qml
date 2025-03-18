@@ -26,7 +26,7 @@ GenericConfigPage {
 
     property double currentValue : batteryConfiguration.priceThreshold 
     property double thresholdPrice: 0
-    property double valueAxisUpdate: {
+    property int valueAxisUpdate: {
         (0 > lowestPrice) ? valueAxisUpdate = lowestPrice :  (currentValue < 0) ? valueAxisUpdate = currentValue - 2 : valueAxisUpdate = -2
     }
 
@@ -549,7 +549,6 @@ GenericConfigPage {
                             titleVisible: false
                             shadesVisible: false
                             function adjustMax(minPrice,maxPrice) {
-                                min = 0;
                                 max = Math.ceil(maxPrice) + 1;
                                 max += 4 - (max % 4);
                                 min = minPrice <= 0 ? minPrice - 5 : 0;
