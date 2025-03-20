@@ -24,7 +24,7 @@ GenericConfigPage {
     property BatteryConfiguration batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id)
 
 
-    property double currentValue : batteryConfiguration.priceThreshold 
+    property double currentValue : batteryConfiguration.priceThreshold
     property double thresholdPrice: 0
     property int valueAxisUpdate: {
         (0 > lowestPrice) ? valueAxisUpdate = lowestPrice :  (currentValue < 0) ? valueAxisUpdate = currentValue - 2 : valueAxisUpdate = -2
@@ -117,10 +117,10 @@ GenericConfigPage {
 
     function saveSettings()
     {
-        rootObject.pendingCallId = hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": optimizationController.checked, 
-                        "priceThreshold": currentValue, 
-                        "relativePriceEnabled": false, 
-                        "chargeOnce": chargeOnceController.checked, 
+        rootObject.pendingCallId = hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": optimizationController.checked,
+                        "priceThreshold": currentValue,
+                        "relativePriceEnabled": false,
+                        "chargeOnce": chargeOnceController.checked,
                         "controllableLocalSystem": optimizationController.checked})
     }
 
@@ -346,9 +346,12 @@ GenericConfigPage {
                             repeat: false
                             running: false
                             onTriggered: {
-                                pricingCurrentLimitSeries.clear();
                                 pricingUpperSeriesAbove.clear();
                                 pricingLowerSeriesAbove.clear();
+                                pricingPast.clear();
+                                pricingCurrentTime.clear();
+                                pricingOutOfLimit.clear();
+                                pricingUpperSeries.clear();
                                 consumptionSeries.insertEntry(dynamicPrice.get(0).stateByName("priceSeries").value, true);
                             }
                         }
@@ -404,7 +407,7 @@ GenericConfigPage {
                             Component.onCompleted: {
                                 value = currentValue * 10
                             }
-                        } 
+                        }
 
                         Label {
                             text: "ct/kWh"
@@ -455,7 +458,6 @@ GenericConfigPage {
                     if(!dpThing)
                         return;
 
-                    pricingCurrentLimitSeries.clear();
                     pricingUpperSeries.clear();
                     pricingUpperSeriesAbove.clear();
 
@@ -591,27 +593,13 @@ GenericConfigPage {
                             shadesVisible: false
                             labelsColor: Style.foregroundColor
                         }
-
-
-                        AreaSeries {
-                            id: currentLimitSeries
-                            axisX: dateTimeAxis
-                            axisY: valueAxis
-                            color: '#ccc'
-                            borderWidth: 1
-                            borderColor: 'transparent'
-                            upperSeries: LineSeries {
-                                id: pricingCurrentLimitSeries
-                            }
-                        }
-
                         AreaSeries {
                             id: consumptionSeries
                             axisX: dateTimeAxis
                             axisY: valueAxis
-                            color: 'transparent'
-                            borderWidth: 1
-                            borderColor: Configuration.epexMainLineColor
+                            color: '#BAE074'
+                            borderWidth: 2
+                            borderColor: '#ffffff'
 
                             upperSeries: LineSeries {
                                 id: pricingUpperSeries
@@ -624,6 +612,7 @@ GenericConfigPage {
                                 let lastChange = 0;
                                 let lastChangeTimestamp = 0;
                                 let identicalIndexes = [];
+                                let barToDraw = pricingUpperSeries;
 
                                 for (const item in value){
                                     const date = new Date(item);
@@ -650,7 +639,6 @@ GenericConfigPage {
                                         identicalIndexes.push(currentTimestamp);
                                     }
 
-                                    lastChange = itemValue;
 
                                     prices[currentTimestamp] = {
                                         start: lastChangeTimestamp,
@@ -664,22 +652,35 @@ GenericConfigPage {
                                         currentTimestamp = currentTimestamp - 600000;
                                     }
 
-                                    if(currentValue >= lowestPrice) {
-                                        if(itemValue < currentValue) {
-                                            pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),currentValue);
-                                            pricingCurrentLimitSeries.append(currentTimestamp,currentValue);
-                                        }
-                                        else {
-                                            pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),valueAxis.min -5);
-                                            pricingCurrentLimitSeries.append(currentTimestamp,valueAxis.min - 5);
-                                        }
+                                    pricingUpperSeriesAbove.append(currentTimestamp,currentValue);
+                                    
+                                    if(lastChange !== itemValue) { // Draw done to mimick a bar
+                                      barToDraw.append(currentTimestamp, lastChange);
+                                      barToDraw.append(currentTimestamp, -5);
+
+                                      // draw all unused bars along the x axis to prevent overlapping
+                                      pricingUpperSeries.append(currentTimestamp,-5);
+                                      pricingCurrentTime.append(currentTimestamp,-5);
+                                      pricingPast.append(currentTimestamp,-5);
+                                      pricingOutOfLimit.append(currentTimestamp,-5);
                                     }
 
-                                    pricingUpperSeriesAbove.append(currentTimestamp,currentValue);
-                                    if(!onlyThreshold) {
-                                        pricingUpperSeries.append(currentTimestamp - (60000 * 15) + 1,itemValue);
-                                        pricingUpperSeries.append(currentTimestamp,itemValue);
+                                    barToDraw = pricingUpperSeries;
+
+                                    if(date.getHours() < d.now.getHours()) {
+                                      barToDraw = pricingPast;
                                     }
+                                    else if(date.getHours() === d.now.getHours()) {
+                                      barToDraw = pricingCurrentTime;
+                                    }
+                                    else if(itemValue > currentValue) {
+                                      barToDraw = pricingOutOfLimit;
+                                    }
+                        
+                                    barToDraw.append(currentTimestamp,itemValue);
+                                    
+
+                                    lastChange = itemValue;
                                 }
 
                                 const todayMidnight = new Date(identicalIndexes[0]);
@@ -693,13 +694,43 @@ GenericConfigPage {
                                     prices[ts].end = todayMidnightTs;
                                 }
 
-                                pricingCurrentLimitSeries.append(todayMidnightTs + 6000000, valueAxis.min - 5);
                                 pricingUpperSeriesAbove.append(todayMidnightTs + 6000000, currentValue);
                                 pricingLowerSeriesAbove.append(todayMidnightTs + 6000000, currentValue);
 
-                                if(!onlyThreshold) {
-                                    pricingUpperSeries.append(todayMidnightTs + 6000000, lastObjectValue);
-                                }
+                                pricingUpperSeries.append(todayMidnightTs + 6000000, lastObjectValue);
+                            }
+                        }
+
+                        AreaSeries {
+                            axisX: dateTimeAxis
+                            axisY: valueAxis
+                            color: '#F5F5F5'
+                            borderWidth: 2
+                            borderColor: '#ffffff'
+                            upperSeries: LineSeries {
+                                id: pricingPast
+                            }
+                        }
+
+                        AreaSeries {
+                            axisX: dateTimeAxis
+                            axisY: valueAxis
+                            color: '#8D8B8E'
+                            borderWidth: 2
+                            borderColor: '#ffffff'
+                            upperSeries: LineSeries {
+                                id: pricingCurrentTime
+                            }
+                        }
+
+                        AreaSeries {
+                            axisX: dateTimeAxis
+                            axisY: valueAxis
+                            color: '#D9D9D9'
+                            borderWidth: 2
+                            borderColor: '#ffffff'
+                            upperSeries: LineSeries {
+                                id: pricingOutOfLimit
                             }
                         }
 
