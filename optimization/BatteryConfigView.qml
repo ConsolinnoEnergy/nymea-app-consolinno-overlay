@@ -302,7 +302,7 @@ GenericConfigPage {
 
                 Column {
                     Switch{
-                        spacing: 0
+                        spacing: 1
                         height: 18
                         id: optimizationController
                         onClicked: {
