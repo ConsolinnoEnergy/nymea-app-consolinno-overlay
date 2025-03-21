@@ -31,6 +31,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.2
+import QtGraphicalEffects 1.12
 import "../components"
 import Nymea 1.0
 
@@ -61,17 +62,17 @@ NymeaSwipeDelegate {
                 iconPath = "../images/heating_rod.svg";
             }
             return iconPath;
-        } else if (thingInterface.indexOf("energystorage") >= 0 && Configuration.batteryIcon !== "" && false) {
+        } else if (thingInterface.indexOf("energystorage") >= 0 && Configuration.batteryIcon !== "") {
             if (Configuration.batteryIcon !== "") {
                 iconPath = "../images/" + Configuration.batteryIcon;
             }
             return iconPath;
-        } else if (thingInterface.indexOf("evcharger") >= 0 && Configuration.evchargerIcon !== "" && false) {
+        } else if (thingInterface.indexOf("evcharger") >= 0 && Configuration.evchargerIcon !== "") {
             if (Configuration.evchargerIcon !== "") {
                 iconPath = "../images/" + Configuration.evchargerIcon;
             }
             return iconPath;
-        } else if (thingInterface.indexOf("solarinverter") >= 0 && Configuration.inverterIcon !== "" && false) {
+        } else if (thingInterface.indexOf("solarinverter") >= 0 && Configuration.inverterIcon !== "") {
             if (Configuration.inverterIcon !== "") {
                 iconPath = "../images/" + Configuration.inverterIcon;
             }
@@ -88,6 +89,7 @@ NymeaSwipeDelegate {
         }
 
     }
+    iconColor: Style.consolinnoMedium
     text: thing ? thing.name : ""
     progressive: true
     secondaryIconName: thing.setupStatus == Thing.ThingSetupStatusComplete && batteryCritical ? "../images/battery/battery-010.svg" : ""
