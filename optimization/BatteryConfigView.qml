@@ -653,6 +653,7 @@ GenericConfigPage {
                                     }
 
                                     pricingUpperSeriesAbove.append(currentTimestamp,currentValue);
+                                    barSeries.appendBar(currentTimestamp,currentValue);
                                     
                                     if(lastChange !== itemValue) { // Draw done to mimick a bar
                                       barToDraw.append(currentTimestamp, lastChange);
@@ -732,6 +733,12 @@ GenericConfigPage {
                             upperSeries: LineSeries {
                                 id: pricingOutOfLimit
                             }
+                        }
+
+                        CustomBarSeries {
+                          id: barSeries
+                          xAxis: dateTimeAxis
+                          yAxis: valueAxis
                         }
 
                         AreaSeries {
