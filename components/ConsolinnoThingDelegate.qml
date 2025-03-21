@@ -35,7 +35,7 @@ import QtGraphicalEffects 1.12
 import "../components"
 import Nymea 1.0
 
-NymeaSwipeDelegate {
+ConsolinnoSwipeDelegate {
     id: root
     width: parent.width
     iconName: {
@@ -78,7 +78,7 @@ NymeaSwipeDelegate {
             }
             return iconPath;
         } else if (thingInterface.indexOf("dynamicelectricitypricing") >= 0) {
-            if (Configuration.energyIcon !== "" && false) {
+            if (Configuration.energyIcon !== "") {
                 iconPath = "../images/" + Configuration.energyIcon;
             }else{
                 iconPath = "/ui/images/energy.svg"

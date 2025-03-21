@@ -121,6 +121,8 @@
         <file>info/TariffGuidedChargingInfo.qml</file>
         <file>info/ActivateInstantChargingInfo.qml</file>
         <file>components/ConsolinnoThingDelegate.qml</file>
+        <file>components/ConsolinnoColorIcon.qml</file>
+        <file>components/ConsolinnoSwipeDelegate.qml</file>
         <file>components/CustomBarSeries.qml</file>
     </qresource>
 </RCC>
