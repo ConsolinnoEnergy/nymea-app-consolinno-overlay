@@ -115,62 +115,11 @@ Page {
                 hiddenInterfaces: ["gridsupport"]
             }
 
-            delegate: ThingDelegate {
+            delegate: ConsolinnoThingDelegate {
                 property string iconPath: ""
                 thing: thingsProxy.getThing(model.id)
                 // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
                 // This check might be wrong for thingClasses with multiple create methods...
-
-                iconName: {
-                    let thingInterface = thing.thingClass.interfaces
-
-                    if (thingInterface.indexOf("energymeter") >= 0) {
-                        if(true){ //Configuration.gridIcon === ""
-                            iconPath = "../images/grid.svg";
-                        }else{
-                            iconPath = "../images/" + Configuration.gridIcon;
-                        }
-                        return iconPath;
-                    } else if (thingInterface.indexOf("heatpump") >= 0) {
-                        if (false) { //Configuration.heatpumpIcon !== ""
-                            iconPath = "../images/" + Configuration.heatpumpIcon;
-                        } else {
-                            iconPath = "../images/heatpump.svg";
-                        }
-                        return iconPath;
-                    } else if (thingInterface.indexOf("smartheatingrod") >= 0) {
-                        if (false) { //Configuration.heatingRodIcon !== ""
-                            iconPath = "../images/" + Configuration.heatingRodIcon;
-                        } else {
-                            iconPath = "../images/heating_rod.svg";
-                        }
-                        return iconPath;
-                    } else if (thingInterface.indexOf("energystorage") >= 0 && Configuration.batteryIcon !== "" && false) {
-                        if (Configuration.batteryIcon !== "") {
-                            iconPath = "../images/" + Configuration.batteryIcon;
-                        }
-                        return iconPath;
-                    } else if (thingInterface.indexOf("evcharger") >= 0 && Configuration.evchargerIcon !== "" && false) {
-                        if (Configuration.evchargerIcon !== "") {
-                            iconPath = "../images/" + Configuration.evchargerIcon;
-                        }
-                        return iconPath;
-                    } else if (thingInterface.indexOf("solarinverter") >= 0 && Configuration.inverterIcon !== "" && false) {
-                        if (Configuration.inverterIcon !== "") {
-                            iconPath = "../images/" + Configuration.inverterIcon;
-                        }
-                        return iconPath;
-                    } else if (thingInterface.indexOf("dynamicelectricitypricing") >= 0) {
-                        if (Configuration.energyIcon !== "" && false) {
-                            iconPath = "../images/" + Configuration.energyIcon;
-                        }else{
-                            iconPath = "/ui/images/energy.svg"
-                        }
-                        return iconPath;
-                    } else {
-                        return app.interfacesToIcon(thing.thingClass.interfaces);
-                    }
-                }
 
                 canDelete: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
                 onClicked: {

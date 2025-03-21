@@ -120,5 +120,8 @@
         <file>optimization/BatteryConfigView.qml</file>
         <file>info/TariffGuidedChargingInfo.qml</file>
         <file>info/ActivateInstantChargingInfo.qml</file>
+        <file>components/ConsolinnoThingDelegate.qml</file>
+        <file>components/ConsolinnoColorIcon.qml</file>
+        <file>components/ConsolinnoSwipeDelegate.qml</file>
     </qresource>
 </RCC>
