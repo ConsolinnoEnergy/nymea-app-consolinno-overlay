@@ -549,7 +549,7 @@ Item {
                                                 return "/ui/images/ev-charger.svg"
                                             }
                                         default:
-                                            return app.interfaceToIcon(legendDelegate.thing.thingClass.interfaces)
+                                            return app.interfaceToIcon(thing.thingClass.interfaces)
                                         }
                                     }
                                 }
