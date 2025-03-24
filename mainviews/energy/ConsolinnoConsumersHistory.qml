@@ -549,7 +549,7 @@ Item {
                                                 return "/ui/images/ev-charger.svg"
                                             }
                                         default:
-                                            return app.interfaceToIcon(legendDelegate.thing.thingClass.interfaces)
+                                            return app.interfacesToIcon(legendDelegate.thing.thingClass.interfaces)
                                         }
                                     }
                                 }
@@ -562,7 +562,7 @@ Item {
                                     }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
                                         return Configuration.wallboxColor
                                     }else{
-                                        return "white"
+                                        return index >= 0 ? consumerColors[index] : "white"
                                     }
                                 }
 
