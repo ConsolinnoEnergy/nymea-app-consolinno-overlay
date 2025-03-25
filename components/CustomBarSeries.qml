@@ -1,11 +1,13 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.12
+import QtQuick.Layouts 1.3
 import Nymea 1.0
 import QtCharts 2.3
 
 ChartView {
     id: root
+    property double currentMarketPrice: 0
     property double currentPrice: 0
     property double highestValue: 0
     property double lowestValue: 0
@@ -96,7 +98,7 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: Configuration.batteryChargeColor
+        color: root.enabled ? Configuration.batteryChargeColor : "#F5F5F5"
         borderWidth: 2
         borderColor: '#ffffff'
         upperSeries: LineSeries {
@@ -107,7 +109,7 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: Configuration.epexCurrentTime
+        color: root.enabled ? Configuration.epexCurrentTime : "#F5F5F5"
         borderWidth: 2
         borderColor: '#ffffff'
         upperSeries: LineSeries {
@@ -129,7 +131,7 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: '#8D8B8E'
+        color: root.enabled ? '#8D8B8E' : "#F5F5F5"
         borderWidth: 2
         borderColor: '#ffffff'
         upperSeries: LineSeries {
@@ -140,7 +142,7 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: '#D9D9D9'
+        color: root.enabled ? '#D9D9D9' : "#F5F5F5"
         borderWidth: 2
         borderColor: '#ffffff'
         upperSeries: LineSeries {
@@ -229,7 +231,7 @@ ChartView {
             if(date.getHours() < root.hoursNow) {
                 barToDraw = pricingPast;
             }
-            else if(root.currentPrice > itemValue && date.getHours() === root.hoursNow){
+            else if((root.currentPrice > itemValue) && (date.getHours() === root.hoursNow) && (date.getDate() === root.startTime.getDate())){
                 barToDraw = currentValueSeries
             }
             else if(date.getHours() === root.hoursNow) {
@@ -270,6 +272,145 @@ ChartView {
         pricingOutOfLimit.clear();
         priceLimitUp.clear();
         priceLimitLow.clear();
+    }
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        anchors.leftMargin: root.plotArea.x
+        anchors.topMargin: root.plotArea.y
+        anchors.rightMargin: root.width - root.plotArea.width - root.plotArea.x
+        anchors.bottomMargin: root.height - root.plotArea.height - root.plotArea.y
+
+        hoverEnabled: true
+        preventStealing: tooltipping
+
+        property int startMouseX: 0
+        property bool tooltipping: false
+        property var startDatetime: null
+
+        Rectangle {
+            height: parent.height
+            width: 1
+            color: Style.foregroundColor
+            x: Math.min(mouseArea.width - 1, Math.max(0, mouseArea.mouseX))
+            visible: (mouseArea.containsMouse || mouseArea.tooltipping)
+        }
+
+        //Mouseover Details in Graph
+        NymeaToolTip {
+            id: toolTip
+            visible: (mouseArea.containsMouse || mouseArea.tooltipping)
+
+            backgroundRect: Qt.rect(mouseArea.x + toolTip.x, mouseArea.y + toolTip.y, toolTip.width, toolTip.height)
+
+            property double currentValueY: 0
+            property int idx: mouseArea.mouseX
+            property int timeSince: new Date(root.startTime).getTime()
+            property int timestamp: (new Date(root.endTime).getTime() - new Date(root.startTime).getTime())
+
+            property int xOnRight: Math.max(0, mouseArea.mouseX) + Style.smallMargins
+            property int xOnLeft: Math.min(mouseArea.width, mouseArea.mouseX) - Style.smallMargins - width
+            x: xOnRight + width < mouseArea.width ? xOnRight : xOnLeft
+            property double maxValue: 0
+            y: Math.min(Math.max(mouseArea.height - (maxValue * mouseArea.height / valueAxis.max) - height - Style.margins, 0), mouseArea.height - height)
+
+            width: tooltipLayout.implicitWidth + Style.smallMargins * 2
+            height: tooltipLayout.implicitHeight + Style.smallMargins * 2
+
+            function getQuaterlyTimestamp(ts) {
+               const currTime = new Date(ts);
+               const currMinutes = currTime.getMinutes();
+               const modRes = currMinutes % 15;
+
+               if(modRes !== 0) {
+                   if(modRes < 8) {
+                       currTime.setMinutes(currMinutes - modRes);
+                   }
+                   else {
+                       currTime.setMinutes(currMinutes + (15 - modRes));
+                   }
+
+                   currTime.setSeconds(0);
+                   return currTime.getTime();
+               }
+               else {
+                   return ts;
+               }
+           }
+
+            ColumnLayout {
+                id: tooltipLayout
+                anchors {
+                    left: parent.left
+                    top: parent.top
+                    margins: Style.smallMargins
+                }
+                Label {
+                    text: {
+                        if(!mouseArea.containsMouse) {
+                            return "";
+                        }
+
+                        let hoveredTime = Number.parseInt(((new Date(root.endTime).getTime() - new Date(root.startTime).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(root.startTime).getTime())/100000) * 100000;
+
+                        root.startTime.toLocaleString(Qt.locale(), Locale.ShortFormat);
+
+                        let currentPrice = root.pricesArr[toolTip.getQuaterlyTimestamp(hoveredTime)];
+
+                        if(!currentPrice)
+                            return qsTr("No prices available, yet");
+
+                        if(!currentPrice || typeof currentPrice === "undefined") {
+                            const priceKeys = Object.keys(root.pricesArr);
+                            const lastItem = priceKeys[priceKeys.length -1];
+                            currentPrice = root.pricesArr[lastItem];
+                        }
+
+                        let val = currentPrice.start;
+                        val = new Date(val).toLocaleString(Qt.locale(), Locale.ShortFormat);
+
+                        let endVal = currentPrice.end;
+                        endVal = new Date(endVal).toLocaleTimeString(Qt.locale(), Locale.ShortFormat) + ":00";
+
+                        return val + " - " + endVal.slice(0, -3);
+                    }
+                    font: Style.smallFont
+                }
+                Label {
+                    property string unit: qsTr("ct/kWh")
+                    text: {
+                        if(!mouseArea.containsMouse) {
+                            return "";
+                        }
+
+                        let hoveredTime = Number.parseInt(((new Date(root.endTime).getTime() - new Date(root.startTime).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(root.startTime).getTime())/100000) * 100000;
+
+                        let currentPrice = root.pricesArr[toolTip.getQuaterlyTimestamp(hoveredTime)];
+
+                        if(!currentPrice)
+                            return "";
+
+                        if(!currentPrice || typeof currentPrice === "undefined") {
+                            const priceKeys = Object.keys(root.pricesArr);
+                            const lastItem = priceKeys[priceKeys.length -1];
+                            currentPrice = root.pricesArr[lastItem];
+                        }
+
+                        let dynamicVal = currentPrice.value;
+
+                        const scaleValue = valueAxis.max + (valueAxis.min > 0 ? 0 : (valueAxis.min * (-1)));
+
+                        dynamicVal += valueAxis.min < 0 ? (valueAxis.min * (-1)) : 0;
+
+                        toolTip.y = mouseArea.height - (mouseArea.height * (dynamicVal / scaleValue)) - toolTip.height - 2;
+                        const val = (+currentPrice.value.toFixed(2)).toLocaleString();
+                        return "%1 %2".arg(val).arg(unit);
+                    }
+                    font: Style.extraSmallFont
+                }
+            }
+        }
     }
 
 }
