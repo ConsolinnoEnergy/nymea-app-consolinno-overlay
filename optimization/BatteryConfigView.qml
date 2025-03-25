@@ -323,128 +323,6 @@ GenericConfigPage {
                 }
             }
 
-            RowLayout {
-                id: priceRow
-                visible: optimizationController.checked
-                enabled: chargeOnceController.checked ? false : true
-
-                Label {
-                    Layout.fillWidth: true
-                    text: qsTr("Price limit")
-                    color: columnLayer.labelColor
-                }
-
-                ToolBar {
-                    Layout.preferredHeight: 35
-                    background: Rectangle {
-                        color: "transparent"
-                    }
-
-                    RowLayout {
-                        property var debounceTimer: Timer {
-                            interval: 500
-                            repeat: false
-                            running: false
-                            onTriggered: {
-                                pricingCurrentLimitSeries.clear();
-                                pricingUpperSeriesAbove.clear();
-                                pricingLowerSeriesAbove.clear();
-                                consumptionSeries.insertEntry(dynamicPrice.get(0).stateByName("priceSeries").value, true);
-                            }
-                        }
-
-                        function redrawChart() {
-                            debounceTimer.stop();
-                            debounceTimer.start();
-                        }
-
-                        SpinBox {
-                            id: spinbox
-                            from: -5000
-                            value: 0
-                            to: 5000
-                            stepSize: 1
-                            Layout.preferredHeight: 35
-                            Layout.preferredWidth: 120
-                            Layout.rightMargin: 35
-
-                            property int decimals: 1
-                            property real realValue: value / 10
-
-                            validator: DoubleValidator {
-                                bottom: Math.min(spinbox.from, spinbox.to)
-                                top:  Math.max(spinbox.from, spinbox.to)
-                            }
-
-                            textFromValue: function(value, locale) {
-                                return Number(value / 10).toLocaleString(locale, 'f', spinbox.decimals)
-                            }
-
-                            valueFromText: function(text, locale) {
-                                return Number.fromLocaleString(locale, text) * 10
-                            }
-
-                            onValueChanged: {
-                                currentValue = Math.round(value * 100) / 1000
-                                parent.redrawChart();
-
-                                if(spinbox.value >= 0){
-                                    valueAxisUpdate = -2;
-                                    valueAxis.adjustMax((Math.ceil(lowestPrice)) ,highestPrice);
-                                }else if((valueAxisUpdate * 10) == spinbox.value){
-                                    valueAxisUpdate = valueAxisUpdate - 2;
-                                    valueAxis.adjustMax(valueAxisUpdate,highestPrice);
-                                }
-
-                                if (Math.round(currentValue * 10) != Math.round(batteryConfiguration.priceThreshold * 10)) {
-                                    enableSave(this)
-                                }
-                            }
-
-                            Component.onCompleted: {
-                                value = currentValue * 10
-                            }
-                        } 
-
-                        Label {
-                            text: "ct/kWh"
-                            color: columnLayer.labelColor
-                        }
-                    }
-                }
-
-                Component.onCompleted: {
-                    //getThresholdPrice()
-                }
-                /*
-                function getThresholdPrice(){
-                    let currentValue = parseInt(currentValueField.text)
-                    thresholdPrice = relPrice2AbsPrice(currentValue)
-                }*/
-            }
-
-            RowLayout{
-                id: belowPriceLimit
-                visible: optimizationController.checked
-                enabled: chargeOnceController.checked ? false : true
-                Label{
-                    Layout.fillWidth: true
-                    text: qsTr("Below price limit")
-                    color: columnLayer.labelColor
-                }
-
-                Rectangle{
-                    width: 15
-                    height: 15
-                    Layout.rightMargin: 0
-                    Layout.alignment: Qt.AlignRight
-                    color: chargeOnceController.checked ? "grey" : (currentPrice <= currentValue) ? "#87BD26" : "#CD5C5C"
-                    border.color: "black"
-                    border.width: 0
-                    radius: width*0.5
-                }
-            }
-
             // Graph Info Today
             ColumnLayout {
                 Layout.fillWidth: true
@@ -906,6 +784,32 @@ GenericConfigPage {
             }
 
 
+            ItemDelegate {
+                Layout.fillWidth: true
+                topPadding: 0
+                contentItem: ColumnLayout {
+                    Label {
+                        Layout.fillWidth: true
+                        text: qsTr("Price limit : %1 ct/kWh").arg(currentValue)
+                    }
+                    Slider {
+                        Layout.fillWidth: true
+                        value: currentValue
+                        onMoved: () => {
+                          currentValue = value;
+                          saveButton.enabled = batteryConfiguration.priceThreshold !== currentValue;
+
+                          pricingCurrentLimitSeries.clear();
+                          pricingUpperSeriesAbove.clear();
+                          pricingLowerSeriesAbove.clear();
+                          consumptionSeries.insertEntry(dynamicPrice.get(0).stateByName("priceSeries").value, true)
+                        }
+                        from: -50
+                        to: 50
+                        stepSize: 0.5
+                    }
+                }
+            }
         }
 
             // Save Button
