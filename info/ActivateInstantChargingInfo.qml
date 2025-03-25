@@ -29,7 +29,7 @@ Page {
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 color: "#194D25"
-                text: qsTr("If the function is activated, the battery is charged once with the maximum charging current from the grid, regardless of the PV surplus or current electricity price. No discharging takes place during the charging process.")
+                text: qsTr("When the function is activated, the battery is charged once with the maximum charging current from the grid – regardless of the PV surplus or the current electricity price. During the charging process, no discharging takes place.")
             }
 
         }

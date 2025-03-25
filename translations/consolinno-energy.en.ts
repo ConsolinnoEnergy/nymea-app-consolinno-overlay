@@ -8,7 +8,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If the function is activated, the battery is charged once with the maximum charging current from the grid, regardless of the PV surplus or current electricity price. No discharging takes place during the charging process.</source>
+        <source>When the function is activated, the battery is charged once with the maximum charging current from the grid – regardless of the PV surplus or the current electricity price. During the charging process, no discharging takes place.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -140,10 +140,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Price limit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Charging Plan</source>
         <translation type="unfinished"></translation>
     </message>
@@ -169,10 +165,6 @@
     </message>
     <message>
         <source>Current price</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Below price limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -209,6 +201,10 @@
     </message>
     <message>
         <source>Prices represent the pure exchange price without taxes and fees.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Price limit : %1 ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -491,10 +487,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Reconfigure charging mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Target charging current</source>
         <translation type="unfinished"></translation>
     </message>
@@ -568,6 +560,10 @@
     </message>
     <message>
         <source>Below price limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel &amp; reconfigure charging mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

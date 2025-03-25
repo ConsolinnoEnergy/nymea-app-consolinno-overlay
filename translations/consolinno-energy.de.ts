@@ -8,8 +8,8 @@
         <translation>Sofortladen aktivieren</translation>
     </message>
     <message>
-        <source>If the function is activated, the battery is charged once with the maximum charging current from the grid, regardless of the PV surplus or current electricity price. No discharging takes place during the charging process.</source>
-        <translation>Wird die Funktion aktiviert, wird die Batterie einmalig mit maximalem Ladestrom aus dem Netz geladen unabhängig von PV-Überschuss oder aktuellen Strompreis. Während des Ladevorgangs findet kein Entladen statt.</translation>
+        <source>When the function is activated, the battery is charged once with the maximum charging current from the grid – regardless of the PV surplus or the current electricity price. During the charging process, no discharging takes place.</source>
+        <translation>Wird die Funktion aktiviert, wird die Batterie einmalig mit maximalem Ladestrom aus dem Netz geladen – unabhängig vom PV-Überschuss oder dem aktuellen Strompreis. Während des Ladevorgangs erfolgt keine Entladung.</translation>
     </message>
 </context>
 <context>
@@ -140,10 +140,6 @@
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <source>Price limit</source>
-        <translation>Preisgrenze</translation>
-    </message>
-    <message>
         <source>Charging Plan</source>
         <translation>Ladeplan</translation>
     </message>
@@ -170,10 +166,6 @@
     <message>
         <source>Current price</source>
         <translation>Aktueller Preis</translation>
-    </message>
-    <message>
-        <source>Below price limit</source>
-        <translation>Preisschwelle unterschritten</translation>
     </message>
     <message>
         <source>Status</source>
@@ -210,6 +202,10 @@
     <message>
         <source>Prices represent the pure exchange price without taxes and fees.</source>
         <translation>Preise entsprechen reinem Börsenpreis ohne Steuern und Abgaben.</translation>
+    </message>
+    <message>
+        <source>Price limit : %1 ct/kWh</source>
+        <translation>Preisgrenze : %1 ct/kWh</translation>
     </message>
 </context>
 <context>
@@ -491,10 +487,6 @@
         <translation>Lademodus konfiguieren</translation>
     </message>
     <message>
-        <source>Reconfigure charging mode</source>
-        <translation>Lademodus ändern</translation>
-    </message>
-    <message>
         <source>Target charging current</source>
         <translation>Ladestrom (Soll)</translation>
     </message>
@@ -569,6 +561,10 @@
     <message>
         <source>Below price limit</source>
         <translation>Preisgrenze unterschritten</translation>
+    </message>
+    <message>
+        <source>Cancel &amp; reconfigure charging mode</source>
+        <translation>Lademodus abbrechen &amp; ändern</translation>
     </message>
 </context>
 <context>
@@ -3885,11 +3881,11 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>It is advisable to choose a price limit below 0 cents. If the electricity exchange price falls below 0 cents, this means that there is surplus electricity in the grid. By charging your battery at these times, you can use this cheap electricity and consume it when electricity is more expensive.</source>
-        <translation type="unfinished">Es empfiehlt sich eine Preisgrenze unter 0 ct zu wählen. Wenn der Börsenstrompreis unter 0 Cent fällt, bedeutet das, dass überschüssiger Strom im Netz vorhanden ist. Durch das Laden Ihrer Batterie zu diesen Zeiten nutzen Sie diesen günstigen Strom und können ihn verbrauchen, wenn der Strom teurer ist.</translation>
+        <translation>Es empfiehlt sich eine Preisgrenze unter 0 ct zu wählen. Wenn der Börsenstrompreis unter 0 Cent fällt, bedeutet das, dass überschüssiger Strom im Netz vorhanden ist. Durch das Laden Ihrer Batterie zu diesen Zeiten nutzen Sie diesen günstigen Strom und können ihn verbrauchen, wenn der Strom teurer ist.</translation>
     </message>
     <message>
         <source>In winter, when little to no PV electricity is expected, it can also make sense to charge at a higher price limit. Please note, however, that taxes and fees are added to the exchange price.</source>
-        <translation>Im Winter, wenn wenig bis kein PV-Strom zu erwarten ist, kann es auch sinnvoll sein bei einer höheren Preisgrenze zu laden. Beachten Sie aber das zum Börsenpreis noch Steuern und Abgaben hinzukommen.</translation>
+        <translation type="unfinished">Im Winter, wenn wenig bis kein PV-Strom zu erwarten ist, kann es auch sinnvoll sein bei einer höheren Preisgrenze zu laden. Beachten Sie aber, dass zum Börsenpreis noch Steuern und Abgaben hinzukommen.</translation>
     </message>
 </context>
 <context>
