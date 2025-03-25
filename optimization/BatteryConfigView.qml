@@ -569,10 +569,8 @@ GenericConfigPage {
                           currentValue = value;
                           saveButton.enabled = batteryConfiguration.priceThreshold !== currentValue;
 
-                          pricingCurrentLimitSeries.clear();
-                          pricingUpperSeriesAbove.clear();
-                          pricingLowerSeriesAbove.clear();
-                          consumptionSeries.insertEntry(dynamicPrice.get(0).stateByName("priceSeries").value, true)
+                          barSeries.clearValues();
+                          barSeries.addValues(dynamicPrice.get(0).stateByName("priceSeries").value);
                         }
                         from: -50
                         to: 50
