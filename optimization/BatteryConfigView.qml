@@ -24,10 +24,10 @@ GenericConfigPage {
     property BatteryConfiguration batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id)
 
 
-    property double currentValue : batteryConfiguration.priceThreshold 
+    property double currentValue : batteryConfiguration.priceThreshold
     property double thresholdPrice: 0
     property int valueAxisUpdate: {
-        (0 > lowestPrice) ? valueAxisUpdate = lowestPrice :  (currentValue < 0) ? valueAxisUpdate = currentValue - 2 : valueAxisUpdate = -2
+        (0 > barSeries.lowestValue) ? valueAxisUpdate = barSeries.lowestValue :  (currentValue < 0) ? valueAxisUpdate = currentValue - 2 : valueAxisUpdate = -2
     }
 
     property int validSince: 0
@@ -117,10 +117,10 @@ GenericConfigPage {
 
     function saveSettings()
     {
-        rootObject.pendingCallId = hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": optimizationController.checked, 
-                        "priceThreshold": currentValue, 
-                        "relativePriceEnabled": false, 
-                        "chargeOnce": chargeOnceController.checked, 
+        rootObject.pendingCallId = hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": optimizationController.checked,
+                        "priceThreshold": currentValue,
+                        "relativePriceEnabled": false,
+                        "chargeOnce": chargeOnceController.checked,
                         "controllableLocalSystem": optimizationController.checked})
     }
 
@@ -333,22 +333,20 @@ GenericConfigPage {
                     if(!dpThing)
                         return;
 
-                    pricingCurrentLimitSeries.clear();
-                    pricingUpperSeries.clear();
-                    pricingUpperSeriesAbove.clear();
+                    //pricingUpperSeries.clear();
+                    //pricingUpperSeriesAbove.clear();
 
-                    validSince = dpThing.stateByName("validSince").value
-                    validUntil = dpThing.stateByName("validUntil").value
                     currentPrice = dpThing.stateByName("currentMarketPrice").value
                     averagePrice = dpThing.stateByName("averagePrice").value.toFixed(0).toString();
 
-                    consumptionSeries.insertEntry(dpThing.stateByName("priceSeries").value, false)
-
+                    //consumptionSeries.insertEntry(dpThing.stateByName("priceSeries").value)
+                    barSeries.addValues(dpThing.stateByName("priceSeries").value)
+                    /*
                     if(currentValue < 0){
-                     valueAxis.adjustMax(valueAxisUpdate,highestPrice);
+                     valueAxis.adjustMax(valueAxisUpdate,barSeries.highestValue);
                     }else{
-                     valueAxis.adjustMax((Math.ceil(lowestPrice)),highestPrice);
-                    }
+
+                    }*/
                 }
 
                 QtObject {
@@ -376,257 +374,27 @@ GenericConfigPage {
 
                 }
 
-                Component {
-                    id: lineSeriesComponent
-                    LineSeries { }
-                }
-
                 Item {
                     Layout.fillWidth: parent.width
                     Layout.fillHeight: true
                     Layout.minimumHeight: 50
 
-                    ChartView {
-                        id: chartView
-                        anchors.fill: parent
-
-                        backgroundColor:  chargeOnceController.checked ? "whitesmoke" : "transparent"
-                        margins.left: 0
-                        margins.right: 0
-                        margins.top: 0
-                        margins.bottom: 0
-
-                        legend.visible: false
-                        ActivityIndicator {
-                            id: noDataIndicator
-                            x: chartView.plotArea.x + (chartView.plotArea.width - width) / 2
-                            y: chartView.plotArea.y + (chartView.plotArea.height - height) / 2 + (chartView.plotArea.height / 8)
-                            visible: false
-                            opacity: .5
-                        }
-
-                        Label {
-                            id: noDataLabel
-                            x: chartView.plotArea.x + (chartView.plotArea.width - width) / 2
-                            y: chartView.plotArea.y + (chartView.plotArea.height - height) / 2 + (chartView.plotArea.height / 8)
-                            text: qsTr("No data available")
-                            visible: false
-                            font: Style.smallFont
-                            opacity: .5
-                        }
-
-                        ValueAxis {
-                            id: valueAxis
-                            min: 0
-                            max: 1
-                            labelFormat: ""
-                            gridLineColor: Style.tileOverlayColor
-                            labelsVisible: false
-                            tickCount: 5
-                            lineVisible: false
-                            titleVisible: false
-                            shadesVisible: false
-                            function adjustMax(minPrice,maxPrice) {
-                                max = Math.ceil(maxPrice) + 1;
-                                max += 4 - (max % 4);
-                                min = minPrice <= 0 ? minPrice - 5 : 0;
-
-                                if(min < 0) {
-                                    max += 4 - ((max + min * (-1)) % 4);
-                                }
-                            }
-                        }
-
-                        Item {
-                            id: labelsLayout
-                            x: Style.smallMargins
-                            y: chartView.plotArea.y
-                            height: chartView.plotArea.height
-                            width: chartView.plotArea.x - x
-                            Repeater {
-                                model: valueAxis.tickCount
-                                delegate: Label {
-                                    y: parent.height / (valueAxis.tickCount - 1) * index - font.pixelSize / 2
-                                    width: parent.width - Style.smallMargins
-                                    horizontalAlignment: Text.AlignRight
-                                    text: (Math.ceil(valueAxis.max - index * (valueAxis.max - valueAxis.min) / (valueAxis.tickCount - 1))) + " ct"  //linke Seite vom Graphen
-                                    verticalAlignment: Text.AlignTop
-                                    font: Style.extraSmallFont
-                                }
-                            }
-                        }
-
-                        DateTimeAxis {
-                            id: dateTimeAxis
-                            min: d.startTimeSince
-                            max: d.endTimeUntil
-                            format: "HH:mm"
-                            tickCount: 5
-                            labelsFont: Style.extraSmallFont
-                            gridVisible: false
-                            minorGridVisible: false
-                            lineVisible: false
-                            shadesVisible: false
-                            labelsColor: Style.foregroundColor
-                        }
-
-
-                        AreaSeries {
-                            id: currentLimitSeries
-                            axisX: dateTimeAxis
-                            axisY: valueAxis
-                            color: '#ccc'
-                            borderWidth: 1
-                            borderColor: 'transparent'
-                            upperSeries: LineSeries {
-                                id: pricingCurrentLimitSeries
-                            }
-                        }
-
-                        AreaSeries {
-                            id: consumptionSeries
-                            axisX: dateTimeAxis
-                            axisY: valueAxis
-                            color: 'transparent'
-                            borderWidth: 1
-                            borderColor: Configuration.epexMainLineColor
-
-                            upperSeries: LineSeries {
-                                id: pricingUpperSeries
-                            }
-
-                            function insertEntry(value, onlyThreshold){
-                                var lastObjectValue = value[Object.keys(value)[Object.keys(value).length - 1]];
-
-                                var firstRun = true;
-                                let lastChange = 0;
-                                let lastChangeTimestamp = 0;
-                                let identicalIndexes = [];
-
-                                for (const item in value){
-                                    const date = new Date(item);
-                                    let currentTimestamp = date.getTime();
-                                    let itemValue = value[item];
-                                    if(itemValue < lowestPrice){
-                                        lowestPrice = itemValue
-                                    }
-
-                                    if(itemValue > highestPrice){
-                                        highestPrice = itemValue
-                                    }
-
-                                    if(lastChange !== itemValue) {
-                                        lastChangeTimestamp = currentTimestamp;
-
-                                        for(const ts of identicalIndexes) {
-                                            prices[ts].end = currentTimestamp;
-                                        }
-
-                                        identicalIndexes = [currentTimestamp];
-                                    }
-                                    else {
-                                        identicalIndexes.push(currentTimestamp);
-                                    }
-
-                                    lastChange = itemValue;
-
-                                    prices[currentTimestamp] = {
-                                        start: lastChangeTimestamp,
-                                        value: itemValue
-                                    };
-
-                                    if(firstRun === true){
-                                        firstRun = false;
-                                        highestPrice = itemValue
-                                        lowestPrice = itemValue
-                                        currentTimestamp = currentTimestamp - 600000;
-                                    }
-
-                                    if(currentValue >= lowestPrice) {
-                                        if(itemValue < currentValue) {
-                                            pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),currentValue);
-                                            pricingCurrentLimitSeries.append(currentTimestamp,currentValue);
-                                        }
-                                        else {
-                                            pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),valueAxis.min -5);
-                                            pricingCurrentLimitSeries.append(currentTimestamp,valueAxis.min - 5);
-                                        }
-                                    }
-
-                                    pricingUpperSeriesAbove.append(currentTimestamp,currentValue);
-                                    if(!onlyThreshold) {
-                                        pricingUpperSeries.append(currentTimestamp - (60000 * 15) + 1,itemValue);
-                                        pricingUpperSeries.append(currentTimestamp,itemValue);
-                                    }
-                                }
-
-                                const todayMidnight = new Date(identicalIndexes[0]);
-                                todayMidnight.setDate(todayMidnight.getDate() +1);
-                                todayMidnight.setMinutes(0);
-                                todayMidnight.setHours(0);
-
-                                const todayMidnightTs = todayMidnight.getTime();
-
-                                for(const ts of identicalIndexes) {
-                                    prices[ts].end = todayMidnightTs;
-                                }
-
-                                pricingCurrentLimitSeries.append(todayMidnightTs + 6000000, valueAxis.min - 5);
-                                pricingUpperSeriesAbove.append(todayMidnightTs + 6000000, currentValue);
-                                pricingLowerSeriesAbove.append(todayMidnightTs + 6000000, currentValue);
-
-                                if(!onlyThreshold) {
-                                    pricingUpperSeries.append(todayMidnightTs + 6000000, lastObjectValue);
-                                }
-                            }
-                        }
-
-                        AreaSeries {
-                            id: consumptionSeriesAbove
-                            axisX: dateTimeAxis
-                            axisY: valueAxis
-                            color: 'transparent'
-                            borderWidth: 1
-                            borderColor: Configuration.epexAverageColor
-
-                            upperSeries: LineSeries {
-                                id: pricingUpperSeriesAbove
-                            }
-
-                            lowerSeries: LineSeries {
-                                id: pricingLowerSeriesAbove
-                            }
-                        }
-
-                        ScatterSeries {
-                            id: currentValuePoint
-                            borderColor: Configuration.epexMainLineColor
-                            color: Configuration.epexMainLineColor
-                            markerSize: 8
-                            markerShape: AbstractSeries.MarkerShapeCircle
-                            axisX: dateTimeAxis
-                            axisY: valueAxis
-                        }
-
-                        Timer {
-                            property bool isOn: false
-                            interval: isOn ? 60000 : 100
-                            running: true
-                            repeat: true
-                            onTriggered: {
-                                isOn = true;
-                                var currentTime = new Date();
-
-                                currentValuePoint.remove(0);
-                                currentTime.setTime(currentTime.getTime() - (15 * 60 * 1000));
-
-                                currentValuePoint.append(currentTime.getTime(), currentPrice);
-                            }
-                        }
-
-
+                    CustomBarSeries {
+                      id: barSeries
+                      anchors.fill: parent
+                      margins.left: 0
+                      margins.right: 0
+                      margins.top: 0
+                      margins.bottom: 0
+                      backgroundColor:  chargeOnceController.checked ? "whitesmoke" : "transparent"
+                      startTime: d.startTimeSince
+                      endTime: d.endTimeUntil
+                      hoursNow: d.now.getHours();
+                      currentPrice: currentValue
                     }
 
+                    //ToolTip
+                    /*
                     MouseArea {
                         id: mouseArea
                         anchors.fill: parent
@@ -765,6 +533,8 @@ GenericConfigPage {
                             }
                         }
                     }
+
+                    */
                 }
 
                 Label {
