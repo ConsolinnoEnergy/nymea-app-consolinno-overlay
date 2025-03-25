@@ -140,10 +140,6 @@
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <source>Price limit</source>
-        <translation>Preisgrenze</translation>
-    </message>
-    <message>
         <source>Charging Plan</source>
         <translation>Ladeplan</translation>
     </message>
@@ -170,10 +166,6 @@
     <message>
         <source>Current price</source>
         <translation>Aktueller Preis</translation>
-    </message>
-    <message>
-        <source>Below price limit</source>
-        <translation>Preisschwelle unterschritten</translation>
     </message>
     <message>
         <source>Status</source>
@@ -210,6 +202,10 @@
     <message>
         <source>Prices represent the pure exchange price without taxes and fees.</source>
         <translation>Preise entsprechen reinem Börsenpreis ohne Steuern und Abgaben.</translation>
+    </message>
+    <message>
+        <source>Price limit : %1 ct/kWh</source>
+        <translation>Preisgrenze : %1 ct/kWh</translation>
     </message>
 </context>
 <context>
@@ -529,10 +525,6 @@
         <translation>Lademodus konfiguieren</translation>
     </message>
     <message>
-        <source>Reconfigure charging mode</source>
-        <translation>Lademodus ändern</translation>
-    </message>
-    <message>
         <source>Target charging current</source>
         <translation>Ladestrom (Soll)</translation>
     </message>
@@ -607,6 +599,10 @@
     <message>
         <source>Below price limit</source>
         <translation>Preisgrenze unterschritten</translation>
+    </message>
+    <message>
+        <source>Cancel &amp; reconfigure charging mode</source>
+        <translation>Lademodus abbrechen &amp; ändern</translation>
     </message>
 </context>
 <context>
