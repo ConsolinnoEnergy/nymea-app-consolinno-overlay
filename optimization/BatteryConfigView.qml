@@ -333,20 +333,9 @@ GenericConfigPage {
                     if(!dpThing)
                         return;
 
-                    //pricingUpperSeries.clear();
-                    //pricingUpperSeriesAbove.clear();
-
                     currentPrice = dpThing.stateByName("currentMarketPrice").value
                     averagePrice = dpThing.stateByName("averagePrice").value.toFixed(0).toString();
-
-                    //consumptionSeries.insertEntry(dpThing.stateByName("priceSeries").value)
                     barSeries.addValues(dpThing.stateByName("priceSeries").value)
-                    /*
-                    if(currentValue < 0){
-                     valueAxis.adjustMax(valueAxisUpdate,barSeries.highestValue);
-                    }else{
-
-                    }*/
                 }
 
                 QtObject {
@@ -386,155 +375,14 @@ GenericConfigPage {
                       margins.right: 0
                       margins.top: 0
                       margins.bottom: 0
-                      backgroundColor:  chargeOnceController.checked ? "whitesmoke" : "transparent"
+                      backgroundColor: chargeOnceController.checked ? "whitesmoke" : "transparent"
                       startTime: d.startTimeSince
                       endTime: d.endTimeUntil
-                      hoursNow: d.now.getHours();
+                      hoursNow: d.now.getHours()
                       currentPrice: currentValue
+                      currentMarketPrice: currentPrice
                     }
 
-                    //ToolTip
-                    /*
-                    MouseArea {
-                        id: mouseArea
-                        anchors.fill: parent
-                        anchors.leftMargin: chartView.plotArea.x
-                        anchors.topMargin: chartView.plotArea.y
-                        anchors.rightMargin: chartView.width - chartView.plotArea.width - chartView.plotArea.x
-                        anchors.bottomMargin: chartView.height - chartView.plotArea.height - chartView.plotArea.y
-
-                        hoverEnabled: true
-                        preventStealing: tooltipping
-
-                        property int startMouseX: 0
-                        property bool tooltipping: false
-                        property var startDatetime: null
-
-                        Rectangle {
-                            height: parent.height
-                            width: 1
-                            color: Style.foregroundColor
-                            x: Math.min(mouseArea.width - 1, Math.max(0, mouseArea.mouseX))
-                            visible: (mouseArea.containsMouse || mouseArea.tooltipping)
-                        }
-
-                        //Mouseover Details in Graph
-                        NymeaToolTip {
-                            id: toolTip
-                            visible: (mouseArea.containsMouse || mouseArea.tooltipping)
-
-                            backgroundRect: Qt.rect(mouseArea.x + toolTip.x, mouseArea.y + toolTip.y, toolTip.width, toolTip.height)
-
-                            property double currentValueY: 0
-                            property int idx: mouseArea.mouseX
-                            property int timeSince: new Date(d.startTimeSince).getTime()
-                            property int timestamp: (new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())
-
-                            property int xOnRight: Math.max(0, mouseArea.mouseX) + Style.smallMargins
-                            property int xOnLeft: Math.min(mouseArea.width, mouseArea.mouseX) - Style.smallMargins - width
-                            x: xOnRight + width < mouseArea.width ? xOnRight : xOnLeft
-                            property double maxValue: 0
-                            y: Math.min(Math.max(mouseArea.height - (maxValue * mouseArea.height / valueAxis.max) - height - Style.margins, 0), mouseArea.height - height)
-
-                            width: tooltipLayout.implicitWidth + Style.smallMargins * 2
-                            height: tooltipLayout.implicitHeight + Style.smallMargins * 2
-
-                            function getQuaterlyTimestamp(ts) {
-                               const currTime = new Date(ts);
-                               const currMinutes = currTime.getMinutes();
-                               const modRes = currMinutes % 15;
-
-                               if(modRes !== 0) {
-                                   if(modRes < 8) {
-                                       currTime.setMinutes(currMinutes - modRes);
-                                   }
-                                   else {
-                                       currTime.setMinutes(currMinutes + (15 - modRes));
-                                   }
-
-                                   currTime.setSeconds(0);
-                                   return currTime.getTime();
-                               }
-                               else {
-                                   return ts;
-                               }
-                           }
-
-                            ColumnLayout {
-                                id: tooltipLayout
-                                anchors {
-                                    left: parent.left
-                                    top: parent.top
-                                    margins: Style.smallMargins
-                                }
-                                Label {
-                                    text: {
-                                        if(!mouseArea.containsMouse) {
-                                            return "";
-                                        }
-
-                                        let hoveredTime = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000;
-
-                                        d.startTimeSince.toLocaleString(Qt.locale(), Locale.ShortFormat);
-
-                                        let currentPrice = prices[toolTip.getQuaterlyTimestamp(hoveredTime)];
-
-                                        if(!currentPrice)
-                                            return qsTr("No prices available, yet");
-
-                                        if(!currentPrice || typeof currentPrice === "undefined") {
-                                            const priceKeys = Object.keys(prices);
-                                            const lastItem = priceKeys[priceKeys.length -1];
-                                            currentPrice = prices[lastItem];
-                                        }
-
-                                        let val = currentPrice.start;
-                                        val = new Date(val).toLocaleString(Qt.locale(), Locale.ShortFormat);
-
-                                        let endVal = currentPrice.end;
-                                        endVal = new Date(endVal).toLocaleTimeString(Qt.locale(), Locale.ShortFormat) + ":00";
-
-                                        return val + " - " + endVal.slice(0, -3);
-                                    }
-                                    font: Style.smallFont
-                                }
-                                Label {
-                                    property string unit: qsTr("ct/kWh")
-                                    text: {
-                                        if(!mouseArea.containsMouse) {
-                                            return "";
-                                        }
-
-                                        let hoveredTime = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000;
-
-                                        let currentPrice = prices[toolTip.getQuaterlyTimestamp(hoveredTime)];
-
-                                        if(!currentPrice)
-                                            return "";
-
-                                        if(!currentPrice || typeof currentPrice === "undefined") {
-                                            const priceKeys = Object.keys(prices);
-                                            const lastItem = priceKeys[priceKeys.length -1];
-                                            currentPrice = prices[lastItem];
-                                        }
-
-                                        let dynamicVal = currentPrice.value;
-
-                                        const scaleValue = valueAxis.max + (valueAxis.min > 0 ? 0 : (valueAxis.min * (-1)));
-
-                                        dynamicVal += valueAxis.min < 0 ? (valueAxis.min * (-1)) : 0;
-
-                                        toolTip.y = mouseArea.height - (mouseArea.height * (dynamicVal / scaleValue)) - toolTip.height - 2;
-                                        const val = (+currentPrice.value.toFixed(2)).toLocaleString();
-                                        return "%1 %2".arg(val).arg(unit);
-                                    }
-                                    font: Style.extraSmallFont
-                                }
-                            }
-                        }
-                    }
-
-                    */
                 }
 
                 Label {
@@ -557,6 +405,8 @@ GenericConfigPage {
             ItemDelegate {
                 Layout.fillWidth: true
                 topPadding: 0
+                visible: optimizationController.checked
+                enabled: chargeOnceController.checked ? false : true
                 contentItem: ColumnLayout {
                     Label {
                         Layout.fillWidth: true
