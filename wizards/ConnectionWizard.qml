@@ -71,14 +71,17 @@ ConsolinnoWizardPageBase {
             Layout.alignment: Qt.AlignHCenter
             text: readCheckbox.checked ? qsTr('next') : qsTr('cancel')
             Layout.preferredWidth: 200
-            enabled: readCheckbox.checked
+            background: Rectangle{
+                color: readCheckbox.checked ? Configuration.buttonColor : 'grey'
+                radius: 4
+            }
 
 
             onClicked: {
                 if (readCheckbox.checked) {
                     root.next()
                 } else {
-                    Qt.quit()
+                    Qt.quit();
                 }
             }
         }
@@ -257,16 +260,18 @@ ConsolinnoWizardPageBase {
                 Button {
                     Layout.alignment: Qt.AlignHCenter
                     text: policyCheckbox.checked && accountCheckbox.checked ? qsTr('next') : qsTr('cancel')
-                    //color: policyCheckbox.checked ? Style.accentColor : Style.yellow
+                    //color: policyCheckbox.checked ? Style.accentColor : "gray"
                     Layout.preferredWidth: 200
-                    enabled: policyCheckbox.checked && accountCheckbox.checked
-
+                    background: Rectangle{
+                        color: policyCheckbox.checked && accountCheckbox.checked ? Configuration.buttonColor : 'grey'
+                        radius: 4
+                    }
 
                     onClicked: {
                         if (policyCheckbox.checked && accountCheckbox.checked) {
                             privacyPolicyPage.next()
                         } else {
-                            Qt.quit()
+                            pageStack.pop()
                         }
                     }
                 }
