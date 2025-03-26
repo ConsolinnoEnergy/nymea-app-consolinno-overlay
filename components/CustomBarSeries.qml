@@ -155,7 +155,7 @@ ChartView {
         axisY: valueAxis
         color: 'transparent'
         borderWidth: 1
-        borderColor: Configuration.epexAverageColor
+        borderColor: root.enabled ? Configuration.epexAverageColor : "#F5F5F5"
 
         upperSeries: LineSeries {
             id: priceLimitUp
@@ -260,8 +260,7 @@ ChartView {
         priceLimitUp.append(todayMidnightTs + 6000000, currentPrice);
         priceLimitLow.append(todayMidnightTs + 6000000, currentPrice);
 
-        mainSeries.append(todayMidnightTs + 6000000, lastObjectValue);
-
+        barToDraw.append(todayMidnightTs + 6000000, lastObjectValue);
     }
 
     function clearValues(){
