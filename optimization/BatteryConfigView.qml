@@ -411,7 +411,7 @@ GenericConfigPage {
                         }
                         from: -50
                         to: 50
-                        stepSize: 0.5
+                        stepSize: 0.2
                     }
                 }
             }
