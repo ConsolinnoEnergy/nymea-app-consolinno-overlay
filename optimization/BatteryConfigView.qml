@@ -234,8 +234,8 @@ GenericConfigPage {
 
                 Column {
                     Switch{
-                        spacing: 0
-                        height: 15
+                        spacing: 1
+                        height: 18
                         id: optimizationController
                         onClicked: {
                             if(!optimizationController.checked){
@@ -268,8 +268,8 @@ GenericConfigPage {
 
                 Column {
                     Switch {
-                        spacing: 0
-                        height: 15
+                        spacing: 1
+                        height: 18
                         id: chargeOnceController
                         Component.onCompleted: {
                             checked = batteryConfiguration.chargeOnce
