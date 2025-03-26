@@ -391,7 +391,10 @@ GenericConfigPage {
 
             ItemDelegate {
                 Layout.fillWidth: true
+                Layout.alignment: Qt.AlignLeft
                 topPadding: 0
+                leftPadding: 0
+                rightPadding: 0
                 visible: optimizationController.checked
                 enabled: chargeOnceController.checked ? false : true
                 contentItem: ColumnLayout {
