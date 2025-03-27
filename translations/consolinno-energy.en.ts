@@ -144,18 +144,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No data available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No prices available, yet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ct/kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1155,13 +1143,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>- Product name
-- Software version
-- Serial number - if known</source>
+        <source>and transfer an amount of money in advance, based on the information provided by the support, to cover the costs of creating and sending the disk. Alternatively, the source code can be downloaded free of charge.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>and transfer an amount of money in advance, based on the information provided by the support, to cover the costs of creating and sending the disk. Alternatively, the source code can be downloaded free of charge.</source>
+        <source>- Product name<byte value="xd"/>
+- Software version<byte value="xd"/>
+- Serial number - if known</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2070,6 +2058,13 @@
     </message>
 </context>
 <context>
+    <name>ConsolinnoSwipeDelegate</name>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoUsersSettingsPage</name>
     <message>
         <source>User settings</source>
@@ -2318,6 +2313,21 @@
     </message>
     <message>
         <source>Phone number: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CustomBarSeries</name>
+    <message>
+        <source>No data available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No prices available, yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

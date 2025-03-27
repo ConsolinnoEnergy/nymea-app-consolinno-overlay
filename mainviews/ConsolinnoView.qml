@@ -551,7 +551,7 @@ MainViewBase {
                 var incompNotificationPopup = incompNotificationComponent.createObject(root)
                 //                incompNotificationPopup.message = qsTr("%2 App is not compatible with the HEMS system version running on %1. Please update your HEMS.").arg(engine.jsonRpcClient.currentHost.name).arg(Configuration.appName)
                 
-                let phone = (Configuration.companyTel !== "") ? qsTr("Phone: <a href='tel:%1'>%1</a>").arg(Configuration.companyTel) : ""
+                let phone = (Configuration.serviceTel !== "") ? qsTr("Phone: <a href='tel:%1'>%1</a>").arg(Configuration.serviceTel) : ""
                 let mail = qsTr("Email: <a href='mailto:%1'>%1</a>").arg(Configuration.serviceEmail)
 
                 incompNotificationPopup.message=qsTr('<h3>Incompatible Software Versions</h3>
