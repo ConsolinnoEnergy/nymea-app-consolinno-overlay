@@ -13,7 +13,6 @@ ConsolinnoWizardPageBase {
     showBackButton: false
     showNextButton: false
     background: Item{}
-    // change this to privacyPolicyComponent when the Policy is there
     onNext: pageStack.push(privacyPolicyComponent)
 
     function exitWizard() {
@@ -23,7 +22,6 @@ ConsolinnoWizardPageBase {
 
     content: ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins; right: parent.right; left: parent.left }
-        //width: Math.min(parent.width, 450)
 
         Flickable {
             Layout.fillHeight: true
@@ -107,7 +105,6 @@ ConsolinnoWizardPageBase {
                 ColumnLayout {
                     id: contentColumn
 
-                    //                anchors.fill: parent
                     anchors {
                         top: parent.top
                         bottom: parent.bottom
@@ -260,7 +257,6 @@ ConsolinnoWizardPageBase {
                 Button {
                     Layout.alignment: Qt.AlignHCenter
                     text: policyCheckbox.checked && accountCheckbox.checked ? qsTr('next') : qsTr('cancel')
-                    //color: policyCheckbox.checked ? Style.accentColor : "gray"
                     Layout.preferredWidth: 200
                     background: Rectangle{
                         color: policyCheckbox.checked && accountCheckbox.checked ? Configuration.buttonColor : 'grey'
@@ -322,7 +318,6 @@ ConsolinnoWizardPageBase {
                 Button {
                     Layout.alignment: Qt.AlignHCenter
                     text: qsTr('next')
-                    //color: Style.accentColor
                     Layout.preferredWidth: 200
 
                     onClicked: {
@@ -474,8 +469,6 @@ ConsolinnoWizardPageBase {
         id: manualConnectionComponent
 
         ConsolinnoWizardPageBase {
-            //            title: qsTr('Manual connection')
-            //            text: qsTr('Please enter the connection information for your nymea system')
             headerLabel: qsTr("Manual Connection")
             showBackButton: false
             showNextButton: false
