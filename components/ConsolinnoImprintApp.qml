@@ -225,9 +225,7 @@ Item {
                     Layout.topMargin: 7
                     wrapMode: Text.WordWrap
                     font.pixelSize: app.smallFont
-                    text: qsTr("- Product name
-- Software version
-- Serial number - if known")
+                    text: qsTr("- Product name\r\n- Software version\r\n- Serial number - if known")
                 }
 
                 Label{
