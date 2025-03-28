@@ -22,7 +22,7 @@ GenericConfigPage {
     readonly property State batteryLevelState: root.thing.stateByName("batteryLevel")
     readonly property State currentPowerState: root.thing.stateByName("currentPower")
     property BatteryConfiguration batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id)
-
+    property bool isZeroCompensation : false
 
     property double currentValue : batteryConfiguration.priceThreshold
     property double thresholdPrice: 0
@@ -129,6 +129,16 @@ GenericConfigPage {
         saveButton.enabled = true
     }
 
+    function zeroCompensation(state){
+        //return (state === "activated") ? qsTr("activated") : qsTr("deactivated")
+        if(state === "activated"){
+            isZeroCompensation = true;
+            return qsTr("activated")
+        }else{
+            isZeroCompensation = false;
+            return qsTr("deactivated")
+        }
+    }
 
     ThingsProxy {
         id: dynamicPrice
@@ -179,7 +189,6 @@ GenericConfigPage {
 
         }
 
-
         // Current Battery Level
         RowLayout {
             Layout.fillWidth: true
@@ -208,7 +217,29 @@ GenericConfigPage {
         }
 
         RowLayout {
+            Layout.fillWidth: true
+            Layout.topMargin: 5
+            visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
+
+            Label {
+                text: qsTr("Zero Compensation")
+            }
+
+            InfoButton {
+                id: zeroCompensationInfo
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignTop
+                push: "ZeroCompensationInfo.qml"
+            }
+
+            Label {
+                text: zeroCompensation("deactivated")
+            }
+        }
+
+        RowLayout {
             Layout.topMargin: 10
+            enabled: isZeroCompensation ? false : true
             Label {
                 text: qsTr("Charging from grid")
                 font.weight: Font.Bold
@@ -216,8 +247,9 @@ GenericConfigPage {
         }
 
         ColumnLayout {
-            visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
             id: columnContainer
+            visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
+            enabled: isZeroCompensation ? false : true
 
             // Optimization enabled
             RowLayout {

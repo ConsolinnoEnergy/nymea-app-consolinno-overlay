@@ -195,6 +195,25 @@
         <source>Price limit : %1 ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>activated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deactivated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zero Compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BatteryConfigurationView</name>
+    <message>
+        <source>Battery</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BatteryLevel</name>
@@ -204,6 +223,49 @@
     </message>
     <message>
         <source>The energy manager requires information on the battery level for the optimized charging process. This information is not transmitted by the vehicle and must therefore be entered manually.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BatteryOptimization</name>
+    <message>
+        <source>Could not save configuration. One of the parameters is invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not save configuration. The thing is not valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximal electrical power</source>
+        <translation>Maximal electrical power</translation>
+    </message>
+    <message>
+        <source>kW</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive-control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zero Compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3137,6 +3199,10 @@
         <source>Charging</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Battery</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OutOfDate</name>
@@ -3897,6 +3963,17 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Your %1 is now configured. The following devices have been set up:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ZeroCompensationInfo</name>
+    <message>
+        <source>Zero Compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
