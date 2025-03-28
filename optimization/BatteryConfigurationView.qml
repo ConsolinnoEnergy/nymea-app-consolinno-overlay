@@ -15,7 +15,7 @@ Page {
     property HemsManager hemsManager
 
     header: NymeaHeader {
-        text: qsTr("Charging")
+        text: qsTr("Battery")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
@@ -29,20 +29,18 @@ Page {
 
         Repeater {
             id: configRepeater
-            model: hemsManager.chargingConfigurations
+            model: hemsManager.batteryConfigurations
             delegate: NymeaItemDelegate {
                 id: configDelegate
 
-                property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(model.evChargerThingId)
-                property Thing thing: engine.thingManager.things.getThing(model.evChargerThingId)
-
-
+                property BatteryConfiguration batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(model.batteryThingId)
+                property Thing thing: engine.thingManager.things.getThing(model.batteryThingId)
 
                 Layout.fillWidth: true
-                iconName: Configuration.evchargerIcon !== "" ? "../images/" + Configuration.evchargerIcon : "../images/ev-charger.svg";
+                iconName: Configuration.batteryIcon !== "" ? "../images/" + Configuration.batteryIcon : "../images/battery/battery-080.svg";
                 progressive: true
                 text: thing.name
-                onClicked: pageStack.push("EvChargerOptimization.qml", { hemsManager: hemsManager, thing: thing })            
+                onClicked: pageStack.push("BatteryOptimization.qml", { hemsManager: hemsManager, thing: thing })
 
 
                 Image {
