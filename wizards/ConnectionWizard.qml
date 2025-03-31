@@ -136,7 +136,7 @@ ConsolinnoWizardPageBase {
                             horizontalAlignment: Text.AlignHCenter
                             wrapMode: Text.WordWrap
                             font: Style.bigFont
-                            text: qsTr('Welcome to %1!').arg(Configuration.branding)
+                            text: qsTr('Welcome to %1!').arg(Configuration.appName)
                         }
 
                         Button {

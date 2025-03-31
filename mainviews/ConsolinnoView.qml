@@ -563,7 +563,7 @@ MainViewBase {
                 </ul>
                 <p>We apologize for the temporary limitations in use.</p>
                 <p>Best regards</p>
-                <p>Your %5 Team</p>').arg(appVersion).arg(engine.jsonRpcClient.experiences.Hems).arg(Configuration.appName).arg(mail).arg(Configuration.branding).arg(Configuration.deviceName).arg(phone)
+                <p>Your %5 Team</p>').arg(appVersion).arg(engine.jsonRpcClient.experiences.Hems).arg(Configuration.appName).arg(mail).arg(Configuration.appName).arg(Configuration.deviceName).arg(phone)
                 // If Popup not already open, open it
                 if (incompNotificationPopup.opened === false) {
                     incompNotificationPopup.open()
