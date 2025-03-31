@@ -19,7 +19,7 @@ ChartView {
     legend.visible: false
 
     Component.onCompleted: {
-        valueAxis.adjustMax((Math.ceil(root.lowestValue)), root.highestValue);
+        valueAxis.adjustMax(Math.ceil(root.lowestValue), root.highestValue);
     }
 
     ActivityIndicator {
