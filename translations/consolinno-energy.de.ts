@@ -213,6 +213,13 @@
     </message>
 </context>
 <context>
+    <name>BatteryConfigurationView</name>
+    <message>
+        <source>Battery</source>
+        <translation>Batterie</translation>
+    </message>
+</context>
+<context>
     <name>BatteryLevel</name>
     <message>
         <source>BatteryLevel</source>
@@ -221,6 +228,37 @@
     <message>
         <source>The energy manager requires information on the battery level for the optimized charging process. This information is not transmitted by the vehicle and must therefore be entered manually.</source>
         <translation>Der Energiemanager benötigt für den optimierten Ladevorgang die Angabe des Füllstandes der Batterie. Diese Information wird vom Fahrzeug nicht übermittelt und muss daher manuell eingetragen werden.</translation>
+    </message>
+</context>
+<context>
+    <name>BatteryOptimization</name>
+    <message>
+        <source>Could not save configuration. One of the parameters is invalid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Could not save configuration. The thing is not valid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Grid-supportive-control</source>
+        <translation type="unfinished">Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
+    </message>
+    <message>
+        <source>Zero Compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Speichern</translation>
     </message>
 </context>
 <context>
@@ -3146,6 +3184,10 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     <message>
         <source>Charging</source>
         <translation>Laden</translation>
+    </message>
+    <message>
+        <source>Battery</source>
+        <translation>Batterie</translation>
     </message>
 </context>
 <context>
