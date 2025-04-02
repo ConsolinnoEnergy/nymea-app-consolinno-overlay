@@ -315,7 +315,6 @@ GenericConfigPage {
                 anchors.top: parent.top
                 width: app.width
                 height: app.height
-                contentHeight: infoColumnLayout.implicitHeight + stateOfLoadingColumnLayout.implicitHeight + statusColumnLayout.implicitHeight + 100
                 contentWidth: app.width
 
                 ColumnLayout {
@@ -1403,27 +1402,27 @@ GenericConfigPage {
                         }
 
                         RowLayout {
+                            Layout.preferredWidth: app.width
                             Layout.topMargin: 5
                             visible: isAnyOfModesSelected([dyn_pricing])
-                            spacing: 5
-                            Layout.fillWidth: true
 
-                            Rectangle {
-                                Layout.preferredWidth: priceLimitigId.width
+                            RowLayout {
+
                                 Label {
                                     id: priceLimitigId
 
                                     text: qsTr("Price limit: ")
                                 }
-                            }
-                            Rectangle {
-                                Layout.fillWidth: true
 
                                 InfoButton{
                                     id: priceLimitInfoButton
 
                                     push: "PriceLimitInfo.qml"
+                                    Layout.rightMargin: 15
+                                    Layout.fillWidth: true
+                                    Layout.alignment: Qt.AlignTop
                                 }
+
                             }
                         }
 
