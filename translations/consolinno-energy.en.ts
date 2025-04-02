@@ -2291,16 +2291,10 @@
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.8.1&lt;/p&gt;
+&lt;p&gt;Version 1.8.2&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Battery charging from the grid (tariff-guided charging and instant charging)&lt;/li&gt;
-        &lt;ul&gt;
-            &lt;li&gt;FoxESS H3 (not yet H3 Pro)&lt;/li&gt;
-            &lt;li&gt;QCells G3 / G4&lt;/li&gt;
-            &lt;li&gt;Solax X3&lt;/li&gt;
-        &lt;/ul&gt;
-    &lt;li&gt;Various stability improvements&lt;/li&gt;
+    &lt;li&gt;Grid convenience setting for battery&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
