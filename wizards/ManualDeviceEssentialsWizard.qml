@@ -8,7 +8,6 @@ Page {
     id: root
     Layout.fillWidth: true
     Layout.alignment: Qt.AlignHCenter
-    anchors { left: parent.left; right: parent.right; }
 
     header: NymeaHeader {
         text: qsTr("Essential Optimizations Settings")

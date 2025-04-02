@@ -15,8 +15,6 @@ Page {
     property HemsManager hemsManager
     property string name
 
-    readonly property Thing thing: currentThing ? currentThing.get(0) : null
-
     property int directionID: 0
 
     signal done(bool skip, bool abort, bool back);

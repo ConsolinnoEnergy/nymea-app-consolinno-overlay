@@ -12,7 +12,7 @@ Page {
     property HemsManager hemsManager
 
 
-    header: NymeaHeader {
+    header: ConsolinnoHeader {
         text: qsTr("Device Overview")
         onBackPressed: {
             if (hemsManager.availableUseCases === 0){
@@ -24,14 +24,6 @@ Page {
             }
 
         }
-
-        HeaderButton {
-            imageSource: "../images/find.svg"
-            color: filterInput.shown ? Style.accentColor : Style.iconColor
-            onClicked: filterInput.shown = !filterInput.shown
-
-        }
-
     }
 
     QtObject {
@@ -95,12 +87,6 @@ Page {
             }
         }
 
-        /*
-        ListFilterInput {
-            id: filterInput
-            Layout.fillWidth: true
-        }*/
-
         GroupedListView {
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -110,7 +96,6 @@ Page {
                 id: thingsProxy
                 engine: _engine
                 groupByInterface: true
-                nameFilter: filterInput.shown ? filterInput.text : ""
                 hideTagId: "hiddenInDeviceView"
                 hiddenInterfaces: ["gridsupport"]
             }
