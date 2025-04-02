@@ -38,10 +38,10 @@ Page {
                     pageStack.pop()
                     return;
                 case "HemsErrorInvalidParameter":
-                    props.text = qsTr("Could not save configuration. One of the parameters is invalid.");
+                    footer.text = qsTr("Could not save configuration. One of the parameters is invalid.");
                     break;
                 case "HemsErrorInvalidThing":
-                    props.text = qsTr("Could not save configuration. The thing is not valid.");
+                    footer.text = qsTr("Could not save configuration. The thing is not valid.");
                     break;
                 default:
                     props.errorCode = error;
@@ -58,40 +58,6 @@ Page {
         anchors.fill: parent
         anchors.margins: app.margins
 
-        Label {
-            Layout.fillWidth: true
-            text: heatPumpThing.name
-            wrapMode: Text.WordWrap
-
-        }
-
-        RowLayout{
-            Layout.fillWidth: true
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Maximal electrical power")
-            }
-
-
-            TextField {
-                id: maxElectricalPower
-                property bool maxElectricalPower_validated
-                Layout.preferredWidth: 60
-                Layout.rightMargin: 8
-                text: (+batteryConfiguration.maxElectricalPower).toLocaleString()
-                maximumLength: 10
-                validator: DoubleValidator{bottom: 1 }
-
-                onTextChanged: acceptableInput ? maxElectricalPower_validated = true : maxElectricalPower_validated = false
-            }
-
-            Label {
-                id: maxElectricalPowerunit
-                text: qsTr("kW")
-            }
-
-        }
-
         RowLayout{
             Layout.fillWidth: true
             visible: thing.thingClass.interfaces.includes("controllablebattery")
@@ -104,7 +70,7 @@ Page {
 
             Switch {
                 id: gridSupportControl
-                Component.onCompleted: checked = true
+                Component.onCompleted: checked = batteryConfiguration.controllableLocalSystem
             }
         }
 
@@ -123,7 +89,7 @@ Page {
 
         RowLayout{
             Layout.fillWidth: true
-            visible: thing.thingClass.interfaces.includes("controllablebattery")
+            visible: false
 
             Label {
                 Layout.fillWidth: true
@@ -139,7 +105,7 @@ Page {
 
         ColumnLayout {
             Layout.fillWidth: true
-            visible: thing.thingClass.interfaces.includes("controllablebattery")
+            visible: false
 
             Text {
                 Layout.fillWidth: true
@@ -167,28 +133,19 @@ Page {
 
         Button {
             id: savebutton
-            property bool validated: maxElectricalPower.maxElectricalPower_validated
 
             Layout.fillWidth: true
             text: qsTr("Save")
             onClicked: {
-                let inputText = maxElectricalPower.text
-                inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
-                if (savebutton.validated)
-                {
-                    /*
-                    if (directionID == 1){
-                        hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, {optimizationEnabled: true, maxElectricalPower: inputText, controllableLocalSystem: gridSupportControl.checked,})
-                        root.done()
-                    }else if(directionID == 0){
-                        d.pendingCallId = hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, {optimizationEnabled: true, maxElectricalPower: inputText, controllableLocalSystem: gridSupportControl.checked,})
-                        root.done()
-                    }*/
+
+                if (directionID == 1){
+                    hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, {optimizationEnabled: true, controllableLocalSystem: gridSupportControl.checked})
+                    root.done()
+                }else if(directionID == 0){
+                    d.pendingCallId = hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, {optimizationEnabled: true, controllableLocalSystem: gridSupportControl.checked})
+                    root.done()
                 }
-                else
-                {
-                    footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
-                }
+
             }
         }
     }
