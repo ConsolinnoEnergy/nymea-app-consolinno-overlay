@@ -2294,7 +2294,7 @@
 &lt;p&gt;Version 1.8.2&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Grid convenience setting for battery&lt;/li&gt;
+    &lt;li&gt;Grid-supportive control for battery storage &lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>

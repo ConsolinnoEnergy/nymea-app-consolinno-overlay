@@ -2296,7 +2296,7 @@
 &lt;p&gt;Version 1.8.2&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Netzdienlichkeitseinstellung  für Batterie&lt;/li&gt;
+    &lt;li&gt;Netzdienlichkeitseinstellung  für Batteriespeicher&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
