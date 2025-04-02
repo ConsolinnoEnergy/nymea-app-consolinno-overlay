@@ -120,8 +120,7 @@ GenericConfigPage {
         rootObject.pendingCallId = hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": optimizationController.checked, 
                         "priceThreshold": currentValue, 
                         "relativePriceEnabled": false, 
-                        "chargeOnce": chargeOnceController.checked, 
-                        "controllableLocalSystem": false})
+                        "chargeOnce": chargeOnceController.checked})
     }
 
     function enableSave(obj)
