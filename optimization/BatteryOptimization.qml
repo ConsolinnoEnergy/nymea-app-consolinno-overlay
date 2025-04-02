@@ -87,6 +87,7 @@ Page {
 
         RowLayout{
             Layout.fillWidth: true
+            visible: thing.thingClass.interfaces.includes("controllablebattery")
 
             Label {
                 Layout.fillWidth: true
@@ -102,6 +103,7 @@ Page {
 
         ColumnLayout {
             Layout.fillWidth: true
+            visible: thing.thingClass.interfaces.includes("controllablebattery")
 
             Text {
                 Layout.fillWidth: true

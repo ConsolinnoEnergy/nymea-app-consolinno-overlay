@@ -195,32 +195,12 @@
         <source>Price limit : %1 ct/kWh</source>
         <translation>Preisgrenze : %1 ct/kWh</translation>
     </message>
-    <message>
-        <source>activated</source>
-        <translation type="unfinished">aktiviert</translation>
-    </message>
-    <message>
-        <source>deactivated</source>
-        <translation type="unfinished">deaktiviert</translation>
-    </message>
-    <message>
-        <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
-        <translation>Wenn Nullvergütung vermieden aktiv ist, dann ist kein Sofortladen der Batterie möglich.</translation>
-    </message>
-    <message>
-        <source>Tariff-controlled charging from the grid is deactivated during the regulation.</source>
-        <translation type="unfinished">Tarifgesteuertes Laden aus dem Netz ist während der Regelung deaktiviert.</translation>
-    </message>
-    <message>
-        <source>Avoid zero compensation is active</source>
-        <translation type="unfinished">Nullvergütung vermeiden aktiv</translation>
-    </message>
 </context>
 <context>
     <name>BatteryConfigurationView</name>
     <message>
         <source>Battery</source>
-        <translation type="unfinished">Batterie</translation>
+        <translation>Batterie</translation>
     </message>
 </context>
 <context>
@@ -3213,7 +3193,7 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     </message>
     <message>
         <source>Battery</source>
-        <translation type="unfinished">Batterie</translation>
+        <translation>Batterie</translation>
     </message>
 </context>
 <context>

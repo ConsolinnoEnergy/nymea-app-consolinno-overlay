@@ -195,32 +195,12 @@
         <source>Price limit : %1 ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>activated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>deactivated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tariff-controlled charging from the grid is deactivated during the regulation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Avoid zero compensation is active</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>BatteryConfigurationView</name>
     <message>
         <source>Battery</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -3169,27 +3149,27 @@
     <name>OptimizationConfiguration</name>
     <message>
         <source>Blackout protection</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Heating</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Pv</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>No optimizations available</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Optimizations will be available once the required things have been added to the system.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Optimization configuration</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Charging</source>
