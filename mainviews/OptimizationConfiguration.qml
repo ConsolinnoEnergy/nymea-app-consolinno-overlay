@@ -31,6 +31,7 @@ Page {
         ListElement { text: qsTr("Heating"); value: HemsManager.HemsUseCaseHeating; visible: true }
         //ListElement { text: qsTr("Heating Element"); value: HemsManager.HemsUseCaseHeatingElement; visible: true }
         ListElement { text: qsTr("Charging"); value: HemsManager.HemsUseCaseCharging; visible: true }
+        ListElement { text: qsTr("Battery"); value: HemsManager.HemsUseCaseBattery; visible: true }
         ListElement { text: qsTr("Pv"); value: HemsManager.HemsUseCasePv; visible: true}
     }
 
@@ -61,6 +62,9 @@ Page {
                             break;
                         case HemsManager.HemsUseCaseCharging:
                             icon = Configuration.evchargerIcon !== "" ? "../images/" + Configuration.evchargerIcon : "../images/ev-charger.svg";
+                            break;
+                        case HemsManager.HemsUseCaseBattery:
+                            icon = Configuration.batteryIcon !== "" ? "../images/" + Configuration.batteryIcon : "../images/battery/battery-080.svg";
                             break;
                         case HemsManager.HemsUseCasePv:
                             icon = Configuration.inverterIcon !== "" ? "../images/" + Configuration.inverterIcon : "../images/weathericons/weather-clear-day.svg";
@@ -104,6 +108,9 @@ Page {
                         break;
                     case HemsManager.HemsUseCaseCharging:
                         pageStack.push(Qt.resolvedUrl("../optimization/ChargingConfigurationView.qml"), { hemsManager: hemsManager })
+                        break;
+                    case HemsManager.HemsUseCaseBattery:
+                        pageStack.push(Qt.resolvedUrl("../optimization/BatteryConfigurationView.qml"), { hemsManager: hemsManager })
                         break;
                     case HemsManager.HemsUseCasePv:
                         pageStack.push(Qt.resolvedUrl("../optimization/PVConfigurationView.qml"), { hemsManager: hemsManager })
