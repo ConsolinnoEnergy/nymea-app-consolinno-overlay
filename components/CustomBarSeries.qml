@@ -19,7 +19,7 @@ ChartView {
     legend.visible: false
 
     Component.onCompleted: {
-        valueAxis.adjustMax(Math.ceil(root.lowestValue), root.highestValue);
+
     }
 
     ActivityIndicator {
@@ -175,18 +175,27 @@ ChartView {
         let identicalIndexes = [];
         let barToDraw = mainSeries;
 
+        // set lowestValue & highestValue of Y Axis before draw
+        for (const items in value){
+            let itemValues = value[items];
+
+            if(itemValues < root.lowestValue){
+                root.lowestValue = itemValues
+            }
+
+            if(itemValues > root.highestValue){
+                root.highestValue = itemValues
+            }
+        }
+
+        // get highestPrice and lowestPrice of Y
+        valueAxis.adjustMax(Math.ceil(root.lowestValue), root.highestValue);
+
+        // Draw Bars
         for (const item in value){
             const date = new Date(item);
             let currentTimestamp = date.getTime();
             let itemValue = value[item];
-
-            if(itemValue < root.lowestValue){
-                root.lowestValue = itemValue
-            }
-
-            if(itemValue > root.highestValue){
-                root.highestValue = itemValue
-            }
 
             if(lastChange !== itemValue) {
                 lastChangeTimestamp = currentTimestamp;
@@ -217,13 +226,13 @@ ChartView {
 
             if(lastChange !== itemValue) { // Draw done to mimick a bar
               barToDraw.append(currentTimestamp, lastChange);
-              barToDraw.append(currentTimestamp, -5);
+              barToDraw.append(currentTimestamp, valueAxis.min);
 
               // draw all unused bars along the x axis to prevent overlapping
-              mainSeries.append(currentTimestamp,-5);
-              pricingCurrentTime.append(currentTimestamp,-5);
-              pricingPast.append(currentTimestamp,-5);
-              pricingOutOfLimit.append(currentTimestamp,-5);
+              mainSeries.append(currentTimestamp, valueAxis.min);
+              pricingCurrentTime.append(currentTimestamp, valueAxis.min);
+              pricingPast.append(currentTimestamp, valueAxis.min);
+              pricingOutOfLimit.append(currentTimestamp, valueAxis.min);
             }
 
             barToDraw = mainSeries;
@@ -411,5 +420,4 @@ ChartView {
             }
         }
     }
-
 }
