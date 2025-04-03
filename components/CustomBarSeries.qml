@@ -175,19 +175,6 @@ ChartView {
         let identicalIndexes = [];
         let barToDraw = mainSeries;
 
-        // set lowestValue & highestValue of Y Axis before draw
-        for (const items in value){
-            let itemValues = value[items];
-
-            if(itemValues < root.lowestValue){
-                root.lowestValue = itemValues
-            }
-
-            if(itemValues > root.highestValue){
-                root.highestValue = itemValues
-            }
-        }
-
         // get highestPrice and lowestPrice of Y
         valueAxis.adjustMax(Math.ceil(root.lowestValue), root.highestValue);
 
@@ -217,8 +204,6 @@ ChartView {
 
             if(firstRun === true){
                 firstRun = false;
-                root.highestValue = itemValue
-                root.lowestValue = itemValue
                 currentTimestamp = currentTimestamp - 600000;
             }
 
