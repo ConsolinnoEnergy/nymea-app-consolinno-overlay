@@ -207,6 +207,10 @@
         <source>Zero Compensation</source>
         <translation type="unfinished">Nullvergütung vermeiden</translation>
     </message>
+    <message>
+        <source>The setting will only take effect once the rule to prevent zero compensation has been deactivated again.</source>
+        <translation type="unfinished">Einstellung wird erst aktiv, wenn die Regelung zu Nullvergütung vermeiden sich wieder deaktiviert.</translation>
+    </message>
 </context>
 <context>
     <name>BatteryConfigurationView</name>
@@ -237,20 +241,8 @@
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <source>Maximal electrical power</source>
-        <translation>Maximale elektrische Leistung</translation>
-    </message>
-    <message>
-        <source>kW</source>
-        <translation>kW</translation>
-    </message>
-    <message>
         <source>Grid-supportive-control</source>
         <translation>Netzdienlichkeit</translation>
-    </message>
-    <message>
-        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
-        <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
     </message>
     <message>
         <source>Zero Compensation</source>
@@ -265,8 +257,8 @@
         <translation>Speichern</translation>
     </message>
     <message>
-        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
-        <translation>Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
+        <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
     </message>
 </context>
 <context>

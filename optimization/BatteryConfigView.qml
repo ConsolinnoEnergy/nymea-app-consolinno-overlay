@@ -239,7 +239,6 @@ GenericConfigPage {
 
         RowLayout {
             Layout.topMargin: 10
-            enabled: isZeroCompensation ? false : true
             Label {
                 text: qsTr("Charging from grid")
                 font.weight: Font.Bold
@@ -249,7 +248,6 @@ GenericConfigPage {
         ColumnLayout {
             id: columnContainer
             visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
-            enabled: isZeroCompensation ? false : true
 
             // Optimization enabled
             RowLayout {
@@ -320,6 +318,7 @@ GenericConfigPage {
             RowLayout {
                 Layout.topMargin: 15
                 visible: optimizationController.checked
+                enabled: isZeroCompensation || chargeOnceController.checked ? false : true
                 Label {
                     text: qsTr("Charging Plan")
                     font.weight: Font.Bold
@@ -330,6 +329,7 @@ GenericConfigPage {
             RowLayout {
                 id: currentPriceRow
                 visible: optimizationController.checked
+                enabled: isZeroCompensation || chargeOnceController.checked ? false : true
                 Layout.topMargin: 5
 
                 Label {
@@ -347,7 +347,7 @@ GenericConfigPage {
             ColumnLayout {
                 Layout.fillWidth: true
                 visible: optimizationController.checked
-                enabled: chargeOnceController.checked ? false : true
+                enabled: isZeroCompensation || chargeOnceController.checked ? false : true
                 Component.onCompleted: {
                     const dpThing = dynamicPrice.get(0)
                     if(!dpThing)
@@ -395,7 +395,7 @@ GenericConfigPage {
                       margins.right: 0
                       margins.top: 0
                       margins.bottom: 0
-                      backgroundColor: chargeOnceController.checked ? "whitesmoke" : "transparent"
+                      backgroundColor: isZeroCompensation || chargeOnceController.checked ? "whitesmoke" : "transparent"
                       startTime: d.startTimeSince
                       endTime: d.endTimeUntil
                       hoursNow: d.now.getHours()
@@ -419,7 +419,6 @@ GenericConfigPage {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
             }
-
 
             ItemDelegate {
                 Layout.fillWidth: true
@@ -448,6 +447,20 @@ GenericConfigPage {
                         to: 50
                         stepSize: 0.2
                     }
+                }
+            }
+
+            // Text under Slider
+            RowLayout {
+                visible: optimizationController.checked
+                enabled: chargeOnceController.checked ? false : true
+                Layout.topMargin: 5
+
+                Label {
+                    wrapMode: Text.WordWrap
+                    Layout.fillWidth: true
+                    text: qsTr("The setting will only take effect once the rule to prevent zero compensation has been deactivated again.")
+                    font.pixelSize: 12
                 }
             }
         }
