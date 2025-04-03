@@ -449,6 +449,8 @@ GenericConfigPage {
 
                     currentPrice = dpThing.stateByName("currentMarketPrice").value
                     averagePrice = dpThing.stateByName("averagePrice").value.toFixed(0).toString();
+                    lowestPrice = dpThing.stateByName("lowestPrice").value
+                    highestPrice = dpThing.stateByName("highestPrice").value
                     barSeries.addValues(dpThing.stateByName("priceSeries").value)
                 }
 
@@ -495,6 +497,8 @@ GenericConfigPage {
                       hoursNow: d.now.getHours()
                       currentPrice: currentValue
                       currentMarketPrice: currentPrice
+                      lowestValue: root.lowestPrice
+                      highestValue: root.highestPrice
                     }
                 }
 
