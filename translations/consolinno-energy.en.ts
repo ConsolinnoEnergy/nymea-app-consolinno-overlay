@@ -241,7 +241,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Avoid zero compensation</source>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
