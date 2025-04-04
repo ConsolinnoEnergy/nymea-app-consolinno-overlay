@@ -2284,15 +2284,10 @@
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.8.1&lt;/p&gt;
+&lt;p&gt;Version 1.8.3&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Batterie laden aus dem Netz (Tarifgesteuertes Laden und Sofortladen)&lt;/li&gt;
-        &lt;ul&gt;
-            &lt;li&gt;FoxESS H3 (noch nicht H3 Pro)&lt;/li&gt;
-            &lt;li&gt;QCells G3 / G4&lt;/li&gt;
-            &lt;li&gt;Solax X3&lt;/li&gt;
-        &lt;/ul&gt;
+    &lt;li&gt;Verbesserung des Ladeplans als Balkenansicht&lt;/li&gt;
     &lt;li&gt;Verschiedene Stabilitätsverbesserungen&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
