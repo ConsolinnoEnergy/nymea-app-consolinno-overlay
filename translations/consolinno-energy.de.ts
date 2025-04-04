@@ -229,10 +229,6 @@
         <translation type="unfinished">Netzdienlichkeit</translation>
     </message>
     <message>
-        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
-        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
-    </message>
-    <message>
         <source>Zero Compensation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -243,6 +239,10 @@
     <message>
         <source>Save</source>
         <translation type="unfinished">Speichern</translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
+        <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
     </message>
 </context>
 <context>

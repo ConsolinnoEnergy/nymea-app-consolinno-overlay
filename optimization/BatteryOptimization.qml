@@ -83,7 +83,7 @@ Page {
                 font: Style.smallFont
                 color: Style.consolinnoMedium
                 wrapMode: Text.Wrap
-                text: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
+                text: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled.")
             }
         }
 
