@@ -211,6 +211,10 @@
         <source>The setting will only take effect once the rule to prevent zero compensation has been deactivated again.</source>
         <translation type="unfinished">Einstellung wird erst aktiv, wenn die Regelung zu Nullvergütung vermeiden sich wieder deaktiviert.</translation>
     </message>
+    <message>
+        <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
+        <translation>Wenn Nullvergütung vermieden aktiv ist, dann ist kein Sofortladen der Batterie möglich.</translation>
+    </message>
 </context>
 <context>
     <name>BatteryConfigurationView</name>

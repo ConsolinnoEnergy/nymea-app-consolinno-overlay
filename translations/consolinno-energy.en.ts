@@ -211,6 +211,10 @@
         <source>The setting will only take effect once the rule to prevent zero compensation has been deactivated again.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BatteryConfigurationView</name>

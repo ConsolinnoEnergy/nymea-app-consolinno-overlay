@@ -40,7 +40,7 @@ Page {
                 iconName: Configuration.batteryIcon !== "" ? "../images/" + Configuration.batteryIcon : "../images/battery/battery-080.svg";
                 progressive: true
                 text: thing.name
-                onClicked: pageStack.push("BatteryOptimization.qml", { hemsManager: hemsManager, thing: thing })
+                onClicked: pageStack.push("BatteryOptimization.qml", { hemsManager: hemsManager, thing: thing, batteryConfiguration:batteryConfiguration })
 
 
                 Image {

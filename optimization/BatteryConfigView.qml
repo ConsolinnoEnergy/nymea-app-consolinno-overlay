@@ -233,7 +233,7 @@ GenericConfigPage {
             }
 
             Label {
-                text: zeroCompensation("deactivated")
+                text: zeroCompensation("activated")
             }
         }
 
@@ -264,7 +264,7 @@ GenericConfigPage {
 
                 Column {
                     Switch{
-                        spacing: 1
+                        spacing: 0
                         height: 18
                         id: optimizationController
                         onClicked: {
@@ -285,6 +285,7 @@ GenericConfigPage {
             RowLayout {
                 Layout.topMargin: 5
                 visible: optimizationController.checked
+
                 Label {
                     text: qsTr("Activate instant charging")
                 }
@@ -297,16 +298,71 @@ GenericConfigPage {
                 }
 
                 Column {
-                    Switch {
-                        spacing: 1
-                        height: 18
-                        id: chargeOnceController
-                        Component.onCompleted: {
-                            checked = batteryConfiguration.chargeOnce
+                    id: columnArea
+
+                    Item {
+                        id: switchContainer
+                        width: chargeOnceController.width
+                        height: chargeOnceController.height
+
+                        Switch {
+                            id: chargeOnceController
+                            anchors.fill: parent
+                            spacing: 1
+                            height: 18
+                            enabled: isZeroCompensation ? false : true
+
+                            Component.onCompleted: {
+                                checked = batteryConfiguration.chargeOnce
+                            }
+                            onClicked: {
+                                if (!isZeroCompensation)
+                                    enableSave(this)
+                            }
                         }
-                        onClicked: {
-                            //saveSettings()
-                            enableSave(this)
+
+                        MouseArea {
+                            id: mouseArea
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            enabled: isZeroCompensation
+
+                            onEntered: {
+                                if (isZeroCompensation)
+                                    toolTipSwitch.visible = true
+                            }
+                            onExited: {
+                                if (isZeroCompensation)
+                                    toolTipSwitch.visible = false
+                            }
+                        }
+
+                        NymeaToolTip {
+                            id: toolTipSwitch
+                            visible: false
+
+                            z: 10
+                            anchors.right: parent.right
+                            anchors.bottom: parent.top
+                            anchors.bottomMargin: 5
+
+                            width: toolTopLayout.width + Style.smallMargins * 2
+                            height: toolTopLayout.implicitHeight + Style.smallMargins * 2
+
+                            ColumnLayout {
+                                id: toolTopLayout
+                                width: 300
+                                anchors.fill: parent
+                                anchors.margins: Style.smallMargins
+
+                                Label {
+                                    id: labelID
+                                    Layout.fillWidth: true
+                                    wrapMode: Text.WordWrap
+                                    text: qsTr("If the zero-compensation avoidance is active, immediate battery charging is not possible.")
+                                    font: Style.smallFont
+                                }
+                            }
                         }
                     }
                 }

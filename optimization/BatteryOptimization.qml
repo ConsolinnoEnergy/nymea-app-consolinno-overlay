@@ -133,13 +133,11 @@ Page {
             Layout.fillWidth: true
             text: qsTr("Save")
             onClicked: {
-                if (directionID == 1){
-                    hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, {optimizationEnabled: false, controllableLocalSystem: gridSupportControl.checked,})
-                    root.done()
-                }else if(directionID == 0){
-                    d.pendingCallId = hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, {optimizationEnabled: false, controllableLocalSystem: gridSupportControl.checked,})
-                    root.done()
+                hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, {optimizationEnabled: true, controllableLocalSystem: gridSupportControl.checked})
+                if(directionID !== 1){
+                    pageStack.pop()
                 }
+                root.done()
             }
         }
     }
