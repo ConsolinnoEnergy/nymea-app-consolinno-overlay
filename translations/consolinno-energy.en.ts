@@ -245,10 +245,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Zero Compensation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -258,6 +254,10 @@
     </message>
     <message>
         <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
