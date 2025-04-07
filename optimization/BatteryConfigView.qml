@@ -351,7 +351,7 @@ GenericConfigPage {
 
                             ColumnLayout {
                                 id: toolTopLayout
-                                width: 300
+                                width: 305
                                 anchors.fill: parent
                                 anchors.margins: Style.smallMargins
 
