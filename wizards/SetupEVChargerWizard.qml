@@ -273,7 +273,7 @@ Page {
                 Layout.preferredWidth: 200
                 Layout.preferredHeight: addButton.height - 9
 
-                contentItem:Row{
+                contentItem:Item{
                     Text{
                         id: nextStepButtonText
                         anchors.horizontalCenter: parent.horizontalCenter

@@ -2,6 +2,7 @@ import QtQuick 2.9
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.9
 import QtGraphicalEffects 1.15
+import QtQuick.Controls.Material 2.2
 import "qrc:/ui/components"
 import Nymea 1.0
 
@@ -244,7 +245,7 @@ Page {
                 font.pixelSize: 15
                 text: qsTr("Next step")
 
-                contentItem:Row{
+                contentItem:Item{
                     Text{
                         id: nextStepButtonText
                         anchors.horizontalCenter: parent.horizontalCenter

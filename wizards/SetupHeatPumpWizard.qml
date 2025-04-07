@@ -293,7 +293,7 @@ Page {
                 // background fucks up the margin between the buttons, thats why wee need this topMargin
                 Layout.topMargin: 5
 
-                contentItem:Row{
+                contentItem:Item{
                     Text{
                         id: nextStepButtonText
                         anchors.horizontalCenter: parent.horizontalCenter

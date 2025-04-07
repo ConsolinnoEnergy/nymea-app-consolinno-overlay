@@ -266,11 +266,6 @@ MainViewBase {
                     manualWizardSettings.evChargerDone = true
                     setup(true)
                 })
-
-                page.countChanged.connect(function () {
-                    blackoutProtectionSetting.blackoutProtectionDone = false
-                })
-
                 wizardSettings.evChargerDone = true
                 return
             }
@@ -296,11 +291,6 @@ MainViewBase {
                     manualWizardSettings.heatPumpDone = true
                     setup(true)
                 })
-
-                page.countChanged.connect(function () {
-                    blackoutProtectionSetting.blackoutProtectionDone = false
-                })
-
                 wizardSettings.heatPumpDone = true
                 return
             }
@@ -322,10 +312,10 @@ MainViewBase {
                     manualWizardSettings.heatingElementDone = true
                     setup(true)
                 })
+                /*
                 page.countChanged.connect(function () {
                     blackoutProtectionSetting.blackoutProtectionDone = false
-                })
-
+                })*/
                 wizardSettings.heatingElementDone = true
                 return;
             }
