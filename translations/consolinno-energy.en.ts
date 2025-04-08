@@ -2282,10 +2282,14 @@
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.8.2&lt;/p&gt;
+&lt;p&gt;Version 1.8.3&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Grid-supportive control for battery storage &lt;/li&gt;
+    &lt;li&gt;Improvements for battery charging from the grid&lt;/li&gt;
+    &lt;ul&gt;
+        &lt;li&gt;(only for supported batteries)&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;li&gt;Update iOS SDK&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
