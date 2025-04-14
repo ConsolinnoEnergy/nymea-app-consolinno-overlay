@@ -4,8 +4,13 @@
         <file>styles/light/Button.qml</file>
         <file>styles/light/logo.svg</file>
         <file>styles/light/logo-wide.svg</file>
-        <file>translations</file>
         <file>styles/light/Background.qml</file>
+        <file>styles/dark/Background.qml</file>
+        <file>styles/dark/Button.qml</file>
+        <file>styles/dark/logo-wide.svg</file>
+        <file>styles/dark/logo.svg</file>
+        <file>styles/dark/Style.qml</file>
+        <file>translations</file>
         <file>SOURCE_AVAIL_de_DE.txt</file>
         <file>SOURCE_AVAIL_en_US.txt</file>
     </qresource>
