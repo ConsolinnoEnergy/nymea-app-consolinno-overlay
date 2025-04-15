@@ -23,6 +23,7 @@ Page {
         ListElement { text: qsTr("Comissioning"); value: 1; visible: true}
         ListElement { text: qsTr("Development"); value: 2; visible: false}
         ListElement { text: qsTr("Dynamic electricity tariff"); value: 3; visible: true}
+        ListElement { text: qsTr("Grid Supportive Control"); value: 4; visible: true}
         // value is set to an integer for pieces which are either going to be migrated to a different location or deleted
     }
 
@@ -45,16 +46,15 @@ Page {
                         return "../images/configure.svg"
                     if (model.value === 2)
                         return "../images/configure.svg"
-                    /*
-                    if (model.value === 3)
-                        return "../images/configure.svg"
-                    */
                     if (model.value === 3 && Configuration.energyIcon !== ""){
                         return "/ui/images/"+Configuration.energyIcon;
-                    }else{
+                    }else if (model.value === 3 && Configuration.energyIcon === ""){
                         return "../images/energy.svg";
+                    }else if (model.value === 4 && Configuration.gridIcon !== ""){
+                        return "/ui/images/"+Configuration.gridIcon;
+                    }else if(model.value === 4 && Configuration.gridIcon === ""){
+                        return "../images/grid.svg";
                     }
-
                 }
                 text: model.text
                 visible: (hemsManager.availableUseCases) != 0 && (model.visible || settings.showHiddenOptions)
@@ -75,6 +75,9 @@ Page {
                         break;
                     case 3:
                         pageStack.push(Qt.resolvedUrl("../optimization/DynamicElectricityRate.qml"), { hemsManager: hemsManager})
+                        break;
+                    case 4:
+                        pageStack.push(Qt.resolvedUrl("../optimization/GridSupportiveControl.qml"), { hemsManager: hemsManager})
                         break;
                     }
                 }
