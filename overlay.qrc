@@ -106,7 +106,7 @@
         <file>optimization/DynamicElectricityRateSettings.qml</file>
         <file>devicepages/PageWraper.qml</file>
         <file>optimization/EvChargerOptimization.qml</file>
-        <file>optimization/GridSupportiveControlConfig.qml</file>
+        <file>optimization/GridSupportiveControl.qml</file>
         <file>info/PausingInfo.qml</file>
         <file>info/PriceLimitInfo.qml</file>
         <file>thingconfiguration/AddNewThings.qml</file>
@@ -137,5 +137,9 @@
         <file>components/ImageSVGHelper.qml</file>
         <file>info/BlackOutProtectionInfo.qml</file>
         <file>components/ConsolinnoSetUpButton.qml</file>
+        <file>components/ConsolinnoRadioDelegate.qml</file>
+        <file>images/relais_screen.png</file>
+        <file>images/union.svg</file>
+        <file>images/eebus.svg</file>
     </qresource>
 </RCC>
