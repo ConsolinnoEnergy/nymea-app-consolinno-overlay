@@ -3416,10 +3416,6 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Search again</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3500,10 +3496,6 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Too bad...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3602,10 +3594,6 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Search again</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3698,10 +3686,6 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3805,10 +3789,6 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Too bad...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
