@@ -189,8 +189,20 @@ GenericConfigPage {
                 Layout.fillWidth: true
             }
 
-            Label {
-                text: ("%1 %").arg(batteryLevelState.value)
+            RowLayout {
+                spacing: 0
+                Layout.rightMargin: 20
+                Label {
+                    text: ("%1 %").arg(batteryLevelState.value)
+                    horizontalAlignment: Text.AlignRight
+                }
+
+                ThingInfoPane {
+                    id: infoPane
+                    width: 0
+                    Layout.leftMargin: -15
+                    thing: root.thing
+                }
             }
         }
 
