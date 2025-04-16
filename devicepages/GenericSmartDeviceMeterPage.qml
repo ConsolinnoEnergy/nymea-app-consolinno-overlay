@@ -49,10 +49,14 @@ GenericConfigPage {
         Item {
             anchors.fill: parent
 
+            ColumnLayout {
+                anchors { left: parent.left; top: parent.top; right: parent.right }
                 ThingInfoPane {
                     id: infoPane
-                    anchors { left: parent.left; top: parent.top; right: parent.right }
+                    Layout.fillWidth: true
+                    Layout.rightMargin: 15
                     thing: root.thing
+                }
             }
 
             Item {
