@@ -39,7 +39,7 @@ GenericConfigPage {
     property var prices: ({})
 
     title: root.thing.name
-    headerOptionsVisible: false
+    headerOptionsVisible: true
 
     QtObject {
         id: rootObject
