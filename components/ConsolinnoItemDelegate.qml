@@ -18,6 +18,7 @@ ItemDelegate {
 
 
     property string subText
+    property string tertiaryText
     property bool progressive: true
     property bool canDelete: false
 
@@ -127,6 +128,20 @@ ItemDelegate {
                 verticalAlignment: Text.AlignVCenter
                 visible: root.subText.length > 0
             }
+            Label {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                text: root.tertiaryText
+                font.pixelSize: app.extraSmallFont
+                color: Material.color(Material.Grey)
+                wrapMode: root.wrapTexts ? Text.WordWrap : Text.NoWrap
+                maximumLineCount: root.wrapTexts ? 2 : 1
+                elide: Text.ElideRight
+                verticalAlignment: Text.AlignVCenter
+                visible: root.tertiaryText.length > 0
+            }
+
+
         }
 
         ColorIcon {
