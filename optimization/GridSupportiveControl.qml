@@ -15,7 +15,7 @@ StackView {
     property bool setupFinishedRelay: false
     property int powerLimit: 16255
     property string powerLimitSource: "none" // "eebus" "relais"
-    property string currentState: "limited" // "blocked" "limited" "shutoff"
+    property string currentState: "" // "blocked" "limited" "shutoff"
     property string colorsPlim: currentState === "shutoff" ? "#eb4034" : currentState === "limited" ? "#fc9d03" : "#ffffff"
     property string contentPlim: currentState === "shutoff" ? qsTr("The consumption is <b>temporarily blocked</b> by the network operator.") : currentState === "limited" ? qsTr("The consumption is <b>temporarily reduced</b> to %1 kW according to §14a minimum.").arg(convertToKw(powerLimit)) : ""
 
@@ -67,7 +67,9 @@ StackView {
                     visible: powerLimitSource === "none" ? false : true
                     Layout.topMargin: 16
                     Layout.fillWidth: true
+
                     Rectangle {
+                        visible: currentState !== ""
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignHCenter
                         radius: 10
@@ -96,7 +98,7 @@ StackView {
                                 Rectangle {
                                     width: 20
                                     height: 20
-                                    radius: 10  // Makes the rectangle a circle
+                                    radius: 10
                                     color: "white"
                                     border.color: colorsPlim
                                     border.width: 2
@@ -163,7 +165,7 @@ StackView {
                         text: "EEBUS Controlbox"
                         iconName: "../images/eebus.svg"
                         onClicked: {
-                            pageStack.push(relaisSetUp);
+                            pageStack.push(eebusView);
                         }
                     }
                 }
@@ -237,15 +239,15 @@ StackView {
                         if(buttonGroup.checkedButton.value === 0){
                             pageStack.push(relaisSetUp, {selectedName: buttonGroup.checkedButton.text})
                         }else{
-                            pageStack.push(selectRelais, {selectedName: buttonGroup.checkedButton.text})
+                            pageStack.push(eebusViewSelect, {selectedName: buttonGroup.checkedButton.text})
                         }
                     }
                 }
 
                 Button {
-                    id: cancle
+                    id: cancel
                     Layout.fillWidth: true
-                    text: qsTr("Cancle")
+                    text: qsTr("Cancel")
                     background: Rectangle {
                         color: "transparent"
                     }
@@ -315,7 +317,7 @@ StackView {
                 }
 
                 Button {
-                    id: nextButton
+                    id: completeSetupButton
                     visible: powerLimitSource === "relais" ? false : true
                     Layout.fillWidth: true
                     text: qsTr("Complete setup")
@@ -328,10 +330,10 @@ StackView {
                 }
 
                 Button {
-                    id: cancle
+                    id: cancel
                     visible: powerLimitSource === "relais" ? false : true
                     Layout.fillWidth: true
-                    text: qsTr("Cancle")
+                    text: qsTr("Cancel")
                     background: Rectangle {
                         color: "transparent"
                     }
@@ -348,4 +350,372 @@ StackView {
             }
         }
     }
+
+    Component {
+        id: eebusViewSelect
+
+        Page {
+            property string selectedName: ""
+
+            header: NymeaHeader {
+                text: qsTr("Grid supportive-control set-up - %1").arg(selectedName)
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
+
+
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.topMargin: app.margins
+                anchors.margins: app.margins
+
+                Text {
+                    Layout.fillWidth: true
+                    Layout.topMargin: 5
+                    Layout.bottomMargin: 0
+                    textFormat: Text.RichText
+                    font.pointSize: 20
+                    font.bold: true
+                    wrapMode: Text.WordWrap
+                    text: qsTr("The following EEBUS devices were found:")
+                    color: Style.consolinnoDark
+                }
+
+                Repeater {
+                    id: eebuRepeater
+                    model: ListModel {
+                        ListElement { name: "Consolinno-Leaflet-HEMS-1u0022-co0001"; subtext: "Connected via eebus-go"; }
+                        ListElement { name: "Consolinno-Leaflet-HEMS-1u0022-co0002"; subtext: "Connected via eebus-go"; }
+                        ListElement { name: "Consolinno-Leaflet-HEMS-1u0022-co0003"; subtext: "Connected via eebus-go"; }
+                    }
+                    ConsolinnoItemDelegate {
+                        Layout.preferredWidth: parent.width
+                        text: name
+                        subText: model.subtext
+                        progressive: true
+                        onClicked: {
+                            pageStack.push(eebusView, {selectedName: selectedName} );
+                        }
+                    }
+                }
+
+                VerticalDivider {
+                    Layout.preferredWidth: app.width - 2* Style.margins
+                    dividerColor: Material.accent
+                }
+
+                Button {
+                    id: completeSetupButton
+                    Layout.fillWidth: true
+                    text: qsTr("Search again")
+
+                    onClicked: {
+
+                    }
+                }
+
+                Button {
+                    id: cancel
+                    Layout.fillWidth: true
+                    text: qsTr("Cancel")
+                    background: Rectangle {
+                        color: "transparent"
+                    }
+
+                    onClicked: {
+                        pageStack.pop()
+                    }
+                }
+
+
+                Item {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                }
+            }
+        }
+    }
+
+    Component {
+        id: eebusView
+
+        Page {
+            property string selectedName: ""
+
+            header: NymeaHeader {
+                text: qsTr("Grid supportive-control set-up - %1").arg(selectedName)
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
+
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+
+                    Text {
+                        Layout.topMargin: 5
+                        Layout.bottomMargin: 0
+                        textFormat: Text.RichText
+                        font.pointSize: 20
+                        font.bold: true
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Parameter")
+                        color: Style.consolinnoDark
+                    }
+                }
+
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+
+                    Repeater {
+                        model: ListModel{
+                            ListElement{name: "b68fb71513772f3d7310c81fc35f6e40"; subtext: "Diese SKI wird vom Netzbetreiber benötigt."; tertiaryText:"Local Subject Key Identifier (SKI)"}
+                            ListElement{name: "80b79b54d9f869822637f1f68ee9e893"; subtext:""; tertiaryText: "Remote Subject Key Identifier (SKI)"}
+                            ListElement{name: "Consolinno-Leaflet-HEMS-1u0022-co0001"; subtext:""; tertiaryText: "Device Identifier"}
+                            ListElement{name: "Consolinno"; subtext:""; tertiaryText: "Device Brand"}
+                            ListElement{name: "Energy Management System"; subtext:""; tertiaryText: "Device Type"}
+                            ListElement{name: "Leaflet-HEMS"; subtext:""; tertiaryText: "Device Model"}
+                            ListElement{name: "???"; subtext:""; tertiaryText: "Device ID"}
+                        }
+                        ConsolinnoItemDelegate {
+                            id: item
+                            Layout.fillWidth: true
+                            text: name
+                            subText: model.subtext.length === 0 ? "" : model.subtext
+                            tertiaryText: model.tertiaryText
+                            progressive: false
+                            onClicked: {
+                                PlatformHelper.toClipBoard(name)
+                            }
+                        }
+                    }
+                }
+
+                VerticalDivider {
+                    Layout.preferredWidth: app.width
+                    dividerColor: Material.accent
+                }
+
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    visible: powerLimitSource === "eebus" ? true : false
+
+                    Text {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 5
+                        Layout.bottomMargin: 0
+                        textFormat: Text.RichText
+                        font.pointSize: 20
+                        font.bold: true
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Status")
+                        color: Style.consolinnoDark
+                    }
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    visible: powerLimitSource === "eebus" ? true : false
+
+                    Rectangle {
+                        width: 25
+                        height: 25
+                        color: "red"
+                        border.color: "red"
+                        radius: 12
+                    }
+
+                    Text {
+                        Layout.fillWidth: true
+                        text: qsTr("connected")
+                        font.pointSize: 12
+                        wrapMode: Text.WordWrap
+                        color: Style.consolinnoDark
+                    }
+
+                }
+
+
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    visible: powerLimitSource === "eebus" ? false : true
+
+                    CheckBox {
+                        id: deviceConnected
+                        Layout.fillWidth: true
+                        text: qsTr("Establish a connection with this device.")
+                    }
+                }
+
+                ColumnLayout {
+                    visible: powerLimitSource === "eebus" ? false : true
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+
+
+                    Button {
+                        id: eebusSetUpComplete
+                        Layout.fillWidth: true
+                        enabled: deviceConnected.checked
+                        text: qsTr("Complete setup")
+
+                        onClicked: {
+                            pageStack.push(eebusViewStatus, {selectedName: selectedName} );
+                        }
+                    }
+
+                    Button {
+                        id: cancel
+                        Layout.fillWidth: true
+                        text: qsTr("Cancel")
+                        background: Rectangle {
+                            color: "transparent"
+                        }
+
+                        onClicked: {
+                            pageStack.pop()
+                        }
+                    }
+
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                }
+
+            }
+        }
+
+    }
+
+    Component {
+        id: eebusViewStatus
+
+        Page {
+            property string selectedName: ""
+
+            header: NymeaHeader {
+                text: qsTr("Grid supportive-control set-up - %1").arg(selectedName)
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
+
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+
+                    Text {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 5
+                        Layout.bottomMargin: 0
+                        textFormat: Text.RichText
+                        font.pointSize: 20
+                        font.bold: true
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Status")
+                        color: Style.consolinnoDark
+                    }
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+
+                    Rectangle {
+                        width: 25
+                        height: 25
+                        color: "red"
+                        border.color: "red"
+                        radius: 12
+                    }
+
+                    Text {
+                        Layout.fillWidth: true
+                        text: qsTr("Confirmation from the network operator %1").arg("pending")
+                        font.pointSize: 12
+                        wrapMode: Text.WordWrap
+                        color: Style.consolinnoDark
+                    }
+
+                }
+
+                VerticalDivider {
+                    Layout.preferredWidth: app.width
+                    dividerColor: Material.accent
+                }
+
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+
+
+                    ConsolinnoItemDelegate {
+                        Layout.fillWidth: true
+                        text: "Test"
+                        subText: "subText"
+                        tertiaryText: "tertiaryText"
+                        progressive: false
+                    }
+                }
+
+
+                VerticalDivider {
+                    Layout.preferredWidth: app.width
+                    dividerColor: Material.accent
+                }
+
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+
+
+                    Button {
+                        id: eebusBackToView
+                        Layout.fillWidth: true
+                        text: qsTr("Complete setup")
+
+                        onClicked: {
+                            powerLimitSource = "eebus"
+                            pageStack.pop()
+                            pageStack.pop()
+                            pageStack.pop()
+                            pageStack.pop()
+                        }
+                    }
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                }
+            }
+
+
+        }
+    }
+
 }
