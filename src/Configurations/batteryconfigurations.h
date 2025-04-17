@@ -17,7 +17,9 @@ public:
         RolePriceThreshold,
         RoleRelativePriceEnabled,
         RoleChargeOnce,
-        RoleControllableLocalSystemEnabled
+        RoleControllableLocalSystemEnabled,
+        RoleAvoidZeroFeedInEnabled,
+        RoleAvoidZeroFeedInActive
     };
     Q_ENUM(Role);
     explicit BatteryConfigurations(QObject *parent = nullptr);

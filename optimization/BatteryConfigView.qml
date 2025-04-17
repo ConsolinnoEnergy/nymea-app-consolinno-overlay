@@ -22,7 +22,7 @@ GenericConfigPage {
     readonly property State batteryLevelState: root.thing.stateByName("batteryLevel")
     readonly property State currentPowerState: root.thing.stateByName("currentPower")
     property BatteryConfiguration batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id)
-    property bool isZeroCompensation : false
+    property bool isZeroCompensation : batteryConfiguration.avoidZeroFeedInActive
 
     property double currentValue : batteryConfiguration.priceThreshold
     property double thresholdPrice: 0
@@ -130,14 +130,7 @@ GenericConfigPage {
     }
 
     function zeroCompensation(state){
-        //return (state === "activated") ? qsTr("activated") : qsTr("deactivated")
-        if(state === "activated"){
-            isZeroCompensation = true;
-            return qsTr("activated")
-        }else{
-            isZeroCompensation = false;
-            return qsTr("deactivated")
-        }
+        return (state) ? qsTr("activated") : qsTr("deactivated")
     }
 
     ThingsProxy {
@@ -233,7 +226,7 @@ GenericConfigPage {
             }
 
             Label {
-                text: zeroCompensation("activated")
+                text: zeroCompensation(isZeroCompensation)
             }
         }
 

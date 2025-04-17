@@ -96,7 +96,7 @@ Page {
 
             Switch {
                 id: zeroCompensationControl
-                Component.onCompleted: checked = true
+                Component.onCompleted: checked = batteryConfiguration.avoidZeroFeedInEnabled
             }
         }
 
@@ -133,7 +133,7 @@ Page {
             Layout.fillWidth: true
             text: qsTr("Save")
             onClicked: {
-                hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, {optimizationEnabled: true, controllableLocalSystem: gridSupportControl.checked})
+                hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, {optimizationEnabled: true, controllableLocalSystem: gridSupportControl.checked, avoidZeroFeedInEnabled: zeroCompensationControl.checked})
                 if(directionID !== 1){
                     pageStack.pop()
                 }

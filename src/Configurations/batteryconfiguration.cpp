@@ -29,6 +29,35 @@ void BatteryConfiguration::setOptimizationEnabled(bool optimizationEnabled)
     emit optimizationEnabledChanged(m_optimizationEnabled);
 }
 
+bool BatteryConfiguration::avoidZeroFeedInActive() const
+{
+    return m_avoidZeroFeedInActive;
+}
+
+void BatteryConfiguration::setavoidZeroFeedInActive(bool avoidZeroFeedInActive)
+{
+    if(m_avoidZeroFeedInActive == avoidZeroFeedInActive)
+        return;
+
+    m_avoidZeroFeedInActive = avoidZeroFeedInActive;
+    emit avoidZeroFeedInActiveChanged(m_avoidZeroFeedInActive);
+}
+
+bool BatteryConfiguration::avoidZeroFeedInEnabled() const
+{
+    return m_avoidZeroFeedInEnabled;
+}
+
+void BatteryConfiguration::setavoidZeroFeedInEnabled(bool avoidZeroFeedInEnabled)
+{
+    if(m_avoidZeroFeedInEnabled == avoidZeroFeedInEnabled)
+        return;
+
+    m_avoidZeroFeedInEnabled = avoidZeroFeedInEnabled;
+    emit avoidZeroFeedInEnabledChanged(m_avoidZeroFeedInEnabled);
+}
+
+
 float BatteryConfiguration::priceThreshold() const {
     return m_priceThreshold;
 }
