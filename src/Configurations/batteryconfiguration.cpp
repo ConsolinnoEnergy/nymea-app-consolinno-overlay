@@ -36,9 +36,8 @@ bool BatteryConfiguration::avoidZeroFeedInActive() const
 
 void BatteryConfiguration::setAvoidZeroFeedInActive(bool avoidZeroFeedInActive)
 {
-    /*
     if(m_avoidZeroFeedInActive == avoidZeroFeedInActive)
-        return;*/
+        return;
 
     m_avoidZeroFeedInActive = avoidZeroFeedInActive;
     emit avoidZeroFeedInActiveChanged(m_avoidZeroFeedInActive);
