@@ -1576,10 +1576,6 @@ fügen Sie eine weitere hinzu.</translation>
         <translation type="unfinished">14-poliger Stecker</translation>
     </message>
     <message>
-        <source>Next Step</source>
-        <translation type="unfinished">Nächster Schritt</translation>
-    </message>
-    <message>
         <source>Modbus-RTU-Interface</source>
         <translation type="unfinished">Modbus RTU Master</translation>
     </message>
@@ -1638,6 +1634,14 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Reconfigure</source>
         <translation type="unfinished">Neu einrichten</translation>
+    </message>
+    <message>
+        <source>cancel</source>
+        <translation type="unfinished">abbrechen</translation>
+    </message>
+    <message>
+        <source>Next step</source>
+        <translation type="unfinished">Nächster Schritt</translation>
     </message>
 </context>
 <context>
