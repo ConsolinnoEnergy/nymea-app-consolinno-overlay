@@ -200,8 +200,9 @@ GenericConfigPage {
                 ThingInfoPane {
                     id: infoPane
                     width: 0
-                    Layout.leftMargin: -15
+                    Layout.leftMargin: -12
                     thing: root.thing
+                    hideLabel: true
                 }
             }
         }
