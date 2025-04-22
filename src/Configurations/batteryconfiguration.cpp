@@ -34,10 +34,11 @@ bool BatteryConfiguration::avoidZeroFeedInActive() const
     return m_avoidZeroFeedInActive;
 }
 
-void BatteryConfiguration::setavoidZeroFeedInActive(bool avoidZeroFeedInActive)
+void BatteryConfiguration::setAvoidZeroFeedInActive(bool avoidZeroFeedInActive)
 {
+    /*
     if(m_avoidZeroFeedInActive == avoidZeroFeedInActive)
-        return;
+        return;*/
 
     m_avoidZeroFeedInActive = avoidZeroFeedInActive;
     emit avoidZeroFeedInActiveChanged(m_avoidZeroFeedInActive);
@@ -48,7 +49,7 @@ bool BatteryConfiguration::avoidZeroFeedInEnabled() const
     return m_avoidZeroFeedInEnabled;
 }
 
-void BatteryConfiguration::setavoidZeroFeedInEnabled(bool avoidZeroFeedInEnabled)
+void BatteryConfiguration::setAvoidZeroFeedInEnabled(bool avoidZeroFeedInEnabled)
 {
     if(m_avoidZeroFeedInEnabled == avoidZeroFeedInEnabled)
         return;
