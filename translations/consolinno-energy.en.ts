@@ -1562,10 +1562,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Next Step</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Modbus-RTU-Interface</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1624,6 +1620,14 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>Reconfigure</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cancel</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Next step</source>
+        <translation></translation>
     </message>
 </context>
 <context>

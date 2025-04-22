@@ -1,4 +1,4 @@
 nymeaapp.properties
 *.qm
 packaging/android/res/mipmap-*/
-settings.json
+/.vscode/settings.json
