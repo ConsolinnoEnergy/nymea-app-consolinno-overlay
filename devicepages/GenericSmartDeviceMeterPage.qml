@@ -43,20 +43,18 @@ GenericConfigPage {
     property bool isRootmeter: false
     property string isNotify: ""
 
-    headerOptionsVisible: isBattery ? false : true
-
     title: root.thing.name
 
     content: [
         Item {
             anchors.fill: parent
 
-            Column {
-                visible: isBattery ? false : true
-
+            ColumnLayout {
+                anchors { left: parent.left; top: parent.top; right: parent.right }
                 ThingInfoPane {
                     id: infoPane
-                    anchors { left: parent.left; top: parent.top; right: parent.right }
+                    Layout.fillWidth: true
+                    Layout.rightMargin: 15
                     thing: root.thing
                 }
             }
