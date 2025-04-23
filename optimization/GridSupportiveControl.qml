@@ -13,11 +13,11 @@ StackView {
     property HemsManager hemsManager
     property int directionID: 0
     property bool setupFinishedRelay: false
-    property int powerLimit: 16255
+    property int powerLimit: 1625
     property string powerLimitSource: "none" // "eebus" "relais"
-    property string currentState: "" // "blocked" "limited" "shutoff"
+    property string currentState: "limited" // "blocked" "limited" "shutoff"
     property string colorsPlim: currentState === "shutoff" ? "#eb4034" : currentState === "limited" ? "#fc9d03" : "#ffffff"
-    property string contentPlim: currentState === "shutoff" ? qsTr("The consumption is <b>temporarily blocked</b> by the network operator.") : currentState === "limited" ? qsTr("The consumption is <b>temporarily reduced</b> to %1 kW according to §14a minimum.").arg(convertToKw(powerLimit)) : ""
+    property string contentPlim: currentState === "shutoff" ? qsTr("The consumption is <b>temporarily blocked</b> by the network operator.") : currentState === "limited" ? qsTr("The consumption is <b>temporarily reduced</b> to <b>%1 kW</b> according to §14a minimum.").arg(convertToKw(powerLimit)) : ""
 
     QtObject {
         id: d
@@ -46,30 +46,30 @@ StackView {
             }
 
             ColumnLayout {
-                anchors.fill: parent
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
-                anchors.topMargin: app.margins
-                anchors.margins: app.margins
-
-                Button {
-                    id: setUpButton
-                    Layout.fillWidth: true
-                    text: qsTr("Grid supportive-control set-up")
-
-                    onClicked: {
-                        pageStack.push(selectComponent)
-                    }
-                }
+                anchors.bottom: parent.bottom
 
                 ColumnLayout {
-                    visible: powerLimitSource === "none" ? false : true
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
                     Layout.topMargin: 16
-                    Layout.fillWidth: true
+                    Layout.bottomMargin: 16
+
+                    Button {
+                        id: setUpButton
+                        Layout.fillWidth: true
+                        Layout.bottomMargin: 8
+                        text: qsTr("Grid supportive-control set-up")
+
+                        onClicked: {
+                            pageStack.push(selectComponent)
+                        }
+                    }
 
                     Rectangle {
-                        visible: currentState !== ""
+                        visible: currentState !== "" && powerLimitSource !== "none"
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignHCenter
                         radius: 10
@@ -126,6 +126,7 @@ StackView {
                                 font.pixelSize: 16
                                 text: contentPlim
                                 wrapMode: Text.WordWrap
+                                Layout.rightMargin: 20
                                 Layout.fillWidth: true
                                 Layout.preferredWidth: parent.width - 20
                                 leftPadding: 40
@@ -136,12 +137,22 @@ StackView {
                             }
                         }
                     }
+                }
 
+                ColumnLayout {
+                    visible: powerLimitSource === "none" ? false : true
 
-                    Text {
+                    RowLayout {
                         Layout.alignment: Qt.AlignRight
-                        verticalAlignment: Text.AlignRight
-                        text: qsTr("Control type")
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        Layout.fillWidth: true
+
+                        Text {
+                            horizontalAlignment: Text.AlignRight
+                            verticalAlignment: Text.AlignRight
+                            text: qsTr("Control type")
+                        }
                     }
 
                     VerticalDivider{
@@ -190,12 +201,10 @@ StackView {
             }
 
             ColumnLayout {
-                anchors.fill: parent
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
-                anchors.topMargin: app.margins
-                anchors.margins: app.margins
+                anchors.bottom: parent.bottom
 
                 ListModel{
                     id: myListModel
@@ -229,34 +238,38 @@ StackView {
                     dividerColor: Material.accent
                 }
 
-                Button {
-                    id: nextButton
-                    enabled: false
-                    Layout.fillWidth: true
-                    text: qsTr("Next")
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
 
-                    onClicked: {
-                        if(buttonGroup.checkedButton.value === 0){
-                            pageStack.push(relaisSetUp, {selectedName: buttonGroup.checkedButton.text})
-                        }else{
-                            pageStack.push(eebusViewSelect, {selectedName: buttonGroup.checkedButton.text})
+                    Button {
+                        id: nextButton
+                        enabled: false
+                        Layout.fillWidth: true
+                        text: qsTr("Next")
+
+                        onClicked: {
+                            if(buttonGroup.checkedButton.value === 0){
+                                pageStack.push(relaisSetUp, {selectedName: buttonGroup.checkedButton.text})
+                            }else{
+                                pageStack.push(eebusViewSelect, {selectedName: buttonGroup.checkedButton.text})
+                            }
+                        }
+                    }
+
+                    Button {
+                        id: cancel
+                        Layout.fillWidth: true
+                        text: qsTr("Cancel")
+                        background: Rectangle {
+                            color: "transparent"
+                        }
+
+                        onClicked: {
+                            pageStack.pop()
                         }
                     }
                 }
-
-                Button {
-                    id: cancel
-                    Layout.fillWidth: true
-                    text: qsTr("Cancel")
-                    background: Rectangle {
-                        color: "transparent"
-                    }
-
-                    onClicked: {
-                        pageStack.pop()
-                    }
-                }
-
 
                 Item {
                     Layout.fillHeight: true
@@ -281,34 +294,41 @@ StackView {
             }
 
             ColumnLayout {
-                anchors.fill: parent
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
-                anchors.topMargin: app.margins
-                anchors.margins: app.margins
+                anchors.bottom: parent.bottom
 
-                spacing: 0
+                RowLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
 
-                Text {
-                    Layout.fillWidth: true
-                    Layout.topMargin: 5
-                    Layout.bottomMargin: 0
-                    textFormat: Text.RichText
-                    font.pointSize: 20
-                    font.bold: true
-                    wrapMode: Text.WordWrap
-                    text: qsTr("The relays are configured as follows")
-                    color: Style.consolinnoDark
+                    Text {
+                        Layout.fillWidth: true
+                        textFormat: Text.RichText
+                        font.pointSize: 20
+                        font.bold: true
+                        wrapMode: Text.WordWrap
+                        text: qsTr("The relays are configured as follows")
+                        color: Style.consolinnoDark
+                    }
                 }
 
-                Image {
-                    Layout.fillWidth: true
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
                     Layout.preferredHeight: parent.height / 4
-                    Layout.topMargin: 5
-                    Layout.bottomMargin: 5
-                    fillMode: Image.PreserveAspectFit
-                    source: "../images/relais_screen.png"
+
+                    Image {
+                        Layout.fillWidth: true
+                        fillMode: Image.PreserveAspectFit
+                        source: "../images/relais_screen.png"
+                    }
+
+                    Item {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                    }
                 }
 
                 VerticalDivider {
@@ -316,31 +336,37 @@ StackView {
                     dividerColor: Material.accent
                 }
 
-                Button {
-                    id: completeSetupButton
-                    visible: powerLimitSource === "relais" ? false : true
-                    Layout.fillWidth: true
-                    text: qsTr("Complete setup")
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
 
-                    onClicked: {
-                        powerLimitSource = "relais"
-                        pageStack.pop()
-                        pageStack.pop()
-                    }
-                }
+                    Button {
+                        id: completeSetupButton
+                        visible: powerLimitSource === "relais" ? false : true
+                        Layout.fillWidth: true
+                        text: qsTr("Complete setup")
 
-                Button {
-                    id: cancel
-                    visible: powerLimitSource === "relais" ? false : true
-                    Layout.fillWidth: true
-                    text: qsTr("Cancel")
-                    background: Rectangle {
-                        color: "transparent"
+                        onClicked: {
+                            powerLimitSource = "relais"
+                            pageStack.pop()
+                            pageStack.pop()
+                        }
                     }
 
-                    onClicked: {
-                        pageStack.pop()
+                    Button {
+                        id: cancel
+                        visible: powerLimitSource === "relais" ? false : true
+                        Layout.fillWidth: true
+                        text: qsTr("Cancel")
+                        background: Rectangle {
+                            color: "transparent"
+                        }
+
+                        onClicked: {
+                            pageStack.pop()
+                        }
                     }
+
                 }
 
                 Item {
