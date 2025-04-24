@@ -18,7 +18,7 @@ RadioDelegate {
     Layout.fillWidth: true
 
     contentItem: Column {
-        spacing: 2
+        spacing: 0
 
         Text {
             id: mainText
@@ -49,7 +49,8 @@ RadioDelegate {
         y: parent.height / 2 - height / 2
         radius: 13
         color: "transparent"
-        border.color: control.checked ? Style.accentColor : Style.consolinnoDark
+        border.color: control.checked ? Style.accentColor : Configuration.secondaryDark
+        border.width: 2
 
         Rectangle {
             width: parent.implicitWidth - 9
