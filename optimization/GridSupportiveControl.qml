@@ -52,8 +52,8 @@ StackView {
                 anchors.bottom: parent.bottom
 
                 ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
+                    Layout.leftMargin: app.bigMargins
+                    Layout.rightMargin: app.bigMargins
                     Layout.topMargin: 16
                     Layout.bottomMargin: 16
 
@@ -62,7 +62,7 @@ StackView {
                         Layout.fillWidth: true
                         Layout.bottomMargin: 8
                         text: qsTr("Grid supportive-control set-up")
-
+                        implicitHeight: 55
                         onClicked: {
                             pageStack.push(selectComponent)
                         }
@@ -205,6 +205,8 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+                anchors.topMargin: app.margins
+                spacing: 8
 
                 ListModel{
                     id: myListModel
@@ -235,6 +237,8 @@ StackView {
 
                 VerticalDivider{
                     Layout.fillWidth: true
+                    Layout.topMargin: app.margins - 12
+                    Layout.bottomMargin: app.margins - 12
                     dividerColor: Material.accent
                 }
 
@@ -300,6 +304,7 @@ StackView {
                 anchors.bottom: parent.bottom
 
                 RowLayout {
+                    Layout.topMargin: app.margins
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
