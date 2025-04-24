@@ -55,6 +55,8 @@ ConfigurationBase {
     //////////////////////////////////////////////////////////////////////////////////////
 
     //Styles
+    property color secondaryDark: "#767676"
+
     //MainMenuCirlce
     readonly property color mainTimeCircle: "#d7d7d7"
     readonly property color mainTimeCircleDivider: "#ffffff"
