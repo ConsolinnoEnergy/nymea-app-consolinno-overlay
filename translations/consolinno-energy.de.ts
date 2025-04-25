@@ -2292,8 +2292,8 @@
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.8.2&lt;/p&gt;
+        <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
+&lt;p&gt;Version 1.8.3&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
     &lt;li&gt;Netzdienlichkeitseinstellung  für Batteriespeicher&lt;/li&gt;

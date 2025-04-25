@@ -151,7 +151,7 @@ GenericConfigPage {
                 text: qsTr("Status")
                 Layout.fillWidth: true
                 font.weight: Font.Bold
-                color: "#194D25"
+                
             }
 
             ColumnLayout {
@@ -187,12 +187,12 @@ GenericConfigPage {
             Label {
                 text: qsTr("State of Charge")
                 Layout.fillWidth: true
-                color: "#194D25"
+                
             }
 
             Label {
                 text: ("%1 %").arg(batteryLevelState.value)
-                color: "#194D25"
+                
             }
         }
 
@@ -202,12 +202,12 @@ GenericConfigPage {
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Power")
-                color: "#194D25"
+                
             }
 
             Label {
                 text: currentPowerState.value > 0 ? Math.round(currentPowerState.value) + " W" : (Math.round(currentPowerState.value) * -1) + " W"
-                color: "#194D25"
+                
             }
         }
 
@@ -216,7 +216,7 @@ GenericConfigPage {
             Label {
                 text: qsTr("Charging from grid")
                 font.weight: Font.Bold
-                color: "#194D25"
+                
             }
         }
 
@@ -228,7 +228,7 @@ GenericConfigPage {
             RowLayout {
                 Label {
                     text: qsTr("Tariff-guided charging")
-                    color: "#194D25"
+                    
                 }
 
                 InfoButton {
@@ -263,7 +263,7 @@ GenericConfigPage {
                 visible: optimizationController.checked
                 Label {
                     text: qsTr("Activate instant charging")
-                    color: "#194D25"
+                    
                 }
 
                 InfoButton {
@@ -291,7 +291,7 @@ GenericConfigPage {
 
         ColumnLayout {
             id: columnLayer
-            property color labelColor: chargeOnceController.checked ? "grey" : "#194D25"
+            enabled: chargeOnceController.checked ? false : true
             // Charging Plan Header
             RowLayout {
                 Layout.topMargin: 15
@@ -299,7 +299,6 @@ GenericConfigPage {
                 Label {
                     text: qsTr("Charging Plan")
                     font.weight: Font.Bold
-                    color: columnLayer.labelColor
                 }
             }
 
@@ -312,13 +311,11 @@ GenericConfigPage {
                 Label {
                     Layout.fillWidth: true
                     text: qsTr("Current price")
-                    color: columnLayer.labelColor
                 }
 
                 Label {
                     id: currentPriceLabel
                     text: Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh"
-                    color: columnLayer.labelColor
                 }
             }
 
@@ -330,7 +327,6 @@ GenericConfigPage {
                 Label {
                     Layout.fillWidth: true
                     text: qsTr("Price limit")
-                    color: columnLayer.labelColor
                 }
 
                 ToolBar {
@@ -407,7 +403,6 @@ GenericConfigPage {
 
                         Label {
                             text: "ct/kWh"
-                            color: columnLayer.labelColor
                         }
                     }
                 }
@@ -429,7 +424,6 @@ GenericConfigPage {
                 Label{
                     Layout.fillWidth: true
                     text: qsTr("Below price limit")
-                    color: columnLayer.labelColor
                 }
 
                 Rectangle{
@@ -893,7 +887,6 @@ GenericConfigPage {
                     wrapMode: Text.WordWrap
                     Layout.fillWidth: true
                     text: qsTr("Prices represent the pure exchange price without taxes and fees.")
-                    color: columnLayer.labelColor
                     font.pixelSize: 12
                 }
             }
