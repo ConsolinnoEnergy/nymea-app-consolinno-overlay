@@ -283,6 +283,7 @@ GenericConfigPage {
 
         ColumnLayout {
             id: columnLayer
+            enabled: chargeOnceController.checked ? false : true
             // Charging Plan Header
             RowLayout {
                 Layout.topMargin: 15
