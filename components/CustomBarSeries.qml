@@ -184,7 +184,8 @@ ChartView {
             let currentTimestamp = date.getTime();
             let itemValue = value[item];
 
-            if(lastChange !== itemValue) {
+            const lastChangeDate = new Date(currentTimestamp);
+            if(lastChange === 0 || lastChangeDate.getMinutes() === 0) {
                 lastChangeTimestamp = currentTimestamp;
 
                 for(const ts of identicalIndexes) {
@@ -209,7 +210,7 @@ ChartView {
 
             priceLimitUp.append(currentTimestamp,currentPrice);
 
-            if(lastChange !== itemValue) { // Draw done to mimick a bar
+            if(lastChange === 0 || lastChangeDate.getMinutes() === 0) { // Draw done to mimick a bar
               barToDraw.append(currentTimestamp, lastChange);
               barToDraw.append(currentTimestamp, valueAxis.min);
 
