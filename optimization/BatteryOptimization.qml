@@ -75,6 +75,7 @@ Page {
 
         ColumnLayout {
             Layout.fillWidth: true
+            visible: thing.thingClass.interfaces.includes("controllablebattery")
 
             Text {
                 Layout.fillWidth: true
@@ -92,8 +93,6 @@ Page {
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Avoid zero compensation")
-
-            }
 
             Switch {
                 id: zeroCompensationControl

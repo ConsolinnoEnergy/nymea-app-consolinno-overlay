@@ -3462,7 +3462,11 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Charging</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Battery</source>
+        <translation></translation>
     </message>
     <message>
         <source>Battery</source>
