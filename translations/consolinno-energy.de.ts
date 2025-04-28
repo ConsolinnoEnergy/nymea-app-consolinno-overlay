@@ -2284,7 +2284,7 @@
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.8.3&lt;/p&gt;
+&lt;p&gt;Version 1.8.4&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
     &lt;li&gt;Verbesserungen für Batterie laden aus dem Netz&lt;/li&gt;
