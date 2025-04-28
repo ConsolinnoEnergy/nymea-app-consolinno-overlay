@@ -16,12 +16,20 @@ StackView {
     property int powerLimit: 1625
     property string powerLimitSource: "none" // "eebus" "relais"
     property string currentState: "limited" // "blocked" "limited" "shutoff"
+    property string eebusState: "warning"
+    property string colorsEEBUS: eebusState == "error" ? "#F37B8E" : eebusState == "warning" ? "#F7B772" : "#BDD786"
+    property string textEEBUS: eebusState == "error" ? qsTr("not connected") : eebusState == "warning" ? qsTr("Confirmation by network operator pending") : qsTr("connected")
     property string colorsPlim: currentState === "shutoff" ? "#eb4034" : currentState === "limited" ? "#fc9d03" : "#ffffff"
     property string contentPlim: currentState === "shutoff" ? qsTr("The consumption is <b>temporarily blocked</b> by the network operator.") : currentState === "limited" ? qsTr("The consumption is <b>temporarily reduced</b> to <b>%1 kW</b> according to §14a minimum.").arg(convertToKw(powerLimit)) : ""
 
     QtObject {
         id: d
         property int pendingCallId: -1
+    }
+
+    ThingDiscovery {
+        id: discovery
+        engine: _engine
     }
 
     function convertToKw(numberW){
@@ -54,8 +62,6 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.bigMargins
                     Layout.rightMargin: app.bigMargins
-                    Layout.topMargin: 16
-                    Layout.bottomMargin: 16
 
                     Button {
                         id: setUpButton
@@ -156,7 +162,7 @@ StackView {
                     }
 
                     VerticalDivider{
-                        Layout.fillWidth: true
+                        Layout.preferredWidth: app.width
                         dividerColor: Material.accent
                     }
 
@@ -183,8 +189,8 @@ StackView {
 
                 Item {
                     Layout.fillHeight: true
-                    Layout.fillWidth: true
                 }
+
             }
         }
     }
@@ -322,12 +328,13 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    Layout.preferredHeight: parent.height / 4
 
                     Image {
                         Layout.fillWidth: true
+                        Layout.fillHeight: true
                         fillMode: Image.PreserveAspectFit
                         source: "../images/relais_screen.png"
+                        clip: true
                     }
 
                     Item {
@@ -337,7 +344,8 @@ StackView {
                 }
 
                 VerticalDivider {
-                    Layout.fillWidth: true
+                    visible: powerLimitSource === "relais" ? false : true
+                    Layout.preferredWidth: app.width
                     dividerColor: Material.accent
                 }
 
@@ -371,13 +379,13 @@ StackView {
                             pageStack.pop()
                         }
                     }
-
                 }
 
                 Item {
+                    visible: powerLimitSource === "relais" ? false : true
                     Layout.fillHeight: true
-                    Layout.fillWidth: true
                 }
+
             }
         }
     }
@@ -396,75 +404,102 @@ StackView {
 
 
             ColumnLayout {
-                anchors.fill: parent
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
-                anchors.topMargin: app.margins
-                anchors.margins: app.margins
+                anchors.bottom: parent.bottom
 
-                Text {
-                    Layout.fillWidth: true
-                    Layout.topMargin: 5
-                    Layout.bottomMargin: 0
-                    textFormat: Text.RichText
-                    font.pointSize: 20
-                    font.bold: true
-                    wrapMode: Text.WordWrap
-                    text: qsTr("The following EEBUS devices were found:")
-                    color: Style.consolinnoDark
+
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    Layout.fillHeight: true
+                    Text {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 5
+                        Layout.bottomMargin: 0
+                        textFormat: Text.RichText
+                        font.pointSize: 20
+                        font.bold: true
+                        wrapMode: Text.WordWrap
+                        text: qsTr("The following EEBUS devices were found:")
+                        color: Style.consolinnoDark
+                    }
                 }
 
-                Repeater {
-                    id: eebuRepeater
-                    model: ListModel {
-                        ListElement { name: "Consolinno-Leaflet-HEMS-1u0022-co0001"; subtext: "Connected via eebus-go"; }
-                        ListElement { name: "Consolinno-Leaflet-HEMS-1u0022-co0002"; subtext: "Connected via eebus-go"; }
-                        ListElement { name: "Consolinno-Leaflet-HEMS-1u0022-co0003"; subtext: "Connected via eebus-go"; }
-                    }
-                    ConsolinnoItemDelegate {
-                        Layout.preferredWidth: parent.width
-                        text: name
-                        subText: model.subtext
-                        progressive: true
-                        onClicked: {
-                            pageStack.push(eebusView, {selectedName: selectedName} );
+                Flickable {
+                    id: flick
+                    height: parent.height - 300
+                    Layout.fillWidth: true
+                    clip: true
+
+                    contentWidth: parent.width
+                    contentHeight: column.implicitHeight
+
+                    ColumnLayout {
+                        id: column
+                        width: parent.width
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        spacing: 5
+
+                        Repeater {
+                            id: eebuRepeater
+
+                            model: ThingClassesProxy {
+                                id: eebusDiscovery
+                                engine: _engine
+                                filterDisplayName: "eebus"
+                                filterInterface: "gateway"
+                            } /*ListModel {
+                                ListElement { name: "Consolinno-Leaflet-HEMS-1u0022-co0001"; subtext: "Connected via eebus-go" }
+                                ListElement { name: "Consolinno-Leaflet-HEMS-1u0022-co0002"; subtext: "Connected via eebus-go" }
+                                ListElement { name: "Consolinno-Leaflet-HEMS-1u0022-co0003"; subtext: "Connected via eebus-go" }
+                            }*/
+                            delegate: ConsolinnoItemDelegate {
+                                Layout.fillWidth: true
+                                iconName: "../images/connections/network-wired.svg"
+                                text: model.displayName
+                                subText: qsTr("Connected via %1").arg(engine.thingManager.vendors.getVendor(model.vendorId).name)
+                                progressive: true
+                                onClicked: {
+                                    pageStack.push(eebusView, { selectedName: name });
+                                }
+                            }
                         }
                     }
                 }
 
                 VerticalDivider {
-                    Layout.preferredWidth: app.width - 2* Style.margins
+                    Layout.fillWidth: true
                     dividerColor: Material.accent
                 }
 
-                Button {
-                    id: completeSetupButton
-                    Layout.fillWidth: true
-                    text: qsTr("Search again")
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
 
-                    onClicked: {
+                    Button {
+                        id: completeSetupButton
+                        Layout.fillWidth: true
+                        text: qsTr("Search again")
+                        onClicked: {
 
-                    }
-                }
-
-                Button {
-                    id: cancel
-                    Layout.fillWidth: true
-                    text: qsTr("Cancel")
-                    background: Rectangle {
-                        color: "transparent"
+                        }
                     }
 
-                    onClicked: {
-                        pageStack.pop()
+                    Button {
+                        id: cancel
+                        Layout.fillWidth: true
+                        text: qsTr("Cancel")
+                        background: Rectangle {
+                            color: "transparent"
+                        }
+
+                        onClicked: {
+                            pageStack.pop()
+                        }
                     }
-                }
-
-
-                Item {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
                 }
             }
         }
@@ -474,10 +509,9 @@ StackView {
         id: eebusView
 
         Page {
-            property string selectedName: ""
 
             header: NymeaHeader {
-                text: qsTr("Grid supportive-control set-up - %1").arg(selectedName)
+                text: qsTr("Grid supportive-control set-up - EEBUS")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -487,6 +521,7 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+                spacing: 8
 
                 ColumnLayout {
                     Layout.leftMargin: app.margins
@@ -504,29 +539,44 @@ StackView {
                     }
                 }
 
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
+                Flickable {
+                    id: flick
+                    height: parent.height - 360
+                    Layout.fillWidth: true
+                    clip: true
 
-                    Repeater {
-                        model: ListModel{
-                            ListElement{name: "b68fb71513772f3d7310c81fc35f6e40"; subtext: "Diese SKI wird vom Netzbetreiber benötigt."; tertiaryText:"Local Subject Key Identifier (SKI)"}
-                            ListElement{name: "80b79b54d9f869822637f1f68ee9e893"; subtext:""; tertiaryText: "Remote Subject Key Identifier (SKI)"}
-                            ListElement{name: "Consolinno-Leaflet-HEMS-1u0022-co0001"; subtext:""; tertiaryText: "Device Identifier"}
-                            ListElement{name: "Consolinno"; subtext:""; tertiaryText: "Device Brand"}
-                            ListElement{name: "Energy Management System"; subtext:""; tertiaryText: "Device Type"}
-                            ListElement{name: "Leaflet-HEMS"; subtext:""; tertiaryText: "Device Model"}
-                            ListElement{name: "???"; subtext:""; tertiaryText: "Device ID"}
-                        }
-                        ConsolinnoItemDelegate {
-                            id: item
-                            Layout.fillWidth: true
-                            text: name
-                            subText: model.subtext.length === 0 ? "" : model.subtext
-                            tertiaryText: model.tertiaryText
-                            progressive: false
-                            onClicked: {
-                                PlatformHelper.toClipBoard(name)
+                    contentWidth: parent.width
+                    contentHeight: column.implicitHeight
+
+                    ColumnLayout {
+                        id: column
+                        width: parent.width
+                        // Margins wie in app definiert
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        spacing: 5
+
+                        Repeater {
+                            model: ListModel {
+                                ListElement { name: "b68fb71513772f3d7310c81fc35f6e40"; subtext: "Diese SKI wird vom Netzbetreiber benötigt."; tertiaryText: "Local Subject Key Identifier (SKI)" }
+                                ListElement { name: "80b79b54d9f869822637f1f68ee9e893"; subtext: ""; tertiaryText: "Remote Subject Key Identifier (SKI)" }
+                                ListElement { name: "Consolinno-Leaflet-HEMS-1u0022-co0001"; subtext: ""; tertiaryText: "Device Identifier" }
+                                ListElement { name: "Consolinno"; subtext: ""; tertiaryText: "Device Brand" }
+                                ListElement { name: "Energy Management System"; subtext: ""; tertiaryText: "Device Type" }
+                                ListElement { name: "Leaflet-HEMS"; subtext: ""; tertiaryText: "Device Model" }
+                                ListElement { name: "???"; subtext: ""; tertiaryText: "Device ID" }
+                            }
+                            delegate: ConsolinnoItemDelegate {
+                                Layout.fillWidth: true
+                                text: name
+                                subText: subtext.length === 0 ? "" :  model.subtext
+                                tertiaryText: model.tertiaryText
+                                secondaryIconName: index === 0 ? "../images/edit-copy.svg" : ""
+                                secondaryIconColor: Material.accentColor
+                                secondaryIconSize: 20
+                                progressive: false
+                                secondaryIconClickable: true
+                                onSecondaryIconClicked: PlatformHelper.toClipBoard(name)
                             }
                         }
                     }
@@ -534,11 +584,12 @@ StackView {
 
                 VerticalDivider {
                     Layout.preferredWidth: app.width
+                    Layout.topMargin: app.margins - 12
+                    Layout.bottomMargin: app.margins - 12
                     dividerColor: Material.accent
                 }
 
-                ColumnLayout {
-                    Layout.fillWidth: true
+                RowLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
                     visible: powerLimitSource === "eebus" ? true : false
@@ -557,7 +608,6 @@ StackView {
                 }
 
                 RowLayout {
-                    Layout.fillWidth: true
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
                     visible: powerLimitSource === "eebus" ? true : false
@@ -565,21 +615,20 @@ StackView {
                     Rectangle {
                         width: 25
                         height: 25
-                        color: "red"
-                        border.color: "red"
+                        color: colorsEEBUS
+                        border.color: colorsEEBUS
                         radius: 12
                     }
 
                     Text {
                         Layout.fillWidth: true
-                        text: qsTr("connected")
+                        text: textEEBUS
                         font.pointSize: 12
                         wrapMode: Text.WordWrap
                         color: Style.consolinnoDark
                     }
 
                 }
-
 
                 ColumnLayout {
                     Layout.leftMargin: app.margins
@@ -595,6 +644,8 @@ StackView {
 
                 ColumnLayout {
                     visible: powerLimitSource === "eebus" ? false : true
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
@@ -622,7 +673,6 @@ StackView {
                             pageStack.pop()
                         }
                     }
-
                 }
 
                 Item {
@@ -632,17 +682,14 @@ StackView {
 
             }
         }
-
     }
 
     Component {
         id: eebusViewStatus
 
         Page {
-            property string selectedName: ""
-
             header: NymeaHeader {
-                text: qsTr("Grid supportive-control set-up - %1").arg(selectedName)
+                text: qsTr("Grid supportive-control set-up - EEBUS")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -652,9 +699,9 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+                spacing: 8
 
                 ColumnLayout {
-                    Layout.fillWidth: true
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
@@ -672,21 +719,22 @@ StackView {
                 }
 
                 RowLayout {
-                    Layout.fillWidth: true
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
+                    Layout.topMargin: app.margins - 12
+                    spacing: 8
 
                     Rectangle {
-                        width: 25
-                        height: 25
-                        color: "red"
-                        border.color: "red"
+                        width: 20
+                        height: 20
+                        color: colorsEEBUS
+                        border.color: colorsEEBUS
                         radius: 12
                     }
 
                     Text {
                         Layout.fillWidth: true
-                        text: qsTr("Confirmation from the network operator %1").arg("pending")
+                        text: textEEBUS
                         font.pointSize: 12
                         wrapMode: Text.WordWrap
                         color: Style.consolinnoDark
@@ -696,26 +744,28 @@ StackView {
 
                 VerticalDivider {
                     Layout.preferredWidth: app.width
+                    Layout.topMargin: app.margins - 12
+                    Layout.bottomMargin: app.margins - 12
                     dividerColor: Material.accent
                 }
 
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-
-
-                    ConsolinnoItemDelegate {
-                        Layout.fillWidth: true
-                        text: "Test"
-                        subText: "subText"
-                        tertiaryText: "tertiaryText"
-                        progressive: false
-                    }
+                ConsolinnoItemDelegate {
+                    Layout.fillWidth: true
+                    text: "b68fb71513772f3d7310c81fc35f6e40"
+                    subText: "Diese SKI wird vom Netzbetreiber benötigt."
+                    tertiaryText: "Local Subject Key Identifier (SKI)"
+                    secondaryIconName: "../images/edit-copy.svg"
+                    secondaryIconColor: Material.accentColor
+                    secondaryIconSize: 20
+                    progressive: false
+                    secondaryIconClickable: true
+                    onSecondaryIconClicked: PlatformHelper.toClipBoard(name)
                 }
-
 
                 VerticalDivider {
                     Layout.preferredWidth: app.width
+                    Layout.topMargin: app.margins - 12
+                    Layout.bottomMargin: app.margins - 12
                     dividerColor: Material.accent
                 }
 
