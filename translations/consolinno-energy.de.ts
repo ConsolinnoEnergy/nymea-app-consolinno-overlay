@@ -195,6 +195,18 @@
         <source>Price limit : %1 ct/kWh</source>
         <translation>Preisgrenze : %1 ct/kWh</translation>
     </message>
+    <message>
+        <source>Avoid zero compensation is active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tariff-controlled charging from the grid is deactivated during the regulation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BatteryConfigurationView</name>
@@ -241,12 +253,8 @@
         <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
-    </message>
-    <message>
-        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
-        <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
+        <source>Avoid zero compensation</source>
+        <translation>Nullvergütung vermeiden</translation>
     </message>
 </context>
 <context>

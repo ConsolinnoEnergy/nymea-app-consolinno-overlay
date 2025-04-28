@@ -195,6 +195,18 @@
         <source>Price limit : %1 ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Avoid zero compensation is active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tariff-controlled charging from the grid is deactivated during the regulation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BatteryConfigurationView</name>
@@ -241,11 +253,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
+        <source>Avoid zero compensation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3467,10 +3475,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>Battery</source>
         <translation></translation>
-    </message>
-    <message>
-        <source>Battery</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

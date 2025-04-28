@@ -93,6 +93,7 @@ Page {
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Avoid zero compensation")
+            }
 
             Switch {
                 id: zeroCompensationControl
@@ -143,4 +144,3 @@ Page {
         }
     }
 }
-
