@@ -129,10 +129,6 @@ GenericConfigPage {
         saveButton.enabled = true
     }
 
-    function zeroCompensation(state){
-        return (state) ? qsTr("activated") : qsTr("deactivated")
-    }
-
     ThingsProxy {
         id: dynamicPrice
         engine: _engine
@@ -146,10 +142,80 @@ GenericConfigPage {
         anchors.left: parent.left
         anchors.margins: app.margins
 
+        Rectangle {
+            Layout.fillWidth: true
+            radius: 10
+            color: "#FFEE89"
+            border.width: 1
+            border.color: "#864A0D"
+            implicitHeight: alertContainer.implicitHeight + 20
+            Layout.topMargin: 30
+            visible: !isZeroCompensation
+
+            ColumnLayout {
+                id: alertContainer
+                anchors.fill: parent
+                spacing: 1
+
+                Item {
+                    Layout.preferredHeight: 10
+                }
+
+
+                RowLayout {
+                    width: parent.width
+                    spacing: 5
+
+                    Item {
+                        Layout.preferredWidth: 10
+                    }
+
+                    Rectangle {
+                        width: 20
+                        height: 20
+                        radius: 10  // Makes the rectangle a circle
+                        color: "#FFEE89"
+                        border.color: "#864A0D"
+                        border.width: 1
+                        RowLayout.alignment: Qt.AlignVCenter
+
+                        Label {
+                            text: "!"
+                            anchors.centerIn: parent
+                            color: "#864A0D"
+                        }
+                    }
+
+                    Label {
+                        font.pixelSize: 16
+                        text: qsTr("Avoid zero compensation is active")
+                        font.bold: true
+                        wrapMode: Text.WordWrap
+                        Layout.fillWidth: true
+                        Layout.preferredWidth: parent.width - 20
+                        color: "#864A0D"
+                    }
+                }
+                Label {
+                    font.pixelSize: 16
+                    text: qsTr("Tariff-controlled charging from the grid is deactivated during the regulation.")
+                    wrapMode: Text.WordWrap
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: parent.width - 20
+                    leftPadding: 40
+                    color: "#864A0D"
+                }
+
+                Item {
+                    Layout.preferredHeight: 10
+                }
+            }
+        }
+
         //Status
         RowLayout {
             Layout.fillWidth: true
-            Layout.topMargin: 30
+            Layout.topMargin: 5
 
             Label {
                 text: qsTr("Status")
@@ -206,27 +272,6 @@ GenericConfigPage {
 
             Label {
                 text: currentPowerState.value > 0 ? Math.round(currentPowerState.value) + " W" : (Math.round(currentPowerState.value) * -1) + " W"
-            }
-        }
-
-        RowLayout {
-            Layout.fillWidth: true
-            Layout.topMargin: 5
-            visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
-
-            Label {
-                text: qsTr("Zero Compensation")
-            }
-
-            InfoButton {
-                id: zeroCompensationInfo
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignTop
-                push: "ZeroCompensationInfo.qml"
-            }
-
-            Label {
-                text: zeroCompensation(isZeroCompensation)
             }
         }
 
@@ -496,20 +541,6 @@ GenericConfigPage {
                         to: 50
                         stepSize: 0.2
                     }
-                }
-            }
-
-            // Text under Slider
-            RowLayout {
-                visible: optimizationController.checked
-                enabled: chargeOnceController.checked ? false : true
-                Layout.topMargin: 5
-
-                Label {
-                    wrapMode: Text.WordWrap
-                    Layout.fillWidth: true
-                    text: qsTr("The setting will only take effect once the rule to prevent zero compensation has been deactivated again.")
-                    font.pixelSize: 12
                 }
             }
         }

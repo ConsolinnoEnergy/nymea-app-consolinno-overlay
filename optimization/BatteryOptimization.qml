@@ -90,7 +90,7 @@ Page {
 
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Zero Compensation")
+                text: qsTr("Avoid zero compensation")
 
             }
 
@@ -133,7 +133,7 @@ Page {
             Layout.fillWidth: true
             text: qsTr("Save")
             onClicked: {
-                hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, {optimizationEnabled: true, controllableLocalSystem: gridSupportControl.checked, avoidZeroFeedInEnabled: zeroCompensationControl.checked})
+                hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, { controllableLocalSystem: gridSupportControl.checked, avoidZeroFeedInEnabled: zeroCompensationControl.checked})
                 if(directionID !== 1){
                     pageStack.pop()
                 }
