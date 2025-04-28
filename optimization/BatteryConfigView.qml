@@ -150,7 +150,7 @@ GenericConfigPage {
             border.color: "#864A0D"
             implicitHeight: alertContainer.implicitHeight + 20
             Layout.topMargin: 30
-            visible: !isZeroCompensation
+            visible: isZeroCompensation
 
             ColumnLayout {
                 id: alertContainer
@@ -215,7 +215,7 @@ GenericConfigPage {
         //Status
         RowLayout {
             Layout.fillWidth: true
-            Layout.topMargin: 5
+            Layout.topMargin: isZeroCompensation ? 5 : 30
 
             Label {
                 text: qsTr("Status")
