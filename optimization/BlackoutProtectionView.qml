@@ -110,14 +110,24 @@ Page {
             id: limitOther
             Layout.fillWidth: true
             text: "other"
-            visible: false
-            contentItem: TextField {
+
+            contentItem: RowLayout {
+              Label {
+                text: "3 x A:"
+              }
+              TextField {
                 id: otherLimit
                 rightPadding: 50//otherDelegate.width - otherDelegate.indicator.width - otherDelegate.spacing
+                placeholderText: "16 - 100"
                 onTextChanged: {
                     limitOther.checked = true
                     phaseLimit = parseInt(text)
                 }
+                validator: RegExpValidator {
+                    regExp: /^(1[6-9]|[2-9][0-9]|100)$/
+                }
+                inputMethodHints: Qt.ImhDigitsOnly
+              }
             }
             onClicked: phaseLimit = otherLimit.text
         }
@@ -136,6 +146,7 @@ Page {
         Button {
             id: savebutton
             Layout.fillWidth: true
+            enabled: phaseLimit > 15
             text: qsTr("Save")
 
             onClicked: {
