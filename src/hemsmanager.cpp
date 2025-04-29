@@ -532,7 +532,7 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
         qCWarning(dcHems()) << "Adding a dummy Config" << batteryThingId;
         QVariantMap dummyConfig;
         dummyConfig.insert("batteryThingId", batteryThingId);
-        //dummyConfig.insert("avoidZeroFeedInActive", false);
+        dummyConfig.insert("avoidZeroFeedInActive", false);
         dummyConfig.insert("avoidZeroFeedInEnabled", false);
         dummyConfig.insert("optimizationEnabled", true);
         dummyConfig.insert("priceThreshold", 0);
