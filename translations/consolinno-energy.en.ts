@@ -2584,11 +2584,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.8.3&lt;/p&gt;
+&lt;p&gt;Version 1.9.0&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Improvement of the charging plan as a bar view&lt;/li&gt;
-    &lt;li&gt;Various stability improvements&lt;/li&gt;
+    &lt;li&gt;Avoiding zero compensation&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
