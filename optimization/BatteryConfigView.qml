@@ -22,7 +22,7 @@ GenericConfigPage {
     readonly property State batteryLevelState: root.thing.stateByName("batteryLevel")
     readonly property State currentPowerState: root.thing.stateByName("currentPower")
     property BatteryConfiguration batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id)
-
+    property bool isZeroCompensation : batteryConfiguration.avoidZeroFeedInActive && batteryConfiguration.avoidZeroFeedInEnabled
 
     property double currentValue : batteryConfiguration.priceThreshold
     property double thresholdPrice: 0
@@ -129,7 +129,6 @@ GenericConfigPage {
         saveButton.enabled = true
     }
 
-
     ThingsProxy {
         id: dynamicPrice
         engine: _engine
@@ -143,10 +142,80 @@ GenericConfigPage {
         anchors.left: parent.left
         anchors.margins: app.margins
 
+        Rectangle {
+            Layout.fillWidth: true
+            radius: 10
+            color: "#FFEE89"
+            border.width: 1
+            border.color: "#864A0D"
+            implicitHeight: alertContainer.implicitHeight + 20
+            Layout.topMargin: 30
+            visible: isZeroCompensation
+
+            ColumnLayout {
+                id: alertContainer
+                anchors.fill: parent
+                spacing: 1
+
+                Item {
+                    Layout.preferredHeight: 10
+                }
+
+
+                RowLayout {
+                    width: parent.width
+                    spacing: 5
+
+                    Item {
+                        Layout.preferredWidth: 10
+                    }
+
+                    Rectangle {
+                        width: 20
+                        height: 20
+                        radius: 10  // Makes the rectangle a circle
+                        color: "#FFEE89"
+                        border.color: "#864A0D"
+                        border.width: 1
+                        RowLayout.alignment: Qt.AlignVCenter
+
+                        Label {
+                            text: "!"
+                            anchors.centerIn: parent
+                            color: "#864A0D"
+                        }
+                    }
+
+                    Label {
+                        font.pixelSize: 16
+                        text: qsTr("Avoid zero compensation is active")
+                        font.bold: true
+                        wrapMode: Text.WordWrap
+                        Layout.fillWidth: true
+                        Layout.preferredWidth: parent.width - 20
+                        color: "#864A0D"
+                    }
+                }
+                Label {
+                    font.pixelSize: 16
+                    text: qsTr("Tariff-controlled charging from the grid is deactivated during the regulation.")
+                    wrapMode: Text.WordWrap
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: parent.width - 20
+                    leftPadding: 40
+                    color: "#864A0D"
+                }
+
+                Item {
+                    Layout.preferredHeight: 10
+                }
+            }
+        }
+
         //Status
         RowLayout {
             Layout.fillWidth: true
-            Layout.topMargin: 30
+            Layout.topMargin: isZeroCompensation ? 5 : 30
 
             Label {
                 text: qsTr("Status")
@@ -178,7 +247,6 @@ GenericConfigPage {
             }
 
         }
-
 
         // Current Battery Level
         RowLayout {
@@ -229,8 +297,8 @@ GenericConfigPage {
         }
 
         ColumnLayout {
-            visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
             id: columnContainer
+            visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
 
             // Optimization enabled
             RowLayout {
@@ -268,6 +336,7 @@ GenericConfigPage {
             RowLayout {
                 Layout.topMargin: 5
                 visible: optimizationController.checked
+
                 Label {
                     text: qsTr("Activate instant charging")
                 }
@@ -280,16 +349,71 @@ GenericConfigPage {
                 }
 
                 Column {
-                    Switch {
-                        spacing: 1
-                        height: 18
-                        id: chargeOnceController
-                        Component.onCompleted: {
-                            checked = batteryConfiguration.chargeOnce
+                    id: columnArea
+
+                    Item {
+                        id: switchContainer
+                        width: chargeOnceController.width
+                        height: chargeOnceController.height
+
+                        Switch {
+                            id: chargeOnceController
+                            anchors.fill: parent
+                            spacing: 1
+                            height: 18
+                            enabled: isZeroCompensation ? false : true
+
+                            Component.onCompleted: {
+                                checked = batteryConfiguration.chargeOnce
+                            }
+                            onClicked: {
+                                if (!isZeroCompensation)
+                                    enableSave(this)
+                            }
                         }
-                        onClicked: {
-                            //saveSettings()
-                            enableSave(this)
+
+                        MouseArea {
+                            id: mouseArea
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            enabled: isZeroCompensation
+
+                            onEntered: {
+                                if (isZeroCompensation)
+                                    toolTipSwitch.visible = true
+                            }
+                            onExited: {
+                                if (isZeroCompensation)
+                                    toolTipSwitch.visible = false
+                            }
+                        }
+
+                        NymeaToolTip {
+                            id: toolTipSwitch
+                            visible: false
+
+                            z: 10
+                            anchors.right: parent.right
+                            anchors.bottom: parent.top
+                            anchors.bottomMargin: 5
+
+                            width: toolTopLayout.width + Style.smallMargins * 2
+                            height: toolTopLayout.implicitHeight + Style.smallMargins * 2
+
+                            ColumnLayout {
+                                id: toolTopLayout
+                                width: 305
+                                anchors.fill: parent
+                                anchors.margins: Style.smallMargins
+
+                                Label {
+                                    id: labelID
+                                    Layout.fillWidth: true
+                                    wrapMode: Text.WordWrap
+                                    text: qsTr("If the zero-compensation avoidance is active, immediate battery charging is not possible.")
+                                    font: Style.smallFont
+                                }
+                            }
                         }
                     }
                 }
@@ -301,6 +425,7 @@ GenericConfigPage {
             RowLayout {
                 Layout.topMargin: 15
                 visible: optimizationController.checked
+                enabled: isZeroCompensation || chargeOnceController.checked ? false : true
                 Label {
                     text: qsTr("Charging Plan")
                     font.weight: Font.Bold
@@ -311,6 +436,7 @@ GenericConfigPage {
             RowLayout {
                 id: currentPriceRow
                 visible: optimizationController.checked
+                enabled: isZeroCompensation || chargeOnceController.checked ? false : true
                 Layout.topMargin: 5
 
                 Label {
@@ -328,7 +454,7 @@ GenericConfigPage {
             ColumnLayout {
                 Layout.fillWidth: true
                 visible: optimizationController.checked
-                enabled: chargeOnceController.checked ? false : true
+                enabled: isZeroCompensation || chargeOnceController.checked ? false : true
                 Component.onCompleted: {
                     const dpThing = dynamicPrice.get(0)
                     if(!dpThing)
@@ -378,7 +504,7 @@ GenericConfigPage {
                       margins.right: 0
                       margins.top: 0
                       margins.bottom: 0
-                      backgroundColor: chargeOnceController.checked ? "whitesmoke" : "transparent"
+                      backgroundColor: isZeroCompensation || chargeOnceController.checked ? "whitesmoke" : "transparent"
                       startTime: d.startTimeSince
                       endTime: d.endTimeUntil
                       hoursNow: d.now.getHours()
@@ -387,7 +513,6 @@ GenericConfigPage {
                       lowestValue: root.lowestPrice
                       highestValue: root.highestPrice
                     }
-
                 }
 
                 Label {
@@ -404,7 +529,6 @@ GenericConfigPage {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
             }
-
 
             ItemDelegate {
                 Layout.fillWidth: true

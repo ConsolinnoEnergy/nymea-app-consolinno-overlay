@@ -12,6 +12,8 @@ class BatteryConfiguration : public QObject
     Q_PROPERTY(float priceThreshold READ priceThreshold WRITE setPriceThreshold NOTIFY priceThresholdChanged)
     Q_PROPERTY(bool relativePriceEnabled READ relativePriceEnabled WRITE setRelativePriceEnabled NOTIFY relativePriceEnabledChanged)
     Q_PROPERTY(bool chargeOnce READ chargeOnce WRITE setChargeOnce NOTIFY chargeOnceChanged)
+    Q_PROPERTY(bool avoidZeroFeedInActive READ avoidZeroFeedInActive WRITE setAvoidZeroFeedInActive NOTIFY avoidZeroFeedInActiveChanged)
+    Q_PROPERTY(bool avoidZeroFeedInEnabled READ avoidZeroFeedInEnabled WRITE setAvoidZeroFeedInEnabled NOTIFY avoidZeroFeedInEnabledChanged)
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
 
 public:
@@ -29,6 +31,12 @@ public:
     bool relativePriceEnabled() const;
     void setRelativePriceEnabled(bool relativePriceEnabled);
 
+    bool avoidZeroFeedInEnabled() const;
+    void setAvoidZeroFeedInEnabled(bool avoidZeroFeedInEnabled);
+
+    bool avoidZeroFeedInActive() const;
+    void setAvoidZeroFeedInActive(bool avoidZeroFeedInActive);
+
     bool chargeOnce() const;
     void setChargeOnce(bool chargeOnce);
 
@@ -38,6 +46,8 @@ public:
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void priceThresholdChanged(float priceThreshold);
+    void avoidZeroFeedInActiveChanged(bool avoidZeroFeedInActive);
+    void avoidZeroFeedInEnabledChanged(bool avoidZeroFeedInEnabled);
     void relativePriceEnabledChanged(bool relativePriceEnabled);
     void chargeOnceChanged(bool chargeOnce);
     void controllableLocalSystemChanged(bool controllableLocalSystem);
@@ -49,6 +59,9 @@ private:
     bool m_relativePriceEnabled = false;
     bool m_chargeOnce = false;
     bool m_controllableLocalSystem = false;
+    bool m_avoidZeroFeedInEnabled = false;
+    bool m_avoidZeroFeedInActive = false;
+
 };
 
 #endif // BATTERYCONFIGURATION_H

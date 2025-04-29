@@ -65,7 +65,6 @@ Page {
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Grid-supportive-control")
-
             }
 
             Switch {
@@ -89,23 +88,22 @@ Page {
 
         RowLayout{
             Layout.fillWidth: true
-            visible: false
+            visible: thing.thingClass.interfaces.includes("controllablebattery")
 
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Zero Compensation")
-
+                text: qsTr("Avoid zero compensation")
             }
 
             Switch {
                 id: zeroCompensationControl
-                Component.onCompleted: checked = true
+                Component.onCompleted: checked = batteryConfiguration.avoidZeroFeedInEnabled
             }
         }
 
         ColumnLayout {
             Layout.fillWidth: true
-            visible: false
+            visible: thing.thingClass.interfaces.includes("controllablebattery")
 
             Text {
                 Layout.fillWidth: true
@@ -137,7 +135,7 @@ Page {
             Layout.fillWidth: true
             text: qsTr("Save")
             onClicked: {
-                hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, {controllableLocalSystem: gridSupportControl.checked})
+                hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, { controllableLocalSystem: gridSupportControl.checked, avoidZeroFeedInEnabled: zeroCompensationControl.checked})
                 if(directionID !== 1){
                     pageStack.pop()
                 }
@@ -146,4 +144,3 @@ Page {
         }
     }
 }
-

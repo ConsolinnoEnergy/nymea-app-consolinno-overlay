@@ -28,6 +28,10 @@ QVariant BatteryConfigurations::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->chargeOnce();
     case RoleControllableLocalSystemEnabled:
         return m_list.at(index.row())->controllableLocalSystem();
+    case RoleAvoidZeroFeedInEnabled:
+        return m_list.at(index.row())->avoidZeroFeedInEnabled();
+    case RoleAvoidZeroFeedInActive:
+        return m_list.at(index.row())->avoidZeroFeedInActive();
     }
     return QVariant();
 }
@@ -41,6 +45,8 @@ QHash<int, QByteArray> BatteryConfigurations::roleNames() const
     roles.insert(RoleRelativePriceEnabled, "relativePriceEnabled");
     roles.insert(RoleChargeOnce, "chargeOnce");
     roles.insert(RoleControllableLocalSystemEnabled, "controllableLocalSystem");
+    roles.insert(RoleAvoidZeroFeedInEnabled, "avoidZeroFeedInEnabled");
+    roles.insert(RoleAvoidZeroFeedInActive, "avoidZeroFeedInActive");
     return roles;
 }
 
@@ -94,6 +100,16 @@ void BatteryConfigurations::addConfiguration(BatteryConfiguration *batteryConfig
     connect(batteryConfiguration, &BatteryConfiguration::controllableLocalSystemChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
         emit dataChanged(idx, idx, {RoleControllableLocalSystemEnabled});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::avoidZeroFeedInActiveChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleAvoidZeroFeedInActive});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::avoidZeroFeedInEnabledChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleAvoidZeroFeedInEnabled});
     });
 
     endInsertRows();

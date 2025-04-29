@@ -195,6 +195,18 @@
         <source>Price limit : %1 ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Avoid zero compensation is active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tariff-controlled charging from the grid is deactivated during the regulation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BatteryConfigurationView</name>
@@ -229,10 +241,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Zero Compensation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -242,6 +250,10 @@
     </message>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4204,6 +4216,17 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Your %1 is now configured. The following devices have been set up:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ZeroCompensationInfo</name>
+    <message>
+        <source>Zero Compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
