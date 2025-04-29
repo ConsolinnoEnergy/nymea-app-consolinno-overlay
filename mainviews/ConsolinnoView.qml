@@ -197,33 +197,6 @@ MainViewBase {
                 return
             }
 
-            if ((energyMetersProxy.count === 0 && !energyMeterWiazrdSkipped)
-                    || (energyMetersProxy.count === 0
-                        && !manualWizardSettings.energymeter)) {
-                var page = d.pushPage("/ui/wizards/SetupEnergyMeterWizard.qml")
-                page.done.connect(function (skip, abort) {
-
-                    print("energymeters done", skip, abort)
-                    if (abort) {
-                        exitWizard()
-                        return
-                    }
-                    if (skip) {
-                        energyMeterWiazrdSkipped = true
-                        manualWizardSettings.energymeter = true
-                        setup(true)
-                        return
-                    }
-
-                    manualWizardSettings.energymeter = true
-                    // since SetupEnergyMeter is not an add loop I need to pop twice
-                    pageStack.pop()
-                    pageStack.pop()
-                    setup(true)
-                })
-                return
-            }
-
             if ((!wizardSettings.modBusDone)
                     || !manualWizardSettings.modBusDone) {
                 var page = d.pushPage(
@@ -250,6 +223,32 @@ MainViewBase {
                 return
             }
 
+            if ((energyMetersProxy.count === 0 && !energyMeterWiazrdSkipped)
+                    || (energyMetersProxy.count === 0
+                        && !manualWizardSettings.energymeter)) {
+                var page = d.pushPage("/ui/wizards/SetupEnergyMeterWizard.qml")
+                page.done.connect(function (skip, abort) {
+
+                    print("energymeters done", skip, abort)
+                    if (abort) {
+                        exitWizard()
+                        return
+                    }
+                    if (skip) {
+                        energyMeterWiazrdSkipped = true
+                        manualWizardSettings.energymeter = true
+                        setup(true)
+                        return
+                    }
+
+                    manualWizardSettings.energymeter = true
+                    // since SetupEnergyMeter is not an add loop I need to pop twice
+                    pageStack.pop()
+                    pageStack.pop()
+                    setup(true)
+                })
+                return
+            }
 
             if ((!wizardSettings.solarPanelDone)
                     || !manualWizardSettings.solarPanelDone) {
