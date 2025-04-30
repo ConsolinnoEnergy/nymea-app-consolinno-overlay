@@ -15,7 +15,7 @@ StackView {
     property bool setupFinishedRelay: false
     property int powerLimit: 1625
     property string powerLimitSource: "none" // "eebus" "relais"
-    property string currentState: "limited" // "blocked" "limited" "shutoff"
+    property string currentState: gridSupport.get(0).stateByName("plimStatus").value //"limited" "blocked" "limited" "shutoff"
     property string eebusState: "warning"
     property string colorsEEBUS: eebusState == "error" ? "#F37B8E" : eebusState == "warning" ? "#F7B772" : "#BDD786"
     property string textEEBUS: eebusState == "error" ? qsTr("not connected") : eebusState == "warning" ? qsTr("Confirmation by network operator pending") : qsTr("connected")
@@ -25,6 +25,14 @@ StackView {
     QtObject {
         id: d
         property int pendingCallId: -1
+        property var params: []
+    }
+
+    Connections {
+        target: engine.thingManager
+        onPairThingReply: {
+            busyOverlay.shown = false
+        }
     }
 
     ThingDiscovery {
@@ -32,8 +40,22 @@ StackView {
         engine: _engine
     }
 
+    ThingClassesProxy {
+        id: thingClassesProxy
+        engine: _engine
+        includeProvidedInterfaces: true
+        filterString: "EEBus"
+        groupByInterface: true
+    }
+
     function convertToKw(numberW){
         return (+(Math.round((numberW / 1000) * 100 ) / 100)).toLocaleString()
+    }
+
+    ThingsProxy {
+        id: gridSupport
+        engine: _engine
+        shownInterfaces: ["gridsupport"]
     }
 
     //start set-up
@@ -260,9 +282,10 @@ StackView {
 
                         onClicked: {
                             if(buttonGroup.checkedButton.value === 0){
-                                pageStack.push(relaisSetUp, {selectedName: buttonGroup.checkedButton.text})
+                                pageStack.push(relaisSetUp)
                             }else{
-                                pageStack.push(eebusViewSelect, {selectedName: buttonGroup.checkedButton.text})
+                                discovery.discoverThings(thingClassesProxy.get(0).id)
+                                pageStack.push(eebusViewSelect, {thingClass: thingClassesProxy.get(0)})
                             }
                         }
                     }
@@ -295,10 +318,8 @@ StackView {
 
         Page {
 
-            property string selectedName: ""
-
             header: NymeaHeader {
-                text: qsTr("Grid supportive-control set-up - %1").arg(selectedName)
+                text: qsTr("Grid supportive-control set-up - Relai")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -394,13 +415,14 @@ StackView {
         id: eebusViewSelect
 
         Page {
-            property string selectedName: ""
 
             header: NymeaHeader {
-                text: qsTr("Grid supportive-control set-up - %1").arg(selectedName)
+                text: qsTr("Grid supportive-control set-up - EEBUS")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
+
+            property var thingClass
 
 
             ColumnLayout {
@@ -446,24 +468,18 @@ StackView {
                         Repeater {
                             id: eebuRepeater
 
-                            model: ThingClassesProxy {
+                            model: ThingDiscoveryProxy {
                                 id: eebusDiscovery
-                                engine: _engine
-                                filterDisplayName: "eebus"
-                                filterInterface: "gateway"
-                            } /*ListModel {
-                                ListElement { name: "Consolinno-Leaflet-HEMS-1u0022-co0001"; subtext: "Connected via eebus-go" }
-                                ListElement { name: "Consolinno-Leaflet-HEMS-1u0022-co0002"; subtext: "Connected via eebus-go" }
-                                ListElement { name: "Consolinno-Leaflet-HEMS-1u0022-co0003"; subtext: "Connected via eebus-go" }
-                            }*/
+                                thingDiscovery: discovery
+                            }
                             delegate: ConsolinnoItemDelegate {
                                 Layout.fillWidth: true
                                 iconName: "../images/connections/network-wired.svg"
-                                text: model.displayName
-                                subText: qsTr("Connected via %1").arg(engine.thingManager.vendors.getVendor(model.vendorId).name)
+                                text: model.name
+                                subText: model.description
                                 progressive: true
                                 onClicked: {
-                                    pageStack.push(eebusView, { selectedName: name });
+                                    pageStack.push(eebusView, {thingClass: thingClassesProxy.get(0), discoveryThingParams: eebusDiscovery.get(index)});
                                 }
                             }
                         }
@@ -484,7 +500,7 @@ StackView {
                         Layout.fillWidth: true
                         text: qsTr("Search again")
                         onClicked: {
-
+                            discovery.discoverThings(thingClassesProxy.get(0).id)
                         }
                     }
 
@@ -509,6 +525,9 @@ StackView {
         id: eebusView
 
         Page {
+
+            property ThingClass thingClass
+            property var discoveryThingParams
 
             header: NymeaHeader {
                 text: qsTr("Grid supportive-control set-up - EEBUS")
@@ -557,26 +576,23 @@ StackView {
                         spacing: 5
 
                         Repeater {
-                            model: ListModel {
-                                ListElement { name: "b68fb71513772f3d7310c81fc35f6e40"; subtext: "Diese SKI wird vom Netzbetreiber benötigt."; tertiaryText: "Local Subject Key Identifier (SKI)" }
-                                ListElement { name: "80b79b54d9f869822637f1f68ee9e893"; subtext: ""; tertiaryText: "Remote Subject Key Identifier (SKI)" }
-                                ListElement { name: "Consolinno-Leaflet-HEMS-1u0022-co0001"; subtext: ""; tertiaryText: "Device Identifier" }
-                                ListElement { name: "Consolinno"; subtext: ""; tertiaryText: "Device Brand" }
-                                ListElement { name: "Energy Management System"; subtext: ""; tertiaryText: "Device Type" }
-                                ListElement { name: "Leaflet-HEMS"; subtext: ""; tertiaryText: "Device Model" }
-                                ListElement { name: "???"; subtext: ""; tertiaryText: "Device ID" }
-                            }
+                            model: thingClass.paramTypes
                             delegate: ConsolinnoItemDelegate {
+                                property var paramType: thingClass.paramTypes.get(index)
+                                property string paramValue: typeof(discoveryThingParams.params.getParam(paramType.id).value) !== null ? discoveryThingParams.params.getParam(paramType.id).value : ""
                                 Layout.fillWidth: true
-                                text: name
-                                subText: subtext.length === 0 ? "" :  model.subtext
-                                tertiaryText: model.tertiaryText
+                                text: paramValue !== "" ? paramValue : ""
+                                subText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
+                                tertiaryText: model.displayName
                                 secondaryIconName: index === 0 ? "../images/edit-copy.svg" : ""
                                 secondaryIconColor: Material.accentColor
                                 secondaryIconSize: 20
                                 progressive: false
                                 secondaryIconClickable: true
                                 onSecondaryIconClicked: PlatformHelper.toClipBoard(name)
+                                onClicked: {
+
+                                }
                             }
                         }
                     }
@@ -657,7 +673,7 @@ StackView {
                         text: qsTr("Complete setup")
 
                         onClicked: {
-                            pageStack.push(eebusViewStatus, {selectedName: selectedName} );
+                            pageStack.push(eebusViewStatus);
                         }
                     }
 
@@ -797,6 +813,10 @@ StackView {
 
 
         }
+    }
+
+    BusyOverlay {
+        id: busyOverlay
     }
 
 }
