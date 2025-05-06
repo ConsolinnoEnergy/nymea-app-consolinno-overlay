@@ -20,13 +20,13 @@ StyleBase {
     property real buttonTopPading: 16
     property real buttonLeftPadding: 32
 
-    backgroundColor: "white"
-    foregroundColor: consolinnoExtraDark
+    backgroundColor: "#303030"
+    foregroundColor: "white"
 
     tileOverlayIconColor: consolinnoDark
 
     accentColor: consolinnoMedium
-    iconColor: consolinnoExtraDark
+    iconColor: "#F4F6F4"
 
     gray: "#9c9d9d"
     darkGray: "#717171"
@@ -58,12 +58,12 @@ StyleBase {
     })
 
     //MainMenuCirlce
-    readonly property color mainTimeCircle: "#d7d7d7"
-    readonly property color mainTimeCircleDivider: "#ffffff"
-    readonly property color mainCircleTimeColor: "gray"
+    readonly property color mainTimeCircle: "#5A5A5A"
+    readonly property color mainTimeCircleDivider: "#303030"
+    readonly property color mainCircleTimeColor: "#D3D3D3"
 
-    readonly property color mainTimeNow: "gray"
+    readonly property color mainTimeNow: "#D3D3D3"
 
-    readonly property color mainInnerCicleFirst: "#b6b6b6"
-    readonly property color mainInnerCicleSecond: "#b6b6b6"
+    readonly property color mainInnerCicleFirst: "#5A5A5A"
+    readonly property color mainInnerCicleSecond: "#5A5A5A"
 }

@@ -8,6 +8,13 @@
         <file>styles/light/Background.qml</file>
         <file>SOURCE_AVAIL_de_DE.txt</file>
         <file>SOURCE_AVAIL_en_US.txt</file>
+        <file>styles/dark/Background.qml</file>
+        <file>styles/dark/Button.qml</file>
+        <file>styles/dark/Dialog.qml</file>
+        <file>styles/dark/logo-wide.svg</file>
+        <file>styles/dark/logo.svg</file>
+        <file>styles/dark/Page.qml</file>
+        <file>styles/dark/Style.qml</file>
     </qresource>
     <qresource prefix="/ui">
         <file>system/ConsolinnoUsersSettingsPage.qml</file>
