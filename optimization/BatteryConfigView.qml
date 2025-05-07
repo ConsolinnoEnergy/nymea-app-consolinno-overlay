@@ -121,7 +121,8 @@ GenericConfigPage {
                         "priceThreshold": currentValue,
                         "relativePriceEnabled": false,
                         "chargeOnce": chargeOnceController.checked,
-                        "controllableLocalSystem": optimizationController.checked})
+                        "controllableLocalSystem": optimizationController.checked,
+                        "avoidZeroFeedInActive": batteryConfiguration.avoidZeroFeedInActive,})
     }
 
     function enableSave(obj)
