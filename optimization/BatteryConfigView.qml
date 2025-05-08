@@ -136,449 +136,458 @@ GenericConfigPage {
         shownInterfaces: ["dynamicelectricitypricing"]
     }
 
-    ColumnLayout {
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        anchors.left: parent.left
-        anchors.margins: app.margins
+    content: [
 
-        Rectangle {
-            Layout.fillWidth: true
-            radius: 10
-            color: "#FFEE89"
-            border.width: 1
-            border.color: "#864A0D"
-            implicitHeight: alertContainer.implicitHeight + 20
-            Layout.topMargin: 30
-            visible: isZeroCompensation
+        Flickable {
+            anchors.fill: parent
+            contentHeight: columnLayoutContainer.implicitHeight + 100
+            topMargin: 0
+            clip: true
 
             ColumnLayout {
-                id: alertContainer
-                anchors.fill: parent
-                spacing: 1
-
-                Item {
-                    Layout.preferredHeight: 10
-                }
-
-
-                RowLayout {
-                    width: parent.width
-                    spacing: 5
-
-                    Item {
-                        Layout.preferredWidth: 10
-                    }
-
-                    Rectangle {
-                        width: 20
-                        height: 20
-                        radius: 10  // Makes the rectangle a circle
-                        color: "#FFEE89"
-                        border.color: "#864A0D"
-                        border.width: 1
-                        RowLayout.alignment: Qt.AlignVCenter
-
-                        Label {
-                            text: "!"
-                            anchors.centerIn: parent
-                            color: "#864A0D"
-                        }
-                    }
-
-                    Label {
-                        font.pixelSize: 16
-                        text: qsTr("Avoid zero compensation is active")
-                        font.bold: true
-                        wrapMode: Text.WordWrap
-                        Layout.fillWidth: true
-                        Layout.preferredWidth: parent.width - 20
-                        color: "#864A0D"
-                    }
-                }
-                Label {
-                    font.pixelSize: 16
-                    text: qsTr("Tariff-controlled charging from the grid is deactivated during the regulation.")
-                    wrapMode: Text.WordWrap
-                    Layout.fillWidth: true
-                    Layout.preferredWidth: parent.width - 20
-                    leftPadding: 40
-                    color: "#864A0D"
-                }
-
-                Item {
-                    Layout.preferredHeight: 10
-                }
-            }
-        }
-
-        //Status
-        RowLayout {
-            Layout.fillWidth: true
-            Layout.topMargin: isZeroCompensation ? 5 : 30
-
-            Label {
-                text: qsTr("Status")
-                Layout.fillWidth: true
-                font.weight: Font.Bold
-            }
-
-            ColumnLayout {
-                Layout.fillWidth: true
-                spacing: 0
+                id: columnLayoutContainer
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                anchors.left: parent.left
+                anchors.margins: app.margins
 
                 Rectangle {
-                    id: status
-
-                    width: 120
-                    height: description.height + 10
-                    Layout.alignment: Qt.AlignRight
-
-                    color: batteryChargingState.value === "charging" ? Configuration.batteriesColor : batteryChargingState.value === "discharging" ? Configuration.batteryDischargeColor : Configuration.batteryIdleColor
-                    radius: width*0.1
-
-                    Label {
-                        id: description
-                        text: batteryChargingState.value === "charging" ? qsTr("Charging") : batteryChargingState.value === "discharging" ? qsTr("Discharging") : qsTr("Idle")
-                        color: "white"
-                        anchors.centerIn: parent
-                    }
-                }
-            }
-
-        }
-
-        // Current Battery Level
-        RowLayout {
-            Layout.fillWidth: true
-            Layout.topMargin: 5
-            Label {
-                text: qsTr("State of Charge")
-                Layout.fillWidth: true
-            }
-
-            RowLayout {
-                spacing: 0
-                Layout.rightMargin: 20
-                Label {
-                    text: ("%1 %").arg(batteryLevelState.value)
-                    horizontalAlignment: Text.AlignRight
-                }
-
-                ThingInfoPane {
-                    id: infoPane
-                    width: 0
-                    Layout.leftMargin: -12
-                    thing: root.thing
-                    hideLabel: true
-                }
-            }
-        }
-
-        // Current Power
-        RowLayout {
-            Layout.topMargin: 5
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Power")
-            }
-
-            Label {
-                text: currentPowerState.value > 0 ? Math.round(currentPowerState.value) + " W" : (Math.round(currentPowerState.value) * -1) + " W"
-            }
-        }
-
-        RowLayout {
-            Layout.topMargin: 10
-            Label {
-                text: qsTr("Charging from grid")
-                font.weight: Font.Bold
-            }
-        }
-
-        ColumnLayout {
-            id: columnContainer
-            visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
-
-            // Optimization enabled
-            RowLayout {
-                Label {
-                    text: qsTr("Tariff-guided charging")
-                }
-
-                InfoButton {
-                    id: chargingOptimizationInfo
                     Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignTop
-                    push: "TariffGuidedChargingInfo.qml"
-                }
+                    radius: 10
+                    color: "#FFEE89"
+                    border.width: 1
+                    border.color: "#864A0D"
+                    implicitHeight: alertContainer.implicitHeight + 20
+                    visible: isZeroCompensation
 
-                Column {
-                    Switch{
+                    ColumnLayout {
+                        id: alertContainer
+                        anchors.fill: parent
                         spacing: 1
-                        height: 18
-                        id: optimizationController
-                        onClicked: {
-                            if(!optimizationController.checked){
-                                chargeOnceController.checked = false;
-                            }
-                            //saveSettings()
-                            enableSave(this)
-                        }
-                        Component.onCompleted: {
-                            checked = batteryConfiguration.optimizationEnabled
-                        }
-                    }
-                }
-            }
 
-            // Charge once
-            RowLayout {
-                Layout.topMargin: 5
-                visible: optimizationController.checked
-
-                Label {
-                    text: qsTr("Activate instant charging")
-                }
-
-                InfoButton {
-                    id: chargingOnceInfo
-                    Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignTop
-                    push: "ActivateInstantChargingInfo.qml"
-                }
-
-                Column {
-                    id: columnArea
-
-                    Item {
-                        id: switchContainer
-                        width: chargeOnceController.width
-                        height: chargeOnceController.height
-
-                        Switch {
-                            id: chargeOnceController
-                            anchors.fill: parent
-                            spacing: 1
-                            height: 18
-                            enabled: isZeroCompensation ? false : true
-
-                            Component.onCompleted: {
-                                checked = batteryConfiguration.chargeOnce
-                            }
-                            onClicked: {
-                                if (!isZeroCompensation)
-                                    enableSave(this)
-                            }
+                        Item {
+                            Layout.preferredHeight: 10
                         }
 
-                        MouseArea {
-                            id: mouseArea
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            enabled: isZeroCompensation
 
-                            onEntered: {
-                                if (isZeroCompensation)
-                                    toolTipSwitch.visible = true
+                        RowLayout {
+                            width: parent.width
+                            spacing: 5
+
+                            Item {
+                                Layout.preferredWidth: 10
                             }
-                            onExited: {
-                                if (isZeroCompensation)
-                                    toolTipSwitch.visible = false
-                            }
-                        }
 
-                        NymeaToolTip {
-                            id: toolTipSwitch
-                            visible: false
-
-                            z: 10
-                            anchors.right: parent.right
-                            anchors.bottom: parent.top
-                            anchors.bottomMargin: 5
-
-                            width: toolTopLayout.width + Style.smallMargins * 2
-                            height: toolTopLayout.implicitHeight + Style.smallMargins * 2
-
-                            ColumnLayout {
-                                id: toolTopLayout
-                                width: 305
-                                anchors.fill: parent
-                                anchors.margins: Style.smallMargins
+                            Rectangle {
+                                width: 20
+                                height: 20
+                                radius: 10  // Makes the rectangle a circle
+                                color: "#FFEE89"
+                                border.color: "#864A0D"
+                                border.width: 1
+                                RowLayout.alignment: Qt.AlignVCenter
 
                                 Label {
-                                    id: labelID
-                                    Layout.fillWidth: true
-                                    wrapMode: Text.WordWrap
-                                    text: qsTr("If the zero-compensation avoidance is active, immediate battery charging is not possible.")
-                                    font: Style.smallFont
+                                    text: "!"
+                                    anchors.centerIn: parent
+                                    color: "#864A0D"
+                                }
+                            }
+
+                            Label {
+                                font.pixelSize: 16
+                                text: qsTr("Avoid zero compensation is active")
+                                font.bold: true
+                                wrapMode: Text.WordWrap
+                                Layout.fillWidth: true
+                                Layout.preferredWidth: parent.width - 20
+                                color: "#864A0D"
+                            }
+                        }
+                        Label {
+                            font.pixelSize: 16
+                            text: qsTr("Tariff-controlled charging from the grid is deactivated during the regulation.")
+                            wrapMode: Text.WordWrap
+                            Layout.fillWidth: true
+                            Layout.preferredWidth: parent.width - 20
+                            leftPadding: 40
+                            color: "#864A0D"
+                        }
+
+                        Item {
+                            Layout.preferredHeight: 10
+                        }
+                    }
+                }
+
+                //Status
+                RowLayout {
+                    Layout.fillWidth: true
+                    Layout.topMargin: isZeroCompensation ? 5 : 30
+
+                    Label {
+                        text: qsTr("Status")
+                        Layout.fillWidth: true
+                        font.weight: Font.Bold
+                    }
+
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        spacing: 0
+
+                        Rectangle {
+                            id: status
+
+                            width: 120
+                            height: description.height + 10
+                            Layout.alignment: Qt.AlignRight
+
+                            color: batteryChargingState.value === "charging" ? Configuration.batteriesColor : batteryChargingState.value === "discharging" ? Configuration.batteryDischargeColor : Configuration.batteryIdleColor
+                            radius: width*0.1
+
+                            Label {
+                                id: description
+                                text: batteryChargingState.value === "charging" ? qsTr("Charging") : batteryChargingState.value === "discharging" ? qsTr("Discharging") : qsTr("Idle")
+                                color: "white"
+                                anchors.centerIn: parent
+                            }
+                        }
+                    }
+
+                }
+
+                // Current Battery Level
+                RowLayout {
+                    Layout.fillWidth: true
+                    Label {
+                        text: qsTr("State of Charge")
+                        Layout.fillWidth: true
+                    }
+
+                    RowLayout {
+                        spacing: 0
+                        Layout.rightMargin: 20
+                        Label {
+                            text: ("%1 %").arg(batteryLevelState.value)
+                            horizontalAlignment: Text.AlignRight
+                        }
+
+                        ThingInfoPane {
+                            id: infoPane
+                            width: 0
+                            Layout.leftMargin: -12
+                            thing: root.thing
+                            hideLabel: true
+                        }
+                    }
+                }
+
+                // Current Power
+                RowLayout {
+
+                    Label {
+                        Layout.fillWidth: true
+                        text: qsTr("Power")
+                    }
+
+                    Label {
+                        text: currentPowerState.value > 0 ? Math.round(currentPowerState.value) + " W" : (Math.round(currentPowerState.value) * -1) + " W"
+                    }
+                }
+
+                RowLayout {
+                    Layout.topMargin: 10
+                    Label {
+                        text: qsTr("Charging from grid")
+                        font.weight: Font.Bold
+                    }
+                }
+
+                ColumnLayout {
+                    id: columnContainer
+                    visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
+
+                    // Optimization enabled
+                    RowLayout {
+                        Label {
+                            text: qsTr("Tariff-guided charging")
+                        }
+
+                        InfoButton {
+                            id: chargingOptimizationInfo
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignTop
+                            push: "TariffGuidedChargingInfo.qml"
+                        }
+
+                        Column {
+                            Switch{
+                                spacing: 1
+                                height: 18
+                                id: optimizationController
+                                onClicked: {
+                                    if(!optimizationController.checked){
+                                        chargeOnceController.checked = false;
+                                    }
+                                    //saveSettings()
+                                    enableSave(this)
+                                }
+                                Component.onCompleted: {
+                                    checked = batteryConfiguration.optimizationEnabled
                                 }
                             }
                         }
                     }
-                }
-            }
 
-        ColumnLayout {
-            id: columnLayer
-            // Charging Plan Header
-            RowLayout {
-                Layout.topMargin: 15
-                visible: optimizationController.checked
-                enabled: isZeroCompensation || chargeOnceController.checked ? false : true
-                Label {
-                    text: qsTr("Charging Plan")
-                    font.weight: Font.Bold
-                }
-            }
+                    // Charge once
+                    RowLayout {
+                        Layout.topMargin: 5
+                        visible: optimizationController.checked
 
-            // Price Limit
-            RowLayout {
-                id: currentPriceRow
-                visible: optimizationController.checked
-                enabled: isZeroCompensation || chargeOnceController.checked ? false : true
-                Layout.topMargin: 5
-
-                Label {
-                    Layout.fillWidth: true
-                    text: qsTr("Current price")
-                }
-
-                Label {
-                    id: currentPriceLabel
-                    text: Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh"
-                }
-            }
-
-            // Graph Info Today
-            ColumnLayout {
-                Layout.fillWidth: true
-                visible: optimizationController.checked
-                enabled: isZeroCompensation || chargeOnceController.checked ? false : true
-                Component.onCompleted: {
-                    const dpThing = dynamicPrice.get(0)
-                    if(!dpThing)
-                        return;
-
-                    currentPrice = dpThing.stateByName("currentMarketPrice").value
-                    averagePrice = dpThing.stateByName("averagePrice").value.toFixed(0).toString();
-                    lowestPrice = dpThing.stateByName("lowestPrice").value
-                    highestPrice = dpThing.stateByName("highestPrice").value
-                    barSeries.addValues(dpThing.stateByName("priceSeries").value)
-                }
-
-                QtObject {
-                    id: d
-
-                    property date now: new Date()
-
-                    readonly property var startTimeSince: {
-                        var date = new Date();
-                        date.setHours(0);
-                        date.setMinutes(0);
-                        date.setSeconds(0);
-
-                        return date;
-                    }
-
-                    readonly property var endTimeUntil: {
-                        var date = new Date();
-                        date.setHours(0);
-                        date.setMinutes(0);
-                        date.setSeconds(0);
-                        date.setDate(date.getDate()+1);
-                        return date;
-                    }
-
-                }
-
-                Item {
-                    Layout.fillWidth: parent.width
-                    Layout.fillHeight: true
-                    Layout.minimumHeight: 50
-
-                    CustomBarSeries {
-                      id: barSeries
-                      anchors.fill: parent
-                      margins.left: 0
-                      margins.right: 0
-                      margins.top: 0
-                      margins.bottom: 0
-                      backgroundColor: isZeroCompensation || chargeOnceController.checked ? "whitesmoke" : "transparent"
-                      startTime: d.startTimeSince
-                      endTime: d.endTimeUntil
-                      hoursNow: d.now.getHours()
-                      currentPrice: currentValue
-                      currentMarketPrice: currentPrice
-                      lowestValue: root.lowestPrice
-                      highestValue: root.highestPrice
-                    }
-                }
-
-                Label {
-                    visible: optimizationController.checked
-                    wrapMode: Text.WordWrap
-                    Layout.fillWidth: true
-                    text: qsTr("Prices represent the pure exchange price without taxes and fees.")
-                    font.pixelSize: 12
-                }
-            }
-
-            // Space divider
-            Item {
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-            }
-
-            ItemDelegate {
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignLeft
-                topPadding: 0
-                leftPadding: 0
-                rightPadding: 0
-                visible: optimizationController.checked
-                enabled: chargeOnceController.checked ? false : true
-                contentItem: ColumnLayout {
-                    Label {
-                        Layout.fillWidth: true
-                        text: qsTr("Price limit : %1 ct/kWh").arg(currentValue)
-                    }
-                    Slider {
-                        Layout.fillWidth: true
-                        value: currentValue
-                        onMoved: () => {
-                          currentValue = value;
-                          saveButton.enabled = batteryConfiguration.priceThreshold !== currentValue;
-
-                          barSeries.clearValues();
-                          barSeries.addValues(dynamicPrice.get(0).stateByName("priceSeries").value);
+                        Label {
+                            text: qsTr("Activate instant charging")
                         }
-                        from: -50
-                        to: 50
-                        stepSize: 0.2
+
+                        InfoButton {
+                            id: chargingOnceInfo
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignTop
+                            push: "ActivateInstantChargingInfo.qml"
+                        }
+
+                        Column {
+                            id: columnArea
+
+                            Item {
+                                id: switchContainer
+                                width: chargeOnceController.width
+                                height: chargeOnceController.height
+
+                                Switch {
+                                    id: chargeOnceController
+                                    anchors.fill: parent
+                                    spacing: 1
+                                    height: 18
+                                    enabled: isZeroCompensation ? false : true
+
+                                    Component.onCompleted: {
+                                        checked = batteryConfiguration.chargeOnce
+                                    }
+                                    onClicked: {
+                                        if (!isZeroCompensation)
+                                            enableSave(this)
+                                    }
+                                }
+
+                                MouseArea {
+                                    id: mouseArea
+                                    anchors.fill: parent
+                                    hoverEnabled: true
+                                    enabled: isZeroCompensation
+
+                                    onEntered: {
+                                        if (isZeroCompensation)
+                                            toolTipSwitch.visible = true
+                                    }
+                                    onExited: {
+                                        if (isZeroCompensation)
+                                            toolTipSwitch.visible = false
+                                    }
+                                }
+
+                                NymeaToolTip {
+                                    id: toolTipSwitch
+                                    visible: false
+
+                                    z: 10
+                                    anchors.right: parent.right
+                                    anchors.bottom: parent.top
+                                    anchors.bottomMargin: 5
+
+                                    width: toolTopLayout.width + Style.smallMargins * 2
+                                    height: toolTopLayout.implicitHeight + Style.smallMargins * 2
+
+                                    ColumnLayout {
+                                        id: toolTopLayout
+                                        width: 305
+                                        anchors.fill: parent
+                                        anchors.margins: Style.smallMargins
+
+                                        Label {
+                                            id: labelID
+                                            Layout.fillWidth: true
+                                            wrapMode: Text.WordWrap
+                                            text: qsTr("If the zero-compensation avoidance is active, immediate battery charging is not possible.")
+                                            font: Style.smallFont
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                ColumnLayout {
+                    id: columnLayer
+                    // Charging Plan Header
+                    RowLayout {
+                        Layout.topMargin: 15
+                        visible: optimizationController.checked
+                        enabled: isZeroCompensation || chargeOnceController.checked ? false : true
+                        Label {
+                            text: qsTr("Charging Plan")
+                            font.weight: Font.Bold
+                        }
+                    }
+
+                    // Price Limit
+                    RowLayout {
+                        id: currentPriceRow
+                        visible: optimizationController.checked
+                        enabled: isZeroCompensation || chargeOnceController.checked ? false : true
+                        Layout.topMargin: 5
+
+                        Label {
+                            Layout.fillWidth: true
+                            text: qsTr("Current price")
+                        }
+
+                        Label {
+                            id: currentPriceLabel
+                            text: Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh"
+                        }
+                    }
+
+                    // Graph Info Today
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        visible: optimizationController.checked
+                        enabled: isZeroCompensation || chargeOnceController.checked ? false : true
+                        Component.onCompleted: {
+                            const dpThing = dynamicPrice.get(0)
+                            if(!dpThing)
+                                return;
+
+                            currentPrice = dpThing.stateByName("currentMarketPrice").value
+                            averagePrice = dpThing.stateByName("averagePrice").value.toFixed(0).toString();
+                            lowestPrice = dpThing.stateByName("lowestPrice").value
+                            highestPrice = dpThing.stateByName("highestPrice").value
+                            barSeries.addValues(dpThing.stateByName("priceSeries").value)
+                        }
+
+                        QtObject {
+                            id: d
+
+                            property date now: new Date()
+
+                            readonly property var startTimeSince: {
+                                var date = new Date();
+                                date.setHours(0);
+                                date.setMinutes(0);
+                                date.setSeconds(0);
+
+                                return date;
+                            }
+
+                            readonly property var endTimeUntil: {
+                                var date = new Date();
+                                date.setHours(0);
+                                date.setMinutes(0);
+                                date.setSeconds(0);
+                                date.setDate(date.getDate()+1);
+                                return date;
+                            }
+
+                        }
+
+                        Item {
+                            Layout.fillWidth: parent.width
+                            Layout.fillHeight: true
+                            Layout.minimumHeight: 150
+
+                            CustomBarSeries {
+                              id: barSeries
+                              anchors.fill: parent
+                              margins.left: 0
+                              margins.right: 0
+                              margins.top: 0
+                              margins.bottom: 0
+                              backgroundColor: isZeroCompensation || chargeOnceController.checked ? "whitesmoke" : "transparent"
+                              startTime: d.startTimeSince
+                              endTime: d.endTimeUntil
+                              hoursNow: d.now.getHours()
+                              currentPrice: currentValue
+                              currentMarketPrice: currentPrice
+                              lowestValue: root.lowestPrice
+                              highestValue: root.highestPrice
+                            }
+                        }
+
+                        Label {
+                            visible: optimizationController.checked
+                            wrapMode: Text.WordWrap
+                            Layout.fillWidth: true
+                            text: qsTr("Prices represent the pure exchange price without taxes and fees.")
+                            font.pixelSize: 12
+                        }
+                    }
+
+                    // Space divider
+                    Item {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                    }
+
+                    ItemDelegate {
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignLeft
+                        topPadding: 0
+                        leftPadding: 0
+                        rightPadding: 0
+                        visible: optimizationController.checked
+                        enabled: chargeOnceController.checked ? false : true
+                        contentItem: ColumnLayout {
+                            Label {
+                                Layout.fillWidth: true
+                                text: qsTr("Price limit : %1 ct/kWh").arg(currentValue)
+                            }
+                            Slider {
+                                Layout.fillWidth: true
+                                value: currentValue
+                                onMoved: () => {
+                                  currentValue = value;
+                                  saveButton.enabled = batteryConfiguration.priceThreshold !== currentValue;
+
+                                  barSeries.clearValues();
+                                  barSeries.addValues(dynamicPrice.get(0).stateByName("priceSeries").value);
+                                }
+                                from: -50
+                                to: 50
+                                stepSize: 0.2
+                            }
+                        }
+                    }
+                }
+
+                    // Save Button
+                    RowLayout {
+                        id: saveBtnContainer
+                        anchors.margins: app.margins
+
+                        Button {
+                            id: saveButton
+                            Layout.fillWidth: true
+                            text: qsTr("Save")
+                            enabled: false
+
+                            onClicked: {
+                                saveSettings()
+                                saveButton.enabled = false
+                            }
+                        }
                     }
                 }
             }
         }
-
-            // Save Button
-            RowLayout {
-                id: saveBtnContainer
-                anchors.margins: app.margins
-
-                Button {
-                    id: saveButton
-                    Layout.fillWidth: true
-                    text: qsTr("Save")
-                    enabled: false
-
-                    onClicked: {
-                        saveSettings()
-                        saveButton.enabled = false
-                    }
-                }
-            }
-        }
-    }
+    ]
 }
