@@ -145,9 +145,9 @@ GenericConfigPage {
         Rectangle {
             Layout.fillWidth: true
             radius: 10
-            color: "#FFEE89"
+            color: Style.warningBackground
             border.width: 1
-            border.color: "#864A0D"
+            border.color: Style.warningAccent
             implicitHeight: alertContainer.implicitHeight + 20
             Layout.topMargin: 30
             visible: isZeroCompensation
@@ -174,15 +174,15 @@ GenericConfigPage {
                         width: 20
                         height: 20
                         radius: 10  // Makes the rectangle a circle
-                        color: "#FFEE89"
-                        border.color: "#864A0D"
+                        color: Style.warningBackground
+                        border.color: Style.warningAccent
                         border.width: 1
                         RowLayout.alignment: Qt.AlignVCenter
 
                         Label {
                             text: "!"
                             anchors.centerIn: parent
-                            color: "#864A0D"
+                            color: Style.warningAccent
                         }
                     }
 
@@ -193,7 +193,7 @@ GenericConfigPage {
                         wrapMode: Text.WordWrap
                         Layout.fillWidth: true
                         Layout.preferredWidth: parent.width - 20
-                        color: "#864A0D"
+                        color: Style.warningAccent
                     }
                 }
                 Label {
@@ -203,7 +203,7 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     Layout.preferredWidth: parent.width - 20
                     leftPadding: 40
-                    color: "#864A0D"
+                    color: Style.warningAccent
                 }
 
                 Item {

@@ -70,7 +70,7 @@ ConsolinnoWizardPageBase {
             text: readCheckbox.checked ? qsTr('next') : qsTr('cancel')
             Layout.preferredWidth: 200
             background: Rectangle{
-                color: readCheckbox.checked ? Configuration.buttonColor : 'grey'
+                color: readCheckbox.checked ? Style.buttonColor : 'grey'
                 radius: 4
             }
 
@@ -259,7 +259,7 @@ ConsolinnoWizardPageBase {
                     text: policyCheckbox.checked && accountCheckbox.checked ? qsTr('next') : qsTr('cancel')
                     Layout.preferredWidth: 200
                     background: Rectangle{
-                        color: policyCheckbox.checked && accountCheckbox.checked ? Configuration.buttonColor : 'grey'
+                        color: policyCheckbox.checked && accountCheckbox.checked ? Style.buttonColor : 'grey'
                         radius: 4
                     }
 

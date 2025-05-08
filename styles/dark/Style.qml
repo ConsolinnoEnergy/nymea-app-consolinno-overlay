@@ -37,6 +37,20 @@ StyleBase {
 
     fontFamily: Configuration.fontFamily
 
+    // Button
+    readonly property color secondButtonColor: "#189521"
+    readonly property color buttonTextColor: "#000000"
+
+    // Info colors
+    readonly property color dangerBackground: "#4D020E"
+    readonly property color dangerAccent: "#FF5F79"
+
+    readonly property color warningBackground: "#431E05"
+    readonly property color warningAccent: "#FDC812"
+
+    readonly property color successBackground: "#062D0A"
+    readonly property color successAccent: "#26C131"
+
     //font size and font family
     readonly property font extraSmallFont: Qt.font({
         family: Configuration.fontFamily,

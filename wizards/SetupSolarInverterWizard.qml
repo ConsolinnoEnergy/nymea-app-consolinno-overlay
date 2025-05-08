@@ -351,7 +351,7 @@ Page {
                     height: parent.height
                     width: parent.width
                     border.color: Material.background
-                    color: solarInverterRepeater.count > 0  ? Configuration.secondButtonColor : "grey"
+                    color: solarInverterRepeater.count > 0  ? Style.secondButtonColor : "grey"
                     radius: 4
                 }
 

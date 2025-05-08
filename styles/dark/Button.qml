@@ -56,7 +56,7 @@ T.Button {
 
     contentItem: Text {
         text: control.text
-        color: Configuration.buttonTextColor
+        color: Style.buttonTextColor
         font.bold: control.font.bold
         font.capitalization: Font.AllUppercase
         font.family: control.font.family
@@ -82,8 +82,9 @@ T.Button {
         width: parent.width
         height: parent.height - 12
         radius: 4
-        color: !control.enabled ? control.Material.iconColor :
-                control.highlighted ? control.Material.iconColor : Configuration.buttonColor
+        color: !control.enabled ? Style.buttonColor :
+                control.highlighted ? control.Material.iconColor : Style.buttonColor
+        opacity: !control.enabled ? 0.3 : 1
 
         PaddedRectangle {
             y: parent.height - 4
@@ -99,7 +100,7 @@ T.Button {
         // The layer is disabled when the button color is transparent so you can do
         // Material.background: "transparent" and get a proper flat button without needing
         // to set Material.elevation as well
-        layer.enabled: control.enabled && Configuration.buttonColor.a > 0
+        layer.enabled: control.enabled && Style.buttonColor.a > 0
         layer.effect: ElevationEffect {
             elevation: control.Material.elevation
         }
