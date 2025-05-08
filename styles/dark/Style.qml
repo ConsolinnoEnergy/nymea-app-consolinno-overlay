@@ -21,9 +21,11 @@ StyleBase {
     property real buttonLeftPadding: 32
 
     backgroundColor: "#303030"
-    foregroundColor: "white"
+    foregroundColor: "#F4F6F4"
 
     tileOverlayIconColor: consolinnoDark
+    tileOverlayColor: foregroundColor
+    property color tileOverlayTextColor: "#000000"
 
     accentColor: consolinnoMedium
     iconColor: "#F4F6F4"

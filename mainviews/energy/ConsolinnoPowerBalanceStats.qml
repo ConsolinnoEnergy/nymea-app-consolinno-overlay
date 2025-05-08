@@ -132,7 +132,7 @@ StatsBase {
             visible: root.titleVisible
         }
 
-        SelectionTabs {
+        ConsolinnoSelectionTabs {
             id: selectionTabs
             Layout.fillWidth: true
             Layout.leftMargin: Style.smallMargins

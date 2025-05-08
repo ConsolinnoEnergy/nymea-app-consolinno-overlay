@@ -77,7 +77,7 @@ Item {
             visible: true
         }
 
-        SelectionTabs {
+        ConsolinnoSelectionTabs {
             id: selectionTabs
             Layout.fillWidth: true
             Layout.leftMargin: Style.smallMargins
@@ -125,7 +125,7 @@ Item {
             valueAxis.adjustMax((Math.ceil(lowestPrice)),highestPrice);
         }
 
-        Text {
+        Label {
             Layout.fillWidth: true
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
@@ -133,7 +133,7 @@ Item {
             text: qsTr("Current Market Price: ") + (+currentPrice.toFixed(2)).toLocaleString() + " ct/kWh"
         }
 
-        Text {
+        Label {
             Layout.fillWidth: true
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
@@ -390,7 +390,7 @@ Item {
                         width: 8
                         height: 8
                     }
-                    Text {
+                    Label {
                         anchors.verticalCenter: parent.verticalCenter
                         font: Style.extraSmallFont
                         text: qsTr("Current market price")
@@ -406,7 +406,7 @@ Item {
                         width: 8
                         height: 8
                     }
-                    Text {
+                    Label {
                         anchors.verticalCenter: parent.verticalCenter
                         font: Style.extraSmallFont
                         text: qsTr("Average market price")

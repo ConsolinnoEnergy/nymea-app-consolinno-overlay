@@ -24,6 +24,7 @@ StyleBase {
     foregroundColor: consolinnoExtraDark
 
     tileOverlayIconColor: consolinnoDark
+    property color tileOverlayTextColor: foregroundColor
 
     accentColor: consolinnoMedium
     iconColor: consolinnoExtraDark
