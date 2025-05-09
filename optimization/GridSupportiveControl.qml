@@ -15,12 +15,17 @@ StackView {
     property bool setupFinishedRelay: false
     property int powerLimit: 1625
     property string powerLimitSource: "none" // "eebus" "relais"
+
+    property bool eebusState: eebusThing.get(0).stateByName("connected").value
+    property string colorsEEBUS: eebusState === false ? "#F37B8E" : eebusState == true ? "#BDD786" : "#F7B772"
+    property string textEEBUS: eebusState === false ? qsTr("not connected") : eebusState == true ? qsTr("connected") : qsTr("Confirmation by network operator pending")
+
     property string currentState: gridSupport.get(0).stateByName("plimStatus").value //"limited" "blocked" "limited" "shutoff"
-    property string eebusState: "warning"
-    property string colorsEEBUS: eebusState == "error" ? "#F37B8E" : eebusState == "warning" ? "#F7B772" : "#BDD786"
-    property string textEEBUS: eebusState == "error" ? qsTr("not connected") : eebusState == "warning" ? qsTr("Confirmation by network operator pending") : qsTr("connected")
     property string colorsPlim: currentState === "shutoff" ? "#eb4034" : currentState === "limited" ? "#fc9d03" : "#ffffff"
     property string contentPlim: currentState === "shutoff" ? qsTr("The consumption is <b>temporarily blocked</b> by the network operator.") : currentState === "limited" ? qsTr("The consumption is <b>temporarily reduced</b> to <b>%1 kW</b> according to §14a minimum.").arg(convertToKw(powerLimit)) : ""
+
+
+    property int relais: 0
 
     QtObject {
         id: d
@@ -31,8 +36,13 @@ StackView {
     Connections {
         target: engine.thingManager
         onPairThingReply: {
-            busyOverlay.shown = false
+            busyOverlay.shown = true
         }
+    }
+
+    HemsManager {
+        id: hemsManager
+        engine: _engine
     }
 
     ThingDiscovery {
@@ -50,6 +60,12 @@ StackView {
 
     function convertToKw(numberW){
         return (+(Math.round((numberW / 1000) * 100 ) / 100)).toLocaleString()
+    }
+
+    ThingsProxy {
+        id: eebusThing
+        engine: _engine
+        shownInterfaces: ["gateway"]
     }
 
     ThingsProxy {
@@ -97,7 +113,7 @@ StackView {
                     }
 
                     Rectangle {
-                        visible: currentState !== "" && powerLimitSource !== "none"
+                        visible: currentState !== "unrestricted" && powerLimitSource !== "none"
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignHCenter
                         radius: 10
@@ -168,7 +184,7 @@ StackView {
                 }
 
                 ColumnLayout {
-                    visible: powerLimitSource === "none" ? false : true
+                    visible: eebusThing.count > 0 || relais > 0 ? true : false
 
                     RowLayout {
                         Layout.alignment: Qt.AlignRight
@@ -189,7 +205,7 @@ StackView {
                     }
 
                     ConsolinnoItemDelegate {
-                        visible: powerLimitSource === "relais"
+                        visible: relais > 0
                         Layout.fillWidth: true
                         text: "Relais"
                         iconName: "../images/union.svg"
@@ -199,7 +215,7 @@ StackView {
                     }
 
                     ConsolinnoItemDelegate {
-                        visible: powerLimitSource === "eebus"
+                        visible: eebusThing.count > 0
                         Layout.fillWidth: true
                         text: "EEBUS Controlbox"
                         iconName: "../images/eebus.svg"
@@ -532,6 +548,7 @@ StackView {
             header: NymeaHeader {
                 text: qsTr("Grid supportive-control set-up - EEBUS")
                 backButtonVisible: true
+                menuButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
 
@@ -576,10 +593,11 @@ StackView {
                         spacing: 5
 
                         Repeater {
-                            model: thingClass.paramTypes
+                            model: eebusThing.count > 0 ? eebusThing.get(0).thingClass.paramTypes : thingClass.paramTypes
                             delegate: ConsolinnoItemDelegate {
-                                property var paramType: thingClass.paramTypes.get(index)
-                                property string paramValue: typeof(discoveryThingParams.params.getParam(paramType.id).value) !== null ? discoveryThingParams.params.getParam(paramType.id).value : ""
+                                id: thingParams
+                                property var paramType: eebusThing.count > 0 ? eebusThing.get(0).thingClass.paramTypes.get(index) : thingClass.paramTypes.get(index)
+                                property string paramValue: eebusThing.count > 0 ? eebusThing.get(0).params.getParam(eebusThing.get(0).thingClass.paramTypes.get(index).id).value : isNaN(discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id)) ? discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id).value : ""
                                 Layout.fillWidth: true
                                 text: paramValue !== "" ? paramValue : ""
                                 subText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
@@ -589,9 +607,9 @@ StackView {
                                 secondaryIconSize: 20
                                 progressive: false
                                 secondaryIconClickable: true
-                                onSecondaryIconClicked: PlatformHelper.toClipBoard(name)
+                                onSecondaryIconClicked: PlatformHelper.toClipBoard(paramValue)
                                 onClicked: {
-
+                                    console.error()
                                 }
                             }
                         }
@@ -608,7 +626,7 @@ StackView {
                 RowLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    visible: powerLimitSource === "eebus" ? true : false
+                    visible: eebusThing.count > 0
 
                     Text {
                         Layout.fillWidth: true
@@ -623,10 +641,11 @@ StackView {
                     }
                 }
 
+                //Status
                 RowLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    visible: powerLimitSource === "eebus" ? true : false
+                    visible: eebusThing.count > 0
 
                     Rectangle {
                         width: 25
@@ -649,7 +668,7 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    visible: powerLimitSource === "eebus" ? false : true
+                    visible: eebusThing.count > 0 ? false : true
 
                     CheckBox {
                         id: deviceConnected
@@ -659,7 +678,7 @@ StackView {
                 }
 
                 ColumnLayout {
-                    visible: powerLimitSource === "eebus" ? false : true
+                    visible: eebusThing.count > 0 ? false : true
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     Layout.leftMargin: app.margins
@@ -673,7 +692,16 @@ StackView {
                         text: qsTr("Complete setup")
 
                         onClicked: {
-                            pageStack.push(eebusViewStatus);
+
+                            for(var i = 0; i < thingClass.paramTypes.count; i++){
+                                var param = {}
+                                param["paramTypeId"] = thingClass.paramTypes.get(i).id
+                                param["value"] = isNaN(discoveryThingParams.params.getParam(thingClass.paramTypes.get(i).id)) ? discoveryThingParams.params.getParam(thingClass.paramTypes.get(i).id).value : ""
+                                d.params.push(param)
+                            }
+
+                            engine.thingManager.addThing(thingClass.id, thingClass.name, d.params);
+                            pageStack.push(eebusViewStatus, { thingClass: thingClass, discoveryThingParams: discoveryThingParams });
                         }
                     }
 
@@ -704,6 +732,10 @@ StackView {
         id: eebusViewStatus
 
         Page {
+
+            property ThingClass thingClass
+            property var discoveryThingParams
+
             header: NymeaHeader {
                 text: qsTr("Grid supportive-control set-up - EEBUS")
                 backButtonVisible: true
@@ -766,16 +798,18 @@ StackView {
                 }
 
                 ConsolinnoItemDelegate {
+                    property var paramType: thingClass.paramTypes.get(0)
+                    property string paramValue: discoveryThingParams.params.getParam(paramType.id).value
                     Layout.fillWidth: true
-                    text: "b68fb71513772f3d7310c81fc35f6e40"
-                    subText: "Diese SKI wird vom Netzbetreiber benötigt."
+                    text: paramValue
+                    subText: qsTr("This SKI is required by the network operator.")
                     tertiaryText: "Local Subject Key Identifier (SKI)"
                     secondaryIconName: "../images/edit-copy.svg"
                     secondaryIconColor: Material.accentColor
                     secondaryIconSize: 20
                     progressive: false
                     secondaryIconClickable: true
-                    onSecondaryIconClicked: PlatformHelper.toClipBoard(name)
+                    onSecondaryIconClicked: PlatformHelper.toClipBoard(paramValue)
                 }
 
                 VerticalDivider {
@@ -793,7 +827,7 @@ StackView {
                     Button {
                         id: eebusBackToView
                         Layout.fillWidth: true
-                        text: qsTr("Complete setup")
+                        text: qsTr("Back to overview")
 
                         onClicked: {
                             powerLimitSource = "eebus"
