@@ -88,7 +88,7 @@ Page {
 
         RowLayout{
             Layout.fillWidth: true
-            visible: thing.thingClass.interfaces.includes("controllablebattery")
+            visible: hemsManager.availableUseCases === HemsManager.HemsUseCaseAvoidZeroCompensation
 
             Label {
                 Layout.fillWidth: true
@@ -103,14 +103,14 @@ Page {
 
         ColumnLayout {
             Layout.fillWidth: true
-            visible: thing.thingClass.interfaces.includes("controllablebattery")
+            visible: hemsManager.availableUseCases === HemsManager.HemsUseCaseAvoidZeroCompensation
 
             Text {
                 Layout.fillWidth: true
                 font: Style.smallFont
                 color: Style.consolinnoMedium
                 wrapMode: Text.Wrap
-                text: qsTr("On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).")
+                text: qsTr("On days with negative electricity prices, battery capacity is actively reserved in order to be able to charge the battery during the hours with negative electricity prices and to avoid feeding into the grid without compensation.   As soon as the control system is activated, charging from the grid is limited (visible on the yellow warning).")
             }
         }
 
