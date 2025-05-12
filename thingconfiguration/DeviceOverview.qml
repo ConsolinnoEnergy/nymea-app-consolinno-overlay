@@ -24,14 +24,14 @@ Page {
             }
 
         }
-
+/* // Currently bugged on real mobile devices
         HeaderButton {
             imageSource: "../images/find.svg"
             color: filterInput.shown ? Style.accentColor : Style.iconColor
             onClicked: filterInput.shown = !filterInput.shown
 
         }
-
+*/
     }
 
     QtObject {

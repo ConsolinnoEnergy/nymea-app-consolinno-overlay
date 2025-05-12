@@ -24,7 +24,8 @@ StyleBase {
     foregroundColor: consolinnoExtraDark
 
     tileOverlayIconColor: consolinnoDark
-    property color tileOverlayTextColor: foregroundColor
+    property color tabOverlayColor: consolinnoDark
+    property color tileOverlayTextColor: "#ffffff"
 
     accentColor: consolinnoMedium
     iconColor: consolinnoExtraDark
@@ -73,12 +74,13 @@ StyleBase {
     })
 
     //MainMenuCirlce
-    readonly property color mainTimeCircle: "#d7d7d7"
+    readonly property color mainTimeCircle: "#D3D3D3"
     readonly property color mainTimeCircleDivider: "#ffffff"
-    readonly property color mainCircleTimeColor: "gray"
+    readonly property color mainCircleTimeColor: "#5A5A5A"
 
-    readonly property color mainTimeNow: "gray"
+    readonly property color mainTimeNow: "#808080"
 
     readonly property color mainInnerCicleFirst: "#b6b6b6"
     readonly property color mainInnerCicleSecond: "#b6b6b6"
+    readonly property color mainInnerCicleText: "#303030"
 }

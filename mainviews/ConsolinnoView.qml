@@ -1329,7 +1329,7 @@ MainViewBase {
                             Layout.fillWidth: true
                             textFormat: Text.RichText
                             horizontalAlignment: Text.AlignHCenter
-                            color: "white"
+                            color: Style.mainInnerCicleText
                             text: getText()
 
                             function getText() {
@@ -1363,7 +1363,7 @@ MainViewBase {
                             horizontalAlignment: Text.AlignHCenter
                             wrapMode: Text.WordWrap
                             elide: Text.ElideMiddle
-                            color: "white"
+                            color: Style.mainInnerCicleText
                             font: Style.smallFont
                             visible: innerCircle.height > 120
                         }
@@ -1662,7 +1662,7 @@ MainViewBase {
                     textY -= 2
                     if (chartView.width > 400 && chartView.height > 400) {
                         ctx.fillText(tmpDate.toLocaleTimeString(
-                                         Qt.locale("de_DE"), "HH:mm"), 0, textY)
+                                         Qt.locale("de_DE"), "H"), 0, textY)
                     } else {
                         ctx.fillText(tmpDate.getHours(), 0, textY)
                     }

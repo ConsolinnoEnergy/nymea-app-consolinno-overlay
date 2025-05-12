@@ -6,7 +6,7 @@ import Nymea 1.0
 Rectangle {
     id: root
     color: Style.tileBackgroundColor
-    property color selectionColor: Style.tileOverlayColor
+    property color selectionColor: Style.tabOverlayColor
     radius: Style.smallCornerRadius
     implicitHeight: layout.implicitHeight
 
