@@ -196,7 +196,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
+        <source>Tariff-controlled charging from the grid is restricted during the regulation.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
