@@ -206,7 +206,7 @@ GenericConfigPage {
                         }
                         Label {
                             font.pixelSize: 16
-                            text: qsTr("Tariff-controlled charging from the grid is deactivated during the regulation.")
+                            text: qsTr("Tariff-controlled charging from the grid is restricted during the regulation.")
                             wrapMode: Text.WordWrap
                             Layout.fillWidth: true
                             Layout.preferredWidth: parent.width - 20
@@ -511,7 +511,7 @@ GenericConfigPage {
                               margins.right: 0
                               margins.top: 0
                               margins.bottom: 0
-                              backgroundColor: isZeroCompensation || chargeOnceController.checked ? "whitesmoke" : "transparent"
+                              backgroundColor: chargeOnceController.checked ? "whitesmoke" : "transparent"
                               startTime: d.startTimeSince
                               endTime: d.endTimeUntil
                               hoursNow: d.now.getHours()

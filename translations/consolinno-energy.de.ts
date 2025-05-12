@@ -197,15 +197,15 @@
     </message>
     <message>
         <source>Avoid zero compensation is active</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tariff-controlled charging from the grid is deactivated during the regulation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nullvergütung vermeiden aktiv</translation>
     </message>
     <message>
         <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn Nullvergütung vermieden aktiv ist, dann ist kein Sofortladen der Batterie möglich.</translation>
+    </message>
+    <message>
+        <source>Tariff-controlled charging from the grid is restricted during the regulation.</source>
+        <translation>Tarifgesteuertes Laden aus dem Netz ist während der Regelung eingeschränkt.</translation>
     </message>
 </context>
 <context>
@@ -241,10 +241,6 @@
         <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
-        <translation type="unfinished">An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität reserviert, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden.   Sobald die Regelung aktiv wird, ist das Beladen aus dem Netz  deaktiviert (sichtbar an den ausgegrauten Bedienelementen).</translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
@@ -255,6 +251,10 @@
     <message>
         <source>Avoid zero compensation</source>
         <translation>Nullvergütung vermeiden</translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively reserved in order to be able to charge the battery during the hours with negative electricity prices and to avoid feeding into the grid without compensation.   As soon as the control system is activated, charging from the grid is limited (visible on the yellow warning).</source>
+        <translation>An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität reserviert, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden.   Sobald die Regelung aktiv wird, ist das Beladen aus dem Netz  limitiert (sichtbar an dem gelben Hinweis).</translation>
     </message>
 </context>
 <context>
