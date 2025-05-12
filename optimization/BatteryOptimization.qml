@@ -88,7 +88,7 @@ Page {
 
         RowLayout{
             Layout.fillWidth: true
-            visible: hemsManager.availableUseCases === HemsManager.HemsUseCaseAvoidZeroCompensation
+            visible: (hemsManager.availableUseCases & HemsManager.HemsUseCaseAvoidZeroCompensation) !== 0
 
             Label {
                 Layout.fillWidth: true
@@ -103,7 +103,7 @@ Page {
 
         ColumnLayout {
             Layout.fillWidth: true
-            visible: hemsManager.availableUseCases === HemsManager.HemsUseCaseAvoidZeroCompensation
+            visible: (hemsManager.availableUseCases & HemsManager.HemsUseCaseAvoidZeroCompensation) !== 0
 
             Text {
                 Layout.fillWidth: true
