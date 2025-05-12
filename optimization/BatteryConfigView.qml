@@ -206,7 +206,7 @@ GenericConfigPage {
                         }
                         Label {
                             font.pixelSize: 16
-                            text: qsTr("Tariff-controlled charging from the grid is deactivated during the regulation.")
+                            text: qsTr("Tariff-controlled charging from the grid is restricted during the regulation.Tariff-controlled charging from the grid is deactivated during the regulation.")
                             wrapMode: Text.WordWrap
                             Layout.fillWidth: true
                             Layout.preferredWidth: parent.width - 20
@@ -219,21 +219,6 @@ GenericConfigPage {
                         }
                     }
                 }
-                Label {
-                    font.pixelSize: 16
-                    text: qsTr("Tariff-controlled charging from the grid is restricted during the regulation.")
-                    wrapMode: Text.WordWrap
-                    Layout.fillWidth: true
-                    Layout.preferredWidth: parent.width - 20
-                    leftPadding: 40
-                    color: "#864A0D"
-                }
-
-                Item {
-                    Layout.preferredHeight: 10
-                }
-            }
-        }
 
                 //Status
                 RowLayout {
@@ -512,29 +497,7 @@ GenericConfigPage {
                                 return date;
                             }
 
-                Item {
-                    Layout.fillWidth: parent.width
-                    Layout.fillHeight: true
-                    Layout.minimumHeight: 50
-
-                    CustomBarSeries {
-                      id: barSeries
-                      anchors.fill: parent
-                      margins.left: 0
-                      margins.right: 0
-                      margins.top: 0
-                      margins.bottom: 0
-                      backgroundColor: chargeOnceController.checked ? "whitesmoke" : "transparent"
-                      startTime: d.startTimeSince
-                      endTime: d.endTimeUntil
-                      hoursNow: d.now.getHours()
-                      currentPrice: currentValue
-                      currentMarketPrice: currentPrice
-                      lowestValue: root.lowestPrice
-                      highestValue: root.highestPrice
-                    }
-                }
-
+                        }
 
                         Item {
                             Layout.fillWidth: parent.width
@@ -548,7 +511,7 @@ GenericConfigPage {
                               margins.right: 0
                               margins.top: 0
                               margins.bottom: 0
-                              backgroundColor: isZeroCompensation || chargeOnceController.checked ? "whitesmoke" : "transparent"
+                              backgroundColor: chargeOnceController.checked ? "whitesmoke" : "transparent"
                               startTime: d.startTimeSince
                               endTime: d.endTimeUntil
                               hoursNow: d.now.getHours()
