@@ -206,7 +206,7 @@ GenericConfigPage {
                         }
                         Label {
                             font.pixelSize: 16
-                            text: qsTr("Tariff-controlled charging from the grid is restricted during the regulation.Tariff-controlled charging from the grid is deactivated during the regulation.")
+                            text: qsTr("Tariff-controlled charging from the grid is restricted during the regulation.")
                             wrapMode: Text.WordWrap
                             Layout.fillWidth: true
                             Layout.preferredWidth: parent.width - 20
