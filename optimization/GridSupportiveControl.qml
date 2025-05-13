@@ -14,7 +14,7 @@ StackView {
     property int directionID: 0
     property bool setupFinishedRelay: false
     property int powerLimit: 1625
-    property string powerLimitSource: "none" // "eebus" "relais"
+    property string powerLimitSource: gridSupport.get(0).settings.get(0).value //"none" // "eebus" "relais"
 
     property bool eebusState: eebusThing.get(0).stateByName("connected").value
     property string colorsEEBUS: eebusState === false ? "#F37B8E" : eebusState == true ? "#BDD786" : "#F7B772"
@@ -184,7 +184,7 @@ StackView {
                 }
 
                 ColumnLayout {
-                    visible: eebusThing.count > 0 || relais > 0 ? true : false
+                    visible: (powerLimitSource === "eebus" && eebusThing.count > 0) || powerLimitSource === "relais" ? true : false
 
                     RowLayout {
                         Layout.alignment: Qt.AlignRight
@@ -205,7 +205,7 @@ StackView {
                     }
 
                     ConsolinnoItemDelegate {
-                        visible: relais > 0
+                        visible: powerLimitSource === "relais"
                         Layout.fillWidth: true
                         text: "Relais"
                         iconName: "../images/union.svg"
@@ -215,7 +215,7 @@ StackView {
                     }
 
                     ConsolinnoItemDelegate {
-                        visible: eebusThing.count > 0
+                        visible: (powerLimitSource === "eebus" && eebusThing.count > 0)
                         Layout.fillWidth: true
                         text: "EEBUS Controlbox"
                         iconName: "../images/eebus.svg"
@@ -397,7 +397,15 @@ StackView {
                         text: qsTr("Complete setup")
 
                         onClicked: {
-                            powerLimitSource = "relais"
+                            var params = []
+                            for (var i = 0; i < gridSupport.get(0).settings.count; i++) {
+                                var setting = {}
+                                setting["paramTypeId"] = gridSupport.get(0).thingClass.settingsTypes.get(0).id
+                                setting["value"] = gridSupport.get(0).param.value = "relais"
+                                params.push(setting)
+                            }
+                            engine.thingManager.setThingSettings(gridSupport.get(0).id, params);
+
                             pageStack.pop()
                             pageStack.pop()
                         }
@@ -495,7 +503,7 @@ StackView {
                                 subText: model.description
                                 progressive: true
                                 onClicked: {
-                                    pageStack.push(eebusView, {thingClass: thingClassesProxy.get(0), discoveryThingParams: eebusDiscovery.get(index)});
+                                    pageStack.push(eebusSetup, {thingClass: thingClassesProxy.get(0), discoveryThingParams: eebusDiscovery.get(index)});
                                 }
                             }
                         }
@@ -538,7 +546,7 @@ StackView {
     }
 
     Component {
-        id: eebusView
+        id: eebusSetup
 
         Page {
 
@@ -593,11 +601,164 @@ StackView {
                         spacing: 5
 
                         Repeater {
-                            model: eebusThing.count > 0 ? eebusThing.get(0).thingClass.paramTypes : thingClass.paramTypes
+                            model: thingClass.paramTypes
                             delegate: ConsolinnoItemDelegate {
                                 id: thingParams
-                                property var paramType: eebusThing.count > 0 ? eebusThing.get(0).thingClass.paramTypes.get(index) : thingClass.paramTypes.get(index)
-                                property string paramValue: eebusThing.count > 0 ? eebusThing.get(0).params.getParam(eebusThing.get(0).thingClass.paramTypes.get(index).id).value : isNaN(discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id)) ? discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id).value : ""
+                                property var paramType: thingClass.paramTypes.get(index)
+                                property string paramValue: isNaN(discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id)) ? discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id).value : ""
+                                Layout.fillWidth: true
+                                text: paramValue !== "" ? paramValue : ""
+                                subText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
+                                tertiaryText: model.displayName
+                                secondaryIconName: index === 0 ? "../images/edit-copy.svg" : ""
+                                secondaryIconColor: Material.accentColor
+                                secondaryIconSize: 20
+                                progressive: false
+                                secondaryIconClickable: true
+                                onSecondaryIconClicked: PlatformHelper.toClipBoard(paramValue)
+                            }
+                        }
+                    }
+                }
+
+                VerticalDivider {
+                    Layout.preferredWidth: app.width
+                    Layout.topMargin: app.margins - 12
+                    Layout.bottomMargin: app.margins - 12
+                    dividerColor: Material.accent
+                }
+
+
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+
+                    CheckBox {
+                        id: deviceConnected
+                        Layout.fillWidth: true
+                        text: qsTr("Establish a connection with this device.")
+                    }
+                }
+
+                ColumnLayout {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+
+
+                    Button {
+                        id: eebusSetUpComplete
+                        Layout.fillWidth: true
+                        enabled: deviceConnected.checked
+                        text: qsTr("Complete setup")
+
+                        onClicked: {
+                            var params = []
+                            for (var i = 0; i < gridSupport.get(0).settings.count; i++) {
+                                var setting = {}
+                                setting["paramTypeId"] = gridSupport.get(0).thingClass.settingsTypes.get(0).id
+                                setting["value"] = gridSupport.get(0).param.value = "eebus"
+                                params.push(setting)
+                            }
+
+                            for(var i = 0; i < thingClass.paramTypes.count; i++){
+                                var param = {}
+                                param["paramTypeId"] = thingClass.paramTypes.get(i).id
+                                param["value"] = isNaN(discoveryThingParams.params.getParam(thingClass.paramTypes.get(i).id)) ? discoveryThingParams.params.getParam(thingClass.paramTypes.get(i).id).value : ""
+                                d.params.push(param)
+                            }
+
+                            engine.thingManager.addThing(thingClass.id, thingClass.name, d.params);
+                            engine.thingManager.setThingSettings(gridSupport.get(0).id, params);
+                            pageStack.push(eebusViewStatus, { thingClass: thingClass, discoveryThingParams: discoveryThingParams });
+                        }
+                    }
+
+                    Button {
+                        id: cancel
+                        Layout.fillWidth: true
+                        text: qsTr("Cancel")
+                        background: Rectangle {
+                            color: "transparent"
+                        }
+
+                        onClicked: {
+                            pageStack.pop()
+                        }
+                    }
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                }
+
+            }
+        }
+    }
+
+
+    Component {
+        id: eebusView
+
+        Page {
+
+            property ThingClass thingClass
+            property var discoveryThingParams
+
+            header: NymeaHeader {
+                text: qsTr("Grid supportive-control set-up - EEBUS")
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
+
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                spacing: 8
+
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+
+                    Text {
+                        Layout.topMargin: 5
+                        Layout.bottomMargin: 0
+                        textFormat: Text.RichText
+                        font.pointSize: 20
+                        font.bold: true
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Parameter")
+                        color: Style.consolinnoDark
+                    }
+                }
+
+                Flickable {
+                    id: flick
+                    height: parent.height - 360
+                    Layout.fillWidth: true
+                    clip: true
+
+                    contentWidth: parent.width
+                    contentHeight: column.implicitHeight
+
+                    ColumnLayout {
+                        id: column
+                        width: parent.width
+                        // Margins wie in app definiert
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        spacing: 5
+
+                        Repeater {
+                            model: eebusThing.get(0).thingClass.paramTypes
+                            delegate: ConsolinnoItemDelegate {
+                                id: thingParams
+                                property var paramType: eebusThing.get(0).thingClass.paramTypes.get(index)
+                                property string paramValue: isNaN(eebusThing.get(0).params.getParam(eebusThing.get(0).thingClass.paramTypes.get(index).id)) ? eebusThing.get(0).params.getParam(eebusThing.get(0).thingClass.paramTypes.get(index).id).value : ""
                                 Layout.fillWidth: true
                                 text: paramValue !== "" ? paramValue : ""
                                 subText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
@@ -609,7 +770,7 @@ StackView {
                                 secondaryIconClickable: true
                                 onSecondaryIconClicked: PlatformHelper.toClipBoard(paramValue)
                                 onClicked: {
-                                    console.error()
+
                                 }
                             }
                         }
@@ -726,6 +887,7 @@ StackView {
 
             }
         }
+
     }
 
     Component {
