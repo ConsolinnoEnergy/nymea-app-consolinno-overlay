@@ -2,6 +2,7 @@ import QtQuick 2.8
 import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.2
+import QtGraphicalEffects 1.0
 import Nymea 1.0
 import "../components"
 import "../delegates"
@@ -13,19 +14,18 @@ StackView {
     property HemsManager hemsManager
     property int directionID: 0
     property bool setupFinishedRelay: false
-    property int powerLimit: 1625
-    property string powerLimitSource: gridSupport.get(0).settings.get(0).value //"none" // "eebus" "relais"
+    property Thing gridSupportThing: gridSupport.get(0)
+    property Thing eeBusThing: eebusThing.get(0)
+    property int powerLimit: gridSupportThing.stateByName("plim").value
+    property string powerLimitSource: gridSupportThing.settings.get(0).value //"none" // "eebus" "relais"
 
-    property bool eebusState: eebusThing.get(0).stateByName("connected").value
+    property bool eebusState: eeBusThing ? eeBusThing.stateByName("connected").value : false
     property string colorsEEBUS: eebusState === false ? "#F37B8E" : eebusState == true ? "#BDD786" : "#F7B772"
     property string textEEBUS: eebusState === false ? qsTr("not connected") : eebusState == true ? qsTr("connected") : qsTr("Confirmation by network operator pending")
 
-    property string currentState: gridSupport.get(0).stateByName("plimStatus").value //"limited" "blocked" "limited" "shutoff"
+    property string currentState: gridSupportThing.stateByName("plimStatus").value //"limited" "blocked" "limited" "shutoff"
     property string colorsPlim: currentState === "shutoff" ? "#eb4034" : currentState === "limited" ? "#fc9d03" : "#ffffff"
     property string contentPlim: currentState === "shutoff" ? qsTr("The consumption is <b>temporarily blocked</b> by the network operator.") : currentState === "limited" ? qsTr("The consumption is <b>temporarily reduced</b> to <b>%1 kW</b> according to §14a minimum.").arg(convertToKw(powerLimit)) : ""
-
-
-    property int relais: 0
 
     QtObject {
         id: d
@@ -65,6 +65,7 @@ StackView {
     ThingsProxy {
         id: eebusThing
         engine: _engine
+        nameFilter: "eebus"
         shownInterfaces: ["gateway"]
     }
 
@@ -72,6 +73,17 @@ StackView {
         id: gridSupport
         engine: _engine
         shownInterfaces: ["gridsupport"]
+    }
+
+    function setGridSupportSettings(param){
+        var params = []
+        for (var i = 0; i < gridSupportThing.settings.count; i++) {
+            var setting = {}
+            setting["paramTypeId"] = gridSupportThing.thingClass.settingsTypes.get(0).id
+            setting["value"] = gridSupportThing.param.value = param
+            params.push(setting)
+        }
+        engine.thingManager.setThingSettings(gridSupportThing.id, params);
     }
 
     //start set-up
@@ -210,7 +222,7 @@ StackView {
                         text: "Relais"
                         iconName: "../images/union.svg"
                         onClicked: {
-                            pageStack.push(relaisSetUp);
+                            pageStack.push(relaisSetUpFinish);
                         }
                     }
 
@@ -233,7 +245,7 @@ StackView {
         }
     }
 
-    //relais set-up
+    //set-up select
     Component {
         id: selectComponent
 
@@ -328,14 +340,14 @@ StackView {
         }
     }
 
-    //relais finish set-up
+    //relais set-up
     Component {
         id: relaisSetUp
 
         Page {
 
             header: NymeaHeader {
-                text: qsTr("Grid supportive-control set-up - Relai")
+                text: qsTr("Grid supportive-control set-up - Relais")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -381,7 +393,6 @@ StackView {
                 }
 
                 VerticalDivider {
-                    visible: powerLimitSource === "relais" ? false : true
                     Layout.preferredWidth: app.width
                     dividerColor: Material.accent
                 }
@@ -390,22 +401,102 @@ StackView {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
+                    Rectangle {
+                        visible: powerLimitSource === "relais"
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignHCenter
+                        radius: 10
+                        color: "#1AF37B8E"
+                        border.width: 1
+                        border.color: "#F37B8E"
+                        implicitHeight: alertContainer.implicitHeight + 20
+
+                        ColumnLayout {
+                        id: alertContainer
+                        anchors.fill: parent
+                        spacing: 1
+
+                        Item {
+                            Layout.preferredHeight: 10
+                        }
+
+                        RowLayout {
+                            width: parent.width
+                            spacing: 5
+
+                            Item {
+                                Layout.preferredWidth: 10
+                            }
+
+                            Canvas {
+                                id: triangle
+                                width: 20
+                                height: 20
+                                RowLayout.alignment: Qt.AlignVCenter
+
+                                onPaint: {
+                                    var ctx = getContext("2d");
+                                    ctx.reset();
+                                    ctx.beginPath();
+                                    ctx.moveTo(width/2, 0);
+                                    ctx.lineTo(width, height);
+                                    ctx.lineTo(0, height);
+                                    ctx.closePath();
+
+                                    ctx.fillStyle = "#1AF37B8E";
+                                    ctx.fill();
+
+                                    ctx.lineWidth = 1;
+                                    ctx.strokeStyle = "#F37B8E";
+                                    ctx.stroke();
+                                }
+                            }
+
+                            Label {
+                                text: "!"
+                                anchors.centerIn: triangle
+                                font.bold: true
+                                color: "#F37B8E"
+                            }
+
+                            Label {
+                                font.pixelSize: 16
+                                text: qsTr("Attention")
+                                font.bold: true
+                                wrapMode: Text.WordWrap
+                                Layout.fillWidth: true
+                                Layout.preferredWidth: parent.width - 20
+                            }
+                        }
+
+                            Label {
+                                font.pixelSize: 16
+                                text: qsTr("Existing set-up will be overwritten.")
+                                wrapMode: Text.WordWrap
+                                Layout.rightMargin: 20
+                                Layout.fillWidth: true
+                                Layout.preferredWidth: parent.width - 20
+                                leftPadding: 40
+                            }
+
+                            Item {
+                                Layout.preferredHeight: 10
+                            }
+                        }
+                    }
+                }
+
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+
                     Button {
                         id: completeSetupButton
-                        visible: powerLimitSource === "relais" ? false : true
                         Layout.fillWidth: true
                         text: qsTr("Complete setup")
 
-                        onClicked: {
-                            var params = []
-                            for (var i = 0; i < gridSupport.get(0).settings.count; i++) {
-                                var setting = {}
-                                setting["paramTypeId"] = gridSupport.get(0).thingClass.settingsTypes.get(0).id
-                                setting["value"] = gridSupport.get(0).param.value = "relais"
-                                params.push(setting)
-                            }
-                            engine.thingManager.setThingSettings(gridSupport.get(0).id, params);
-
+                        onClicked: {        
+                            root.setGridSupportSettings("relais");
                             pageStack.pop()
                             pageStack.pop()
                         }
@@ -413,7 +504,6 @@ StackView {
 
                     Button {
                         id: cancel
-                        visible: powerLimitSource === "relais" ? false : true
                         Layout.fillWidth: true
                         text: qsTr("Cancel")
                         background: Rectangle {
@@ -427,10 +517,144 @@ StackView {
                 }
 
                 Item {
-                    visible: powerLimitSource === "relais" ? false : true
                     Layout.fillHeight: true
                 }
 
+            }
+        }
+    }
+
+    //relais set-up finished view
+    Component {
+        id: relaisSetUpFinish
+
+        Page {
+
+            header: ConsolinnoHeader {
+                text: qsTr("Grid supportive-control set-up - Relais")
+                backButtonVisible: true
+                menuOptionsButtonVisible: true
+                onBackPressed: pageStack.pop()
+                onMenuOptionsPressed: menu.open()
+            }
+
+            ListModel {
+                id: menuListModel
+
+                ListElement {
+                    icon: "/ui/images/delete.svg"
+                    text: qsTr("Delete")
+                }
+
+                ListElement {
+                    icon: "/ui/images/configure.svg"
+                    text: qsTr("Reconfigure")
+                }
+            }
+
+            Menu {
+                id: menu
+
+                x:root.width - width
+                modal: true
+
+                Repeater {
+                    id: menuListRepeater
+
+                    model: menuListModel
+
+                    Item {
+                        width: ListView.view.width
+                        height: 56
+
+                        RowLayout {
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                                leftMargin: 16
+                                rightMargin: 16
+                            }
+
+                            height: parent.height / 2
+                            anchors.verticalCenter: parent.verticalCenter
+                            spacing: 24
+
+                            ColorIcon {
+                                Layout.fillHeight: false
+                                Layout.fillWidth: false
+                                Layout.preferredHeight: 24
+                                Layout.preferredWidth: 24
+                                source: model.icon
+                            }
+
+                            Label {
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                text: model.text
+                                font.pixelSize: app.mediumFont
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                if(index === 0){
+                                    root.setGridSupportSettings("none");
+                                    pageStack.pop()
+                                }else if(index === 1){
+                                    pageStack.push(relaisSetUp);
+                                }
+                                menu.close();
+                            }
+                        }
+                    }
+                }
+            }
+
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+
+                RowLayout {
+                    Layout.topMargin: app.margins
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+
+                    Text {
+                        Layout.fillWidth: true
+                        textFormat: Text.RichText
+                        font.pointSize: 20
+                        font.bold: true
+                        wrapMode: Text.WordWrap
+                        text: qsTr("The relays are configured as follows")
+                        color: Style.consolinnoDark
+                    }
+                }
+
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+
+                    Image {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        fillMode: Image.PreserveAspectFit
+                        source: "../images/relais_screen.png"
+                        clip: true
+                    }
+
+                    Item {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                    }
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                }
             }
         }
     }
@@ -556,7 +780,6 @@ StackView {
             header: NymeaHeader {
                 text: qsTr("Grid supportive-control set-up - EEBUS")
                 backButtonVisible: true
-                menuButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
 
@@ -615,7 +838,11 @@ StackView {
                                 secondaryIconSize: 20
                                 progressive: false
                                 secondaryIconClickable: true
-                                onSecondaryIconClicked: PlatformHelper.toClipBoard(paramValue)
+                                onSecondaryIconClicked: {
+                                    PlatformHelper.toClipBoard(paramValue)
+                                    ToolTip.show(qsTr("SKI copied to clipboard"), 500);
+
+                                }
                             }
                         }
                     }
@@ -632,6 +859,76 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
+
+                    Rectangle {
+                        visible: powerLimitSource === "eebus"
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignHCenter
+                        radius: 10
+                        color: "#F37B8E"
+                        border.width: 1
+                        border.color: colorsPlim
+                        implicitHeight: alertContainer.implicitHeight + 20
+
+                        ColumnLayout {
+                            id: alertContainer
+                            anchors.fill: parent
+                            spacing: 1
+
+                            Item {
+                                Layout.preferredHeight: 10
+                            }
+
+                            RowLayout {
+                                width: parent.width
+                                spacing: 5
+
+                                Item {
+                                    Layout.preferredWidth: 10
+                                }
+
+                                Rectangle {
+                                    width: 20
+                                    height: 20
+                                    radius: 10
+                                    color: "#F37B8E"
+                                    border.color: "#F37B8E"
+                                    border.width: 2
+                                    RowLayout.alignment: Qt.AlignVCenter
+
+                                    Label {
+                                        text: "!"
+                                        anchors.centerIn: parent
+                                        font.bold: true
+                                        color: "#F37B8E"
+                                    }
+                                }
+
+                                Label {
+                                    font.pixelSize: 16
+                                    text: qsTr("Attention")
+                                    font.bold: true
+                                    wrapMode: Text.WordWrap
+                                    Layout.fillWidth: true
+                                    Layout.preferredWidth: parent.width - 20
+                                }
+                            }
+
+                            Label {
+                                font.pixelSize: 16
+                                text: qsTr("Existing set-up will be overwritten.")
+                                wrapMode: Text.WordWrap
+                                Layout.rightMargin: 20
+                                Layout.fillWidth: true
+                                Layout.preferredWidth: parent.width - 20
+                                leftPadding: 40
+                            }
+
+                            Item {
+                                Layout.preferredHeight: 10
+                            }
+                        }
+                    }
 
                     CheckBox {
                         id: deviceConnected
@@ -654,14 +951,6 @@ StackView {
                         text: qsTr("Complete setup")
 
                         onClicked: {
-                            var params = []
-                            for (var i = 0; i < gridSupport.get(0).settings.count; i++) {
-                                var setting = {}
-                                setting["paramTypeId"] = gridSupport.get(0).thingClass.settingsTypes.get(0).id
-                                setting["value"] = gridSupport.get(0).param.value = "eebus"
-                                params.push(setting)
-                            }
-
                             for(var i = 0; i < thingClass.paramTypes.count; i++){
                                 var param = {}
                                 param["paramTypeId"] = thingClass.paramTypes.get(i).id
@@ -670,7 +959,7 @@ StackView {
                             }
 
                             engine.thingManager.addThing(thingClass.id, thingClass.name, d.params);
-                            engine.thingManager.setThingSettings(gridSupport.get(0).id, params);
+                            root.setGridSupportSettings("eebus");
                             pageStack.push(eebusViewStatus, { thingClass: thingClass, discoveryThingParams: discoveryThingParams });
                         }
                     }
@@ -704,13 +993,85 @@ StackView {
 
         Page {
 
-            property ThingClass thingClass
-            property var discoveryThingParams
-
-            header: NymeaHeader {
+            header: ConsolinnoHeader {
                 text: qsTr("Grid supportive-control set-up - EEBUS")
                 backButtonVisible: true
+                menuOptionsButtonVisible: true
                 onBackPressed: pageStack.pop()
+                onMenuOptionsPressed: menu.open()
+            }
+
+            ListModel {
+                id: menuListModel
+
+                ListElement {
+                    icon: "/ui/images/delete.svg"
+                    text: qsTr("Delete")
+                }
+
+                ListElement {
+                    icon: "/ui/images/configure.svg"
+                    text: qsTr("Reconfigure")
+                }
+            }
+
+            Menu {
+                id: menu
+
+                x:root.width - width
+                modal: true
+
+                Repeater {
+                    id: menuListRepeater
+
+                    model: menuListModel
+
+                    Item {
+                        width: ListView.view.width
+                        height: 56
+
+                        RowLayout {
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                                leftMargin: 16
+                                rightMargin: 16
+                            }
+
+                            height: parent.height / 2
+                            anchors.verticalCenter: parent.verticalCenter
+                            spacing: 24
+
+                            ColorIcon {
+                                Layout.fillHeight: false
+                                Layout.fillWidth: false
+                                Layout.preferredHeight: 24
+                                Layout.preferredWidth: 24
+                                source: model.icon
+                            }
+
+                            Label {
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                text: model.text
+                                font.pixelSize: app.mediumFont
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                if(index === 0){
+                                    engine.thingManager.removeThing(eeBusThing.id)
+                                    root.setGridSupportSettings("none");
+                                    pageStack.pop()
+                                }
+                                menu.close();
+                            }
+                        }
+                    }
+                }
             }
 
             ColumnLayout {
@@ -754,11 +1115,11 @@ StackView {
                         spacing: 5
 
                         Repeater {
-                            model: eebusThing.get(0).thingClass.paramTypes
+                            model: eeBusThing.thingClass.paramTypes
                             delegate: ConsolinnoItemDelegate {
                                 id: thingParams
-                                property var paramType: eebusThing.get(0).thingClass.paramTypes.get(index)
-                                property string paramValue: isNaN(eebusThing.get(0).params.getParam(eebusThing.get(0).thingClass.paramTypes.get(index).id)) ? eebusThing.get(0).params.getParam(eebusThing.get(0).thingClass.paramTypes.get(index).id).value : ""
+                                property var paramType: eeBusThing.thingClass.paramTypes.get(index)
+                                property string paramValue: isNaN(eeBusThing.params.getParam(eeBusThing.thingClass.paramTypes.get(index).id)) ? eeBusThing.params.getParam(eeBusThing.thingClass.paramTypes.get(index).id).value : ""
                                 Layout.fillWidth: true
                                 text: paramValue !== "" ? paramValue : ""
                                 subText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
@@ -768,9 +1129,10 @@ StackView {
                                 secondaryIconSize: 20
                                 progressive: false
                                 secondaryIconClickable: true
-                                onSecondaryIconClicked: PlatformHelper.toClipBoard(paramValue)
-                                onClicked: {
-
+                                onSecondaryIconClicked: {
+                                    PlatformHelper.toClipBoard(paramValue)
+                                    ToolTip.show(qsTr("SKI copied to clipboard"), 500);
+                                    //ToolTip.y = -300
                                 }
                             }
                         }
@@ -971,7 +1333,10 @@ StackView {
                     secondaryIconSize: 20
                     progressive: false
                     secondaryIconClickable: true
-                    onSecondaryIconClicked: PlatformHelper.toClipBoard(paramValue)
+                    onSecondaryIconClicked: {
+                        PlatformHelper.toClipBoard(paramValue)
+                        ToolTip.show(qsTr("SKI copied to clipboard"), 500);
+                    }
                 }
 
                 VerticalDivider {
@@ -992,7 +1357,7 @@ StackView {
                         text: qsTr("Back to overview")
 
                         onClicked: {
-                            powerLimitSource = "eebus"
+                            eeBusThing = eebusThing.get(0)
                             pageStack.pop()
                             pageStack.pop()
                             pageStack.pop()
