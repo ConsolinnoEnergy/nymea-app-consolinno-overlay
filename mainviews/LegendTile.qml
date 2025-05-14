@@ -172,7 +172,7 @@ MouseArea {
             Rectangle {
                 Layout.fillWidth: true
                 Layout.preferredHeight: headerLabel.height + Style.margins
-                color: Qt.darker(root.currentColor, 1.3)
+                color: Style.legendTileHeaderBgColor
 
                 Label {
                     width: parent.width

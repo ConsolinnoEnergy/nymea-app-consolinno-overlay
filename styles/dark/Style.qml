@@ -22,8 +22,10 @@ StyleBase {
 
     backgroundColor: "#303030"
     foregroundColor: "#F4F6F4"
+    subTextColor: "#B6B6B6"
+    property color legendTileHeaderBgColor: "#80000000"
 
-    tileOverlayIconColor: consolinnoDark
+    tileOverlayIconColor: foregroundColor
     property color tabOverlayColor: foregroundColor
     property color tileOverlayTextColor: "#000000"
 
