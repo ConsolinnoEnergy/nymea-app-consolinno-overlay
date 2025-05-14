@@ -314,10 +314,11 @@ GenericConfigPage {
                 }
 
                 Column {
-                    Switch{
+                    ConsolinnoSwitch {
                         spacing: 1
                         height: 18
                         id: optimizationController
+
                         onClicked: {
                             if(!optimizationController.checked){
                                 chargeOnceController.checked = false;
@@ -356,7 +357,7 @@ GenericConfigPage {
                         width: chargeOnceController.width
                         height: chargeOnceController.height
 
-                        Switch {
+                        ConsolinnoSwitch {
                             id: chargeOnceController
                             anchors.fill: parent
                             spacing: 1

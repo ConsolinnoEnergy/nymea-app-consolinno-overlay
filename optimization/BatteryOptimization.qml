@@ -67,7 +67,7 @@ Page {
                 text: qsTr("Grid-supportive-control")
             }
 
-            Switch {
+            ConsolinnoSwitch {
                 id: gridSupportControl
                 Component.onCompleted: checked = batteryConfiguration.controllableLocalSystem
             }
@@ -95,7 +95,7 @@ Page {
                 text: qsTr("Avoid zero compensation")
             }
 
-            Switch {
+            ConsolinnoSwitch {
                 id: zeroCompensationControl
                 Component.onCompleted: checked = batteryConfiguration.avoidZeroFeedInEnabled
             }

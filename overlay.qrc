@@ -137,5 +137,6 @@
         <file>system/ConsolinnoModbusRtuAddMasterPage.qml</file>
         <file>info/ZeroCompensationInfo.qml</file>
         <file>components/ConsolinnoSelectionTabs.qml</file>
+        <file>components/ConsolinnoSwitch.qml</file>
     </qresource>
 </RCC>

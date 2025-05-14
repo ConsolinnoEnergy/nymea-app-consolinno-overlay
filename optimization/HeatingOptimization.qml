@@ -152,7 +152,7 @@ Page {
 
             }
 
-            Switch {
+            ConsolinnoSwitch {
                 id: gridSupportControl
                 Component.onCompleted: checked = heatingConfiguration.controllableLocalSystem
             }

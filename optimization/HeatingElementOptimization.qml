@@ -91,7 +91,7 @@ Page {
                 text: qsTr("Operating mode (Solar Only)")
             }
 
-            Switch {
+            ConsolinnoSwitch {
                 id: operatingModeSwitch
                 Component.onCompleted: checked = heatingElementConfiguration.optimizationEnabled
             }

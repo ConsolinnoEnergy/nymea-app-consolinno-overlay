@@ -67,7 +67,7 @@ Page {
 
             }
 
-            Switch {
+            ConsolinnoSwitch {
                 id: gridSupportControl
                 Component.onCompleted: checked = chargingOptimizationConfiguration.controllableLocalSystem
             }
