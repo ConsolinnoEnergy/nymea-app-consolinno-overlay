@@ -1532,7 +1532,8 @@ MainViewBase {
                                 pageStack.push((noDynPrice || batteryView),
                                             {
                                                 "hemsManager": hemsManager,
-                                                "thing": thing
+                                                "thing": thing,
+                                                "isBatteryView": true
                                             })
                             }
                         }

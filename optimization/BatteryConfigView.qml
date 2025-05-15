@@ -139,7 +139,7 @@ GenericConfigPage {
 
         Flickable {
             anchors.fill: parent
-            contentHeight: columnLayoutContainer.implicitHeight + 100
+            contentHeight: columnLayoutContainer.implicitHeight + (isZeroCompensation ? 100 : 0)
             topMargin: 0
             clip: true
 
@@ -151,80 +151,14 @@ GenericConfigPage {
                 anchors.left: parent.left
                 anchors.margins: app.margins
 
-        Rectangle {
-            Layout.fillWidth: true
-            radius: 10
-            color: Style.warningBackground
-            border.width: 1
-            border.color: Style.warningAccent
-            implicitHeight: alertContainer.implicitHeight + 20
-            Layout.topMargin: 30
-            visible: isZeroCompensation
-
-                    ColumnLayout {
-                        id: alertContainer
-                        anchors.fill: parent
-                        spacing: 1
-
-                        Item {
-                            Layout.preferredHeight: 10
-                        }
-
-
-                        RowLayout {
-                            width: parent.width
-                            spacing: 5
-
-                            Item {
-                                Layout.preferredWidth: 10
-                            }
-
-                    Rectangle {
-                        width: 20
-                        height: 20
-                        radius: 10  // Makes the rectangle a circle
-                        color: Style.warningBackground
-                        border.color: Style.warningAccent
-                        border.width: 1
-                        RowLayout.alignment: Qt.AlignVCenter
-
-                        Label {
-                            text: "!"
-                            anchors.centerIn: parent
-                            color: Style.warningAccent
-                        }
-                    }
-
-                    Label {
-                        font.pixelSize: 16
-                        text: qsTr("Avoid zero compensation is active")
-                        font.bold: true
-                        wrapMode: Text.WordWrap
-                        Layout.fillWidth: true
-                        Layout.preferredWidth: parent.width - 20
-                        color: Style.warningAccent
-                    }
-                }
-                Label {
-                    font.pixelSize: 16
-                    text: qsTr("Tariff-controlled charging from the grid is deactivated during the regulation.")
-                    wrapMode: Text.WordWrap
-                    Layout.fillWidth: true
-                    Layout.preferredWidth: parent.width - 20
-                    leftPadding: 40
-                    color: Style.warningAccent
-                }
-
-                        Item {
-                            Layout.preferredHeight: 10
-                        }
-                    }
+                ConsolinnoAvoidZeroCompensation {
+                    visible: isZeroCompensation
                 }
 
                 //Status
                 RowLayout {
                     Layout.fillWidth: true
-                    Layout.topMargin: isZeroCompensation ? 5 : 30
+                    Layout.topMargin: true ? 5 : 30
 
                     Label {
                         text: qsTr("Status")
@@ -434,7 +368,7 @@ GenericConfigPage {
                     RowLayout {
                         Layout.topMargin: 15
                         visible: optimizationController.checked
-                        enabled: isZeroCompensation || chargeOnceController.checked ? false : true
+                        enabled: chargeOnceController.checked ? false : true
                         Label {
                             text: qsTr("Charging Plan")
                             font.weight: Font.Bold
@@ -445,7 +379,7 @@ GenericConfigPage {
                     RowLayout {
                         id: currentPriceRow
                         visible: optimizationController.checked
-                        enabled: isZeroCompensation || chargeOnceController.checked ? false : true
+                        enabled: chargeOnceController.checked ? false : true
                         Layout.topMargin: 5
 
                         Label {
@@ -463,7 +397,7 @@ GenericConfigPage {
                     ColumnLayout {
                         Layout.fillWidth: true
                         visible: optimizationController.checked
-                        enabled: isZeroCompensation || chargeOnceController.checked ? false : true
+                        enabled: chargeOnceController.checked ? false : true
                         Component.onCompleted: {
                             const dpThing = dynamicPrice.get(0)
                             if(!dpThing)

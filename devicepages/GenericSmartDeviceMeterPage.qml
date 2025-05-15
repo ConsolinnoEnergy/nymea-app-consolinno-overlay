@@ -10,6 +10,9 @@ GenericConfigPage {
     id: root
 
     property Thing thing: null
+    property HemsManager hemsManager
+    property BatteryConfiguration batteryConfiguration: isBatteryView ? hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id) : null
+    property bool isZeroCompensation: batteryConfiguration.avoidZeroFeedInActive
     readonly property ThingClass thingClass: thing.thingClass
 
     readonly property bool isEnergyMeter: root.thing && root.thing.thingClass.interfaces.indexOf("energymeter") >= 0
@@ -41,6 +44,7 @@ GenericConfigPage {
     readonly property bool isDischarging: root.chargingState && root.chargingState.value === "discharging"
 
     property bool isRootmeter: false
+    property bool isBatteryView: false
     property string isNotify: ""
 
     title: root.thing.name
@@ -50,7 +54,9 @@ GenericConfigPage {
             anchors.fill: parent
 
             ColumnLayout {
+                id: infoPaneContainer
                 anchors { left: parent.left; top: parent.top; right: parent.right }
+                visible: isBatteryView && !isZeroCompensation
                 ThingInfoPane {
                     id: infoPane
                     Layout.fillWidth: true
@@ -164,6 +170,23 @@ GenericConfigPage {
                                 Layout.preferredHeight: 10
                             }
                         }
+                    }
+                }
+            }
+
+            Item {
+                anchors.top: parent.top
+                width: parent.width
+                ColumnLayout {
+                    id: containerAvoidZeroCompensation
+                    width: root.width
+
+                    ConsolinnoAvoidZeroCompensation {
+                        id: avoidZeroCompensation
+                        Layout.rightMargin: app.margins
+                        Layout.leftMargin: app.margins
+                        width: containerAvoidZeroCompensation.width
+                        visible: isBatteryView && isZeroCompensation
                     }
                 }
             }
