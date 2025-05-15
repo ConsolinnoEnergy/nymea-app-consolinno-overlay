@@ -187,7 +187,6 @@ GenericConfigPage {
                         Layout.leftMargin: app.margins
                         width: containerAvoidZeroCompensation.width
                         visible: isBatteryView && isZeroCompensation
-
                     }
                 }
             }
