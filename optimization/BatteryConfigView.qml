@@ -143,12 +143,13 @@ GenericConfigPage {
             topMargin: 0
             clip: true
 
-    ColumnLayout {
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        anchors.left: parent.left
-        anchors.margins: app.margins
+            ColumnLayout {
+                id: columnLayoutContainer
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                anchors.left: parent.left
+                anchors.margins: app.margins
 
                 ConsolinnoAvoidZeroCompensation {
                     visible: isZeroCompensation
