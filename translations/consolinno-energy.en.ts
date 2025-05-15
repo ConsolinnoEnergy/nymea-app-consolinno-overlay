@@ -196,15 +196,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Avoid zero compensation is active</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tariff-controlled charging from the grid is restricted during the regulation.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -253,7 +245,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>On days with negative electricity prices, battery capacity is actively reserved in order to be able to charge the battery during the hours with negative electricity prices and to avoid feeding into the grid without compensation.   As soon as the control system is activated, charging from the grid is limited (visible on the yellow warning).</source>
+        <source>On days with negative electricity prices, battery capacity is actively reserved so that the battery can be charged during the hours with negative electricity prices and feed-in without remuneration is avoided. As soon as the control becomes active, the charging of the battery is limited (visible on the yellow message on the screen).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -898,6 +890,17 @@
     </message>
     <message>
         <source>Find app versions and licence information</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoAvoidZeroCompensation</name>
+    <message>
+        <source>Avoid zero compensation active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The battery charge is limited during regulation.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
