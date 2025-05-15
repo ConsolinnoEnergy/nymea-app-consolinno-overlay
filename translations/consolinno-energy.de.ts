@@ -196,16 +196,8 @@
         <translation>Preisgrenze : %1 ct/kWh</translation>
     </message>
     <message>
-        <source>Avoid zero compensation is active</source>
-        <translation>Nullvergütung vermeiden aktiv</translation>
-    </message>
-    <message>
         <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
         <translation>Wenn Nullvergütung vermieden aktiv ist, dann ist kein Sofortladen der Batterie möglich.</translation>
-    </message>
-    <message>
-        <source>Tariff-controlled charging from the grid is restricted during the regulation.</source>
-        <translation>Tarifgesteuertes Laden aus dem Netz ist während der Regelung eingeschränkt.</translation>
     </message>
 </context>
 <context>
@@ -253,8 +245,8 @@
         <translation>Nullvergütung vermeiden</translation>
     </message>
     <message>
-        <source>On days with negative electricity prices, battery capacity is actively reserved in order to be able to charge the battery during the hours with negative electricity prices and to avoid feeding into the grid without compensation.   As soon as the control system is activated, charging from the grid is limited (visible on the yellow warning).</source>
-        <translation>An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität reserviert, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden.   Sobald die Regelung aktiv wird, ist das Beladen aus dem Netz  limitiert (sichtbar an dem gelben Hinweis).</translation>
+        <source>On days with negative electricity prices, battery capacity is actively reserved so that the battery can be charged during the hours with negative electricity prices and feed-in without remuneration is avoided. As soon as the control becomes active, the charging of the battery is limited (visible on the yellow message on the screen).</source>
+        <translation>An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden.   Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen).</translation>
     </message>
 </context>
 <context>
@@ -899,6 +891,17 @@
     <message>
         <source>Find app versions and licence information</source>
         <translation>Finde App Versionen und Lizenzinformationen</translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoAvoidZeroCompensation</name>
+    <message>
+        <source>Avoid zero compensation active</source>
+        <translation>Nullvergütung vermeiden aktiv</translation>
+    </message>
+    <message>
+        <source>The battery charge is limited during regulation.</source>
+        <translation>Das Laden der Batterie ist während der Regelung eingeschränkt.</translation>
     </message>
 </context>
 <context>
