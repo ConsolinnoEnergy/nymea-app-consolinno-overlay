@@ -149,5 +149,6 @@
         <file>images/relais_screen.png</file>
         <file>images/union.svg</file>
         <file>images/eebus.svg</file>
+        <file>components/ConsolinnoGridSupportiveControlAlert.qml</file>
     </qresource>
 </RCC>
