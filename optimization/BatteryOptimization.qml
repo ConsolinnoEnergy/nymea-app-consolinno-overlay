@@ -110,7 +110,7 @@ Page {
                 font: Style.smallFont
                 color: Style.consolinnoMedium
                 wrapMode: Text.Wrap
-                text: qsTr("On days with negative electricity prices, battery capacity is actively reserved in order to be able to charge the battery during the hours with negative electricity prices and to avoid feeding into the grid without compensation.   As soon as the control system is activated, charging from the grid is limited (visible on the yellow warning).")
+                text: qsTr("On days with negative electricity prices, battery capacity is actively reserved so that the battery can be charged during the hours with negative electricity prices and feed-in without remuneration is avoided. As soon as the control becomes active, the charging of the battery is limited (visible on the yellow message on the screen).")
             }
         }
 

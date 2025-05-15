@@ -10,6 +10,9 @@ GenericConfigPage {
     id: root
 
     property Thing thing: null
+    property HemsManager hemsManager
+    property BatteryConfiguration batteryConfiguration: isBatteryView ? hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id) : null
+    property bool isZeroCompensation: batteryConfiguration.avoidZeroFeedInActive
     readonly property ThingClass thingClass: thing.thingClass
 
     readonly property bool isEnergyMeter: root.thing && root.thing.thingClass.interfaces.indexOf("energymeter") >= 0
@@ -41,6 +44,7 @@ GenericConfigPage {
     readonly property bool isDischarging: root.chargingState && root.chargingState.value === "discharging"
 
     property bool isRootmeter: false
+    property bool isBatteryView: false
     property string isNotify: ""
 
     title: root.thing.name
@@ -57,6 +61,19 @@ GenericConfigPage {
                     Layout.rightMargin: 15
                     thing: root.thing
                 }
+            }
+
+            Item {
+                id: batteryNotificationContainer
+                anchors.top: parent.top
+                width: parent.width
+                height: avoidZeroCompensation.implicitHeight
+                visible: isBatteryView && isZeroCompensation
+
+                ConsolinnoAvoidZeroCompensation {
+                    id: avoidZeroCompensation
+                }
+
             }
 
             Item {

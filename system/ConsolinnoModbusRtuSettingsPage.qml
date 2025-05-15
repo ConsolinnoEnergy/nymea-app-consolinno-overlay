@@ -235,20 +235,11 @@ Page {
                         }
                     }
 
-
                     Label {
                         Layout.preferredWidth: app.width - 2* Style.margins
                         Layout.topMargin: 10;
                         wrapMode: Text.WordWrap
-                        text: qsTr("Modbus-RTU is not supported on this platform.")
-                        visible: !modbusRtuManager.supported
-                    }
-
-                    Label {
-                        Layout.preferredWidth: app.width - 2* Style.margins
-                        Layout.topMargin: 10;
-                        wrapMode: Text.WordWrap
-                        text: qsTr("No devices discovered") //Keine Geräte entdeckt
+                        text: qsTr("No devices discovered")
                         visible: modbusRtuManager.modbusRtuMasters.count === 0
                     }
 
