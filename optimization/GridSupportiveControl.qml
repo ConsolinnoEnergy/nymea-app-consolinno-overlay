@@ -40,11 +40,6 @@ StackView {
         }
     }
 
-    HemsManager {
-        id: hemsManager
-        engine: _engine
-    }
-
     ThingDiscovery {
         id: discovery
         engine: _engine
@@ -401,88 +396,8 @@ StackView {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
-                    Rectangle {
+                   ConsolinnoGridSupportiveControlAlert {
                         visible: powerLimitSource === "relais"
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignHCenter
-                        radius: 10
-                        color: "#1AF37B8E"
-                        border.width: 1
-                        border.color: "#F37B8E"
-                        implicitHeight: alertContainer.implicitHeight + 20
-
-                        ColumnLayout {
-                        id: alertContainer
-                        anchors.fill: parent
-                        spacing: 1
-
-                        Item {
-                            Layout.preferredHeight: 10
-                        }
-
-                        RowLayout {
-                            width: parent.width
-                            spacing: 5
-
-                            Item {
-                                Layout.preferredWidth: 10
-                            }
-
-                            Canvas {
-                                id: triangle
-                                width: 20
-                                height: 20
-                                RowLayout.alignment: Qt.AlignVCenter
-
-                                onPaint: {
-                                    var ctx = getContext("2d");
-                                    ctx.reset();
-                                    ctx.beginPath();
-                                    ctx.moveTo(width/2, 0);
-                                    ctx.lineTo(width, height);
-                                    ctx.lineTo(0, height);
-                                    ctx.closePath();
-
-                                    ctx.fillStyle = "#1AF37B8E";
-                                    ctx.fill();
-
-                                    ctx.lineWidth = 1;
-                                    ctx.strokeStyle = "#F37B8E";
-                                    ctx.stroke();
-                                }
-                            }
-
-                            Label {
-                                text: "!"
-                                anchors.centerIn: triangle
-                                font.bold: true
-                                color: "#F37B8E"
-                            }
-
-                            Label {
-                                font.pixelSize: 16
-                                text: qsTr("Attention")
-                                font.bold: true
-                                wrapMode: Text.WordWrap
-                                Layout.fillWidth: true
-                                Layout.preferredWidth: parent.width - 20
-                            }
-                        }
-
-                            Label {
-                                font.pixelSize: 16
-                                text: qsTr("Existing set-up will be overwritten.")
-                                wrapMode: Text.WordWrap
-                                Layout.rightMargin: 20
-                                Layout.fillWidth: true
-                                Layout.preferredWidth: parent.width - 20
-                                leftPadding: 40
-                            }
-
-                            Item {
-                                Layout.preferredHeight: 10
-                            }
-                        }
                     }
                 }
 
@@ -860,74 +775,8 @@ StackView {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
-                    Rectangle {
+                    ConsolinnoGridSupportiveControlAlert {
                         visible: powerLimitSource === "eebus"
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignHCenter
-                        radius: 10
-                        color: "#F37B8E"
-                        border.width: 1
-                        border.color: colorsPlim
-                        implicitHeight: alertContainer.implicitHeight + 20
-
-                        ColumnLayout {
-                            id: alertContainer
-                            anchors.fill: parent
-                            spacing: 1
-
-                            Item {
-                                Layout.preferredHeight: 10
-                            }
-
-                            RowLayout {
-                                width: parent.width
-                                spacing: 5
-
-                                Item {
-                                    Layout.preferredWidth: 10
-                                }
-
-                                Rectangle {
-                                    width: 20
-                                    height: 20
-                                    radius: 10
-                                    color: "#F37B8E"
-                                    border.color: "#F37B8E"
-                                    border.width: 2
-                                    RowLayout.alignment: Qt.AlignVCenter
-
-                                    Label {
-                                        text: "!"
-                                        anchors.centerIn: parent
-                                        font.bold: true
-                                        color: "#F37B8E"
-                                    }
-                                }
-
-                                Label {
-                                    font.pixelSize: 16
-                                    text: qsTr("Attention")
-                                    font.bold: true
-                                    wrapMode: Text.WordWrap
-                                    Layout.fillWidth: true
-                                    Layout.preferredWidth: parent.width - 20
-                                }
-                            }
-
-                            Label {
-                                font.pixelSize: 16
-                                text: qsTr("Existing set-up will be overwritten.")
-                                wrapMode: Text.WordWrap
-                                Layout.rightMargin: 20
-                                Layout.fillWidth: true
-                                Layout.preferredWidth: parent.width - 20
-                                leftPadding: 40
-                            }
-
-                            Item {
-                                Layout.preferredHeight: 10
-                            }
-                        }
                     }
 
                     CheckBox {
@@ -951,6 +800,10 @@ StackView {
                         text: qsTr("Complete setup")
 
                         onClicked: {
+                            if(eebusThing.count > 0){
+                               engine.thingManager.removeThing(eeBusThing.id)
+                            }
+
                             for(var i = 0; i < thingClass.paramTypes.count; i++){
                                 var param = {}
                                 param["paramTypeId"] = thingClass.paramTypes.get(i).id
@@ -1066,7 +919,11 @@ StackView {
                                     engine.thingManager.removeThing(eeBusThing.id)
                                     root.setGridSupportSettings("none");
                                     pageStack.pop()
+                                }else if(index === 1){
+                                    discovery.discoverThings(thingClassesProxy.get(0).id)
+                                    pageStack.push(eebusViewSelect, {thingClass: thingClassesProxy.get(0)})
                                 }
+
                                 menu.close();
                             }
                         }
