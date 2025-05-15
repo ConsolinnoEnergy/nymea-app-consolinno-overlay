@@ -54,26 +54,15 @@ GenericConfigPage {
             anchors.fill: parent
 
             ColumnLayout {
+                id: infoPaneContainer
                 anchors { left: parent.left; top: parent.top; right: parent.right }
+                visible: isBatteryView && !isZeroCompensation
                 ThingInfoPane {
                     id: infoPane
                     Layout.fillWidth: true
                     Layout.rightMargin: 15
                     thing: root.thing
                 }
-            }
-
-            Item {
-                id: batteryNotificationContainer
-                anchors.top: parent.top
-                width: parent.width
-                height: avoidZeroCompensation.implicitHeight
-                visible: isBatteryView && isZeroCompensation
-
-                ConsolinnoAvoidZeroCompensation {
-                    id: avoidZeroCompensation
-                }
-
             }
 
             Item {
@@ -181,6 +170,24 @@ GenericConfigPage {
                                 Layout.preferredHeight: 10
                             }
                         }
+                    }
+                }
+            }
+
+            Item {
+                anchors.top: parent.top
+                width: parent.width
+                ColumnLayout {
+                    id: containerAvoidZeroCompensation
+                    width: root.width
+
+                    ConsolinnoAvoidZeroCompensation {
+                        id: avoidZeroCompensation
+                        Layout.rightMargin: app.margins
+                        Layout.leftMargin: app.margins
+                        width: containerAvoidZeroCompensation.width
+                        visible: isBatteryView && isZeroCompensation
+
                     }
                 }
             }
