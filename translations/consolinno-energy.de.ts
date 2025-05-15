@@ -246,7 +246,7 @@
     </message>
     <message>
         <source>On days with negative electricity prices, battery capacity is actively reserved so that the battery can be charged during the hours with negative electricity prices and feed-in without remuneration is avoided. As soon as the control becomes active, the charging of the battery is limited (visible on the yellow message on the screen).</source>
-        <translation>An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden.   Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen).</translation>
+        <translation>An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen).</translation>
     </message>
 </context>
 <context>
