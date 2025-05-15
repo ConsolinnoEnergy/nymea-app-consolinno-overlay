@@ -222,14 +222,36 @@ Page {
                 wrapMode: Text.WordWrap
             }
 
+            ThingsProxy {
+                id: eebus
+                engine: _engine
+                shownInterfaces: ["gateway"]
+            }
+
             ComboBox {
                 id: thingClassComboBox
                 Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"
-                valueRole: "id"
-                model: ThingClassesProxy {
+                valueRole: "valueRoleID"
+                currentIndex: 0
+                ThingClassesProxy {
+                    id: heatpump
                     engine: _engine
                     filterInterface: "heatpump"
+                }
+
+                model: ListModel {
+                    id: modelID
+
+                    Component.onCompleted: {
+                        if(eebus.count > 0){
+                            append({valueRoleID: "{a6273bc4-6ee4-4b76-ba20-edb3c054f158}", displayName: qsTr("EEBUS heat pump")});
+                        }
+                        for (var i = 0; i <= heatpump.count; i++) {
+                            append({valueRoleID: heatpump.get(i).id.toString(), displayName: heatpump.get(i).displayName});
+                        }
+                        thingClassComboBox
+                    }
                 }
             }
         }
@@ -356,7 +378,6 @@ Page {
 
 
             Component.onCompleted: {
-
                 // if discovery and user. Always Discovery
                 if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
 
@@ -372,9 +393,11 @@ Page {
                 else if (thingClass.createMethods.indexOf("CreateMethodUser") !== -1) {
                     pageStack.push(paramsPage, {thingClass: thingClass})
                 }
-
+                else if (thingClass.createMethods.indexOf("auto") !== -1) {
+                    pageStack.push(discoveryPage, {thingClass: thingClass})
+                    discovery.discoverThings(thingClass.id)
+                }
             }
-
         }
     }
 
