@@ -262,7 +262,7 @@ StackView {
                 ListModel{
                     id: myListModel
                     ListElement{name: qsTr("Relais"); description: qsTr("")}
-                    ListElement{name: qsTr("EEBUS Controlbox"); description: qsTr("Musst be in same Network")}
+                    ListElement{name: qsTr("EEBUS Controlbox"); description: qsTr("Must be in same Network")}
                 }
 
                 ButtonGroup {
