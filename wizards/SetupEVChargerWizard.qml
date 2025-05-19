@@ -206,14 +206,34 @@ Page {
                 wrapMode: Text.WordWrap
             }
 
+            ThingsProxy {
+                id: eebus
+                engine: _engine
+                shownInterfaces: ["gateway"]
+            }
+
             ComboBox {
                 id: thingClassComboBox
                 Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"
-                valueRole: "id"
-                model: ThingClassesProxy {
+                valueRole: "valueRoleID"
+                currentIndex: 0
+                ThingClassesProxy {
+                    id: evcharger
                     engine: _engine
                     filterInterface: "evcharger"
+                }
+                model: ListModel {
+                    id: modelID
+
+                    Component.onCompleted: {
+                        append({valueRoleID: "{15e6bb51-ef91-4668-9f6f-a43413d4ee4b}", displayName: qsTr("EEBUS Wallbox")});
+                        for (var i = 0; i <= evcharger.count; i++) {
+                            if(isNaN(evcharger.get(i))){
+                                append({valueRoleID: evcharger.get(i).id.toString(), displayName: evcharger.get(i).displayName});
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -343,9 +363,12 @@ Page {
 
 
             Component.onCompleted: {
-
-                // if discovery and user. Always Discovery
-                if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
+                // only for eebus
+                if (thingClass.name === "eebusEVSE") {
+                    pageStack.push(discoveryPage, {thingClass: thingClass})
+                    discovery.discoverThings(thingClass.id)
+                }// if discovery and user. Always Discovery
+                else if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
 
                     if (thingClass["discoveryParamTypes"].count > 0) {
                         // ThingDiscovery with discoveryParams
