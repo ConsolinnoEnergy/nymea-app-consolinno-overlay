@@ -1090,6 +1090,17 @@
     </message>
 </context>
 <context>
+    <name>ConsolinnoGridSupportiveControlAlert</name>
+    <message>
+        <source>Attention</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Existing set-up will be overwritten.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoImprint</name>
     <message>
         <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
@@ -3009,7 +3020,7 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Abbrechen</translation>
     </message>
     <message>
         <source>OK</source>
@@ -3111,10 +3122,122 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
 </context>
 <context>
-    <name>GridSupportiveControlConfig</name>
+    <name>GridSupportiveControl</name>
+    <message>
+        <source>not connected</source>
+        <translation>nicht verbunden</translation>
+    </message>
+    <message>
+        <source>connected</source>
+        <translation>verbunden</translation>
+    </message>
+    <message>
+        <source>Confirmation by network operator pending</source>
+        <translation>Bestätigung durch Netzbetreiber ausstehend</translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
+        <translation>Der Verbrauch ist &lt;b&gt;temporär blockiert&lt;/b&gt; durch den Netzbetreiber.</translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; according to §14a minimum.</source>
+        <translation>Der Verbrauch wird &lt;b&gt;vorübergehend reduziert&lt;/b&gt; auf &lt;b&gt;%1 kW&lt;/b&gt; gemäß §14a mindestens.</translation>
+    </message>
     <message>
         <source>Grid Supportive Control</source>
+        <translation>Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>Grid supportive-control set-up</source>
+        <translation>Netzdienlichkeit Einrichten</translation>
+    </message>
+    <message>
+        <source>Grid-Supportive Control</source>
+        <translation>Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>Control type</source>
+        <translation>Steuerungsart</translation>
+    </message>
+    <message>
+        <source>Relais</source>
+        <translation>Relais</translation>
+    </message>
+    <message>
+        <source></source>
         <translation></translation>
+    </message>
+    <message>
+        <source>EEBUS Controlbox</source>
+        <translation>EEBUS Steuerbox</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Grid supportive-control set-up - Relais</source>
+        <translation>Netzdienlichkeit einrichten - Relais</translation>
+    </message>
+    <message>
+        <source>The relays are configured as follows</source>
+        <translation>Die Relais sind wie folgt konfiguriert</translation>
+    </message>
+    <message>
+        <source>Complete setup</source>
+        <translation>Einrichtung abschliessen</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <source>Reconfigure</source>
+        <translation>Neu konfigurieren</translation>
+    </message>
+    <message>
+        <source>Grid supportive-control set-up - EEBUS</source>
+        <translation>Netzdienlichkeit einrichten - EEBUS</translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found:</source>
+        <translation>Folgende EEBUS-Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Search again</source>
+        <translation>Erneut suchen</translation>
+    </message>
+    <message>
+        <source>Parameter</source>
+        <translation>Parameter</translation>
+    </message>
+    <message>
+        <source>This SKI is required by the network operator.</source>
+        <translation>Diese SKI wird vom Netzbetreiber benötigt.</translation>
+    </message>
+    <message>
+        <source>SKI copied to clipboard</source>
+        <translation>SKI in die Zwischenablage kopiert</translation>
+    </message>
+    <message>
+        <source>Establish a connection with this device.</source>
+        <translation>Mit diesem Gerät eine Verbindung aufbauen.</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
+        <source>Back to overview</source>
+        <translation>Zurück zur Übersicht</translation>
+    </message>
+    <message>
+        <source>Must be in same Network</source>
+        <translation>Muss im selben Netzwerk sein</translation>
     </message>
 </context>
 <context>
@@ -3376,6 +3499,10 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Dynamic electricity tariff</source>
         <translation>Dynamischer Stromtarif</translation>
+    </message>
+    <message>
+        <source>Grid Supportive Control</source>
+        <translation>Netzdienlichkeit</translation>
     </message>
 </context>
 <context>

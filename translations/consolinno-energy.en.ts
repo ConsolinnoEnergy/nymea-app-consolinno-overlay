@@ -1090,6 +1090,17 @@
     </message>
 </context>
 <context>
+    <name>ConsolinnoGridSupportiveControlAlert</name>
+    <message>
+        <source>Attention</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Existing set-up will be overwritten.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoImprint</name>
     <message>
         <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
@@ -3090,9 +3101,121 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
 </context>
 <context>
-    <name>GridSupportiveControlConfig</name>
+    <name>GridSupportiveControl</name>
+    <message>
+        <source>not connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirmation by network operator pending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; according to §14a minimum.</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <source>Grid Supportive Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid supportive-control set-up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-Supportive Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Control type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relais</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>EEBUS Controlbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid supportive-control set-up - Relais</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The relays are configured as follows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Complete setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconfigure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid supportive-control set-up - EEBUS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parameter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This SKI is required by the network operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SKI copied to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Establish a connection with this device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back to overview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Must be in same Network</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3353,6 +3476,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Dynamic electricity tariff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid Supportive Control</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
