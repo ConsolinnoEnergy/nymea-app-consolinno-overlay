@@ -31,7 +31,7 @@ ConsolinnoWizardPageBase {
             contentHeight: textAreaTerms.height
             clip: true
 
-            
+
 
             TextArea {
                 id: textAreaTerms

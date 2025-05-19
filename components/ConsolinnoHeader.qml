@@ -17,12 +17,14 @@ Item {
     property var backButtonColor: Material.accent
 
     property alias menuButtonVisible: menuButton.visible
+    property alias menuOptionsButtonVisible: menuOptionsButton.visible
 
     default property alias children: layout.data
     property alias elide: label.elide
 
     signal backPressed();
     signal menuPressed();
+    signal menuOptionsPressed();
 
     function showInfo(text, isError, isSticky) {
         if (isError === undefined) isError = false;
@@ -56,8 +58,6 @@ Item {
             imageSource: "../images/back.svg"
             onClicked: root.backPressed();
             color: root.backButtonColor
-
-
         }
 
         Item {
@@ -97,7 +97,13 @@ Item {
             Layout.fillWidth: true
         }
 
-
+        HeaderButton {
+            id: menuOptionsButton
+            objectName: "headerMenuOptionsButton"
+            imageSource: "../images/navigation-menu.svg"
+            visible: false
+            onClicked: root.menuOptionsPressed();
+        }
 
 
 
