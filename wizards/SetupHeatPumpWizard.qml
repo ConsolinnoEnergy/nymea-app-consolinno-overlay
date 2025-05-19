@@ -239,7 +239,6 @@ Page {
                     engine: _engine
                     filterInterface: "heatpump"
                 }
-
                 model: ListModel {
                     id: modelID
 
@@ -250,7 +249,6 @@ Page {
                         for (var i = 0; i <= heatpump.count; i++) {
                             append({valueRoleID: heatpump.get(i).id.toString(), displayName: heatpump.get(i).displayName});
                         }
-                        thingClassComboBox
                     }
                 }
             }
@@ -392,7 +390,7 @@ Page {
                 }// User
                 else if (thingClass.createMethods.indexOf("CreateMethodUser") !== -1) {
                     pageStack.push(paramsPage, {thingClass: thingClass})
-                }
+                }// search for eebus heatpump
                 else if (thingClass.createMethods.indexOf("auto") !== -1) {
                     pageStack.push(discoveryPage, {thingClass: thingClass})
                     discovery.discoverThings(thingClass.id)
