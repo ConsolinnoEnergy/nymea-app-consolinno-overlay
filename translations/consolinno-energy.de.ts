@@ -1093,11 +1093,11 @@
     <name>ConsolinnoGridSupportiveControlAlert</name>
     <message>
         <source>Attention</source>
-        <translation type="unfinished"></translation>
+        <translation>Achtung</translation>
     </message>
     <message>
         <source>Existing set-up will be overwritten.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestehende Einrichtungen werden überschrieben.</translation>
     </message>
 </context>
 <context>
