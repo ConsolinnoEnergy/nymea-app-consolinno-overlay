@@ -66,12 +66,6 @@ ConfigurationBase {
     readonly property color rootMeterReturnColor: "#45B4E4"
     readonly property color inverterColor: "#FCE487"
 
-    //other things
-    readonly property color epexColor: "#E056F5"
-    readonly property color epexMainLineColor: "#6CCB56"
-    readonly property color epexAverageColor: "#C65B5A"
-    readonly property color epexCurrentTime: "#2C723C"
-
     //other consumers
     readonly property color heatpumpColor: "#F7B772"
     readonly property color wallboxColor: "#ACE3E2"

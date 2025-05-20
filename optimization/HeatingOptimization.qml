@@ -123,7 +123,7 @@ Page {
             }
 
 
-            TextField {
+            ConsolinnoTextField {
                 id: maxElectricalPower
                 property bool maxElectricalPower_validated
                 Layout.preferredWidth: 60

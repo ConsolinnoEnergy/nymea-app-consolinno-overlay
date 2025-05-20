@@ -35,7 +35,7 @@ Item {
             font: Style.font
         }
 
-        TextField {
+        ConsolinnoTextField {
             id: textInput
 
             Layout.fillWidth: false

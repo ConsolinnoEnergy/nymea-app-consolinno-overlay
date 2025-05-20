@@ -12,6 +12,12 @@ StyleBase {
     property color consolinnoHighlight: "#189521"
     property color consolinnoHighlightForeground: Configuration.highlightForeground
 
+    // Epex colors
+    readonly property color epexColor: "#E056F5"
+    readonly property color epexMainLineColor: "#6CCB56"
+    readonly property color epexAverageColor: "#C65B5A"
+    readonly property color epexCurrentTime: "#2C723C"
+
     property real majorFontSize: 16
     property real screenMargins: 16
 
@@ -19,6 +25,7 @@ StyleBase {
     property real buttonFontSize: 16
     property real buttonTopPading: 16
     property real buttonLeftPadding: 32
+    property color textfield: "#767676"
 
     backgroundColor: "white"
     foregroundColor: consolinnoExtraDark

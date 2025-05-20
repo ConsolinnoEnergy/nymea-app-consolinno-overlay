@@ -20,9 +20,23 @@ StyleBase {
     property real buttonTopPading: 16
     property real buttonLeftPadding: 32
 
+    property color textfield: "#B6B6B6"
+
+    // Epex colors
+    readonly property color epexColor: "#E056F5"
+    readonly property color epexMainLineColor: "#6CCB56"
+    readonly property color epexAverageColor: "#C65B5A"
+    readonly property color epexBarCurrentTime: "#189521"
+    readonly property color epexBarPricingPast: "#3A3A3A"
+    readonly property color epexBarPricingCurrentTime: "#B6B6B6"
+    readonly property color epexBarPricingOutOfLimit: "#616161"
+    readonly property color epexBarOutLine: "#303030"
+    readonly property color epexBarMainLineColor: "#BDD786"
+
     backgroundColor: "#303030"
     foregroundColor: "#F4F6F4"
     subTextColor: "#B6B6B6"
+
     property color legendTileHeaderBgColor: "#80000000"
 
     tileOverlayIconColor: foregroundColor

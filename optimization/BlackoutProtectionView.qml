@@ -115,7 +115,7 @@ Page {
               Label {
                 text: "3 x A:"
               }
-              TextField {
+              ConsolinnoTextField {
                 id: otherLimit
                 rightPadding: 50//otherDelegate.width - otherDelegate.indicator.width - otherDelegate.spacing
                 placeholderText: "16 - 100"

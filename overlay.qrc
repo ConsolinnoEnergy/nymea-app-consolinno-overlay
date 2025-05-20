@@ -138,5 +138,6 @@
         <file>info/ZeroCompensationInfo.qml</file>
         <file>components/ConsolinnoSelectionTabs.qml</file>
         <file>components/ConsolinnoSwitch.qml</file>
+        <file>components/ConsolinnoTextField.qml</file>
     </qresource>
 </RCC>

@@ -682,7 +682,7 @@ MainViewBase {
 
         property int hours: 24
         readonly property var consumersColors: Configuration.consumerColors
-        readonly property color electricsColor: Configuration.epexColor
+        readonly property color electricsColor: Style.epexColor
         property string currentGridValueState: ""
 
         Canvas {

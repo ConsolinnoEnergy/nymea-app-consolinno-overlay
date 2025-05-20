@@ -242,7 +242,7 @@ Item {
                     axisY: valueAxis
                     color: 'transparent'
                     borderWidth: 1
-                    borderColor: Configuration.epexMainLineColor
+                    borderColor: Style.epexMainLineColor
 
                     lowerSeries: LineSeries {
                         id: pricingLowerSeries
@@ -335,7 +335,7 @@ Item {
                     axisY: valueAxis
                     color: 'transparent'
                     borderWidth: 1
-                    borderColor: Configuration.epexAverageColor
+                    borderColor: Style.epexAverageColor
 
                     upperSeries: LineSeries {
                         id: pricingUpperSeriesAbove
@@ -349,8 +349,8 @@ Item {
 
                 ScatterSeries {
                     id: currentValuePoint
-                    borderColor: Configuration.epexMainLineColor
-                    color: Configuration.epexMainLineColor
+                    borderColor: Style.epexMainLineColor
+                    color: Style.epexMainLineColor
                     markerSize: isDynamicPrice ? 5 : parent.height / 80
                     markerShape: AbstractSeries.MarkerShapeCircle
                     axisX: dateTimeAxis
@@ -386,7 +386,7 @@ Item {
                     spacing: 5
                     Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
-                        color: Configuration.epexMainLineColor
+                        color: Style.epexMainLineColor
                         width: 8
                         height: 8
                     }
@@ -402,7 +402,7 @@ Item {
                     spacing: 5
                     Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
-                        color: Configuration.epexAverageColor
+                        color: Style.epexAverageColor
                         width: 8
                         height: 8
                     }
