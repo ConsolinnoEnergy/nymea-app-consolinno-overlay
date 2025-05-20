@@ -3930,6 +3930,10 @@ For further assistance, please contact our support team at: %5</translation>
         <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>EEBUS heat pump</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SetupHeatingElementWizard</name>
