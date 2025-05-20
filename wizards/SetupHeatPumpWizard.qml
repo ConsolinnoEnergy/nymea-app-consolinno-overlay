@@ -222,11 +222,45 @@ Page {
                 wrapMode: Text.WordWrap
             }
 
-            ThingsProxy {
-                id: eebus
+            ThingClassesProxy {
+                id: heatpump
                 engine: _engine
-                shownInterfaces: ["gateway"]
+                filterInterface: "heatpump"
             }
+
+            ListModel {
+                id: modelID
+
+                Component.onCompleted: {
+                    let arr = [];
+
+                    arr.push({
+                        valueRoleID: "{a6273bc4-6ee4-4b76-ba20-edb3c054f158}",
+                        displayName: qsTr("EEBUS heat pump")
+                    });
+
+                    for (var i = 0; i < heatpump.count; ++i) {
+                        var item = heatpump.get(i);
+                        if (isNaN(item)) {
+                            arr.push({
+                                valueRoleID: item.id.toString(),
+                                displayName: item.displayName
+                            });
+                        }
+                    }
+
+                    arr.sort(function(a, b) {
+                        var a0 = a.displayName.charAt(0).toLowerCase();
+                        var b0 = b.displayName.charAt(0).toLowerCase();
+                        return a0.localeCompare(b0);
+                    });
+
+                    for (var j = 0; j < arr.length; ++j) {
+                        append(arr[j]);
+                    }
+                }
+            }
+
 
             ComboBox {
                 id: thingClassComboBox
@@ -234,23 +268,7 @@ Page {
                 textRole: "displayName"
                 valueRole: "valueRoleID"
                 currentIndex: 0
-                ThingClassesProxy {
-                    id: heatpump
-                    engine: _engine
-                    filterInterface: "heatpump"
-                }
-                model: ListModel {
-                    id: modelID
-
-                    Component.onCompleted: {
-                        if(eebus.count > 0){
-                            append({valueRoleID: "{a6273bc4-6ee4-4b76-ba20-edb3c054f158}", displayName: qsTr("EEBUS heat pump")});
-                        }
-                        for (var i = 0; i <= heatpump.count; i++) {
-                            append({valueRoleID: heatpump.get(i).id.toString(), displayName: heatpump.get(i).displayName});
-                        }
-                    }
-                }
+                model: modelID
             }
         }
 
@@ -374,10 +392,13 @@ Page {
             property var thingClass: engine.thingManager.thingClasses.getThingClass(thingClassId)
             property var thing: null
 
-
             Component.onCompleted: {
-                // if discovery and user. Always Discovery
-                if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
+                // search for eebus heatpump
+                if (thingClass.name === "eebusHeatpump") {
+                    pageStack.push(discoveryPage, {thingClass: thingClass})
+                    discovery.discoverThings(thingClass.id)
+                }// if discovery and user. Always Discovery
+                else if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
 
                     if (thingClass["discoveryParamTypes"].count > 0) {
                         // ThingDiscovery with discoveryParams
@@ -390,10 +411,6 @@ Page {
                 }// User
                 else if (thingClass.createMethods.indexOf("CreateMethodUser") !== -1) {
                     pageStack.push(paramsPage, {thingClass: thingClass})
-                }// search for eebus heatpump
-                else if (thingClass.createMethods.indexOf("auto") !== -1) {
-                    pageStack.push(discoveryPage, {thingClass: thingClass})
-                    discovery.discoverThings(thingClass.id)
                 }
             }
         }
