@@ -3,6 +3,7 @@ import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
+import QtQuick.Shapes 1.15
 import Nymea 1.0
 import "../components"
 import "../delegates"
@@ -27,17 +28,14 @@ Rectangle {
 
     RowLayout {
         width: parent.width
-        //spacing: 5
-
-        Item {
-            Layout.preferredWidth: 10
-        }
+        spacing: 2
 
         Canvas {
             id: triangle
             width: 20
             height: 17
-            RowLayout.alignment: Qt.AlignVCenter
+            RowLayout.leftMargin: 13
+            anchors.bottom: attentionLabel.baseline
 
             onPaint: {
                 var ctx = getContext("2d");
@@ -66,6 +64,7 @@ Rectangle {
         }
 
         Label {
+            id: attentionLabel
             font.pixelSize: 16
             text: qsTr("Attention")
             font.bold: true
