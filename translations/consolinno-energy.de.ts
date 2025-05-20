@@ -3964,6 +3964,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
         <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant.</translation>
     </message>
+    <message>
+        <source>EEBUS heat pump</source>
+        <translation>EEBUS Wärmepumpe</translation>
+    </message>
 </context>
 <context>
     <name>SetupHeatingElementWizard</name>
