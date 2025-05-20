@@ -206,10 +206,43 @@ Page {
                 wrapMode: Text.WordWrap
             }
 
-            ThingsProxy {
-                id: eebus
+            ThingClassesProxy {
+                id: evcharger
                 engine: _engine
-                shownInterfaces: ["gateway"]
+                filterInterface: "evcharger"
+            }
+
+            ListModel {
+                id: modelID
+
+                Component.onCompleted: {
+                    let arr = [];
+
+                    arr.push({
+                        valueRoleID: "{15e6bb51-ef91-4668-9f6f-a43413d4ee4b}",
+                        displayName: qsTr("EEBUS Wallbox")
+                    });
+
+                    for (var i = 0; i < evcharger.count; ++i) {
+                        var item = evcharger.get(i);
+                        if (isNaN(item)) {
+                            arr.push({
+                                valueRoleID: item.id.toString(),
+                                displayName: item.displayName
+                            });
+                        }
+                    }
+
+                    arr.sort(function(a, b) {
+                        var a0 = a.displayName.charAt(0).toLowerCase();
+                        var b0 = b.displayName.charAt(0).toLowerCase();
+                        return a0.localeCompare(b0);
+                    });
+
+                    for (var j = 0; j < arr.length; ++j) {
+                        append(arr[j]);
+                    }
+                }
             }
 
             ComboBox {
@@ -218,23 +251,7 @@ Page {
                 textRole: "displayName"
                 valueRole: "valueRoleID"
                 currentIndex: 0
-                ThingClassesProxy {
-                    id: evcharger
-                    engine: _engine
-                    filterInterface: "evcharger"
-                }
-                model: ListModel {
-                    id: modelID
-
-                    Component.onCompleted: {
-                        append({valueRoleID: "{15e6bb51-ef91-4668-9f6f-a43413d4ee4b}", displayName: qsTr("EEBUS Wallbox")});
-                        for (var i = 0; i <= evcharger.count; i++) {
-                            if(isNaN(evcharger.get(i))){
-                                append({valueRoleID: evcharger.get(i).id.toString(), displayName: evcharger.get(i).displayName});
-                            }
-                        }
-                    }
-                }
+                model: modelID
             }
         }
 
@@ -361,7 +378,6 @@ Page {
             property var thingClass: engine.thingManager.thingClasses.getThingClass(thingClassId)
             property var thing: null
 
-
             Component.onCompleted: {
                 // only for eebus
                 if (thingClass.name === "eebusEVSE") {
@@ -381,15 +397,8 @@ Page {
                 }// not supported yet
                 else if (thingClass.createMethods.indexOf("CreateMethodUser") !== -1) {
                     pageStack.push(paramsPage, {thingClass: thingClass})
-
                 }
-
             }
-
-
-
-
-
         }
     }
 
