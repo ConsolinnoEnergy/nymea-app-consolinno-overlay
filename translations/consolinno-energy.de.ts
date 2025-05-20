@@ -2694,7 +2694,7 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.9.1&lt;/p&gt;
+&lt;p&gt;Version 1.10.0&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
     &lt;li&gt;Nullvergütung vermeiden: Funktion zur gezielten Beladung der Batterie bei negativen Strompreisen 
