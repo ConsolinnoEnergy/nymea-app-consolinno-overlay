@@ -3952,6 +3952,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant.</translation>
     </message>
     <message>
+        <source>EEBUS heat pump</source>
+        <translation>EEBUS Wärmepumpe</translation>
+    </message>
+    <message>
         <source>Please change name if necessary.</source>
         <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>

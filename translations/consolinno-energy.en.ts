@@ -3927,7 +3927,11 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please change name if necessary.</source>
+        <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EEBUS heat pump</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
