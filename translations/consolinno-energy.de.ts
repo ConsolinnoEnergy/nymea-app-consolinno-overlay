@@ -2600,11 +2600,12 @@ fügen Sie eine weitere hinzu.</translation>
 &lt;p&gt;Version 1.9.1&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Nullvergütung vermeiden&lt;/li&gt;
-      &lt;li&gt; Funktion zur gezielten Beladung der Baterie bei negativen Strompreisen (nur für ausgewählte Modelle verfügbar)&lt;/li&gt;
-    &lt;ul&gt;
-    &lt;li&gt;Verbesserungen&lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;li&gt;Nullvergütung vermeiden: Funktion zur gezielten Beladung der Batterie bei negativen Strompreisen 
+    (nur für ausgewählte Modelle verfügbar)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;Verbesserungen&lt;/h4&gt;
+&lt;ul&gt;
     &lt;li&gt;Modbus RTU-Einstellungen im Inbetriebnahme-Assistenten verfügbar&lt;/li&gt;
     &lt;li&gt;Verbesserter Ladeplan bei Tarifgesteuerten Laden der Batterie&lt;/li&gt;
 &lt;/ul&gt;</translation>
