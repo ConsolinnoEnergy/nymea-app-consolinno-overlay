@@ -228,6 +228,13 @@ Page {
                 filterInterface: "heatpump"
             }
 
+            ThingClassesProxy {
+                id: eebusHeatpump
+                engine: _engine
+                filterString: "EEBus"
+                filterInterface: "gateway"
+            }
+
             ListModel {
                 id: modelID
 
@@ -235,7 +242,7 @@ Page {
                     let arr = [];
 
                     arr.push({
-                        valueRoleID: "{a6273bc4-6ee4-4b76-ba20-edb3c054f158}",
+                        valueRoleID: eebusHeatpump.get(0).id.toString(),
                         displayName: qsTr("EEBUS heat pump")
                     });
 
@@ -395,8 +402,9 @@ Page {
             Component.onCompleted: {
                 // search for eebus heatpump
                 if (thingClass.name === "eebusHeatpump") {
-                    pageStack.push(discoveryPage, {thingClass: thingClass})
+                    console.error(thingClass.id)
                     discovery.discoverThings(thingClass.id)
+                    pageStack.push(discoveryPage, {thingClass: thingClass})
                 }// if discovery and user. Always Discovery
                 else if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
 
@@ -485,8 +493,8 @@ Page {
                 model: ThingDiscoveryProxy {
                     id: discoveryProxy
                     thingDiscovery: discovery
-                    showAlreadyAdded: thing !== null
-                    showNew: thing === null
+                    //showAlreadyAdded: thing !== null
+                    //showNew: thing === null
                     //filterThingId: root.thing ? root.thing.id : ""
                 }
                 delegate: NymeaItemDelegate {
@@ -500,6 +508,11 @@ Page {
                         pageStack.push(paramsPage,{thingClass: thingClass, thing: thing})
                     }
                 }
+            }
+
+            Component.onCompleted: {
+                console.error(discovery.count)
+                console.error(discoveryProxy.count)
             }
 
             busy: discovery.busy

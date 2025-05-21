@@ -212,6 +212,13 @@ Page {
                 filterInterface: "evcharger"
             }
 
+            ThingClassesProxy {
+                id: eebusWallbox
+                engine: _engine
+                filterString: "EEBus"
+                filterInterface: "gateway"
+            }
+
             ListModel {
                 id: modelID
 
@@ -219,7 +226,7 @@ Page {
                     let arr = [];
 
                     arr.push({
-                        valueRoleID: "{15e6bb51-ef91-4668-9f6f-a43413d4ee4b}",
+                        valueRoleID: eebusWallbox.get(0).id.toString(),
                         displayName: qsTr("EEBUS Wallbox")
                     });
 
