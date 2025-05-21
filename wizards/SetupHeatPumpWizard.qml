@@ -400,12 +400,10 @@ Page {
             property var thing: null
 
             Component.onCompleted: {
-                // search for eebus heatpump
-                if (thingClass.name === "eebusHeatpump") {
-                    console.error(thingClass.id)
+                if(thingClass.name === "eebusDevice") {
                     discovery.discoverThings(thingClass.id)
-                    pageStack.push(discoveryPage, {thingClass: thingClass})
-                }// if discovery and user. Always Discovery
+                    pageStack.push(heatpumpSearch, {thingClass: thingClass})
+                }
                 else if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
 
                     if (thingClass["discoveryParamTypes"].count > 0) {
@@ -467,6 +465,113 @@ Page {
         }
     }
 
+    Component {
+        id: heatpumpSearch
+
+        Page {
+            header: NymeaHeader {
+                text: qsTr("Grid supportive-control set-up - EEBUS")
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
+
+            property var thingClass
+
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    Layout.fillHeight: true
+                    Text {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 5
+                        Layout.bottomMargin: 0
+                        textFormat: Text.RichText
+                        font.pointSize: 20
+                        font.bold: true
+                        wrapMode: Text.WordWrap
+                        text: qsTr("The following EEBUS devices were found:")
+                        color: Style.consolinnoDark
+                    }
+                }
+
+                Flickable {
+                    id: flick
+                    height: parent.height - 300
+                    Layout.fillWidth: true
+                    clip: true
+
+                    contentWidth: parent.width
+                    contentHeight: column.implicitHeight
+
+                    ColumnLayout {
+                        id: column
+                        width: parent.width
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        spacing: 5
+
+                        Repeater {
+                            id: eebuRepeater
+
+                            model: ThingDiscoveryProxy {
+                                id: eebusDiscovery
+                                thingDiscovery: discovery
+                            }
+                            delegate: ConsolinnoItemDelegate {
+                                Layout.fillWidth: true
+                                iconName: "../images/connections/network-wired.svg"
+                                text: model.name
+                                subText: model.description
+                                progressive: true
+                                onClicked: {
+                                    pageStack.push(eebusSetup, {thingClass: thingClassesProxy.get(0), discoveryThingParams: eebusDiscovery.get(index)});
+                                }
+                            }
+                        }
+                    }
+                }
+
+                VerticalDivider {
+                    Layout.fillWidth: true
+                    dividerColor: Material.accent
+                }
+
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+
+                    Button {
+                        id: completeSetupButton
+                        Layout.fillWidth: true
+                        text: qsTr("Search again")
+                        onClicked: {
+                            discovery.discoverThings(thingClassesProxy.get(0).id)
+                        }
+                    }
+
+                    Button {
+                        id: cancel
+                        Layout.fillWidth: true
+                        text: qsTr("Cancel")
+                        background: Rectangle {
+                            color: "transparent"
+                        }
+
+                        onClicked: {
+                            pageStack.pop()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     // discoveryPage
     Component {
         id: discoveryPage
@@ -493,8 +598,8 @@ Page {
                 model: ThingDiscoveryProxy {
                     id: discoveryProxy
                     thingDiscovery: discovery
-                    //showAlreadyAdded: thing !== null
-                    //showNew: thing === null
+                    showAlreadyAdded: thing !== null
+                    showNew: thing === null
                     //filterThingId: root.thing ? root.thing.id : ""
                 }
                 delegate: NymeaItemDelegate {
@@ -508,11 +613,6 @@ Page {
                         pageStack.push(paramsPage,{thingClass: thingClass, thing: thing})
                     }
                 }
-            }
-
-            Component.onCompleted: {
-                console.error(discovery.count)
-                console.error(discoveryProxy.count)
             }
 
             busy: discovery.busy
