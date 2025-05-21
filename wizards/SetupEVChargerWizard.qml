@@ -386,12 +386,7 @@ Page {
             property var thing: null
 
             Component.onCompleted: {
-                // only for eebus
-                if (thingClass.name === "eebusEVSE") {
-                    pageStack.push(discoveryPage, {thingClass: thingClass})
-                    discovery.discoverThings(thingClass.id)
-                }// if discovery and user. Always Discovery
-                else if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
+                if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
 
                     if (thingClass["discoveryParamTypes"].count > 0) {
                         // ThingDiscovery with discoveryParams
