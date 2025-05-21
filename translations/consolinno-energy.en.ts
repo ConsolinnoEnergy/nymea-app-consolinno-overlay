@@ -2590,11 +2590,11 @@ Use a timeout value greater or equal to 10 ms.</source>
 &lt;p&gt;Version 1.9.1&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Avoiding zero compensation&lt;/li&gt;
-      &lt;li&gt; Function for specific battery charging with negative electricity prices (only available for selected models)&lt;/li&gt;
-    &lt;ul&gt;
-    &lt;li&gt;Improvements&lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;li&gt;Avoiding zero compensation: Function for specific battery charging with negative electricity prices 
+     (only available for selected models)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Improvements&lt;/h4&gt;
+&lt;ul&gt;
     &lt;li&gt;Modbus RTU settings available in the commissioning wizard&lt;/li&gt;
     &lt;li&gt;Improved charging schedule for tariff-controlled battery charging&lt;/li&gt;
 &lt;/ul&gt;</translation>
