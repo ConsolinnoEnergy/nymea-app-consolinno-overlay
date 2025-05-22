@@ -182,6 +182,7 @@ Page {
                     for (let i = 0; i < thingClass.interfaces.length; i++) {
                         let icon = "";
                         let interfaceIcons = thingClass.interfaces[i];
+                        let batteryIcon = interfaceIcons === "energystorage" ? "energystorage" : interfaceIcons === "controllablebattery" ? "controllablebattery" :  interfaceIcons === "limitablebattery" ? "limitablebattery" : ""
                         switch (interfaceIcons) {
                         case "simpleheatpump":
                             if(Configuration.heatpumpIcon !== ""){
@@ -211,7 +212,7 @@ Page {
                                 icon = "/ui/images/heating_rod.svg"
                             }
                             return Qt.resolvedUrl(icon)
-                        case "energystorage":
+                        case batteryIcon:
                             if(Configuration.batteryIcon !== ""){
                                 icon = "/ui/images/"+Configuration.batteryIcon
                             }else{
