@@ -14,7 +14,6 @@ Item {
     property string text
     property bool show_Image: false
     property alias backButtonVisible: backButton.visible
-    property var backButtonColor: Material.accent
 
     property alias menuButtonVisible: menuButton.visible
     property alias menuOptionsButtonVisible: menuOptionsButton.visible
@@ -57,7 +56,6 @@ Item {
             objectName: "backButton"
             imageSource: "../images/back.svg"
             onClicked: root.backPressed();
-            color: root.backButtonColor
         }
 
         Item {
