@@ -606,8 +606,8 @@ Page {
                 model: ThingDiscoveryProxy {
                     id: discoveryProxy
                     thingDiscovery: discovery
-                    showAlreadyAdded: thing !== null
-                    showNew: thing === null
+                    //showAlreadyAdded: thing !== null
+                    //showNew: thing === null
                     //filterThingId: root.thing ? root.thing.id : ""
                 }
                 delegate: NymeaItemDelegate {
@@ -621,6 +621,11 @@ Page {
                         pageStack.push(paramsPage,{thingClass: thingClass, thing: thing})
                     }
                 }
+            }
+
+            Component.onCompleted: {
+                console.error(discovery.count)
+                console.error(discoveryProxy.count)
             }
 
             busy: discovery.busy
