@@ -3062,7 +3062,7 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>Grid supportive-control set-up</source>
-        <translation>Netzdienlichkeit Einrichten</translation>
+        <translation>Netzdienlichkeit einrichten</translation>
     </message>
     <message>
         <source>Grid-Supportive Control</source>
@@ -3093,10 +3093,6 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <source>Grid supportive-control set-up - Relais</source>
-        <translation>Netzdienlichkeit einrichten - Relais</translation>
-    </message>
-    <message>
         <source>The relays are configured as follows</source>
         <translation>Die Relais sind wie folgt konfiguriert</translation>
     </message>
@@ -3111,10 +3107,6 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Reconfigure</source>
         <translation>Neu konfigurieren</translation>
-    </message>
-    <message>
-        <source>Grid supportive-control set-up - EEBUS</source>
-        <translation>Netzdienlichkeit einrichten - EEBUS</translation>
     </message>
     <message>
         <source>The following EEBUS devices were found:</source>
@@ -3149,8 +3141,28 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Zurück zur Übersicht</translation>
     </message>
     <message>
-        <source>Must be in same Network</source>
-        <translation>Muss im selben Netzwerk sein</translation>
+        <source>Must be in same Network.</source>
+        <translation>Muss im selben Netzwerk sein.</translation>
+    </message>
+    <message>
+        <source>Grid supportive-control set-up – Relais</source>
+        <translation>Netzdienlichkeit einrichten – Relais</translation>
+    </message>
+    <message>
+        <source>Grid supportive-control set-up – EEBUS</source>
+        <translation>Netzdienlichkeit einrichten – EEBUS</translation>
+    </message>
+    <message>
+        <source>The relays are configured as follows:</source>
+        <translation>Die Relais sind wie folgt konfiguriert:</translation>
+    </message>
+    <message>
+        <source>Grid supportive-control – Relais</source>
+        <translation>Netzdienlichkeit – Relais</translation>
+    </message>
+    <message>
+        <source>Grid supportive-control – EEBUS</source>
+        <translation>Netzdienlichkeit – EEBUS</translation>
     </message>
 </context>
 <context>
