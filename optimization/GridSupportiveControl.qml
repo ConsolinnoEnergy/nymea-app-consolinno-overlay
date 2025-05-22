@@ -262,7 +262,7 @@ StackView {
                 ListModel{
                     id: myListModel
                     ListElement{name: qsTr("Relais"); description: qsTr("")}
-                    ListElement{name: qsTr("EEBUS Controlbox"); description: qsTr("Must be in same Network")}
+                    ListElement{name: qsTr("EEBUS Controlbox"); description: qsTr("Must be in same Network.")}
                 }
 
                 ButtonGroup {
@@ -342,7 +342,7 @@ StackView {
         Page {
 
             header: NymeaHeader {
-                text: qsTr("Grid supportive-control set-up - Relais")
+                text: qsTr("Grid supportive-control set-up – Relais")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -357,14 +357,13 @@ StackView {
                     Layout.topMargin: app.margins
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-
                     Text {
                         Layout.fillWidth: true
                         textFormat: Text.RichText
                         font.pointSize: 20
                         font.bold: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The relays are configured as follows")
+                        text: qsTr("The relays are configured as follows:")
                         color: Style.consolinnoDark
                     }
                 }
@@ -372,18 +371,14 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-
+                    spacing: 0
                     Image {
+                        Layout.topMargin: 0
+                        Layout.preferredHeight: width * (implicitHeight/implicitWidth)
                         Layout.fillWidth: true
-                        Layout.fillHeight: true
                         fillMode: Image.PreserveAspectFit
                         source: "../images/relais_screen.png"
                         clip: true
-                    }
-
-                    Item {
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
                     }
                 }
 
@@ -429,12 +424,12 @@ StackView {
                             pageStack.pop()
                         }
                     }
-                }
 
-                Item {
-                    Layout.fillHeight: true
+                    Item {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                    }
                 }
-
             }
         }
     }
@@ -446,7 +441,7 @@ StackView {
         Page {
 
             header: ConsolinnoHeader {
-                text: qsTr("Grid supportive-control set-up - Relais")
+                text: qsTr("Grid supportive-control – Relais")
                 backButtonVisible: true
                 menuOptionsButtonVisible: true
                 onBackPressed: pageStack.pop()
@@ -544,7 +539,7 @@ StackView {
                         font.pointSize: 20
                         font.bold: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The relays are configured as follows")
+                        text: qsTr("The relays are configured as follows:")
                         color: Style.consolinnoDark
                     }
                 }
@@ -552,10 +547,11 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-
+                    spacing: 0
                     Image {
                         Layout.fillWidth: true
-                        Layout.fillHeight: true
+                        Layout.topMargin: 0
+                        Layout.preferredHeight: width * (implicitHeight/implicitWidth)
                         fillMode: Image.PreserveAspectFit
                         source: "../images/relais_screen.png"
                         clip: true
@@ -565,10 +561,6 @@ StackView {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                     }
-                }
-
-                Item {
-                    Layout.fillHeight: true
                 }
             }
         }
@@ -580,7 +572,7 @@ StackView {
         Page {
 
             header: NymeaHeader {
-                text: qsTr("Grid supportive-control set-up - EEBUS")
+                text: qsTr("Grid supportive-control set-up – EEBUS")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -693,7 +685,7 @@ StackView {
             property var discoveryThingParams
 
             header: NymeaHeader {
-                text: qsTr("Grid supportive-control set-up - EEBUS")
+                text: qsTr("Grid supportive-control set-up – EEBUS")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -847,7 +839,7 @@ StackView {
         Page {
 
             header: ConsolinnoHeader {
-                text: qsTr("Grid supportive-control set-up - EEBUS")
+                text: qsTr("Grid supportive-control – EEBUS")
                 backButtonVisible: true
                 menuOptionsButtonVisible: true
                 onBackPressed: pageStack.pop()
@@ -1118,7 +1110,7 @@ StackView {
             property var discoveryThingParams
 
             header: NymeaHeader {
-                text: qsTr("Grid supportive-control set-up - EEBUS")
+                text: qsTr("Grid supportive-control set-up – EEBUS")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }

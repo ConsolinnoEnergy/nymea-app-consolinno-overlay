@@ -3159,10 +3159,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Grid supportive-control set-up - Relais</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The relays are configured as follows</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3176,10 +3172,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Reconfigure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid supportive-control set-up - EEBUS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3215,7 +3207,27 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Must be in same Network</source>
+        <source>Must be in same Network.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid supportive-control set-up – Relais</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid supportive-control set-up – EEBUS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The relays are configured as follows:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid supportive-control – Relais</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid supportive-control – EEBUS</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

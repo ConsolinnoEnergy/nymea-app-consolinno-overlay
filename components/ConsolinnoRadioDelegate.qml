@@ -17,7 +17,11 @@ RadioDelegate {
 
     Layout.fillWidth: true
 
-    contentItem: Column {
+    Component.onCompleted: {
+        console.error(control.description.length)
+    }
+
+    contentItem: ColumnLayout {
         spacing: 0
 
         Text {
@@ -32,7 +36,7 @@ RadioDelegate {
 
         Text {
             id: descriptionText
-            visible: control.description.length > 0
+            visible: control.description.length > 1
             text: control.description
             font.pixelSize: 12
             wrapMode: Text.Wrap
