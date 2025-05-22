@@ -470,7 +470,7 @@ Page {
 
         Page {
             header: NymeaHeader {
-                text: qsTr("Grid supportive-control set-up - EEBUS")
+                text: qsTr("Heatpump set-up")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -530,7 +530,16 @@ Page {
                                 subText: model.description
                                 progressive: true
                                 onClicked: {
-                                    pageStack.push(eebusSetup, {thingClass: thingClassesProxy.get(0), discoveryThingParams: eebusDiscovery.get(index)});
+                                    var paramTypes = thingClass.paramTypes;
+                                    d.discoveryParams = [];
+                                    for (var i = 0; i < paramTypes.count; i++) {
+                                        var param = {};
+                                        param["paramTypeId"] = paramTypes.get(i).id;
+                                        param["value"] = isNaN(eebusDiscovery.get(index).params.getParam(thingClass.paramTypes.get(i).id)) ? eebusDiscovery.get(index).params.getParam(thingClass.paramTypes.get(i).id).value : ""
+                                        d.discoveryParams.push(param)
+                                    }
+                                    d.thingDescriptor = eebusDiscovery.get(index);
+                                    pageStack.push(paramsPage, {thingClass: thingClass})
                                 }
                             }
                         }
@@ -551,7 +560,7 @@ Page {
                         Layout.fillWidth: true
                         text: qsTr("Search again")
                         onClicked: {
-                            discovery.discoverThings(thingClassesProxy.get(0).id)
+                            discovery.discoverThings(eebusHeatpump.get(0).id)
                         }
                     }
 
@@ -586,7 +595,6 @@ Page {
                 text: qsTr("Discover %1").arg(thingClass.displayName)
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
-
             }
 
             SettingsPageSectionHeader {
