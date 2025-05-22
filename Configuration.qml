@@ -10,7 +10,7 @@ ConfigurationBase {
 
     connectionWizard: "/ui/wizards/ConnectionWizard.qml"
 
-    //////////////////////////////////////////////////////////////////////////////////////
+    
     //Main View
     readonly property string mainMenuThingName: "black"
 
@@ -19,7 +19,7 @@ ConfigurationBase {
 
     //Wizard Complete
     property bool isIntroIcon: true
-    //////////////////////////////////////////////////////////////////////////////////////
+    
     // Defines the minimal compatible HEMS version
     property string minSysVersion: "1.7.0"
 
