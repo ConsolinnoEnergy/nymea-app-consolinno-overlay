@@ -3221,10 +3221,6 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <source>The relays are configured as follows</source>
-        <translation>Die Relais sind wie folgt konfiguriert</translation>
-    </message>
-    <message>
         <source>Complete setup</source>
         <translation>Einrichtung abschliessen</translation>
     </message>
