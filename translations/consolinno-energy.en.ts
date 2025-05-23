@@ -206,10 +206,6 @@
         <source>Price limit : %1 ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>BatteryConfigurationView</name>
@@ -244,15 +240,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Zero Compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Avoid zero compensation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2684,7 +2680,7 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.10.0&lt;/p&gt;
+&lt;p&gt;Version 1.8.3&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
     &lt;li&gt;Avoiding zero compensation: Function for specific battery charging with negative electricity prices 
@@ -3943,6 +3939,10 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Search again</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4042,6 +4042,10 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Search again</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4134,6 +4138,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Too bad...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4248,6 +4256,10 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Search again</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4348,6 +4360,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Too bad...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4473,17 +4489,6 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Your %1 is now configured. The following devices have been set up:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ZeroCompensationInfo</name>
-    <message>
-        <source>Zero Compensation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
