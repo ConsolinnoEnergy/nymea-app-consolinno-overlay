@@ -520,9 +520,10 @@ Page {
                 Layout.rightMargin: app.margins
                 text: qsTr("Reconfigure")
                 enabled: !root.busy
-                onClicked: pageStack.push(Qt.resolvedUrl("ModbusRtuReconfigureMasterPage.qml"), {
+                onClicked: pageStack.push(Qt.resolvedUrl("ConsolinnoModbusRtuReconfigureMasterPage.qml"), {
                                               modbusRtuManager: modbusRtuManager,
                                               modbusRtuMaster: root.modbusRtuMaster,
+                                              serialPortPath: modbusRtuMaster.serialPort,
                                               serialPortBaudrateModel: serialPortBaudrateModel,
                                               serialPortParityModel: serialPortParityModel,
                                               serialPortDataBitsModel: serialPortDataBitsModel,
