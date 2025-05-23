@@ -3159,10 +3159,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The relays are configured as follows</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Complete setup</source>
         <translation type="unfinished"></translation>
     </message>
