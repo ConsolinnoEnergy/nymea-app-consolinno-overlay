@@ -1070,7 +1070,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Existing set-up will be overwritten.</source>
+        <source>Existing setup will be overwritten.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2727,23 +2727,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Grid Supportive Control</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid supportive-control set-up</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid-Supportive Control</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Control type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Relais</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2807,27 +2791,39 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Must be in same Network.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid supportive-control set-up – Relais</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid supportive-control set-up – EEBUS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The relays are configured as follows:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Grid supportive-control – Relais</source>
+        <source>Grid-supportive control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Grid supportive-control – EEBUS</source>
+        <source>Grid-supportive control setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Must be in same network.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control setup – Relay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control – Relay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control setup – EEBUS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control – EEBUS</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3091,7 +3087,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Grid Supportive Control</source>
+        <source>Grid-supportive control</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
