@@ -20,8 +20,8 @@ StackView {
     property string powerLimitSource: gridSupportThing.settings.get(0).value //"none" // "eebus" "relais"
 
     property bool eebusState: eeBusThing ? eeBusThing.stateByName("connected").value : false
-    property string colorsEEBUS: eebusState === false ? "#F37B8E" : eebusState == true ? "#BDD786" : "#F7B772"
-    property string textEEBUS: eebusState === false ? qsTr("not connected") : eebusState == true ? qsTr("connected") : qsTr("Confirmation by network operator pending")
+    property string colorsEEBUS: eebusState === false ? "#F7B772" : eebusState == true ? "#BDD786" : "#F37B8E"
+    property string textEEBUS: eebusState === false ? qsTr("Confirmation by network operator pending") : eebusState == true ? qsTr("connected") : qsTr("not connected")
 
     property string currentState: gridSupportThing.stateByName("plimStatus").value //"limited" "blocked" "limited" "shutoff"
     property string colorsPlim: currentState === "shutoff" ? "#eb4034" : currentState === "limited" ? "#fc9d03" : "#ffffff"
@@ -199,7 +199,7 @@ StackView {
                         Layout.rightMargin: app.margins
                         Layout.fillWidth: true
 
-                        Text {
+                        Label {
                             horizontalAlignment: Text.AlignRight
                             verticalAlignment: Text.AlignRight
                             text: qsTr("Control type")
@@ -215,7 +215,7 @@ StackView {
                         visible: powerLimitSource === "relais"
                         Layout.fillWidth: true
                         text: "Relais"
-                        iconName: "../images/union.svg"
+                        iconName: "../images/relais.svg"
                         onClicked: {
                             pageStack.push(relaisSetUpFinish);
                         }
@@ -224,7 +224,7 @@ StackView {
                     ConsolinnoItemDelegate {
                         visible: (powerLimitSource === "eebus" && eebusThing.count > 0)
                         Layout.fillWidth: true
-                        text: "EEBUS Controlbox"
+                        text: qsTr("EEBUS Controlbox")
                         iconName: "../images/eebus.svg"
                         onClicked: {
                             pageStack.push(eebusView);
@@ -1002,7 +1002,7 @@ StackView {
 
                     Text {
                         Layout.fillWidth: true
-                        Layout.topMargin: 5
+                        Layout.topMargin: 8
                         Layout.bottomMargin: 0
                         textFormat: Text.RichText
                         font.pointSize: 20
@@ -1015,13 +1015,15 @@ StackView {
 
                 //Status
                 RowLayout {
+                    Layout.topMargin: 20
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
                     visible: eebusThing.count > 0
-
+                    spacing: 18
                     Rectangle {
-                        width: 25
-                        height: 25
+                        Layout.leftMargin: 2
+                        width: 19
+                        height: 19
                         color: colorsEEBUS
                         border.color: colorsEEBUS
                         radius: 12
