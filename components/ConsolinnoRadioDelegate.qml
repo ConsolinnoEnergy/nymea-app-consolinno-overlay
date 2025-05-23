@@ -17,10 +17,6 @@ RadioDelegate {
 
     Layout.fillWidth: true
 
-    Component.onCompleted: {
-        console.error(control.description.length)
-    }
-
     contentItem: ColumnLayout {
         spacing: 0
 

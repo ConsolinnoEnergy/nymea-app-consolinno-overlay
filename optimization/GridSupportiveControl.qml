@@ -16,6 +16,7 @@ StackView {
     property bool setupFinishedRelay: false
     property Thing gridSupportThing: gridSupport.get(0)
     property Thing eeBusThing: eebusThing.get(0)
+    property ThingClass thingClass
     property int powerLimit: gridSupportThing.stateByName("plim").value
     property string powerLimitSource: gridSupportThing.settings.get(0).value //"none" // "eebus" "relais"
 
@@ -392,7 +393,7 @@ StackView {
                     Layout.rightMargin: app.margins
 
                    ConsolinnoGridSupportiveControlAlert {
-                        visible: powerLimitSource === "relais"
+                        visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
                     }
                 }
 
@@ -421,6 +422,7 @@ StackView {
                         }
 
                         onClicked: {
+                            pageStack.pop()
                             pageStack.pop()
                         }
                     }
@@ -669,6 +671,7 @@ StackView {
 
                         onClicked: {
                             pageStack.pop()
+                            pageStack.pop()
                         }
                     }
                 }
@@ -768,7 +771,7 @@ StackView {
                     Layout.rightMargin: app.margins
 
                     ConsolinnoGridSupportiveControlAlert {
-                        visible: powerLimitSource === "eebus"
+                        visible: powerLimitSource === "eebus" || powerLimitSource === "relais"
                     }
 
                     CheckBox {
@@ -793,7 +796,7 @@ StackView {
 
                         onClicked: {
                             if(eebusThing.count > 0){
-                               engine.thingManager.removeThing(eeBusThing.id)
+                               engine.thingManager.removeThing(eebusThing.get(0).id)
                             }
 
                             for(var i = 0; i < thingClass.paramTypes.count; i++){
@@ -818,6 +821,9 @@ StackView {
                         }
 
                         onClicked: {
+                            eeBusThing = eebusThing.get(0)
+                            pageStack.pop()
+                            pageStack.pop()
                             pageStack.pop()
                         }
                     }
@@ -1035,61 +1041,6 @@ StackView {
                         font.pointSize: 12
                         wrapMode: Text.WordWrap
                         color: Style.consolinnoDark
-                    }
-
-                }
-
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    visible: eebusThing.count > 0 ? false : true
-
-                    CheckBox {
-                        id: deviceConnected
-                        Layout.fillWidth: true
-                        text: qsTr("Establish a connection with this device.")
-                    }
-                }
-
-                ColumnLayout {
-                    visible: eebusThing.count > 0 ? false : true
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-
-
-                    Button {
-                        id: eebusSetUpComplete
-                        Layout.fillWidth: true
-                        enabled: deviceConnected.checked
-                        text: qsTr("Complete setup")
-
-                        onClicked: {
-
-                            for(var i = 0; i < thingClass.paramTypes.count; i++){
-                                var param = {}
-                                param["paramTypeId"] = thingClass.paramTypes.get(i).id
-                                param["value"] = isNaN(discoveryThingParams.params.getParam(thingClass.paramTypes.get(i).id)) ? discoveryThingParams.params.getParam(thingClass.paramTypes.get(i).id).value : ""
-                                d.params.push(param)
-                            }
-
-                            engine.thingManager.addThing(thingClass.id, thingClass.name, d.params);
-                            pageStack.push(eebusViewStatus, { thingClass: thingClass, discoveryThingParams: discoveryThingParams });
-                        }
-                    }
-
-                    Button {
-                        id: cancel
-                        Layout.fillWidth: true
-                        text: qsTr("Cancel")
-                        background: Rectangle {
-                            color: "transparent"
-                        }
-
-                        onClicked: {
-                            pageStack.pop()
-                        }
                     }
                 }
 
