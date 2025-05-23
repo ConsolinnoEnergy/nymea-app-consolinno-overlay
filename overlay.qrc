@@ -128,8 +128,8 @@
         <file>optimization/BatteryConfigurationView.qml</file>
         <file>components/ConsolinnoRadioDelegate.qml</file>
         <file>images/relais_screen.png</file>
-        <file>images/union.svg</file>
         <file>images/eebus.svg</file>
         <file>components/ConsolinnoGridSupportiveControlAlert.qml</file>
+        <file>images/relais.svg</file>
     </qresource>
 </RCC>
