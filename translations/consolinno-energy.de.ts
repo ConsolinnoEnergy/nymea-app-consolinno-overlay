@@ -2816,7 +2816,7 @@
     </message>
     <message>
         <source>Relay</source>
-        <translation>Relay</translation>
+        <translation></translation>
     </message>
     <message>
         <source>Must be in same network.</source>
