@@ -23,7 +23,7 @@ Page {
         ListElement { text: qsTr("Comissioning"); value: 1; visible: true}
         ListElement { text: qsTr("Development"); value: 2; visible: false}
         ListElement { text: qsTr("Dynamic electricity tariff"); value: 3; visible: true}
-        ListElement { text: qsTr("Grid Supportive Control"); value: 4; visible: true}
+        ListElement { text: qsTr("Grid-supportive control"); value: 4; visible: true}
         // value is set to an integer for pieces which are either going to be migrated to a different location or deleted
     }
 

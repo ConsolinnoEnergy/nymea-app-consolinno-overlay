@@ -88,7 +88,7 @@ StackView {
         Page {
 
             header: NymeaHeader {
-                text: qsTr("Grid Supportive Control")
+                text: qsTr("Grid-supportive control")
                 backButtonVisible: true
                 onBackPressed:{
                     if (directionID == 0)
@@ -112,7 +112,7 @@ StackView {
                         id: setUpButton
                         Layout.fillWidth: true
                         Layout.bottomMargin: 8
-                        text: qsTr("Grid supportive-control set-up")
+                        text: qsTr("Grid-supportive control setup")
                         implicitHeight: 55
                         onClicked: {
                             pageStack.push(selectComponent)
@@ -165,7 +165,7 @@ StackView {
 
                                 Label {
                                     font.pixelSize: 16
-                                    text: qsTr("Grid-Supportive Control")
+                                    text: qsTr("Grid-supportive control")
                                     font.bold: true
                                     wrapMode: Text.WordWrap
                                     Layout.fillWidth: true
@@ -214,7 +214,7 @@ StackView {
                     ConsolinnoItemDelegate {
                         visible: powerLimitSource === "relais"
                         Layout.fillWidth: true
-                        text: "Relais"
+                        text: "Relay"
                         iconName: "../images/relais.svg"
                         onClicked: {
                             pageStack.push(relaisSetUpFinish);
@@ -246,7 +246,7 @@ StackView {
 
         Page {
             header: NymeaHeader {
-                text: qsTr("Grid supportive-control set-up")
+                text: qsTr("Grid-supportive control setup")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -261,8 +261,8 @@ StackView {
 
                 ListModel{
                     id: myListModel
-                    ListElement{name: qsTr("Relais"); description: qsTr("")}
-                    ListElement{name: qsTr("EEBUS Controlbox"); description: qsTr("Must be in same Network.")}
+                    ListElement{name: qsTr("Relay"); description: qsTr("")}
+                    ListElement{name: qsTr("EEBUS Controlbox"); description: qsTr("Must be in same network.")}
                 }
 
                 ButtonGroup {
@@ -342,7 +342,7 @@ StackView {
         Page {
 
             header: NymeaHeader {
-                text: qsTr("Grid supportive-control set-up – Relais")
+                text: qsTr("Grid-supportive control setup – Relay")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -441,7 +441,7 @@ StackView {
         Page {
 
             header: ConsolinnoHeader {
-                text: qsTr("Grid supportive-control – Relais")
+                text: qsTr("Grid-supportive control – Relay")
                 backButtonVisible: true
                 menuOptionsButtonVisible: true
                 onBackPressed: pageStack.pop()
@@ -572,7 +572,7 @@ StackView {
         Page {
 
             header: NymeaHeader {
-                text: qsTr("Grid supportive-control set-up – EEBUS")
+                text: qsTr("Grid-supportive control setup – EEBUS")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -685,7 +685,7 @@ StackView {
             property var discoveryThingParams
 
             header: NymeaHeader {
-                text: qsTr("Grid supportive-control set-up – EEBUS")
+                text: qsTr("Grid-supportive control setup – EEBUS")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -839,7 +839,7 @@ StackView {
         Page {
 
             header: ConsolinnoHeader {
-                text: qsTr("Grid supportive-control – EEBUS")
+                text: qsTr("Grid-supportive control – EEBUS")
                 backButtonVisible: true
                 menuOptionsButtonVisible: true
                 onBackPressed: pageStack.pop()
@@ -1112,7 +1112,7 @@ StackView {
             property var discoveryThingParams
 
             header: NymeaHeader {
-                text: qsTr("Grid supportive-control set-up – EEBUS")
+                text: qsTr("Grid-supportive control setup – EEBUS")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }

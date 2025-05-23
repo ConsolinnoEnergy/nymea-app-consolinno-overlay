@@ -76,7 +76,7 @@ Rectangle {
 
         Label {
             font.pixelSize: 16
-            text: qsTr("Existing set-up will be overwritten.")
+            text: qsTr("Existing setup will be overwritten.")
             wrapMode: Text.WordWrap
             Layout.rightMargin: 20
             Layout.fillWidth: true
