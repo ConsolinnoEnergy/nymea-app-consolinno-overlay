@@ -386,11 +386,10 @@ Page {
             property var thing: null
 
             Component.onCompleted: {
-                // only for eebus
-                if (thingClass.name === "eebusEVSE") {
-                    pageStack.push(discoveryPage, {thingClass: thingClass})
+                if(thingClass.name === "eebusDevice") {
                     discovery.discoverThings(thingClass.id)
-                }// if discovery and user. Always Discovery
+                    pageStack.push(evChargerSearch, {thingClass: thingClass})
+                }
                 else if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
 
                     if (thingClass["discoveryParamTypes"].count > 0) {
@@ -447,6 +446,122 @@ Page {
                     }
                     discovery.discoverThings(thingClass.id, d.discoveryParams)
                     pageStack.push(discoveryPage, {thingClass: thingClass})
+                }
+            }
+        }
+    }
+
+    Component {
+        id: evChargerSearch
+
+        Page {
+            header: NymeaHeader {
+                text: qsTr("EvCharger set-up")
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
+
+            property var thingClass
+
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    Layout.fillHeight: true
+                    Text {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 5
+                        Layout.bottomMargin: 0
+                        textFormat: Text.RichText
+                        font.pointSize: 20
+                        font.bold: true
+                        wrapMode: Text.WordWrap
+                        text: qsTr("The following EEBUS devices were found:")
+                        color: Style.consolinnoDark
+                    }
+                }
+
+                Flickable {
+                    id: flick
+                    height: parent.height - 300
+                    Layout.fillWidth: true
+                    clip: true
+
+                    contentWidth: parent.width
+                    contentHeight: column.implicitHeight
+
+                    ColumnLayout {
+                        id: column
+                        width: parent.width
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        spacing: 5
+
+                        Repeater {
+                            id: eebuRepeater
+
+                            model: ThingDiscoveryProxy {
+                                id: eebusDiscovery
+                                thingDiscovery: discovery
+                            }
+                            delegate: ConsolinnoItemDelegate {
+                                Layout.fillWidth: true
+                                iconName: "../images/connections/network-wired.svg"
+                                text: model.name
+                                subText: model.description
+                                progressive: true
+                                onClicked: {
+                                    var paramTypes = thingClass.paramTypes;
+                                    d.discoveryParams = [];
+                                    for (var i = 0; i < paramTypes.count; i++) {
+                                        var param = {};
+                                        param["paramTypeId"] = paramTypes.get(i).id;
+                                        param["value"] = isNaN(eebusDiscovery.get(index).params.getParam(thingClass.paramTypes.get(i).id)) ? eebusDiscovery.get(index).params.getParam(thingClass.paramTypes.get(i).id).value : ""
+                                        d.discoveryParams.push(param)
+                                    }
+                                    d.thingDescriptor = eebusDiscovery.get(index);
+                                    pageStack.push(paramsPage, {thingClass: thingClass})
+                                }
+                            }
+                        }
+                    }
+                }
+
+                VerticalDivider {
+                    Layout.fillWidth: true
+                    dividerColor: Material.accent
+                }
+
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+
+                    Button {
+                        id: completeSetupButton
+                        Layout.fillWidth: true
+                        text: qsTr("Search again")
+                        onClicked: {
+                            discovery.discoverThings(eebusWallbox.get(0).id)
+                        }
+                    }
+
+                    Button {
+                        id: cancel
+                        Layout.fillWidth: true
+                        text: qsTr("Cancel")
+                        background: Rectangle {
+                            color: "transparent"
+                        }
+
+                        onClicked: {
+                            pageStack.pop()
+                        }
+                    }
                 }
             }
         }
