@@ -215,7 +215,7 @@ StackView {
                     ConsolinnoItemDelegate {
                         visible: powerLimitSource === "relais"
                         Layout.fillWidth: true
-                        text: "Relay"
+                        text: "Relais"
                         iconName: "../images/relais.svg"
                         onClicked: {
                             pageStack.push(relaisSetUpFinish);
