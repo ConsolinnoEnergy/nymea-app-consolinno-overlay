@@ -1096,7 +1096,7 @@
         <translation>Achtung</translation>
     </message>
     <message>
-        <source>Existing set-up will be overwritten.</source>
+        <source>Existing setup will be overwritten.</source>
         <translation>Bestehende Einrichtungen werden überschrieben.</translation>
     </message>
 </context>
@@ -3144,24 +3144,8 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Der Verbrauch wird &lt;b&gt;vorübergehend reduziert&lt;/b&gt; auf &lt;b&gt;%1 kW&lt;/b&gt; gemäß §14a mindestens.</translation>
     </message>
     <message>
-        <source>Grid Supportive Control</source>
-        <translation>Netzdienlichkeit</translation>
-    </message>
-    <message>
-        <source>Grid supportive-control set-up</source>
-        <translation>Netzdienlichkeit einrichten</translation>
-    </message>
-    <message>
-        <source>Grid-Supportive Control</source>
-        <translation>Netzdienlichkeit</translation>
-    </message>
-    <message>
         <source>Control type</source>
         <translation>Steuerungsart</translation>
-    </message>
-    <message>
-        <source>Relais</source>
-        <translation>Relais</translation>
     </message>
     <message>
         <source></source>
@@ -3224,27 +3208,39 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Zurück zur Übersicht</translation>
     </message>
     <message>
-        <source>Must be in same Network.</source>
-        <translation>Muss im selben Netzwerk sein.</translation>
-    </message>
-    <message>
-        <source>Grid supportive-control set-up – Relais</source>
-        <translation>Netzdienlichkeit einrichten – Relais</translation>
-    </message>
-    <message>
-        <source>Grid supportive-control set-up – EEBUS</source>
-        <translation>Netzdienlichkeit einrichten – EEBUS</translation>
-    </message>
-    <message>
         <source>The relays are configured as follows:</source>
         <translation>Die Relais sind wie folgt konfiguriert:</translation>
     </message>
     <message>
-        <source>Grid supportive-control – Relais</source>
-        <translation>Netzdienlichkeit – Relais</translation>
+        <source>Grid-supportive control</source>
+        <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <source>Grid supportive-control – EEBUS</source>
+        <source>Grid-supportive control setup</source>
+        <translation>Netzdienlichkeit einrichten</translation>
+    </message>
+    <message>
+        <source>Relay</source>
+        <translation>Relay</translation>
+    </message>
+    <message>
+        <source>Must be in same network.</source>
+        <translation>Muss im selben Netzwerk sein.</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control setup – Relay</source>
+        <translation>Netzdienlichkeit einrichten – Relay</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control – Relay</source>
+        <translation>Netzdienlichkeit – Relay</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control setup – EEBUS</source>
+        <translation>Netzdienlichkeit einrichten – EEBUS</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control – EEBUS</source>
         <translation>Netzdienlichkeit – EEBUS</translation>
     </message>
 </context>
@@ -3509,7 +3505,7 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Dynamischer Stromtarif</translation>
     </message>
     <message>
-        <source>Grid Supportive Control</source>
+        <source>Grid-supportive control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
 </context>
