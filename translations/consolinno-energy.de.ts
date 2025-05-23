@@ -195,10 +195,6 @@
         <source>Price limit : %1 ct/kWh</source>
         <translation>Preisgrenze : %1 ct/kWh</translation>
     </message>
-    <message>
-        <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
-        <translation>Wenn Nullvergütung vermieden aktiv ist, dann ist kein Sofortladen der Batterie möglich.</translation>
-    </message>
 </context>
 <context>
     <name>BatteryConfigurationView</name>
@@ -222,31 +218,31 @@
     <name>BatteryOptimization</name>
     <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
-        <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
     <message>
         <source>Could not save configuration. The thing is not valid.</source>
-        <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
         <source>Grid-supportive-control</source>
-        <translation>Netzdienlichkeit</translation>
+        <translation type="unfinished">Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>Zero Compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Speichern</translation>
+        <translation type="unfinished">Speichern</translation>
     </message>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
         <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
-    </message>
-    <message>
-        <source>Avoid zero compensation</source>
-        <translation>Nullvergütung vermeiden</translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively reserved so that the battery can be charged during the hours with negative electricity prices and feed-in without remuneration is avoided. As soon as the control becomes active, the charging of the battery is limited (visible on the yellow message on the screen).</source>
-        <translation>An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen).</translation>
     </message>
 </context>
 <context>
@@ -894,17 +890,6 @@
     </message>
 </context>
 <context>
-    <name>ConsolinnoAvoidZeroCompensation</name>
-    <message>
-        <source>Avoid zero compensation active</source>
-        <translation>Nullvergütung vermeiden aktiv</translation>
-    </message>
-    <message>
-        <source>The battery charge is limited during regulation.</source>
-        <translation>Das Laden der Batterie ist während der Regelung eingeschränkt.</translation>
-    </message>
-</context>
-<context>
     <name>ConsolinnoConsumerStats</name>
     <message>
         <source>Consumers totals</source>
@@ -1366,304 +1351,6 @@
     <message>
         <source>Language</source>
         <translation>Sprache</translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoModbusRtuAddMasterPage</name>
-    <message>
-        <source>Add a new Modbus RTU master</source>
-        <translation type="unfinished">Füge einen neuen Modbus RTU hinzu</translation>
-    </message>
-    <message>
-        <source>Serial ports</source>
-        <translation type="unfinished">Serielle Schnittstellen</translation>
-    </message>
-    <message>
-        <source>Select a serial port.</source>
-        <translation type="unfinished">Wähle eine serielle Schnittstelle.</translation>
-    </message>
-    <message>
-        <source>There are no serial ports available.</source>
-        <translation type="unfinished">Es sind keine seriellen Schnittstellen verfügbar.</translation>
-    </message>
-    <message>
-        <source>Please make sure the Modbus RTU interface is connected to the system.</source>
-        <translation type="unfinished">Stelle sicher, dass die Modbus RTU Schnittstelle mit dem System verbunden ist.</translation>
-    </message>
-    <message>
-        <source>RJ45 connector</source>
-        <translation type="unfinished">RJ45-Stecker</translation>
-    </message>
-    <message>
-        <source>14-pin connector</source>
-        <translation type="unfinished">14-poliger Stecker</translation>
-    </message>
-    <message>
-        <source>Configure Modbus RTU master</source>
-        <translation type="unfinished">Modbus RTU Master einrichten</translation>
-    </message>
-    <message>
-        <source>Serial port</source>
-        <translation type="unfinished">Serielle Schnittstelle</translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation type="unfinished">Pfad</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation type="unfinished">Beschreibung</translation>
-    </message>
-    <message>
-        <source>Manufacturer</source>
-        <translation type="unfinished">Hersteller</translation>
-    </message>
-    <message>
-        <source>Serialnumber</source>
-        <translation type="unfinished">Seriennummer</translation>
-    </message>
-    <message>
-        <source>Configuration</source>
-        <translation type="unfinished">Einstellungen</translation>
-    </message>
-    <message>
-        <source>Baud rate</source>
-        <translation type="unfinished">Baudrate</translation>
-    </message>
-    <message>
-        <source>Parity</source>
-        <translation type="unfinished">Parität</translation>
-    </message>
-    <message>
-        <source>Data bits</source>
-        <translation type="unfinished">Datenbits</translation>
-    </message>
-    <message>
-        <source>Stop bits</source>
-        <translation type="unfinished">Stopbits</translation>
-    </message>
-    <message>
-        <source>Request retries</source>
-        <translation type="unfinished">Anfrageversuche</translation>
-    </message>
-    <message>
-        <source>Request timeout [ms]</source>
-        <translation type="unfinished">Versuchsdauer [ms]</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation type="unfinished">Hinzufügen</translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoModbusRtuSettingsPage</name>
-    <message>
-        <source>Modbus-RTU-Interfaces</source>
-        <translation type="unfinished">Modbus RTU-Schnittstelle</translation>
-    </message>
-    <message>
-        <source>Add Modbus RTU master</source>
-        <translation type="unfinished">Modbus RTU Master hinzufügen</translation>
-    </message>
-    <message>
-        <source>The serial port is not available any more.</source>
-        <translation type="unfinished">Die serielle Schnittstelle ist nicht mehr verfügbar.</translation>
-    </message>
-    <message>
-        <source>Modbus is not supported on this platform.</source>
-        <translation type="unfinished">Modbus ist auf diesem System nicht unterstützt.</translation>
-    </message>
-    <message>
-        <source>The Modbus RTU hardware could not be found.</source>
-        <translation type="unfinished">Das Modbus RTU Gerät konnte nicht gefunden werden.</translation>
-    </message>
-    <message>
-        <source>The selected Modbus RTU master does not exist any more.</source>
-        <translation type="unfinished">Der ausgewählte Modbus RTU Master existiert nicht mehr.</translation>
-    </message>
-    <message>
-        <source>Unable to connect to the Modbus RTU master.
-
-Maybe the hardware is already in use.</source>
-        <translation type="unfinished">Verbindung zum Modbus RTU Master kann nicht hergestellt werden.
-
-Wird das Gerät bereits benutzt.</translation>
-    </message>
-    <message>
-        <source>The specified timeout value is not valid.
-
-Use a timeout value greater or equal to 10 ms.</source>
-        <translation type="unfinished">Die angegebene Versuchsdauer ist ungültig.
-
-Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
-    </message>
-    <message>
-        <source>Unknown baud rate</source>
-        <translation type="unfinished">Unbekannte Baudrate</translation>
-    </message>
-    <message>
-        <source>No parity</source>
-        <translation type="unfinished">Keine Parität</translation>
-    </message>
-    <message>
-        <source>Even parity</source>
-        <translation type="unfinished">Gerade Parität</translation>
-    </message>
-    <message>
-        <source>Odd parity</source>
-        <translation type="unfinished">Ungerade Parität</translation>
-    </message>
-    <message>
-        <source>Space parity</source>
-        <translation type="unfinished">Raumparität</translation>
-    </message>
-    <message>
-        <source>Mark parity</source>
-        <translation type="unfinished">Markierung</translation>
-    </message>
-    <message>
-        <source>Unknown parity</source>
-        <translation type="unfinished">Unbekannte Parität</translation>
-    </message>
-    <message>
-        <source>5 data bits</source>
-        <translation type="unfinished">5 Datenbits</translation>
-    </message>
-    <message>
-        <source>6 data bits</source>
-        <translation type="unfinished">6 Datenbits</translation>
-    </message>
-    <message>
-        <source>7 data bits</source>
-        <translation type="unfinished">7 Datenbits</translation>
-    </message>
-    <message>
-        <source>8 data bits</source>
-        <translation type="unfinished">8 Datenbits</translation>
-    </message>
-    <message>
-        <source>Unknown data bits</source>
-        <translation type="unfinished">Unbekannte Datenbits</translation>
-    </message>
-    <message>
-        <source>One stop bit</source>
-        <translation type="unfinished">Ein Stopbit</translation>
-    </message>
-    <message>
-        <source>One and a half stop bits</source>
-        <translation type="unfinished">Eineinhalt Stopbits</translation>
-    </message>
-    <message>
-        <source>Two stop bits</source>
-        <translation type="unfinished">Zwei Stopbits</translation>
-    </message>
-    <message>
-        <source>Unknown stop bits</source>
-        <translation type="unfinished">Unbekannte Stopbits</translation>
-    </message>
-    <message>
-        <source>Note: If you intend to connect a device via &lt;b&gt;Modbus-RTU&lt;/b&gt;, please verify the Modbus interface settings to ensure they are compatible with the connected device. If you wish to use a different interface, please add another one.</source>
-        <translation type="unfinished">Hinweistext: Falls Sie ein Gerät über &lt;b&gt;Modbus-RTU&lt;/b&gt; anschließen wollen,
- überprüfen Sie bitte die Einstellungen der Modbus-Schnittstelle
-(diese müssen zum angeschlossenen Gerät passen).
-Falls Sie eine andere Schnittstelle verwenden wollen,
-fügen Sie eine weitere hinzu.</translation>
-    </message>
-    <message>
-        <source>Available interfaces:</source>
-        <translation type="unfinished">Verfügbare Schnittstellen:</translation>
-    </message>
-    <message>
-        <source>Connected</source>
-        <translation type="unfinished">Verbunden</translation>
-    </message>
-    <message>
-        <source>Disconnected</source>
-        <translation type="unfinished">Getrennt</translation>
-    </message>
-    <message>
-        <source>Modbus-RTU is not supported on this platform.</source>
-        <translation type="unfinished">Modbus RTU ist auf diesem System nicht unterstützt.</translation>
-    </message>
-    <message>
-        <source>No devices discovered</source>
-        <translation type="unfinished">Keine Geräte entdeckt</translation>
-    </message>
-    <message>
-        <source>RJ45 connector</source>
-        <translation type="unfinished">RJ45-Stecker</translation>
-    </message>
-    <message>
-        <source>14-pin connector</source>
-        <translation type="unfinished">14-poliger Stecker</translation>
-    </message>
-    <message>
-        <source>Modbus-RTU-Interface</source>
-        <translation type="unfinished">Modbus RTU Master</translation>
-    </message>
-    <message>
-        <source>Remove Modbus RTU Interface</source>
-        <translation type="unfinished">Modbus RTU Interface entfernen</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to remove this Modbus RTU Interface?</source>
-        <translation type="unfinished">Bist Du sicher, dass Du diesen Modbus RTU Master entfernen möchtest?</translation>
-    </message>
-    <message>
-        <source>Please note that all related things will stop working until you assign a new Modbus RTU Interface to them.</source>
-        <translation type="unfinished">Bitte beachte, dass alle verknüpften &quot;Things&quot; nicht mehr funktionieren werden, bis sie einem neuen Modbus RTU Master zugewiesen werden.</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation type="unfinished">Informationen</translation>
-    </message>
-    <message>
-        <source>Connection status</source>
-        <translation type="unfinished">Verbindungsstatus</translation>
-    </message>
-    <message>
-        <source>UUID</source>
-        <translation type="unfinished">UUID</translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation type="unfinished">Pfad</translation>
-    </message>
-    <message>
-        <source>Baud rate</source>
-        <translation type="unfinished">Baudrate</translation>
-    </message>
-    <message>
-        <source>Parity</source>
-        <translation type="unfinished">Parität</translation>
-    </message>
-    <message>
-        <source>Data bits</source>
-        <translation type="unfinished">Datenbits</translation>
-    </message>
-    <message>
-        <source>Stop bits</source>
-        <translation type="unfinished">Stopbits</translation>
-    </message>
-    <message>
-        <source>Request retries</source>
-        <translation type="unfinished">Anfrageversuche</translation>
-    </message>
-    <message>
-        <source>Request timeout [ms]</source>
-        <translation type="unfinished">Versuchsdauer [ms]</translation>
-    </message>
-    <message>
-        <source>Reconfigure</source>
-        <translation type="unfinished">Neu einrichten</translation>
-    </message>
-    <message>
-        <source>cancel</source>
-        <translation type="unfinished">abbrechen</translation>
-    </message>
-    <message>
-        <source>Next step</source>
-        <translation type="unfinished">Nächster Schritt</translation>
     </message>
 </context>
 <context>
@@ -2607,17 +2294,12 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.10.0&lt;/p&gt;
+        <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
+&lt;p&gt;Version 1.8.3&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Nullvergütung vermeiden&lt;/li&gt;
-      &lt;li&gt; Funktion zur gezielten Beladung der Baterie bei negativen Strompreisen (nur für ausgewählte Modelle verfügbar)&lt;/li&gt;
-    &lt;ul&gt;
-    &lt;li&gt;Verbesserungen&lt;/li&gt;
-    &lt;/ul&gt;
-    &lt;li&gt;Modbus RTU-Einstellungen im Inbetriebnahme-Assistenten verfügbar&lt;/li&gt;
-    &lt;li&gt;Verbesserter Ladeplan bei Tarifgesteuerten Laden der Batterie&lt;/li&gt;
+    &lt;li&gt;Verbesserung des Ladeplans als Balkenansicht&lt;/li&gt;
+    &lt;li&gt;Verschiedene Stabilitätsverbesserungen&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -3134,7 +2816,7 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>Relay</source>
-        <translation>Relay</translation>
+        <translation></translation>
     </message>
     <message>
         <source>Must be in same network.</source>
@@ -3512,7 +3194,7 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>The dashboard illustrates the energy flow in your house. The lines indicate by their thickness and direction where the current is flowing. At the top you can see the energy sources: Electricity can come from either their grid connection &lt;span style=&apos;color: %2&apos;&gt;%1&lt;/span&gt; or solar production &lt;span style=&apos;color: %3&apos;&gt;%1&lt;/span&gt;. If more solar power is produced than consumed, it is fed into the grid (grid connection changes color from &lt;span style=&apos;color: %4&apos;&gt;%1&lt;/span&gt; to &lt;span style=&apos;color: %5&apos;&gt;%1&lt;/span&gt;). At the bottom, your consumers and their current consumption are displayed.</source>
-        <translation>Das Dashboard veranschaulicht den Energiefluss in ihrem Haus. Die Linien zeigen durch ihre Dicke und Richtung an wohin der Strom gerade fließt. Oben werden Ihnen die Energiequellen angezeigt: Der Strom kann entweder von ihrem Netzanschluss &lt;span style=&apos;color: %2&apos;&gt;%1&lt;/span&gt; oder der Solarproduktion &lt;span style=&apos;color: %3&apos;&gt;%1&lt;/span&gt; kommen. Wird mehr Solarstrom produziert als verbraucht wird er ins Netz eingespeist (Netzanschluss verändert Farbe von &lt;span style=&apos;color: %4&apos;&gt;%1&lt;/span&gt;  zu &lt;span style=&apos;color: %5&apos;&gt;%1&lt;/span&gt;). Unten werden ihre Verbraucher und ihr aktueller Bezug angezeigt.</translation>
+        <translation>Das Dashboard veranschaulicht den Energiefluss in ihrem Haus. Die Linien zeigen durch ihre Dicke und Richtung an wohin der Strom gerade fließt. Oben werden Ihnen die Energiequellen angezeigt: Der Strom kann entweder von ihrem Netzanschluss &lt;span style=&apos;color: %2&apos;&gt;%1&lt;/span&gt; oder der Solarproduktion &lt;span style=&apos;color: %3&apos;&gt;%1&lt;/span&gt; kommen. Wird mehr Solarstrom produziert als verbraucht wird er ins Netz eingespeist (Wechselrichter verändert Farbe von &lt;span style=&apos;color: %4&apos;&gt;%1&lt;/span&gt;  zu &lt;span style=&apos;color: %5&apos;&gt;%1&lt;/span&gt;). Unten werden ihre Verbraucher und ihr aktueller Bezug angezeigt.</translation>
     </message>
 </context>
 <context>
@@ -3882,6 +3564,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Schade!</translation>
     </message>
     <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
+    </message>
+    <message>
         <source>Search again</source>
         <translation>Erneut suchen</translation>
     </message>
@@ -3963,6 +3649,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Too bad...</source>
         <translation>Schade!</translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
     </message>
     <message>
         <source>Search again</source>
@@ -4060,6 +3750,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Schade!</translation>
     </message>
     <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
+    </message>
+    <message>
         <source>Search again</source>
         <translation>Erneut suchen</translation>
     </message>
@@ -4153,6 +3847,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
     </message>
     <message>
         <source>Search again</source>
@@ -4256,6 +3954,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Too bad...</source>
         <translation>Schade!</translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Gerät überprüfen und erneut versuchen.</translation>
     </message>
     <message>
         <source>Search again</source>
@@ -4381,17 +4083,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Your %1 is now configured. The following devices have been set up:</source>
         <translation>Ihre %1 ist jetzt konfiguriert. Die folgenden Geräte wurden eingerichtet:</translation>
-    </message>
-</context>
-<context>
-    <name>ZeroCompensationInfo</name>
-    <message>
-        <source>Zero Compensation</source>
-        <translation type="unfinished">Nullvergütung vermeiden</translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
-        <translation type="unfinished">Bei Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu diesen Zeiten in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden.  Sobald die Steuerung aktiv ist wird das Beladen aus dem Netz  deaktiviert (sichtbar an den ausgegrauten Bedienelementen).</translation>
     </message>
 </context>
 <context>

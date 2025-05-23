@@ -195,10 +195,6 @@
         <source>Price limit : %1 ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>BatteryConfigurationView</name>
@@ -233,19 +229,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Zero Compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Avoid zero compensation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively reserved so that the battery can be charged during the hours with negative electricity prices and feed-in without remuneration is avoided. As soon as the control becomes active, the charging of the battery is limited (visible on the yellow message on the screen).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -894,17 +890,6 @@
     </message>
 </context>
 <context>
-    <name>ConsolinnoAvoidZeroCompensation</name>
-    <message>
-        <source>Avoid zero compensation active</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The battery charge is limited during regulation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ConsolinnoConsumerStats</name>
     <message>
         <source>Consumers totals</source>
@@ -1364,296 +1349,6 @@
     <message>
         <source>Language</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoModbusRtuAddMasterPage</name>
-    <message>
-        <source>Add a new Modbus RTU master</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Serial ports</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select a serial port.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>There are no serial ports available.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please make sure the Modbus RTU interface is connected to the system.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>RJ45 connector</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>14-pin connector</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Configure Modbus RTU master</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Serial port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Manufacturer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Serialnumber</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Baud rate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Parity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Data bits</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stop bits</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Request retries</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Request timeout [ms]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoModbusRtuSettingsPage</name>
-    <message>
-        <source>Modbus-RTU-Interfaces</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add Modbus RTU master</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The serial port is not available any more.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Modbus is not supported on this platform.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The Modbus RTU hardware could not be found.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The selected Modbus RTU master does not exist any more.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unable to connect to the Modbus RTU master.
-
-Maybe the hardware is already in use.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>The specified timeout value is not valid.
-
-Use a timeout value greater or equal to 10 ms.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unknown baud rate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No parity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Even parity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Odd parity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Space parity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mark parity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unknown parity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>5 data bits</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>6 data bits</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>7 data bits</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>8 data bits</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unknown data bits</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>One stop bit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>One and a half stop bits</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Two stop bits</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unknown stop bits</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Note: If you intend to connect a device via &lt;b&gt;Modbus-RTU&lt;/b&gt;, please verify the Modbus interface settings to ensure they are compatible with the connected device. If you wish to use a different interface, please add another one.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Available interfaces:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Disconnected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Modbus-RTU is not supported on this platform.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No devices discovered</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>RJ45 connector</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>14-pin connector</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Modbus-RTU-Interface</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove Modbus RTU Interface</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Are you sure you want to remove this Modbus RTU Interface?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please note that all related things will stop working until you assign a new Modbus RTU Interface to them.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connection status</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>UUID</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Baud rate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Parity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Data bits</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stop bits</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Request retries</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Request timeout [ms]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reconfigure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>cancel</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Next step</source>
-        <translation></translation>
     </message>
 </context>
 <context>
@@ -2598,16 +2293,11 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.10.0&lt;/p&gt;
+&lt;p&gt;Version 1.8.3&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Avoiding zero compensation&lt;/li&gt;
-      &lt;li&gt; Function for specific battery charging with negative electricity prices (only available for selected models)&lt;/li&gt;
-    &lt;ul&gt;
-    &lt;li&gt;Improvements&lt;/li&gt;
-    &lt;/ul&gt;
-    &lt;li&gt;Modbus RTU settings available in the commissioning wizard&lt;/li&gt;
-    &lt;li&gt;Improved charging schedule for tariff-controlled battery charging&lt;/li&gt;
+    &lt;li&gt;Improvement of the charging plan as a bar view&lt;/li&gt;
+    &lt;li&gt;Various stability improvements&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -3857,6 +3547,10 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Search again</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3937,6 +3631,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Too bad...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4035,6 +3733,10 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Search again</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4127,6 +3829,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4230,6 +3936,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Too bad...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4355,17 +4065,6 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Your %1 is now configured. The following devices have been set up:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ZeroCompensationInfo</name>
-    <message>
-        <source>Zero Compensation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -14,7 +14,7 @@ RadioDelegate {
     property string description: control.description
     property int size: control.size
     checked: control.checked
-
+    hoverEnabled: true
     Layout.fillWidth: true
 
     contentItem: ColumnLayout {
@@ -39,6 +39,18 @@ RadioDelegate {
             verticalAlignment: Text.AlignVCenter
             color: Style.consolinnoDark
         }
+    }
+
+    background: Rectangle {
+        anchors.fill: parent
+        Behavior {
+            ColorAnimation {
+                easing.type: Easing.InOutQuad
+                duration: 2000
+            }
+        }
+
+        color: control.pressed ? Qt.rgba(0, 0, 0, 0.12) : control.hovered ? Qt.rgba(0, 0, 0, 0.12) : "transparent"
     }
 
     indicator: Rectangle {
