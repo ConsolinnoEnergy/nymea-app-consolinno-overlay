@@ -10,7 +10,7 @@ SettingsPageBase {
 
     property ModbusRtuManager modbusRtuManager
     property ModbusRtuMaster modbusRtuMaster
-    property SerialPort serialPort
+    property SerialPort serialPort: modbusRtuManager.serialPorts.find(modbusRtuMaster.serialPort)
 
     property ListModel serialPortBaudrateModel
     property ListModel serialPortParityModel
@@ -48,6 +48,16 @@ SettingsPageBase {
         }
     }
 
+    function getName(name){
+        if(name.includes("/dev/ttymxc3")){
+            return qsTr("RJ45 connector")
+        }else if(name.includes("/dev/ttymxc5")){
+            return qsTr("14-pin connector")
+        }else{
+            return name;
+        }
+    }
+
     NymeaSwipeDelegate {
         Layout.fillWidth: true
         text: qsTr("UUID")
@@ -63,7 +73,7 @@ SettingsPageBase {
     NymeaSwipeDelegate {
         Layout.fillWidth: true
         text: qsTr("Path")
-        subText: serialPort.systemLocation
+        subText: root.getName(serialPort.systemLocation)
         progressive: false
         prominentSubText: false
     }
@@ -249,7 +259,6 @@ SettingsPageBase {
             var numberOfRetries = numberOfRetriesText.text
             var timeout = timeoutText.text
 
-            console.log("Reconfigure Modbus RTU", modbusRtuMaster.modbusUuid, "with", serialPort.systemLocation, baudrate, parity, dataBits, stopBits, numberOfRetries, timeout)
             d.reconfigureModbusRtuMaster(modbusRtuMaster.modbusUuid, serialPort.systemLocation, baudrate, parity, dataBits, stopBits, numberOfRetries, timeout)
         }
     }

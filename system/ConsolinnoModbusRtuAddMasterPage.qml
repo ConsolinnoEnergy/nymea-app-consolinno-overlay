@@ -71,10 +71,10 @@ SettingsPageBase {
             text:  model.description + (model.manufacturer === "" ? "" : " - " + model.manufacturer)
             subText: repeaterModBusRtu.getName(model.systemLocation) + (model.serialNumber === "" ? "" : " - " + model.serialNumber)
             onClicked: pageStack.push(configureNewModbusRtuMasterPage, { modbusRtuManager: modbusRtuManager, serialPort: modbusRtuManager.serialPorts.get(index) })
+            visible: Configuration.branding === "consolinno" ? ((model.systemLocation === "/dev/ttymxc3") || (model.systemLocation === "/dev/ttymxc5")) : true
         }
 
         function getName(name){
-
             if(name.includes("/dev/ttymxc3")){
                 return qsTr("RJ45 connector")
             }else if(name.includes("/dev/ttymxc5")){
@@ -83,7 +83,6 @@ SettingsPageBase {
                 return name;
             }
         }
-
     }
 
     Component {
@@ -284,8 +283,6 @@ SettingsPageBase {
                     var stopBits = serialPortStopBitsModel.get(stopBitsComboBox.currentIndex).value
                     var numberOfRetries = numberOfRetriesText.text
                     var timeout = timeoutText.text
-
-                    console.log("Adding Modbus RTU with", serialPort.systemLocation, baudrate, parity, dataBits, stopBits, numberOfRetries, timeout)
 
                     d.addModbusRtuMaster(serialPort.systemLocation, baudrate, parity, dataBits, stopBits, numberOfRetries, timeout)
                 }

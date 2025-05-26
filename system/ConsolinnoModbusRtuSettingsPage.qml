@@ -422,6 +422,17 @@ Page {
                 }
             }
 
+            function getName(name){
+
+                if(name.includes("/dev/ttymxc3")){
+                    return qsTr("RJ45 connector")
+                }else if(name.includes("/dev/ttymxc5")){
+                    return qsTr("14-pin connector")
+                }else{
+                    return name;
+                }
+            }
+
             SettingsPageSectionHeader {
                 text: qsTr("Information")
             }
@@ -460,7 +471,7 @@ Page {
             NymeaSwipeDelegate {
                 Layout.fillWidth: true
                 text: qsTr("Path")
-                subText: modbusRtuMaster ? modbusRtuMaster.serialPort : ""
+                subText: modbusRtuMaster ? root.getName(modbusRtuMaster.serialPort) : ""
                 progressive: false
                 prominentSubText: false
             }
