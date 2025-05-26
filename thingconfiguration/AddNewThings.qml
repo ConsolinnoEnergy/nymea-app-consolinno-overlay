@@ -11,6 +11,8 @@ Page {
 
     property string filterInterface: ""
     property var thingsListId: []
+    property HemsManager hemsManager
+    property Thing thingDevice
 
     header: NymeaHeader {
         text: qsTr("Set up new device")
@@ -19,15 +21,51 @@ Page {
         }
     }
 
+    ThingsProxy {
+        id: evChargersProxy
+        engine: _engine
+        shownInterfaces: ["evcharger"]
+    }
+
+    Connections {
+        target: engine.thingManager
+
+        onThingAdded: {
+            thingDevice = thing
+        }
+    }
+
     function startWizard(thingClass) {
         var page = pageStack.push(Qt.resolvedUrl("SetupWizard.qml"), {thingClass: thingClass});
         page.done.connect(function() {
-            pageStack.pop(root, StackView.Immediate);
-            pageStack.pop();
+            var thingPage = "";
+            if(thingClass.interfaces.includes("heatpump")){
+                thingPage = pageStack.push("../optimization/HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatPumpThing: thingDevice})
+                navigateBack(thingPage)
+            }else if(thingClass.interfaces.includes("evcharger")){
+                thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", { hemsManager: hemsManager, chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thingDevice.id)})
+                navigateBack(thingPage)
+            }else if(thingClass.interfaces.includes("smartheatingrod")){
+                thingPage = pageStack.push("../optimization/HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatRodThing: thingDevice})
+                navigateBack(thingPage)
+            }else if(thingClass.interfaces.includes("solarinverter")){
+                thingPage = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
+                navigateBack(thingPage)
+            }else{
+                pageStack.pop(root, StackView.Immediate);
+                pageStack.pop();
+            }
         })
         page.aborted.connect(function() {
             pageStack.pop();
         })
+
+        function navigateBack(thingPage){
+            thingPage.done.connect(function() {
+                pageStack.pop(root, StackView.Immediate);
+                pageStack.pop();
+            })
+        }
     }
 
     ColumnLayout {

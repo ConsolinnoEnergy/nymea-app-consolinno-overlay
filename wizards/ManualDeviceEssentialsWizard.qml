@@ -6,6 +6,7 @@ import Nymea 1.0
 
 Page {
     id: root
+    property HemsManager hemsManager
 
     header: NymeaHeader {
         text: qsTr("Essential Optimizations Settings")
@@ -65,7 +66,7 @@ Page {
                 font.pixelSize: Style.buttonFontSize
 
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("../thingconfiguration/AddNewThings.qml"))
+                    pageStack.push(Qt.resolvedUrl("../thingconfiguration/AddNewThings.qml"), {hemsManager: hemsManager})
                 }
             }
         }
