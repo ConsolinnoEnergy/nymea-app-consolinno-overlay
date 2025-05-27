@@ -374,9 +374,11 @@ StackView {
                     Layout.rightMargin: app.margins
                     spacing: 0
                     Image {
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.fillWidth: true
                         Layout.topMargin: 0
                         Layout.preferredHeight: width * (implicitHeight/implicitWidth)
-                        Layout.fillWidth: true
+                        Layout.maximumWidth: 800
                         fillMode: Image.PreserveAspectFit
                         source: "../images/relais_screen.png"
                         clip: true
