@@ -907,8 +907,12 @@
         <translation>Nullvergütung vermeiden aktiv</translation>
     </message>
     <message>
-        <source>The battery charge is limited during regulation.</source>
-        <translation>Das Laden der Batterie ist während der Regelung eingeschränkt.</translation>
+        <source>The battery charge is limited during regulation. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
+        <translation>An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, i st das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
     </message>
 </context>
 <context>

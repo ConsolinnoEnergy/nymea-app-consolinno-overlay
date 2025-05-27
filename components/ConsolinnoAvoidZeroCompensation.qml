@@ -60,7 +60,7 @@ Rectangle {
         MouseArea {
             Layout.fillWidth: true
             Layout.preferredWidth: alertContainer.width - 20
-            height: screenGuideText.height + 15
+            height: screenGuideText.height + (app.width >= 400 ? 15 : 30)
 
             Label {
                 id: screenGuideText
@@ -77,7 +77,6 @@ Rectangle {
                 var text = qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
                 var popup = dialog.createObject(app, {text: text, source: Qt.locale("de_DE") ? "../images/avoidZeroCompansationExample_de.svg" : "../images/avoidZeroCompansationExample_en.svg"})
                 popup.open();
-
             }
         }
 
