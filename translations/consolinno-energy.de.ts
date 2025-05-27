@@ -130,6 +130,17 @@
     </message>
 </context>
 <context>
+    <name>AvoidZeroCompensationInfo</name>
+    <message>
+        <source>Avoid Zero Compensation</source>
+        <translation>Nullvergütung vermeiden</translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
+        <translation>An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, i st das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
+    </message>
+</context>
+<context>
     <name>BatteryConfigView</name>
     <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
@@ -243,10 +254,6 @@
     <message>
         <source>Avoid zero compensation</source>
         <translation>Nullvergütung vermeiden</translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively reserved so that the battery can be charged during the hours with negative electricity prices and feed-in without remuneration is avoided. As soon as the control becomes active, the charging of the battery is limited (visible on the yellow message on the screen).</source>
-        <translation>An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen).</translation>
     </message>
 </context>
 <context>
@@ -3787,6 +3794,22 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
         <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant.</translation>
     </message>
+    <message>
+        <source>EEBUS Wallbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EvCharger set-up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -3968,6 +3991,18 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>EEBUS heat pump</source>
         <translation>EEBUS Wärmepumpe</translation>
+    </message>
+    <message>
+        <source>Heatpump set-up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

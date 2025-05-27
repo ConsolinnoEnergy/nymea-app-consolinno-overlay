@@ -130,6 +130,17 @@
     </message>
 </context>
 <context>
+    <name>AvoidZeroCompensationInfo</name>
+    <message>
+        <source>Avoid Zero Compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BatteryConfigView</name>
     <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
@@ -242,10 +253,6 @@
     </message>
     <message>
         <source>Avoid zero compensation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively reserved so that the battery can be charged during the hours with negative electricity prices and feed-in without remuneration is avoided. As soon as the control becomes active, the charging of the battery is limited (visible on the yellow message on the screen).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3761,6 +3768,22 @@ For further assistance, please contact our support team at: %5</translation>
         <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>EEBUS Wallbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EvCharger set-up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -3941,6 +3964,18 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>EEBUS heat pump</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heatpump set-up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

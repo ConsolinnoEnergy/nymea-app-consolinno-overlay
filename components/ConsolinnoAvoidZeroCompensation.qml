@@ -58,7 +58,7 @@ Rectangle {
         }
         Label {
             font.pixelSize: 16
-            text: qsTr("The battery charge is limited during regulation.")
+            text: qsTr("The battery charge is limited during regulation. <u>More Information</u>")
             wrapMode: Text.WordWrap
             Layout.fillWidth: true
             Layout.preferredWidth: parent.width - 20
