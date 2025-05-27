@@ -262,7 +262,7 @@ StackView {
 
                 ListModel{
                     id: myListModel
-                    ListElement{name: qsTr("Relay"); description: qsTr("")}
+                    ListElement{name: qsTr("Relais"); description: qsTr("")}
                     ListElement{name: qsTr("EEBUS Controlbox"); description: qsTr("Must be in same network.")}
                 }
 
@@ -389,10 +389,11 @@ StackView {
                 }
 
                 ColumnLayout {
+                    Layout.topMargin: 16
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
-                   ConsolinnoGridSupportiveControlAlert {
+                    ConsolinnoGridSupportiveControlAlert {
                         visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
                     }
                 }
@@ -403,6 +404,7 @@ StackView {
 
                     Button {
                         id: completeSetupButton
+                        Layout.topMargin: (powerLimitSource === "relais" || powerLimitSource === "eebus") ? 0 : 16
                         Layout.fillWidth: true
                         text: qsTr("Complete setup")
 
@@ -769,6 +771,7 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
+                    Layout.topMargin: 16
 
                     ConsolinnoGridSupportiveControlAlert {
                         visible: powerLimitSource === "eebus" || powerLimitSource === "relais"

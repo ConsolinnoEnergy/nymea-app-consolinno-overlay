@@ -34,23 +34,11 @@ RadioDelegate {
             id: descriptionText
             visible: control.description.length > 1
             text: control.description
-            font.pixelSize: 12
+            font.pixelSize: 13
             wrapMode: Text.Wrap
             verticalAlignment: Text.AlignVCenter
             color: Style.consolinnoDark
         }
-    }
-
-    background: Rectangle {
-        anchors.fill: parent
-        Behavior {
-            ColorAnimation {
-                easing.type: Easing.InOutQuad
-                duration: 2000
-            }
-        }
-
-        color: control.pressed ? Qt.rgba(0, 0, 0, 0.12) : control.hovered ? Qt.rgba(0, 0, 0, 0.12) : "transparent"
     }
 
     indicator: Rectangle {
