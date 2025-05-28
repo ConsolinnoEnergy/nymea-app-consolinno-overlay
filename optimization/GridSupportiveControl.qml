@@ -235,7 +235,6 @@ StackView {
                 Item {
                     Layout.fillHeight: true
                 }
-
             }
         }
     }
@@ -1154,6 +1153,7 @@ StackView {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
                     Layout.topMargin: app.margins - 12
+                    Layout.bottomMargin: app.margins - 12
                     spacing: 8
 
                     Rectangle {
@@ -1162,6 +1162,7 @@ StackView {
                         color: colorsEEBUS
                         border.color: colorsEEBUS
                         radius: 12
+                        Layout.rightMargin: 18
                     }
 
                     Text {
@@ -1171,7 +1172,6 @@ StackView {
                         wrapMode: Text.WordWrap
                         color: Style.consolinnoDark
                     }
-
                 }
 
                 VerticalDivider {
@@ -1209,7 +1209,6 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-
 
                     Button {
                         id: eebusBackToView
