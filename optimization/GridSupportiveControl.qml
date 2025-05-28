@@ -587,12 +587,13 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-
+                Layout.topMargin: 0
+                spacing: 0
 
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    Layout.fillHeight: true
+
                     Text {
                         Layout.fillWidth: true
                         Layout.topMargin: 5
@@ -608,23 +609,23 @@ StackView {
 
                 Flickable {
                     id: flick
-                    height: parent.height - 300
-                    Layout.fillWidth: true
                     clip: true
-
                     contentWidth: parent.width
                     contentHeight: column.implicitHeight
 
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.minimumHeight: 230
+
                     ColumnLayout {
                         id: column
+                        Layout.topMargin: 0
                         width: parent.width
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
+                        Layout.minimumHeight: 230
                         spacing: 5
 
                         Repeater {
                             id: eebuRepeater
-
                             model: ThingDiscoveryProxy {
                                 id: eebusDiscovery
                                 thingDiscovery: discovery
@@ -641,6 +642,11 @@ StackView {
                             }
                         }
                     }
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
                 }
 
                 VerticalDivider {
@@ -676,6 +682,7 @@ StackView {
                 }
             }
         }
+
     }
 
     Component {
@@ -697,7 +704,8 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                spacing: 8
+                Layout.topMargin: 0
+                spacing: 0
 
                 ColumnLayout {
                     Layout.leftMargin: app.margins
@@ -717,19 +725,18 @@ StackView {
 
                 Flickable {
                     id: flick
-                    height: parent.height - 360
-                    Layout.fillWidth: true
                     clip: true
-
                     contentWidth: parent.width
                     contentHeight: column.implicitHeight
+
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.minimumHeight: 230
 
                     ColumnLayout {
                         id: column
                         width: parent.width
-                        // Margins wie in app definiert
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
+                        Layout.minimumHeight: 230
                         spacing: 5
 
                         Repeater {
@@ -930,6 +937,7 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+                Layout.topMargin: 0
                 spacing: 8
 
                 ColumnLayout {
@@ -950,19 +958,18 @@ StackView {
 
                 Flickable {
                     id: flick
-                    height: parent.height - 360
-                    Layout.fillWidth: true
                     clip: true
-
                     contentWidth: parent.width
                     contentHeight: column.implicitHeight
+
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.minimumHeight: 230
 
                     ColumnLayout {
                         id: column
                         width: parent.width
-                        // Margins wie in app definiert
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
+                        Layout.minimumHeight: 230
                         spacing: 5
 
                         Repeater {
@@ -983,7 +990,6 @@ StackView {
                                 onSecondaryIconClicked: {
                                     PlatformHelper.toClipBoard(paramValue)
                                     ToolTip.show(qsTr("SKI copied to clipboard"), 500);
-                                    //ToolTip.y = -300
                                 }
                             }
                         }
@@ -1124,6 +1130,7 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+                Layout.topMargin: 0
                 spacing: 8
 
                 ColumnLayout {
