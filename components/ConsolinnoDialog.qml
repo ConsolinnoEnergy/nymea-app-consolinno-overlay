@@ -93,5 +93,10 @@ Dialog {
             }
         }
     }
-}
 
+    Rectangle {
+        parent: app.overlay
+        anchors.fill: parent
+        color: "#99303030"
+    }
+}
