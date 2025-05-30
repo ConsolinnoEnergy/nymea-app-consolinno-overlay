@@ -3173,10 +3173,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation></translation>
     </message>
     <message>
-        <source>EEBUS Controlbox</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3262,6 +3258,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Grid-supportive control – EEBUS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EEBUS control box</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
