@@ -214,7 +214,7 @@ StackView {
                     ConsolinnoItemDelegate {
                         visible: powerLimitSource === "relais"
                         Layout.fillWidth: true
-                        text: "Relay"
+                        text: "Relais"
                         iconName: "../images/relais.svg"
                         onClicked: {
                             pageStack.push(relaisSetUpFinish);
@@ -224,7 +224,7 @@ StackView {
                     ConsolinnoItemDelegate {
                         visible: (powerLimitSource === "eebus" && eebusThing.count > 0)
                         Layout.fillWidth: true
-                        text: qsTr("EEBUS Controlbox")
+                        text: qsTr("EEBUS control box")
                         iconName: "../images/eebus.svg"
                         onClicked: {
                             pageStack.push(eebusView);
@@ -260,8 +260,8 @@ StackView {
 
                 ListModel{
                     id: myListModel
-                    ListElement{name: qsTr("Relay"); description: qsTr("")}
-                    ListElement{name: qsTr("EEBUS Controlbox"); description: qsTr("Must be in same network.")}
+                    ListElement{name: qsTr("Relais"); description: qsTr("")}
+                    ListElement{name: qsTr("EEBUS control box"); description: qsTr("Must be in same network.")}
                 }
 
                 ButtonGroup {

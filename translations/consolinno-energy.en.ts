@@ -2735,10 +2735,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>EEBUS Controlbox</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2824,6 +2820,10 @@
     </message>
     <message>
         <source>Grid-supportive control – EEBUS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EEBUS control box</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
