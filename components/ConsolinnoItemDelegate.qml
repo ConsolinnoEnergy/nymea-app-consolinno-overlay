@@ -18,6 +18,7 @@ ItemDelegate {
 
 
     property string subText
+    property string tertiaryText
     property bool progressive: true
     property bool canDelete: false
 
@@ -32,6 +33,7 @@ ItemDelegate {
     property alias secondaryIconName: secondaryIcon.name
     property alias secondaryIconColor: secondaryIcon.color
     property alias secondaryIconClickable: secondaryIconMouseArea.enabled
+    property int secondaryIconSize: 0
     property alias tertiaryIconName: tertiaryIcon.name
     property alias tertiaryIconColor: tertiaryIcon.color
     property alias tertiaryIconClickable: tertiaryIconMouseArea.enabled
@@ -109,7 +111,7 @@ ItemDelegate {
                 Layout.fillHeight: true
                 text: root.text
                 wrapMode: root.wrapTexts ? Text.WordWrap : Text.NoWrap
-                maximumLineCount: root.wrapTexts ? 2 : 1
+                maximumLineCount: root.wrapTexts ? 3 : 1
                 elide: primetextElide
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: root.textAlignment
@@ -122,16 +124,28 @@ ItemDelegate {
                 font.pixelSize: root.prominentSubText ? app.smallFont : app.extraSmallFont
                 color: root.prominentSubText ? Material.foreground : Material.color(Material.Grey)
                 wrapMode: root.wrapTexts ? Text.WordWrap : Text.NoWrap
-                maximumLineCount: root.wrapTexts ? 2 : 1
+                maximumLineCount: root.wrapTexts ? 3 : 1
                 elide: Text.ElideRight
                 verticalAlignment: Text.AlignVCenter
                 visible: root.subText.length > 0
+            }
+            Label {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                text: root.tertiaryText
+                font.pixelSize: app.extraSmallFont
+                color: Material.color(Material.Grey)
+                wrapMode: root.wrapTexts ? Text.WordWrap : Text.NoWrap
+                maximumLineCount: root.wrapTexts ? 3 : 1
+                elide: Text.ElideRight
+                verticalAlignment: Text.AlignVCenter
+                visible: root.tertiaryText.length > 0
             }
         }
 
         ColorIcon {
             id: secondaryIcon
-            Layout.preferredHeight: Style.smallIconSize
+            Layout.preferredHeight: secondaryIconSize > 0 ? secondaryIconSize : Style.smallIconSize
             Layout.preferredWidth: height
             visible: name.length > 0
             MouseArea {
