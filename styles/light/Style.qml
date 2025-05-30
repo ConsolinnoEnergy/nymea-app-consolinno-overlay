@@ -20,6 +20,9 @@ StyleBase {
     property real buttonTopPading: 16
     property real buttonLeftPadding: 32
 
+    property color gridAlertFont: "#AA0A24"
+    property color gridAlertBackground: "#FFC3CD"
+
     backgroundColor: "white"
     foregroundColor: consolinnoExtraDark
 

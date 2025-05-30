@@ -12,9 +12,9 @@ Rectangle {
     Layout.fillWidth: true
     Layout.alignment: Qt.AlignHCenter
     radius: 10
-    color: "#1AF37B8E"
-    border.width: 1
-    border.color: "#F37B8E"
+    color: Style.gridAlertBackground
+    border.width: 2
+    border.color: Style.gridAlertFont
     implicitHeight: alertContainer.implicitHeight + 20
 
     ColumnLayout {
@@ -32,10 +32,9 @@ Rectangle {
 
         Canvas {
             id: triangle
-            width: 20
-            height: 17
+            width: 24
+            height: 21
             RowLayout.leftMargin: 13
-            anchors.bottom: attentionLabel.baseline
 
             onPaint: {
                 var ctx = getContext("2d");
@@ -46,11 +45,11 @@ Rectangle {
                 ctx.lineTo(0, height);
                 ctx.closePath();
 
-                ctx.fillStyle = "#1AF37B8E";
+                ctx.fillStyle = Style.gridAlertBackground;
                 ctx.fill();
 
                 ctx.lineWidth = 1;
-                ctx.strokeStyle = "#F37B8E";
+                ctx.strokeStyle = Style.gridAlertFont;
                 ctx.stroke();
             }
         }
@@ -71,6 +70,7 @@ Rectangle {
             wrapMode: Text.WordWrap
             Layout.fillWidth: true
             Layout.preferredWidth: parent.width - 20
+            color: Style.gridAlertFont
         }
     }
 
@@ -82,6 +82,7 @@ Rectangle {
             Layout.fillWidth: true
             Layout.preferredWidth: parent.width - 20
             leftPadding: 40
+            color: Style.gridAlertFont
         }
 
         Item {
