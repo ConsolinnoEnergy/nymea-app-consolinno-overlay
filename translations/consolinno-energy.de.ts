@@ -3193,10 +3193,6 @@ fügen Sie eine weitere hinzu.</translation>
         <translation></translation>
     </message>
     <message>
-        <source>EEBUS Controlbox</source>
-        <translation>EEBUS Steuerbox</translation>
-    </message>
-    <message>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
@@ -3283,6 +3279,10 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Grid-supportive control – EEBUS</source>
         <translation>Netzdienlichkeit – EEBUS</translation>
+    </message>
+    <message>
+        <source>EEBUS control box</source>
+        <translation>EEBUS Steuerbox</translation>
     </message>
 </context>
 <context>
