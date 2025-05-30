@@ -370,11 +370,13 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
+                    Layout.alignment: Qt.AlignHCenter
                     spacing: 0
                     Image {
+                        Layout.fillWidth: true
                         Layout.topMargin: 0
                         Layout.preferredHeight: width * (implicitHeight/implicitWidth)
-                        Layout.fillWidth: true
+                        Layout.maximumWidth: 800
                         fillMode: Image.PreserveAspectFit
                         source: "../images/relais_screen.png"
                         clip: true
@@ -382,6 +384,8 @@ StackView {
                 }
 
                 VerticalDivider {
+                    Layout.topMargin: app.margins - 12
+                    Layout.bottomMargin: app.margins - 12
                     Layout.preferredWidth: app.width
                     dividerColor: Material.accent
                 }
@@ -389,9 +393,9 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-
-                   ConsolinnoGridSupportiveControlAlert {
-                        visible: powerLimitSource === "relais"
+                    ConsolinnoGridSupportiveControlAlert {
+                        Layout.topMargin: app.margins - 2
+                        visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
                     }
                 }
 
@@ -630,6 +634,7 @@ StackView {
                                 thingDiscovery: discovery
                             }
                             delegate: ConsolinnoItemDelegate {
+                                height: 70
                                 Layout.fillWidth: true
                                 iconName: "../images/connections/network-wired.svg"
                                 text: model.name
@@ -649,11 +654,14 @@ StackView {
                 }
 
                 VerticalDivider {
-                    Layout.fillWidth: true
+                    Layout.topMargin: app.margins - 12
+                    Layout.bottomMargin: app.margins - 12
+                    Layout.preferredWidth: app.width
                     dividerColor: Material.accent
                 }
 
                 ColumnLayout {
+                    Layout.topMargin: app.margins - 12
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
@@ -714,7 +722,7 @@ StackView {
                         Layout.topMargin: 5
                         Layout.bottomMargin: 0
                         textFormat: Text.RichText
-                        font.pointSize: 20
+                        font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("Parameter")
@@ -730,18 +738,17 @@ StackView {
 
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    Layout.minimumHeight: 230
 
                     ColumnLayout {
                         id: column
                         width: parent.width
-                        Layout.minimumHeight: 230
                         spacing: 5
 
                         Repeater {
                             model: thingClass.paramTypes
                             delegate: ConsolinnoItemDelegate {
                                 id: thingParams
+                                height: 70
                                 property var paramType: thingClass.paramTypes.get(index)
                                 property string paramValue: isNaN(discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id)) ? discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id).value : ""
                                 Layout.fillWidth: true
@@ -750,7 +757,7 @@ StackView {
                                 tertiaryText: model.displayName
                                 secondaryIconName: index === 0 ? "../images/edit-copy.svg" : ""
                                 secondaryIconColor: Material.accentColor
-                                secondaryIconSize: 20
+                                secondaryIconSize: 24
                                 progressive: false
                                 secondaryIconClickable: true
                                 onSecondaryIconClicked: {
@@ -774,9 +781,9 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-
                     ConsolinnoGridSupportiveControlAlert {
-                        visible: powerLimitSource === "eebus"
+                        Layout.topMargin: app.margins - 2
+                        visible: powerLimitSource === "eebus" || powerLimitSource === "relais"
                     }
 
                     CheckBox {
@@ -947,7 +954,7 @@ StackView {
                         Layout.topMargin: 5
                         Layout.bottomMargin: 0
                         textFormat: Text.RichText
-                        font.pointSize: 20
+                        font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("Parameter")
@@ -963,18 +970,17 @@ StackView {
 
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    Layout.minimumHeight: 230
 
                     ColumnLayout {
                         id: column
                         width: parent.width
-                        Layout.minimumHeight: 230
                         spacing: 5
 
                         Repeater {
                             model: eeBusThing.thingClass.paramTypes
                             delegate: ConsolinnoItemDelegate {
                                 id: thingParams
+                                height: 70
                                 property var paramType: eeBusThing.thingClass.paramTypes.get(index)
                                 property string paramValue: isNaN(eeBusThing.params.getParam(eeBusThing.thingClass.paramTypes.get(index).id)) ? eeBusThing.params.getParam(eeBusThing.thingClass.paramTypes.get(index).id).value : ""
                                 Layout.fillWidth: true
@@ -983,7 +989,7 @@ StackView {
                                 tertiaryText: model.displayName
                                 secondaryIconName: index === 0 ? "../images/edit-copy.svg" : ""
                                 secondaryIconColor: Material.accentColor
-                                secondaryIconSize: 20
+                                secondaryIconSize: 24
                                 progressive: false
                                 secondaryIconClickable: true
                                 onSecondaryIconClicked: {
@@ -1012,7 +1018,7 @@ StackView {
                         Layout.topMargin: 8
                         Layout.bottomMargin: 0
                         textFormat: Text.RichText
-                        font.pointSize: 20
+                        font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("Status")
@@ -1025,10 +1031,10 @@ StackView {
                     Layout.topMargin: 20
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
+                    Layout.bottomMargin: 20
                     visible: eebusThing.count > 0
-                    spacing: 18
+                    spacing: 15
                     Rectangle {
-                        Layout.leftMargin: 2
                         width: 19
                         height: 19
                         color: colorsEEBUS
@@ -1141,7 +1147,7 @@ StackView {
                         Layout.topMargin: 5
                         Layout.bottomMargin: 0
                         textFormat: Text.RichText
-                        font.pointSize: 20
+                        font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("Status")
@@ -1157,19 +1163,19 @@ StackView {
                     spacing: 8
 
                     Rectangle {
-                        width: 20
-                        height: 20
+                        width: 19
+                        height: 19
                         color: colorsEEBUS
                         border.color: colorsEEBUS
                         radius: 12
-                        Layout.rightMargin: 18
+                        Layout.rightMargin: 8
                     }
 
                     Text {
                         Layout.fillWidth: true
                         text: textEEBUS
                         font.pointSize: 12
-                        wrapMode: Text.WordWrap
+                        wrapMode: Text.WordWrap15
                         color: Style.consolinnoDark
                     }
                 }
@@ -1182,6 +1188,7 @@ StackView {
                 }
 
                 ConsolinnoItemDelegate {
+                    height: 70
                     property var paramType: thingClass.paramTypes.get(0)
                     property string paramValue: discoveryThingParams.params.getParam(paramType.id).value
                     Layout.fillWidth: true
@@ -1190,7 +1197,7 @@ StackView {
                     tertiaryText: "Local Subject Key Identifier (SKI)"
                     secondaryIconName: "../images/edit-copy.svg"
                     secondaryIconColor: Material.accentColor
-                    secondaryIconSize: 20
+                    secondaryIconSize: 24
                     progressive: false
                     secondaryIconClickable: true
                     onSecondaryIconClicked: {
@@ -1230,13 +1237,6 @@ StackView {
                     Layout.fillWidth: true
                 }
             }
-
-
         }
     }
-
-    BusyOverlay {
-        id: busyOverlay
-    }
-
 }
