@@ -31,7 +31,6 @@ Dialog {
         anchors.fill: parent
         z: -1
         onPressed: {
-            print("Dialog: eating mouse press", root.title)
             mouse.accepted = true
         }
     }
