@@ -1456,6 +1456,81 @@
     </message>
 </context>
 <context>
+    <name>ConsolinnoModbusRtuReconfigureMasterPage</name>
+    <message>
+        <source>Reconfigure Modbus RTU master</source>
+        <translation type="unfinished">Modbus RTU-Master neu konfigurieren</translation>
+    </message>
+    <message>
+        <source>RJ45 connector</source>
+        <translation type="unfinished">RJ45-Stecker</translation>
+    </message>
+    <message>
+        <source>14-pin connector</source>
+        <translation type="unfinished">14-poliger Stecker</translation>
+    </message>
+    <message>
+        <source>UUID</source>
+        <translation type="unfinished">UUID</translation>
+    </message>
+    <message>
+        <source>Serial port</source>
+        <translation type="unfinished">Serielle Schnittstelle</translation>
+    </message>
+    <message>
+        <source>Path</source>
+        <translation type="unfinished">Pfad</translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished">Beschreibung</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Unbekannt</translation>
+    </message>
+    <message>
+        <source>Manufacturer</source>
+        <translation type="unfinished">Hersteller</translation>
+    </message>
+    <message>
+        <source>Serialnumber</source>
+        <translation type="unfinished">Seriennummer</translation>
+    </message>
+    <message>
+        <source>Configuration</source>
+        <translation type="unfinished">Einstellungen</translation>
+    </message>
+    <message>
+        <source>Baud rate</source>
+        <translation type="unfinished">Baudrate</translation>
+    </message>
+    <message>
+        <source>Parity</source>
+        <translation type="unfinished">Parität</translation>
+    </message>
+    <message>
+        <source>Data bits</source>
+        <translation type="unfinished">Datenbits</translation>
+    </message>
+    <message>
+        <source>Stop bits</source>
+        <translation type="unfinished">Stopbits</translation>
+    </message>
+    <message>
+        <source>Request retries</source>
+        <translation type="unfinished">Anfrageversuche</translation>
+    </message>
+    <message>
+        <source>Request timeout [ms]</source>
+        <translation type="unfinished">Versuchsdauer [ms]</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished">Anwenden</translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoModbusRtuSettingsPage</name>
     <message>
         <source>Modbus-RTU-Interfaces</source>
