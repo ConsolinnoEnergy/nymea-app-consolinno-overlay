@@ -195,7 +195,8 @@ Dialog {
                 fillMode: Image.PreserveAspectFit
                 Layout.fillWidth: true
                 Layout.topMargin: 10
-                Layout.bottomMargin: 50
+                sourceSize.width: 294
+                sourceSize.height: 378
                 visible: picture.source
             }
 
