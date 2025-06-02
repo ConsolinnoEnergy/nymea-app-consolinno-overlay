@@ -3,6 +3,7 @@ import QtQuick 2.0
 import "../../ui/"
 
 StyleBase {
+    id: root
 
     property color consolinnoExtraDark: "#194D25"
     property color consolinnoDark: "#194D25"
@@ -24,7 +25,11 @@ StyleBase {
     readonly property color epexBarPricingOutOfLimit: "#E0E0E0"
     readonly property color epexBarOutLine: "#FFFFFF"
     readonly property color epexBarMainLineColor: "#BDD786"
-    readonly property color barSeriesDisabled: "#FFFFFF"
+    readonly property color barSeriesDisabled: root.epexBarPricingPast
+
+    // Switch
+    readonly property color switchCircleColor: "#F4F6F4"
+    readonly property color switchBagroundColor: "#80222222"
 
     property real majorFontSize: 16
     property real screenMargins: 16

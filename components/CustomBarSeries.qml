@@ -98,7 +98,7 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: root.enabled ? Style.epexBarMainLineColor : "#F5F5F5"
+        color: root.enabled ? Style.epexBarMainLineColor : Style.barSeriesDisabled
         borderWidth: 1
         borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
@@ -109,7 +109,7 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: root.enabled ? Style.epexBarCurrentTime : "#F5F5F5"
+        color: root.enabled ? Style.epexBarCurrentTime : Style.barSeriesDisabled
         borderWidth: 1
         borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
@@ -131,7 +131,7 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: root.enabled ? Style.epexBarPricingCurrentTime : "#F5F5F5"
+        color: root.enabled ? Style.epexBarPricingCurrentTime : Style.barSeriesDisabled
         borderWidth: 1
         borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
@@ -142,7 +142,7 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: root.enabled ? Style.epexBarPricingOutOfLimit : "#F5F5F5"
+        color: root.enabled ? Style.epexBarPricingOutOfLimit : Style.barSeriesDisabled
         borderWidth: 1
         borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
@@ -155,7 +155,7 @@ ChartView {
         axisY: valueAxis
         color: 'transparent'
         borderWidth: 1
-        borderColor: root.enabled ? Style.epexAverageColor : "#F5F5F5"
+        borderColor: root.enabled ? Style.epexAverageColor : Style.barSeriesDisabled
 
         upperSeries: LineSeries {
             id: priceLimitUp

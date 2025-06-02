@@ -17,7 +17,7 @@ Switch {
         x: root.leftPadding
         y: parent.height / 2 - height / 2
         radius: 13
-        color: root.checked ? selectedColor : "#80222222"
+        color: root.checked ? selectedColor : Style.switchBagroundColor
 
         Rectangle {
             id: toggleCircle
@@ -26,7 +26,7 @@ Switch {
             width: 21
             height: 21
             radius: 12
-            color: root.checked ? selectedColor : "#F4F6F4"
+            color: root.checked ? selectedColor : Style.switchCircleColor
 
             Behavior on x {
                 NumberAnimation {

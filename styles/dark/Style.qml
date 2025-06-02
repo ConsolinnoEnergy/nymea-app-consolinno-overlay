@@ -3,7 +3,7 @@ import QtQuick 2.0
 import "../../ui/"
 
 StyleBase {
-
+    id: root
     property color consolinnoExtraDark: "#194D25"
     property color consolinnoDark: "#194D25"
     property color consolinnoMedium: Configuration.iconColor
@@ -32,6 +32,11 @@ StyleBase {
     readonly property color epexBarPricingOutOfLimit: "#616161"
     readonly property color epexBarOutLine: "#303030"
     readonly property color epexBarMainLineColor: "#BDD786"
+    readonly property color barSeriesDisabled: root.epexBarPricingPast
+
+    // Switch
+    readonly property color switchCircleColor: "#F4F6F4"
+    readonly property color switchBagroundColor: "#80F4F6F4"
 
     backgroundColor: "#303030"
     foregroundColor: "#F4F6F4"
@@ -66,8 +71,6 @@ StyleBase {
 
     readonly property color successBackground: "#062D0A"
     readonly property color successAccent: "#26C131"
-
-    readonly property color barSeriesDisabled: "#3A3A3A"
 
     //font size and font family
     readonly property font extraSmallFont: Qt.font({
