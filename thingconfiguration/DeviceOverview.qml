@@ -91,15 +91,9 @@ Page {
             Layout.preferredWidth: 300
             Layout.minimumWidth: 100
             onClicked:{
-                pageStack.push( "../wizards/AuthorisationView.qml", {directionID: 1})
+                pageStack.push( "../wizards/AuthorisationView.qml", {directionID: 1, hemsManager: hemsManager})
             }
         }
-
-        /*
-        ListFilterInput {
-            id: filterInput
-            Layout.fillWidth: true
-        }*/
 
         GroupedListView {
             Layout.fillWidth: true

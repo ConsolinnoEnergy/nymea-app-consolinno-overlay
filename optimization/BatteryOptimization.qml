@@ -91,26 +91,12 @@ Page {
             visible: (hemsManager.availableUseCases & HemsManager.HemsUseCaseAvoidZeroCompensation) !== 0
 
             Label {
-                Layout.fillWidth: true
                 text: qsTr("Avoid zero compensation")
             }
 
-            ConsolinnoSwitch {
+            Switch {
                 id: zeroCompensationControl
                 Component.onCompleted: checked = batteryConfiguration.avoidZeroFeedInEnabled
-            }
-        }
-
-        ColumnLayout {
-            Layout.fillWidth: true
-            visible: (hemsManager.availableUseCases & HemsManager.HemsUseCaseAvoidZeroCompensation) !== 0
-
-            Text {
-                Layout.fillWidth: true
-                font: Style.smallFont
-                color: Style.consolinnoMedium
-                wrapMode: Text.Wrap
-                text: qsTr("On days with negative electricity prices, battery capacity is actively reserved so that the battery can be charged during the hours with negative electricity prices and feed-in without remuneration is avoided. As soon as the control becomes active, the charging of the battery is limited (visible on the yellow message on the screen).")
             }
         }
 

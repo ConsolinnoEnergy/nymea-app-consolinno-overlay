@@ -141,6 +141,9 @@
         <file>components/ConsolinnoSelectionTabs.qml</file>
         <file>components/ConsolinnoSwitch.qml</file>
         <file>components/ConsolinnoTextField.qml</file>
+        <file>info/AvoidZeroCompensationInfo.qml</file>
+        <file>images/avoidZeroCompansationExample_de.svg</file>
+        <file>components/ConsolinnoDialog.qml</file>
         <file>system/ConsolinnoModbusRtuReconfigureMasterPage.qml</file>
     </qresource>
 </RCC>
