@@ -3,13 +3,14 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.3
 import QtQml 2.2
+import Nymea 1.0
 
 Rectangle {
     Layout.fillWidth: true
     radius: 10
-    color: "#FFEE89"
+    color: Style.warningBackground
     border.width: 1
-    border.color: "#864A0D"
+    border.color: Style.warningAccent
     implicitHeight: alertContainer.implicitHeight + 20
 
     ColumnLayout {
@@ -34,15 +35,15 @@ Rectangle {
                 width: 20
                 height: 20
                 radius: 10
-                color: "#FFEE89"
-                border.color: "#864A0D"
+                color: Style.warningBackground
+                border.color: Style.warningAccent
                 border.width: 1
                 RowLayout.alignment: Qt.AlignVCenter
 
                 Label {
                     text: "!"
                     anchors.centerIn: parent
-                    color: "#864A0D"
+                    color: Style.warningAccent
                 }
             }
 
@@ -53,7 +54,7 @@ Rectangle {
                 wrapMode: Text.WordWrap
                 Layout.fillWidth: true
                 Layout.preferredWidth: parent.width - 20
-                color: "#864A0D"
+                color: Style.warningAccent
             }
         }
 
@@ -69,7 +70,7 @@ Rectangle {
                 wrapMode: Text.WordWrap
                 width: alertContainer.width - 20
                 leftPadding: 40
-                color: "#864A0D"
+                color: Style.warningAccent
             }
 
             onClicked: {

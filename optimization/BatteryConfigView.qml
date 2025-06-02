@@ -279,7 +279,6 @@ GenericConfigPage {
                     RowLayout {
                         Layout.topMargin: 5
                         visible: optimizationController.checked
-
                         Label {
                             text: qsTr("Activate instant charging")
                         }
