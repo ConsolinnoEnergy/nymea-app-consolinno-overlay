@@ -623,11 +623,6 @@ Page {
                 }
             }
 
-            Component.onCompleted: {
-                console.error(discovery.count)
-                console.error(discoveryProxy.count)
-            }
-
             busy: discovery.busy
             busyText: qsTr("Searching for things...")
 

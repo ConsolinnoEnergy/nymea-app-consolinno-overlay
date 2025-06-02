@@ -130,6 +130,17 @@
     </message>
 </context>
 <context>
+    <name>AvoidZeroCompensationInfo</name>
+    <message>
+        <source>Avoid Zero Compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BatteryConfigView</name>
     <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
@@ -242,10 +253,6 @@
     </message>
     <message>
         <source>Avoid zero compensation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively reserved so that the battery can be charged during the hours with negative electricity prices and feed-in without remuneration is avoided. As soon as the control becomes active, the charging of the battery is limited (visible on the yellow message on the screen).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -900,7 +907,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The battery charge is limited during regulation.</source>
+        <source>The battery charge is limited during regulation. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

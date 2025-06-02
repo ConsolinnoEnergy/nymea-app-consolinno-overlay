@@ -130,6 +130,9 @@
         <file>system/ConsolinnoModbusRtuAddMasterPage.qml</file>
         <file>info/ZeroCompensationInfo.qml</file>
         <file>components/ConsolinnoAvoidZeroCompensation.qml</file>
+        <file>info/AvoidZeroCompensationInfo.qml</file>
+        <file>images/avoidZeroCompansationExample_de.svg</file>
+        <file>components/ConsolinnoDialog.qml</file>
         <file>system/ConsolinnoModbusRtuReconfigureMasterPage.qml</file>
     </qresource>
 </RCC>
