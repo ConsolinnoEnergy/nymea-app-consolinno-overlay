@@ -505,7 +505,7 @@ GenericConfigPage {
                       margins.right: 0
                       margins.top: 0
                       margins.bottom: 0
-                      backgroundColor: isZeroCompensation || chargeOnceController.checked ? "whitesmoke" : "transparent"
+                      backgroundColor: isZeroCompensation || chargeOnceController.checked ? Style.barSeriesDisabled : "transparent"
                       startTime: d.startTimeSince
                       endTime: d.endTimeUntil
                       hoursNow: d.now.getHours()

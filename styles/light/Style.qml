@@ -18,6 +18,14 @@ StyleBase {
     readonly property color epexAverageColor: "#C65B5A"
     readonly property color epexCurrentTime: "#2C723C"
 
+    readonly property color epexBarCurrentTime: "#189521"
+    readonly property color epexBarPricingPast: "#F4F6F4"
+    readonly property color epexBarPricingCurrentTime: "#767676"
+    readonly property color epexBarPricingOutOfLimit: "#E0E0E0"
+    readonly property color epexBarOutLine: "#FFFFFF"
+    readonly property color epexBarMainLineColor: "#BDD786"
+    readonly property color barSeriesDisabled: "#FFFFFF"
+
     property real majorFontSize: 16
     property real screenMargins: 16
 

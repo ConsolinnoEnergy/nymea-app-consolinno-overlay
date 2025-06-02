@@ -3766,16 +3766,16 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation>Wenn notwendig, bitte den Namen ändern</translation>
-    </message>
-    <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
     <message>
         <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
         <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant.</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
 </context>
 <context>
@@ -3849,12 +3849,12 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation>Wenn notwendig, bitte den Namen ändern</translation>
-    </message>
-    <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
 </context>
 <context>
@@ -3944,16 +3944,16 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation>Wenn notwendig, bitte den Namen ändern</translation>
-    </message>
-    <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
     <message>
         <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
         <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant.</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
 </context>
 <context>
@@ -4031,10 +4031,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Name:</translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation>Wenn notwendig, bitte den Namen ändern</translation>
-    </message>
-    <message>
         <source>Thing parameters</source>
         <translation>Gerät parameter</translation>
     </message>
@@ -4053,6 +4049,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>An unexpected error happened during the setup. Please verify the heating element is installed correctly and try again.</source>
         <translation>Während der Einrichtung ist ein unerwarteter Fehler aufgetreten. Bitte überprüfen Sie, ob der Heizstab korrekt installiert ist, und versuchen Sie es erneut.</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
 </context>
 <context>
@@ -4142,10 +4142,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation>Wenn notwendig, bitte den Namen ändern</translation>
-    </message>
-    <message>
         <source>Login required</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4180,6 +4176,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
 </context>
 <context>

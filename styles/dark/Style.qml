@@ -67,6 +67,8 @@ StyleBase {
     readonly property color successBackground: "#062D0A"
     readonly property color successAccent: "#26C131"
 
+    readonly property color barSeriesDisabled: "#3A3A3A"
+
     //font size and font family
     readonly property font extraSmallFont: Qt.font({
         family: Configuration.fontFamily,
