@@ -14,6 +14,7 @@ Dialog {
 
     property alias headerIcon: headerColorIcon.name
     property alias text: contentLabel.text
+    property alias headerText: contentHeader.text
     property alias source: picture.source
     default property alias children: content.children
 
@@ -75,6 +76,16 @@ Dialog {
             width: content.width
 
             Label {
+                id: contentHeader
+                Layout.fillWidth: true
+                font.pixelSize: app.largeFont
+                Layout.preferredWidth: height
+                font.bold: true
+                wrapMode: "WordWrap"
+                visible: headerText.length > 0
+            }
+
+            Label {
                 id: contentLabel
                 Layout.fillWidth: true
                 wrapMode: "WordWrap"
@@ -86,8 +97,8 @@ Dialog {
                 fillMode: Image.PreserveAspectFit
                 Layout.fillWidth: true
                 Layout.topMargin: 10
-                sourceSize.width: 250
-                sourceSize.height: 250
+                sourceSize.width: 294
+                sourceSize.height: 378
                 visible: picture.source
             }
         }
