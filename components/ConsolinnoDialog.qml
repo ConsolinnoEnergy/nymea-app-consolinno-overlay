@@ -12,13 +12,45 @@ Dialog {
     x: (parent.width - width) / 2
     y: (parent.height - height) / 2
 
+
+    background: Rectangle {
+        color: "white"
+        radius: 10
+        border.color: "#999"
+        border.width: 1
+        clip: true
+        implicitWidth: root.width
+        implicitHeight: root.height
+    }
+
+
     property alias headerIcon: headerColorIcon.name
     property alias text: contentLabel.text
     property alias headerText: contentHeader.text
     property alias source: picture.source
     default property alias children: content.children
 
-    standardButtons: Dialog.Ok
+    footer: Item {
+        implicitHeight: buttonRow.implicitHeight + app.margins
+        implicitWidth: parent.width
+
+        RowLayout {
+            id: buttonRow
+            anchors {
+                right: parent.right
+                bottom: parent.bottom
+                rightMargin: app.margins
+                bottomMargin: app.margins
+            }
+
+            Button {
+                text: qsTr("OK")
+                onClicked: {
+                    root.destroy()
+                }
+            }
+        }
+    }
 
     onClosed: root.destroy()
 
@@ -69,7 +101,7 @@ Dialog {
         clip: true
         anchors.margins: app.margins
         anchors.fill: parent
-        contentHeight: container.implicitHeight + 100
+        contentHeight: container.implicitHeight + 20
 
         ColumnLayout {
             id: container
@@ -88,17 +120,21 @@ Dialog {
             Label {
                 id: contentLabel
                 Layout.fillWidth: true
+                font.pixelSize: 14
                 wrapMode: "WordWrap"
                 visible: text.length > 0
             }
 
             Image {
                 id: picture
+                mipmap: true
+                smooth: true
+                sourceSize.width: 220
+                sourceSize.height: 200
                 fillMode: Image.PreserveAspectFit
                 Layout.fillWidth: true
                 Layout.topMargin: 10
-                sourceSize.width: 294
-                sourceSize.height: 378
+                Layout.bottomMargin: 50
                 visible: picture.source
             }
         }
