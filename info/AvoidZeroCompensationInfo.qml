@@ -38,6 +38,8 @@ Page {
                 Layout.topMargin: 35
                 Layout.leftMargin: 5
                 Layout.rightMargin: 5
+                sourceSize.width: 300
+                sourceSize.height: 300
                 fillMode: Image.PreserveAspectFit
                 source: Qt.locale("de_DE") ? "../images/avoidZeroCompansationExample_de.svg" : "../images/avoidZeroCompansationExample_en.svg"
             }
