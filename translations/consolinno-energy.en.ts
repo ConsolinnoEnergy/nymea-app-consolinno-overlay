@@ -3859,10 +3859,6 @@ For further assistance, please contact our support team at: %5</translation>
         <source>The following EEBUS devices were found:</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -4051,10 +4047,6 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>The following EEBUS devices were found:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
