@@ -1051,6 +1051,13 @@
     </message>
 </context>
 <context>
+    <name>ConsolinnoDialog</name>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoDynamicElectricPricingHistory</name>
     <message>
         <source>today</source>
