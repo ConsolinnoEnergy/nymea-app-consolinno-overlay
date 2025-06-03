@@ -915,8 +915,8 @@
         <translation>Wenn die Nullvergütung aktiv ist wird eine Meldung angezeigt. &lt;u&gt;Mehr Information &lt;/u&gt;</translation>
     </message>
     <message>
-        <source>Zero compensation</source>
-        <translation>Nullvergütung</translation>
+        <source>Avoid zero compensation</source>
+        <translation type="unfinished">Nullvergütung vermeiden</translation>
     </message>
 </context>
 <context>
@@ -4377,12 +4377,12 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
 <context>
     <name>ZeroCompensationInfo</name>
     <message>
-        <source>Zero Compensation</source>
-        <translation type="unfinished">Nullvergütung vermeiden</translation>
-    </message>
-    <message>
         <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
         <translation type="unfinished">Bei Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu diesen Zeiten in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden.  Sobald die Steuerung aktiv ist wird das Beladen aus dem Netz  deaktiviert (sichtbar an den ausgegrauten Bedienelementen).</translation>
+    </message>
+    <message>
+        <source>Zero Compensation</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
