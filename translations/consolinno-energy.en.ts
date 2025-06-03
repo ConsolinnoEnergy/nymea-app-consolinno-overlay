@@ -932,7 +932,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Zero compensation</source>
+        <source>Avoid zero compensation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

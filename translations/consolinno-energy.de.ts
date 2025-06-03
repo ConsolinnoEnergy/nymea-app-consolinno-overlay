@@ -915,8 +915,8 @@
         <translation>Wenn die Nullvergütung aktiv ist wird eine Meldung angezeigt. &lt;u&gt;Mehr Information &lt;/u&gt;</translation>
     </message>
     <message>
-        <source>Zero compensation</source>
-        <translation>Nullvergütung</translation>
+        <source>Avoid zero compensation</source>
+        <translation type="unfinished">Nullvergütung vermeiden</translation>
     </message>
 </context>
 <context>
