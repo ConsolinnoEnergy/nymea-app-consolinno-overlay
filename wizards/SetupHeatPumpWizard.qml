@@ -567,13 +567,13 @@ Page {
                     Button {
                         id: cancel
                         Layout.fillWidth: true
-                        text: qsTr("Cancel")
+                        text: qsTr("cancel")
                         background: Rectangle {
                             color: "transparent"
                         }
 
                         onClicked: {
-                            pageStack.pop()
+                             root.done(false, true, false)
                         }
                     }
                 }
