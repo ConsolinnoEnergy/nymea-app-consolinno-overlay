@@ -55,8 +55,7 @@ Page {
                 thingPage = pageStack.push("../optimization/BatteryOptimization.qml", { hemsManager: hemsManager, batteryConfiguration:  hemsManager.batteryConfigurations.getBatteryConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
                 navigateBack(thingPage)
             }else{
-                pageStack.pop(root, StackView.Immediate);
-                pageStack.pop();
+                pageStack.pop(root);
             }
         })
         page.aborted.connect(function() {
@@ -65,8 +64,7 @@ Page {
 
         function navigateBack(thingPage){
             thingPage.done.connect(function() {
-                pageStack.pop(root, StackView.Immediate);
-                pageStack.pop();
+                pageStack.pop(root);
             })
         }
     }
