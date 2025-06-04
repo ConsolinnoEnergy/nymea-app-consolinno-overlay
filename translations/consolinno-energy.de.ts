@@ -139,6 +139,22 @@
         <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
         <translation>An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
     </message>
+    <message>
+        <source>Market price</source>
+        <translation type="unfinished">Börsenpreis</translation>
+    </message>
+    <message>
+        <source>PV production</source>
+        <translation type="unfinished">PV-Produktion</translation>
+    </message>
+    <message>
+        <source>SoC without controller</source>
+        <translation type="unfinished">Soc ohne Steuerung</translation>
+    </message>
+    <message>
+        <source>SoC with controller</source>
+        <translation type="unfinished">SoC mit Nullvergütung vermeiden</translation>
+    </message>
 </context>
 <context>
     <name>BatteryConfigView</name>
@@ -1054,7 +1070,23 @@
     <name>ConsolinnoDialog</name>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Market price</source>
+        <translation>Börsenpreis</translation>
+    </message>
+    <message>
+        <source>PV production</source>
+        <translation>PV-Produktion</translation>
+    </message>
+    <message>
+        <source>SoC without controller</source>
+        <translation>Soc ohne Steuerung</translation>
+    </message>
+    <message>
+        <source>SoC with controller</source>
+        <translation>SoC mit Nullvergütung vermeiden</translation>
     </message>
 </context>
 <context>
