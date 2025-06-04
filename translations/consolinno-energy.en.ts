@@ -1073,6 +1073,22 @@
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Market price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV production</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SoC without controller</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SoC with controller</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoDynamicElectricPricingHistory</name>
