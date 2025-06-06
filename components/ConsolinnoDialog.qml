@@ -31,9 +31,9 @@ Dialog {
     default property alias children: content.children
 
     footer: Item {
-        implicitHeight: buttonRow.implicitHeight + app.margins
+        implicitHeight: app.margins
         implicitWidth: parent.width
-
+        Layout.topMargin: 10
         RowLayout {
             id: buttonRow
             anchors {
@@ -44,6 +44,7 @@ Dialog {
             }
 
             Button {
+                Layout.topMargin: 5
                 text: qsTr("OK")
                 onClicked: {
                     root.destroy()
@@ -204,72 +205,71 @@ Dialog {
                 anchors.horizontalCenter: picture.horizontalCenter
                 anchors.topMargin: 5
                 spacing: 8
+                Layout.bottomMargin: 10
 
                 RowLayout {
-                    spacing: 30
+                    spacing: 10
                     Layout.alignment: Qt.AlignHCenter
-
                     RowLayout {
                         spacing: 5
+                        Layout.rightMargin: 10
                         Rectangle {
-                            width: 14
-                            height: 14
+                            width: 13
+                            height: 13
                             radius: 7
                             color: Style.marketPriceColor
                         }
                         Label {
                             text: qsTr("Market price")
-                            font.pixelSize: 14
+                            font.pixelSize: 12
                             verticalAlignment: Text.AlignVCenter
                         }
                     }
 
                     RowLayout {
                         spacing: 5
+                        Layout.leftMargin: 12
                         Rectangle {
-                            width: 14
-                            height: 14
+                            width: 13
+                            height: 13
                             radius: 7
                             color: Style.pvProductionColor
                         }
                         Label {
                             text: qsTr("PV production")
-                            font.pixelSize: 14
+                            font.pixelSize: 12
                             verticalAlignment: Text.AlignVCenter
                         }
                     }
                 }
 
                 RowLayout {
-                    spacing: 5
-
                     RowLayout {
                         spacing: 5
                         Rectangle {
-                            width: 14
-                            height: 14
+                            width: 13
+                            height: 13
                             radius: 7
                             color: Style.socWithoutControllerColor
                         }
                         Label {
                             text: qsTr("SoC without controller")
-                            font.pixelSize: 14
+                            font.pixelSize: 12
                             verticalAlignment: Text.AlignVCenter
                         }
                     }
                 }
 
                 RowLayout {
-                    spacing: 5
                     Rectangle {
-                        width: 14
-                        height: 14
+                        width: 13
+                        height: 13
                         radius: 7
                         color: Style.socWithControllerColor
                     }
                     Label {
                         text: qsTr("SoC with controller")
-                        font.pixelSize: 14
+                        font.pixelSize: 12
                         verticalAlignment: Text.AlignVCenter
                     }
                 }

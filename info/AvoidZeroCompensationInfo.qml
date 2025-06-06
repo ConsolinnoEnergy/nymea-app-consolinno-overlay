@@ -114,7 +114,7 @@ Page {
                 RowLayout {
                     spacing: 30
                     Layout.alignment: Qt.AlignHCenter
-
+                    Layout.rightMargin: 30
                     RowLayout {
                         spacing: 5
                         Rectangle {
@@ -132,6 +132,7 @@ Page {
 
                     RowLayout {
                         spacing: 5
+                        Layout.leftMargin: 20
                         Rectangle {
                             width: 14
                             height: 14

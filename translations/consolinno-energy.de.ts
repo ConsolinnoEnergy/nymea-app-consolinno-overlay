@@ -928,7 +928,7 @@
     </message>
     <message>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
-        <translation>Wenn die Nullvergütung aktiv ist wird eine Meldung angezeigt. &lt;u&gt;Mehr Information &lt;/u&gt;</translation>
+        <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
     </message>
     <message>
         <source>Avoid zero compensation</source>
