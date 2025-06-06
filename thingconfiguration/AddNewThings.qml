@@ -51,9 +51,11 @@ Page {
             }else if(thingClass.interfaces.includes("solarinverter")){
                 thingPage = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
                 navigateBack(thingPage)
+            }else if(thingClass.interfaces.includes("battery")){
+                thingPage = pageStack.push("../optimization/BatteryOptimization.qml", { hemsManager: hemsManager, batteryConfiguration:  hemsManager.batteryConfigurations.getBatteryConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
+                navigateBack(thingPage)
             }else{
-                pageStack.pop(root, StackView.Immediate);
-                pageStack.pop();
+                pageStack.pop(root);
             }
         })
         page.aborted.connect(function() {
@@ -62,8 +64,7 @@ Page {
 
         function navigateBack(thingPage){
             thingPage.done.connect(function() {
-                pageStack.pop(root, StackView.Immediate);
-                pageStack.pop();
+                pageStack.pop(root);
             })
         }
     }
@@ -220,22 +221,12 @@ Page {
                     for (let i = 0; i < thingClass.interfaces.length; i++) {
                         let icon = "";
                         let interfaceIcons = thingClass.interfaces[i];
+                        let heatpumpName = "";
+                        let energyName = "";
+
+                        (interfaceIcons === "pvsurplusheatpump") ? heatpumpName = "pvsurplusheatpump" : (interfaceIcons === "smartgridheatpump") ? heatpumpName = "smartgridheatpump" : heatpumpName = "simpleheatpump"
                         switch (interfaceIcons) {
-                        case "simpleheatpump":
-                            if(Configuration.heatpumpIcon !== ""){
-                                icon = "/ui/images/"+Configuration.heatpumpIcon
-                            }else{
-                                icon = "/ui/images/heatpump.svg"
-                            }
-                            return Qt.resolvedUrl(icon)
-                        case "smartgridheatpump":
-                            if(Configuration.heatpumpIcon !== ""){
-                                icon = "/ui/images/"+Configuration.heatpumpIcon
-                            }else{
-                                icon = "/ui/images/heatpump.svg"
-                            }
-                            return Qt.resolvedUrl(icon)
-                        case "pvsurplusheatpump":
+                        case heatpumpName:
                             if(Configuration.heatpumpIcon !== ""){
                                 icon = "/ui/images/"+Configuration.heatpumpIcon
                             }else{
@@ -249,7 +240,21 @@ Page {
                                 icon = "/ui/images/heating_rod.svg"
                             }
                             return Qt.resolvedUrl(icon)
-                        case "energystorage":
+                        case "controllablebattery":
+                            if(Configuration.batteryIcon !== ""){
+                                icon = "/ui/images/"+Configuration.batteryIcon
+                            }else{
+                                icon = "/ui/images/battery/battery-080.svg"
+                            }
+                            return Qt.resolvedUrl(icon)
+                        case "limitablebattery":
+                            if(Configuration.batteryIcon !== ""){
+                                icon = "/ui/images/"+Configuration.batteryIcon
+                            }else{
+                                icon = "/ui/images/battery/battery-080.svg"
+                            }
+                            return Qt.resolvedUrl(icon)
+                        case "battery":
                             if(Configuration.batteryIcon !== ""){
                                 icon = "/ui/images/"+Configuration.batteryIcon
                             }else{

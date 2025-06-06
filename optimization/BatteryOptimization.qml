@@ -97,7 +97,7 @@ Page {
             InfoButton {
                 id: avoidZeroCompensationInfo
                 Layout.fillWidth: true
-                Layout.bottomMargin: 15
+                Layout.bottomMargin: 17
                 push: "AvoidZeroCompensationInfo.qml"
             }
 

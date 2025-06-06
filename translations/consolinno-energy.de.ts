@@ -137,7 +137,23 @@
     </message>
     <message>
         <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation>An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, i st das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
+        <translation>An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
+    </message>
+    <message>
+        <source>Market price</source>
+        <translation type="unfinished">Börsenpreis</translation>
+    </message>
+    <message>
+        <source>PV production</source>
+        <translation type="unfinished">PV-Produktion</translation>
+    </message>
+    <message>
+        <source>SoC without controller</source>
+        <translation type="unfinished">Soc ohne Steuerung</translation>
+    </message>
+    <message>
+        <source>SoC with controller</source>
+        <translation type="unfinished">SoC mit Nullvergütung vermeiden</translation>
     </message>
 </context>
 <context>
@@ -907,12 +923,16 @@
         <translation>Nullvergütung vermeiden aktiv</translation>
     </message>
     <message>
-        <source>The battery charge is limited during regulation. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
+        <translation type="unfinished">An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
+    </message>
+    <message>
+        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
     </message>
     <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation>An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, i st das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
+        <source>Avoid zero compensation</source>
+        <translation type="unfinished">Nullvergütung vermeiden</translation>
     </message>
 </context>
 <context>
@@ -1044,6 +1064,29 @@
     <message>
         <source>To battery</source>
         <translation>Batterie</translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoDialog</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Market price</source>
+        <translation>Börsenpreis</translation>
+    </message>
+    <message>
+        <source>PV production</source>
+        <translation>PV-Produktion</translation>
+    </message>
+    <message>
+        <source>SoC without controller</source>
+        <translation>Soc ohne Steuerung</translation>
+    </message>
+    <message>
+        <source>SoC with controller</source>
+        <translation>SoC mit Nullvergütung vermeiden</translation>
     </message>
 </context>
 <context>
@@ -2683,7 +2726,7 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.9.1&lt;/p&gt;
+&lt;p&gt;Version 1.9.2&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
     &lt;li&gt;Nullvergütung vermeiden: Funktion zur gezielten Beladung der Batterie bei negativen Strompreisen 
@@ -2693,7 +2736,7 @@ fügen Sie eine weitere hinzu.</translation>
 &lt;h4&gt;Verbesserungen&lt;/h4&gt;
 &lt;ul&gt;
     &lt;li&gt;Modbus RTU-Einstellungen im Inbetriebnahme-Assistenten verfügbar&lt;/li&gt;
-    &lt;li&gt;Verbesserter Ladeplan bei Tarifgesteuerten Laden der Batterie&lt;/li&gt;
+    &lt;li&gt;Verbesserter Ladeplan bei tarifgesteuertem Laden&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -4374,12 +4417,12 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
 <context>
     <name>ZeroCompensationInfo</name>
     <message>
-        <source>Zero Compensation</source>
-        <translation type="unfinished">Nullvergütung vermeiden</translation>
-    </message>
-    <message>
         <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
         <translation type="unfinished">Bei Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu diesen Zeiten in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden.  Sobald die Steuerung aktiv ist wird das Beladen aus dem Netz  deaktiviert (sichtbar an den ausgegrauten Bedienelementen).</translation>
+    </message>
+    <message>
+        <source>Zero Compensation</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
