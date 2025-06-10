@@ -94,14 +94,14 @@ Page {
 
             Image {
                 id: picture
-                Layout.fillHeight: true
-                Layout.preferredWidth: app.width
                 Layout.topMargin: 35
                 Layout.leftMargin: 5
                 Layout.rightMargin: 5
                 sourceSize.width: 300
                 sourceSize.height: 300
-                fillMode: Image.PreserveAspectFit
+                mipmap: false
+                smooth: false
+                Layout.alignment: Qt.AlignHCenter
                 source: "../images/avoidZeroCompansation.svg"
             }
 
