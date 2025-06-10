@@ -189,12 +189,11 @@ Dialog {
 
             Image {
                 id: picture
-                mipmap: true
-                smooth: true
+                mipmap: false
+                smooth: false
                 sourceSize.width: 220
                 sourceSize.height: 200
-                fillMode: Image.PreserveAspectFit
-                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
                 Layout.topMargin: 10
                 Layout.bottomMargin: 50
                 visible: picture.source
