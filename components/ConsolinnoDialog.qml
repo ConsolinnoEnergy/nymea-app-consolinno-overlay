@@ -189,8 +189,7 @@ Dialog {
 
             Image {
                 id: picture
-                mipmap: false
-                smooth: false
+                smooth: true
                 sourceSize.width: 220
                 sourceSize.height: 200
                 Layout.alignment: Qt.AlignHCenter
