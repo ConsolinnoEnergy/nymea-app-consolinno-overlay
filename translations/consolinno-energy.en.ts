@@ -3093,10 +3093,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The relays are configured as follows:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Grid-supportive control</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3106,14 +3102,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Must be in same network.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid-supportive control setup – Relay</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid-supportive control – Relay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3134,6 +3122,22 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Relais</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connect device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please connect the control box or the ripple control receiver as described in our manual.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control – Relais</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control setup – Relais</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
