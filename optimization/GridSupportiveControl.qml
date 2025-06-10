@@ -103,6 +103,7 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+                spacing: 8
 
                 ColumnLayout {
                     Layout.leftMargin: app.bigMargins
@@ -113,7 +114,7 @@ StackView {
                         Layout.fillWidth: true
                         Layout.bottomMargin: 8
                         text: qsTr("Grid-supportive control setup")
-                        implicitHeight: 55
+                        implicitHeight: 50
                         onClicked: {
                             pageStack.push(selectComponent)
                         }
@@ -213,6 +214,7 @@ StackView {
 
                     ConsolinnoItemDelegate {
                         visible: powerLimitSource === "relais"
+                        implicitHeight: 50
                         Layout.fillWidth: true
                         text: "Relais"
                         iconName: "../images/relais.svg"
@@ -223,6 +225,7 @@ StackView {
 
                     ConsolinnoItemDelegate {
                         visible: (powerLimitSource === "eebus" && eebusThing.count > 0)
+                        implicitHeight: 50
                         Layout.fillWidth: true
                         text: qsTr("EEBUS control box")
                         iconName: "../images/eebus.svg"
@@ -273,7 +276,7 @@ StackView {
                     model: myListModel
                     ConsolinnoRadioDelegate {
                        text: name
-                       implicitHeight: 48
+                       implicitHeight: 50
                        description: model.description
                        value: index
                        size: 20
@@ -342,7 +345,7 @@ StackView {
         Page {
 
             header: NymeaHeader {
-                text: qsTr("Grid-supportive control setup – Relay")
+                text: qsTr("Grid-supportive control setup – Relais")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -352,7 +355,7 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-
+                spacing: 8
                 RowLayout {
                     Layout.topMargin: app.margins
                     Layout.leftMargin: app.margins
@@ -363,7 +366,7 @@ StackView {
                         font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The relays are configured as follows:")
+                        text: qsTr("Connect device")
                         color: Style.consolinnoDark
                     }
                 }
@@ -373,14 +376,10 @@ StackView {
                     Layout.rightMargin: app.margins
                     Layout.alignment: Qt.AlignHCenter
                     spacing: 0
-                    Image {
+                    Label {
                         Layout.fillWidth: true
-                        Layout.topMargin: 0
-                        Layout.preferredHeight: width * (implicitHeight/implicitWidth)
-                        Layout.maximumWidth: 800
-                        fillMode: Image.PreserveAspectFit
-                        source: "../images/relais_screen.png"
-                        clip: true
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Please connect the control box or the ripple control receiver as described in our manual.")
                     }
                 }
 
@@ -446,7 +445,7 @@ StackView {
         Page {
 
             header: ConsolinnoHeader {
-                text: qsTr("Grid-supportive control – Relay")
+                text: qsTr("Grid-supportive control – Relais")
                 backButtonVisible: true
                 menuOptionsButtonVisible: true
                 onBackPressed: pageStack.pop()
@@ -532,19 +531,19 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+                spacing: 8
 
                 RowLayout {
                     Layout.topMargin: app.margins
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-
                     Text {
                         Layout.fillWidth: true
                         textFormat: Text.RichText
                         font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The relays are configured as follows:")
+                        text: qsTr("Connect device")
                         color: Style.consolinnoDark
                     }
                 }
@@ -552,16 +551,12 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
+                    Layout.alignment: Qt.AlignHCenter
                     spacing: 0
-                    Image {
-                        Layout.alignment: Qt.AlignHCenter
+                    Label {
                         Layout.fillWidth: true
-                        Layout.topMargin: 0
-                        Layout.preferredHeight: width * (implicitHeight/implicitWidth)
-                        Layout.maximumWidth: 800
-                        fillMode: Image.PreserveAspectFit
-                        source: "../images/relais_screen.png"
-                        clip: true
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Please connect the control box or the ripple control receiver as described in our manual.")
                     }
 
                     Item {
@@ -593,7 +588,7 @@ StackView {
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 Layout.topMargin: 0
-                spacing: 0
+                spacing: 8
 
                 ColumnLayout {
                     Layout.leftMargin: app.margins
@@ -636,7 +631,7 @@ StackView {
                                 thingDiscovery: discovery
                             }
                             delegate: ConsolinnoItemDelegate {
-                                height: 70
+                                implicitHeight: 50
                                 Layout.fillWidth: true
                                 iconName: "../images/connections/network-wired.svg"
                                 text: model.name
@@ -715,7 +710,7 @@ StackView {
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 Layout.topMargin: 0
-                spacing: 0
+                spacing: 8
 
                 ColumnLayout {
                     Layout.leftMargin: app.margins
@@ -749,7 +744,7 @@ StackView {
                             model: thingClass.paramTypes
                             delegate: ConsolinnoItemDelegate {
                                 id: thingParams
-                                height: 70
+                                implicitHeight: 50
                                 property var paramType: thingClass.paramTypes.get(index)
                                 property string paramValue: isNaN(discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id)) ? discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id).value : ""
                                 Layout.fillWidth: true
@@ -980,7 +975,7 @@ StackView {
                             model: eeBusThing.thingClass.paramTypes
                             delegate: ConsolinnoItemDelegate {
                                 id: thingParams
-                                height: 70
+                                implicitHeight: 50
                                 property var paramType: eeBusThing.thingClass.paramTypes.get(index)
                                 property string paramValue: isNaN(eeBusThing.params.getParam(eeBusThing.thingClass.paramTypes.get(index).id)) ? eeBusThing.params.getParam(eeBusThing.thingClass.paramTypes.get(index).id).value : ""
                                 Layout.fillWidth: true
@@ -1134,7 +1129,7 @@ StackView {
                 }
 
                 ConsolinnoItemDelegate {
-                    height: 70
+                    implicitHeight: 50
                     property var paramType: thingClass.paramTypes.get(0)
                     property string paramValue: discoveryThingParams.params.getParam(paramType.id).value
                     Layout.fillWidth: true

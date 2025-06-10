@@ -3241,10 +3241,6 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Zurück zur Übersicht</translation>
     </message>
     <message>
-        <source>The relays are configured as follows:</source>
-        <translation>Die Relais sind wie folgt konfiguriert:</translation>
-    </message>
-    <message>
         <source>Grid-supportive control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
@@ -3255,14 +3251,6 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Must be in same network.</source>
         <translation>Muss im selben Netzwerk sein.</translation>
-    </message>
-    <message>
-        <source>Grid-supportive control setup – Relay</source>
-        <translation>Netzdienlichkeit einrichten – Relay</translation>
-    </message>
-    <message>
-        <source>Grid-supportive control – Relay</source>
-        <translation>Netzdienlichkeit – Relay</translation>
     </message>
     <message>
         <source>Grid-supportive control setup – EEBUS</source>
@@ -3283,6 +3271,22 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Relais</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connect device</source>
+        <translation>Gerät anschließen</translation>
+    </message>
+    <message>
+        <source>Please connect the control box or the ripple control receiver as described in our manual.</source>
+        <translation>Bitte schließen Sie die Steuerbox bzw. den Rundsteuerempfänger gemäß unserer Anleitung an.</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control – Relais</source>
+        <translation>Netzdienlichkeit – Relais</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control setup – Relais</source>
+        <translation>Netzdienlichkeit einrichten – Relais</translation>
     </message>
 </context>
 <context>
