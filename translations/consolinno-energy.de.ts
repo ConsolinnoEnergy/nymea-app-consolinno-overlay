@@ -3173,10 +3173,6 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>verbunden</translation>
     </message>
     <message>
-        <source>Confirmation by network operator pending</source>
-        <translation>Bestätigung durch Netzbetreiber ausstehend</translation>
-    </message>
-    <message>
         <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
         <translation>Der Verbrauch ist &lt;b&gt;temporär blockiert&lt;/b&gt; durch den Netzbetreiber.</translation>
     </message>
@@ -3257,10 +3253,6 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Netzdienlichkeit einrichten</translation>
     </message>
     <message>
-        <source>Relay</source>
-        <translation>Relay</translation>
-    </message>
-    <message>
         <source>Must be in same network.</source>
         <translation>Muss im selben Netzwerk sein.</translation>
     </message>
@@ -3283,6 +3275,14 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>EEBUS control box</source>
         <translation>EEBUS Steuerbox</translation>
+    </message>
+    <message>
+        <source>Confirmation by network operator pending.</source>
+        <translation>Bestätigung durch Netzbetreiber ausstehend.</translation>
+    </message>
+    <message>
+        <source>Relais</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4055,7 +4055,11 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>The following EEBUS devices were found:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Folgende EEBUS-Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -4245,7 +4249,11 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>The following EEBUS devices were found:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Folgende EEBUS-Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
     </message>
 </context>
 <context>
