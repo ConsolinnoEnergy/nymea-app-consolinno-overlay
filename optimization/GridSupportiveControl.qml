@@ -360,7 +360,7 @@ StackView {
                     Text {
                         Layout.fillWidth: true
                         textFormat: Text.RichText
-                        font.pointSize: 20
+                        font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("The relays are configured as follows:")
@@ -541,7 +541,7 @@ StackView {
                     Text {
                         Layout.fillWidth: true
                         textFormat: Text.RichText
-                        font.pointSize: 20
+                        font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("The relays are configured as follows:")
@@ -604,7 +604,7 @@ StackView {
                         Layout.topMargin: 5
                         Layout.bottomMargin: 0
                         textFormat: Text.RichText
-                        font.pointSize: 20
+                        font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("The following EEBUS devices were found:")
