@@ -3046,10 +3046,6 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>verbunden</translation>
     </message>
     <message>
-        <source>Confirmation by network operator pending</source>
-        <translation>Bestätigung durch Netzbetreiber ausstehend</translation>
-    </message>
-    <message>
         <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
         <translation>Der Verbrauch ist &lt;b&gt;temporär blockiert&lt;/b&gt; durch den Netzbetreiber.</translation>
     </message>
@@ -3130,10 +3126,6 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Netzdienlichkeit einrichten</translation>
     </message>
     <message>
-        <source>Relay</source>
-        <translation>Relay</translation>
-    </message>
-    <message>
         <source>Must be in same network.</source>
         <translation>Muss im selben Netzwerk sein.</translation>
     </message>
@@ -3156,6 +3148,14 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>EEBUS control box</source>
         <translation>EEBUS Steuerbox</translation>
+    </message>
+    <message>
+        <source>Confirmation by network operator pending.</source>
+        <translation>Bestätigung durch Netzbetreiber ausstehend.</translation>
+    </message>
+    <message>
+        <source>Relais</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3918,6 +3918,22 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
         <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant.</translation>
     </message>
+    <message>
+        <source>EEBUS Wallbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EvCharger set-up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished">Folgende EEBUS-Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
+    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -4099,6 +4115,18 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>EEBUS heat pump</source>
         <translation>EEBUS Wärmepumpe</translation>
+    </message>
+    <message>
+        <source>Heatpump set-up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished">Folgende EEBUS-Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
     </message>
 </context>
 <context>

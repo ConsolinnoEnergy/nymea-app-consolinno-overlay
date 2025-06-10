@@ -11,7 +11,7 @@ StyleBase {
     property color consolinnoExtraLight: "#BDD758"
     property color consolinnoHighlight: "#189521"
     property color consolinnoHighlightForeground: Configuration.highlightForeground
-
+    property color secondaryDark: "#767676"
     property real majorFontSize: 16
     property real screenMargins: 16
 

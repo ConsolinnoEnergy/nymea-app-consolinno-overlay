@@ -135,5 +135,6 @@
         <file>images/eebus.svg</file>
         <file>components/ConsolinnoGridSupportiveControlAlert.qml</file>
         <file>images/relais.svg</file>
+        <file>components/ConsolinnoCheckbox.qml</file>
     </qresource>
 </RCC>

@@ -3025,10 +3025,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Confirmation by network operator pending</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3109,10 +3105,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Relay</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Must be in same network.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3134,6 +3126,14 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>EEBUS control box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirmation by network operator pending.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relais</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3892,6 +3892,22 @@ For further assistance, please contact our support team at: %5</translation>
         <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>EEBUS Wallbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EvCharger set-up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -4072,6 +4088,18 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>EEBUS heat pump</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heatpump set-up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
