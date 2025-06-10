@@ -10,7 +10,7 @@ Rectangle {
     color: "#FFEE89"
     border.width: 1
     border.color: "#864A0D"
-    implicitHeight: alertContainer.implicitHeight + 20
+    implicitHeight: alertContainer.implicitHeight
 
     ColumnLayout {
         id: alertContainer
@@ -24,6 +24,7 @@ Rectangle {
 
         RowLayout {
             width: parent.width
+            height: parent.height
             spacing: 5
 
             Item {
@@ -60,7 +61,7 @@ Rectangle {
         MouseArea {
             Layout.fillWidth: true
             Layout.preferredWidth: alertContainer.width - 20
-            height: screenGuideText.height + (app.width >= 400 ? 15 : 30)
+            height: screenGuideText.height + (app.width >= 400 ? 15 : 40)
 
             Label {
                 id: screenGuideText
