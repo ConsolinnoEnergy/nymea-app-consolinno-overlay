@@ -8,11 +8,11 @@ import Nymea 1.0
 RowLayout{
     id: root
     property string text
+    property bool checked: checkbox.checked
 
     CheckBox{
         id: checkbox
         Layout.alignment: Qt.AlignHCenter
-
     }
 
     Label {
