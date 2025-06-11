@@ -99,7 +99,6 @@ Page {
                 Layout.rightMargin: 5
                 sourceSize.width: 300
                 sourceSize.height: 300
-                smooth: true
                 Layout.alignment: Qt.AlignHCenter
                 source: "../images/avoidZeroCompansation.svg"
             }
