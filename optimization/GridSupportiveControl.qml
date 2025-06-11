@@ -778,11 +778,12 @@ StackView {
                     Layout.rightMargin: app.margins
 
                     ConsolinnoGridSupportiveControlAlert {
-                        Layout.topMargin: app.margins - 2
+                        Layout.topMargin: app.margins - 7
                         visible: powerLimitSource === "eebus" || powerLimitSource === "relais"
                     }
 
                     ConsolinnoCheckbox {
+                        id: deviceConnected
                         text: qsTr("Establish a connection with this device.")
                     }
                 }
