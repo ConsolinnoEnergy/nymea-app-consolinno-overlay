@@ -19,24 +19,22 @@ RadioDelegate {
     contentItem: ColumnLayout {
         spacing: 0
 
-        Text {
+        Label {
             id: mainText
             rightPadding: control.indicator.width + control.spacing
             text: control.text
             opacity: enabled ? 1.0 : 0.3
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter
-            color: Style.consolinnoDark
         }
 
-        Text {
+        Label {
             id: descriptionText
             visible: control.description.length > 1
             text: control.description
             font.pixelSize: 12
             wrapMode: Text.Wrap
             verticalAlignment: Text.AlignVCenter
-            color: Style.consolinnoDark
         }
     }
 
