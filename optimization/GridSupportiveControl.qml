@@ -1,5 +1,5 @@
 import QtQuick 2.8
-import QtQuick.Controls 2.1
+import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
@@ -316,14 +316,9 @@ StackView {
                         }
                     }
 
-                    Button {
-                        id: cancel
-                        Layout.fillWidth: true
+                    ConsolinnoSetUpButton {
                         text: qsTr("Cancel")
-                        background: Rectangle {
-                            color: "transparent"
-                        }
-
+                        backgroundColor: "transparent"
                         onClicked: {
                             pageStack.pop()
                         }
@@ -360,14 +355,13 @@ StackView {
                     Layout.topMargin: app.margins
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    Text {
+                    Label {
                         Layout.fillWidth: true
                         textFormat: Text.RichText
                         font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("Connect device")
-                        color: Style.consolinnoDark
                     }
                 }
 
@@ -415,14 +409,9 @@ StackView {
                         }
                     }
 
-                    Button {
-                        id: cancel
-                        Layout.fillWidth: true
+                    ConsolinnoSetUpButton {
                         text: qsTr("Cancel")
-                        background: Rectangle {
-                            color: "transparent"
-                        }
-
+                        backgroundColor: "transparent"
                         onClicked: {
                             pageStack.pop()
                             pageStack.pop()
@@ -537,14 +526,13 @@ StackView {
                     Layout.topMargin: app.margins
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    Text {
+                    Label {
                         Layout.fillWidth: true
                         textFormat: Text.RichText
                         font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("Connect device")
-                        color: Style.consolinnoDark
                     }
                 }
 
@@ -594,7 +582,7 @@ StackView {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
-                    Text {
+                    Label {
                         Layout.fillWidth: true
                         Layout.topMargin: 5
                         Layout.bottomMargin: 0
@@ -603,7 +591,6 @@ StackView {
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("The following EEBUS devices were found:")
-                        color: Style.consolinnoDark
                     }
                 }
 
@@ -671,14 +658,9 @@ StackView {
                         }
                     }
 
-                    Button {
-                        id: cancel
-                        Layout.fillWidth: true
+                    ConsolinnoSetUpButton {
                         text: qsTr("Cancel")
-                        background: Rectangle {
-                            color: "transparent"
-                        }
-
+                        backgroundColor: "transparent"
                         onClicked: {
                             pageStack.pop()
                             pageStack.pop()
@@ -687,7 +669,6 @@ StackView {
                 }
             }
         }
-
     }
 
     Component {
@@ -716,7 +697,7 @@ StackView {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
-                    Text {
+                    Label {
                         Layout.topMargin: 5
                         Layout.bottomMargin: 8
                         textFormat: Text.RichText
@@ -724,7 +705,6 @@ StackView {
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("Parameter")
-                        color: Style.consolinnoDark
                     }
                 }
 
@@ -819,14 +799,9 @@ StackView {
                         }
                     }
 
-                    Button {
-                        id: cancel
-                        Layout.fillWidth: true
+                    ConsolinnoSetUpButton {
                         text: qsTr("Cancel")
-                        background: Rectangle {
-                            color: "transparent"
-                        }
-
+                        backgroundColor: "transparent"
                         onClicked: {
                             pageStack.pop()
                             pageStack.pop()
@@ -947,7 +922,7 @@ StackView {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
-                    Text {
+                    Label {
                         Layout.topMargin: 5
                         Layout.bottomMargin: 8
                         textFormat: Text.RichText
@@ -955,7 +930,7 @@ StackView {
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("Parameter")
-                        color: Style.consolinnoDark
+
                     }
                 }
 
@@ -1009,7 +984,7 @@ StackView {
                     Layout.rightMargin: app.margins
                     visible: eebusThing.count > 0
 
-                    Text {
+                    Label {
                         Layout.fillWidth: true
                         Layout.topMargin: 8
                         Layout.bottomMargin: 0
@@ -1018,7 +993,6 @@ StackView {
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("Status")
-                        color: Style.consolinnoDark
                     }
                 }
 
@@ -1038,12 +1012,11 @@ StackView {
                         radius: 12
                     }
 
-                    Text {
+                    Label {
                         Layout.fillWidth: true
                         text: textEEBUS
                         font.pointSize: 12
                         wrapMode: Text.WordWrap
-                        color: Style.consolinnoDark
                     }
 
                 }
@@ -1084,7 +1057,7 @@ StackView {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
-                    Text {
+                    Label {
                         Layout.fillWidth: true
                         Layout.topMargin: 5
                         Layout.bottomMargin: 0
@@ -1093,7 +1066,7 @@ StackView {
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("Status")
-                        color: Style.consolinnoDark
+
                     }
                 }
 
@@ -1113,12 +1086,11 @@ StackView {
                         Layout.rightMargin: 8
                     }
 
-                    Text {
+                    Label {
                         Layout.fillWidth: true
                         text: textEEBUS
                         font.pointSize: 12
                         wrapMode: Text.WordWrap
-                        color: Style.consolinnoDark
                     }
                 }
 

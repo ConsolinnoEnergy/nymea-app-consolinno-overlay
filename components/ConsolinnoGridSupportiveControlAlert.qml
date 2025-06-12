@@ -30,36 +30,13 @@ Rectangle {
         width: parent.width
         spacing: 2
 
-        Canvas {
-            id: triangle
-            width: 24
-            height: 21
-            RowLayout.leftMargin: 13
-
-            onPaint: {
-                var ctx = getContext("2d");
-                ctx.reset();
-                ctx.beginPath();
-                ctx.moveTo(width/2, 0);
-                ctx.lineTo(width, height);
-                ctx.lineTo(0, height);
-                ctx.closePath();
-
-                ctx.fillStyle = Style.gridAlertBackground;
-                ctx.fill();
-
-                ctx.lineWidth = 1;
-                ctx.strokeStyle = Style.gridAlertFont;
-                ctx.stroke();
-            }
-        }
-
-        Label {
-            font.pixelSize: 13
-            text: "!"
-            anchors.centerIn: triangle
-            font.bold: true
-            color: "#F37B8E"
+        Image {
+            id: image
+            Layout.leftMargin: 11
+            Layout.rightMargin: 5
+            sourceSize.width: 22
+            sourceSize.height: 20
+            source: "../images/dialog-warning-symbolic.svg"
         }
 
         Label {
@@ -70,6 +47,12 @@ Rectangle {
             wrapMode: Text.WordWrap
             Layout.fillWidth: true
             Layout.preferredWidth: parent.width - 20
+            color: Style.gridAlertFont
+        }
+
+        ColorOverlay {
+            source: image
+            anchors.fill: image
             color: Style.gridAlertFont
         }
     }
