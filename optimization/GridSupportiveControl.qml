@@ -581,6 +581,7 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
+                    Layout.bottomMargin: 8
 
                     Label {
                         Layout.fillWidth: true
@@ -696,10 +697,9 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-
+                    Layout.bottomMargin: 8
                     Label {
                         Layout.topMargin: 5
-                        Layout.bottomMargin: 8
                         textFormat: Text.RichText
                         font.pointSize: 15
                         font.bold: true
@@ -921,10 +921,9 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-
+                    Layout.bottomMargin: 8
                     Label {
                         Layout.topMargin: 5
-                        Layout.bottomMargin: 8
                         textFormat: Text.RichText
                         font.pointSize: 15
                         font.bold: true
@@ -1056,7 +1055,7 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-
+                    Layout.bottomMargin: 8
                     Label {
                         Layout.fillWidth: true
                         Layout.topMargin: 5
