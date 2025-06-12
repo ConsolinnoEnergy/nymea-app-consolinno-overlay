@@ -143,5 +143,6 @@
         <file>components/ConsolinnoGridSupportiveControlAlert.qml</file>
         <file>images/relais.svg</file>
         <file>components/ConsolinnoCheckbox.qml</file>
+        <file>components/ConsolinnoSetUpButton.qml</file>
     </qresource>
 </RCC>
