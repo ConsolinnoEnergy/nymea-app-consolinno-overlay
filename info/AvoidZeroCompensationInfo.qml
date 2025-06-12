@@ -92,13 +92,15 @@ Page {
                 text: qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
             }
 
-            Image {
+            ImageSVGHelper {
                 id: picture
-                Layout.topMargin: 35
+                Layout.topMargin: 20
                 Layout.leftMargin: 5
                 Layout.rightMargin: 5
-                sourceSize.width: 300
-                sourceSize.height: 300
+                smooth: false
+                antialiasing: true
+                width: 300
+                height: 300
                 Layout.alignment: Qt.AlignHCenter
                 source: "../images/avoidZeroCompansation.svg"
             }
