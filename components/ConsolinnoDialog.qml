@@ -187,10 +187,12 @@ Dialog {
                 visible: text.length > 0
             }
 
-            Image {
+            ImageSVGHelper {
                 id: picture
-                sourceSize.width: 220
-                sourceSize.height: 200
+                height: 240
+                width: 230
+                smooth: false
+                antialiasing: true
                 Layout.alignment: Qt.AlignHCenter
                 Layout.topMargin: 10
                 Layout.bottomMargin: 50
@@ -209,7 +211,7 @@ Dialog {
                     Layout.alignment: Qt.AlignHCenter
                     RowLayout {
                         spacing: 5
-                        Layout.rightMargin: 10
+                        Layout.rightMargin: 20
                         Rectangle {
                             width: 13
                             height: 13
@@ -225,7 +227,7 @@ Dialog {
 
                     RowLayout {
                         spacing: 5
-                        Layout.leftMargin: 12
+                        Layout.rightMargin: 15
                         Rectangle {
                             width: 13
                             height: 13
