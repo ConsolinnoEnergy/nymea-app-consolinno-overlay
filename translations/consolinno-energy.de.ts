@@ -3440,12 +3440,16 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Maximale elektrische Leistung</translation>
     </message>
     <message>
-        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
-        <translation>Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
-    </message>
-    <message>
         <source>The heating element is not controlled by the %1.</source>
         <translation>Der Heizstab wird durch das %1 nicht gesteuert.</translation>
+    </message>
+    <message>
+        <source>Grid-supportive-control</source>
+        <translation type="unfinished">Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
     </message>
 </context>
 <context>
