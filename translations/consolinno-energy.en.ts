@@ -3292,12 +3292,16 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished">Maximal electrical power</translation>
     </message>
     <message>
-        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
+        <source>The heating element is not controlled by the %1.</source>
+        <translation type="unfinished">The heating element is not controlled by the %1.</translation>
+    </message>
+    <message>
+        <source>Grid-supportive-control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The heating element is not controlled by the %1.</source>
-        <translation type="unfinished">The heating element is not controlled by the %1.</translation>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

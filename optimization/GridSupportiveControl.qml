@@ -149,7 +149,7 @@ StackView {
 
                                 Image {
                                     id: image
-                                    sourceSize: Qt.size(20, 20)
+                                    sourceSize: Qt.size(24, 24)
                                     source: "../images/attention.svg"
                                 }
 
@@ -184,6 +184,7 @@ StackView {
                             }
                         }
                     }
+
                 }
 
                 ColumnLayout {
