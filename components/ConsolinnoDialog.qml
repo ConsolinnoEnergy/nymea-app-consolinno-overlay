@@ -13,6 +13,7 @@ Dialog {
     x: (parent.width - width) / 2
     y: (parent.height - height) / 2
 
+    property bool isMobile: Screen.width <= 768
 
     background: Rectangle {
         color: "white"
@@ -166,6 +167,7 @@ Dialog {
         anchors.fill: parent
         contentHeight: container.implicitHeight + 20
 
+
         ColumnLayout {
             id: container
             width: content.width
@@ -191,8 +193,8 @@ Dialog {
             Image {
                 id: picture
                 smooth: false
-                sourceSize.width: 220 * Screen.devicePixelRatio
-                sourceSize.height: 200 * Screen.devicePixelRatio
+                sourceSize.width: isMobile ? 220 * (Screen.devicePixelRatio / 2) : 220
+                sourceSize.height: isMobile ? 200 * (Screen.devicePixelRatio / 2) : 200
                 Layout.alignment: Qt.AlignHCenter
                 Layout.topMargin: 10
                 Layout.bottomMargin: 50
