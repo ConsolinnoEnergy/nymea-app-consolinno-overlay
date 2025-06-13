@@ -1,4 +1,5 @@
 import QtQuick 2.8
+import QtQuick.Window 2.15
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.2
 import Nymea 1.0
@@ -187,12 +188,11 @@ Dialog {
                 visible: text.length > 0
             }
 
-            ImageSVGHelper {
+            Image {
                 id: picture
-                height: 240
-                width: 230
                 smooth: false
-                antialiasing: true
+                sourceSize.width: 220 * Screen.devicePixelRatio
+                sourceSize.height: 200 * Screen.devicePixelRatio
                 Layout.alignment: Qt.AlignHCenter
                 Layout.topMargin: 10
                 Layout.bottomMargin: 50
@@ -211,7 +211,7 @@ Dialog {
                     Layout.alignment: Qt.AlignHCenter
                     RowLayout {
                         spacing: 5
-                        Layout.rightMargin: 20
+                        Layout.rightMargin: 10
                         Rectangle {
                             width: 13
                             height: 13
@@ -227,7 +227,7 @@ Dialog {
 
                     RowLayout {
                         spacing: 5
-                        Layout.rightMargin: 15
+                        Layout.leftMargin: 12
                         Rectangle {
                             width: 13
                             height: 13
