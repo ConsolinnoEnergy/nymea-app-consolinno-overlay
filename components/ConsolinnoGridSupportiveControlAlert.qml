@@ -34,8 +34,8 @@ Rectangle {
             id: image
             Layout.leftMargin: 11
             Layout.rightMargin: 5
-            sourceSize.width: 22
-            sourceSize.height: 20
+            sourceSize.width: 24
+            sourceSize.height: 24
             source: "../images/dialog-warning-symbolic.svg"
         }
 
