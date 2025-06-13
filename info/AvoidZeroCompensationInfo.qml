@@ -1,4 +1,5 @@
 import QtQuick 2.12
+import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQml 2.2
 import Nymea 1.0
@@ -98,9 +99,8 @@ Page {
                 Layout.leftMargin: 5
                 Layout.rightMargin: 5
                 smooth: false
-                antialiasing: true
-                width: 300
-                height: 300
+                width: 300 * Screen.devicePixelRatio
+                height: 300 * Screen.devicePixelRatio
                 Layout.alignment: Qt.AlignHCenter
                 source: "../images/avoidZeroCompansation.svg"
             }
