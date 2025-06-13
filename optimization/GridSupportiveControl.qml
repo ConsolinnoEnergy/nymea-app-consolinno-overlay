@@ -35,8 +35,8 @@ StackView {
 
     Connections {
         target: engine.thingManager
-        onPairThingReply: {
-            busyOverlay.shown = true
+        onAddThingReply: {
+            eeBusThing = engine.thingManager.things.getThing(thingId)
         }
     }
 
@@ -147,21 +147,10 @@ StackView {
                                     Layout.preferredWidth: 10
                                 }
 
-                                Rectangle {
-                                    width: 20
-                                    height: 20
-                                    radius: 10
-                                    color: "white"
-                                    border.color: colorsPlim
-                                    border.width: 2
-                                    RowLayout.alignment: Qt.AlignVCenter
-
-                                    Label {
-                                        text: "!"
-                                        anchors.centerIn: parent
-                                        font.bold: true
-                                        color: colorsPlim
-                                    }
+                                Image {
+                                    id: image
+                                    sourceSize: Qt.size(20, 20)
+                                    source: "../images/attention.svg"
                                 }
 
                                 Label {
@@ -171,6 +160,12 @@ StackView {
                                     wrapMode: Text.WordWrap
                                     Layout.fillWidth: true
                                     Layout.preferredWidth: parent.width - 20
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: image
+                                    source: image
+                                    color: colorsPlim
                                 }
                             }
 
@@ -941,7 +936,7 @@ StackView {
 
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    height: 100
+                    implicitHeight: 2
                     ColumnLayout {
                         id: column
                         width: parent.width
@@ -981,11 +976,11 @@ StackView {
                 RowLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
+                    Layout.topMargin: 16
                     visible: eebusThing.count > 0
 
                     Label {
                         Layout.fillWidth: true
-                        Layout.topMargin: 8
                         Layout.bottomMargin: 0
                         textFormat: Text.RichText
                         font.pointSize: 15
@@ -997,7 +992,7 @@ StackView {
 
                 //Status
                 RowLayout {
-                    Layout.topMargin: 20
+                    Layout.topMargin: 16
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
                     Layout.bottomMargin: 20
@@ -1056,16 +1051,15 @@ StackView {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
                     Layout.bottomMargin: 8
+                    Layout.topMargin: 16
                     Label {
                         Layout.fillWidth: true
-                        Layout.topMargin: 5
                         Layout.bottomMargin: 0
                         textFormat: Text.RichText
                         font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("Status")
-
                     }
                 }
 
@@ -1136,7 +1130,6 @@ StackView {
                         text: qsTr("Back to overview")
 
                         onClicked: {
-                            eeBusThing = eebusThing.get(0)
                             pageStack.pop()
                             pageStack.pop()
                             pageStack.pop()
