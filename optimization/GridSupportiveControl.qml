@@ -708,9 +708,10 @@ StackView {
                     clip: true
                     contentWidth: parent.width
                     contentHeight: column.implicitHeight
+
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    height: 200
+                    implicitHeight: 8
                     ColumnLayout {
                         id: column
                         width: parent.width
@@ -1012,7 +1013,6 @@ StackView {
                         font.pointSize: 12
                         wrapMode: Text.WordWrap
                     }
-
                 }
 
                 Item {
@@ -1047,11 +1047,12 @@ StackView {
                 Layout.topMargin: 0
                 spacing: 8
 
-                ColumnLayout {
+                RowLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    Layout.bottomMargin: 8
                     Layout.topMargin: 16
+                    visible: eebusThing.count > 0
+
                     Label {
                         Layout.fillWidth: true
                         Layout.bottomMargin: 0
@@ -1063,20 +1064,20 @@ StackView {
                     }
                 }
 
+                //Status
                 RowLayout {
+                    Layout.topMargin: 16
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    Layout.topMargin: app.margins - 12
-                    Layout.bottomMargin: app.margins - 12
-                    spacing: 8
-
+                    Layout.bottomMargin: 8
+                    visible: eebusThing.count > 0
+                    spacing: 15
                     Rectangle {
                         width: 19
                         height: 19
                         color: colorsEEBUS
                         border.color: colorsEEBUS
                         radius: 12
-                        Layout.rightMargin: 8
                     }
 
                     Label {
