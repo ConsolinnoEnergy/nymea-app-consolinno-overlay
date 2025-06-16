@@ -98,11 +98,9 @@ Page {
                 Layout.topMargin: 20
                 Layout.leftMargin: 5
                 Layout.rightMargin: 5
-                smooth: false
-                width: 300 * Screen.devicePixelRatio
-                height: 300 * Screen.devicePixelRatio
                 Layout.alignment: Qt.AlignHCenter
-                source: "../images/avoidZeroCompansation.svg"
+                imgHeight: 300
+                imgSource: "../images/avoidZeroCompansation.svg"
             }
 
             ColumnLayout {

@@ -1,14 +1,21 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Window 2.15
 
-Image {
-    id: image
-    sourceSize: Qt.size(image.width, image.height)
+Item {
+    id: root
+    property string imgSource
+    property int imgHeight
+
+    Layout.fillWidth: true
+    Layout.preferredHeight: imgHeight
 
     Image {
-        id: hiddenImg
-        source: parent.source
-        width: 0
-        height: 0
+        id: picture
+        anchors.fill: parent
+        source: imgSource
+        sourceSize: Qt.size(parent.width, parent.height)
+        fillMode: Image.PreserveAspectFit
+        smooth: true
     }
 }
