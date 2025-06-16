@@ -212,7 +212,7 @@ Dialog {
                     Layout.alignment: Qt.AlignHCenter
                     RowLayout {
                         spacing: 5
-                        Layout.rightMargin: 30
+                        Layout.rightMargin: 35
                         Rectangle {
                             width: 13
                             height: 13
@@ -228,7 +228,7 @@ Dialog {
 
                     RowLayout {
                         spacing: 5
-                        Layout.rightMargin: 10
+                        Layout.rightMargin: 30
                         Rectangle {
                             width: 13
                             height: 13
