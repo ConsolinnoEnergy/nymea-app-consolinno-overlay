@@ -29,8 +29,9 @@ Dialog {
     property alias headerIcon: headerColorIcon.name
     property alias text: contentLabel.text
     property alias headerText: contentHeader.text
-    property alias source: picture.source
+    property alias source: picture.imgSource
     default property alias children: content.children
+    property int picHeight
 
     footer: Item {
         implicitHeight: app.margins
@@ -75,7 +76,7 @@ Dialog {
         let svgText = loadSvgText(source)
         let id = getAllIds(svgText)
         var newSvg = replaceMultipleFills(svgText, id)
-        picture.source = "data:image/svg+xml;utf8," + encodeURIComponent(newSvg);
+        picture.imgSource = "data:image/svg+xml;utf8," + encodeURIComponent(newSvg);
     }
 
     function loadSvgText(url) {
@@ -190,15 +191,13 @@ Dialog {
                 visible: text.length > 0
             }
 
-            Image {
+            ImageSVGHelper {
                 id: picture
-                smooth: false
-                sourceSize.width: isMobile ? 220 * (Screen.devicePixelRatio / 2) : 220
-                sourceSize.height: isMobile ? 200 * (Screen.devicePixelRatio / 2) : 200
-                Layout.alignment: Qt.AlignHCenter
                 Layout.topMargin: 10
                 Layout.bottomMargin: 50
-                visible: picture.source
+                Layout.alignment: Qt.AlignHCenter
+                imgHeight: picHeight
+                imgSource: source
             }
 
             ColumnLayout {
