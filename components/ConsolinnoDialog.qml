@@ -8,7 +8,7 @@ import "../delegates"
 
 Dialog {
     id: root
-    width: Math.min(parent.width * .8, Math.max(contentLabel.implicitWidth, 400))
+    width: Math.min(parent.width * .9, Math.max(contentLabel.implicitWidth, 500))
     height: 600
     x: (parent.width - width) / 2
     y: (parent.height - height) / 2
@@ -212,7 +212,7 @@ Dialog {
                     Layout.alignment: Qt.AlignHCenter
                     RowLayout {
                         spacing: 5
-                        Layout.rightMargin: 10
+                        Layout.rightMargin: 30
                         Rectangle {
                             width: 13
                             height: 13
@@ -228,7 +228,7 @@ Dialog {
 
                     RowLayout {
                         spacing: 5
-                        Layout.leftMargin: 12
+                        Layout.rightMargin: 10
                         Rectangle {
                             width: 13
                             height: 13
