@@ -3,7 +3,7 @@ import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.2
 import Nymea 1.0
-import "../components"
+import "qrc:/ui/components"
 import "../delegates"
 
 Page {
@@ -65,7 +65,7 @@ Page {
     }
 
     // TODO: maybe allow to disable, or prioritize which ev charger should be adjusted first or something like that
-
+    /*
     // Houshold phase limit [A]
     ColumnLayout {
         anchors.fill: parent
@@ -173,7 +173,6 @@ Page {
             Layout.fillWidth: true
         }
 
-
         Component.onCompleted: {
             phaseLimit = hemsManager.housholdPhaseLimit
             configuredPhaseLimit = hemsManager.housholdPhaseLimit
@@ -199,10 +198,191 @@ Page {
                 break
             }
         }
+    }
+    */
 
+    ColumnLayout {
+        anchors.fill: parent
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.topMargin: app.margins
+        anchors.margins: app.margins
 
+        RowLayout {
+            Layout.bottomMargin: 0
+            CheckBox {
+                id: checkBox
+                text: qsTr("Load management:")
+            }
 
+            InfoButton {
+                Layout.fillWidth: true
+                Layout.bottomMargin: 15
+                push: "BlackOutProtectionInfo.qml"
+            }
+        }
 
+        RowLayout {
+            visible: !checkBox.checked
+            Layout.topMargin: 50
+            Layout.alignment: Qt.AlignCenter
+
+            Label {
+                text: qsTr("The overload protection is not activated.")
+            }
+        }
+
+        ColumnLayout {
+            visible: checkBox.checked
+
+            RowLayout {
+
+                Label {
+                    Layout.rightMargin: 28
+                    text: qsTr("Phasen")
+                }
+
+                ComboBox {
+                    Layout.fillWidth: true
+                    textRole: "key"
+                    model:  ListModel {
+                        ListElement { key: qsTr("1 Phase"); value: 1}
+                        ListElement { key: qsTr("2 Phasen"); value: 2}
+                        ListElement { key: qsTr("3 Phasen"); value: 3}
+                    }
+                }
+            }
+
+            RowLayout {
+
+                SelectionTabs {
+                    id: selectionTabs
+                    Layout.fillWidth: true
+                    Layout.topMargin: 30
+                    visible: true
+                    currentIndex: 0
+                    model: ListModel {
+                        ListElement {
+                            modelData: qsTr("Nominal current")
+                        }
+                        ListElement {
+                            modelData: qsTr("Power")
+                        }
+                    }
+                }
+            }
+
+            RowLayout {
+                Layout.topMargin: 20
+                Layout.bottomMargin: 0
+                visible: selectionTabs.currentIndex === 0
+                spacing: 0
+
+                TextField {
+                  id: nominalCurrent
+                  Layout.preferredWidth: 70
+                  Layout.rightMargin: 20
+                  placeholderText: "16 - 100"
+                  onTextChanged: {
+                      phaseLimit = parseInt(nominalCurrent.text)
+                  }
+                  validator: RegExpValidator {
+                      regExp: /^(1[6-9]|[2-9][0-9]|100)$/
+                  }
+                  inputMethodHints: Qt.ImhDigitsOnly
+                }
+
+                Label {
+                    Layout.alignment: Qt.AlignLeft
+                    text: qsTr("A")
+                }
+            }
+
+            RowLayout {
+                Layout.alignment: Qt.AlignLeft
+                Layout.topMargin: 0
+                visible: selectionTabs.currentIndex === 0
+                spacing: 0
+
+                Label {
+                    id: nominalCurrentError
+                    Layout.topMargin: 0
+                    text: qsTr("Please input a value between 10 and 100.")
+                    color: "#AA0A24"
+                    font.pixelSize: 13
+                    visible: false
+                }
+            }
+
+            RowLayout {
+                Layout.topMargin: 20
+                Layout.bottomMargin: 0
+                visible: selectionTabs.currentIndex === 1
+                spacing: 0
+                TextField {
+                  id: power
+                  Layout.preferredWidth: 70
+                  Layout.rightMargin: 20
+                  placeholderText: qsTr("2.3 - 100")
+                  onTextChanged: {
+                      phaseLimit = parseInt(power.text)
+                  }
+                  validator: RegExpValidator {
+                      regExp: /^(2[.,][3-9]\d*|[3-9]([.,]\d+)?|[1-9]\d([.,]\d+)?|100([.,]0+)?)$/
+                  }
+                  inputMethodHints: Qt.ImhDigitsOnly
+                }
+
+                Label {
+                    Layout.alignment: Qt.AlignLeft
+                    text: qsTr("kW")
+                }
+            }
+
+            RowLayout {
+                Layout.alignment: Qt.AlignLeft
+                Layout.topMargin: 0
+                visible: selectionTabs.currentIndex === 1
+                spacing: 0
+                Label {
+                    id: powerError
+                    Layout.topMargin: 0
+                    text: qsTr("Please input a value between 2.3 and 100.")
+                    color: "#AA0A24"
+                    font.pixelSize: 13
+                    visible: false
+                }
+            }
+        }
+
+        Item {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+        }
+
+        Button {
+            id: savebutton
+
+            Layout.alignment: Qt.AlignCenter
+            Layout.preferredWidth: 150
+            Layout.bottomMargin: 160
+            text: qsTr("Save")
+            onClicked: {
+
+                if(power.text <= 2.2){
+                    powerError.visible = true
+                }else if(nominalCurrent.text <= 15 && power.text <= 2.2){
+                    nominalCurrentError.visible = true
+                }
+                /*
+                //hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, { controllableLocalSystem: gridSupportControl.checked, avoidZeroFeedInEnabled: zeroCompensationControl.checked})
+                if(directionID !== 1){
+                    pageStack.pop()
+                }
+                root.done()*/
+            }
+        }
 
     }
 

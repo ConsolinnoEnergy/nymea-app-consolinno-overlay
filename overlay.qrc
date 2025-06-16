@@ -134,5 +134,6 @@
         <file>images/avoidZeroCompansationExample_de.svg</file>
         <file>components/ConsolinnoDialog.qml</file>
         <file>system/ConsolinnoModbusRtuReconfigureMasterPage.qml</file>
+        <file>info/BlackOutProtectionInfo.qml</file>
     </qresource>
 </RCC>
