@@ -136,5 +136,6 @@
         <file>system/ConsolinnoModbusRtuReconfigureMasterPage.qml</file>
         <file>components/ImageSVGHelper.qml</file>
         <file>info/BlackOutProtectionInfo.qml</file>
+        <file>components/ConsolinnoSetUpButton.qml</file>
     </qresource>
 </RCC>
