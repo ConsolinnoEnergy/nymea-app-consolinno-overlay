@@ -924,7 +924,6 @@
     </message>
     <message>
         <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2742,7 +2741,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;h3&gt;Incompatible Software Versions&lt;/h3&gt;
+        <source>&lt;h3&gt;Pending software update&lt;/h3&gt;
                 &lt;p&gt;Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %6 device.&lt;/p&gt;
                 &lt;p&gt;Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;/p&gt;
                 &lt;p&gt;If this message is still displayed, please contact our service team.&lt;/p&gt;
