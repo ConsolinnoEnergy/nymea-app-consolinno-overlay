@@ -2725,18 +2725,12 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
+        <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
 &lt;p&gt;Version 1.9.2&lt;/p&gt;
-&lt;h4&gt;Neu&lt;/h4&gt;
-&lt;ul&gt;
-    &lt;li&gt;Nullvergütung vermeiden: Funktion zur gezielten Beladung der Batterie bei negativen Strompreisen 
-    (nur für ausgewählte Modelle verfügbar)&lt;/li&gt;
-&lt;/ul&gt;
-
 &lt;h4&gt;Verbesserungen&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Modbus RTU-Einstellungen im Inbetriebnahme-Assistenten verfügbar&lt;/li&gt;
-    &lt;li&gt;Verbesserter Ladeplan bei tarifgesteuertem Laden&lt;/li&gt;
+    &lt;li&gt;Anzeige und Informationstext bei Nullvergütung vermeiden (gezielte Steuerung der Batterieladung für ausgewählte Modelle)&lt;/li&gt;
+    &lt;li&gt;Meldungstext für anstehendes Software-Update&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
