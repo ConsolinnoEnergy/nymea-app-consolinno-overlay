@@ -2748,30 +2748,30 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>E-Mail: &lt;a href=&apos;mailto:%1&apos;&gt;%1&lt;/a&gt;</translation>
     </message>
     <message>
+        <source>Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;</source>
+        <translation>Telefon: &lt;a href=&quot;tel:%1&quot;&gt;%1&lt;/a&gt;</translation>
+    </message>
+    <message>
         <source>&lt;h3&gt;Incompatible Software Versions&lt;/h3&gt;
-                &lt;p&gt;The software versions of your &quot;%3 App&quot; (v%1) and your &quot;%6 End Device&quot; (v%2) are incompatible and currently only partially usable. Your &quot;%6 End Device&quot; will be automatically updated during the day.&lt;/p&gt;
-                &lt;p&gt;If you still receive this message after several hours, please contact our support:&lt;/p&gt;
+                &lt;p&gt;Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %6 device.&lt;/p&gt;
+                &lt;p&gt;Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;/p&gt;
+                &lt;p&gt;If this message is still displayed, please contact our service team.&lt;/p&gt;
                 &lt;ul&gt;
                     &lt;li&gt;%7&lt;/li&gt;
                     &lt;li&gt;%4&lt;/li&gt;
                 &lt;/ul&gt;
-                &lt;p&gt;We apologize for the temporary limitations in use.&lt;/p&gt;
                 &lt;p&gt;Best regards&lt;/p&gt;
                 &lt;p&gt;Your %5 Team&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Inkompatible Softwareversionen&lt;/h3&gt;
-&lt;p&gt;Die Softwareversionen Ihrer &quot;%3 App&quot; (v%1) und Ihres &quot;%6 Endgeräts&quot; (v%2) sind inkompatibel und derzeit nur eingeschränkt nutzbar. Ihr &quot;%6 Endgerät&quot; wird im Laufe des Tages automatisch aktualisiert.&lt;/p&gt;
-&lt;p&gt;Falls Sie diese Nachricht auch nach mehreren Stunden noch erhalten, kontaktieren Sie bitte unseren Support:&lt;/p&gt;
-&lt;ul&gt;
-    &lt;li&gt;%7&lt;/li&gt;
-    &lt;li&gt;%4&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Wir entschuldigen uns für die vorübergehenden Einschränkungen in der Nutzung.&lt;/p&gt;
-&lt;p&gt;Beste Grüße&lt;/p&gt;
-&lt;p&gt;Ihr %5 Team&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;</source>
-        <translation>Telefon: &lt;a href=&quot;tel:%1&quot;&gt;%1&lt;/a&gt;</translation>
+        <translation>&lt;h3&gt;Inkompatible Softwareversion&lt;/h3&gt;
+                &lt;p&gt;Ihre %3 App wurde auf die Version &lt;strong&gt;%1&lt;/strong&gt; aktualisiert und ist somit aktueller als die Firmware (&lt;strong&gt;%2&lt;/strong&gt;) auf Ihrem %6-Gerät.&lt;/p&gt; 
+                &lt;p&gt;Ihr %6-Gerät wird im Laufe des Tages aktualisiert. Bis das Update abgeschlossen ist, kann die Verfügbarkeit der neuen                                 Funktionen vorübergehend eingeschränkt sein.&lt;/p&gt; 
+                &lt;p&gt;Sollte diese Meldung weiterhin angezeigt werden, kontaktieren Sie bitte unseren Service.&lt;/p&gt; 
+                &lt;ul&gt; 
+                    &lt;li&gt;%7&lt;/li&gt; 
+                    &lt;li&gt;%4&lt;/li&gt; 
+                &lt;/ul&gt; 
+                &lt;p&gt;Beste Grüße&lt;/p&gt; 
+                &lt;p&gt;Ihr %5 Team&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
