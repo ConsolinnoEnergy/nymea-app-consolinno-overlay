@@ -554,8 +554,12 @@ Page {
 
                     ConsolinnoSetUpButton{
                         id: cancel
+                        Layout.fillWidth: true
                         text: qsTr("cancel")
-                        backgroundColor: "transparent"
+                        background: Rectangle {
+                            color: "transparent"
+                        }
+
                         onClicked: {
                             root.done(false, true, false)
                         }
