@@ -2752,7 +2752,7 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Telefon: &lt;a href=&quot;tel:%1&quot;&gt;%1&lt;/a&gt;</translation>
     </message>
     <message>
-        <source>&lt;h3&gt;Incompatible Software Versions&lt;/h3&gt;
+        <source>&lt;h3&gt;Pending software update&lt;/h3&gt;
                 &lt;p&gt;Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %6 device.&lt;/p&gt;
                 &lt;p&gt;Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;/p&gt;
                 &lt;p&gt;If this message is still displayed, please contact our service team.&lt;/p&gt;
@@ -2762,7 +2762,7 @@ fügen Sie eine weitere hinzu.</translation>
                 &lt;/ul&gt;
                 &lt;p&gt;Best regards&lt;/p&gt;
                 &lt;p&gt;Your %5 Team&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Inkompatible Softwareversion&lt;/h3&gt;
+        <translation>&lt;h3&gt;Ausstehendes Software-Update&lt;/h3&gt;
                 &lt;p&gt;Ihre %3 App wurde auf die Version &lt;strong&gt;%1&lt;/strong&gt; aktualisiert und ist somit aktueller als die Firmware (&lt;strong&gt;%2&lt;/strong&gt;) auf Ihrem %6-Gerät.&lt;/p&gt; 
                 &lt;p&gt;Ihr %6-Gerät wird im Laufe des Tages aktualisiert. Bis das Update abgeschlossen ist, kann die Verfügbarkeit der neuen                                 Funktionen vorübergehend eingeschränkt sein.&lt;/p&gt; 
                 &lt;p&gt;Sollte diese Meldung weiterhin angezeigt werden, kontaktieren Sie bitte unseren Service.&lt;/p&gt; 
