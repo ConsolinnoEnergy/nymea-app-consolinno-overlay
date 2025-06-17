@@ -135,5 +135,6 @@
         <file>components/ConsolinnoDialog.qml</file>
         <file>system/ConsolinnoModbusRtuReconfigureMasterPage.qml</file>
         <file>components/ImageSVGHelper.qml</file>
+        <file>components/ConsolinnoSetUpButton.qml</file>
     </qresource>
 </RCC>
