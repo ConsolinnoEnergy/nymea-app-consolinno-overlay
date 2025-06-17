@@ -37,8 +37,8 @@ Page {
 
     function startWizard(thingClass) {
         var page = pageStack.push(Qt.resolvedUrl("SetupWizard.qml"), {thingClass: thingClass});
-        page.aborted.connect(function() {
-            pageStack.pop();
+        page.done.connect(function() {
+            pageStack.pop(root);
         })
     }
 
