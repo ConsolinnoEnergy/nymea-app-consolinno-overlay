@@ -234,6 +234,13 @@ Page {
                                 icon = "/ui/images/battery/battery-080.svg"
                             }
                             return Qt.resolvedUrl(icon)
+                        case "energystorage":
+                            if(Configuration.batteryIcon !== ""){
+                                icon = "/ui/images/"+Configuration.batteryIcon
+                            }else{
+                                icon = "/ui/images/battery/battery-080.svg"
+                            }
+                            return Qt.resolvedUrl(icon)
                         case "evcharger":
                             if(Configuration.evchargerIcon !== ""){
                                 icon = "/ui/images/"+Configuration.evchargerIcon
