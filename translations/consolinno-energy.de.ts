@@ -2736,12 +2736,11 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.9.2&lt;/p&gt;
-&lt;h4&gt;Verbesserungen&lt;/h4&gt;
+        <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
+&lt;p&gt;Version 1.10.0&lt;/p&gt;
+&lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Anzeige und Informationstext bei Nullvergütung vermeiden (gezielte Steuerung der Batterieladung für ausgewählte Modelle)&lt;/li&gt;
-    &lt;li&gt;Meldungstext für anstehendes Software-Update&lt;/li&gt;
+    &lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -2751,10 +2750,6 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Email: &lt;a href=&apos;mailto:%1&apos;&gt;%1&lt;/a&gt;</source>
         <translation>E-Mail: &lt;a href=&apos;mailto:%1&apos;&gt;%1&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <source>Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;</source>
-        <translation>Telefon: &lt;a href=&quot;tel:%1&quot;&gt;%1&lt;/a&gt;</translation>
     </message>
     <message>
         <source>Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;</source>
