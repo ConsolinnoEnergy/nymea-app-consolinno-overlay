@@ -1452,6 +1452,8 @@ MainViewBase {
                                     return Configuration.wallboxColor
                                 }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
                                     return Configuration.heatingRodColor
+                                }else if(thing.thingClass.interfaces.indexOf("smartwhitegood") >= 0){
+                                    return Configuration.heatingRodColor
                                 }else{
                                     return lsdChart.consumersColors[index]
                                 }
@@ -1462,7 +1464,7 @@ MainViewBase {
                                 if (thing.thingClass.interfaces.indexOf(
                                             "heatpump") >= 0) {
                                     pageStack.push(
-                                                "../optimization/HeatingConfigView.qml",
+                                                "../optimization/SmartWhiteGoodView.qml", //"../optimization/HeatingConfigView.qml",
                                                 {
                                                     "hemsManager": hemsManager,
                                                     "thing": thing
@@ -1503,6 +1505,13 @@ MainViewBase {
                                 } else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0) {
                                     pageStack.push(
                                                 "/ui/devicepages/HeatingElementDevicePage.qml",
+                                                {
+                                                    "hemsManager": hemsManager,
+                                                    "thing": thing
+                                                })
+                                } else if(thing.thingClass.interfaces.indexOf("smartwhitegood") >= 0) {
+                                    pageStack.push(
+                                                "../optimization/SmartWhiteGoodView.qml",
                                                 {
                                                     "hemsManager": hemsManager,
                                                     "thing": thing
