@@ -3613,6 +3613,25 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
 </context>
 <context>
+    <name>LegendTile</name>
+    <message>
+        <source>Run</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Idle</source>
+        <translation type="unfinished">Leerlauf</translation>
+    </message>
+    <message>
+        <source>Finished</source>
+        <translation type="unfinished">Fertig</translation>
+    </message>
+    <message>
+        <source>Stopped</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MainviewInfo</name>
     <message>
         <source>Dashboard</source>
@@ -4472,6 +4491,41 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
+    </message>
+</context>
+<context>
+    <name>SmartWhiteGoodView</name>
+    <message>
+        <source>Operating mode</source>
+        <translation>Betriebszustand</translation>
+    </message>
+    <message>
+        <source>Progress</source>
+        <translation>Fortschritt</translation>
+    </message>
+    <message>
+        <source>Programm</source>
+        <translation>Programm</translation>
+    </message>
+    <message>
+        <source>Ending Time</source>
+        <translation>Endzeit</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>Aus</translation>
+    </message>
+    <message>
+        <source>Run</source>
+        <translation>Läuft</translation>
+    </message>
+    <message>
+        <source>Idle</source>
+        <translation>Leerlauf</translation>
+    </message>
+    <message>
+        <source>Finished</source>
+        <translation>Fertig</translation>
     </message>
 </context>
 <context>
