@@ -791,7 +791,7 @@ GenericConfigPage {
 
                         Label{
                             id: chargingPowerValue
-                            text: (initializing ? 0 : getChargingPower()) + " kW"
+                            text: (initializing ? 0 : getChargingPower()) + " W"
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
