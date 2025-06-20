@@ -10,7 +10,7 @@ Rectangle {
     color: "#FFEE89"
     border.width: 1
     border.color: "#864A0D"
-    implicitHeight: alertContainer.implicitHeight + 20
+    implicitHeight: alertContainer.implicitHeight
 
     ColumnLayout {
         id: alertContainer
@@ -24,6 +24,7 @@ Rectangle {
 
         RowLayout {
             width: parent.width
+            height: parent.height
             spacing: 5
 
             Item {
@@ -60,12 +61,12 @@ Rectangle {
         MouseArea {
             Layout.fillWidth: true
             Layout.preferredWidth: alertContainer.width - 20
-            height: screenGuideText.height + (app.width >= 400 ? 15 : 30)
+            height: screenGuideText.height + (app.width >= 400 ? 15 : 40)
 
             Label {
                 id: screenGuideText
                 font.pixelSize: 16
-                text: qsTr("The battery charge is limited during regulation. <u>More Information</u>")
+                text: qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
                 wrapMode: Text.WordWrap
                 width: alertContainer.width - 20
                 leftPadding: 40
@@ -75,7 +76,7 @@ Rectangle {
             onClicked: {
                 var dialog = Qt.createComponent(Qt.resolvedUrl("../components/ConsolinnoDialog.qml"));
                 var text = qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
-                var popup = dialog.createObject(app, {text: text, source: Qt.locale("de_DE") ? "../images/avoidZeroCompansationExample_de.svg" : "../images/avoidZeroCompansationExample_en.svg"})
+                var popup = dialog.createObject(app, {headerText: qsTr("Avoid zero compensation"), text: text, source: "../images/avoidZeroCompansation.svg", picHeight: 280})
                 popup.open();
             }
         }

@@ -139,6 +139,22 @@
         <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Market price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV production</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SoC without controller</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SoC with controller</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BatteryConfigView</name>
@@ -907,11 +923,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The battery charge is limited during regulation. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
+        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1043,6 +1063,29 @@
     </message>
     <message>
         <source>To battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoDialog</name>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Market price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV production</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SoC without controller</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SoC with controller</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2673,16 +2716,11 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.9.1&lt;/p&gt;
-&lt;h4&gt;New&lt;/h4&gt;
-&lt;ul&gt;
-    &lt;li&gt;Avoiding zero compensation: Function for specific battery charging with negative electricity prices 
-     (only available for selected models)&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;Version 1.9.2&lt;/p&gt;
 &lt;h4&gt;Improvements&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Modbus RTU settings available in the commissioning wizard&lt;/li&gt;
-    &lt;li&gt;Improved charging schedule for tariff-controlled battery charging&lt;/li&gt;
+    &lt;li&gt;Indication and information text in case of avoiding zero compensation (specific control of battery charging for selected models)&lt;/li&gt;
+    &lt;li&gt;Message text for pending software update&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -2698,7 +2736,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;h3&gt;Incompatible Software Versions&lt;/h3&gt;
+        <source>&lt;h3&gt;Pending software update&lt;/h3&gt;
                 &lt;p&gt;Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %6 device.&lt;/p&gt;
                 &lt;p&gt;Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;/p&gt;
                 &lt;p&gt;If this message is still displayed, please contact our service team.&lt;/p&gt;
@@ -4340,11 +4378,11 @@ For further assistance, please contact our support team at: %5</translation>
 <context>
     <name>ZeroCompensationInfo</name>
     <message>
-        <source>Zero Compensation</source>
+        <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
+        <source>Zero Compensation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

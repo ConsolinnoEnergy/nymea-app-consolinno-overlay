@@ -584,7 +584,7 @@ MainViewBase {
                 let phone = (Configuration.serviceTel !== "") ? qsTr("Phone: <a href='tel:%1'>%1</a>").arg(Configuration.serviceTel) : ""
                 let mail = qsTr("Email: <a href='mailto:%1'>%1</a>").arg(Configuration.serviceEmail)
 
-                incompNotificationPopup.message=qsTr('<h3>Incompatible Software Versions</h3>
+                incompNotificationPopup.message=qsTr('<h3>Pending software update</h3>
                 <p>Your %3 app has been updated to version <strong>%1</strong> and is more up-to-date than the firmware (<strong>%2</strong>) on your %6 device.</p>
                 <p>Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.</p>
                 <p>If this message is still displayed, please contact our service team.</p>
