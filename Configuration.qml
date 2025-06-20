@@ -117,6 +117,7 @@ ConfigurationBase {
     readonly property string heatingRodIcon: ""
     readonly property string energyIcon: ""
     readonly property string inverterIcon: ""
+    readonly property string smartwhitegoodIcon: ""
     readonly property string settingsIcon: ""
     readonly property string evchargerIcon: ""
     readonly property string batteryIcon: ""
