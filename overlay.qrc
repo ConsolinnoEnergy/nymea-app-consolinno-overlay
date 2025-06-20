@@ -144,5 +144,9 @@
         <file>images/relais.svg</file>
         <file>components/ConsolinnoCheckbox.qml</file>
         <file>components/ConsolinnoSetUpButton.qml</file>
+        <file>images/dishwasher.svg</file>
+        <file>images/dryer.svg</file>
+        <file>images/washingMachine.svg</file>
+        <file>optimization/SmartWhiteGoodView.qml</file>
     </qresource>
 </RCC>
