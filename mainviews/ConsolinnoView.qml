@@ -1464,7 +1464,7 @@ MainViewBase {
                                 if (thing.thingClass.interfaces.indexOf(
                                             "heatpump") >= 0) {
                                     pageStack.push(
-                                                "../optimization/SmartWhiteGoodView.qml", //"../optimization/HeatingConfigView.qml",
+                                                "../optimization/HeatingConfigView.qml", //"../optimization/SmartWhiteGoodView.qml",
                                                 {
                                                     "hemsManager": hemsManager,
                                                     "thing": thing
