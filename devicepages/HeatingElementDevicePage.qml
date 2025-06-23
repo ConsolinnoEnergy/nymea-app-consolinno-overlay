@@ -17,7 +17,7 @@ GenericConfigPage {
 
     title: root.thing.name
     headerOptionsVisible: false
-
+    /*
     content: [
         ColumnLayout {
             width: parent.width - Style.margins
@@ -107,28 +107,108 @@ GenericConfigPage {
                     color: Configuration.iconColor
                 }
             }*/
+    content: [
 
-            ConsolinnoRowLabelValue {
-                Layout.fillWidth: true
-                Layout.topMargin: 25
-                label: qsTr("Current Temperature")
-                value: (root.currentTemperature === null) ? 0 : (+root.currentTemperature.value).toLocaleString() + qsTr(" °C")
-                visible: root.currentTemperature
-            }
+        Flickable {
+            anchors.fill: parent
+            contentHeight: columnLayout.implicitHeight
+            clip: false
 
-            ConsolinnoRowLabelValue {
-                Layout.fillWidth: true
-                Layout.topMargin: 25
-                label: qsTr("Current Consumption")
-                value: (+root.currentConsumption.value).toLocaleString() + qsTr(" W")
-            }
+            ColumnLayout{
+                id: columnLayout
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.topMargin: app.margins
+                anchors.rightMargin: app.margins
 
-            ConsolinnoRowLabelValue {
-                Layout.fillWidth: true
+                Repeater {
 
-                label: qsTr("Total Consumption")
-                value: (+root.totalConsumption.value.toFixed(2)).toLocaleString() + qsTr(" kWh")
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.topMargin: 5
+
+                    model: [
+                         {Id: "currentTemperature", name: qsTr("Current Temperature"), value: (root.currentTemperature === null) ? 0 : (+root.currentTemperature.value).toLocaleString(), unit: " °C", component: stringValues,},
+                         {Id: "currentConsumtion", name: qsTr("Current Consumption"), value: (+root.currentConsumption.value).toLocaleString(), unit: " W", component: stringValues,},
+                         {Id: "totalConsumption", name: qsTr("Total Consumption"), value: (+root.totalConsumption.value.toFixed(2)).toLocaleString(), unit: " kWh", component: stringValues,},
+                    ]
+
+                    delegate: ItemDelegate {
+                        id: optimizerMainParams
+                        Layout.leftMargin: app.margins
+                        Layout.fillWidth: true
+                        contentItem: ColumnLayout
+                        {
+                            Layout.fillWidth: true
+
+                            RowLayout{
+                                Layout.fillWidth: true
+
+                                Loader
+                                {
+                                    id: optimizationParams
+
+                                    Binding{
+                                        target: optimizationParams.item
+                                        property: "delegateID"
+                                        value: modelData.Id
+                                    }
+
+                                    Binding{
+                                        target: optimizationParams.item
+                                        property: "delegateName"
+                                        value: modelData.name
+                                    }
+
+                                    Binding{
+                                        target: optimizationParams.item
+                                        property: "delegateValue"
+                                        value: modelData.value
+                                    }
+
+                                    Binding{
+                                        target: optimizationParams.item
+                                        property: "delegateUnit"
+                                        value: modelData.unit
+                                    }
+
+                                    Layout.fillWidth: true
+                                    sourceComponent:
+                                    {
+                                        return modelData.component
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Component{
+                    id: stringValues
+
+                    RowLayout {
+                        property string delegateID: ""
+                        property var delegateName
+                        property var delegateValue
+                        property var delegateUnit
+
+                        Label{
+                            id: singleInput
+                            text: delegateName
+                            Layout.fillWidth: true
+                        }
+
+                        Label{
+                            id: singleValue
+                            text: delegateValue + delegateUnit
+                        }
+                    }
+                }
             }
         }
+
     ]
+
+
 }
