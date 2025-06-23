@@ -1489,9 +1489,7 @@ MainViewBase {
                                                     {
                                                         "hemsManager": hemsManager,
                                                         "thing": thing,
-                                                        "carThing": evProxy.getThing(
-                                                                        hemsManager.chargingConfigurations.getChargingConfiguration(
-                                                                            thing.id).carThingId)
+                                                        "carThing": evProxy.getThing(hemsManager.chargingConfigurations.getChargingConfiguration(thing.id).carThingId)
                                                     })
                                     } // if not you have to resort to the EvChargerThingPage
                                     else {
@@ -1509,7 +1507,7 @@ MainViewBase {
                                                     "hemsManager": hemsManager,
                                                     "thing": thing
                                                 })
-                                } else if(thing.thingClass.interfaces.indexOf("smartwhitegood") >= 0) {
+                                } else if(true) { //thing.thingClass.interfaces.indexOf("smartwhitegood") >= 0
                                     pageStack.push(
                                                 "../optimization/SmartWhiteGoodView.qml",
                                                 {
