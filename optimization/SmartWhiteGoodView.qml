@@ -33,7 +33,6 @@ GenericConfigPage {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.topMargin: app.margins
-                anchors.rightMargin: app.margins
 
                 Repeater {
 
@@ -48,21 +47,19 @@ GenericConfigPage {
                          {Id: "endingTime", name: qsTr("Ending Time"), value: "13:40", unit: "", component: stringValues,},
                     ]
 
-                    delegate: ItemDelegate {
+                    delegate: ConsolinnoItemDelegate {
                         id: optimizerMainParams
-                        Layout.leftMargin: app.margins
+                        //Layout.leftMargin: app.margins
                         Layout.fillWidth: true
                         contentItem: ColumnLayout
                         {
-                            Layout.fillWidth: true
 
                             RowLayout{
-                                Layout.fillWidth: true
 
                                 Loader
                                 {
                                     id: optimizationParams
-
+                                    Layout.fillWidth: true
                                     Binding{
                                         target: optimizationParams.item
                                         property: "delegateID"
@@ -87,7 +84,6 @@ GenericConfigPage {
                                         value: modelData.unit
                                     }
 
-                                    Layout.fillWidth: true
                                     sourceComponent:
                                     {
                                         return modelData.component
@@ -138,7 +134,6 @@ GenericConfigPage {
                         Label{
                             id: singleValue
                             //property double numberValue: Number(delegateValue)
-
                             text: delegateValue + delegateUnit
                         }
                     }

@@ -120,7 +120,6 @@ GenericConfigPage {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.topMargin: app.margins
-                anchors.rightMargin: app.margins
 
                 Repeater {
 
@@ -136,7 +135,6 @@ GenericConfigPage {
 
                     delegate: ItemDelegate {
                         id: optimizerMainParams
-                        Layout.leftMargin: app.margins
                         Layout.fillWidth: true
                         contentItem: ColumnLayout
                         {
@@ -207,7 +205,6 @@ GenericConfigPage {
                 }
             }
         }
-
     ]
 
 
