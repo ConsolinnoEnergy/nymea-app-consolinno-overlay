@@ -53,25 +53,13 @@ Item {
                     id: rowContainer
                     anchors.fill: parent
 
-                    Item {
-                        Layout.fillHeight: true
-                        Layout.fillWidth: false
-                        Layout.rightMargin: 48
-                        Layout.preferredWidth: 15
-
-                        Image {
-                            width: 24
-                            height: 24
-                            anchors.centerIn: parent
-                            source: "/ui/images/back.svg"
-                        }
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                pageStack.pop()
-                            }
-                        }
+                    HeaderButton {
+                        id: backButton
+                        Layout.leftMargin: -15
+                        Layout.rightMargin: titleText.text.length >= 25 ? 48 : 0
+                        objectName: "backButton"
+                        imageSource: "../images/back.svg"
+                        onClicked: pageStack.pop()
                     }
 
                     Item {
