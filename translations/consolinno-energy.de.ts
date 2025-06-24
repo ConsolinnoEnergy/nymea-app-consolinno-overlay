@@ -3910,18 +3910,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
         <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant.</translation>
     </message>
-    <message>
-        <source>EEBUS Wallbox</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>EvCharger set-up</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The following EEBUS devices were found:</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -4099,18 +4087,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
         <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant.</translation>
-    </message>
-    <message>
-        <source>EEBUS heat pump</source>
-        <translation>EEBUS Wärmepumpe</translation>
-    </message>
-    <message>
-        <source>Heatpump set-up</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The following EEBUS devices were found:</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
