@@ -2725,12 +2725,15 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.9.2&lt;/p&gt;
+        <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
+&lt;p&gt;Version 1.9.3&lt;/p&gt;
+&lt;h4&gt;Neu&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;Unterstützung für WhiteGood (HomeConnect) hinzugefügt&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h4&gt;Verbesserungen&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Anzeige und Informationstext bei Nullvergütung vermeiden (gezielte Steuerung der Batterieladung für ausgewählte Modelle)&lt;/li&gt;
-    &lt;li&gt;Meldungstext für anstehendes Software-Update&lt;/li&gt;
+    &lt;li&gt;Layout-Verbesserungen bei der Heizungs­pumpen- und Heizstab-Ansicht&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
