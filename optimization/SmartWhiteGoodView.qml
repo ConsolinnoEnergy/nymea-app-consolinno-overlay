@@ -14,8 +14,13 @@ GenericConfigPage {
 
     property HemsManager hemsManager
     property Thing thing
-    property HeatingConfiguration heatingconfig: hemsManager.heatingConfigurations.getHeatingConfiguration(
-                                                     thing.id)
+    readonly property State operationState: root.thing.stateByName("operationState")
+    readonly property State selectedProgramState: root.thing.stateByName("selectedProgram")
+    readonly property State progressState: root.thing.stateByName("progress")
+    readonly property State endTimeState: {
+        let date = new Date(root.thing.stateByName("endTime").value * 1000);
+        return date.toLocaleTimeString()
+    }
 
     title: root.thing.name
     headerOptionsVisible: false
@@ -40,16 +45,15 @@ GenericConfigPage {
                     Layout.fillHeight: true
                     Layout.topMargin: 5
 
-                    model: [ /* translateNymeaHeatpumpValues(thing.stateByName("sgReadyMode") ? thing.stateByName("sgReadyMode").value : null) */
-                         {Id: "operatingMode", name: qsTr("Operating mode"), value: translateNymeaHeatpumpValues("Run"), unit: "", component: stringValues,},
-                         {Id: "progress", name: qsTr("Progress"), value: "50", unit: "%", component: stringValues,},
-                         {Id: "programm", name: qsTr("Programm"), value: "ECO - 30", unit: "", component: stringValues,},
-                         {Id: "endingTime", name: qsTr("Ending Time"), value: "13:40", unit: "", component: stringValues,},
+                    model: [
+                         {Id: "operatingMode", name: qsTr("Operating mode"), value: translateNymeaOperationValues(operationState.value), unit: "", component: stringValues,},
+                         {Id: "progress", name: qsTr("Progress"), value: progressState.value, unit: "%", component: stringValues,},
+                         {Id: "programm", name: qsTr("Programm"), value: selectedProgramState.value, unit: "", component: stringValues,},
+                         {Id: "endingTime", name: qsTr("Ending Time"), value: endTimeState, unit: "", component: stringValues,},
                     ]
 
                     delegate: ConsolinnoItemDelegate {
                         id: optimizerMainParams
-                        //Layout.leftMargin: app.margins
                         Layout.fillWidth: true
                         contentItem: ColumnLayout
                         {
@@ -93,8 +97,8 @@ GenericConfigPage {
                         }
                     }
 
-                    function translateNymeaHeatpumpValues(something){
-                        switch(something)
+                    function translateNymeaOperationValues(value){
+                        switch(value)
                         {
                             case"Off":
                             {
@@ -133,7 +137,6 @@ GenericConfigPage {
 
                         Label{
                             id: singleValue
-                            //property double numberValue: Number(delegateValue)
                             text: delegateValue + delegateUnit
                         }
                     }
