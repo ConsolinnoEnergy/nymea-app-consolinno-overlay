@@ -32,6 +32,7 @@ Item {
 
     ColumnLayout {
         anchors.fill: parent
+        Layout.alignment: Qt.AlignHCenter
         spacing: 0
 
         Item {
@@ -49,12 +50,14 @@ Item {
                 }
 
                 RowLayout {
+                    id: rowContainer
                     anchors.fill: parent
 
                     Item {
                         Layout.fillHeight: true
                         Layout.fillWidth: false
-                        Layout.preferredWidth: 48
+                        Layout.rightMargin: 48
+                        Layout.preferredWidth: 15
 
                         Image {
                             width: 24
@@ -77,9 +80,8 @@ Item {
 
                         Label {
                             id: titleText
-
                             anchors.centerIn: parent
-                            font.pixelSize: 20
+                            font.pixelSize: 18
                         }
                     }
 
