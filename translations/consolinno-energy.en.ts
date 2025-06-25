@@ -226,6 +226,22 @@
         <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Avoid zero compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation active</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BatteryConfigurationView</name>
@@ -913,25 +929,6 @@
     </message>
     <message>
         <source>Find app versions and licence information</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoAvoidZeroCompensation</name>
-    <message>
-        <source>Avoid zero compensation active</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Avoid zero compensation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
