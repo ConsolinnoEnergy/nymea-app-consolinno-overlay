@@ -580,19 +580,18 @@ MainViewBase {
             // Show message if HEMS version is not compatible
             if (!checkHEMSVersion()) {
                 var incompNotificationPopup = incompNotificationComponent.createObject(root)
-                //                incompNotificationPopup.message = qsTr("%2 App is not compatible with the HEMS system version running on %1. Please update your HEMS.").arg(engine.jsonRpcClient.currentHost.name).arg(Configuration.appName)
                 
                 let phone = (Configuration.serviceTel !== "") ? qsTr("Phone: <a href='tel:%1'>%1</a>").arg(Configuration.serviceTel) : ""
                 let mail = qsTr("Email: <a href='mailto:%1'>%1</a>").arg(Configuration.serviceEmail)
 
-                incompNotificationPopup.message=qsTr('<h3>Incompatible Software Versions</h3>
-                <p>The software versions of your "%3 App" (v%1) and your "%6 End Device" (v%2) are incompatible and currently only partially usable. Your "%6 End Device" will be automatically updated during the day.</p>
-                <p>If you still receive this message after several hours, please contact our support:</p>
+                incompNotificationPopup.message=qsTr('<h3>Pending software update</h3>
+                <p>Your %3 app has been updated to version <strong>%1</strong> and is more up-to-date than the firmware (<strong>%2</strong>) on your %6 device.</p>
+                <p>Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.</p>
+                <p>If this message is still displayed, please contact our service team.</p>
                 <ul>
                     <li>%7</li>
                     <li>%4</li>
                 </ul>
-                <p>We apologize for the temporary limitations in use.</p>
                 <p>Best regards</p>
                 <p>Your %5 Team</p>').arg(appVersion).arg(engine.jsonRpcClient.experiences.Hems).arg(Configuration.appName).arg(mail).arg(Configuration.appName).arg(Configuration.deviceName).arg(phone)
                 // If Popup not already open, open it

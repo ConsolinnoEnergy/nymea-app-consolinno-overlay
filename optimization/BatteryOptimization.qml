@@ -94,6 +94,13 @@ Page {
                 text: qsTr("Avoid zero compensation")
             }
 
+            InfoButton {
+                id: avoidZeroCompensationInfo
+                Layout.fillWidth: true
+                Layout.bottomMargin: 17
+                push: "AvoidZeroCompensationInfo.qml"
+            }
+
             Switch {
                 id: zeroCompensationControl
                 Component.onCompleted: checked = batteryConfiguration.avoidZeroFeedInEnabled

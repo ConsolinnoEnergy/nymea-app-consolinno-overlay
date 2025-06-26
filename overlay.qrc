@@ -150,5 +150,8 @@
         <file>images/eebus.svg</file>
         <file>components/ConsolinnoGridSupportiveControlAlert.qml</file>
         <file>images/relais.svg</file>
+        <file>components/ConsolinnoDialog.qml</file>
+        <file>components/ImageSVGHelper.qml</file>
+        <file>components/ConsolinnoSetUpButton.qml</file>
     </qresource>
 </RCC>
