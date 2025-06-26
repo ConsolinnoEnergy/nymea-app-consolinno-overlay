@@ -21,6 +21,7 @@ StyleBase {
     property real buttonLeftPadding: 32
 
     property color textfield: "#B6B6B6"
+    mediumGray: textfield
 
     // Epex colors
     readonly property color epexColor: "#E056F5"

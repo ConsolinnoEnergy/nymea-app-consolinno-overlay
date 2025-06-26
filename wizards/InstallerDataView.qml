@@ -68,7 +68,7 @@ Page{
 
 
                 }
-                TextField{
+                ConsolinnoTextField{
                     id: nameField
                     Layout.preferredWidth: app.width - 2*app.margins
                     Layout.topMargin: 0
@@ -87,7 +87,7 @@ Page{
                     Layout.leftMargin: app.margins
                     text: qsTr("Workplace: ")
                 }
-                TextField{
+                ConsolinnoTextField{
                     id: companyField
                     Layout.preferredWidth: app.width - 2*app.margins
                     Layout.topMargin: 0
@@ -107,7 +107,7 @@ Page{
                     Layout.leftMargin: app.margins
                     text: qsTr("E-mail: ")
                 }
-                TextField{
+                ConsolinnoTextField{
                     id: emailField
                     Layout.preferredWidth: app.width - 2*app.margins
                     Layout.topMargin: 0
@@ -127,7 +127,7 @@ Page{
                     Layout.leftMargin: app.margins
                     text: qsTr("Phone number: ")
                 }
-                TextField{
+                ConsolinnoTextField{
                     id: numberField
                     Layout.preferredWidth: app.width - 2*app.margins
                     Layout.topMargin: 0

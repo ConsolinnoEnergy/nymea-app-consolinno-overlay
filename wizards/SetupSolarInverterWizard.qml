@@ -310,6 +310,7 @@ Page {
                 font.pixelSize: 15
                 Layout.preferredWidth: 200
                 Layout.preferredHeight: addButton.height - 9
+                opacity: solarInverterRepeater.count > 0 ? 1 : 0.3
                 // color: Style.consolinnoMedium
                 // background fucks up the margin between the buttons, thats why wee need this topMargin
                 Layout.topMargin: 5
@@ -351,7 +352,7 @@ Page {
                     height: parent.height
                     width: parent.width
                     border.color: Material.background
-                    color: solarInverterRepeater.count > 0  ? Style.secondButtonColor : "grey"
+                    color: Style.secondButtonColor
                     radius: 4
                 }
 

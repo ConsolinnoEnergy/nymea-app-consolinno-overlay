@@ -49,6 +49,7 @@ T.Button {
     padding: 12
     leftPadding: padding - 4
     rightPadding: padding - 4
+    opacity: !control.enabled ? 0.3 : 1
 
 //    Material.elevation: flat ? control.down || control.hovered ? 2 : 0
 //                             : control.down ? 8 : 2
@@ -84,7 +85,6 @@ T.Button {
         radius: 4
         color: !control.enabled ? Style.buttonColor :
                 control.highlighted ? control.Material.iconColor : Style.buttonColor
-        opacity: !control.enabled ? 0.3 : 1
 
         PaddedRectangle {
             y: parent.height - 4
