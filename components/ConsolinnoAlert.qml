@@ -6,18 +6,18 @@ import QtGraphicalEffects 1.0
 import QtQml 2.2
 
 Rectangle {
-    property color backgroundColor // "#FFEE89"
-    property color borderColor // "#864A0D"
-    property color textColor // #864A0D"
-    property color iconColor // "#864A0D"
+    property color backgroundColor
+    property color borderColor
+    property color textColor
+    property color iconColor
 
-    property string iconPath // "../components/ConsolinnoDialog.qml"
-    property string dialogHeaderText //"Avoid zero compensation"
-    property string dialogText // qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
-    property string dialogPicture // "../images/avoidZeroCompansation.svg"
+    property string iconPath
+    property string dialogHeaderText
+    property string dialogText
+    property string dialogPicture
 
-    property alias text: screenGuideText.text //text: qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
-    property alias headerText: header.text //text: qsTr("Avoid zero compensation active")
+    property alias text: screenGuideText.text
+    property alias headerText: header.text
 
     Layout.fillWidth: true
     radius: 10
