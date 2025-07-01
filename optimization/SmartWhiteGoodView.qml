@@ -17,10 +17,8 @@ GenericConfigPage {
     readonly property State operationState: root.thing.stateByName("operationState")
     readonly property State selectedProgramState: root.thing.stateByName("selectedProgram")
     readonly property State progressState: root.thing.stateByName("progress")
-    readonly property State endTimeState: {
-        let date = new Date(root.thing.stateByName("endTime").value * 1000);
-        return date.toLocaleTimeString()
-    }
+    readonly property State endTimeState: root.thing.stateByName("endTime")
+    readonly property bool isDishwasher: thing && thing.thingClass.interfaces.indexOf("smartdishwasher") >= 0
 
     title: root.thing.name
     headerOptionsVisible: false
@@ -48,8 +46,8 @@ GenericConfigPage {
                     model: [
                          {Id: "operatingMode", name: qsTr("Operating mode"), value: translateNymeaOperationValues(operationState.value), unit: "", component: stringValues,},
                          {Id: "progress", name: qsTr("Progress"), value: progressState.value, unit: "%", component: stringValues,},
-                         {Id: "programm", name: qsTr("Programm"), value: selectedProgramState.value, unit: "", component: stringValues,},
-                         {Id: "endingTime", name: qsTr("Ending Time"), value: endTimeState, unit: "", component: stringValues,},
+                         {Id: "programm", name: qsTr("Programm"), value: isDishwasher ? selectedProgramState.value : translateNymeaProgrammValues(selectedProgramState.value), unit: "", component: stringValues,},
+                         {Id: "endingTime", name: qsTr("Ending Time"), value: endTimeState.value, unit: "", component: stringValues,},
                     ]
 
                     delegate: ConsolinnoItemDelegate {
@@ -100,21 +98,83 @@ GenericConfigPage {
                     function translateNymeaOperationValues(value){
                         switch(value)
                         {
-                            case"Off":
+                            case "Inactive":
                             {
-                                return qsTr("Off")
+                                return qsTr("Inactive")
+                            }
+                            case "Ready":
+                            {
+                                return qsTr("Ready")
+                            }
+                            case "Delayed start":
+                            {
+                                return qsTr("Delayed Start")
                             }
                             case "Run":
                             {
                                 return qsTr("Run")
                             }
-                            case "Idle":
+                            case "Pause":
                             {
-                                return qsTr("Idle")
+                                return qsTr("Pause")
+                            }
+                            case "Action required":
+                            {
+                                return qsTr("Action required")
                             }
                             case "Finished":
                             {
                                 return qsTr("Finished")
+                            }
+                            case "Error":
+                            {
+                                return qsTr("Error")
+                            }
+                            case "Aborting":
+                            {
+                                return qsTr("Aborting")
+                            }
+                        }
+                    }
+
+                    function translateNymeaProgrammValues(value){
+                        switch(value)
+                        {
+                            case "Cotton":
+                            {
+                                return qsTr("Cotton")
+                            }
+                            case "Easy Care":
+                            {
+                                return qsTr("Easy Care")
+                            }
+                            case "Mix":
+                            {
+                                return qsTr("Mix")
+                            }
+                            case "Silk":
+                            {
+                                return qsTr("Run")
+                            }
+                            case "Wool":
+                            {
+                                return qsTr("Pause")
+                            }
+                            case "Synthetic":
+                            {
+                                return qsTr("Synthetic")
+                            }
+                            case "Iron dry":
+                            {
+                                return qsTr("Iron dry")
+                            }
+                            case "Cupboard dry":
+                            {
+                                return qsTr("Cupboard dry")
+                            }
+                            case "Cupboard dry plus":
+                            {
+                                return qsTr("Cupboard dry plus")
                             }
                         }
                     }
