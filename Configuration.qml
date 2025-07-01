@@ -92,6 +92,7 @@ ConfigurationBase {
     readonly property color wallboxColor: "#ACE3E2"
     readonly property color heatingRodColor: "#639F86"
     readonly property color consumedColor: "#ADB9E3"
+    readonly property color smartWhiteGoodColor: "#D9F6C5"
 
     //batteries
     readonly property color batteriesColor: "#BDD786"
