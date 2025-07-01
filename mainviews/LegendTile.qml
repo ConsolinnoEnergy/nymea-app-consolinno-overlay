@@ -114,7 +114,6 @@ MouseArea {
     function ifacesToIcon(interfaces) {
         for (var i = 0; i < interfaces.length; i++) {
             var icon = ifaceToIcon(interfaces[i]);
-            console.error(icon)
             if (icon !== "") {
                 return icon;
             }
