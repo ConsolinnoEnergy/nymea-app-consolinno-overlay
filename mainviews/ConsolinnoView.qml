@@ -623,6 +623,7 @@ MainViewBase {
     ThingsProxy {
         id: consumers
         engine: _engine
+        groupByInterface: true
         shownInterfaces: ["smartmeterconsumer", "heatpump", "evcharger", "smartheatingrod", "smartwhitegood"]
     }
     ThingsProxy {
@@ -1454,7 +1455,7 @@ MainViewBase {
                                 }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
                                     return Configuration.heatingRodColor
                                 }else if(isWhiteGood){
-                                    return Configuration.heatingRodColor
+                                    return Configuration.smartWhiteGoodColor
                                 }else{
                                     return lsdChart.consumersColors[index]
                                 }
