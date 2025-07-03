@@ -26,7 +26,7 @@ Switch {
             width: 21
             height: 21
             radius: 12
-            color: root.checked ? selectedColor : Style.switchCircleColor
+            color: root.checked ? Style.buttonColor : Style.switchCircleColor
 
             Behavior on x {
                 NumberAnimation {
