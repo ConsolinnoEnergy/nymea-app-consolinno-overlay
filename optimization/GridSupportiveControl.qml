@@ -781,7 +781,7 @@ StackView {
                         visible: powerLimitSource === "eebus" || powerLimitSource === "relais"
                     }
 
-                    CheckBox {
+                    ConsolinnoCheckBox {
                         id: deviceConnected
                         Layout.fillWidth: true
                         text: qsTr("Establish a connection with this device.")

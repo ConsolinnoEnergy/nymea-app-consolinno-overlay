@@ -50,7 +50,7 @@ ConsolinnoWizardPageBase {
 
 
         RowLayout{
-            CheckBox{
+            ConsolinnoCheckBox{
                 id: readCheckbox
                 Layout.alignment: Qt.AlignHCenter
 
@@ -224,7 +224,7 @@ ConsolinnoWizardPageBase {
 
 
                 RowLayout{
-                    CheckBox{
+                    ConsolinnoCheckBox{
                         id: accountCheckbox
                         Layout.alignment: Qt.AlignHCenter
 
@@ -240,7 +240,7 @@ ConsolinnoWizardPageBase {
 
 
                 RowLayout{
-                    CheckBox {
+                    ConsolinnoCheckBox {
                         id: policyCheckbox
                         Layout.alignment: Qt.AlignHCenter
                     }
@@ -539,7 +539,7 @@ ConsolinnoWizardPageBase {
                         Layout.fillWidth: true
                         text: qsTr("SSL:")
                     }
-                    CheckBox {
+                    ConsolinnoCheckBox {
                         id: secureCheckBox
                         checked: true
                     }

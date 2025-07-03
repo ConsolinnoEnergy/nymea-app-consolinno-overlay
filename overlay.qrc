@@ -153,5 +153,6 @@
         <file>components/ConsolinnoDialog.qml</file>
         <file>components/ImageSVGHelper.qml</file>
         <file>components/ConsolinnoSetUpButton.qml</file>
+        <file>components/ConsolinnoCheckBox.qml</file>
     </qresource>
 </RCC>

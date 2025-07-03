@@ -47,7 +47,7 @@ ConsolinnoWizardPageBase {
 
             ColumnLayout {
                 Layout.fillHeight: true
-                CheckBox {
+                ConsolinnoCheckBox {
                     id: overloadProtectionCheckBox
                     Layout.preferredWidth: 200
                     Layout.alignment: Qt.AlignHCenter
@@ -55,7 +55,7 @@ ConsolinnoWizardPageBase {
                     visible: hemsManager.availableUseCases & HemsManager.HemsUseCaseBlackoutProtection
                     checked: visible
                 }
-                CheckBox {
+                ConsolinnoCheckBox {
                     id: smartChargingCheckBox
                     Layout.preferredWidth: 200
                     Layout.alignment: Qt.AlignHCenter
@@ -63,7 +63,7 @@ ConsolinnoWizardPageBase {
                     visible: hemsManager.availableUseCases & HemsManager.HemsUseCaseCharging
                     checked: visible
                 }
-                CheckBox {
+                ConsolinnoCheckBox {
                     id: smartHeatingCheckBox
                     Layout.preferredWidth: 200
                     Layout.alignment: Qt.AlignHCenter
