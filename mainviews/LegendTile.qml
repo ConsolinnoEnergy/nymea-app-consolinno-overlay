@@ -227,7 +227,7 @@ MouseArea {
                 size: Style.iconSize
                 Layout.alignment: Qt.AlignCenter
                 name: !root.thing || Configuration.batteryIcon === "" && root.isBattery ? "" : thingToIcon(root.thing)
-                color: "#3b3b3b"
+                color: Style.legendTileIconColor
                 visible: !root.isBattery || root.isBattery && Configuration.batteryIcon !== ""
             }
 

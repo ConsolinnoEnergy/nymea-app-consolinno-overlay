@@ -11,6 +11,7 @@ StyleBase {
     property color consolinnoExtraLight: "#BDD758"
     property color consolinnoHighlight: "#189521"
     property color consolinnoHighlightForeground: Configuration.highlightForeground
+    property color legendTileIconColor: "#222222"
 
     property real majorFontSize: 16
     property real screenMargins: 16

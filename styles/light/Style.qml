@@ -12,6 +12,7 @@ StyleBase {
     property color consolinnoExtraLight: "#BDD758"
     property color consolinnoHighlight: "#189521"
     property color consolinnoHighlightForeground: Configuration.highlightForeground
+    property color legendTileIconColor: "#222222"
 
     // Epex colors
     readonly property color epexColor: "#E056F5"

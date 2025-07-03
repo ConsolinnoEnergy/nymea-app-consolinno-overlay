@@ -7,6 +7,7 @@ import QtGraphicalEffects 1.15
 
 TextField {
   id: root
+  placeholderTextColor: Style.textfield
 
   background: Rectangle {
     color: "transparent"
@@ -15,7 +16,7 @@ TextField {
       anchors.left: parent.left
       anchors.right: parent.right
       anchors.bottom: parent.bottom
-      height: 2
+      height: 1
       color: root.focus ? Material.accentColor : Style.textfield
     }
   }
