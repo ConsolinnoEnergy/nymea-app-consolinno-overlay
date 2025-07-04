@@ -13,9 +13,10 @@ CheckBox {
         implicitHeight: 20
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        border.color: parent.checked ? Style.buttonColor : "gray"
+        border.color: parent.checked ? Style.buttonColor : Style.textfield
         border.width: 2
         color: parent.checked ? Style.buttonColor : "transparent"
+        radius: 2
 
         // Bounce animation on click
         SequentialAnimation on scale {

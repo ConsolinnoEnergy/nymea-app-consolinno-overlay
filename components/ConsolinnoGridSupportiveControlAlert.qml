@@ -12,9 +12,9 @@ Rectangle {
     Layout.fillWidth: true
     Layout.alignment: Qt.AlignHCenter
     radius: 10
-    color: Style.gridAlertBackground
+    color: Style.dangerBackground
     border.width: 2
-    border.color: Style.gridAlertFont
+    border.color: Style.dangerAccent
     implicitHeight: alertContainer.implicitHeight + 20
 
     ColumnLayout {
@@ -47,13 +47,13 @@ Rectangle {
             wrapMode: Text.WordWrap
             Layout.fillWidth: true
             Layout.preferredWidth: parent.width - 20
-            color: Style.gridAlertFont
+            color: Style.dangerAccent
         }
 
         ColorOverlay {
             source: image
             anchors.fill: image
-            color: Style.gridAlertFont
+            color: Style.dangerAccent
         }
     }
 
@@ -65,7 +65,7 @@ Rectangle {
             Layout.fillWidth: true
             Layout.preferredWidth: parent.width - 20
             leftPadding: 40
-            color: Style.gridAlertFont
+            color: Style.dangerAccent
         }
 
         Item {
