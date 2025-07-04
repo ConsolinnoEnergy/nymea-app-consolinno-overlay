@@ -11,7 +11,8 @@ CheckBox {
     indicator: Rectangle {
         implicitWidth: 20
         implicitHeight: 20
-        anchors.centerIn: parent
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
         border.color: parent.checked ? Style.buttonColor : "gray"
         border.width: 2
         color: parent.checked ? Style.buttonColor : "transparent"
