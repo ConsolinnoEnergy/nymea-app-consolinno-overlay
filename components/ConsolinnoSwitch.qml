@@ -9,7 +9,7 @@ Switch {
     spacing: 1
     height: 18
 
-    readonly property color selectedColor: Qt.rgba(Style.buttonColor.r, Style.buttonColor.g, Style.buttonColor.b, 0.5)
+    readonly property color selectedColor: Qt.rgba(Style.switchOnColor.r, Style.switchOnColor.g, Style.switchOnColor.b, 0.5)
 
     indicator: Rectangle {
         implicitWidth: 37
@@ -26,7 +26,7 @@ Switch {
             width: 21
             height: 21
             radius: 12
-            color: root.checked ? Style.buttonColor : Style.switchCircleColor
+            color: root.checked ? Style.switchOnColor : Style.switchCircleColor
 
             Behavior on x {
                 NumberAnimation {

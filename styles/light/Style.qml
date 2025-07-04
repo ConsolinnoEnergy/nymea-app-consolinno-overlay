@@ -31,6 +31,7 @@ StyleBase {
     // Switch
     readonly property color switchCircleColor: "#F4F6F4"
     readonly property color switchBagroundColor: "#80222222"
+    readonly property color switchOnColor: buttonColor
 
     property real majorFontSize: 16
     property real screenMargins: 16

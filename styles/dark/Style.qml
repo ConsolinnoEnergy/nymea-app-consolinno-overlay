@@ -39,6 +39,7 @@ StyleBase {
     // Switch
     readonly property color switchCircleColor: "#F4F6F4"
     readonly property color switchBagroundColor: "#80F4F6F4"
+    readonly property color switchOnColor: buttonColor
 
     backgroundColor: "#303030"
     foregroundColor: "#F4F6F4"
