@@ -257,13 +257,12 @@ Page {
                 inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
                 if (savebutton.validated)
                 {
-                    if (directionID == 1){
-                        hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, maxElectricalPower: inputText, controllableLocalSystem: gridSupportControl.checked,})
-                        root.done()
-                    }else if(directionID == 0){
-                        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, maxElectricalPower: inputText, controllableLocalSystem: gridSupportControl.checked,})
-                        root.done()
+
+                    d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, maxElectricalPower: inputText, controllableLocalSystem: gridSupportControl.checked,})
+                    if(directionID !== 1){
+                        pageStack.pop()
                     }
+                    root.done()
                 }
                 else
                 {

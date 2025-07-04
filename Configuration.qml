@@ -55,6 +55,18 @@ ConfigurationBase {
     //////////////////////////////////////////////////////////////////////////////////////
 
     //Styles
+    property color secondaryDark: "#767676"
+
+    //MainMenuCirlce
+    readonly property color mainTimeCircle: "#d7d7d7"
+    readonly property color mainTimeCircleDivider: "#ffffff"
+    readonly property color mainCircleTimeColor: "gray"
+
+    readonly property color mainTimeNow: "gray"
+
+    readonly property color mainInnerCicleFirst: "#b6b6b6"
+    readonly property color mainInnerCicleSecond: "#b6b6b6"
+
     // Button
     readonly property color iconColor: "#87BD26"
 

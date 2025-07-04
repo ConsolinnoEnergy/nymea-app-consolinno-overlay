@@ -142,9 +142,11 @@
         <file>components/ConsolinnoSwitch.qml</file>
         <file>components/ConsolinnoTextField.qml</file>
         <file>info/AvoidZeroCompensationInfo.qml</file>
-        <file>images/avoidZeroCompansationExample_de.svg</file>
+        <file>images/avoidZeroCompansation.svg</file>
         <file>components/ConsolinnoDialog.qml</file>
         <file>system/ConsolinnoModbusRtuReconfigureMasterPage.qml</file>
+        <file>components/ImageSVGHelper.qml</file>
+        <file>components/ConsolinnoSetUpButton.qml</file>
         <file>components/ConsolinnoRadioDelegate.qml</file>
         <file>images/relais_screen.png</file>
         <file>images/eebus.svg</file>

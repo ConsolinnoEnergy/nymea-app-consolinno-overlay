@@ -33,6 +33,7 @@ StyleBase {
     readonly property color switchBagroundColor: "#80222222"
     readonly property color switchOnColor: buttonColor
 
+    property color secondaryDark: "#767676"
     property real majorFontSize: 16
     property real screenMargins: 16
 
@@ -50,6 +51,9 @@ StyleBase {
     property color xAxisColor: "#194D25"
     property color yAxisColor: "#194D25"
     property color arrowColor: "#194D25"
+
+    property color gridAlertFont: "#AA0A24"
+    property color gridAlertBackground: "#FFC3CD"
 
     backgroundColor: "white"
     foregroundColor: consolinnoExtraDark

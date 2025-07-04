@@ -2732,12 +2732,11 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.9.2&lt;/p&gt;
-&lt;h4&gt;Verbesserungen&lt;/h4&gt;
+        <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
+&lt;p&gt;Version 1.10.0&lt;/p&gt;
+&lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Anzeige und Informationstext bei Nullvergütung vermeiden (gezielte Steuerung der Batterieladung für ausgewählte Modelle)&lt;/li&gt;
-    &lt;li&gt;Meldungstext für anstehendes Software-Update&lt;/li&gt;
+    &lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -3165,10 +3164,6 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>verbunden</translation>
     </message>
     <message>
-        <source>Confirmation by network operator pending</source>
-        <translation>Bestätigung durch Netzbetreiber ausstehend</translation>
-    </message>
-    <message>
         <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
         <translation>Der Verbrauch ist &lt;b&gt;temporär blockiert&lt;/b&gt; durch den Netzbetreiber.</translation>
     </message>
@@ -3183,10 +3178,6 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source></source>
         <translation></translation>
-    </message>
-    <message>
-        <source>EEBUS Controlbox</source>
-        <translation>EEBUS Steuerbox</translation>
     </message>
     <message>
         <source>Next</source>
@@ -3241,10 +3232,6 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Zurück zur Übersicht</translation>
     </message>
     <message>
-        <source>The relays are configured as follows:</source>
-        <translation>Die Relais sind wie folgt konfiguriert:</translation>
-    </message>
-    <message>
         <source>Grid-supportive control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
@@ -3253,20 +3240,8 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Netzdienlichkeit einrichten</translation>
     </message>
     <message>
-        <source>Relay</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Must be in same network.</source>
         <translation>Muss im selben Netzwerk sein.</translation>
-    </message>
-    <message>
-        <source>Grid-supportive control setup – Relay</source>
-        <translation>Netzdienlichkeit einrichten – Relay</translation>
-    </message>
-    <message>
-        <source>Grid-supportive control – Relay</source>
-        <translation>Netzdienlichkeit – Relay</translation>
     </message>
     <message>
         <source>Grid-supportive control setup – EEBUS</source>
@@ -3275,6 +3250,34 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Grid-supportive control – EEBUS</source>
         <translation>Netzdienlichkeit – EEBUS</translation>
+    </message>
+    <message>
+        <source>EEBUS control box</source>
+        <translation>EEBUS Steuerbox</translation>
+    </message>
+    <message>
+        <source>Confirmation by network operator pending.</source>
+        <translation>Bestätigung durch Netzbetreiber ausstehend.</translation>
+    </message>
+    <message>
+        <source>Relais</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connect device</source>
+        <translation>Gerät anschließen</translation>
+    </message>
+    <message>
+        <source>Please connect the control box or the ripple control receiver as described in our manual.</source>
+        <translation>Bitte schließen Sie die Steuerbox bzw. den Rundsteuerempfänger gemäß unserer Anleitung an.</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control – Relais</source>
+        <translation>Netzdienlichkeit – Relais</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control setup – Relais</source>
+        <translation>Netzdienlichkeit einrichten – Relais</translation>
     </message>
 </context>
 <context>
@@ -3428,12 +3431,16 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Maximale elektrische Leistung</translation>
     </message>
     <message>
-        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
-        <translation>Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
-    </message>
-    <message>
         <source>The heating element is not controlled by the %1.</source>
         <translation>Der Heizstab wird durch das %1 nicht gesteuert.</translation>
+    </message>
+    <message>
+        <source>Grid-supportive-control</source>
+        <translation type="unfinished">Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
     </message>
 </context>
 <context>
@@ -4047,7 +4054,11 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>The following EEBUS devices were found:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Folgende EEBUS-Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -4241,7 +4252,11 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>The following EEBUS devices were found:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Folgende EEBUS-Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
     </message>
 </context>
 <context>

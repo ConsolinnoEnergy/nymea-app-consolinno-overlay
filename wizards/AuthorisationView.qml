@@ -88,7 +88,7 @@ ConsolinnoWizardPageBase {
                         if (directionID == 0){
                             root.done(false, true)
                         }else if(directionID == 1){
-                            pageStack.replace(Qt.resolvedUrl("../wizards/ManualDeviceEssentialsWizard.qml"), { hemsManager: hemsManager })
+                            pageStack.replace(Qt.resolvedUrl("../thingconfiguration/AddNewThings.qml"), { hemsManager: hemsManager })
                         }
 
                     }

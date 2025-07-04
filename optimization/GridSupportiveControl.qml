@@ -1,5 +1,5 @@
 import QtQuick 2.8
-import QtQuick.Controls 2.1
+import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
@@ -16,15 +16,14 @@ StackView {
     property bool setupFinishedRelay: false
     property Thing gridSupportThing: gridSupport.get(0)
     property Thing eeBusThing: eebusThing.get(0)
-    property ThingClass thingClass
     property int powerLimit: gridSupportThing.stateByName("plim").value
-    property string powerLimitSource: gridSupportThing.settings.get(0).value //"none" // "eebus" "relais"
+    property string powerLimitSource: gridSupportThing.settings.get(0).value
 
     property bool eebusState: eeBusThing ? eeBusThing.stateByName("connected").value : false
     property string colorsEEBUS: eebusState === false ? "#F7B772" : eebusState == true ? "#BDD786" : "#F37B8E"
-    property string textEEBUS: eebusState === false ? qsTr("Confirmation by network operator pending") : eebusState == true ? qsTr("connected") : qsTr("not connected")
+    property string textEEBUS: eebusState === false ? qsTr("Confirmation by network operator pending.") : eebusState == true ? qsTr("connected") : qsTr("not connected")
 
-    property string currentState: gridSupportThing.stateByName("plimStatus").value //"limited" "blocked" "limited" "shutoff"
+    property string currentState: gridSupportThing.stateByName("plimStatus").value
     property string colorsPlim: currentState === "shutoff" ? "#eb4034" : currentState === "limited" ? "#fc9d03" : "#ffffff"
     property string contentPlim: currentState === "shutoff" ? qsTr("The consumption is <b>temporarily blocked</b> by the network operator.") : currentState === "limited" ? qsTr("The consumption is <b>temporarily reduced</b> to <b>%1 kW</b> according to §14a minimum.").arg(convertToKw(powerLimit)) : ""
 
@@ -36,8 +35,8 @@ StackView {
 
     Connections {
         target: engine.thingManager
-        onPairThingReply: {
-            busyOverlay.shown = true
+        onAddThingReply: {
+            eeBusThing = engine.thingManager.things.getThing(thingId)
         }
     }
 
@@ -104,6 +103,7 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+                spacing: 8
 
                 ColumnLayout {
                     Layout.leftMargin: app.bigMargins
@@ -114,7 +114,7 @@ StackView {
                         Layout.fillWidth: true
                         Layout.bottomMargin: 8
                         text: qsTr("Grid-supportive control setup")
-                        implicitHeight: 55
+                        implicitHeight: 50
                         onClicked: {
                             pageStack.push(selectComponent)
                         }
@@ -147,21 +147,10 @@ StackView {
                                     Layout.preferredWidth: 10
                                 }
 
-                                Rectangle {
-                                    width: 20
-                                    height: 20
-                                    radius: 10
-                                    color: "white"
-                                    border.color: colorsPlim
-                                    border.width: 2
-                                    RowLayout.alignment: Qt.AlignVCenter
-
-                                    Label {
-                                        text: "!"
-                                        anchors.centerIn: parent
-                                        font.bold: true
-                                        color: colorsPlim
-                                    }
+                                Image {
+                                    id: image
+                                    sourceSize: Qt.size(24, 24)
+                                    source: "../images/attention.svg"
                                 }
 
                                 Label {
@@ -171,6 +160,12 @@ StackView {
                                     wrapMode: Text.WordWrap
                                     Layout.fillWidth: true
                                     Layout.preferredWidth: parent.width - 20
+                                }
+
+                                ColorOverlay {
+                                    anchors.fill: image
+                                    source: image
+                                    color: colorsPlim
                                 }
                             }
 
@@ -189,6 +184,7 @@ StackView {
                             }
                         }
                     }
+
                 }
 
                 ColumnLayout {
@@ -214,6 +210,7 @@ StackView {
 
                     ConsolinnoItemDelegate {
                         visible: powerLimitSource === "relais"
+                        implicitHeight: 50
                         Layout.fillWidth: true
                         text: "Relais"
                         iconName: "../images/relais.svg"
@@ -224,8 +221,9 @@ StackView {
 
                     ConsolinnoItemDelegate {
                         visible: (powerLimitSource === "eebus" && eebusThing.count > 0)
+                        implicitHeight: 50
                         Layout.fillWidth: true
-                        text: qsTr("EEBUS Controlbox")
+                        text: qsTr("EEBUS control box")
                         iconName: "../images/eebus.svg"
                         onClicked: {
                             pageStack.push(eebusView);
@@ -236,7 +234,6 @@ StackView {
                 Item {
                     Layout.fillHeight: true
                 }
-
             }
         }
     }
@@ -263,7 +260,7 @@ StackView {
                 ListModel{
                     id: myListModel
                     ListElement{name: qsTr("Relais"); description: qsTr("")}
-                    ListElement{name: qsTr("EEBUS Controlbox"); description: qsTr("Must be in same network.")}
+                    ListElement{name: qsTr("EEBUS control box"); description: qsTr("Must be in same network.")}
                 }
 
                 ButtonGroup {
@@ -275,6 +272,7 @@ StackView {
                     model: myListModel
                     ConsolinnoRadioDelegate {
                        text: name
+                       implicitHeight: 50
                        description: model.description
                        value: index
                        size: 20
@@ -314,14 +312,9 @@ StackView {
                         }
                     }
 
-                    Button {
-                        id: cancel
-                        Layout.fillWidth: true
+                    ConsolinnoSetUpButton {
                         text: qsTr("Cancel")
-                        background: Rectangle {
-                            color: "transparent"
-                        }
-
+                        backgroundColor: "transparent"
                         onClicked: {
                             pageStack.pop()
                         }
@@ -343,7 +336,7 @@ StackView {
         Page {
 
             header: NymeaHeader {
-                text: qsTr("Grid-supportive control setup – Relay")
+                text: qsTr("Grid-supportive control setup – Relais")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -353,49 +346,45 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-
+                spacing: 8
                 RowLayout {
                     Layout.topMargin: app.margins
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    Text {
+                    Label {
                         Layout.fillWidth: true
                         textFormat: Text.RichText
-                        font.pointSize: 20
+                        font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The relays are configured as follows:")
-                        color: Style.consolinnoDark
+                        text: qsTr("Connect device")
                     }
                 }
 
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
+                    Layout.alignment: Qt.AlignHCenter
                     spacing: 0
-                    Image {
-                        Layout.alignment: Qt.AlignHCenter
+                    Label {
                         Layout.fillWidth: true
-                        Layout.topMargin: 0
-                        Layout.preferredHeight: width * (implicitHeight/implicitWidth)
-                        Layout.maximumWidth: 800
-                        fillMode: Image.PreserveAspectFit
-                        source: "../images/relais_screen.png"
-                        clip: true
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Please connect the control box or the ripple control receiver as described in our manual.")
                     }
                 }
 
                 VerticalDivider {
+                    Layout.topMargin: app.margins - 12
+                    Layout.bottomMargin: app.margins - 12
                     Layout.preferredWidth: app.width
                     dividerColor: Material.accent
                 }
 
                 ColumnLayout {
-                    Layout.topMargin: 16
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-
                     ConsolinnoGridSupportiveControlAlert {
+                        Layout.topMargin: app.margins - 7
                         visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
                     }
                 }
@@ -406,7 +395,6 @@ StackView {
 
                     Button {
                         id: completeSetupButton
-                        Layout.topMargin: (powerLimitSource === "relais" || powerLimitSource === "eebus") ? 0 : 16
                         Layout.fillWidth: true
                         text: qsTr("Complete setup")
 
@@ -417,14 +405,9 @@ StackView {
                         }
                     }
 
-                    Button {
-                        id: cancel
-                        Layout.fillWidth: true
+                    ConsolinnoSetUpButton {
                         text: qsTr("Cancel")
-                        background: Rectangle {
-                            color: "transparent"
-                        }
-
+                        backgroundColor: "transparent"
                         onClicked: {
                             pageStack.pop()
                             pageStack.pop()
@@ -447,7 +430,7 @@ StackView {
         Page {
 
             header: ConsolinnoHeader {
-                text: qsTr("Grid-supportive control – Relay")
+                text: qsTr("Grid-supportive control – Relais")
                 backButtonVisible: true
                 menuOptionsButtonVisible: true
                 onBackPressed: pageStack.pop()
@@ -533,36 +516,31 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+                spacing: 8
 
                 RowLayout {
                     Layout.topMargin: app.margins
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-
-                    Text {
+                    Label {
                         Layout.fillWidth: true
                         textFormat: Text.RichText
-                        font.pointSize: 20
+                        font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The relays are configured as follows:")
-                        color: Style.consolinnoDark
+                        text: qsTr("Connect device")
                     }
                 }
 
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
+                    Layout.alignment: Qt.AlignHCenter
                     spacing: 0
-                    Image {
-                        Layout.alignment: Qt.AlignHCenter
+                    Label {
                         Layout.fillWidth: true
-                        Layout.topMargin: 0
-                        Layout.preferredHeight: width * (implicitHeight/implicitWidth)
-                        Layout.maximumWidth: 800
-                        fillMode: Image.PreserveAspectFit
-                        source: "../images/relais_screen.png"
-                        clip: true
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Please connect the control box or the ripple control receiver as described in our manual.")
                     }
 
                     Item {
@@ -593,49 +571,51 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-
+                Layout.topMargin: 0
+                spacing: 8
 
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    Layout.fillHeight: true
-                    Text {
+                    Layout.bottomMargin: 8
+
+                    Label {
                         Layout.fillWidth: true
                         Layout.topMargin: 5
                         Layout.bottomMargin: 0
                         textFormat: Text.RichText
-                        font.pointSize: 20
+                        font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("The following EEBUS devices were found:")
-                        color: Style.consolinnoDark
                     }
                 }
 
                 Flickable {
                     id: flick
-                    height: parent.height - 300
-                    Layout.fillWidth: true
                     clip: true
-
                     contentWidth: parent.width
                     contentHeight: column.implicitHeight
 
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.minimumHeight: 230
+
                     ColumnLayout {
                         id: column
+                        Layout.topMargin: 0
                         width: parent.width
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
+                        Layout.minimumHeight: 230
                         spacing: 5
 
                         Repeater {
                             id: eebuRepeater
-
                             model: ThingDiscoveryProxy {
                                 id: eebusDiscovery
                                 thingDiscovery: discovery
                             }
                             delegate: ConsolinnoItemDelegate {
+                                implicitHeight: 50
                                 Layout.fillWidth: true
                                 iconName: "../images/connections/network-wired.svg"
                                 text: model.name
@@ -649,12 +629,20 @@ StackView {
                     }
                 }
 
-                VerticalDivider {
+                Item {
+                    Layout.fillHeight: true
                     Layout.fillWidth: true
+                }
+
+                VerticalDivider {
+                    Layout.topMargin: app.margins - 12
+                    Layout.bottomMargin: app.margins - 12
+                    Layout.preferredWidth: app.width
                     dividerColor: Material.accent
                 }
 
                 ColumnLayout {
+                    Layout.topMargin: app.margins - 12
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
@@ -667,14 +655,9 @@ StackView {
                         }
                     }
 
-                    Button {
-                        id: cancel
-                        Layout.fillWidth: true
+                    ConsolinnoSetUpButton {
                         text: qsTr("Cancel")
-                        background: Rectangle {
-                            color: "transparent"
-                        }
-
+                        backgroundColor: "transparent"
                         onClicked: {
                             pageStack.pop()
                             pageStack.pop()
@@ -704,45 +687,41 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+                Layout.topMargin: 0
                 spacing: 8
 
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-
-                    Text {
+                    Layout.bottomMargin: 8
+                    Label {
                         Layout.topMargin: 5
-                        Layout.bottomMargin: 0
                         textFormat: Text.RichText
-                        font.pointSize: 20
+                        font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("Parameter")
-                        color: Style.consolinnoDark
                     }
                 }
 
                 Flickable {
                     id: flick
-                    height: parent.height - 360
-                    Layout.fillWidth: true
                     clip: true
-
                     contentWidth: parent.width
                     contentHeight: column.implicitHeight
 
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    implicitHeight: 8
                     ColumnLayout {
                         id: column
                         width: parent.width
-                        // Margins wie in app definiert
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
-                        spacing: 5
-
+                        spacing: 5 
                         Repeater {
                             model: thingClass.paramTypes
                             delegate: ConsolinnoItemDelegate {
                                 id: thingParams
+                                implicitHeight: 50
                                 property var paramType: thingClass.paramTypes.get(index)
                                 property string paramValue: isNaN(discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id)) ? discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id).value : ""
                                 Layout.fillWidth: true
@@ -751,7 +730,7 @@ StackView {
                                 tertiaryText: model.displayName
                                 secondaryIconName: index === 0 ? "../images/edit-copy.svg" : ""
                                 secondaryIconColor: Material.accentColor
-                                secondaryIconSize: 20
+                                secondaryIconSize: 24
                                 progressive: false
                                 secondaryIconClickable: true
                                 onSecondaryIconClicked: {
@@ -771,19 +750,17 @@ StackView {
                     dividerColor: Material.accent
                 }
 
-
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    Layout.topMargin: 16
 
                     ConsolinnoGridSupportiveControlAlert {
+                        Layout.topMargin: app.margins - 7
                         visible: powerLimitSource === "eebus" || powerLimitSource === "relais"
                     }
 
-                    ConsolinnoCheckBox {
+                    ConsolinnoCheckbox {
                         id: deviceConnected
-                        Layout.fillWidth: true
                         text: qsTr("Establish a connection with this device.")
                     }
                 }
@@ -803,7 +780,7 @@ StackView {
 
                         onClicked: {
                             if(eebusThing.count > 0){
-                               engine.thingManager.removeThing(eebusThing.get(0).id)
+                               engine.thingManager.removeThing(eeBusThing.id)
                             }
 
                             for(var i = 0; i < thingClass.paramTypes.count; i++){
@@ -819,16 +796,10 @@ StackView {
                         }
                     }
 
-                    Button {
-                        id: cancel
-                        Layout.fillWidth: true
+                    ConsolinnoSetUpButton {
                         text: qsTr("Cancel")
-                        background: Rectangle {
-                            color: "transparent"
-                        }
-
+                        backgroundColor: "transparent"
                         onClicked: {
-                            eeBusThing = eebusThing.get(0)
                             pageStack.pop()
                             pageStack.pop()
                             pageStack.pop()
@@ -941,45 +912,42 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+                Layout.topMargin: 0
                 spacing: 8
 
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-
-                    Text {
+                    Layout.bottomMargin: 8
+                    Label {
                         Layout.topMargin: 5
-                        Layout.bottomMargin: 0
                         textFormat: Text.RichText
-                        font.pointSize: 20
+                        font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("Parameter")
-                        color: Style.consolinnoDark
+
                     }
                 }
 
                 Flickable {
                     id: flick
-                    height: parent.height - 360
-                    Layout.fillWidth: true
                     clip: true
-
                     contentWidth: parent.width
                     contentHeight: column.implicitHeight
 
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    implicitHeight: 2
                     ColumnLayout {
                         id: column
                         width: parent.width
-                        // Margins wie in app definiert
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
                         spacing: 5
-
                         Repeater {
                             model: eeBusThing.thingClass.paramTypes
                             delegate: ConsolinnoItemDelegate {
                                 id: thingParams
+                                implicitHeight: 50
                                 property var paramType: eeBusThing.thingClass.paramTypes.get(index)
                                 property string paramValue: isNaN(eeBusThing.params.getParam(eeBusThing.thingClass.paramTypes.get(index).id)) ? eeBusThing.params.getParam(eeBusThing.thingClass.paramTypes.get(index).id).value : ""
                                 Layout.fillWidth: true
@@ -988,13 +956,12 @@ StackView {
                                 tertiaryText: model.displayName
                                 secondaryIconName: index === 0 ? "../images/edit-copy.svg" : ""
                                 secondaryIconColor: Material.accentColor
-                                secondaryIconSize: 20
+                                secondaryIconSize: 24
                                 progressive: false
                                 secondaryIconClickable: true
                                 onSecondaryIconClicked: {
                                     PlatformHelper.toClipBoard(paramValue)
                                     ToolTip.show(qsTr("SKI copied to clipboard"), 500);
-                                    //ToolTip.y = -300
                                 }
                             }
                         }
@@ -1011,30 +978,29 @@ StackView {
                 RowLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
+                    Layout.topMargin: 16
                     visible: eebusThing.count > 0
 
-                    Text {
+                    Label {
                         Layout.fillWidth: true
-                        Layout.topMargin: 8
                         Layout.bottomMargin: 0
                         textFormat: Text.RichText
-                        font.pointSize: 20
+                        font.pointSize: 15
                         font.bold: true
                         wrapMode: Text.WordWrap
                         text: qsTr("Status")
-                        color: Style.consolinnoDark
                     }
                 }
 
                 //Status
                 RowLayout {
-                    Layout.topMargin: 20
+                    Layout.topMargin: 16
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
+                    Layout.bottomMargin: 20
                     visible: eebusThing.count > 0
-                    spacing: 18
+                    spacing: 15
                     Rectangle {
-                        Layout.leftMargin: 2
                         width: 19
                         height: 19
                         color: colorsEEBUS
@@ -1042,12 +1008,11 @@ StackView {
                         radius: 12
                     }
 
-                    Text {
+                    Label {
                         Layout.fillWidth: true
                         text: textEEBUS
                         font.pointSize: 12
                         wrapMode: Text.WordWrap
-                        color: Style.consolinnoDark
                     }
                 }
 
@@ -1080,47 +1045,48 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+                Layout.topMargin: 0
                 spacing: 8
-
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-
-                    Text {
-                        Layout.fillWidth: true
-                        Layout.topMargin: 5
-                        Layout.bottomMargin: 0
-                        textFormat: Text.RichText
-                        font.pointSize: 20
-                        font.bold: true
-                        wrapMode: Text.WordWrap
-                        text: qsTr("Status")
-                        color: Style.consolinnoDark
-                    }
-                }
 
                 RowLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    Layout.topMargin: app.margins - 12
-                    spacing: 8
+                    Layout.topMargin: 16
+                    visible: eebusThing.count > 0
 
+                    Label {
+                        Layout.fillWidth: true
+                        Layout.bottomMargin: 0
+                        textFormat: Text.RichText
+                        font.pointSize: 15
+                        font.bold: true
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Status")
+                    }
+                }
+
+                //Status
+                RowLayout {
+                    Layout.topMargin: 16
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    Layout.bottomMargin: 8
+                    visible: eebusThing.count > 0
+                    spacing: 15
                     Rectangle {
-                        width: 20
-                        height: 20
+                        width: 19
+                        height: 19
                         color: colorsEEBUS
                         border.color: colorsEEBUS
                         radius: 12
                     }
 
-                    Text {
+                    Label {
                         Layout.fillWidth: true
                         text: textEEBUS
                         font.pointSize: 12
                         wrapMode: Text.WordWrap
-                        color: Style.consolinnoDark
                     }
-
                 }
 
                 VerticalDivider {
@@ -1131,6 +1097,7 @@ StackView {
                 }
 
                 ConsolinnoItemDelegate {
+                    implicitHeight: 50
                     property var paramType: thingClass.paramTypes.get(0)
                     property string paramValue: discoveryThingParams.params.getParam(paramType.id).value
                     Layout.fillWidth: true
@@ -1139,7 +1106,7 @@ StackView {
                     tertiaryText: "Local Subject Key Identifier (SKI)"
                     secondaryIconName: "../images/edit-copy.svg"
                     secondaryIconColor: Material.accentColor
-                    secondaryIconSize: 20
+                    secondaryIconSize: 24
                     progressive: false
                     secondaryIconClickable: true
                     onSecondaryIconClicked: {
@@ -1159,14 +1126,12 @@ StackView {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
-
                     Button {
                         id: eebusBackToView
                         Layout.fillWidth: true
                         text: qsTr("Back to overview")
 
                         onClicked: {
-                            eeBusThing = eebusThing.get(0)
                             pageStack.pop()
                             pageStack.pop()
                             pageStack.pop()
@@ -1180,13 +1145,6 @@ StackView {
                     Layout.fillWidth: true
                 }
             }
-
-
         }
     }
-
-    BusyOverlay {
-        id: busyOverlay
-    }
-
 }

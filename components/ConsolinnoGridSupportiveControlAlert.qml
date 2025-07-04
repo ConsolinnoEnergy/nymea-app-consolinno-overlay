@@ -12,9 +12,9 @@ Rectangle {
     Layout.fillWidth: true
     Layout.alignment: Qt.AlignHCenter
     radius: 10
-    color: "#1AF37B8E"
-    border.width: 1
-    border.color: "#F37B8E"
+    color: Style.gridAlertBackground
+    border.width: 2
+    border.color: Style.gridAlertFont
     implicitHeight: alertContainer.implicitHeight + 20
 
     ColumnLayout {
@@ -30,37 +30,13 @@ Rectangle {
         width: parent.width
         spacing: 2
 
-        Canvas {
-            id: triangle
-            width: 20
-            height: 17
-            RowLayout.leftMargin: 13
-            anchors.bottom: attentionLabel.baseline
-
-            onPaint: {
-                var ctx = getContext("2d");
-                ctx.reset();
-                ctx.beginPath();
-                ctx.moveTo(width/2, 0);
-                ctx.lineTo(width, height);
-                ctx.lineTo(0, height);
-                ctx.closePath();
-
-                ctx.fillStyle = "#1AF37B8E";
-                ctx.fill();
-
-                ctx.lineWidth = 1;
-                ctx.strokeStyle = "#F37B8E";
-                ctx.stroke();
-            }
-        }
-
-        Label {
-            font.pixelSize: 13
-            text: "!"
-            anchors.centerIn: triangle
-            font.bold: true
-            color: "#F37B8E"
+        Image {
+            id: image
+            Layout.leftMargin: 11
+            Layout.rightMargin: 5
+            sourceSize.width: 24
+            sourceSize.height: 24
+            source: "../images/dialog-warning-symbolic.svg"
         }
 
         Label {
@@ -71,6 +47,13 @@ Rectangle {
             wrapMode: Text.WordWrap
             Layout.fillWidth: true
             Layout.preferredWidth: parent.width - 20
+            color: Style.gridAlertFont
+        }
+
+        ColorOverlay {
+            source: image
+            anchors.fill: image
+            color: Style.gridAlertFont
         }
     }
 
@@ -82,6 +65,7 @@ Rectangle {
             Layout.fillWidth: true
             Layout.preferredWidth: parent.width - 20
             leftPadding: 40
+            color: Style.gridAlertFont
         }
 
         Item {

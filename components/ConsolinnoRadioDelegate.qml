@@ -20,24 +20,22 @@ RadioDelegate {
     contentItem: ColumnLayout {
         spacing: 0
 
-        Text {
+        Label {
             id: mainText
             rightPadding: control.indicator.width + control.spacing
             text: control.text
             opacity: enabled ? 1.0 : 0.3
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter
-            color: Style.consolinnoDark
         }
 
-        Text {
+        Label {
             id: descriptionText
             visible: control.description.length > 1
             text: control.description
-            font.pixelSize: 13
+            font.pixelSize: 12
             wrapMode: Text.Wrap
             verticalAlignment: Text.AlignVCenter
-            color: Style.consolinnoDark
         }
     }
 
@@ -49,16 +47,16 @@ RadioDelegate {
         y: parent.height / 2 - height / 2
         radius: 13
         color: "transparent"
-        border.color: control.checked ? Style.accentColor : Configuration.secondaryDark
+        border.color: control.checked ? Style.accentColor : Style.secondaryDark
         border.width: 2
 
         Rectangle {
-            width: parent.implicitWidth - 9
-            height: parent.implicitHeight - 9
+            width: parent.implicitWidth - 10
+            height: parent.implicitHeight - 10
             x: parent.width / 2 - width / 2
             y: parent.height / 2 - height / 2
             radius: 7
-            color: control.down ? Style.consolinnoDark : Style.accentColor
+            color: control.down ? Style.secondaryDark : Style.accentColor
             visible: control.checked
         }
     }

@@ -2723,11 +2723,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.9.2&lt;/p&gt;
-&lt;h4&gt;Improvements&lt;/h4&gt;
+&lt;p&gt;Version 1.10.0&lt;/p&gt;
+&lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Indication and information text in case of avoiding zero compensation (specific control of battery charging for selected models)&lt;/li&gt;
-    &lt;li&gt;Message text for pending software update&lt;/li&gt;
+    &lt;li&gt;I&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -3145,10 +3144,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Confirmation by network operator pending</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3163,10 +3158,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source></source>
         <translation></translation>
-    </message>
-    <message>
-        <source>EEBUS Controlbox</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Next</source>
@@ -3221,10 +3212,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The relays are configured as follows:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Grid-supportive control</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3233,19 +3220,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Relay</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Must be in same network.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid-supportive control setup – Relay</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid-supportive control – Relay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3254,6 +3229,34 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Grid-supportive control – EEBUS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EEBUS control box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirmation by network operator pending.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relais</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connect device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please connect the control box or the ripple control receiver as described in our manual.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control – Relais</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control setup – Relais</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3408,12 +3411,16 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished">Maximal electrical power</translation>
     </message>
     <message>
-        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
+        <source>The heating element is not controlled by the %1.</source>
+        <translation type="unfinished">The heating element is not controlled by the %1.</translation>
+    </message>
+    <message>
+        <source>Grid-supportive-control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The heating element is not controlled by the %1.</source>
-        <translation type="unfinished">The heating element is not controlled by the %1.</translation>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4028,6 +4035,10 @@ For further assistance, please contact our support team at: %5</translation>
         <source>The following EEBUS devices were found:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -4224,6 +4235,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
