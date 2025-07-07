@@ -3361,7 +3361,19 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source> W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Total Consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> °C</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3586,35 +3598,15 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Idle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Finished</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Inactive</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ready</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delayed Start</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pause</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Action required</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Aborting</source>
+        <source>Stopped</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4495,67 +4487,19 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Run</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Idle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Finished</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Inactive</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ready</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delayed Start</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pause</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Action required</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Aborting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cotton</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Easy Care</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mix</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Synthetic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Iron dry</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cupboard dry</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cupboard dry plus</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
