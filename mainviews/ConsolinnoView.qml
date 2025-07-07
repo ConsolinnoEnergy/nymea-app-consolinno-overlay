@@ -623,7 +623,7 @@ MainViewBase {
     ThingsProxy {
         id: consumers
         engine: _engine
-        shownInterfaces: ["smartmeterconsumer", "heatpump", "evcharger", "smartheatingrod", "smartwhitegood"]
+        shownInterfaces: ["smartmeterconsumer", "heatpump", "evcharger", "smartheatingrod"]
     }
     ThingsProxy {
         id: inverters
@@ -1445,7 +1445,6 @@ MainViewBase {
                         model: consumers
 
                         delegate: LegendTile {
-                            isWhiteGood: thing.thingClass.interfaces.indexOf("smartwhitegood") >= 0 ? true : false
                             color: {
                                 if(thing.thingClass.interfaces.indexOf("heatpump") >= 0){
                                     return Configuration.heatpumpColor
@@ -1453,7 +1452,7 @@ MainViewBase {
                                     return Configuration.wallboxColor
                                 }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
                                     return Configuration.heatingRodColor
-                                }else if(isWhiteGood){
+                                }else if(thing.thingClass.interfaces.indexOf("smartwhitegood") >= 0){
                                     return Configuration.heatingRodColor
                                 }else{
                                     return lsdChart.consumersColors[index]
@@ -1508,7 +1507,7 @@ MainViewBase {
                                                     "hemsManager": hemsManager,
                                                     "thing": thing
                                                 })
-                                } else if(isWhiteGood) {
+                                } else if(true) { //thing.thingClass.interfaces.indexOf("smartwhitegood") >= 0
                                     pageStack.push(
                                                 "../optimization/SmartWhiteGoodView.qml",
                                                 {
