@@ -3592,25 +3592,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
 </context>
 <context>
-    <name>LegendTile</name>
-    <message>
-        <source>Run</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Idle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Finished</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stopped</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>MainviewInfo</name>
     <message>
         <source>Dashboard</source>
@@ -4465,41 +4446,6 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SmartWhiteGoodView</name>
-    <message>
-        <source>Operating mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Progress</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Programm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ending Time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Run</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Idle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Finished</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
