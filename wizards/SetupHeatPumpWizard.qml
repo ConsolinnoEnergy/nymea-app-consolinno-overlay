@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.9
 import QtQuick.Controls.Material 2.12
 import QtGraphicalEffects 1.15
+
 import "qrc:/ui/components"
 import Nymea 1.0
 
@@ -204,8 +205,6 @@ Page {
                 }
             }
 
-
-
             VerticalDivider
             {
                 Layout.preferredWidth: app.width - 2* Style.margins
@@ -221,60 +220,15 @@ Page {
                 wrapMode: Text.WordWrap
             }
 
-            ThingClassesProxy {
-                id: heatpump
-                engine: _engine
-                filterInterface: "heatpump"
-            }
-
-            ThingClassesProxy {
-                id: eebusHeatpump
-                engine: _engine
-                filterString: "EEBus"
-                filterInterface: "gateway"
-            }
-
-            ListModel {
-                id: modelID
-
-                Component.onCompleted: {
-                    let arr = [];
-
-                    arr.push({
-                        valueRoleID: eebusHeatpump.get(0).id.toString(),
-                        displayName: qsTr("EEBUS heat pump")
-                    });
-
-                    for (var i = 0; i < heatpump.count; ++i) {
-                        var item = heatpump.get(i);
-                        if (isNaN(item)) {
-                            arr.push({
-                                valueRoleID: item.id.toString(),
-                                displayName: item.displayName
-                            });
-                        }
-                    }
-
-                    arr.sort(function(a, b) {
-                        var a0 = a.displayName.charAt(0).toLowerCase();
-                        var b0 = b.displayName.charAt(0).toLowerCase();
-                        return a0.localeCompare(b0);
-                    });
-
-                    for (var j = 0; j < arr.length; ++j) {
-                        append(arr[j]);
-                    }
-                }
-            }
-
-
             ComboBox {
                 id: thingClassComboBox
                 Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"
-                valueRole: "valueRoleID"
-                currentIndex: 0
-                model: modelID
+                valueRole: "id"
+                model: ThingClassesProxy {
+                    engine: _engine
+                    filterInterface: "heatpump"
+                }
             }
         }
 
@@ -382,7 +336,6 @@ Page {
 
     }
 
-
     // This Component Looks at the thingClass and decides based on the createMethod, which "Route" of the
     // Setup we should take
     // tested and supported are atm:
@@ -399,11 +352,9 @@ Page {
             property var thing: null
 
             Component.onCompleted: {
-                if(thingClass.name === "eebusDevice") {
-                    discovery.discoverThings(thingClass.id)
-                    pageStack.push(heatpumpSearch, {thingClass: thingClass})
-                }
-                else if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
+
+                // if discovery and user. Always Discovery
+                if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
 
                     if (thingClass["discoveryParamTypes"].count > 0) {
                         // ThingDiscovery with discoveryParams
@@ -464,122 +415,6 @@ Page {
         }
     }
 
-    Component {
-        id: heatpumpSearch
-
-        Page {
-            header: NymeaHeader {
-                text: qsTr("Heatpump set-up")
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
-
-            property var thingClass
-
-            ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.fillHeight: true
-                    Text {
-                        Layout.fillWidth: true
-                        Layout.topMargin: 5
-                        Layout.bottomMargin: 0
-                        textFormat: Text.RichText
-                        font.pointSize: 20
-                        font.bold: true
-                        wrapMode: Text.WordWrap
-                        text: qsTr("The following EEBUS devices were found:")
-                        color: Style.consolinnoDark
-                    }
-                }
-
-                Flickable {
-                    id: flick
-                    height: parent.height - 300
-                    Layout.fillWidth: true
-                    clip: true
-
-                    contentWidth: parent.width
-                    contentHeight: column.implicitHeight
-
-                    ColumnLayout {
-                        id: column
-                        width: parent.width
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
-                        spacing: 5
-
-                        Repeater {
-                            id: eebuRepeater
-
-                            model: ThingDiscoveryProxy {
-                                id: eebusDiscovery
-                                thingDiscovery: discovery
-                            }
-                            delegate: ConsolinnoItemDelegate {
-                                Layout.fillWidth: true
-                                iconName: "../images/connections/network-wired.svg"
-                                text: model.name
-                                subText: model.description
-                                progressive: true
-                                onClicked: {
-                                    var paramTypes = thingClass.paramTypes;
-                                    d.discoveryParams = [];
-                                    for (var i = 0; i < paramTypes.count; i++) {
-                                        var param = {};
-                                        param["paramTypeId"] = paramTypes.get(i).id;
-                                        param["value"] = isNaN(eebusDiscovery.get(index).params.getParam(thingClass.paramTypes.get(i).id)) ? eebusDiscovery.get(index).params.getParam(thingClass.paramTypes.get(i).id).value : ""
-                                        d.discoveryParams.push(param)
-                                    }
-                                    d.thingDescriptor = eebusDiscovery.get(index);
-                                    pageStack.push(paramsPage, {thingClass: thingClass})
-                                }
-                            }
-                        }
-                    }
-                }
-
-                VerticalDivider {
-                    Layout.fillWidth: true
-                    dividerColor: Material.accent
-                }
-
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-
-                    Button {
-                        id: completeSetupButton
-                        Layout.fillWidth: true
-                        text: qsTr("Search again")
-                        onClicked: {
-                            discovery.discoverThings(eebusHeatpump.get(0).id)
-                        }
-                    }
-
-                    ConsolinnoSetUpButton{
-                        id: cancel
-                        Layout.fillWidth: true
-                        text: qsTr("cancel")
-                        background: Rectangle {
-                            color: "transparent"
-                        }
-
-                        onClicked: {
-                             root.done(false, true, false)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     // discoveryPage
     Component {
         id: discoveryPage
@@ -594,6 +429,7 @@ Page {
                 text: qsTr("Discover %1").arg(thingClass.displayName)
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
+
             }
 
             SettingsPageSectionHeader {
@@ -605,8 +441,8 @@ Page {
                 model: ThingDiscoveryProxy {
                     id: discoveryProxy
                     thingDiscovery: discovery
-                    //showAlreadyAdded: thing !== null
-                    //showNew: thing === null
+                    showAlreadyAdded: thing !== null
+                    showNew: thing === null
                     //filterThingId: root.thing ? root.thing.id : ""
                 }
                 delegate: NymeaItemDelegate {
@@ -738,27 +574,14 @@ Page {
                     d.params = params
                     d.name = nameTextField.text
                     d.pairThing(thingClass, thing);
-
-
                 }
             }
-
         }
-
-
     }
-
 
     BusyOverlay {
         id: busyOverlay
     }
-
-
-
-
-
-
-
 
     Component {
         id: setupHeatPumpComponent
