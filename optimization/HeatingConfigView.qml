@@ -26,6 +26,7 @@ GenericConfigPage {
             anchors.fill: parent
             contentHeight: columnLayout.implicitHeight + 30
             clip: true
+
             ColumnLayout{
                 id: columnLayout
                 anchors.left: parent.left
