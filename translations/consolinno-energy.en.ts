@@ -2713,11 +2713,12 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.9.2&lt;/p&gt;
+&lt;p&gt;Version 1.9.3&lt;/p&gt;
 &lt;h4&gt;Improvements&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Indication and information text in case of avoiding zero compensation (specific control of battery charging for selected models)&lt;/li&gt;
-    &lt;li&gt;Message text for pending software update&lt;/li&gt;
+    &lt;li&gt;Update Android sdk&lt;/li&gt;
+    &lt;li&gt;When adding a device manually: Optimization settings are requested automatically&lt;/li&gt;
+    &lt;li&gt;Charging power in watt for wallbox charging processes&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
