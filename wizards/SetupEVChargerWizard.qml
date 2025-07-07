@@ -1,14 +1,12 @@
 import QtQuick 2.9
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
+import QtQuick.Layouts 1.2
+import QtQuick.Controls 2.9
 import QtQuick.Controls.Material 2.1
 import QtGraphicalEffects 1.15
 import "qrc:/ui/components"
-
 import Nymea 1.0
 
 import "../delegates"
-import "../components"
 
 Page {
     id: root
@@ -208,59 +206,15 @@ Page {
                 wrapMode: Text.WordWrap
             }
 
-            ThingClassesProxy {
-                id: evcharger
-                engine: _engine
-                filterInterface: "evcharger"
-            }
-
-            ThingClassesProxy {
-                id: eebusWallbox
-                engine: _engine
-                filterString: "EEBus"
-                filterInterface: "gateway"
-            }
-
-            ListModel {
-                id: modelID
-
-                Component.onCompleted: {
-                    let arr = [];
-
-                    arr.push({
-                        valueRoleID: eebusWallbox.get(0).id.toString(),
-                        displayName: qsTr("EEBUS Wallbox")
-                    });
-
-                    for (var i = 0; i < evcharger.count; ++i) {
-                        var item = evcharger.get(i);
-                        if (isNaN(item)) {
-                            arr.push({
-                                valueRoleID: item.id.toString(),
-                                displayName: item.displayName
-                            });
-                        }
-                    }
-
-                    arr.sort(function(a, b) {
-                        var a0 = a.displayName.charAt(0).toLowerCase();
-                        var b0 = b.displayName.charAt(0).toLowerCase();
-                        return a0.localeCompare(b0);
-                    });
-
-                    for (var j = 0; j < arr.length; ++j) {
-                        append(arr[j]);
-                    }
-                }
-            }
-
             ComboBox {
                 id: thingClassComboBox
                 Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"
-                valueRole: "valueRoleID"
-                currentIndex: 0
-                model: modelID
+                valueRole: "id"
+                model: ThingClassesProxy {
+                    engine: _engine
+                    filterInterface: "evcharger"
+                }
             }
         }
 
@@ -370,8 +324,6 @@ Page {
 
     }
 
-
-
     // This Component Looks at the thingClass and decides based on the createMethod, which "Route" of the
     // Setup we should take
     // tested and supported are atm:
@@ -387,12 +339,10 @@ Page {
             property var thingClass: engine.thingManager.thingClasses.getThingClass(thingClassId)
             property var thing: null
 
+
             Component.onCompleted: {
-                if(thingClass.name === "eebusDevice") {
-                    discovery.discoverThings(thingClass.id)
-                    pageStack.push(evChargerSearch, {thingClass: thingClass})
-                }
-                else if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
+                // if discovery and user. Always Discovery
+                if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
 
                     if (thingClass["discoveryParamTypes"].count > 0) {
                         // ThingDiscovery with discoveryParams
@@ -405,6 +355,7 @@ Page {
                 }// not supported yet
                 else if (thingClass.createMethods.indexOf("CreateMethodUser") !== -1) {
                     pageStack.push(paramsPage, {thingClass: thingClass})
+
                 }
             }
         }
@@ -448,118 +399,6 @@ Page {
                     }
                     discovery.discoverThings(thingClass.id, d.discoveryParams)
                     pageStack.push(discoveryPage, {thingClass: thingClass})
-                }
-            }
-        }
-    }
-
-    Component {
-        id: evChargerSearch
-
-        Page {
-            header: NymeaHeader {
-                text: qsTr("EvCharger set-up")
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
-
-            property var thingClass
-
-            ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.fillHeight: true
-                    Text {
-                        Layout.fillWidth: true
-                        Layout.topMargin: 5
-                        Layout.bottomMargin: 0
-                        textFormat: Text.RichText
-                        font.pointSize: 20
-                        font.bold: true
-                        wrapMode: Text.WordWrap
-                        text: qsTr("The following EEBUS devices were found:")
-                        color: Style.consolinnoDark
-                    }
-                }
-
-                Flickable {
-                    id: flick
-                    height: parent.height - 300
-                    Layout.fillWidth: true
-                    clip: true
-
-                    contentWidth: parent.width
-                    contentHeight: column.implicitHeight
-
-                    ColumnLayout {
-                        id: column
-                        width: parent.width
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
-                        spacing: 5
-
-                        Repeater {
-                            id: eebuRepeater
-
-                            model: ThingDiscoveryProxy {
-                                id: eebusDiscovery
-                                thingDiscovery: discovery
-                            }
-                            delegate: ConsolinnoItemDelegate {
-                                Layout.fillWidth: true
-                                iconName: "../images/connections/network-wired.svg"
-                                text: model.name
-                                subText: model.description
-                                progressive: true
-                                onClicked: {
-                                    var paramTypes = thingClass.paramTypes;
-                                    d.discoveryParams = [];
-                                    for (var i = 0; i < paramTypes.count; i++) {
-                                        var param = {};
-                                        param["paramTypeId"] = paramTypes.get(i).id;
-                                        param["value"] = isNaN(eebusDiscovery.get(index).params.getParam(thingClass.paramTypes.get(i).id)) ? eebusDiscovery.get(index).params.getParam(thingClass.paramTypes.get(i).id).value : ""
-                                        d.discoveryParams.push(param)
-                                    }
-                                    d.thingDescriptor = eebusDiscovery.get(index);
-                                    pageStack.push(paramsPage, {thingClass: thingClass})
-                                }
-                            }
-                        }
-                    }
-                }
-
-                VerticalDivider {
-                    Layout.fillWidth: true
-                    dividerColor: Material.accent
-                }
-
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-
-                    Button {
-                        id: completeSetupButton
-                        Layout.fillWidth: true
-                        text: qsTr("Search again")
-                        onClicked: {
-                            discovery.discoverThings(eebusWallbox.get(0).id)
-                        }
-                    }
-
-                    ConsolinnoSetUpButton{
-                        id: cancel
-                        text: qsTr("cancel")
-                        backgroundColor: "transparent"
-                        onClicked: {
-                            root.done(false, true, false)
-                        }
-                    }
                 }
             }
         }
