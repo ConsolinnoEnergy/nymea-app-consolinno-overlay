@@ -35,7 +35,6 @@ Page {
                 let props = "";
                 switch (error) {
                 case "HemsErrorNoError":
-                    pageStack.pop()
                     return
                 case "HemsErrorInvalidParameter":
                     footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
