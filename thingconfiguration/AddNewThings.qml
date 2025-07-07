@@ -199,6 +199,12 @@ Page {
                 shownInterfaces: ["heatpump"]
             }
 
+            ThingsProxy {
+                id: heatingRod
+                engine: _engine
+                shownInterfaces: ["smartheatingrod"]
+            }
+
             ThingClassesProxy {
                 id: thingClassesProxyEvCharger
                 engine: _engine
@@ -218,6 +224,12 @@ Page {
                 filterInterface: "dynamicelectricitypricing"
                 includeProvidedInterfaces: true
             }
+            ThingClassesProxy {
+                id: thingClassesProxySmartHeatingRod
+                engine: _engine
+                filterInterface: "smartheatingrod"
+                includeProvidedInterfaces: true
+            }
 
             model: ThingClassesProxy {
                 id: thingClassesProxy
@@ -233,10 +245,11 @@ Page {
 
             delegate: NymeaItemDelegate {
                 id: tingClassDelegate
-                width: parent.width
+                width: listView.width
                 text: model.displayName
                 subText: engine.thingManager.vendors.getVendor(model.vendorId).displayName
                 iconName:{
+                    console.error(thingClass.interfaces)
                     for (let i = 0; i < thingClass.interfaces.length; i++) {
                         let icon = "";
                         let interfaceIcons = thingClass.interfaces[i];
@@ -338,13 +351,15 @@ Page {
                         }
                     }
 
-                   if(gridSupport.count === 1){
-                       thingsListId[thingsListId.length] = gridSupport.get(0).thingClass.id.toString();
-                   }
+                    if(heatingRod.count === 1){
+                        for(let i = 0; i < thingClassesProxySmartHeatingRod.count; i++){
+                            thingsListId[thingsListId.length] = thingClassesProxySmartHeatingRod.get(i).id.toString()
+                        }
+                    }
 
-                   if(epexDataSource.count === 1){
-                      thingsListId[thingsListId.length] = epexDataSource.get(0).thingClass.id.toString();
-                   }
+                    if(gridSupport.count === 1){
+                        thingsListId[thingsListId.length] = gridSupport.get(0).thingClass.id.toString()
+                    }
 
                     if(electrics.count === 1){
                        thingsListId[thingsListId.length] = electrics.get(0).thingClass.id.toString()
