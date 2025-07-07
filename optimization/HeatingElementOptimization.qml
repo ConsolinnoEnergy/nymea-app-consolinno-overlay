@@ -35,7 +35,6 @@ Page {
                 let props = "";
                 switch (error) {
                 case "HemsErrorNoError":
-                    pageStack.pop()
                     return
                 case "HemsErrorInvalidParameter":
                     props.text = qsTr("Could not save configuration. One of the parameters is invalid.")
@@ -133,20 +132,14 @@ Page {
             onClicked: {
                 let inputText = maxPowerInput.text
                 inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
-                if (directionID === 1) {
-                    if (validated) {
-                        d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, { "maxElectricalPower": parseFloat(inputText), "optimizationEnabled": operatingModeSwitch.checked, controllableLocalSystem: false})
-                        root.done()
-                    }else{
-                        footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
+                if (validated) {
+                    d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, { "maxElectricalPower": parseFloat(inputText), "optimizationEnabled": operatingModeSwitch.checked, controllableLocalSystem: false})
+                    if(directionID !== 1){
+                        pageStack.pop()
                     }
-                } else if (directionID === 0) {
-                    if (validated) {
-                        d.pendingCallId = hemsManager.setHeatingElementConfiguration( heatRodThing.id, { "maxElectricalPower": parseFloat(inputText), "optimizationEnabled": operatingModeSwitch.checked, controllableLocalSystem: false})
-                        root.done();
-                    }else{
-                        footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
-                    }
+                    root.done()
+                }else{
+                    footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
                 }
             }
         }

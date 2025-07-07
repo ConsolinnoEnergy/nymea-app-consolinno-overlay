@@ -14,6 +14,19 @@ Page {
     property HemsManager hemsManager
     property Thing thingDevice
 
+    function refreshAllDelegates() {
+        for (let i = 0; i < listView.count; ++i) {
+            let item = listView.itemAtIndex(i);
+            if (item && item.refresh) {
+                item.refresh();
+            }
+        }
+    }
+
+    StackView.onActivated: {
+        refreshAllDelegates();
+    }
+
     header: NymeaHeader {
         text: qsTr("Set up new device")
         onBackPressed: {
@@ -40,13 +53,13 @@ Page {
         page.done.connect(function() {
             var thingPage = "";
             if(thingClass.interfaces.includes("heatpump")){
-                thingPage = pageStack.push("../optimization/HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatPumpThing: thingDevice})
+                thingPage = pageStack.push("../optimization/HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatPumpThing: thingDevice, directionID: 1})
                 navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("evcharger")){
-                thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", { hemsManager: hemsManager, chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thingDevice.id)})
+                thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", { hemsManager: hemsManager, chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thingDevice.id), directionID: 1})
                 navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("smartheatingrod")){
-                thingPage = pageStack.push("../optimization/HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatRodThing: thingDevice})
+                thingPage = pageStack.push("../optimization/HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatRodThing: thingDevice, directionID: 1})
                 navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("solarinverter")){
                 thingPage = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
@@ -300,37 +313,41 @@ Page {
                 prominentSubText: false
                 wrapTexts: false
 
+                Component.onCompleted: {
+                    refresh();
+                }
+
                 property ThingClass thingClass: thingClassesProxy.get(index)
+
+                function refresh(){
+                    if(evCharger.count === 1){
+                        for(let i = 0; i < thingClassesProxyEvCharger.count; i++){
+                            thingsListId[thingsListId.length] = thingClassesProxyEvCharger.get(i).id.toString()
+                        }
+                    }
+
+                    if(heatPump.count === 1){
+                        for(let i = 0; i < thingClassesProxyHeatPump.count; i++){
+                            thingsListId[thingsListId.length] = thingClassesProxyHeatPump.get(i).id.toString()
+                        }
+                    }
+
+                    if(gridSupport.count === 1){
+                        thingsListId[thingsListId.length] = gridSupport.get(0).thingClass.id.toString()
+                    }
+
+                    if(electrics.count === 1){
+                       thingsListId[thingsListId.length] = electrics.get(0).thingClass.id.toString()
+                    }else{
+                      thingsListId[thingsListId.length] = thingClassesProxyElectrics.get(0).id.toString()
+                    }
+
+                    thingClassesProxy.hiddenThingClassIds = thingsListId
+                }
 
                 onClicked: {
                     root.startWizard(thingClass)
                 }
-
-                Component.onCompleted: {
-                   if(evCharger.count === 1){
-                       for(let i = 0; i < thingClassesProxyEvCharger.count; i++){
-                           thingsListId[thingsListId.length] = thingClassesProxyEvCharger.get(i).id.toString()
-                       }
-                   }
-
-                   if(heatPump.count === 1){
-                       for(let i = 0; i < thingClassesProxyHeatPump.count; i++){
-                           thingsListId[thingsListId.length] = thingClassesProxyHeatPump.get(i).id.toString()
-                       }
-                   }
-
-                   if(gridSupport.count === 1){
-                       thingsListId[thingsListId.length] = gridSupport.get(0).thingClass.id.toString()
-                   }
-
-                   if(electrics.count === 1){
-                      thingsListId[thingsListId.length] = electrics.get(0).thingClass.id.toString()
-                   }else{
-                     thingsListId[thingsListId.length] = thingClassesProxyElectrics.get(0).id.toString()
-                   }
-
-                   thingClassesProxy.hiddenThingClassIds = thingsListId
-               }
 
             }
 
@@ -357,5 +374,4 @@ Page {
             }
         }
     }
-
 }
