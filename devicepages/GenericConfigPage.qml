@@ -32,7 +32,6 @@ Item {
 
     ColumnLayout {
         anchors.fill: parent
-        Layout.alignment: Qt.AlignHCenter
         spacing: 0
 
         Item {
@@ -50,7 +49,6 @@ Item {
                 }
 
                 RowLayout {
-                    id: rowContainer
                     anchors.fill: parent
 
                     HeaderButton {
@@ -68,8 +66,9 @@ Item {
 
                         Label {
                             id: titleText
+
                             anchors.centerIn: parent
-                            font.pixelSize: 18
+                            font.pixelSize: 20
                         }
                     }
 
