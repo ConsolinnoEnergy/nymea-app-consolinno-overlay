@@ -125,6 +125,8 @@ MouseArea {
 
         (name === "pvsurplusheatpump") ? heatpumpName = "pvsurplusheatpump" : (name === "smartgridheatpump") ? heatpumpName = "smartgridheatpump" : heatpumpName = "heatpump"
 
+        console.error(name)
+
         switch (name) {
         case heatpumpName:
             if(Configuration.heatpumpIcon !== ""){
@@ -138,6 +140,27 @@ MouseArea {
                 icon = "/ui/images/"+Configuration.heatingRodIcon
             }else{
                 icon = "/ui/images/heating_rod.svg"
+            }
+            return Qt.resolvedUrl(icon)
+        case "dishwasher":
+            if(Configuration.dishwasherIcon !== ""){
+                icon = "/ui/images/"+Configuration.dishwasherIcon
+            }else{
+                icon = "/ui/images/dishwasher.svg"
+            }
+            return Qt.resolvedUrl(icon)
+        case "dryer":
+            if(Configuration.dryerIcon !== ""){
+                icon = "/ui/images/"+Configuration.dryerIcon
+            }else{
+                icon = "/ui/images/dryer.svg"
+            }
+            return Qt.resolvedUrl(icon)
+        case "washingMachine":
+            if(Configuration.washingMachineIcon !== ""){
+                icon = "/ui/images/"+Configuration.washingMachineIcon
+            }else{
+                icon = "/ui/images/washingMachine.svg"
             }
             return Qt.resolvedUrl(icon)
         case "energystorage":
