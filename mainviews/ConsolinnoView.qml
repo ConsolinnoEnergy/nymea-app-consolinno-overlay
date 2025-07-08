@@ -1454,6 +1454,8 @@ MainViewBase {
                                     return Configuration.wallboxColor
                                 }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
                                     return Configuration.heatingRodColor
+                                }else if(isWhiteGood){
+                                    return Configuration.smartWhiteGoodColor
                                 }else{
                                     return lsdChart.consumersColors[index]
                                 }

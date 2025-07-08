@@ -144,27 +144,6 @@ MouseArea {
                 icon = "/ui/images/heating_rod.svg"
             }
             return Qt.resolvedUrl(icon)
-        case "dishwasher":
-            if(Configuration.dishwasherIcon !== ""){
-                icon = "/ui/images/"+Configuration.dishwasherIcon
-            }else{
-                icon = "/ui/images/dishwasher.svg"
-            }
-            return Qt.resolvedUrl(icon)
-        case "dryer":
-            if(Configuration.dryerIcon !== ""){
-                icon = "/ui/images/"+Configuration.dryerIcon
-            }else{
-                icon = "/ui/images/dryer.svg"
-            }
-            return Qt.resolvedUrl(icon)
-        case "washingMachine":
-            if(Configuration.washingMachineIcon !== ""){
-                icon = "/ui/images/"+Configuration.washingMachineIcon
-            }else{
-                icon = "/ui/images/washingMachine.svg"
-            }
-            return Qt.resolvedUrl(icon)
         case "energystorage":
             if(Configuration.batteryIcon !== ""){
                 icon = "/ui/images/"+Configuration.batteryIcon
@@ -185,27 +164,6 @@ MouseArea {
                 icon = "/ui/images/"+Configuration.inverterIcon
                 return Qt.resolvedUrl(icon)
             }
-        case "dishwasher":
-            if(Configuration.dishwasher !== ""){
-                icon = "/ui/images/"+Configuration.dishwasher
-            }else{
-                icon = "/ui/images/dishwasher.svg"
-            }
-            return Qt.resolvedUrl(icon)
-        case "dryer":
-            if(Configuration.dryer !== ""){
-                icon = "/ui/images/"+Configuration.dryer
-            }else{
-                icon = "/ui/images/dryer.svg"
-            }
-            return Qt.resolvedUrl(icon)
-        case "washingMachine":
-            if(Configuration.washingMachine !== ""){
-                icon = "/ui/images/"+Configuration.washingMachine
-            }else{
-                icon = "/ui/images/washingMachine.svg"
-            }
-            return Qt.resolvedUrl(icon)
         default:
             return app.interfaceToIcon(name)
         }
