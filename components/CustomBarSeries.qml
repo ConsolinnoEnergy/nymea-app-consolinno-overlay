@@ -92,7 +92,7 @@ ChartView {
         minorGridVisible: false
         lineVisible: false
         shadesVisible: false
-        labelsColor: root.enabled ? Style.foregroundColor : Qt.rgba(Style.foregroundColor.r, Style.foregroundColor.g, Style.foregroundColor.b, 0.5)
+        labelsColor: root.enabled ? Style.foregroundColor : "#909090"
     }
 
     AreaSeries {
