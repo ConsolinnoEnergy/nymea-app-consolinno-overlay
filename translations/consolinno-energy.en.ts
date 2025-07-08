@@ -2941,15 +2941,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;High&lt;/li&gt;: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The operating status indicates the control of the heat pump:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please note that the schedule is subject to a certain inaccuracy due to the prediction of the PV production. If sufficient PV production was not predicted, the heat pump may not be switched to increased operation despite sunshine. Or vice versa, if the forecast assumes sufficient PV surplus, but in reality there is less PV surplus, there may be grid consumption.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2962,10 +2954,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>If the PV surplus is more than 50 % of the nominal output of the heat pump, SG ready state 3 is switched for at least 30 minutes (recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If the PV surplus is more than 80 % of the nominal output of the heat pump, then SG ready state 4 is switched for at least 30 minutes (definitive start-up command, if this is possible within the scope of the control settings).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2986,10 +2974,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Definitive start-up command, if this is possible within the scope of the control settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3387,10 +3371,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Could not save configuration. One of the parameters is invalid.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3424,6 +3404,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4035,10 +4019,6 @@ For further assistance, please contact our support team at: %5</translation>
         <source>The following EEBUS devices were found:</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -4227,10 +4207,6 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>The following EEBUS devices were found:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
