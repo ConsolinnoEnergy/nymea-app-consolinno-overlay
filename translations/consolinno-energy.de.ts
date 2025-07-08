@@ -2724,11 +2724,13 @@ fügen Sie eine weitere hinzu.</translation>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
 &lt;p&gt;Version 1.9.3&lt;/p&gt;
+&lt;h4&gt;Neu&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;Unterstützung für WhiteGood (HomeConnect) hinzugefügt&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h4&gt;Verbesserungen&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Update Android sdk&lt;/li&gt;
-    &lt;li&gt;Bei manuellen Hinzufügen eines Geräts: Optimierungseinstellungen werden automatisch abgefragt&lt;/li&gt;
-    &lt;li&gt;Ladeleistung in Watt bei Ladevorgängen der Wallbox&lt;/li&gt;
+    &lt;li&gt;Layout-Verbesserungen bei der Heizungs­pumpen- und Heizstab-Ansicht&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>

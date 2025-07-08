@@ -1446,6 +1446,7 @@ MainViewBase {
                         model: consumers
 
                         delegate: LegendTile {
+                            isWhiteGood: thing.thingClass.interfaces.indexOf("smartwhitegood") >= 0 ? true : false
                             color: {
                                 if(thing.thingClass.interfaces.indexOf("heatpump") >= 0){
                                     return Configuration.heatpumpColor
@@ -1504,6 +1505,13 @@ MainViewBase {
                                 } else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0) {
                                     pageStack.push(
                                                 "/ui/devicepages/HeatingElementDevicePage.qml",
+                                                {
+                                                    "hemsManager": hemsManager,
+                                                    "thing": thing
+                                                })
+                                } else if(isWhiteGood) {
+                                    pageStack.push(
+                                                "../optimization/SmartWhiteGoodView.qml",
                                                 {
                                                     "hemsManager": hemsManager,
                                                     "thing": thing
