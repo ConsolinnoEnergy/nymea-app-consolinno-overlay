@@ -64,7 +64,7 @@ Page {
             }else if(thingClass.interfaces.includes("solarinverter")){
                 thingPage = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
                 navigateBack(thingPage)
-            }else if(thingClass.interfaces.includes("battery")){
+            }else if(thingClass.interfaces.includes("energystorage")){
                 thingPage = pageStack.push("../optimization/BatteryOptimization.qml", { hemsManager: hemsManager, batteryConfiguration:  hemsManager.batteryConfigurations.getBatteryConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
                 navigateBack(thingPage)
             }else{
