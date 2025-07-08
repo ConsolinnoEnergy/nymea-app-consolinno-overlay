@@ -16,8 +16,17 @@ TextField {
       anchors.left: parent.left
       anchors.right: parent.right
       anchors.bottom: parent.bottom
-      height: 1
+      height: root.focus || mouseArea.containsMouse ? 2 : 1
       color: root.focus ? Material.accentColor : Style.textfield
+    }
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        hoverEnabled: true
+        propagateComposedEvents: true
+        preventStealing: true
+        acceptedButtons: Qt.NoButton
     }
   }
 }

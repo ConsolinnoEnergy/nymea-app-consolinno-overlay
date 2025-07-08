@@ -41,6 +41,7 @@ StyleBase {
     readonly property color switchBagroundColor: "#80F4F6F4"
     readonly property color switchOnColor: buttonColor
 
+    property color secondaryDark: "#B6B6B6"
     backgroundColor: "#303030"
     foregroundColor: "#F4F6F4"
     subTextColor: "#B6B6B6"
@@ -64,6 +65,7 @@ StyleBase {
     // Button
     readonly property color secondButtonColor: "#189521"
     readonly property color buttonTextColor: "#000000"
+    readonly property color buttonTextColorNoBg: foregroundColor
 
     // Info colors
     readonly property color dangerBackground: "#4D020E"

@@ -7,13 +7,24 @@ Button {
     id: root
 
     property color backgroundColor
+    readonly property color fontColor: {
+        if(Configuration.branding === "consolinno") {
+            if(root.backgroundColor.length > 0) {
+                return Style.buttonTextColor
+            }
+
+            return Style.buttonTextColorNoBg
+        }
+
+        return Style.consolinnoExtraDark
+    }
 
     Layout.fillWidth: true
 
     contentItem: Label {
         text: root.text
         anchors.fill: parent
-        color: (Configuration.branding === "consolinno") ? Configuration.buttonTextColor : Style.consolinnoExtraDark
+        color: fontColor
         font.pixelSize: 13
         font.letterSpacing: 2
         font.capitalization: Font.AllUppercase

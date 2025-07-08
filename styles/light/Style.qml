@@ -75,6 +75,7 @@ StyleBase {
     // Button
     readonly property color secondButtonColor: "#189521"
     readonly property color buttonTextColor: "#000000"
+    readonly property color buttonTextColorNoBg: buttonTextColor
 
     // Info colors
     readonly property color dangerBackground: "#FFC3CD"
