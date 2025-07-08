@@ -21,6 +21,11 @@ MouseArea {
     readonly property bool isProducer: thing && thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0
     readonly property bool isBattery: thing && thing.thingClass.interfaces.indexOf("energystorage") >= 0
     readonly property bool isHeatingRod: thing && thing.thingClass.interfaces.indexOf("smartmeterconsumer") >= 0
+
+    readonly property bool isWashingMachine: thing && thing.thingClass.interfaces.indexOf("smartwashingmachine") >= 0
+    readonly property bool isDryer: thing && thing.thingClass.interfaces.indexOf("smartdryer") >= 0
+    readonly property bool isDishWasher: thing && thing.thingClass.interfaces.indexOf("smartdishwasher") >= 0
+
     property bool isRootmeter: false
 
     property bool isPowerConnection: false
@@ -28,6 +33,7 @@ MouseArea {
 
     readonly property double currentPower: root.currentPowerState ? root.currentPowerState.value.toFixed(0) : 0
     readonly property double currentMarketPrice: root.currentMarketPriceState ? root.currentMarketPriceState.value.toFixed(2) : 0
+    readonly property string currentSmartWhiteGoodState: root.currentWhiteGoodState ? root.currentWhiteGoodState.value : "-"
     readonly property State batteryLevelState: isBattery ? thing.stateByName("batteryLevel") : null
     readonly property color currentColor: currentPower <= 0 ? root.negativeColor : root.color
 
@@ -73,6 +79,29 @@ MouseArea {
             }else{
                 value = Math.round(value)
             }
+        }else if(isWhiteGood == true) {
+            let whiteGoodStateText = "";
+
+            if (value === "Inactive") {
+                whiteGoodStateText = qsTr("Inactive");
+            } else if (value === "Ready") {
+                whiteGoodStateText = qsTr("Ready");
+            } else if (value === "Delayed start") {
+                whiteGoodStateText = qsTr("Delayed Start");
+            } else if (value === "Run") {
+                whiteGoodStateText = qsTr("Run");
+            } else if (value === "Pause") {
+                whiteGoodStateText = qsTr("Pause");
+            } else if (value === "Actionrequired") {
+                whiteGoodStateText = qsTr("Action required");
+            } else if (value === "Finished") {
+                whiteGoodStateText = qsTr("Finished");
+            } else if (value === "Error") {
+                whiteGoodStateText = qsTr("Error");
+            } else if (value === "Aborting") {
+                whiteGoodStateText = qsTr("Aborting");
+            }
+            return whiteGoodStateText;
         }else{
             return "–"
         }
@@ -146,17 +175,37 @@ MouseArea {
                 icon = "/ui/images/grid.svg"
             }
             return Qt.resolvedUrl(icon);
-        }
-        if(isElectric){
+        }else if(isElectric){
             if(Configuration.energyIcon !== ""){
                 icon = "/ui/images/"+Configuration.energyIcon;
             }else{
                 icon = "/ui/images/energy.svg"
             }
             return Qt.resolvedUrl(icon);
-        }
-        if(isBattery)
+        }else if(isBattery){
             return Qt.resolvedUrl("/ui/images/"+Configuration.batteryIcon)
+        }else if(isWashingMachine){
+            if(Configuration.washingMachineIcon !== ""){
+                icon = "/ui/images/"+Configuration.washingMachineIcon
+            }else{
+                icon = "/ui/images/washingMachine.svg"
+            }
+            return Qt.resolvedUrl(icon)
+        }else if(isDishWasher){
+            if(Configuration.dishwasherIcon !== ""){
+                icon = "/ui/images/"+Configuration.dishwasherIcon
+            }else{
+                icon = "/ui/images/dishwasher.svg"
+            }
+            return Qt.resolvedUrl(icon)
+        }else if(isDryer){
+            if(Configuration.dryerIcon !== ""){
+                icon = "/ui/images/"+Configuration.dryerIcon
+            }else{
+                icon = "/ui/images/dryer.svg"
+            }
+            return Qt.resolvedUrl(icon)
+        }
         return ifacesToIcon(thing.thingClass.interfaces)
     }
 
@@ -213,7 +262,7 @@ MouseArea {
                     // here is the issue with the different textsizes
                     id: headerLabel
                     width: parent.width //- Style.margins
-                    text: isElectric == true ? getLabeltext(root.currentMarketPrice) : getLabeltext(root.currentPower)
+                    text: isElectric == true ? getLabeltext(root.currentMarketPrice) : isWhiteGood == true ? getLabeltext(root.currentSmartWhiteGoodState) : getLabeltext(root.currentPower)
                     elide: Text.ElideRight
                     color: "white"
                     horizontalAlignment: Text.AlignHCenter

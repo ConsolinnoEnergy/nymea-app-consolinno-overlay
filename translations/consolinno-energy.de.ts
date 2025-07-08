@@ -3268,20 +3268,8 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Momentaner Verbrauch</translation>
     </message>
     <message>
-        <source> W</source>
-        <translation> W</translation>
-    </message>
-    <message>
         <source>Total Consumption</source>
         <translation>Insgesamter Verbrauch</translation>
-    </message>
-    <message>
-        <source> kWh</source>
-        <translation> kWh</translation>
-    </message>
-    <message>
-        <source> °C</source>
-        <translation> °C</translation>
     </message>
 </context>
 <context>
@@ -3489,6 +3477,45 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>First name Last name</source>
         <translation>Vor- und Nachname</translation>
+    </message>
+</context>
+<context>
+    <name>LegendTile</name>
+    <message>
+        <source>Run</source>
+        <translation type="unfinished">Läuft</translation>
+    </message>
+    <message>
+        <source>Finished</source>
+        <translation type="unfinished">Abgeschlossen</translation>
+    </message>
+    <message>
+        <source>Inactive</source>
+        <translation type="unfinished">Inaktiv</translation>
+    </message>
+    <message>
+        <source>Ready</source>
+        <translation type="unfinished">Bereit</translation>
+    </message>
+    <message>
+        <source>Delayed Start</source>
+        <translation type="unfinished">Verzögerter Start</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation type="unfinished">Pause</translation>
+    </message>
+    <message>
+        <source>Action required</source>
+        <translation type="unfinished">Aktion erforderlich</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished">Fehler</translation>
+    </message>
+    <message>
+        <source>Aborting</source>
+        <translation type="unfinished">Abbruch</translation>
     </message>
 </context>
 <context>
@@ -4351,6 +4378,89 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
+    </message>
+</context>
+<context>
+    <name>SmartWhiteGoodView</name>
+    <message>
+        <source>Operating mode</source>
+        <translation>Betriebszustand</translation>
+    </message>
+    <message>
+        <source>Progress</source>
+        <translation>Fortschritt</translation>
+    </message>
+    <message>
+        <source>Programm</source>
+        <translation>Programm</translation>
+    </message>
+    <message>
+        <source>Ending Time</source>
+        <translation>Endzeit</translation>
+    </message>
+    <message>
+        <source>Run</source>
+        <translation>Läuft</translation>
+    </message>
+    <message>
+        <source>Finished</source>
+        <translation>Fertig</translation>
+    </message>
+    <message>
+        <source>Inactive</source>
+        <translation type="unfinished">Inaktiv</translation>
+    </message>
+    <message>
+        <source>Ready</source>
+        <translation type="unfinished">Bereit</translation>
+    </message>
+    <message>
+        <source>Delayed Start</source>
+        <translation type="unfinished">Verzögerter Start</translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation type="unfinished">Pause</translation>
+    </message>
+    <message>
+        <source>Action required</source>
+        <translation type="unfinished">Aktion erforderlich</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished">Fehler</translation>
+    </message>
+    <message>
+        <source>Aborting</source>
+        <translation type="unfinished">Abbruch</translation>
+    </message>
+    <message>
+        <source>Cotton</source>
+        <translation type="unfinished">Baumwolle</translation>
+    </message>
+    <message>
+        <source>Easy Care</source>
+        <translation type="unfinished">Pflegeleicht</translation>
+    </message>
+    <message>
+        <source>Mix</source>
+        <translation type="unfinished">Mischgewebe</translation>
+    </message>
+    <message>
+        <source>Synthetic</source>
+        <translation type="unfinished">Synthetik</translation>
+    </message>
+    <message>
+        <source>Iron dry</source>
+        <translation type="unfinished">Bügeltrocken</translation>
+    </message>
+    <message>
+        <source>Cupboard dry</source>
+        <translation type="unfinished">Schranktrocken</translation>
+    </message>
+    <message>
+        <source>Cupboard dry plus</source>
+        <translation type="unfinished">Schranktrocken Plus</translation>
     </message>
 </context>
 <context>
