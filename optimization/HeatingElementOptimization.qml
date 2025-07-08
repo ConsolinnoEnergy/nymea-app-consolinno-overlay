@@ -111,6 +111,7 @@ Page {
 
         ColumnLayout {
             Layout.fillWidth: true
+            visible: heatRodThing.thingClass.interfaces.includes("controllableconsumer") || heatRodThing.thingClass.interfaces.includes("smartheatingrod");
             RowLayout {
                 Label {
                     Layout.fillWidth: true
