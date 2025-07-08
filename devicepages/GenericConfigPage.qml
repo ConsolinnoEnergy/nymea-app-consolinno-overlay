@@ -4,7 +4,6 @@ import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.0
 import Nymea 1.0
 import "../components"
-import "../customviews"
 
 Item {
     id: root
