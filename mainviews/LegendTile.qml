@@ -18,6 +18,7 @@ MouseArea {
     property string isNotify: ""
     readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
     readonly property State currentMarketPriceState: thing ? thing.stateByName("currentMarketPrice") : null
+    readonly property State currentWhiteGoodState: thing ? thing.stateByName("operationState") : null
     readonly property bool isProducer: thing && thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0
     readonly property bool isBattery: thing && thing.thingClass.interfaces.indexOf("energystorage") >= 0
     readonly property bool isHeatingRod: thing && thing.thingClass.interfaces.indexOf("smartmeterconsumer") >= 0
@@ -30,6 +31,7 @@ MouseArea {
 
     property bool isPowerConnection: false
     property bool isElectric: false
+    property bool isWhiteGood: false
 
     readonly property double currentPower: root.currentPowerState ? root.currentPowerState.value.toFixed(0) : 0
     readonly property double currentMarketPrice: root.currentMarketPriceState ? root.currentMarketPriceState.value.toFixed(2) : 0
@@ -183,6 +185,27 @@ MouseArea {
                 icon = "/ui/images/"+Configuration.inverterIcon
                 return Qt.resolvedUrl(icon)
             }
+        case "dishwasher":
+            if(Configuration.dishwasher !== ""){
+                icon = "/ui/images/"+Configuration.dishwasher
+            }else{
+                icon = "/ui/images/dishwasher.svg"
+            }
+            return Qt.resolvedUrl(icon)
+        case "dryer":
+            if(Configuration.dryer !== ""){
+                icon = "/ui/images/"+Configuration.dryer
+            }else{
+                icon = "/ui/images/dryer.svg"
+            }
+            return Qt.resolvedUrl(icon)
+        case "washingMachine":
+            if(Configuration.washingMachine !== ""){
+                icon = "/ui/images/"+Configuration.washingMachine
+            }else{
+                icon = "/ui/images/washingMachine.svg"
+            }
+            return Qt.resolvedUrl(icon)
         default:
             return app.interfaceToIcon(name)
         }

@@ -1454,8 +1454,6 @@ MainViewBase {
                                     return Configuration.wallboxColor
                                 }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
                                     return Configuration.heatingRodColor
-                                }else if(isWhiteGood){
-                                    return Configuration.smartWhiteGoodColor
                                 }else{
                                     return lsdChart.consumersColors[index]
                                 }
@@ -1466,7 +1464,7 @@ MainViewBase {
                                 if (thing.thingClass.interfaces.indexOf(
                                             "heatpump") >= 0) {
                                     pageStack.push(
-                                                "../optimization/HeatingConfigView.qml",
+                                                "../optimization/HeatingConfigView.qml", //"../optimization/SmartWhiteGoodView.qml",
                                                 {
                                                     "hemsManager": hemsManager,
                                                     "thing": thing
