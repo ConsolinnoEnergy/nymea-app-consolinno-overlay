@@ -144,7 +144,7 @@ Page {
 
         RowLayout{
             Layout.fillWidth: true
-            visible: heatPumpThing.thingClass.interfaces.includes("smartgridheatpump")
+            visible: heatPumpThing.thingClass.interfaces.includes("smartgridheatpump") || heatPumpThing.thingClass.interfaces.includes("limitableconsumer") || heatPumpThing.thingClass.interfaces.includes("heatpump")
 
             Label {
                 Layout.fillWidth: true
