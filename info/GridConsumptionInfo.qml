@@ -11,7 +11,7 @@ Page {
     header: ConsolinnoHeader {
         id: header
         show_Image: true
-        text: qsTr("Behaviour on grid consumption")
+        text: qsTr("Low solar avalaibility")
         backButtonVisible: true
         onBackPressed: stack.pop()
     }
