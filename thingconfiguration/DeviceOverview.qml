@@ -106,7 +106,7 @@ Page {
                 groupByInterface: true
                 nameFilter: filterInput.shown ? filterInput.text : ""
                 hideTagId: "hiddenInDeviceView"
-                hiddenInterfaces: ["gridsupport"]
+                hiddenInterfaces: ["gridsupport", "epexdatasource"]
             }
 
             delegate: ConsolinnoThingDelegate {
