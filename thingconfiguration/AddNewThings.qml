@@ -169,6 +169,12 @@ Page {
             }
 
             ThingsProxy {
+                id: epexDataSource
+                engine: _engine
+                shownInterfaces: ["epexdatasource"]
+            }
+
+            ThingsProxy {
                 id: evCharger
                 engine: _engine
                 shownInterfaces: ["evcharger"]
@@ -320,7 +326,11 @@ Page {
                    }
 
                    if(gridSupport.count === 1){
-                       thingsListId[thingsListId.length] = gridSupport.get(0).thingClass.id.toString()
+                       thingsListId[thingsListId.length] = gridSupport.get(0).thingClass.id.toString();
+                   }
+
+                   if(epexDataSource.count === 1){
+                      thingsListId[thingsListId.length] = epexDataSource.get(0).thingClass.id.toString();
                    }
 
                    if(electrics.count === 1){
