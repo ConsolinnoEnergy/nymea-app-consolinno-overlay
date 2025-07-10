@@ -3,6 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
+import Qt.labs.settings 1.1
 import Nymea 1.0
 import "../components"
 import "../delegates"
@@ -20,12 +21,26 @@ StackView {
     property string powerLimitSource: gridSupportThing.settings.get(0).value
 
     property bool eebusState: eeBusThing ? eeBusThing.stateByName("connected").value : false
-    property string colorsEEBUS: eebusState === false ? "#F7B772" : eebusState == true ? "#BDD786" : "#F37B8E"
-    property string textEEBUS: eebusState === false ? qsTr("Confirmation by network operator pending.") : eebusState == true ? qsTr("connected") : qsTr("not connected")
+    property string colorsEEBUS: (!eebusSettings.connected && !eebusSettings.everConnected) ? "#F7B772" : eebusState == true ? "#BDD786" : "#F37B8E"
+    property string textEEBUS: (!eebusSettings.connected && !eebusSettings.everConnected) ? qsTr("Confirmation by network operator pending.") : eebusSettings.connected ? qsTr("connected") : qsTr("not connected")
 
     property string currentState: gridSupportThing.stateByName("plimStatus").value
     property string colorsPlim: currentState === "shutoff" ? "#eb4034" : currentState === "limited" ? "#fc9d03" : "#ffffff"
     property string contentPlim: currentState === "shutoff" ? qsTr("The consumption is <b>temporarily blocked</b> by the network operator.") : currentState === "limited" ? qsTr("The consumption is <b>temporarily reduced</b> to <b>%1 kW</b> according to §14a minimum.").arg(convertToKw(powerLimit)) : ""
+
+
+    Settings {
+        id: eebusSettings
+        property bool connected: false
+        property bool everConnected: false
+    }
+
+    Component.onCompleted: {
+        eebusSettings.connected = eebusState;
+        if (eebusState && !eebusSettings.everConnected) {
+            eebusSettings.everConnected = true;
+        }
+    }
 
     QtObject {
         id: d
