@@ -116,7 +116,7 @@ Page {
                     Layout.fillWidth: true
                     text: qsTr("Grid-supportive-control")
                 }
-                Switch {
+                ConsolinnoSwitch {
                     id: controllSwitch
                     Component.onCompleted: checked = heatingElementConfiguration.controllableLocalSystem
                 }
