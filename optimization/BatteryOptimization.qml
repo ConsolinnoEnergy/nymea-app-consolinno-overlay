@@ -101,7 +101,7 @@ Page {
                 push: "AvoidZeroCompensationInfo.qml"
             }
 
-            Switch {
+            ConsolinnoSwitch {
                 id: zeroCompensationControl
                 Component.onCompleted: checked = batteryConfiguration.avoidZeroFeedInEnabled
             }
