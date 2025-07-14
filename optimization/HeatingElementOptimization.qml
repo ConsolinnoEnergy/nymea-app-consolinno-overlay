@@ -35,7 +35,6 @@ Page {
                 let props = "";
                 switch (error) {
                 case "HemsErrorNoError":
-                    pageStack.pop()
                     return
                 case "HemsErrorInvalidParameter":
                     footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
@@ -111,6 +110,7 @@ Page {
 
         ColumnLayout {
             Layout.fillWidth: true
+            visible: heatRodThing.thingClass.interfaces.includes("controllableconsumer") || heatRodThing.thingClass.interfaces.includes("smartheatingrod");
             RowLayout {
                 Label {
                     Layout.fillWidth: true

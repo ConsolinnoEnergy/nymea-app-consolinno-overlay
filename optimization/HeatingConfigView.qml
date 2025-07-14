@@ -33,7 +33,6 @@ GenericConfigPage {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.topMargin: app.margins
-                anchors.rightMargin: app.margins
 
                 Row{
                     Layout.fillWidth: true
@@ -43,11 +42,9 @@ GenericConfigPage {
                     Label
                     {
                         id: energyManager
-
                         text: qsTr("Energymanager")
                         font.bold: true
                         font.pixelSize: 22
-
                     }
 
                 }
@@ -165,7 +162,6 @@ GenericConfigPage {
                     Label
                     {
                         id: heatingPumpStates
-
                         text: qsTr("Heatpump condition")
                         font.bold: true
                         font.pixelSize: 22

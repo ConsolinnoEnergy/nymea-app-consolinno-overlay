@@ -226,6 +226,22 @@
         <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
         <translation>Wenn Nullvergütung vermieden aktiv ist, dann ist kein Sofortladen der Batterie möglich.</translation>
     </message>
+    <message>
+        <source>Avoid zero compensation</source>
+        <translation type="unfinished">Nullvergütung vermeiden</translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
+        <translation type="unfinished">An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
+    </message>
+    <message>
+        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <translation type="unfinished">Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation active</source>
+        <translation type="unfinished">Nullvergütung vermeiden aktiv</translation>
+    </message>
 </context>
 <context>
     <name>BatteryConfigurationView</name>
@@ -440,10 +456,6 @@
         <translation>Pausieren des Ladevorgangs</translation>
     </message>
     <message>
-        <source>Behaviour on grid consumption:</source>
-        <translation>Verhalten bei ungenügender PV-Erzeugung:</translation>
-    </message>
-    <message>
         <source>Please select a battery level greater than 0%.</source>
         <translation>Bitte wählen Sie ein Batteriestand, der größer als 0% ist.</translation>
     </message>
@@ -518,10 +530,6 @@
     <message>
         <source>Solar only</source>
         <translation>Nur Solarstrom</translation>
-    </message>
-    <message>
-        <source>On grid consumption</source>
-        <translation>Bei wenig Solarstrom</translation>
     </message>
     <message>
         <source>Minimal current</source>
@@ -614,6 +622,14 @@
     <message>
         <source>Cancel &amp; reconfigure charging mode</source>
         <translation>Lademodus abbrechen &amp; ändern</translation>
+    </message>
+    <message>
+        <source>low solar availability</source>
+        <translation type="unfinished">bei wenig Solarstrom</translation>
+    </message>
+    <message>
+        <source>Low solar avalaibility:</source>
+        <translation type="unfinished">Bei wenig Solarstrom:</translation>
     </message>
 </context>
 <context>
@@ -910,25 +926,6 @@
     <message>
         <source>Find app versions and licence information</source>
         <translation>Finde App Versionen und Lizenzinformationen</translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoAvoidZeroCompensation</name>
-    <message>
-        <source>Avoid zero compensation active</source>
-        <translation>Nullvergütung vermeiden aktiv</translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation type="unfinished">An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
-    </message>
-    <message>
-        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
-        <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
-    </message>
-    <message>
-        <source>Avoid zero compensation</source>
-        <translation type="unfinished">Nullvergütung vermeiden</translation>
     </message>
 </context>
 <context>
@@ -2957,16 +2954,8 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Erhöht&lt;/li&gt;: </translation>
     </message>
     <message>
-        <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;High&lt;/li&gt;: </source>
-        <translation>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Hoch&lt;/li&gt;: </translation>
-    </message>
-    <message>
         <source>The operating status indicates the control of the heat pump:</source>
         <translation>Der Betriebszustand zeigt die Steuerung der Wärmepumpe an:</translation>
-    </message>
-    <message>
-        <source>Please note that the schedule is subject to a certain inaccuracy due to the prediction of the PV production. If sufficient PV production was not predicted, the heat pump may not be switched to increased operation despite sunshine. Or vice versa, if the forecast assumes sufficient PV surplus, but in reality there is less PV surplus, there may be grid consumption.</source>
-        <translation>Bitte beachten Sie, dass der Fahrplan durch die Vorhersage der PV-Produktion mit einer gewissen Ungenauigkeit behaftet ist. Falls keine ausreichende PV-Produktion vorhergesagt wurde, kann es sein dass die Wärmepumpe trotz Sonnenschein nicht in erhöhten Betrieb geschalten wird. Oder umgekehrt falls die Vorhersage von ausreichend PV-Überschuss ausgeht, in der Realität aber weniger PV-Überschuss vorhanden ist, kann es zu Netzbezug kommen.</translation>
     </message>
     <message>
         <source>Optimization of the heat pump</source>
@@ -2979,10 +2968,6 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>If the PV surplus is more than 50 % of the nominal output of the heat pump, SG ready state 3 is switched for at least 30 minutes (recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range).</source>
         <translation type="unfinished">Beträgt der PV-Überschuss mehr als 50 % der Nennleistung der Wärmepumpe, wird SG-Ready-Zustand 3 für mind. 30 Minuten geschaltet (Empfehlung zu erhöhtem Betrieb, die Wärmepumpe entscheidet je nach momentanem Temperaturbereich, ob dies möglich ist).</translation>
-    </message>
-    <message>
-        <source>If the PV surplus is more than 80 % of the nominal output of the heat pump, then SG ready state 4 is switched for at least 30 minutes (definitive start-up command, if this is possible within the scope of the control settings).</source>
-        <translation type="unfinished">Beträgt der PV-Überschuss mehr als 80 % der Nennleistung der Wärmepumpe, dann wird SG-Ready-Zustand 4 für mind. 30 Minuten geschaltet (Definitiver Anlaufbefehl, sofern dies im Rahmen der Regeleinstellungen möglich ist).</translation>
     </message>
     <message>
         <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Off (= EVU block)&lt;/li&gt;: </source>
@@ -3003,10 +2988,6 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range.</source>
         <translation type="unfinished">Empfehlung für erhöhten Betrieb, die Wärmepumpe entscheidet in Abhängigkeit vom aktuellen Temperaturbereich, ob dies möglich ist.</translation>
-    </message>
-    <message>
-        <source>Definitive start-up command, if this is possible within the scope of the control settings</source>
-        <translation type="unfinished">Definitiver Einschaltbefehl, wenn dies im Rahmen der Steuerungseinstellungen möglich ist</translation>
     </message>
 </context>
 <context>
@@ -3129,6 +3110,22 @@ fügen Sie eine weitere hinzu.</translation>
         <source>unrestricted</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Avoid zero compensation</source>
+        <translation type="unfinished">Nullvergütung vermeiden</translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
+        <translation type="unfinished">An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
+    </message>
+    <message>
+        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <translation type="unfinished">Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation active</source>
+        <translation type="unfinished">Nullvergütung vermeiden aktiv</translation>
+    </message>
 </context>
 <context>
     <name>GridConsumptionInfo</name>
@@ -3149,8 +3146,8 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Wenn ca. 2 Minuten kein ausreichender PV-Überschuss vorhanden ist, wird der Ladevorgang pausiert. Ist ca. 2 Minuten wieder ausreichend PV-Überschuss vorhanden, wird der Ladevorgang fortgesetzt.</translation>
     </message>
     <message>
-        <source>Behaviour on grid consumption</source>
-        <translation>Verhalten bei Netzbezug</translation>
+        <source>Low solar avalaibility</source>
+        <translation>Bei wenig Solarstrom</translation>
     </message>
 </context>
 <context>
@@ -3380,20 +3377,8 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Momentaner Verbrauch</translation>
     </message>
     <message>
-        <source> W</source>
-        <translation> W</translation>
-    </message>
-    <message>
         <source>Total Consumption</source>
         <translation>Insgesamter Verbrauch</translation>
-    </message>
-    <message>
-        <source> kWh</source>
-        <translation> kWh</translation>
-    </message>
-    <message>
-        <source> °C</source>
-        <translation> °C</translation>
     </message>
 </context>
 <context>
@@ -3401,10 +3386,6 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Heating Element Configuration</source>
         <translation>Heizstabkonfiguration</translation>
-    </message>
-    <message>
-        <source>Could not save configuration. One of the parameters is invalid.</source>
-        <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
     <message>
         <source>Could not save configuration. The thing is not valid.</source>
@@ -3441,6 +3422,10 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
         <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
+    </message>
+    <message>
+        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
+        <translation type="unfinished">Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
     </message>
 </context>
 <context>
@@ -4056,10 +4041,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <source>The following EEBUS devices were found:</source>
         <translation type="unfinished">Folgende EEBUS-Geräte wurden gefunden:</translation>
     </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
-    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -4253,10 +4234,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>The following EEBUS devices were found:</source>
         <translation type="unfinished">Folgende EEBUS-Geräte wurden gefunden:</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
     </message>
 </context>
 <context>

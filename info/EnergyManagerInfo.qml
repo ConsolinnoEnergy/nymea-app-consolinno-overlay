@@ -58,17 +58,6 @@ Page {
 
             }
 
-            Label{
-                Layout.fillWidth: true
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
-                wrapMode: Text.WordWrap
-                Layout.preferredWidth: app.width
-
-                text: qsTr("If the PV surplus is more than 80 % of the nominal output of the heat pump, then SG ready state 4 is switched for at least 30 minutes (definitive start-up command, if this is possible within the scope of the control settings).")
-
-            }
-
             Label {
                 Layout.fillWidth: true
                 leftPadding: app.margins +10
@@ -142,37 +131,6 @@ Page {
                 Layout.preferredWidth: app.width
                 text: qsTr("Recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range.")
 
-            }
-
-            Label{
-                Layout.fillWidth: true
-                leftPadding: app.margins -2
-                rightPadding: app.margins +10
-                wrapMode: Text.WordWrap
-                Layout.preferredWidth: app.width
-                font.bold: true
-
-                text: qsTr("<ul style = 'list-style-type:circle;'> <li>High</li>: ")
-
-            }
-            Label{
-                Layout.fillWidth: true
-                leftPadding: app.margins +35
-                rightPadding: app.margins +10
-                wrapMode: Text.WordWrap
-                Layout.preferredWidth: app.width
-                text: qsTr("Definitive start-up command, if this is possible within the scope of the control settings")
-
-            }
-
-            Label {
-                Layout.fillWidth: true
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
-                Layout.topMargin: 16;
-                wrapMode: Text.WordWrap
-                Layout.preferredWidth: app.width
-                text: qsTr("Please note that the schedule is subject to a certain inaccuracy due to the prediction of the PV production. If sufficient PV production was not predicted, the heat pump may not be switched to increased operation despite sunshine. Or vice versa, if the forecast assumes sufficient PV surplus, but in reality there is less PV surplus, there may be grid consumption.")
             }
         }
     }

@@ -137,10 +137,10 @@
         <file>system/ConsolinnoModbusRtuAddMasterPage.qml</file>
         <file>info/ZeroCompensationInfo.qml</file>
         <file>components/ConsolinnoAvoidZeroCompensation.qml</file>
-        <file>components/ConsolinnoAvoidZeroCompensation.qml</file>
         <file>components/ConsolinnoSelectionTabs.qml</file>
         <file>components/ConsolinnoSwitch.qml</file>
         <file>components/ConsolinnoTextField.qml</file>
+        <file>components/ConsolinnoAlert.qml</file>
         <file>info/AvoidZeroCompensationInfo.qml</file>
         <file>images/avoidZeroCompansation.svg</file>
         <file>components/ConsolinnoDialog.qml</file>
@@ -152,9 +152,6 @@
         <file>images/eebus.svg</file>
         <file>components/ConsolinnoGridSupportiveControlAlert.qml</file>
         <file>images/relais.svg</file>
-        <file>components/ConsolinnoDialog.qml</file>
-        <file>components/ImageSVGHelper.qml</file>
-        <file>components/ConsolinnoSetUpButton.qml</file>
-        <file>components/ConsolinnoCheckBox.qml</file>
+        <file>components/ConsolinnoCheckbox.qml</file>
     </qresource>
 </RCC>

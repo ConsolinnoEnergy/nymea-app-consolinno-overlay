@@ -14,6 +14,19 @@ Page {
     property HemsManager hemsManager
     property Thing thingDevice
 
+    function refreshAllDelegates() {
+        for (let i = 0; i < listView.count; ++i) {
+            let item = listView.itemAtIndex(i);
+            if (item && item.refresh) {
+                item.refresh();
+            }
+        }
+    }
+
+    StackView.onActivated: {
+        refreshAllDelegates();
+    }
+
     header: NymeaHeader {
         text: qsTr("Set up new device")
         onBackPressed: {
@@ -41,19 +54,19 @@ Page {
             var thingPage = "";
             if(thingClass.interfaces.includes("heatpump")){
                 thingPage = pageStack.push("../optimization/HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatPumpThing: thingDevice, directionID: 1})
-                navigateBack(thingPage,"")
+                navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("evcharger")){
-                thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", { hemsManager: hemsManager, chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thingDevice.id)})
-                navigateBack(thingPage,"")
+                thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", { hemsManager: hemsManager, chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thingDevice.id), directionID: 1})
+                navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("smartheatingrod")){
-                thingPage = pageStack.push("../optimization/HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatRodThing: thingDevice})
-                navigateBack(thingPage,"")
+                thingPage = pageStack.push("../optimization/HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatRodThing: thingDevice, directionID: 1})
+                navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("solarinverter")){
                 thingPage = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
-                navigateBack(thingPage,root)
-            }else if(thingClass.interfaces.includes("battery")){
+                navigateBack(thingPage)
+            }else if(thingClass.interfaces.includes("energystorage")){
                 thingPage = pageStack.push("../optimization/BatteryOptimization.qml", { hemsManager: hemsManager, batteryConfiguration:  hemsManager.batteryConfigurations.getBatteryConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
-                navigateBack(thingPage,root)
+                navigateBack(thingPage)
             }else{
                 pageStack.pop(root);
             }
@@ -62,9 +75,9 @@ Page {
             pageStack.pop();
         })
 
-        function navigateBack(thingPage,page){
+        function navigateBack(thingPage){
             thingPage.done.connect(function() {
-                pageStack.pop(page);
+                pageStack.pop(root);
             })
         }
     }
@@ -169,6 +182,12 @@ Page {
             }
 
             ThingsProxy {
+                id: epexDataSource
+                engine: _engine
+                shownInterfaces: ["epexdatasource"]
+            }
+
+            ThingsProxy {
                 id: evCharger
                 engine: _engine
                 shownInterfaces: ["evcharger"]
@@ -178,6 +197,12 @@ Page {
                 id: heatPump
                 engine: _engine
                 shownInterfaces: ["heatpump"]
+            }
+
+            ThingsProxy {
+                id: heatingRod
+                engine: _engine
+                shownInterfaces: ["smartheatingrod"]
             }
 
             ThingClassesProxy {
@@ -199,6 +224,12 @@ Page {
                 filterInterface: "dynamicelectricitypricing"
                 includeProvidedInterfaces: true
             }
+            ThingClassesProxy {
+                id: thingClassesProxySmartHeatingRod
+                engine: _engine
+                filterInterface: "smartheatingrod"
+                includeProvidedInterfaces: true
+            }
 
             model: ThingClassesProxy {
                 id: thingClassesProxy
@@ -214,7 +245,7 @@ Page {
 
             delegate: NymeaItemDelegate {
                 id: tingClassDelegate
-                width: parent.width
+                width: listView.width
                 text: model.displayName
                 subText: engine.thingManager.vendors.getVendor(model.vendorId).displayName
                 iconName:{
@@ -300,37 +331,47 @@ Page {
                 prominentSubText: false
                 wrapTexts: false
 
+                Component.onCompleted: {
+                    refresh();
+                }
+
                 property ThingClass thingClass: thingClassesProxy.get(index)
+
+                function refresh(){
+                    if(evCharger.count === 1){
+                        for(let i = 0; i < thingClassesProxyEvCharger.count; i++){
+                            thingsListId[thingsListId.length] = thingClassesProxyEvCharger.get(i).id.toString()
+                        }
+                    }
+
+                    if(heatPump.count === 1){
+                        for(let i = 0; i < thingClassesProxyHeatPump.count; i++){
+                            thingsListId[thingsListId.length] = thingClassesProxyHeatPump.get(i).id.toString()
+                        }
+                    }
+
+                    if(heatingRod.count === 1){
+                        for(let i = 0; i < thingClassesProxySmartHeatingRod.count; i++){
+                            thingsListId[thingsListId.length] = thingClassesProxySmartHeatingRod.get(i).id.toString()
+                        }
+                    }
+
+                    if(gridSupport.count === 1){
+                        thingsListId[thingsListId.length] = gridSupport.get(0).thingClass.id.toString()
+                    }
+
+                    if(electrics.count === 1){
+                       thingsListId[thingsListId.length] = electrics.get(0).thingClass.id.toString()
+                    }else{
+                      thingsListId[thingsListId.length] = thingClassesProxyElectrics.get(0).id.toString()
+                    }
+
+                    thingClassesProxy.hiddenThingClassIds = thingsListId
+                }
 
                 onClicked: {
                     root.startWizard(thingClass)
                 }
-
-                Component.onCompleted: {
-                   if(evCharger.count === 1){
-                       for(let i = 0; i < thingClassesProxyEvCharger.count; i++){
-                           thingsListId[thingsListId.length] = thingClassesProxyEvCharger.get(i).id.toString()
-                       }
-                   }
-
-                   if(heatPump.count === 1){
-                       for(let i = 0; i < thingClassesProxyHeatPump.count; i++){
-                           thingsListId[thingsListId.length] = thingClassesProxyHeatPump.get(i).id.toString()
-                       }
-                   }
-
-                   if(gridSupport.count === 1){
-                       thingsListId[thingsListId.length] = gridSupport.get(0).thingClass.id.toString()
-                   }
-
-                   if(electrics.count === 1){
-                      thingsListId[thingsListId.length] = electrics.get(0).thingClass.id.toString()
-                   }else{
-                     thingsListId[thingsListId.length] = thingClassesProxyElectrics.get(0).id.toString()
-                   }
-
-                   thingClassesProxy.hiddenThingClassIds = thingsListId
-               }
 
             }
 
@@ -357,5 +398,4 @@ Page {
             }
         }
     }
-
 }

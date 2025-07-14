@@ -12,7 +12,7 @@ GenericConfigPage {
     property Thing thing: null
     property HemsManager hemsManager
     property BatteryConfiguration batteryConfiguration: isBatteryView ? hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id) : null
-    property bool isZeroCompensation: batteryConfiguration.avoidZeroFeedInActive
+    property bool isZeroCompensation: isBatteryView ? batteryConfiguration.avoidZeroFeedInActive : false
     readonly property ThingClass thingClass: thing.thingClass
 
     readonly property bool isEnergyMeter: root.thing && root.thing.thingClass.interfaces.indexOf("energymeter") >= 0
@@ -181,12 +181,23 @@ GenericConfigPage {
                     id: containerAvoidZeroCompensation
                     width: root.width
 
-                    ConsolinnoAvoidZeroCompensation {
+                    ConsolinnoAlert {
                         id: avoidZeroCompensation
                         Layout.rightMargin: app.margins
                         Layout.leftMargin: app.margins
                         width: containerAvoidZeroCompensation.width
                         visible: isBatteryView && isZeroCompensation
+                        
+                        backgroundColor: "#FFEE89"
+                        borderColor: "#864A0D"
+                        textColor: "#864A0D"
+                        iconColor: "#864A0D"
+                        iconPath: "../components/ConsolinnoDialog.qml"
+                        dialogHeaderText: qsTr("Avoid zero compensation")
+                        dialogText: qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
+                        dialogPicture: "../images/avoidZeroCompansation.svg"
+                        text: qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
+                        headerText: qsTr("Avoid zero compensation active")
                     }
                 }
             }

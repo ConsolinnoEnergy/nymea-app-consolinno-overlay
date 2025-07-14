@@ -226,6 +226,22 @@
         <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Avoid zero compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation active</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BatteryConfigurationView</name>
@@ -440,10 +456,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Behaviour on grid consumption:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Please select a battery level greater than 0%.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -517,10 +529,6 @@
     </message>
     <message>
         <source>Solar only</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>On grid consumption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -613,6 +621,14 @@
     </message>
     <message>
         <source>Cancel &amp; reconfigure charging mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>low solar availability</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Low solar avalaibility:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -909,25 +925,6 @@
     </message>
     <message>
         <source>Find app versions and licence information</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoAvoidZeroCompensation</name>
-    <message>
-        <source>Avoid zero compensation active</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Avoid zero compensation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2937,15 +2934,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;High&lt;/li&gt;: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The operating status indicates the control of the heat pump:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please note that the schedule is subject to a certain inaccuracy due to the prediction of the PV production. If sufficient PV production was not predicted, the heat pump may not be switched to increased operation despite sunshine. Or vice versa, if the forecast assumes sufficient PV surplus, but in reality there is less PV surplus, there may be grid consumption.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2958,10 +2947,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>If the PV surplus is more than 50 % of the nominal output of the heat pump, SG ready state 3 is switched for at least 30 minutes (recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If the PV surplus is more than 80 % of the nominal output of the heat pump, then SG ready state 4 is switched for at least 30 minutes (definitive start-up command, if this is possible within the scope of the control settings).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2982,10 +2967,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Definitive start-up command, if this is possible within the scope of the control settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3109,6 +3090,22 @@ Use a timeout value greater or equal to 10 ms.</source>
         <source>unrestricted</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Avoid zero compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation active</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GridConsumptionInfo</name>
@@ -3129,7 +3126,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Behaviour on grid consumption</source>
+        <source>Low solar avalaibility</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3360,19 +3357,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> W</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Total Consumption</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> °C</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3380,10 +3365,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     <name>HeatingElementOptimization</name>
     <message>
         <source>Heating Element Configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3420,6 +3401,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4023,22 +4008,6 @@ For further assistance, please contact our support team at: %5</translation>
         <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>EEBUS Wallbox</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>EvCharger set-up</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The following EEBUS devices were found:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -4223,22 +4192,6 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>EEBUS heat pump</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Heatpump set-up</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The following EEBUS devices were found:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -7,12 +7,25 @@ import QtQml 2.2
 import Nymea 1.0
 
 Rectangle {
+    property color backgroundColor
+    property color borderColor
+    property color textColor
+    property color iconColor
+
+    property string iconPath
+    property string dialogHeaderText
+    property string dialogText
+    property string dialogPicture
+
+    property alias text: screenGuideText.text
+    property alias headerText: header.text
+
     Layout.fillWidth: true
     radius: 10
-    color: Style.warningBackground
+    color: backgroundColor
     border.width: 1
-    border.color: Style.warningAccent
-    implicitHeight: alertContainer.implicitHeight + 20
+    border.color: borderColor
+    implicitHeight: alertContainer.implicitHeight
 
     ColumnLayout {
         id: alertContainer
@@ -20,7 +33,7 @@ Rectangle {
         spacing: 1
 
         Item {
-            Layout.preferredHeight: 10
+            Layout.preferredHeight: 12
         }
 
 
@@ -30,7 +43,7 @@ Rectangle {
             spacing: 5
 
             Item {
-                Layout.preferredWidth: 10
+                Layout.preferredWidth: 6
             }
 
             Image {
@@ -40,19 +53,19 @@ Rectangle {
             }
 
             Label {
+                id: header
                 font.pixelSize: 16
-                text: qsTr("Avoid zero compensation active")
                 font.bold: true
                 wrapMode: Text.WordWrap
                 Layout.fillWidth: true
                 Layout.preferredWidth: parent.width - 20
-                color: Style.warningAccent
+                color: textColor
             }
 
             ColorOverlay {
                 anchors.fill: image
                 source: image
-                color: "#864A0D"
+                color: iconColor
             }
 
         }
@@ -60,28 +73,29 @@ Rectangle {
         MouseArea {
             Layout.fillWidth: true
             Layout.preferredWidth: alertContainer.width - 20
-            height: screenGuideText.height + (app.width >= 400 ? 15 : 40)
+            Layout.preferredHeight: screenGuideText.height
 
             Label {
                 id: screenGuideText
                 font.pixelSize: 16
-                text: qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
                 wrapMode: Text.WordWrap
                 width: alertContainer.width - 20
                 leftPadding: 40
-                color: Style.warningAccent
+                color: textColor
             }
 
             onClicked: {
-                var dialog = Qt.createComponent(Qt.resolvedUrl("../components/ConsolinnoDialog.qml"));
-                var text = qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
-                var popup = dialog.createObject(app, {headerText: qsTr("Avoid zero compensation"), text: text, source: "../images/avoidZeroCompansation.svg", picHeight: 280})
-                popup.open();
+                if(iconPath.length > 0){
+                    var dialog = Qt.createComponent(Qt.resolvedUrl(iconPath));
+                    var text = dialogText
+                    var popup = dialog.createObject(app, {headerText: dialogHeaderText, text: text, source: dialogPicture, picHeight: 280})
+                    popup.open();
+                }
             }
         }
 
         Item {
-            Layout.preferredHeight: 10
+            Layout.preferredHeight: 12
         }
     }
 }

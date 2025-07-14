@@ -151,8 +151,20 @@ GenericConfigPage {
                 anchors.left: parent.left
                 anchors.margins: app.margins
 
-                ConsolinnoAvoidZeroCompensation {
+                ConsolinnoAlert {
                     visible: isZeroCompensation
+                    backgroundColor: "#FFEE89"
+                    borderColor: "#864A0D"
+                    textColor: "#864A0D"
+                    iconColor: "#864A0D"
+
+                    iconPath: "../components/ConsolinnoDialog.qml"
+                    dialogHeaderText: qsTr("Avoid zero compensation")
+                    dialogText: qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
+                    dialogPicture: "../images/avoidZeroCompansation.svg"
+
+                    text: qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
+                    headerText: qsTr("Avoid zero compensation active")
                 }
 
                 //Status
