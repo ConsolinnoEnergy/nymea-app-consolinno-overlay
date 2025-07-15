@@ -22,7 +22,7 @@ StackView {
 
     property bool eebusState: eeBusThing ? eeBusThing.stateByName("connected").value : false
     property string colorsEEBUS: (!eebusSettings.connected && !eebusSettings.everConnected) ? "#F7B772" : eebusState == true ? "#BDD786" : "#F37B8E"
-    property string textEEBUS: (!eebusSettings.connected && !eebusSettings.everConnected) ? qsTr("Confirmation by network operator pending.") : eebusSettings.connected ? qsTr("connected") : qsTr("not connected")
+    property string textEEBUS: (!eebusSettings.connected && !eebusSettings.everConnected) ? qsTr("Confirmation by network operator pending.") : eebusState == true ? qsTr("connected") : qsTr("not connected")
 
     property string currentState: gridSupportThing.stateByName("plimStatus").value
     property string colorsPlim: currentState === "shutoff" ? "#eb4034" : currentState === "limited" ? "#fc9d03" : "#ffffff"
