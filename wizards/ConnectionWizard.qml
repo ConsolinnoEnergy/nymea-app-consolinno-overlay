@@ -50,6 +50,7 @@ ConsolinnoWizardPageBase {
 
 
         RowLayout{
+            Layout.leftMargin: Style.margins
             ConsolinnoCheckBox{
                 id: readCheckbox
                 Layout.alignment: Qt.AlignHCenter
@@ -57,7 +58,6 @@ ConsolinnoWizardPageBase {
             }
 
             Label {
-                Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignLeft
                 text: qsTr("Yes I read the Term of Use and agree")
@@ -227,6 +227,7 @@ ConsolinnoWizardPageBase {
                     ConsolinnoCheckBox{
                         id: accountCheckbox
                         Layout.alignment: Qt.AlignHCenter
+                        Layout.leftMargin: Style.margins
 
                     }
 
@@ -240,6 +241,7 @@ ConsolinnoWizardPageBase {
 
 
                 RowLayout{
+                    Layout.leftMargin: Style.margins
                     ConsolinnoCheckBox {
                         id: policyCheckbox
                         Layout.alignment: Qt.AlignHCenter
