@@ -25,7 +25,7 @@ ConsolinnoSwipeDelegate {
                 iconPath = "../images/heatpump.svg";
             }
             return iconPath;
-        } else if (thingInterface.indexOf("smartheatingrod") >= 0) {
+        } else if (thingInterface.indexOf("heatingrod") >= 0) {
             if (Configuration.heatingRodIcon !== "") {
                 iconPath = "../images/" + Configuration.heatingRodIcon;
             } else {

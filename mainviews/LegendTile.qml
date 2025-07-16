@@ -104,7 +104,7 @@ MouseArea {
                 icon = "qrc:/ui/images/heatpump.svg"
             }
             return Qt.resolvedUrl(icon)
-        case "smartheatingrod":
+        case "heatingrod":
             if(Configuration.heatingRodIcon !== ""){
                 icon = "/ui/images/"+Configuration.heatingRodIcon
             }else{

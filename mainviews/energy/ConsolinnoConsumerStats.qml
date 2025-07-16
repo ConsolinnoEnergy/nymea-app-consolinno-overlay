@@ -167,7 +167,7 @@ StatsBase {
                         col= (d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? Configuration.heatpumpColor : Qt.darker(Configuration.heatpumpColor, 0.8))
                     }else if(consumerThingClass.indexOf("evcharger") >= 0){
                         col= (d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? Configuration.wallboxColor : Qt.darker(Configuration.wallboxColor, 0.8))
-                    }else if(consumerThingClass.indexOf("smartheatingrod") >= 0){
+                    }else if(consumerThingClass.indexOf("heatingrod") >= 0){
                         col= (d.selectedThing == null || consumerDelegate.thing == d.selectedThing ?  Configuration.heatingRodColor : Qt.darker(Configuration.heatingRodColor, 0.8))
                     }else{
                         col= "#" + (d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? "FF" : "66") + consumerColors[index].slice(1)
@@ -377,7 +377,7 @@ StatsBase {
                                             }else{
                                                 return "qrc:/ui/images/heatpump.svg"
                                             }
-                                        case "smartheatingrod":
+                                        case "heatingrod":
                                             if(Configuration.heatingRodIcon !== ""){
                                                 return "/ui/images/"+Configuration.heatingRodIcon
                                             }else{
@@ -402,7 +402,7 @@ StatsBase {
                                         col= (d.selectedThing == null || legendDelegate.thing == d.selectedThing ? Configuration.heatpumpColor : Qt.darker(Configuration.heatpumpColor, 0.8))
                                     }else if(consumerThingClass.indexOf("evcharger") >= 0){
                                         col= (d.selectedThing == null || legendDelegate.thing == d.selectedThing ? Configuration.wallboxColor : Qt.darker(Configuration.wallboxColor, 0.8))
-                                    }else if(consumerThingClass.indexOf("smartheatingrod") >= 0){
+                                    }else if(consumerThingClass.indexOf("heatingrod") >= 0){
                                         col= (d.selectedThing == null || legendDelegate.thing == d.selectedThing ?  Configuration.heatingRodColor : Qt.darker(Configuration.heatingRodColor, 0.8))
                                     }else{
                                         col= "#" + (d.selectedThing == null || legendDelegate.thing == d.selectedThing ? "FF" : "66") + consumerColors[index].slice(1)
@@ -635,7 +635,7 @@ StatsBase {
                                             return Configuration.heatpumpColor;
                                         }else if(consumerThingClass.indexOf("evcharger") >= 0){
                                             return Configuration.wallboxColor;
-                                        }else if(consumerThingClass.indexOf("smartheatingrod") >= 0){
+                                        }else if(consumerThingClass.indexOf("heatingrod") >= 0){
                                             return Configuration.heatingRodColor;
                                         }else{
                                             return consumerColors[model.indexInModel]
