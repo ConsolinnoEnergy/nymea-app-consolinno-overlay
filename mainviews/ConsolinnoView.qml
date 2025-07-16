@@ -623,7 +623,7 @@ MainViewBase {
     ThingsProxy {
         id: consumers
         engine: _engine
-        shownInterfaces: ["smartmeterconsumer", "heatpump", "evcharger", "smartheatingrod"]
+        shownInterfaces: ["smartmeterconsumer", "heatpump", "evcharger", "heatingrod"]
     }
     ThingsProxy {
         id: inverters
@@ -1200,7 +1200,7 @@ MainViewBase {
                                 consumerSeries.color = Configuration.heatpumpColor
                             }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
                                 consumerSeries.color = Configuration.wallboxColor
-                            }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
+                            }else if(thing.thingClass.interfaces.indexOf("heatingrod") >= 0){
                                 consumerSeries.color = Configuration.heatingRodColor
                             }else{
                                 consumerSeries.color = lsdChart.consumersColors[index]
@@ -1450,7 +1450,7 @@ MainViewBase {
                                     return Configuration.heatpumpColor
                                 }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
                                     return Configuration.wallboxColor
-                                }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
+                                }else if(thing.thingClass.interfaces.indexOf("heatingrod") >= 0){
                                     return Configuration.heatingRodColor
                                 }else{
                                     return lsdChart.consumersColors[index]
@@ -1498,7 +1498,7 @@ MainViewBase {
                                                     })
                                     }
 
-                                } else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0) {
+                                } else if(thing.thingClass.interfaces.indexOf("heatingrod") >= 0) {
                                     pageStack.push(
                                                 "/ui/devicepages/HeatingElementDevicePage.qml",
                                                 {

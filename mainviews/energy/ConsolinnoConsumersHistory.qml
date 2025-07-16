@@ -475,7 +475,7 @@ Item {
                                 series.color = Configuration.heatpumpColor
                             }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
                                 series.color = Configuration.wallboxColor
-                            }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
+                            }else if(thing.thingClass.interfaces.indexOf("heatingrod") >= 0){
                                 series.color = Configuration.heatingRodColor
                             }else{
                                 series.color = consumerColors[index]
@@ -536,7 +536,7 @@ Item {
                                             }else{
                                                 return "qrc:/ui/images/heatpump.svg"
                                             }
-                                        case "smartheatingrod":
+                                        case "heatingrod":
                                             if(Configuration.heatingRodIcon !== ""){
                                                 return "/ui/images/"+Configuration.heatingRodIcon
                                             }else{
@@ -557,7 +557,7 @@ Item {
                                 color: {
                                     if(thing.thingClass.interfaces.indexOf("heatpump") >= 0){
                                         return Configuration.heatpumpColor
-                                    }else if(thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
+                                    }else if(thing.thingClass.interfaces.indexOf("heatingrod") >= 0){
                                         return Configuration.heatingRodColor
                                     }else if(thing.thingClass.interfaces.indexOf("evcharger") >= 0){
                                         return Configuration.wallboxColor
@@ -776,7 +776,7 @@ Item {
                                             return Configuration.heatpumpColor
                                         }else if(chartItem.thing.thingClass.interfaces.indexOf("evcharger") >= 0){
                                             return Configuration.wallboxColor
-                                        }else if(chartItem.thing.thingClass.interfaces.indexOf("smartheatingrod") >= 0){
+                                        }else if(chartItem.thing.thingClass.interfaces.indexOf("heatingrod") >= 0){
                                             return Configuration.heatingRodColor
                                         }else{
                                            return consumerColors[index]
