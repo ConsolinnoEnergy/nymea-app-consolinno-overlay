@@ -2744,7 +2744,6 @@ fügen Sie eine weitere hinzu.</translation>
 &lt;h4&gt;Verbesserungen&lt;/h4&gt;
 &lt;ul&gt;
     &lt;li&gt;Verbesserte Wärmepumpensteuerung über SG-Ready&lt;/li&gt;
-    &lt;li&gt;Verbesserter Ladeplan bei Tarifgesteuerten Laden der Batterie&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
