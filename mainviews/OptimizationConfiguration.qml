@@ -69,7 +69,7 @@ Page {
                         case HemsManager.HemsUseCasePv:
                             icon = Configuration.inverterIcon !== "" ? "../images/" + Configuration.inverterIcon : "../images/weathericons/weather-clear-day.svg";
                             break;
-                        case HemsManager.HemsUseCaseHeatingElement:
+                        case HemsManager.HemsUseCaseHeatingRod:
                             icon = "../images/sensors/water.svg";
                             break;
                     }
@@ -115,7 +115,7 @@ Page {
                     case HemsManager.HemsUseCasePv:
                         pageStack.push(Qt.resolvedUrl("../optimization/PVConfigurationView.qml"), { hemsManager: hemsManager })
                         break;
-                    case HemsManager.HemsUseCaseHeatingElement:
+                    case HemsManager.HemsUseCaseHeatingRod:
                         pageStack.push(Qt.resolvedUrl("../optimization/HeatingElementConfigurationView.qml"), { hemsManager: hemsManager })
                         break;
                     }
