@@ -600,10 +600,6 @@
         <translation>ct/kWh</translation>
     </message>
     <message>
-        <source>Currently corresponds to a market price of %1 ct/kWh.</source>
-        <translation>Entspricht aktuell einem Marktpreis von %1 ct/kWh.</translation>
-    </message>
-    <message>
         <source>enabled</source>
         <translation>aktiviert</translation>
     </message>
@@ -630,6 +626,10 @@
     <message>
         <source>Low solar avalaibility:</source>
         <translation type="unfinished">Bei wenig Solarstrom:</translation>
+    </message>
+    <message>
+        <source>Currently corresponds to a electricity price of %1 ct/kWh.</source>
+        <translation type="unfinished">Entspricht aktuell einem Strompreis von %1 ct/kWh.</translation>
     </message>
 </context>
 <context>

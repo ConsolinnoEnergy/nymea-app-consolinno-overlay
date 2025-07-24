@@ -1537,7 +1537,7 @@ GenericConfigPage {
                             Layout.topMargin: 5
                             visible: isAnyOfModesSelected([dyn_pricing])
                             Label {
-                                text: qsTr("Currently corresponds to a market price of %1 ct/kWh.").arg(thresholdPrice.toLocaleString())
+                                text: qsTr("Currently corresponds to a electricity price of %1 ct/kWh.").arg(thresholdPrice.toLocaleString())
                                 font.pixelSize: 13
                             }
                         }

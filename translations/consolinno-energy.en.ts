@@ -600,10 +600,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Currently corresponds to a market price of %1 ct/kWh.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -629,6 +625,10 @@
     </message>
     <message>
         <source>Low solar avalaibility:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Currently corresponds to a electricity price of %1 ct/kWh.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
