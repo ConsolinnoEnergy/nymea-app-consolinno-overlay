@@ -130,7 +130,7 @@ Item {
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 13
-            text: qsTr("Current Market Price: ") + (+currentPrice.toFixed(2)).toLocaleString() + " ct/kWh"
+            text: qsTr("Current Electricity Price: ") + (+currentPrice.toFixed(2)).toLocaleString() + " ct/kWh"
         }
 
         Text {
@@ -138,7 +138,7 @@ Item {
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 13
-            text: qsTr("Average Market Price: ") + (+averagePrice).toLocaleString() + " ct/kWh"
+            text: qsTr("Average Electricity Price: ") + (+averagePrice).toLocaleString() + " ct/kWh"
         }
 
         Item {
@@ -393,7 +393,7 @@ Item {
                     Text {
                         anchors.verticalCenter: parent.verticalCenter
                         font: Style.extraSmallFont
-                        text: qsTr("Current market price")
+                        text: qsTr("Current electricity price")
                     }
                 }
 
@@ -409,7 +409,7 @@ Item {
                     Text {
                         anchors.verticalCenter: parent.verticalCenter
                         font: Style.extraSmallFont
-                        text: qsTr("Average market price")
+                        text: qsTr("Average electricity price")
                     }
                 }
             }

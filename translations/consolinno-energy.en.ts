@@ -1093,23 +1093,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Average Market Price: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No data available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current market price</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Average market price</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current Market Price: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1122,6 +1106,22 @@
     </message>
     <message>
         <source>ct/kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current Electricity Price: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Average Electricity Price: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current electricity price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Average electricity price</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

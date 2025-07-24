@@ -1093,24 +1093,8 @@
         <translation>Morgen</translation>
     </message>
     <message>
-        <source>Average Market Price: </source>
-        <translation type="unfinished">Durchschnittlicher Marktpreis: </translation>
-    </message>
-    <message>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
-    </message>
-    <message>
-        <source>Current market price</source>
-        <translation>Aktueller Marktpreis</translation>
-    </message>
-    <message>
-        <source>Average market price</source>
-        <translation>Durchschnittlicher Marktpreis</translation>
-    </message>
-    <message>
-        <source>Current Market Price: </source>
-        <translation>Aktueller Marktpreis: </translation>
     </message>
     <message>
         <source>No prices available, yet</source>
@@ -1123,6 +1107,22 @@
     <message>
         <source>ct/kWh</source>
         <translation>ct/kWh</translation>
+    </message>
+    <message>
+        <source>Current Electricity Price: </source>
+        <translation>Aktueller Strompreis: </translation>
+    </message>
+    <message>
+        <source>Average Electricity Price: </source>
+        <translation>Durchschnittlicher Strompreis: </translation>
+    </message>
+    <message>
+        <source>Current electricity price</source>
+        <translation>Aktueller Strompreis</translation>
+    </message>
+    <message>
+        <source>Average electricity price</source>
+        <translation type="unfinished">Durchschnittlicher Strompreis</translation>
     </message>
 </context>
 <context>
