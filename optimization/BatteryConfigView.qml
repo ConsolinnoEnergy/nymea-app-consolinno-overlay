@@ -469,12 +469,12 @@ GenericConfigPage {
                             }
                         }
 
-                        Label {
+                        Label { // breaks view when removed
                             visible: optimizationController.checked
                             wrapMode: Text.WordWrap
                             Layout.fillWidth: true
-                            text: qsTr("Prices represent the pure exchange price without taxes and fees.")
-                            font.pixelSize: 12
+                            text: ""
+                            font.pixelSize: 1
                         }
                     }
 

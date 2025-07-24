@@ -215,10 +215,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Prices represent the pure exchange price without taxes and fees.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Price limit : %1 ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4473,14 +4469,6 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>The battery is charged from the grid as soon as the price falls below the price limit.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>It is advisable to choose a price limit below 0 cents. If the electricity exchange price falls below 0 cents, this means that there is surplus electricity in the grid. By charging your battery at these times, you can use this cheap electricity and consume it when electricity is more expensive.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In winter, when little to no PV electricity is expected, it can also make sense to charge at a higher price limit. Please note, however, that taxes and fees are added to the exchange price.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
