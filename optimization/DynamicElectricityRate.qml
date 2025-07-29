@@ -14,6 +14,7 @@ Page {
 
     property HemsManager hemsManager
     property string name
+    property bool newTariff: false
 
     readonly property Thing thing: currentThing ? currentThing.get(0) : null
 
@@ -65,113 +66,113 @@ Page {
             Layout.fillHeight: true
 
             Label {
-            Layout.fillWidth: true
-            text: qsTr("Submitted Rate:")
-            wrapMode: Text.WordWrap
-            Layout.alignment: Qt.AlignLeft
-            horizontalAlignment: Text.AlignLeft
-        }
+              Layout.fillWidth: true
+              text: qsTr("Submitted Rate:")
+              wrapMode: Text.WordWrap
+              Layout.alignment: Qt.AlignRight
+              horizontalAlignment: Text.AlignLeft
+            }
 
 
-        VerticalDivider
-        {
-            Layout.preferredWidth: app.width - 2* Style.margins
-            dividerColor: Material.accent
-        }
+            VerticalDivider
+            {
+                Layout.preferredWidth: app.width - 2* Style.margins
+                dividerColor: Material.accent
+            }
 
-        Flickable{
-            id: energyRateFlickable
-            clip: true
-            width: parent.width
-            height: parent.height
-            contentHeight: energyRateFlickable.height
-            contentWidth: app.width
-            visible: erProxy.count !== 0
+            Flickable{
+                id: energyRateFlickable
+                clip: true
+                width: parent.width
+                height: parent.height
+                contentHeight: energyRateFlickable.height
+                contentWidth: app.width
+                visible: erProxy.count !== 0
 
-            Layout.alignment: Qt.AlignHCenter
-            Layout.preferredHeight: app.height/3
-            Layout.preferredWidth: app.width
-            flickableDirection: Flickable.VerticalFlick
-
-            ColumnLayout{
-                id: energyRateFlickableList
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredHeight: app.height/3
                 Layout.preferredWidth: app.width
-                Layout.fillHeight: true
-                Repeater{
-                    id: energyRateRepeater
+                flickableDirection: Flickable.VerticalFlick
+
+                ColumnLayout{
+                    id: energyRateFlickableList
                     Layout.preferredWidth: app.width
-                    model: ThingsProxy {
-                        id: erProxy
-                        engine: _engine
-                        shownInterfaces: ["dynamicelectricitypricing"]
-                    }
-                    delegate: ItemDelegate{
+                    Layout.fillHeight: true
+                    Repeater{
+                        id: energyRateRepeater
                         Layout.preferredWidth: app.width
-                        contentItem: ConsolinnoItemDelegate{
-                            id: energyIcon
-                            Layout.fillWidth: true
-                            iconName: {
-                                if(Configuration.energyIcon !== ""){
-                                    return "/ui/images/"+Configuration.energyIcon;
-                                }else{
-                                    return "../images/energy.svg"
+                        model: ThingsProxy {
+                            id: erProxy
+                            engine: _engine
+                            shownInterfaces: ["dynamicelectricitypricing"]
+                        }
+                        delegate: ItemDelegate{
+                            Layout.preferredWidth: app.width
+                            contentItem: ConsolinnoItemDelegate{
+                                id: energyIcon
+                                Layout.fillWidth: true
+                                iconName: {
+                                    if(Configuration.energyIcon !== ""){
+                                        return "/ui/images/"+Configuration.energyIcon;
+                                    }else{
+                                        return "../images/energy.svg"
+                                    }
                                 }
-                            }
-                            progressive: false
-                            text: erProxy.get(index) ? erProxy.get(index).name : ""
-                            onClicked: {
-                            }
+                                progressive: false
+                                text: erProxy.get(index) ? erProxy.get(index).name : ""
+                                onClicked: {
+                                }
 
-                            Image {
-                                id: icons
-                                height: 24
-                                width: 24
-                                source: energyIcon.iconName
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 16
-                                z: 2
-                            }
+                                Image {
+                                    id: icons
+                                    height: 24
+                                    width: 24
+                                    source: energyIcon.iconName
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.left: parent.left
+                                    anchors.leftMargin: 16
+                                    z: 2
+                                }
 
-                            ColorOverlay {
-                                anchors.fill: icons
-                                source: icons
-                                color: Style.consolinnoMedium
-                                z: 3
-                            }
+                                ColorOverlay {
+                                    anchors.fill: icons
+                                    source: icons
+                                    color: Style.consolinnoMedium
+                                    z: 3
+                                }
 
+                            }
                         }
                     }
                 }
+
+            }
+
+            Rectangle{
+            Layout.preferredHeight: app.height/3
+            Layout.fillWidth: true
+            visible: erProxy.count === 0
+            color: Material.background
+                Text {
+                    text: qsTr("There is no rate set up yet")
+                    color: Material.foreground
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignLeft
+                    verticalAlignment: Text.AlignLeft
+                }
+            }
+
+            VerticalDivider
+            {
+                Layout.preferredWidth: app.width - 2* Style.margins
+                dividerColor: Material.accent
             }
 
         }
-
-        Rectangle{
-        Layout.preferredHeight: app.height/3
-        Layout.fillWidth: true
-        visible: erProxy.count === 0
-        color: Material.background
-            Text {
-                text: qsTr("There is no rate set up yet")
-                color: Material.foreground
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignLeft
-                verticalAlignment: Text.AlignLeft
-            }
-        }
-
-        VerticalDivider
-        {
-            Layout.preferredWidth: app.width - 2* Style.margins
-            dividerColor: Material.accent
-        }
-
-    }
 
         ColumnLayout {
             Layout.topMargin: Style.margins
-            visible: erProxy.count === 0
+            visible: root.newTariff
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Add Rate: ")
@@ -192,31 +193,35 @@ Page {
             }
         }
 
-        Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
-
         ColumnLayout {
             spacing: 0
             Layout.alignment: Qt.AlignHCenter
             visible: true
-            Button {
-                text: qsTr("cancel")
-                Layout.preferredWidth: 200
-                onClicked:
-                    if(directionID == 0) {
-                        pageStack.pop()
-                    }
-            }
+
             Button {
                 id: addButton
-                text: qsTr("add")
+                text: qsTr("Add Rate")
                 Layout.preferredWidth: 200
-                Layout.alignment: Qt.AlignLeft
-                visible: erProxy.count === 0
+                Layout.alignment: Qt.AlignHCenter
                 onClicked: {
-                    timer1.start()
+                  //timer1.start()
+                  if(!root.NewTariff) {
+                    root.newTariff = true;
+                    addButton.text = qsTr("Next");
+                    return;
+                  }
+
+
+                }
+            }
+
+            ConsolinnoSetUpButton {
+                text: qsTr("Cancel")
+                backgroundColor: "transparent"
+                onClicked: {
+                  if(directionID == 0) {
+                      pageStack.pop()
+                  }
                 }
             }
 
@@ -233,6 +238,11 @@ Page {
                 }
             }
 
+        }
+
+        Item {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
         }
 
         VerticalDivider

@@ -2867,24 +2867,12 @@ fügen Sie eine weitere hinzu.</translation>
 <context>
     <name>DynamicElectricityRate</name>
     <message>
-        <source>Submitted Rate:</source>
-        <translation>Gewählte Anbieter:</translation>
-    </message>
-    <message>
         <source>There is no rate set up yet</source>
         <translation>Es sind noch keine Tarife angelegt</translation>
     </message>
     <message>
         <source>Add Rate: </source>
         <translation>Tarif hinzufügen: </translation>
-    </message>
-    <message>
-        <source>cancel</source>
-        <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>add</source>
-        <translation>hinzufügen</translation>
     </message>
     <message>
         <source>There are currently no settings options available</source>
@@ -2897,6 +2885,22 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Failed to add thing: ThingErrorHardwareFailure</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
+    </message>
+    <message>
+        <source>Submitted Rate:</source>
+        <translation type="unfinished">Eingerichteter Tarif:</translation>
+    </message>
+    <message>
+        <source>Add Rate</source>
+        <translation type="unfinished">Neuen Tarif hinzufügen</translation>
     </message>
 </context>
 <context>

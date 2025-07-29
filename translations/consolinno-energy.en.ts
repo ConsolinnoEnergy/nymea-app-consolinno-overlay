@@ -2846,23 +2846,11 @@ Use a timeout value greater or equal to 10 ms.</source>
 <context>
     <name>DynamicElectricityRate</name>
     <message>
-        <source>Submitted Rate:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>There is no rate set up yet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Add Rate: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2875,6 +2863,22 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Failed to add thing: ThingErrorHardwareFailure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Submitted Rate:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Rate</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
