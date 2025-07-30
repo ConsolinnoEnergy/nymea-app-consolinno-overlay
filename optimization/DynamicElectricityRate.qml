@@ -9,38 +9,29 @@ import "../components"
 import "../delegates"
 import "../optimization"
 
-Page {
+StackView {
     id: root
+    initialItem: setUpComponent //taxesAndFeesSetUp
+
 
     property HemsManager hemsManager
     property string name
     property bool newTariff: false
 
-    readonly property Thing thing: currentThing ? currentThing.get(0) : null
+    //readonly property Thing thing: currentThing ? currentThing.get(0) : null
 
     property int directionID: 0
 
     signal done(bool skip, bool abort, bool back);
-
-    header: NymeaHeader {
-        text: qsTr("Dynamic electricity tariff")
-        backButtonVisible: true
-        onBackPressed: {
-            if(directionID == 0) {
-                pageStack.pop()
-            }
-
-        }
-
-    }
 
     QtObject {
         id: d
         property int pendingCallId: -1
     }
 
+
     Connections {
-        target: currentThing.engine.thingManager
+        target: engine.thingManager
 
         onAddThingReply: {
             if(!thingError)
@@ -55,212 +46,396 @@ Page {
         }
     }
 
+    Component {
+        id: setUpComponent
 
-    ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
-        width: Math.min(parent.width - Style.margins * 2, 300)
+        Page {
 
-
-        ColumnLayout {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-
-            Label {
-              Layout.fillWidth: true
-              text: qsTr("Submitted Rate:")
-              wrapMode: Text.WordWrap
-              Layout.alignment: Qt.AlignRight
-              horizontalAlignment: Text.AlignLeft
+            header: NymeaHeader {
+                text: qsTr("Dynamic electricity tariff")
+                backButtonVisible: true
+                onBackPressed: {
+                    if(directionID == 0) {
+                        pageStack.pop()
+                    }
+                }
             }
 
+            ColumnLayout {
+                anchors {top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
+                spacing: 0
 
-            VerticalDivider
-            {
-                Layout.preferredWidth: app.width - 2* Style.margins
-                dividerColor: Material.accent
-            }
+                ColumnLayout {
+                    spacing: 0
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 0
 
-            Flickable{
-                id: energyRateFlickable
-                clip: true
-                width: parent.width
-                height: parent.height
-                contentHeight: energyRateFlickable.height
-                contentWidth: app.width
-                visible: erProxy.count !== 0
+                    Label {
+                        Layout.fillWidth: true
+                        text: qsTr("Submitted Rate")
+                        wrapMode: Text.WordWrap
+                        Layout.alignment: Qt.AlignRight
+                        Layout.rightMargin: app.margins
+                        horizontalAlignment: Text.AlignRight
+                    }
+                }
 
-                Layout.alignment: Qt.AlignHCenter
-                Layout.preferredHeight: app.height/3
-                Layout.preferredWidth: app.width
-                flickableDirection: Flickable.VerticalFlick
-
-                ColumnLayout{
-                    id: energyRateFlickableList
+                VerticalDivider
+                {
                     Layout.preferredWidth: app.width
+                    dividerColor: Material.accent
+                }
+
+                Flickable {
+                    id: flickableContainer
+                    clip: true
+
+
+                    Layout.fillWidth: true
                     Layout.fillHeight: true
-                    Repeater{
-                        id: energyRateRepeater
-                        Layout.preferredWidth: app.width
-                        model: ThingsProxy {
-                            id: erProxy
-                            engine: _engine
-                            shownInterfaces: ["dynamicelectricitypricing"]
-                        }
-                        delegate: ItemDelegate{
-                            Layout.preferredWidth: app.width
-                            contentItem: ConsolinnoItemDelegate{
-                                id: energyIcon
+
+                    ColumnLayout {
+                        id: column
+                        Layout.topMargin: 0
+                        width: parent.width
+                        //Layout.minimumHeight: 230
+                        spacing: 0
+
+                        Repeater {
+                            id: dynamicRateRepeater
+                            model: ThingsProxy {
+                                id: erProxy
+                                engine: _engine
+                                shownInterfaces: ["dynamicelectricitypricing"]
+                            }
+                            delegate: ConsolinnoItemDelegate {
+                                implicitHeight: 50
                                 Layout.fillWidth: true
-                                iconName: {
-                                    if(Configuration.energyIcon !== ""){
-                                        return "/ui/images/"+Configuration.energyIcon;
-                                    }else{
-                                        return "../images/energy.svg"
-                                    }
-                                }
-                                progressive: false
-                                text: erProxy.get(index) ? erProxy.get(index).name : ""
+                                iconName: Configuration.energyIcon !== "" ? "/ui/images/"+Configuration.energyIcon : "../images/energy.svg"
+                                text: model.name
+                                progressive: true
                                 onClicked: {
-                                }
 
-                                Image {
-                                    id: icons
-                                    height: 24
-                                    width: 24
-                                    source: energyIcon.iconName
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    anchors.left: parent.left
-                                    anchors.leftMargin: 16
-                                    z: 2
                                 }
-
-                                ColorOverlay {
-                                    anchors.fill: icons
-                                    source: icons
-                                    color: Style.consolinnoMedium
-                                    z: 3
-                                }
-
                             }
                         }
                     }
                 }
 
-            }
+                Rectangle{
+                    Layout.preferredHeight: parent.height / 3
+                    Layout.fillWidth: true
+                    visible: erProxy.count === 0
+                    color: Material.background
+                    Text {
+                        text: qsTr("There is no rate set up yet")
+                        color: Material.foreground
+                        anchors.fill: parent
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignHCenter
+                    }
+                }
 
-            Rectangle{
-            Layout.preferredHeight: app.height/3
-            Layout.fillWidth: true
-            visible: erProxy.count === 0
-            color: Material.background
-                Text {
-                    text: qsTr("There is no rate set up yet")
-                    color: Material.foreground
-                    anchors.fill: parent
-                    horizontalAlignment: Text.AlignLeft
-                    verticalAlignment: Text.AlignLeft
+                VerticalDivider
+                {
+                    Layout.preferredWidth: app.width
+                    dividerColor: Material.accent
+                }
+
+                ColumnLayout {
+                    Layout.topMargin: Style.margins
+                    visible: root.newTariff
+                    Label {
+                        Layout.fillWidth: true
+                        Layout.leftMargin: Style.margins
+                        text: qsTr("Add Rate: ")
+                        wrapMode: Text.WordWrap
+                    }
+
+                    ComboBox {
+                        id: energyRateComboBox
+                        Layout.leftMargin: Style.margins
+                        Layout.preferredWidth: app.width - 2*Style.margins
+                        textRole: "displayName"
+                        valueRole: "id"
+                        model: ThingClassesProxy {
+                            id: currentThing
+                            engine: _engine
+                            filterInterface: "dynamicelectricitypricing"
+                            includeProvidedInterfaces: true
+                        }
+                    }
+                }
+
+                ColumnLayout {
+                    spacing: 0
+                    Layout.alignment: Qt.AlignHCenter
+                    visible: true
+
+                    Button {
+                        id: addButton
+                        text: qsTr("Add Rate")
+                        Layout.preferredWidth: app.width - 2*Style.margins
+                        Layout.alignment: Qt.AlignHCenter
+                        onClicked: {
+                            if(!root.newTariff) {
+                              root.newTariff = true;
+                              addButton.text = qsTr("Next");
+                              return;
+                            }
+                            pageStack.push(dynamicSetUpFeedBack,{comboBoxValue: energyRateComboBox.currentValue, comboBoxCurrentText: energyRateComboBox.currentText})
+                            //timer1.start()
+                        }
+                    }
+
+                    /*
+                    Timer {
+                        id: timer1
+
+                        interval: 300
+                        running: false
+                        repeat: false
+
+                        onTriggered: {
+                            engine.thingManager.addThing(energyRateComboBox.currentValue, energyRateComboBox.currentText, 0)
+                        }
+                    }*/
+
+                    ConsolinnoSetUpButton {
+                        text: qsTr("Cancel")
+                        backgroundColor: "transparent"
+                        onClicked: {
+                          if(directionID == 0) {
+                              pageStack.pop()
+                          }
+                        }
+                    }
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
                 }
             }
 
-            VerticalDivider
-            {
-                Layout.preferredWidth: app.width - 2* Style.margins
-                dividerColor: Material.accent
-            }
-
         }
-
-        ColumnLayout {
-            Layout.topMargin: Style.margins
-            visible: root.newTariff
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Add Rate: ")
-                wrapMode: Text.WordWrap
-            }
-
-            ComboBox {
-                id: energyRateComboBox
-                Layout.preferredWidth: app.width - 2*Style.margins
-                textRole: "displayName"
-                valueRole: "id"
-                model: ThingClassesProxy {
-                    id: currentThing
-                    engine: _engine
-                    filterInterface: "dynamicelectricitypricing"
-                    includeProvidedInterfaces: true
-                }
-            }
-        }
-
-        ColumnLayout {
-            spacing: 0
-            Layout.alignment: Qt.AlignHCenter
-            visible: true
-
-            Button {
-                id: addButton
-                text: qsTr("Add Rate")
-                Layout.preferredWidth: 200
-                Layout.alignment: Qt.AlignHCenter
-                onClicked: {
-                  //timer1.start()
-                  if(!root.NewTariff) {
-                    root.newTariff = true;
-                    addButton.text = qsTr("Next");
-                    return;
-                  }
-
-
-                }
-            }
-
-            ConsolinnoSetUpButton {
-                text: qsTr("Cancel")
-                backgroundColor: "transparent"
-                onClicked: {
-                  if(directionID == 0) {
-                      pageStack.pop()
-                  }
-                }
-            }
-
-
-            Timer {
-                id: timer1
-
-                interval: 300
-                running: false
-                repeat: false
-
-                onTriggered: {
-                    currentThing.engine.thingManager.addThing(energyRateComboBox.currentValue, energyRateComboBox.currentText, 0)
-                }
-            }
-
-        }
-
-        Item {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-        }
-
-        VerticalDivider
-        {
-            Layout.preferredWidth: app.width - 2* Style.margins
-            dividerColor: Material.accent
-            visible: erProxy.count !== 0
-        }
-
-        ColumnLayout {
-            visible: false
-            Layout.alignment: Qt.AlignHCenter
-            Layout.preferredHeight: 200
-            Text {
-               text: qsTr("There are currently no settings options available")
-            }
-        }
-
-
     }
+
+    Component {
+        id: dynamicSetUpFeedBack
+
+        Page {
+            id: root
+
+            property string comboBoxValue: ""
+            property string comboBoxCurrentText: ""
+
+
+            header: NymeaHeader {
+                text: qsTr("Dynamic electricity tariff")
+                Layout.preferredWidth: app.width - 2*Style.margins
+                backButtonVisible: true
+                onBackPressed: {
+                    if(directionID == 0) {
+                        pageStack.pop()
+                    }
+                }
+            }
+
+            ColumnLayout {
+                anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right; }
+                spacing: 0
+
+                ColumnLayout {
+                    Layout.fillWidth: true
+
+                    Text {
+                        Layout.fillWidth: true
+                        Layout.preferredWidth: app.width - 2*Style.margins
+                        Layout.preferredHeight: 50
+                        color: Material.foreground
+                        text: qsTr("The following tariff is submitted:")
+                        wrapMode: Text.WordWrap
+                        Layout.alignment: Qt.AlignHCenter
+                        horizontalAlignment: Text.Center
+                    }
+
+                    Text {
+                        id: electricityRate
+                        Layout.preferredWidth: app.width - 2*Style.margins
+                        color: Material.foreground
+                        text: qsTr(comboBoxCurrentText)
+                        Layout.alignment: Qt.AlignCenter
+                        horizontalAlignment: Text.Center
+                    }
+
+                    Image {
+                        id: succesAddElectricRate
+                        Layout.preferredWidth: 150
+                        Layout.preferredHeight: 150
+                        fillMode: Image.PreserveAspectFit
+                        Layout.alignment: Qt.AlignCenter
+                        source: "../images/tick.svg"
+                    }
+
+                    ColorOverlay {
+                        anchors.fill: succesAddElectricRate
+                        source: succesAddElectricRate
+                        color: Material.accent
+                    }
+
+                }
+
+                ColumnLayout {
+                    spacing: 0
+                    Layout.alignment: Qt.AlignHCenter
+
+                    Button {
+                        id: nextButton
+                        text: qsTr("Next")
+                        Layout.preferredWidth: 250
+                        Layout.alignment: Qt.AlignHCenter
+                        onClicked: {
+                            pageStack.push(taxesAndFeesSetUp)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    Component {
+        id: taxesAndFeesSetUp
+
+        Page {
+
+            header: NymeaHeader {
+                text: qsTr("Dynamic electricity tariff")
+                backButtonVisible: true
+                onBackPressed: {
+                    if(directionID == 0) {
+                        pageStack.pop()
+                    }
+                }
+            }
+
+            ColumnLayout {
+                anchors {top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
+                Layout.fillWidth: true
+                spacing: 0
+
+                RowLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    spacing: 0
+                    Text {
+                        Layout.topMargin: 16
+                        text: qsTr("Taxes and charges")
+                        font.bold: true
+                        font.pointSize: 14
+                        color: Configuration.iconColor
+                    }
+                }
+
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    spacing: 0
+
+                    RowLayout {
+                        spacing: 0
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        Layout.fillWidth: true
+
+                        Label {
+                            Layout.fillWidth: true
+                            rightPadding: 16
+                            font.pointSize: 12
+                            text: qsTr("Network charges")
+                        }
+
+                        TextField {
+                            id: networkChargesField
+                            Layout.rightMargin: 12
+                            text: ""
+                        }
+
+                        Label {
+                            text: "ct/kWh"
+                        }
+                    }
+
+                    RowLayout {
+                        spacing: 0
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        Layout.fillWidth: true
+
+                        Label {
+                            rightPadding: 16
+                            Layout.fillWidth: true
+                            font.pointSize: 12
+                            text: qsTr("Taxes & fees")
+                        }
+
+                        TextField {
+                            id: taxesAndFeesField
+                            Layout.rightMargin: 12
+                            text: ""
+                        }
+
+                        Label {
+                            text: "ct/kWh"
+                        }
+                    }
+
+                    Label {
+                        id: footer
+                        Layout.fillWidth: true
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        color: "red"
+                        wrapMode: Text.WordWrap
+                        font.pixelSize: app.smallFont
+                    }
+
+                    ColumnLayout {
+                        spacing: 0
+                        Layout.alignment: Qt.AlignHCenter
+                        visible: true
+
+                        Button {
+                            id: saveButton
+                            text: qsTr("Save")
+                            Layout.preferredWidth: app.width - 2*Style.margins
+                            Layout.alignment: Qt.AlignHCenter
+                            onClicked: {
+                                if((taxesAndFeesField.text > 0 && networkChargesField.text > 0)){
+                                    //ToDo: Add Save Logic for Taxes And Fees and Network Charges
+
+                                }else{
+                                    footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
+                                }
+                            }
+                        }
+
+                        ConsolinnoSetUpButton {
+                            text: qsTr("Cancel")
+                            backgroundColor: "transparent"
+                            onClicked: {
+                                pageStack.pop()
+                            }
+                        }
+                    }
+
+                    Item {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                    }
+
+                }
+            }
+        }
+    }
+
 }
