@@ -11,7 +11,10 @@ import "../optimization"
 
 StackView {
     id: root
-    initialItem: setUpComponent //taxesAndFeesSetUp
+
+    property string startView
+
+    initialItem: startView === "taxesAndFeesSetUp" ? taxesAndFeesSetUp : setUpComponent //taxesAndFeesSetUp
 
 
     property HemsManager hemsManager

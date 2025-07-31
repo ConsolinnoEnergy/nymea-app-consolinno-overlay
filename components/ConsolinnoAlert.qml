@@ -17,6 +17,7 @@ Rectangle {
     property string dialogPicture
 
     property string pagePath
+    property string pageStartView
 
     property alias text: screenGuideText.text
     property alias headerText: header.text
@@ -93,7 +94,7 @@ Rectangle {
                     var popup = dialog.createObject(app, {headerText: dialogHeaderText, text: text, source: dialogPicture, picHeight: 280})
                     popup.open();
                 }else if(pagePath.length > 1){
-                    pageStack.push(Qt.resolvedUrl(pagePath))
+                    pageStack.push(Qt.resolvedUrl(pagePath), {startView: pageStartView})
                 }
             }
         }
