@@ -136,10 +136,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Market price</source>
         <translation type="unfinished"></translation>
     </message>
@@ -153,6 +149,10 @@
     </message>
     <message>
         <source>SoC with controller</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -227,15 +227,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Avoid zero compensation active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1122,6 +1122,14 @@
     </message>
     <message>
         <source>Average electricity price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please provide information on taxes, surcharges, and network fees. &lt;u&gt;Continue to configuration&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tariff details are not available</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2854,10 +2862,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>There are currently no settings options available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Dynamic electricity tariff</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2874,11 +2878,35 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Submitted Rate:</source>
+        <source>Add Rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add Rate</source>
+        <source>Submitted Rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following tariff is submitted:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Taxes and charges</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Network charges</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Taxes &amp; fees</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
