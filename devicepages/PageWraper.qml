@@ -8,8 +8,11 @@ import "qrc:/ui/components"
 Page {
     id: root
 
+    property Thing thing
+
     header: NymeaHeader {
         backButtonVisible: true
+        text: thing.name
         onBackPressed: {
             pageStack.pop()
         }

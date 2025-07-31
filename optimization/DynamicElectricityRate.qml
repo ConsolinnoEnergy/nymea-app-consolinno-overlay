@@ -17,9 +17,7 @@ StackView {
     property HemsManager hemsManager
     property string name
     property bool newTariff: false
-
-    //readonly property Thing thing: currentThing ? currentThing.get(0) : null
-
+    property Thing dynElectricThing
     property int directionID: 0
 
     signal done(bool skip, bool abort, bool back);
@@ -27,16 +25,20 @@ StackView {
     QtObject {
         id: d
         property int pendingCallId: -1
+        property var params: []
+        property Thing thingToRemove
+
     }
 
 
     Connections {
+        id: connection
         target: engine.thingManager
 
         onAddThingReply: {
             if(!thingError)
             {
-                pageStack.push(Qt.resolvedUrl("../optimization/DynamicElectricityRateFeedback.qml"), {thingName: energyRateComboBox.currentText})
+                dynElectricThing = engine.thingManager.things.getThing(thingId);
             }else{
                 let props = qsTr("Failed to add thing: ThingErrorHardwareFailure");
                 var comp = Qt.createComponent("../components/ErrorDialog.qml")
@@ -108,14 +110,18 @@ StackView {
                                 engine: _engine
                                 shownInterfaces: ["dynamicelectricitypricing"]
                             }
-                            delegate: ConsolinnoItemDelegate {
+                            delegate: ConsolinnoThingDelegate {
                                 implicitHeight: 50
                                 Layout.fillWidth: true
                                 iconName: Configuration.energyIcon !== "" ? "/ui/images/"+Configuration.energyIcon : "../images/energy.svg"
                                 text: model.name
                                 progressive: true
+                                canDelete: true
                                 onClicked: {
-
+                                    pageStack.push(taxesAndFeesSetUp)
+                                }
+                                onDeleteClicked: {
+                                    engine.thingManager.removeThing(model.id)
                                 }
                             }
                         }
@@ -183,31 +189,18 @@ StackView {
                               addButton.text = qsTr("Next");
                               return;
                             }
-                            pageStack.push(dynamicSetUpFeedBack,{comboBoxValue: energyRateComboBox.currentValue, comboBoxCurrentText: energyRateComboBox.currentText})
-                            //timer1.start()
+                            pageStack.push(dynamicSetUpFeedBack,{comboBoxValue: energyRateComboBox.currentValue, comboBoxCurrentText: energyRateComboBox.currentText});
+                            if(!dynElectricThing){
+                                engine.thingManager.addThing(energyRateComboBox.currentValue, energyRateComboBox.currentText, d.params);
+                            }
                         }
                     }
-
-                    /*
-                    Timer {
-                        id: timer1
-
-                        interval: 300
-                        running: false
-                        repeat: false
-
-                        onTriggered: {
-                            engine.thingManager.addThing(energyRateComboBox.currentValue, energyRateComboBox.currentText, 0)
-                        }
-                    }*/
 
                     ConsolinnoSetUpButton {
                         text: qsTr("Cancel")
                         backgroundColor: "transparent"
                         onClicked: {
-                          if(directionID == 0) {
-                              pageStack.pop()
-                          }
+                            pageStack.pop()
                         }
                     }
                 }
@@ -237,6 +230,7 @@ StackView {
                 backButtonVisible: true
                 onBackPressed: {
                     if(directionID == 0) {
+                        dynElectricThing = null
                         pageStack.pop()
                     }
                 }
@@ -313,7 +307,7 @@ StackView {
                 text: qsTr("Dynamic electricity tariff")
                 backButtonVisible: true
                 onBackPressed: {
-                    if(directionID == 0) {
+                    if(directionID >= 0) {
                         pageStack.pop()
                     }
                 }
@@ -357,7 +351,8 @@ StackView {
                         TextField {
                             id: networkChargesField
                             Layout.rightMargin: 12
-                            text: ""
+                            validator: RegExpValidator { regExp: /^[0-9.,]*$/ }
+                            inputMethodHints: Qt.ImhFormattedNumbersOnly
                         }
 
                         Label {
@@ -381,7 +376,8 @@ StackView {
                         TextField {
                             id: taxesAndFeesField
                             Layout.rightMargin: 12
-                            text: ""
+                            validator: RegExpValidator { regExp: /^[0-9.,]*$/ }
+                            inputMethodHints: Qt.ImhFormattedNumbersOnly
                         }
 
                         Label {
@@ -423,7 +419,13 @@ StackView {
                             text: qsTr("Cancel")
                             backgroundColor: "transparent"
                             onClicked: {
-                                pageStack.pop()
+                                if(directionID === 0){
+                                    pageStack.pop()
+                                    pageStack.pop()
+                                }else{
+                                    pageStack.pop()
+                                }
+                                dynElectricThing = null
                             }
                         }
                     }

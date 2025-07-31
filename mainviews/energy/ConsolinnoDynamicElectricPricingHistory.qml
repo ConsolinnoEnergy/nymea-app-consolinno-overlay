@@ -74,7 +74,20 @@ Item {
             Layout.margins: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             text: qsTr("Dynamic electricity tariff")
-            visible: true
+            visible: isDynamicPrice
+        }
+
+        ConsolinnoAlert {
+            Layout.margins: Style.margins
+            visible: true //isZeroCompensation
+            backgroundColor: "#FFEE89"
+            borderColor: "#864A0D"
+            textColor: "#864A0D"
+            iconColor: "#864A0D"
+            pagePath: "../optimization/DynamicElectricityRate.qml"
+
+            text: qsTr("Please provide information on taxes, surcharges, and network fees. <u>Continue to configuration</u>")
+            headerText: qsTr("Tariff details are not available")
         }
 
         SelectionTabs {

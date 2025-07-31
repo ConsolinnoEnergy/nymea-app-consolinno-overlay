@@ -940,7 +940,7 @@ MainViewBase {
                             isElectric: true
                             onClicked: {
                                 print("Clicked producer", index, thing.name)
-                                pageStack.push("/ui/devicepages/PageWraper.qml")
+                                pageStack.push("/ui/devicepages/PageWraper.qml",{thing: electrics.get(index)})
                             }
                         }
                     }
