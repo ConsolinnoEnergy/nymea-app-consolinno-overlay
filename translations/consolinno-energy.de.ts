@@ -460,10 +460,6 @@
         <translation>Pausieren des Ladevorgangs</translation>
     </message>
     <message>
-        <source>Behaviour on grid consumption:</source>
-        <translation>Verhalten bei ungenügender PV-Erzeugung:</translation>
-    </message>
-    <message>
         <source>Please select a battery level greater than 0%.</source>
         <translation>Bitte wählen Sie ein Batteriestand, der größer als 0% ist.</translation>
     </message>
@@ -538,10 +534,6 @@
     <message>
         <source>Solar only</source>
         <translation>Nur Solarstrom</translation>
-    </message>
-    <message>
-        <source>On grid consumption</source>
-        <translation>Bei wenig Solarstrom</translation>
     </message>
     <message>
         <source>Minimal current</source>
@@ -634,6 +626,14 @@
     <message>
         <source>Cancel &amp; reconfigure charging mode</source>
         <translation>Lademodus abbrechen &amp; ändern</translation>
+    </message>
+    <message>
+        <source>low solar availability</source>
+        <translation type="unfinished">bei wenig Solarstrom</translation>
+    </message>
+    <message>
+        <source>Low solar avalaibility:</source>
+        <translation type="unfinished">Bei wenig Solarstrom:</translation>
     </message>
 </context>
 <context>
@@ -2722,12 +2722,13 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.9.2&lt;/p&gt;
+        <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
+&lt;p&gt;Version 1.9.3&lt;/p&gt;
 &lt;h4&gt;Verbesserungen&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Anzeige und Informationstext bei Nullvergütung vermeiden (gezielte Steuerung der Batterieladung für ausgewählte Modelle)&lt;/li&gt;
-    &lt;li&gt;Meldungstext für anstehendes Software-Update&lt;/li&gt;
+    &lt;li&gt;Update Android sdk&lt;/li&gt;
+    &lt;li&gt;Bei manuellen Hinzufügen eines Geräts: Optimierungseinstellungen werden automatisch abgefragt&lt;/li&gt;
+    &lt;li&gt;Ladeleistung in Watt bei Ladevorgängen der Wallbox&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -3156,8 +3157,8 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Wenn ca. 2 Minuten kein ausreichender PV-Überschuss vorhanden ist, wird der Ladevorgang pausiert. Ist ca. 2 Minuten wieder ausreichend PV-Überschuss vorhanden, wird der Ladevorgang fortgesetzt.</translation>
     </message>
     <message>
-        <source>Behaviour on grid consumption</source>
-        <translation>Verhalten bei Netzbezug</translation>
+        <source>Low solar avalaibility</source>
+        <translation>Bei wenig Solarstrom</translation>
     </message>
 </context>
 <context>
@@ -3267,20 +3268,8 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Momentaner Verbrauch</translation>
     </message>
     <message>
-        <source> W</source>
-        <translation> W</translation>
-    </message>
-    <message>
         <source>Total Consumption</source>
         <translation>Insgesamter Verbrauch</translation>
-    </message>
-    <message>
-        <source> kWh</source>
-        <translation> kWh</translation>
-    </message>
-    <message>
-        <source> °C</source>
-        <translation> °C</translation>
     </message>
 </context>
 <context>
@@ -3923,18 +3912,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
         <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant.</translation>
     </message>
-    <message>
-        <source>EEBUS Wallbox</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>EvCharger set-up</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The following EEBUS devices were found:</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -4112,18 +4089,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
         <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant.</translation>
-    </message>
-    <message>
-        <source>EEBUS heat pump</source>
-        <translation>EEBUS Wärmepumpe</translation>
-    </message>
-    <message>
-        <source>Heatpump set-up</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The following EEBUS devices were found:</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

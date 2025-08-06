@@ -1487,9 +1487,7 @@ MainViewBase {
                                                     {
                                                         "hemsManager": hemsManager,
                                                         "thing": thing,
-                                                        "carThing": evProxy.getThing(
-                                                                        hemsManager.chargingConfigurations.getChargingConfiguration(
-                                                                            thing.id).carThingId)
+                                                        "carThing": evProxy.getThing(hemsManager.chargingConfigurations.getChargingConfiguration(thing.id).carThingId)
                                                     })
                                     } // if not you have to resort to the EvChargerThingPage
                                     else {

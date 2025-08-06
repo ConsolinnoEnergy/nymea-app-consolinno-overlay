@@ -488,7 +488,7 @@ GenericConfigPage {
                         Label{
                             visible: chargingIsAnyOf([simple_pv_excess])
                             Layout.fillWidth: true
-                            text: qsTr("On grid consumption")
+                            text: qsTr("low solar availability")
                         }
 
                         Label{
@@ -1347,7 +1347,7 @@ GenericConfigPage {
                                 Label{
                                     id: gridConsumptionLabel
                                     visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
-                                    text: qsTr("Behaviour on grid consumption:")
+                                    text: qsTr("Low solar avalaibility:")
                                 }
 
                                 InfoButton{

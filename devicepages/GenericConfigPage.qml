@@ -32,6 +32,7 @@ Item {
 
     ColumnLayout {
         anchors.fill: parent
+        Layout.alignment: Qt.AlignHCenter
         spacing: 0
 
         Item {
@@ -49,26 +50,16 @@ Item {
                 }
 
                 RowLayout {
+                    id: rowContainer
                     anchors.fill: parent
 
-                    Item {
-                        Layout.fillHeight: true
-                        Layout.fillWidth: false
-                        Layout.preferredWidth: 48
-
-                        Image {
-                            width: 24
-                            height: 24
-                            anchors.centerIn: parent
-                            source: "/ui/images/back.svg"
-                        }
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                pageStack.pop()
-                            }
-                        }
+                    HeaderButton {
+                        id: backButton
+                        Layout.leftMargin: -15
+                        Layout.rightMargin: titleText.text.length >= 25 ? 48 : 0
+                        objectName: "backButton"
+                        imageSource: "../images/back.svg"
+                        onClicked: pageStack.pop()
                     }
 
                     Item {
@@ -77,9 +68,8 @@ Item {
 
                         Label {
                             id: titleText
-
                             anchors.centerIn: parent
-                            font.pixelSize: 20
+                            font.pixelSize: 18
                         }
                     }
 
