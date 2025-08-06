@@ -3,7 +3,6 @@ import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
-import QtQuick.Shapes 1.15
 import Nymea 1.0
 import "../components"
 import "../delegates"
