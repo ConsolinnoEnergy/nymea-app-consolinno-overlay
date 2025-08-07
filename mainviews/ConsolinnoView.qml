@@ -730,7 +730,7 @@ MainViewBase {
                                                           "currentPower").value) : 0
 
                 var currentPrice = electrics.count > 0 ? Math.abs(electrics.get(0).stateByName(
-                                                            "currentMarketPrice").value) : 0
+                                                            "currentEnergyCost").value) : 0
 
                 for (var i = 0; i < producers.count; i++) {
                     maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
@@ -759,7 +759,7 @@ MainViewBase {
                 for (var i = 0; i < electrics.count; i++) {
                     currentPrice = Math.max(currentPrice, Math.abs(
                                                    electrics.get(i).stateByName(
-                                                    "currentMarketPrice").value))
+                                                    "currentEnergyCost").value))
                 }
 
 
