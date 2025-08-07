@@ -70,7 +70,7 @@ GenericConfigPage {
     }
     
     function relPrice2AbsPrice(relPrice){
-        let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
+        let averagePrice = dynamicPrice.get(0).stateByName("averageTotalCost").value
         let minPrice = dynamicPrice.get(0).stateByName("lowestPrice").value
         let maxPrice = dynamicPrice.get(0).stateByName("highestPrice").value
         if (averagePrice == minPrice || averagePrice == maxPrice){
@@ -599,7 +599,7 @@ GenericConfigPage {
                             Layout.rightMargin: 0
 
                             Component.onCompleted: {
-                                currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value;
+                                currentPrice = dynamicPrice.get(0).stateByName("currentTotalCost").value;
                             }
                         }
                     }
@@ -1455,7 +1455,7 @@ GenericConfigPage {
                                                 pricingCurrentLimitSeries.clear();
                                                 pricingUpperSeriesAbove.clear();
                                                 pricingLowerSeriesAbove.clear();
-                                                consumptionSeries.insertEntry(dynamicPrice.get(0).stateByName("priceSeries").value, true);
+                                                consumptionSeries.insertEntry(dynamicPrice.get(0).stateByName("totalCostSeries").value, true);
                                             }
                                         }
 
@@ -1604,10 +1604,10 @@ GenericConfigPage {
 
                                     validSince = dpThing.stateByName("validSince").value
                                     validUntil = dpThing.stateByName("validUntil").value
-                                    currentPrice = dpThing.stateByName("currentMarketPrice").value
-                                    averagePrice = dpThing.stateByName("averagePrice").value.toFixed(0).toString();
+                                    currentPrice = dpThing.stateByName("currentTotalCost").value
+                                    averagePrice = dpThing.stateByName("averageTotalCost").value.toFixed(0).toString();
 
-                                    consumptionSeries.insertEntry(dpThing.stateByName("priceSeries").value, false)
+                                    consumptionSeries.insertEntry(dpThing.stateByName("totalCostSeries").value, false)
                                     valueAxis.adjustMax((Math.ceil(lowestPrice)), highestPrice);
                                 }
 

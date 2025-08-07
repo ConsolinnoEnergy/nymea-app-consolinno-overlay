@@ -18,9 +18,14 @@ Page {
         }
     }
 
+    Component.onCompleted: {
+        myLoader.setSource("qrc:/ui/mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml", { thing: thing })
+    }
+
     Loader{
+        id: myLoader
         anchors.fill: parent
         Layout.preferredHeight: parent / 2
-        source: "qrc:/ui/mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml"
     }
+
 }
