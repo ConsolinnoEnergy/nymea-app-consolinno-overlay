@@ -25,6 +25,9 @@ Item {
 
     readonly property Thing thing: root.electrics ? root.electrics.get(0) : null
 
+    readonly property var addedGridFee: thing.paramByName("addedGridFee").value
+    readonly property var addedLevies: thing.paramByName("addedGridFee").value
+
     QtObject {
         id: d
 
@@ -79,7 +82,7 @@ Item {
 
         ConsolinnoAlert {
             Layout.margins: Style.margins
-            visible: true //isZeroCompensation
+            visible: (addedLevies === 0 || addedGridFee === 0)
             backgroundColor: "#FFEE89"
             borderColor: "#864A0D"
             textColor: "#864A0D"
