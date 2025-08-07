@@ -2890,10 +2890,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Taxes and charges</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Network charges</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2907,6 +2903,30 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconfigure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select a location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zewotherm setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
