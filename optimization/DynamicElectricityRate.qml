@@ -371,10 +371,10 @@ StackView {
                         param.value = countryCode.currentText
                     }else if(paramName === "addedGridFee"){
                         param.paramTypeId = paramId
-                        param.value = addedGridFee.text
+                        param.value = parseFloat(addedGridFee.text.replace(",","."))
                     }else if(paramName === "addedLevies"){
                         param.paramTypeId = paramId
-                        param.value = addedLevies.text
+                        param.value = parseFloat(addedLevies.text.replace(",","."))
                     }
                     params.push(param)
                     d.params = params
@@ -446,7 +446,7 @@ StackView {
                             Layout.rightMargin: 12
                             validator: RegExpValidator { regExp: /^[0-9.,]*$/ }
                             inputMethodHints: Qt.ImhFormattedNumbersOnly
-                            text: dynElectricThing.paramByName("addedGridFee").value
+                            text: (dynElectricThing.paramByName("addedGridFee").value).toLocaleString()
                             readOnly: (thing.count >= 1 && reconfiguration === false) ? true : false
                         }
 
@@ -473,7 +473,7 @@ StackView {
                             Layout.rightMargin: 12
                             validator: RegExpValidator { regExp: /^[0-9.,]*$/ }
                             inputMethodHints: Qt.ImhFormattedNumbersOnly
-                            text: dynElectricThing.paramByName("addedLevies").value
+                            text: (dynElectricThing.paramByName("addedLevies").value).toLocaleString()
                             readOnly: (thing.count >= 1 && reconfiguration === false) ? true : false
                         }
 
@@ -503,7 +503,7 @@ StackView {
                             Layout.preferredWidth: app.width - 2*Style.margins
                             Layout.alignment: Qt.AlignHCenter
                             onClicked: {
-                                if((addedGridFee.text > 0 && addedLevies.text > 0 && reconfiguration === false)){
+                                if((parseFloat(addedGridFee.text) > 0 && parseFloat(addedLevies.text) > 0 && reconfiguration === false)){
                                     addParamValues();
                                     pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText});
                                     if(!dynElectricThing){
