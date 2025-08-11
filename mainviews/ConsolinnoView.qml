@@ -729,8 +729,6 @@ MainViewBase {
                                                       rootMeter.stateByName(
                                                           "currentPower").value) : 0
 
-                var currentPrice = electrics.count > 0 ? Math.abs(electrics.get(0).stateByName(
-                                                            "currentTotalCost").value) : 0
 
                 for (var i = 0; i < producers.count; i++) {
                     maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
@@ -755,11 +753,6 @@ MainViewBase {
                     maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
                                                    batteries.get(i).stateByName(
                                                        "currentPower").value))
-                }
-                for (var i = 0; i < electrics.count; i++) {
-                    currentPrice = Math.max(currentPrice, Math.abs(
-                                                   electrics.get(i).stateByName(
-                                                    "currentTotalCost").value))
                 }
 
 

@@ -54,9 +54,8 @@ StackView {
         onPairThingReply: {
             if (thingError !== Thing.ThingErrorNoError) {
                 busyOverlay.shown = false;
-                pageStack.push(resultsPage, {thingError: thingError, message: displayMessage});
+                pageStack.push(dynamicSetUpFeedBack, {thingError: thingError, message: displayMessage});
                 return;
-
             }
 
             d.pairingTransactionId = pairingTransactionId;
@@ -151,7 +150,9 @@ StackView {
                                 progressive: true
                                 canDelete: true
                                 onClicked: {
-                                    pageStack.push(taxesAndFeesSetUp)
+                                    if(erProxy.get(0).thingClass.setupMethod !== 4){
+                                        pageStack.push(taxesAndFeesSetUp)
+                                    }
                                 }
                                 onDeleteClicked: {
                                     engine.thingManager.removeThing(model.id)
@@ -503,17 +504,17 @@ StackView {
                             Layout.preferredWidth: app.width - 2*Style.margins
                             Layout.alignment: Qt.AlignHCenter
                             onClicked: {
-                                if((parseFloat(addedGridFee.text) > 0 && parseFloat(addedLevies.text) > 0 && reconfiguration === false)){
+                                if(parseFloat(addedGridFee.text) > 0 && parseFloat(addedLevies.text) > 0){
                                     addParamValues();
-                                    pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText});
-                                    if(!dynElectricThing){
+                                    if(reconfiguration === false){
+                                        pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText});
                                         engine.thingManager.addThing(comboBoxValue, comboBoxCurrentText, d.params);
+
+                                    }else{
+                                        engine.thingManager.removeThing(dynElectricThing.id)
+                                        engine.thingManager.addThing(dynElectricThing.thingClass.id, dynElectricThing.name, d.params);
+                                        pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText: dynElectricThing.name, reconfiguration: true});
                                     }
-                                }else if(reconfiguration === true){
-                                    engine.thingManager.removeThing(dynElectricThing.id)
-                                    addParamValues();
-                                    engine.thingManager.addThing(dynElectricThing.thingClass.id, dynElectricThing.name, d.params);
-                                    pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText: dynElectricThing.name, reconfiguration: true});
                                 }else {
                                     footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
                                 }
@@ -557,7 +558,10 @@ StackView {
 
             header: NymeaHeader {
                 text: qsTr("Zewotherm setup")
-                onBackPressed: pageStack.pop()
+                onBackPressed: {
+                    pageStack.pop()
+                    pageStack.pop()
+                }
             }
 
             ColumnLayout {
