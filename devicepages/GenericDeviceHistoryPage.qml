@@ -64,7 +64,11 @@ GenericConfigPage {
                     width: parent.width
                     implicitHeight: !hideRow ? 45 : 0
 
-                    readonly property bool hideRow: model.name === "forcePower" || model.name === "enableForcePower" || model.name === "enableForcePowerState" || model.name === "forcePowerTimeout"
+                    Component.onCompleted: {
+                        console.error(model.name)
+                    }
+
+                    readonly property bool hideRow: model.name === "forcePower" || model.name === "enableForcePower" || model.name === "enableForcePowerState" || model.name === "forcePowerTimeout" || model.name === "exportLimit" || model.name === "enableExportLimitState"
                     readonly property StateType stateType: model.type === ThingModel.TypeStateType ? root.thing.thingClass.stateTypes.getStateType(model.id) : null
                     readonly property ActionType actionType: model.writable ? root.thing.thingClass.actionTypes.getActionType(model.id) : null
                     readonly property EventType eventType: model.type === ThingModel.TypeEventType ? root.thing.thingClass.eventTypes.getEventType(model.id) : null
