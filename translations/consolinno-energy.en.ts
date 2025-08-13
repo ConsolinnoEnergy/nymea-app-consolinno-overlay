@@ -3265,6 +3265,14 @@ Use a timeout value greater or equal to 10 ms.</source>
         <source>Grid-supportive control setup – Relais</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Existing setup will be overwritten.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Attention</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HeatingConfigView</name>

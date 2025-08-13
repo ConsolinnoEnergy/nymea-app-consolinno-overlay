@@ -3286,6 +3286,14 @@ fügen Sie eine weitere hinzu.</translation>
         <source>Grid-supportive control setup – Relais</source>
         <translation>Netzdienlichkeit einrichten – Relais</translation>
     </message>
+    <message>
+        <source>Existing setup will be overwritten.</source>
+        <translation type="unfinished">Bestehende Einrichtungen werden überschrieben.</translation>
+    </message>
+    <message>
+        <source>Attention</source>
+        <translation type="unfinished">Achtung</translation>
+    </message>
 </context>
 <context>
     <name>HeatingConfigView</name>
