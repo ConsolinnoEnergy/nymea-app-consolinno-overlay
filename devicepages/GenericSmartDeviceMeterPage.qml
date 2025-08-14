@@ -45,7 +45,7 @@ GenericConfigPage {
 
     property bool isRootmeter: false
     property bool isBatteryView: false
-    readonly property string isNotify: ""
+    property string isNotify: ""
 
     title: root.thing.name
 
