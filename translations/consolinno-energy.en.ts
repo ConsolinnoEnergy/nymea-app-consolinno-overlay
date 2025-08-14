@@ -3088,14 +3088,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to §14a minimum.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>unrestricted</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3113,6 +3105,14 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Avoid zero compensation active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3147,14 +3147,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>connected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; according to §14a minimum.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3263,6 +3255,14 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Grid-supportive control setup – Relais</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

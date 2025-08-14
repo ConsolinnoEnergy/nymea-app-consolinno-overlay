@@ -26,7 +26,7 @@ StackView {
 
     property string currentState: gridSupportThing.stateByName("plimStatus").value
     property string colorsPlim: currentState === "shutoff" ? "#eb4034" : currentState === "limited" ? "#fc9d03" : "#ffffff"
-    property string contentPlim: currentState === "shutoff" ? qsTr("The consumption is <b>temporarily blocked</b> by the network operator.") : currentState === "limited" ? qsTr("The consumption is <b>temporarily reduced</b> to <b>%1 kW</b> according to §14a minimum.").arg(convertToKw(powerLimit)) : ""
+    property string contentPlim: currentState === "shutoff" ? qsTr("The consumption is <b>temporarily blocked</b> on the basis of a control signal from the grid operator.") : currentState === "limited" ? qsTr("Consumption is <b>temporarily reduced</b> to a maximum of <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimit)) : ""
 
 
     Settings {
