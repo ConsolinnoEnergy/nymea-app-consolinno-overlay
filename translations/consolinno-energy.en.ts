@@ -2902,10 +2902,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2927,6 +2923,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter taxes and duties. The value cannot be empty or 0.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

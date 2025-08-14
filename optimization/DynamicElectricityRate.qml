@@ -516,7 +516,7 @@ StackView {
                                         pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText: dynElectricThing.name, reconfiguration: true});
                                     }
                                 }else {
-                                    footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
+                                    footer.text = qsTr("Please enter taxes and duties. The value cannot be empty or 0.")
                                 }
                             }
                         }
