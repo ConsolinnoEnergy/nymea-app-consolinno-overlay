@@ -395,12 +395,12 @@ StackView {
                         spacing: 0
                         Layout.leftMargin: app.margins
                         Layout.rightMargin: app.margins
+                        Layout.topMargin: app.margins
                         Layout.fillWidth: true
 
                         Label {
                             Layout.fillWidth: true
                             rightPadding: 16
-                            font.pointSize: 12
                             text: qsTr("Select a location")
                         }
                     }
@@ -438,7 +438,6 @@ StackView {
                         Label {
                             Layout.fillWidth: true
                             rightPadding: 16
-                            font.pointSize: 12
                             text: qsTr("Network charges")
                         }
 
@@ -465,7 +464,6 @@ StackView {
                         Label {
                             rightPadding: 16
                             Layout.fillWidth: true
-                            font.pointSize: 12
                             text: qsTr("Taxes & fees")
                         }
 
