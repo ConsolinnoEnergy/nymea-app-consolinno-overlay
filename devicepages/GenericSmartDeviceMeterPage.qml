@@ -80,16 +80,19 @@ GenericConfigPage {
                         "limited": {
                             "header": qsTr("Grid-Supportive Control"),
                             "content": qsTr("Consumption is <b>temporarily limited</b> on the basis of a control signal from the grid operator."),
-                            "color": "warning"
+                            "color": "warning",
+                            "backgroundColor": "warningBackground"
                         },
                         "blocked": {
                             "header": qsTr("Grid-Supportive Control"),
                             "content": qsTr("The consumption is <b>temporarily blocked</b> on the basis of a control signal from the grid operator."),
-                            "color": "danger"
+                            "color": "danger",
+                            "backgroundColor": "dangerBackground"
                         },
                         "unrestricted": {
                             "header": qsTr("Grid-Supportive Control"),
                             "content": qsTr("unrestricted"),
+                            "backgroundColor": "none",
                             "color": "none"
                         }
                     }
@@ -97,6 +100,8 @@ GenericConfigPage {
                     property var infoColors: {
                         "warning": Style.warningAccent,
                         "danger": Style.dangerAccent,
+                        "warningBackground": Style.warningBackground,
+                        "dangerBackground": Style.dangerBackground,
                         "none": "#ffffff"
                     }
 
@@ -109,10 +114,10 @@ GenericConfigPage {
                         width: containerAvoidZeroCompensation.width
                         visible: isBatteryView && isZeroCompensation || (isNotify === "shutoff" || isNotify === "limited") && isRootmeter
 
-                        backgroundColor: "#FFEE89"
-                        borderColor: "#864A0D"
-                        textColor: "#864A0D"
-                        iconColor: "#864A0D"
+                        backgroundColor: containerAvoidZeroCompensation.infoColors[containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].backgroundColor]
+                        borderColor: containerAvoidZeroCompensation.infoColors[containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].color]
+                        textColor: containerAvoidZeroCompensation.infoColors[containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].color]
+                        iconColor: containerAvoidZeroCompensation.infoColors[containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].color]
                         imagePath: (isNotify != "" && isRootmeter) ? "" : "../components/ConsolinnoDialog.qml"
                         dialogHeaderText: (isNotify != "" && isRootmeter) ? "" : qsTr("Avoid zero compensation")
                         dialogText: (isNotify != "" && isRootmeter) ? "" : qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")

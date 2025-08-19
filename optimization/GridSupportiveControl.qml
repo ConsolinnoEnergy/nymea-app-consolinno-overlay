@@ -137,10 +137,10 @@ StackView {
 
                     ConsolinnoAlert {
                         visible: currentState !== "unrestricted" && powerLimitSource !== "none"
-                        backgroundColor: "#FFEE89"
-                        borderColor: "#864A0D"
-                        textColor: "#864A0D"
-                        iconColor: "#864A0D"
+                        backgroundColor: Style.warningBackground
+                        borderColor: Style.warningAccent
+                        textColor: Style.warningAccent
+                        iconColor: Style.warningAccent
 
                         text: contentPlim
                         headerText: qsTr("Grid-supportive control")
@@ -346,10 +346,10 @@ StackView {
 
                     ConsolinnoAlert {
                         visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
-                        backgroundColor: Style.gridAlertBackground
-                        borderColor: Style.gridAlertFont
-                        textColor: Style.gridAlertFont
-                        iconColor: Style.gridAlertFont
+                        backgroundColor: Style.dangerBackground
+                        borderColor: Style.dangerAccent
+                        textColor: Style.dangerAccent
+                        iconColor: Style.dangerAccent
 
                         iconPath: "../images/dialog-warning-symbolic.svg"
                         text: qsTr("Existing setup will be overwritten.")
@@ -725,10 +725,10 @@ StackView {
 
                     ConsolinnoAlert {
                         visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
-                        backgroundColor: Style.gridAlertBackground
-                        borderColor: Style.gridAlertFont
-                        textColor: Style.gridAlertFont
-                        iconColor: Style.gridAlertFont
+                        backgroundColor: Style.dangerBackground
+                        borderColor: Style.dangerAccent
+                        textColor: Style.dangerAccent
+                        iconColor: Style.dangerAccent
 
                         iconPath: "../images/dialog-warning-symbolic.svg"
                         text: qsTr("Existing setup will be overwritten.")
