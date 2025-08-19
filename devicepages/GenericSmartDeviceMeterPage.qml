@@ -80,12 +80,12 @@ GenericConfigPage {
                     property var states: {
                         "limited": {
                             "header": qsTr("Grid-Supportive Control"),
-                            "content": qsTr("The consumption is <b>temporarily reduced</b> to §14a minimum."),
+                            "content": qsTr("Consumption is <b>temporarily limited</b> on the basis of a control signal from the grid operator."),
                             "color": "warning"
                         },
                         "blocked": {
                             "header": qsTr("Grid-Supportive Control"),
-                            "content": qsTr("The consumption is <b>temporarily blocked</b> by the network operator."),
+                            "content": qsTr("The consumption is <b>temporarily blocked</b> on the basis of a control signal from the grid operator."),
                             "color": "danger"
                         },
                         "unrestricted": {

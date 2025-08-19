@@ -3157,14 +3157,6 @@ fügen Sie eine weitere hinzu.</translation>
         <translation type="unfinished">Netzdienlichkeit</translation>
     </message>
     <message>
-        <source>The consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to §14a minimum.</source>
-        <translation type="unfinished">Der Verbrauch ist &lt;b&gt;temporär reduziert&lt;/b&gt; auf das Minium von § 14a.</translation>
-    </message>
-    <message>
-        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
-        <translation type="unfinished">Der Verbrauch ist &lt;b&gt;temporär blockiert&lt;/b&gt; durch den Netzbetreiber.</translation>
-    </message>
-    <message>
         <source>unrestricted</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3183,6 +3175,14 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Avoid zero compensation active</source>
         <translation type="unfinished">Nullvergütung vermeiden aktiv</translation>
+    </message>
+    <message>
+        <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
+        <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend limitiert&lt;/b&gt;.</translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
+        <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend blockiert&lt;/b&gt;.</translation>
     </message>
 </context>
 <context>
@@ -3217,14 +3217,6 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>connected</source>
         <translation>verbunden</translation>
-    </message>
-    <message>
-        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
-        <translation>Der Verbrauch ist &lt;b&gt;temporär blockiert&lt;/b&gt; durch den Netzbetreiber.</translation>
-    </message>
-    <message>
-        <source>The consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; according to §14a minimum.</source>
-        <translation>Der Verbrauch wird &lt;b&gt;vorübergehend reduziert&lt;/b&gt; auf &lt;b&gt;%1 kW&lt;/b&gt; gemäß §14a mindestens.</translation>
     </message>
     <message>
         <source>Control type</source>
@@ -3333,6 +3325,14 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Grid-supportive control setup – Relais</source>
         <translation>Netzdienlichkeit einrichten – Relais</translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
+        <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend blockiert&lt;/b&gt;.</translation>
+    </message>
+    <message>
+        <source>Consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend auf maximal %1 kW limitiert&lt;/b&gt;.</translation>
     </message>
 </context>
 <context>
