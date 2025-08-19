@@ -135,71 +135,16 @@ StackView {
                         }
                     }
 
-                    Rectangle {
+                    ConsolinnoAlert {
                         visible: currentState !== "unrestricted" && powerLimitSource !== "none"
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignHCenter
-                        radius: 10
-                        color: "#faf9f5"
-                        border.width: 1
-                        border.color: colorsPlim
-                        implicitHeight: alertContainer.implicitHeight + 20
+                        backgroundColor: "#FFEE89"
+                        borderColor: "#864A0D"
+                        textColor: "#864A0D"
+                        iconColor: "#864A0D"
 
-                        ColumnLayout {
-                            id: alertContainer
-                            anchors.fill: parent
-                            spacing: 1
-
-                            Item {
-                                Layout.preferredHeight: 10
-                            }
-
-                            RowLayout {
-                                width: parent.width
-                                spacing: 5
-
-                                Item {
-                                    Layout.preferredWidth: 10
-                                }
-
-                                Image {
-                                    id: image
-                                    sourceSize: Qt.size(24, 24)
-                                    source: "../images/attention.svg"
-                                }
-
-                                Label {
-                                    font.pixelSize: 16
-                                    text: qsTr("Grid-supportive control")
-                                    font.bold: true
-                                    wrapMode: Text.WordWrap
-                                    Layout.fillWidth: true
-                                    Layout.preferredWidth: parent.width - 20
-                                }
-
-                                ColorOverlay {
-                                    anchors.fill: image
-                                    source: image
-                                    color: colorsPlim
-                                }
-                            }
-
-                            Label {
-                                font.pixelSize: 16
-                                text: contentPlim
-                                wrapMode: Text.WordWrap
-                                Layout.rightMargin: 20
-                                Layout.fillWidth: true
-                                Layout.preferredWidth: parent.width - 20
-                                leftPadding: 40
-                            }
-
-                            Item {
-                                Layout.preferredHeight: 10
-                            }
-                        }
+                        text: contentPlim
+                        headerText: qsTr("Grid-supportive control")
                     }
-
                 }
 
                 ColumnLayout {
@@ -398,10 +343,19 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    ConsolinnoGridSupportiveControlAlert {
-                        Layout.topMargin: app.margins - 7
+
+                    ConsolinnoAlert {
                         visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
+                        backgroundColor: Style.gridAlertBackground
+                        borderColor: Style.gridAlertFont
+                        textColor: Style.gridAlertFont
+                        iconColor: Style.gridAlertFont
+
+                        iconPath: "../images/dialog-warning-symbolic.svg"
+                        text: qsTr("Existing setup will be overwritten.")
+                        headerText: qsTr("Attention")
                     }
+
                 }
 
                 ColumnLayout {
@@ -769,9 +723,16 @@ StackView {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
-                    ConsolinnoGridSupportiveControlAlert {
-                        Layout.topMargin: app.margins - 7
-                        visible: powerLimitSource === "eebus" || powerLimitSource === "relais"
+                    ConsolinnoAlert {
+                        visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
+                        backgroundColor: Style.gridAlertBackground
+                        borderColor: Style.gridAlertFont
+                        textColor: Style.gridAlertFont
+                        iconColor: Style.gridAlertFont
+
+                        iconPath: "../images/dialog-warning-symbolic.svg"
+                        text: qsTr("Existing setup will be overwritten.")
+                        headerText: qsTr("Attention")
                     }
 
                     ConsolinnoCheckBox {
