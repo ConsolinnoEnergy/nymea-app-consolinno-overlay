@@ -17,6 +17,9 @@ Rectangle {
     property string dialogText
     property string dialogPicture
 
+    property string pagePath: ""
+    property string pageStartView
+    property string iconPath
     property alias text: screenGuideText.text
     property alias headerText: header.text
 
@@ -69,7 +72,6 @@ Rectangle {
         }
 
         MouseArea {
-            visible: iconPath.length > 1 || pagePath.length > 1
             Layout.fillWidth: true
             Layout.preferredWidth: alertContainer.width - 20
             Layout.preferredHeight: screenGuideText.height

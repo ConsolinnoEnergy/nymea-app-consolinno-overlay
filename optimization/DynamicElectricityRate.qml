@@ -76,9 +76,14 @@ StackView {
         }
 
         onConfirmPairingReply: {
-            busyOverlay.shown = false
-            pageStack.push(dynamicSetUpFeedBack, {thingError: thingError, thingId: thingId, message: displayMessage})
+            pageStack.push(dynamicSetUpFeedBack, {comboBoxCurrentText: thing.get(0).name, thingPair: true})
         }
+
+        onAddThingReply: {
+            busyOverlay.shown = false;
+            pageStack.push(dynamicSetUpFeedBack, {comboBoxCurrentText: thing.name})
+        }
+
     }
 
     Component {
@@ -639,6 +644,7 @@ StackView {
 
             property string comboBoxCurrentText: ""
             property bool reconfiguration: false
+            property bool thingPair: false
 
             Connections {
                 target: engine.thingManager
@@ -658,7 +664,11 @@ StackView {
             }
 
             Component.onCompleted: {
-                busyOverlay.shown = true;
+                if(thingPair === true){
+                    busyOverlay.shown = false;
+                }else{
+                    busyOverlay.shown = true;
+                }
             }
 
             header: ConsolinnoHeader {
@@ -727,7 +737,7 @@ StackView {
                         Layout.preferredWidth: 250
                         Layout.alignment: Qt.AlignHCenter
                         onClicked: {
-                            if(reconfiguration === false){
+                            if(reconfiguration === false && thingPair === false){
                                 pageStack.pop()
                                 pageStack.pop()
                             }else{
