@@ -215,10 +215,6 @@
         <translation>Sofortladen aktivieren</translation>
     </message>
     <message>
-        <source>Prices represent the pure exchange price without taxes and fees.</source>
-        <translation>Preise entsprechen reinem Börsenpreis ohne Steuern und Abgaben.</translation>
-    </message>
-    <message>
         <source>Price limit : %1 ct/kWh</source>
         <translation>Preisgrenze : %1 ct/kWh</translation>
     </message>
@@ -604,10 +600,6 @@
         <translation>ct/kWh</translation>
     </message>
     <message>
-        <source>Currently corresponds to a market price of %1 ct/kWh.</source>
-        <translation>Entspricht aktuell einem Marktpreis von %1 ct/kWh.</translation>
-    </message>
-    <message>
         <source>enabled</source>
         <translation>aktiviert</translation>
     </message>
@@ -634,6 +626,10 @@
     <message>
         <source>Low solar avalaibility:</source>
         <translation type="unfinished">Bei wenig Solarstrom:</translation>
+    </message>
+    <message>
+        <source>Currently corresponds to a electricity price of %1 ct/kWh.</source>
+        <translation type="unfinished">Entspricht aktuell einem Strompreis von %1 ct/kWh.</translation>
     </message>
 </context>
 <context>
@@ -1097,24 +1093,8 @@
         <translation>Morgen</translation>
     </message>
     <message>
-        <source>Average Market Price: </source>
-        <translation>Durchschnittlicher Marktpreis: </translation>
-    </message>
-    <message>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
-    </message>
-    <message>
-        <source>Current market price</source>
-        <translation>Aktueller Marktpreis</translation>
-    </message>
-    <message>
-        <source>Average market price</source>
-        <translation>Durchschnittlicher Marktpreis</translation>
-    </message>
-    <message>
-        <source>Current Market Price: </source>
-        <translation>Aktueller Marktpreis: </translation>
     </message>
     <message>
         <source>No prices available, yet</source>
@@ -1127,6 +1107,22 @@
     <message>
         <source>ct/kWh</source>
         <translation>ct/kWh</translation>
+    </message>
+    <message>
+        <source>Current Electricity Price: </source>
+        <translation>Aktueller Strompreis: </translation>
+    </message>
+    <message>
+        <source>Average Electricity Price: </source>
+        <translation>Durchschnittlicher Strompreis: </translation>
+    </message>
+    <message>
+        <source>Current electricity price</source>
+        <translation>Aktueller Strompreis</translation>
+    </message>
+    <message>
+        <source>Average electricity price</source>
+        <translation type="unfinished">Durchschnittlicher Strompreis</translation>
     </message>
 </context>
 <context>
@@ -4500,14 +4496,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>The battery is charged from the grid as soon as the price falls below the price limit.</source>
         <translation>Die Batterie wird aus dem Netz geladen, sobald die Preisgrenze unterschritten wird.</translation>
-    </message>
-    <message>
-        <source>It is advisable to choose a price limit below 0 cents. If the electricity exchange price falls below 0 cents, this means that there is surplus electricity in the grid. By charging your battery at these times, you can use this cheap electricity and consume it when electricity is more expensive.</source>
-        <translation>Es empfiehlt sich eine Preisgrenze unter 0 ct zu wählen. Wenn der Börsenstrompreis unter 0 Cent fällt, bedeutet das, dass überschüssiger Strom im Netz vorhanden ist. Durch das Laden Ihrer Batterie zu diesen Zeiten nutzen Sie diesen günstigen Strom und können ihn verbrauchen, wenn der Strom teurer ist.</translation>
-    </message>
-    <message>
-        <source>In winter, when little to no PV electricity is expected, it can also make sense to charge at a higher price limit. Please note, however, that taxes and fees are added to the exchange price.</source>
-        <translation type="unfinished">Im Winter, wenn wenig bis kein PV-Strom zu erwarten ist, kann es auch sinnvoll sein bei einer höheren Preisgrenze zu laden. Beachten Sie aber, dass zum Börsenpreis noch Steuern und Abgaben hinzukommen.</translation>
     </message>
 </context>
 <context>
