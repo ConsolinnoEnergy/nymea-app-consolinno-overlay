@@ -44,7 +44,7 @@ ConsolinnoWizardPageBase {
                 spacing: Style.margins
                 Layout.alignment: Qt.AlignHCenter
 
-                CheckBox{
+                ConsolinnoCheckBox{
                     id: authorisationCheckbox
                 }
 

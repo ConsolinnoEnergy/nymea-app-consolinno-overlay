@@ -107,7 +107,7 @@ Item {
             text: qsTr("My production history")
         }
 
-        SelectionTabs {
+        ConsolinnoSelectionTabs {
             id: selectionTabs
             Layout.fillWidth: true
             Layout.leftMargin: Style.smallMargins

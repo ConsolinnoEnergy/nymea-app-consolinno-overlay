@@ -14,6 +14,7 @@ RadioDelegate {
     property string description: control.description
     property int size: control.size
     checked: control.checked
+    hoverEnabled: true
     Layout.fillWidth: true
 
     contentItem: ColumnLayout {

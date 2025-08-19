@@ -3,6 +3,7 @@ import QtQuick 2.0
 import "../../ui/"
 
 StyleBase {
+    id: root
 
     property color consolinnoExtraDark: "#194D25"
     property color consolinnoDark: "#194D25"
@@ -11,6 +12,27 @@ StyleBase {
     property color consolinnoExtraLight: "#BDD758"
     property color consolinnoHighlight: "#189521"
     property color consolinnoHighlightForeground: Configuration.highlightForeground
+    property color legendTileIconColor: "#222222"
+
+    // Epex colors
+    readonly property color epexColor: "#E056F5"
+    readonly property color epexMainLineColor: "#6CCB56"
+    readonly property color epexAverageColor: "#C65B5A"
+    readonly property color epexCurrentTime: "#2C723C"
+
+    readonly property color epexBarCurrentTime: "#189521"
+    readonly property color epexBarPricingPast: "#F4F6F4"
+    readonly property color epexBarPricingCurrentTime: "#767676"
+    readonly property color epexBarPricingOutOfLimit: "#E0E0E0"
+    readonly property color epexBarOutLine: "#FFFFFF"
+    readonly property color epexBarMainLineColor: "#BDD786"
+    readonly property color barSeriesDisabled: root.epexBarPricingPast
+
+    // Switch
+    readonly property color switchCircleColor: "#F4F6F4"
+    readonly property color switchBagroundColor: "#80222222"
+    readonly property color switchOnColor: buttonColor
+
     property color secondaryDark: "#767676"
     property real majorFontSize: 16
     property real screenMargins: 16
@@ -19,9 +41,7 @@ StyleBase {
     property real buttonFontSize: 16
     property real buttonTopPading: 16
     property real buttonLeftPadding: 32
-
-    property color gridAlertFont: "#AA0A24"
-    property color gridAlertBackground: "#FFC3CD"
+    property color textfield: "#767676"
 
     // Avoid Zero Compensation Info + Dialog
     property color marketPriceColor: "#E056F5"
@@ -34,8 +54,13 @@ StyleBase {
 
     backgroundColor: "white"
     foregroundColor: consolinnoExtraDark
+    subTextColor: "#767676"
+
+    property color legendTileHeaderBgColor: "#3B000000"
 
     tileOverlayIconColor: consolinnoDark
+    property color tabOverlayColor: consolinnoDark
+    property color tileOverlayTextColor: "#ffffff"
 
     accentColor: consolinnoMedium
     iconColor: consolinnoExtraDark
@@ -46,6 +71,21 @@ StyleBase {
     blue: "#329eba"
 
     fontFamily: Configuration.fontFamily
+
+    // Button
+    readonly property color secondButtonColor: "#189521"
+    readonly property color buttonTextColor: "#000000"
+    readonly property color buttonTextColorNoBg: buttonTextColor
+
+    // Info colors
+    readonly property color dangerBackground: "#FFC3CD"
+    readonly property color dangerAccent: "#AA0A24"
+
+    readonly property color warningBackground: "#FFEE89"
+    readonly property color warningAccent: "#864A0D"
+
+    readonly property color successBackground: "#BDF5BF"
+    readonly property color successAccent: "#18631E"
 
     //font size and font family
     readonly property font extraSmallFont: Qt.font({
@@ -69,5 +109,14 @@ StyleBase {
         pixelSize: 46
     })
 
+    //MainMenuCirlce
+    readonly property color mainTimeCircle: "#D3D3D3"
+    readonly property color mainTimeCircleDivider: "#ffffff"
+    readonly property color mainCircleTimeColor: "#5A5A5A"
 
+    readonly property color mainTimeNow: "#808080"
+
+    readonly property color mainInnerCicleFirst: "#b6b6b6"
+    readonly property color mainInnerCicleSecond: "#b6b6b6"
+    readonly property color mainInnerCicleText: "#303030"
 }

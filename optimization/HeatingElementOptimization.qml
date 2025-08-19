@@ -90,7 +90,7 @@ Page {
                 text: qsTr("Operating mode (Solar Only)")
             }
 
-            Switch {
+            ConsolinnoSwitch {
                 id: operatingModeSwitch
                 Component.onCompleted: checked = heatingElementConfiguration.optimizationEnabled
             }
@@ -116,7 +116,7 @@ Page {
                     Layout.fillWidth: true
                     text: qsTr("Grid-supportive-control")
                 }
-                Switch {
+                ConsolinnoSwitch {
                     id: controllSwitch
                     Component.onCompleted: checked = heatingElementConfiguration.controllableLocalSystem
                 }

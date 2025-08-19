@@ -267,30 +267,30 @@ GenericConfigPage {
                             push: "TariffGuidedChargingInfo.qml"
                         }
 
-                        Column {
-                            Switch{
-                                spacing: 1
-                                height: 18
-                                id: optimizationController
-                                onClicked: {
-                                    if(!optimizationController.checked){
-                                        chargeOnceController.checked = false;
-                                    }
-                                    //saveSettings()
-                                    enableSave(this)
-                                }
-                                Component.onCompleted: {
-                                    checked = batteryConfiguration.optimizationEnabled
-                                }
+                Column {
+                    ConsolinnoSwitch {
+                        spacing: 1
+                        height: 18
+                        id: optimizationController
+
+                        onClicked: {
+                            if(!optimizationController.checked){
+                                chargeOnceController.checked = false;
                             }
+                            //saveSettings()
+                            enableSave(this)
+                        }
+                        Component.onCompleted: {
+                            checked = batteryConfiguration.optimizationEnabled
                         }
                     }
+                }
+            }
 
                     // Charge once
                     RowLayout {
                         Layout.topMargin: 5
                         visible: optimizationController.checked
-
                         Label {
                             text: qsTr("Activate instant charging")
                         }
@@ -310,12 +310,12 @@ GenericConfigPage {
                                 width: chargeOnceController.width
                                 height: chargeOnceController.height
 
-                                Switch {
-                                    id: chargeOnceController
-                                    anchors.fill: parent
-                                    spacing: 1
-                                    height: 18
-                                    enabled: isZeroCompensation ? false : true
+                        ConsolinnoSwitch {
+                            id: chargeOnceController
+                            anchors.fill: parent
+                            spacing: 1
+                            height: 18
+                            enabled: isZeroCompensation ? false : true
 
                                     Component.onCompleted: {
                                         checked = batteryConfiguration.chargeOnce
@@ -451,23 +451,23 @@ GenericConfigPage {
                             Layout.fillHeight: true
                             Layout.minimumHeight: 150
 
-                            CustomBarSeries {
-                              id: barSeries
-                              anchors.fill: parent
-                              margins.left: 0
-                              margins.right: 0
-                              margins.top: 0
-                              margins.bottom: 0
-                              backgroundColor: chargeOnceController.checked ? "whitesmoke" : "transparent"
-                              startTime: d.startTimeSince
-                              endTime: d.endTimeUntil
-                              hoursNow: d.now.getHours()
-                              currentPrice: currentValue
-                              currentMarketPrice: currentPrice
-                              lowestValue: root.lowestPrice
-                              highestValue: root.highestPrice
-                            }
-                        }
+                    CustomBarSeries {
+                      id: barSeries
+                      anchors.fill: parent
+                      margins.left: 0
+                      margins.right: 0
+                      margins.top: 0
+                      margins.bottom: 0
+                      backgroundColor: isZeroCompensation || chargeOnceController.checked ? Style.barSeriesDisabled : "transparent"
+                      startTime: d.startTimeSince
+                      endTime: d.endTimeUntil
+                      hoursNow: d.now.getHours()
+                      currentPrice: currentValue
+                      currentMarketPrice: currentPrice
+                      lowestValue: root.lowestPrice
+                      highestValue: root.highestPrice
+                    }
+                }
 
                         Label {
                             visible: optimizationController.checked

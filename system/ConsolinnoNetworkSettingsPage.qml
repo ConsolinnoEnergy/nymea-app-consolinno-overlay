@@ -189,7 +189,7 @@ SettingsPageBase {
         progressive: false
         //visible: networkManager.available
         visible: false
-        additionalItem: Switch {
+        additionalItem: ConsolinnoSwitch {
             anchors.verticalCenter: parent.verticalCenter
             checked: networkManager.networkingEnabled
             onClicked: {
@@ -277,7 +277,7 @@ SettingsPageBase {
         prominentSubText: false
         //visible: networkManager.available && networkManager.networkingEnabled
         visible: false
-        additionalItem: Switch {
+        additionalItem: ConsolinnoSwitch {
             anchors.verticalCenter: parent.verticalCenter
             checked: networkManager.wirelessNetworkingEnabled
             visible: networkManager.available && networkManager.networkingEnabled

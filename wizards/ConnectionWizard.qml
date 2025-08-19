@@ -50,14 +50,14 @@ ConsolinnoWizardPageBase {
 
 
         RowLayout{
-            CheckBox{
+            Layout.leftMargin: Style.margins
+            ConsolinnoCheckBox{
                 id: readCheckbox
                 Layout.alignment: Qt.AlignHCenter
 
             }
 
             Label {
-                Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignLeft
                 text: qsTr("Yes I read the Term of Use and agree")
@@ -70,7 +70,7 @@ ConsolinnoWizardPageBase {
             text: readCheckbox.checked ? qsTr('next') : qsTr('cancel')
             Layout.preferredWidth: 200
             background: Rectangle{
-                color: readCheckbox.checked ? Configuration.buttonColor : 'grey'
+                color: readCheckbox.checked ? Style.buttonColor : 'grey'
                 radius: 4
             }
 
@@ -224,9 +224,10 @@ ConsolinnoWizardPageBase {
 
 
                 RowLayout{
-                    CheckBox{
+                    ConsolinnoCheckBox{
                         id: accountCheckbox
                         Layout.alignment: Qt.AlignHCenter
+                        Layout.leftMargin: Style.margins
 
                     }
 
@@ -240,7 +241,8 @@ ConsolinnoWizardPageBase {
 
 
                 RowLayout{
-                    CheckBox {
+                    Layout.leftMargin: Style.margins
+                    ConsolinnoCheckBox {
                         id: policyCheckbox
                         Layout.alignment: Qt.AlignHCenter
                     }
@@ -259,7 +261,7 @@ ConsolinnoWizardPageBase {
                     text: policyCheckbox.checked && accountCheckbox.checked ? qsTr('next') : qsTr('cancel')
                     Layout.preferredWidth: 200
                     background: Rectangle{
-                        color: policyCheckbox.checked && accountCheckbox.checked ? Configuration.buttonColor : 'grey'
+                        color: policyCheckbox.checked && accountCheckbox.checked ? Style.buttonColor : 'grey'
                         radius: 4
                     }
 
@@ -539,7 +541,7 @@ ConsolinnoWizardPageBase {
                         Layout.fillWidth: true
                         text: qsTr("SSL:")
                     }
-                    CheckBox {
+                    ConsolinnoCheckBox {
                         id: secureCheckBox
                         checked: true
                     }

@@ -681,7 +681,7 @@ MainViewBase {
 
         property int hours: 24
         readonly property var consumersColors: Configuration.consumerColors
-        readonly property color electricsColor: Configuration.epexColor
+        readonly property color electricsColor: Style.epexColor
         property string currentGridValueState: ""
 
         Canvas {
@@ -1268,12 +1268,12 @@ MainViewBase {
                             GradientStop {
                                 position: 0.0
                                 //color: "#949494"
-                                color: Configuration.mainInnerCicleFirst //"#b6b6b6" //Configuration.mainInnerCicleFirst
+                                color: Style.mainInnerCicleFirst //"#b6b6b6" //Configuration.mainInnerCicleFirst
                             }
                             GradientStop {
                                 position: 0.8
                                 //color: "white"
-                                color: Configuration.mainInnerCicleSecond //"#b6b6b6" //Configuration.mainInnerCicleSecond
+                                color: Style.mainInnerCicleSecond //"#b6b6b6" //Configuration.mainInnerCicleSecond
                             }
                         }
                     }
@@ -1328,7 +1328,7 @@ MainViewBase {
                             Layout.fillWidth: true
                             textFormat: Text.RichText
                             horizontalAlignment: Text.AlignHCenter
-                            color: "white"
+                            color: Style.mainInnerCicleText
                             text: getText()
 
                             function getText() {
@@ -1362,7 +1362,7 @@ MainViewBase {
                             horizontalAlignment: Text.AlignHCenter
                             wrapMode: Text.WordWrap
                             elide: Text.ElideMiddle
-                            color: "white"
+                            color: Style.mainInnerCicleText
                             font: Style.smallFont
                             visible: innerCircle.height > 120
                         }
@@ -1400,8 +1400,8 @@ MainViewBase {
                     var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
                     ctx.translate(xTranslate, yTranslate)
 
-                    ctx.strokeStyle = Configuration.mainTimeNow
-                    ctx.fillStyle = Configuration.mainTimeNow
+                    ctx.strokeStyle = Style.mainTimeNow
+                    ctx.fillStyle = Style.mainTimeNow
 
                     ctx.beginPath()
                     ctx.lineWidth = 3
@@ -1622,7 +1622,7 @@ MainViewBase {
                     ctx.rotate(i * sliceAngle - timeDiffRotation)
                     ctx.beginPath()
                     //ctx.strokeStyle = i % 2 == 0 ? Style.gray : Style.darkGray; //alternating colors
-                    ctx.strokeStyle = Configuration.mainTimeCircle // could also be achieved with only a circle //Color for inner circle
+                    ctx.strokeStyle = Style.mainTimeCircle // could also be achieved with only a circle //Color for inner circle
                     ctx.arc(0, 0, (chartView.plotArea.width + circleWidth) / 2,
                             0, sliceAngle)
                     ctx.stroke()
@@ -1634,7 +1634,7 @@ MainViewBase {
                     ctx.save()
                     ctx.rotate(i * sliceAngle - timeDiffRotation)
                     ctx.beginPath()
-                    ctx.strokeStyle = Configuration.mainTimeCircleDivider
+                    ctx.strokeStyle = Style.mainTimeCircleDivider
                     ctx.arc(0, 0, (chartView.plotArea.width + circleWidth) / 2,
                             0, 0.005)
                     ctx.stroke()
@@ -1653,14 +1653,14 @@ MainViewBase {
                     tmpDate.setHours(startHour + i, 0, 0)
                     ctx.textAlign = 'center'
                     ctx.font = "" + Style.smallFont.pixelSize + "px " + Style.smallFont.family
-                    ctx.fillStyle = Configuration.mainCircleTimeColor //gray
+                    ctx.fillStyle = Style.mainCircleTimeColor //gray
                     var textY = -(chartView.plotArea.height + circleWidth) / 2
                             + Style.smallFont.pixelSize / 2
                     // Just can't figure out where I'm missing thosw 2 pixels in the proper calculation (yet)...
                     textY -= 2
                     if (chartView.width > 400 && chartView.height > 400) {
                         ctx.fillText(tmpDate.toLocaleTimeString(
-                                         Qt.locale("de_DE"), "HH:mm"), 0, textY)
+                                         Qt.locale("de_DE"), "H"), 0, textY)
                     } else {
                         ctx.fillText(tmpDate.getHours(), 0, textY)
                     }

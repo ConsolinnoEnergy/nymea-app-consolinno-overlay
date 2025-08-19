@@ -356,7 +356,7 @@ Page {
                     height: parent.height
                     width: parent.width
                     border.color: Material.background
-                    color: Configuration.secondButtonColor
+                    color: Style.secondButtonColor
                     radius: 4
                 }
 
@@ -668,7 +668,7 @@ Page {
 
             Label{
                 id: nameExplain
-                text: qsTr("Please change name if necessary")
+                text: qsTr("Please change name if necessary.")
                 Layout.alignment: Qt.AlignTop
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins

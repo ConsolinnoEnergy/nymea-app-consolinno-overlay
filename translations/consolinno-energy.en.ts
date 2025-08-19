@@ -280,11 +280,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
+        <source>Avoid zero compensation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Avoid zero compensation</source>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4002,11 +4002,11 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
+        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
+        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4097,11 +4097,11 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
+        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
+        <source>Please change name if necessary.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4192,11 +4192,11 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
+        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
+        <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4291,10 +4291,6 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Thing parameters</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4312,6 +4308,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>An unexpected error happened during the setup. Please verify the heating element is installed correctly and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4402,10 +4402,6 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Login required</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4439,6 +4435,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

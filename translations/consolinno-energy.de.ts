@@ -265,27 +265,27 @@
     <name>BatteryOptimization</name>
     <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
-        <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
     <message>
         <source>Could not save configuration. The thing is not valid.</source>
-        <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
         <source>Grid-supportive-control</source>
-        <translation>Netzdienlichkeit</translation>
+        <translation type="unfinished">Netzdienlichkeit</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Speichern</translation>
-    </message>
-    <message>
-        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
-        <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
+        <translation type="unfinished">Speichern</translation>
     </message>
     <message>
         <source>Avoid zero compensation</source>
-        <translation>Nullvergütung vermeiden</translation>
+        <translation type="unfinished">Nullvergütung vermeiden</translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
+        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
     </message>
 </context>
 <context>
@@ -4028,10 +4028,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation>Wenn notwendig, bitte den Namen ändern</translation>
-    </message>
-    <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
@@ -4050,6 +4046,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>The following EEBUS devices were found:</source>
         <translation type="unfinished">Folgende EEBUS-Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation type="unfinished">Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
 </context>
 <context>
@@ -4123,12 +4123,12 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation>Wenn notwendig, bitte den Namen ändern</translation>
-    </message>
-    <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
 </context>
 <context>
@@ -4218,10 +4218,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation>Wenn notwendig, bitte den Namen ändern</translation>
-    </message>
-    <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
@@ -4240,6 +4236,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>The following EEBUS devices were found:</source>
         <translation type="unfinished">Folgende EEBUS-Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation type="unfinished">Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
 </context>
 <context>
@@ -4317,10 +4317,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Name:</translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation>Wenn notwendig, bitte den Namen ändern</translation>
-    </message>
-    <message>
         <source>Thing parameters</source>
         <translation>Gerät parameter</translation>
     </message>
@@ -4339,6 +4335,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>An unexpected error happened during the setup. Please verify the heating element is installed correctly and try again.</source>
         <translation>Während der Einrichtung ist ein unerwarteter Fehler aufgetreten. Bitte überprüfen Sie, ob der Heizstab korrekt installiert ist, und versuchen Sie es erneut.</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
 </context>
 <context>
@@ -4428,10 +4428,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation>Wenn notwendig, bitte den Namen ändern</translation>
-    </message>
-    <message>
         <source>Login required</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4466,6 +4462,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
 </context>
 <context>

@@ -134,7 +134,7 @@ ItemDelegate {
                 Layout.fillHeight: true
                 text: root.tertiaryText
                 font.pixelSize: app.extraSmallFont
-                color: Material.color(Material.Grey)
+                color: Style.subTextColor
                 wrapMode: root.wrapTexts ? Text.WordWrap : Text.NoWrap
                 maximumLineCount: root.wrapTexts ? 3 : 1
                 elide: Text.ElideRight

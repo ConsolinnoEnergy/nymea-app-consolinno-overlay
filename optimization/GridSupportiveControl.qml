@@ -774,9 +774,10 @@ StackView {
                         visible: powerLimitSource === "eebus" || powerLimitSource === "relais"
                     }
 
-                    ConsolinnoCheckbox {
+                    ConsolinnoCheckBox {
                         id: deviceConnected
                         text: qsTr("Establish a connection with this device.")
+                        Layout.alignment: Qt.AlignLeft
                     }
                 }
 

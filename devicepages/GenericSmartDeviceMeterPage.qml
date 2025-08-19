@@ -96,8 +96,8 @@ GenericConfigPage {
                     }
 
                     property var infoColors: {
-                        "warning": "#fc9d03",
-                        "danger": "#eb4034",
+                        "warning": Style.warningAccent,
+                        "danger": Style.dangerAccent,
                         "none": "#ffffff"
                     }
 

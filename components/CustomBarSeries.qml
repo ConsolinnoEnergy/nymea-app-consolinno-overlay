@@ -92,15 +92,15 @@ ChartView {
         minorGridVisible: false
         lineVisible: false
         shadesVisible: false
-        labelsColor: Style.foregroundColor
+        labelsColor: root.enabled ? Style.foregroundColor : "#909090"
     }
 
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: root.enabled ? Configuration.batteryChargeColor : "#F5F5F5"
-        borderWidth: 2
-        borderColor: '#ffffff'
+        color: root.enabled ? Style.epexBarMainLineColor : Style.barSeriesDisabled
+        borderWidth: 1
+        borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
           id: mainSeries
         }
@@ -109,9 +109,9 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: root.enabled ? Configuration.epexCurrentTime : "#F5F5F5"
-        borderWidth: 2
-        borderColor: '#ffffff'
+        color: root.enabled ? Style.epexBarCurrentTime : Style.barSeriesDisabled
+        borderWidth: 1
+        borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
           id: currentValueSeries
         }
@@ -120,9 +120,9 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: '#F5F5F5'
-        borderWidth: 2
-        borderColor: '#ffffff'
+        color: Style.epexBarPricingPast
+        borderWidth: 1
+        borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
             id: pricingPast
         }
@@ -131,9 +131,9 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: root.enabled ? '#8D8B8E' : "#F5F5F5"
-        borderWidth: 2
-        borderColor: '#ffffff'
+        color: root.enabled ? Style.epexBarPricingCurrentTime : Style.barSeriesDisabled
+        borderWidth: 1
+        borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
             id: pricingCurrentTime
         }
@@ -142,9 +142,9 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: root.enabled ? '#D9D9D9' : "#F5F5F5"
-        borderWidth: 2
-        borderColor: '#ffffff'
+        color: root.enabled ? Style.epexBarPricingOutOfLimit : Style.barSeriesDisabled
+        borderWidth: 1
+        borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
             id: pricingOutOfLimit
         }
@@ -155,7 +155,7 @@ ChartView {
         axisY: valueAxis
         color: 'transparent'
         borderWidth: 1
-        borderColor: root.enabled ? Configuration.epexAverageColor : "#F5F5F5"
+        borderColor: root.enabled ? Style.epexAverageColor : Style.barSeriesDisabled
 
         upperSeries: LineSeries {
             id: priceLimitUp

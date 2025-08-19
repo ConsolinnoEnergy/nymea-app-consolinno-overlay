@@ -4,6 +4,7 @@ import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 import QtQml 2.2
+import Nymea 1.0
 
 Rectangle {
     property color backgroundColor

@@ -123,7 +123,7 @@ Page {
             }
 
 
-            TextField {
+            ConsolinnoTextField {
                 id: maxElectricalPower
                 property bool maxElectricalPower_validated
                 Layout.preferredWidth: 60
@@ -152,7 +152,7 @@ Page {
 
             }
 
-            Switch {
+            ConsolinnoSwitch {
                 id: gridSupportControl
                 Component.onCompleted: checked = heatingConfiguration.controllableLocalSystem
             }

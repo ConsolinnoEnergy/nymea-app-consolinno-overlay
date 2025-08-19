@@ -1721,7 +1721,7 @@ GenericConfigPage {
                                             axisY: valueAxis
                                             color: 'transparent'
                                             borderWidth: 1
-                                            borderColor: Configuration.epexMainLineColor
+                                            borderColor: Style.epexMainLineColor
 
 
                                             upperSeries: LineSeries {

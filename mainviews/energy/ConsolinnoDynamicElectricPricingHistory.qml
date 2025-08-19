@@ -77,7 +77,7 @@ Item {
             visible: true
         }
 
-        SelectionTabs {
+        ConsolinnoSelectionTabs {
             id: selectionTabs
             Layout.fillWidth: true
             Layout.leftMargin: Style.smallMargins
@@ -125,7 +125,7 @@ Item {
             valueAxis.adjustMax((Math.ceil(lowestPrice)),highestPrice);
         }
 
-        Text {
+        Label {
             Layout.fillWidth: true
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
@@ -133,7 +133,7 @@ Item {
             text: qsTr("Current Market Price: ") + (+currentPrice.toFixed(2)).toLocaleString() + " ct/kWh"
         }
 
-        Text {
+        Label {
             Layout.fillWidth: true
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
@@ -242,7 +242,7 @@ Item {
                     axisY: valueAxis
                     color: 'transparent'
                     borderWidth: 1
-                    borderColor: Configuration.epexMainLineColor
+                    borderColor: Style.epexMainLineColor
 
                     lowerSeries: LineSeries {
                         id: pricingLowerSeries
@@ -335,7 +335,7 @@ Item {
                     axisY: valueAxis
                     color: 'transparent'
                     borderWidth: 1
-                    borderColor: Configuration.epexAverageColor
+                    borderColor: Style.epexAverageColor
 
                     upperSeries: LineSeries {
                         id: pricingUpperSeriesAbove
@@ -349,8 +349,8 @@ Item {
 
                 ScatterSeries {
                     id: currentValuePoint
-                    borderColor: Configuration.epexMainLineColor
-                    color: Configuration.epexMainLineColor
+                    borderColor: Style.epexMainLineColor
+                    color: Style.epexMainLineColor
                     markerSize: isDynamicPrice ? 5 : parent.height / 80
                     markerShape: AbstractSeries.MarkerShapeCircle
                     axisX: dateTimeAxis
@@ -386,11 +386,11 @@ Item {
                     spacing: 5
                     Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
-                        color: Configuration.epexMainLineColor
+                        color: Style.epexMainLineColor
                         width: 8
                         height: 8
                     }
-                    Text {
+                    Label {
                         anchors.verticalCenter: parent.verticalCenter
                         font: Style.extraSmallFont
                         text: qsTr("Current market price")
@@ -402,11 +402,11 @@ Item {
                     spacing: 5
                     Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
-                        color: Configuration.epexAverageColor
+                        color: Style.epexAverageColor
                         width: 8
                         height: 8
                     }
-                    Text {
+                    Label {
                         anchors.verticalCenter: parent.verticalCenter
                         font: Style.extraSmallFont
                         text: qsTr("Average market price")
