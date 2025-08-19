@@ -8,6 +8,7 @@ import "qrc:/ui/components"
 
 Item {
     id: root
+    property Thing thing
     property int validSince: 0
     property int validUntil: 0
     property string averagePrice: ""
@@ -18,12 +19,8 @@ Item {
 
     property bool isDynamicPrice: false
 
-    property ThingsProxy electrics: ThingsProxy {
-        engine: _engine
-        shownInterfaces: ["dynamicelectricitypricing"]
-    }
-
-    readonly property Thing thing: root.electrics ? root.electrics.get(0) : null
+    readonly property var addedGridFee: thing.paramByName("addedGridFee").value
+    readonly property var addedLevies: thing.paramByName("addedGridFee").value
 
     QtObject {
         id: d
@@ -74,7 +71,21 @@ Item {
             Layout.margins: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             text: qsTr("Dynamic electricity tariff")
-            visible: true
+            visible: isDynamicPrice
+        }
+
+        ConsolinnoAlert {
+            Layout.margins: Style.margins
+            visible: (addedLevies === 0 || addedGridFee === 0)
+            backgroundColor: "#FFEE89"
+            borderColor: "#864A0D"
+            textColor: "#864A0D"
+            iconColor: "#864A0D"
+            pagePath: "../optimization/DynamicElectricityRate.qml"
+            pageStartView: "taxesAndFeesSetUp"
+
+            text: qsTr("Please provide information on taxes, surcharges, and network fees. <u>Continue to configuration</u>")
+            headerText: qsTr("Tariff details are not available")
         }
 
         ConsolinnoSelectionTabs {
@@ -118,10 +129,9 @@ Item {
 
             validSince = thing.stateByName("validSince").value
             validUntil = thing.stateByName("validUntil").value
-            currentPrice = thing.stateByName("currentMarketPrice").value
-            averagePrice = thing.stateByName("averagePrice").value.toFixed(2).toString();
-
-            consumptionSeries.insertEntry(thing.stateByName("priceSeries").value)
+            currentPrice = thing.stateByName("currentTotalCost").value
+            averagePrice = thing.stateByName("averageTotalCost").value.toFixed(2);
+            consumptionSeries.insertEntry(thing.stateByName("totalCostSeries").value)
             valueAxis.adjustMax((Math.ceil(lowestPrice)),highestPrice);
         }
 
@@ -367,7 +377,7 @@ Item {
                         var currentTime = new Date();
 
                         currentValuePoint.remove(0);
-                        currentPrice = thing.stateByName("currentMarketPrice").value;
+                        currentPrice = thing.stateByName("currentTotalCost").value;
                         currentTime.setTime(currentTime.getTime() - (15 * 60 * 1000));
 
                         currentValuePoint.append(currentTime.getTime(), currentPrice);

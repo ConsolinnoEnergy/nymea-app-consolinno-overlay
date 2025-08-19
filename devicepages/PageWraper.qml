@@ -8,16 +8,24 @@ import "qrc:/ui/components"
 Page {
     id: root
 
+    property Thing thing
+
     header: NymeaHeader {
         backButtonVisible: true
+        text: thing.name
         onBackPressed: {
             pageStack.pop()
         }
     }
 
+    Component.onCompleted: {
+        myLoader.setSource("qrc:/ui/mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml", { thing: thing })
+    }
+
     Loader{
+        id: myLoader
         anchors.fill: parent
         Layout.preferredHeight: parent / 2
-        source: "qrc:/ui/mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml"
     }
+
 }

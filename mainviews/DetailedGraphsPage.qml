@@ -67,6 +67,7 @@ Page {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
                     isDynamicPrice: root.isDynamicPrice
+                    thing: electrics.count > 0 ? electrics.get(0) : null
                     visible: electrics.count > 0
                 }
 

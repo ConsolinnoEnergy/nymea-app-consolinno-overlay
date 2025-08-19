@@ -17,6 +17,9 @@ Rectangle {
     property string dialogText
     property string dialogPicture
 
+    property string pagePath
+    property string pageStartView
+
     property alias text: screenGuideText.text
     property alias headerText: header.text
 
@@ -71,6 +74,7 @@ Rectangle {
         }
 
         MouseArea {
+            visible: iconPath.length > 1 || pagePath.length > 1
             Layout.fillWidth: true
             Layout.preferredWidth: alertContainer.width - 20
             Layout.preferredHeight: screenGuideText.height
@@ -85,11 +89,13 @@ Rectangle {
             }
 
             onClicked: {
-                if(iconPath.length > 0){
+                if(iconPath.length > 0 && pagePath.length === 0){
                     var dialog = Qt.createComponent(Qt.resolvedUrl(iconPath));
                     var text = dialogText
                     var popup = dialog.createObject(app, {headerText: dialogHeaderText, text: text, source: dialogPicture, picHeight: 280})
                     popup.open();
+                }else if(pagePath.length > 1){
+                    pageStack.push(Qt.resolvedUrl(pagePath), {startView: pageStartView})
                 }
             }
         }

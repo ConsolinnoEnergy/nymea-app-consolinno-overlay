@@ -9,248 +9,740 @@ import "../components"
 import "../delegates"
 import "../optimization"
 
-Page {
+StackView {
     id: root
+
+    property string startView
+
+    initialItem: startView === "taxesAndFeesSetUp" ? taxesAndFeesSetUp : setUpComponent
+
 
     property HemsManager hemsManager
     property string name
-
-    readonly property Thing thing: currentThing ? currentThing.get(0) : null
-
+    property bool newTariff: false
+    property Thing dynElectricThing : thing.get(0)
     property int directionID: 0
-
+    property var busyOverlay
     signal done(bool skip, bool abort, bool back);
-
-    header: NymeaHeader {
-        text: qsTr("Dynamic electricity tariff")
-        backButtonVisible: true
-        onBackPressed: {
-            if(directionID == 0) {
-                pageStack.pop()
-            }
-
-        }
-
-    }
 
     QtObject {
         id: d
         property int pendingCallId: -1
+        property var pairingTransactionId: null
+        property var params: []
+        property Thing thingToRemove
+    }
+
+    ThingsProxy {
+        id: thing
+        engine: _engine
+        shownInterfaces: ["dynamicelectricitypricing"]
+    }
+
+    ThingClassesProxy {
+        id: thingClassesProxy
+        engine: _engine
+        includeProvidedInterfaces: true
+        groupByInterface: true
+        filterInterface: "dynamicelectricitypricing"
     }
 
     Connections {
-        target: currentThing.engine.thingManager
+        id: connection
+        target: engine.thingManager
 
-        onAddThingReply: {
-            if(!thingError)
-            {
-                pageStack.push(Qt.resolvedUrl("../optimization/DynamicElectricityRateFeedback.qml"), {thingName: energyRateComboBox.currentText})
-            }else{
-                let props = qsTr("Failed to add thing: ThingErrorHardwareFailure");
-                var comp = Qt.createComponent("../components/ErrorDialog.qml")
-                var popup = comp.createObject(app, {props} )
-                popup.open();
+        onPairThingReply: {
+            if (thingError !== Thing.ThingErrorNoError) {
+                busyOverlay.shown = false;
+                pageStack.push(dynamicSetUpFeedBack, {thingError: thingError, message: displayMessage});
+                return;
+            }
+
+            d.pairingTransactionId = pairingTransactionId;
+
+            switch (setupMethod) {
+            case "SetupMethodPushButton":
+            case "SetupMethodDisplayPin":
+            case "SetupMethodEnterPin":
+            case "SetupMethodUserAndPassword":
+                pageStack.push(pairingPageComponent, {text: displayMessage, setupMethod: setupMethod})
+                break;
+            case "SetupMethodOAuth":
+                pageStack.push(oAuthPageComponent, {oAuthUrl: oAuthUrl})
+                break;
+            default:
+                print("Setup method reply not handled:", setupMethod);
+            }
+        }
+
+        onConfirmPairingReply: {
+            busyOverlay.shown = false
+            pageStack.push(dynamicSetUpFeedBack, {thingError: thingError, thingId: thingId, message: displayMessage})
+        }
+    }
+
+    Component {
+        id: setUpComponent
+        Page {
+
+            header: NymeaHeader {
+                text: qsTr("Dynamic electricity tariff")
+                backButtonVisible: true
+                onBackPressed: {
+                    if(directionID == 0) {
+                        pageStack.pop()
+                    }
+                }
+            }
+
+            ColumnLayout {
+                anchors {top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
+                spacing: 0
+
+                ColumnLayout {
+                    spacing: 0
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 0
+
+                    Label {
+                        Layout.fillWidth: true
+                        text: qsTr("Submitted Rate")
+                        wrapMode: Text.WordWrap
+                        Layout.alignment: Qt.AlignRight
+                        Layout.rightMargin: app.margins
+                        horizontalAlignment: Text.AlignRight
+                    }
+                }
+
+                VerticalDivider
+                {
+                    Layout.preferredWidth: app.width
+                    dividerColor: Material.accent
+                }
+
+                Flickable {
+                    id: flickableContainer
+                    clip: true
+
+
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    ColumnLayout {
+                        id: column
+                        Layout.topMargin: 0
+                        width: parent.width
+                        //Layout.minimumHeight: 230
+                        spacing: 0
+
+                        Repeater {
+                            id: dynamicRateRepeater
+                            model: ThingsProxy {
+                                id: erProxy
+                                engine: _engine
+                                shownInterfaces: ["dynamicelectricitypricing"]
+                            }
+                            delegate: ConsolinnoThingDelegate {
+                                implicitHeight: 50
+                                Layout.fillWidth: true
+                                iconName: Configuration.energyIcon !== "" ? "/ui/images/"+Configuration.energyIcon : "../images/energy.svg"
+                                text: model.name
+                                progressive: true
+                                canDelete: true
+                                onClicked: {
+                                    if(erProxy.get(0).thingClass.setupMethod !== 4){
+                                        pageStack.push(taxesAndFeesSetUp)
+                                    }
+                                }
+                                onDeleteClicked: {
+                                    engine.thingManager.removeThing(model.id)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Rectangle{
+                    Layout.preferredHeight: parent.height / 3
+                    Layout.fillWidth: true
+                    visible: erProxy.count === 0
+                    color: Material.background
+                    Text {
+                        text: qsTr("There is no rate set up yet")
+                        color: Material.foreground
+                        anchors.fill: parent
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignHCenter
+                    }
+                }
+
+                VerticalDivider
+                {
+                    Layout.preferredWidth: app.width
+                    dividerColor: Material.accent
+                    visible: thing.count >= 1 ? false : true
+                }
+
+                ColumnLayout {
+                    Layout.topMargin: Style.margins
+                    visible: (root.newTariff && thing.count === 0 )
+                    Label {
+                        Layout.fillWidth: true
+                        Layout.leftMargin: Style.margins
+                        text: qsTr("Add Rate: ")
+                        wrapMode: Text.WordWrap
+                    }
+
+                    ComboBox {
+                        id: energyRateComboBox
+                        Layout.leftMargin: Style.margins
+                        Layout.preferredWidth: app.width - 2*Style.margins
+                        textRole: "displayName"
+                        valueRole: "id"
+                        model: ThingClassesProxy {
+                            id: currentThing
+                            engine: _engine
+                            filterInterface: "dynamicelectricitypricing"
+                            includeProvidedInterfaces: true
+                        }
+                    }
+                }
+
+                ColumnLayout {
+                    spacing: 0
+                    Layout.alignment: Qt.AlignHCenter
+                    visible: thing.count >= 1 ? false : true
+
+                    Button {
+                        id: addButton
+                        text: qsTr("Add Rate")
+                        Layout.preferredWidth: app.width - 2*Style.margins
+                        Layout.alignment: Qt.AlignHCenter
+                        property ThingClass thingClass: thingClassesProxy.get(energyRateComboBox.currentIndex)
+                        onClicked: {
+                            if(!root.newTariff) {
+                              root.newTariff = true;
+                              addButton.text = qsTr("Next");
+                              return;
+                            }
+
+                            if(thingClass.setupMethod !== 4){
+                                pageStack.push(taxesAndFeesSetUp, {comboBoxValue: energyRateComboBox.currentValue, comboBoxCurrentText: energyRateComboBox.currentText, comboBoxCurrentIndex: energyRateComboBox.currentIndex, thingClass: thingClass} );
+                            }else{
+                                pageStack.push(oAuthPageComponent, {comboBoxValue: energyRateComboBox.currentValue, comboBoxCurrentText: energyRateComboBox.currentText, comboBoxCurrentIndex: energyRateComboBox.currentIndex} );
+                                engine.thingManager.pairThing(energyRateComboBox.currentValue, {} ,energyRateComboBox.currentText)
+                            }
+                        }
+                    }
+
+                    ConsolinnoSetUpButton {
+                        text: qsTr("Cancel")
+                        backgroundColor: "transparent"
+                        onClicked: {
+                            pageStack.pop()
+                        }
+                    }
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                }
             }
         }
     }
 
+    Component {
+        id: taxesAndFeesSetUp
 
-    ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
-        width: Math.min(parent.width - Style.margins * 2, 300)
+        Page {
 
+            property var comboBoxValue
+            property string comboBoxCurrentText: ""
+            property int comboBoxCurrentIndex: 0
+            property bool reconfiguration: false
+            property bool btnDelete: false
+            property var thingClass
 
-        ColumnLayout {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-
-            Label {
-            Layout.fillWidth: true
-            text: qsTr("Submitted Rate:")
-            wrapMode: Text.WordWrap
-            Layout.alignment: Qt.AlignLeft
-            horizontalAlignment: Text.AlignLeft
-        }
-
-
-        VerticalDivider
-        {
-            Layout.preferredWidth: app.width - 2* Style.margins
-            dividerColor: Material.accent
-        }
-
-        Flickable{
-            id: energyRateFlickable
-            clip: true
-            width: parent.width
-            height: parent.height
-            contentHeight: energyRateFlickable.height
-            contentWidth: app.width
-            visible: erProxy.count !== 0
-
-            Layout.alignment: Qt.AlignHCenter
-            Layout.preferredHeight: app.height/3
-            Layout.preferredWidth: app.width
-            flickableDirection: Flickable.VerticalFlick
-
-            ColumnLayout{
-                id: energyRateFlickableList
-                Layout.preferredWidth: app.width
-                Layout.fillHeight: true
-                Repeater{
-                    id: energyRateRepeater
-                    Layout.preferredWidth: app.width
-                    model: ThingsProxy {
-                        id: erProxy
-                        engine: _engine
-                        shownInterfaces: ["dynamicelectricitypricing"]
+            header: ConsolinnoHeader {
+                text: qsTr("Dynamic electricity tariff")
+                backButtonVisible: true
+                menuOptionsButtonVisible: thing.count > 0 && reconfiguration == false
+                onMenuOptionsPressed: menu.open()
+                onBackPressed: {
+                    if(directionID >= 0) {
+                        pageStack.pop()
                     }
-                    delegate: ItemDelegate{
-                        Layout.preferredWidth: app.width
-                        contentItem: ConsolinnoItemDelegate{
-                            id: energyIcon
-                            Layout.fillWidth: true
-                            iconName: {
-                                if(Configuration.energyIcon !== ""){
-                                    return "/ui/images/"+Configuration.energyIcon;
-                                }else{
-                                    return "../images/energy.svg"
-                                }
+                }
+            }
+
+            ListModel {
+                id: menuListModel
+
+                ListElement {
+                    icon: "/ui/images/delete.svg"
+                    text: qsTr("Delete")
+                }
+
+                ListElement {
+                    icon: "/ui/images/configure.svg"
+                    text: qsTr("Reconfigure")
+                }
+            }
+
+            Connections {
+                target: engine.thingManager
+                onThingRemoved: {
+                    if(btnDelete === true){
+                        busyOverlay.shown === false
+                        pageStack.pop()
+                    }
+                }
+            }
+
+            Menu {
+                id: menu
+
+                x:root.width - width
+                modal: true
+
+                Repeater {
+                    id: menuListRepeater
+
+                    model: menuListModel
+
+                    Item {
+                        width: ListView.view.width
+                        height: 56
+
+                        RowLayout {
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                                leftMargin: 16
+                                rightMargin: 16
                             }
-                            progressive: false
-                            text: erProxy.get(index) ? erProxy.get(index).name : ""
+
+                            height: parent.height / 2
+                            anchors.verticalCenter: parent.verticalCenter
+                            spacing: 24
+
+                            ColorIcon {
+                                Layout.fillHeight: false
+                                Layout.fillWidth: false
+                                Layout.preferredHeight: 24
+                                Layout.preferredWidth: 24
+                                source: model.icon
+                            }
+
+                            Label {
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                text: model.text
+                                font.pixelSize: app.mediumFont
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
                             onClicked: {
+                                if(index === 0){
+                                    btnDelete = true
+                                    busyOverlay.shown === true
+                                    engine.thingManager.removeThing(dynElectricThing.id)
+                                }else if(index === 1){
+                                    pageStack.push(taxesAndFeesSetUp, {thingClass: dynElectricThing.thingClass, reconfiguration: true})
+                                }
+                                menu.close();
                             }
-
-                            Image {
-                                id: icons
-                                height: 24
-                                width: 24
-                                source: energyIcon.iconName
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 16
-                                z: 2
-                            }
-
-                            ColorOverlay {
-                                anchors.fill: icons
-                                source: icons
-                                color: Style.consolinnoMedium
-                                z: 3
-                            }
-
                         }
                     }
                 }
             }
 
-        }
+            function addParamValues(){
+                var params = []
+                for (var i = 0; i < thingClass.paramTypes.count; i++) {
+                    var param = {}
+                    var paramId = thingClass.paramTypes.get(i).id
+                    var paramName = thingClass.paramTypes.get(i).name
+                    if(paramName === "marketArea"){
+                        param.paramTypeId = paramId
+                        param.value = countryCode.currentText
+                    }else if(paramName === "addedGridFee"){
+                        param.paramTypeId = paramId
+                        param.value = parseFloat(addedGridFee.text.replace(",","."))
+                    }else if(paramName === "addedLevies"){
+                        param.paramTypeId = paramId
+                        param.value = parseFloat(addedLevies.text.replace(",","."))
+                    }
+                    params.push(param)
+                    d.params = params
+                }
+            }
 
-        Rectangle{
-        Layout.preferredHeight: app.height/3
-        Layout.fillWidth: true
-        visible: erProxy.count === 0
-        color: Material.background
-            Text {
-                text: qsTr("There is no rate set up yet")
-                color: Material.foreground
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignLeft
-                verticalAlignment: Text.AlignLeft
+            ColumnLayout {
+                anchors {top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
+                Layout.fillWidth: true
+                spacing: 0
+
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    spacing: 0
+
+                    ColumnLayout {
+                        spacing: 0
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        Layout.topMargin: app.margins
+                        Layout.fillWidth: true
+
+                        Label {
+                            Layout.fillWidth: true
+                            rightPadding: 16
+                            text: qsTr("Select a location")
+                        }
+                    }
+
+                    RowLayout {
+                        spacing: 0
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        Layout.fillWidth: true
+
+                        ComboBox {
+                            property var paramsValueArray: dynElectricThing.thingClass.paramTypes.get(2).allowedValues
+                            model: thingClass ? thingClass.paramTypes.get(2).allowedValues : dynElectricThing.thingClass.paramTypes.get(2).allowedValues
+                            id: countryCode
+                            Layout.fillWidth: true
+                            currentIndex: paramsValueArray.indexOf(dynElectricThing.paramByName("marketArea").value)
+
+                            MouseArea {
+                                anchors.fill: parent
+                                acceptedButtons: Qt.AllButtons
+                                onPressed: {
+                                    mouse.accepted = (thing.count >= 1 && reconfiguration === false) ? true : false
+                                }
+                            }
+
+                        }
+                    }
+
+                    RowLayout {
+                        spacing: 0
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        Layout.fillWidth: true
+
+                        Label {
+                            Layout.fillWidth: true
+                            rightPadding: 16
+                            text: qsTr("Network charges")
+                        }
+
+                        TextField {
+                            id: addedGridFee
+                            Layout.rightMargin: 12
+                            validator: RegExpValidator { regExp: /^[0-9.,]*$/ }
+                            inputMethodHints: Qt.ImhFormattedNumbersOnly
+                            text: (dynElectricThing.paramByName("addedGridFee").value).toLocaleString()
+                            readOnly: (thing.count >= 1 && reconfiguration === false) ? true : false
+                        }
+
+                        Label {
+                            text: "ct/kWh"
+                        }
+                    }
+
+                    RowLayout {
+                        spacing: 0
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        Layout.fillWidth: true
+
+                        Label {
+                            rightPadding: 16
+                            Layout.fillWidth: true
+                            text: qsTr("Taxes & fees")
+                        }
+
+                        TextField {
+                            id: addedLevies
+                            Layout.rightMargin: 12
+                            validator: RegExpValidator { regExp: /^[0-9.,]*$/ }
+                            inputMethodHints: Qt.ImhFormattedNumbersOnly
+                            text: (dynElectricThing.paramByName("addedLevies").value).toLocaleString()
+                            readOnly: (thing.count >= 1 && reconfiguration === false) ? true : false
+                        }
+
+                        Label {
+                            text: "ct/kWh"
+                        }
+                    }
+
+                    Label {
+                        id: footer
+                        Layout.fillWidth: true
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        color: "red"
+                        wrapMode: Text.WordWrap
+                        font.pixelSize: app.smallFont
+                    }
+
+                    ColumnLayout {
+                        spacing: 0
+                        Layout.alignment: Qt.AlignHCenter
+                        visible: (thing.count > 0 && reconfiguration === false) ? false : true
+
+                        Button {
+                            id: saveButton
+                            text: qsTr("Save")
+                            Layout.preferredWidth: app.width - 2*Style.margins
+                            Layout.alignment: Qt.AlignHCenter
+                            onClicked: {
+                                if(parseFloat(addedGridFee.text) > 0 && parseFloat(addedLevies.text) > 0){
+                                    addParamValues();
+                                    if(reconfiguration === false){
+                                        pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText});
+                                        engine.thingManager.addThing(comboBoxValue, comboBoxCurrentText, d.params);
+
+                                    }else{
+                                        engine.thingManager.removeThing(dynElectricThing.id)
+                                        engine.thingManager.addThing(dynElectricThing.thingClass.id, dynElectricThing.name, d.params);
+                                        pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText: dynElectricThing.name, reconfiguration: true});
+                                    }
+                                }else {
+                                    footer.text = qsTr("Please enter taxes and duties. The value cannot be empty or 0.")
+                                }
+                            }
+                        }
+
+                        ConsolinnoSetUpButton {
+                            text: qsTr("Cancel")
+                            backgroundColor: "transparent"
+                            onClicked: {
+                                if(directionID === 0){
+                                    pageStack.pop()
+                                    pageStack.pop()
+                                }else{
+                                    pageStack.pop()
+                                }
+                                dynElectricThing = null
+                            }
+                        }
+                    }
+
+                    Item {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                    }
+
+                }
+
+                BusyOverlay {
+                    id: busyOverlay
+                }
             }
         }
-
-        VerticalDivider
-        {
-            Layout.preferredWidth: app.width - 2* Style.margins
-            dividerColor: Material.accent
-        }
-
     }
 
-        ColumnLayout {
-            Layout.topMargin: Style.margins
-            visible: erProxy.count === 0
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Add Rate: ")
-                wrapMode: Text.WordWrap
-            }
+    Component {
+        id: oAuthPageComponent
+        Page {
+            id: oAuthPage
+            property string oAuthUrl
 
-            ComboBox {
-                id: energyRateComboBox
-                Layout.preferredWidth: app.width - 2*Style.margins
-                textRole: "displayName"
-                valueRole: "id"
-                model: ThingClassesProxy {
-                    id: currentThing
-                    engine: _engine
-                    filterInterface: "dynamicelectricitypricing"
-                    includeProvidedInterfaces: true
+            header: NymeaHeader {
+                text: qsTr("Zewotherm setup")
+                onBackPressed: {
+                    pageStack.pop()
+                    pageStack.pop()
                 }
             }
-        }
 
-        Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
+            ColumnLayout {
+                anchors.centerIn: parent
+                width: parent.width - app.margins * 2
+                spacing: app.margins * 2
 
-        ColumnLayout {
-            spacing: 0
-            Layout.alignment: Qt.AlignHCenter
-            visible: true
-            Button {
-                text: qsTr("cancel")
-                Layout.preferredWidth: 200
-                onClicked:
+                Label {
+                    Layout.fillWidth: true
+                    text: qsTr("OAuth is not supported on this platform. Please use this app on a different device to set up this thing.")
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignHCenter
+                }
+
+                Label {
+                    Layout.fillWidth: true
+                    text: qsTr("In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.")
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: app.smallFont
+                    horizontalAlignment: Text.AlignHCenter
+                }
+            }
+
+            Item {
+                id: webViewContainer
+                anchors.fill: parent
+
+                Component.onCompleted: {
+                    // This might fail if qml-module-qtwebview isn't around
+                    var webView = Qt.createQmlObject(webViewString, webViewContainer);
+                    print("created webView", webView)
+                }
+
+                property string webViewString:
+                    '
+                    import QtQuick 2.8;
+                    import QtWebView 1.1;
+                    import QtQuick.Controls 2.2
+                    import Nymea 1.0;
+
+                    Rectangle {
+                        anchors.fill: parent
+                        color: Style.backgroundColor
+
+                        BusyIndicator {
+                            id: busyIndicator
+                            anchors.centerIn: parent
+                            running: oAuthWebView.loading
+                        }
+
+                        WebView {
+                            id: oAuthWebView
+                            anchors.fill: parent
+                            url: oAuthPage.oAuthUrl
+
+                            onUrlChanged: {
+                                print("OAUTH URL changed", url)
+                                if (url.toString().indexOf("https://127.0.0.1") == 0) {
+                                    print("Redirect URL detected!");
+                                    engine.thingManager.confirmPairing(d.pairingTransactionId, url)
+                                    busyIndicator.running = true
+                                    oAuthWebView.visible = false
+                                }
+                            }
+                        }
+                    }
+                    '
+            }
+        }
+    }
+
+    Component {
+        id: dynamicSetUpFeedBack
+
+        Page {
+            id: dynamicSetUpFeedBackPage
+
+            property string comboBoxCurrentText: ""
+            property bool reconfiguration: false
+
+            Connections {
+                target: engine.thingManager
+
+                onAddThingReply: {
+                    if(!thingError)
+                    {
+                        busyOverlay.shown = false;
+                        dynElectricThing = engine.thingManager.things.getThing(thingId);
+                    }else{
+                        let props = qsTr("Failed to add thing: ThingErrorHardwareFailure");
+                        var comp = Qt.createComponent("../components/ErrorDialog.qml")
+                        var popup = comp.createObject(app, {props} )
+                        popup.open();
+                    }
+                }
+            }
+
+            Component.onCompleted: {
+                busyOverlay.shown = true;
+            }
+
+            header: ConsolinnoHeader {
+                text: qsTr("Dynamic electricity tariff")
+                Layout.preferredWidth: app.width - 2*Style.margins
+                backButtonVisible: true
+                onBackPressed: {
                     if(directionID == 0) {
+                        dynElectricThing = null
                         pageStack.pop()
                     }
-            }
-            Button {
-                id: addButton
-                text: qsTr("add")
-                Layout.preferredWidth: 200
-                Layout.alignment: Qt.AlignLeft
-                visible: erProxy.count === 0
-                onClicked: {
-                    timer1.start()
                 }
             }
 
+            ColumnLayout {
+                anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right; }
+                spacing: 0
 
-            Timer {
-                id: timer1
+                ColumnLayout {
+                    Layout.fillWidth: true
 
-                interval: 300
-                running: false
-                repeat: false
+                    Text {
+                        Layout.fillWidth: true
+                        Layout.preferredWidth: app.width - 2*Style.margins
+                        Layout.preferredHeight: 50
+                        color: Material.foreground
+                        text: qsTr("The following tariff is submitted:")
+                        wrapMode: Text.WordWrap
+                        Layout.alignment: Qt.AlignHCenter
+                        horizontalAlignment: Text.Center
+                    }
 
-                onTriggered: {
-                    currentThing.engine.thingManager.addThing(energyRateComboBox.currentValue, energyRateComboBox.currentText, 0)
+                    Text {
+                        id: electricityRate
+                        Layout.preferredWidth: app.width - 2*Style.margins
+                        color: Material.foreground
+                        text: qsTr(comboBoxCurrentText)
+                        Layout.alignment: Qt.AlignCenter
+                        horizontalAlignment: Text.Center
+                    }
+
+                    Image {
+                        id: succesAddElectricRate
+                        Layout.preferredWidth: 150
+                        Layout.preferredHeight: 150
+                        fillMode: Image.PreserveAspectFit
+                        Layout.alignment: Qt.AlignCenter
+                        source: "../images/tick.svg"
+                    }
+
+                    ColorOverlay {
+                        anchors.fill: succesAddElectricRate
+                        source: succesAddElectricRate
+                        color: Material.accent
+                    }
+
+                }
+
+                ColumnLayout {
+                    spacing: 0
+                    Layout.alignment: Qt.AlignHCenter
+
+                    Button {
+                        id: nextButton
+                        text: qsTr("Next")
+                        Layout.preferredWidth: 250
+                        Layout.alignment: Qt.AlignHCenter
+                        onClicked: {
+                            if(reconfiguration === false){
+                                pageStack.pop()
+                                pageStack.pop()
+                            }else{
+                                pageStack.pop()
+                                pageStack.pop()
+                                pageStack.pop()
+                            }
+                        }
+                    }
                 }
             }
 
-        }
-
-        VerticalDivider
-        {
-            Layout.preferredWidth: app.width - 2* Style.margins
-            dividerColor: Material.accent
-            visible: erProxy.count !== 0
-        }
-
-        ColumnLayout {
-            visible: false
-            Layout.alignment: Qt.AlignHCenter
-            Layout.preferredHeight: 200
-            Text {
-               text: qsTr("There are currently no settings options available")
+            BusyOverlay {
+                id: busyOverlay
             }
         }
-
-
     }
 }

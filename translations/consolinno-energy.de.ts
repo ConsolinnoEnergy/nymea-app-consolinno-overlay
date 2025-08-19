@@ -136,10 +136,6 @@
         <translation>Nullvergütung vermeiden</translation>
     </message>
     <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation>An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
-    </message>
-    <message>
         <source>Market price</source>
         <translation type="unfinished">Börsenpreis</translation>
     </message>
@@ -154,6 +150,10 @@
     <message>
         <source>SoC with controller</source>
         <translation type="unfinished">SoC mit Nullvergütung vermeiden</translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
+        <translation type="unfinished">An Tagen mit negativen Strompreisen an der Strombörse wird aktiv Batteriekapazität freigehalten, um in den Stunden mit diesen negativen Börsenstrompreisen gezielt die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald diese Regelung aktiv ist, wird das Laden der Batterie limitiert (sichtbar an der gelben Meldung im Screen). Die Steuerung basiert auf der Vorhersage der PV-Produktion und des Hausverbrauchs und verschiebt die Ladung entsprechend.</translation>
     </message>
 </context>
 <context>
@@ -227,16 +227,16 @@
         <translation type="unfinished">Nullvergütung vermeiden</translation>
     </message>
     <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation type="unfinished">An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
-    </message>
-    <message>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation type="unfinished">Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
     </message>
     <message>
         <source>Avoid zero compensation active</source>
         <translation type="unfinished">Nullvergütung vermeiden aktiv</translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
+        <translation type="unfinished">An Tagen mit negativen Strompreisen an der Strombörse wird aktiv Batteriekapazität freigehalten, um in den Stunden mit diesen negativen Börsenstrompreisen gezielt die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald diese Regelung aktiv ist, wird das Laden der Batterie limitiert (sichtbar an der gelben Meldung im Screen). Die Steuerung basiert auf der Vorhersage der PV-Produktion und des Hausverbrauchs und verschiebt die Ladung entsprechend.</translation>
     </message>
 </context>
 <context>
@@ -1123,6 +1123,14 @@
     <message>
         <source>Average electricity price</source>
         <translation type="unfinished">Durchschnittlicher Strompreis</translation>
+    </message>
+    <message>
+        <source>Please provide information on taxes, surcharges, and network fees. &lt;u&gt;Continue to configuration&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tariff details are not available</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2867,10 +2875,6 @@ fügen Sie eine weitere hinzu.</translation>
 <context>
     <name>DynamicElectricityRate</name>
     <message>
-        <source>Submitted Rate:</source>
-        <translation>Gewählte Anbieter:</translation>
-    </message>
-    <message>
         <source>There is no rate set up yet</source>
         <translation>Es sind noch keine Tarife angelegt</translation>
     </message>
@@ -2879,24 +2883,72 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Tarif hinzufügen: </translation>
     </message>
     <message>
-        <source>cancel</source>
-        <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>add</source>
-        <translation>hinzufügen</translation>
-    </message>
-    <message>
-        <source>There are currently no settings options available</source>
-        <translation>Es sind momentan keine Einstellungen verfügbar</translation>
-    </message>
-    <message>
         <source>Dynamic electricity tariff</source>
         <translation>Dynamischer Stromtarif</translation>
     </message>
     <message>
         <source>Failed to add thing: ThingErrorHardwareFailure</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
+    </message>
+    <message>
+        <source>Add Rate</source>
+        <translation type="unfinished">Neuen Tarif hinzufügen</translation>
+    </message>
+    <message>
+        <source>Submitted Rate</source>
+        <translation type="unfinished">Eingerichteter Tarif</translation>
+    </message>
+    <message>
+        <source>The following tariff is submitted:</source>
+        <translation type="unfinished">Der folgende Stromtarif wurde eingerichtet:</translation>
+    </message>
+    <message>
+        <source>Network charges</source>
+        <translation type="unfinished">Netzentgelte</translation>
+    </message>
+    <message>
+        <source>Taxes &amp; fees</source>
+        <translation type="unfinished">Steuern &amp; Abgaben</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Speichern</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Löschen</translation>
+    </message>
+    <message>
+        <source>Reconfigure</source>
+        <translation type="unfinished">Neu Konfigurieren</translation>
+    </message>
+    <message>
+        <source>Select a location</source>
+        <translation type="unfinished">Standort auswählen</translation>
+    </message>
+    <message>
+        <source>Zewotherm setup</source>
+        <translation type="unfinished">Zewotherm einrichten</translation>
+    </message>
+    <message>
+        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter taxes and duties. The value cannot be empty or 0.</source>
+        <translation type="unfinished">Bitte geben Sie Steuern und Abgaben an. Der Wert darf nicht leer oder 0 sein.</translation>
     </message>
 </context>
 <context>

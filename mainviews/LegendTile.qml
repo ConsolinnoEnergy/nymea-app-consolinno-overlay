@@ -17,7 +17,7 @@ MouseArea {
     property Thing thing: null
     property string isNotify: ""
     readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
-    readonly property State currentMarketPriceState: thing ? thing.stateByName("currentMarketPrice") : null
+    readonly property State currentMarketPriceState: thing ? thing.stateByName("currentTotalCost") : null
     readonly property bool isProducer: thing && thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0
     readonly property bool isBattery: thing && thing.thingClass.interfaces.indexOf("energystorage") >= 0
     readonly property bool isHeatingRod: thing && thing.thingClass.interfaces.indexOf("smartmeterconsumer") >= 0

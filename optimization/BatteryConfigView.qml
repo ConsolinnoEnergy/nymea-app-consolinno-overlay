@@ -160,7 +160,7 @@ GenericConfigPage {
 
                     iconPath: "../components/ConsolinnoDialog.qml"
                     dialogHeaderText: qsTr("Avoid zero compensation")
-                    dialogText: qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
+                    dialogText: qsTr("On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.")
                     dialogPicture: "../images/avoidZeroCompansation.svg"
 
                     text: qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
@@ -414,11 +414,11 @@ GenericConfigPage {
                             if(!dpThing)
                                 return;
 
-                            currentPrice = dpThing.stateByName("currentMarketPrice").value
-                            averagePrice = dpThing.stateByName("averagePrice").value.toFixed(0).toString();
+                            currentPrice = dpThing.stateByName("currentTotalCost").value
+                            averagePrice = dpThing.stateByName("averageTotalCost").value.toFixed(0).toString();
                             lowestPrice = dpThing.stateByName("lowestPrice").value
                             highestPrice = dpThing.stateByName("highestPrice").value
-                            barSeries.addValues(dpThing.stateByName("priceSeries").value)
+                            barSeries.addValues(dpThing.stateByName("totalCostSeries").value)
                         }
 
                         QtObject {
@@ -505,7 +505,7 @@ GenericConfigPage {
                                   saveButton.enabled = batteryConfiguration.priceThreshold !== currentValue;
 
                                   barSeries.clearValues();
-                                  barSeries.addValues(dynamicPrice.get(0).stateByName("priceSeries").value);
+                                  barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value);
                                 }
                                 from: -50
                                 to: 50
