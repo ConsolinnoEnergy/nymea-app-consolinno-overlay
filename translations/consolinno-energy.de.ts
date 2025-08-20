@@ -2737,17 +2737,12 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.10.0&lt;/p&gt;
-&lt;h4&gt;Neu&lt;/h4&gt;
+        <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
+&lt;p&gt;Version 1.10.1&lt;/p&gt;
+&lt;h4&gt;Wartungs- und Kompatibilitätsupdates&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Netzdienlichkeit über EEBUS-Steuerbox&lt;/li&gt;
-    &lt;li&gt;Einrichtungsassistent für Netzdienlichkeit&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4&gt;Verbesserungen&lt;/h4&gt;
-&lt;ul&gt;
-    &lt;li&gt;Verbesserte Wärmepumpensteuerung über SG-Ready&lt;/li&gt;
+    &lt;li&gt;Aktualisierung des iOS-Bereitstellungsprofils&lt;/li&gt;
+    &lt;li&gt;Aktualisierung der Ziel-API für Android (35)&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
