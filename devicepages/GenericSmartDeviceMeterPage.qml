@@ -45,7 +45,7 @@ GenericConfigPage {
 
     property bool isRootmeter: false
     property bool isBatteryView: false
-    property string isNotify: ""
+    property bool isNotify: false
 
     title: root.thing.name
 
@@ -105,25 +105,25 @@ GenericConfigPage {
                         "none": "#ffffff"
                     }
 
-                    property string currentState: isNotify === "shutoff" && isRootmeter ? "blocked" : isNotify === "limited" && isRootmeter ? "limited" : "unrestricted"
+                    property string currentState: isNotify === true && isRootmeter ? "limited" : "unrestricted"
 
                     ConsolinnoAlert {
                         id: avoidZeroCompensation
                         Layout.rightMargin: app.margins
                         Layout.leftMargin: app.margins
                         width: containerAvoidZeroCompensation.width
-                        visible: isBatteryView && isZeroCompensation || (isNotify === "shutoff" || isNotify === "limited") && isRootmeter
+                        visible: isBatteryView && isZeroCompensation || (isNotify === true && isRootmeter)
 
-                        backgroundColor: containerAvoidZeroCompensation.infoColors[containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].backgroundColor]
-                        borderColor: containerAvoidZeroCompensation.infoColors[containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].color]
-                        textColor: containerAvoidZeroCompensation.infoColors[containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].color]
-                        iconColor: containerAvoidZeroCompensation.infoColors[containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].color]
-                        imagePath: (isNotify != "" && isRootmeter) ? "" : "../components/ConsolinnoDialog.qml"
-                        dialogHeaderText: (isNotify != "" && isRootmeter) ? "" : qsTr("Avoid zero compensation")
-                        dialogText: (isNotify != "" && isRootmeter) ? "" : qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
-                        dialogPicture: (isNotify != "" && isRootmeter) ? "" : "../images/avoidZeroCompansation.svg"
-                        text: (isNotify != "" && isRootmeter) ? containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].content : qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
-                        headerText: (isNotify != "" && isRootmeter) ? containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].header : qsTr("Avoid zero compensation active")
+                        backgroundColor: Style.warningBackground
+                        borderColor: Style.warningAccent
+                        textColor: Style.warningAccent
+                        iconColor: Style.warningAccent
+                        imagePath: (isNotify === true && isRootmeter) ? "" : "../components/ConsolinnoDialog.qml"
+                        dialogHeaderText: (isNotify === true && isRootmeter) ? "" : qsTr("Avoid zero compensation")
+                        dialogText: (isNotify === true && isRootmeter) ? "" : qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
+                        dialogPicture: (isNotify === true && isRootmeter) ? "" : "../images/avoidZeroCompansation.svg"
+                        text: (isNotify === true && isRootmeter) ? containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].content : qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
+                        headerText: (isNotify === true && isRootmeter) ? containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].header : qsTr("Avoid zero compensation active")
                     }
                 }
             }

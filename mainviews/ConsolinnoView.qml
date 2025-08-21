@@ -682,7 +682,7 @@ MainViewBase {
         property int hours: 24
         readonly property var consumersColors: Configuration.consumerColors
         readonly property color electricsColor: Style.epexColor
-        property string currentGridValueState: ""
+        property bool currentGridValueState: false
 
         Canvas {
             id: linesCanvas
@@ -723,7 +723,7 @@ MainViewBase {
                 ctx.fillStyle = Style.foregroundColor
 
 
-                lsdChart.currentGridValueState = gridSupport.get(0) !== null ? gridSupport.get(0).stateByName("plimStatus").value : ""
+                lsdChart.currentGridValueState = gridSupport.get(0).stateByName("isLpcActive") !== null ? gridSupport.get(0).stateByName("isLpcActive").value : false
 
                 var maxCurrentPower = rootMeter ? Math.abs(
                                                       rootMeter.stateByName(

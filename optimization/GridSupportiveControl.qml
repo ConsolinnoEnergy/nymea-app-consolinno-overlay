@@ -17,16 +17,15 @@ StackView {
     property bool setupFinishedRelay: false
     property Thing gridSupportThing: gridSupport.get(0)
     property Thing eeBusThing: eebusThing.get(0)
-    property int powerLimit: gridSupportThing.stateByName("plim").value
+    property double powerLimit: gridSupportThing.stateByName("lpcValue").value
     property string powerLimitSource: gridSupportThing.settings.get(0).value
 
     property bool eebusState: eeBusThing ? eeBusThing.stateByName("connected").value : false
     property string colorsEEBUS: (!eebusSettings.connected && !eebusSettings.everConnected) ? "#F7B772" : eebusState == true ? "#BDD786" : "#F37B8E"
     property string textEEBUS: (!eebusSettings.connected && !eebusSettings.everConnected) ? qsTr("Confirmation by network operator pending.") : eebusState == true ? qsTr("connected") : qsTr("not connected")
 
-    property string currentState: gridSupportThing.stateByName("plimStatus").value
-    property string colorsPlim: currentState === "shutoff" ? "#eb4034" : currentState === "limited" ? "#fc9d03" : "#ffffff"
-    property string contentPlim: currentState === "shutoff" ? qsTr("The consumption is <b>temporarily blocked</b> on the basis of a control signal from the grid operator.") : currentState === "limited" ? qsTr("Consumption is <b>temporarily reduced</b> to a maximum of <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimit)) : ""
+    property bool currentState: gridSupportThing.stateByName("isLpcActive").value
+    property string contentPlim: currentState === true ? qsTr("Consumption is <b>temporarily reduced</b> to a maximum of <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimit)) : ""
 
 
     Settings {
@@ -136,7 +135,7 @@ StackView {
                     }
 
                     ConsolinnoAlert {
-                        visible: currentState !== "unrestricted" && powerLimitSource !== "none"
+                        visible: currentState === true && powerLimitSource !== "none"
                         backgroundColor: Style.warningBackground
                         borderColor: Style.warningAccent
                         textColor: Style.warningAccent

@@ -15,7 +15,7 @@ MouseArea {
     property color color: "white"
     property color negativeColor: root.color
     property Thing thing: null
-    property string isNotify: ""
+    property bool isNotify: false
     readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
     readonly property State currentMarketPriceState: thing ? thing.stateByName("currentTotalCost") : null
     readonly property bool isProducer: thing && thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0
@@ -188,14 +188,14 @@ MouseArea {
                         radius: 180
                         border.width: 2
                         border.color: Style.red
-                        visible: (isNotify === "shutoff" || isNotify === "limited") && isRootmeter
+                        visible: (isNotify === true) && isRootmeter
 
                         Image {
                             anchors.fill: parent
                             anchors.margins: border.width
                             fillMode: Image.PreserveAspectFit
                             source: "/ui/images/attention.svg"
-                            visible: (isNotify === "shutoff" || isNotify === "limited") && isRootmeter
+                            visible: (isNotify === true) && isRootmeter
 
                             layer {
                                 enabled: true
