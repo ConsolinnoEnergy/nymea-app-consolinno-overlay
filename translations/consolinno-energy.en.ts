@@ -2728,11 +2728,15 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.10.1&lt;/p&gt;
-&lt;h4&gt;Technical Maintenance &amp; Compatibility Updates&lt;/h4&gt;
+&lt;p&gt;Version 1.11.0&lt;/p&gt;
+&lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Update of the iOS provisioning profile&lt;/li&gt;
-    &lt;li&gt;Update of the target API for Android (35)&lt;/li&gt;
+    &lt;li&gt;Dynamic electricity tariffs: Automatic optimization based on  end customer electricity price&lt;/li&gt;
+    &lt;li&gt;NOMOS integration: Electricity tariffs via NOMOS &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;New&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;More countries: EPEX price data available for additional markets&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -3302,11 +3306,15 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
+        <source>Consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <source>Existing setup will be overwritten.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Attention</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4054,10 +4062,6 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>EEBUS Wallbox</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4067,6 +4071,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4244,10 +4252,6 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>EEBUS heat pump</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4257,6 +4261,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

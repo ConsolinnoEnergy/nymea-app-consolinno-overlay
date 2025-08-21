@@ -2737,12 +2737,16 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.10.1&lt;/p&gt;
-&lt;h4&gt;Wartungs- und Kompatibilitätsupdates&lt;/h4&gt;
+        <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
+&lt;p&gt;Version 1.11.0&lt;/p&gt;
+&lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Aktualisierung des iOS-Bereitstellungsprofils&lt;/li&gt;
-    &lt;li&gt;Aktualisierung der Ziel-API für Android (35)&lt;/li&gt;
+    &lt;li&gt;Dynamische Stromtarife: Automatische Optimierung basierend auf  Endkundenstrompreis&lt;/li&gt;
+    &lt;li&gt;NOMOS-Integration: Stromtarife über NOMOS &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Verbessert&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;Mehr Länder: EPEX-Preisdaten für weitere Märkte verfügbar&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -3322,12 +3326,16 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Netzdienlichkeit einrichten – Relais</translation>
     </message>
     <message>
-        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
-        <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend blockiert&lt;/b&gt;.</translation>
-    </message>
-    <message>
         <source>Consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
         <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend auf maximal %1 kW limitiert&lt;/b&gt;.</translation>
+    </message>
+    <message>
+        <source>Existing setup will be overwritten.</source>
+        <translation type="unfinished">Bestehende Einrichtungen werden überschrieben.</translation>
+    </message>
+    <message>
+        <source>Attention</source>
+        <translation type="unfinished">Achtung</translation>
     </message>
 </context>
 <context>
