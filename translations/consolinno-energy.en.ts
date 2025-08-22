@@ -2728,15 +2728,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.11.0&lt;/p&gt;
+&lt;p&gt;Version 1.12.0&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Dynamic electricity tariffs: Automatic optimization based on  end customer electricity price&lt;/li&gt;
-    &lt;li&gt;NOMOS integration: Electricity tariffs via NOMOS &lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;New&lt;/h4&gt;
-&lt;ul&gt;
-    &lt;li&gt;More countries: EPEX price data available for additional markets&lt;/li&gt;
+    &lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -3163,6 +3158,14 @@ Use a timeout value greater or equal to 10 ms.</source>
         <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Feed-in curtailment</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GridConsumptionInfo</name>
@@ -3315,6 +3318,14 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Attention</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Feed-in curtailment</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -683,6 +683,7 @@ MainViewBase {
         readonly property var consumersColors: Configuration.consumerColors
         readonly property color electricsColor: Style.epexColor
         property bool currentGridValueState: false
+        property bool currentGridValueStateLPP: false
 
         Canvas {
             id: linesCanvas
@@ -724,6 +725,7 @@ MainViewBase {
 
 
                 lsdChart.currentGridValueState = gridSupport.get(0).stateByName("isLpcActive") !== null ? gridSupport.get(0).stateByName("isLpcActive").value : false
+                lsdChart.currentGridValueStateLPP = gridSupport.get(0).stateByName("isLppActive") !== null ? gridSupport.get(0).stateByName("isLppActive").value : false
 
                 var maxCurrentPower = rootMeter ? Math.abs(
                                                       rootMeter.stateByName(
@@ -909,6 +911,7 @@ MainViewBase {
                         model: producers
                         delegate: LegendTile {
                             visible: producers.get(index).id !== rootMeter.id
+                            isNotify: lsdChart.currentGridValueStateLPP
                             color: Configuration.inverterColor
                             thing: producers.get(index)
                             isElectric: false
@@ -917,7 +920,9 @@ MainViewBase {
                                 pageStack.push(
                                             "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                             {
-                                                "thing": thing
+                                                "thing": thing,
+                                                "isNotify": isNotify,
+                                                "gridSupportThing": gridSupport.get(0)
                                             })
                             }
                         }

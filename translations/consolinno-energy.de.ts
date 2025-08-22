@@ -2738,15 +2738,10 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.11.0&lt;/p&gt;
+&lt;p&gt;Version 1.12.0&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Dynamische Stromtarife: Automatische Optimierung basierend auf  Endkundenstrompreis&lt;/li&gt;
-    &lt;li&gt;NOMOS-Integration: Stromtarife über NOMOS &lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;Verbessert&lt;/h4&gt;
-&lt;ul&gt;
-    &lt;li&gt;Mehr Länder: EPEX-Preisdaten für weitere Märkte verfügbar&lt;/li&gt;
+    &lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -3183,6 +3178,14 @@ fügen Sie eine weitere hinzu.</translation>
         <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
         <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend blockiert&lt;/b&gt;.</translation>
     </message>
+    <message>
+        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
+        <translation type="unfinished">Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers vorübergehend begrenzt  auf %1 Watt.</translation>
+    </message>
+    <message>
+        <source>Feed-in curtailment</source>
+        <translation type="unfinished">Einspeiseabregelung</translation>
+    </message>
 </context>
 <context>
     <name>GridConsumptionInfo</name>
@@ -3336,6 +3339,14 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Attention</source>
         <translation type="unfinished">Achtung</translation>
+    </message>
+    <message>
+        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
+        <translation type="unfinished">Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers vorübergehend begrenzt  auf %1 Watt.</translation>
+    </message>
+    <message>
+        <source>Feed-in curtailment</source>
+        <translation type="unfinished">Einspeiseabregelung</translation>
     </message>
 </context>
 <context>

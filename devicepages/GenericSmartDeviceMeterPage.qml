@@ -14,6 +14,8 @@ GenericConfigPage {
     property BatteryConfiguration batteryConfiguration: isBatteryView ? hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id) : null
     property bool isZeroCompensation: isBatteryView ? batteryConfiguration.avoidZeroFeedInActive : false
     readonly property ThingClass thingClass: thing.thingClass
+    property Thing gridSupportThing
+    property double powerLimitLPP: gridSupportThing.stateByName("lppValue") ? gridSupportThing.stateByName("lppValue").value : 0
 
     readonly property bool isEnergyMeter: root.thing && root.thing.thingClass.interfaces.indexOf("energymeter") >= 0
     readonly property bool isConsumer: root.thing && root.thing.thingClass.interfaces.indexOf("smartmeterconsumer") >= 0
@@ -48,6 +50,12 @@ GenericConfigPage {
     property bool isNotify: false
 
     title: root.thing.name
+
+    ThingsProxy {
+        id: gridSupport
+        engine: _engine
+        shownInterfaces: ["gridsupport"]
+    }
 
     content: [
         Item {
@@ -106,24 +114,23 @@ GenericConfigPage {
                     }
 
                     property string currentState: isNotify === true && isRootmeter ? "limited" : "unrestricted"
-
                     ConsolinnoAlert {
                         id: avoidZeroCompensation
                         Layout.rightMargin: app.margins
                         Layout.leftMargin: app.margins
                         width: containerAvoidZeroCompensation.width
-                        visible: isBatteryView && isZeroCompensation || (isNotify === true && isRootmeter)
+                        visible: (isBatteryView && isZeroCompensation) || (isNotify === true && isRootmeter) || (isNotify === true && isProducer)
 
                         backgroundColor: Style.warningBackground
                         borderColor: Style.warningAccent
                         textColor: Style.warningAccent
                         iconColor: Style.warningAccent
-                        imagePath: (isNotify === true && isRootmeter) ? "" : "../components/ConsolinnoDialog.qml"
-                        dialogHeaderText: (isNotify === true && isRootmeter) ? "" : qsTr("Avoid zero compensation")
-                        dialogText: (isNotify === true && isRootmeter) ? "" : qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
-                        dialogPicture: (isNotify === true && isRootmeter) ? "" : "../images/avoidZeroCompansation.svg"
-                        text: (isNotify === true && isRootmeter) ? containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].content : qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
-                        headerText: (isNotify === true && isRootmeter) ? containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].header : qsTr("Avoid zero compensation active")
+                        imagePath: (isNotify === true && isRootmeter) || (isNotify === true && isProducer) ? "" : "../components/ConsolinnoDialog.qml"
+                        dialogHeaderText: (isNotify === true && isRootmeter) || (isNotify === true && isProducer) ? "" : qsTr("Avoid zero compensation")
+                        dialogText: (isNotify === true && isRootmeter) || (isNotify === true && isProducer) ? "" : qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
+                        dialogPicture: (isNotify === true && isRootmeter) || (isNotify === true && isProducer) ? "" : "../images/avoidZeroCompansation.svg"
+                        text: (isNotify === true && isProducer) ? qsTr("The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.").arg(powerLimitLPP) : (isNotify === true && isRootmeter) ? containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].content : qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
+                        headerText: (isNotify === true && isProducer) ? qsTr("Feed-in curtailment") : (isNotify === true && isRootmeter) ? containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].header : qsTr("Avoid zero compensation active")
                     }
                 }
             }
