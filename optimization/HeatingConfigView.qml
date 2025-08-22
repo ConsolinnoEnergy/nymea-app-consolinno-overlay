@@ -301,10 +301,12 @@ GenericConfigPage {
                     model: [
                         {Id: "flowTemperature", name: qsTr("Flow temperature"), value: thing.stateByName("flowTemperature")? thing.stateByName("flowTemperature").value : null, unit: "°C", component: stringValues, params: false, paramsSurPlus: false},
                         {Id: "returnTemperature", name: qsTr("Return temperature"), value: thing.stateByName("returnTemperature")? thing.stateByName("returnTemperature").value : null, unit: "°C", component: stringValues, params: false, paramsSurPlus: false},
+                        {Id: "targetWaterTemperature", name: qsTr("Target water temperature"), value: thing.stateByName("targetWaterTemperature")? thing.stateByName("targetWaterTemperature").value : null, unit: "°C", component: stringValues, params: false, paramsSurPlus: false},
+                        {Id: "minimumWaterTemperatur", name: qsTr("Minimum water temperatur"), value: thing.stateByName("minimumWaterTemperatur")? thing.stateByName("minimumWaterTemperatur").value : null, unit: "°C", component: stringValues, params: false, paramsSurPlus: false},
                     ]
 
                     delegate: ItemDelegate{
-                        visible: modelData.value !== null && thing.stateByName("returnTemperature").value >= 0 ? true : false
+                        visible: true //modelData.value !== null && thing.stateByName("returnTemperature").value >= 0 ? true : false
                         id: optimizer
                         Layout.fillWidth: true
                         contentItem: ColumnLayout
@@ -364,6 +366,14 @@ GenericConfigPage {
                                                 return modelData.component
                                             }
                                             case "returnTemperature":
+                                            {
+                                                return modelData.component
+                                            }
+                                            case "targetWaterTemperature":
+                                            {
+                                                return modelData.component
+                                            }
+                                            case "minimumWaterTemperatur":
                                             {
                                                 return modelData.component
                                             }
