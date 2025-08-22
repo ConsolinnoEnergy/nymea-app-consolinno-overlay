@@ -360,6 +360,10 @@ Page {
                         thingsListId[thingsListId.length] = gridSupport.get(0).thingClass.id.toString()
                     }
 
+                    if(epexDataSource.count === 1){
+                      thingsListId[thingsListId.length] = epexDataSource.get(0).thingClass.id.toString();
+                    }
+
                     if(electrics.count === 1){
                        thingsListId[thingsListId.length] = electrics.get(0).thingClass.id.toString()
                     }else{
