@@ -77,10 +77,10 @@ Item {
         ConsolinnoAlert {
             Layout.margins: Style.margins
             visible: (addedLevies === 0 || addedGridFee === 0)
-            backgroundColor: "#FFEE89"
-            borderColor: "#864A0D"
-            textColor: "#864A0D"
-            iconColor: "#864A0D"
+            backgroundColor: Style.warningBackground
+            borderColor: Style.warningAccent
+            textColor: Style.warningAccent
+            iconColor: Style.warningAccent
             pagePath: "../optimization/DynamicElectricityRate.qml"
             pageStartView: "taxesAndFeesSetUp"
 
