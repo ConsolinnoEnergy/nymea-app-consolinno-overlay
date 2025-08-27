@@ -1156,12 +1156,12 @@
         <translation>Durchschnittlicher Strompreis</translation>
     </message>
     <message>
-        <source>Tariff details are not available</source>
-        <translation>Tarifinformationen fehlen</translation>
+        <source>Please provide information on taxes, surcharges, and network fees. &lt;u&gt;Continue to configuration&lt;/u&gt;</source>
+        <translation>Bitte geben Sie Steuern und Abgaben sowie Netzentgelte ein. &lt;u&gt;Zur Konfiguration.&lt;/u&gt;</translation>
     </message>
     <message>
-        <source>Please provide information on taxes, surcharges and network fees. &lt;u&gt;Continue to configuration.&lt;/u&gt;</source>
-        <translation>Bitte geben Sie Steuern und Abgaben sowie Netzentgelte ein. &lt;u&gt;Zur Konfiguration.&lt;/u&gt;</translation>
+        <source>Tariff details are not available</source>
+        <translation>Tarifinformationen fehlen</translation>
     </message>
 </context>
 <context>
