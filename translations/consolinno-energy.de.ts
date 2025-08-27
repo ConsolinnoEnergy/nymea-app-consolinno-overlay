@@ -1422,6 +1422,18 @@
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
+    <message>
+        <source>Style</source>
+        <translation>Stil</translation>
+    </message>
+    <message>
+        <source>light</source>
+        <translation>hell</translation>
+    </message>
+    <message>
+        <source>dark</source>
+        <translation>dunkel</translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoModbusRtuAddMasterPage</name>

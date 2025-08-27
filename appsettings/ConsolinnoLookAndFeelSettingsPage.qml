@@ -20,15 +20,25 @@ SettingsPageBase {
         visible: !styleController.locked
         Label {
             Layout.fillWidth: true
-            text: "Style"
+            text: qsTr("Style")
         }
-        ComboBox {
-            model: styleController.allStyles
-            currentIndex: styleController.allStyles.indexOf(styleController.currentStyle)
 
-            onActivated: {
-                styleController.currentStyle = model[index]
-            }
+        ListModel { id: stylesModel }
+
+        ComboBox {
+          id: cb
+          model: stylesModel
+          textRole: "text"
+          valueRole: "value"
+          Component.onCompleted: currentIndex = indexOfValue(styleController.currentStyle)
+          onActivated: styleController.currentStyle = currentValue
+        }
+
+        Component.onCompleted: {
+          stylesModel.append({ value: "light", text: qsTr("light") })
+          if (Configuration.branding === "consolinno") {
+            stylesModel.append({ value: "dark", text: qsTr("dark") })
+          }
         }
 
         Connections {
