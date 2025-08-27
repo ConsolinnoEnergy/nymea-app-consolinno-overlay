@@ -506,7 +506,7 @@ GenericConfigPage {
                                   barSeries.clearValues();
                                   barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value);
                                 }
-                                from: 0
+                                from: -5
                                 to: 60
                                 stepSize: 0.2
                             }
