@@ -1122,15 +1122,15 @@
     </message>
     <message>
         <source>Average electricity price</source>
-        <translation type="unfinished">Durchschnittlicher Strompreis</translation>
+        <translation>Durchschnittlicher Strompreis</translation>
     </message>
     <message>
         <source>Please provide information on taxes, surcharges, and network fees. &lt;u&gt;Continue to configuration&lt;/u&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte geben Sie Steuern und Abgaben sowie Netzentgelte ein. &lt;u&gt;Zur Konfiguration.&lt;/u&gt;</translation>
     </message>
     <message>
         <source>Tariff details are not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Tarifinformationen fehlen</translation>
     </message>
 </context>
 <context>
