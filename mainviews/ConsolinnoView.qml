@@ -1344,7 +1344,7 @@ MainViewBase {
                                     ? "W" 
                                     : "kW";
 
-                                const powerSpan = `<span style="font-size:${bigFontSize}px">${displayPowerStr}</span>`;
+                                const powerSpan = `<span style="font-size:${bigFontSize}px; font-weight: bold;">${displayPowerStr}</span>`;
                                 const unitSpan = `<span style="font-size:${smallFontSize}px">${unit}</span>`;
 
                                 return powerSpan + " " + unitSpan;
