@@ -100,6 +100,7 @@ Page {
             Layout.fillWidth: true
             Layout.leftMargin: app.margins
             Layout.rightMargin: app.margins
+            color: Style.dangerAccent
             wrapMode: Text.WordWrap
             font.pixelSize: app.smallFont
 

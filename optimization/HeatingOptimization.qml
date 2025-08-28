@@ -238,6 +238,7 @@ Page {
             Layout.fillWidth: true
             Layout.leftMargin: app.margins
             Layout.rightMargin: app.margins
+            color: Style.dangerAccent
             //text: qsTr("For a better optimization you can please insert the upper data, so our optimizer has the information it needs.")
             wrapMode: Text.WordWrap
             font.pixelSize: app.smallFont

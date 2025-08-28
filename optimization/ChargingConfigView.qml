@@ -1550,6 +1550,7 @@ GenericConfigPage {
                             Layout.rightMargin: app.margins
                             wrapMode: Text.WordWrap
                             font.pixelSize: app.smallFont
+                            color: Style.dangerAccent
                             text: qsTr("please select a car")
                             visible: false
                         }
