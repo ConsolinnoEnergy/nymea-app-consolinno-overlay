@@ -108,5 +108,5 @@ StyleBase {
 
     readonly property color mainInnerCicleFirst: "#5A5A5A"
     readonly property color mainInnerCicleSecond: "#5A5A5A"
-    readonly property color mainInnerCicleText: "#D3D3D3"
+    readonly property color mainInnerCicleText: "#F4F6F4"
 }
