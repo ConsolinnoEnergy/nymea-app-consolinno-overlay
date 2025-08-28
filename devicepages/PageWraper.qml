@@ -9,10 +9,15 @@ Page {
     id: root
 
     property Thing thing
+    property string marketArea: {
+        let area = thing.paramByName("marketArea").value
+        let areaNameSplit = area.split(" ");
+        return areaNameSplit[1];
+    }
 
     header: NymeaHeader {
         backButtonVisible: true
-        text: thing.name
+        text: "%1 %2".arg(thing.name).arg(marketArea)
         onBackPressed: {
             pageStack.pop()
         }
