@@ -564,12 +564,12 @@ MainViewBase {
         userconfig = hemsManager.userConfigurations.getUserConfiguration(
                     "528b3820-1b6d-4f37-aea7-a99d21d42e72")
     }
-    
+
     onVisibleChanged: {
         console.debug("Visibility of " + engine.jsonRpcClient.currentHost.name + " changed to " + visible)
         if (visible) {
             // Show message if app was updated
-            var notficationPopup = startUpNotificationComponent.createObject(root) 
+            var notficationPopup = startUpNotificationComponent.createObject(root)
             notficationPopup.message= qsTr('CHANGENOTIFICATION_PLACEHOLDER');
             // If Popup not already open, open it
             if (notficationPopup.opened === false
@@ -579,12 +579,11 @@ MainViewBase {
 
             // Show message if HEMS version is not compatible
             if (!checkHEMSVersion()) {
-                var incompNotificationPopup = incompNotificationComponent.createObject(root)
-                
+
                 let phone = (Configuration.serviceTel !== "") ? qsTr("Phone: <a href='tel:%1'>%1</a>").arg(Configuration.serviceTel) : ""
                 let mail = qsTr("Email: <a href='mailto:%1'>%1</a>").arg(Configuration.serviceEmail)
 
-                incompNotificationPopup.message=qsTr('<h3>Pending software update</h3>
+                let dialogText=qsTr('<h3>Pending software update</h3>
                 <p>Your %3 app has been updated to version <strong>%1</strong> and is more up-to-date than the firmware (<strong>%2</strong>) on your %6 device.</p>
                 <p>Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.</p>
                 <p>If this message is still displayed, please contact our service team.</p>
@@ -594,10 +593,17 @@ MainViewBase {
                 </ul>
                 <p>Best regards</p>
                 <p>Your %5 Team</p>').arg(appVersion).arg(engine.jsonRpcClient.experiences.Hems).arg(Configuration.appName).arg(mail).arg(Configuration.appName).arg(Configuration.deviceName).arg(phone)
+
+
+                var dialog = Qt.createComponent(Qt.resolvedUrl("StartupNotificationPopup.qml"));
+                var popUp = dialog.createObject(app, {text: dialogText})
+
                 // If Popup not already open, open it
-                if (incompNotificationPopup.opened === false) {
-                    incompNotificationPopup.open()
+                if (popUp.opened === false) {
+                    popUp.open()
                 }
+
+
             }
         }
     }
@@ -1333,15 +1339,15 @@ MainViewBase {
                                 const bigFontSize = Style.bigFont.pixelSize;
                                 const smallFontSize = Style.smallFont.pixelSize;
 
-                                let displayPower = powerConsumption < 1000 
-                                    ? powerConsumption 
+                                let displayPower = powerConsumption < 1000
+                                    ? powerConsumption
                                     : powerConsumption / 1000;
 
-                                displayPower = displayPower.toFixed(1); 
+                                displayPower = displayPower.toFixed(1);
                                 let displayPowerStr = (+displayPower).toLocaleString();
 
-                                const unit = powerConsumption < 1000 
-                                    ? "W" 
+                                const unit = powerConsumption < 1000
+                                    ? "W"
                                     : "kW";
 
                                 const powerSpan = `<span style="font-size:${bigFontSize}px; font-weight: bold;">${displayPowerStr}</span>`;
