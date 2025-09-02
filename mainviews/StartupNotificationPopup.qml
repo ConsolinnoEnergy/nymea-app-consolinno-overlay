@@ -1,30 +1,26 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.15
+import QtQuick 2.8
+import QtQuick.Window 2.15
+import QtQuick.Controls 2.1
+import QtQuick.Layouts 1.2
+import Nymea 1.0
+import "../components"
 
-Component {
-    id: startUpNotificationComponent
-
-    Popup {
-        id: startUpNotificationPopup
-        parent: root
-        x: Math.round((parent.width - width) / 2)
-        y: Math.round((parent.height - height) / 2)
-        width: parent.width
-        height: 100
-        modal: true
-        focus: true
-        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-        contentItem: Label {
-            Layout.fillWidth: true
-            Layout.topMargin: app.margins
-            Layout.leftMargin: app.margins
-            Layout.rightMargin: app.margins
-            wrapMode: Text.WordWrap
-            text: ""
-        }
-
-        onTextChanged: {
-            contentItem.text = popup.text
-        }
+Dialog {
+    id: startUpNotificationPopup
+    property alias text: containerLabel.text
+    Layout.margins: Style.margins
+    x: (parent.width - width) / 2
+    y: (parent.height - height) / 2
+    width: parent.width * 0.9
+    modal: true
+    focus: true
+    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+    contentItem: Label {
+        id: containerLabel
+        Layout.topMargin: app.margins
+        Layout.leftMargin: app.margins
+        Layout.rightMargin: app.margins
+        wrapMode: Text.WordWrap
     }
 }
+
