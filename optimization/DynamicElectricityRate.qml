@@ -198,7 +198,7 @@ StackView {
                         wrapMode: Text.WordWrap
                     }
 
-                    ComboBox {
+                    ConsolinnoDropdown {
                         id: energyRateComboBox
                         Layout.leftMargin: Style.margins
                         Layout.preferredWidth: app.width - 2*Style.margins
