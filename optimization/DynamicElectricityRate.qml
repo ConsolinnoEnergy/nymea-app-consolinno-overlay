@@ -198,7 +198,7 @@ StackView {
                         wrapMode: Text.WordWrap
                     }
 
-                    ConsolinnoDropdown {
+                    ComboBox {
                         id: energyRateComboBox
                         Layout.leftMargin: Style.margins
                         Layout.preferredWidth: app.width - 2*Style.margins
@@ -338,8 +338,9 @@ StackView {
                             Layout.fillWidth: true
                             Layout.rightMargin: 20
                             rightPadding: 16
-                            text: qsTr("Location")
+                            text: qsTr("Select a location")
                         }
+                    }
 
                         ConsolinnoDropdown {
                             property var paramsValueArray: isNaN(dynElectricThing) ? dynElectricThing.thingClass.paramTypes.get(2).allowedValues : 0
