@@ -198,7 +198,7 @@ StackView {
                         wrapMode: Text.WordWrap
                     }
 
-                    ComboBox {
+                    ConsolinnoDropdown {
                         id: energyRateComboBox
                         Layout.leftMargin: Style.margins
                         Layout.preferredWidth: app.width - 2*Style.margins
@@ -416,7 +416,7 @@ StackView {
                         Layout.rightMargin: app.margins
                         Layout.fillWidth: true
 
-                        ComboBox {
+                        ConsolinnoDropdown {
                             property var paramsValueArray: dynElectricThing.thingClass.paramTypes.get(2).allowedValues
                             model: thingClass ? thingClass.paramTypes.get(2).allowedValues : dynElectricThing.thingClass.paramTypes.get(2).allowedValues
                             id: countryCode

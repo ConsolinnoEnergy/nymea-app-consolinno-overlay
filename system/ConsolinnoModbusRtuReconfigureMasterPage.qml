@@ -115,7 +115,7 @@ SettingsPageBase {
             Layout.fillWidth: true
         }
 
-        ComboBox {
+        ConsolinnoDropdown {
             id: baudRateComboBox
             Layout.minimumWidth: 250
             enabled: !root.busy
@@ -139,7 +139,7 @@ SettingsPageBase {
             Layout.fillWidth: true
         }
 
-        ComboBox {
+        ConsolinnoDropdown {
             id: parityComboBox
             textRole: "text"
             enabled: !root.busy
@@ -163,7 +163,7 @@ SettingsPageBase {
             Layout.fillWidth: true
         }
 
-        ComboBox {
+        ConsolinnoDropdown {
             id: dataBitsComboBox
             textRole: "text"
             enabled: !root.busy
@@ -187,7 +187,7 @@ SettingsPageBase {
             Layout.fillWidth: true
         }
 
-        ComboBox {
+        ConsolinnoDropdown {
             id: stopBitsComboBox
             textRole: "text"
             enabled: !root.busy

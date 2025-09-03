@@ -41,6 +41,13 @@ StyleBase {
     readonly property color switchBagroundColor: "#80F4F6F4"
     readonly property color switchOnColor: buttonColor
 
+    //DropDown
+    readonly property color boxColor: "#D7D7D7"
+    readonly property color borderColor: "transparent"
+    readonly property color textColor: "#222222"
+    readonly property color highlightColor: "#20222222"
+    readonly property color currentItemColor: root.consolinnoMedium
+
     property color secondaryDark: "#B6B6B6"
     backgroundColor: "#303030"
     foregroundColor: "#F4F6F4"

@@ -199,7 +199,7 @@ Page {
                 text: qsTr("Add heating element: ")
             }
 
-            ComboBox {
+            ConsolinnoDropdown {
                 id: thingClassComboBox
 
                 Layout.preferredWidth: app.width - 2*Style.margins
