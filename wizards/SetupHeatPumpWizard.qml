@@ -240,10 +240,12 @@ Page {
                 Component.onCompleted: {
                     let arr = [];
 
-                    arr.push({
-                        valueRoleID: eebusHeatpump.get(0).id.toString(),
-                        displayName: qsTr("EEBUS heat pump")
-                    });
+                    if(isNaN(eebusHeatpump.get(0))){
+                        arr.push({
+                            valueRoleID: eebusHeatpump.get(0).id.toString(),
+                            displayName: qsTr("EEBUS heat pump")
+                        });
+                    }
 
                     for (var i = 0; i < heatpump.count; ++i) {
                         var item = heatpump.get(i);
@@ -268,7 +270,7 @@ Page {
             }
 
 
-            ComboBox {
+            ConsolinnoDropdown {
                 id: thingClassComboBox
                 Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"

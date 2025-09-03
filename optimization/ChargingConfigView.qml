@@ -1043,7 +1043,7 @@ GenericConfigPage {
                             }
 
 
-                            ComboBox {
+                            ConsolinnoDropdown {
                                 id: comboboxloadingmod
                                 Layout.fillWidth: true
                                 model: ListModel{
@@ -1061,7 +1061,7 @@ GenericConfigPage {
                                 }
 
                                 textRole: "key"
-                                contentItem: Text{
+                                /*contentItem: Text{
                                     text: parent.displayText
                                     width: parent.width
                                     color: Material.foreground
@@ -1069,7 +1069,7 @@ GenericConfigPage {
                                     horizontalAlignment: Text.AlignLeft;
                                     leftPadding: app.margins
                                     elide: Text.ElideRight
-                                }
+                                }*/
 
                                 currentIndex: (userconfig.defaultChargingMode == 3 && dynamicPrice.count == 0) ? userconfig.defaultChargingMode - 1 : userconfig.defaultChargingMode
                                 onCurrentIndexChanged:
@@ -1379,7 +1379,7 @@ GenericConfigPage {
                             Layout.preferredWidth: app.width
                             Layout.topMargin: 10
 
-                            ComboBox {
+                            ConsolinnoDropdown {
                                 visible: isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])
                                 id: gridConsumptionloadingmod
                                 Layout.fillWidth: true
@@ -1388,7 +1388,7 @@ GenericConfigPage {
                                     ListElement{key: qsTr("Pause charging"); mode: 200}
                                 }
                                 textRole: "key"
-                                contentItem: Text{
+                                /*contentItem: Text{
                                     text: parent.displayText
                                     width: parent.width
                                     color: Material.foreground
@@ -1396,7 +1396,7 @@ GenericConfigPage {
                                     horizontalAlignment: Text.AlignLeft;
                                     leftPadding: app.margins
                                     elide: Text.ElideRight
-                                }
+                                }*/
                             }
                         }
 

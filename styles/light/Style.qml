@@ -28,6 +28,13 @@ StyleBase {
     readonly property color epexBarMainLineColor: "#BDD786"
     readonly property color barSeriesDisabled: root.epexBarPricingPast
 
+    //Dropdown
+    readonly property color boxColor: "#FFFFFF"
+    readonly property color borderColor: "transparent"
+    readonly property color textColor: root.consolinnoDark
+    readonly property color highlightColor: "#20222222"
+    readonly property color currentItemColor: root.consolinnoMedium
+
     // Switch
     readonly property color switchCircleColor: "#F4F6F4"
     readonly property color switchBagroundColor: "#80222222"

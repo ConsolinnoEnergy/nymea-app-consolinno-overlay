@@ -270,7 +270,7 @@ Page {
                 wrapMode: Text.WordWrap
             }
 
-            ComboBox {
+            ConsolinnoDropdown {
                 id: thingClassComboBox
                 Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"

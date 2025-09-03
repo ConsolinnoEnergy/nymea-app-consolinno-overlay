@@ -227,10 +227,12 @@ Page {
                 Component.onCompleted: {
                     let arr = [];
 
-                    arr.push({
-                        valueRoleID: eebusWallbox.get(0).id.toString(),
-                        displayName: qsTr("EEBUS Wallbox")
-                    });
+                    if(isNaN(eebusWallbox.get(0))){
+                        arr.push({
+                            valueRoleID: eebusWallbox.get(0).id.toString(),
+                            displayName: qsTr("EEBUS Wallbox")
+                        });
+                    }
 
                     for (var i = 0; i < evcharger.count; ++i) {
                         var item = evcharger.get(i);
@@ -254,7 +256,7 @@ Page {
                 }
             }
 
-            ComboBox {
+            ConsolinnoDropdown {
                 id: thingClassComboBox
                 Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"
