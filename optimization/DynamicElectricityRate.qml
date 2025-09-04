@@ -267,7 +267,12 @@ StackView {
             property int comboBoxCurrentIndex: 0
             property bool reconfiguration: false
             property bool btnDelete: false
+            property bool backToView: dynElectricThing.paramByName("addedGridFee").value === 0 ? true : false
             property var thingClass
+
+            Component.onCompleted: {
+               thingClass = dynElectricThing.thingClass
+            }
 
             header: ConsolinnoHeader {
                 text: qsTr("Dynamic electricity tariff")
@@ -444,14 +449,14 @@ StackView {
                             onClicked: {
                                 if(parseFloat(addedGridFee.text) > 0 && parseFloat(addedLevies.text) > 0){
                                     addParamValues();
-                                    if(reconfiguration === false){
+                                    if(reconfiguration === false && !isNaN(dynElectricThing)){
                                         pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText});
                                         engine.thingManager.addThing(comboBoxValue, comboBoxCurrentText, d.params);
 
                                     }else{
                                         engine.thingManager.removeThing(dynElectricThing.id)
                                         engine.thingManager.addThing(dynElectricThing.thingClass.id, dynElectricThing.name, d.params);
-                                        pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText: dynElectricThing.name, reconfiguration: true});
+                                        pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText: dynElectricThing.name, reconfiguration: true, historyView: backToView});
                                     }
                                 }else {
                                     footer.text = qsTr("Please enter taxes and duties. The value cannot be empty or 0.")
@@ -580,6 +585,7 @@ StackView {
             property string comboBoxCurrentText: ""
             property bool reconfiguration: false
             property bool thingPair: false
+            property bool historyView: false
 
             Connections {
                 target: engine.thingManager
@@ -672,8 +678,14 @@ StackView {
                         Layout.preferredWidth: 250
                         Layout.alignment: Qt.AlignHCenter
                         onClicked: {
-                            pageStack.pop()
-                            pageStack.pop()
+                            if(historyView == true){
+                                pageStack.pop()
+                                pageStack.pop()
+                                pageStack.pop()
+                            }else{
+                                pageStack.pop()
+                                pageStack.pop()
+                            }
                         }
                     }
                 }
