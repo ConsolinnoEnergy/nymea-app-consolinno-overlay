@@ -3078,15 +3078,11 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Save</source>
+        <source>VAT</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to add thing: ThingErrorHardwareFailure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The following tariff is submitted:</source>
+        <source>Location</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

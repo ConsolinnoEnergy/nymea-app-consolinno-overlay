@@ -3102,12 +3102,16 @@ fügen Sie eine weitere hinzu.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to add thing: ThingErrorHardwareFailure</source>
-        <translation type="unfinished"></translation>
+        <source>Please enter taxes and duties. The value cannot be empty or 0.</source>
+        <translation type="unfinished">Bitte geben Sie Steuern und Abgaben an. Der Wert darf nicht leer oder 0 sein.</translation>
     </message>
     <message>
-        <source>The following tariff is submitted:</source>
-        <translation type="unfinished">Der folgende Stromtarif wurde eingerichtet:</translation>
+        <source>VAT</source>
+        <translation type="unfinished">Mehrwertsteuer</translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished">Standort</translation>
     </message>
 </context>
 <context>
