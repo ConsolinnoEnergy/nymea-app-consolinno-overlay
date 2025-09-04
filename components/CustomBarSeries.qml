@@ -52,13 +52,14 @@ ChartView {
         titleVisible: false
         shadesVisible: false
         function adjustMax(minPrice,maxPrice) {
-            max = Math.ceil(maxPrice) + 1;
-            max += 4 - (max % 4);
-            min = minPrice <= 0 ? minPrice - 5 : 0;
-
-            if(min < 0) {
-                max += 4 - ((max + min * (-1)) % 4);
+            // force yaxis steps to multiples of 5
+            let step = Math.ceil(maxPrice / 4);
+            const rest = step % 5;
+            if(rest !== 0) {
+               step += 5 - rest;
             }
+
+            max = step * 4;
         }
     }
 
