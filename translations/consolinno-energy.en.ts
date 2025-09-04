@@ -2909,18 +2909,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Delete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reconfigure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select a location</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Zewotherm setup</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2934,6 +2922,14 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Please enter taxes and duties. The value cannot be empty or 0.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VAT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
