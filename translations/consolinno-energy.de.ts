@@ -2934,18 +2934,6 @@ fügen Sie eine weitere hinzu.</translation>
         <translation type="unfinished">Speichern</translation>
     </message>
     <message>
-        <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
-    </message>
-    <message>
-        <source>Reconfigure</source>
-        <translation type="unfinished">Neu Konfigurieren</translation>
-    </message>
-    <message>
-        <source>Select a location</source>
-        <translation type="unfinished">Standort auswählen</translation>
-    </message>
-    <message>
         <source>Zewotherm setup</source>
         <translation type="unfinished">Zewotherm einrichten</translation>
     </message>
@@ -2960,6 +2948,14 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Please enter taxes and duties. The value cannot be empty or 0.</source>
         <translation type="unfinished">Bitte geben Sie Steuern und Abgaben an. Der Wert darf nicht leer oder 0 sein.</translation>
+    </message>
+    <message>
+        <source>VAT</source>
+        <translation type="unfinished">Mehrwertsteuer</translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished">Standort</translation>
     </message>
 </context>
 <context>
