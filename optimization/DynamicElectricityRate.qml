@@ -156,7 +156,7 @@ StackView {
                                 canDelete: true
                                 onClicked: {
                                     if(erProxy.get(0).thingClass.setupMethod !== 4){
-                                        pageStack.push(taxesAndFeesSetUp)
+                                        pageStack.push(taxesAndFeesSetUp, {thingClass : dynElectricThing.thingClass, reconfiguration: true})
                                     }
                                 }
                                 onDeleteClicked: {
@@ -272,26 +272,11 @@ StackView {
             header: ConsolinnoHeader {
                 text: qsTr("Dynamic electricity tariff")
                 backButtonVisible: true
-                menuOptionsButtonVisible: thing.count > 0 && reconfiguration == false
                 onMenuOptionsPressed: menu.open()
                 onBackPressed: {
                     if(directionID >= 0) {
                         pageStack.pop()
                     }
-                }
-            }
-
-            ListModel {
-                id: menuListModel
-
-                ListElement {
-                    icon: "/ui/images/delete.svg"
-                    text: qsTr("Delete")
-                }
-
-                ListElement {
-                    icon: "/ui/images/configure.svg"
-                    text: qsTr("Reconfigure")
                 }
             }
 
@@ -301,67 +286,6 @@ StackView {
                     if(btnDelete === true){
                         busyOverlay.shown === false
                         pageStack.pop()
-                    }
-                }
-            }
-
-            Menu {
-                id: menu
-
-                x:root.width - width
-                modal: true
-
-                Repeater {
-                    id: menuListRepeater
-
-                    model: menuListModel
-
-                    Item {
-                        width: ListView.view.width
-                        height: 56
-
-                        RowLayout {
-                            anchors {
-                                left: parent.left
-                                right: parent.right
-                                leftMargin: 16
-                                rightMargin: 16
-                            }
-
-                            height: parent.height / 2
-                            anchors.verticalCenter: parent.verticalCenter
-                            spacing: 24
-
-                            ColorIcon {
-                                Layout.fillHeight: false
-                                Layout.fillWidth: false
-                                Layout.preferredHeight: 24
-                                Layout.preferredWidth: 24
-                                source: model.icon
-                            }
-
-                            Label {
-                                Layout.fillHeight: true
-                                Layout.fillWidth: true
-                                text: model.text
-                                font.pixelSize: app.mediumFont
-                                verticalAlignment: Text.AlignVCenter
-                            }
-                        }
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                if(index === 0){
-                                    btnDelete = true
-                                    busyOverlay.shown === true
-                                    engine.thingManager.removeThing(dynElectricThing.id)
-                                }else if(index === 1){
-                                    pageStack.push(taxesAndFeesSetUp, {thingClass: dynElectricThing.thingClass, reconfiguration: true})
-                                }
-                                menu.close();
-                            }
-                        }
                     }
                 }
             }
@@ -381,6 +305,9 @@ StackView {
                     }else if(paramName === "addedLevies"){
                         param.paramTypeId = paramId
                         param.value = parseFloat(addedLevies.text.replace(",","."))
+                    }else if(paramName === "addedVAT"){
+                        param.paramTypeId = paramId
+                        param.value = parseFloat(vat.text)
                     }
                     params.push(param)
                     d.params = params
@@ -396,41 +323,25 @@ StackView {
                     Layout.fillWidth: true
                     spacing: 0
 
-                    ColumnLayout {
-                        spacing: 0
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
-                        Layout.topMargin: app.margins
-                        Layout.fillWidth: true
-
-                        Label {
-                            Layout.fillWidth: true
-                            rightPadding: 16
-                            text: qsTr("Select a location")
-                        }
-                    }
-
                     RowLayout {
                         spacing: 0
                         Layout.leftMargin: app.margins
                         Layout.rightMargin: app.margins
                         Layout.fillWidth: true
 
+                        Label {
+                            Layout.fillWidth: true
+                            Layout.rightMargin: 20
+                            rightPadding: 16
+                            text: qsTr("Location")
+                        }
+
                         ConsolinnoDropdown {
-                            property var paramsValueArray: dynElectricThing.thingClass.paramTypes.get(2).allowedValues
+                            property var paramsValueArray: isNaN(dynElectricThing) ? dynElectricThing.thingClass.paramTypes.get(2).allowedValues : 0
                             model: thingClass ? thingClass.paramTypes.get(2).allowedValues : dynElectricThing.thingClass.paramTypes.get(2).allowedValues
                             id: countryCode
                             Layout.fillWidth: true
-                            currentIndex: paramsValueArray.indexOf(dynElectricThing.paramByName("marketArea").value)
-
-                            MouseArea {
-                                anchors.fill: parent
-                                acceptedButtons: Qt.AllButtons
-                                onPressed: {
-                                    mouse.accepted = (thing.count >= 1 && reconfiguration === false) ? true : false
-                                }
-                            }
-
+                            currentIndex: isNaN(dynElectricThing) ? paramsValueArray.indexOf(dynElectricThing.paramByName("marketArea").value) : 0
                         }
                     }
 
@@ -451,8 +362,7 @@ StackView {
                             Layout.rightMargin: 12
                             validator: RegExpValidator { regExp: /^[0-9.,]*$/ }
                             inputMethodHints: Qt.ImhFormattedNumbersOnly
-                            text: (dynElectricThing.paramByName("addedGridFee").value).toLocaleString()
-                            readOnly: (thing.count >= 1 && reconfiguration === false) ? true : false
+                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedGridFee").value).toLocaleString() : ""
                         }
 
                         Label {
@@ -477,14 +387,40 @@ StackView {
                             Layout.rightMargin: 12
                             validator: RegExpValidator { regExp: /^[0-9.,]*$/ }
                             inputMethodHints: Qt.ImhFormattedNumbersOnly
-                            text: (dynElectricThing.paramByName("addedLevies").value).toLocaleString()
-                            readOnly: (thing.count >= 1 && reconfiguration === false) ? true : false
+                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedLevies").value).toLocaleString() : ""
                         }
 
                         Label {
                             text: "ct/kWh"
                         }
                     }
+
+                    RowLayout {
+                        spacing: 0
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        Layout.fillWidth: true
+
+                        Label {
+                            rightPadding: 16
+                            Layout.fillWidth: true
+                            text: qsTr("VAT")
+                        }
+
+                        TextField {
+                            id: vat
+                            Layout.rightMargin: 12
+                            validator: RegExpValidator { regExp: /^[0-9]*$/ }
+                            inputMethodHints: Qt.ImhFormattedNumbersOnly
+                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedVAT").value).toLocaleString() : ""
+                        }
+
+                        Label {
+                            Layout.rightMargin: 39
+                            text: "%"
+                        }
+                    }
+
 
                     Label {
                         id: footer
@@ -499,7 +435,6 @@ StackView {
                     ColumnLayout {
                         spacing: 0
                         Layout.alignment: Qt.AlignHCenter
-                        visible: (thing.count > 0 && reconfiguration === false) ? false : true
 
                         Button {
                             id: saveButton
@@ -737,14 +672,8 @@ StackView {
                         Layout.preferredWidth: 250
                         Layout.alignment: Qt.AlignHCenter
                         onClicked: {
-                            if(reconfiguration === false && thingPair === false){
-                                pageStack.pop()
-                                pageStack.pop()
-                            }else{
-                                pageStack.pop()
-                                pageStack.pop()
-                                pageStack.pop()
-                            }
+                            pageStack.pop()
+                            pageStack.pop()
                         }
                     }
                 }
