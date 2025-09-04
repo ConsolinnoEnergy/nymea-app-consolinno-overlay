@@ -2936,14 +2936,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter taxes and duties. The value cannot be empty or 0.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Zewotherm setup</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2956,11 +2948,15 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to add thing: ThingErrorHardwareFailure</source>
+        <source>Please enter taxes and duties. The value cannot be empty or 0.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The following tariff is submitted:</source>
+        <source>VAT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
