@@ -59,15 +59,16 @@ ConsolinnoSwipeDelegate {
         }
 
     }
+    property var thingSetupStatus: isNaN(thing.setupStatus) ? thing.setupStatus : ""
     iconColor: Style.consolinnoMedium
     text: thing ? thing.name : ""
     progressive: true
-    secondaryIconName: thing.setupStatus == Thing.ThingSetupStatusComplete && batteryCritical ? "../images/battery/battery-010.svg" : ""
+    secondaryIconName: thingSetupStatus === Thing.ThingSetupStatusComplete && batteryCritical ? "../images/battery/battery-010.svg" : ""
     tertiaryIconName: {
-        if (thing.setupStatus == Thing.ThingSetupStatusFailed) {
+        if (thingSetupStatus === Thing.ThingSetupStatusFailed) {
             return "../images/dialog-warning-symbolic.svg";
         }
-        if (thing.setupStatus == Thing.ThingSetupStatusInProgress) {
+        if (thingSetupStatus === Thing.ThingSetupStatusInProgress) {
             return "../images/settings.svg"
         }
         if (connectedState && connectedState.value === false) {
@@ -105,6 +106,6 @@ ConsolinnoSwipeDelegate {
     readonly property State connectedState: connectedStateType ? thing.states.getState(connectedStateType.id) : null
     readonly property bool disconnected: connectedState && connectedState.value === false ? true : false
 
-    readonly property bool isWireless: root.thing.thingClass.interfaces.indexOf("wirelessconnectable") >= 0
-    readonly property State signalStrengthState: root.thing.stateByName("signalStrength")
+    readonly property bool isWireless: isNaN(root.thing) ? root.thing.thingClass.interfaces.indexOf("wirelessconnectable") >= 0 : false
+    readonly property State signalStrengthState: isNaN(root.thing) ? root.thing.stateByName("signalStrength") : null
 }
