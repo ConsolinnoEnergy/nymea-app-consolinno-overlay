@@ -45,7 +45,7 @@ ComboBox {
             context.lineTo(width, 0);
             context.lineTo(width / 2, height);
             context.closePath();
-            context.fillStyle = "black";
+            context.fillStyle = Style.textColor;
             context.fill();
         }
     }
