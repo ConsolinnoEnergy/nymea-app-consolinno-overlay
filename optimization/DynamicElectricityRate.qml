@@ -338,7 +338,7 @@ StackView {
                             Layout.fillWidth: true
                             Layout.rightMargin: 20
                             rightPadding: 16
-                            text: qsTr("Select a location")
+                            text: qsTr("Location")
                         }
                     }
 
