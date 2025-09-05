@@ -120,7 +120,7 @@ Page {
 
             VerticalDivider
             {
-                Layout.preferredWidth: app.width - 2* Style.margins
+                Layout.preferredWidth:  parent.width
                 dividerColor: Material.accent
             }
 
@@ -130,21 +130,21 @@ Page {
                 width: parent.width
                 height: parent.height
                 contentHeight: heatpumpList.height
-                contentWidth: app.width
+                contentWidth: parent.width
                 visible: hpProxy.count !== 0
 
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: app.height/3
-                Layout.preferredWidth: app.width
+                Layout.preferredWidth: parent.width
                 flickableDirection: Flickable.VerticalFlick
 
                 ColumnLayout{
                     id: heatpumpList
-                    Layout.preferredWidth: app.width
+                    Layout.preferredWidth: parent.width
                     Layout.fillHeight: true
                     Repeater{
                         id: heatpumpRepeater
-                        Layout.preferredWidth: app.width
+                        Layout.preferredWidth: parent.width
                         model: ThingsProxy {
                             id: hpProxy
                             engine: _engine
@@ -208,7 +208,7 @@ Page {
 
             VerticalDivider
             {
-                Layout.preferredWidth: app.width - 2* Style.margins
+                Layout.preferredWidth: parent.width
                 dividerColor: Material.accent
             }
         }
@@ -272,7 +272,7 @@ Page {
 
             ConsolinnoDropdown {
                 id: thingClassComboBox
-                Layout.preferredWidth: app.width - 2*Style.margins
+                Layout.preferredWidth: parent.width
                 textRole: "displayName"
                 valueRole: "valueRoleID"
                 currentIndex: 0

@@ -171,7 +171,7 @@ Page {
 
         VerticalDivider
         {
-            Layout.preferredWidth: app.width - 2* Style.margins
+            Layout.preferredWidth: parent.width
             dividerColor: Material.accent
         }
 
@@ -186,12 +186,12 @@ Page {
 
             Layout.alignment: Qt.AlignHCenter
             Layout.preferredHeight: app.height/3
-            Layout.preferredWidth: app.width
+            Layout.preferredWidth: parent.width
             flickableDirection: Flickable.VerticalFlick
 
             ColumnLayout{
                 id: energyMeterList
-                Layout.preferredWidth: app.width
+                Layout.preferredWidth: parent.width
                 Layout.fillHeight: true
                 Repeater{
                     id: solarInverterRepeater
@@ -256,7 +256,7 @@ Page {
 
         VerticalDivider
         {
-            Layout.preferredWidth: app.width - 2* Style.margins
+            Layout.preferredWidth: parent.width
             dividerColor: Material.accent
         }
 
@@ -272,7 +272,7 @@ Page {
 
             ConsolinnoDropdown {
                 id: thingClassComboBox
-                Layout.preferredWidth: app.width - 2*Style.margins
+                Layout.preferredWidth: parent.width
                 textRole: "displayName"
                 valueRole: "id"
                 model: ThingClassesProxy {
@@ -285,20 +285,19 @@ Page {
 
         ColumnLayout {
             spacing: 0
-            Layout.alignment: Qt.AlignHCenter
-
+            Layout.preferredWidth: parent.width
             Button {
                 text: qsTr("cancel")
                 Layout.preferredWidth: 200
+                Layout.alignment: Qt.AlignHCenter
                 onClicked: root.done(false, true, false)
             }
             Button {
                 id: addButton
                 text: qsTr("add")
                 //color: Style.accentColor
+                Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 200
-                //Layout.alignment: Qt.AlignHCenter
-                Layout.alignment: Qt.AlignLeft
                 onClicked: internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue})
             }
 

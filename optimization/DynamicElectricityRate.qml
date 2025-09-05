@@ -121,7 +121,7 @@ StackView {
 
                 VerticalDivider
                 {
-                    Layout.preferredWidth: app.width
+                    Layout.fillWidth: true
                     dividerColor: Material.accent
                 }
 
@@ -183,7 +183,7 @@ StackView {
 
                 VerticalDivider
                 {
-                    Layout.preferredWidth: app.width
+                    Layout.fillWidth: true
                     dividerColor: Material.accent
                     visible: thing.count >= 1 ? false : true
                 }
@@ -201,7 +201,7 @@ StackView {
                     ConsolinnoDropdown {
                         id: energyRateComboBox
                         Layout.leftMargin: Style.margins
-                        Layout.preferredWidth: app.width - 2*Style.margins
+                        Layout.fillWidth: true
                         textRole: "displayName"
                         valueRole: "id"
                         model: ThingClassesProxy {
@@ -221,7 +221,7 @@ StackView {
                     Button {
                         id: addButton
                         text: qsTr("Add Rate")
-                        Layout.preferredWidth: app.width - 2*Style.margins
+                        Layout.fillWidth: true
                         Layout.alignment: Qt.AlignHCenter
                         property ThingClass thingClass: thingClassesProxy.get(energyRateComboBox.currentIndex)
                         onClicked: {
@@ -445,7 +445,9 @@ StackView {
                         Button {
                             id: saveButton
                             text: qsTr("Save")
-                            Layout.preferredWidth: app.width - 2*Style.margins
+                            Layout.fillWidth: true
+                            Layout.leftMargin: Style.margins
+                            Layout.rightMargin: Style.margins
                             Layout.alignment: Qt.AlignHCenter
                             onClicked: {
                                 if(parseFloat(addedGridFee.text) > 0 && parseFloat(addedLevies.text) > 0){
@@ -484,11 +486,6 @@ StackView {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                     }
-
-                }
-
-                BusyOverlay {
-                    id: busyOverlay
                 }
             }
         }
@@ -615,7 +612,7 @@ StackView {
 
             header: ConsolinnoHeader {
                 text: qsTr("Dynamic electricity tariff")
-                Layout.preferredWidth: app.width - 2*Style.margins
+                Layout.fillWidth: true
                 backButtonVisible: true
                 onBackPressed: {
                     if(directionID == 0) {
@@ -634,7 +631,6 @@ StackView {
 
                     Text {
                         Layout.fillWidth: true
-                        Layout.preferredWidth: app.width - 2*Style.margins
                         Layout.preferredHeight: 50
                         color: Material.foreground
                         text: qsTr("The following tariff is submitted:")
@@ -645,7 +641,7 @@ StackView {
 
                     Text {
                         id: electricityRate
-                        Layout.preferredWidth: app.width - 2*Style.margins
+                        Layout.fillWidth: true
                         color: Material.foreground
                         text: qsTr(comboBoxCurrentText)
                         Layout.alignment: Qt.AlignCenter

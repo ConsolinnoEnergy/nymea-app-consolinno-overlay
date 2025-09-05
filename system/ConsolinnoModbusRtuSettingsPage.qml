@@ -62,7 +62,7 @@ Page {
     ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
         Layout.leftMargin: app.margins; Layout.rightMargin: app.margins;
-
+        Layout.preferredWidth: parent.width
         ModbusRtuManager {
             id: modbusRtuManager
             engine: _engine
@@ -181,12 +181,12 @@ Page {
         }
 
         ColumnLayout {
-            Layout.fillWidth: true
+            Layout.preferredWidth:parent.width
             Layout.fillHeight: true
 
             Label {
                 Layout.topMargin: 20
-                Layout.preferredWidth: app.width - 2* Style.margins
+                Layout.preferredWidth: parent.width
                 text: qsTr("Note: If you intend to connect a device via <b>Modbus-RTU</b>, please verify the Modbus interface settings to ensure they are compatible with the connected device. If you wish to use a different interface, please add another one.")
                 wrapMode: Text.WordWrap
                 Layout.alignment: Qt.AlignLeft
@@ -195,21 +195,21 @@ Page {
 
             Label {
                 Layout.topMargin: 10
-                Layout.preferredWidth: app.width - 2* Style.margins
+                Layout.preferredWidth: parent.width
                 wrapMode: Text.WordWrap
                 text: qsTr("Available interfaces:")
             }
 
             VerticalDivider
             {
-                Layout.preferredWidth: app.width - 2* Style.margins
+                Layout.preferredWidth: parent.width
                 dividerColor: Material.accent
             }
 
             Flickable {
                 id: modBusFlickable
                 clip: true
-                width: parent.width
+                width: 768
                 height: parent.height
                 contentHeight: modBusFlickable.height
                 contentWidth: app.width
@@ -217,19 +217,19 @@ Page {
 
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: app.height/3
-                Layout.preferredWidth: app.width - 2* Style.margins
+                Layout.preferredWidth: parent.width
                 flickableDirection: Flickable.VerticalFlick
 
                 ColumnLayout {
                     id: repeaterName
-                    Layout.preferredWidth: app.width - 2* Style.margins
+                    Layout.preferredWidth: app.width
                     Layout.fillHeight: true
 
                     Repeater {
                         enabled: modbusRtuManager.supported
                         model: modbusRtuManager.modbusRtuMasters
                         delegate: NymeaSwipeDelegate {
-                            Layout.preferredWidth: app.width - 2* Style.margins
+                            Layout.preferredWidth: app.width
                             iconName: "../images/modbus.svg"
                             text: repeaterName.getName(model.serialPort) + " " + model.baudrate
                             subText: model.connected ? qsTr("Connected") : qsTr("Disconnected")
@@ -239,7 +239,7 @@ Page {
 
 
                     Label {
-                        Layout.preferredWidth: app.width - 2* Style.margins
+                        Layout.preferredWidth: parent.width
                         Layout.topMargin: 10;
                         wrapMode: Text.WordWrap
                         text: qsTr("Modbus-RTU is not supported on this platform.")
@@ -247,7 +247,7 @@ Page {
                     }
 
                     Label {
-                        Layout.preferredWidth: app.width - 2* Style.margins
+                        Layout.preferredWidth: parent.width
                         Layout.topMargin: 10;
                         wrapMode: Text.WordWrap
                         text: qsTr("No devices discovered") //Keine Geräte entdeckt
@@ -271,7 +271,7 @@ Page {
 
             VerticalDivider
             {
-                Layout.preferredWidth: app.width - 2* Style.margins
+                Layout.preferredWidth: parent.width
                 dividerColor: Material.accent
             }
 
@@ -283,6 +283,7 @@ Page {
         }
 
         ColumnLayout {
+            Layout.preferredWidth: parent.width
             spacing: 0
             visible: settingsWizard
             Layout.bottomMargin: 25
