@@ -45,11 +45,13 @@ Page{
         ColumnLayout{
             id: mainColumnLayout
             anchors { top: parent.top; left: parent.left; right: parent.right;}
+            Layout.fillWidth: true
 
             Label{
                 id: privacyText
-                Layout.preferredWidth: app.width - 2*app.margins
-                Layout.margins: app.margins
+                Layout.fillWidth: true
+                Layout.rightMargin: app.margins
+                Layout.leftMargin: app.margins
                 wrapMode: Text.WordWrap
                 Layout.alignment: Qt.AlignLeft
                 horizontalAlignment: Text.AlignLeft
@@ -61,7 +63,7 @@ Page{
                 id: nameColum
 
                 Label{
-                    Layout.preferredWidth: app.width - app.margins
+                    Layout.fillWidth: true
                     text: qsTr("Name: ")
                     Layout.rightMargin: app.margins
                     Layout.leftMargin: app.margins
@@ -70,10 +72,10 @@ Page{
                 }
                 ConsolinnoTextField{
                     id: nameField
-                    Layout.preferredWidth: app.width - 2*app.margins
+                    Layout.fillWidth: true
                     Layout.topMargin: 0
-                    Layout.rightMargin: app.margins
-                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: Style.margins
+                    Layout.leftMargin: Style.margins
                     text: userconfig.installerName
                     placeholderText: qsTr("First name Last name")
                 }
@@ -82,14 +84,14 @@ Page{
             ColumnLayout{
                 id: workplaceColum
                 Label{
-                    Layout.preferredWidth: app.width - 2*app.margins
+                    Layout.fillWidth: true
                     Layout.rightMargin: app.margins
                     Layout.leftMargin: app.margins
                     text: qsTr("Workplace: ")
                 }
                 ConsolinnoTextField{
                     id: companyField
-                    Layout.preferredWidth: app.width - 2*app.margins
+                    Layout.fillWidth: true
                     Layout.topMargin: 0
                     Layout.rightMargin: app.margins
                     Layout.leftMargin: app.margins
@@ -102,14 +104,14 @@ Page{
             ColumnLayout{
                 id: emailColum
                 Label{
-                    Layout.preferredWidth: app.width - 2*app.margins
+                    Layout.fillWidth: true
                     Layout.rightMargin: app.margins
                     Layout.leftMargin: app.margins
                     text: qsTr("E-mail: ")
                 }
                 ConsolinnoTextField{
                     id: emailField
-                    Layout.preferredWidth: app.width - 2*app.margins
+                    Layout.fillWidth: true
                     Layout.topMargin: 0
                     Layout.rightMargin: app.margins
                     Layout.leftMargin: app.margins
@@ -122,14 +124,14 @@ Page{
             ColumnLayout{
                 id: numberColumn
                 Label{
-                    Layout.preferredWidth: app.width - 2*app.margins
+                    Layout.fillWidth: true
                     Layout.rightMargin: app.margins
                     Layout.leftMargin: app.margins
                     text: qsTr("Phone number: ")
                 }
                 ConsolinnoTextField{
                     id: numberField
-                    Layout.preferredWidth: app.width - 2*app.margins
+                    Layout.fillWidth: true
                     Layout.topMargin: 0
                     Layout.rightMargin: app.margins
                     Layout.leftMargin: app.margins

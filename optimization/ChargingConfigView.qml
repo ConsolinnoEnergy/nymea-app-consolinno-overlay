@@ -313,10 +313,10 @@ GenericConfigPage {
 
                 clip: true
                 anchors.top: parent.top
-                width: app.width
-                height: app.height
+                width: parent.width
+                height: parent.height
                 contentHeight: infoColumnLayout.implicitHeight + stateOfLoadingColumnLayout.implicitHeight + statusColumnLayout.implicitHeight + header.height + 100
-                contentWidth: app.width
+                contentWidth: parent.width
 
                 ColumnLayout {
                     id: infoColumnLayout

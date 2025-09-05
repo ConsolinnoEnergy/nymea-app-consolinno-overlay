@@ -163,7 +163,7 @@ StackView {
                     }
 
                     VerticalDivider{
-                        Layout.preferredWidth: app.width
+                        Layout.fillWidth: true
                         dividerColor: Material.accent
                     }
 
@@ -335,7 +335,7 @@ StackView {
                 VerticalDivider {
                     Layout.topMargin: app.margins - 12
                     Layout.bottomMargin: app.margins - 12
-                    Layout.preferredWidth: app.width
+                    Layout.fillWidth: true
                     dividerColor: Material.accent
                 }
 
@@ -605,7 +605,7 @@ StackView {
                 VerticalDivider {
                     Layout.topMargin: app.margins - 12
                     Layout.bottomMargin: app.margins - 12
-                    Layout.preferredWidth: app.width
+                    Layout.fillWidth: true
                     dividerColor: Material.accent
                 }
 
@@ -684,7 +684,7 @@ StackView {
                     ColumnLayout {
                         id: column
                         width: parent.width
-                        spacing: 5 
+                        spacing: 5
                         Repeater {
                             model: thingClass.paramTypes
                             delegate: ConsolinnoItemDelegate {
@@ -712,7 +712,7 @@ StackView {
                 }
 
                 VerticalDivider {
-                    Layout.preferredWidth: app.width
+                    Layout.fillWidth: true
                     Layout.topMargin: app.margins - 12
                     Layout.bottomMargin: app.margins - 12
                     dividerColor: Material.accent
@@ -945,7 +945,7 @@ StackView {
                 }
 
                 VerticalDivider {
-                    Layout.preferredWidth: app.width
+                    Layout.fillWidth: true
                     Layout.topMargin: app.margins - 12
                     Layout.bottomMargin: app.margins - 12
                     dividerColor: Material.accent
@@ -1066,7 +1066,7 @@ StackView {
                 }
 
                 VerticalDivider {
-                    Layout.preferredWidth: app.width
+                    Layout.fillWidth: true
                     Layout.topMargin: app.margins - 12
                     Layout.bottomMargin: app.margins - 12
                     dividerColor: Material.accent
@@ -1092,7 +1092,7 @@ StackView {
                 }
 
                 VerticalDivider {
-                    Layout.preferredWidth: app.width
+                    Layout.fillWidth: true
                     Layout.topMargin: app.margins - 12
                     Layout.bottomMargin: app.margins - 12
                     dividerColor: Material.accent
