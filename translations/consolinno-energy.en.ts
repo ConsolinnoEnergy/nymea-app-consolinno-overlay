@@ -2746,7 +2746,7 @@ Use a timeout value greater or equal to 10 ms.</source>
     &lt;li&gt;Dynamic electricity tariffs: Automatic optimization based on  end customer electricity price&lt;/li&gt;
     &lt;li&gt;NOMOS integration: Electricity tariffs via NOMOS &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4&gt;New&lt;/h4&gt;
+&lt;h4&gt;Improved&lt;/h4&gt;
 &lt;ul&gt;
     &lt;li&gt;More countries: EPEX price data available for additional markets&lt;/li&gt;
 &lt;/ul&gt;</translation>
