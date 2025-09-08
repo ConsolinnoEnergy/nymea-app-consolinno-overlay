@@ -194,14 +194,16 @@ StackView {
                     Label {
                         Layout.fillWidth: true
                         Layout.leftMargin: Style.margins
+                        Layout.rightMargin: Style.margins
                         text: qsTr("Add Rate: ")
                         wrapMode: Text.WordWrap
                     }
 
                     ConsolinnoDropdown {
                         id: energyRateComboBox
-                        Layout.leftMargin: Style.margins
                         Layout.fillWidth: true
+                        Layout.leftMargin: Style.margins
+                        Layout.rightMargin: Style.margins
                         textRole: "displayName"
                         valueRole: "id"
                         model: ThingClassesProxy {
@@ -222,6 +224,8 @@ StackView {
                         id: addButton
                         text: qsTr("Add Rate")
                         Layout.fillWidth: true
+                        Layout.leftMargin: Style.margins
+                        Layout.rightMargin: Style.margins
                         Layout.alignment: Qt.AlignHCenter
                         property ThingClass thingClass: thingClassesProxy.get(energyRateComboBox.currentIndex)
                         onClicked: {
@@ -241,6 +245,8 @@ StackView {
                     }
 
                     ConsolinnoSetUpButton {
+                        Layout.leftMargin: Style.margins
+                        Layout.rightMargin: Style.margins
                         text: qsTr("Cancel")
                         backgroundColor: "transparent"
                         onClicked: {
