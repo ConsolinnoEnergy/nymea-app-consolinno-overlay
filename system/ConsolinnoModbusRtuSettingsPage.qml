@@ -103,6 +103,8 @@ Page {
 
         ListModel {
             id: serialPortBaudrateModel
+            ListElement { value: 2400; }
+            ListElement { value: 4800; }
             ListElement { value: 9600; }
             ListElement { value: 14400; }
             ListElement { value: 19200; }
