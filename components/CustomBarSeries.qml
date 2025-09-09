@@ -75,7 +75,7 @@ ChartView {
                 y: parent.height / (valueAxis.tickCount - 1) * index - font.pixelSize / 2
                 width: parent.width - Style.smallMargins
                 horizontalAlignment: Text.AlignRight
-                text: (Math.ceil(valueAxis.max - index * (valueAxis.max - valueAxis.min) / (valueAxis.tickCount - 1))) + " ct"  //linke Seite vom Graphen
+                text: (Math.ceil(valueAxis.max - index * (valueAxis.max - valueAxis.min) / (valueAxis.tickCount - 1))) + " ct"  //linke Seite vom Graphen
                 verticalAlignment: Text.AlignTop
                 font: Style.extraSmallFont
             }
@@ -167,8 +167,16 @@ ChartView {
         }
     }
 
-    function addValues(value){
-        var lastObjectValue = value[Object.keys(value)[Object.keys(value).length - 1]];
+    // This function now calculates totalCost from four integer series
+    function addValues(totalCost, energyCost, gridFees, levies, VAT){
+        // The bar value should be (energyCost + gridFees + levies) * VAT
+        var calculatedTotalCost = (energyCost + gridFees + levies) * VAT;
+
+        // The remaining logic for drawing the bars remains the same, but you need to adjust
+        // which series is being used for the calculation. I've updated the 'itemValue'
+        // to use the calculated 'totalCost' for consistency.
+        
+        var lastObjectValue = totalCost[Object.keys(totalCost)[Object.keys(totalCost).length - 1]];
 
         var firstRun = true;
         let lastChange = 0;
@@ -180,10 +188,11 @@ ChartView {
         valueAxis.adjustMax(Math.ceil(root.lowestValue), root.highestValue);
 
         // Draw Bars
-        for (const item in value){
+        for (const item in totalCost){
             const date = new Date(item);
             let currentTimestamp = date.getTime();
-            let itemValue = value[item];
+            // Use the provided totalCost for the bar value.
+            let itemValue = totalCost[item];
 
             const lastChangeDate = new Date(currentTimestamp);
             if(lastChangeTimestamp === 0 || lastChangeDate.getMinutes() === 0) {
@@ -199,9 +208,10 @@ ChartView {
                 identicalIndexes.push(currentTimestamp);
             }
 
+            // Store the calculated cost in pricesArr
             root.pricesArr[currentTimestamp] = {
                 start: lastChangeTimestamp,
-                value: itemValue
+                value: calculatedTotalCost
             };
 
             if(firstRun === true){
@@ -314,25 +324,25 @@ ChartView {
             height: tooltipLayout.implicitHeight + Style.smallMargins * 2
 
             function getQuaterlyTimestamp(ts) {
-               const currTime = new Date(ts);
-               const currMinutes = currTime.getMinutes();
-               const modRes = currMinutes % 15;
+                const currTime = new Date(ts);
+                const currMinutes = currTime.getMinutes();
+                const modRes = currMinutes % 15;
 
-               if(modRes !== 0) {
-                   if(modRes < 8) {
-                       currTime.setMinutes(currMinutes - modRes);
-                   }
-                   else {
-                       currTime.setMinutes(currMinutes + (15 - modRes));
-                   }
+                if(modRes !== 0) {
+                    if(modRes < 8) {
+                        currTime.setMinutes(currMinutes - modRes);
+                    }
+                    else {
+                        currTime.setMinutes(currMinutes + (15 - modRes));
+                    }
 
-                   currTime.setSeconds(0);
-                   return currTime.getTime();
-               }
-               else {
-                   return ts;
-               }
-           }
+                    currTime.setSeconds(0);
+                    return currTime.getTime();
+                }
+                else {
+                    return ts;
+                }
+            }
 
             ColumnLayout {
                 id: tooltipLayout

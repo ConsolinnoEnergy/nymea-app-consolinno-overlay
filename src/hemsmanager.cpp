@@ -262,13 +262,14 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
         dummyConfig.insert("floorHeatingArea", 0);
         dummyConfig.insert("maxElectricalPower", 0);
         dummyConfig.insert("maxThermalEnergy",  0);
+        dummyConfig.insert("priceThreshold", 0.30);
+        dummyConfig.insert("optimizationMode", 0);
         dummyConfig.insert("controllableLocalSystem", false);
 
         addOrUpdateHeatingConfiguration(dummyConfig);
         // and get the dummy Config
         configuration =  m_heatingConfigurations->getHeatingConfiguration(heatPumpThingId);
     }
-
     // Make a MetaObject of an configuration
     const QMetaObject *metaObj = configuration->metaObject();
     // add the values from data which match with the MetaObject
@@ -276,17 +277,23 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
         if(data.contains(metaObj->property(i).name()))
             {
-                //qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
+                // Write Enum name instead of int for optimizationMode
+                if (strcmp(metaObj->property(i).name(), "optimizationMode") == 0) {
+                    config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
+                    continue;
+                }
+                qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
                 config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
             }else{
-                //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
+                qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
                 config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
             }
     }
 
     QVariantMap params;
     params.insert("heatingConfiguration", config);
-    qCWarning(dcHems()) << "Set heating configuration" << params;
+    qCDebug(dcHems()) << "Set heating configuration" << params;
+    qCWarning(dcHems()) << "Set heating configuration" << QJsonDocument(QJsonObject::fromVariantMap(params)).toJson(QJsonDocument::Compact);
 
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingConfiguration", params, this, "setHeatingConfigurationResponse");
 }
@@ -888,6 +895,10 @@ void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurati
     configuration->setHeatMeterThingId(configurationMap.value("heatMeterThingId").toUuid());
     configuration->setFloorHeatingArea(configurationMap.value("floorHeatingArea").toDouble());
     configuration->setMaxThermalEnergy(configurationMap.value("maxThermalEnergy").toDouble());
+    // get HPOptimizationMode enum from int
+    HeatingConfiguration::HPOptimizationMode mode = static_cast<HeatingConfiguration::HPOptimizationMode>(configurationMap.value("optimizationMode").toInt());
+    configuration->setOptimizationMode(mode);
+    configuration->setPriceThreshold(configurationMap.value("priceThreshold").toFloat());
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 

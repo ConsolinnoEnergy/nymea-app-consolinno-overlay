@@ -69,6 +69,26 @@ double HeatingConfiguration::maxThermalEnergy() const
     return m_maxThermalEnergy;
 }
 
+double HeatingConfiguration::priceThreshold() const
+{
+    return m_priceThreshold;
+}
+
+void HeatingConfiguration::setPriceThreshold(double priceThreshold)
+{
+    m_priceThreshold = priceThreshold;
+}
+
+HeatingConfiguration::HPOptimizationMode HeatingConfiguration::optimizationMode() const
+{
+    return m_optimizationMode;
+}
+
+void HeatingConfiguration::setOptimizationMode(HPOptimizationMode optimizationMode)
+{
+    m_optimizationMode = optimizationMode;
+}
+
 void HeatingConfiguration::setMaxThermalEnergy(const double &maxThermalEnergy)
 {
     m_maxThermalEnergy = maxThermalEnergy;
