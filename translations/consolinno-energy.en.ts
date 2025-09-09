@@ -1733,10 +1733,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Available interfaces:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Connected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1827,6 +1823,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>Next step</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Available interfaces</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2886,6 +2886,81 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Set up new device</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DynamicElectricityRate</name>
+    <message>
+        <source>Dynamic electricity tariff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Submitted Rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is no rate set up yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Rate: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Network charges</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Taxes &amp; fees</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VAT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter taxes and duties. The value cannot be empty or 0.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zewotherm setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to add thing: ThingErrorHardwareFailure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following tariff is submitted:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3957,10 +4032,6 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Integrated wallbox:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>There is no wallbox set up yet.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4050,6 +4121,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Please change name if necessary.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Integrated wallbox</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4361,10 +4436,6 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Integrated solar inverter:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>There is no inverter set up yet.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4466,6 +4537,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Please change name if necessary.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Integrated solar inverter</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

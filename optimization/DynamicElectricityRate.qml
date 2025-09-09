@@ -268,234 +268,234 @@ StackView {
 
         Page {
 
-            property var comboBoxValue
-            property string comboBoxCurrentText: ""
-            property int comboBoxCurrentIndex: 0
-            property bool reconfiguration: false
-            property bool btnDelete: false
-            property bool backToView: dynElectricThing.paramByName("addedGridFee").value === 0 ? true : false
-            property var thingClass
+        property var comboBoxValue
+        property string comboBoxCurrentText: ""
+        property int comboBoxCurrentIndex: 0
+        property bool reconfiguration: false
+        property bool btnDelete: false
+        property bool backToView: dynElectricThing.paramByName("addedGridFee").value === 0 ? true : false
+        property var thingClass
 
-            Component.onCompleted: {
-               thingClass = dynElectricThing.thingClass
-            }
+        Component.onCompleted: {
+           thingClass = dynElectricThing.thingClass
+        }
 
-            header: ConsolinnoHeader {
-                text: qsTr("Dynamic electricity tariff")
-                backButtonVisible: true
-                onMenuOptionsPressed: menu.open()
-                onBackPressed: {
-                    if(directionID >= 0) {
-                        pageStack.pop()
-                    }
+        header: ConsolinnoHeader {
+            text: qsTr("Dynamic electricity tariff")
+            backButtonVisible: true
+            onMenuOptionsPressed: menu.open()
+            onBackPressed: {
+                if(directionID >= 0) {
+                    pageStack.pop()
                 }
             }
+        }
 
-            Connections {
-                target: engine.thingManager
-                onThingRemoved: {
-                    if(btnDelete === true){
-                        busyOverlay.shown === false
-                        pageStack.pop()
-                    }
+        Connections {
+            target: engine.thingManager
+            onThingRemoved: {
+                if(btnDelete === true){
+                    busyOverlay.shown === false
+                    pageStack.pop()
                 }
             }
+        }
 
-            function addParamValues(){
-                var params = []
-                for (var i = 0; i < thingClass.paramTypes.count; i++) {
-                    var param = {}
-                    var paramId = thingClass.paramTypes.get(i).id
-                    var paramName = thingClass.paramTypes.get(i).name
-                    if(paramName === "marketArea"){
-                        param.paramTypeId = paramId
-                        param.value = countryCode.currentText
-                    }else if(paramName === "addedGridFee"){
-                        param.paramTypeId = paramId
-                        param.value = parseFloat(addedGridFee.text.replace(",","."))
-                    }else if(paramName === "addedLevies"){
-                        param.paramTypeId = paramId
-                        param.value = parseFloat(addedLevies.text.replace(",","."))
-                    }else if(paramName === "addedVAT"){
-                        param.paramTypeId = paramId
-                        param.value = parseFloat(vat.text)
-                    }
-                    params.push(param)
-                    d.params = params
+        function addParamValues(){
+            var params = []
+            for (var i = 0; i < thingClass.paramTypes.count; i++) {
+                var param = {}
+                var paramId = thingClass.paramTypes.get(i).id
+                var paramName = thingClass.paramTypes.get(i).name
+                if(paramName === "marketArea"){
+                    param.paramTypeId = paramId
+                    param.value = countryCode.currentText
+                }else if(paramName === "addedGridFee"){
+                    param.paramTypeId = paramId
+                    param.value = parseFloat(addedGridFee.text.replace(",","."))
+                }else if(paramName === "addedLevies"){
+                    param.paramTypeId = paramId
+                    param.value = parseFloat(addedLevies.text.replace(",","."))
+                }else if(paramName === "addedVAT"){
+                    param.paramTypeId = paramId
+                    param.value = parseFloat(vat.text)
                 }
+                params.push(param)
+                d.params = params
             }
+        }
+
+        ColumnLayout {
+            anchors {top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
+            Layout.fillWidth: true
+            spacing: 0
 
             ColumnLayout {
-                anchors {top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
                 Layout.fillWidth: true
                 spacing: 0
 
-                ColumnLayout {
-                    Layout.fillWidth: true
+                RowLayout {
                     spacing: 0
-
-                    RowLayout {
-                        spacing: 0
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
-                        Layout.fillWidth: true
-
-                        Label {
-                            Layout.fillWidth: true
-                            Layout.rightMargin: 20
-                            rightPadding: 16
-                            text: qsTr("Location")
-                        }
-                    }
-
-                        ConsolinnoDropdown {
-                            property var paramsValueArray: isNaN(dynElectricThing) ? dynElectricThing.thingClass.paramTypes.get(2).allowedValues : 0
-                            model: thingClass ? thingClass.paramTypes.get(2).allowedValues : dynElectricThing.thingClass.paramTypes.get(2).allowedValues
-                            id: countryCode
-                            Layout.fillWidth: true
-                            currentIndex: isNaN(dynElectricThing) ? paramsValueArray.indexOf(dynElectricThing.paramByName("marketArea").value) : 0
-                        }
-                    }
-
-                    RowLayout {
-                        spacing: 0
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
-                        Layout.fillWidth: true
-
-                        Label {
-                            Layout.fillWidth: true
-                            rightPadding: 16
-                            text: qsTr("Network charges")
-                        }
-
-                        TextField {
-                            id: addedGridFee
-                            Layout.rightMargin: 12
-                            validator: RegExpValidator { regExp: /^[0-9.,]*$/ }
-                            inputMethodHints: Qt.ImhFormattedNumbersOnly
-                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedGridFee").value).toLocaleString() : ""
-                        }
-
-                        Label {
-                            text: "ct/kWh"
-                        }
-                    }
-
-                    RowLayout {
-                        spacing: 0
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
-                        Layout.fillWidth: true
-
-                        Label {
-                            rightPadding: 16
-                            Layout.fillWidth: true
-                            text: qsTr("Taxes & fees")
-                        }
-
-                        TextField {
-                            id: addedLevies
-                            Layout.rightMargin: 12
-                            validator: RegExpValidator { regExp: /^[0-9.,]*$/ }
-                            inputMethodHints: Qt.ImhFormattedNumbersOnly
-                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedLevies").value).toLocaleString() : ""
-                        }
-
-                        Label {
-                            text: "ct/kWh"
-                        }
-                    }
-
-                    RowLayout {
-                        spacing: 0
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
-                        Layout.fillWidth: true
-
-                        Label {
-                            rightPadding: 16
-                            Layout.fillWidth: true
-                            text: qsTr("VAT")
-                        }
-
-                        TextField {
-                            id: vat
-                            Layout.rightMargin: 12
-                            validator: RegExpValidator { regExp: /^[0-9]*$/ }
-                            inputMethodHints: Qt.ImhFormattedNumbersOnly
-                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedVAT").value).toLocaleString() : ""
-                        }
-
-                        Label {
-                            Layout.rightMargin: 39
-                            text: "%"
-                        }
-                    }
-
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    Layout.fillWidth: true
 
                     Label {
-                        id: footer
                         Layout.fillWidth: true
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
-                        color: Style.dangerAccent
-                        wrapMode: Text.WordWrap
-                        font.pixelSize: app.smallFont
+                        Layout.rightMargin: 20
+                        rightPadding: 16
+                        text: qsTr("Location")
+                    }
+                }
+
+                    ConsolinnoDropdown {
+                        property var paramsValueArray: isNaN(dynElectricThing) ? dynElectricThing.thingClass.paramTypes.get(2).allowedValues : 0
+                        model: thingClass ? thingClass.paramTypes.get(2).allowedValues : dynElectricThing.thingClass.paramTypes.get(2).allowedValues
+                        id: countryCode
+                        Layout.fillWidth: true
+                        currentIndex: isNaN(dynElectricThing) ? paramsValueArray.indexOf(dynElectricThing.paramByName("marketArea").value) : 0
+                    }
+                }
+
+                RowLayout {
+                    spacing: 0
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    Layout.fillWidth: true
+
+                    Label {
+                        Layout.fillWidth: true
+                        rightPadding: 16
+                        text: qsTr("Network charges")
                     }
 
-                    ColumnLayout {
-                        spacing: 0
+                    TextField {
+                        id: addedGridFee
+                        Layout.rightMargin: 12
+                        validator: RegExpValidator { regExp: /^[0-9.,]*$/ }
+                        inputMethodHints: Qt.ImhFormattedNumbersOnly
+                        text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedGridFee").value).toLocaleString() : ""
+                    }
+
+                    Label {
+                        text: "ct/kWh"
+                    }
+                }
+
+                RowLayout {
+                    spacing: 0
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    Layout.fillWidth: true
+
+                    Label {
+                        rightPadding: 16
+                        Layout.fillWidth: true
+                        text: qsTr("Taxes & fees")
+                    }
+
+                    TextField {
+                        id: addedLevies
+                        Layout.rightMargin: 12
+                        validator: RegExpValidator { regExp: /^[0-9.,]*$/ }
+                        inputMethodHints: Qt.ImhFormattedNumbersOnly
+                        text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedLevies").value).toLocaleString() : ""
+                    }
+
+                    Label {
+                        text: "ct/kWh"
+                    }
+                }
+
+                RowLayout {
+                    spacing: 0
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    Layout.fillWidth: true
+
+                    Label {
+                        rightPadding: 16
+                        Layout.fillWidth: true
+                        text: qsTr("VAT")
+                    }
+
+                    TextField {
+                        id: vat
+                        Layout.rightMargin: 12
+                        validator: RegExpValidator { regExp: /^[0-9]*$/ }
+                        inputMethodHints: Qt.ImhFormattedNumbersOnly
+                        text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedVAT").value).toLocaleString() : ""
+                    }
+
+                    Label {
+                        Layout.rightMargin: 39
+                        text: "%"
+                    }
+                }
+
+
+                Label {
+                    id: footer
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    color: Style.dangerAccent
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: app.smallFont
+                }
+
+                ColumnLayout {
+                    spacing: 0
+                    Layout.alignment: Qt.AlignHCenter
+
+                    Button {
+                        id: saveButton
+                        text: qsTr("Save")
+                        Layout.fillWidth: true
+                        Layout.leftMargin: Style.margins
+                        Layout.rightMargin: Style.margins
                         Layout.alignment: Qt.AlignHCenter
+                        onClicked: {
+                            if(parseFloat(addedGridFee.text) > 0 && parseFloat(addedLevies.text) > 0){
+                                addParamValues();
+                                if(reconfiguration === false && !isNaN(dynElectricThing)){
+                                    pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText});
+                                    engine.thingManager.addThing(comboBoxValue, comboBoxCurrentText, d.params);
 
-                        Button {
-                            id: saveButton
-                            text: qsTr("Save")
-                            Layout.fillWidth: true
-                            Layout.leftMargin: Style.margins
-                            Layout.rightMargin: Style.margins
-                            Layout.alignment: Qt.AlignHCenter
-                            onClicked: {
-                                if(parseFloat(addedGridFee.text) > 0 && parseFloat(addedLevies.text) > 0){
-                                    addParamValues();
-                                    if(reconfiguration === false && !isNaN(dynElectricThing)){
-                                        pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText});
-                                        engine.thingManager.addThing(comboBoxValue, comboBoxCurrentText, d.params);
-
-                                    }else{
-                                        engine.thingManager.removeThing(dynElectricThing.id)
-                                        engine.thingManager.addThing(dynElectricThing.thingClass.id, dynElectricThing.name, d.params);
-                                        pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText: dynElectricThing.name, reconfiguration: true, historyView: backToView});
-                                    }
-                                }else {
-                                    footer.text = qsTr("Please enter taxes and duties. The value cannot be empty or 0.")
-                                }
-                            }
-                        }
-
-                        ConsolinnoSetUpButton {
-                            text: qsTr("Cancel")
-                            backgroundColor: "transparent"
-                            onClicked: {
-                                if(directionID === 0){
-                                    pageStack.pop()
-                                    pageStack.pop()
                                 }else{
-                                    pageStack.pop()
+                                    engine.thingManager.removeThing(dynElectricThing.id)
+                                    engine.thingManager.addThing(dynElectricThing.thingClass.id, dynElectricThing.name, d.params);
+                                    pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText: dynElectricThing.name, reconfiguration: true, historyView: backToView});
                                 }
-                                dynElectricThing = null
+                            }else {
+                                footer.text = qsTr("Please enter taxes and duties. The value cannot be empty or 0.")
                             }
                         }
                     }
 
-                    Item {
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
+                    ConsolinnoSetUpButton {
+                        text: qsTr("Cancel")
+                        backgroundColor: "transparent"
+                        onClicked: {
+                            if(directionID === 0){
+                                pageStack.pop()
+                                pageStack.pop()
+                            }else{
+                                pageStack.pop()
+                            }
+                            dynElectricThing = null
+                        }
                     }
+                }
+
+                Item {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
                 }
             }
         }
     }
+
 
     Component {
         id: oAuthPageComponent

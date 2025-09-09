@@ -100,8 +100,8 @@ Page {
 
 
     ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom;left: parent.left; right: parent.right; margins: Style.margins }
-        width: Math.min(parent.width - Style.margins * 2, 300)
+        anchors { top: parent.top; bottom: parent.bottom;left: parent.left; right: parent.right;}
+        width: parent.width
         //spacing: Style.margins
 
 
@@ -110,17 +110,18 @@ Page {
             Layout.fillHeight: true
 
             Label {
-                Layout.fillWidth: true
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
                 text: qsTr("Integrated heat pumps")
                 wrapMode: Text.WordWrap
-                Layout.alignment: Qt.AlignLeft
+                Layout.alignment: Qt.AlignRight
                 horizontalAlignment: Text.AlignLeft
             }
 
 
             VerticalDivider
             {
-                Layout.preferredWidth:  parent.width
+                Layout.preferredWidth: root.width
                 dividerColor: Material.accent
             }
 
@@ -215,6 +216,9 @@ Page {
 
         ColumnLayout {
             Layout.topMargin: Style.margins
+            Layout.leftMargin: Style.margins
+            Layout.rightMargin: Style.margins
+
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Add heat pumps:")
@@ -375,7 +379,7 @@ Page {
                     height: parent.height
                     width: parent.width
                     border.color: Material.background
-                    color: Style.secondButtonColor
+                    color: Style.buttonColor
                     radius: 4
                 }
                 onClicked: root.done(true, false, false)

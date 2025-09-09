@@ -90,25 +90,26 @@ Page {
 
 
     ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
-        width: Math.min(parent.width - Style.margins * 2, 300)
+        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
+        width: parent.width
 
         ColumnLayout{
             Layout.fillWidth: true
             Layout.fillHeight: true
 
             Label {
-                Layout.fillWidth: true
-                text: qsTr("Integrated wallbox:")
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                text: qsTr("Integrated wallbox")
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignLeft
-                Layout.alignment: Qt.AlignLeft
+                Layout.alignment: Qt.AlignRight
 
             }
 
             VerticalDivider
             {
-                Layout.preferredWidth: parent.width
+                Layout.preferredWidth: root.width
                 dividerColor: Material.accent
                 Layout.bottomMargin: 0
             }
@@ -201,7 +202,10 @@ Page {
         }
 
         ColumnLayout {
-            Layout.topMargin: 0
+            Layout.topMargin: Style.margins
+            Layout.leftMargin: Style.margins
+            Layout.rightMargin: Style.margins
+
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Add wallboxes:")
@@ -358,7 +362,7 @@ Page {
                     height: parent.height
                     width: parent.width
                     border.color: Material.background
-                    color: Style.secondButtonColor
+                    color: Style.buttonColor
                     radius: 4
                 }
 

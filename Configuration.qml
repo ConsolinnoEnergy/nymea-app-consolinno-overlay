@@ -70,7 +70,7 @@ ConfigurationBase {
     // Button
     readonly property color iconColor: "#87BD26"
 
-    readonly property color highlightForeground: "#ffffff"
+    readonly property color highlightForeground: "black"
 
     //static things colors
     //producers

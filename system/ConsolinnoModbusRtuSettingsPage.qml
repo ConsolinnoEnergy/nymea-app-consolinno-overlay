@@ -60,9 +60,8 @@ Page {
     }
 
     ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
-        Layout.leftMargin: app.margins; Layout.rightMargin: app.margins;
-        Layout.preferredWidth: parent.width
+        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
+        Layout.preferredWidth: root.width
         ModbusRtuManager {
             id: modbusRtuManager
             engine: _engine
@@ -181,43 +180,48 @@ Page {
         }
 
         ColumnLayout {
-            Layout.preferredWidth:parent.width
+            Layout.preferredWidth: root.width
             Layout.fillHeight: true
 
             Label {
                 Layout.topMargin: 20
-                Layout.preferredWidth: parent.width
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                Layout.fillWidth: true
                 text: qsTr("Note: If you intend to connect a device via <b>Modbus-RTU</b>, please verify the Modbus interface settings to ensure they are compatible with the connected device. If you wish to use a different interface, please add another one.")
                 wrapMode: Text.WordWrap
-                Layout.alignment: Qt.AlignLeft
                 horizontalAlignment: Text.AlignLeft
             }
 
             Label {
                 Layout.topMargin: 10
-                Layout.preferredWidth: parent.width
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins + 20
                 wrapMode: Text.WordWrap
-                text: qsTr("Available interfaces:")
+                Layout.alignment: Qt.AlignRight
+                horizontalAlignment: Text.AlignLeft
+                text: qsTr("Available interfaces")
             }
 
             VerticalDivider
             {
-                Layout.preferredWidth: parent.width
+                Layout.preferredWidth: root.width
                 dividerColor: Material.accent
             }
 
             Flickable {
                 id: modBusFlickable
                 clip: true
-                width: 768
                 height: parent.height
+                Layout.preferredWidth: root.width
+                Layout.rightMargin: Style.margins
+
                 contentHeight: modBusFlickable.height
-                contentWidth: app.width
+                contentWidth: root.width
 
 
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: app.height/3
-                Layout.preferredWidth: parent.width
                 flickableDirection: Flickable.VerticalFlick
 
                 ColumnLayout {
@@ -271,7 +275,7 @@ Page {
 
             VerticalDivider
             {
-                Layout.preferredWidth: parent.width
+                Layout.preferredWidth: root.width
                 dividerColor: Material.accent
             }
 
@@ -342,7 +346,7 @@ Page {
                     height: parent.height
                     width: parent.width
                     border.color: Material.background
-                    color: Style.secondButtonColor
+                    color: Style.buttonColor
                     radius: 4
                 }
                 onClicked: root.done(true, false, false)

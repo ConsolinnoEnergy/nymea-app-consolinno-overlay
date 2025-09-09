@@ -1743,10 +1743,6 @@ Falls Sie eine andere Schnittstelle verwenden wollen,
 fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
-        <source>Available interfaces:</source>
-        <translation type="unfinished">Verfügbare Schnittstellen:</translation>
-    </message>
-    <message>
         <source>Connected</source>
         <translation type="unfinished">Verbunden</translation>
     </message>
@@ -1837,6 +1833,10 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Next step</source>
         <translation type="unfinished">Nächster Schritt</translation>
+    </message>
+    <message>
+        <source>Available interfaces</source>
+        <translation>Verfügbare Schnittstellen</translation>
     </message>
 </context>
 <context>
@@ -2907,6 +2907,81 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Set up new device</source>
         <translation>Gerät hinzufügen</translation>
+    </message>
+</context>
+<context>
+    <name>DynamicElectricityRate</name>
+    <message>
+        <source>Dynamic electricity tariff</source>
+        <translation type="unfinished">Dynamischer Stromtarif</translation>
+    </message>
+    <message>
+        <source>Submitted Rate</source>
+        <translation type="unfinished">Eingerichteter Tarif</translation>
+    </message>
+    <message>
+        <source>There is no rate set up yet</source>
+        <translation type="unfinished">Es sind noch keine Tarife angelegt</translation>
+    </message>
+    <message>
+        <source>Add Rate: </source>
+        <translation type="unfinished">Tarif hinzufügen: </translation>
+    </message>
+    <message>
+        <source>Add Rate</source>
+        <translation type="unfinished">Neuen Tarif hinzufügen</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished">Standort</translation>
+    </message>
+    <message>
+        <source>Network charges</source>
+        <translation type="unfinished">Netzentgelte</translation>
+    </message>
+    <message>
+        <source>Taxes &amp; fees</source>
+        <translation type="unfinished">Steuern &amp; Abgaben</translation>
+    </message>
+    <message>
+        <source>VAT</source>
+        <translation type="unfinished">Mehrwertsteuer</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Speichern</translation>
+    </message>
+    <message>
+        <source>Please enter taxes and duties. The value cannot be empty or 0.</source>
+        <translation type="unfinished">Bitte geben Sie Steuern und Abgaben an. Der Wert darf nicht leer oder 0 sein.</translation>
+    </message>
+    <message>
+        <source>Zewotherm setup</source>
+        <translation type="unfinished">Zewotherm einrichten</translation>
+    </message>
+    <message>
+        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to add thing: ThingErrorHardwareFailure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following tariff is submitted:</source>
+        <translation type="unfinished">Der folgende Stromtarif wurde eingerichtet:</translation>
     </message>
 </context>
 <context>
@@ -4002,10 +4077,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Füge Wallboxen hinzu:</translation>
     </message>
     <message>
-        <source>Integrated wallbox:</source>
-        <translation>Eingerichtete Wallboxen:</translation>
-    </message>
-    <message>
         <source>Next step</source>
         <translation>Nächster Schritt</translation>
     </message>
@@ -4076,6 +4147,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Please change name if necessary.</source>
         <translation type="unfinished">Wenn notwendig, bitte den Namen ändern.</translation>
+    </message>
+    <message>
+        <source>Integrated wallbox</source>
+        <translation type="unfinished">Eingerichtete Wallboxen</translation>
     </message>
 </context>
 <context>
@@ -4173,7 +4248,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Integrated heat pumps</source>
-        <translation>Eingerichtete Wärmepumpen:</translation>
+        <translation type="unfinished">Eingerichtete Wärmepumpen</translation>
     </message>
     <message>
         <source>add</source>
@@ -4402,10 +4477,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Füge Wechselrichter hinzu: </translation>
     </message>
     <message>
-        <source>Integrated solar inverter:</source>
-        <translation>Eingerichtete Wechselrichter:</translation>
-    </message>
-    <message>
         <source>Next step</source>
         <translation>Nächster Schritt</translation>
     </message>
@@ -4492,6 +4563,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Please change name if necessary.</source>
         <translation>Wenn notwendig, bitte den Namen ändern.</translation>
+    </message>
+    <message>
+        <source>Integrated solar inverter</source>
+        <translation type="unfinished">Eingerichtete Wechselrichter</translation>
     </message>
 </context>
 <context>
