@@ -3517,6 +3517,10 @@ fügen Sie eine weitere hinzu.</translation>
         <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
         <translation>Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend auf maximal %1 kW limitiert&lt;/b&gt;.</translation>
     </message>
+    <message>
+        <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend auf maximal %1 kW limitiert&lt;/b&gt;.</translation>
+    </message>
 </context>
 <context>
     <name>HeatingConfigView</name>
