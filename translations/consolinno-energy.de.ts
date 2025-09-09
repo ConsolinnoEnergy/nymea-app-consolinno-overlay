@@ -3380,16 +3380,8 @@ fügen Sie eine weitere hinzu.</translation>
         <translation type="unfinished">Achtung</translation>
     </message>
     <message>
-        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
-        <translation type="unfinished">Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers vorübergehend begrenzt  auf %1 Watt.</translation>
-    </message>
-    <message>
-        <source>Feed-in curtailment</source>
-        <translation type="unfinished">Einspeiseabregelung</translation>
-    </message>
-    <message>
-        <source>Consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
-        <translation type="unfinished"></translation>
+        <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend auf maximal %1 kW limitiert&lt;/b&gt;.</translation>
     </message>
 </context>
 <context>
