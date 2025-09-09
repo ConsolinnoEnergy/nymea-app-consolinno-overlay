@@ -2795,7 +2795,7 @@ Use a timeout value greater or equal to 10 ms.</source>
                 &lt;p&gt;Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;/p&gt;
                 &lt;p&gt;If this message is still displayed, please contact our service team.&lt;/p&gt;
                 &lt;ul&gt;
-                    &lt;li&gt;%7&lt;/li&gt;
+                    %7
                     &lt;li&gt;%4&lt;/li&gt;
                 &lt;/ul&gt;
                 &lt;p&gt;Best regards&lt;/p&gt;
