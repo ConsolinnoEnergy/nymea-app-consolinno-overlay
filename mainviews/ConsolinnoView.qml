@@ -501,29 +501,29 @@ MainViewBase {
         property var shown: []
     }
 
-    Component {
-        id: incompNotificationComponent
-        Popup {
-            property string message: ""
-            id: incompNotificationPopup
-            parent: root
-            x: Math.round((parent.width - width) / 2)
-            y: Math.round((parent.height - height) / 2)
-            width: parent.width * 0.9
-            modal: true
-            focus: true
-            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-            contentItem: Label {
-                Layout.fillWidth: true
-                Layout.topMargin: app.margins
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                wrapMode: Text.WordWrap
-                textFormat: Text.RichText
-                text: message
-            }
-        }
-    }
+    //Component {
+    //    id: incompNotificationComponent
+    //    Popup {
+    //        property string message: ""
+    //        id: incompNotificationPopup
+    //        parent: root
+    //        x: Math.round((parent.width - width) / 2)
+    //        y: Math.round((parent.height - height) / 2)
+    //        width: parent.width * 0.9
+    //        modal: true
+    //        focus: true
+    //        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+    //        contentItem: Label {
+    //            Layout.fillWidth: true
+    //            Layout.topMargin: app.margins
+    //            Layout.leftMargin: app.margins
+    //            Layout.rightMargin: app.margins
+    //            wrapMode: Text.WordWrap
+    //            textFormat: Text.RichText
+    //            text: message
+    //        }
+    //    }
+    //}
 
 
     Component {
@@ -580,7 +580,7 @@ MainViewBase {
             // Show message if HEMS version is not compatible
             if (!checkHEMSVersion()) {
 
-                let phone = (Configuration.serviceTel !== "") ? qsTr("Phone: <a href='tel:%1'>%1</a>").arg(Configuration.serviceTel) : ""
+                let phone = (Configuration.serviceTel !== "") ? "<li>%1</li>".arg(qsTr("Phone: <a href='tel:%1'>%1</a>").arg(Configuration.serviceTel)) : ""
                 let mail = qsTr("Email: <a href='mailto:%1'>%1</a>").arg(Configuration.serviceEmail)
 
                 let dialogText=qsTr('<h3>Pending software update</h3>
@@ -588,7 +588,7 @@ MainViewBase {
                 <p>Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.</p>
                 <p>If this message is still displayed, please contact our service team.</p>
                 <ul>
-                    <li>%7</li>
+                    %7
                     <li>%4</li>
                 </ul>
                 <p>Best regards</p>

@@ -2779,7 +2779,7 @@ fügen Sie eine weitere hinzu.</translation>
                 &lt;p&gt;Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;/p&gt;
                 &lt;p&gt;If this message is still displayed, please contact our service team.&lt;/p&gt;
                 &lt;ul&gt;
-                    &lt;li&gt;%7&lt;/li&gt;
+                    %7
                     &lt;li&gt;%4&lt;/li&gt;
                 &lt;/ul&gt;
                 &lt;p&gt;Best regards&lt;/p&gt;
@@ -2789,7 +2789,7 @@ fügen Sie eine weitere hinzu.</translation>
                 &lt;p&gt;Ihr %6-Gerät wird im Laufe des Tages aktualisiert. Bis das Update abgeschlossen ist, kann die Verfügbarkeit der neuen                                 Funktionen vorübergehend eingeschränkt sein.&lt;/p&gt; 
                 &lt;p&gt;Sollte diese Meldung weiterhin angezeigt werden, kontaktieren Sie bitte unseren Service.&lt;/p&gt; 
                 &lt;ul&gt; 
-                    &lt;li&gt;%7&lt;/li&gt; 
+                    %7
                     &lt;li&gt;%4&lt;/li&gt; 
                 &lt;/ul&gt; 
                 &lt;p&gt;Beste Grüße&lt;/p&gt; 
