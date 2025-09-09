@@ -929,6 +929,37 @@
     </message>
 </context>
 <context>
+    <name>ConsolinnoConnectionInterfacesPage</name>
+    <message>
+        <source>Connection settings</source>
+        <translation>Verbindungseinstellungen</translation>
+    </message>
+    <message>
+        <source>Remote connection</source>
+        <translation>Fernverbindung</translation>
+    </message>
+    <message>
+        <source>Enabling the remote connection will allow connecting to this %1 system from anywhere.</source>
+        <translation>Das Aktivieren der Fernverbindung erlaubt von überall aus auf dieses %1 system zuzugreifen.</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>Aktiviert</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>Deaktiviert</translation>
+    </message>
+    <message>
+        <source>Advanced</source>
+        <translation>Erweitert</translation>
+    </message>
+    <message>
+        <source>Connection interfaces</source>
+        <translation>Verbindungsschnittstellen</translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoConsumerStats</name>
     <message>
         <source>Consumers totals</source>
@@ -2879,81 +2910,6 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
 </context>
 <context>
-    <name>DynamicElectricityRate</name>
-    <message>
-        <source>There is no rate set up yet</source>
-        <translation>Es sind noch keine Tarife angelegt</translation>
-    </message>
-    <message>
-        <source>Add Rate: </source>
-        <translation>Tarif hinzufügen: </translation>
-    </message>
-    <message>
-        <source>Dynamic electricity tariff</source>
-        <translation>Dynamischer Stromtarif</translation>
-    </message>
-    <message>
-        <source>Failed to add thing: ThingErrorHardwareFailure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Next</source>
-        <translation type="unfinished">Weiter</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
-    </message>
-    <message>
-        <source>Add Rate</source>
-        <translation type="unfinished">Neuen Tarif hinzufügen</translation>
-    </message>
-    <message>
-        <source>Submitted Rate</source>
-        <translation type="unfinished">Eingerichteter Tarif</translation>
-    </message>
-    <message>
-        <source>The following tariff is submitted:</source>
-        <translation type="unfinished">Der folgende Stromtarif wurde eingerichtet:</translation>
-    </message>
-    <message>
-        <source>Network charges</source>
-        <translation type="unfinished">Netzentgelte</translation>
-    </message>
-    <message>
-        <source>Taxes &amp; fees</source>
-        <translation type="unfinished">Steuern &amp; Abgaben</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
-    </message>
-    <message>
-        <source>Zewotherm setup</source>
-        <translation type="unfinished">Zewotherm einrichten</translation>
-    </message>
-    <message>
-        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter taxes and duties. The value cannot be empty or 0.</source>
-        <translation type="unfinished">Bitte geben Sie Steuern und Abgaben an. Der Wert darf nicht leer oder 0 sein.</translation>
-    </message>
-    <message>
-        <source>VAT</source>
-        <translation type="unfinished">Mehrwertsteuer</translation>
-    </message>
-    <message>
-        <source>Location</source>
-        <translation type="unfinished">Standort</translation>
-    </message>
-</context>
-<context>
     <name>DynamicElectricityRateFeedback</name>
     <message>
         <source>to the dashboard</source>
@@ -3351,6 +3307,10 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Feed-in curtailment</source>
         <translation type="unfinished">Einspeiseabregelung</translation>
+    </message>
+    <message>
+        <source>Consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

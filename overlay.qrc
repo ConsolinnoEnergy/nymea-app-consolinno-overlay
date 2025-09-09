@@ -153,5 +153,6 @@
         <file>images/relais.svg</file>
         <file>components/ConsolinnoCheckBox.qml</file>
         <file>components/ConsolinnoDropdown.qml</file>
+        <file>system/ConsolinnoConnectionInterfacesPage.qml</file>
     </qresource>
 </RCC>
