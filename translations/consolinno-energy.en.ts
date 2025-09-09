@@ -3314,15 +3314,15 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Existing setup will be overwritten.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Attention</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

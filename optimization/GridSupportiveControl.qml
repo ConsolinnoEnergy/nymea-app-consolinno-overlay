@@ -25,7 +25,7 @@ StackView {
     property string textEEBUS: (!eebusSettings.connected && !eebusSettings.everConnected) ? qsTr("Confirmation by network operator pending.") : eebusState == true ? qsTr("connected") : qsTr("not connected")
 
     property bool currentState: gridSupportThing.stateByName("isLpcActive").value
-    property string contentPlim: currentState === true ? qsTr("Consumption is <b>temporarily reduced</b> to a maximum of <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimit)) : ""
+    property string contentPlim: currentState === true ? qsTr("Consumption is <b>temporarily limited</b> to a maximum of <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimit)) : ""
 
 
     Settings {
