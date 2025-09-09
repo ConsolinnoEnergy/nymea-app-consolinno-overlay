@@ -84,7 +84,7 @@ Item {
             pagePath: "../optimization/DynamicElectricityRate.qml"
             pageStartView: "taxesAndFeesSetUp"
 
-            text: qsTr("Please provide information on taxes, surcharges, and network fees. <u>Continue to configuration</u>")
+            text: qsTr("Please provide information on taxes, surcharges and network fees. <u>Continue to configuration.</u>")
             headerText: qsTr("Tariff details are not available")
         }
 
