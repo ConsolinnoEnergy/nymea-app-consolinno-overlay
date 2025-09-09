@@ -1265,13 +1265,11 @@ MainViewBase {
                         gradient: Gradient {
                             GradientStop {
                                 position: 0.0
-                                //color: "#949494"
-                                color: Style.mainInnerCicleFirst //"#b6b6b6" //Configuration.mainInnerCicleFirst
+                                color: Style.mainInnerCicleFirst
                             }
                             GradientStop {
                                 position: 0.8
-                                //color: "white"
-                                color: Style.mainInnerCicleSecond //"#b6b6b6" //Configuration.mainInnerCicleSecond
+                                color: Style.mainInnerCicleSecond
                             }
                         }
                     }
