@@ -1125,11 +1125,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please provide information on taxes, surcharges, and network fees. &lt;u&gt;Continue to configuration&lt;/u&gt;</source>
+        <source>Tariff details are not available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Tariff details are not available</source>
+        <source>Please provide information on taxes, surcharges and network fees. &lt;u&gt;Continue to configuration.&lt;/u&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
