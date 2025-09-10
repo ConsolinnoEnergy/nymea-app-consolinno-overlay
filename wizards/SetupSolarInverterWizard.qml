@@ -153,130 +153,120 @@ Page {
 
     ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
-        width: parent.width
-
+        Layout.preferredWidth: root.width
 
         ColumnLayout{
-        Layout.fillWidth: true
-        Layout.fillHeight: true
+            Layout.fillWidth: true
+            Layout.fillHeight: true
 
-        Label {
-            Layout.leftMargin: Style.margins
-            Layout.rightMargin: Style.margins
-            text: qsTr("Integrated solar inverter")
-            wrapMode: Text.WordWrap
-            Layout.alignment: Qt.AlignRight
-            horizontalAlignment: Text.AlignLeft
-        }
-
-
-        VerticalDivider
-        {
-            Layout.preferredWidth: root.width
-            dividerColor: Material.accent
-        }
-
-        Flickable{
-            id: energyMeterFlickable
-            clip: true
-            width: parent.width
-            height: parent.height
-            contentHeight: energyMeterList.height
-            contentWidth: app.width
-            visible: emProxy.count !== 0
-
-            Layout.alignment: Qt.AlignHCenter
-            Layout.preferredHeight: app.height/3
-            Layout.preferredWidth: parent.width
-            flickableDirection: Flickable.VerticalFlick
-
-            ColumnLayout{
-                id: energyMeterList
-                Layout.preferredWidth: parent.width
-                Layout.fillHeight: true
-                Repeater{
-                    id: solarInverterRepeater
-                    Layout.preferredWidth: app.width
-                    model: ThingsProxy {
-                        id: emProxy
-                        engine: _engine
-                        shownInterfaces: ["solarinverter"]
-                    }
-                    delegate: ItemDelegate{
-                        Layout.preferredWidth: app.width
-                        contentItem: ConsolinnoItemDelegate{
-                            id: icon
-                            Layout.fillWidth: true
-                            iconName: {
-                                if(Configuration.inverterIcon !== ""){
-                                    return "/ui/images/"+Configuration.inverterIcon
-                                }else{
-                                    return "../images/weathericons/weather-clear-day.svg"
-                                }
-                            }
-                            progressive: false
-                            text: emProxy.get(index) ? emProxy.get(index).name : ""
-                            onClicked: {
-                            }
-                            Image {
-                                id: iconInvertor
-                                height: 24
-                                width: 24
-                                source: icon.iconName
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 16
-                            }
-                            ColorOverlay {
-                                anchors.fill: iconInvertor
-                                source: iconInvertor
-                                color: Style.consolinnoMedium
-                            }
-                        }
-                    }
-
-
-                }
+            Label {
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                text: qsTr("Integrated solar inverter")
+                wrapMode: Text.WordWrap
+                Layout.alignment: Qt.AlignRight
+                horizontalAlignment: Text.AlignLeft
             }
 
-        }
+            VerticalDivider {
+                Layout.preferredWidth: root.width
+                dividerColor: Material.accent
+            }
+            Flickable{
+                id: energyMeterFlickable
+                clip: true
+                Layout.fillWidth: true
+                contentHeight: energyMeterList.height
+                contentWidth: energyMeterList.width
+                visible: emProxy.count !== 0
 
-        Rectangle{
-        Layout.preferredHeight: app.height/3
-        Layout.fillWidth: true
-        visible: emProxy.count === 0
-        color: Material.background
-        Text {
-            text: qsTr("There is no inverter set up yet.")
-            color: Material.foreground
-            anchors.fill: parent
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-        }
-        }
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredHeight: app.height/3
+                flickableDirection: Flickable.VerticalFlick
 
-        VerticalDivider
-        {
-            Layout.preferredWidth: parent.width
-            dividerColor: Material.accent
-        }
+                ColumnLayout{
+                    id: energyMeterList
+                    Layout.preferredWidth: root.width
+                    Layout.fillHeight: true
+                    Repeater{
+                        id: solarInverterRepeater
+                        Layout.fillWidth: true
+                        model: ThingsProxy {
+                            id: emProxy
+                            engine: _engine
+                            shownInterfaces: ["solarinverter"]
+                        }
+                        delegate: ItemDelegate{
+                            Layout.preferredWidth: root.width
+                            contentItem: ConsolinnoItemDelegate{
+                                id: icon
+                                Layout.preferredWidth: root.width
+                                iconName: {
+                                    if(Configuration.inverterIcon !== ""){
+                                        return "/ui/images/"+Configuration.inverterIcon
+                                    }else{
+                                        return "../images/weathericons/weather-clear-day.svg"
+                                    }
+                                }
+                                progressive: false
+                                text: emProxy.get(index) ? emProxy.get(index).name : ""
+                                onClicked: {
+                                }
+                                Image {
+                                    id: iconInvertor
+                                    height: 24
+                                    width: 24
+                                    source: icon.iconName
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.left: parent.left
+                                    anchors.leftMargin: 16
+                                }
+                                ColorOverlay {
+                                    anchors.fill: iconInvertor
+                                    source: iconInvertor
+                                    color: Style.consolinnoMedium
+                                }
+                            }
+                        }
 
-    }
+
+                    }
+                }
+
+            }
+            Rectangle{
+                Layout.preferredHeight: app.height/3
+                Layout.fillWidth: true
+                visible: emProxy.count === 0
+                color: Material.background
+                Text {
+                    text: qsTr("There is no inverter set up yet.")
+                    color: Material.foreground
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+            }
+            VerticalDivider{
+                Layout.preferredWidth: root.width
+                dividerColor: Material.accent
+            }
+        }
 
         ColumnLayout {
             Layout.topMargin: Style.margins
             Layout.leftMargin: Style.margins
             Layout.rightMargin: Style.margins
+            Layout.fillWidth: true
 
             Label {
-                Layout.fillWidth: true
                 text: qsTr("Add solar Inverter: ")
                 wrapMode: Text.WordWrap
             }
 
             ConsolinnoDropdown {
                 id: thingClassComboBox
-                Layout.preferredWidth: parent.width
+                Layout.fillWidth: true
                 textRole: "displayName"
                 valueRole: "id"
                 model: ThingClassesProxy {

@@ -101,8 +101,7 @@ Page {
 
     ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom;left: parent.left; right: parent.right;}
-        width: parent.width
-        //spacing: Style.margins
+        Layout.preferredWidth: root.width
 
 
         ColumnLayout{
@@ -128,35 +127,32 @@ Page {
             Flickable{
                 id: heatpumpFlickable
                 clip: true
-                width: parent.width
-                height: parent.height
+                Layout.fillWidth: true
                 contentHeight: heatpumpList.height
-                contentWidth: parent.width
+                contentWidth: heatpumpList.width
                 visible: hpProxy.count !== 0
 
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: app.height/3
-                Layout.preferredWidth: parent.width
                 flickableDirection: Flickable.VerticalFlick
 
                 ColumnLayout{
                     id: heatpumpList
-                    Layout.preferredWidth: parent.width
+                    Layout.preferredWidth: root.width
                     Layout.fillHeight: true
                     Repeater{
                         id: heatpumpRepeater
-                        Layout.preferredWidth: parent.width
+                        Layout.fillWidth: true
                         model: ThingsProxy {
                             id: hpProxy
                             engine: _engine
-                            // smartgridheatpump and simpleheatpump extend heatpump
                             shownInterfaces: ["heatpump", "smartgridheatpump", "simpleheatpump"]
                         }
                         delegate: ItemDelegate{
-                            Layout.preferredWidth: app.width
+                            Layout.preferredWidth: root.width
                             contentItem: ConsolinnoItemDelegate{
                                 id: icon
-                                Layout.fillWidth: true
+                                Layout.preferredWidth: root.width
                                 iconName:{
                                     if(Configuration.heatpumpIcon !== ""){
                                         return "/ui/images/"+Configuration.heatpumpIcon;
@@ -204,12 +200,9 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                 }
             }
-
-
-
             VerticalDivider
             {
-                Layout.preferredWidth: parent.width
+                Layout.preferredWidth: root.width
                 dividerColor: Material.accent
             }
         }
@@ -218,9 +211,9 @@ Page {
             Layout.topMargin: Style.margins
             Layout.leftMargin: Style.margins
             Layout.rightMargin: Style.margins
+            Layout.fillWidth: true
 
             Label {
-                Layout.fillWidth: true
                 text: qsTr("Add heat pumps:")
                 wrapMode: Text.WordWrap
             }
@@ -276,7 +269,7 @@ Page {
 
             ConsolinnoDropdown {
                 id: thingClassComboBox
-                Layout.preferredWidth: parent.width
+                Layout.fillWidth: true
                 textRole: "displayName"
                 valueRole: "valueRoleID"
                 currentIndex: 0

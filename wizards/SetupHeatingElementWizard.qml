@@ -86,8 +86,7 @@ Page {
 
     ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom;left: parent.left; right: parent.right;}
-        width: parent.width
-        //spacing: Style.margins
+        Layout.preferredWidth: root.width
 
         ColumnLayout{
             Layout.fillWidth: true
@@ -109,37 +108,34 @@ Page {
 
             Flickable{
                 id: energyMeterFlickable
-
                 clip: true
-                width: parent.width
-                height: parent.height
+                Layout.fillWidth: true
                 contentHeight: energyMeterList.height
-                contentWidth: parent.width
+                contentWidth: energyMeterList.width
                 visible: heProxy.count !== 0
 
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: app.height/3
-                Layout.preferredWidth: parent.width
                 flickableDirection: Flickable.VerticalFlick
 
                 ColumnLayout{
                     id: energyMeterList
 
-                    Layout.preferredWidth: parent.width
+                    Layout.preferredWidth: root.width
                     Layout.fillHeight: true
                     Repeater{
                         id: heatingElementRepeater
-                        Layout.preferredWidth: parent.width
+                        Layout.fillWidth: true
                         model: ThingsProxy {
                             id: heProxy
                             engine: _engine
                             shownInterfaces: ["heatingrod"]
                         }
                         delegate: ItemDelegate{
-                            Layout.preferredWidth: app.width
+                            Layout.preferredWidth: root.width
                             contentItem: ConsolinnoItemDelegate{
                                 id: setupHeatingRoad
-                                Layout.fillWidth: true
+                                Layout.preferredWidth: root.width
                                 iconName:{
                                     if(Configuration.heatingRodIcon !== ""){
                                         return "/ui/images/"+Configuration.heatingRodIcon;
@@ -186,7 +182,7 @@ Page {
             }
 
             VerticalDivider {
-                Layout.preferredWidth: parent.width
+                Layout.preferredWidth: root.width
                 dividerColor: Material.accent
             }
         }
@@ -195,9 +191,9 @@ Page {
             Layout.topMargin: Style.margins
             Layout.leftMargin: Style.margins
             Layout.rightMargin: Style.margins
+            Layout.fillWidth: true
 
             Label {
-                Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 text: qsTr("Add heating element: ")
             }
@@ -205,7 +201,7 @@ Page {
             ConsolinnoDropdown {
                 id: thingClassComboBox
 
-                Layout.preferredWidth: parent.width
+                Layout.fillWidth: true
                 textRole: "displayName"
                 valueRole: "id"
                 model: ThingClassesProxy {

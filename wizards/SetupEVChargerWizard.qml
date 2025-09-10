@@ -91,7 +91,7 @@ Page {
 
     ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
-        width: parent.width
+        Layout.preferredWidth: root.width
 
         ColumnLayout{
             Layout.fillWidth: true
@@ -111,42 +111,37 @@ Page {
             {
                 Layout.preferredWidth: root.width
                 dividerColor: Material.accent
-                Layout.bottomMargin: 0
             }
 
             Flickable{
                 id: evChargerFlickable
                 clip: true
-                Layout.topMargin: 0
-                Layout.bottomMargin: 0
-                width: parent.width
-                height: parent.height
+                Layout.fillWidth: true
                 contentHeight: evChargerList.height
-                contentWidth: parent.width
+                contentWidth: evChargerList.width
                 visible: evProxy.count !== 0
 
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: app.height/3
-                Layout.preferredWidth: parent.width
                 flickableDirection: Flickable.VerticalFlick
 
                 ColumnLayout{
                     id: evChargerList
-                    Layout.preferredWidth: parent.width
+                    Layout.preferredWidth: root.width
                     Layout.fillHeight: true
                     Repeater{
                         id: evChargerRepeater
-                        Layout.preferredWidth: parent.width
+                        Layout.fillWidth: true
                         model: ThingsProxy {
                             id: evProxy
                             engine: _engine
                             shownInterfaces: ["evcharger"]
                         }
                         delegate: ItemDelegate{
-                            Layout.preferredWidth: app.width
+                            Layout.preferredWidth: root.width
                             contentItem: ConsolinnoItemDelegate{
                                 id: iconEv
-                                Layout.fillWidth: true
+                                Layout.preferredWidth: root.width
                                 iconName: {
                                     if(Configuration.evchargerIcon !== ""){
                                         return "/ui/images/"+Configuration.evchargerIcon
@@ -195,7 +190,7 @@ Page {
 
             VerticalDivider
             {
-                Layout.preferredWidth: parent.width
+                Layout.preferredWidth: root.width
                 dividerColor: Material.accent
             }
 
@@ -205,9 +200,9 @@ Page {
             Layout.topMargin: Style.margins
             Layout.leftMargin: Style.margins
             Layout.rightMargin: Style.margins
+            Layout.fillWidth: true
 
             Label {
-                Layout.fillWidth: true
                 text: qsTr("Add wallboxes:")
                 wrapMode: Text.WordWrap
             }
@@ -262,7 +257,7 @@ Page {
 
             ConsolinnoDropdown {
                 id: thingClassComboBox
-                Layout.preferredWidth: parent.width
+                Layout.fillWidth: true
                 textRole: "displayName"
                 valueRole: "valueRoleID"
                 currentIndex: 0
