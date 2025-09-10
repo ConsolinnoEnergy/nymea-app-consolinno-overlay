@@ -600,10 +600,6 @@
         <translation>ct/kWh</translation>
     </message>
     <message>
-        <source>enabled</source>
-        <translation>aktiviert</translation>
-    </message>
-    <message>
         <source>Current Price</source>
         <translation>Aktueller Preis</translation>
     </message>
@@ -620,16 +616,20 @@
         <translation>Lademodus abbrechen &amp; ändern</translation>
     </message>
     <message>
-        <source>low solar availability</source>
-        <translation type="unfinished">bei wenig Solarstrom</translation>
-    </message>
-    <message>
         <source>Low solar avalaibility:</source>
-        <translation type="unfinished">Bei wenig Solarstrom:</translation>
+        <translation>Bei wenig Solarstrom:</translation>
     </message>
     <message>
         <source>Currently corresponds to a electricity price of %1 ct/kWh.</source>
-        <translation type="unfinished">Entspricht aktuell einem Strompreis von %1 ct/kWh.</translation>
+        <translation>Entspricht aktuell einem Strompreis von %1 ct/kWh.</translation>
+    </message>
+    <message>
+        <source>Low solar availability</source>
+        <translation>Bei wenig Solarstrom</translation>
+    </message>
+    <message>
+        <source>pausing</source>
+        <translation>pausieren</translation>
     </message>
 </context>
 <context>

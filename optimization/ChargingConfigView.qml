@@ -488,7 +488,7 @@ GenericConfigPage {
                         Label{
                             visible: chargingIsAnyOf([simple_pv_excess])
                             Layout.fillWidth: true
-                            text: qsTr("low solar availability")
+                            text: qsTr("Low solar availability")
                         }
 
                         Label{
@@ -503,7 +503,7 @@ GenericConfigPage {
                                 }
                                 else if (getChargingModeOpts(chargingConfiguration.optimizationMode)[0] === 2)
                                 {
-                                    return qsTr("enabled")
+                                    return qsTr("pausing")
                                 }
                             }
 
