@@ -1316,7 +1316,12 @@ MainViewBase {
                                     ? powerConsumption
                                     : powerConsumption / 1000;
 
-                                displayPower = displayPower.toFixed(1);
+                                if(displayPower < 0){
+                                    displayPower = 0
+                                }else{
+                                    displayPower = displayPower.toFixed(1);
+                                }
+
                                 let displayPowerStr = (+displayPower).toLocaleString();
 
                                 const unit = powerConsumption < 1000
