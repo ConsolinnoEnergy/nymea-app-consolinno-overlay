@@ -12,7 +12,7 @@ Item {
     property alias content: content.data
     property alias title: titleText.text
     property alias headerOptionsModel: menuListRepeater.model
-    property alias headerOptionsVisible: titleText.menuButtonVisible
+    property alias headerOptionsVisible: headerOptionsButton.enabled
 
     ListModel {
         id: menuListModel
@@ -30,89 +30,80 @@ Item {
         }
     }
 
-    ConsolinnoHeader {
-        id: titleText
-        onMenuOptionsPressed: menu.open()
+    ColumnLayout {
+        anchors.fill: parent
+        Layout.alignment: Qt.AlignHCenter
+        spacing: 0
+
+        Item {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 56
+
+            // Außencontainer: keine Layout-Steuerung, daher anchors hier ok
+            Item {
+                anchors.fill: parent
+                anchors.leftMargin: 16
+                anchors.rightMargin: 16
+
+                RowLayout {
+                    id: rowContainer
+                    anchors.fill: parent
+                    spacing: 0
+
+                    HeaderButton {
+                        id: backButton
+                        Layout.preferredWidth: 40
+                        Layout.minimumWidth: 40
+                        Layout.maximumWidth: 40
+                        objectName: "backButton"
+                        imageSource: "../images/back.svg"
+                        onClicked: pageStack.pop()
+                    }
+
+                    Label {
+                        id: titleText
+                        Layout.fillWidth: true
+                        font.pixelSize: 18
+                        horizontalAlignment: Text.AlignHCenter
+                        elide: Text.ElideRight
+                        maximumLineCount: 1
+                        wrapMode: Text.NoWrap
+                    }
+
+                    Item {
+                        id: headerOptionsButton
+                        Layout.preferredWidth: 48
+                        Layout.minimumWidth: 48
+                        Layout.maximumWidth: 48
+                        Layout.fillHeight: true
+
+                        Image {
+                            width: 24
+                            height: 24
+                            anchors.centerIn: parent
+                            source: Configuration.menuIcon !== "" ?
+                                        "../images/" + Configuration.menuIcon :
+                                        "../images/navigation-menu.svg"
+                            visible: parent.enabled
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            enabled: parent.enabled
+                            onClicked: menu.open()
+                        }
+                    }
+                }
+            }
+        }
+
+        Item {
+            id: content
+
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+
+        }
     }
-
-    //ColumnLayout {
-    //    anchors.fill: parent
-    //    Layout.alignment: Qt.AlignHCenter
-    //    spacing: 0
-
-    //    Item {
-    //        Layout.fillHeight: false
-    //        Layout.fillWidth: true
-    //        Layout.preferredHeight: 56
-
-    //        Item {
-    //            height: parent.height
-    //            anchors {
-    //                left: parent.left
-    //                leftMargin: 16
-    //                right: parent.right
-    //                rightMargin: 16
-    //            }
-
-    //            RowLayout {
-    //                id: rowContainer
-    //                anchors.fill: parent
-
-    //                HeaderButton {
-    //                    id: backButton
-    //                    Layout.leftMargin: -15
-    //                    Layout.rightMargin: titleText.text.length >= 25 ? 48 : 0
-    //                    objectName: "backButton"
-    //                    imageSource: "../images/back.svg"
-    //                    onClicked: pageStack.pop()
-    //                }
-
-    //                Item {
-    //                    Layout.fillHeight: true
-    //                    Layout.fillWidth: true
-
-    //                    Label {
-    //                        id: titleText
-    //                        anchors.centerIn: parent
-    //                        font.pixelSize: 18
-    //                    }
-    //                }
-
-    //                Item {
-    //                    id: headerOptionsButton
-
-    //                    Layout.fillHeight: true
-    //                    Layout.fillWidth: false
-    //                    Layout.preferredWidth: 48
-
-    //                    Image {
-    //                        width: 24
-    //                        height: 24
-    //                        anchors.centerIn: parent
-    //                        source: Configuration.menuIcon !== "" ? "../images/"+Configuration.menuIcon : "../images/navigation-menu.svg"
-    //                        visible: parent.enabled
-    //                    }
-
-    //                    MouseArea {
-    //                        anchors.fill: parent
-    //                        enabled: parent.enabled
-    //                        onClicked: {
-    //                            menu.open();
-    //                        }
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-
-    //    Item {
-    //        id: content
-
-    //        Layout.fillHeight: true
-    //        Layout.fillWidth: true
-
-    //    }
-    //}
 
     Menu {
         id: menu
