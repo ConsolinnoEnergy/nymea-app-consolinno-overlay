@@ -282,13 +282,13 @@ GenericConfigPage {
                     property double remainingHours: isBattery ? remainingWh / Math.abs(root.currentPowerState.value) : 0
                     property date endTime: isBattery ? new Date(new Date().getTime() + remainingHours * 60 * 60 * 1000) : new Date()
                     property int n: Math.round(remainingHours)
-
+                    
                     text: root.isConsumer
                           ? qsTr("Total Consumption: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + (+root.totalEnergyConsumedState.value.toFixed(2)).toLocaleString() + "</span>")
                           : root.isProducer
                             ? qsTr("Total Production: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + (+root.totalEnergyProducedState.value.toFixed(2)).toLocaleString() + "</span>")
                             : root.isEnergyMeter
-                              ? qsTr("Total Acquisition: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + (+root.totalEnergyConsumedState.value.toFixed(2)).toLocaleString() + "</span>") + "<br>" + qsTr("Total Return: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + (+root.totalEnergyProducedState.value.toFixed(2)).toLocaleString() + "</span>")
+                              ? qsTr("Total Acquisition: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + Number(root.totalEnergyConsumedState.value).toLocaleString(Qt.locale(), 'f') + "</span>") + "<br>" + qsTr("Total Return: %1 kWh").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + Number(root.totalEnergyProducedState.value).toLocaleString(Qt.locale(), 'f') + "</span>")
                               : root.isBattery && isCharging
                                 ? qsTr("At the current rate, the battery will be fully charged at %1.").arg('<span style="font-size:' + Style.bigFont.pixelSize + 'px">' + endTime.toLocaleTimeString(Locale.ShortFormat)+ "</span>")
                                 : root.isBattery && isDischarging
