@@ -2952,11 +2952,15 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>VAT</source>
+        <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Location</source>
+        <source>Failed to add thing: ThingErrorHardwareFailure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following tariff is submitted:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3349,6 +3353,14 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Attention</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Feed-in curtailment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

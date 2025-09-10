@@ -28,7 +28,7 @@ StackView {
     property bool currentState: gridSupportThing.stateByName("isLpcActive").value
     property bool currentStateLPP: gridSupportThing.stateByName("isLppActive").value
     property string contentPlimLPP: currentStateLPP === true ? qsTr("The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.").arg(powerLimitLPP) : ""
-    property string contentPlim: currentState === true ? qsTr("Consumption is <b>temporarily reduced</b> to a maximum of <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimit)) : ""
+    property string contentPlim: currentState === true ? qsTr("Consumption is <b>temporarily limited</b> to a maximum of <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimit)) : ""
 
 
     Settings {

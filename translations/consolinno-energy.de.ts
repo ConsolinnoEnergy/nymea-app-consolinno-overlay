@@ -2976,16 +2976,12 @@ fügen Sie eine weitere hinzu.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please enter taxes and duties. The value cannot be empty or 0.</source>
-        <translation type="unfinished">Bitte geben Sie Steuern und Abgaben an. Der Wert darf nicht leer oder 0 sein.</translation>
+        <source>Failed to add thing: ThingErrorHardwareFailure</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>VAT</source>
-        <translation type="unfinished">Mehrwertsteuer</translation>
-    </message>
-    <message>
-        <source>Location</source>
-        <translation type="unfinished">Standort</translation>
+        <source>The following tariff is submitted:</source>
+        <translation type="unfinished">Der folgende Stromtarif wurde eingerichtet:</translation>
     </message>
 </context>
 <context>
@@ -3373,15 +3369,23 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>Existing setup will be overwritten.</source>
-        <translation type="unfinished">Bestehende Einrichtungen werden überschrieben.</translation>
+        <translation>Bestehende Einrichtungen werden überschrieben.</translation>
     </message>
     <message>
         <source>Attention</source>
-        <translation type="unfinished">Achtung</translation>
+        <translation>Achtung</translation>
+    </message>
+    <message>
+        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
+        <translation>Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers vorübergehend begrenzt  auf %1 Watt.</translation>
+    </message>
+    <message>
+        <source>Feed-in curtailment</source>
+        <translation>Einspeiseabregelung</translation>
     </message>
     <message>
         <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
-        <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend auf maximal %1 kW limitiert&lt;/b&gt;.</translation>
+        <translation>Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend auf maximal %1 kW limitiert&lt;/b&gt;.</translation>
     </message>
 </context>
 <context>
