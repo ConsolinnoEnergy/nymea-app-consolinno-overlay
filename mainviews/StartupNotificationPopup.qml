@@ -14,7 +14,6 @@ Dialog {
     width: parent.width * 0.9
     parent: parent
     modal: true
-    parent: parent
     focus: true
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
     contentItem: Label {
