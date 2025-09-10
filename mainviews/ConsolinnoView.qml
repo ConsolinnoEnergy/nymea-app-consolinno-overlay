@@ -501,31 +501,6 @@ MainViewBase {
         property var shown: []
     }
 
-    //Component {
-    //    id: incompNotificationComponent
-    //    Popup {
-    //        property string message: ""
-    //        id: incompNotificationPopup
-    //        parent: root
-    //        x: Math.round((parent.width - width) / 2)
-    //        y: Math.round((parent.height - height) / 2)
-    //        width: parent.width * 0.9
-    //        modal: true
-    //        focus: true
-    //        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-    //        contentItem: Label {
-    //            Layout.fillWidth: true
-    //            Layout.topMargin: app.margins
-    //            Layout.leftMargin: app.margins
-    //            Layout.rightMargin: app.margins
-    //            wrapMode: Text.WordWrap
-    //            textFormat: Text.RichText
-    //            text: message
-    //        }
-    //    }
-    //}
-
-
     Component {
         id: startUpNotificationComponent
 
