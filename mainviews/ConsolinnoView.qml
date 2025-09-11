@@ -501,6 +501,31 @@ MainViewBase {
         property var shown: []
     }
 
+
+    Component {
+        id: incomNotificationComponent
+
+        Dialog {
+            id: incomNotificationPopup
+            property alias text: containerLabel.text
+            Layout.margins: Style.margins
+            x: (parent.width - width) / 2
+            y: (parent.height - height) / 2
+            width: parent.width * 0.9
+            parent: incomNotificationComponent
+            modal: true
+            focus: true
+            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+            contentItem: Label {
+                id: containerLabel
+                Layout.topMargin: app.margins
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
+                wrapMode: Text.WordWrap
+            }
+        }
+    }
+
     Component {
         id: startUpNotificationComponent
 
@@ -570,8 +595,7 @@ MainViewBase {
                 <p>Your %5 Team</p>').arg(appVersion).arg(engine.jsonRpcClient.experiences.Hems).arg(Configuration.appName).arg(mail).arg(Configuration.appName).arg(Configuration.deviceName).arg(phone)
 
 
-                var dialog = Qt.createComponent(Qt.resolvedUrl("StartupNotificationPopup.qml"));
-                var popUp = dialog.createObject(app, {text: dialogText})
+                var popUp = incomNotificationComponent.createObject(app, {text: dialogText})
 
                 // If Popup not already open, open it
                 if (popUp.opened === false) {
