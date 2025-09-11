@@ -3424,7 +3424,7 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>Total thermal energy generated</source>
-        <translation>Gesamte erzeugte thermische Energie</translation>
+        <translation>Gesamte erzeugte therm. Energie</translation>
     </message>
     <message>
         <source>Energymanager</source>
