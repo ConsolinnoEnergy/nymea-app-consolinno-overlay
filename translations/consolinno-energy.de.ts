@@ -2749,12 +2749,13 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
+        <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
 &lt;p&gt;Version 1.11.0&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
     &lt;li&gt;Dynamische Stromtarife: Automatische Optimierung basierend auf  Endkundenstrompreis&lt;/li&gt;
     &lt;li&gt;NOMOS-Integration: Stromtarife über NOMOS &lt;/li&gt;
+    &lt;li&gt;Dark Mode&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Verbessert&lt;/h4&gt;
 &lt;ul&gt;
