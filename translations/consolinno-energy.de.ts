@@ -2754,11 +2754,11 @@ fügen Sie eine weitere hinzu.</translation>
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
     &lt;li&gt;Dynamische Stromtarife: Automatische Optimierung basierend auf  Endkundenstrompreis&lt;/li&gt;
-    &lt;li&gt;NOMOS-Integration: Stromtarife über NOMOS &lt;/li&gt;
+    &lt;li&gt;Unterstützung von dynamischem Tarif &quot;Zewotherm&quot;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Verbessert&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Mehr Länder: EPEX-Preisdaten für weitere Märkte verfügbar&lt;/li&gt;
+    &lt;li&gt;EPEX-Preisdaten für weitere Marktregionen verfügbar&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
