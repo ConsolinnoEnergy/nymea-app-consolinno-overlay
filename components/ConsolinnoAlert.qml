@@ -6,6 +6,8 @@ import QtGraphicalEffects 1.0
 import QtQml 2.2
 import Nymea 1.0
 
+import "qrc:/ui/devicepages"
+
 Rectangle {
     property color backgroundColor
     property color borderColor
@@ -18,6 +20,8 @@ Rectangle {
     property string dialogPicture
 
     property string pagePath: ""
+    property string pageUrl: ""
+    property var paramsThing: ({})
     property string pageStartView
     property string iconPath
     property alias text: screenGuideText.text
@@ -92,6 +96,9 @@ Rectangle {
                     var text = dialogText
                     var popup = dialog.createObject(app, {headerText: dialogHeaderText, text: text, source: dialogPicture, picHeight: 280})
                     popup.open();
+                }else if(pageUrl.length > 1){
+                    console.error(JSON.stringify(paramsThing))
+                    pageStack.push(Qt.resolvedUrl(pageUrl), JSON.stringify(paramsThing))
                 }else if(pagePath.length > 1){
                     pageStack.push(Qt.resolvedUrl(pagePath), {startView: pageStartView})
                 }

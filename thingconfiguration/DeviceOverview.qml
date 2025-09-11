@@ -117,7 +117,7 @@ Page {
 
                 canDelete: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("ConfigureThingPage.qml"), {thing: thing})
+                    pageStack.push(Qt.resolvedUrl("ConsolinnoConfigureThingPage.qml"), {thing: thing})
                 }
                 onDeleteClicked: {
                     d.thingToRemove = thing;
