@@ -2754,7 +2754,7 @@ fügen Sie eine weitere hinzu.</translation>
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
     &lt;li&gt;Dynamische Stromtarife: Automatische Optimierung basierend auf  Endkundenstrompreis&lt;/li&gt;
-    &lt;li&gt;Unterstützung von dynamischem Tarif &quot;Zewotherm&quot;&lt;/li&gt;
+    &lt;li&gt;Unterstützung von dynamischem Tarif „Zewotherm“&lt;/li&gt;
     &lt;li&gt;Dark Mode&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Verbessert&lt;/h4&gt;
