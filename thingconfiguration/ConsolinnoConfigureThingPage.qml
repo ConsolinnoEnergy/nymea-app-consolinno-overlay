@@ -145,14 +145,14 @@ SettingsPageBase {
         text: qsTr("Information")
     }
 
-    NymeaItemDelegate {
+    ConsolinnoItemDelegate {
         Layout.fillWidth: true
         text: engine.thingManager.vendors.getVendor(root.thing.thingClass.vendorId).displayName
         subText: qsTr("Vendor")
         prominentSubText: false
         progressive: false
     }
-    NymeaItemDelegate {
+    ConsolinnoItemDelegate {
         Layout.fillWidth: true
         text: root.thing.thingClass.displayName
         subText: qsTr("Type")
@@ -160,7 +160,7 @@ SettingsPageBase {
         progressive: false
     }
 
-    NymeaItemDelegate {
+    ConsolinnoItemDelegate {
         Layout.fillWidth: true
         text: root.thing.id.toString().replace(/[{}]/g, "")
         subText: qsTr("ID")
@@ -172,7 +172,7 @@ SettingsPageBase {
         }
     }
 
-    NymeaItemDelegate {
+    ConsolinnoItemDelegate {
         Layout.fillWidth: true
         text: qsTr("Thing class")
         subText: qsTr("View the type definition for this thing")
@@ -188,7 +188,7 @@ SettingsPageBase {
 
     Repeater {
         model: root.thing.params
-        delegate: ParamDelegate {
+        delegate: ConsolinnoParamDelegate {
             Layout.fillWidth: true
             paramType: root.thing.thingClass.paramTypes.getParamType(model.id)
             param: root.thing.params.get(index)
@@ -381,7 +381,7 @@ SettingsPageBase {
 //                    text: qsTr("Thing")
 //                }
 
-                ComboBox {
+                ConsolinnoDropdown {
                     id: ioThingComboBox
                     model: ThingsProxy {
                         id: connectableIODevices
@@ -415,7 +415,7 @@ SettingsPageBase {
 //                    text: (ioConnectionDialog.ioStateType.ioType == Types.IOTypeDigitalInput || ioConnectionDialog.ioStateType.ioType == Types.IOTypeAnalogInput) ? qsTr("Output") : qsTr("Input")
 //                }
 
-                ComboBox {
+                ConsolinnoDropdown {
                     id: ioStateComboBox
                     model: StateTypesProxy {
                         id: connectableStateTypes
