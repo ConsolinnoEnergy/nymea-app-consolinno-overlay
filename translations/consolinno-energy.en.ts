@@ -2744,7 +2744,7 @@ Use a timeout value greater or equal to 10 ms.</source>
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
     &lt;li&gt;Dynamic electricity tariffs: Automatic optimization based on  end customer electricity price&lt;/li&gt;
-    &lt;li&gt;Support for the ‘Zewotherm’ dynamic tariff. &lt;/li&gt;
+    &lt;li&gt;Support for the “Zewotherm“ dynamic tariff. &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Improved&lt;/h4&gt;
 &lt;ul&gt;
