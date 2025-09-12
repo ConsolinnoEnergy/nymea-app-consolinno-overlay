@@ -929,6 +929,113 @@
     </message>
 </context>
 <context>
+    <name>ConsolinnoConfigureThingPage</name>
+    <message>
+        <source>Thing is not connected!</source>
+        <translation>&quot;Thing&quot; ist nicht verbunden!</translation>
+    </message>
+    <message>
+        <source>Thing runs out of battery!</source>
+        <translation>Die Batterie neigt sich dem Ende zu!</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Umbenennen</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <source>Reconfigure</source>
+        <translation>Neu einrichten</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation>Informationen</translation>
+    </message>
+    <message>
+        <source>Vendor</source>
+        <translation>Hersteller</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Typ</translation>
+    </message>
+    <message>
+        <source>ID</source>
+        <translation>ID</translation>
+    </message>
+    <message>
+        <source>ID copied to clipboard</source>
+        <translation>ID in die Zwischenablage kopiert</translation>
+    </message>
+    <message>
+        <source>Thing class</source>
+        <translation>&quot;Thing&quot; Klasse</translation>
+    </message>
+    <message>
+        <source>View the type definition for this thing</source>
+        <translation>Genaue Typendefinition dieses &quot;Things&quot; anzeigen</translation>
+    </message>
+    <message>
+        <source>Parameters</source>
+        <translation>Parameter</translation>
+    </message>
+    <message>
+        <source>Input/Output Connections</source>
+        <translation>Verbindungen der Ein-/Ausgänge</translation>
+    </message>
+    <message>
+        <source>Not connected</source>
+        <translation>Nicht verbunden</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>Einstellungen</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation>Anwenden</translation>
+    </message>
+    <message>
+        <source>Remove thing?</source>
+        <translation>&quot;Thing&quot; entfernen?</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove %1 and all associated settings?</source>
+        <translation>Bist Du sicher, dass %1 und alle zugehörigen Einstellungen entfernt werden sollen?</translation>
+    </message>
+    <message>
+        <source>Connect Inputs/Outputs</source>
+        <translation>Verbundene Ein-/Ausgänge</translation>
+    </message>
+    <message>
+        <source>Connect &quot;%1&quot; to:</source>
+        <translation>Verbinde &quot;%1&quot; zu:</translation>
+    </message>
+    <message>
+        <source>Inverted</source>
+        <translation>Invertiert</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Disconnect</source>
+        <translation>Trennen</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>Verbinden</translation>
+    </message>
+    <message>
+        <source>Further information in &lt;u&gt;Protocol&lt;/u&gt;.</source>
+        <translation>Weitere Informationen im Protokoll.</translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoConnectionInterfacesPage</name>
     <message>
         <source>Connection settings</source>
@@ -1088,6 +1195,25 @@
     <message>
         <source>To battery</source>
         <translation>Batterie</translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoDeviceLogPage</name>
+    <message>
+        <source>History for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter by</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -155,5 +155,6 @@
         <file>components/ConsolinnoDropdown.qml</file>
         <file>system/ConsolinnoConnectionInterfacesPage.qml</file>
         <file>thingconfiguration/ConsolinnoConfigureThingPage.qml</file>
+        <file>devicepages/ConsolinnoDeviceLogPage.qml</file>
     </qresource>
 </RCC>

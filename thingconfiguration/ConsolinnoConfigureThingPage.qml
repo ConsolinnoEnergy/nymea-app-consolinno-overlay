@@ -40,7 +40,7 @@ SettingsPageBase {
     property Thing thing: null
     readonly property State batteryCriticalState: root.thing.stateByName("batteryCritical")
     readonly property State connectedState: root.thing.stateByName("connected")
-
+    property var stateTypes: []
     busy: d.pendingCommand != -1
 
     header: NymeaHeader {
@@ -65,9 +65,10 @@ SettingsPageBase {
         textColor: Style.dangerAccent
         iconColor: Style.dangerAccent
         iconPath: "../images/dialog-warning-symbolic.svg"
-        text: qsTr("Further information in <u>Protocol</u>")
-        paramsThing: ({ thing: root.thing })
-        pageUrl: "../DeviceLogPage.qml"
+        text: qsTr("Further information in <u>Protocol</u>.")
+        paramsThing: root.thing
+        paramState: isNaN(connectedState) && connectedState.value === false ? ["signalStrength", "connected"]  : isNaN(batteryCriticalState) && batteryCriticalState.value === false ? ["batteryLevel", "batteryCritical"] : []
+        pageUrl: "../devicepages/ConsolinnoDeviceLogPage.qml"
         headerText: isNaN(connectedState) && connectedState.value === false ? qsTr("Thing is not connected!") : isNaN(batteryCriticalState) && batteryCriticalState.value === false ? qsTr("Thing runs out of battery!") : ""
     }
 

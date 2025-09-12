@@ -505,7 +505,7 @@ MainViewBase {
     Component {
         id: incomNotificationComponent
 
-        Dialog {
+        Popup {
             id: incomNotificationPopup
             property alias text: containerLabel.text
             Layout.margins: Style.margins
