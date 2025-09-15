@@ -506,13 +506,13 @@ MainViewBase {
         id: incomNotificationComponent
 
         Popup {
+            property string message: ""
             id: incomNotificationPopup
-            property alias text: containerLabel.text
             Layout.margins: Style.margins
             x: (parent.width - width) / 2
             y: (parent.height - height) / 2
             width: parent.width * 0.9
-            parent: incomNotificationComponent
+            parent: root
             modal: true
             focus: true
             closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
@@ -522,6 +522,7 @@ MainViewBase {
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
                 wrapMode: Text.WordWrap
+                text: message
             }
         }
     }
@@ -579,11 +580,13 @@ MainViewBase {
 
             // Show message if HEMS version is not compatible
             if (!checkHEMSVersion()) {
+                
+                var incomNotificationPopup = incomNotificationComponent.createObject(root)
 
                 let phone = (Configuration.serviceTel !== "") ? "<li>%1</li>".arg(qsTr("Phone: <a href='tel:%1'>%1</a>").arg(Configuration.serviceTel)) : ""
                 let mail = qsTr("Email: <a href='mailto:%1'>%1</a>").arg(Configuration.serviceEmail)
 
-                let dialogText=qsTr('<h3>Pending software update</h3>
+                incomNotificationPopup.message = qsTr('<h3>Pending software update</h3>
                 <p>Your %3 app has been updated to version <strong>%1</strong> and is more up-to-date than the firmware (<strong>%2</strong>) on your %6 device.</p>
                 <p>Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.</p>
                 <p>If this message is still displayed, please contact our service team.</p>
@@ -594,12 +597,9 @@ MainViewBase {
                 <p>Best regards</p>
                 <p>Your %5 Team</p>').arg(appVersion).arg(engine.jsonRpcClient.experiences.Hems).arg(Configuration.appName).arg(mail).arg(Configuration.appName).arg(Configuration.deviceName).arg(phone)
 
-
-                var popUp = incomNotificationComponent.createObject(app, {text: dialogText})
-
                 // If Popup not already open, open it
-                if (popUp.opened === false) {
-                    popUp.open()
+                if (incomNotificationPopup.opened === false) {
+                    incomNotificationPopup.open()
                 }
 
 
