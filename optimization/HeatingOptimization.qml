@@ -259,7 +259,12 @@ Page {
                 if (savebutton.validated)
                 {
 
-                    d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, maxElectricalPower: inputText, controllableLocalSystem: gridSupportControl.checked,})
+                    var newConfig = JSON.parse(JSON.stringify(heatingConfiguration));
+                    newConfig.optimizationEnabled = true
+                    newConfig.maxElectricalPower = +inputText
+                    newConfig.controllableLocalSystem = gridSupportControl.checked
+
+                    d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, newConfig)
                     if(directionID !== 1){
                         pageStack.pop()
                     }

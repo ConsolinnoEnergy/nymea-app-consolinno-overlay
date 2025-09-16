@@ -74,9 +74,19 @@ double HeatingConfiguration::priceThreshold() const
     return m_priceThreshold;
 }
 
+bool HeatingConfiguration::relativePriceEnabled() const
+{
+    return m_relativePriceEnabled;
+}
+
 void HeatingConfiguration::setPriceThreshold(double priceThreshold)
 {
     m_priceThreshold = priceThreshold;
+}
+
+void HeatingConfiguration::setRelativePriceEnabled(bool relativePriceEnabled)
+{
+    m_relativePriceEnabled = relativePriceEnabled;
 }
 
 HeatingConfiguration::HPOptimizationMode HeatingConfiguration::optimizationMode() const
