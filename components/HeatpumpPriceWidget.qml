@@ -9,18 +9,37 @@ import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 
 Rectangle {
+    id: widgetRoot
     property HeatingConfiguration heatingConfiguration
     property double currentPrice: 0
-    property double currentValue: heatingConfiguration.priceThreshold
+    property double relativeValue: heatingConfiguration.priceThreshold
+    property double currentValue: 0
+    property double currentRelativeValue: heatingConfiguration.priceThreshold
+    property double averageDeviation: 0
+    property Thing dynamicPriceThing 
+
+    function relPrice2AbsPrice(relPrice){
+        let averagePrice = dynamicPrice.get(0).stateByName("averageTotalCost").value
+        let minPrice = dynamicPrice.get(0).stateByName("lowestPrice").value
+        let maxPrice = dynamicPrice.get(0).stateByName("highestPrice").value
+        if (averagePrice == minPrice || averagePrice == maxPrice){
+            return averagePrice
+        }
+        if (relPrice <= 0){
+            thresholdPrice = averagePrice - 0.01 * relPrice * (minPrice - averagePrice)
+        }else{
+            thresholdPrice = 0.01 * relPrice * (maxPrice - averagePrice) + averagePrice
+        }
+        thresholdPrice = thresholdPrice.toFixed(2)
+        return thresholdPrice
+    }
+
 
     ColumnLayout {
         id: columnLayer
 
         width: parent.width
 
-        DebugRectangle {
-            visible: false
-        }
         // Charging Plan Header
 
         RowLayout {
@@ -47,7 +66,24 @@ Rectangle {
             Label {
                 id: currentPriceLabel
 
-                text: Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh"
+                text: Number(currentPrice).toLocaleString(Qt.locale(), 'f', 1) + " ct/kWh"
+            }
+
+        }
+
+        RowLayout {
+            id: averageDeviationRow
+
+            Layout.topMargin: 5
+
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("Current average deviation")
+            }
+
+            Label {
+                id: averageDeviationLabel
+                text: (averageDeviation > 0 ? "+" : "") + Number(averageDeviation) + " %"
             }
 
         }
@@ -55,38 +91,40 @@ Rectangle {
         // Graph Info Today
         ColumnLayout {
             Layout.fillWidth: true
+
+            property var dpThing: (dynamicPrice && dynamicPrice.count > 0) ? dynamicPrice.get(0) : null
+
             Component.onCompleted: {
-                const dpThing = dynamicPrice.get(0);
                 if (!dpThing)
                     return ;
+                
+                 // update d object here
+                d.startTimeSince = new Date(dpThing.stateByName("validSince").value * 1000);
+                d.endTimeUntil  = new Date(dpThing.stateByName("validUntil").value * 1000);
+                widgetRoot.currentValue = relPrice2AbsPrice(heatingConfiguration.priceThreshold);
+                widgetRoot.averageDeviation = dpThing.stateByName("averageDeviation").value;
+                barSeries.averageTotalCost = dpThing.stateByName("averageTotalCost").value;
 
                 currentPrice = dpThing.stateByName("currentTotalCost").value;
                 averagePrice = dpThing.stateByName("averageTotalCost").value.toFixed(0).toString();
                 lowestPrice = dpThing.stateByName("lowestPrice").value;
                 highestPrice = dpThing.stateByName("highestPrice").value;
-                barSeries.addValues(dpThing.stateByName("totalCostSeries").value);
+                barSeries.addValues(dpThing.stateByName("totalCostSeries").value, 
+                dpThing.stateByName("priceSeries").value, 
+                dpThing.stateByName("gridFeeSeries").value, 
+                dpThing.stateByName("leviesSeries").value,
+                19.0);
+        
             }
 
             QtObject {
                 id: d
 
                 property date now: new Date()
-                readonly property var startTimeSince: {
-                    var date = new Date();
-                    date.setHours(0);
-                    date.setMinutes(0);
-                    date.setSeconds(0);
-                    return date;
-                }
-                readonly property var endTimeUntil: {
-                    var date = new Date();
-                    date.setHours(0);
-                    date.setMinutes(0);
-                    date.setSeconds(0);
-                    date.setDate(date.getDate() + 1);
-                    return date;
-                }
+                property date startTimeSince: new Date(0) // placeholder
+                property date endTimeUntil: new Date(0)   // placeholder
             }
+         
 
             Item {
                 Layout.fillWidth: parent.width
@@ -114,7 +152,6 @@ Rectangle {
 
             // breaks view when removed
             Label {
-                visible: optimizationController.checked
                 wrapMode: Text.WordWrap
                 Layout.fillWidth: true
                 text: ""
@@ -139,21 +176,27 @@ Rectangle {
             contentItem: ColumnLayout {
                 Label {
                     Layout.fillWidth: true
-                    text: qsTr("Price limit : %1 ct/kWh").arg(currentValue)
+                    text: qsTr("Limit below average: -%1 %").arg(priceSlider.value.toFixed(0))
                 }
 
                 Slider {
+                    id: priceSlider
                     Layout.fillWidth: true
-                    value: currentValue
+                    value: -relativeValue
                     onMoved: () => {
-                        currentValue = value;
+                        currentValue = relPrice2AbsPrice(-value);
+                        currentRelativeValue = value;
                         saveButton.enabled = heatingConfiguration.priceThreshold !== currentValue;
                         barSeries.clearValues();
-                        barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value);
+                        barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
+                        dynamicPrice.get(0).stateByName("priceSeries").value, 
+                        dynamicPrice.get(0).stateByName("gridFeeSeries").value, 
+                        dynamicPrice.get(0).stateByName("leviesSeries").value, 
+                        19.0);
                     }
-                    from: -5
-                    to: 150
-                    stepSize: 0.2
+                    from: 0
+                    to: 100.0
+                    stepSize: 1.0
                 }
                 // Add a note below the slider
 

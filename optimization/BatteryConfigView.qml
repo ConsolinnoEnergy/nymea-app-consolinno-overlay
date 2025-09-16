@@ -417,7 +417,12 @@ GenericConfigPage {
                             averagePrice = dpThing.stateByName("averageTotalCost").value.toFixed(0).toString();
                             lowestPrice = dpThing.stateByName("lowestPrice").value
                             highestPrice = dpThing.stateByName("highestPrice").value
-                            barSeries.addValues(dpThing.stateByName("totalCostSeries").value)
+                            barSeries.addValues(dpThing.stateByName("totalCostSeries").value, 
+                            dpThing.stateByName("priceSeries").value, 
+                            dpThing.stateByName("gridFeeSeries").value, 
+                            dpThing.stateByName("leviesSeries").value,
+                            19.0);
+
                         }
 
                         QtObject {
@@ -504,7 +509,11 @@ GenericConfigPage {
                                   saveButton.enabled = batteryConfiguration.priceThreshold !== currentValue;
 
                                   barSeries.clearValues();
-                                  barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value);
+                                  barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
+                                  dynamicPrice.get(0).stateByName("priceSeries").value, 
+                                  dynamicPrice.get(0).stateByName("gridFeeSeries").value, 
+                                  dynamicPrice.get(0).stateByName("leviesSeries").value, 
+                                  19.0);
                                 }
                                 from: -5
                                 to: 60

@@ -34,8 +34,9 @@ GenericConfigPage {
 
     function saveSettings() {
         var newConfig = JSON.parse(JSON.stringify(heatingconfig));
-        newConfig.priceThreshold = heatpumpPriceWidget.currentValue
+        newConfig.priceThreshold = -heatpumpPriceWidget.currentRelativeValue;
         newConfig.optimizationMode =  "OptimizationModeDynamicPricing"
+        newConfig.relativePriceEnabled = true;
         console.error("Saving new heating configuration: " + JSON.stringify(newConfig)); 
         rootObject.pendingCallId = hemsManager.setHeatingConfiguration(thing.id, newConfig);
     }
@@ -515,6 +516,7 @@ GenericConfigPage {
                         heatingConfiguration: heatingconfig
                         width: parent.width
                         id: heatpumpPriceWidget
+                        dynamicPriceThing: dynamicPrice.get(0)
                     }
                     
 
