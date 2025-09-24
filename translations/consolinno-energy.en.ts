@@ -2740,11 +2740,11 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.11.0&lt;/p&gt;
+&lt;p&gt;Version 1.11.1&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
     &lt;li&gt;Dynamic electricity tariffs: Automatic optimization based on  end customer electricity price&lt;/li&gt;
-    &lt;li&gt;Support for the “Zewotherm“ dynamic tariff. &lt;/li&gt;
+    &lt;li&gt;Support for the “Zewotherm” dynamic tariff&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Improved&lt;/h4&gt;
 &lt;ul&gt;
