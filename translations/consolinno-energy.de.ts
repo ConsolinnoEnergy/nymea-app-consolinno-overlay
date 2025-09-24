@@ -2903,39 +2903,39 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished">Weiter</translation>
+        <translation>Weiter</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Add Rate</source>
-        <translation type="unfinished">Neuen Tarif hinzufügen</translation>
+        <translation>Neuen Tarif hinzufügen</translation>
     </message>
     <message>
         <source>Submitted Rate</source>
-        <translation type="unfinished">Eingerichteter Tarif</translation>
+        <translation>Eingerichteter Tarif</translation>
     </message>
     <message>
         <source>The following tariff is submitted:</source>
-        <translation type="unfinished">Der folgende Stromtarif wurde eingerichtet:</translation>
+        <translation>Der folgende Stromtarif wurde eingerichtet:</translation>
     </message>
     <message>
         <source>Network charges</source>
-        <translation type="unfinished">Netzentgelte</translation>
+        <translation>Netzentgelte</translation>
     </message>
     <message>
         <source>Taxes &amp; fees</source>
-        <translation type="unfinished">Steuern &amp; Abgaben</translation>
+        <translation>Steuern &amp; Abgaben</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <source>Zewotherm setup</source>
-        <translation type="unfinished">Zewotherm einrichten</translation>
+        <translation>Zewotherm einrichten</translation>
     </message>
     <message>
         <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
@@ -2946,16 +2946,16 @@ fügen Sie eine weitere hinzu.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please enter taxes and duties. The value cannot be empty or 0.</source>
-        <translation type="unfinished">Bitte geben Sie Steuern und Abgaben an. Der Wert darf nicht leer oder 0 sein.</translation>
-    </message>
-    <message>
         <source>VAT</source>
-        <translation type="unfinished">Mehrwertsteuer</translation>
+        <translation>Mehrwertsteuer</translation>
     </message>
     <message>
         <source>Location</source>
-        <translation type="unfinished">Standort</translation>
+        <translation>Standort</translation>
+    </message>
+    <message>
+        <source>Please fill in all fields. The value cannot be empty or 0.</source>
+        <translation>Bitte füllen Sie alle Felder aus. Der Wert darf nicht leer oder 0 sein.</translation>
     </message>
 </context>
 <context>

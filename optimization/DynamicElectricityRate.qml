@@ -312,7 +312,7 @@ StackView {
                         param.value = parseFloat(addedLevies.text.replace(",","."))
                     }else if(paramName === "addedVAT"){
                         param.paramTypeId = paramId
-                        param.value = parseFloat(vat.text)
+                        param.value = parseFloat(vat.text.replace(",","."))
                     }
                     params.push(param)
                     d.params = params
@@ -367,7 +367,7 @@ StackView {
                             Layout.rightMargin: 12
                             validator: RegExpValidator { regExp: /^[0-9.,]*$/ }
                             inputMethodHints: Qt.ImhFormattedNumbersOnly
-                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedGridFee").value).toLocaleString() : ""
+                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedGridFee").value).toLocaleString() : 0
                         }
 
                         Label {
@@ -392,7 +392,7 @@ StackView {
                             Layout.rightMargin: 12
                             validator: RegExpValidator { regExp: /^[0-9.,]*$/ }
                             inputMethodHints: Qt.ImhFormattedNumbersOnly
-                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedLevies").value).toLocaleString() : ""
+                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedLevies").value).toLocaleString() : 0
                         }
 
                         Label {
@@ -415,9 +415,9 @@ StackView {
                         TextField {
                             id: vat
                             Layout.rightMargin: 12
-                            validator: RegExpValidator { regExp: /^[0-9]*$/ }
+                            validator: RegExpValidator { regExp: /^[0-9.,]*$/}
                             inputMethodHints: Qt.ImhFormattedNumbersOnly
-                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedVAT").value).toLocaleString() : ""
+                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedVAT").value).toLocaleString() : 19
                         }
 
                         Label {
@@ -447,7 +447,7 @@ StackView {
                             Layout.preferredWidth: app.width - 2*Style.margins
                             Layout.alignment: Qt.AlignHCenter
                             onClicked: {
-                                if(parseFloat(addedGridFee.text) > 0 && parseFloat(addedLevies.text) > 0){
+                                if(parseFloat(addedGridFee.text) > 0 && parseFloat(addedLevies.text) > 0 && parseFloat(vat.text) > 0){
                                     addParamValues();
                                     if(reconfiguration === false && !isNaN(dynElectricThing)){
                                         pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText});
@@ -459,7 +459,7 @@ StackView {
                                         pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText: dynElectricThing.name, reconfiguration: true, historyView: backToView});
                                     }
                                 }else {
-                                    footer.text = qsTr("Please enter taxes and duties. The value cannot be empty or 0.")
+                                    footer.text = qsTr("Please fill in all fields. The value cannot be empty or 0.")
                                 }
                             }
                         }
@@ -618,8 +618,7 @@ StackView {
                 backButtonVisible: true
                 onBackPressed: {
                     if(directionID == 0) {
-                        dynElectricThing = null
-                        pageStack.pop()
+                        pageStack.pop({thingClass: dynElectricThing})
                     }
                 }
             }
