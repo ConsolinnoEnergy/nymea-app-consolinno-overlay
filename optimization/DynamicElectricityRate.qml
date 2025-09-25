@@ -330,8 +330,8 @@ StackView {
 
                     RowLayout {
                         spacing: 0
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
+                        Layout.leftMargin: Style.margins
+                        Layout.rightMargin: Style.margins
                         Layout.fillWidth: true
 
                         Label {
@@ -353,8 +353,8 @@ StackView {
 
                     RowLayout {
                         spacing: 0
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
+                        Layout.leftMargin: Style.margins
+                        Layout.rightMargin: Style.margins
                         Layout.fillWidth: true
 
                         Label {
@@ -379,8 +379,8 @@ StackView {
 
                     RowLayout {
                         spacing: 0
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
+                        Layout.leftMargin: Style.margins
+                        Layout.rightMargin: Style.margins
                         Layout.fillWidth: true
 
                         Label {
@@ -404,9 +404,9 @@ StackView {
                     }
 
                     RowLayout {
-                        spacing: 0
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
+                        spacing: 5
+                        Layout.leftMargin: Style.margins
+                        Layout.rightMargin: Style.margins
                         Layout.fillWidth: true
 
                         Label {
@@ -417,16 +417,21 @@ StackView {
 
                         TextField {
                             id: vat
-                            Layout.rightMargin: 12
                             validator: RegExpValidator { regExp: /^[0-9]+([.,][0-9]{1,2})?$/}
+                            Layout.rightMargin: 12
                             inputMethodHints: Qt.ImhFormattedNumbersOnly
                             text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedVAT").value).toLocaleString() : 19
                         }
 
+
                         Label {
-                            rightPadding: 38
                             text: "%"
                         }
+
+                        Item {
+                            Layout.rightMargin: 29
+                        }
+
                     }
 
 
