@@ -41,18 +41,17 @@ ConsolinnoWizardPageBase {
 
             RowLayout {
                 Layout.margins: Style.margins
-                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: true
 
                 ConsolinnoCheckBox {
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredWidth: 40
+                    Layout.alignment: Qt.AlignCenter
                     id: authorisationCheckbox
                 }
 
                 Label {
                     wrapMode: Text.WordWrap
                     Layout.maximumWidth: parent.width * 0.8
-                    Layout.alignment: Qt.AlignHCenter
+                    Layout.alignment: Qt.AlignCenter
                     horizontalAlignment: Text.AlignLeft
                     text: qsTr("I am authorized to operate the %1").arg(Configuration.coreBranding)
 
