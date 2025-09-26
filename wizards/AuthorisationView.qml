@@ -1,6 +1,6 @@
-import QtQuick 2.12
-import QtQuick.Layouts 1.12
-import QtQuick.Controls 2.12
+import QtQuick 2.9
+import QtQuick.Layouts 1.2
+import QtQuick.Controls 2.9
 import "qrc:/ui/components"
 import Nymea 1.0
 
@@ -17,6 +17,7 @@ ConsolinnoWizardPageBase {
     content: ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right; margins: Style.margins }
         width: Math.min(parent.width - Style.margins * 2, 300)
+        spacing: Style.margins
 
         Label {
             Layout.fillWidth: true
@@ -39,10 +40,11 @@ ConsolinnoWizardPageBase {
             Layout.alignment: Qt.AlignHCenter
 
             RowLayout {
-                spacing: Style.margins
+                Layout.margins: Style.margins
                 Layout.alignment: Qt.AlignHCenter
 
-                ConsolinnoCheckBox{
+                ConsolinnoCheckBox {
+                    Layout.alignment: Qt.AlignHCenter
                     id: authorisationCheckbox
                 }
 
