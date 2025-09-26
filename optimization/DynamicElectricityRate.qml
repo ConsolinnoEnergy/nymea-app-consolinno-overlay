@@ -463,7 +463,7 @@ StackView {
                             Layout.rightMargin: Style.margins
                             Layout.alignment: Qt.AlignHCenter
                             onClicked: {
-                                if(parseFloat(addedGridFee.text) > 0 && parseFloat(addedLevies.text) > 0 && parseFloat(vat.text) > 0){
+                                if(parseFloat(addedGridFee.text.replace(",",".")) > 0 && parseFloat(addedLevies.text.replace(",",".")) > 0 && parseFloat(vat.text.replace(",",".")) > 0){
                                     addParamValues();
                                     if(reconfiguration === false && !isNaN(dynElectricThing)){
                                         pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText});
