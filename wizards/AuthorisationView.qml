@@ -43,8 +43,7 @@ ConsolinnoWizardPageBase {
                 Layout.fillWidth: true
             }
 
-            ConsolinnoCheckBox {
-                Layout.alignment: Qt.AlignCenter
+            CheckBox {
                 id: authorisationCheckbox
             }
 
