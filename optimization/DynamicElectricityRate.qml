@@ -493,10 +493,6 @@ StackView {
                     }
 
                 }
-
-                BusyOverlay {
-                    id: busyOverlay
-                }
             }
         }
     }
