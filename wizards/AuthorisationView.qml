@@ -39,7 +39,7 @@ ConsolinnoWizardPageBase {
             id: authorisationCheckbox
             Layout.fillWidth: true
             position: Qt.AlignHCenter
-            text: qsTr("Sehr Sehr Sehr langer Text I am authorized to operate the %1").arg(Configuration.coreBranding)
+            text: qsTr("I am authorized to operate the %1").arg(Configuration.coreBranding)
         }
 
         ColumnLayout {
