@@ -38,6 +38,7 @@ ConsolinnoWizardPageBase {
         RowLayout {
             Layout.margins: Style.margins
             Layout.fillWidth: true
+            spacing: 0
 
             Item {
                 Layout.fillWidth: true

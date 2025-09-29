@@ -52,6 +52,8 @@ ConsolinnoWizardPageBase {
         RowLayout{
             Layout.leftMargin: Style.margins
             Layout.rightMargin: Style.margins
+            spacing: 0
+
             ConsolinnoCheckBox{
                 id: readCheckbox
                 Layout.alignment: Qt.AlignHCenter
@@ -238,10 +240,13 @@ ConsolinnoWizardPageBase {
 
 
                 RowLayout{
+                    spacing: 0
+                    Layout.leftMargin: Style.margins
+                    Layout.rightMargin: Style.margins
+
                     ConsolinnoCheckBox{
                         id: accountCheckbox
                         Layout.alignment: Qt.AlignHCenter
-                        Layout.leftMargin: Style.margins
                     }
 
                     Label {
@@ -266,6 +271,7 @@ ConsolinnoWizardPageBase {
 
 
                 RowLayout{
+                    spacing: 0
                     Layout.leftMargin: Style.margins
                     ConsolinnoCheckBox {
                         id: policyCheckbox
