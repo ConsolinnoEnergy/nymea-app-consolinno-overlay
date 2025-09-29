@@ -54,29 +54,10 @@ ConsolinnoWizardPageBase {
             Layout.rightMargin: Style.margins
             spacing: 0
 
-            ConsolinnoCheckBox{
+            ConsolinnoCheckbox{
                 id: readCheckbox
                 Layout.alignment: Qt.AlignHCenter
-
-            }
-
-            Label {
-                Layout.fillWidth: true
-                wrapMode: Text.WordWrap
-                horizontalAlignment: Text.AlignLeft
                 text: qsTr("Yes I read the Term of Use and agree")
-
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        if(readCheckbox.checked == true){
-                            readCheckbox.checked = false
-                        }else{
-                            readCheckbox.checked = true
-                        }
-                    }
-                }
             }
         }
 
@@ -244,59 +225,25 @@ ConsolinnoWizardPageBase {
                     Layout.leftMargin: Style.margins
                     Layout.rightMargin: Style.margins
 
-                    ConsolinnoCheckBox{
+                    ConsolinnoCheckbox{
                         id: accountCheckbox
                         Layout.alignment: Qt.AlignHCenter
-                    }
-
-                    Label {
-                        Layout.fillWidth: true
-                        wrapMode: Text.WordWrap
-                        horizontalAlignment: Text.AlignLeft
                         text: qsTr("Yes I agree to open a user account, according to part 6 ")
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                if(accountCheckbox.checked == true){
-                                    accountCheckbox.checked = false
-                                }else{
-                                    accountCheckbox.checked = true
-                                }
-                            }
-                        }
-
                     }
+
                 }
 
 
                 RowLayout{
                     spacing: 0
                     Layout.leftMargin: Style.margins
-                    ConsolinnoCheckBox {
+
+                    ConsolinnoCheckbox {
                         id: policyCheckbox
                         Layout.alignment: Qt.AlignHCenter
-                    }
-
-
-                    Label {
-                        Layout.fillWidth: true
-                        wrapMode: Text.WordWrap
-                        horizontalAlignment: Text.AlignLeft
                         text: qsTr('I confirm that I have read the the agreement and I am accepting it.')
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                if(policyCheckbox.checked == true){
-                                    policyCheckbox.checked = false
-                                }else{
-                                    policyCheckbox.checked = true
-                                }
-                            }
-                        }
-
                     }
+
                 }
 
                 Button {
@@ -584,7 +531,7 @@ ConsolinnoWizardPageBase {
                         Layout.fillWidth: true
                         text: qsTr("SSL:")
                     }
-                    ConsolinnoCheckBox {
+                    ConsolinnoCheckbox {
                         id: secureCheckBox
                         checked: true
                     }
