@@ -144,7 +144,7 @@ Page{
             Button {
                 Layout.topMargin: 10
                 Layout.alignment: Qt.AlignHCenter
-                Layout.preferredWidth: 300
+                Layout.preferredWidth: 200
                 text: qsTr("Save")
                 onClicked:{
                     // TODO:
@@ -155,20 +155,13 @@ Page{
             }
 
             Button {
-
                 Layout.alignment: Qt.AlignHCenter
-                Layout.preferredWidth: 300
+                Layout.preferredWidth: 200
                 text: qsTr("Skip")
                 onClicked:{
                     root.done(false, true, false)
                 }
             }
-
-
-
-
         }
     }
-
-
 }

@@ -49,10 +49,6 @@ Page {
 
             Button {
                 text: qsTr("Next")
-                /*background: Rectangle{
-                    color:  Style.
-                    radius: 4
-                }*/
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                     verticalCenter: parent.verticalCenter

@@ -217,8 +217,8 @@ Page {
             Layout.alignment: Qt.AlignHCenter
 
             Button {
-                Layout.preferredWidth: 200
                 text: qsTr("cancel")
+                Layout.preferredWidth: 200
                 onClicked: pageStack.pop()
             }
 
@@ -226,7 +226,6 @@ Page {
                 id: addButton
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignLeft
-                opacity: heProxy.count < 1 ? 1 : 0.3
                 text: qsTr("add")
                 onClicked: {
                     if(heProxy.count < 1)
@@ -236,54 +235,27 @@ Page {
 
             Button {
                 id: nextStepButton
-
-                Layout.preferredWidth: 200
-                Layout.preferredHeight: addButton.height - 9
-                Layout.alignment: Qt.AlignHCenter
-                // background fucks up the margin between the buttons, thats why wee need this topMargin
-                Layout.topMargin: 5
-                font.capitalization: Font.AllUppercase
-                font.pixelSize: 15
                 text: qsTr("Next step")
+                Layout.preferredWidth: 200
+                Layout.alignment: Qt.AlignHCenter
 
-                contentItem:Row{
-                    Text{
-                        id: nextStepButtonText
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        font: nextStepButton.font
-                        opacity: enabled ? 1.0 : 0.3
-                        color: Style.consolinnoHighlightForeground
-                        elide: Text.ElideRight
-                        text: nextStepButton.text
-                    }
+                Image{
+                    id: headerImage
+                    anchors.right : nextStepButton.right
+                    anchors.verticalCenter:  nextStepButton.verticalCenter
+                    anchors.rightMargin: 5
+                    sourceSize.width: 18
+                    sourceSize.height: 18
+                    source: "../images/next.svg"
 
-                    Image{
-                        id: headerImage
-                        anchors.right : parent.right
-                        anchors.verticalCenter:  parent.verticalCenter
-                        sourceSize.width: 18
-                        sourceSize.height: 18
-                        source: "../images/next.svg"
-
-                        layer{
-                            enabled: true
-                            effect: ColorOverlay{
-                                color: Style.consolinnoHighlightForeground
-                            }
+                    layer{
+                        enabled: true
+                        effect: ColorOverlay{
+                            color: Style.consolinnoHighlightForeground
                         }
                     }
                 }
 
-                background: Rectangle{
-                    width: parent.width
-                    height: parent.height
-                    border.color: Material.background
-                    color: Style.buttonColor
-                    radius: 4
-                }
                 onClicked: root.done(true, false, false)
             }
         }

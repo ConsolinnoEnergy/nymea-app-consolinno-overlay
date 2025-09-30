@@ -301,7 +301,6 @@ Page {
                 text: qsTr("add")
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                opacity:  (evChargerRepeater.model.count > 0) ? 0.3 : 1.0
                 onClicked:    {
                     // Actually not needed when button is
                     if (evChargerRepeater.model.count > 0)  {
@@ -314,54 +313,27 @@ Page {
             Button {
                 id: nextStepButton
                 text: qsTr("Next step")
-                font.capitalization: Font.AllUppercase
-                font.pixelSize: 15
-                Layout.topMargin: 5
                 Layout.preferredWidth: 200
-                Layout.preferredHeight: addButton.height - 9
+                Layout.alignment: Qt.AlignHCenter
 
-                contentItem:Row{
-                    Text{
-                        id: nextStepButtonText
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: nextStepButton.text
-                        font: nextStepButton.font
-                        opacity: enabled ? 1.0 : 0.3
-                        color: Style.consolinnoHighlightForeground
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        elide: Text.ElideRight
-                    }
+                Image{
+                    id: headerImage
+                    anchors.right : nextStepButton.right
+                    anchors.verticalCenter:  nextStepButton.verticalCenter
+                    anchors.rightMargin: 5
 
-                    Image{
-                        id: headerImage
-                        anchors.right : parent.right
-                        anchors.verticalCenter:  parent.verticalCenter
+                    sourceSize.width: 18
+                    sourceSize.height: 18
+                    source: "../images/next.svg"
 
-                        sourceSize.width: 18
-                        sourceSize.height: 18
-                        source: "../images/next.svg"
-
-                        layer{
-                            enabled: true
-                            effect: ColorOverlay{
-                                color: Style.consolinnoHighlightForeground
-                            }
+                    layer{
+                        enabled: true
+                        effect: ColorOverlay{
+                            color: Style.consolinnoHighlightForeground
                         }
                     }
-
                 }
 
-                background: Rectangle{
-                    height: parent.height
-                    width: parent.width
-                    border.color: Material.background
-                    color: Style.buttonColor
-                    radius: 4
-                }
-
-                Layout.alignment: Qt.AlignHCenter
                 onClicked:{
                     root.done(true, false, false)
                 }
