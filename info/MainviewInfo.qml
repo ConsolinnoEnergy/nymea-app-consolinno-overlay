@@ -22,10 +22,9 @@ Page {
 
     }
 
-    InfoTextInterface{
+    ColumnLayout{
         anchors.fill: parent
-        summaryText: false
-        body: ColumnLayout {
+        ColumnLayout {
             Layout.fillWidth: true
             id: bodyItem
             Label{
@@ -51,16 +50,16 @@ Page {
             Label{
                 Layout.fillWidth: true
                 Layout.topMargin: 15
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
+                leftPadding: Style.margins +10
+                rightPadding: Style.margins +10
                 font.bold: true
                 id: consumptionTitle
                 text: qsTr("Consumption of the last 24 hours")
             }
             Label{
                 Layout.fillWidth: true
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
+                leftPadding: Style.margins +10
+                rightPadding: Style.margins +10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 id: consumptionDescription
@@ -70,22 +69,26 @@ Page {
             Label{
                 Layout.fillWidth: true
                 Layout.topMargin: 15
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
+                leftPadding: Style.margins +10
+                rightPadding: Style.margins +10
                 font.bold: true
                 id: interactionTitle
                 text: qsTr("Interaction")
             }
             Label{
                 Layout.fillWidth: true
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
+                leftPadding: Style.margins +10
+                rightPadding: Style.margins +10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 id: interactionDescription
                 text: qsTr("By tapping on the consumers, you can access the settings, e.g. the charging of the e-car. If you tap on the evaluation of the last 24 hours, further statistics are displayed.")
             }
 
+            Item {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+            }
         }
     }
 }
