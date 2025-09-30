@@ -98,10 +98,8 @@ Item {
 
         Item {
             id: content
-
             Layout.fillHeight: true
             Layout.fillWidth: true
-
         }
     }
 
