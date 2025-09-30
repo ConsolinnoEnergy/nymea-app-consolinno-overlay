@@ -67,7 +67,7 @@ ItemDelegate {
                 //                Layout.minimumWidth: parent.width / 2
                 text: root.paramType.displayName
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                font: Style.smallFont
+                font: Style.font
                 elide: Text.ElideRight
             }
             Loader {
@@ -142,6 +142,7 @@ ItemDelegate {
                 }
                 return root.param.value;
             }
+            font.pixelSize: Style.font
             horizontalAlignment: Text.AlignRight
             elide: Text.ElideRight
         }
@@ -283,11 +284,6 @@ ItemDelegate {
             model: root.paramType.allowedValues
             displayText: currentText + ( root.paramType.unit != Types.UnitNone ? " " + Types.toUiUnit(root.paramType.unit) : "")
             currentIndex: root.paramType.allowedValues.indexOf(root.param.value !== undefined ? root.param.value : root.paramType.defaultValue)
-            delegate: ItemDelegate {
-                width: control.width
-                text: Types.toUiValue(modelData, root.paramType.unit) + ( root.paramType.unit != Types.UnitNone ? " " + Types.toUiUnit(root.paramType.unit) : "")
-                highlighted: control.highlightedIndex === index
-            }
             onActivated: {
                 root.param.value = root.paramType.allowedValues[index]
             }
