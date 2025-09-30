@@ -22,7 +22,7 @@ Component.prototype.createOperations = function()
             "workingDirectory=@TargetDir@", "iconPath=@TargetDir@/logo.ico",
             "description=Consolinno energy - The Leaflet frontend");
 
-        component.addOperation("Execute", "reg", "add", "HKEY_CLASSES_ROOT\\consolinno-energy", "/ve", "/d", "URL:consolinno-energy", "/f");
+        component.addOperation("Execute", "reg", "add", "HKEY_CLASSES_ROOT\\consolinno-energy", "/ve", "/d", "URL:hems-con-desktop", "/f");
         component.addOperation("Execute", "reg", "add", "HKEY_CLASSES_ROOT\\consolinno-energy", "/v", "URL Protocol", "/f");
         component.addOperation("Execute", "reg", "add", "HKEY_CLASSES_ROOT\\consolinno-energy\\shell\\open\\command", "/ve", "/d", "\"@TargetDir@\consolinno-energy.exe\" \"%1\"", "/f");
     }
