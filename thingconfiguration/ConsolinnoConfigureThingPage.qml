@@ -58,26 +58,19 @@ SettingsPageBase {
         Layout.rightMargin: Style.margins
         Layout.leftMargin: Style.margins
         width: parent.width
-        visible: isNaN(connectedState) && connectedState.value === false ? true : isNaN(batteryCriticalState) && batteryCriticalState.value === false ? true : false
+        visible: isNaN(connectedState) && connectedState.value === false ? true : isNaN(batteryCriticalState) && batteryCriticalState.value === true ? true : false
 
         backgroundColor: Style.dangerBackground
         borderColor: Style.dangerAccent
         textColor: Style.dangerAccent
         iconColor: Style.dangerAccent
         iconPath: "../images/dialog-warning-symbolic.svg"
-        text: qsTr("Further information in <u>Protocol</u>.")
+        text: qsTr("Further information in <u>Protocol.</u>")
         paramsThing: root.thing
-        paramState: isNaN(connectedState) && connectedState.value === false ? ["signalStrength", "connected"]  : isNaN(batteryCriticalState) && batteryCriticalState.value === false ? ["batteryLevel", "batteryCritical"] : []
+        paramState: isNaN(connectedState) && connectedState.value === false ? ["signalStrength", "connected"]  : isNaN(batteryCriticalState) && batteryCriticalState.value === true ? ["batteryLevel", "batteryCritical"] : []
         pageUrl: "../devicepages/ConsolinnoDeviceLogPage.qml"
-        headerText: isNaN(connectedState) && connectedState.value === false ? qsTr("Thing is not connected!") : isNaN(batteryCriticalState) && batteryCriticalState.value === false ? qsTr("Thing runs out of battery!") : ""
+        headerText: isNaN(connectedState) && connectedState.value === false ? qsTr("Thing is not connected!") : isNaN(batteryCriticalState) && batteryCriticalState.value === true ? qsTr("Thing runs out of battery!") : ""
     }
-
-    /*
-    ThingInfoPane {
-        id: infoPane
-        Layout.fillWidth: true
-        thing: root.thing
-    }*/
 
     Menu {
         id: deviceMenu

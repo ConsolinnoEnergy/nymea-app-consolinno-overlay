@@ -1031,7 +1031,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Further information in &lt;u&gt;Protocol&lt;/u&gt;.</source>
+        <source>Further information in &lt;u&gt;Protocol.&lt;/u&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

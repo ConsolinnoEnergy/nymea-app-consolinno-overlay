@@ -1031,8 +1031,8 @@
         <translation>Verbinden</translation>
     </message>
     <message>
-        <source>Further information in &lt;u&gt;Protocol&lt;/u&gt;.</source>
-        <translation>Weitere Informationen im Protokoll.</translation>
+        <source>Further information in &lt;u&gt;Protocol.&lt;/u&gt;</source>
+        <translation>Weitere Informationen im &lt;u&gt;Protokoll.&lt;/u&gt;</translation>
     </message>
 </context>
 <context>
