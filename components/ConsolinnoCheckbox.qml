@@ -10,15 +10,13 @@ RowLayout{
     property string text
     property bool checked: checkbox.checked
     property int position: Qt.AlignLeft
+    property int sizeFont: 16
 
     Layout.alignment: position
 
-    Component.onCompleted: {
-        console.error(position)
-    }
-
     CheckBox{
         id: checkbox
+        font.pixelSize: sizeFont
 
         indicator: Rectangle {
             implicitWidth: 20
@@ -116,6 +114,7 @@ RowLayout{
         Layout.fillWidth: root.position !== 4 ? true : false
         Layout.preferredWidth: root.position === 4 ? root.width * 0.8 : root.width
         text: root.text
+        font.pixelSize: sizeFont
 
         MouseArea {
             anchors.fill: parent

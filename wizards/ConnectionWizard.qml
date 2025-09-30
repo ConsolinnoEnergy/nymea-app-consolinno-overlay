@@ -58,6 +58,7 @@ ConsolinnoWizardPageBase {
                 id: readCheckbox
                 Layout.alignment: Qt.AlignHCenter
                 text: qsTr("Yes I read the Term of Use and agree")
+                sizeFont: 17
             }
         }
 
@@ -229,6 +230,7 @@ ConsolinnoWizardPageBase {
                         id: accountCheckbox
                         Layout.alignment: Qt.AlignHCenter
                         text: qsTr("Yes I agree to open a user account, according to part 6 ")
+                        sizeFont: 17
                     }
 
                 }
@@ -242,6 +244,7 @@ ConsolinnoWizardPageBase {
                         id: policyCheckbox
                         Layout.alignment: Qt.AlignHCenter
                         text: qsTr('I confirm that I have read the the agreement and I am accepting it.')
+                        sizeFont: 17
                     }
 
                 }
