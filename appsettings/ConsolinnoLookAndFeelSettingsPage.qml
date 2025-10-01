@@ -200,7 +200,7 @@ SettingsPageBase {
     Component {
         id: styleChangedDialog
         Dialog {
-            width: Math.min(parent.width * .8, contentLabel.implicitWidth)
+            width: Math.min(parent.width * .8, Math.max(contentLabel.implicitWidth, 300))
             x: (parent.width - width) / 2
             y: (parent.height - height) / 2
             modal: true
