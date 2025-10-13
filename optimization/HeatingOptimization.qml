@@ -144,7 +144,7 @@ Page {
 
         RowLayout{
             Layout.fillWidth: true
-            visible: heatPumpThing.thingClass.interfaces.includes("smartgridheatpump")
+            visible: heatPumpThing.thingClass.interfaces.includes("smartgridheatpump") || heatPumpThing.thingClass.interfaces.includes("limitableconsumer") || heatPumpThing.thingClass.interfaces.includes("heatpump")
 
             Label {
                 Layout.fillWidth: true
@@ -160,7 +160,7 @@ Page {
 
         ColumnLayout {
             Layout.fillWidth: true
-            visible: heatPumpThing.thingClass.interfaces.includes("smartgridheatpump")
+            visible: heatPumpThing.thingClass.interfaces.includes("smartgridheatpump") || heatPumpThing.thingClass.interfaces.includes("limitableconsumer") || heatPumpThing.thingClass.interfaces.includes("heatpump")
 
             Text {
                 Layout.fillWidth: true
@@ -257,7 +257,8 @@ Page {
                 inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
                 if (savebutton.validated)
                 {
-                    hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, maxElectricalPower: inputText, controllableLocalSystem: gridSupportControl.checked,})
+
+                    d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, {optimizationEnabled: true, maxElectricalPower: inputText, controllableLocalSystem: gridSupportControl.checked,})
                     if(directionID !== 1){
                         pageStack.pop()
                     }

@@ -129,7 +129,7 @@ Page {
                         model: ThingsProxy {
                             id: heProxy
                             engine: _engine
-                            shownInterfaces: ["smartheatingrod"]
+                            shownInterfaces: ["heatingrod"]
                         }
                         delegate: ItemDelegate{
                             Layout.preferredWidth: app.width
@@ -204,7 +204,7 @@ Page {
                 valueRole: "id"
                 model: ThingClassesProxy {
                     engine: _engine
-                    filterInterface: "smartheatingrod"
+                    filterInterface: "heatingrod"
                     includeProvidedInterfaces: true
                 }
             }

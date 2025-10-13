@@ -25,10 +25,15 @@ Page {
 
     property HemsManager hemsManager
 
+    Component.onCompleted: {
+        // Update like this because qml does not allow to set the value directly when using calculations
+        useCasesModel.set(1, {value: HemsManager.HemsUseCaseHeating | HemsManager.HemsUseCaseHeatingRod})
+    }
+
     ListModel {
         id: useCasesModel
         ListElement { text: qsTr("Blackout protection"); value: HemsManager.HemsUseCaseBlackoutProtection; visible: true }
-        ListElement { text: qsTr("Heating"); value: HemsManager.HemsUseCaseHeating; visible: true }
+        ListElement { text: qsTr("Heating"); value: 0; visible: true } // For setting the value see the Component.onCompleted function above
         //ListElement { text: qsTr("Heating Element"); value: HemsManager.HemsUseCaseHeatingElement; visible: true }
         ListElement { text: qsTr("Charging"); value: HemsManager.HemsUseCaseCharging; visible: true }
         ListElement { text: qsTr("Battery"); value: HemsManager.HemsUseCaseBattery; visible: true }
@@ -53,7 +58,7 @@ Page {
                         case HemsManager.HemsUseCaseBlackoutProtection:
                             icon = "../images/attention.svg";
                             break;
-                        case HemsManager.HemsUseCaseHeating:
+                        case HemsManager.HemsUseCaseHeating | HemsManager.HemsUseCaseHeatingRod:
                             if(Configuration.heatpumpIcon !== ""){
                                 icon = "qrc:/ui/images/"+Configuration.heatpumpIcon;
                             }else{
@@ -69,7 +74,7 @@ Page {
                         case HemsManager.HemsUseCasePv:
                             icon = Configuration.inverterIcon !== "" ? "../images/" + Configuration.inverterIcon : "../images/weathericons/weather-clear-day.svg";
                             break;
-                        case HemsManager.HemsUseCaseHeatingElement:
+                        case HemsManager.HemsUseCaseHeatingRod:
                             icon = "../images/sensors/water.svg";
                             break;
                     }
@@ -103,7 +108,7 @@ Page {
                     case HemsManager.HemsUseCaseBlackoutProtection:
                         pageStack.push(Qt.resolvedUrl("../optimization/BlackoutProtectionView.qml"), { hemsManager: hemsManager })
                         break;
-                    case HemsManager.HemsUseCaseHeating:
+                    case HemsManager.HemsUseCaseHeating | HemsManager.HemsUseCaseHeatingRod:
                         pageStack.push(Qt.resolvedUrl("../optimization/HeatingConfigurationView.qml"), { hemsManager: hemsManager })
                         break;
                     case HemsManager.HemsUseCaseCharging:
@@ -115,7 +120,7 @@ Page {
                     case HemsManager.HemsUseCasePv:
                         pageStack.push(Qt.resolvedUrl("../optimization/PVConfigurationView.qml"), { hemsManager: hemsManager })
                         break;
-                    case HemsManager.HemsUseCaseHeatingElement:
+                    case HemsManager.HemsUseCaseHeatingRod:
                         pageStack.push(Qt.resolvedUrl("../optimization/HeatingElementConfigurationView.qml"), { hemsManager: hemsManager })
                         break;
                     }

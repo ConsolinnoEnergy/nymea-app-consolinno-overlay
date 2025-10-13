@@ -11,7 +11,7 @@ StyleBase {
     property color consolinnoExtraLight: "#BDD758"
     property color consolinnoHighlight: "#189521"
     property color consolinnoHighlightForeground: Configuration.highlightForeground
-
+    property color secondaryDark: "#767676"
     property real majorFontSize: 16
     property real screenMargins: 16
 
@@ -19,6 +19,9 @@ StyleBase {
     property real buttonFontSize: 16
     property real buttonTopPading: 16
     property real buttonLeftPadding: 32
+
+    property color gridAlertFont: "#AA0A24"
+    property color gridAlertBackground: "#FFC3CD"
 
     // Avoid Zero Compensation Info + Dialog
     property color marketPriceColor: "#E056F5"

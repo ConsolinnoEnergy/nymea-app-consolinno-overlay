@@ -37,7 +37,7 @@ Page {
                 case "HemsErrorNoError":
                     return
                 case "HemsErrorInvalidParameter":
-                    props.text = qsTr("Could not save configuration. One of the parameters is invalid.")
+                    footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
                     break
                 case "HemsErrorInvalidThing":
                     props.text = qsTr("Could not save configuration. The thing is not valid.")
@@ -108,6 +108,31 @@ Page {
             }
         }
 
+        ColumnLayout {
+            Layout.fillWidth: true
+            visible: heatRodThing.thingClass.interfaces.includes("controllableconsumer") || heatRodThing.thingClass.interfaces.includes("heatingrod");
+            RowLayout {
+                Label {
+                    Layout.fillWidth: true
+                    text: qsTr("Grid-supportive-control")
+                }
+                Switch {
+                    id: controllSwitch
+                    Component.onCompleted: checked = heatingElementConfiguration.controllableLocalSystem
+                }
+            }
+
+            Text {
+                Layout.fillWidth: true
+                font: Style.smallFont
+                color: Style.consolinnoMedium
+                wrapMode: Text.Wrap
+                text: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
+            }
+
+        }
+
+
         Item {
             // place holder
             Layout.fillHeight: true
@@ -119,7 +144,6 @@ Page {
             Layout.fillWidth: true
             Layout.leftMargin: app.margins
             Layout.rightMargin: app.margins
-            //text: qsTr("For a better optimization you can please insert the upper data, so our optimizer has the information it needs.")
             wrapMode: Text.WordWrap
             font.pixelSize: app.smallFont
         }
@@ -132,15 +156,11 @@ Page {
             onClicked: {
                 let inputText = maxPowerInput.text
                 inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
-                if (validated) {
-                    d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, { "maxElectricalPower": parseFloat(inputText), "optimizationEnabled": operatingModeSwitch.checked, controllableLocalSystem: false})
-                    if(directionID !== 1){
-                        pageStack.pop()
-                    }
-                    root.done()
-                }else{
-                    footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
+                d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, { "maxElectricalPower": parseFloat(inputText), "optimizationEnabled": operatingModeSwitch.checked, controllableLocalSystem: controllSwitch.checked})
+                if(directionID !== 1){
+                    pageStack.pop()
                 }
+                root.done()
             }
         }
     }

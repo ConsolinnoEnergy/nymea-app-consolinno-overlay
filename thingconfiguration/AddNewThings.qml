@@ -58,7 +58,7 @@ Page {
             }else if(thingClass.interfaces.includes("evcharger")){
                 thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", { hemsManager: hemsManager, chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thingDevice.id), directionID: 1})
                 navigateBack(thingPage)
-            }else if(thingClass.interfaces.includes("smartheatingrod")){
+            }else if(thingClass.interfaces.includes("heatingrod")){
                 thingPage = pageStack.push("../optimization/HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatRodThing: thingDevice, directionID: 1})
                 navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("solarinverter")){
@@ -182,6 +182,12 @@ Page {
             }
 
             ThingsProxy {
+                id: epexDataSource
+                engine: _engine
+                shownInterfaces: ["epexdatasource"]
+            }
+
+            ThingsProxy {
                 id: evCharger
                 engine: _engine
                 shownInterfaces: ["evcharger"]
@@ -196,7 +202,7 @@ Page {
             ThingsProxy {
                 id: heatingRod
                 engine: _engine
-                shownInterfaces: ["smartheatingrod"]
+                shownInterfaces: ["heatingrod"]
             }
 
             ThingClassesProxy {
@@ -221,7 +227,7 @@ Page {
             ThingClassesProxy {
                 id: thingClassesProxySmartHeatingRod
                 engine: _engine
-                filterInterface: "smartheatingrod"
+                filterInterface: "heatingrod"
                 includeProvidedInterfaces: true
             }
 
@@ -258,7 +264,7 @@ Page {
                                 icon = "/ui/images/heatpump.svg"
                             }
                             return Qt.resolvedUrl(icon)
-                        case "smartheatingrod":
+                        case "heatingrod":
                             if(Configuration.heatingRodIcon !== ""){
                                 icon = "/ui/images/"+Configuration.heatingRodIcon
                             }else{
@@ -352,6 +358,10 @@ Page {
 
                     if(gridSupport.count === 1){
                         thingsListId[thingsListId.length] = gridSupport.get(0).thingClass.id.toString()
+                    }
+
+                    if(epexDataSource.count === 1){
+                      thingsListId[thingsListId.length] = epexDataSource.get(0).thingClass.id.toString();
                     }
 
                     if(electrics.count === 1){

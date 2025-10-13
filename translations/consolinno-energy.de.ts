@@ -1130,6 +1130,17 @@
     </message>
 </context>
 <context>
+    <name>ConsolinnoGridSupportiveControlAlert</name>
+    <message>
+        <source>Attention</source>
+        <translation>Achtung</translation>
+    </message>
+    <message>
+        <source>Existing setup will be overwritten.</source>
+        <translation>Bestehende Einrichtungen werden überschrieben.</translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoImprint</name>
     <message>
         <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
@@ -2723,12 +2734,20 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.9.3&lt;/p&gt;
+&lt;p&gt;Version 1.10.1&lt;/p&gt;
+&lt;h4&gt;Neu&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;Netzdienlichkeit über EEBUS-Steuerbox&lt;/li&gt;
+    &lt;li&gt;Einrichtungsassistent für Netzdienlichkeit&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h4&gt;Verbesserungen&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Update Android sdk&lt;/li&gt;
-    &lt;li&gt;Bei manuellen Hinzufügen eines Geräts: Optimierungseinstellungen werden automatisch abgefragt&lt;/li&gt;
-    &lt;li&gt;Ladeleistung in Watt bei Ladevorgängen der Wallbox&lt;/li&gt;
+    &lt;li&gt;Verbesserte Wärmepumpensteuerung über SG-Ready&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Wartungs- und Kompatibilitätsupdates&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;Aktualisierung des iOS-Bereitstellungsprofils&lt;/li&gt;
+    &lt;li&gt;Aktualisierung der Ziel-API für Android (35)&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -2949,16 +2968,8 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Erhöht&lt;/li&gt;: </translation>
     </message>
     <message>
-        <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;High&lt;/li&gt;: </source>
-        <translation>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Hoch&lt;/li&gt;: </translation>
-    </message>
-    <message>
         <source>The operating status indicates the control of the heat pump:</source>
         <translation>Der Betriebszustand zeigt die Steuerung der Wärmepumpe an:</translation>
-    </message>
-    <message>
-        <source>Please note that the schedule is subject to a certain inaccuracy due to the prediction of the PV production. If sufficient PV production was not predicted, the heat pump may not be switched to increased operation despite sunshine. Or vice versa, if the forecast assumes sufficient PV surplus, but in reality there is less PV surplus, there may be grid consumption.</source>
-        <translation>Bitte beachten Sie, dass der Fahrplan durch die Vorhersage der PV-Produktion mit einer gewissen Ungenauigkeit behaftet ist. Falls keine ausreichende PV-Produktion vorhergesagt wurde, kann es sein dass die Wärmepumpe trotz Sonnenschein nicht in erhöhten Betrieb geschalten wird. Oder umgekehrt falls die Vorhersage von ausreichend PV-Überschuss ausgeht, in der Realität aber weniger PV-Überschuss vorhanden ist, kann es zu Netzbezug kommen.</translation>
     </message>
     <message>
         <source>Optimization of the heat pump</source>
@@ -2971,10 +2982,6 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>If the PV surplus is more than 50 % of the nominal output of the heat pump, SG ready state 3 is switched for at least 30 minutes (recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range).</source>
         <translation type="unfinished">Beträgt der PV-Überschuss mehr als 50 % der Nennleistung der Wärmepumpe, wird SG-Ready-Zustand 3 für mind. 30 Minuten geschaltet (Empfehlung zu erhöhtem Betrieb, die Wärmepumpe entscheidet je nach momentanem Temperaturbereich, ob dies möglich ist).</translation>
-    </message>
-    <message>
-        <source>If the PV surplus is more than 80 % of the nominal output of the heat pump, then SG ready state 4 is switched for at least 30 minutes (definitive start-up command, if this is possible within the scope of the control settings).</source>
-        <translation type="unfinished">Beträgt der PV-Überschuss mehr als 80 % der Nennleistung der Wärmepumpe, dann wird SG-Ready-Zustand 4 für mind. 30 Minuten geschaltet (Definitiver Anlaufbefehl, sofern dies im Rahmen der Regeleinstellungen möglich ist).</translation>
     </message>
     <message>
         <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Off (= EVU block)&lt;/li&gt;: </source>
@@ -2995,10 +3002,6 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range.</source>
         <translation type="unfinished">Empfehlung für erhöhten Betrieb, die Wärmepumpe entscheidet in Abhängigkeit vom aktuellen Temperaturbereich, ob dies möglich ist.</translation>
-    </message>
-    <message>
-        <source>Definitive start-up command, if this is possible within the scope of the control settings</source>
-        <translation type="unfinished">Definitiver Einschaltbefehl, wenn dies im Rahmen der Steuerungseinstellungen möglich ist</translation>
     </message>
 </context>
 <context>
@@ -3044,7 +3047,7 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Abbrechen</translation>
     </message>
     <message>
         <source>OK</source>
@@ -3162,10 +3165,130 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
 </context>
 <context>
-    <name>GridSupportiveControlConfig</name>
+    <name>GridSupportiveControl</name>
     <message>
-        <source>Grid Supportive Control</source>
+        <source>not connected</source>
+        <translation>nicht verbunden</translation>
+    </message>
+    <message>
+        <source>connected</source>
+        <translation>verbunden</translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
+        <translation>Der Verbrauch ist &lt;b&gt;temporär blockiert&lt;/b&gt; durch den Netzbetreiber.</translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; according to §14a minimum.</source>
+        <translation>Der Verbrauch wird &lt;b&gt;vorübergehend reduziert&lt;/b&gt; auf &lt;b&gt;%1 kW&lt;/b&gt; gemäß §14a mindestens.</translation>
+    </message>
+    <message>
+        <source>Control type</source>
+        <translation>Steuerungsart</translation>
+    </message>
+    <message>
+        <source></source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Complete setup</source>
+        <translation>Einrichtung abschliessen</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <source>Reconfigure</source>
+        <translation>Neu konfigurieren</translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found:</source>
+        <translation>Folgende EEBUS-Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Search again</source>
+        <translation>Erneut suchen</translation>
+    </message>
+    <message>
+        <source>Parameter</source>
+        <translation>Parameter</translation>
+    </message>
+    <message>
+        <source>This SKI is required by the network operator.</source>
+        <translation>Diese SKI wird vom Netzbetreiber benötigt.</translation>
+    </message>
+    <message>
+        <source>SKI copied to clipboard</source>
+        <translation>SKI in die Zwischenablage kopiert</translation>
+    </message>
+    <message>
+        <source>Establish a connection with this device.</source>
+        <translation>Mit diesem Gerät eine Verbindung aufbauen.</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
+        <source>Back to overview</source>
+        <translation>Zurück zur Übersicht</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control</source>
+        <translation>Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control setup</source>
+        <translation>Netzdienlichkeit einrichten</translation>
+    </message>
+    <message>
+        <source>Must be in same network.</source>
+        <translation>Muss im selben Netzwerk sein.</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control setup – EEBUS</source>
+        <translation>Netzdienlichkeit einrichten – EEBUS</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control – EEBUS</source>
+        <translation>Netzdienlichkeit – EEBUS</translation>
+    </message>
+    <message>
+        <source>EEBUS control box</source>
+        <translation>EEBUS Steuerbox</translation>
+    </message>
+    <message>
+        <source>Confirmation by network operator pending.</source>
+        <translation>Bestätigung durch Netzbetreiber ausstehend.</translation>
+    </message>
+    <message>
+        <source>Relais</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connect device</source>
+        <translation>Gerät anschließen</translation>
+    </message>
+    <message>
+        <source>Please connect the control box or the ripple control receiver as described in our manual.</source>
+        <translation>Bitte schließen Sie die Steuerbox bzw. den Rundsteuerempfänger gemäß unserer Anleitung an.</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control – Relais</source>
+        <translation>Netzdienlichkeit – Relais</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control setup – Relais</source>
+        <translation>Netzdienlichkeit einrichten – Relais</translation>
     </message>
 </context>
 <context>
@@ -3279,10 +3402,6 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Heizstabkonfiguration</translation>
     </message>
     <message>
-        <source>Could not save configuration. One of the parameters is invalid.</source>
-        <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
-    </message>
-    <message>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
@@ -3307,12 +3426,20 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Maximale elektrische Leistung</translation>
     </message>
     <message>
-        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
-        <translation>Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
-    </message>
-    <message>
         <source>The heating element is not controlled by the %1.</source>
         <translation>Der Heizstab wird durch das %1 nicht gesteuert.</translation>
+    </message>
+    <message>
+        <source>Grid-supportive-control</source>
+        <translation type="unfinished">Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
+    </message>
+    <message>
+        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
+        <translation type="unfinished">Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
     </message>
 </context>
 <context>
@@ -3415,6 +3542,10 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Dynamic electricity tariff</source>
         <translation>Dynamischer Stromtarif</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control</source>
+        <translation>Netzdienlichkeit</translation>
     </message>
 </context>
 <context>
@@ -3912,6 +4043,18 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
         <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant.</translation>
     </message>
+    <message>
+        <source>EEBUS Wallbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EvCharger set-up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished">Folgende EEBUS-Geräte wurden gefunden:</translation>
+    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
@@ -4089,6 +4232,18 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
         <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant.</translation>
+    </message>
+    <message>
+        <source>EEBUS heat pump</source>
+        <translation>EEBUS Wärmepumpe</translation>
+    </message>
+    <message>
+        <source>Heatpump set-up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished">Folgende EEBUS-Geräte wurden gefunden:</translation>
     </message>
 </context>
 <context>

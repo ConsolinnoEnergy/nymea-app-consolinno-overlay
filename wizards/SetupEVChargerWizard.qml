@@ -1,12 +1,14 @@
 import QtQuick 2.9
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.9
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 import QtQuick.Controls.Material 2.1
 import QtGraphicalEffects 1.15
 import "qrc:/ui/components"
+
 import Nymea 1.0
 
 import "../delegates"
+import "../components"
 
 Page {
     id: root
@@ -399,6 +401,118 @@ Page {
                     }
                     discovery.discoverThings(thingClass.id, d.discoveryParams)
                     pageStack.push(discoveryPage, {thingClass: thingClass})
+                }
+            }
+        }
+    }
+
+    Component {
+        id: evChargerSearch
+
+        Page {
+            header: NymeaHeader {
+                text: qsTr("EvCharger set-up")
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
+
+            property var thingClass
+
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    Layout.fillHeight: true
+                    Text {
+                        Layout.fillWidth: true
+                        Layout.topMargin: 5
+                        Layout.bottomMargin: 0
+                        textFormat: Text.RichText
+                        font.pointSize: 20
+                        font.bold: true
+                        wrapMode: Text.WordWrap
+                        text: qsTr("The following EEBUS devices were found:")
+                        color: Style.consolinnoDark
+                    }
+                }
+
+                Flickable {
+                    id: flick
+                    height: parent.height - 300
+                    Layout.fillWidth: true
+                    clip: true
+
+                    contentWidth: parent.width
+                    contentHeight: column.implicitHeight
+
+                    ColumnLayout {
+                        id: column
+                        width: parent.width
+                        Layout.leftMargin: app.margins
+                        Layout.rightMargin: app.margins
+                        spacing: 5
+
+                        Repeater {
+                            id: eebuRepeater
+
+                            model: ThingDiscoveryProxy {
+                                id: eebusDiscovery
+                                thingDiscovery: discovery
+                            }
+                            delegate: ConsolinnoItemDelegate {
+                                Layout.fillWidth: true
+                                iconName: "../images/connections/network-wired.svg"
+                                text: model.name
+                                subText: model.description
+                                progressive: true
+                                onClicked: {
+                                    var paramTypes = thingClass.paramTypes;
+                                    d.discoveryParams = [];
+                                    for (var i = 0; i < paramTypes.count; i++) {
+                                        var param = {};
+                                        param["paramTypeId"] = paramTypes.get(i).id;
+                                        param["value"] = isNaN(eebusDiscovery.get(index).params.getParam(thingClass.paramTypes.get(i).id)) ? eebusDiscovery.get(index).params.getParam(thingClass.paramTypes.get(i).id).value : ""
+                                        d.discoveryParams.push(param)
+                                    }
+                                    d.thingDescriptor = eebusDiscovery.get(index);
+                                    pageStack.push(paramsPage, {thingClass: thingClass})
+                                }
+                            }
+                        }
+                    }
+                }
+
+                VerticalDivider {
+                    Layout.fillWidth: true
+                    dividerColor: Material.accent
+                }
+
+                ColumnLayout {
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+
+                    Button {
+                        id: completeSetupButton
+                        Layout.fillWidth: true
+                        text: qsTr("Search again")
+                        onClicked: {
+                            discovery.discoverThings(eebusWallbox.get(0).id)
+                        }
+                    }
+
+                    ConsolinnoSetUpButton{
+                        id: cancel
+                        text: qsTr("cancel")
+                        backgroundColor: "transparent"
+                        onClicked: {
+                            root.done(false, true, false)
+                        }
+                    }
                 }
             }
         }

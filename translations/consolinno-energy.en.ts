@@ -1130,6 +1130,17 @@
     </message>
 </context>
 <context>
+    <name>ConsolinnoGridSupportiveControlAlert</name>
+    <message>
+        <source>Attention</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Existing setup will be overwritten.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoImprint</name>
     <message>
         <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
@@ -2713,12 +2724,20 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.9.3&lt;/p&gt;
+&lt;p&gt;Version 1.10.1&lt;/p&gt;
+&lt;h4&gt;New&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;Grid-friendly operation via EEBUS control box&lt;/li&gt;
+    &lt;li&gt;Setup assistant for grid-friendly operation&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h4&gt;Improvements&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Update Android sdk&lt;/li&gt;
-    &lt;li&gt;When adding a device manually: Optimization settings are requested automatically&lt;/li&gt;
-    &lt;li&gt;Charging power in watt for wallbox charging processes&lt;/li&gt;
+    &lt;li&gt;Improved heat pump control via SG-Ready&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Technical Maintenance &amp; Compatibility Updates&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;Update of the iOS provisioning profile&lt;/li&gt;
+    &lt;li&gt;Update of the target API for Android (35)&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -2929,15 +2948,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;High&lt;/li&gt;: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The operating status indicates the control of the heat pump:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please note that the schedule is subject to a certain inaccuracy due to the prediction of the PV production. If sufficient PV production was not predicted, the heat pump may not be switched to increased operation despite sunshine. Or vice versa, if the forecast assumes sufficient PV surplus, but in reality there is less PV surplus, there may be grid consumption.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2950,10 +2961,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>If the PV surplus is more than 50 % of the nominal output of the heat pump, SG ready state 3 is switched for at least 30 minutes (recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If the PV surplus is more than 80 % of the nominal output of the heat pump, then SG ready state 4 is switched for at least 30 minutes (definitive start-up command, if this is possible within the scope of the control settings).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2974,10 +2981,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Definitive start-up command, if this is possible within the scope of the control settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3142,9 +3145,129 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
 </context>
 <context>
-    <name>GridSupportiveControlConfig</name>
+    <name>GridSupportiveControl</name>
     <message>
-        <source>Grid Supportive Control</source>
+        <source>not connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; according to §14a minimum.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Control type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Complete setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconfigure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parameter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This SKI is required by the network operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SKI copied to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Establish a connection with this device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back to overview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Must be in same network.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control setup – EEBUS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control – EEBUS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EEBUS control box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirmation by network operator pending.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relais</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connect device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please connect the control box or the ripple control receiver as described in our manual.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control – Relais</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control setup – Relais</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3259,10 +3382,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Could not save configuration. One of the parameters is invalid.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3287,12 +3406,20 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished">Maximal electrical power</translation>
     </message>
     <message>
-        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
+        <source>The heating element is not controlled by the %1.</source>
+        <translation type="unfinished">The heating element is not controlled by the %1.</translation>
+    </message>
+    <message>
+        <source>Grid-supportive-control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The heating element is not controlled by the %1.</source>
-        <translation type="unfinished">The heating element is not controlled by the %1.</translation>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3393,6 +3520,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Dynamic electricity tariff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

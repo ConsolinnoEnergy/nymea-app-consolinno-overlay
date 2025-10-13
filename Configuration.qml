@@ -21,7 +21,7 @@ ConfigurationBase {
     property bool isIntroIcon: true
     //////////////////////////////////////////////////////////////////////////////////////
     // Defines the minimal compatible HEMS version
-    property string minSysVersion: "1.7.0"
+    property string minSysVersion: "1.8.0"
 
     // Identifier used for branding (e.g. to register for push notifications)
     property string branding: "consolinno"
@@ -55,6 +55,8 @@ ConfigurationBase {
     //////////////////////////////////////////////////////////////////////////////////////
 
     //Styles
+    property color secondaryDark: "#767676"
+
     //MainMenuCirlce
     readonly property color mainTimeCircle: "#d7d7d7"
     readonly property color mainTimeCircleDivider: "#ffffff"
