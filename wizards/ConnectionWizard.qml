@@ -48,21 +48,16 @@ ConsolinnoWizardPageBase {
             }
         }
 
-
-        RowLayout{
+        ConsolinnoCheckbox{
+            id: readCheckbox
+            Layout.alignment: Qt.AlignHCenter
             Layout.leftMargin: Style.margins
             Layout.rightMargin: Style.margins
             spacing: 0
-
-            ConsolinnoCheckbox{
-                id: readCheckbox
-                Layout.alignment: Qt.AlignHCenter
-                text: qsTr("Yes I read the Term of Use and agree")
-                sizeFont: 17
-            }
+            text: qsTr("Yes I read the Term of Use and agree")
+            sizeFont: 17
         }
-
-
+        
         Button {
             Layout.alignment: Qt.AlignHCenter
             text: readCheckbox.checked ? qsTr('next') : qsTr('cancel')
@@ -220,33 +215,23 @@ ConsolinnoWizardPageBase {
                       }
                 }
 
-
-                RowLayout{
-                    spacing: 0
+                ConsolinnoCheckbox{
+                    id: accountCheckbox
+                    Layout.alignment: Qt.AlignHCenter
                     Layout.leftMargin: Style.margins
                     Layout.rightMargin: Style.margins
-
-                    ConsolinnoCheckbox{
-                        id: accountCheckbox
-                        Layout.alignment: Qt.AlignHCenter
-                        text: qsTr("Yes I agree to open a user account, according to part 6 ")
-                        sizeFont: 17
-                    }
-
+                    text: qsTr("Yes I agree to open a user account, according to part 6 ")
+                    sizeFont: 17
+                    spacing: 0
                 }
 
-
-                RowLayout{
-                    spacing: 0
+                ConsolinnoCheckbox {
+                    id: policyCheckbox
                     Layout.leftMargin: Style.margins
-
-                    ConsolinnoCheckbox {
-                        id: policyCheckbox
-                        Layout.alignment: Qt.AlignHCenter
-                        text: qsTr('I confirm that I have read the the agreement and I am accepting it.')
-                        sizeFont: 17
-                    }
-
+                    Layout.alignment: Qt.AlignHCenter
+                    text: qsTr('I confirm that I have read the the agreement and I am accepting it.')
+                    sizeFont: 17
+                    spacing: 0
                 }
 
                 Button {

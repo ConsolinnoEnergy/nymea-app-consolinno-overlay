@@ -8,7 +8,7 @@ import Nymea 1.0
 RowLayout{
     id: root
     property string text
-    property bool checked: checkbox.checked
+    property alias checked: checkbox.checked
     property int position: Qt.AlignLeft
     property int sizeFont: 16
 
