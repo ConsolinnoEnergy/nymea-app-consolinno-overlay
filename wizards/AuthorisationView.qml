@@ -25,7 +25,6 @@ ConsolinnoWizardPageBase {
             font: Style.bigFont
             wrapMode: Text.WordWrap
             text: qsTr("Authorisation page")
-
         }
 
         Label {
@@ -36,34 +35,39 @@ ConsolinnoWizardPageBase {
             text: qsTr("To comission devices with the %1, you must be authorized. Otherwise the warranty expires.").arg(Configuration.coreBranding)
         }
 
-        ColumnLayout {
-            spacing: Style.margins
-            Layout.alignment: Qt.AlignHCenter
+        RowLayout {
+            Layout.margins: Style.margins
+            Layout.fillWidth: true
 
-            RowLayout {
-                spacing: Style.margins
-                Layout.alignment: Qt.AlignHCenter
+            Item {
+                Layout.fillWidth: true
+            }
 
-                CheckBox{
-                    id: authorisationCheckbox
-                }
+            ConsolinnoCheckBox {
+                Layout.alignment: Qt.AlignCenter
+                id: authorisationCheckbox
+            }
 
-                Label {
-                    wrapMode: Text.WordWrap
-                    Layout.maximumWidth: parent.width * 0.8
-                    Layout.alignment: Qt.AlignHCenter
-                    horizontalAlignment: Text.AlignLeft
-                    text: qsTr("I am authorized to operate the %1").arg(Configuration.coreBranding)
+            Label {
+                wrapMode: Text.WordWrap
+                Layout.maximumWidth: parent.width * 0.8
+                Layout.alignment: Qt.AlignCenter
+                horizontalAlignment: Text.AlignLeft
+                text: qsTr("I am authorized to operate the %1").arg(Configuration.coreBranding)
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            authorisationCheckbox.checked = !authorisationCheckbox.checked
-                        }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        authorisationCheckbox.checked = !authorisationCheckbox.checked
                     }
                 }
             }
+
+            Item {
+                Layout.fillWidth: true
+            }
         }
+
 
         ColumnLayout {
             spacing: Style.margins

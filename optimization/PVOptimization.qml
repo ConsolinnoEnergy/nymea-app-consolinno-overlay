@@ -169,7 +169,7 @@ Page {
             //                                                 = true : alignment_validated = false
             //            }
 
-            ComboBox {
+            ConsolinnoDropdown {
                 id: alignment
                 textRole: "text"
                 valueRole: "value"

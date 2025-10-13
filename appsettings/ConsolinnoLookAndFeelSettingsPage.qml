@@ -20,15 +20,25 @@ SettingsPageBase {
         visible: !styleController.locked
         Label {
             Layout.fillWidth: true
-            text: "Style"
+            text: qsTr("Style")
         }
-        ComboBox {
-            model: styleController.allStyles
-            currentIndex: styleController.allStyles.indexOf(styleController.currentStyle)
 
-            onActivated: {
-                styleController.currentStyle = model[index]
-            }
+        ListModel { id: stylesModel }
+
+        ConsolinnoDropdown {
+          id: cb
+          model: stylesModel
+          textRole: "text"
+          valueRole: "value"
+          Component.onCompleted: currentIndex = indexOfValue(styleController.currentStyle)
+          onActivated: styleController.currentStyle = currentValue
+        }
+
+        Component.onCompleted: {
+          stylesModel.append({ value: "light", text: qsTr("light") })
+          if (Configuration.branding === "consolinno") {
+            stylesModel.append({ value: "dark", text: qsTr("dark") })
+          }
         }
 
         Connections {
@@ -49,7 +59,7 @@ SettingsPageBase {
             Layout.fillWidth: true
             text: qsTr("View mode")
         }
-        ComboBox {
+        ConsolinnoDropdown {
             model: [qsTr("Windowed"), qsTr("Maximized"), qsTr("Fullscreen"), qsTr("Automatic")]
             currentIndex: {
                 switch (settings.viewMode) {
@@ -95,7 +105,7 @@ SettingsPageBase {
             Layout.fillWidth: true
             text: qsTr("Unit system")
         }
-        ComboBox {
+        ConsolinnoDropdown {
             id: unitsComboBox
             currentIndex: settings.units === "metric" ? 0 : 1
             model: [ qsTr("Metric"), qsTr("Imperial") ]
@@ -114,7 +124,7 @@ SettingsPageBase {
             Layout.fillWidth: true
             text: qsTr("Language")
         }
-        ComboBox {
+        ConsolinnoDropdown {
             id: languageComboBox
             currentIndex: settings.units === "metric" ? 0 : 1
             //model: [ qsTr("Metric"), qsTr("Imperial") ]

@@ -115,7 +115,7 @@ Page {
               Label {
                 text: "3 x A:"
               }
-              TextField {
+              ConsolinnoTextField {
                 id: otherLimit
                 rightPadding: 50//otherDelegate.width - otherDelegate.indicator.width - otherDelegate.spacing
                 placeholderText: "16 - 100"
@@ -138,6 +138,7 @@ Page {
             Layout.fillWidth: true
             Layout.leftMargin: app.margins
             Layout.rightMargin: app.margins
+            color: Style.dangerAccent
             wrapMode: Text.WordWrap
             font.pixelSize: app.smallFont
 

@@ -97,7 +97,7 @@ Page {
                 text: qsTr("Vendor")
             }
 
-            ComboBox {
+            ConsolinnoDropdown {
                 id: vendorFilterComboBox
                 Layout.fillWidth: true
                 textRole: "displayName"
@@ -124,7 +124,7 @@ Page {
                 text: qsTr("Type")
             }
 
-            ComboBox {
+            ConsolinnoDropdown {
                 id: typeFilterComboBox
                 Layout.fillWidth: true
                 textRole: "displayName"

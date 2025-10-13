@@ -158,9 +158,9 @@ GenericConfigPage {
                     textColor: "#864A0D"
                     iconColor: "#864A0D"
 
-                    iconPath: "../components/ConsolinnoDialog.qml"
+                    imagePath: "../components/ConsolinnoDialog.qml"
                     dialogHeaderText: qsTr("Avoid zero compensation")
-                    dialogText: qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
+                    dialogText: qsTr("On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.")
                     dialogPicture: "../images/avoidZeroCompansation.svg"
 
                     text: qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
@@ -200,7 +200,6 @@ GenericConfigPage {
                             }
                         }
                     }
-
                 }
 
                 // Current Battery Level
@@ -267,30 +266,30 @@ GenericConfigPage {
                             push: "TariffGuidedChargingInfo.qml"
                         }
 
-                        Column {
-                            Switch{
-                                spacing: 1
-                                height: 18
-                                id: optimizationController
-                                onClicked: {
-                                    if(!optimizationController.checked){
-                                        chargeOnceController.checked = false;
-                                    }
-                                    //saveSettings()
-                                    enableSave(this)
-                                }
-                                Component.onCompleted: {
-                                    checked = batteryConfiguration.optimizationEnabled
-                                }
+                Column {
+                    ConsolinnoSwitch {
+                        spacing: 1
+                        height: 18
+                        id: optimizationController
+
+                        onClicked: {
+                            if(!optimizationController.checked){
+                                chargeOnceController.checked = false;
                             }
+                            //saveSettings()
+                            enableSave(this)
+                        }
+                        Component.onCompleted: {
+                            checked = batteryConfiguration.optimizationEnabled
                         }
                     }
+                }
+            }
 
                     // Charge once
                     RowLayout {
                         Layout.topMargin: 5
                         visible: optimizationController.checked
-
                         Label {
                             text: qsTr("Activate instant charging")
                         }
@@ -310,12 +309,12 @@ GenericConfigPage {
                                 width: chargeOnceController.width
                                 height: chargeOnceController.height
 
-                                Switch {
-                                    id: chargeOnceController
-                                    anchors.fill: parent
-                                    spacing: 1
-                                    height: 18
-                                    enabled: isZeroCompensation ? false : true
+                        ConsolinnoSwitch {
+                            id: chargeOnceController
+                            anchors.fill: parent
+                            spacing: 1
+                            height: 18
+                            enabled: isZeroCompensation ? false : true
 
                                     Component.onCompleted: {
                                         checked = batteryConfiguration.chargeOnce
@@ -414,11 +413,11 @@ GenericConfigPage {
                             if(!dpThing)
                                 return;
 
-                            currentPrice = dpThing.stateByName("currentMarketPrice").value
-                            averagePrice = dpThing.stateByName("averagePrice").value.toFixed(0).toString();
+                            currentPrice = dpThing.stateByName("currentTotalCost").value
+                            averagePrice = dpThing.stateByName("averageTotalCost").value.toFixed(0).toString();
                             lowestPrice = dpThing.stateByName("lowestPrice").value
                             highestPrice = dpThing.stateByName("highestPrice").value
-                            barSeries.addValues(dpThing.stateByName("priceSeries").value)
+                            barSeries.addValues(dpThing.stateByName("totalCostSeries").value)
                         }
 
                         QtObject {
@@ -451,30 +450,30 @@ GenericConfigPage {
                             Layout.fillHeight: true
                             Layout.minimumHeight: 150
 
-                            CustomBarSeries {
-                              id: barSeries
-                              anchors.fill: parent
-                              margins.left: 0
-                              margins.right: 0
-                              margins.top: 0
-                              margins.bottom: 0
-                              backgroundColor: chargeOnceController.checked ? "whitesmoke" : "transparent"
-                              startTime: d.startTimeSince
-                              endTime: d.endTimeUntil
-                              hoursNow: d.now.getHours()
-                              currentPrice: currentValue
-                              currentMarketPrice: currentPrice
-                              lowestValue: root.lowestPrice
-                              highestValue: root.highestPrice
-                            }
-                        }
+                    CustomBarSeries {
+                      id: barSeries
+                      anchors.fill: parent
+                      margins.left: 0
+                      margins.right: 0
+                      margins.top: 0
+                      margins.bottom: 0
+                      backgroundColor: isZeroCompensation || chargeOnceController.checked ? Style.barSeriesDisabled : "transparent"
+                      startTime: d.startTimeSince
+                      endTime: d.endTimeUntil
+                      hoursNow: d.now.getHours()
+                      currentPrice: currentValue
+                      currentMarketPrice: currentPrice
+                      lowestValue: root.lowestPrice
+                      highestValue: root.highestPrice
+                    }
+                }
 
-                        Label {
+                        Label { // breaks view when removed
                             visible: optimizationController.checked
                             wrapMode: Text.WordWrap
                             Layout.fillWidth: true
-                            text: qsTr("Prices represent the pure exchange price without taxes and fees.")
-                            font.pixelSize: 12
+                            text: ""
+                            font.pixelSize: 1
                         }
                     }
 
@@ -505,10 +504,10 @@ GenericConfigPage {
                                   saveButton.enabled = batteryConfiguration.priceThreshold !== currentValue;
 
                                   barSeries.clearValues();
-                                  barSeries.addValues(dynamicPrice.get(0).stateByName("priceSeries").value);
+                                  barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value);
                                 }
-                                from: -50
-                                to: 50
+                                from: -5
+                                to: 60
                                 stepSize: 0.2
                             }
                         }

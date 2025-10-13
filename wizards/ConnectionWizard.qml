@@ -50,7 +50,9 @@ ConsolinnoWizardPageBase {
 
 
         RowLayout{
-            CheckBox{
+            Layout.leftMargin: Style.margins
+            Layout.rightMargin: Style.margins
+            ConsolinnoCheckBox{
                 id: readCheckbox
                 Layout.alignment: Qt.AlignHCenter
 
@@ -61,6 +63,18 @@ ConsolinnoWizardPageBase {
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignLeft
                 text: qsTr("Yes I read the Term of Use and agree")
+
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        if(readCheckbox.checked == true){
+                            readCheckbox.checked = false
+                        }else{
+                            readCheckbox.checked = true
+                        }
+                    }
+                }
             }
         }
 
@@ -70,7 +84,7 @@ ConsolinnoWizardPageBase {
             text: readCheckbox.checked ? qsTr('next') : qsTr('cancel')
             Layout.preferredWidth: 200
             background: Rectangle{
-                color: readCheckbox.checked ? Configuration.buttonColor : 'grey'
+                color: readCheckbox.checked ? Style.buttonColor : 'grey'
                 radius: 4
             }
 
@@ -224,10 +238,10 @@ ConsolinnoWizardPageBase {
 
 
                 RowLayout{
-                    CheckBox{
+                    ConsolinnoCheckBox{
                         id: accountCheckbox
                         Layout.alignment: Qt.AlignHCenter
-
+                        Layout.leftMargin: Style.margins
                     }
 
                     Label {
@@ -235,12 +249,25 @@ ConsolinnoWizardPageBase {
                         wrapMode: Text.WordWrap
                         horizontalAlignment: Text.AlignLeft
                         text: qsTr("Yes I agree to open a user account, according to part 6 ")
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                if(accountCheckbox.checked == true){
+                                    accountCheckbox.checked = false
+                                }else{
+                                    accountCheckbox.checked = true
+                                }
+                            }
+                        }
+
                     }
                 }
 
 
                 RowLayout{
-                    CheckBox {
+                    Layout.leftMargin: Style.margins
+                    ConsolinnoCheckBox {
                         id: policyCheckbox
                         Layout.alignment: Qt.AlignHCenter
                     }
@@ -251,6 +278,18 @@ ConsolinnoWizardPageBase {
                         wrapMode: Text.WordWrap
                         horizontalAlignment: Text.AlignLeft
                         text: qsTr('I confirm that I have read the the agreement and I am accepting it.')
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                if(policyCheckbox.checked == true){
+                                    policyCheckbox.checked = false
+                                }else{
+                                    policyCheckbox.checked = true
+                                }
+                            }
+                        }
+
                     }
                 }
 
@@ -259,7 +298,7 @@ ConsolinnoWizardPageBase {
                     text: policyCheckbox.checked && accountCheckbox.checked ? qsTr('next') : qsTr('cancel')
                     Layout.preferredWidth: 200
                     background: Rectangle{
-                        color: policyCheckbox.checked && accountCheckbox.checked ? Configuration.buttonColor : 'grey'
+                        color: policyCheckbox.checked && accountCheckbox.checked ? Style.buttonColor : 'grey'
                         radius: 4
                     }
 
@@ -498,7 +537,7 @@ ConsolinnoWizardPageBase {
                         text: qsTr('Protocol')
                     }
 
-                    ComboBox {
+                    ConsolinnoDropdown {
                         id: connectionTypeComboBox
                         Layout.fillWidth: true
                         model: [ qsTr("TCP"), qsTr("Websocket"), qsTr("Remote proxy") ]
@@ -539,7 +578,7 @@ ConsolinnoWizardPageBase {
                         Layout.fillWidth: true
                         text: qsTr("SSL:")
                     }
-                    CheckBox {
+                    ConsolinnoCheckBox {
                         id: secureCheckBox
                         checked: true
                     }

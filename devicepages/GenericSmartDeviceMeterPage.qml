@@ -45,7 +45,7 @@ GenericConfigPage {
 
     property bool isRootmeter: false
     property bool isBatteryView: false
-    property string isNotify: ""
+    property bool isNotify: false
 
     title: root.thing.name
 
@@ -66,138 +66,64 @@ GenericConfigPage {
             }
 
             Item {
-                id: notificationsContainer
+                id: containerAvoidZeroCompensationItem
                 anchors.top: parent.top
-                height: infoElement.implicitHeight
+                height: containerAvoidZeroCompensation.implicitHeight
                 width: parent.width
-                visible: (isNotify === "shutoff" || isNotify === "limited") && isRootmeter
 
                 ColumnLayout {
-                    id: infoElement
-                    width: root.width
+                    id: containerAvoidZeroCompensation
                     anchors.top: parent.top
+                    width: root.width
 
                     property var states: {
                         "limited": {
                             "header": qsTr("Grid-Supportive Control"),
-                            "content": qsTr("The consumption is <b>temporarily reduced</b> to §14a minimum."),
-                            "color": "warning"
+                            "content": qsTr("Consumption is <b>temporarily limited</b> on the basis of a control signal from the grid operator."),
+                            "color": "warning",
+                            "backgroundColor": "warningBackground"
                         },
                         "blocked": {
                             "header": qsTr("Grid-Supportive Control"),
-                            "content": qsTr("The consumption is <b>temporarily blocked</b> by the network operator."),
-                            "color": "danger"
+                            "content": qsTr("The consumption is <b>temporarily blocked</b> on the basis of a control signal from the grid operator."),
+                            "color": "danger",
+                            "backgroundColor": "dangerBackground"
                         },
                         "unrestricted": {
                             "header": qsTr("Grid-Supportive Control"),
                             "content": qsTr("unrestricted"),
+                            "backgroundColor": "none",
                             "color": "none"
                         }
                     }
 
                     property var infoColors: {
-                        "warning": "#fc9d03",
-                        "danger": "#eb4034",
+                        "warning": Style.warningAccent,
+                        "danger": Style.dangerAccent,
+                        "warningBackground": Style.warningBackground,
+                        "dangerBackground": Style.dangerBackground,
                         "none": "#ffffff"
                     }
 
-                    property string infoColor: "#fc9d03"
-                    property string currentState: isNotify === "shutoff" && isRootmeter ? "blocked" : isNotify === "limited" && isRootmeter ? "limited" : "unrestricted"
-
-                    Rectangle {
-                        width: infoElement.width - 40
-                        Layout.alignment: Qt.AlignHCenter
-                        radius: 10
-                        color: "#faf9f5"
-                        border.width: 1
-                        border.color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
-                        implicitHeight: alertContainer.implicitHeight + 20
-
-                        ColumnLayout {
-                            id: alertContainer
-                            anchors.fill: parent
-                            spacing: 1
-
-                            Item {
-                                Layout.preferredHeight: 10
-                            }
-
-
-                            RowLayout {
-                                width: parent.width
-                                spacing: 5
-
-                                Item {
-                                    Layout.preferredWidth: 10
-                                }
-
-                                Rectangle {
-                                    width: 20
-                                    height: 20
-                                    radius: 10  // Makes the rectangle a circle
-                                    color: "white"
-                                    border.color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
-                                    border.width: 2
-                                    RowLayout.alignment: Qt.AlignVCenter
-
-                                    Label {
-                                        text: "!"
-                                        anchors.centerIn: parent
-                                        font.bold: true
-                                        color: infoElement.infoColors[infoElement.states[infoElement.currentState].color]
-                                    }
-                                }
-
-                                Label {
-                                    font.pixelSize: 16
-                                    text: infoElement.states[infoElement.currentState].header
-                                    font.bold: true
-                                    wrapMode: Text.WordWrap
-                                    Layout.fillWidth: true
-                                    Layout.preferredWidth: parent.width - 20
-                                }
-                            }
-                            Label {
-                                font.pixelSize: 16
-                                text: infoElement.states[infoElement.currentState].content
-                                wrapMode: Text.WordWrap
-                                Layout.fillWidth: true
-                                Layout.preferredWidth: parent.width - 20
-                                leftPadding: 40
-                            }
-
-                            Item {
-                                Layout.preferredHeight: 10
-                            }
-                        }
-                    }
-                }
-            }
-
-            Item {
-                anchors.top: parent.top
-                width: parent.width
-                ColumnLayout {
-                    id: containerAvoidZeroCompensation
-                    width: root.width
+                    property string currentState: isNotify === true && isRootmeter ? "limited" : "unrestricted"
 
                     ConsolinnoAlert {
                         id: avoidZeroCompensation
                         Layout.rightMargin: app.margins
                         Layout.leftMargin: app.margins
                         width: containerAvoidZeroCompensation.width
-                        visible: isBatteryView && isZeroCompensation
-                        
-                        backgroundColor: "#FFEE89"
-                        borderColor: "#864A0D"
-                        textColor: "#864A0D"
-                        iconColor: "#864A0D"
-                        iconPath: "../components/ConsolinnoDialog.qml"
-                        dialogHeaderText: qsTr("Avoid zero compensation")
-                        dialogText: qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
-                        dialogPicture: "../images/avoidZeroCompansation.svg"
-                        text: qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
-                        headerText: qsTr("Avoid zero compensation active")
+                        visible: isBatteryView && isZeroCompensation || (isNotify === true && isRootmeter)
+
+                        backgroundColor: Style.warningBackground
+                        borderColor: Style.warningAccent
+                        textColor: Style.warningAccent
+                        iconColor: Style.warningAccent
+                        imagePath: (isNotify === true && isRootmeter) ? "" : "../components/ConsolinnoDialog.qml"
+                        dialogHeaderText: (isNotify === true && isRootmeter) ? "" : qsTr("Avoid zero compensation")
+                        dialogText: (isNotify === true && isRootmeter) ? "" : qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
+                        dialogPicture: (isNotify === true && isRootmeter) ? "" : "../images/avoidZeroCompansation.svg"
+                        text: (isNotify === true && isRootmeter) ? containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].content : qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
+                        headerText: (isNotify === true && isRootmeter) ? containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].header : qsTr("Avoid zero compensation active")
                     }
                 }
             }
@@ -208,8 +134,8 @@ GenericConfigPage {
                 height: parent.height / 2
                 iconSource: ""
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: notificationsContainer.bottom
-                anchors.topMargin: 16
+                anchors.top: containerAvoidZeroCompensationItem.bottom
+                anchors.topMargin: Style.margins
 
                 onColor: {
                     if (root.isBattery) {

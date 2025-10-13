@@ -1,10 +1,13 @@
 import QtQuick 2.9
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.9
+import QtQuick.Controls.Material 2.12
 import QtGraphicalEffects 1.15
+
 import "qrc:/ui/components"
 import Nymea 1.0
 
+import "../components"
 import "../delegates"
 
 Page {
@@ -168,16 +171,16 @@ Page {
             }
 
             Rectangle{
-                Layout.fillWidth: true
                 Layout.preferredHeight: app.height/3
+                Layout.fillWidth: true
                 visible: heProxy.count === 0
                 color: Material.background
                 Text {
+                    text: qsTr("There is no heating element set up yet.")
+                    color: Material.foreground
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: Material.foreground
-                    text: qsTr("There is no heating element set up yet.")
                 }
             }
 
@@ -196,7 +199,7 @@ Page {
                 text: qsTr("Add heating element: ")
             }
 
-            ComboBox {
+            ConsolinnoDropdown {
                 id: thingClassComboBox
 
                 Layout.preferredWidth: app.width - 2*Style.margins
@@ -279,7 +282,7 @@ Page {
                     width: parent.width
                     height: parent.height
                     border.color: Material.background
-                    color: Configuration.secondButtonColor
+                    color: Style.secondButtonColor
                     radius: 4
                 }
                 onClicked: root.done(true, false, false)
@@ -480,7 +483,7 @@ Page {
                 verticalAlignment: Text.AlignTop
                 color: Style.accentColor
                 font.pixelSize: 12
-                text: qsTr("Please change name if necessary")
+                text: qsTr("Please change name if necessary.")
             }
 
             SettingsPageSectionHeader {

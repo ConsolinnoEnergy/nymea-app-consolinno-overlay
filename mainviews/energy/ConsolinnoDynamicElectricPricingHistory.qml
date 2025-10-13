@@ -8,6 +8,7 @@ import "qrc:/ui/components"
 
 Item {
     id: root
+    property Thing thing
     property int validSince: 0
     property int validUntil: 0
     property string averagePrice: ""
@@ -18,12 +19,8 @@ Item {
 
     property bool isDynamicPrice: false
 
-    property ThingsProxy electrics: ThingsProxy {
-        engine: _engine
-        shownInterfaces: ["dynamicelectricitypricing"]
-    }
-
-    readonly property Thing thing: root.electrics ? root.electrics.get(0) : null
+    readonly property var addedGridFee: thing.paramByName("addedGridFee").value
+    readonly property var addedLevies: thing.paramByName("addedGridFee").value
 
     QtObject {
         id: d
@@ -74,10 +71,24 @@ Item {
             Layout.margins: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             text: qsTr("Dynamic electricity tariff")
-            visible: true
+            visible: isDynamicPrice
         }
 
-        SelectionTabs {
+        ConsolinnoAlert {
+            Layout.margins: Style.margins
+            visible: (addedLevies === 0 || addedGridFee === 0)
+            backgroundColor: Style.warningBackground
+            borderColor: Style.warningAccent
+            textColor: Style.warningAccent
+            iconColor: Style.warningAccent
+            pagePath: "../optimization/DynamicElectricityRate.qml"
+            pageStartView: "taxesAndFeesSetUp"
+
+            text: qsTr("Please provide information on taxes, surcharges and network fees. <u>Continue to configuration.</u>")
+            headerText: qsTr("Tariff details are not available")
+        }
+
+        ConsolinnoSelectionTabs {
             id: selectionTabs
             Layout.fillWidth: true
             Layout.leftMargin: Style.smallMargins
@@ -118,27 +129,26 @@ Item {
 
             validSince = thing.stateByName("validSince").value
             validUntil = thing.stateByName("validUntil").value
-            currentPrice = thing.stateByName("currentMarketPrice").value
-            averagePrice = thing.stateByName("averagePrice").value.toFixed(2).toString();
-
-            consumptionSeries.insertEntry(thing.stateByName("priceSeries").value)
+            currentPrice = thing.stateByName("currentTotalCost").value
+            averagePrice = thing.stateByName("averageTotalCost").value.toFixed(2);
+            consumptionSeries.insertEntry(thing.stateByName("totalCostSeries").value)
             valueAxis.adjustMax((Math.ceil(lowestPrice)),highestPrice);
         }
 
-        Text {
+        Label {
             Layout.fillWidth: true
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 13
-            text: qsTr("Current Market Price: ") + (+currentPrice.toFixed(2)).toLocaleString() + " ct/kWh"
+            text: qsTr("Current Electricity Price: ") + (+currentPrice.toFixed(2)).toLocaleString() + " ct/kWh"
         }
 
-        Text {
+        Label {
             Layout.fillWidth: true
             Layout.topMargin: Style.smallMargins
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 13
-            text: qsTr("Average Market Price: ") + (+averagePrice).toLocaleString() + " ct/kWh"
+            text: qsTr("Average Electricity Price: ") + (+averagePrice).toLocaleString() + " ct/kWh"
         }
 
         Item {
@@ -188,17 +198,14 @@ Item {
                     shadesVisible: false
 
                     function adjustMax(minPrice,maxPrice) {
-                        min = 0
-                        max = 1
-
-                        max = Math.ceil(maxPrice) + 1;
-                        max += 4 - (max % 4);
-                        min = minPrice <= 0 ? minPrice - 5 : 0;
-
-                        if(min < 0) {
-                            max += 4 - ((max + min * (-1)) % 4);
+                        // force yaxis steps to multiples of 5
+                        let step = Math.ceil(maxPrice / 4);
+                        const rest = step % 5;
+                        if(rest !== 0) {
+                           step += 5 - rest;
                         }
 
+                        max = step * 4;
                     }
 
                 }
@@ -242,7 +249,7 @@ Item {
                     axisY: valueAxis
                     color: 'transparent'
                     borderWidth: 1
-                    borderColor: Configuration.epexMainLineColor
+                    borderColor: Style.epexMainLineColor
 
                     lowerSeries: LineSeries {
                         id: pricingLowerSeries
@@ -335,7 +342,7 @@ Item {
                     axisY: valueAxis
                     color: 'transparent'
                     borderWidth: 1
-                    borderColor: Configuration.epexAverageColor
+                    borderColor: Style.epexAverageColor
 
                     upperSeries: LineSeries {
                         id: pricingUpperSeriesAbove
@@ -349,8 +356,8 @@ Item {
 
                 ScatterSeries {
                     id: currentValuePoint
-                    borderColor: Configuration.epexMainLineColor
-                    color: Configuration.epexMainLineColor
+                    borderColor: Style.epexMainLineColor
+                    color: Style.epexMainLineColor
                     markerSize: isDynamicPrice ? 5 : parent.height / 80
                     markerShape: AbstractSeries.MarkerShapeCircle
                     axisX: dateTimeAxis
@@ -367,7 +374,7 @@ Item {
                         var currentTime = new Date();
 
                         currentValuePoint.remove(0);
-                        currentPrice = thing.stateByName("currentMarketPrice").value;
+                        currentPrice = thing.stateByName("currentTotalCost").value;
                         currentTime.setTime(currentTime.getTime() - (15 * 60 * 1000));
 
                         currentValuePoint.append(currentTime.getTime(), currentPrice);
@@ -386,14 +393,14 @@ Item {
                     spacing: 5
                     Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
-                        color: Configuration.epexMainLineColor
+                        color: Style.epexMainLineColor
                         width: 8
                         height: 8
                     }
-                    Text {
+                    Label {
                         anchors.verticalCenter: parent.verticalCenter
                         font: Style.extraSmallFont
-                        text: qsTr("Current market price")
+                        text: qsTr("Current electricity price")
                     }
                 }
 
@@ -402,14 +409,14 @@ Item {
                     spacing: 5
                     Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
-                        color: Configuration.epexAverageColor
+                        color: Style.epexAverageColor
                         width: 8
                         height: 8
                     }
-                    Text {
+                    Label {
                         anchors.verticalCenter: parent.verticalCenter
                         font: Style.extraSmallFont
-                        text: qsTr("Average market price")
+                        text: qsTr("Average electricity price")
                     }
                 }
             }

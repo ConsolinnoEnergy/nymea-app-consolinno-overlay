@@ -1,6 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.2
+import QtQuick.Controls.Material 2.1
 import Nymea 1.0
 
 ColumnLayout {
@@ -96,10 +97,12 @@ ColumnLayout {
 
                 // add the texts in red
                 // Label will check everytime, if a condition is satisfied the condition text will vanish
-                var entry = "<font color=\"%1\">".arg(Style.red)
+                var entry = "<font color=\"%1\">".arg(Material.accent)
                 for (var i = 0; i < texts.length; i++) {
 
-                    if (!checks[i]){
+                    if (!checks[i] && (i === texts.length - 1)){
+                        entry += texts[i] + ". "
+                    }else if(!checks[i]){
                         entry += texts[i] + ", "
                     }
                 }

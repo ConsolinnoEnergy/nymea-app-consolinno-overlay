@@ -4,6 +4,7 @@ import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 import QtQml 2.2
+import Nymea 1.0
 
 Rectangle {
     property color backgroundColor
@@ -11,11 +12,14 @@ Rectangle {
     property color textColor
     property color iconColor
 
-    property string iconPath
+    property string imagePath
     property string dialogHeaderText
     property string dialogText
     property string dialogPicture
 
+    property string pagePath: ""
+    property string pageStartView
+    property string iconPath
     property alias text: screenGuideText.text
     property alias headerText: header.text
 
@@ -39,16 +43,14 @@ Rectangle {
         RowLayout {
             width: parent.width
             height: parent.height
-            spacing: 5
-
-            Item {
-                Layout.preferredWidth: 6
-            }
+            spacing: 0
 
             Image {
                 id: image
                 sourceSize: Qt.size(24, 24)
-                source: "../images/attention.svg"
+                source: iconPath === "" ? "../images/attention.svg" : iconPath
+                Layout.leftMargin: 12
+                Layout.rightMargin: 8
             }
 
             Label {
@@ -73,22 +75,25 @@ Rectangle {
             Layout.fillWidth: true
             Layout.preferredWidth: alertContainer.width - 20
             Layout.preferredHeight: screenGuideText.height
+            Layout.leftMargin: 12
 
             Label {
                 id: screenGuideText
                 font.pixelSize: 16
                 wrapMode: Text.WordWrap
                 width: alertContainer.width - 20
-                leftPadding: 40
+                leftPadding: 33
                 color: textColor
             }
 
             onClicked: {
-                if(iconPath.length > 0){
-                    var dialog = Qt.createComponent(Qt.resolvedUrl(iconPath));
+                if(imagePath.length > 0){
+                    var dialog = Qt.createComponent(Qt.resolvedUrl(imagePath));
                     var text = dialogText
                     var popup = dialog.createObject(app, {headerText: dialogHeaderText, text: text, source: dialogPicture, picHeight: 280})
                     popup.open();
+                }else if(pagePath.length > 1){
+                    pageStack.push(Qt.resolvedUrl(pagePath), {startView: pageStartView})
                 }
             }
         }

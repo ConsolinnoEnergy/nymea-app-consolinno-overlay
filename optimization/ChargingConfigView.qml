@@ -70,7 +70,7 @@ GenericConfigPage {
     }
     
     function relPrice2AbsPrice(relPrice){
-        let averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
+        let averagePrice = dynamicPrice.get(0).stateByName("averageTotalCost").value
         let minPrice = dynamicPrice.get(0).stateByName("lowestPrice").value
         let maxPrice = dynamicPrice.get(0).stateByName("highestPrice").value
         if (averagePrice == minPrice || averagePrice == maxPrice){
@@ -488,7 +488,7 @@ GenericConfigPage {
                         Label{
                             visible: chargingIsAnyOf([simple_pv_excess])
                             Layout.fillWidth: true
-                            text: qsTr("low solar availability")
+                            text: qsTr("Low solar availability")
                         }
 
                         Label{
@@ -503,7 +503,7 @@ GenericConfigPage {
                                 }
                                 else if (getChargingModeOpts(chargingConfiguration.optimizationMode)[0] === 2)
                                 {
-                                    return qsTr("enabled")
+                                    return qsTr("pausing")
                                 }
                             }
 
@@ -599,7 +599,7 @@ GenericConfigPage {
                             Layout.rightMargin: 0
 
                             Component.onCompleted: {
-                                currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value;
+                                currentPrice = dynamicPrice.get(0).stateByName("currentTotalCost").value;
                             }
                         }
                     }
@@ -1043,7 +1043,7 @@ GenericConfigPage {
                             }
 
 
-                            ComboBox {
+                            ConsolinnoDropdown {
                                 id: comboboxloadingmod
                                 Layout.fillWidth: true
                                 model: ListModel{
@@ -1061,7 +1061,7 @@ GenericConfigPage {
                                 }
 
                                 textRole: "key"
-                                contentItem: Text{
+                                /*contentItem: Text{
                                     text: parent.displayText
                                     width: parent.width
                                     color: Material.foreground
@@ -1069,7 +1069,7 @@ GenericConfigPage {
                                     horizontalAlignment: Text.AlignLeft;
                                     leftPadding: app.margins
                                     elide: Text.ElideRight
-                                }
+                                }*/
 
                                 currentIndex: (userconfig.defaultChargingMode == 3 && dynamicPrice.count == 0) ? userconfig.defaultChargingMode - 1 : userconfig.defaultChargingMode
                                 onCurrentIndexChanged:
@@ -1379,7 +1379,7 @@ GenericConfigPage {
                             Layout.preferredWidth: app.width
                             Layout.topMargin: 10
 
-                            ComboBox {
+                            ConsolinnoDropdown {
                                 visible: isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])
                                 id: gridConsumptionloadingmod
                                 Layout.fillWidth: true
@@ -1388,7 +1388,7 @@ GenericConfigPage {
                                     ListElement{key: qsTr("Pause charging"); mode: 200}
                                 }
                                 textRole: "key"
-                                contentItem: Text{
+                                /*contentItem: Text{
                                     text: parent.displayText
                                     width: parent.width
                                     color: Material.foreground
@@ -1396,7 +1396,7 @@ GenericConfigPage {
                                     horizontalAlignment: Text.AlignLeft;
                                     leftPadding: app.margins
                                     elide: Text.ElideRight
-                                }
+                                }*/
                             }
                         }
 
@@ -1455,7 +1455,7 @@ GenericConfigPage {
                                                 pricingCurrentLimitSeries.clear();
                                                 pricingUpperSeriesAbove.clear();
                                                 pricingLowerSeriesAbove.clear();
-                                                consumptionSeries.insertEntry(dynamicPrice.get(0).stateByName("priceSeries").value, true);
+                                                consumptionSeries.insertEntry(dynamicPrice.get(0).stateByName("totalCostSeries").value, true);
                                             }
                                         }
 
@@ -1537,7 +1537,7 @@ GenericConfigPage {
                             Layout.topMargin: 5
                             visible: isAnyOfModesSelected([dyn_pricing])
                             Label {
-                                text: qsTr("Currently corresponds to a market price of %1 ct/kWh.").arg(thresholdPrice.toLocaleString())
+                                text: qsTr("Currently corresponds to a electricity price of %1 ct/kWh.").arg(thresholdPrice.toLocaleString())
                                 font.pixelSize: 13
                             }
                         }
@@ -1550,6 +1550,7 @@ GenericConfigPage {
                             Layout.rightMargin: app.margins
                             wrapMode: Text.WordWrap
                             font.pixelSize: app.smallFont
+                            color: Style.dangerAccent
                             text: qsTr("please select a car")
                             visible: false
                         }
@@ -1604,10 +1605,10 @@ GenericConfigPage {
 
                                     validSince = dpThing.stateByName("validSince").value
                                     validUntil = dpThing.stateByName("validUntil").value
-                                    currentPrice = dpThing.stateByName("currentMarketPrice").value
-                                    averagePrice = dpThing.stateByName("averagePrice").value.toFixed(0).toString();
+                                    currentPrice = dpThing.stateByName("currentTotalCost").value
+                                    averagePrice = dpThing.stateByName("averageTotalCost").value.toFixed(0).toString();
 
-                                    consumptionSeries.insertEntry(dpThing.stateByName("priceSeries").value, false)
+                                    consumptionSeries.insertEntry(dpThing.stateByName("totalCostSeries").value, false)
                                     valueAxis.adjustMax((Math.ceil(lowestPrice)), highestPrice);
                                 }
 
@@ -1658,13 +1659,14 @@ GenericConfigPage {
                                             shadesVisible: false
 
                                             function adjustMax(minPrice,maxPrice) {
-                                                max = Math.ceil(maxPrice) + 1;
-                                                max += 4 - (max % 4);
-                                                min = minPrice <= 0 ? minPrice - 5 : 0;
-
-                                                if(min < 0) {
-                                                    max += 4 - ((max + min * (-1)) % 4);
+                                                // force yaxis steps to multiples of 5
+                                                let step = Math.ceil(maxPrice / 4);
+                                                const rest = step % 5;
+                                                if(rest !== 0) {
+                                                   step += 5 - rest;
                                                 }
+
+                                                max = step * 4;
                                             }
                                         }
 
@@ -1721,7 +1723,7 @@ GenericConfigPage {
                                             axisY: valueAxis
                                             color: 'transparent'
                                             borderWidth: 1
-                                            borderColor: Configuration.epexMainLineColor
+                                            borderColor: Style.epexMainLineColor
 
 
                                             upperSeries: LineSeries {

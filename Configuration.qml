@@ -21,7 +21,7 @@ ConfigurationBase {
     property bool isIntroIcon: true
     //////////////////////////////////////////////////////////////////////////////////////
     // Defines the minimal compatible HEMS version
-    property string minSysVersion: "1.8.0"
+    property string minSysVersion: "1.9.0"
 
     // Identifier used for branding (e.g. to register for push notifications)
     property string branding: "consolinno"
@@ -69,10 +69,7 @@ ConfigurationBase {
 
     // Button
     readonly property color iconColor: "#87BD26"
-    readonly property color buttonColor: "#87BD26"
-    readonly property color secondButtonColor: "#189521"
 
-    readonly property color buttonTextColor: "#000000"
     readonly property color highlightForeground: "#ffffff"
 
     //static things colors
@@ -80,12 +77,6 @@ ConfigurationBase {
     readonly property color rootMeterAcquisitionColor: "#F37B8E"
     readonly property color rootMeterReturnColor: "#45B4E4"
     readonly property color inverterColor: "#FCE487"
-
-    //other things
-    readonly property color epexColor: "#E056F5"
-    readonly property color epexMainLineColor: "#6CCB56"
-    readonly property color epexAverageColor: "#C65B5A"
-    readonly property color epexCurrentTime: "#2C723C"
 
     //other consumers
     readonly property color heatpumpColor: "#F7B772"

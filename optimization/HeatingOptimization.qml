@@ -123,7 +123,7 @@ Page {
             }
 
 
-            TextField {
+            ConsolinnoTextField {
                 id: maxElectricalPower
                 property bool maxElectricalPower_validated
                 Layout.preferredWidth: 60
@@ -152,7 +152,7 @@ Page {
 
             }
 
-            Switch {
+            ConsolinnoSwitch {
                 id: gridSupportControl
                 Component.onCompleted: checked = heatingConfiguration.controllableLocalSystem
             }
@@ -238,6 +238,7 @@ Page {
             Layout.fillWidth: true
             Layout.leftMargin: app.margins
             Layout.rightMargin: app.margins
+            color: Style.dangerAccent
             //text: qsTr("For a better optimization you can please insert the upper data, so our optimizer has the information it needs.")
             wrapMode: Text.WordWrap
             font.pixelSize: app.smallFont

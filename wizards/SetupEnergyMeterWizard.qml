@@ -110,7 +110,7 @@ Page {
                 wrapMode: Text.WordWrap
             }
 
-            ComboBox {
+            ConsolinnoDropdown {
                 id: thingClassComboBox
                 Layout.fillWidth: true
                 textRole: "displayName"
@@ -358,7 +358,7 @@ Page {
 
             Label{
                 id: nameExplain
-                text: qsTr("Please change name if necessary")
+                text: qsTr("Please change name if necessary.")
                 Layout.alignment: Qt.AlignTop
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins

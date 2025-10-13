@@ -106,7 +106,7 @@ Item {
             text: qsTr("My consumption history")
         }
 
-        SelectionTabs {
+        ConsolinnoSelectionTabs {
             id: selectionTabs
             Layout.fillWidth: true
             Layout.leftMargin: Style.smallMargins

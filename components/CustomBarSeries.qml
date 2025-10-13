@@ -52,13 +52,14 @@ ChartView {
         titleVisible: false
         shadesVisible: false
         function adjustMax(minPrice,maxPrice) {
-            max = Math.ceil(maxPrice) + 1;
-            max += 4 - (max % 4);
-            min = minPrice <= 0 ? minPrice - 5 : 0;
-
-            if(min < 0) {
-                max += 4 - ((max + min * (-1)) % 4);
+            // force yaxis steps to multiples of 5
+            let step = Math.ceil(maxPrice / 4);
+            const rest = step % 5;
+            if(rest !== 0) {
+               step += 5 - rest;
             }
+
+            max = step * 4;
         }
     }
 
@@ -92,15 +93,15 @@ ChartView {
         minorGridVisible: false
         lineVisible: false
         shadesVisible: false
-        labelsColor: Style.foregroundColor
+        labelsColor: root.enabled ? Style.foregroundColor : "#909090"
     }
 
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: root.enabled ? Configuration.batteryChargeColor : "#F5F5F5"
-        borderWidth: 2
-        borderColor: '#ffffff'
+        color: root.enabled ? Style.epexBarMainLineColor : Style.barSeriesDisabled
+        borderWidth: 1
+        borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
           id: mainSeries
         }
@@ -109,9 +110,9 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: root.enabled ? Configuration.epexCurrentTime : "#F5F5F5"
-        borderWidth: 2
-        borderColor: '#ffffff'
+        color: root.enabled ? Style.epexBarCurrentTime : Style.barSeriesDisabled
+        borderWidth: 1
+        borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
           id: currentValueSeries
         }
@@ -120,9 +121,9 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: '#F5F5F5'
-        borderWidth: 2
-        borderColor: '#ffffff'
+        color: Style.epexBarPricingPast
+        borderWidth: 1
+        borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
             id: pricingPast
         }
@@ -131,9 +132,9 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: root.enabled ? '#8D8B8E' : "#F5F5F5"
-        borderWidth: 2
-        borderColor: '#ffffff'
+        color: root.enabled ? Style.epexBarPricingCurrentTime : Style.barSeriesDisabled
+        borderWidth: 1
+        borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
             id: pricingCurrentTime
         }
@@ -142,9 +143,9 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: root.enabled ? '#D9D9D9' : "#F5F5F5"
-        borderWidth: 2
-        borderColor: '#ffffff'
+        color: root.enabled ? Style.epexBarPricingOutOfLimit : Style.barSeriesDisabled
+        borderWidth: 1
+        borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
             id: pricingOutOfLimit
         }
@@ -155,7 +156,7 @@ ChartView {
         axisY: valueAxis
         color: 'transparent'
         borderWidth: 1
-        borderColor: root.enabled ? Configuration.epexAverageColor : "#F5F5F5"
+        borderColor: root.enabled ? Style.epexAverageColor : Style.barSeriesDisabled
 
         upperSeries: LineSeries {
             id: priceLimitUp

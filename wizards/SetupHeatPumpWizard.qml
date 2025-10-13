@@ -219,7 +219,56 @@ Page {
                 wrapMode: Text.WordWrap
             }
 
-            ComboBox {
+            ThingClassesProxy {
+                id: heatpump
+                engine: _engine
+                filterInterface: "heatpump"
+            }
+
+            ThingClassesProxy {
+                id: eebusHeatpump
+                engine: _engine
+                filterString: "EEBus"
+                filterInterface: "gateway"
+            }
+
+            ListModel {
+                id: modelID
+
+                Component.onCompleted: {
+                    let arr = [];
+
+                    if(isNaN(eebusHeatpump.get(0))){
+                        arr.push({
+                            valueRoleID: eebusHeatpump.get(0).id.toString(),
+                            displayName: qsTr("EEBUS heat pump")
+                        });
+                    }
+
+                    for (var i = 0; i < heatpump.count; ++i) {
+                        var item = heatpump.get(i);
+                        if (isNaN(item)) {
+                            arr.push({
+                                valueRoleID: item.id.toString(),
+                                displayName: item.displayName
+                            });
+                        }
+                    }
+
+                    arr.sort(function(a, b) {
+                        var a0 = a.displayName.charAt(0).toLowerCase();
+                        var b0 = b.displayName.charAt(0).toLowerCase();
+                        return a0.localeCompare(b0);
+                    });
+
+                    for (var j = 0; j < arr.length; ++j) {
+                        append(arr[j]);
+                    }
+                }
+            }
+
+
+            ConsolinnoDropdown {
                 id: thingClassComboBox
                 Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"
@@ -326,7 +375,7 @@ Page {
                     height: parent.height
                     width: parent.width
                     border.color: Material.background
-                    color: Configuration.secondButtonColor
+                    color: Style.secondButtonColor
                     radius: 4
                 }
                 onClicked: root.done(true, false, false)
@@ -628,7 +677,7 @@ Page {
 
             Label{
                 id: nameExplain
-                text: qsTr("Please change name if necessary")
+                text: qsTr("Please change name if necessary.")
                 Layout.alignment: Qt.AlignTop
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins

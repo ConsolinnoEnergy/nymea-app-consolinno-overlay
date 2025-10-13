@@ -136,10 +136,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Market price</source>
         <translation type="unfinished"></translation>
     </message>
@@ -153,6 +149,10 @@
     </message>
     <message>
         <source>SoC with controller</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -215,15 +215,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Prices represent the pure exchange price without taxes and fees.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Price limit : %1 ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -280,11 +292,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
+        <source>Avoid zero compensation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Avoid zero compensation</source>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -604,14 +616,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Currently corresponds to a market price of %1 ct/kWh.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Current Price</source>
         <translation type="unfinished"></translation>
     </message>
@@ -625,6 +629,22 @@
     </message>
     <message>
         <source>Cancel &amp; reconfigure charging mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Low solar avalaibility:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Currently corresponds to a electricity price of %1 ct/kWh.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Low solar availability</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>pausing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1097,23 +1117,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Average Market Price: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No data available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current market price</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Average market price</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current Market Price: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1126,6 +1130,41 @@
     </message>
     <message>
         <source>ct/kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current Electricity Price: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Average Electricity Price: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current electricity price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Average electricity price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tariff details are not available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please provide information on taxes, surcharges and network fees. &lt;u&gt;Continue to configuration.&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoGridSupportiveControlAlert</name>
+    <message>
+        <source>Attention</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Existing setup will be overwritten.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1414,6 +1453,18 @@
     </message>
     <message>
         <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>dark</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2724,20 +2775,15 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.10.1&lt;/p&gt;
+&lt;p&gt;Version 1.11.1&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Grid-friendly operation via EEBUS control box&lt;/li&gt;
-    &lt;li&gt;Setup assistant for grid-friendly operation&lt;/li&gt;
+    &lt;li&gt;Dynamic electricity tariffs: Automatic optimization based on  end customer electricity price&lt;/li&gt;
+    &lt;li&gt;Support for the “Zewotherm” dynamic tariff&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4&gt;Improvements&lt;/h4&gt;
+&lt;h4&gt;Improved&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Improved heat pump control via SG-Ready&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;Technical Maintenance &amp; Compatibility Updates&lt;/h4&gt;
-&lt;ul&gt;
-    &lt;li&gt;Update of the iOS provisioning profile&lt;/li&gt;
-    &lt;li&gt;Update of the target API for Android (35)&lt;/li&gt;
+    &lt;li&gt;Availability of EPEX price data for additional market areas&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -2758,7 +2804,7 @@ Use a timeout value greater or equal to 10 ms.</source>
                 &lt;p&gt;Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;/p&gt;
                 &lt;p&gt;If this message is still displayed, please contact our service team.&lt;/p&gt;
                 &lt;ul&gt;
-                    &lt;li&gt;%7&lt;/li&gt;
+                    %7
                     &lt;li&gt;%4&lt;/li&gt;
                 &lt;/ul&gt;
                 &lt;p&gt;Best regards&lt;/p&gt;
@@ -2855,10 +2901,6 @@ Use a timeout value greater or equal to 10 ms.</source>
 <context>
     <name>DynamicElectricityRate</name>
     <message>
-        <source>Submitted Rate:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>There is no rate set up yet</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2867,23 +2909,67 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>add</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>There are currently no settings options available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Dynamic electricity tariff</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to add thing: ThingErrorHardwareFailure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Submitted Rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following tariff is submitted:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Network charges</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Taxes &amp; fees</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zewotherm setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VAT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please fill in all fields. The value cannot be empty or 0.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3093,15 +3179,31 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to §14a minimum.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>unrestricted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3152,14 +3254,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>connected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; according to §14a minimum.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3268,6 +3362,18 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Grid-supportive control setup – Relais</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Existing setup will be overwritten.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Attention</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4007,15 +4113,27 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EEBUS Wallbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EvCharger set-up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4090,11 +4208,11 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
+        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
+        <source>Please change name if necessary.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4185,15 +4303,27 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EEBUS heat pump</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heatpump set-up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4272,10 +4402,6 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Thing parameters</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4293,6 +4419,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>An unexpected error happened during the setup. Please verify the heating element is installed correctly and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4383,10 +4513,6 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Login required</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4422,6 +4548,10 @@ For further assistance, please contact our support team at: %5</translation>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TargetChargeInfo</name>
@@ -4454,14 +4584,6 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>The battery is charged from the grid as soon as the price falls below the price limit.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>It is advisable to choose a price limit below 0 cents. If the electricity exchange price falls below 0 cents, this means that there is surplus electricity in the grid. By charging your battery at these times, you can use this cheap electricity and consume it when electricity is more expensive.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In winter, when little to no PV electricity is expected, it can also make sense to charge at a higher price limit. Please note, however, that taxes and fees are added to the exchange price.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

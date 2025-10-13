@@ -136,10 +136,6 @@
         <translation>Nullvergütung vermeiden</translation>
     </message>
     <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation>An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
-    </message>
-    <message>
         <source>Market price</source>
         <translation type="unfinished">Börsenpreis</translation>
     </message>
@@ -154,6 +150,10 @@
     <message>
         <source>SoC with controller</source>
         <translation type="unfinished">SoC mit Nullvergütung vermeiden</translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
+        <translation type="unfinished">An Tagen mit negativen Strompreisen an der Strombörse wird aktiv Batteriekapazität freigehalten, um in den Stunden mit diesen negativen Börsenstrompreisen gezielt die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald diese Regelung aktiv ist, wird das Laden der Batterie limitiert (sichtbar an der gelben Meldung im Screen). Die Steuerung basiert auf der Vorhersage der PV-Produktion und des Hausverbrauchs und verschiebt die Ladung entsprechend.</translation>
     </message>
 </context>
 <context>
@@ -215,10 +215,6 @@
         <translation>Sofortladen aktivieren</translation>
     </message>
     <message>
-        <source>Prices represent the pure exchange price without taxes and fees.</source>
-        <translation>Preise entsprechen reinem Börsenpreis ohne Steuern und Abgaben.</translation>
-    </message>
-    <message>
         <source>Price limit : %1 ct/kWh</source>
         <translation>Preisgrenze : %1 ct/kWh</translation>
     </message>
@@ -231,16 +227,16 @@
         <translation type="unfinished">Nullvergütung vermeiden</translation>
     </message>
     <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation type="unfinished">An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
-    </message>
-    <message>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation type="unfinished">Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
     </message>
     <message>
         <source>Avoid zero compensation active</source>
         <translation type="unfinished">Nullvergütung vermeiden aktiv</translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
+        <translation type="unfinished">An Tagen mit negativen Strompreisen an der Strombörse wird aktiv Batteriekapazität freigehalten, um in den Stunden mit diesen negativen Börsenstrompreisen gezielt die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald diese Regelung aktiv ist, wird das Laden der Batterie limitiert (sichtbar an der gelben Meldung im Screen). Die Steuerung basiert auf der Vorhersage der PV-Produktion und des Hausverbrauchs und verschiebt die Ladung entsprechend.</translation>
     </message>
 </context>
 <context>
@@ -265,27 +261,27 @@
     <name>BatteryOptimization</name>
     <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
-        <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
     <message>
         <source>Could not save configuration. The thing is not valid.</source>
-        <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
         <source>Grid-supportive-control</source>
-        <translation>Netzdienlichkeit</translation>
+        <translation type="unfinished">Netzdienlichkeit</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Speichern</translation>
-    </message>
-    <message>
-        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
-        <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
+        <translation type="unfinished">Speichern</translation>
     </message>
     <message>
         <source>Avoid zero compensation</source>
-        <translation>Nullvergütung vermeiden</translation>
+        <translation type="unfinished">Nullvergütung vermeiden</translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
+        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
     </message>
 </context>
 <context>
@@ -604,14 +600,6 @@
         <translation>ct/kWh</translation>
     </message>
     <message>
-        <source>Currently corresponds to a market price of %1 ct/kWh.</source>
-        <translation>Entspricht aktuell einem Marktpreis von %1 ct/kWh.</translation>
-    </message>
-    <message>
-        <source>enabled</source>
-        <translation>aktiviert</translation>
-    </message>
-    <message>
         <source>Current Price</source>
         <translation>Aktueller Preis</translation>
     </message>
@@ -628,12 +616,20 @@
         <translation>Lademodus abbrechen &amp; ändern</translation>
     </message>
     <message>
-        <source>low solar availability</source>
-        <translation type="unfinished">bei wenig Solarstrom</translation>
+        <source>Low solar avalaibility:</source>
+        <translation>Bei wenig Solarstrom:</translation>
     </message>
     <message>
-        <source>Low solar avalaibility:</source>
-        <translation type="unfinished">Bei wenig Solarstrom:</translation>
+        <source>Currently corresponds to a electricity price of %1 ct/kWh.</source>
+        <translation>Entspricht aktuell einem Strompreis von %1 ct/kWh.</translation>
+    </message>
+    <message>
+        <source>Low solar availability</source>
+        <translation>Bei wenig Solarstrom</translation>
+    </message>
+    <message>
+        <source>pausing</source>
+        <translation>pausieren</translation>
     </message>
 </context>
 <context>
@@ -1097,24 +1093,8 @@
         <translation>Morgen</translation>
     </message>
     <message>
-        <source>Average Market Price: </source>
-        <translation>Durchschnittlicher Marktpreis: </translation>
-    </message>
-    <message>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
-    </message>
-    <message>
-        <source>Current market price</source>
-        <translation>Aktueller Marktpreis</translation>
-    </message>
-    <message>
-        <source>Average market price</source>
-        <translation>Durchschnittlicher Marktpreis</translation>
-    </message>
-    <message>
-        <source>Current Market Price: </source>
-        <translation>Aktueller Marktpreis: </translation>
     </message>
     <message>
         <source>No prices available, yet</source>
@@ -1127,6 +1107,41 @@
     <message>
         <source>ct/kWh</source>
         <translation>ct/kWh</translation>
+    </message>
+    <message>
+        <source>Current Electricity Price: </source>
+        <translation>Aktueller Strompreis: </translation>
+    </message>
+    <message>
+        <source>Average Electricity Price: </source>
+        <translation>Durchschnittlicher Strompreis: </translation>
+    </message>
+    <message>
+        <source>Current electricity price</source>
+        <translation>Aktueller Strompreis</translation>
+    </message>
+    <message>
+        <source>Average electricity price</source>
+        <translation>Durchschnittlicher Strompreis</translation>
+    </message>
+    <message>
+        <source>Tariff details are not available</source>
+        <translation>Tarifinformationen fehlen</translation>
+    </message>
+    <message>
+        <source>Please provide information on taxes, surcharges and network fees. &lt;u&gt;Continue to configuration.&lt;/u&gt;</source>
+        <translation>Bitte geben Sie Steuern und Abgaben sowie Netzentgelte ein. &lt;u&gt;Zur Konfiguration.&lt;/u&gt;</translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoGridSupportiveControlAlert</name>
+    <message>
+        <source>Attention</source>
+        <translation>Achtung</translation>
+    </message>
+    <message>
+        <source>Existing setup will be overwritten.</source>
+        <translation>Bestehende Einrichtungen werden überschrieben.</translation>
     </message>
 </context>
 <context>
@@ -1417,6 +1432,18 @@
     <message>
         <source>Language</source>
         <translation>Sprache</translation>
+    </message>
+    <message>
+        <source>Style</source>
+        <translation>Stil</translation>
+    </message>
+    <message>
+        <source>light</source>
+        <translation>hell</translation>
+    </message>
+    <message>
+        <source>dark</source>
+        <translation>dunkel</translation>
     </message>
 </context>
 <context>
@@ -2734,20 +2761,15 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.10.1&lt;/p&gt;
+&lt;p&gt;Version 1.11.1&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Netzdienlichkeit über EEBUS-Steuerbox&lt;/li&gt;
-    &lt;li&gt;Einrichtungsassistent für Netzdienlichkeit&lt;/li&gt;
+    &lt;li&gt;Dynamische Stromtarife: Automatische Optimierung basierend auf  Endkundenstrompreis&lt;/li&gt;
+    &lt;li&gt;Unterstützung von dynamischem Tarif „Zewotherm“&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4&gt;Verbesserungen&lt;/h4&gt;
+&lt;h4&gt;Verbessert&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Verbesserte Wärmepumpensteuerung über SG-Ready&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;Wartungs- und Kompatibilitätsupdates&lt;/h4&gt;
-&lt;ul&gt;
-    &lt;li&gt;Aktualisierung des iOS-Bereitstellungsprofils&lt;/li&gt;
-    &lt;li&gt;Aktualisierung der Ziel-API für Android (35)&lt;/li&gt;
+    &lt;li&gt;EPEX-Preisdaten für weitere Marktregionen verfügbar&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -2768,7 +2790,7 @@ fügen Sie eine weitere hinzu.</translation>
                 &lt;p&gt;Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;/p&gt;
                 &lt;p&gt;If this message is still displayed, please contact our service team.&lt;/p&gt;
                 &lt;ul&gt;
-                    &lt;li&gt;%7&lt;/li&gt;
+                    %7
                     &lt;li&gt;%4&lt;/li&gt;
                 &lt;/ul&gt;
                 &lt;p&gt;Best regards&lt;/p&gt;
@@ -2778,7 +2800,7 @@ fügen Sie eine weitere hinzu.</translation>
                 &lt;p&gt;Ihr %6-Gerät wird im Laufe des Tages aktualisiert. Bis das Update abgeschlossen ist, kann die Verfügbarkeit der neuen                                 Funktionen vorübergehend eingeschränkt sein.&lt;/p&gt; 
                 &lt;p&gt;Sollte diese Meldung weiterhin angezeigt werden, kontaktieren Sie bitte unseren Service.&lt;/p&gt; 
                 &lt;ul&gt; 
-                    &lt;li&gt;%7&lt;/li&gt; 
+                    %7
                     &lt;li&gt;%4&lt;/li&gt; 
                 &lt;/ul&gt; 
                 &lt;p&gt;Beste Grüße&lt;/p&gt; 
@@ -2875,10 +2897,6 @@ fügen Sie eine weitere hinzu.</translation>
 <context>
     <name>DynamicElectricityRate</name>
     <message>
-        <source>Submitted Rate:</source>
-        <translation>Gewählte Anbieter:</translation>
-    </message>
-    <message>
         <source>There is no rate set up yet</source>
         <translation>Es sind noch keine Tarife angelegt</translation>
     </message>
@@ -2887,24 +2905,68 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Tarif hinzufügen: </translation>
     </message>
     <message>
-        <source>cancel</source>
-        <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>add</source>
-        <translation>hinzufügen</translation>
-    </message>
-    <message>
-        <source>There are currently no settings options available</source>
-        <translation>Es sind momentan keine Einstellungen verfügbar</translation>
-    </message>
-    <message>
         <source>Dynamic electricity tariff</source>
         <translation>Dynamischer Stromtarif</translation>
     </message>
     <message>
         <source>Failed to add thing: ThingErrorHardwareFailure</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation>Weiter</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Add Rate</source>
+        <translation>Neuen Tarif hinzufügen</translation>
+    </message>
+    <message>
+        <source>Submitted Rate</source>
+        <translation>Eingerichteter Tarif</translation>
+    </message>
+    <message>
+        <source>The following tariff is submitted:</source>
+        <translation>Der folgende Stromtarif wurde eingerichtet:</translation>
+    </message>
+    <message>
+        <source>Network charges</source>
+        <translation>Netzentgelte</translation>
+    </message>
+    <message>
+        <source>Taxes &amp; fees</source>
+        <translation>Steuern &amp; Abgaben</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>Zewotherm setup</source>
+        <translation>Zewotherm einrichten</translation>
+    </message>
+    <message>
+        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VAT</source>
+        <translation>Mehrwertsteuer</translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation>Standort</translation>
+    </message>
+    <message>
+        <source>Please fill in all fields. The value cannot be empty or 0.</source>
+        <translation>Bitte füllen Sie alle Felder aus. Der Wert darf nicht leer oder 0 sein.</translation>
     </message>
 </context>
 <context>
@@ -3113,16 +3175,32 @@ fügen Sie eine weitere hinzu.</translation>
         <translation type="unfinished">Netzdienlichkeit</translation>
     </message>
     <message>
-        <source>The consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to §14a minimum.</source>
-        <translation type="unfinished">Der Verbrauch ist &lt;b&gt;temporär reduziert&lt;/b&gt; auf das Minium von § 14a.</translation>
-    </message>
-    <message>
-        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
-        <translation type="unfinished">Der Verbrauch ist &lt;b&gt;temporär blockiert&lt;/b&gt; durch den Netzbetreiber.</translation>
-    </message>
-    <message>
         <source>unrestricted</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation</source>
+        <translation type="unfinished">Nullvergütung vermeiden</translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
+        <translation type="unfinished">An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
+    </message>
+    <message>
+        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <translation type="unfinished">Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation active</source>
+        <translation type="unfinished">Nullvergütung vermeiden aktiv</translation>
+    </message>
+    <message>
+        <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
+        <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend limitiert&lt;/b&gt;.</translation>
+    </message>
+    <message>
+        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
+        <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend blockiert&lt;/b&gt;.</translation>
     </message>
     <message>
         <source>Avoid zero compensation</source>
@@ -3173,14 +3251,6 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>connected</source>
         <translation>verbunden</translation>
-    </message>
-    <message>
-        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; by the network operator.</source>
-        <translation>Der Verbrauch ist &lt;b&gt;temporär blockiert&lt;/b&gt; durch den Netzbetreiber.</translation>
-    </message>
-    <message>
-        <source>The consumption is &lt;b&gt;temporarily reduced&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; according to §14a minimum.</source>
-        <translation>Der Verbrauch wird &lt;b&gt;vorübergehend reduziert&lt;/b&gt; auf &lt;b&gt;%1 kW&lt;/b&gt; gemäß §14a mindestens.</translation>
     </message>
     <message>
         <source>Control type</source>
@@ -3289,6 +3359,18 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Grid-supportive control setup – Relais</source>
         <translation>Netzdienlichkeit einrichten – Relais</translation>
+    </message>
+    <message>
+        <source>Existing setup will be overwritten.</source>
+        <translation type="unfinished">Bestehende Einrichtungen werden überschrieben.</translation>
+    </message>
+    <message>
+        <source>Attention</source>
+        <translation type="unfinished">Achtung</translation>
+    </message>
+    <message>
+        <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend auf maximal %1 kW limitiert&lt;/b&gt;.</translation>
     </message>
 </context>
 <context>
@@ -4032,10 +4114,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation>Wenn notwendig, bitte den Namen ändern</translation>
-    </message>
-    <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
@@ -4054,6 +4132,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>The following EEBUS devices were found:</source>
         <translation type="unfinished">Folgende EEBUS-Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation type="unfinished">Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
 </context>
 <context>
@@ -4127,12 +4209,12 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation>Wenn notwendig, bitte den Namen ändern</translation>
-    </message>
-    <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
 </context>
 <context>
@@ -4222,10 +4304,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation>Wenn notwendig, bitte den Namen ändern</translation>
-    </message>
-    <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
@@ -4244,6 +4322,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>The following EEBUS devices were found:</source>
         <translation type="unfinished">Folgende EEBUS-Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation type="unfinished">Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
 </context>
 <context>
@@ -4321,10 +4403,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Name:</translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation>Wenn notwendig, bitte den Namen ändern</translation>
-    </message>
-    <message>
         <source>Thing parameters</source>
         <translation>Gerät parameter</translation>
     </message>
@@ -4343,6 +4421,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>An unexpected error happened during the setup. Please verify the heating element is installed correctly and try again.</source>
         <translation>Während der Einrichtung ist ein unerwarteter Fehler aufgetreten. Bitte überprüfen Sie, ob der Heizstab korrekt installiert ist, und versuchen Sie es erneut.</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
 </context>
 <context>
@@ -4432,10 +4514,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <source>Please change name if necessary</source>
-        <translation>Wenn notwendig, bitte den Namen ändern</translation>
-    </message>
-    <message>
         <source>Login required</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4471,6 +4549,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
+    </message>
 </context>
 <context>
     <name>TargetChargeInfo</name>
@@ -4504,14 +4586,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>The battery is charged from the grid as soon as the price falls below the price limit.</source>
         <translation>Die Batterie wird aus dem Netz geladen, sobald die Preisgrenze unterschritten wird.</translation>
-    </message>
-    <message>
-        <source>It is advisable to choose a price limit below 0 cents. If the electricity exchange price falls below 0 cents, this means that there is surplus electricity in the grid. By charging your battery at these times, you can use this cheap electricity and consume it when electricity is more expensive.</source>
-        <translation>Es empfiehlt sich eine Preisgrenze unter 0 ct zu wählen. Wenn der Börsenstrompreis unter 0 Cent fällt, bedeutet das, dass überschüssiger Strom im Netz vorhanden ist. Durch das Laden Ihrer Batterie zu diesen Zeiten nutzen Sie diesen günstigen Strom und können ihn verbrauchen, wenn der Strom teurer ist.</translation>
-    </message>
-    <message>
-        <source>In winter, when little to no PV electricity is expected, it can also make sense to charge at a higher price limit. Please note, however, that taxes and fees are added to the exchange price.</source>
-        <translation type="unfinished">Im Winter, wenn wenig bis kein PV-Strom zu erwarten ist, kann es auch sinnvoll sein bei einer höheren Preisgrenze zu laden. Beachten Sie aber, dass zum Börsenpreis noch Steuern und Abgaben hinzukommen.</translation>
     </message>
 </context>
 <context>

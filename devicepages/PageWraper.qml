@@ -8,16 +8,29 @@ import "qrc:/ui/components"
 Page {
     id: root
 
+    property Thing thing
+    property string marketArea: {
+        let area = thing.paramByName("marketArea").value
+        let areaNameSplit = area.split(" ");
+        return areaNameSplit[1];
+    }
+
     header: NymeaHeader {
         backButtonVisible: true
+        text: "%1 %2".arg(thing.name).arg(marketArea)
         onBackPressed: {
             pageStack.pop()
         }
     }
 
+    Component.onCompleted: {
+        myLoader.setSource("qrc:/ui/mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml", { thing: thing })
+    }
+
     Loader{
+        id: myLoader
         anchors.fill: parent
         Layout.preferredHeight: parent / 2
-        source: "qrc:/ui/mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml"
     }
+
 }

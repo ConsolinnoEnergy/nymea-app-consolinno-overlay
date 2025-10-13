@@ -501,30 +501,31 @@ MainViewBase {
         property var shown: []
     }
 
+
     Component {
-        id: incompNotificationComponent
+        id: incomNotificationComponent
+
         Popup {
             property string message: ""
-            id: incompNotificationPopup
-            parent: root
-            x: Math.round((parent.width - width) / 2)
-            y: Math.round((parent.height - height) / 2)
+            id: incomNotificationPopup
+            Layout.margins: Style.margins
+            x: (parent.width - width) / 2
+            y: (parent.height - height) / 2
             width: parent.width * 0.9
+            parent: root
             modal: true
             focus: true
             closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
             contentItem: Label {
-                Layout.fillWidth: true
+                id: containerLabel
                 Layout.topMargin: app.margins
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
                 wrapMode: Text.WordWrap
-                textFormat: Text.RichText
                 text: message
             }
         }
     }
-
 
     Component {
         id: startUpNotificationComponent
@@ -564,12 +565,12 @@ MainViewBase {
         userconfig = hemsManager.userConfigurations.getUserConfiguration(
                     "528b3820-1b6d-4f37-aea7-a99d21d42e72")
     }
-    
+
     onVisibleChanged: {
         console.debug("Visibility of " + engine.jsonRpcClient.currentHost.name + " changed to " + visible)
         if (visible) {
             // Show message if app was updated
-            var notficationPopup = startUpNotificationComponent.createObject(root) 
+            var notficationPopup = startUpNotificationComponent.createObject(root)
             notficationPopup.message= qsTr('CHANGENOTIFICATION_PLACEHOLDER');
             // If Popup not already open, open it
             if (notficationPopup.opened === false
@@ -579,25 +580,29 @@ MainViewBase {
 
             // Show message if HEMS version is not compatible
             if (!checkHEMSVersion()) {
-                var incompNotificationPopup = incompNotificationComponent.createObject(root)
                 
-                let phone = (Configuration.serviceTel !== "") ? qsTr("Phone: <a href='tel:%1'>%1</a>").arg(Configuration.serviceTel) : ""
+                var incomNotificationPopup = incomNotificationComponent.createObject(root)
+
+                let phone = (Configuration.serviceTel !== "") ? "<li>%1</li>".arg(qsTr("Phone: <a href='tel:%1'>%1</a>").arg(Configuration.serviceTel)) : ""
                 let mail = qsTr("Email: <a href='mailto:%1'>%1</a>").arg(Configuration.serviceEmail)
 
-                incompNotificationPopup.message=qsTr('<h3>Pending software update</h3>
+                incomNotificationPopup.message = qsTr('<h3>Pending software update</h3>
                 <p>Your %3 app has been updated to version <strong>%1</strong> and is more up-to-date than the firmware (<strong>%2</strong>) on your %6 device.</p>
                 <p>Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.</p>
                 <p>If this message is still displayed, please contact our service team.</p>
                 <ul>
-                    <li>%7</li>
+                    %7
                     <li>%4</li>
                 </ul>
                 <p>Best regards</p>
                 <p>Your %5 Team</p>').arg(appVersion).arg(engine.jsonRpcClient.experiences.Hems).arg(Configuration.appName).arg(mail).arg(Configuration.appName).arg(Configuration.deviceName).arg(phone)
+
                 // If Popup not already open, open it
-                if (incompNotificationPopup.opened === false) {
-                    incompNotificationPopup.open()
+                if (incomNotificationPopup.opened === false) {
+                    incomNotificationPopup.open()
                 }
+
+
             }
         }
     }
@@ -681,8 +686,8 @@ MainViewBase {
 
         property int hours: 24
         readonly property var consumersColors: Configuration.consumerColors
-        readonly property color electricsColor: Configuration.epexColor
-        property string currentGridValueState: ""
+        readonly property color electricsColor: Style.epexColor
+        property bool currentGridValueState: false
 
         Canvas {
             id: linesCanvas
@@ -723,14 +728,12 @@ MainViewBase {
                 ctx.fillStyle = Style.foregroundColor
 
 
-                lsdChart.currentGridValueState = gridSupport.get(0) !== null ? gridSupport.get(0).stateByName("plimStatus").value : ""
+                lsdChart.currentGridValueState = gridSupport.get(0).stateByName("isLpcActive") !== null ? gridSupport.get(0).stateByName("isLpcActive").value : false
 
                 var maxCurrentPower = rootMeter ? Math.abs(
                                                       rootMeter.stateByName(
                                                           "currentPower").value) : 0
 
-                var currentPrice = electrics.count > 0 ? Math.abs(electrics.get(0).stateByName(
-                                                            "currentMarketPrice").value) : 0
 
                 for (var i = 0; i < producers.count; i++) {
                     maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
@@ -755,11 +758,6 @@ MainViewBase {
                     maxCurrentPower = Math.max(maxCurrentPower, Math.abs(
                                                    batteries.get(i).stateByName(
                                                        "currentPower").value))
-                }
-                for (var i = 0; i < electrics.count; i++) {
-                    currentPrice = Math.max(currentPrice, Math.abs(
-                                                   electrics.get(i).stateByName(
-                                                    "currentMarketPrice").value))
                 }
 
 
@@ -939,8 +937,7 @@ MainViewBase {
                             thing: electrics.get(index)
                             isElectric: true
                             onClicked: {
-                                print("Clicked producer", index, thing.name)
-                                pageStack.push("/ui/devicepages/PageWraper.qml")
+                                pageStack.push("/ui/devicepages/PageWraper.qml",{thing: electrics.get(index)})
                             }
                         }
                     }
@@ -1267,13 +1264,11 @@ MainViewBase {
                         gradient: Gradient {
                             GradientStop {
                                 position: 0.0
-                                //color: "#949494"
-                                color: Configuration.mainInnerCicleFirst //"#b6b6b6" //Configuration.mainInnerCicleFirst
+                                color: Style.mainInnerCicleFirst
                             }
                             GradientStop {
                                 position: 0.8
-                                //color: "white"
-                                color: Configuration.mainInnerCicleSecond //"#b6b6b6" //Configuration.mainInnerCicleSecond
+                                color: Style.mainInnerCicleSecond
                             }
                         }
                     }
@@ -1328,7 +1323,7 @@ MainViewBase {
                             Layout.fillWidth: true
                             textFormat: Text.RichText
                             horizontalAlignment: Text.AlignHCenter
-                            color: "white"
+                            color: Style.mainInnerCicleText
                             text: getText()
 
                             function getText() {
@@ -1336,18 +1331,18 @@ MainViewBase {
                                 const bigFontSize = Style.bigFont.pixelSize;
                                 const smallFontSize = Style.smallFont.pixelSize;
 
-                                let displayPower = powerConsumption < 1000 
-                                    ? powerConsumption 
+                                let displayPower = powerConsumption < 1000
+                                    ? powerConsumption
                                     : powerConsumption / 1000;
 
-                                displayPower = displayPower.toFixed(1); 
+                                displayPower = displayPower.toFixed(1);
                                 let displayPowerStr = (+displayPower).toLocaleString();
 
-                                const unit = powerConsumption < 1000 
-                                    ? "W" 
+                                const unit = powerConsumption < 1000
+                                    ? "W"
                                     : "kW";
 
-                                const powerSpan = `<span style="font-size:${bigFontSize}px">${displayPowerStr}</span>`;
+                                const powerSpan = `<span style="font-size:${bigFontSize}px; font-weight: bold;">${displayPowerStr}</span>`;
                                 const unitSpan = `<span style="font-size:${smallFontSize}px">${unit}</span>`;
 
                                 return powerSpan + " " + unitSpan;
@@ -1362,7 +1357,7 @@ MainViewBase {
                             horizontalAlignment: Text.AlignHCenter
                             wrapMode: Text.WordWrap
                             elide: Text.ElideMiddle
-                            color: "white"
+                            color: Style.mainInnerCicleText
                             font: Style.smallFont
                             visible: innerCircle.height > 120
                         }
@@ -1400,8 +1395,8 @@ MainViewBase {
                     var yTranslate = chartView.y + chartView.plotArea.y + chartView.plotArea.height / 2
                     ctx.translate(xTranslate, yTranslate)
 
-                    ctx.strokeStyle = Configuration.mainTimeNow
-                    ctx.fillStyle = Configuration.mainTimeNow
+                    ctx.strokeStyle = Style.mainTimeNow
+                    ctx.fillStyle = Style.mainTimeNow
 
                     ctx.beginPath()
                     ctx.lineWidth = 3
@@ -1622,7 +1617,7 @@ MainViewBase {
                     ctx.rotate(i * sliceAngle - timeDiffRotation)
                     ctx.beginPath()
                     //ctx.strokeStyle = i % 2 == 0 ? Style.gray : Style.darkGray; //alternating colors
-                    ctx.strokeStyle = Configuration.mainTimeCircle // could also be achieved with only a circle //Color for inner circle
+                    ctx.strokeStyle = Style.mainTimeCircle // could also be achieved with only a circle //Color for inner circle
                     ctx.arc(0, 0, (chartView.plotArea.width + circleWidth) / 2,
                             0, sliceAngle)
                     ctx.stroke()
@@ -1634,7 +1629,7 @@ MainViewBase {
                     ctx.save()
                     ctx.rotate(i * sliceAngle - timeDiffRotation)
                     ctx.beginPath()
-                    ctx.strokeStyle = Configuration.mainTimeCircleDivider
+                    ctx.strokeStyle = Style.mainTimeCircleDivider
                     ctx.arc(0, 0, (chartView.plotArea.width + circleWidth) / 2,
                             0, 0.005)
                     ctx.stroke()
@@ -1653,14 +1648,14 @@ MainViewBase {
                     tmpDate.setHours(startHour + i, 0, 0)
                     ctx.textAlign = 'center'
                     ctx.font = "" + Style.smallFont.pixelSize + "px " + Style.smallFont.family
-                    ctx.fillStyle = Configuration.mainCircleTimeColor //gray
+                    ctx.fillStyle = Style.mainCircleTimeColor //gray
                     var textY = -(chartView.plotArea.height + circleWidth) / 2
                             + Style.smallFont.pixelSize / 2
                     // Just can't figure out where I'm missing thosw 2 pixels in the proper calculation (yet)...
                     textY -= 2
                     if (chartView.width > 400 && chartView.height > 400) {
                         ctx.fillText(tmpDate.toLocaleTimeString(
-                                         Qt.locale("de_DE"), "HH:mm"), 0, textY)
+                                         Qt.locale("de_DE"), "H"), 0, textY)
                     } else {
                         ctx.fillText(tmpDate.getHours(), 0, textY)
                     }

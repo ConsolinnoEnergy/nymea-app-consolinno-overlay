@@ -54,7 +54,7 @@ Page {
 
 
                RowLayout{
-                   CheckBox{
+                   ConsolinnoCheckBox{
                        id: accountCheckbox
                        Layout.alignment: Qt.AlignLeft
 
@@ -70,7 +70,7 @@ Page {
 
 
                RowLayout{
-                   CheckBox {
+                   ConsolinnoCheckBox {
                        id: policyCheckbox
                        Layout.alignment: Qt.AlignLeft
                        Accessible.name: this.id

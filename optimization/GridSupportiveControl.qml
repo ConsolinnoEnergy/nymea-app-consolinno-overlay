@@ -17,16 +17,15 @@ StackView {
     property bool setupFinishedRelay: false
     property Thing gridSupportThing: gridSupport.get(0)
     property Thing eeBusThing: eebusThing.get(0)
-    property int powerLimit: gridSupportThing.stateByName("plim").value
+    property double powerLimit: gridSupportThing.stateByName("lpcValue").value
     property string powerLimitSource: gridSupportThing.settings.get(0).value
 
     property bool eebusState: eeBusThing ? eeBusThing.stateByName("connected").value : false
     property string colorsEEBUS: (!eebusSettings.connected && !eebusSettings.everConnected) ? "#F7B772" : eebusState == true ? "#BDD786" : "#F37B8E"
     property string textEEBUS: (!eebusSettings.connected && !eebusSettings.everConnected) ? qsTr("Confirmation by network operator pending.") : eebusState == true ? qsTr("connected") : qsTr("not connected")
 
-    property string currentState: gridSupportThing.stateByName("plimStatus").value
-    property string colorsPlim: currentState === "shutoff" ? "#eb4034" : currentState === "limited" ? "#fc9d03" : "#ffffff"
-    property string contentPlim: currentState === "shutoff" ? qsTr("The consumption is <b>temporarily blocked</b> by the network operator.") : currentState === "limited" ? qsTr("The consumption is <b>temporarily reduced</b> to <b>%1 kW</b> according to §14a minimum.").arg(convertToKw(powerLimit)) : ""
+    property bool currentState: gridSupportThing.stateByName("isLpcActive").value
+    property string contentPlim: currentState === true ? qsTr("Consumption is <b>temporarily limited</b> to a maximum of <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimit)) : ""
 
 
     Settings {
@@ -135,71 +134,16 @@ StackView {
                         }
                     }
 
-                    Rectangle {
-                        visible: currentState !== "unrestricted" && powerLimitSource !== "none"
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignHCenter
-                        radius: 10
-                        color: "#faf9f5"
-                        border.width: 1
-                        border.color: colorsPlim
-                        implicitHeight: alertContainer.implicitHeight + 20
+                    ConsolinnoAlert {
+                        visible: currentState === true && powerLimitSource !== "none"
+                        backgroundColor: Style.warningBackground
+                        borderColor: Style.warningAccent
+                        textColor: Style.warningAccent
+                        iconColor: Style.warningAccent
 
-                        ColumnLayout {
-                            id: alertContainer
-                            anchors.fill: parent
-                            spacing: 1
-
-                            Item {
-                                Layout.preferredHeight: 10
-                            }
-
-                            RowLayout {
-                                width: parent.width
-                                spacing: 5
-
-                                Item {
-                                    Layout.preferredWidth: 10
-                                }
-
-                                Image {
-                                    id: image
-                                    sourceSize: Qt.size(24, 24)
-                                    source: "../images/attention.svg"
-                                }
-
-                                Label {
-                                    font.pixelSize: 16
-                                    text: qsTr("Grid-supportive control")
-                                    font.bold: true
-                                    wrapMode: Text.WordWrap
-                                    Layout.fillWidth: true
-                                    Layout.preferredWidth: parent.width - 20
-                                }
-
-                                ColorOverlay {
-                                    anchors.fill: image
-                                    source: image
-                                    color: colorsPlim
-                                }
-                            }
-
-                            Label {
-                                font.pixelSize: 16
-                                text: contentPlim
-                                wrapMode: Text.WordWrap
-                                Layout.rightMargin: 20
-                                Layout.fillWidth: true
-                                Layout.preferredWidth: parent.width - 20
-                                leftPadding: 40
-                            }
-
-                            Item {
-                                Layout.preferredHeight: 10
-                            }
-                        }
+                        text: contentPlim
+                        headerText: qsTr("Grid-supportive control")
                     }
-
                 }
 
                 ColumnLayout {
@@ -398,10 +342,19 @@ StackView {
                 ColumnLayout {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
-                    ConsolinnoGridSupportiveControlAlert {
-                        Layout.topMargin: app.margins - 7
+
+                    ConsolinnoAlert {
                         visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
+                        backgroundColor: Style.dangerBackground
+                        borderColor: Style.dangerAccent
+                        textColor: Style.dangerAccent
+                        iconColor: Style.dangerAccent
+
+                        iconPath: "../images/dialog-warning-symbolic.svg"
+                        text: qsTr("Existing setup will be overwritten.")
+                        headerText: qsTr("Attention")
                     }
+
                 }
 
                 ColumnLayout {
@@ -769,14 +722,22 @@ StackView {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
-                    ConsolinnoGridSupportiveControlAlert {
-                        Layout.topMargin: app.margins - 7
-                        visible: powerLimitSource === "eebus" || powerLimitSource === "relais"
+                    ConsolinnoAlert {
+                        visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
+                        backgroundColor: Style.dangerBackground
+                        borderColor: Style.dangerAccent
+                        textColor: Style.dangerAccent
+                        iconColor: Style.dangerAccent
+
+                        iconPath: "../images/dialog-warning-symbolic.svg"
+                        text: qsTr("Existing setup will be overwritten.")
+                        headerText: qsTr("Attention")
                     }
 
-                    ConsolinnoCheckbox {
+                    ConsolinnoCheckBox {
                         id: deviceConnected
                         text: qsTr("Establish a connection with this device.")
+                        Layout.alignment: Qt.AlignLeft
                     }
                 }
 

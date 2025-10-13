@@ -4,10 +4,18 @@
         <file>styles/light/Button.qml</file>
         <file>styles/light/logo.svg</file>
         <file>styles/light/logo-wide.svg</file>
+        <file>styles/light/Dialog.qml</file>
         <file>translations</file>
         <file>styles/light/Background.qml</file>
         <file>SOURCE_AVAIL_de_DE.txt</file>
         <file>SOURCE_AVAIL_en_US.txt</file>
+        <file>styles/dark/Background.qml</file>
+        <file>styles/dark/Button.qml</file>
+        <file>styles/dark/Dialog.qml</file>
+        <file>styles/dark/logo-wide.svg</file>
+        <file>styles/dark/logo.svg</file>
+        <file>styles/dark/Page.qml</file>
+        <file>styles/dark/Style.qml</file>
     </qresource>
     <qresource prefix="/ui">
         <file>system/ConsolinnoUsersSettingsPage.qml</file>
@@ -129,8 +137,10 @@
         <file>system/ConsolinnoModbusRtuSettingsPage.qml</file>
         <file>system/ConsolinnoModbusRtuAddMasterPage.qml</file>
         <file>info/ZeroCompensationInfo.qml</file>
+        <file>components/ConsolinnoSelectionTabs.qml</file>
+        <file>components/ConsolinnoSwitch.qml</file>
+        <file>components/ConsolinnoTextField.qml</file>
         <file>components/ConsolinnoAlert.qml</file>
-        <file>info/AvoidZeroCompensationInfo.qml</file>
         <file>images/avoidZeroCompansation.svg</file>
         <file>components/ConsolinnoDialog.qml</file>
         <file>system/ConsolinnoModbusRtuReconfigureMasterPage.qml</file>
@@ -141,6 +151,7 @@
         <file>images/eebus.svg</file>
         <file>components/ConsolinnoGridSupportiveControlAlert.qml</file>
         <file>images/relais.svg</file>
-        <file>components/ConsolinnoCheckbox.qml</file>
+        <file>components/ConsolinnoCheckBox.qml</file>
+        <file>components/ConsolinnoDropdown.qml</file>
     </qresource>
 </RCC>
