@@ -259,9 +259,11 @@ Page {
                 id: thingClassComboBox
                 Layout.fillWidth: true
                 textRole: "displayName"
-                valueRole: "valueRoleID"
-                currentIndex: 0
-                model: modelID
+                valueRole: "id"
+                model: ThingClassesProxy {
+                    engine: _engine
+                    filterInterface: "evcharger"
+                }
             }
         }
 
@@ -343,8 +345,6 @@ Page {
 
     }
 
-
-
     // This Component Looks at the thingClass and decides based on the createMethod, which "Route" of the
     // Setup we should take
     // tested and supported are atm:
@@ -360,12 +360,10 @@ Page {
             property var thingClass: engine.thingManager.thingClasses.getThingClass(thingClassId)
             property var thing: null
 
+
             Component.onCompleted: {
-                if(thingClass.name === "eebusDevice") {
-                    discovery.discoverThings(thingClass.id)
-                    pageStack.push(evChargerSearch, {thingClass: thingClass})
-                }
-                else if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
+                // if discovery and user. Always Discovery
+                if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
 
                     if (thingClass["discoveryParamTypes"].count > 0) {
                         // ThingDiscovery with discoveryParams
@@ -378,6 +376,7 @@ Page {
                 }// not supported yet
                 else if (thingClass.createMethods.indexOf("CreateMethodUser") !== -1) {
                     pageStack.push(paramsPage, {thingClass: thingClass})
+
                 }
             }
         }

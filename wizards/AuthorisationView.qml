@@ -42,6 +42,7 @@ ConsolinnoWizardPageBase {
             text: qsTr("I am authorized to operate the %1").arg(Configuration.coreBranding)
         }
 
+
         ColumnLayout {
             spacing: Style.margins
             Layout.alignment: Qt.AlignHCenter
