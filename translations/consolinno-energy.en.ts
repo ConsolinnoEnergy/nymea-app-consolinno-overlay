@@ -238,22 +238,6 @@
         <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Avoid zero compensation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Avoid zero compensation active</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>BatteryConfigurationView</name>
@@ -647,14 +631,6 @@
         <source>pausing</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>low solar availability</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Low solar avalaibility:</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -953,6 +929,144 @@
     </message>
 </context>
 <context>
+    <name>ConsolinnoConfigureThingPage</name>
+    <message>
+        <source>Thing is not connected!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing runs out of battery!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconfigure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vendor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ID copied to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing class</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View the type definition for this thing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Input/Output Connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove thing?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove %1 and all associated settings?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connect Inputs/Outputs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connect &quot;%1&quot; to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inverted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Further information in &lt;u&gt;Protocol.&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoConnectionInterfacesPage</name>
+    <message>
+        <source>Connection settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remote connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabling the remote connection will allow connecting to this %1 system from anywhere.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connection interfaces</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoConsumerStats</name>
     <message>
         <source>Consumers totals</source>
@@ -1084,6 +1198,25 @@
     </message>
 </context>
 <context>
+    <name>ConsolinnoDeviceLogPage</name>
+    <message>
+        <source>History for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter by</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoDialog</name>
     <message>
         <source>OK</source>
@@ -1154,17 +1287,6 @@
     </message>
     <message>
         <source>Please provide information on taxes, surcharges and network fees. &lt;u&gt;Continue to configuration.&lt;/u&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoGridSupportiveControlAlert</name>
-    <message>
-        <source>Attention</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Existing setup will be overwritten.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1737,10 +1859,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Available interfaces:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Connected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1831,6 +1949,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>Next step</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Available interfaces</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2775,15 +2897,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.11.1&lt;/p&gt;
+&lt;p&gt;Version 1.12.0&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Dynamic electricity tariffs: Automatic optimization based on  end customer electricity price&lt;/li&gt;
-    &lt;li&gt;Support for the “Zewotherm” dynamic tariff&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;Improved&lt;/h4&gt;
-&lt;ul&gt;
-    &lt;li&gt;Availability of EPEX price data for additional market areas&lt;/li&gt;
+    &lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -2901,7 +3018,11 @@ Use a timeout value greater or equal to 10 ms.</source>
 <context>
     <name>DynamicElectricityRate</name>
     <message>
-        <source>There is no rate set up yet</source>
+        <source>Dynamic electricity tariff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Submitted Rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2913,7 +3034,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to add thing: ThingErrorHardwareFailure</source>
+        <source>Add Rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2925,7 +3046,39 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add Rate</source>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Network charges</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Taxes &amp; fees</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VAT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zewotherm setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please fill in all fields. The value cannot be empty or 0.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2970,6 +3123,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Please fill in all fields. The value cannot be empty or 0.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following tariff is submitted:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3207,19 +3364,11 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Avoid zero compensation</source>
+        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Avoid zero compensation active</source>
+        <source>Feed-in curtailment</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3370,6 +3519,14 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Attention</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Feed-in curtailment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4041,10 +4198,6 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Integrated wallbox:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>There is no wallbox set up yet.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4134,6 +4287,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Please change name if necessary.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Integrated wallbox</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4445,10 +4602,6 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Integrated solar inverter:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>There is no inverter set up yet.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4550,6 +4703,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Please change name if necessary.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Integrated solar inverter</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

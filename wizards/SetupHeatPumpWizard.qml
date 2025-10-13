@@ -100,9 +100,8 @@ Page {
 
 
     ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom;left: parent.left; right: parent.right; margins: Style.margins }
-        width: Math.min(parent.width - Style.margins * 2, 300)
-        //spacing: Style.margins
+        anchors { top: parent.top; bottom: parent.bottom;left: parent.left; right: parent.right;}
+        Layout.preferredWidth: root.width
 
 
         ColumnLayout{
@@ -110,52 +109,50 @@ Page {
             Layout.fillHeight: true
 
             Label {
-                Layout.fillWidth: true
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
                 text: qsTr("Integrated heat pumps")
                 wrapMode: Text.WordWrap
-                Layout.alignment: Qt.AlignLeft
+                Layout.alignment: Qt.AlignRight
                 horizontalAlignment: Text.AlignLeft
             }
 
 
             VerticalDivider
             {
-                Layout.preferredWidth: app.width - 2* Style.margins
+                Layout.preferredWidth: root.width
                 dividerColor: Material.accent
             }
 
             Flickable{
                 id: heatpumpFlickable
                 clip: true
-                width: parent.width
-                height: parent.height
+                Layout.fillWidth: true
                 contentHeight: heatpumpList.height
-                contentWidth: app.width
+                contentWidth: heatpumpList.width
                 visible: hpProxy.count !== 0
 
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: app.height/3
-                Layout.preferredWidth: app.width
                 flickableDirection: Flickable.VerticalFlick
 
                 ColumnLayout{
                     id: heatpumpList
-                    Layout.preferredWidth: app.width
+                    Layout.preferredWidth: root.width
                     Layout.fillHeight: true
                     Repeater{
                         id: heatpumpRepeater
-                        Layout.preferredWidth: app.width
+                        Layout.fillWidth: true
                         model: ThingsProxy {
                             id: hpProxy
                             engine: _engine
-                            // smartgridheatpump and simpleheatpump extend heatpump
                             shownInterfaces: ["heatpump", "smartgridheatpump", "simpleheatpump"]
                         }
                         delegate: ItemDelegate{
-                            Layout.preferredWidth: app.width
+                            Layout.preferredWidth: root.width
                             contentItem: ConsolinnoItemDelegate{
                                 id: icon
-                                Layout.fillWidth: true
+                                Layout.preferredWidth: root.width
                                 iconName:{
                                     if(Configuration.heatpumpIcon !== ""){
                                         return "/ui/images/"+Configuration.heatpumpIcon;
@@ -203,18 +200,20 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                 }
             }
-
             VerticalDivider
             {
-                Layout.preferredWidth: app.width - 2* Style.margins
+                Layout.preferredWidth: root.width
                 dividerColor: Material.accent
             }
         }
 
         ColumnLayout {
             Layout.topMargin: Style.margins
+            Layout.leftMargin: Style.margins
+            Layout.rightMargin: Style.margins
+            Layout.fillWidth: true
+
             Label {
-                Layout.fillWidth: true
                 text: qsTr("Add heat pumps:")
                 wrapMode: Text.WordWrap
             }
@@ -270,7 +269,7 @@ Page {
 
             ConsolinnoDropdown {
                 id: thingClassComboBox
-                Layout.preferredWidth: app.width - 2*Style.margins
+                Layout.fillWidth: true
                 textRole: "displayName"
                 valueRole: "id"
                 model: ThingClassesProxy {
@@ -286,7 +285,6 @@ Page {
 
             Button {
                 text: qsTr("cancel")
-                //color: Style.yellow
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 200
                 onClicked: root.done(false, true, false)
@@ -317,7 +315,6 @@ Page {
                 text: qsTr("add")
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                opacity:  (heatpumpRepeater.model.count > 0) ? 0.3 : 1.0
                 onClicked:    {
                     // Actually not needed when button is
                     if (heatpumpRepeater.model.count > 0)  {
@@ -331,54 +328,29 @@ Page {
             Button {
                 id: nextStepButton
                 text: qsTr("Next step")
-                font.capitalization: Font.AllUppercase
-                font.pixelSize: 15
                 Layout.preferredWidth: 200
-                Layout.preferredHeight: addButton.height - 9
                 Layout.alignment: Qt.AlignHCenter
-                // background fucks up the margin between the buttons, thats why wee need this topMargin
-                Layout.topMargin: 5
 
-                contentItem:Row{
-                    Text{
-                        id: nextStepButtonText
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: nextStepButton.text
-                        font: nextStepButton.font
-                        opacity: enabled ? 1.0 : 0.3
-                        color: Style.consolinnoHighlightForeground
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        elide: Text.ElideRight
-                    }
+                Image {
+                    id: headerImage
+                    sourceSize.width: 18
+                    sourceSize.height: 18
+                    anchors.right: nextStepButton.right
+                    anchors.verticalCenter: nextStepButton.verticalCenter
+                    anchors.rightMargin: 5
+                    source: "../images/next.svg"
 
-                    Image{
-                        id: headerImage
-                        anchors.right : parent.right
-                        anchors.verticalCenter:  parent.verticalCenter
-
-                        sourceSize.width: 18
-                        sourceSize.height: 18
-                        source: "../images/next.svg"
-
-                        layer{
-                            enabled: true
-                            effect: ColorOverlay{
-                                color: Style.consolinnoHighlightForeground
-                            }
+                    layer{
+                        enabled: true
+                        effect: ColorOverlay{
+                            color: Style.consolinnoHighlightForeground
                         }
                     }
                 }
 
-                background: Rectangle{
-                    height: parent.height
-                    width: parent.width
-                    border.color: Material.background
-                    color: Style.secondButtonColor
-                    radius: 4
+                onClicked:{
+                    root.done(true, false, false)
                 }
-                onClicked: root.done(true, false, false)
             }
         }
 

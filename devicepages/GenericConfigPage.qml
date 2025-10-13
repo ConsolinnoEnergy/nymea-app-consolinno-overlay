@@ -36,64 +36,60 @@ Item {
         spacing: 0
 
         Item {
-            Layout.fillHeight: false
             Layout.fillWidth: true
             Layout.preferredHeight: 56
 
+            // Außencontainer: keine Layout-Steuerung, daher anchors hier ok
             Item {
-                height: parent.height
-                anchors {
-                    left: parent.left
-                    leftMargin: 16
-                    right: parent.right
-                    rightMargin: 16
-                }
+                anchors.fill: parent
+                anchors.leftMargin: 16
+                anchors.rightMargin: 16
 
                 RowLayout {
                     id: rowContainer
                     anchors.fill: parent
+                    spacing: 0
 
                     HeaderButton {
                         id: backButton
-                        Layout.leftMargin: -15
-                        Layout.rightMargin: titleText.text.length >= 25 ? 48 : 0
+                        Layout.preferredWidth: 40
+                        Layout.minimumWidth: 40
+                        Layout.maximumWidth: 40
                         objectName: "backButton"
                         imageSource: "../images/back.svg"
                         onClicked: pageStack.pop()
                     }
 
-                    Item {
-                        Layout.fillHeight: true
+                    Label {
+                        id: titleText
                         Layout.fillWidth: true
-
-                        Label {
-                            id: titleText
-                            anchors.centerIn: parent
-                            font.pixelSize: 18
-                        }
+                        font.pixelSize: 18
+                        horizontalAlignment: Text.AlignHCenter
+                        elide: Text.ElideRight
+                        maximumLineCount: 1
+                        wrapMode: Text.NoWrap
                     }
 
                     Item {
                         id: headerOptionsButton
-
-                        Layout.fillHeight: true
-                        Layout.fillWidth: false
                         Layout.preferredWidth: 48
+                        Layout.minimumWidth: 48
+                        Layout.maximumWidth: 48
+                        Layout.fillHeight: true
 
                         Image {
                             width: 24
                             height: 24
                             anchors.centerIn: parent
-                            source: Configuration.menuIcon !== "" ? "../images/"+Configuration.menuIcon : "../images/navigation-menu.svg"
+                            source: Configuration.menuIcon !== "" ?
+                                        "../images/" + Configuration.menuIcon :
+                                        "../images/navigation-menu.svg"
                             visible: parent.enabled
                         }
-
                         MouseArea {
                             anchors.fill: parent
                             enabled: parent.enabled
-                            onClicked: {
-                                menu.open();
-                            }
+                            onClicked: menu.open()
                         }
                     }
                 }
@@ -102,10 +98,8 @@ Item {
 
         Item {
             id: content
-
             Layout.fillHeight: true
             Layout.fillWidth: true
-
         }
     }
 

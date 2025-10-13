@@ -90,62 +90,58 @@ Page {
 
 
     ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
-        width: Math.min(parent.width - Style.margins * 2, 300)
+        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
+        Layout.preferredWidth: root.width
 
         ColumnLayout{
             Layout.fillWidth: true
             Layout.fillHeight: true
 
             Label {
-                Layout.fillWidth: true
-                text: qsTr("Integrated wallbox:")
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                text: qsTr("Integrated wallbox")
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignLeft
-                Layout.alignment: Qt.AlignLeft
+                Layout.alignment: Qt.AlignRight
 
             }
 
             VerticalDivider
             {
-                Layout.preferredWidth: app.width - 2* Style.margins
+                Layout.preferredWidth: root.width
                 dividerColor: Material.accent
-                Layout.bottomMargin: 0
             }
 
             Flickable{
                 id: evChargerFlickable
                 clip: true
-                Layout.topMargin: 0
-                Layout.bottomMargin: 0
-                width: parent.width
-                height: parent.height
+                Layout.fillWidth: true
                 contentHeight: evChargerList.height
-                contentWidth: app.width
+                contentWidth: evChargerList.width
                 visible: evProxy.count !== 0
 
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: app.height/3
-                Layout.preferredWidth: app.width
                 flickableDirection: Flickable.VerticalFlick
 
                 ColumnLayout{
                     id: evChargerList
-                    Layout.preferredWidth: app.width
+                    Layout.preferredWidth: root.width
                     Layout.fillHeight: true
                     Repeater{
                         id: evChargerRepeater
-                        Layout.preferredWidth: app.width
+                        Layout.fillWidth: true
                         model: ThingsProxy {
                             id: evProxy
                             engine: _engine
                             shownInterfaces: ["evcharger"]
                         }
                         delegate: ItemDelegate{
-                            Layout.preferredWidth: app.width
+                            Layout.preferredWidth: root.width
                             contentItem: ConsolinnoItemDelegate{
                                 id: iconEv
-                                Layout.fillWidth: true
+                                Layout.preferredWidth: root.width
                                 iconName: {
                                     if(Configuration.evchargerIcon !== ""){
                                         return "/ui/images/"+Configuration.evchargerIcon
@@ -194,16 +190,19 @@ Page {
 
             VerticalDivider
             {
-                Layout.preferredWidth: app.width - 2* Style.margins
+                Layout.preferredWidth: root.width
                 dividerColor: Material.accent
             }
 
         }
 
         ColumnLayout {
-            Layout.topMargin: 0
+            Layout.topMargin: Style.margins
+            Layout.leftMargin: Style.margins
+            Layout.rightMargin: Style.margins
+            Layout.fillWidth: true
+
             Label {
-                Layout.fillWidth: true
                 text: qsTr("Add wallboxes:")
                 wrapMode: Text.WordWrap
             }
@@ -258,7 +257,7 @@ Page {
 
             ConsolinnoDropdown {
                 id: thingClassComboBox
-                Layout.preferredWidth: app.width - 2*Style.margins
+                Layout.fillWidth: true
                 textRole: "displayName"
                 valueRole: "id"
                 model: ThingClassesProxy {
@@ -304,7 +303,6 @@ Page {
                 text: qsTr("add")
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
-                opacity:  (evChargerRepeater.model.count > 0) ? 0.3 : 1.0
                 onClicked:    {
                     // Actually not needed when button is
                     if (evChargerRepeater.model.count > 0)  {
@@ -317,54 +315,27 @@ Page {
             Button {
                 id: nextStepButton
                 text: qsTr("Next step")
-                font.capitalization: Font.AllUppercase
-                font.pixelSize: 15
-                Layout.topMargin: 5
                 Layout.preferredWidth: 200
-                Layout.preferredHeight: addButton.height - 9
+                Layout.alignment: Qt.AlignHCenter
 
-                contentItem:Row{
-                    Text{
-                        id: nextStepButtonText
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: nextStepButton.text
-                        font: nextStepButton.font
-                        opacity: enabled ? 1.0 : 0.3
-                        color: Style.consolinnoHighlightForeground
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        elide: Text.ElideRight
-                    }
+                Image{
+                    id: headerImage
+                    anchors.right : nextStepButton.right
+                    anchors.verticalCenter:  nextStepButton.verticalCenter
+                    anchors.rightMargin: 5
 
-                    Image{
-                        id: headerImage
-                        anchors.right : parent.right
-                        anchors.verticalCenter:  parent.verticalCenter
+                    sourceSize.width: 18
+                    sourceSize.height: 18
+                    source: "../images/next.svg"
 
-                        sourceSize.width: 18
-                        sourceSize.height: 18
-                        source: "../images/next.svg"
-
-                        layer{
-                            enabled: true
-                            effect: ColorOverlay{
-                                color: Style.consolinnoHighlightForeground
-                            }
+                    layer{
+                        enabled: true
+                        effect: ColorOverlay{
+                            color: Style.consolinnoHighlightForeground
                         }
                     }
-
                 }
 
-                background: Rectangle{
-                    height: parent.height
-                    width: parent.width
-                    border.color: Material.background
-                    color: Style.secondButtonColor
-                    radius: 4
-                }
-
-                Layout.alignment: Qt.AlignHCenter
                 onClicked:{
                     root.done(true, false, false)
                 }

@@ -73,7 +73,7 @@ Page {
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.topMargin: app.margins
-        anchors.margins: app.margins
+        //anchors.margins: app.margins
 
 
         RadioDelegate {
@@ -114,10 +114,11 @@ Page {
             contentItem: RowLayout {
               Label {
                 text: "3 x A:"
+                Layout.rightMargin: 40
               }
               ConsolinnoTextField {
                 id: otherLimit
-                rightPadding: 50//otherDelegate.width - otherDelegate.indicator.width - otherDelegate.spacing
+                rightPadding: 50
                 placeholderText: "16 - 100"
                 onTextChanged: {
                     limitOther.checked = true
@@ -127,6 +128,10 @@ Page {
                     regExp: /^(1[6-9]|[2-9][0-9]|100)$/
                 }
                 inputMethodHints: Qt.ImhDigitsOnly
+              }
+              Item {
+                  Layout.fillWidth: true
+
               }
             }
             onClicked: phaseLimit = otherLimit.text
@@ -147,6 +152,8 @@ Page {
         Button {
             id: savebutton
             Layout.fillWidth: true
+            Layout.leftMargin: app.margins
+            Layout.rightMargin: app.margins
             enabled: phaseLimit > 15
             text: qsTr("Save")
 

@@ -151,7 +151,11 @@
         <file>images/eebus.svg</file>
         <file>components/ConsolinnoGridSupportiveControlAlert.qml</file>
         <file>images/relais.svg</file>
-        <file>components/ConsolinnoCheckBox.qml</file>
+        <file>components/ConsolinnoCheckbox.qml</file>
         <file>components/ConsolinnoDropdown.qml</file>
+        <file>system/ConsolinnoConnectionInterfacesPage.qml</file>
+        <file>thingconfiguration/ConsolinnoConfigureThingPage.qml</file>
+        <file>devicepages/ConsolinnoDeviceLogPage.qml</file>
+        <file>delegates/ConsolinnoParamDelegate.qml</file>
     </qresource>
 </RCC>

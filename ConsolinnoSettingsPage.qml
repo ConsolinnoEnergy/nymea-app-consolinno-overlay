@@ -63,7 +63,7 @@ Page {
                 subText: qsTr("Configure how applications can connect to this system")
                 visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
                          && Configuration.apiSettingsEnabled
-                onClicked: pageStack.push(Qt.resolvedUrl("system/ConnectionInterfacesPage.qml"))
+                onClicked: pageStack.push(Qt.resolvedUrl("system/ConsolinnoConnectionInterfacesPage.qml"))
             }
 
             SettingsTile {

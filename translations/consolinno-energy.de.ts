@@ -929,6 +929,144 @@
     </message>
 </context>
 <context>
+    <name>ConsolinnoConfigureThingPage</name>
+    <message>
+        <source>Thing is not connected!</source>
+        <translation>&quot;Thing&quot; ist nicht verbunden!</translation>
+    </message>
+    <message>
+        <source>Thing runs out of battery!</source>
+        <translation>Die Batterie neigt sich dem Ende zu!</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Umbenennen</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <source>Reconfigure</source>
+        <translation>Neu einrichten</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation>Informationen</translation>
+    </message>
+    <message>
+        <source>Vendor</source>
+        <translation>Hersteller</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Typ</translation>
+    </message>
+    <message>
+        <source>ID</source>
+        <translation>ID</translation>
+    </message>
+    <message>
+        <source>ID copied to clipboard</source>
+        <translation>ID in die Zwischenablage kopiert</translation>
+    </message>
+    <message>
+        <source>Thing class</source>
+        <translation>&quot;Thing&quot; Klasse</translation>
+    </message>
+    <message>
+        <source>View the type definition for this thing</source>
+        <translation>Genaue Typendefinition dieses &quot;Things&quot; anzeigen</translation>
+    </message>
+    <message>
+        <source>Parameters</source>
+        <translation>Parameter</translation>
+    </message>
+    <message>
+        <source>Input/Output Connections</source>
+        <translation>Verbindungen der Ein-/Ausgänge</translation>
+    </message>
+    <message>
+        <source>Not connected</source>
+        <translation>Nicht verbunden</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>Einstellungen</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation>Anwenden</translation>
+    </message>
+    <message>
+        <source>Remove thing?</source>
+        <translation>&quot;Thing&quot; entfernen?</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove %1 and all associated settings?</source>
+        <translation>Bist Du sicher, dass %1 und alle zugehörigen Einstellungen entfernt werden sollen?</translation>
+    </message>
+    <message>
+        <source>Connect Inputs/Outputs</source>
+        <translation>Verbundene Ein-/Ausgänge</translation>
+    </message>
+    <message>
+        <source>Connect &quot;%1&quot; to:</source>
+        <translation>Verbinde &quot;%1&quot; zu:</translation>
+    </message>
+    <message>
+        <source>Inverted</source>
+        <translation>Invertiert</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Disconnect</source>
+        <translation>Trennen</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>Verbinden</translation>
+    </message>
+    <message>
+        <source>Further information in &lt;u&gt;Protocol.&lt;/u&gt;</source>
+        <translation>Weitere Informationen im &lt;u&gt;Protokoll.&lt;/u&gt;</translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoConnectionInterfacesPage</name>
+    <message>
+        <source>Connection settings</source>
+        <translation>Verbindungseinstellungen</translation>
+    </message>
+    <message>
+        <source>Remote connection</source>
+        <translation>Fernverbindung</translation>
+    </message>
+    <message>
+        <source>Enabling the remote connection will allow connecting to this %1 system from anywhere.</source>
+        <translation>Das Aktivieren der Fernverbindung erlaubt von überall aus auf dieses %1 system zuzugreifen.</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>Aktiviert</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>Deaktiviert</translation>
+    </message>
+    <message>
+        <source>Advanced</source>
+        <translation>Erweitert</translation>
+    </message>
+    <message>
+        <source>Connection interfaces</source>
+        <translation>Verbindungsschnittstellen</translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoConsumerStats</name>
     <message>
         <source>Consumers totals</source>
@@ -1060,6 +1198,25 @@
     </message>
 </context>
 <context>
+    <name>ConsolinnoDeviceLogPage</name>
+    <message>
+        <source>History for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter by</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoDialog</name>
     <message>
         <source>OK</source>
@@ -1131,17 +1288,6 @@
     <message>
         <source>Please provide information on taxes, surcharges and network fees. &lt;u&gt;Continue to configuration.&lt;/u&gt;</source>
         <translation>Bitte geben Sie Steuern und Abgaben sowie Netzentgelte ein. &lt;u&gt;Zur Konfiguration.&lt;/u&gt;</translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoGridSupportiveControlAlert</name>
-    <message>
-        <source>Attention</source>
-        <translation>Achtung</translation>
-    </message>
-    <message>
-        <source>Existing setup will be overwritten.</source>
-        <translation>Bestehende Einrichtungen werden überschrieben.</translation>
     </message>
 </context>
 <context>
@@ -1723,10 +1869,6 @@ Falls Sie eine andere Schnittstelle verwenden wollen,
 fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
-        <source>Available interfaces:</source>
-        <translation type="unfinished">Verfügbare Schnittstellen:</translation>
-    </message>
-    <message>
         <source>Connected</source>
         <translation type="unfinished">Verbunden</translation>
     </message>
@@ -1817,6 +1959,10 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Next step</source>
         <translation type="unfinished">Nächster Schritt</translation>
+    </message>
+    <message>
+        <source>Available interfaces</source>
+        <translation>Verfügbare Schnittstellen</translation>
     </message>
 </context>
 <context>
@@ -2761,15 +2907,10 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.11.1&lt;/p&gt;
+&lt;p&gt;Version 1.12.0&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;Dynamische Stromtarife: Automatische Optimierung basierend auf  Endkundenstrompreis&lt;/li&gt;
-    &lt;li&gt;Unterstützung von dynamischem Tarif „Zewotherm“&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;Verbessert&lt;/h4&gt;
-&lt;ul&gt;
-    &lt;li&gt;EPEX-Preisdaten für weitere Marktregionen verfügbar&lt;/li&gt;
+    &lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -2897,20 +3038,24 @@ fügen Sie eine weitere hinzu.</translation>
 <context>
     <name>DynamicElectricityRate</name>
     <message>
+        <source>Dynamic electricity tariff</source>
+        <translation type="unfinished">Dynamischer Stromtarif</translation>
+    </message>
+    <message>
+        <source>Submitted Rate</source>
+        <translation type="unfinished">Eingerichteter Tarif</translation>
+    </message>
+    <message>
         <source>There is no rate set up yet</source>
-        <translation>Es sind noch keine Tarife angelegt</translation>
+        <translation type="unfinished">Es sind noch keine Tarife angelegt</translation>
     </message>
     <message>
         <source>Add Rate: </source>
-        <translation>Tarif hinzufügen: </translation>
+        <translation type="unfinished">Tarif hinzufügen: </translation>
     </message>
     <message>
-        <source>Dynamic electricity tariff</source>
-        <translation>Dynamischer Stromtarif</translation>
-    </message>
-    <message>
-        <source>Failed to add thing: ThingErrorHardwareFailure</source>
-        <translation type="unfinished"></translation>
+        <source>Add Rate</source>
+        <translation type="unfinished">Neuen Tarif hinzufügen</translation>
     </message>
     <message>
         <source>Next</source>
@@ -2919,6 +3064,42 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished">Standort</translation>
+    </message>
+    <message>
+        <source>Network charges</source>
+        <translation>Netzentgelte</translation>
+    </message>
+    <message>
+        <source>Taxes &amp; fees</source>
+        <translation>Steuern &amp; Abgaben</translation>
+    </message>
+    <message>
+        <source>VAT</source>
+        <translation type="unfinished">Mehrwertsteuer</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Speichern</translation>
+    </message>
+    <message>
+        <source>Zewotherm setup</source>
+        <translation>Zewotherm einrichten</translation>
+    </message>
+    <message>
+        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please fill in all fields. The value cannot be empty or 0.</source>
+        <translation>Bitte füllen Sie alle Felder aus. Der Wert darf nicht leer oder 0 sein.</translation>
     </message>
     <message>
         <source>Add Rate</source>
@@ -2957,16 +3138,8 @@ fügen Sie eine weitere hinzu.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>VAT</source>
-        <translation>Mehrwertsteuer</translation>
-    </message>
-    <message>
-        <source>Location</source>
-        <translation>Standort</translation>
-    </message>
-    <message>
-        <source>Please fill in all fields. The value cannot be empty or 0.</source>
-        <translation>Bitte füllen Sie alle Felder aus. Der Wert darf nicht leer oder 0 sein.</translation>
+        <source>The following tariff is submitted:</source>
+        <translation type="unfinished">Der folgende Stromtarif wurde eingerichtet:</translation>
     </message>
 </context>
 <context>
@@ -3203,20 +3376,12 @@ fügen Sie eine weitere hinzu.</translation>
         <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend blockiert&lt;/b&gt;.</translation>
     </message>
     <message>
-        <source>Avoid zero compensation</source>
-        <translation type="unfinished">Nullvergütung vermeiden</translation>
+        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
+        <translation type="unfinished">Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers vorübergehend begrenzt  auf %1 Watt.</translation>
     </message>
     <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation type="unfinished">An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
-    </message>
-    <message>
-        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
-        <translation type="unfinished">Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
-    </message>
-    <message>
-        <source>Avoid zero compensation active</source>
-        <translation type="unfinished">Nullvergütung vermeiden aktiv</translation>
+        <source>Feed-in curtailment</source>
+        <translation type="unfinished">Einspeiseabregelung</translation>
     </message>
 </context>
 <context>
@@ -3362,15 +3527,23 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>Existing setup will be overwritten.</source>
-        <translation type="unfinished">Bestehende Einrichtungen werden überschrieben.</translation>
+        <translation>Bestehende Einrichtungen werden überschrieben.</translation>
     </message>
     <message>
         <source>Attention</source>
-        <translation type="unfinished">Achtung</translation>
+        <translation>Achtung</translation>
+    </message>
+    <message>
+        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
+        <translation>Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers vorübergehend begrenzt  auf %1 Watt.</translation>
+    </message>
+    <message>
+        <source>Feed-in curtailment</source>
+        <translation>Einspeiseabregelung</translation>
     </message>
     <message>
         <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
-        <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend auf maximal %1 kW limitiert&lt;/b&gt;.</translation>
+        <translation>Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend auf maximal %1 kW limitiert&lt;/b&gt;.</translation>
     </message>
 </context>
 <context>
@@ -3409,7 +3582,7 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>Total thermal energy generated</source>
-        <translation>Gesamte erzeugte thermische Energie</translation>
+        <translation>Gesamte erzeugte therm. Energie</translation>
     </message>
     <message>
         <source>Energymanager</source>
@@ -4062,10 +4235,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Füge Wallboxen hinzu:</translation>
     </message>
     <message>
-        <source>Integrated wallbox:</source>
-        <translation>Eingerichtete Wallboxen:</translation>
-    </message>
-    <message>
         <source>Next step</source>
         <translation>Nächster Schritt</translation>
     </message>
@@ -4136,6 +4305,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Please change name if necessary.</source>
         <translation type="unfinished">Wenn notwendig, bitte den Namen ändern.</translation>
+    </message>
+    <message>
+        <source>Integrated wallbox</source>
+        <translation type="unfinished">Eingerichtete Wallboxen</translation>
     </message>
 </context>
 <context>
@@ -4233,7 +4406,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Integrated heat pumps</source>
-        <translation>Eingerichtete Wärmepumpen:</translation>
+        <translation type="unfinished">Eingerichtete Wärmepumpen</translation>
     </message>
     <message>
         <source>add</source>
@@ -4462,10 +4635,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Füge Wechselrichter hinzu: </translation>
     </message>
     <message>
-        <source>Integrated solar inverter:</source>
-        <translation>Eingerichtete Wechselrichter:</translation>
-    </message>
-    <message>
         <source>Next step</source>
         <translation>Nächster Schritt</translation>
     </message>
@@ -4552,6 +4721,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Please change name if necessary.</source>
         <translation>Wenn notwendig, bitte den Namen ändern.</translation>
+    </message>
+    <message>
+        <source>Integrated solar inverter</source>
+        <translation type="unfinished">Eingerichtete Wechselrichter</translation>
     </message>
 </context>
 <context>

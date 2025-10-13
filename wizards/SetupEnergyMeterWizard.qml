@@ -129,14 +129,12 @@ Page {
 
             Button {
                 text: qsTr("cancel")
-                //color: Style.yellow
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
                 onClicked: root.done(false, true)
             }
             Button {
                 text: qsTr("add")
-                //color: Style.accentColor
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignHCenter
                 onClicked: internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue})

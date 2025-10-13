@@ -3,12 +3,10 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.9
 import QtQuick.Controls.Material 2.12
 import QtGraphicalEffects 1.15
-
+import "../delegates"
 import "qrc:/ui/components"
 import Nymea 1.0
 
-import "../components"
-import "../delegates"
 
 Page {
     id: root
@@ -152,127 +150,121 @@ Page {
     }
 
     ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
-        width: Math.min(parent.width - Style.margins * 2, 300)
+        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
+        Layout.preferredWidth: root.width
 
-
-    ColumnLayout{
-        Layout.fillWidth: true
-        Layout.fillHeight: true
-
-        Label {
+        ColumnLayout{
             Layout.fillWidth: true
-            text: qsTr("Integrated solar inverter:")
-            wrapMode: Text.WordWrap
-            Layout.alignment: Qt.AlignLeft
-            horizontalAlignment: Text.AlignLeft
-        }
+            Layout.fillHeight: true
 
-
-        VerticalDivider
-        {
-            Layout.preferredWidth: app.width - 2* Style.margins
-            dividerColor: Material.accent
-        }
-
-        Flickable{
-            id: energyMeterFlickable
-            clip: true
-            width: parent.width
-            height: parent.height
-            contentHeight: energyMeterList.height
-            contentWidth: app.width
-            visible: emProxy.count !== 0
-
-            Layout.alignment: Qt.AlignHCenter
-            Layout.preferredHeight: app.height/3
-            Layout.preferredWidth: app.width
-            flickableDirection: Flickable.VerticalFlick
-
-            ColumnLayout{
-                id: energyMeterList
-                Layout.preferredWidth: app.width
-                Layout.fillHeight: true
-                Repeater{
-                    id: solarInverterRepeater
-                    Layout.preferredWidth: app.width
-                    model: ThingsProxy {
-                        id: emProxy
-                        engine: _engine
-                        shownInterfaces: ["solarinverter"]
-                    }
-                    delegate: ItemDelegate{
-                        Layout.preferredWidth: app.width
-                        contentItem: ConsolinnoItemDelegate{
-                            id: icon
-                            Layout.fillWidth: true
-                            iconName: {
-                                if(Configuration.inverterIcon !== ""){
-                                    return "/ui/images/"+Configuration.inverterIcon
-                                }else{
-                                    return "../images/weathericons/weather-clear-day.svg"
-                                }
-                            }
-                            progressive: false
-                            text: emProxy.get(index) ? emProxy.get(index).name : ""
-                            onClicked: {
-                            }
-                            Image {
-                                id: iconInvertor
-                                height: 24
-                                width: 24
-                                source: icon.iconName
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 16
-                            }
-                            ColorOverlay {
-                                anchors.fill: iconInvertor
-                                source: iconInvertor
-                                color: Style.consolinnoMedium
-                            }
-                        }
-                    }
-
-
-                }
+            Label {
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                text: qsTr("Integrated solar inverter")
+                wrapMode: Text.WordWrap
+                Layout.alignment: Qt.AlignRight
+                horizontalAlignment: Text.AlignLeft
             }
 
-        }
+            VerticalDivider {
+                Layout.preferredWidth: root.width
+                dividerColor: Material.accent
+            }
+            Flickable{
+                id: energyMeterFlickable
+                clip: true
+                Layout.fillWidth: true
+                contentHeight: energyMeterList.height
+                contentWidth: energyMeterList.width
+                visible: emProxy.count !== 0
 
-        Rectangle{
-        Layout.preferredHeight: app.height/3
-        Layout.fillWidth: true
-        visible: emProxy.count === 0
-        color: Material.background
-        Text {
-            text: qsTr("There is no inverter set up yet.")
-            color: Material.foreground
-            anchors.fill: parent
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-        }
-        }
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredHeight: app.height/3
+                flickableDirection: Flickable.VerticalFlick
 
-        VerticalDivider
-        {
-            Layout.preferredWidth: app.width - 2* Style.margins
-            dividerColor: Material.accent
-        }
+                ColumnLayout{
+                    id: energyMeterList
+                    Layout.preferredWidth: root.width
+                    Layout.fillHeight: true
+                    Repeater{
+                        id: solarInverterRepeater
+                        Layout.fillWidth: true
+                        model: ThingsProxy {
+                            id: emProxy
+                            engine: _engine
+                            shownInterfaces: ["solarinverter"]
+                        }
+                        delegate: ItemDelegate{
+                            Layout.preferredWidth: root.width
+                            contentItem: ConsolinnoItemDelegate{
+                                id: icon
+                                Layout.preferredWidth: root.width
+                                iconName: {
+                                    if(Configuration.inverterIcon !== ""){
+                                        return "/ui/images/"+Configuration.inverterIcon
+                                    }else{
+                                        return "../images/weathericons/weather-clear-day.svg"
+                                    }
+                                }
+                                progressive: false
+                                text: emProxy.get(index) ? emProxy.get(index).name : ""
+                                onClicked: {
+                                }
+                                Image {
+                                    id: iconInvertor
+                                    height: 24
+                                    width: 24
+                                    source: icon.iconName
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.left: parent.left
+                                    anchors.leftMargin: 16
+                                }
+                                ColorOverlay {
+                                    anchors.fill: iconInvertor
+                                    source: iconInvertor
+                                    color: Style.consolinnoMedium
+                                }
+                            }
+                        }
 
-    }
+
+                    }
+                }
+
+            }
+            Rectangle{
+                Layout.preferredHeight: app.height/3
+                Layout.fillWidth: true
+                visible: emProxy.count === 0
+                color: Material.background
+                Text {
+                    text: qsTr("There is no inverter set up yet.")
+                    color: Material.foreground
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+            }
+            VerticalDivider{
+                Layout.preferredWidth: root.width
+                dividerColor: Material.accent
+            }
+        }
 
         ColumnLayout {
             Layout.topMargin: Style.margins
+            Layout.leftMargin: Style.margins
+            Layout.rightMargin: Style.margins
+            Layout.fillWidth: true
+
             Label {
-                Layout.fillWidth: true
                 text: qsTr("Add solar Inverter: ")
                 wrapMode: Text.WordWrap
             }
 
             ConsolinnoDropdown {
                 id: thingClassComboBox
-                Layout.preferredWidth: app.width - 2*Style.margins
+                Layout.fillWidth: true
                 textRole: "displayName"
                 valueRole: "id"
                 model: ThingClassesProxy {
@@ -285,20 +277,18 @@ Page {
 
         ColumnLayout {
             spacing: 0
-            Layout.alignment: Qt.AlignHCenter
-
+            Layout.preferredWidth: parent.width
             Button {
                 text: qsTr("cancel")
                 Layout.preferredWidth: 200
+                Layout.alignment: Qt.AlignHCenter
                 onClicked: root.done(false, true, false)
             }
             Button {
                 id: addButton
                 text: qsTr("add")
-                //color: Style.accentColor
+                Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 200
-                //Layout.alignment: Qt.AlignHCenter
-                Layout.alignment: Qt.AlignLeft
                 onClicked: internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue})
             }
 
@@ -306,54 +296,23 @@ Page {
             Button {
                 id: nextStepButton
                 text: qsTr("Next step")
-                font.capitalization: Font.AllUppercase
-                font.pixelSize: 15
                 Layout.preferredWidth: 200
-                Layout.preferredHeight: addButton.height - 9
-                opacity: solarInverterRepeater.count > 0 ? 1 : 0.3
-                // color: Style.consolinnoMedium
-                // background fucks up the margin between the buttons, thats why wee need this topMargin
-                Layout.topMargin: 5
 
-                contentItem:Row{
-                    Text{
-                        id: nextStepButtonText
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: nextStepButton.text
-                        font: nextStepButton.font
-                        opacity: enabled ? 1.0 : 0.3
-                        color: Style.consolinnoHighlightForeground
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        elide: Text.ElideRight
-                    }
+                Image {
+                    id: headerImage
+                    sourceSize.width: 18
+                    sourceSize.height: 18
+                    anchors.right: nextStepButton.right
+                    anchors.verticalCenter: nextStepButton.verticalCenter
+                    anchors.rightMargin: 5
+                    source: "../images/next.svg"
 
-                    Image{
-                        id: headerImage
-                        anchors.right : parent.right
-                        anchors.verticalCenter:  parent.verticalCenter
-
-                        sourceSize.width: 18
-                        sourceSize.height: 18
-                        source: "../images/next.svg"
-
-                        layer{
-                            enabled: true
-                            effect: ColorOverlay{
-                                color: Style.consolinnoHighlightForeground
-                            }
+                    layer{
+                        enabled: true
+                        effect: ColorOverlay{
+                            color: Style.consolinnoHighlightForeground
                         }
                     }
-
-                }
-
-                background: Rectangle{
-                    height: parent.height
-                    width: parent.width
-                    border.color: Material.background
-                    color: Style.secondButtonColor
-                    radius: 4
                 }
 
                 Layout.alignment: Qt.AlignHCenter
@@ -362,7 +321,6 @@ Page {
                         root.done(true, false, false)
                     }
                 }
-
             }
         }
 

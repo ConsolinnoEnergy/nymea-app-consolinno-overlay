@@ -18,6 +18,7 @@ StackView {
     property Thing gridSupportThing: gridSupport.get(0)
     property Thing eeBusThing: eebusThing.get(0)
     property double powerLimit: gridSupportThing.stateByName("lpcValue").value
+    property double powerLimitLPP: gridSupportThing.stateByName("lppValue").value
     property string powerLimitSource: gridSupportThing.settings.get(0).value
 
     property bool eebusState: eeBusThing ? eeBusThing.stateByName("connected").value : false
@@ -25,6 +26,8 @@ StackView {
     property string textEEBUS: (!eebusSettings.connected && !eebusSettings.everConnected) ? qsTr("Confirmation by network operator pending.") : eebusState == true ? qsTr("connected") : qsTr("not connected")
 
     property bool currentState: gridSupportThing.stateByName("isLpcActive").value
+    property bool currentStateLPP: gridSupportThing.stateByName("isLppActive").value
+    property string contentPlimLPP: currentStateLPP === true ? qsTr("The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.").arg(powerLimitLPP) : ""
     property string contentPlim: currentState === true ? qsTr("Consumption is <b>temporarily limited</b> to a maximum of <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimit)) : ""
 
 
@@ -135,6 +138,17 @@ StackView {
                     }
 
                     ConsolinnoAlert {
+                        visible: currentStateLPP === true && powerLimitSource !== "none"
+                        backgroundColor: Style.warningBackground
+                        borderColor: Style.warningAccent
+                        textColor: Style.warningAccent
+                        iconColor: Style.warningAccent
+
+                        text: contentPlimLPP
+                        headerText: qsTr("Feed-in curtailment")
+                    }
+
+                    ConsolinnoAlert {
                         visible: currentState === true && powerLimitSource !== "none"
                         backgroundColor: Style.warningBackground
                         borderColor: Style.warningAccent
@@ -163,7 +177,7 @@ StackView {
                     }
 
                     VerticalDivider{
-                        Layout.preferredWidth: app.width
+                        Layout.fillWidth: true
                         dividerColor: Material.accent
                     }
 
@@ -335,7 +349,7 @@ StackView {
                 VerticalDivider {
                     Layout.topMargin: app.margins - 12
                     Layout.bottomMargin: app.margins - 12
-                    Layout.preferredWidth: app.width
+                    Layout.fillWidth: true
                     dividerColor: Material.accent
                 }
 
@@ -605,7 +619,7 @@ StackView {
                 VerticalDivider {
                     Layout.topMargin: app.margins - 12
                     Layout.bottomMargin: app.margins - 12
-                    Layout.preferredWidth: app.width
+                    Layout.fillWidth: true
                     dividerColor: Material.accent
                 }
 
@@ -684,7 +698,7 @@ StackView {
                     ColumnLayout {
                         id: column
                         width: parent.width
-                        spacing: 5 
+                        spacing: 5
                         Repeater {
                             model: thingClass.paramTypes
                             delegate: ConsolinnoItemDelegate {
@@ -712,7 +726,7 @@ StackView {
                 }
 
                 VerticalDivider {
-                    Layout.preferredWidth: app.width
+                    Layout.fillWidth: true
                     Layout.topMargin: app.margins - 12
                     Layout.bottomMargin: app.margins - 12
                     dividerColor: Material.accent
@@ -734,7 +748,7 @@ StackView {
                         headerText: qsTr("Attention")
                     }
 
-                    ConsolinnoCheckBox {
+                    ConsolinnoCheckbox {
                         id: deviceConnected
                         text: qsTr("Establish a connection with this device.")
                         Layout.alignment: Qt.AlignLeft
@@ -945,7 +959,7 @@ StackView {
                 }
 
                 VerticalDivider {
-                    Layout.preferredWidth: app.width
+                    Layout.fillWidth: true
                     Layout.topMargin: app.margins - 12
                     Layout.bottomMargin: app.margins - 12
                     dividerColor: Material.accent
@@ -1066,7 +1080,7 @@ StackView {
                 }
 
                 VerticalDivider {
-                    Layout.preferredWidth: app.width
+                    Layout.fillWidth: true
                     Layout.topMargin: app.margins - 12
                     Layout.bottomMargin: app.margins - 12
                     dividerColor: Material.accent
@@ -1092,7 +1106,7 @@ StackView {
                 }
 
                 VerticalDivider {
-                    Layout.preferredWidth: app.width
+                    Layout.fillWidth: true
                     Layout.topMargin: app.margins - 12
                     Layout.bottomMargin: app.margins - 12
                     dividerColor: Material.accent

@@ -60,9 +60,8 @@ Page {
     }
 
     ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;  margins: Style.margins }
-        Layout.leftMargin: app.margins; Layout.rightMargin: app.margins;
-
+        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
+        Layout.preferredWidth: root.width
         ModbusRtuManager {
             id: modbusRtuManager
             engine: _engine
@@ -103,6 +102,8 @@ Page {
 
         ListModel {
             id: serialPortBaudrateModel
+            ListElement { value: 2400; }
+            ListElement { value: 4800; }
             ListElement { value: 9600; }
             ListElement { value: 14400; }
             ListElement { value: 19200; }
@@ -179,55 +180,60 @@ Page {
         }
 
         ColumnLayout {
-            Layout.fillWidth: true
+            Layout.preferredWidth: root.width
             Layout.fillHeight: true
 
             Label {
                 Layout.topMargin: 20
-                Layout.preferredWidth: app.width - 2* Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                Layout.fillWidth: true
                 text: qsTr("Note: If you intend to connect a device via <b>Modbus-RTU</b>, please verify the Modbus interface settings to ensure they are compatible with the connected device. If you wish to use a different interface, please add another one.")
                 wrapMode: Text.WordWrap
-                Layout.alignment: Qt.AlignLeft
                 horizontalAlignment: Text.AlignLeft
             }
 
             Label {
                 Layout.topMargin: 10
-                Layout.preferredWidth: app.width - 2* Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins + 20
                 wrapMode: Text.WordWrap
-                text: qsTr("Available interfaces:")
+                Layout.alignment: Qt.AlignRight
+                horizontalAlignment: Text.AlignLeft
+                text: qsTr("Available interfaces")
             }
 
             VerticalDivider
             {
-                Layout.preferredWidth: app.width - 2* Style.margins
+                Layout.preferredWidth: root.width
                 dividerColor: Material.accent
             }
 
             Flickable {
                 id: modBusFlickable
                 clip: true
-                width: parent.width
                 height: parent.height
+                Layout.preferredWidth: root.width
+                Layout.rightMargin: Style.margins
+
                 contentHeight: modBusFlickable.height
-                contentWidth: app.width
+                contentWidth: root.width
 
 
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: app.height/3
-                Layout.preferredWidth: app.width - 2* Style.margins
                 flickableDirection: Flickable.VerticalFlick
 
                 ColumnLayout {
                     id: repeaterName
-                    Layout.preferredWidth: app.width - 2* Style.margins
+                    Layout.preferredWidth: app.width
                     Layout.fillHeight: true
 
                     Repeater {
                         enabled: modbusRtuManager.supported
                         model: modbusRtuManager.modbusRtuMasters
                         delegate: NymeaSwipeDelegate {
-                            Layout.preferredWidth: app.width - 2* Style.margins
+                            Layout.preferredWidth: app.width
                             iconName: "../images/modbus.svg"
                             text: repeaterName.getName(model.serialPort) + " " + model.baudrate
                             subText: model.connected ? qsTr("Connected") : qsTr("Disconnected")
@@ -237,7 +243,7 @@ Page {
 
 
                     Label {
-                        Layout.preferredWidth: app.width - 2* Style.margins
+                        Layout.preferredWidth: parent.width
                         Layout.topMargin: 10;
                         wrapMode: Text.WordWrap
                         text: qsTr("Modbus-RTU is not supported on this platform.")
@@ -245,7 +251,7 @@ Page {
                     }
 
                     Label {
-                        Layout.preferredWidth: app.width - 2* Style.margins
+                        Layout.preferredWidth: parent.width
                         Layout.topMargin: 10;
                         wrapMode: Text.WordWrap
                         text: qsTr("No devices discovered") //Keine Geräte entdeckt
@@ -269,7 +275,7 @@ Page {
 
             VerticalDivider
             {
-                Layout.preferredWidth: app.width - 2* Style.margins
+                Layout.preferredWidth: root.width
                 dividerColor: Material.accent
             }
 
@@ -281,6 +287,7 @@ Page {
         }
 
         ColumnLayout {
+            Layout.preferredWidth: parent.width
             spacing: 0
             visible: settingsWizard
             Layout.bottomMargin: 25
@@ -297,51 +304,27 @@ Page {
             Button {
                 id: nextStepButton
                 text: qsTr("Next step")
-                font.capitalization: Font.AllUppercase
-                font.pixelSize: 15
                 Layout.preferredWidth: 200
-                Layout.preferredHeight: btnCancel.height - 9
                 Layout.alignment: Qt.AlignHCenter
-                Layout.topMargin: 5
-                contentItem:Row{
-                    Text{
-                        id: nextStepButtonText
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: nextStepButton.text
-                        font: nextStepButton.font
-                        opacity: enabled ? 1.0 : 0.3
-                        color: Style.consolinnoHighlightForeground
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        elide: Text.ElideRight
-                    }
 
-                    Image{
-                        id: headerImage
-                        anchors.right : parent.right
-                        anchors.verticalCenter:  parent.verticalCenter
+                Image{
+                    id: headerImage
+                    anchors.right : nextStepButton.right
+                    anchors.verticalCenter:  nextStepButton.verticalCenter
+                    anchors.rightMargin: 5
 
-                        sourceSize.width: 18
-                        sourceSize.height: 18
-                        source: "../images/next.svg"
+                    sourceSize.width: 18
+                    sourceSize.height: 18
+                    source: "../images/next.svg"
 
-                        layer{
-                            enabled: true
-                            effect: ColorOverlay{
-                                color: Style.consolinnoHighlightForeground
-                            }
+                    layer{
+                        enabled: true
+                        effect: ColorOverlay{
+                            color: Style.consolinnoHighlightForeground
                         }
                     }
                 }
 
-                background: Rectangle{
-                    height: parent.height
-                    width: parent.width
-                    border.color: Material.background
-                    color: Style.secondButtonColor
-                    radius: 4
-                }
                 onClicked: root.done(true, false, false)
             }
         }
