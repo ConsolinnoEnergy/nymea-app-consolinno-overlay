@@ -54,11 +54,11 @@ ConsolinnoWizardPageBase {
             Layout.rightMargin: Style.margins
             spacing: 0
 
-            CheckBox {
+            ConsolinnoCheckbox{
                 id: readCheckbox
                 Layout.alignment: Qt.AlignHCenter
                 text: qsTr("Yes I read the Term of Use and agree")
-                //sizeFont: 17
+                sizeFont: 17
             }
         }
 
@@ -226,11 +226,11 @@ ConsolinnoWizardPageBase {
                     Layout.leftMargin: Style.margins
                     Layout.rightMargin: Style.margins
 
-                    CheckBox {
+                    ConsolinnoCheckbox{
                         id: accountCheckbox
                         Layout.alignment: Qt.AlignHCenter
                         text: qsTr("Yes I agree to open a user account, according to part 6 ")
-                        //sizeFont: 17
+                        sizeFont: 17
                     }
 
                 }
@@ -239,13 +239,12 @@ ConsolinnoWizardPageBase {
                 RowLayout{
                     spacing: 0
                     Layout.leftMargin: Style.margins
-                    Layout.rightMargin: Style.margins
-                    
-                    CheckBox {
+
+                    ConsolinnoCheckbox {
                         id: policyCheckbox
                         Layout.alignment: Qt.AlignHCenter
                         text: qsTr('I confirm that I have read the the agreement and I am accepting it.')
-                        //sizeFont: 17
+                        sizeFont: 17
                     }
 
                 }
@@ -535,7 +534,7 @@ ConsolinnoWizardPageBase {
                         Layout.fillWidth: true
                         text: qsTr("SSL:")
                     }
-                    CheckBox {
+                    ConsolinnoCheckbox {
                         id: secureCheckBox
                         checked: true
                     }
