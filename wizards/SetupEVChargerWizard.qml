@@ -208,59 +208,15 @@ Page {
                 wrapMode: Text.WordWrap
             }
 
-            ThingClassesProxy {
-                id: evcharger
-                engine: _engine
-                filterInterface: "evcharger"
-            }
-
-            ThingClassesProxy {
-                id: eebusWallbox
-                engine: _engine
-                filterString: "EEBus"
-                filterInterface: "gateway"
-            }
-
-            ListModel {
-                id: modelID
-
-                Component.onCompleted: {
-                    let arr = [];
-
-                    arr.push({
-                        valueRoleID: eebusWallbox.get(0).id.toString(),
-                        displayName: qsTr("EEBUS Wallbox")
-                    });
-
-                    for (var i = 0; i < evcharger.count; ++i) {
-                        var item = evcharger.get(i);
-                        if (isNaN(item)) {
-                            arr.push({
-                                valueRoleID: item.id.toString(),
-                                displayName: item.displayName
-                            });
-                        }
-                    }
-
-                    arr.sort(function(a, b) {
-                        var a0 = a.displayName.charAt(0).toLowerCase();
-                        var b0 = b.displayName.charAt(0).toLowerCase();
-                        return a0.localeCompare(b0);
-                    });
-
-                    for (var j = 0; j < arr.length; ++j) {
-                        append(arr[j]);
-                    }
-                }
-            }
-
             ComboBox {
                 id: thingClassComboBox
                 Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"
-                valueRole: "valueRoleID"
-                currentIndex: 0
-                model: modelID
+                valueRole: "id"
+                model: ThingClassesProxy {
+                    engine: _engine
+                    filterInterface: "evcharger"
+                }
             }
         }
 
@@ -370,8 +326,6 @@ Page {
 
     }
 
-
-
     // This Component Looks at the thingClass and decides based on the createMethod, which "Route" of the
     // Setup we should take
     // tested and supported are atm:
@@ -387,12 +341,10 @@ Page {
             property var thingClass: engine.thingManager.thingClasses.getThingClass(thingClassId)
             property var thing: null
 
+
             Component.onCompleted: {
-                if(thingClass.name === "eebusDevice") {
-                    discovery.discoverThings(thingClass.id)
-                    pageStack.push(evChargerSearch, {thingClass: thingClass})
-                }
-                else if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
+                // if discovery and user. Always Discovery
+                if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
 
                     if (thingClass["discoveryParamTypes"].count > 0) {
                         // ThingDiscovery with discoveryParams
@@ -405,6 +357,7 @@ Page {
                 }// not supported yet
                 else if (thingClass.createMethods.indexOf("CreateMethodUser") !== -1) {
                     pageStack.push(paramsPage, {thingClass: thingClass})
+
                 }
             }
         }
