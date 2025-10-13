@@ -50,6 +50,9 @@ StyleBase {
     property real buttonLeftPadding: 32
     property color textfield: "#767676"
 
+    property color gridAlertFont: "#AA0A24"
+    property color gridAlertBackground: "#FFC3CD"
+
     // Avoid Zero Compensation Info + Dialog
     property color marketPriceColor: "#E056F5"
     property color pvProductionColor: "#FCE487"

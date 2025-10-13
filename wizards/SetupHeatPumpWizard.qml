@@ -204,8 +204,6 @@ Page {
                 }
             }
 
-
-
             VerticalDivider
             {
                 Layout.preferredWidth: app.width - 2* Style.margins
@@ -274,9 +272,11 @@ Page {
                 id: thingClassComboBox
                 Layout.preferredWidth: app.width - 2*Style.margins
                 textRole: "displayName"
-                valueRole: "valueRoleID"
-                currentIndex: 0
-                model: modelID
+                valueRole: "id"
+                model: ThingClassesProxy {
+                    engine: _engine
+                    filterInterface: "heatpump"
+                }
             }
         }
 
@@ -384,7 +384,6 @@ Page {
 
     }
 
-
     // This Component Looks at the thingClass and decides based on the createMethod, which "Route" of the
     // Setup we should take
     // tested and supported are atm:
@@ -401,11 +400,9 @@ Page {
             property var thing: null
 
             Component.onCompleted: {
-                if(thingClass.name === "eebusDevice") {
-                    discovery.discoverThings(thingClass.id)
-                    pageStack.push(heatpumpSearch, {thingClass: thingClass})
-                }
-                else if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
+
+                // if discovery and user. Always Discovery
+                if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
 
                     if (thingClass["discoveryParamTypes"].count > 0) {
                         // ThingDiscovery with discoveryParams
@@ -592,6 +589,7 @@ Page {
                 text: qsTr("Discover %1").arg(thingClass.displayName)
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
+
             }
 
             SettingsPageSectionHeader {
@@ -603,8 +601,8 @@ Page {
                 model: ThingDiscoveryProxy {
                     id: discoveryProxy
                     thingDiscovery: discovery
-                    //showAlreadyAdded: thing !== null
-                    //showNew: thing === null
+                    showAlreadyAdded: thing !== null
+                    showNew: thing === null
                     //filterThingId: root.thing ? root.thing.id : ""
                 }
                 delegate: NymeaItemDelegate {
@@ -736,27 +734,14 @@ Page {
                     d.params = params
                     d.name = nameTextField.text
                     d.pairThing(thingClass, thing);
-
-
                 }
             }
-
         }
-
-
     }
-
 
     BusyOverlay {
         id: busyOverlay
     }
-
-
-
-
-
-
-
 
     Component {
         id: setupHeatPumpComponent

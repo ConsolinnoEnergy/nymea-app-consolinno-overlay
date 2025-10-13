@@ -238,6 +238,22 @@
         <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Avoid zero compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation active</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BatteryConfigurationView</name>
@@ -629,6 +645,14 @@
     </message>
     <message>
         <source>pausing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>low solar availability</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Low solar avalaibility:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1130,6 +1154,17 @@
     </message>
     <message>
         <source>Please provide information on taxes, surcharges and network fees. &lt;u&gt;Continue to configuration.&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoGridSupportiveControlAlert</name>
+    <message>
+        <source>Attention</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Existing setup will be overwritten.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3169,6 +3204,22 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation active</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
