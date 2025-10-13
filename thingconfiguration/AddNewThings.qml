@@ -271,20 +271,6 @@ Page {
                                 icon = "/ui/images/heating_rod.svg"
                             }
                             return Qt.resolvedUrl(icon)
-                        case "controllablebattery":
-                            if(Configuration.batteryIcon !== ""){
-                                icon = "/ui/images/"+Configuration.batteryIcon
-                            }else{
-                                icon = "/ui/images/battery/battery-080.svg"
-                            }
-                            return Qt.resolvedUrl(icon)
-                        case "limitablebattery":
-                            if(Configuration.batteryIcon !== ""){
-                                icon = "/ui/images/"+Configuration.batteryIcon
-                            }else{
-                                icon = "/ui/images/battery/battery-080.svg"
-                            }
-                            return Qt.resolvedUrl(icon)
                         case "battery":
                             if(Configuration.batteryIcon !== ""){
                                 icon = "/ui/images/"+Configuration.batteryIcon
