@@ -75,7 +75,7 @@ Page {
         Label {
             Layout.fillWidth: true
             horizontalAlignment: Text.AlignHCenter
-            text: qsTr('If the status LED flashes red briefly, you must repeat the authentication. (Go back to the screen "Discovered Devices", press the test button briefly and select the %1 again).').arg(Configuration.deviceName)
+            text: qsTr('If the status LED flashes red briefly or this screen remains displayed, the authentication has failed. Please go back and restart the process.')
             wrapMode: Text.WordWrap
         }
 
