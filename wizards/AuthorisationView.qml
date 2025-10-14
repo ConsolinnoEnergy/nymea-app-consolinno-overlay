@@ -37,7 +37,7 @@ ConsolinnoWizardPageBase {
 
         ConsolinnoCheckbox {
             id: authorisationCheckbox
-            Layout.fillWidth: true
+            useFillWidth: false
             position: Qt.AlignHCenter
             text: qsTr("I am authorized to operate the %1").arg(Configuration.coreBranding)
         }

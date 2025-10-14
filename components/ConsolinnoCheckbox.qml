@@ -1,20 +1,23 @@
-import QtQuick 2.8
-import QtQuick.Controls 2.1
+import QtQuick 2.5
+import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.2
-import QtGraphicalEffects 1.0
+import QtQuick.Layouts 1.1
 import Nymea 1.0
+import QtGraphicalEffects 1.15
 
-RowLayout{
+RowLayout {
     id: root
-    property string text
+    property alias text: labelContainer.text
     property alias checked: checkbox.checked
-    property int position: Qt.AlignLeft
     property int sizeFont: 16
+    property int position: Qt.AlignLeft
+    property bool useFillWidth: true
+    property real labelPreferredWidth: 160
+
 
     Layout.alignment: position
 
-    CheckBox{
+    CheckBox {
         id: checkbox
         font.pixelSize: sizeFont
 
@@ -25,10 +28,9 @@ RowLayout{
             anchors.left: parent.left
             border.color: checked ? Style.buttonColor : Style.textfield
             border.width: 2
-            color: checked? Style.buttonColor : "transparent"
+            color: checked ? Style.buttonColor : "transparent"
             radius: 2
 
-            // Bounce animation on click
             SequentialAnimation on scale {
                 id: bounceAnim
                 NumberAnimation { to: 0.90; duration: 80; easing.type: Easing.OutQuad }
@@ -50,7 +52,6 @@ RowLayout{
                 Behavior on scale {
                     NumberAnimation { duration: 150; easing.type: Easing.OutQuad }
                 }
-
                 Behavior on opacity {
                     NumberAnimation { duration: 150 }
                 }
@@ -59,7 +60,6 @@ RowLayout{
             Canvas {
                 anchors.fill: parent
                 visible: checked
-
                 onPaint: {
                     var ctx = getContext("2d");
                     ctx.strokeStyle = Style.backgroundColor;
@@ -101,7 +101,6 @@ RowLayout{
 
                 onClicked: {
                     checkbox.checked = !checked
-
                     bounceAnim.restart()
                 }
             }
@@ -109,21 +108,18 @@ RowLayout{
     }
 
     Label {
+        id: labelContainer
         wrapMode: Text.WordWrap
         horizontalAlignment: Text.AlignLeft
-        Layout.fillWidth: root.position !== 4 ? true : false
-        Layout.preferredWidth: root.position === 4 ? root.width * 0.8 : root.width
-        text: root.text
         font.pixelSize: sizeFont
 
+        Layout.fillWidth: root.useFillWidth
+        Layout.preferredWidth: root.useFillWidth ? 0 : root.labelPreferredWidth
+
         MouseArea {
-            anchors.fill: parent
+            anchors.fill: labelContainer
             onClicked: {
-                if(!checkbox.checked){
-                    checkbox.checked = true
-                }else{
-                    checkbox.checked = false
-                }
+                checkbox.checked = !checkbox.checked
             }
         }
     }

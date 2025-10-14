@@ -20,59 +20,57 @@ ConsolinnoWizardPageBase {
         pageStack.pop()
     }
 
-    content: ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins; right: parent.right; left: parent.left }
+    content: Item {
+        anchors.fill: parent
+        ColumnLayout {
+            anchors.fill: parent
 
-        Flickable {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignHCenter
-            Layout.margins: Style.margins
-            contentHeight: textAreaTerms.height
-            clip: true
+            Flickable {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                Layout.margins: Style.margins
+                contentHeight: textAreaTerms.height
+                clip: true
 
+                TextArea {
+                    id: textAreaTerms
+                    width: parent.width
+                    font: Style.smallFont
+                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                    textFormat: Text.RichText
+                    readOnly: true
+                }
 
-
-            TextArea {
-                id: textAreaTerms
-                width: parent.width
-                font: Style.smallFont
-                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                textFormat: Text.RichText
-                readOnly: true
-                text: ""
+                Component.onCompleted: {
+                  loadHtmlFile("../terms_of_use_de_DE.html", textAreaTerms);
+                }
             }
 
-            Component.onCompleted: {
-              loadHtmlFile("../terms_of_use_de_DE.html", textAreaTerms);
-            }
-        }
-
-        ConsolinnoCheckbox{
-            id: readCheckbox
-            Layout.alignment: Qt.AlignHCenter
-            Layout.leftMargin: Style.margins
-            Layout.rightMargin: Style.margins
-            spacing: 0
-            text: qsTr("Yes I read the Term of Use and agree")
-            sizeFont: 17
-        }
-        
-        Button {
-            Layout.alignment: Qt.AlignHCenter
-            text: readCheckbox.checked ? qsTr('next') : qsTr('cancel')
-            Layout.preferredWidth: 200
-            background: Rectangle{
-                color: readCheckbox.checked ? Style.buttonColor : 'grey'
-                radius: 4
+            ConsolinnoCheckbox {
+                id: readCheckbox
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                text: qsTr("Yes I read the Term of Use and agree")
+                sizeFont: 17
             }
 
+            Button {
+                Layout.alignment: Qt.AlignHCenter
+                text: readCheckbox.checked ? qsTr('next') : qsTr('cancel')
+                Layout.preferredWidth: 200
+                background: Rectangle{
+                    color: readCheckbox.checked ? Style.buttonColor : 'grey'
+                    radius: 4
+                }
 
-            onClicked: {
-                if (readCheckbox.checked) {
-                    root.next()
-                } else {
-                    Qt.quit();
+
+                onClicked: {
+                    if (readCheckbox.checked) {
+                        root.next()
+                    } else {
+                        Qt.quit();
+                    }
                 }
             }
         }
@@ -210,14 +208,13 @@ ConsolinnoWizardPageBase {
                         text: ""
                     }
 
-                      Component.onCompleted: {
+                    Component.onCompleted: {
                         loadHtmlFile("../privacy_agreement_de_DE.html", textArea);
-                      }
+                    }
                 }
 
                 ConsolinnoCheckbox{
                     id: accountCheckbox
-                    Layout.alignment: Qt.AlignHCenter
                     Layout.leftMargin: Style.margins
                     Layout.rightMargin: Style.margins
                     text: qsTr("Yes I agree to open a user account, according to part 6 ")
@@ -228,7 +225,7 @@ ConsolinnoWizardPageBase {
                 ConsolinnoCheckbox {
                     id: policyCheckbox
                     Layout.leftMargin: Style.margins
-                    Layout.alignment: Qt.AlignHCenter
+                    Layout.rightMargin: Style.margins
                     text: qsTr('I confirm that I have read the the agreement and I am accepting it.')
                     sizeFont: 17
                     spacing: 0
@@ -253,7 +250,6 @@ ConsolinnoWizardPageBase {
                 }
             }
         }
-
     }
 
     Component {
