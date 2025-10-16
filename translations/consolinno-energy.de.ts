@@ -2597,8 +2597,8 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Um die Authentifizierung abzuschließen, drücken Sie bitte &lt;b&gt;den Test-Taster erneut für 5 Sekunden&lt;/b&gt;, bis die Status-LED grün leuchtet.</translation>
     </message>
     <message>
-        <source>If the status LED flashes red briefly, you must repeat the authentication. (Go back to the screen &quot;Discovered Devices&quot;, press the test button briefly and select the %1 again).</source>
-        <translation type="unfinished">Wenn die Status-LED kurz rot blinkt, müssen Sie die Authentifizierung wiederholen. (Gehen Sie zurück zum Screen &quot;Gefundene Geräte&quot;, betätigen Sie kurz die Test-Taste und wählen Sie erneut das %1 aus).</translation>
+        <source>If the status LED flashes red briefly or this screen remains displayed, the authentication has failed. Please go back and restart the process.</source>
+        <translation>Falls die Status-LED kurz rot leuchtet oder dieser Bildschirm dauerhaft angezeigt wird, ist die Authentifizierung abgebrochen. Gehen Sie zurück und starten Sie den Prozess erneut.</translation>
     </message>
 </context>
 <context>
@@ -3102,44 +3102,12 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Bitte füllen Sie alle Felder aus. Der Wert darf nicht leer oder 0 sein.</translation>
     </message>
     <message>
-        <source>Add Rate</source>
-        <translation>Neuen Tarif hinzufügen</translation>
-    </message>
-    <message>
-        <source>Submitted Rate</source>
-        <translation>Eingerichteter Tarif</translation>
-    </message>
-    <message>
         <source>The following tariff is submitted:</source>
         <translation>Der folgende Stromtarif wurde eingerichtet:</translation>
     </message>
     <message>
-        <source>Network charges</source>
-        <translation>Netzentgelte</translation>
-    </message>
-    <message>
-        <source>Taxes &amp; fees</source>
-        <translation>Steuern &amp; Abgaben</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
-    </message>
-    <message>
-        <source>Zewotherm setup</source>
-        <translation>Zewotherm einrichten</translation>
-    </message>
-    <message>
-        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
+        <source>Failed to add thing: ThingErrorHardwareFailure</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The following tariff is submitted:</source>
-        <translation type="unfinished">Der folgende Stromtarif wurde eingerichtet:</translation>
     </message>
 </context>
 <context>
