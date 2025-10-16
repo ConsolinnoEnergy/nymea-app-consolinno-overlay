@@ -4083,6 +4083,14 @@ Für weitere Unterstützung wenden Sie sich bitte an unseren Service: %5</transl
         <source>west</source>
         <translation>Westen</translation>
     </message>
+    <message>
+        <source>Grid-supportive-control</source>
+        <translation>Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 9, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation>Sofern das Gerät in Übereinstimmung mit § 9 kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
+    </message>
 </context>
 <context>
     <name>PausingInfo</name>

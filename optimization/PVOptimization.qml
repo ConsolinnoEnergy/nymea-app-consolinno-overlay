@@ -215,6 +215,34 @@ Page {
             }
         }
 
+        RowLayout{
+            Layout.fillWidth: true
+            visible: thing.thingClass.interfaces.includes("limitgridexport")
+
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("Grid-supportive-control")
+            }
+
+            Switch {
+                id: gridSupportControl
+                Component.onCompleted: checked = pvConfiguration.controllableLocalSystem
+            }
+        }
+
+        ColumnLayout {
+            Layout.fillWidth: true
+            visible: thing.thingClass.interfaces.includes("limitgridexport")
+
+            Text {
+                Layout.fillWidth: true
+                font: Style.smallFont
+                color: Style.consolinnoMedium
+                wrapMode: Text.Wrap
+                text: qsTr("If the device must be controlled in accordance with § 9, this setting must be enabled and the nominal power must correspond to the registered power.")
+            }
+        }
+
         //margins filler
         Item {
             Layout.fillWidth: true
@@ -270,7 +298,8 @@ Page {
                                                            "alignment": alignment.currentValue,
                                                            "kwPeak": Number.fromLocaleString(
                                                                            Qt.locale(),
-                                                                           peakPowerInput.text) 
+                                                                           peakPowerInput.text),
+                                                           "controllableLocalSystem": gridSupportControl.checked
                                                        })
                         root.done()
                     } else {
@@ -293,7 +322,8 @@ Page {
                                         "alignment": alignment.currentValue,
                                         "kwPeak": Number.fromLocaleString(
                                                         Qt.locale(),
-                                                        peakPowerInput.text)
+                                                        peakPowerInput.text),
+                                        "controllableLocalSystem": gridSupportControl.checked
                                     })
                     }
                 }

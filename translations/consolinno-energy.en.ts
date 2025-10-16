@@ -4059,6 +4059,14 @@ For further assistance, please contact our support team at: %5</translation>
         <source>west</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Grid-supportive-control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 9, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PausingInfo</name>

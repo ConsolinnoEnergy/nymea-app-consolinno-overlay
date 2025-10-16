@@ -16,7 +16,6 @@ MouseArea {
     property color negativeColor: root.color
     property Thing thing: null
     property bool isNotify: false
-    property bool isNotifyLPP: false
     readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
     readonly property State currentMarketPriceState: thing ? thing.stateByName("currentTotalCost") : null
     readonly property bool isProducer: thing && thing.thingClass.interfaces.indexOf("smartmeterproducer") >= 0
