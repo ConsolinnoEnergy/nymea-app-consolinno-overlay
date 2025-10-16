@@ -69,3 +69,15 @@ void PvConfiguration::setKwPeak(const float kwPeak)
 {
     m_kwPeak = kwPeak;
 }
+
+bool PvConfiguration::controllableLocalSystem() const
+{
+    return m_controllableLocalSystem;
+}
+
+void PvConfiguration::setControllableLocalSystem(bool controllableLocalSystem)
+{
+    if (m_controllableLocalSystem == controllableLocalSystem) { return; }
+    m_controllableLocalSystem = controllableLocalSystem;
+    emit controllableLocalSystemChanged(m_controllableLocalSystem);
+}

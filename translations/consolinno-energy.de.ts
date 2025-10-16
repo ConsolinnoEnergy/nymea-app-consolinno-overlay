@@ -3102,44 +3102,12 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Bitte füllen Sie alle Felder aus. Der Wert darf nicht leer oder 0 sein.</translation>
     </message>
     <message>
-        <source>Add Rate</source>
-        <translation>Neuen Tarif hinzufügen</translation>
-    </message>
-    <message>
-        <source>Submitted Rate</source>
-        <translation>Eingerichteter Tarif</translation>
-    </message>
-    <message>
         <source>The following tariff is submitted:</source>
         <translation>Der folgende Stromtarif wurde eingerichtet:</translation>
     </message>
     <message>
-        <source>Network charges</source>
-        <translation>Netzentgelte</translation>
-    </message>
-    <message>
-        <source>Taxes &amp; fees</source>
-        <translation>Steuern &amp; Abgaben</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
-    </message>
-    <message>
-        <source>Zewotherm setup</source>
-        <translation>Zewotherm einrichten</translation>
-    </message>
-    <message>
-        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
+        <source>Failed to add thing: ThingErrorHardwareFailure</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The following tariff is submitted:</source>
-        <translation type="unfinished">Der folgende Stromtarif wurde eingerichtet:</translation>
     </message>
 </context>
 <context>
@@ -4114,6 +4082,14 @@ Für weitere Unterstützung wenden Sie sich bitte an unseren Service: %5</transl
     <message>
         <source>west</source>
         <translation>Westen</translation>
+    </message>
+    <message>
+        <source>Grid-supportive-control</source>
+        <translation>Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 9, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation>Sofern das Gerät in Übereinstimmung mit § 9 kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
     </message>
 </context>
 <context>

@@ -3030,10 +3030,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dynamic electricity tariff</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Add Rate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3082,51 +3078,15 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Submitted Rate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The following tariff is submitted:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Network charges</source>
+        <source>There is no rate set up yet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Taxes &amp; fees</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Zewotherm setup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>VAT</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Location</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please fill in all fields. The value cannot be empty or 0.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The following tariff is submitted:</source>
+        <source>Failed to add thing: ThingErrorHardwareFailure</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4097,6 +4057,14 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>west</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive-control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 9, this setting must be enabled and the nominal power must correspond to the registered power.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -916,7 +916,10 @@ MainViewBase {
                         model: producers
                         delegate: LegendTile {
                             visible: producers.get(index).id !== rootMeter.id
-                            isNotify: lsdChart.currentGridValueStateLPP
+                            isNotify: lsdChart.currentGridValueStateLPP &&
+                                      (hemsManager.pvConfigurations.getPvConfiguration(producers.get(index).id) !== null ?
+                                           hemsManager.pvConfigurations.getPvConfiguration(producers.get(index).id).controllableLocalSystem :
+                                           false)
                             color: Configuration.inverterColor
                             thing: producers.get(index)
                             isElectric: false
