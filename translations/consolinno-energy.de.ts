@@ -4088,8 +4088,8 @@ Für weitere Unterstützung wenden Sie sich bitte an unseren Service: %5</transl
         <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <source>If the device must be controlled in accordance with § 9, this setting must be enabled and the nominal power must correspond to the registered power.</source>
-        <translation>Sofern das Gerät in Übereinstimmung mit § 9 kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
+        <source>If the device must be controlled in accordance with § 9, this setting must be enabled.</source>
+        <translation>Sofern das Gerät in Übereinstimmung mit § 9 kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
     </message>
 </context>
 <context>
