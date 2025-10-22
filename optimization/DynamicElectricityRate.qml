@@ -47,44 +47,44 @@ StackView {
         filterInterface: "dynamicelectricitypricing"
     }
 
-    Connections {
-        id: connection
-        target: engine.thingManager
+//    Connections {
+//        id: connection
+//        target: engine.thingManager
 
-        onPairThingReply: {
-            if (thingError !== Thing.ThingErrorNoError) {
-                busyOverlay.shown = false;
-                pageStack.push(dynamicSetUpFeedBack, {thingError: thingError, message: displayMessage});
-                return;
-            }
+//        onPairThingReply: {
+//            if (thingError !== Thing.ThingErrorNoError) {
+//                busyOverlay.shown = false;
+//                pageStack.push(dynamicSetUpFeedBack, {thingError: thingError, message: displayMessage});
+//                return;
+//            }
 
-            d.pairingTransactionId = pairingTransactionId;
+//            d.pairingTransactionId = pairingTransactionId;
 
-            switch (setupMethod) {
-            case "SetupMethodPushButton":
-            case "SetupMethodDisplayPin":
-            case "SetupMethodEnterPin":
-            case "SetupMethodUserAndPassword":
-                pageStack.push(pairingPageComponent, {text: displayMessage, setupMethod: setupMethod})
-                break;
-            case "SetupMethodOAuth":
-                pageStack.push(oAuthPageComponent, {oAuthUrl: oAuthUrl})
-                break;
-            default:
-                print("Setup method reply not handled:", setupMethod);
-            }
-        }
+//            switch (setupMethod) {
+//            case "SetupMethodPushButton":
+//            case "SetupMethodDisplayPin":
+//            case "SetupMethodEnterPin":
+//            case "SetupMethodUserAndPassword":
+//                pageStack.push(pairingPageComponent, {text: displayMessage, setupMethod: setupMethod})
+//                break;
+//            case "SetupMethodOAuth":
+//                pageStack.push(oAuthPageComponent, {oAuthUrl: oAuthUrl})
+//                break;
+//            default:
+//                print("Setup method reply not handled:", setupMethod);
+//            }
+//        }
 
-        onConfirmPairingReply: {
-            pageStack.push(dynamicSetUpFeedBack, {comboBoxCurrentText: thing.get(0).name, thingPair: true})
-        }
+//        onConfirmPairingReply: {
+//            pageStack.push(dynamicSetUpFeedBack, {comboBoxCurrentText: thing.get(0).name, thingPair: true})
+//        }
 
-        onAddThingReply: {
-            busyOverlay.shown = false;
-            pageStack.push(dynamicSetUpFeedBack, {comboBoxCurrentText: thing.name})
-        }
+//        onAddThingReply: {
+//            busyOverlay.shown = false;
+//            pageStack.push(dynamicSetUpFeedBack, {comboBoxCurrentText: thing.name})
+//        }
 
-    }
+//    }
 
     Component {
         id: setUpComponent
@@ -154,13 +154,23 @@ StackView {
                                 text: model.name
                                 progressive: true
                                 canDelete: true
+
                                 onClicked: {
                                     if(erProxy.get(0).thingClass.setupMethod !== 4){
-                                        pageStack.push(taxesAndFeesSetUp, {thingClass : dynElectricThing.thingClass, reconfiguration: true})
+//                                        pageStack.push(taxesAndFeesSetUp, {thingClass : dynElectricThing.thingClass, reconfiguration: true})
+                                        var page = pageStack.push(Qt.resolvedUrl("qrc:///ui/thingconfiguration/SetupWizard.qml"),
+                                                                  {thing: dynElectricThing});
+                                        page.done.connect(function() {
+                                            pageStack.pop();
+                                        })
+                                        page.aborted.connect(function() {
+                                            pageStack.pop();
+                                        })
                                     }
                                 }
                                 onDeleteClicked: {
-                                    engine.thingManager.removeThing(model.id)
+                                    var popup = removeDialogComponent.createObject(root, {thing: erProxy.get(0)})
+                                    popup.open()
                                 }
                             }
                         }
@@ -228,6 +238,16 @@ StackView {
                         Layout.rightMargin: Style.margins
                         Layout.alignment: Qt.AlignHCenter
                         property ThingClass thingClass: thingClassesProxy.get(energyRateComboBox.currentIndex)
+
+                        Connections {
+                            target: engine.thingManager
+                            onThingAdded: {
+                                if (thing.thingClass.interfaces.includes("dynamicelectricitypricing")) {
+                                    root.dynElectricThing = thing
+                                }
+                            }
+                        }
+
                         onClicked: {
                             if(!root.newTariff) {
                               root.newTariff = true;
@@ -235,12 +255,20 @@ StackView {
                               return;
                             }
 
-                            if(thingClass.setupMethod !== 4){
-                                pageStack.push(taxesAndFeesSetUp, {comboBoxValue: energyRateComboBox.currentValue, comboBoxCurrentText: energyRateComboBox.currentText, comboBoxCurrentIndex: energyRateComboBox.currentIndex, thingClass: thingClass} );
-                            }else{
-                                pageStack.push(oAuthPageComponent, {comboBoxValue: energyRateComboBox.currentValue, comboBoxCurrentText: energyRateComboBox.currentText, comboBoxCurrentIndex: energyRateComboBox.currentIndex} );
-                                engine.thingManager.pairThing(energyRateComboBox.currentValue, {} ,energyRateComboBox.currentText)
-                            }
+                            var page = pageStack.push(Qt.resolvedUrl("qrc:///ui/thingconfiguration/SetupWizard.qml"), {thingClass: thingClass});
+                            page.done.connect(function() {
+                                pageStack.pop();
+                            })
+                            page.aborted.connect(function() {
+                                pageStack.pop();
+                            })
+
+//                            if(thingClass.setupMethod !== 4){
+//                                pageStack.push(taxesAndFeesSetUp, {comboBoxValue: energyRateComboBox.currentValue, comboBoxCurrentText: energyRateComboBox.currentText, comboBoxCurrentIndex: energyRateComboBox.currentIndex, thingClass: thingClass} );
+//                            }else{
+//                                pageStack.push(oAuthPageComponent, {comboBoxValue: energyRateComboBox.currentValue, comboBoxCurrentText: energyRateComboBox.currentText, comboBoxCurrentIndex: energyRateComboBox.currentIndex} );
+//                                engine.thingManager.pairThing(energyRateComboBox.currentValue, {} ,energyRateComboBox.currentText)
+//                            }
                         }
                     }
 
@@ -259,6 +287,22 @@ StackView {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                 }
+            }
+        }
+    }
+
+    Component {
+        id: removeDialogComponent
+        NymeaDialog {
+            id: removeDialog
+            title: qsTr("Remove thing?")
+            text: qsTr("Are you sure you want to remove %1 and all associated settings?").arg(thing.name)
+            standardButtons: Dialog.Yes | Dialog.No
+
+            property Thing thing: null
+
+            onAccepted: {
+                engine.thingManager.removeThing(thing.id)
             }
         }
     }
