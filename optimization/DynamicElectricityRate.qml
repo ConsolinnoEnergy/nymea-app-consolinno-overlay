@@ -14,7 +14,7 @@ StackView {
 
     property string startView
 
-    initialItem: startView === "taxesAndFeesSetUp" ? taxesAndFeesSetUp : setUpComponent
+    initialItem: /*startView === "configure" ? Qt.resolvedUrl("qrc:///ui/thingconfiguration/SetupWizard.qml") : */setUpComponent
 
 
     property HemsManager hemsManager
@@ -154,6 +154,15 @@ StackView {
                                 text: model.name
                                 progressive: true
                                 canDelete: true
+                                property int pageStackPopsAfterConfigure: 1
+
+                                Component.onCompleted: {
+                                    if (root.startView === "configure") {
+                                        console.info("Going directly to configure screen")
+                                        pageStackPopsAfterConfigure = 2
+                                        Qt.callLater(onClicked)
+                                    }
+                                }
 
                                 onClicked: {
                                     if(erProxy.get(0).thingClass.setupMethod !== 4){
@@ -161,10 +170,14 @@ StackView {
                                         var page = pageStack.push(Qt.resolvedUrl("qrc:///ui/thingconfiguration/SetupWizard.qml"),
                                                                   {thing: dynElectricThing});
                                         page.done.connect(function() {
-                                            pageStack.pop();
+                                            for (var i = 0; i < pageStackPopsAfterConfigure; i++) {
+                                                pageStack.pop();
+                                            }
                                         })
                                         page.aborted.connect(function() {
-                                            pageStack.pop();
+                                            for (var i = 0; i < pageStackPopsAfterConfigure; i++) {
+                                                pageStack.pop();
+                                            }
                                         })
                                     }
                                 }
@@ -307,447 +320,447 @@ StackView {
         }
     }
 
-    Component {
-        id: taxesAndFeesSetUp
+//    Component {
+//        id: taxesAndFeesSetUp
 
-        Page {
+//        Page {
 
-            property var comboBoxValue
-            property string comboBoxCurrentText: ""
-            property int comboBoxCurrentIndex: 0
-            property bool reconfiguration: false
-            property bool btnDelete: false
-            property bool backToView: dynElectricThing.paramByName("addedGridFee").value === 0 ? true : false
-            property var thingClass
+//            property var comboBoxValue
+//            property string comboBoxCurrentText: ""
+//            property int comboBoxCurrentIndex: 0
+//            property bool reconfiguration: false
+//            property bool btnDelete: false
+//            property bool backToView: dynElectricThing.paramByName("addedGridFee").value === 0 ? true : false
+//            property var thingClass
 
-            Component.onCompleted: {
-               thingClass = dynElectricThing.thingClass
-            }
+//            Component.onCompleted: {
+//               thingClass = dynElectricThing.thingClass
+//            }
 
-            header: ConsolinnoHeader {
-                text: qsTr("Dynamic electricity tariff")
-                backButtonVisible: true
-                onMenuOptionsPressed: menu.open()
-                onBackPressed: {
-                    if(directionID >= 0) {
-                        pageStack.pop()
-                    }
-                }
-            }
+//            header: ConsolinnoHeader {
+//                text: qsTr("Dynamic electricity tariff")
+//                backButtonVisible: true
+//                onMenuOptionsPressed: menu.open()
+//                onBackPressed: {
+//                    if(directionID >= 0) {
+//                        pageStack.pop()
+//                    }
+//                }
+//            }
 
-            Connections {
-                target: engine.thingManager
-                onThingRemoved: {
-                    if(btnDelete === true){
-                        busyOverlay.shown === false
-                        pageStack.pop()
-                    }
-                }
-            }
+//            Connections {
+//                target: engine.thingManager
+//                onThingRemoved: {
+//                    if(btnDelete === true){
+//                        busyOverlay.shown === false
+//                        pageStack.pop()
+//                    }
+//                }
+//            }
 
-            function addParamValues(){
-                var params = []
-                for (var i = 0; i < thingClass.paramTypes.count; i++) {
-                    var param = {}
-                    var paramId = thingClass.paramTypes.get(i).id
-                    var paramName = thingClass.paramTypes.get(i).name
-                    if(paramName === "marketArea"){
-                        param.paramTypeId = paramId
-                        param.value = countryCode.currentText
-                    }else if(paramName === "addedGridFee"){
-                        param.paramTypeId = paramId
-                        param.value = parseFloat(addedGridFee.text.replace(",","."))
-                    }else if(paramName === "addedLevies"){
-                        param.paramTypeId = paramId
-                        param.value = parseFloat(addedLevies.text.replace(",","."))
-                    }else if(paramName === "addedVAT"){
-                        param.paramTypeId = paramId
-                        param.value = parseFloat(vat.text.replace(",","."))
-                    }
-                    params.push(param)
-                    d.params = params
-                }
-            }
+//            function addParamValues(){
+//                var params = []
+//                for (var i = 0; i < thingClass.paramTypes.count; i++) {
+//                    var param = {}
+//                    var paramId = thingClass.paramTypes.get(i).id
+//                    var paramName = thingClass.paramTypes.get(i).name
+//                    if(paramName === "marketArea"){
+//                        param.paramTypeId = paramId
+//                        param.value = countryCode.currentText
+//                    }else if(paramName === "addedGridFee"){
+//                        param.paramTypeId = paramId
+//                        param.value = parseFloat(addedGridFee.text.replace(",","."))
+//                    }else if(paramName === "addedLevies"){
+//                        param.paramTypeId = paramId
+//                        param.value = parseFloat(addedLevies.text.replace(",","."))
+//                    }else if(paramName === "addedVAT"){
+//                        param.paramTypeId = paramId
+//                        param.value = parseFloat(vat.text.replace(",","."))
+//                    }
+//                    params.push(param)
+//                    d.params = params
+//                }
+//            }
 
-            ColumnLayout {
-                anchors {top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
-                Layout.fillWidth: true
-                spacing: 0
+//            ColumnLayout {
+//                anchors {top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
+//                Layout.fillWidth: true
+//                spacing: 0
 
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    spacing: 0
+//                ColumnLayout {
+//                    Layout.fillWidth: true
+//                    spacing: 0
 
-                    RowLayout {
-                        spacing: 0
-                        Layout.leftMargin: Style.margins
-                        Layout.rightMargin: Style.margins
-                        Layout.fillWidth: true
+//                    RowLayout {
+//                        spacing: 0
+//                        Layout.leftMargin: Style.margins
+//                        Layout.rightMargin: Style.margins
+//                        Layout.fillWidth: true
 
-                        Label {
-                            Layout.fillWidth: true
-                            Layout.rightMargin: 20
-                            rightPadding: 16
-                            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                            text: qsTr("Location")
-                        }
+//                        Label {
+//                            Layout.fillWidth: true
+//                            Layout.rightMargin: 20
+//                            rightPadding: 16
+//                            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+//                            text: qsTr("Location")
+//                        }
 
-                        ConsolinnoDropdown {
-                            property var paramsValueArray: isNaN(dynElectricThing) ? dynElectricThing.thingClass.paramTypes.get(2).allowedValues : 0
-                            model: thingClass ? thingClass.paramTypes.get(2).allowedValues : dynElectricThing.thingClass.paramTypes.get(2).allowedValues
-                            id: countryCode
-                            Layout.fillWidth: true
-                            currentIndex: isNaN(dynElectricThing) ? paramsValueArray.indexOf(dynElectricThing.paramByName("marketArea").value) : 0
-                        }
-                    }
+//                        ConsolinnoDropdown {
+//                            property var paramsValueArray: isNaN(dynElectricThing) ? dynElectricThing.thingClass.paramTypes.get(2).allowedValues : 0
+//                            model: thingClass ? thingClass.paramTypes.get(2).allowedValues : dynElectricThing.thingClass.paramTypes.get(2).allowedValues
+//                            id: countryCode
+//                            Layout.fillWidth: true
+//                            currentIndex: isNaN(dynElectricThing) ? paramsValueArray.indexOf(dynElectricThing.paramByName("marketArea").value) : 0
+//                        }
+//                    }
 
-                    RowLayout {
-                        spacing: 0
-                        Layout.leftMargin: Style.margins
-                        Layout.rightMargin: Style.margins
-                        Layout.fillWidth: true
+//                    RowLayout {
+//                        spacing: 0
+//                        Layout.leftMargin: Style.margins
+//                        Layout.rightMargin: Style.margins
+//                        Layout.fillWidth: true
 
-                        Label {
-                            Layout.fillWidth: true
-                            rightPadding: 16
-                            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                            text: qsTr("Network charges")
-                        }
+//                        Label {
+//                            Layout.fillWidth: true
+//                            rightPadding: 16
+//                            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+//                            text: qsTr("Network charges")
+//                        }
 
-                        TextField {
-                            id: addedGridFee
-                            Layout.rightMargin: 12
-                            validator: RegExpValidator { regExp: /^[0-9]+([.,][0-9]{1,2})?$/ }
-                            inputMethodHints: Qt.ImhFormattedNumbersOnly
-                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedGridFee").value).toLocaleString() : 0
-                        }
+//                        TextField {
+//                            id: addedGridFee
+//                            Layout.rightMargin: 12
+//                            validator: RegExpValidator { regExp: /^[0-9]+([.,][0-9]{1,2})?$/ }
+//                            inputMethodHints: Qt.ImhFormattedNumbersOnly
+//                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedGridFee").value).toLocaleString() : 0
+//                        }
 
-                        Label {
-                            text: "ct/kWh"
-                        }
-                    }
+//                        Label {
+//                            text: "ct/kWh"
+//                        }
+//                    }
 
-                    RowLayout {
-                        spacing: 0
-                        Layout.leftMargin: Style.margins
-                        Layout.rightMargin: Style.margins
-                        Layout.fillWidth: true
+//                    RowLayout {
+//                        spacing: 0
+//                        Layout.leftMargin: Style.margins
+//                        Layout.rightMargin: Style.margins
+//                        Layout.fillWidth: true
 
-                        Label {
-                            rightPadding: 16
-                            Layout.fillWidth: true
-                            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                            text: qsTr("Taxes & fees")
-                        }
+//                        Label {
+//                            rightPadding: 16
+//                            Layout.fillWidth: true
+//                            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+//                            text: qsTr("Taxes & fees")
+//                        }
 
-                        TextField {
-                            id: addedLevies
-                            Layout.rightMargin: 12
-                            validator: RegExpValidator { regExp: /^[0-9]+([.,][0-9]{1,2})?$/ }
-                            inputMethodHints: Qt.ImhFormattedNumbersOnly
-                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedLevies").value).toLocaleString() : 0
-                        }
+//                        TextField {
+//                            id: addedLevies
+//                            Layout.rightMargin: 12
+//                            validator: RegExpValidator { regExp: /^[0-9]+([.,][0-9]{1,2})?$/ }
+//                            inputMethodHints: Qt.ImhFormattedNumbersOnly
+//                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedLevies").value).toLocaleString() : 0
+//                        }
 
-                        Label {
-                            text: "ct/kWh"
-                        }
-                    }
+//                        Label {
+//                            text: "ct/kWh"
+//                        }
+//                    }
 
-                    RowLayout {
-                        spacing: 5
-                        Layout.leftMargin: Style.margins
-                        Layout.rightMargin: Style.margins
-                        Layout.fillWidth: true
+//                    RowLayout {
+//                        spacing: 5
+//                        Layout.leftMargin: Style.margins
+//                        Layout.rightMargin: Style.margins
+//                        Layout.fillWidth: true
 
-                        Label {
-                            rightPadding: 16
-                            Layout.fillWidth: true
-                            text: qsTr("VAT")
-                        }
+//                        Label {
+//                            rightPadding: 16
+//                            Layout.fillWidth: true
+//                            text: qsTr("VAT")
+//                        }
 
-                        TextField {
-                            id: vat
-                            validator: RegExpValidator { regExp: /^[0-9]+([.,][0-9]{1,2})?$/}
-                            Layout.rightMargin: 12
-                            inputMethodHints: Qt.ImhFormattedNumbersOnly
-                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedVAT").value).toLocaleString() : 19
-                        }
-
-
-                        Label {
-                            text: "%"
-                        }
-
-                        Item {
-                            Layout.rightMargin: 29
-                        }
-
-                    }
+//                        TextField {
+//                            id: vat
+//                            validator: RegExpValidator { regExp: /^[0-9]+([.,][0-9]{1,2})?$/}
+//                            Layout.rightMargin: 12
+//                            inputMethodHints: Qt.ImhFormattedNumbersOnly
+//                            text: isNaN(dynElectricThing) ? (dynElectricThing.paramByName("addedVAT").value).toLocaleString() : 19
+//                        }
 
 
-                    Label {
-                        id: footer
-                        Layout.fillWidth: true
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
-                        color: Style.dangerAccent
-                        wrapMode: Text.WordWrap
-                        font.pixelSize: app.smallFont
-                    }
+//                        Label {
+//                            text: "%"
+//                        }
 
-                    ColumnLayout {
-                        spacing: 0
-                        Layout.alignment: Qt.AlignHCenter
+//                        Item {
+//                            Layout.rightMargin: 29
+//                        }
 
-                        Button {
-                            id: saveButton
-                            text: qsTr("Save")
-                            Layout.fillWidth: true
-                            Layout.leftMargin: Style.margins
-                            Layout.rightMargin: Style.margins
-                            Layout.alignment: Qt.AlignHCenter
-                            onClicked: {
-                                if(parseFloat(addedGridFee.text.replace(",",".")) > 0 && parseFloat(addedLevies.text.replace(",",".")) > 0 && parseFloat(vat.text.replace(",",".")) > 0){
-                                    addParamValues();
-                                    if(reconfiguration === false && !isNaN(dynElectricThing)){
-                                        pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText});
-                                        engine.thingManager.addThing(comboBoxValue, comboBoxCurrentText, d.params);
-                                    }else{
-                                        engine.thingManager.removeThing(dynElectricThing.id)
-                                        engine.thingManager.addThing(dynElectricThing.thingClass.id, dynElectricThing.name, d.params);
-                                        pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText: dynElectricThing.name, reconfiguration: true, historyView: backToView});
-                                    }
-                                    footer.text = "";
-                                }else {
-                                    footer.text = qsTr("Please fill in all fields. The value cannot be empty or 0.")
-                                }
-                            }
-                        }
-
-                        ConsolinnoSetUpButton {
-                            text: qsTr("Cancel")
-                            backgroundColor: "transparent"
-                            onClicked: {
-                                if(directionID === 0){
-                                    pageStack.pop()
-                                    pageStack.pop()
-                                }else{
-                                    pageStack.pop()
-                                }
-                                dynElectricThing = null
-                            }
-                        }
-                    }
-
-                    Item {
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                    }
-                }
-            }
-        }
-    }
+//                    }
 
 
-    Component {
-        id: oAuthPageComponent
-        Page {
-            id: oAuthPage
-            property string oAuthUrl
+//                    Label {
+//                        id: footer
+//                        Layout.fillWidth: true
+//                        Layout.leftMargin: app.margins
+//                        Layout.rightMargin: app.margins
+//                        color: Style.dangerAccent
+//                        wrapMode: Text.WordWrap
+//                        font.pixelSize: app.smallFont
+//                    }
 
-            header: NymeaHeader {
-                text: qsTr("Zewotherm setup")
-                onBackPressed: {
-                    pageStack.pop()
-                    pageStack.pop()
-                }
-            }
+//                    ColumnLayout {
+//                        spacing: 0
+//                        Layout.alignment: Qt.AlignHCenter
 
-            ColumnLayout {
-                anchors.centerIn: parent
-                width: parent.width - app.margins * 2
-                spacing: app.margins * 2
+//                        Button {
+//                            id: saveButton
+//                            text: qsTr("Save")
+//                            Layout.fillWidth: true
+//                            Layout.leftMargin: Style.margins
+//                            Layout.rightMargin: Style.margins
+//                            Layout.alignment: Qt.AlignHCenter
+//                            onClicked: {
+//                                if(parseFloat(addedGridFee.text.replace(",",".")) > 0 && parseFloat(addedLevies.text.replace(",",".")) > 0 && parseFloat(vat.text.replace(",",".")) > 0){
+//                                    addParamValues();
+//                                    if(reconfiguration === false && !isNaN(dynElectricThing)){
+//                                        pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText});
+//                                        engine.thingManager.addThing(comboBoxValue, comboBoxCurrentText, d.params);
+//                                    }else{
+//                                        engine.thingManager.removeThing(dynElectricThing.id)
+//                                        engine.thingManager.addThing(dynElectricThing.thingClass.id, dynElectricThing.name, d.params);
+//                                        pageStack.push(dynamicSetUpFeedBack,{comboBoxCurrentText: dynElectricThing.name, reconfiguration: true, historyView: backToView});
+//                                    }
+//                                    footer.text = "";
+//                                }else {
+//                                    footer.text = qsTr("Please fill in all fields. The value cannot be empty or 0.")
+//                                }
+//                            }
+//                        }
 
-                Label {
-                    Layout.fillWidth: true
-                    text: qsTr("OAuth is not supported on this platform. Please use this app on a different device to set up this thing.")
-                    wrapMode: Text.WordWrap
-                    horizontalAlignment: Text.AlignHCenter
-                }
+//                        ConsolinnoSetUpButton {
+//                            text: qsTr("Cancel")
+//                            backgroundColor: "transparent"
+//                            onClicked: {
+//                                if(directionID === 0){
+//                                    pageStack.pop()
+//                                    pageStack.pop()
+//                                }else{
+//                                    pageStack.pop()
+//                                }
+//                                dynElectricThing = null
+//                            }
+//                        }
+//                    }
 
-                Label {
-                    Layout.fillWidth: true
-                    text: qsTr("In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.")
-                    wrapMode: Text.WordWrap
-                    font.pixelSize: app.smallFont
-                    horizontalAlignment: Text.AlignHCenter
-                }
-            }
+//                    Item {
+//                        Layout.fillHeight: true
+//                        Layout.fillWidth: true
+//                    }
+//                }
+//            }
+//        }
+//    }
 
-            Item {
-                id: webViewContainer
-                anchors.fill: parent
 
-                Component.onCompleted: {
-                    // This might fail if qml-module-qtwebview isn't around
-                    var webView = Qt.createQmlObject(webViewString, webViewContainer);
-                    print("created webView", webView)
-                }
+//    Component {
+//        id: oAuthPageComponent
+//        Page {
+//            id: oAuthPage
+//            property string oAuthUrl
 
-                property string webViewString:
-                    '
-                    import QtQuick 2.8;
-                    import QtWebView 1.1;
-                    import QtQuick.Controls 2.2
-                    import Nymea 1.0;
+//            header: NymeaHeader {
+//                text: qsTr("Zewotherm setup")
+//                onBackPressed: {
+//                    pageStack.pop()
+//                    pageStack.pop()
+//                }
+//            }
 
-                    Rectangle {
-                        anchors.fill: parent
-                        color: Style.backgroundColor
+//            ColumnLayout {
+//                anchors.centerIn: parent
+//                width: parent.width - app.margins * 2
+//                spacing: app.margins * 2
 
-                        BusyIndicator {
-                            id: busyIndicator
-                            anchors.centerIn: parent
-                            running: oAuthWebView.loading
-                        }
+//                Label {
+//                    Layout.fillWidth: true
+//                    text: qsTr("OAuth is not supported on this platform. Please use this app on a different device to set up this thing.")
+//                    wrapMode: Text.WordWrap
+//                    horizontalAlignment: Text.AlignHCenter
+//                }
 
-                        WebView {
-                            id: oAuthWebView
-                            anchors.fill: parent
-                            url: oAuthPage.oAuthUrl
+//                Label {
+//                    Layout.fillWidth: true
+//                    text: qsTr("In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.")
+//                    wrapMode: Text.WordWrap
+//                    font.pixelSize: app.smallFont
+//                    horizontalAlignment: Text.AlignHCenter
+//                }
+//            }
 
-                            onUrlChanged: {
-                                print("OAUTH URL changed", url)
-                                if (url.toString().indexOf("https://127.0.0.1") == 0) {
-                                    print("Redirect URL detected!");
-                                    engine.thingManager.confirmPairing(d.pairingTransactionId, url)
-                                    busyIndicator.running = true
-                                    oAuthWebView.visible = false
-                                }
-                            }
-                        }
-                    }
-                    '
-            }
-        }
-    }
+//            Item {
+//                id: webViewContainer
+//                anchors.fill: parent
 
-    Component {
-        id: dynamicSetUpFeedBack
+//                Component.onCompleted: {
+//                    // This might fail if qml-module-qtwebview isn't around
+//                    var webView = Qt.createQmlObject(webViewString, webViewContainer);
+//                    print("created webView", webView)
+//                }
 
-        Page {
-            id: dynamicSetUpFeedBackPage
+//                property string webViewString:
+//                    '
+//                    import QtQuick 2.8;
+//                    import QtWebView 1.1;
+//                    import QtQuick.Controls 2.2
+//                    import Nymea 1.0;
 
-            property string comboBoxCurrentText: ""
-            property bool reconfiguration: false
-            property bool thingPair: false
-            property bool historyView: false
+//                    Rectangle {
+//                        anchors.fill: parent
+//                        color: Style.backgroundColor
 
-            Connections {
-                target: engine.thingManager
+//                        BusyIndicator {
+//                            id: busyIndicator
+//                            anchors.centerIn: parent
+//                            running: oAuthWebView.loading
+//                        }
 
-                onAddThingReply: {
-                    if(!thingError)
-                    {
-                        busyOverlay.shown = false;
-                        dynElectricThing = engine.thingManager.things.getThing(thingId);
-                    }else{
-                        let props = qsTr("Failed to add thing: ThingErrorHardwareFailure");
-                        var comp = Qt.createComponent("../components/ErrorDialog.qml")
-                        var popup = comp.createObject(app, {props} )
-                        popup.open();
-                    }
-                }
-            }
+//                        WebView {
+//                            id: oAuthWebView
+//                            anchors.fill: parent
+//                            url: oAuthPage.oAuthUrl
 
-            Component.onCompleted: {
-                if(thingPair === true){
-                    busyOverlay.shown = false;
-                }else{
-                    busyOverlay.shown = true;
-                }
-            }
+//                            onUrlChanged: {
+//                                print("OAUTH URL changed", url)
+//                                if (url.toString().indexOf("https://127.0.0.1") == 0) {
+//                                    print("Redirect URL detected!");
+//                                    engine.thingManager.confirmPairing(d.pairingTransactionId, url)
+//                                    busyIndicator.running = true
+//                                    oAuthWebView.visible = false
+//                                }
+//                            }
+//                        }
+//                    }
+//                    '
+//            }
+//        }
+//    }
 
-            header: ConsolinnoHeader {
-                text: qsTr("Dynamic electricity tariff")
-                Layout.fillWidth: true
-                backButtonVisible: true
-                onBackPressed: {
-                    if(directionID == 0) {
-                        pageStack.pop({thingClass: dynElectricThing})
-                    }
-                }
-            }
+//    Component {
+//        id: dynamicSetUpFeedBack
 
-            ColumnLayout {
-                anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right; }
-                spacing: 0
+//        Page {
+//            id: dynamicSetUpFeedBackPage
 
-                ColumnLayout {
-                    Layout.fillWidth: true
+//            property string comboBoxCurrentText: ""
+//            property bool reconfiguration: false
+//            property bool thingPair: false
+//            property bool historyView: false
 
-                    Text {
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 50
-                        color: Material.foreground
-                        text: qsTr("The following tariff is submitted:")
-                        wrapMode: Text.WordWrap
-                        Layout.alignment: Qt.AlignHCenter
-                        horizontalAlignment: Text.Center
-                    }
+//            Connections {
+//                target: engine.thingManager
 
-                    Text {
-                        id: electricityRate
-                        Layout.fillWidth: true
-                        color: Material.foreground
-                        text: qsTr(comboBoxCurrentText)
-                        Layout.alignment: Qt.AlignCenter
-                        horizontalAlignment: Text.Center
-                    }
+//                onAddThingReply: {
+//                    if(!thingError)
+//                    {
+//                        busyOverlay.shown = false;
+//                        dynElectricThing = engine.thingManager.things.getThing(thingId);
+//                    }else{
+//                        let props = qsTr("Failed to add thing: ThingErrorHardwareFailure");
+//                        var comp = Qt.createComponent("../components/ErrorDialog.qml")
+//                        var popup = comp.createObject(app, {props} )
+//                        popup.open();
+//                    }
+//                }
+//            }
 
-                    Image {
-                        id: succesAddElectricRate
-                        Layout.preferredWidth: 150
-                        Layout.preferredHeight: 150
-                        fillMode: Image.PreserveAspectFit
-                        Layout.alignment: Qt.AlignCenter
-                        source: "../images/tick.svg"
-                    }
+//            Component.onCompleted: {
+//                if(thingPair === true){
+//                    busyOverlay.shown = false;
+//                }else{
+//                    busyOverlay.shown = true;
+//                }
+//            }
 
-                    ColorOverlay {
-                        anchors.fill: succesAddElectricRate
-                        source: succesAddElectricRate
-                        color: Material.accent
-                    }
+//            header: ConsolinnoHeader {
+//                text: qsTr("Dynamic electricity tariff")
+//                Layout.fillWidth: true
+//                backButtonVisible: true
+//                onBackPressed: {
+//                    if(directionID == 0) {
+//                        pageStack.pop({thingClass: dynElectricThing})
+//                    }
+//                }
+//            }
 
-                }
+//            ColumnLayout {
+//                anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right; }
+//                spacing: 0
 
-                ColumnLayout {
-                    spacing: 0
-                    Layout.alignment: Qt.AlignHCenter
+//                ColumnLayout {
+//                    Layout.fillWidth: true
 
-                    Button {
-                        id: nextButton
-                        text: qsTr("Next")
-                        Layout.preferredWidth: 250
-                        Layout.alignment: Qt.AlignHCenter
-                        onClicked: {
-                            if(historyView == true){
-                                pageStack.pop()
-                                pageStack.pop()
-                                pageStack.pop()
-                            }else{
-                                pageStack.pop()
-                                pageStack.pop()
-                            }
-                        }
-                    }
-                }
-            }
+//                    Text {
+//                        Layout.fillWidth: true
+//                        Layout.preferredHeight: 50
+//                        color: Material.foreground
+//                        text: qsTr("The following tariff is submitted:")
+//                        wrapMode: Text.WordWrap
+//                        Layout.alignment: Qt.AlignHCenter
+//                        horizontalAlignment: Text.Center
+//                    }
 
-            BusyOverlay {
-                id: busyOverlay
-            }
-        }
-    }
+//                    Text {
+//                        id: electricityRate
+//                        Layout.fillWidth: true
+//                        color: Material.foreground
+//                        text: qsTr(comboBoxCurrentText)
+//                        Layout.alignment: Qt.AlignCenter
+//                        horizontalAlignment: Text.Center
+//                    }
+
+//                    Image {
+//                        id: succesAddElectricRate
+//                        Layout.preferredWidth: 150
+//                        Layout.preferredHeight: 150
+//                        fillMode: Image.PreserveAspectFit
+//                        Layout.alignment: Qt.AlignCenter
+//                        source: "../images/tick.svg"
+//                    }
+
+//                    ColorOverlay {
+//                        anchors.fill: succesAddElectricRate
+//                        source: succesAddElectricRate
+//                        color: Material.accent
+//                    }
+
+//                }
+
+//                ColumnLayout {
+//                    spacing: 0
+//                    Layout.alignment: Qt.AlignHCenter
+
+//                    Button {
+//                        id: nextButton
+//                        text: qsTr("Next")
+//                        Layout.preferredWidth: 250
+//                        Layout.alignment: Qt.AlignHCenter
+//                        onClicked: {
+//                            if(historyView == true){
+//                                pageStack.pop()
+//                                pageStack.pop()
+//                                pageStack.pop()
+//                            }else{
+//                                pageStack.pop()
+//                                pageStack.pop()
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+
+//            BusyOverlay {
+//                id: busyOverlay
+//            }
+//        }
+//    }
 }

@@ -82,7 +82,7 @@ Item {
             textColor: Style.warningAccent
             iconColor: Style.warningAccent
             pagePath: "../optimization/DynamicElectricityRate.qml"
-            pageStartView: "taxesAndFeesSetUp"
+            pageStartView: "configure"
 
             text: qsTr("Please provide information on taxes, surcharges and network fees. <u>Continue to configuration.</u>")
             headerText: qsTr("Tariff details are not available")
