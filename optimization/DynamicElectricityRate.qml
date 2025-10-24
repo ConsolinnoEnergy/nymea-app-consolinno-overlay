@@ -108,7 +108,6 @@ StackView {
 
                                 Component.onCompleted: {
                                     if (root.startView === "configure") {
-                                        console.info("Going directly to configure screen")
                                         pageStackPopsAfterConfigure = 2
                                         Qt.callLater(onClicked)
                                     }
