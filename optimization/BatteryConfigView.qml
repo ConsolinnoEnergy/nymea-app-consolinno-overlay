@@ -413,6 +413,8 @@ GenericConfigPage {
                             if(!dpThing)
                                 return;
 
+                            d.startTimeSince = new Date(dpThing.stateByName("validSince").value * 1000);
+                            d.endTimeUntil = new Date(dpThing.stateByName("validUntil").value * 1000);
                             currentPrice = dpThing.stateByName("currentTotalCost").value
                             averagePrice = dpThing.stateByName("averageTotalCost").value.toFixed(0).toString();
                             lowestPrice = dpThing.stateByName("lowestPrice").value
@@ -429,25 +431,8 @@ GenericConfigPage {
                             id: d
 
                             property date now: new Date()
-
-                            readonly property var startTimeSince: {
-                                var date = new Date();
-                                date.setHours(0);
-                                date.setMinutes(0);
-                                date.setSeconds(0);
-
-                                return date;
-                            }
-
-                            readonly property var endTimeUntil: {
-                                var date = new Date();
-                                date.setHours(0);
-                                date.setMinutes(0);
-                                date.setSeconds(0);
-                                date.setDate(date.getDate()+1);
-                                return date;
-                            }
-
+                            property date startTimeSince: new Date(0) // placeholder
+                            property date endTimeUntil: new Date(0) // placeholder
                         }
 
                         Item {
@@ -455,23 +440,23 @@ GenericConfigPage {
                             Layout.fillHeight: true
                             Layout.minimumHeight: 150
 
-                    CustomBarSeries {
-                      id: barSeries
-                      anchors.fill: parent
-                      margins.left: 0
-                      margins.right: 0
-                      margins.top: 0
-                      margins.bottom: 0
-                      backgroundColor: isZeroCompensation || chargeOnceController.checked ? Style.barSeriesDisabled : "transparent"
-                      startTime: d.startTimeSince
-                      endTime: d.endTimeUntil
-                      hoursNow: d.now.getHours()
-                      currentPrice: currentValue
-                      currentMarketPrice: currentPrice
-                      lowestValue: root.lowestPrice
-                      highestValue: root.highestPrice
-                    }
-                }
+                            CustomBarSeries {
+                              id: barSeries
+                              anchors.fill: parent
+                              margins.left: 0
+                              margins.right: 0
+                              margins.top: 0
+                              margins.bottom: 0
+                              backgroundColor: isZeroCompensation || chargeOnceController.checked ? Style.barSeriesDisabled : "transparent"
+                              startTime: d.startTimeSince
+                              endTime: d.endTimeUntil
+                              hoursNow: d.now.getHours()
+                              currentPrice: currentValue
+                              currentMarketPrice: currentPrice
+                              lowestValue: root.lowestPrice
+                              highestValue: root.highestPrice
+                            }
+                        }
 
                         Label { // breaks view when removed
                             visible: optimizationController.checked
