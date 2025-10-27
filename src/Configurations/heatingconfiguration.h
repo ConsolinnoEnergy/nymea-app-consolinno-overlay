@@ -22,8 +22,9 @@ public:
     explicit HeatingConfiguration(QObject *parent = nullptr);
 
     enum HPOptimizationMode {
-        OptimizationModePVSurplus = 0,
-        OptimizationModeDynamicPricing = 1,
+        OptimizationModePVSurplus,
+        OptimizationModeDynamicPricing,
+        OptimizationModeOff 
     };
 
     Q_ENUM(HPOptimizationMode)

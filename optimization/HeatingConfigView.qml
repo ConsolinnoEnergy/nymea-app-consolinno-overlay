@@ -34,7 +34,7 @@ GenericConfigPage {
         newConfig.priceThreshold = -heatpumpPriceWidget.currentRelativeValue;
         newConfig.optimizationMode = optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).enumname;
         newConfig.relativePriceEnabled = true;
-        console.error("Saving new heating configuration: " + JSON.stringify(newConfig));
+        console.info("Saving new heating configuration: " + JSON.stringify(newConfig));
         rootObject.pendingCallId = hemsManager.setHeatingConfiguration(thing.id, newConfig);
     }
 
@@ -524,9 +524,9 @@ GenericConfigPage {
 
                          // Base model that holds *all* possible options
                          property var fullModel: [
-                             { text: qsTr("PV Surplus"), enumname: "OptimizationModePVSurplus", value: 0 },
-                             { text: qsTr("Dynamic Pricing"), enumname: "OptimizationModeDynamicPricing", value: 1 },
-                             // { text: qsTr("Off"), enumname: "OptimizationModeOff", value: 2 }
+                             { text: qsTr("PV Surplus"), enumname: "OptimizationModePVSurplus", value: 0},
+                             { text: qsTr("Dynamic Pricing"), enumname: "OptimizationModeDynamicPricing", value: 1},
+                             { text: qsTr("Off"), enumname: "OptimizationModeOff", value: 2},
                          ]
 
                          // Actual ComboBox model
@@ -545,6 +545,7 @@ GenericConfigPage {
                          }
 
                          onCurrentIndexChanged: {
+                             console.info(heatingconfig.optimizationMode)
                              if (currentIndex >= 0 && model.get(currentIndex).value !== heatingconfig.optimizationMode) {
                                  console.debug("Optimization mode changed to:", model.get(currentIndex).enumname)
                                  enableSave()
@@ -571,9 +572,8 @@ GenericConfigPage {
                                  else if (item.enumname === "OptimizationModeDynamicPricing" && dynEnabled)
                                      filteredModel.append(item)
 
-                                 // you could add an “Off” entry here to always show
-                                 // else if (item.enumname === "OptimizationModeOff")
-                                 //     filteredModel.append(item)
+                                 else if (item.enumname === "OptimizationModeOff")
+                                     filteredModel.append(item)
                              }
 
                              // Set current index to match existing config

@@ -272,25 +272,27 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
     // Make a MetaObject of an configuration
     const QMetaObject *metaObj = configuration->metaObject();
     // add the values from data which match with the MetaObject
+    qCDebug(dcHems()) << "Setting Heating Configuration with data: " << data;
     QVariantMap config;
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
         if(data.contains(metaObj->property(i).name()))
             {
                 // Write Enum name instead of int for optimizationMode
                 if (strcmp(metaObj->property(i).name(), "optimizationMode") == 0) {
+                    qCDebug(dcHems()) << "Found optimizationMode property";
+                    qCDebug(dcHems()) << "Value:" << data.value(metaObj->property(i).name());
                     // If type is int write the enum name
                     if (data.value(metaObj->property(i).name()).type() == QVariant::Int)
                     {
-                        qCWarning(dcHems()) << "Datatype " << data.value(metaObj->property(i).name()).type();
-                        qCWarning(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
-                        qCWarning(dcHems()) << "Enum name: " << QMetaEnum::fromType<HeatingConfiguration::HPOptimizationMode>().valueToKey(data.value(metaObj->property(i).name()).toInt());
+                        qCDebug(dcHems()) << "Datatype " << data.value(metaObj->property(i).name()).type();
+                        qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
+                        qCDebug(dcHems()) << "Enum name: " << QMetaEnum::fromType<HeatingConfiguration::HPOptimizationMode>().valueToKey(data.value(metaObj->property(i).name()).toInt());
                         config.insert(metaObj->property(i).name(), QMetaEnum::fromType<HeatingConfiguration::HPOptimizationMode>().valueToKey(data.value(metaObj->property(i).name()).toInt()) );
                     }
                     else
                     {
                         config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
                     }
-                    continue;
                 }
                 qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
                 config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
@@ -303,7 +305,7 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
     QVariantMap params;
     params.insert("heatingConfiguration", config);
     qCDebug(dcHems()) << "Set heating configuration" << params;
-    qCWarning(dcHems()) << "Set heating configuration" << QJsonDocument(QJsonObject::fromVariantMap(params)).toJson(QJsonDocument::Compact);
+    qCInfo(dcHems()) << "Set heating configuration" << QJsonDocument(QJsonObject::fromVariantMap(params)).toJson(QJsonDocument::Compact);
 
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingConfiguration", params, this, "setHeatingConfigurationResponse");
 }
@@ -645,7 +647,6 @@ void HemsManager::notificationReceived(const QVariantMap &data)
     } else if (notification == "Hems.HeatingConfigurationChanged") {
         addOrUpdateHeatingConfiguration(params.value("heatingConfiguration").toMap());
 
-
     } else if (notification == "Hems.ElectricConfigurationAdded") {
         addOrUpdateDynamicElectricPricingConfiguration(params.value("dynamicElectricPricingConfiguration").toMap());
     } else if (notification == "Hems.ElectricConfigurationRemoved") {
@@ -909,10 +910,11 @@ void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurati
     const QMetaObject metaObj = HeatingConfiguration::staticMetaObject;
     QMetaEnum modeEnum = metaObj.enumerator(metaObj.indexOfEnumerator("HPOptimizationMode"));
     int mode = modeEnum.keyToValue(modeString.toUtf8().constData());
+    qCDebug(dcHems()) << "Optimization mode string:" << modeString << " value: " << mode;
     HeatingConfiguration::HPOptimizationMode hpMode = static_cast<HeatingConfiguration::HPOptimizationMode>(mode);
 
     
-    qCWarning(dcHems()) << "Optimization mode set to " << hpMode;
+    qCDebug(dcHems()) << "Optimization mode set to " << hpMode;
     configuration->setOptimizationMode(hpMode);
     configuration->setPriceThreshold(configurationMap.value("priceThreshold").toFloat());
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
