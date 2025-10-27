@@ -177,7 +177,6 @@ int HemsManager::setPvConfiguration(const QUuid &pvThingId, const QVariantMap &d
         dummyConfig.insert("roofPitch", 0);
         dummyConfig.insert("alignment", 0);
         dummyConfig.insert("kwPeak", 0);
-        dummyConfig.insert("controllableLocalSystem", false);
 
         addOrUpdatePvConfiguration(dummyConfig);
         // and get the dummy Config
@@ -279,7 +278,18 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
             {
                 // Write Enum name instead of int for optimizationMode
                 if (strcmp(metaObj->property(i).name(), "optimizationMode") == 0) {
-                    config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
+                    // If type is int write the enum name
+                    if (data.value(metaObj->property(i).name()).type() == QVariant::Int)
+                    {
+                        qCWarning(dcHems()) << "Datatype " << data.value(metaObj->property(i).name()).type();
+                        qCWarning(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
+                        qCWarning(dcHems()) << "Enum name: " << QMetaEnum::fromType<HeatingConfiguration::HPOptimizationMode>().valueToKey(data.value(metaObj->property(i).name()).toInt());
+                        config.insert(metaObj->property(i).name(), QMetaEnum::fromType<HeatingConfiguration::HPOptimizationMode>().valueToKey(data.value(metaObj->property(i).name()).toInt()) );
+                    }
+                    else
+                    {
+                        config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
+                    }
                     continue;
                 }
                 qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
@@ -895,9 +905,15 @@ void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurati
     configuration->setHeatMeterThingId(configurationMap.value("heatMeterThingId").toUuid());
     configuration->setFloorHeatingArea(configurationMap.value("floorHeatingArea").toDouble());
     configuration->setMaxThermalEnergy(configurationMap.value("maxThermalEnergy").toDouble());
-    // get HPOptimizationMode enum from int
-    HeatingConfiguration::HPOptimizationMode mode = static_cast<HeatingConfiguration::HPOptimizationMode>(configurationMap.value("optimizationMode").toInt());
-    configuration->setOptimizationMode(mode);
+    QString modeString = configurationMap.value("optimizationMode").toString();
+    const QMetaObject metaObj = HeatingConfiguration::staticMetaObject;
+    QMetaEnum modeEnum = metaObj.enumerator(metaObj.indexOfEnumerator("HPOptimizationMode"));
+    int mode = modeEnum.keyToValue(modeString.toUtf8().constData());
+    HeatingConfiguration::HPOptimizationMode hpMode = static_cast<HeatingConfiguration::HPOptimizationMode>(mode);
+
+    
+    qCWarning(dcHems()) << "Optimization mode set to " << hpMode;
+    configuration->setOptimizationMode(hpMode);
     configuration->setPriceThreshold(configurationMap.value("priceThreshold").toFloat());
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
@@ -1079,7 +1095,6 @@ void HemsManager::addOrUpdatePvConfiguration(const QVariantMap &configurationMap
     configuration->setRoofPitch(configurationMap.value("roofPitch").toInt());
     configuration->setAlignment(configurationMap.value("alignment").toInt());
     configuration->setKwPeak(configurationMap.value("kwPeak").toFloat());
-    configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 
 
      if (newConfiguration){

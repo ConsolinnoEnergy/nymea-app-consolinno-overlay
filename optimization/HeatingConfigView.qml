@@ -15,9 +15,6 @@ GenericConfigPage {
     property Thing thing
     property HeatingConfiguration heatingconfig: hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id)
     property double thresholdPrice: 0
-    property int valueAxisUpdate: {
-        (0 > barSeries.lowestValue) ? valueAxisUpdate = barSeries.lowestValue : (currentValue < 0) ? valueAxisUpdate = currentValue - 2 : valueAxisUpdate = -2;
-    }
     property int validSince: 0
     property int validUntil: 0
     property double averagePrice: 0
@@ -35,16 +32,15 @@ GenericConfigPage {
     function saveSettings() {
         var newConfig = JSON.parse(JSON.stringify(heatingconfig));
         newConfig.priceThreshold = -heatpumpPriceWidget.currentRelativeValue;
-        newConfig.optimizationMode =  "OptimizationModeDynamicPricing"
+        newConfig.optimizationMode = optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).enumname;
         newConfig.relativePriceEnabled = true;
-        console.error("Saving new heating configuration: " + JSON.stringify(newConfig)); 
+        console.error("Saving new heating configuration: " + JSON.stringify(newConfig));
         rootObject.pendingCallId = hemsManager.setHeatingConfiguration(thing.id, newConfig);
     }
 
-    function enableSave(obj) {
+    function enableSave() {
         saveButton.enabled = true;
     }
-
 
     title: root.thing.name
     headerOptionsVisible: false
@@ -506,19 +502,96 @@ GenericConfigPage {
 
                 }
 
-                Row {
+                // Add a dropdown field "Optimization" with options "PV Surplus", "Dynamic Pricing", "Off"
+                RowLayout {
+                    Layout.fillWidth: true
+                    Layout.leftMargin: 15
+                    Layout.topMargin: 10
+                    Layout.rightMargin: 15
+
+                    Label {
+                        id: optimizationLabel
+                        Layout.fillWidth: true
+
+                        text: qsTr("Optimization")
+                        font.bold: true
+                    }
+
+                    ConsolinnoDropdown {
+                        id: optimizationModeDropdown
+                        textRole: "text"
+                        Layout.fillWidth: true
+                        currentIndex: heatingconfig ? (heatingconfig.optimizationMode === 0 ? 0 : (heatingconfig.optimizationMode === "OptimizationModeDynamicPricing" ? 1 : 1)) : 2
+                        onCurrentIndexChanged: {
+                            // check if the value has changed from the heatingconfig.optimizationMode
+                            console.debug("Current index changed to: " + currentIndex + " with enumname: " + model.get(currentIndex).enumname + " and heatingconfig.optimizationMode: " + heatingconfig.optimizationMode);
+                            if (model.get(currentIndex).value !== heatingconfig.optimizationMode)
+                                enableSave();
+
+                        }
+
+                        // Model is based on heatingconfig.optimizationMode OptimizationModePVSurplus OptimizationModeDynamicPricing
+                        model: ListModel {
+                            ListElement {
+                                text: qsTr("PV Surplus")
+                                enumname: "OptimizationModePVSurplus"
+                                value: 0
+                            }
+
+                            ListElement {
+                                text: qsTr("Dynamic Pricing")
+                                enumname: "OptimizationModeDynamicPricing"
+                                value: 1
+                            }
+
+                            // ListElement {
+                            //     text: qsTr("Off")
+                            //     enumname: "OptimizationModeOff"
+                            //     value: 2
+                            // }
+
+                        }
+
+                    }
+
+                }
+
+                RowLayout {
                     Layout.fillWidth: true
                     Layout.topMargin: 10
                     Layout.leftMargin: 15
                     Layout.rightMargin: 15
+                    visible: optimizationModeDropdown.currentIndex === 1
+
                     HeatpumpPriceWidget {
+                        id: heatpumpPriceWidget
                         currentPrice: currentPrice
                         heatingConfiguration: heatingconfig
-                        width: parent.width
-                        id: heatpumpPriceWidget
                         dynamicPriceThing: dynamicPrice.get(0)
                     }
-                    
+
+                }
+
+                RowLayout {
+                    id: saveBtnContainer
+
+                    Layout.fillWidth: true
+                    Layout.topMargin: 10
+                    Layout.leftMargin: 15
+                    Layout.rightMargin: 15
+
+                    Button {
+                        id: saveButton
+
+                        Layout.fillWidth: true
+                        text: qsTr("Save")
+                        enabled: false
+                        onClicked: {
+                            console.error("Saving new price limit: " + heatpumpPriceWidget.currentValue);
+                            saveSettings();
+                            saveButton.enabled = false;
+                        }
+                    }
 
                 }
 
