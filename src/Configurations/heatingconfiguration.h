@@ -13,9 +13,9 @@ class HeatingConfiguration : public QObject
     Q_PROPERTY(double floorHeatingArea READ floorHeatingArea WRITE setFloorHeatingArea NOTIFY floorHeatingAreaChanged)
     Q_PROPERTY(double maxThermalEnergy READ maxThermalEnergy WRITE setMaxThermalEnergy NOTIFY maxThermalEnergyChanged)
     Q_PROPERTY(double maxElectricalPower READ maxElectricalPower WRITE setMaxElectricalPower NOTIFY maxElectricalPowerChanged)
-    Q_PROPERTY(double priceThreshold READ priceThreshold WRITE setPriceThreshold USER true)
-    Q_PROPERTY(bool relativePriceEnabled READ relativePriceEnabled WRITE setRelativePriceEnabled USER true)
-    Q_PROPERTY(HPOptimizationMode optimizationMode READ optimizationMode WRITE setOptimizationMode USER true)
+    Q_PROPERTY(double priceThreshold READ priceThreshold WRITE setPriceThreshold USER true NOTIFY priceThresholdChanged)
+    Q_PROPERTY(bool relativePriceEnabled READ relativePriceEnabled WRITE setRelativePriceEnabled USER true NOTIFY relativePriceEnabledChanged)
+    Q_PROPERTY(HPOptimizationMode optimizationMode READ optimizationMode WRITE setOptimizationMode USER true NOTIFY optimizationModeChanged)
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
 
 public:
@@ -69,6 +69,9 @@ signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void heatMeterThingIdChanged(const QUuid &heatMeterThingId);
     void controllableLocalSystemChanged(bool controllableLocalSystem);
+    void priceThresholdChanged(double priceThreshold);
+    void relativePriceEnabledChanged(bool relativePriceEnabled);
+    void optimizationModeChanged(HeatingConfiguration::HPOptimizationMode optimizationMode);
 
 private:
     QUuid m_heatPumpThingId;
