@@ -1042,47 +1042,59 @@ GenericConfigPage {
                                 }
                             }
 
-
                             ConsolinnoDropdown {
                                 id: comboboxloadingmod
                                 Layout.fillWidth: true
-                                model: ListModel{
-                                    id: dynamicModel
-                                    ListElement{key: qsTr("Charge always"); value: "No Optimization"; mode: 0}
-                                    ListElement{key: qsTr("Solar only"); value: "Simple-Pv-Only"; mode: 3000;}
-                                    ListElement{key: qsTr("Next trip"); value: "Pv-Optimized"; mode: 1000;}
-                                    ListElement{key: qsTr("Dynamic pricing"); value: "Dynamic-pricing"; mode: 4000;}
-                                }
 
-                                function addDynamicComboBoxItems() {
-                                    if (dynamicPrice.count === 0){
-                                        dynamicModel.remove(3)
+                                // This is your full source model (static)
+                                property var fullModel: [
+                                    { key: qsTr("Charge always"), value: "No Optimization", mode: 0 },
+                                    { key: qsTr("Solar only"), value: "Simple-Pv-Only", mode: 3000 },
+                                    { key: qsTr("Next trip"), value: "Pv-Optimized", mode: 1000 },
+                                    { key: qsTr("Dynamic pricing"), value: "Dynamic-pricing", mode: 4000 }
+                                ]
+
+                                // The model actually bound to the ComboBox
+                                model: ListModel { id: dynamicModel }
+
+                                textRole: "key"
+                                valueRole: "value"
+
+                                // Function to rebuild model based on available use cases
+                                function rebuildModel() {
+                                    dynamicModel.clear()
+
+                                    const pvEnabled = hemsManager.availableUseCases & HemsManager.HemsUseCasePv
+                                    const dynEnabled = hemsManager.availableUseCases & HemsManager.HemsUseCaseDynamicEPricing
+
+                                    for (let i = 0; i < fullModel.length; ++i) {
+                                        const item = fullModel[i]
+
+                                        // Determine visibility
+                                        if (item.mode === 0)
+                                            dynamicModel.append(item)
+                                        else if ((item.mode === 1000 || item.mode === 3000) && pvEnabled)
+                                            dynamicModel.append(item)
+                                        else if (item.mode === 4000 && dynEnabled)
+                                            dynamicModel.append(item)
                                     }
                                 }
 
-                                textRole: "key"
-                                /*contentItem: Text{
-                                    text: parent.displayText
-                                    width: parent.width
-                                    color: Material.foreground
-                                    verticalAlignment: Text.AlignVCenter;
-                                    horizontalAlignment: Text.AlignLeft;
-                                    leftPadding: app.margins
-                                    elide: Text.ElideRight
-                                }*/
+                                    // Rebuild when hemsManager changes
+                                    Component.onCompleted: rebuildModel()
 
-                                currentIndex: (userconfig.defaultChargingMode == 3 && dynamicPrice.count == 0) ? userconfig.defaultChargingMode - 1 : userconfig.defaultChargingMode
-                                onCurrentIndexChanged:
-                                {
-                                    endTimeSlider.computeFeasibility()
-                                    endTimeSlider.feasibilityText()
-                                    comboboxloadingmod.currentIndex === 3 ? gridConsumptionloadingmod.currentIndex = 1 : gridConsumptionloadingmod.currentIndex = 0
-                                }
+                                    Connections {
+                                        target: hemsManager
+                                        onAvailableUseCasesChanged: comboboxloadingmod.rebuildModel()
+                                    } 
 
-                                Component.onCompleted: {
-                                    addDynamicComboBoxItems();
-                                    comboboxloadingmod.currentIndex === 3 ? gridConsumptionloadingmod.currentIndex = 1 : gridConsumptionloadingmod.currentIndex = 0
-                                }
+                                    currentIndex: (userconfig.defaultChargingMode == 3 && dynamicPrice.count == 0) ? userconfig.defaultChargingMode - 1 : userconfig.defaultChargingMode
+                                    onCurrentIndexChanged:
+                                    {
+                                        endTimeSlider.computeFeasibility()
+                                        endTimeSlider.feasibilityText()
+                                        comboboxloadingmod.currentIndex === 3 ? gridConsumptionloadingmod.currentIndex = 1 : gridConsumptionloadingmod.currentIndex = 0
+                                    }
                             }
                         }
 
