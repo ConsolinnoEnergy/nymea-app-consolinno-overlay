@@ -518,42 +518,80 @@ GenericConfigPage {
                     }
 
                     ConsolinnoDropdown {
-                        id: optimizationModeDropdown
-                        textRole: "text"
-                        Layout.fillWidth: true
-                        currentIndex: heatingconfig ? (heatingconfig.optimizationMode === 0 ? 0 : (heatingconfig.optimizationMode === "OptimizationModeDynamicPricing" ? 1 : 1)) : 2
-                        onCurrentIndexChanged: {
-                            // check if the value has changed from the heatingconfig.optimizationMode
-                            console.debug("Current index changed to: " + currentIndex + " with enumname: " + model.get(currentIndex).enumname + " and heatingconfig.optimizationMode: " + heatingconfig.optimizationMode);
-                            if (model.get(currentIndex).value !== heatingconfig.optimizationMode)
-                                enableSave();
+                         id: optimizationModeDropdown
+                         Layout.fillWidth: true
+                         textRole: "text"
 
-                        }
+                         // Base model that holds *all* possible options
+                         property var fullModel: [
+                             { text: qsTr("PV Surplus"), enumname: "OptimizationModePVSurplus", value: 0 },
+                             { text: qsTr("Dynamic Pricing"), enumname: "OptimizationModeDynamicPricing", value: 1 },
+                             // { text: qsTr("Off"), enumname: "OptimizationModeOff", value: 2 }
+                         ]
 
-                        // Model is based on heatingconfig.optimizationMode OptimizationModePVSurplus OptimizationModeDynamicPricing
-                        model: ListModel {
-                            ListElement {
-                                text: qsTr("PV Surplus")
-                                enumname: "OptimizationModePVSurplus"
-                                value: 0
-                            }
+                         // Actual ComboBox model
+                         model: ListModel { id: filteredModel }
 
-                            ListElement {
-                                text: qsTr("Dynamic Pricing")
-                                enumname: "OptimizationModeDynamicPricing"
-                                value: 1
-                            }
+                         // Keep ComboBox selection consistent with config
+                         currentIndex: {
+                             if (!heatingconfig)
+                                 return -1
 
-                            // ListElement {
-                            //     text: qsTr("Off")
-                            //     enumname: "OptimizationModeOff"
-                            //     value: 2
-                            // }
+                             for (let i = 0; i < filteredModel.count; ++i) {
+                                 if (filteredModel.get(i).enumname === heatingconfig.optimizationMode)
+                                     return i
+                             }
+                             return -1
+                         }
 
-                        }
+                         onCurrentIndexChanged: {
+                             if (currentIndex >= 0 && model.get(currentIndex).value !== heatingconfig.optimizationMode) {
+                                 console.debug("Optimization mode changed to:", model.get(currentIndex).enumname)
+                                 enableSave()
+                             }
+                         }
 
-                    }
+                         // --- Core filtering logic ---
+                         function rebuildModel() {
+                             filteredModel.clear()
 
+                             console.info("Heating Config:", JSON.stringify(heatingconfig))
+
+                             const pvEnabled  = hemsManager.availableUseCases & HemsManager.HemsUseCasePv
+                             const dynEnabled = hemsManager.availableUseCases & HemsManager.HemsUseCaseDynamicEPricing
+
+                             for (let i = 0; i < fullModel.length; ++i) {
+                                 const item = fullModel[i]
+
+                                 // show PV Surplus only if PV use case is available
+                                 if (item.enumname === "OptimizationModePVSurplus" && pvEnabled)
+                                     filteredModel.append(item)
+
+                                 // show Dynamic Pricing only if Dynamic Pricing use case is available
+                                 else if (item.enumname === "OptimizationModeDynamicPricing" && dynEnabled)
+                                     filteredModel.append(item)
+
+                                 // you could add an “Off” entry here to always show
+                                 // else if (item.enumname === "OptimizationModeOff")
+                                 //     filteredModel.append(item)
+                             }
+
+                             // Set current index to match existing config
+                             for (let i = 0; i < filteredModel.count; ++i) {
+                                 if (filteredModel.get(i).value === heatingconfig.optimizationMode) {
+                                     optimizationModeDropdown.currentIndex = i
+                                     return
+                                 }
+                             }
+                         }
+
+                         Component.onCompleted: rebuildModel()
+                         Connections {
+                             target: hemsManager
+                             onAvailableUseCasesChanged: optimizationModeDropdown.rebuildModel()
+                             onHeatingConfigurationsChanged: optimizationModeDropdown.rebuildModel()
+                         }
+                    } 
                 }
 
                 RowLayout {
@@ -561,7 +599,7 @@ GenericConfigPage {
                     Layout.topMargin: 10
                     Layout.leftMargin: 15
                     Layout.rightMargin: 15
-                    visible: optimizationModeDropdown.currentIndex === 1
+                    visible: optimizationModeDropdown.currentIndex >= 0 && optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).enumname === "OptimizationModeDynamicPricing" 
 
                     HeatpumpPriceWidget {
                         id: heatpumpPriceWidget
