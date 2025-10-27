@@ -3066,48 +3066,12 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <source>Location</source>
-        <translation type="unfinished">Standort</translation>
+        <source>Remove thing?</source>
+        <translation type="unfinished">&quot;Thing&quot; entfernen?</translation>
     </message>
     <message>
-        <source>Network charges</source>
-        <translation>Netzentgelte</translation>
-    </message>
-    <message>
-        <source>Taxes &amp; fees</source>
-        <translation>Steuern &amp; Abgaben</translation>
-    </message>
-    <message>
-        <source>VAT</source>
-        <translation type="unfinished">Mehrwertsteuer</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
-    </message>
-    <message>
-        <source>Zewotherm setup</source>
-        <translation>Zewotherm einrichten</translation>
-    </message>
-    <message>
-        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please fill in all fields. The value cannot be empty or 0.</source>
-        <translation>Bitte füllen Sie alle Felder aus. Der Wert darf nicht leer oder 0 sein.</translation>
-    </message>
-    <message>
-        <source>The following tariff is submitted:</source>
-        <translation>Der folgende Stromtarif wurde eingerichtet:</translation>
-    </message>
-    <message>
-        <source>Failed to add thing: ThingErrorHardwareFailure</source>
-        <translation type="unfinished"></translation>
+        <source>Are you sure you want to remove %1 and all associated settings?</source>
+        <translation type="unfinished">Bist Du sicher, dass %1 und alle zugehörigen Einstellungen entfernt werden sollen?</translation>
     </message>
 </context>
 <context>
@@ -3616,6 +3580,22 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Total Consumption</source>
         <translation>Insgesamter Verbrauch</translation>
+    </message>
+    <message>
+        <source>Target Temperature</source>
+        <translation>Zieltemperatur</translation>
+    </message>
+    <message>
+        <source>Minimal Temperature</source>
+        <translation>Minimale Temperatur</translation>
+    </message>
+    <message>
+        <source>Power Setpoint Active</source>
+        <translation>Leistungsvorgabe aktiv</translation>
+    </message>
+    <message>
+        <source>Power Setpoint</source>
+        <translation>Leistungsvorgabe</translation>
     </message>
 </context>
 <context>

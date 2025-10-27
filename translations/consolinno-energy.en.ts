@@ -3042,51 +3042,15 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Location</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Network charges</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Taxes &amp; fees</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>VAT</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Zewotherm setup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please fill in all fields. The value cannot be empty or 0.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The following tariff is submitted:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>There is no rate set up yet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to add thing: ThingErrorHardwareFailure</source>
+        <source>Remove thing?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove %1 and all associated settings?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3595,6 +3559,22 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Total Consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target Temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimal Temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Power Setpoint Active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Power Setpoint</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
