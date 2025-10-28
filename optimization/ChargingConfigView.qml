@@ -1078,23 +1078,37 @@ GenericConfigPage {
                                         else if (item.mode === 4000 && dynEnabled)
                                             dynamicModel.append(item)
                                     }
+                                    // Check which charging mode is currently set and update currentIndex accordingly
+                                    for (let j = 0; j < dynamicModel.count; ++j) {
+                                        console.info("Current dynamic model mode: " + dynamicModel.get(j).mode + " vs config mode: " + chargingConfiguration.optimizationMode)
+                                        if (dynamicModel.get(j).mode === chargingConfiguration.optimizationMode) {
+                                            comboboxloadingmod.currentIndex = j
+                                            return
+                                        }
+                                        if (chargingConfiguration.optimizationMode === 9) {
+                                            // If optimizationMode is 9 (no optimization), set to "Charge always"
+                                            if (dynamicModel.get(j).mode === 0) {
+                                                comboboxloadingmod.currentIndex = j
+                                                return
+                                            }
+                                        }
+                                    }
                                 }
 
-                                    // Rebuild when hemsManager changes
-                                    Component.onCompleted: rebuildModel()
+                                // Rebuild when hemsManager changes
+                                Component.onCompleted: rebuildModel()
 
-                                    Connections {
-                                        target: hemsManager
-                                        onAvailableUseCasesChanged: comboboxloadingmod.rebuildModel()
-                                    } 
+                                Connections {
+                                    target: hemsManager
+                                    onAvailableUseCasesChanged: comboboxloadingmod.rebuildModel()
+                                } 
 
-                                    currentIndex: (userconfig.defaultChargingMode == 3 && dynamicPrice.count == 0) ? userconfig.defaultChargingMode - 1 : userconfig.defaultChargingMode
-                                    onCurrentIndexChanged:
-                                    {
-                                        endTimeSlider.computeFeasibility()
-                                        endTimeSlider.feasibilityText()
-                                        comboboxloadingmod.currentIndex === 3 ? gridConsumptionloadingmod.currentIndex = 1 : gridConsumptionloadingmod.currentIndex = 0
-                                    }
+                                onCurrentIndexChanged:
+                                {
+                                    endTimeSlider.computeFeasibility()
+                                    endTimeSlider.feasibilityText()
+                                    comboboxloadingmod.currentIndex === 3 ? gridConsumptionloadingmod.currentIndex = 1 : gridConsumptionloadingmod.currentIndex = 0
+                                }
                             }
                         }
 
