@@ -2896,11 +2896,24 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
+        <translation>&lt;h3&gt;The app has been updated.&lt;/h3&gt;
 &lt;p&gt;Version 1.12.0&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;&lt;/li&gt;
+&lt;li&gt;§ 9EEG: Grid-friendly curtailment now available for hybrid systems&lt;/li&gt;
+&lt;li&gt;Update feedback: Visual indication of ongoing updates via device LEDs&lt;/li&gt;
+&lt;li&gt;Service UI:
+&lt;ul&gt;
+&lt;li&gt;Installation companies can register&lt;/li&gt;
+&lt;li&gt;Gain access to their own installed systems&lt;/li&gt;
+&lt;li&gt;To use this feature, the HEMS system must be registered in the Service UI&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Improvements&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Grid-friendly control: Optimized for greater comfort and efficiency&lt;/li&gt;
+&lt;li&gt;Heat pump control: SG-Ready standard (1.0 or 1.1) can now be configured directly in the app&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>

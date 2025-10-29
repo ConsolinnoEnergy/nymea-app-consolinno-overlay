@@ -2906,11 +2906,24 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
+        <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
 &lt;p&gt;Version 1.12.0&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;&lt;/li&gt;
+&lt;li&gt;§ 9EEG: Netzdienliche Abregelung jetzt für Hybrid-Systeme verfügbar&lt;/li&gt;
+&lt;li&gt;Feedback zu Updates: Visuelle Anzeige laufender Updates über LEDs&lt;/li&gt;
+&lt;li&gt;Service UI:
+&lt;ul&gt;
+&lt;li&gt;Installateur-Betriebe können sich registrieren&lt;/li&gt;
+&lt;li&gt;erhalten so Zugang zu den eigenen installierten Anlagen&lt;/li&gt;
+&lt;li&gt;Voraussetzung: Anmeldung des HEMS-Systems in der Service-UI&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Verbesserungen&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Netzdienliche Steuerung: Optimiert für mehr Komfort und Effizienz&lt;/li&gt;
+&lt;li&gt;Wärmepumpensteuerung: SG-Ready-Standard  (1.0 oder 1.1) direkt einstellbar in der App&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
