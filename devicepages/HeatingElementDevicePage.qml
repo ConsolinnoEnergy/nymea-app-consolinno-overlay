@@ -7,9 +7,13 @@ import "../components"
 GenericConfigPage {
     id: root
 
-    readonly property State currentTemperature: root.thing.stateByName("temperatureSensor0")
+    readonly property State currentTemperature: root.thing.stateByName("waterTemperature")
+    readonly property State targetTemperature: root.thing.stateByName("targetWaterTemperature")
+    readonly property State minTemperature: root.thing.stateByName("minWaterTemperature")
     readonly property State currentConsumption: root.thing.stateByName("currentPower")
     readonly property State totalConsumption: root.thing.stateByName("totalEnergyConsumed")
+    readonly property State powerSetpointActive: root.thing.stateByName("activateControlConsumer")
+    readonly property State powerSetpoint: root.thing.stateByName("powerSetpointConsumer")
 
     readonly property real operatingModeStatus: 1;
 
@@ -128,14 +132,67 @@ GenericConfigPage {
                     Layout.topMargin: 5
 
                     model: [
-                         {Id: "currentTemperature", name: qsTr("Current Temperature"), value: (root.currentTemperature === null) ? 0 : (+root.currentTemperature.value).toLocaleString(), unit: " °C", component: stringValues,},
-                         {Id: "currentConsumtion", name: qsTr("Current Consumption"), value: (+root.currentConsumption.value).toLocaleString(), unit: " W", component: stringValues,},
-                         {Id: "totalConsumption", name: qsTr("Total Consumption"), value: (+root.totalConsumption.value.toFixed(2)).toLocaleString(), unit: " kWh", component: stringValues,},
+                        {
+                            Id: "currentTemperature",
+                            name: qsTr("Current Temperature"),
+                            value: (root.currentTemperature === null) ? 0 : (+root.currentTemperature.value).toLocaleString(),
+                            unit: " °C",
+                            component: stringValues,
+                            visible: true
+                        },
+                        {
+                            Id: "targetTemperature",
+                            name: qsTr("Target Temperature"),
+                            value: (root.targetTemperature === null) ? 0 : (+root.targetTemperature.value).toLocaleString(),
+                            unit: " °C",
+                            component: stringValues,
+                            visible: root.targetTemperature !== null
+                        },
+                        {
+                            Id: "minTemperature",
+                            name: qsTr("Minimal Temperature"),
+                            value: (root.minTemperature === null) ? 0 : (+root.minTemperature.value).toLocaleString(),
+                            unit: " °C",
+                            component: stringValues,
+                            visible: root.minTemperature !== null
+                        },
+                        {
+                            Id: "currentConsumtion",
+                            name: qsTr("Current Consumption"),
+                            value: (+root.currentConsumption.value).toLocaleString(),
+                            unit: " W",
+                            component: stringValues,
+                            visible: true
+                        },
+                        {
+                            Id: "totalConsumption",
+                            name: qsTr("Total Consumption"),
+                            value: (+root.totalConsumption.value.toFixed(2)).toLocaleString(),
+                            unit: " kWh",
+                            component: stringValues,
+                            visible: true
+                        },
+                        {
+                            Id: "powerSetpointActive",
+                            name: qsTr("Power Setpoint Active"),
+                            value: root.powerSetpointActive.value,
+                            component: boolValues,
+                            visible: true
+                        },
+                        {
+                            Id: "powerSetpoint",
+                            name: qsTr("Power Setpoint"),
+                            value: (+root.powerSetpoint.value).toLocaleString(),
+                            unit: " W",
+                            component: stringValues,
+                            visible: root.powerSetpointActive.value
+                        }
                     ]
 
                     delegate: ItemDelegate {
                         id: optimizerMainParams
                         Layout.fillWidth: true
+                        visible: modelData.visible
                         contentItem: ColumnLayout
                         {
                             Layout.fillWidth: true
@@ -182,7 +239,7 @@ GenericConfigPage {
                     }
                 }
 
-                Component{
+                Component {
                     id: stringValues
 
                     RowLayout {
@@ -200,6 +257,29 @@ GenericConfigPage {
                         Label{
                             id: singleValue
                             text: delegateValue + delegateUnit
+                        }
+                    }
+                }
+
+                Component {
+                    id: boolValues
+
+                    RowLayout {
+                        property string delegateID: ""
+                        property var delegateName
+                        property var delegateValue
+
+                        Label{
+                            id: singleInput
+                            text: delegateName
+                            Layout.fillWidth: true
+                        }
+
+                        Led {
+                            id: led
+                            //anchors { top: parent.top; right: parent.right; bottom: parent.bottom }
+                            width: height
+                            state: delegateValue === true ? "on" : "off"
                         }
                     }
                 }
