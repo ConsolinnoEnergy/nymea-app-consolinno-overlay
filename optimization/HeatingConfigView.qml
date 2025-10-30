@@ -508,6 +508,8 @@ GenericConfigPage {
                     Layout.leftMargin: 15
                     Layout.topMargin: 10
                     Layout.rightMargin: 15
+                    // visible only if interface of heatpump is smartgridheatpump
+                    visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
 
                     Label {
                         id: optimizationLabel
@@ -612,6 +614,7 @@ GenericConfigPage {
 
                 RowLayout {
                     id: saveBtnContainer
+                    visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
 
                     Layout.fillWidth: true
                     Layout.topMargin: 10
@@ -620,6 +623,7 @@ GenericConfigPage {
 
                     Button {
                         id: saveButton
+
 
                         Layout.fillWidth: true
                         text: qsTr("Save")
