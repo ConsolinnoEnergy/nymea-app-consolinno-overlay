@@ -85,6 +85,7 @@ Page {
 
         RowLayout{
             Layout.fillWidth: true
+            visible: hemsManager.availableUseCases & HemsManager.HemsUseCasePv
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Operating mode (Solar Only)")

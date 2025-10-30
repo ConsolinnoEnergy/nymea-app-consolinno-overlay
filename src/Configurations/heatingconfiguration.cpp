@@ -51,6 +51,7 @@ bool HeatingConfiguration::controllableLocalSystem() const
 void HeatingConfiguration::setControllableLocalSystem(bool controllableLocalSystem)
 {
     m_controllableLocalSystem = controllableLocalSystem;
+    emit controllableLocalSystemChanged(m_controllableLocalSystem);
 }
 
 
@@ -62,11 +63,44 @@ double HeatingConfiguration::maxElectricalPower() const
 void HeatingConfiguration::setMaxElectricalPower(const double &maxElectricalPower)
 {
     m_maxElectricalPower = maxElectricalPower;
+    emit maxElectricalPowerChanged(m_maxElectricalPower);
 }
 
 double HeatingConfiguration::maxThermalEnergy() const
 {
     return m_maxThermalEnergy;
+}
+
+double HeatingConfiguration::priceThreshold() const
+{
+    return m_priceThreshold;
+}
+
+bool HeatingConfiguration::relativePriceEnabled() const
+{
+    return m_relativePriceEnabled;
+}
+
+void HeatingConfiguration::setPriceThreshold(double priceThreshold)
+{
+    m_priceThreshold = priceThreshold;
+    emit priceThresholdChanged(m_priceThreshold);
+}
+
+void HeatingConfiguration::setRelativePriceEnabled(bool relativePriceEnabled)
+{
+    m_relativePriceEnabled = relativePriceEnabled;
+    emit relativePriceEnabledChanged(m_relativePriceEnabled);
+}
+
+HeatingConfiguration::HPOptimizationMode HeatingConfiguration::optimizationMode() const
+{
+    return m_optimizationMode;
+}
+
+void HeatingConfiguration::setOptimizationMode(HPOptimizationMode optimizationMode)
+{
+    m_optimizationMode = optimizationMode;
 }
 
 void HeatingConfiguration::setMaxThermalEnergy(const double &maxThermalEnergy)
