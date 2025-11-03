@@ -3297,15 +3297,23 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Feed-in curtailment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limited consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blocked consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3459,15 +3467,19 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Feed-in curtailment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limited consumption</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

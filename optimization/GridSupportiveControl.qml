@@ -27,7 +27,7 @@ StackView {
 
     property bool currentState: gridSupportThing.stateByName("isLpcActive").value
     property bool currentStateLPP: gridSupportThing.stateByName("isLppActive").value
-    property string contentPlimLPP: currentStateLPP === true ? qsTr("The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.").arg(powerLimitLPP) : ""
+    property string contentPlimLPP: currentStateLPP === true ? qsTr("The feed-in is <b>limited temporarily</b> to <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimitLPP)) : ""
     property string contentPlim: currentState === true ? qsTr("Consumption is <b>temporarily limited</b> to a maximum of <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimit)) : ""
 
 
@@ -120,16 +120,19 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                spacing: 8
+                spacing: app.margins
 
                 ColumnLayout {
+                    Layout.topMargin: app.margins
                     Layout.leftMargin: app.bigMargins
                     Layout.rightMargin: app.bigMargins
+                    spacing: app.margins
 
                     Button {
                         id: setUpButton
                         Layout.fillWidth: true
-                        Layout.bottomMargin: 8
+                        Layout.bottomMargin: -6
+                        Layout.topMargin: -6
                         text: qsTr("Grid-supportive control setup")
                         implicitHeight: 50
                         onClicked: {
@@ -156,7 +159,7 @@ StackView {
                         iconColor: Style.warningAccent
 
                         text: contentPlim
-                        headerText: qsTr("Grid-supportive control")
+                        headerText: qsTr("Limited consumption")
                     }
                 }
 
