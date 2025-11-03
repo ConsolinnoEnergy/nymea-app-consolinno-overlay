@@ -57,6 +57,10 @@ GenericConfigPage {
         shownInterfaces: ["gridsupport"]
     }
 
+    function convertToKw(numberW){
+        return (+(Math.round((numberW / 1000) * 100 ) / 100)).toLocaleString()
+    }
+
     content: [
         Item {
             anchors.fill: parent
@@ -86,14 +90,14 @@ GenericConfigPage {
 
                     property var states: {
                         "limited": {
-                            "header": qsTr("Grid-Supportive Control"),
+                            "header": qsTr("Limited consumption"),
                             "content": qsTr("Consumption is <b>temporarily limited</b> on the basis of a control signal from the grid operator."),
                             "color": "warning",
                             "backgroundColor": "warningBackground"
                         },
                         "blocked": {
-                            "header": qsTr("Grid-Supportive Control"),
-                            "content": qsTr("The consumption is <b>temporarily blocked</b> on the basis of a control signal from the grid operator."),
+                            "header": qsTr("Blocked consumption"),
+                            "content": qsTr("Consumption is <b>temporarily blocked</b> on the basis of a control signal from the grid operator."),
                             "color": "danger",
                             "backgroundColor": "dangerBackground"
                         },
@@ -129,7 +133,7 @@ GenericConfigPage {
                         dialogHeaderText: (isNotify === true && isRootmeter) || (isNotify === true && isProducer) ? "" : qsTr("Avoid zero compensation")
                         dialogText: (isNotify === true && isRootmeter) || (isNotify === true && isProducer) ? "" : qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
                         dialogPicture: (isNotify === true && isRootmeter) || (isNotify === true && isProducer) ? "" : "../images/avoidZeroCompansation.svg"
-                        text: (isNotify === true && isProducer) ? qsTr("The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.").arg(powerLimitLPP) : (isNotify === true && isRootmeter) ? containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].content : qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
+                        text: (isNotify === true && isProducer) ? qsTr("The feed-in is <b>limited temporarily</b> to <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimitLPP)) : (isNotify === true && isRootmeter) ? containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].content : qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
                         headerText: (isNotify === true && isProducer) ? qsTr("Feed-in curtailment") : (isNotify === true && isRootmeter) ? containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].header : qsTr("Avoid zero compensation active")
                     }
                 }
