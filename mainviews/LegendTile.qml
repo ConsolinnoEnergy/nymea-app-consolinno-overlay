@@ -192,7 +192,6 @@ MouseArea {
 
                         Image {
                             anchors.fill: parent
-                            anchors.margins: border.width
                             fillMode: Image.PreserveAspectFit
                             source: "/ui/images/attention.svg"
                             visible: (isNotify === true) && isRootmeter || (isNotify === true) && isProducer
