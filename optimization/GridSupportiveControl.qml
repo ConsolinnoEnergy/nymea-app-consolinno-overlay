@@ -367,7 +367,7 @@ StackView {
                         textColor: Style.dangerAccent
                         iconColor: Style.dangerAccent
 
-                        iconPath: "../images/dialog-warning-symbolic.svg"
+                        iconPath: "/icons/dialog-warning-symbolic.svg"
                         text: qsTr("Existing setup will be overwritten.")
                         headerText: qsTr("Attention")
                     }
@@ -426,12 +426,12 @@ StackView {
                 id: menuListModel
 
                 ListElement {
-                    icon: "/ui/images/delete.svg"
+                    icon: "/icons/delete.svg"
                     text: qsTr("Delete")
                 }
 
                 ListElement {
-                    icon: "/ui/images/configure.svg"
+                    icon: "/icons/configure.svg"
                     text: qsTr("Reconfigure")
                 }
             }
@@ -602,7 +602,7 @@ StackView {
                             delegate: ConsolinnoItemDelegate {
                                 implicitHeight: 50
                                 Layout.fillWidth: true
-                                iconName: "../images/connections/network-wired.svg"
+                                iconName: "/icons/connections/network-wired.svg"
                                 text: model.name
                                 subText: model.description
                                 progressive: true
@@ -713,7 +713,7 @@ StackView {
                                 text: paramValue !== "" ? paramValue : ""
                                 subText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
                                 tertiaryText: model.displayName
-                                secondaryIconName: index === 0 ? "../images/edit-copy.svg" : ""
+                                secondaryIconName: index === 0 ? "/icons/edit-copy.svg" : ""
                                 secondaryIconColor: Material.accentColor
                                 secondaryIconSize: 24
                                 progressive: false
@@ -746,7 +746,7 @@ StackView {
                         textColor: Style.dangerAccent
                         iconColor: Style.dangerAccent
 
-                        iconPath: "../images/dialog-warning-symbolic.svg"
+                        iconPath: "/icons/dialog-warning-symbolic.svg"
                         text: qsTr("Existing setup will be overwritten.")
                         headerText: qsTr("Attention")
                     }
@@ -827,12 +827,12 @@ StackView {
                 id: menuListModel
 
                 ListElement {
-                    icon: "/ui/images/delete.svg"
+                    icon: "/icons/delete.svg"
                     text: qsTr("Delete")
                 }
 
                 ListElement {
-                    icon: "/ui/images/configure.svg"
+                    icon: "/icons/configure.svg"
                     text: qsTr("Reconfigure")
                 }
             }
@@ -947,7 +947,7 @@ StackView {
                                 text: paramValue !== "" ? paramValue : ""
                                 subText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
                                 tertiaryText: model.displayName
-                                secondaryIconName: index === 0 ? "../images/edit-copy.svg" : ""
+                                secondaryIconName: index === 0 ? "/icons/edit-copy.svg" : ""
                                 secondaryIconColor: Material.accentColor
                                 secondaryIconSize: 24
                                 progressive: false
@@ -1097,7 +1097,7 @@ StackView {
                     text: paramValue
                     subText: qsTr("This SKI is required by the network operator.")
                     tertiaryText: "Local Subject Key Identifier (SKI)"
-                    secondaryIconName: "../images/edit-copy.svg"
+                    secondaryIconName: "/icons/edit-copy.svg"
                     secondaryIconColor: Material.accentColor
                     secondaryIconSize: 24
                     progressive: false

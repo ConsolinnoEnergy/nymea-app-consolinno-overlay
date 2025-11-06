@@ -100,7 +100,7 @@ StackView {
                             delegate: ConsolinnoThingDelegate {
                                 implicitHeight: 50
                                 Layout.fillWidth: true
-                                iconName: Configuration.energyIcon !== "" ? "/ui/images/"+Configuration.energyIcon : "../images/energy.svg"
+                                iconName: Configuration.energyIcon !== "" ? "/ui/images/"+Configuration.energyIcon : "/icons/energy.svg"
                                 text: model.name
                                 progressive: true
                                 canDelete: true

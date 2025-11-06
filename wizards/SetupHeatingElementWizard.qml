@@ -140,7 +140,7 @@ Page {
                                     if(Configuration.heatingRodIcon !== ""){
                                         return "/ui/images/"+Configuration.heatingRodIcon;
                                     }else{
-                                        return "../images/heating_rod.svg";
+                                        return "/icons/heating_rod.svg";
                                     }
                                 }
                                 progressive: false
@@ -246,7 +246,7 @@ Page {
                     anchors.rightMargin: 5
                     sourceSize.width: 18
                     sourceSize.height: 18
-                    source: "../images/next.svg"
+                    source: "/icons/next.svg"
 
                     layer{
                         enabled: true

@@ -45,7 +45,7 @@ SettingsPageBase {
         //visible: !engine.jsonRpcClient.pushButtonAuthAvailable
         ColorIcon {
             size: Style.hugeIconSize
-            source: "../images/account.svg"
+            source: "/icons/account.svg"
             color: Style.accentColor
         }
         ColumnLayout {
@@ -70,7 +70,7 @@ SettingsPageBase {
     NymeaItemDelegate {
         Layout.fillWidth: true
         text: qsTr("Change password")
-        iconName: "../images/key.svg"
+        iconName: "/icons/key.svg"
         //visible: !engine.jsonRpcClient.pushButtonAuthAvailable
         onClicked: {
             var page = pageStack.push(changePasswordComponent)
@@ -83,7 +83,7 @@ SettingsPageBase {
     NymeaItemDelegate {
         Layout.fillWidth: true
         text: qsTr("Edit user information")
-        iconName: "../images/edit.svg"
+        iconName: "/icons/edit.svg"
         onClicked: pageStack.push(editUserInfoComponent)
         visible: !engine.jsonRpcClient.pushButtonAuthAvailable
     }
@@ -91,7 +91,7 @@ SettingsPageBase {
     NymeaItemDelegate {
         Layout.fillWidth: true
         text: qsTr("Manage authorized devices")
-        iconName: "../images/smartphone.svg"
+        iconName: "/icons/smartphone.svg"
         onClicked: {
             pageStack.push(manageTokensComponent)
         }
@@ -106,7 +106,7 @@ SettingsPageBase {
         Layout.fillWidth: true
         text: qsTr("Manage users")
         visible: (userManager.userInfo.scopes & UserInfo.PermissionScopeAdmin) //&& !engine.jsonRpcClient.pushButtonAuthAvailable
-        iconName: "../images/contact-group.svg"
+        iconName: "/icons/contact-group.svg"
         onClicked: {
             pageStack.push(manageUsersComponent)
         }
@@ -219,7 +219,7 @@ SettingsPageBase {
             Component {
                 id: confirmTokenDeletionComponent
                 NymeaDialog {
-                    headerIcon: "../images/lock-closed.svg"
+                    headerIcon: "/icons/lock-closed.svg"
                     title: qsTr("Remove device access")
                     text: qsTr("Are you sure you want to remove %1 from accessing your %2 system?").arg("<b>" + tokenInfo.deviceName + "</b>").arg(Configuration.systemName)
                     property TokenInfo tokenInfo: null
@@ -244,7 +244,7 @@ SettingsPageBase {
                     prominentSubText: false
                     progressive: false
                     canDelete: true
-                    iconName: "../images/smartphone.svg"
+                    iconName: "/icons/smartphone.svg"
 
                     onClicked: deleteClicked()
                     onDeleteClicked: {
@@ -266,7 +266,7 @@ SettingsPageBase {
                 onBackPressed: pageStack.pop()
 
                 HeaderButton {
-                    imageSource: Qt.resolvedUrl("../images/add.svg")
+                    imageSource: Qt.resolvedUrl("/icons/add.svg")
                     onClicked: {
                         var page = pageStack.push(addUserComponent)
                         page.done.connect(function(){
@@ -316,7 +316,7 @@ SettingsPageBase {
                     Layout.fillWidth: true
                     text: engine.jsonRpcClient.ensureServerVersion("6.0") && model.displayName !== "" ? model.displayName : model.username !== "" ? model.username : qsTr("User login via authentication")
                     subText: engine.jsonRpcClient.ensureServerVersion("6.0") && model.displayName ? model.username : ""
-                    iconName: "/ui/images/account.svg"
+                    iconName: "/icons/account.svg"
                     iconColor: userManager.userInfo.scopes & UserInfo.PermissionScopeAdmin ? Style.accentColor : Style.iconColor
 
                     canDelete: true
@@ -345,7 +345,7 @@ SettingsPageBase {
             Component {
                 id: confirmUserDeletionComponent
                 NymeaDialog {
-                    headerIcon: "../images/lock-closed.svg"
+                    headerIcon: "/icons/lock-closed.svg"
                     title: qsTr("Remove user")
                     text: qsTr("Are you sure you want to remove %1 from accessing your %2 system?").arg("<b>" + userInfo.username + "</b>").arg(Configuration.systemName)
                     property UserInfo userInfo: null
