@@ -66,14 +66,11 @@ Page {
 
             TextField {
                 id: maxPowerInput
-                property bool maxElectricalPower_validated
                 Layout.preferredWidth: 60
                 Layout.rightMargin: 8
                 text: (+heatingElementConfiguration.maxElectricalPower).toLocaleString()
                 maximumLength: 10
-                validator: DoubleValidator{bottom: 1 }
-
-                onTextChanged: acceptableInput ?maxElectricalPower_validated = true : maxElectricalPower_validated = false
+                validator: DoubleValidator{bottom: 0.5 }
             }
 
             Label {
@@ -152,7 +149,7 @@ Page {
         Button {
             Layout.fillWidth: true
             text: qsTr("Ok")
-            property bool validated: maxPowerInput.maxElectricalPower_validated
+            enabled: maxPowerInput.acceptableInput
 
             onClicked: {
                 let inputText = maxPowerInput.text
