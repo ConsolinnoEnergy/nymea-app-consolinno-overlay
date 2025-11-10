@@ -222,14 +222,37 @@ Page {
                 onClicked: pageStack.pop()
             }
 
+            Popup {
+                id: heatingElementLimitPopup
+                parent: Overlay.overlay
+                x: Math.round((parent.width - width) / 2)
+                y: Math.round((parent.height - height) / 2)
+                width: parent.width
+                height: 100
+                modal: true
+                focus: true
+                closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+                contentItem: Label {
+                    Layout.fillWidth: true
+                    Layout.topMargin: app.margins
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    wrapMode: Text.WordWrap
+                    text: qsTr("At the moment, %1 can only control one heating element.").arg(Configuration.deviceName)
+                }
+            }
+
             Button {
                 id: addButton
                 Layout.preferredWidth: 200
                 Layout.alignment: Qt.AlignLeft
                 text: qsTr("add")
                 onClicked: {
-                    if(heProxy.count < 1)
-                        internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue})
+                    if (heatingElementRepeater.model.count > 0) {
+                        heatingElementLimitPopup.open()
+                        return
+                    }
+                    internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue})
                 }
             }
 
