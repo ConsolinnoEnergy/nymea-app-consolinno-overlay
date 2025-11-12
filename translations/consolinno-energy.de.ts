@@ -4580,6 +4580,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <source>Please change name if necessary.</source>
         <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
+    <message>
+        <source>At the moment, %1 can only control one heating element.</source>
+        <translation>Derzeit kann %1 nur einen Heizstab steuern.</translation>
+    </message>
 </context>
 <context>
     <name>SetupSolarInverterWizard</name>
