@@ -18,13 +18,13 @@ Item {
         id: menuListModel
 
         ListElement {
-            icon: "/ui/images/info.svg"
+            icon: "/icons/info.svg"
             text: "Details"
             page: "GenericDeviceHistoryPage.qml"
         }
 
         ListElement {
-            icon: "/ui/images/logs.svg"
+            icon: "/icons/logs.svg"
             text: "Logs"
             page: "../devicepages/DeviceLogPage.qml"
         }
@@ -56,7 +56,7 @@ Item {
                         Layout.minimumWidth: 40
                         Layout.maximumWidth: 40
                         objectName: "backButton"
-                        imageSource: "../images/back.svg"
+                        imageSource: "/icons/back.svg"
                         onClicked: pageStack.pop()
                     }
 
@@ -83,7 +83,7 @@ Item {
                             anchors.centerIn: parent
                             source: Configuration.menuIcon !== "" ?
                                         "../images/" + Configuration.menuIcon :
-                                        "../images/navigation-menu.svg"
+                                        "/icons/navigation-menu.svg"
                             visible: parent.enabled
                         }
                         MouseArea {

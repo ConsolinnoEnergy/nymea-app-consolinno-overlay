@@ -46,7 +46,7 @@ Item {
         HeaderButton {
             id: menuButton
             objectName: "headerMenuButton"
-            imageSource: Configuration.menuIcon !== "" ? "../images/"+Configuration.menuIcon : "../images/navigation-menu.svg"
+            imageSource: Configuration.menuIcon !== "" ? "../images/"+Configuration.menuIcon : "/icons/navigation-menu.svg"
             visible: false
             onClicked: root.menuPressed();
         }
@@ -54,7 +54,7 @@ Item {
         HeaderButton {
             id: backButton
             objectName: "backButton"
-            imageSource: "../images/back.svg"
+            imageSource: "/icons/back.svg"
             onClicked: root.backPressed();
         }
 
@@ -79,7 +79,7 @@ Item {
             id: headerImage
             sourceSize.width: 18
             sourceSize.height: 18
-            source: "../images/info.svg"
+            source: "/icons/info.svg"
             visible: show_Image
             layer{
                 enabled: true
@@ -98,7 +98,7 @@ Item {
         HeaderButton {
             id: menuOptionsButton
             objectName: "headerMenuOptionsButton"
-            imageSource: "../images/navigation-menu.svg"
+            imageSource: "/icons/navigation-menu.svg"
             visible: false
             onClicked: root.menuOptionsPressed();
         }
@@ -147,7 +147,7 @@ Item {
                     width: height
                     visible: true
                     color: "white"
-                    name: "../images/dialog-warning-symbolic.svg"
+                    name: "/icons/dialog-warning-symbolic.svg"
                 }
             }
         }

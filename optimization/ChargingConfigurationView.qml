@@ -39,7 +39,7 @@ Page {
 
 
                 Layout.fillWidth: true
-                iconName: Configuration.evchargerIcon !== "" ? "../images/" + Configuration.evchargerIcon : "../images/ev-charger.svg";
+                iconName: Configuration.evchargerIcon !== "" ? "../images/" + Configuration.evchargerIcon : "/icons/ev-charger.svg";
                 progressive: true
                 text: thing.name
                 onClicked: pageStack.push("EvChargerOptimization.qml", { hemsManager: hemsManager, thing: thing })            

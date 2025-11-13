@@ -157,7 +157,7 @@ Page {
                                     if(Configuration.heatpumpIcon !== ""){
                                         return "/ui/images/"+Configuration.heatpumpIcon;
                                     }else{
-                                        return "../images/heatpump.svg";
+                                        return "/icons/heatpump.svg";
                                     }
                                 }
                                 progressive: false
@@ -338,7 +338,7 @@ Page {
                     anchors.right: nextStepButton.right
                     anchors.verticalCenter: nextStepButton.verticalCenter
                     anchors.rightMargin: 5
-                    source: "../images/next.svg"
+                    source: "/icons/next.svg"
 
                     layer{
                         enabled: true
@@ -495,7 +495,7 @@ Page {
                             }
                             delegate: ConsolinnoItemDelegate {
                                 Layout.fillWidth: true
-                                iconName: "../images/connections/network-wired.svg"
+                                iconName: "/icons/connections/network-wired.svg"
                                 text: model.name
                                 subText: model.description
                                 progressive: true

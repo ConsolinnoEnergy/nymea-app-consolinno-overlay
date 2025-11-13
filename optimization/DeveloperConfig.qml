@@ -56,7 +56,7 @@ Page {
             delegate: NymeaItemDelegate {
                 Layout.fillWidth: true
                 iconName: {
-                    return "../images/edit.svg"
+                    return "/icons/edit.svg"
                 }
                 text: model.text
                 progressive: true

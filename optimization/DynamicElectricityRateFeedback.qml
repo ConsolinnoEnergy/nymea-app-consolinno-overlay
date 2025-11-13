@@ -63,7 +63,7 @@ Page {
                 Layout.preferredHeight: 150
                 fillMode: Image.PreserveAspectFit
                 Layout.alignment: Qt.AlignCenter
-                source: "../images/tick.svg"
+                source: "/icons/tick.svg"
             }
 
             ColorOverlay {

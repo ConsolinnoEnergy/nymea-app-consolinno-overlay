@@ -369,25 +369,25 @@ StatsBase {
                                             if(Configuration.heatpumpIcon !== ""){
                                                 return "qrc:/ui/images/"+Configuration.heatpumpIcon
                                             }else{
-                                                return "qrc:/ui/images/heatpump.svg"
+                                                return "qrc:/icons/heatpump.svg"
                                             }
                                         case "smartgridheatpump":
                                             if(Configuration.heatpumpIcon !== ""){
                                                 return "qrc:/ui/images/"+Configuration.heatpumpIcon
                                             }else{
-                                                return "qrc:/ui/images/heatpump.svg"
+                                                return "qrc:/icons/heatpump.svg"
                                             }
                                         case "heatingrod":
                                             if(Configuration.heatingRodIcon !== ""){
                                                 return "/ui/images/"+Configuration.heatingRodIcon
                                             }else{
-                                                return "/ui/images/heating_rod.svg"
+                                                return "/icons/heating_rod.svg"
                                             }
                                         case "evcharger":
                                             if(Configuration.evchargerIcon !== ""){
                                                 return "/ui/images/"+Configuration.evchargerIcon
                                             }else{
-                                                return "/ui/images/ev-charger.svg"
+                                                return "/icons/ev-charger.svg"
                                             }
                                         default:
                                             return app.interfacesToIcon(legendDelegate.thing.thingClass.interfaces)

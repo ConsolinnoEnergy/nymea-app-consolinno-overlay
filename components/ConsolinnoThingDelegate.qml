@@ -13,7 +13,7 @@ ConsolinnoSwipeDelegate {
 
         if (thingInterface.indexOf("energymeter") >= 0) {
             if(Configuration.gridIcon === ""){
-                iconPath = "../images/grid.svg";
+                iconPath = "/icons/grid.svg";
             }else{
                 iconPath = "../images/" + Configuration.gridIcon;
             }
@@ -22,14 +22,14 @@ ConsolinnoSwipeDelegate {
             if (Configuration.heatpumpIcon !== "") {
                 iconPath = "../images/" + Configuration.heatpumpIcon;
             } else {
-                iconPath = "../images/heatpump.svg";
+                iconPath = "/icons/heatpump.svg";
             }
             return iconPath;
         } else if (thingInterface.indexOf("heatingrod") >= 0) {
             if (Configuration.heatingRodIcon !== "") {
                 iconPath = "../images/" + Configuration.heatingRodIcon;
             } else {
-                iconPath = "../images/heating_rod.svg";
+                iconPath = "/icons/heating_rod.svg";
             }
             return iconPath;
         } else if (thingInterface.indexOf("energystorage") >= 0 && Configuration.batteryIcon !== "") {
@@ -51,7 +51,7 @@ ConsolinnoSwipeDelegate {
             if (Configuration.energyIcon !== "") {
                 iconPath = "../images/" + Configuration.energyIcon;
             }else{
-                iconPath = "/ui/images/energy.svg"
+                iconPath = "/icons/energy.svg"
             }
             return iconPath;
         } else {
@@ -63,19 +63,19 @@ ConsolinnoSwipeDelegate {
     iconColor: Style.consolinnoMedium
     text: thing ? thing.name : ""
     progressive: true
-    secondaryIconName: thingSetupStatus === Thing.ThingSetupStatusComplete && batteryCritical ? "../images/battery/battery-010.svg" : ""
+    secondaryIconName: thingSetupStatus === Thing.ThingSetupStatusComplete && batteryCritical ? "/icons/battery/battery-010.svg" : ""
     tertiaryIconName: {
         if (thingSetupStatus === Thing.ThingSetupStatusFailed) {
-            return "../images/dialog-warning-symbolic.svg";
+            return "/icons/dialog-warning-symbolic.svg";
         }
         if (thingSetupStatus === Thing.ThingSetupStatusInProgress) {
-            return "../images/settings.svg"
+            return "/icons/settings.svg"
         }
         if (connectedState && connectedState.value === false) {
             if (!isWireless) {
-                return "../images/connections/network-wired-offline.svg"
+                return "/icons/connections/network-wired-offline.svg"
             }
-            return "../images/connections/nm-signal-00.svg"
+            return "/icons/connections/nm-signal-00.svg"
         }
         return ""
     }

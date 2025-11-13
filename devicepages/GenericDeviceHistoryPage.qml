@@ -24,7 +24,7 @@ GenericConfigPage {
         id: infoModel
 
         ListElement {
-            icon: "/ui/images/logs.svg"
+            icon: "/icons/logs.svg"
             text: "Logs"
             page: "../devicepages/DeviceLogPage.qml"
         }
@@ -117,7 +117,7 @@ GenericConfigPage {
                             ColorIcon {
                                 anchors.fill: parent
                                 anchors.margins: app.margins
-                                name: "../images/logs.svg"
+                                name: "/icons/logs.svg"
                             }
                             onClicked: {
                                 swipe.close();
@@ -406,7 +406,7 @@ GenericConfigPage {
                 ColorIcon {
                     anchors.fill: parent
                     visible: actionDelegate.pendingActionId === -1
-                    name: actionDelegate.lastSuccess ? "../images/tick.svg" : "../images/close.svg"
+                    name: actionDelegate.lastSuccess ? "/icons/tick.svg" : "/icons/close.svg"
                     color: actionDelegate.lastSuccess ? "green" : "red"
                 }
             }

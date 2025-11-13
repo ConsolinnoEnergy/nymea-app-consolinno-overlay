@@ -270,7 +270,7 @@ Page {
                         if(Configuration.gridIcon !== ""){
                             return "/ui/images/"+Configuration.evchargerIcon
                         }else{
-                            return "../images/grid.svg"
+                            return "/icons/grid.svg"
                         }
                     }
                     progressive: false

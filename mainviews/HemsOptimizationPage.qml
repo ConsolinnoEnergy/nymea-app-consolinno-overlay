@@ -41,19 +41,19 @@ Page {
                 Layout.fillWidth: true
                 iconName: {
                     if (model.value === 0)
-                        return "../images/settings.svg"
+                        return "/icons/settings.svg"
                     if (model.value === 1)
-                        return "../images/configure.svg"
+                        return "/icons/configure.svg"
                     if (model.value === 2)
-                        return "../images/configure.svg"
+                        return "/icons/configure.svg"
                     if (model.value === 3 && Configuration.energyIcon !== ""){
                         return "/ui/images/"+Configuration.energyIcon;
                     }else if (model.value === 3 && Configuration.energyIcon === ""){
-                        return "../images/energy.svg";
+                        return "/icons/energy.svg";
                     }else if (model.value === 4 && Configuration.gridIcon !== ""){
                         return "/ui/images/"+Configuration.gridIcon;
                     }else if(model.value === 4 && Configuration.gridIcon === ""){
-                        return "../images/grid.svg";
+                        return "/icons/grid.svg";
                     }
                 }
                 text: model.text

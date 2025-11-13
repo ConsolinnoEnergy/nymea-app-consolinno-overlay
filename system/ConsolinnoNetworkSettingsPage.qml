@@ -117,7 +117,7 @@ SettingsPageBase {
         ColorIcon {
             Layout.preferredHeight: Style.iconSize
             Layout.preferredWidth: Style.iconSize
-            name: "../images/connections/network-wired-disabled.svg"
+            name: "/icons/connections/network-wired-disabled.svg"
         }
         Label {
             Layout.fillWidth: true
@@ -200,7 +200,7 @@ SettingsPageBase {
                             + qsTr("Do you want to proceed?")
                     var popup = dialog.createObject(app,
                                                     {
-                                                        headerIcon: "../images/dialog-warning-symbolic.svg",
+                                                        headerIcon: "/icons/dialog-warning-symbolic.svg",
                                                         title: qsTr("Disable networking?"),
                                                         text: text,
                                                         standardButtons: Dialog.Ok | Dialog.Cancel
@@ -238,7 +238,7 @@ SettingsPageBase {
 
         NymeaItemDelegate {
             Layout.fillWidth: true
-            iconName: modelData.pluggedIn ? "../images/connections/network-wired.svg" : "../images/connections/network-wired-offline.svg"
+            iconName: modelData.pluggedIn ? "/icons/connections/network-wired.svg" : "/icons/connections/network-wired-offline.svg"
             text: (model.interface.includes("eth") ? "LAN "+(index+1) : model.interface) + " (" + model.macAddress + ")"
             visible: networkManager.available && networkManager.networkingEnabled
             subText: {
@@ -289,7 +289,7 @@ SettingsPageBase {
                             + qsTr("Do you want to proceed?")
                     var popup = dialog.createObject(app,
                                                     {
-                                                        headerIcon: "../images/dialog-warning-symbolic.svg",
+                                                        headerIcon: "/icons/dialog-warning-symbolic.svg",
                                                         title: qsTr("Disable WiFi?"),
                                                         text: text,
                                                         standardButtons: Dialog.Ok | Dialog.Cancel
@@ -332,21 +332,21 @@ SettingsPageBase {
                 case NetworkDevice.NetworkDeviceStateDisconnected:
                 case NetworkDevice.NetworkDeviceStateDeactivating:
                 case NetworkDevice.NetworkDeviceStateFailed:
-                    return "../images/connections/network-wifi-offline.svg"
+                    return "/icons/connections/network-wifi-offline.svg"
                 case NetworkDevice.NetworkDeviceStatePrepare:
-                    return "../images/connections/network-wifi.svg";
+                    return "/icons/connections/network-wifi.svg";
                 case NetworkDevice.NetworkDeviceStateConfig:
-                    return "../images/connections/network-wifi-offline.svg"
+                    return "/icons/connections/network-wifi-offline.svg"
                 case NetworkDevice.NetworkDeviceStateNeedAuth:
-                    return "../images/connections/network-wifi.svg";
+                    return "/icons/connections/network-wifi.svg";
                 case NetworkDevice.NetworkDeviceStateIpConfig:
-                    return "../images/connections/network-wifi-offline.svg"
+                    return "/icons/connections/network-wifi-offline.svg"
                 case NetworkDevice.NetworkDeviceStateIpCheck:
-                    return "../images/connections/network-wifi.svg";
+                    return "/icons/connections/network-wifi.svg";
                 case NetworkDevice.NetworkDeviceStateSecondaries:
-                    return "../images/connections/network-wifi-offline.svg"
+                    return "/icons/connections/network-wifi-offline.svg"
                 case NetworkDevice.NetworkDeviceStateActivated:
-                    return "../images/connections/network-wifi.svg";
+                    return "/icons/connections/network-wifi.svg";
 
                 }
                 console.warn("Unhandled enum", model.state)
@@ -432,7 +432,7 @@ SettingsPageBase {
                     subText: "%1 (%2)".arg(model.macAddress).arg(model.frequency < 3 ? "2.4GHz" : "5GHz")
                     prominentSubText: false
                     iconName: {
-                        var ret = "../images/connections/nm-signal-";
+                        var ret = "/icons/connections/nm-signal-";
                         if (model.signalStrength > 90) {
                             ret += "100";
                         } else if (model.signalStrength > 60) {
@@ -621,7 +621,7 @@ SettingsPageBase {
                 ColorIcon {
                     Layout.preferredHeight: Style.iconSize
                     Layout.preferredWidth: Style.iconSize
-                    name: "../images/eye.svg"
+                    name: "/icons/eye.svg"
                     color: passwordTextField.showPassword ? Style.accentColor : Style.iconColor
                     MouseArea {
                         anchors.fill: parent

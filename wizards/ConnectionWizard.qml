@@ -395,13 +395,13 @@ ConsolinnoWizardPageBase {
                             case Connection.BearerTypeLan:
                             case Connection.BearerTypeWan:
                                 if (engine.jsonRpcClient.availableBearerTypes & NymeaConnection.BearerTypeEthernet != NymeaConnection.BearerTypeNone) {
-                                    return '/ui/images/connections/network-wired.svg'
+                                    return '/icons/connections/network-wired.svg'
                                 }
-                                return '/ui/images/connections/network-wifi.svg';
+                                return '/icons/connections/network-wifi.svg';
                             case Connection.BearerTypeBluetooth:
-                                return '/ui/images/connections/bluetooth.svg';
+                                return '/icons/connections/bluetooth.svg';
                             case Connection.BearerTypeCloud:
-                                return '/ui/images/connections/cloud.svg'
+                                return '/icons/connections/cloud.svg'
                             case Connection.BearerTypeLoopback:
                                 return 'qrc:/styles/%1/logo.svg'.arg(styleController.currentStyle)
                             }
@@ -414,8 +414,8 @@ ConsolinnoWizardPageBase {
                         progressive: false
                         property bool isSecure: nymeaHost.connections.get(defaultConnectionIndex).secure
                         property bool isOnline: nymeaHost.connections.get(defaultConnectionIndex).bearerType !== Connection.BearerTypeWan ? nymeaHost.connections.get(defaultConnectionIndex).online : true
-                        tertiaryIconName: isSecure ? '/ui/images/connections/network-secure.svg' : ''
-                        secondaryIconName: !isOnline ? '/ui/images/connections/cloud-error.svg' : ''
+                        tertiaryIconName: isSecure ? '/icons/connections/network-secure.svg' : ''
+                        secondaryIconName: !isOnline ? '/icons/connections/cloud-error.svg' : ''
                         secondaryIconColor: 'red'
 
                         onClicked: {
@@ -425,7 +425,7 @@ ConsolinnoWizardPageBase {
                         contextOptions: [
                             {
                                 text: qsTr('Info'),
-                                icon: Qt.resolvedUrl('/ui/images/info.svg'),
+                                icon: Qt.resolvedUrl('/icons/info.svg'),
                                 callback: function() {
                                     var nymeaHost = hostsProxy.get(index);
                                     var connectionInfoDialog = Qt.createComponent('/ui/components/ConnectionInfoDialog.qml')

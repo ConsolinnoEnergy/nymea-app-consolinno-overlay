@@ -121,7 +121,7 @@ ColumnLayout {
         ColorIcon {
             Layout.preferredHeight: Style.iconSize
             Layout.preferredWidth: Style.iconSize
-            name: "../images/eye.svg"
+            name: "/icons/eye.svg"
             color: root.hiddenPassword ? Style.iconColor : Style.accentColor
             MouseArea {
                 anchors.fill: parent

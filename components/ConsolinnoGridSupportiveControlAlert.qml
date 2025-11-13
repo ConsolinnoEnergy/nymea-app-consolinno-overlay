@@ -35,7 +35,7 @@ Rectangle {
             Layout.rightMargin: 5
             sourceSize.width: 24
             sourceSize.height: 24
-            source: "../images/dialog-warning-symbolic.svg"
+            source: "/icons/dialog-warning-symbolic.svg"
         }
 
         Label {

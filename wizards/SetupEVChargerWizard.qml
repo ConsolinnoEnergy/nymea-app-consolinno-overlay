@@ -146,7 +146,7 @@ Page {
                                     if(Configuration.evchargerIcon !== ""){
                                         return "/ui/images/"+Configuration.evchargerIcon
                                     }else{
-                                        return "../images/ev-charger.svg"
+                                        return "/icons/ev-charger.svg"
                                     }
                                 }
                                 progressive: false
@@ -326,7 +326,7 @@ Page {
 
                     sourceSize.width: 18
                     sourceSize.height: 18
-                    source: "../images/next.svg"
+                    source: "/icons/next.svg"
 
                     layer{
                         enabled: true
@@ -485,7 +485,7 @@ Page {
                             }
                             delegate: ConsolinnoItemDelegate {
                                 Layout.fillWidth: true
-                                iconName: "../images/connections/network-wired.svg"
+                                iconName: "/icons/connections/network-wired.svg"
                                 text: model.name
                                 subText: model.description
                                 progressive: true
