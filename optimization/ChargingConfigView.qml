@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.3
 import QtQml 2.2
 import QtGraphicalEffects 1.15
 import Nymea 1.0
+import NymeaApp.Utils 1.0
 import QtCharts 2.3
 
 import "qrc:/ui/components"
@@ -96,18 +97,28 @@ GenericConfigPage {
         return power.value/(230*phaseCount)
     }
 
-    function getChargingPower(){
+    function getUserVisibleChargingPower(){
         // get the current power of the charger and null if not available
         var power = thing.stateByName("currentPower");
-        if ( power === null || isNaN(power.value) ){
+        print("power.value: ", power.value, typeof power.value)
+        if (power === null ||
+                typeof power.value !== "number" ||
+                isNaN(power.value)){
             return " – ";
         }
 
-        if(power.value % 2 === 0) {
-            return power.value;
+        var userVisiblePower = power.value;
+        var unit = "";
+        if (userVisiblePower < 1000) {
+            userVisiblePower = Math.round(userVisiblePower);
+            unit = "W";
+        } else {
+            userVisiblePower = userVisiblePower / 1000;
+            // Round to 2 decimals.
+            userVisiblePower = Math.round(userVisiblePower * 100) / 100;
+            unit = "kW";
         }
-
-        return parseFloat(power.value.toFixed(2)).toLocaleString();
+        return NymeaUtils.floatToLocaleString(userVisiblePower) + " " + unit;
     }
 
 
@@ -791,7 +802,7 @@ GenericConfigPage {
 
                         Label{
                             id: chargingPowerValue
-                            text: initializing ? 0 : getChargingPower() < 1000 ? getChargingPower() + " W" : (getChargingPower() / 1000).toLocaleString() + " kW"
+                            text: initializing ? 0 : getUserVisibleChargingPower()
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
