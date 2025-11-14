@@ -76,7 +76,7 @@ ItemDelegate {
                 Layout.fillWidth: true//!parent.labelFillsWidth
                 Layout.maximumWidth: root.nameVisible ? contentItemColumn.width / 2 : contentItemColumn.width
                 sourceComponent: {
-                    print("Loading ConsolinnoParamDelegate");
+                    console.debug("Loading ConsolinnoParamDelegate");
                     print("Writable:", root.writable, "type:", root.paramType.type, "min:", root.paramType.minValue, "max:", root.paramType.maxValue, "value:", root.param.value)
                     if (!root.writable) {
                         return stringComponent;
