@@ -258,11 +258,28 @@ Page {
                 inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
                 if (savebutton.validated)
                 {
+                   
+                    const newConfig = JSON.parse(JSON.stringify(heatingConfiguration));
+                    newConfig.maxElectricalPower = +inputText;
+                    newConfig.controllableLocalSystem = gridSupportControl.checked;
 
-                    var newConfig = JSON.parse(JSON.stringify(heatingConfiguration));
-                    newConfig.optimizationEnabled = true
-                    newConfig.maxElectricalPower = +inputText
-                    newConfig.controllableLocalSystem = gridSupportControl.checked
+                    // TODO this is terrible fix the enum mapping properly
+                    // We just want to keep the current value
+                    // Mapping: number -> enum name
+                    const optimizationModeMap = {
+                      0: "OptimizationModePVSurplus",
+                      1: "OptimizationModeDynamicPricing",
+                      2: "OptimizationModeOff",
+                    };
+
+                    // Read the current numeric value from the original config
+                    const currentValue = heatingConfiguration.optimizationMode;
+
+                    // Write the enum name instead of the number
+                    newConfig.optimizationMode = optimizationModeMap.hasOwnProperty(currentValue)
+                      ? optimizationModeMap[currentValue]
+                      : "OptimizationModeOff";
+                    // end of terrible hack 
 
                     d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, newConfig)
                     if(directionID !== 1){
