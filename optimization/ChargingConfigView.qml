@@ -100,7 +100,6 @@ GenericConfigPage {
     function getUserVisibleChargingPower(){
         // get the current power of the charger and null if not available
         var power = thing.stateByName("currentPower");
-        print("power.value: ", power.value, typeof power.value)
         if (power === null ||
                 typeof power.value !== "number" ||
                 isNaN(power.value)){
