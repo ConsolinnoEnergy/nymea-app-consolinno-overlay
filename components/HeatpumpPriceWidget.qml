@@ -174,7 +174,7 @@ Rectangle {
             contentItem: ColumnLayout {
                 Label {
                     Layout.fillWidth: true
-                    text: qsTr("Limit below average: -%1 %").arg(priceSlider.value.toFixed(0))
+                    text: qsTr("Limit below average: %1 %").arg(-priceSlider.value.toFixed(0))
                 }
 
                 Slider {
