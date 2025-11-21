@@ -145,7 +145,7 @@ ItemDelegate {
                 }
                 return root.param.value;
             }
-            font.pixelSize: Style.font
+            font: Style.font
             horizontalAlignment: Text.AlignRight
             elide: Text.ElideRight
         }
