@@ -556,6 +556,7 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
         dummyConfig.insert("avoidZeroFeedInEnabled", false);
         dummyConfig.insert("optimizationEnabled", true);
         dummyConfig.insert("priceThreshold", 0);
+        dummyConfig.insert("dischargePriceThreshold", 0);
         dummyConfig.insert("relativePriceEnabled", false);
         dummyConfig.insert("chargeOnce", false);
         dummyConfig.insert("controllableLocalSystem", false);
@@ -974,6 +975,7 @@ void HemsManager::addOrUpdateBatteryConfiguration(const QVariantMap &configurati
     configuration->setAvoidZeroFeedInEnabled(configurationMap.value("avoidZeroFeedInEnabled").toBool());
     configuration->setAvoidZeroFeedInActive(configurationMap.value("avoidZeroFeedInActive").toBool());
     configuration->setPriceThreshold(configurationMap.value("priceThreshold").toFloat());
+    configuration->setDischargePriceThreshold(configurationMap.value("dischargePriceThreshold").toFloat());
     configuration->setRelativePriceEnabled(configurationMap.value("relativePriceEnabled").toBool());
     configuration->setChargeOnce(configurationMap.value("chargeOnce").toBool());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
