@@ -263,7 +263,7 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: "#83cbe1" 
+        color: "#83cbe1" // TODO: Define in Style
         borderWidth: 1
         borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
