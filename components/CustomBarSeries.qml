@@ -26,7 +26,7 @@ ChartView {
     property var pricesArr: ({
     })
 
-    property double upperPriceLimit: 0
+    property double upperPriceLimit: 10000
 
     function addValues(totalSeries, energySeries, gridSeries, leviesSeries, vat) {
         var lastObjectValue = totalSeries[Object.keys(totalSeries)[Object.keys(totalSeries).length - 1]];
