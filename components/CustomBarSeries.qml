@@ -26,6 +26,8 @@ ChartView {
     property var pricesArr: ({
     })
 
+    property double upperPriceLimit: 0
+
     function addValues(totalSeries, energySeries, gridSeries, leviesSeries, vat) {
         var lastObjectValue = totalSeries[Object.keys(totalSeries)[Object.keys(totalSeries).length - 1]];
         var lastTimestamp = new Date(Object.keys(totalSeries)[Object.keys(totalSeries).length - 1]);
@@ -66,6 +68,7 @@ ChartView {
                 currentTimestamp = currentTimestamp - 600000;
             }
             priceLimitUp.append(currentTimestamp, currentPrice);
+            priceLimitUpperUp.append(currentTimestamp, upperPriceLimit);
             if (lastChangeTimestamp === 0 || lastChangeDate.getMinutes() === 0) {
                 //                leviesUp.append(currentTimestamp - 3600000, itemLevies);
                 //                leviesUp.append(currentTimestamp, itemLevies);
@@ -79,6 +82,7 @@ ChartView {
                 pricingCurrentTime.append(currentTimestamp, valueAxis.min);
                 pricingPast.append(currentTimestamp, valueAxis.min);
                 pricingOutOfLimit.append(currentTimestamp, valueAxis.min);
+                pricingAboveUpperLimit.append(currentTimestamp, valueAxis.min);
             }
             barToDraw = mainSeries;
             const currentHour = new Date();
@@ -89,6 +93,8 @@ ChartView {
                 barToDraw = pricingPast;
             } else if ((root.currentPrice > itemValue) && (dateHour.getTime() == currentHour.getTime())) {
                 barToDraw = currentValueSeries;
+            } else if (root.upperPriceLimit < itemValue) {
+                barToDraw = pricingAboveUpperLimit;
             } else if (dateHour.getTime() == currentHour.getTime()) {
                 barToDraw = pricingCurrentTime;
             } else if (itemValue > root.currentPrice) {
@@ -110,6 +116,7 @@ ChartView {
         averageSeries.append(firstTimestamp.getTime(), averageTotalCost);
         averageSeries.append(lastTimestamp.getTime() + 3.6e+06, averageTotalCost);
         priceLimitLow.append(todayMidnightTs + 6e+06, currentPrice);
+        priceLimitUpperUp.append(todayMidnightTs + 6e+06, upperPriceLimit);
         barToDraw.append(todayMidnightTs + 6e+06, lastObjectValue);
     }
 
@@ -118,8 +125,10 @@ ChartView {
         currentValueSeries.clear();
         pricingPast.clear();
         pricingCurrentTime.clear();
+        pricingAboveUpperLimit.clear();
         pricingOutOfLimit.clear();
         priceLimitUp.clear();
+        priceLimitUpperUp.clear();
         priceLimitLow.clear();
         averageSeries.clear();
     }
@@ -254,6 +263,18 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
+        color: "#83cbe1" 
+        borderWidth: 1
+        borderColor: Style.epexBarOutLine
+        upperSeries: LineSeries {
+            id: pricingAboveUpperLimit
+        }
+
+    }
+
+    AreaSeries {
+        axisX: dateTimeAxis
+        axisY: valueAxis
         color: root.enabled ? Style.epexBarPricingCurrentTime : Style.barSeriesDisabled
         borderWidth: 1
         borderColor: Style.epexBarOutLine
@@ -338,6 +359,19 @@ ChartView {
 
         lowerSeries: LineSeries {
             id: priceLimitLow
+        }
+
+    }
+
+    AreaSeries {
+        axisX: dateTimeAxis
+        axisY: valueAxis
+        color: 'transparent'
+        borderWidth: 1
+        borderColor: root.enabled ? Style.epexAverageColor : Style.barSeriesDisabled
+
+        upperSeries: LineSeries {
+            id: priceLimitUpperUp
         }
 
     }

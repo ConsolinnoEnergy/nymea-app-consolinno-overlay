@@ -464,6 +464,7 @@ GenericConfigPage {
                                 hoursNow: d.now.getHours()
                                 currentPrice: currentValue
                                 currentMarketPrice: currentPrice
+                                upperPriceLimit: dischargePriceThresholdValue
                                 lowestValue: root.lowestPrice
                                 highestValue: root.highestPrice
                             }
@@ -511,7 +512,7 @@ GenericConfigPage {
                                 
                                 // Set up range and step
                                 from: -5.0
-                                to: 60.0
+                                to: 90.0
                                 stepSize: 0.2
                                 
                                 // Initialize slider handles based on properties
@@ -523,6 +524,14 @@ GenericConfigPage {
                                     // Use a fixed precision and update the property
                                     dischargePriceThresholdValue = second.value.toFixed(2);
                                     enableSave(this);
+                                    // Redraw graph (Update the graph immediately when Charge Price changes)
+                                    barSeries.clearValues();
+                                    barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
+                                    dynamicPrice.get(0).stateByName("priceSeries").value, 
+                                    dynamicPrice.get(0).stateByName("gridFeeSeries").value, 
+                                    dynamicPrice.get(0).stateByName("leviesSeries").value, 
+                                    19.0);
+
                                 }
                                 
                                 first.onMoved: () => {
