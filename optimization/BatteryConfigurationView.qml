@@ -37,7 +37,7 @@ Page {
                 property Thing thing: engine.thingManager.things.getThing(model.batteryThingId)
 
                 Layout.fillWidth: true
-                iconName: Configuration.batteryIcon !== "" ? "../images/" + Configuration.batteryIcon : "../images/battery/battery-080.svg";
+                iconName: Configuration.batteryIcon !== "" ? "../images/" + Configuration.batteryIcon : "/icons/battery/battery-080.svg";
                 progressive: true
                 text: thing.name
                 onClicked: pageStack.push("BatteryOptimization.qml", { hemsManager: hemsManager, thing: thing, batteryConfiguration:batteryConfiguration })

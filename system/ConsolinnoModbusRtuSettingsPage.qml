@@ -47,7 +47,7 @@ Page {
         onBackPressed: pageStack.pop()
 
         HeaderButton {
-            imageSource: "../images/add.svg"
+            imageSource: "/icons/add.svg"
             text: qsTr("Add Modbus RTU master")
             onClicked: pageStack.push(Qt.resolvedUrl("ConsolinnoModbusRtuAddMasterPage.qml"), {
                                           modbusRtuManager: modbusRtuManager,
@@ -234,7 +234,7 @@ Page {
                         model: modbusRtuManager.modbusRtuMasters
                         delegate: NymeaSwipeDelegate {
                             Layout.preferredWidth: app.width
-                            iconName: "../images/modbus.svg"
+                            iconName: "/icons/modbus.svg"
                             text: repeaterName.getName(model.serialPort) + " " + model.baudrate
                             subText: model.connected ? qsTr("Connected") : qsTr("Disconnected")
                             onClicked: pageStack.push(modbusDetailsComponent, { modbusRtuManager: modbusRtuManager, modbusRtuMaster: modbusRtuManager.modbusRtuMasters.get(index) })
@@ -315,7 +315,7 @@ Page {
 
                     sourceSize.width: 18
                     sourceSize.height: 18
-                    source: "../images/next.svg"
+                    source: "/icons/next.svg"
 
                     layer{
                         enabled: true
@@ -348,7 +348,7 @@ Page {
                 onBackPressed: pageStack.pop()
 
                 HeaderButton {
-                    imageSource: "../images/delete.svg"
+                    imageSource: "/icons/delete.svg"
                     text: qsTr("Remove Modbus RTU Interface")
                     enabled: modbusRtuManager.supported
                     onClicked: {
@@ -366,7 +366,7 @@ Page {
 
                     property ModbusRtuMaster modbusRtuMaster
 
-                    headerIcon: "../images/modbus.svg"
+                    headerIcon: "/icons/modbus.svg"
                     title: qsTr("Remove Modbus RTU Interface")
                     text: qsTr("Are you sure you want to remove this Modbus RTU Interface?")
                     standardButtons: Dialog.Ok | Dialog.Cancel

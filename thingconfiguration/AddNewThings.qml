@@ -154,7 +154,7 @@ Page {
 
                 ColorIcon {
                     size: Style.iconSize
-                    name: "../images/find.svg"
+                    name: "/icons/find.svg"
                 }
             }
 
@@ -261,42 +261,42 @@ Page {
                             if(Configuration.heatpumpIcon !== ""){
                                 icon = "/ui/images/"+Configuration.heatpumpIcon
                             }else{
-                                icon = "/ui/images/heatpump.svg"
+                                icon = "/icons/heatpump.svg"
                             }
                             return Qt.resolvedUrl(icon)
                         case "heatingrod":
                             if(Configuration.heatingRodIcon !== ""){
                                 icon = "/ui/images/"+Configuration.heatingRodIcon
                             }else{
-                                icon = "/ui/images/heating_rod.svg"
+                                icon = "/icons/heating_rod.svg"
                             }
                             return Qt.resolvedUrl(icon)
                         case "controllablebattery":
                             if(Configuration.batteryIcon !== ""){
                                 icon = "/ui/images/"+Configuration.batteryIcon
                             }else{
-                                icon = "/ui/images/battery/battery-080.svg"
+                                icon = "/icons/battery/battery-080.svg"
                             }
                             return Qt.resolvedUrl(icon)
                         case "limitablebattery":
                             if(Configuration.batteryIcon !== ""){
                                 icon = "/ui/images/"+Configuration.batteryIcon
                             }else{
-                                icon = "/ui/images/battery/battery-080.svg"
+                                icon = "/icons/battery/battery-080.svg"
                             }
                             return Qt.resolvedUrl(icon)
                         case "battery":
                             if(Configuration.batteryIcon !== ""){
                                 icon = "/ui/images/"+Configuration.batteryIcon
                             }else{
-                                icon = "/ui/images/battery/battery-080.svg"
+                                icon = "/icons/battery/battery-080.svg"
                             }
                             return Qt.resolvedUrl(icon)
                         case "energystorage":
                             if(Configuration.batteryIcon !== ""){
                                 icon = "/ui/images/"+Configuration.batteryIcon
                             }else{
-                                icon = "/ui/images/battery/battery-080.svg"
+                                icon = "/icons/battery/battery-080.svg"
                             }
                             return Qt.resolvedUrl(icon)
                         case "evcharger":
@@ -389,7 +389,7 @@ Page {
                 visible: opacity > 0
                 title: qsTr("Looking for something else?")
                 text: qsTr("Try to install more plugins.")
-                imageSource: "/ui/images/save.svg"
+                imageSource: "/icons/save.svg"
                 buttonText: qsTr("Install plugins")
                 onButtonClicked: {
                     pageStack.push(Qt.resolvedUrl("/ui/system/PackageListPage.qml"), {filter: "nymea-plugin-"})

@@ -48,7 +48,7 @@ SettingsPageBase {
         onBackPressed: pageStack.pop()
 
         HeaderButton {
-            imageSource: "../images/navigation-menu.svg"
+            imageSource: "/icons/navigation-menu.svg"
             onClicked: deviceMenu.open()
         }
     }
@@ -64,7 +64,7 @@ SettingsPageBase {
         borderColor: Style.dangerAccent
         textColor: Style.dangerAccent
         iconColor: Style.dangerAccent
-        iconPath: "../images/dialog-warning-symbolic.svg"
+        iconPath: "/icons/dialog-warning-symbolic.svg"
         text: qsTr("Further information in <u>Protocol.</u>")
         paramsThing: root.thing
         paramState: isNaN(connectedState) && connectedState.value === false ? ["signalStrength", "connected"]  : isNaN(batteryCriticalState) && batteryCriticalState.value === true ? ["batteryLevel", "batteryCritical"] : []
@@ -78,16 +78,16 @@ SettingsPageBase {
         x: parent.width - width
 
         Component.onCompleted: {
-            deviceMenu.addItem(menuEntryComponent.createObject(deviceMenu, {text: qsTr("Rename"), iconSource: "../images/edit.svg", functionName: "renameThing"}))
+            deviceMenu.addItem(menuEntryComponent.createObject(deviceMenu, {text: qsTr("Rename"), iconSource: "/icons/edit.svg", functionName: "renameThing"}))
             // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
             // This check might be wrong for thingClasses with multiple create methods...
             if (!root.thing.isChild || root.thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0) {
-                deviceMenu.addItem(menuEntryComponent.createObject(deviceMenu, {text: qsTr("Delete"), iconSource: "../images/delete.svg", functionName: "deleteThing"}))
+                deviceMenu.addItem(menuEntryComponent.createObject(deviceMenu, {text: qsTr("Delete"), iconSource: "/icons/delete.svg", functionName: "deleteThing"}))
             }
             // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
             // This check might be wrong for thingClasses with multiple create methods...
             if (!root.thing.isChild || root.thingClass.createMethods.indexOf("CreateMethodAuto") < 0) {
-                deviceMenu.addItem(menuEntryComponent.createObject(deviceMenu, {text: qsTr("Reconfigure"), iconSource: "../images/configure.svg", functionName: "reconfigureThing"}))
+                deviceMenu.addItem(menuEntryComponent.createObject(deviceMenu, {text: qsTr("Reconfigure"), iconSource: "/icons/configure.svg", functionName: "reconfigureThing"}))
             }
         }
 
@@ -214,7 +214,7 @@ SettingsPageBase {
         delegate: NymeaSwipeDelegate {
             Layout.fillWidth: true
 
-            iconName: "../images/io-connections.svg"
+            iconName: "/icons/io-connections.svg"
             text: model.displayName
             subText: {
                 if (ioStateType.ioType == Types.IOTypeDigitalInput || ioStateType.ioType == Types.IOTypeAnalogInput) {

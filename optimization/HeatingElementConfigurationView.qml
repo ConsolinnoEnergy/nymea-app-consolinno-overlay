@@ -35,7 +35,7 @@ Page {
                 property Thing heatingElementThing: engine.thingManager.things.getThing(model.heatingRodThingId)
 
                 Layout.fillWidth: true
-                iconName: "../images/sensors/water.svg"
+                iconName: "/icons/sensors/water.svg"
                 progressive: true
                 text: heatingElementThing.name
                 onClicked: pageStack.push("HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingElementConfiguration: heatingElementConfiguration, thing: heatingElementThing })

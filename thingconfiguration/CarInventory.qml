@@ -488,7 +488,7 @@ Page{
                     Layout.alignment: Qt.AlignLeft
                     Image{
                         id: deleteButton
-                        source: "../images/delete.svg"
+                        source: "/icons/delete.svg"
                         Layout.maximumWidth: 35
                         Layout.maximumHeight: 35
                         Layout.leftMargin: app.margins

@@ -56,26 +56,26 @@ Page {
                     let icon = "";
                     switch (model.value) {
                         case HemsManager.HemsUseCaseBlackoutProtection:
-                            icon = "../images/attention.svg";
+                            icon = "/icons/attention.svg";
                             break;
                         case HemsManager.HemsUseCaseHeating | HemsManager.HemsUseCaseHeatingRod:
                             if(Configuration.heatpumpIcon !== ""){
                                 icon = "qrc:/ui/images/"+Configuration.heatpumpIcon;
                             }else{
-                                icon = "../images/thermostat/heating.svg";
+                                icon = "/icons/thermostat/heating.svg";
                             }
                             break;
                         case HemsManager.HemsUseCaseCharging:
-                            icon = Configuration.evchargerIcon !== "" ? "../images/" + Configuration.evchargerIcon : "../images/ev-charger.svg";
+                            icon = Configuration.evchargerIcon !== "" ? "../images/" + Configuration.evchargerIcon : "/icons/ev-charger.svg";
                             break;
                         case HemsManager.HemsUseCaseBattery:
-                            icon = Configuration.batteryIcon !== "" ? "../images/" + Configuration.batteryIcon : "../images/battery/battery-080.svg";
+                            icon = Configuration.batteryIcon !== "" ? "../images/" + Configuration.batteryIcon : "/icons/battery/battery-080.svg";
                             break;
                         case HemsManager.HemsUseCasePv:
-                            icon = Configuration.inverterIcon !== "" ? "../images/" + Configuration.inverterIcon : "../images/weathericons/weather-clear-day.svg";
+                            icon = Configuration.inverterIcon !== "" ? "../images/" + Configuration.inverterIcon : "/icons/weathericons/weather-clear-day.svg";
                             break;
                         case HemsManager.HemsUseCaseHeatingRod:
-                            icon = "../images/sensors/water.svg";
+                            icon = "/icons/sensors/water.svg";
                             break;
                     }
                     return icon;

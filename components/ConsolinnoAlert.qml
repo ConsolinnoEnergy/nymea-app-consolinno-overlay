@@ -51,7 +51,7 @@ Rectangle {
             Image {
                 id: image
                 sourceSize: Qt.size(24, 24)
-                source: iconPath === "" ? "../images/attention.svg" : iconPath
+                source: iconPath === "" ? "/icons/attention.svg" : iconPath
                 Layout.leftMargin: 12
                 Layout.rightMargin: 8
 
