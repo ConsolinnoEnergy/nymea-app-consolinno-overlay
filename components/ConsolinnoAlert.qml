@@ -54,6 +54,12 @@ Rectangle {
                 source: iconPath === "" ? "/icons/attention.svg" : iconPath
                 Layout.leftMargin: 12
                 Layout.rightMargin: 8
+
+                ColorOverlay {
+                    anchors.fill: parent
+                    source: parent
+                    color: iconColor
+                }
             }
 
             Label {
@@ -65,13 +71,6 @@ Rectangle {
                 Layout.preferredWidth: parent.width - 20
                 color: textColor
             }
-
-            ColorOverlay {
-                anchors.fill: image
-                source: image
-                color: iconColor
-            }
-
         }
 
         MouseArea {

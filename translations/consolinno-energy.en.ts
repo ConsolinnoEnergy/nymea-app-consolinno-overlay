@@ -4555,6 +4555,10 @@ For further assistance, please contact our support team at: %5</translation>
         <source>Please change name if necessary.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>At the moment, %1 can only control one heating element.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SetupSolarInverterWizard</name>

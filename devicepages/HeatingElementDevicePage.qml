@@ -226,6 +226,7 @@ GenericConfigPage {
                                         target: optimizationParams.item
                                         property: "delegateUnit"
                                         value: modelData.unit
+                                        when: typeof modelData.unit !== "undefined"
                                     }
 
                                     Layout.fillWidth: true
