@@ -17,7 +17,7 @@ Page {
 
     header: NymeaHeader {
         text: qsTr("Setup heating element")
-        onBackPressed: pageStack.pop()
+        onBackPressed: root.done(false, false, true)
     }
 
     QtObject {
@@ -219,7 +219,7 @@ Page {
             Button {
                 text: qsTr("cancel")
                 Layout.preferredWidth: 200
-                onClicked: pageStack.pop()
+                onClicked: root.done(false, true, false)
             }
 
             Popup {
