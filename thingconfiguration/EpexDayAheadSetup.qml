@@ -37,8 +37,6 @@ import Nymea 1.0
 import "../components"
 import "../delegates"
 
-// #TODO Use as template for Epex Day Ahead setup page
-
 Page {
     id: root
 
@@ -52,7 +50,6 @@ Page {
 
     QtObject {
         id: d
-        property var vendorId: null
         property ThingDescriptor thingDescriptor: null
         property var discoveryParams: []
         property string thingName: ""
@@ -63,136 +60,60 @@ Page {
         property var params: []
 
         function pairThing() {
-            print("setupMethod", root.thingClass.setupMethod)
+            if (root.thingClass.setupMethod !== 0) {
+                console.warn("Unexpected setup method for ", root.thingClass.displayName);
+                return;
+            }
 
-            switch (root.thingClass.setupMethod) {
-            case 0:
-                if (root.thing) {
-                    if (d.thingDescriptor) {
-                        engine.thingManager.reconfigureDiscoveredThing(d.thingDescriptor.id, params);
-                    } else {
-                        engine.thingManager.reconfigureThing(root.thing.id, params);
-                    }
-                } else {
-                    if (d.thingDescriptor) {
-                        engine.thingManager.addDiscoveredThing(root.thingClass.id, d.thingDescriptor.id, d.name, params);
-                    } else {
-                        engine.thingManager.addThing(root.thingClass.id, d.name, params);
-                    }
-                }
-                break;
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                if (root.thing) {
-                    if (d.thingDescriptor) {
-                        engine.thingManager.pairDiscoveredThing(d.thingDescriptor.id, params, d.name);
-                    } else {
-                        engine.thingManager.rePairThing(root.thing.id, params, d.name);
-                    }
-                    return;
-                } else {
-                    if (d.thingDescriptor) {
-                        engine.thingManager.pairDiscoveredThing(d.thingDescriptor.id, params, d.name);
-                    } else {
-                        engine.thingManager.pairThing(root.thingClass.id, params, d.name);
-                    }
-                }
-
-                break;
+            if (root.thing) {
+                engine.thingManager.reconfigureThing(root.thing.id, params);
+            } else {
+                engine.thingManager.addThing(root.thingClass.id, d.name, params);
             }
 
             busyOverlay.shown = true;
-
         }
     }
 
     Component.onCompleted: {
-        print("Starting setup wizard. Create Methods:", root.thingClass.createMethods, "Setup method:", root.thingClass.setupMethod)
-        if (root.thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
-            print("CreateMethodDiscovery")
-            if (thingClass["discoveryParamTypes"].count > 0) {
-                print("Discovery params:", thingClass.discoveryParamTypes.count)
-                internalPageStack.push(discoveryParamsPage)
-            } else {
-                print("Starting discovery...")
-                internalPageStack.push(discoveryPage, {thingClass: thingClass})
-                discovery.discoverThings(thingClass.id)
-            }
-        } else if (root.thingClass.createMethods.indexOf("CreateMethodUser") !== -1) {
-            print("CreateMethodUser")
+        console.debug("Starting setup wizard. Create Methods:",
+                      root.thingClass.createMethods,
+                      "Setup method:",
+                      root.thingClass.setupMethod);
+
+        if (root.thingClass.createMethods.indexOf("CreateMethodUser") === -1) {
+            console.warn("Expected create method \"user\" not found");
+            return;
+        }
+
+        if (!root.thing) {
             // Setting up a new thing
-            if (!root.thing) {
-                print("New thing setup")
-                internalPageStack.push(paramsPage)
-
-                // Reconfigure
-            } else if (root.thing) {
-                print("Existing thing")
+            console.debug("Setting up new thing");
+            internalPageStack.push(paramsPage);
+        } else if (root.thing) {
+            // Reconfigure
+            console.debug("Reconfiguring existing thing")
+            if (root.thingClass.paramTypes.count > 0) {
                 // There are params. Open params page in any case
-                if (root.thingClass.paramTypes.count > 0) {
-                    print("Params:", root.thingClass.paramTypes.count)
-                    internalPageStack.push(paramsPage)
-
-                    // No params... go straight to reconfigure/repair
-                } else {
-                    print("no params")
-                    switch (root.thingClass.setupMethod) {
-                    case 0:
-                        print("reconfiguring...")
-                        // This totally does not make sense... Maybe we should hide the reconfigure button if there are no params?
-                        engine.thingManager.reconfigureThing(root.thing.id, [])
-                        busyOverlay.shown = true;
-                        break;
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                    case 5:
-                        print("re-pairing", root.thing.id)
-                        engine.thingManager.rePairThing(root.thing.id, []);
-                        break;
-                    default:
-                        console.warn("Unhandled setup method!")
-                    }
+                console.debug("Params:", root.thingClass.paramTypes.count)
+                internalPageStack.push(paramsPage)
+            } else {
+                // No params... go straight to reconfigure/repair
+                console.debug("No params")
+                if (root.thingClass.setupMethod !== 0) {
+                    console.warn("Unexpected setup method for ", root.thingClass.displayName);
+                    return;
                 }
+                print("reconfiguring...")
+                // This totally does not make sense... Maybe we should hide the reconfigure button if there are no params?
+                engine.thingManager.reconfigureThing(root.thing.id, [])
+                busyOverlay.shown = true;
             }
         }
     }
 
     Connections {
         target: engine.thingManager
-        onPairThingReply: {
-            busyOverlay.shown = false
-            if (thingError !== Thing.ThingErrorNoError) {
-                busyOverlay.shown = false;
-                internalPageStack.push(resultsPage, {thingError: thingError, message: displayMessage});
-                return;
-
-            }
-
-            d.pairingTransactionId = pairingTransactionId;
-
-            switch (setupMethod) {
-            case "SetupMethodPushButton":
-            case "SetupMethodDisplayPin":
-            case "SetupMethodEnterPin":
-            case "SetupMethodUserAndPassword":
-                internalPageStack.push(pairingPageComponent, {text: displayMessage, setupMethod: setupMethod})
-                break;
-            case "SetupMethodOAuth":
-                internalPageStack.push(oAuthPageComponent, {oAuthUrl: oAuthUrl})
-                break;
-            default:
-                print("Setup method reply not handled:", setupMethod);
-            }
-        }
-        onConfirmPairingReply: {
-            busyOverlay.shown = false
-            internalPageStack.push(resultsPage, {thingError: thingError, thingId: thingId, message: displayMessage})
-        }
         onAddThingReply: {
             busyOverlay.shown = false;
             internalPageStack.push(resultsPage, {thingError: thingError, thingId: thingId, message: displayMessage})
@@ -201,11 +122,6 @@ Page {
             busyOverlay.shown = false;
             internalPageStack.push(resultsPage, {thingError: thingError, thingId: root.thing.id, message: displayMessage})
         }
-    }
-
-    ThingDiscovery {
-        id: discovery
-        engine: _engine
     }
 
     StackView {
@@ -218,136 +134,6 @@ Page {
                 internalPageStack.pop(item)
             } else {
                 root.aborted()
-            }
-        }
-    }
-
-    Component {
-        id: discoveryParamsPage
-        SettingsPageBase {
-            id: discoveryParamsView
-            title: qsTr("Discover %1").arg(root.thingClass.displayName)
-
-            SettingsPageSectionHeader {
-                text: qsTr("Discovery options")
-            }
-
-            Repeater {
-                id: paramRepeater
-                model: root.thingClass ? root.thingClass.discoveryParamTypes : null
-                delegate: ParamDelegate {
-                    Layout.fillWidth: true
-                    paramType: root.thingClass.discoveryParamTypes.get(index)
-                }
-            }
-
-            Button {
-                Layout.fillWidth: true
-                Layout.margins: app.margins
-                text: "Next"
-                onClicked: {
-                    var paramTypes = root.thingClass.discoveryParamTypes;
-                    d.discoveryParams = [];
-                    for (var i = 0; i < paramTypes.count; i++) {
-                        var param = {};
-                        param["paramTypeId"] = paramTypes.get(i).id;
-                        param["value"] = paramRepeater.itemAt(i).value
-                        d.discoveryParams.push(param);
-                    }
-                    discovery.discoverThings(root.thingClass.id, d.discoveryParams)
-                    internalPageStack.push(discoveryPage, {thingClass: root.thingClass})
-                }
-            }
-        }
-    }
-
-    Component {
-        id: discoveryPage
-
-        SettingsPageBase {
-            id: discoveryView
-
-            header: NymeaHeader {
-                text: qsTr("Discover %1").arg(root.thingClass.displayName)
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-
-                HeaderButton {
-                    imageSource: "qrc:/icons/configure.svg"
-                    visible: root.thingClass.createMethods.indexOf("CreateMethodUser") >= 0
-                    text: qsTr("Add thing manually")
-                    onClicked: internalPageStack.push(paramsPage)
-                }
-            }
-
-            property ThingClass thingClass: null
-
-            SettingsPageSectionHeader {
-                text: qsTr("Nymea found the following things")
-                visible: !discovery.busy && discoveryProxy.count > 0
-            }
-
-            Repeater {
-                model: ThingDiscoveryProxy {
-                    id: discoveryProxy
-                    thingDiscovery: discovery
-                    showAlreadyAdded: root.thing !== null
-                    showNew: root.thing === null
-                    filterThingId: root.thing ? root.thing.id : ""
-                }
-                delegate: NymeaItemDelegate {
-                    Layout.fillWidth: true
-                    text: model.name
-                    subText: model.description
-                    iconName: app.interfacesToIcon(discoveryView.thingClass.interfaces)
-                    onClicked: {
-                        d.thingDescriptor = discoveryProxy.get(index);
-                        d.thingName = model.name;
-                        internalPageStack.push(paramsPage)
-                    }
-                }
-            }
-
-            busy: discovery.busy
-            busyText: qsTr("Searching for things...")
-
-            ColumnLayout {
-                visible: !discovery.busy && discoveryProxy.count === 0
-                spacing: app.margins
-                Layout.preferredHeight: discoveryView.height - discoveryView.header.height - retryButton.height - app.margins * 3
-                Label {
-                    text: qsTr("Too bad...")
-                    font.pixelSize: app.largeFont
-                    Layout.fillWidth: true
-                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-                    horizontalAlignment: Text.AlignHCenter
-                }
-                Label {
-                    text: qsTr("No things of this kind could be found...")
-                    Layout.fillWidth: true
-                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-                    wrapMode: Text.WordWrap
-                    horizontalAlignment: Text.AlignHCenter
-                }
-
-                Label {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-                    horizontalAlignment: Text.AlignHCenter
-                    text: discovery.displayMessage.length === 0 ?
-                              qsTr("Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.")
-                            : discovery.displayMessage
-                    wrapMode: Text.WordWrap
-                }
-
-            }
-            Button {
-                id: retryButton
-                Layout.fillWidth: true
-                Layout.margins: app.margins
-                text: qsTr("Search again")
-                onClicked: discovery.discoverThings(root.thingClass.id, d.discoveryParams)
-                visible: !discovery.busy
             }
         }
     }
@@ -473,145 +259,6 @@ Page {
                     d.name = nameTextField.text
                     d.pairThing();
                 }
-            }
-        }
-    }
-
-    Component {
-        id: pairingPageComponent
-        SettingsPageBase {
-            id: pairingPage
-            title: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
-            property alias text: textLabel.text
-
-            property string setupMethod
-
-            SettingsPageSectionHeader {
-                text: qsTr("Login required")
-            }
-
-            Label {
-                id: textLabel
-                Layout.fillWidth: true
-                Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-                wrapMode: Text.WordWrap
-            }
-
-            TextField {
-                id: usernameTextField
-                Layout.fillWidth: true
-                Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-                placeholderText: qsTr("Username")
-                visible: pairingPage.setupMethod === "SetupMethodUserAndPassword"
-            }
-
-            ConsolinnoPasswordTextField {
-                id: pinTextField
-                Layout.fillWidth: true
-                Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-                visible: pairingPage.setupMethod === "SetupMethodDisplayPin" || pairingPage.setupMethod === "SetupMethodEnterPin" || pairingPage.setupMethod === "SetupMethodUserAndPassword"
-                signup: false
-            }
-
-
-            Button {
-                Layout.fillWidth: true
-                Layout.margins: app.margins
-                text: "OK"
-                onClicked: {
-                    engine.thingManager.confirmPairing(d.pairingTransactionId, pinTextField.password, usernameTextField.displayText);
-                    busyOverlay.shown = true;
-                }
-            }
-        }
-    }
-
-    Component {
-        id: oAuthPageComponent
-        Page {
-            id: oAuthPage
-            property string oAuthUrl
-            header: NymeaHeader {
-                text: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
-                onBackPressed: pageStack.pop()
-            }
-
-            ColumnLayout {
-                anchors.centerIn: parent
-                width: parent.width - app.margins * 2
-                spacing: app.margins * 2
-
-                Label {
-                    Layout.fillWidth: true
-                    text: qsTr("OAuth is not supported on this platform. Please use this app on a different device to set up this thing.")
-                    wrapMode: Text.WordWrap
-                    horizontalAlignment: Text.AlignHCenter
-                }
-
-                Label {
-                    Layout.fillWidth: true
-                    text: qsTr("In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.")
-                    wrapMode: Text.WordWrap
-                    font.pixelSize: app.smallFont
-                    horizontalAlignment: Text.AlignHCenter
-                }
-            }
-
-            Item {
-                id: webViewContainer
-                anchors.fill: parent
-
-                Component.onCompleted: {
-                    // This might fail if qml-module-qtwebview isn't around
-                    var webView = Qt.createQmlObject(webViewString, webViewContainer);
-                    print("created webView", webView)
-                }
-
-                property string webViewString:
-                    '
-                    import QtQuick 2.8;
-                    import QtWebView 1.1;
-                    import QtQuick.Controls 2.2
-                    import Nymea 1.0;
-
-                    Rectangle {
-                        anchors.fill: parent
-                        color: Style.backgroundColor
-
-                        BusyIndicator {
-                            id: busyIndicator
-                            anchors.centerIn: parent
-                            running: oAuthWebView.loading
-                        }
-
-                        WebView {
-                            id: oAuthWebView
-                            anchors.fill: parent
-                            url: oAuthPage.oAuthUrl
-
-                            function finishProcess(url) {
-                                print("Confirm pairing")
-                                engine.thingManager.confirmPairing(d.pairingTransactionId, url)
-                                busyIndicator.running = true
-                                oAuthWebView.visible = false
-                            }
-
-                            onUrlChanged: {
-                                print("OAUTH URL changed", url)
-                                if (url.toString().indexOf("https://127.0.0.1") == 0) {
-                                    print("Redirect URL detected!")
-                                    finishProcess(url)
-                                } else if (url.toString().indexOf("device-complete") >= 0) {
-                                    // Unfortunatly device code authentication does not support redirect URLs like tado,
-                                    // yet this hack does work for this case when the authentication has been completed.
-                                    // The alternative would be a finished button below the webview.
-                                    print("Device code finish URL detected!")
-                                    finishProcess(url)
-                                }
-                            }
-                        }
-                    }
-                    '
             }
         }
     }
