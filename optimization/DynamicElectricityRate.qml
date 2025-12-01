@@ -115,6 +115,7 @@ StackView {
 
                                 onClicked: {
                                     if(erProxy.get(0).thingClass.setupMethod !== 4){
+                                        // #TODO own screen in case of Epex day ahead
                                         var page = pageStack.push(Qt.resolvedUrl("qrc:///ui/thingconfiguration/SetupWizard.qml"),
                                                                   {thing: dynElectricThing});
                                         page.done.connect(function() {
@@ -216,6 +217,7 @@ StackView {
                               return;
                             }
 
+                            // #TODO own screen in case of Epex day ahead
                             var page = pageStack.push(Qt.resolvedUrl("qrc:///ui/thingconfiguration/SetupWizard.qml"), {thingClass: thingClass});
                             page.done.connect(function() {
                                 pageStack.pop();
