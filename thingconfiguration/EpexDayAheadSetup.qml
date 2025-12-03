@@ -194,14 +194,22 @@ Page {
                     paramType: root.thingClass.paramTypes.get(index)
                     visible: {
                         console.debug("Param Type ID: ", paramType.id.toString())
-                        if (paramType.id.toString() === "f4b1b3b2-4c1c-4b1a-8f1a-9c2b2a1a1b1b") {
+                        if (paramType.id.toString() === "{f4b1b3b2-4c1c-4b1a-8f1a-9c2b2a1a1b1b}") {
                             // "Grid operator" parameter
                             return paramd.variableGridFees;
-                        } else if (paramType.id.toString() === "9d80154a-4205-47cb-a69f-d151a836639b") {
+                        } else if (paramType.id.toString() === "{9d80154a-4205-47cb-a69f-d151a836639b}") {
                             // "Added grid fee" parameter
                             return !paramd.variableGridFees;
                         } else {
                             return true;
+                        }
+                    }
+
+                    onValueChanged: {
+                        console.debug("Value changed: ", value);
+                        if (paramType.id.toString() === "{c39d158c-d9a4-40f2-8d6d-746eca80f9ec}") {
+                            // "Variable grid fees" parameter
+                            paramd.variableGridFees = value;
                         }
                     }
 
