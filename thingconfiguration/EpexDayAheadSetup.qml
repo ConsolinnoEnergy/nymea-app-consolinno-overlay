@@ -50,12 +50,6 @@ Page {
 
     QtObject {
         id: d
-        property ThingDescriptor thingDescriptor: null
-        property var discoveryParams: []
-        property string thingName: ""
-        property int pairRequestId: 0
-        property var pairingTransactionId: null
-        property int addRequestId: 0
         property string name: ""
         property var params: []
 
@@ -104,7 +98,7 @@ Page {
                     console.warn("Unexpected setup method for ", root.thingClass.displayName);
                     return;
                 }
-                print("reconfiguring...")
+                console.debug("reconfiguring...")
                 // This totally does not make sense... Maybe we should hide the reconfigure button if there are no params?
                 engine.thingManager.reconfigureThing(root.thing.id, [])
                 busyOverlay.shown = true;
@@ -143,7 +137,14 @@ Page {
 
         SettingsPageBase {
             id: paramsView
-            title: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
+            title: root.thing ?
+                       qsTr("Reconfigure %1").arg(root.thing.name) :
+                       qsTr("Set up %1").arg(root.thingClass.displayName)
+
+            QtObject {
+                id: paramd
+                property bool variableGridFees: false
+            }
 
             SettingsPageSectionHeader {
                 text: qsTr("Name the thing:")
@@ -153,8 +154,7 @@ Page {
             TextField {
                 id: nameTextField
                 visible: root.thing ? false : true
-                text: (d.thingName ? d.thingName : root.thingClass.displayName)
-                      + (root.thingClass.id.toString().match(/\{?f0dd4c03-0aca-42cc-8f34-9902457b05de\}?/) ? " (" + PlatformHelper.machineHostname + ")" : "")
+                text: root.thingClass.displayName
                 Layout.fillWidth: true
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
@@ -165,44 +165,47 @@ Page {
                 visible: paramRepeater.count > 0
             }
 
-            Component.onCompleted: {
-                if (root.thingClass.id.toString().match(/\{?f0dd4c03-0aca-42cc-8f34-9902457b05de\}?/)) {
-                    console.warn("checking Notification permission!")
-                    if (PlatformPermissions.notificationsPermission != PlatformPermissions.PermissionStatusGranted) {
-                        console.warn("Notification permission missing!")
-                        PlatformPermissions.requestPermission(PlatformPermissions.PermissionNotifications)
-                    }
-                }
-            }
-
             Repeater {
                 id: paramRepeater
-                model: engine.jsonRpcClient.ensureServerVersion("1.12") || d.thingDescriptor == null ?  root.thingClass.paramTypes : null
+
+                Component.onCompleted: {
+                    if (root.thing) {
+                        var param = root.thing.params.getParam("c39d158c-d9a4-40f2-8d6d-746eca80f9ec");
+                        console.debug("Variable grid fees? ",
+                                      param ? param.value : "unknown");
+                        if (param) {
+                            paramd.variableGridFees = param.value
+                        }
+                    } else {
+                        var paramType = root.thingClass.paramTypes.getParamType("c39d158c-d9a4-40f2-8d6d-746eca80f9ec");
+                        console.debug("Variable grid fees? ",
+                                      paramType ? paramType.defaultValue : "unknown");
+                        if (paramType) {
+                            paramd.variableGridFees = paramType.defaultValue
+                        }
+                    }
+                }
+
+
+                model: root.thingClass.paramTypes
                 delegate: ParamDelegate {
-                    //                            Layout.preferredHeight: 60
                     Layout.fillWidth: true
                     enabled: !model.readOnly
                     paramType: root.thingClass.paramTypes.get(index)
+                    visible: {
+                        console.debug("Param Type ID: ", paramType.id.toString())
+                        if (paramType.id.toString() === "f4b1b3b2-4c1c-4b1a-8f1a-9c2b2a1a1b1b") {
+                            // "Grid operator" parameter
+                            return paramd.variableGridFees;
+                        } else if (paramType.id.toString() === "9d80154a-4205-47cb-a69f-d151a836639b") {
+                            // "Added grid fee" parameter
+                            return !paramd.variableGridFees;
+                        } else {
+                            return true;
+                        }
+                    }
+
                     value: {
-                        // Discovery, use params from discovered descriptor
-                        if (d.thingDescriptor && d.thingDescriptor.params.getParam(paramType.id)) {
-                            return d.thingDescriptor.params.getParam(paramType.id).value
-                        }
-
-                        // Special hook for push notifications as we need to provide the token etc implicitly
-                        print("Setting up params for thing class:", root.thingClass.id, root.thingClass.name)
-                        if (root.thingClass.id.toString().match(/\{?f0dd4c03-0aca-42cc-8f34-9902457b05de\}?/)) {
-                            if (paramType.id.toString().match(/\{?3cb8e30e-2ec5-4b4b-8c8c-03eaf7876839\}?/)) {
-                                return PushNotifications.service;
-                            }
-                            if (paramType.id.toString().match(/\{?12ec06b2-44e7-486a-9169-31c684b91c8f\}?/)) {
-                                return PushNotifications.token;
-                            }
-                            if (paramType.id.toString().match(/\{?d76da367-64e3-4b7d-aa84-c96b3acfb65e\}?/)) {
-                                return PushNotifications.clientId + "+" + Configuration.appId;
-                            }
-                        }
-
                         // Show current param value when reconfiguring a thing and default value
                         // when setting up a new thing.
                         if (root.thing) {
@@ -250,7 +253,7 @@ Page {
                         if (!paramType.readOnly) {
                             param.paramTypeId = paramType.id
                             param.value = paramRepeater.itemAt(i).value
-                            print("adding param", param.paramTypeId, param.value)
+                            console.debug("adding param", param.paramTypeId, param.value)
                             params.push(param)
                         }
                     }
