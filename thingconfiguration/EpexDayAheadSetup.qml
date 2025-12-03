@@ -171,15 +171,11 @@ Page {
                 Component.onCompleted: {
                     if (root.thing) {
                         var param = root.thing.params.getParam("c39d158c-d9a4-40f2-8d6d-746eca80f9ec");
-                        console.debug("Variable grid fees? ",
-                                      param ? param.value : "unknown");
                         if (param) {
                             paramd.variableGridFees = param.value
                         }
                     } else {
                         var paramType = root.thingClass.paramTypes.getParamType("c39d158c-d9a4-40f2-8d6d-746eca80f9ec");
-                        console.debug("Variable grid fees? ",
-                                      paramType ? paramType.defaultValue : "unknown");
                         if (paramType) {
                             paramd.variableGridFees = paramType.defaultValue
                         }
@@ -206,7 +202,6 @@ Page {
                     }
 
                     onValueChanged: {
-                        console.debug("Value changed: ", value);
                         if (paramType.id.toString() === "{c39d158c-d9a4-40f2-8d6d-746eca80f9ec}") {
                             // "Variable grid fees" parameter
                             paramd.variableGridFees = value;
@@ -238,11 +233,14 @@ Page {
                     // Need to force reload of model here since otherwise the code below
                     // (to set the parameters to their default values) does not work once
                     // the user made changes to the parameters.
-                    var model = paramRepeater.model
-                    paramRepeater.model = []
-                    paramRepeater.model = model
+                    var model = paramRepeater.model;
+                    paramRepeater.model = [];
+                    paramRepeater.model = model;
                     for (var i = 0; i < paramRepeater.count; i++) {
-                        paramRepeater.itemAt(i).value = paramRepeater.itemAt(i).paramType.defaultValue
+                        console.debug("---- Setting parameter ",
+                                      paramRepeater.itemAt(i).paramType.displayName,
+                                      " to: ", paramRepeater.itemAt(i).paramType.defaultValue);
+                        paramRepeater.itemAt(i).value = paramRepeater.itemAt(i).paramType.defaultValue;
                     }
                 }
             }
