@@ -157,5 +157,6 @@
         <file>thingconfiguration/ConsolinnoConfigureThingPage.qml</file>
         <file>devicepages/ConsolinnoDeviceLogPage.qml</file>
         <file>delegates/ConsolinnoParamDelegate.qml</file>
+        <file>thingconfiguration/EpexDayAheadSetup.qml</file>
     </qresource>
 </RCC>
