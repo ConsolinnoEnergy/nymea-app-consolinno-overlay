@@ -189,7 +189,6 @@ Page {
                     enabled: !model.readOnly
                     paramType: root.thingClass.paramTypes.get(index)
                     visible: {
-                        console.debug("Param Type ID: ", paramType.id.toString())
                         if (paramType.id.toString() === "{f4b1b3b2-4c1c-4b1a-8f1a-9c2b2a1a1b1b}") {
                             // "Grid operator" parameter
                             return paramd.variableGridFees;
@@ -237,9 +236,6 @@ Page {
                     paramRepeater.model = [];
                     paramRepeater.model = model;
                     for (var i = 0; i < paramRepeater.count; i++) {
-                        console.debug("---- Setting parameter ",
-                                      paramRepeater.itemAt(i).paramType.displayName,
-                                      " to: ", paramRepeater.itemAt(i).paramType.defaultValue);
                         paramRepeater.itemAt(i).value = paramRepeater.itemAt(i).paramType.defaultValue;
                     }
                 }
