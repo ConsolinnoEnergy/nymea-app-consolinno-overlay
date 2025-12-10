@@ -591,7 +591,6 @@ GenericConfigPage {
                          Connections {
                              target: hemsManager
                              onAvailableUseCasesChanged: optimizationModeDropdown.rebuildModel()
-                             onHeatingConfigurationsChanged: optimizationModeDropdown.rebuildModel()
                          }
                     } 
                 }
