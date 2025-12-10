@@ -137,6 +137,7 @@ Item {
                     margins.right: 0
                     margins.top: 0
                     margins.bottom: 0
+                    backgroundColor: "transparent"
                     startTime: d.startTimeSince
                     endTime: d.endTimeUntil
                     hoursNow: d.now.getHours()
@@ -174,7 +175,7 @@ Item {
             contentItem: ColumnLayout {
                 Label {
                     Layout.fillWidth: true
-                    text: qsTr("Limit below average: %1 %").arg(-priceSlider.value.toFixed(0))
+                    text: qsTr("Limit below average: %1 %").arg(priceSlider.value.toFixed(0))
                 }
 
                 Slider {
