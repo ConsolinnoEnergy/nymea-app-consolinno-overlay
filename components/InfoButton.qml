@@ -17,7 +17,7 @@ Item {
         id: infoImage
         sourceSize.width: 18
         sourceSize.height: 18
-        source: "../images/info.svg"
+        source: "/icons/info.svg"
         MouseArea{
             anchors.fill: parent
             onClicked:{

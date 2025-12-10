@@ -203,7 +203,7 @@ Page {
                                     if(Configuration.inverterIcon !== ""){
                                         return "/ui/images/"+Configuration.inverterIcon
                                     }else{
-                                        return "../images/weathericons/weather-clear-day.svg"
+                                        return "/icons/weathericons/weather-clear-day.svg"
                                     }
                                 }
                                 progressive: false
@@ -305,7 +305,7 @@ Page {
                     anchors.right: nextStepButton.right
                     anchors.verticalCenter: nextStepButton.verticalCenter
                     anchors.rightMargin: 5
-                    source: "../images/next.svg"
+                    source: "/icons/next.svg"
 
                     layer{
                         enabled: true

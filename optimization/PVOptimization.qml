@@ -217,7 +217,8 @@ Page {
 
         RowLayout{
             Layout.fillWidth: true
-            visible: thing.thingClass.interfaces.includes("limitgridexport")
+            visible: thing.thingClass.interfaces.includes("limitgridexport") ||
+                     thing.thingClass.interfaces.includes("limitableproducer")
 
             Label {
                 Layout.fillWidth: true
@@ -232,7 +233,8 @@ Page {
 
         ColumnLayout {
             Layout.fillWidth: true
-            visible: thing.thingClass.interfaces.includes("limitgridexport")
+            visible: thing.thingClass.interfaces.includes("limitgridexport") ||
+                     thing.thingClass.interfaces.includes("limitableproducer")
 
             Text {
                 Layout.fillWidth: true

@@ -17,7 +17,6 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:8.11.0'
         classpath 'com.google.gms:google-services:4.3.8'
-        
     }
 }
 
@@ -41,10 +40,12 @@ dependencies {
     implementation 'org.reactivestreams:reactive-streams:1.0.3'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
     implementation 'androidx.core:core:1.16.0'
+    implementation 'androidx.activity:activity:1.10.1'
+    implementation 'androidx.fragment:fragment:1.8.8'
 
     if ("${useFirebase}" == "true") {
-        implementation 'com.google.android.gms:play-services-base:15.0.1'
-        implementation 'com.google.firebase:firebase-messaging:18.0.0'
+        implementation 'com.google.android.gms:play-services-base:18.1.0'
+        implementation 'com.google.firebase:firebase-messaging:22.0.0'
         implementation 'com.google.firebase.messaging.cpp:firebase_messaging_cpp@aar'
     }
 }
@@ -68,11 +69,11 @@ android {
      *******************************************************/
 
     compileSdkVersion androidCompileSdkVersion.toInteger()
-
     buildToolsVersion androidBuildToolsVersion
 
     namespace 'hems.consolinno.energy'
     buildFeatures.aidl = true
+
     packagingOptions {
         jniLibs {
             useLegacyPackaging = true
@@ -113,8 +114,8 @@ android {
 
     defaultConfig {
         resConfigs "en", "de", "ko", "it", "nl", "es"
-        minSdkVersion = qtMinSdkVersion
+        minSdkVersion = 23
         targetSdkVersion = 35
+        ndk.abiFilters = qtTargetAbiList.split(",")
     }
 }
-

@@ -383,7 +383,7 @@ Item {
                     borderColor: Style.epexMainLineColor
                     color: Style.epexMainLineColor
                     markerSize: isDynamicPrice ? 5 : parent.height / 80
-                    markerShape: AbstractSeries.MarkerShapeCircle
+                    markerShape: ScatterSeries.MarkerShapeCircle
                     axisX: dateTimeAxis
                     axisY: valueAxis
                 }

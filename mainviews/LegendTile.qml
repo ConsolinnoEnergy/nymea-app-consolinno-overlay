@@ -87,7 +87,7 @@ MouseArea {
                 return icon;
             }
         }
-        return Qt.resolvedUrl("images/select-none.svg")
+        return Qt.resolvedUrl("/icons/select-none.svg")
     }
 
     function ifaceToIcon(name) {
@@ -101,14 +101,14 @@ MouseArea {
             if(Configuration.heatpumpIcon !== ""){
                 icon = "qrc:/ui/images/"+Configuration.heatpumpIcon
             }else{
-                icon = "qrc:/ui/images/heatpump.svg"
+                icon = "qrc:/icons/heatpump.svg"
             }
             return Qt.resolvedUrl(icon)
         case "heatingrod":
             if(Configuration.heatingRodIcon !== ""){
                 icon = "/ui/images/"+Configuration.heatingRodIcon
             }else{
-                icon = "/ui/images/heating_rod.svg"
+                icon = "/icons/heating_rod.svg"
             }
             return Qt.resolvedUrl(icon)
         case "energystorage":
@@ -143,7 +143,7 @@ MouseArea {
             if(Configuration.gridIcon !== ""){
                 icon = "/ui/images/"+Configuration.gridIcon;
             }else{
-                icon = "/ui/images/grid.svg"
+                icon = "/icons/grid.svg"
             }
             return Qt.resolvedUrl(icon);
         }
@@ -151,7 +151,7 @@ MouseArea {
             if(Configuration.energyIcon !== ""){
                 icon = "/ui/images/"+Configuration.energyIcon;
             }else{
-                icon = "/ui/images/energy.svg"
+                icon = "/icons/energy.svg"
             }
             return Qt.resolvedUrl(icon);
         }
@@ -192,9 +192,8 @@ MouseArea {
 
                         Image {
                             anchors.fill: parent
-                            anchors.margins: border.width
                             fillMode: Image.PreserveAspectFit
-                            source: "/ui/images/attention.svg"
+                            source: "/icons/attention.svg"
                             visible: (isNotify === true) && isRootmeter || (isNotify === true) && isProducer
 
                             layer {

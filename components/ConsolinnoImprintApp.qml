@@ -41,7 +41,7 @@ Item {
                             var text = settings.showHiddenOptions
                                     ? qsTr("Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.")
                                     : qsTr("Developer options are now disabled.")
-                            var popup = dialog.createObject(app, {headerIcon: "../images/dialog-warning-symbolic.svg", title: qsTr("Howdy cowboy!"), text: text})
+                            var popup = dialog.createObject(app, {headerIcon: "/icons/dialog-warning-symbolic.svg", title: qsTr("Howdy cowboy!"), text: text})
                             popup.open();
                             clickCounter = 0;
                         }
@@ -88,7 +88,7 @@ Item {
 
             NymeaSwipeDelegate {
                 Layout.fillWidth: true
-                iconName: "../images/stock_website.svg"
+                iconName: "/icons/stock_website.svg"
                 text: qsTr("Visit GitHub page")
                 subText: Configuration.githubLink
                 prominentSubText: false
@@ -101,7 +101,7 @@ Item {
             NymeaSwipeDelegate {
                 Layout.fillWidth: true
                 text: qsTr("View privacy policy")
-                iconName: "../images/stock_website.svg"
+                iconName: "/icons/stock_website.svg"
                 subText: Configuration.privacyPolicyUrl
                 prominentSubText: false
                 wrapTexts: false
@@ -113,7 +113,7 @@ Item {
             NymeaSwipeDelegate {
                 Layout.fillWidth: true
                 text: qsTr("Common Licenses")
-                iconName:  "../images/logs.svg"
+                iconName:  "/icons/logs.svg"
                 subText: qsTr("Common Licenses used for this Product")
                 prominentSubText: false
                 wrapTexts: false
@@ -125,7 +125,7 @@ Item {
             NymeaSwipeDelegate {
                 Layout.fillWidth: true
                 text: qsTr("Software and Libraries")
-                iconName: "../images/logs.svg"
+                iconName: "/icons/logs.svg"
                 subText: qsTr("Software and libraries used for this Product")
                 prominentSubText: false
                 wrapTexts: false
@@ -159,7 +159,7 @@ Item {
         }
         NymeaSwipeDelegate {
             Layout.fillWidth: true
-            iconName: "../images/stock_website.svg"
+            iconName: "/icons/stock_website.svg"
             text: qsTr("Visit the Qt website")
             subText: "https://www.qt.io"
             prominentSubText: false
@@ -171,7 +171,7 @@ Item {
 
         NymeaSwipeDelegate {
             Layout.fillWidth: true
-            iconName: "../images/stock_website.svg"
+            iconName: "/icons/stock_website.svg"
             text: qsTr("Visit the nymea website")
             subText: "https://www.nymea.io"
             prominentSubText: false

@@ -29,7 +29,7 @@ Page {
                 Layout.fillWidth: true
                 text: qsTr("Look & feel")
                 subText: qsTr("Customize the app's look and behavior")
-                iconSource: "../images/preferences-look-and-feel.svg"
+                iconSource: "/icons/preferences-look-and-feel.svg"
                 onClicked: pageStack.push(Qt.resolvedUrl("ConsolinnoLookAndFeelSettingsPage.qml"))
             }
 
@@ -37,14 +37,14 @@ Page {
                 Layout.fillWidth: true
                 text: qsTr("Developer options")
                 subText: qsTr("Access tools for debugging and error reporting")
-                iconSource: "../images/sdk.svg"
+                iconSource: "/icons/sdk.svg"
                 onClicked: pageStack.push(Qt.resolvedUrl("DeveloperOptionsPage.qml"))
             }
             SettingsTile {
                 Layout.fillWidth: true
                 text: qsTr("About %1").arg(Configuration.appName)
                 subText: qsTr("Find app versions and licence information")
-                iconSource: "../images/info.svg"
+                iconSource: "/icons/info.svg"
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
         }

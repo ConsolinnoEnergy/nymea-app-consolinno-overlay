@@ -27,7 +27,7 @@ StackView {
 
     property bool currentState: gridSupportThing.stateByName("isLpcActive").value
     property bool currentStateLPP: gridSupportThing.stateByName("isLppActive").value
-    property string contentPlimLPP: currentStateLPP === true ? qsTr("The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.").arg(powerLimitLPP) : ""
+    property string contentPlimLPP: currentStateLPP === true ? qsTr("The feed-in is <b>limited temporarily</b> to <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimitLPP)) : ""
     property string contentPlim: currentState === true ? qsTr("Consumption is <b>temporarily limited</b> to a maximum of <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimit)) : ""
 
 
@@ -120,16 +120,19 @@ StackView {
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                spacing: 8
+                spacing: app.margins
 
                 ColumnLayout {
+                    Layout.topMargin: app.margins
                     Layout.leftMargin: app.bigMargins
                     Layout.rightMargin: app.bigMargins
+                    spacing: app.margins
 
                     Button {
                         id: setUpButton
                         Layout.fillWidth: true
-                        Layout.bottomMargin: 8
+                        Layout.bottomMargin: -6
+                        Layout.topMargin: -6
                         text: qsTr("Grid-supportive control setup")
                         implicitHeight: 50
                         onClicked: {
@@ -156,7 +159,7 @@ StackView {
                         iconColor: Style.warningAccent
 
                         text: contentPlim
-                        headerText: qsTr("Grid-supportive control")
+                        headerText: qsTr("Limited consumption")
                     }
                 }
 
@@ -364,7 +367,7 @@ StackView {
                         textColor: Style.dangerAccent
                         iconColor: Style.dangerAccent
 
-                        iconPath: "../images/dialog-warning-symbolic.svg"
+                        iconPath: "/icons/dialog-warning-symbolic.svg"
                         text: qsTr("Existing setup will be overwritten.")
                         headerText: qsTr("Attention")
                     }
@@ -423,12 +426,12 @@ StackView {
                 id: menuListModel
 
                 ListElement {
-                    icon: "/ui/images/delete.svg"
+                    icon: "/icons/delete.svg"
                     text: qsTr("Delete")
                 }
 
                 ListElement {
-                    icon: "/ui/images/configure.svg"
+                    icon: "/icons/configure.svg"
                     text: qsTr("Reconfigure")
                 }
             }
@@ -599,7 +602,7 @@ StackView {
                             delegate: ConsolinnoItemDelegate {
                                 implicitHeight: 50
                                 Layout.fillWidth: true
-                                iconName: "../images/connections/network-wired.svg"
+                                iconName: "/icons/connections/network-wired.svg"
                                 text: model.name
                                 subText: model.description
                                 progressive: true
@@ -710,7 +713,7 @@ StackView {
                                 text: paramValue !== "" ? paramValue : ""
                                 subText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
                                 tertiaryText: model.displayName
-                                secondaryIconName: index === 0 ? "../images/edit-copy.svg" : ""
+                                secondaryIconName: index === 0 ? "/icons/edit-copy.svg" : ""
                                 secondaryIconColor: Material.accentColor
                                 secondaryIconSize: 24
                                 progressive: false
@@ -743,7 +746,7 @@ StackView {
                         textColor: Style.dangerAccent
                         iconColor: Style.dangerAccent
 
-                        iconPath: "../images/dialog-warning-symbolic.svg"
+                        iconPath: "/icons/dialog-warning-symbolic.svg"
                         text: qsTr("Existing setup will be overwritten.")
                         headerText: qsTr("Attention")
                     }
@@ -824,12 +827,12 @@ StackView {
                 id: menuListModel
 
                 ListElement {
-                    icon: "/ui/images/delete.svg"
+                    icon: "/icons/delete.svg"
                     text: qsTr("Delete")
                 }
 
                 ListElement {
-                    icon: "/ui/images/configure.svg"
+                    icon: "/icons/configure.svg"
                     text: qsTr("Reconfigure")
                 }
             }
@@ -944,7 +947,7 @@ StackView {
                                 text: paramValue !== "" ? paramValue : ""
                                 subText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
                                 tertiaryText: model.displayName
-                                secondaryIconName: index === 0 ? "../images/edit-copy.svg" : ""
+                                secondaryIconName: index === 0 ? "/icons/edit-copy.svg" : ""
                                 secondaryIconColor: Material.accentColor
                                 secondaryIconSize: 24
                                 progressive: false
@@ -1094,7 +1097,7 @@ StackView {
                     text: paramValue
                     subText: qsTr("This SKI is required by the network operator.")
                     tertiaryText: "Local Subject Key Identifier (SKI)"
-                    secondaryIconName: "../images/edit-copy.svg"
+                    secondaryIconName: "/icons/edit-copy.svg"
                     secondaryIconColor: Material.accentColor
                     secondaryIconSize: 24
                     progressive: false

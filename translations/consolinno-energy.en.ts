@@ -2896,11 +2896,24 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation type="unfinished">&lt;h3&gt;The app has been updated.&lt;/h3&gt;
+        <translation>&lt;h3&gt;The app has been updated.&lt;/h3&gt;
 &lt;p&gt;Version 1.12.0&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;&lt;/li&gt;
+&lt;li&gt;§ 9EEG: Grid-friendly curtailment now available for hybrid systems&lt;/li&gt;
+&lt;li&gt;Update feedback: Visual indication of ongoing updates via device LEDs&lt;/li&gt;
+&lt;li&gt;Service UI:
+&lt;ul&gt;
+&lt;li&gt;Installation companies can register&lt;/li&gt;
+&lt;li&gt;Gain access to their own installed systems&lt;/li&gt;
+&lt;li&gt;To use this feature, the HEMS system must be registered in the Service UI&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Improvements&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Grid-friendly control: Optimized for greater comfort and efficiency&lt;/li&gt;
+&lt;li&gt;Heat pump control: SG-Ready standard (1.0 or 1.1) can now be configured directly in the app&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -3042,51 +3055,15 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Location</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Network charges</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Taxes &amp; fees</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>VAT</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Zewotherm setup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please fill in all fields. The value cannot be empty or 0.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The following tariff is submitted:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>There is no rate set up yet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to add thing: ThingErrorHardwareFailure</source>
+        <source>Remove thing?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove %1 and all associated settings?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3320,15 +3297,23 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Feed-in curtailment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limited consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blocked consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3482,15 +3467,19 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Feed-in curtailment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limited consumption</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3595,6 +3584,22 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Total Consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target Temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimal Temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Power Setpoint Active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Power Setpoint</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4548,6 +4553,10 @@ For further assistance, please contact our support team at: %5</translation>
     </message>
     <message>
         <source>Please change name if necessary.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At the moment, %1 can only control one heating element.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

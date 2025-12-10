@@ -2906,11 +2906,24 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation type="unfinished">&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
+        <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
 &lt;p&gt;Version 1.12.0&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-    &lt;li&gt;&lt;/li&gt;
+&lt;li&gt;§ 9EEG: Netzdienliche Abregelung jetzt für Hybrid-Systeme verfügbar&lt;/li&gt;
+&lt;li&gt;Feedback zu Updates: Visuelle Anzeige laufender Updates über LEDs&lt;/li&gt;
+&lt;li&gt;Service UI:
+&lt;ul&gt;
+&lt;li&gt;Installateur-Betriebe können sich registrieren&lt;/li&gt;
+&lt;li&gt;erhalten so Zugang zu den eigenen installierten Anlagen&lt;/li&gt;
+&lt;li&gt;Voraussetzung: Anmeldung des HEMS-Systems in der Service-UI&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Verbesserungen&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Netzdienliche Steuerung: Optimiert für mehr Komfort und Effizienz&lt;/li&gt;
+&lt;li&gt;Wärmepumpensteuerung: SG-Ready-Standard  (1.0 oder 1.1) direkt einstellbar in der App&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -3066,48 +3079,12 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <source>Location</source>
-        <translation type="unfinished">Standort</translation>
+        <source>Remove thing?</source>
+        <translation type="unfinished">&quot;Thing&quot; entfernen?</translation>
     </message>
     <message>
-        <source>Network charges</source>
-        <translation>Netzentgelte</translation>
-    </message>
-    <message>
-        <source>Taxes &amp; fees</source>
-        <translation>Steuern &amp; Abgaben</translation>
-    </message>
-    <message>
-        <source>VAT</source>
-        <translation type="unfinished">Mehrwertsteuer</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
-    </message>
-    <message>
-        <source>Zewotherm setup</source>
-        <translation>Zewotherm einrichten</translation>
-    </message>
-    <message>
-        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please fill in all fields. The value cannot be empty or 0.</source>
-        <translation>Bitte füllen Sie alle Felder aus. Der Wert darf nicht leer oder 0 sein.</translation>
-    </message>
-    <message>
-        <source>The following tariff is submitted:</source>
-        <translation>Der folgende Stromtarif wurde eingerichtet:</translation>
-    </message>
-    <message>
-        <source>Failed to add thing: ThingErrorHardwareFailure</source>
-        <translation type="unfinished"></translation>
+        <source>Are you sure you want to remove %1 and all associated settings?</source>
+        <translation type="unfinished">Bist Du sicher, dass %1 und alle zugehörigen Einstellungen entfernt werden sollen?</translation>
     </message>
 </context>
 <context>
@@ -3340,16 +3317,24 @@ fügen Sie eine weitere hinzu.</translation>
         <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend limitiert&lt;/b&gt;.</translation>
     </message>
     <message>
-        <source>The consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
-        <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend blockiert&lt;/b&gt;.</translation>
-    </message>
-    <message>
-        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
-        <translation type="unfinished">Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers vorübergehend begrenzt  auf %1 Watt.</translation>
-    </message>
-    <message>
         <source>Feed-in curtailment</source>
         <translation type="unfinished">Einspeiseabregelung</translation>
+    </message>
+    <message>
+        <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <translation>Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend begrenzt&lt;/b&gt; auf &lt;b&gt;%1 kW.&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Limited consumption</source>
+        <translation>Reduzierter Verbrauch</translation>
+    </message>
+    <message>
+        <source>Blocked consumption</source>
+        <translation>Blockierter Verbrauch</translation>
+    </message>
+    <message>
+        <source>Consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
+        <translation>Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend blockiert&lt;/b&gt;.</translation>
     </message>
 </context>
 <context>
@@ -3502,16 +3487,20 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Achtung</translation>
     </message>
     <message>
-        <source>The feed-in is limited temporarily to %1 watts due to a control command from the grid operator.</source>
-        <translation>Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers vorübergehend begrenzt  auf %1 Watt.</translation>
-    </message>
-    <message>
         <source>Feed-in curtailment</source>
         <translation>Einspeiseabregelung</translation>
     </message>
     <message>
         <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; to a maximum of &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
         <translation>Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend auf maximal %1 kW limitiert&lt;/b&gt;.</translation>
+    </message>
+    <message>
+        <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <translation>Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend begrenzt&lt;/b&gt; auf &lt;b&gt;%1 kW.&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Limited consumption</source>
+        <translation>Reduzierter Verbrauch</translation>
     </message>
 </context>
 <context>
@@ -3616,6 +3605,22 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Total Consumption</source>
         <translation>Insgesamter Verbrauch</translation>
+    </message>
+    <message>
+        <source>Target Temperature</source>
+        <translation>Zieltemperatur</translation>
+    </message>
+    <message>
+        <source>Minimal Temperature</source>
+        <translation>Minimale Temperatur</translation>
+    </message>
+    <message>
+        <source>Power Setpoint Active</source>
+        <translation>Leistungsvorgabe aktiv</translation>
+    </message>
+    <message>
+        <source>Power Setpoint</source>
+        <translation>Leistungsvorgabe</translation>
     </message>
 </context>
 <context>
@@ -4574,6 +4579,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Please change name if necessary.</source>
         <translation>Wenn notwendig, bitte den Namen ändern.</translation>
+    </message>
+    <message>
+        <source>At the moment, %1 can only control one heating element.</source>
+        <translation>Derzeit kann %1 nur einen Heizstab steuern.</translation>
     </message>
 </context>
 <context>

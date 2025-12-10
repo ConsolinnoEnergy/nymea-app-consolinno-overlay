@@ -8,6 +8,7 @@ import Nymea 1.0
 import "../components"
 import "../delegates"
 import "../optimization"
+import "../thingconfiguration"
 
 StackView {
     id: root
@@ -100,7 +101,7 @@ StackView {
                             delegate: ConsolinnoThingDelegate {
                                 implicitHeight: 50
                                 Layout.fillWidth: true
-                                iconName: Configuration.energyIcon !== "" ? "/ui/images/"+Configuration.energyIcon : "../images/energy.svg"
+                                iconName: Configuration.energyIcon !== "" ? "/ui/images/"+Configuration.energyIcon : "/icons/energy.svg"
                                 text: model.name
                                 progressive: true
                                 canDelete: true
@@ -115,7 +116,12 @@ StackView {
 
                                 onClicked: {
                                     if(erProxy.get(0).thingClass.setupMethod !== 4){
-                                        var page = pageStack.push(Qt.resolvedUrl("qrc:///ui/thingconfiguration/SetupWizard.qml"),
+                                        var isEpexDayAheadThing =
+                                                dynElectricThing.thingClassId.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}";
+                                        var pageUrl = isEpexDayAheadThing ?
+                                                    "qrc:///ui/thingconfiguration/EpexDayAheadSetup.qml" :
+                                                    "qrc:///ui/thingconfiguration/SetupWizard.qml";
+                                        var page = pageStack.push(Qt.resolvedUrl(pageUrl),
                                                                   {thing: dynElectricThing});
                                         page.done.connect(function() {
                                             for (var i = 0; i < pageStackPopsAfterConfigure; i++) {
@@ -216,7 +222,12 @@ StackView {
                               return;
                             }
 
-                            var page = pageStack.push(Qt.resolvedUrl("qrc:///ui/thingconfiguration/SetupWizard.qml"), {thingClass: thingClass});
+                            var isEpexDayAheadThing =
+                                    thingClass.id.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}";
+                            var pageUrl = isEpexDayAheadThing ?
+                                        "qrc:///ui/thingconfiguration/EpexDayAheadSetup.qml" :
+                                        "qrc:///ui/thingconfiguration/SetupWizard.qml";
+                            var page = pageStack.push(Qt.resolvedUrl(pageUrl), {thingClass: thingClass});
                             page.done.connect(function() {
                                 pageStack.pop();
                             })
