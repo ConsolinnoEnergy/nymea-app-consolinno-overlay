@@ -165,51 +165,38 @@ Item {
             Layout.fillWidth: true
         }
 
-        ItemDelegate {
+
+        Label {
             Layout.fillWidth: true
-            Layout.alignment: Qt.AlignLeft
-            topPadding: 0
-            leftPadding: 0
-            rightPadding: 0
-
-            contentItem: ColumnLayout {
-                Label {
-                    Layout.fillWidth: true
-                    text: qsTr("Limit below average: %1 %").arg(priceSlider.value.toFixed(0))
-                }
-
-                Slider {
-                    id: priceSlider
-
-                    Layout.fillWidth: true
-                    value: -relativeValue
-                    onMoved: () => {
-                        currentValue = relPrice2AbsPrice(-value);
-                        currentRelativeValue = value;
-                        if (heatingConfiguration.priceThreshold !== currentValue)
-                            root.enableSave();
-
-                        barSeries.clearValues();
-                        barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value, dynamicPrice.get(0).stateByName("priceSeries").value, dynamicPrice.get(0).stateByName("gridFeeSeries").value, dynamicPrice.get(0).stateByName("leviesSeries").value, 19);
-                    }
-                    from: 0
-                    to: 100
-                    stepSize: 1
-                }
-                // Add a note below the slider
-
-                Label {
-                    Layout.fillWidth: true
-                    text: qsTr("Note: The heat pump's operating mode is increased only at the top of each quarter-hour. After changing the price limit, there may be a delay of up to 15 minutes before the heat pump enters increased mode.")
-                    wrapMode: Text.WordWrap
-                    font.pixelSize: 12
-                    color: "#666666"
-                }
-
-            }
-
+            text: qsTr("Limit below average: %1 %").arg(priceSlider.value.toFixed(0))
         }
 
-    }
+        Slider {
+            id: priceSlider
 
+            Layout.fillWidth: true
+            value: -relativeValue
+            onMoved: () => {
+                         currentValue = relPrice2AbsPrice(-value);
+                         currentRelativeValue = value;
+                         if (heatingConfiguration.priceThreshold !== currentValue)
+                         root.enableSave();
+
+                         barSeries.clearValues();
+                         barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value, dynamicPrice.get(0).stateByName("priceSeries").value, dynamicPrice.get(0).stateByName("gridFeeSeries").value, dynamicPrice.get(0).stateByName("leviesSeries").value, 19);
+                     }
+            from: 0
+            to: 100
+            stepSize: 1
+        }
+        // Add a note below the slider
+
+        Label {
+            Layout.fillWidth: true
+            text: qsTr("Note: The heat pump's operating mode is increased only at the top of each quarter-hour. After changing the price limit, there may be a delay of up to 15 minutes before the heat pump enters increased mode.")
+            wrapMode: Text.WordWrap
+            font.pixelSize: 12
+            color: "#666666"
+        }
+    }
 }
