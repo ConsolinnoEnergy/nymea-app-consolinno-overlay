@@ -177,6 +177,7 @@ int HemsManager::setPvConfiguration(const QUuid &pvThingId, const QVariantMap &d
         dummyConfig.insert("roofPitch", 0);
         dummyConfig.insert("alignment", 0);
         dummyConfig.insert("kwPeak", 0);
+        dummyConfig.insert("controllableLocalSystem", false);
 
         addOrUpdatePvConfiguration(dummyConfig);
         // and get the dummy Config
@@ -1099,7 +1100,7 @@ void HemsManager::addOrUpdatePvConfiguration(const QVariantMap &configurationMap
     configuration->setRoofPitch(configurationMap.value("roofPitch").toInt());
     configuration->setAlignment(configurationMap.value("alignment").toInt());
     configuration->setKwPeak(configurationMap.value("kwPeak").toFloat());
-
+    configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 
      if (newConfiguration){
          qCDebug(dcHems()) << "Pv configuration added" << configuration->pvThingId();
