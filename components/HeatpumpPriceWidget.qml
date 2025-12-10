@@ -8,7 +8,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 
-Rectangle {
+Item {
     id: widgetRoot
 
     property HeatingConfiguration heatingConfiguration
