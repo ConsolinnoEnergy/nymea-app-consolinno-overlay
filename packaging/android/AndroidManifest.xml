@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 <manifest package="hems.consolinno.energy" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.0" android:versionCode="1" android:installLocation="auto">
 
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
     <application android:hardwareAccelerated="true" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="Consolinno HEMS" android:extractNativeLibs="true" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round">
-        <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density" android:name="io.guh.nymeaapp.NymeaAppActivity" android:label="Consolinno HEMS" android:screenOrientation="portrait" android:launchMode="singleTop" android:exported="true">
+        <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density|colorMode|fontWeight|touchscreen" android:name="io.guh.nymeaapp.NymeaAppActivity" android:label="Consolinno HEMS" android:screenOrientation="portrait" android:launchMode="singleTop" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -53,7 +55,7 @@
             <!-- extract android style -->
             <meta-data android:name="android.app.splash_screen_sticky" android:value="true"/>
         </activity>
-        <activity android:process=":qt_controlsActivity" android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density" android:name="io.guh.nymeaapp.NymeaAppControlsActivity" android:label="Consolinno HEMS" android:screenOrientation="portrait" android:launchMode="standard" android:exported="false">
+        <activity android:process=":qt_controlsActivity" android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density|colorMode|fontWeight|touchscreen" android:name="io.guh.nymeaapp.NymeaAppControlsActivity" android:label="Consolinno HEMS" android:screenOrientation="portrait" android:launchMode="standard" android:exported="false">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
                 <category android:name="android.intent.category.DEFAULT"/>
