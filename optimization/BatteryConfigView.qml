@@ -89,10 +89,10 @@ GenericConfigPage {
     Connections {
         target: engine.thingManager
         onThingStateChanged: (thingId, stateTypeId, value)=> {
-            if (thingId === dynamicPrice.get(0).id ) {
-                updatePrice()
-            }
-        }
+                                 if (thingId === dynamicPrice.get(0).id ) {
+                                     updatePrice()
+                                 }
+                             }
     }
 
     Component.onCompleted: {
@@ -127,11 +127,11 @@ GenericConfigPage {
     {
         // Save both values controlled by the RangeSlider
         rootObject.pendingCallId = hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": optimizationController.checked,
-                                "priceThreshold": currentValue,
-                                "dischargePriceThreshold": dischargePriceThresholdValue,
-                                "relativePriceEnabled": false,
-                                "chargeOnce": chargeOnceController.checked,
-                                "avoidZeroFeedInActive": batteryConfiguration.avoidZeroFeedInActive,})
+                                                                           "priceThreshold": currentValue,
+                                                                           "dischargePriceThreshold": dischargePriceThresholdValue,
+                                                                           "relativePriceEnabled": false,
+                                                                           "chargeOnce": chargeOnceController.checked,
+                                                                           "avoidZeroFeedInActive": batteryConfiguration.avoidZeroFeedInActive,})
     }
 
     function enableSave(obj)
@@ -277,24 +277,24 @@ GenericConfigPage {
                             push: "TariffGuidedChargingInfo.qml"
                         }
 
-                    Column {
-                        ConsolinnoSwitch {
-                            spacing: 1
-                            height: 18
-                            id: optimizationController
+                        Column {
+                            ConsolinnoSwitch {
+                                spacing: 1
+                                height: 18
+                                id: optimizationController
 
-                            onClicked: {
-                                if(!optimizationController.checked){
-                                    chargeOnceController.checked = false;
+                                onClicked: {
+                                    if(!optimizationController.checked){
+                                        chargeOnceController.checked = false;
+                                    }
+                                    enableSave(this)
                                 }
-                                enableSave(this)
-                            }
-                            Component.onCompleted: {
-                                checked = batteryConfiguration.optimizationEnabled
+                                Component.onCompleted: {
+                                    checked = batteryConfiguration.optimizationEnabled
+                                }
                             }
                         }
                     }
-                }
 
                     // Charge once
                     RowLayout {
@@ -319,69 +319,69 @@ GenericConfigPage {
                                 width: chargeOnceController.width
                                 height: chargeOnceController.height
 
-                            ConsolinnoSwitch {
-                                id: chargeOnceController
-                                anchors.fill: parent
-                                spacing: 1
-                                height: 18
-                                enabled: isZeroCompensation ? false : true
+                                ConsolinnoSwitch {
+                                    id: chargeOnceController
+                                    anchors.fill: parent
+                                    spacing: 1
+                                    height: 18
+                                    enabled: isZeroCompensation ? false : true
 
-                                        Component.onCompleted: {
-                                            checked = batteryConfiguration.chargeOnce
-                                        }
-                                        onClicked: {
-                                            if (!isZeroCompensation)
-                                                enableSave(this)
-                                        }
+                                    Component.onCompleted: {
+                                        checked = batteryConfiguration.chargeOnce
                                     }
+                                    onClicked: {
+                                        if (!isZeroCompensation)
+                                            enableSave(this)
+                                    }
+                                }
 
-                                    MouseArea {
-                                        id: mouseArea
+                                MouseArea {
+                                    id: mouseArea
+                                    anchors.fill: parent
+                                    hoverEnabled: true
+                                    enabled: isZeroCompensation
+
+                                    onEntered: {
+                                        if (isZeroCompensation)
+                                            toolTipSwitch.visible = true
+                                    }
+                                    onExited: {
+                                        if (isZeroCompensation)
+                                            toolTipSwitch.visible = false
+                                    }
+                                }
+
+                                NymeaToolTip {
+                                    id: toolTipSwitch
+                                    visible: false
+
+                                    z: 10
+                                    anchors.right: parent.right
+                                    anchors.bottom: parent.top
+                                    anchors.bottomMargin: 5
+
+                                    width: toolTopLayout.width + Style.smallMargins * 2
+                                    height: toolTopLayout.implicitHeight + Style.smallMargins * 2
+
+                                    ColumnLayout {
+                                        id: toolTopLayout
+                                        width: 305
                                         anchors.fill: parent
-                                        hoverEnabled: true
-                                        enabled: isZeroCompensation
+                                        anchors.margins: Style.smallMargins
 
-                                        onEntered: {
-                                            if (isZeroCompensation)
-                                                toolTipSwitch.visible = true
-                                        }
-                                        onExited: {
-                                            if (isZeroCompensation)
-                                                toolTipSwitch.visible = false
-                                        }
-                                    }
-
-                                    NymeaToolTip {
-                                        id: toolTipSwitch
-                                        visible: false
-
-                                        z: 10
-                                        anchors.right: parent.right
-                                        anchors.bottom: parent.top
-                                        anchors.bottomMargin: 5
-
-                                        width: toolTopLayout.width + Style.smallMargins * 2
-                                        height: toolTopLayout.implicitHeight + Style.smallMargins * 2
-
-                                        ColumnLayout {
-                                            id: toolTopLayout
-                                            width: 305
-                                            anchors.fill: parent
-                                            anchors.margins: Style.smallMargins
-
-                                            Label {
-                                                id: labelID
-                                                Layout.fillWidth: true
-                                                wrapMode: Text.WordWrap
-                                                text: qsTr("If the zero-compensation avoidance is active, immediate battery charging is not possible.")
-                                                font: Style.smallFont
-                                            }
+                                        Label {
+                                            id: labelID
+                                            Layout.fillWidth: true
+                                            wrapMode: Text.WordWrap
+                                            text: qsTr("If the zero-compensation avoidance is active, immediate battery charging is not possible.")
+                                            font: Style.smallFont
                                         }
                                     }
                                 }
                             }
                         }
                     }
+                }
 
                 ColumnLayout {
                     id: columnLayer
@@ -430,11 +430,11 @@ GenericConfigPage {
                             averagePrice = dpThing.stateByName("averageTotalCost").value.toFixed(0).toString();
                             lowestPrice = dpThing.stateByName("lowestPrice").value
                             highestPrice = dpThing.stateByName("highestPrice").value
-                            barSeries.addValues(dpThing.stateByName("totalCostSeries").value, 
-                            dpThing.stateByName("priceSeries").value, 
-                            dpThing.stateByName("gridFeeSeries").value, 
-                            dpThing.stateByName("leviesSeries").value,
-                            19.0);
+                            barSeries.addValues(dpThing.stateByName("totalCostSeries").value,
+                                                dpThing.stateByName("priceSeries").value,
+                                                dpThing.stateByName("gridFeeSeries").value,
+                                                dpThing.stateByName("leviesSeries").value,
+                                                19.0);
 
                         }
 
@@ -485,95 +485,133 @@ GenericConfigPage {
                         Layout.fillWidth: true
                     }
 
-                    // === RANGE SLIDER for Charge Limit & Discharge Offset ===
-                    ItemDelegate {
+                    Label {
                         Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignLeft
-                        topPadding: 0
-                        leftPadding: 0
-                        rightPadding: 0
-                        visible: optimizationController.checked
-                        enabled: chargeOnceController.checked ? false : true
-                        contentItem: ColumnLayout {
-                            
-                            // Display the two values controlled by the RangeSlider
-                            Label {
-                                Layout.fillWidth: true
-                                text: qsTr("Charge Price Limit: %1 ct/kWh").arg(currentValue.toFixed(2))
-                            }
-                            Label {
-                                Layout.fillWidth: true
-                                text: qsTr("Discharge Price Limit: %1 ct/kWh").arg(dischargePriceThresholdValue.toFixed(2))
-                            }
-                            
-                            RangeSlider {
-                                id: priceRangeSlider
-                                Layout.fillWidth: true
-                                
-                                // Set up range and step
-                                from: -5.0
-                                to: 90.0
-                                stepSize: 0.2
-                                
-                                // Initialize slider handles based on properties
-                                second.value: dischargePriceThresholdValue 
-                                first.value: currentValue
-                                
-                                second.onMoved: () => {
-                                    // Upper value controls the Discharge Price Offset
-                                    // Use a fixed precision and update the property
-                                    dischargePriceThresholdValue = second.value.toFixed(2);
-                                    enableSave(this);
-                                    // Redraw graph (Update the graph immediately when Charge Price changes)
-                                    barSeries.clearValues();
-                                    barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
-                                    dynamicPrice.get(0).stateByName("priceSeries").value, 
-                                    dynamicPrice.get(0).stateByName("gridFeeSeries").value, 
-                                    dynamicPrice.get(0).stateByName("leviesSeries").value, 
-                                    19.0);
+                        text: qsTr("Charge Price Limit: %1 ct/kWh").arg(currentValue.toFixed(2))
+                    }
 
-                                }
-                                
-                                first.onMoved: () => {
-                                    // Lower value controls the Charge Price Limit
-                                    // Use a fixed precision and update the property
-                                    currentValue = first.value.toFixed(2);
-                                    enableSave(this);
-                                    
-                                    // Redraw graph (Update the graph immediately when Charge Price changes)
-                                    barSeries.clearValues();
-                                    barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
-                                    dynamicPrice.get(0).stateByName("priceSeries").value, 
-                                    dynamicPrice.get(0).stateByName("gridFeeSeries").value, 
-                                    dynamicPrice.get(0).stateByName("leviesSeries").value, 
-                                    19.0);
-                                }
+                    Slider {
+                        Layout.fillWidth: true
+                        from: -5.0
+                        to: 90.0
+                        stepSize: 0.2
+                        value: currentValue
 
+                        onMoved: {
+                            // Use a fixed precision and update the property
+                            currentValue = value.toFixed(2);
+                            if (currentValue > dischargePriceThresholdValue) {
+                                dischargePriceThresholdValue = currentValue;
                             }
+
+                            enableSave(this);
+
+                            // Redraw graph (Update the graph immediately when Charge Price changes)
+                            barSeries.clearValues();
+                            barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
+                                                dynamicPrice.get(0).stateByName("priceSeries").value,
+                                                dynamicPrice.get(0).stateByName("gridFeeSeries").value,
+                                                dynamicPrice.get(0).stateByName("leviesSeries").value,
+                                                19.0);
                         }
                     }
+
+                    Label {
+                        Layout.fillWidth: true
+                        text: qsTr("Discharge Price Limit: %1 ct/kWh").arg(dischargePriceThresholdValue.toFixed(2))
+                    }
+
+                    Slider {
+                        Layout.fillWidth: true
+                        from: -5.0
+                        to: 90.0
+                        stepSize: 0.2
+                        value: dischargePriceThresholdValue
+
+                        onMoved: {
+                            // Use a fixed precision and update the property
+                            dischargePriceThresholdValue = value.toFixed(2);
+                            if (dischargePriceThresholdValue < currentValue) {
+                                currentValue = dischargePriceThresholdValue;
+                            }
+
+                            enableSave(this);
+                            // Redraw graph (Update the graph immediately when Charge Price changes)
+                            barSeries.clearValues();
+                            barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
+                                                dynamicPrice.get(0).stateByName("priceSeries").value,
+                                                dynamicPrice.get(0).stateByName("gridFeeSeries").value,
+                                                dynamicPrice.get(0).stateByName("leviesSeries").value,
+                                                19.0);
+                        }
+                    }
+
+//                    RangeSlider {
+//                        id: priceRangeSlider
+//                        Layout.fillWidth: true
+
+//                        // Set up range and step
+//                        from: -5.0
+//                        to: 90.0
+//                        stepSize: 0.2
+
+//                        // Initialize slider handles based on properties
+//                        second.value: dischargePriceThresholdValue
+//                        first.value: currentValue
+
+//                        second.onMoved: () => {
+//                                            // Upper value controls the Discharge Price Offset
+//                                            // Use a fixed precision and update the property
+//                                            dischargePriceThresholdValue = second.value.toFixed(2);
+//                                            enableSave(this);
+//                                            // Redraw graph (Update the graph immediately when Charge Price changes)
+//                                            barSeries.clearValues();
+//                                            barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
+//                                                                dynamicPrice.get(0).stateByName("priceSeries").value,
+//                                                                dynamicPrice.get(0).stateByName("gridFeeSeries").value,
+//                                                                dynamicPrice.get(0).stateByName("leviesSeries").value,
+//                                                                19.0);
+
+//                                        }
+
+//                        first.onMoved: () => {
+//                                           // Lower value controls the Charge Price Limit
+//                                           // Use a fixed precision and update the property
+//                                           currentValue = first.value.toFixed(2);
+//                                           enableSave(this);
+
+//                                           // Redraw graph (Update the graph immediately when Charge Price changes)
+//                                           barSeries.clearValues();
+//                                           barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
+//                                                               dynamicPrice.get(0).stateByName("priceSeries").value,
+//                                                               dynamicPrice.get(0).stateByName("gridFeeSeries").value,
+//                                                               dynamicPrice.get(0).stateByName("leviesSeries").value,
+//                                                               19.0);
+//                                       }
+
+//                    }
                     
                 }
 
-                    // Save Button
-                    RowLayout {
-                        id: saveBtnContainer
-                        anchors.margins: app.margins
-                        Layout.topMargin: 20 
+                // Save Button
+                RowLayout {
+                    id: saveBtnContainer
+                    anchors.margins: app.margins
+                    Layout.topMargin: 20
 
-                        Button {
-                            id: saveButton
-                            Layout.fillWidth: true
-                            text: qsTr("Save")
-                            enabled: false
+                    Button {
+                        id: saveButton
+                        Layout.fillWidth: true
+                        text: qsTr("Save")
+                        enabled: false
 
-                            onClicked: {
-                                saveSettings()
-                                saveButton.enabled = false
-                            }
+                        onClicked: {
+                            saveSettings()
+                            saveButton.enabled = false
                         }
                     }
                 }
             }
-        ]
+        }
+    ]
 }
