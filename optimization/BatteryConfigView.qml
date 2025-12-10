@@ -481,11 +481,15 @@ GenericConfigPage {
                     }
 
                     Label {
+                        visible: optimizationController.checked
+                        enabled: chargeOnceController.checked ? false : true
                         Layout.fillWidth: true
                         text: qsTr("Charge Price Limit: %1 ct/kWh").arg(currentValue.toFixed(2))
                     }
 
                     Slider {
+                        visible: optimizationController.checked
+                        enabled: chargeOnceController.checked ? false : true
                         Layout.fillWidth: true
                         from: -5.0
                         to: 90.0
@@ -512,11 +516,15 @@ GenericConfigPage {
                     }
 
                     Label {
+                        visible: optimizationController.checked
+                        enabled: chargeOnceController.checked ? false : true
                         Layout.fillWidth: true
                         text: qsTr("Discharge Price Limit: %1 ct/kWh").arg(dischargePriceThresholdValue.toFixed(2))
                     }
 
                     Slider {
+                        visible: optimizationController.checked
+                        enabled: chargeOnceController.checked ? false : true
                         Layout.fillWidth: true
                         from: -5.0
                         to: 90.0
@@ -540,52 +548,6 @@ GenericConfigPage {
                                                 19.0);
                         }
                     }
-
-//                    RangeSlider {
-//                        id: priceRangeSlider
-//                        Layout.fillWidth: true
-
-//                        // Set up range and step
-//                        from: -5.0
-//                        to: 90.0
-//                        stepSize: 0.2
-
-//                        // Initialize slider handles based on properties
-//                        second.value: dischargePriceThresholdValue
-//                        first.value: currentValue
-
-//                        second.onMoved: () => {
-//                                            // Upper value controls the Discharge Price Offset
-//                                            // Use a fixed precision and update the property
-//                                            dischargePriceThresholdValue = second.value.toFixed(2);
-//                                            enableSave(this);
-//                                            // Redraw graph (Update the graph immediately when Charge Price changes)
-//                                            barSeries.clearValues();
-//                                            barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
-//                                                                dynamicPrice.get(0).stateByName("priceSeries").value,
-//                                                                dynamicPrice.get(0).stateByName("gridFeeSeries").value,
-//                                                                dynamicPrice.get(0).stateByName("leviesSeries").value,
-//                                                                19.0);
-
-//                                        }
-
-//                        first.onMoved: () => {
-//                                           // Lower value controls the Charge Price Limit
-//                                           // Use a fixed precision and update the property
-//                                           currentValue = first.value.toFixed(2);
-//                                           enableSave(this);
-
-//                                           // Redraw graph (Update the graph immediately when Charge Price changes)
-//                                           barSeries.clearValues();
-//                                           barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
-//                                                               dynamicPrice.get(0).stateByName("priceSeries").value,
-//                                                               dynamicPrice.get(0).stateByName("gridFeeSeries").value,
-//                                                               dynamicPrice.get(0).stateByName("leviesSeries").value,
-//                                                               19.0);
-//                                       }
-
-//                    }
-                    
                 }
 
                 // Save Button
