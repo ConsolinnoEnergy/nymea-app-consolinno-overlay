@@ -95,11 +95,6 @@ GenericConfigPage {
                              }
     }
 
-    Component.onCompleted: {
-        currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value
-    }
-
-
     function updatePrice() {
         currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value
         currentPriceLabel.text = Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh"
