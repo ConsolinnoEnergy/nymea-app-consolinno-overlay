@@ -465,6 +465,67 @@ GenericConfigPage {
                             }
                         }
 
+                        Item {
+                            visible: optimizationController.checked
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Layout.margins: Style.margins
+
+                            GridLayout {
+                                anchors { left: parent.left; bottom: parent.bottom; right: parent.right }
+                                columns: 3
+                                height: Style.smallIconSize
+
+                                Row {
+                                    Layout.alignment: Qt.AlignHCenter
+                                    spacing: 5
+                                    Rectangle {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        color: Style.epexBarMainLineColor
+                                        width: 8
+                                        height: 8
+                                    }
+                                    Label {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        font: Style.extraSmallFont
+                                        text: qsTr("charging")
+                                    }
+                                }
+
+                                Row {
+                                    Layout.alignment: Qt.AlignHCenter
+                                    spacing: 5
+                                    Rectangle {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        color: Style.epexBarPricingOutOfLimit
+                                        width: 8
+                                        height: 8
+                                    }
+                                    Label {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        font: Style.extraSmallFont
+                                        text: qsTr("discharging blocked")
+                                    }
+                                }
+
+                                Row {
+                                    Layout.alignment: Qt.AlignHCenter
+                                    spacing: 5
+                                    Rectangle {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        color: Configuration.batteryDischargeColor
+                                        width: 8
+                                        height: 8
+                                    }
+                                    Label {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        font: Style.extraSmallFont
+                                        text: qsTr("discharging allowed")
+                                    }
+                                }
+                            }
+                        }
+
                         Label { // breaks view when removed
                             visible: optimizationController.checked
                             wrapMode: Text.WordWrap

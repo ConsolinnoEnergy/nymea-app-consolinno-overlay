@@ -263,7 +263,7 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: "#83cbe1" // TODO: Define in Style
+        color: Configuration.batteryDischargeColor
         borderWidth: 1
         borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
@@ -351,7 +351,7 @@ ChartView {
         axisY: valueAxis
         color: 'transparent'
         borderWidth: 1
-        borderColor: root.enabled ? Style.epexAverageColor : Style.barSeriesDisabled
+        borderColor: root.enabled ? Style.consolinnoMedium : Style.barSeriesDisabled
 
         upperSeries: LineSeries {
             id: priceLimitUp
@@ -368,7 +368,7 @@ ChartView {
         axisY: valueAxis
         color: 'transparent'
         borderWidth: 1
-        borderColor: root.enabled ? Style.epexAverageColor : Style.barSeriesDisabled
+        borderColor: root.enabled ? Style.epexBarPricingCurrentTime : Style.barSeriesDisabled
 
         upperSeries: LineSeries {
             id: priceLimitUpperUp
