@@ -2286,6 +2286,13 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
 </context>
 <context>
+    <name>ConsolinnoParamDelegate</name>
+    <message>
+        <source>Type to search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoPasswordTextField</name>
     <message>
         <source>Pick a password</source>
@@ -3165,6 +3172,53 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
 </context>
 <context>
+    <name>EpexDayAheadSetup</name>
+    <message>
+        <source>Reconfigure %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name the thing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset values to default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing reconfigured!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing added!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uh oh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All done. You can now start using %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Something went wrong setting up this thing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EvChargerOptimization</name>
     <message>
         <source>Wallbox configuration</source>
@@ -3293,10 +3347,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Feed-in curtailment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3314,6 +3364,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Due to a control order from the network operator, the total power of controllable devices is &lt;b&gt;temporarily limited&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt;. If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

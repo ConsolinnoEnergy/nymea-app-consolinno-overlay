@@ -906,7 +906,8 @@ MainViewBase {
                                         {
                                             "thing": thing,
                                             "isRootmeter": isRootmeter,
-                                            "isNotify": isNotify
+                                            "isNotify": isNotify,
+                                            "gridSupportThing": gridSupport.get(0)
                                         })
                         }
                     }
