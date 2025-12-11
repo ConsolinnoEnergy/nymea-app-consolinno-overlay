@@ -211,6 +211,7 @@ GenericConfigPage {
                 // Current Battery Level
                 RowLayout {
                     Layout.fillWidth: true
+                    Layout.topMargin: Style.smallMargins
                     Label {
                         text: qsTr("State of Charge")
                         Layout.fillWidth: true
@@ -236,6 +237,8 @@ GenericConfigPage {
 
                 // Current Power
                 RowLayout {
+                    Layout.topMargin: Style.smallMargins
+                    Layout.bottomMargin: Style.smallMargins
 
                     Label {
                         Layout.fillWidth: true
@@ -248,7 +251,7 @@ GenericConfigPage {
                 }
 
                 RowLayout {
-                    Layout.topMargin: 10
+                    Layout.topMargin: Style.margins
                     Label {
                         text: qsTr("Charging from grid")
                         font.weight: Font.Bold
@@ -258,9 +261,13 @@ GenericConfigPage {
                 ColumnLayout {
                     id: columnContainer
                     visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
+                    Layout.topMargin: Style.smallMargins
 
                     // Optimization enabled
                     RowLayout {
+                        Layout.topMargin: Style.smallMargins
+                        Layout.bottomMargin: Style.smallMargins
+
                         Label {
                             text: qsTr("Tariff-guided charging")
                         }
@@ -293,7 +300,8 @@ GenericConfigPage {
 
                     // Charge once
                     RowLayout {
-                        Layout.topMargin: 5
+                        Layout.topMargin: Style.smallMargins
+                        Layout.bottomMargin: Style.smallMargins
                         visible: optimizationController.checked
                         Label {
                             text: qsTr("Activate instant charging")
@@ -380,9 +388,11 @@ GenericConfigPage {
 
                 ColumnLayout {
                     id: columnLayer
+
                     // Charging Plan Header
                     RowLayout {
-                        Layout.topMargin: 15
+                        Layout.topMargin: Style.margins
+                        Layout.bottomMargin: Style.smallMargins
                         visible: optimizationController.checked
                         enabled: chargeOnceController.checked ? false : true
                         Label {
@@ -396,7 +406,8 @@ GenericConfigPage {
                         id: currentPriceRow
                         visible: optimizationController.checked
                         enabled: chargeOnceController.checked ? false : true
-                        Layout.topMargin: 5
+                        Layout.topMargin: Style.smallMargins
+                        Layout.bottomMargin: Style.smallMargins
 
                         Label {
                             Layout.fillWidth: true
@@ -475,6 +486,7 @@ GenericConfigPage {
                                 anchors { left: parent.left; bottom: parent.bottom; right: parent.right }
                                 columns: 3
                                 height: Style.smallIconSize
+                                Layout.topMargin: Style.margins
 
                                 Row {
                                     Layout.alignment: Qt.AlignHCenter
