@@ -3391,10 +3391,6 @@ fügen Sie eine weitere hinzu.</translation>
         <translation type="unfinished">Nullvergütung vermeiden aktiv</translation>
     </message>
     <message>
-        <source>Consumption is &lt;b&gt;temporarily limited&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
-        <translation type="unfinished">Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend limitiert&lt;/b&gt;.</translation>
-    </message>
-    <message>
         <source>Feed-in curtailment</source>
         <translation type="unfinished">Einspeiseabregelung</translation>
     </message>
@@ -3413,6 +3409,10 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
         <translation>Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend blockiert&lt;/b&gt;.</translation>
+    </message>
+    <message>
+        <source>Due to a control order from the network operator, the total power of controllable devices is &lt;b&gt;temporarily limited&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt;. If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.</source>
+        <translation>Wegen eines Steuerbefehls des Netzbetreibers ist die Gesamtleistung steuerbarer Geräte &lt;b&gt;vorübergehend&lt;/b&gt; auf &lt;b&gt;%1&#x202f;kW begrenzt&lt;/b&gt;. Sollten Sie z.&#x202f;B. Ihr E-Auto derzeit laden, erfolgt der Ladevorgang ggf. nicht mit gewohnter Leistung.</translation>
     </message>
 </context>
 <context>
