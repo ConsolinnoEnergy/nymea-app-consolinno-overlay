@@ -512,12 +512,19 @@ GenericConfigPage {
                     visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
 
                     Label {
-                        id: optimizationLabel
                         Layout.fillWidth: true
 
                         text: qsTr("Optimization")
                         font.bold: true
+
+                        InfoButton {
+                            x: parent.paintedWidth + 10
+                            push: "HeatpumpOptimizationInfo.qml"
+                            Layout.alignment: Qt.AlignTop
+                            Layout.fillWidth: true
+                        }
                     }
+
 
                     ConsolinnoDropdown {
                          id: optimizationModeDropdown
@@ -592,7 +599,7 @@ GenericConfigPage {
                              target: hemsManager
                              onAvailableUseCasesChanged: optimizationModeDropdown.rebuildModel()
                          }
-                    } 
+                    }
                 }
 
                 RowLayout {
