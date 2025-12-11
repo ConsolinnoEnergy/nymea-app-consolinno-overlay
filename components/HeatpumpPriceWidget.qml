@@ -108,7 +108,7 @@ Item {
                 d.endTimeUntil = new Date(dpThing.stateByName("validUntil").value * 1000);
                 widgetRoot.currentValue = relPrice2AbsPrice(heatingConfiguration.priceThreshold);
                 widgetRoot.averageDeviation = dpThing.stateByName("averageDeviation").value;
-                barSeries.averageTotalCost = dpThing.stateByName("averageTotalCost").value;
+//                barSeries.averageTotalCost = dpThing.stateByName("averageTotalCost").value;
                 currentPrice = dpThing.stateByName("currentTotalCost").value;
                 averagePrice = dpThing.stateByName("averageTotalCost").value.toFixed(0).toString();
                 lowestPrice = dpThing.stateByName("lowestPrice").value;
