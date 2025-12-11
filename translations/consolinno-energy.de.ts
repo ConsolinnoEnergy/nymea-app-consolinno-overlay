@@ -3169,52 +3169,36 @@ fügen Sie eine weitere hinzu.</translation>
 <context>
     <name>EnergyManagerInfo</name>
     <message>
-        <source>Energymanager</source>
-        <translation type="unfinished">Energiemanager</translation>
-    </message>
-    <message>
-        <source>The energy manager regulates the heat pump to maximize the consumption of its own solar power. If you switch off the optimization, the energy manager no longer affects the control of the heat pump.</source>
-        <translation>Der Energiemanager steuert die Wärmepumpe so, dass der Verbrauch des eigenen Solarstroms maximiert wird. Wenn Sie die Optimerung ausschalten, greift der Energiemanager nicht mehr in die Steuerung der Wärmepumpe ein.</translation>
-    </message>
-    <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Increased&lt;/li&gt;: </source>
         <translation>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Erhöht&lt;/li&gt;: </translation>
     </message>
     <message>
-        <source>The operating status indicates the control of the heat pump:</source>
-        <translation>Der Betriebszustand zeigt die Steuerung der Wärmepumpe an:</translation>
-    </message>
-    <message>
-        <source>Optimization of the heat pump</source>
-        <translation type="unfinished">Optimierung der Wärmepumpe</translation>
-    </message>
-    <message>
-        <source>The heat pump is controlled via SG-ready states so that the available PV surplus is optimally utilized. A certain amount of PV surplus must be available for a certain period of time (currently 15 minutes) for an SG ready state to be switched.</source>
-        <translation type="unfinished">Die Wärmepumpe wird über SG-Ready-Zustände so gesteuert, dass vorhandener PV-Überschuss optimal ausgenutzt wird. Es muss für einen bestimmten Zeitraum (aktuell 15 Minuten), eine bestimmte Menge an PV-Überschuss vorhanden sein, damit ein SG-Ready-Zustand geschaltet wird.</translation>
-    </message>
-    <message>
-        <source>If the PV surplus is more than 50 % of the nominal output of the heat pump, SG ready state 3 is switched for at least 30 minutes (recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range).</source>
-        <translation type="unfinished">Beträgt der PV-Überschuss mehr als 50 % der Nennleistung der Wärmepumpe, wird SG-Ready-Zustand 3 für mind. 30 Minuten geschaltet (Empfehlung zu erhöhtem Betrieb, die Wärmepumpe entscheidet je nach momentanem Temperaturbereich, ob dies möglich ist).</translation>
-    </message>
-    <message>
         <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Off (= EVU block)&lt;/li&gt;: </source>
-        <translation type="unfinished"> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Aus (= EVU-Sperre)&lt;/li&gt;: </translation>
+        <translation> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Aus (= EVU-Sperre)&lt;/li&gt;: </translation>
     </message>
     <message>
         <source>Start-up block, is not used for optimization</source>
-        <translation type="unfinished">Anfahrtssperre, wird nicht zur Optimierung verwendet</translation>
+        <translation>Anfahrtssperre, wird nicht zur Optimierung verwendet</translation>
     </message>
     <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </source>
-        <translation type="unfinished">&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </translation>
+        <translation>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </translation>
     </message>
     <message>
         <source>Standard status, optimizer makes no specification</source>
-        <translation type="unfinished">Standardzustand, der Optimierer macht keine Vorgaben</translation>
+        <translation>Standardzustand, der Optimierer macht keine Vorgaben</translation>
     </message>
     <message>
         <source>Recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range.</source>
-        <translation type="unfinished">Empfehlung für erhöhten Betrieb, die Wärmepumpe entscheidet in Abhängigkeit vom aktuellen Temperaturbereich, ob dies möglich ist.</translation>
+        <translation>Empfehlung für erhöhten Betrieb, die Wärmepumpe entscheidet in Abhängigkeit vom aktuellen Temperaturbereich, ob dies möglich ist.</translation>
+    </message>
+    <message>
+        <source>Operating mode</source>
+        <translation>Betriebsmodus</translation>
+    </message>
+    <message>
+        <source>The operating mode indicates the control of the heat pump:</source>
+        <translation>Der Betriebszustand zeigt die Steuerung der Wärmepumpe an:</translation>
     </message>
 </context>
 <context>
@@ -3659,11 +3643,11 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>Optimization</source>
-        <translation type="unfinished"></translation>
+        <translation>Optimierung</translation>
     </message>
     <message>
         <source>PV Surplus</source>
-        <translation type="unfinished"></translation>
+        <translation>PV-Überschuss</translation>
     </message>
     <message>
         <source>Dynamic Pricing</source>
@@ -3671,7 +3655,7 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
+        <translation>Speichern</translation>
     </message>
 </context>
 <context>
@@ -3803,6 +3787,47 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
         <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
+    </message>
+</context>
+<context>
+    <name>HeatpumpOptimizationInfo</name>
+    <message>
+        <source>Optimization</source>
+        <translation>Optimierung</translation>
+    </message>
+    <message>
+        <source>Dynamic tariff</source>
+        <translation>Dynamischer Tarif</translation>
+    </message>
+    <message>
+        <source>The heat pump is given the command to increase operation if the price is below the defined price limit.If the price limit is changed, it can take up to 15 minutes for the changes to take effect.</source>
+        <translation>Der Wärmepumpe wird der Befehl zum erhöhten Betrieb gegeben, wenn der Preis unterhalb der definierten Preisgrenze liegt.
+Wird die Preisgrenze verändert, kann es bis zu 15 Minuten dauern, bis die Änderungen wirksam werden.</translation>
+    </message>
+    <message>
+        <source>PV surplus</source>
+        <translation>PV-Überschuss</translation>
+    </message>
+    <message>
+        <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized.If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the &quot;increased&quot; operating state.</source>
+        <translation>Die Wärmepumpe wird so gesteuert, dass der vorhandene PV-Überschuss optimal ausgenutzt wird.
+Beträgt der PV-Überschuss für 15 Minuten mehr als 50&#x202f;% der Nennleistung der Wärmepumpe, wird der Wärmepumpe der Betriebszustand „erhöht“ vorgegeben.</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>Aus</translation>
+    </message>
+    <message>
+        <source>The heat pump is not optimized.</source>
+        <translation>Die Wärmepumpe wird nicht optimiert.</translation>
+    </message>
+    <message>
+        <source>Please note:</source>
+        <translation>Bitte beachten:</translation>
+    </message>
+    <message>
+        <source>The operating state is implemented by the heat pump depending on the respective temperature conditions.</source>
+        <translation>Der Betriebszustand wird abhängig von den jeweiligen Temperaturgegebenheiten von der Wärmepumpe umgesetzt.</translation>
     </message>
 </context>
 <context>

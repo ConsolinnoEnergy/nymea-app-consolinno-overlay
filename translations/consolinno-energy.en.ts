@@ -3149,31 +3149,7 @@ Use a timeout value greater or equal to 10 ms.</source>
 <context>
     <name>EnergyManagerInfo</name>
     <message>
-        <source>Energymanager</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The energy manager regulates the heat pump to maximize the consumption of its own solar power. If you switch off the optimization, the energy manager no longer affects the control of the heat pump.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Increased&lt;/li&gt;: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The operating status indicates the control of the heat pump:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Optimization of the heat pump</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The heat pump is controlled via SG-ready states so that the available PV surplus is optimally utilized. A certain amount of PV surplus must be available for a certain period of time (currently 15 minutes) for an SG ready state to be switched.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If the PV surplus is more than 50 % of the nominal output of the heat pump, SG ready state 3 is switched for at least 30 minutes (recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3194,6 +3170,14 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operating mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The operating mode indicates the control of the heat pump:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3782,6 +3766,45 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HeatpumpOptimizationInfo</name>
+    <message>
+        <source>Optimization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dynamic tariff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heat pump is given the command to increase operation if the price is below the defined price limit.If the price limit is changed, it can take up to 15 minutes for the changes to take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV surplus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized.If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the &quot;increased&quot; operating state.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heat pump is not optimized.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please note:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The operating state is implemented by the heat pump depending on the respective temperature conditions.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
