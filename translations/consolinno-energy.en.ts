@@ -4844,11 +4844,11 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>- The second price limit defines up to which price discharging should be blocked (indicated by the orange bar).</source>
+        <source>- If discharging should not be blocked, this value can simply be set to the same value as the charging limit.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>- If discharging should not be blocked, this value can simply be set to the same value as the charging limit.</source>
+        <source>- The second price limit defines up to which price discharging should be blocked (indicated by the grey bar).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -4869,12 +4869,12 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>- Die erste Preisgrenze ist der Wert, unterhalb dessen die Batterie aus dem Netz geladen wird (sichtbar an grünen Balken).</translation>
     </message>
     <message>
-        <source>- The second price limit defines up to which price discharging should be blocked (indicated by the orange bar).</source>
-        <translation>- Die zweite Preisgrenze legt fest, bis zu welchem Preis das Entladen blockiert werden soll (sichtbar an orangen Balken).</translation>
-    </message>
-    <message>
         <source>- If discharging should not be blocked, this value can simply be set to the same value as the charging limit.</source>
         <translation>- Falls das Entladen nicht blockiert werden soll, kann dieser Wert einfach auf den gleichen Wert wie die Ladegrenze gesetzt werden.</translation>
+    </message>
+    <message>
+        <source>- The second price limit defines up to which price discharging should be blocked (indicated by the grey bar).</source>
+        <translation>- Die zweite Preisgrenze legt fest, bis zu welchem Preis das Entladen blockiert werden soll (sichtbar an grauen Balken).</translation>
     </message>
 </context>
 <context>

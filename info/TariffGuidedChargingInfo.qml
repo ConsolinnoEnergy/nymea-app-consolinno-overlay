@@ -48,7 +48,7 @@ Page {
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 textFormat: Text.MarkdownText
-                text: qsTr("- The second price limit defines up to which price discharging should be blocked (indicated by the orange bar).")
+                text: qsTr("- The second price limit defines up to which price discharging should be blocked (indicated by the grey bar).")
             }
 
             Label{
