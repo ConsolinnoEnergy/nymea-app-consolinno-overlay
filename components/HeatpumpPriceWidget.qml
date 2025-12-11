@@ -48,7 +48,7 @@ Item {
         width: parent.width
 
         RowLayout {
-            Layout.topMargin: 15
+            Layout.topMargin: Style.margins
 
             Label {
                 text: qsTr("Dynamic Pricing Optimization")
@@ -61,7 +61,7 @@ Item {
         RowLayout {
             id: currentPriceRow
 
-            Layout.topMargin: 5
+            Layout.topMargin: Style.margins
 
             Label {
                 Layout.fillWidth: true
@@ -79,7 +79,8 @@ Item {
         RowLayout {
             id: averageDeviationRow
 
-            Layout.topMargin: 5
+            Layout.topMargin: Style.margins
+            Layout.bottomMargin: Style.smallMargins
 
             Label {
                 Layout.fillWidth: true
