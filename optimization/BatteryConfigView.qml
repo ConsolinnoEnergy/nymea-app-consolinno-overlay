@@ -545,7 +545,7 @@ GenericConfigPage {
                         visible: optimizationController.checked
                         enabled: chargeOnceController.checked ? false : true
                         Layout.fillWidth: true
-                        text: qsTr("Charge Price Limit: %1 ct/kWh").arg(currentValue.toFixed(2))
+                        text: qsTr("Charge under limit: %1 ct/kWh").arg(currentValue.toFixed(2))
                     }
 
                     Slider {
@@ -580,7 +580,7 @@ GenericConfigPage {
                         visible: optimizationController.checked
                         enabled: chargeOnceController.checked ? false : true
                         Layout.fillWidth: true
-                        text: qsTr("Discharge Price Limit: %1 ct/kWh").arg(dischargePriceThresholdValue.toFixed(2))
+                        text: qsTr("Block discharge until: %1 ct/kWh").arg(dischargePriceThresholdValue.toFixed(2))
                     }
 
                     Slider {
