@@ -298,6 +298,30 @@
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Per phase: 25 A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Per phase: 35 A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Per phase: 40 A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Per phase: 50 A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Per phase: 63 A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Per phase A:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Capacity</name>
@@ -2286,6 +2310,13 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
 </context>
 <context>
+    <name>ConsolinnoParamDelegate</name>
+    <message>
+        <source>Type to search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoPasswordTextField</name>
     <message>
         <source>Pick a password</source>
@@ -3161,6 +3192,53 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EpexDayAheadSetup</name>
+    <message>
+        <source>Reconfigure %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name the thing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset values to default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing reconfigured!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing added!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uh oh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All done. You can now start using %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Something went wrong setting up this thing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
