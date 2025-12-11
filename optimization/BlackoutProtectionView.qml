@@ -79,31 +79,31 @@ Page {
         RadioDelegate {
             id: limit25
             Layout.fillWidth: true
-            text: "3 x 25 A"
+            text: qsTr("Per phase: 25 A")
             onClicked: phaseLimit = 25
         }
         RadioDelegate {
             id: limit35
             Layout.fillWidth: true
-            text: "3 x 35 A"
+            text: qsTr("Per phase: 35 A")
             onClicked: phaseLimit = 35
         }
         RadioDelegate {
             id: limit40
             Layout.fillWidth: true
-            text: "3 x 40 A"
+            text: qsTr("Per phase: 40 A")
             onClicked: phaseLimit = 40
         }
         RadioDelegate {
             id: limit50
             Layout.fillWidth: true
-            text: "3 x 50 A"
+            text: qsTr("Per phase: 50 A")
             onClicked: phaseLimit = 50
         }
         RadioDelegate {
             id: limit63
             Layout.fillWidth: true
-            text: "3 x 63 A"
+            text: qsTr("Per phase: 63 A")
             onClicked: phaseLimit = 63
         }
         RadioDelegate {
@@ -113,7 +113,7 @@ Page {
 
             contentItem: RowLayout {
               Label {
-                text: "3 x A:"
+                text: qsTr("Per phase A:")
                 Layout.rightMargin: 40
               }
               ConsolinnoTextField {
