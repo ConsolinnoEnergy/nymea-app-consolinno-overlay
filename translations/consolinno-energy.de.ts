@@ -215,10 +215,6 @@
         <translation>Sofortladen aktivieren</translation>
     </message>
     <message>
-        <source>Price limit : %1 ct/kWh</source>
-        <translation>Preisgrenze : %1 ct/kWh</translation>
-    </message>
-    <message>
         <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
         <translation>Wenn Nullvergütung vermieden aktiv ist, dann ist kein Sofortladen der Batterie möglich.</translation>
     </message>
@@ -237,6 +233,26 @@
     <message>
         <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
         <translation type="unfinished">An Tagen mit negativen Strompreisen an der Strombörse wird aktiv Batteriekapazität freigehalten, um in den Stunden mit diesen negativen Börsenstrompreisen gezielt die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald diese Regelung aktiv ist, wird das Laden der Batterie limitiert (sichtbar an der gelben Meldung im Screen). Die Steuerung basiert auf der Vorhersage der PV-Produktion und des Hausverbrauchs und verschiebt die Ladung entsprechend.</translation>
+    </message>
+    <message>
+        <source>charging</source>
+        <translation>Laden</translation>
+    </message>
+    <message>
+        <source>discharging blocked</source>
+        <translation>Entladen blockiert</translation>
+    </message>
+    <message>
+        <source>discharging allowed</source>
+        <translation>Entladen erlaubt</translation>
+    </message>
+    <message>
+        <source>Charge under limit: %1 ct/kWh</source>
+        <translation>Laden unter Preisgrenze: %1 ct/kWh</translation>
+    </message>
+    <message>
+        <source>Block discharge until: %1 ct/kWh</source>
+        <translation>Entladen blockieren bis: %1 ct/kWh</translation>
     </message>
 </context>
 <context>
@@ -1289,6 +1305,12 @@
         <source>Please provide information on taxes, surcharges and network fees. &lt;u&gt;Continue to configuration.&lt;/u&gt;</source>
         <translation>Bitte geben Sie Steuern und Abgaben sowie Netzentgelte ein. &lt;u&gt;Zur Konfiguration.&lt;/u&gt;</translation>
     </message>
+    <message>
+        <source>Total: %1 %2
+Grid fee: %3 %2
+Levies: %4 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoGridSupportiveControlAlert</name>
@@ -2296,6 +2318,13 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
 </context>
 <context>
+    <name>ConsolinnoParamDelegate</name>
+    <message>
+        <source>Type to search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoPasswordTextField</name>
     <message>
         <source>Pick a password</source>
@@ -3009,6 +3038,10 @@ fügen Sie eine weitere hinzu.</translation>
         <source>ct/kWh</source>
         <translation type="unfinished">ct/kWh</translation>
     </message>
+    <message>
+        <source>%1=%2+%3+%4 %5</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DebugCharts</name>
@@ -3182,6 +3215,53 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>Recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range.</source>
         <translation type="unfinished">Empfehlung für erhöhten Betrieb, die Wärmepumpe entscheidet in Abhängigkeit vom aktuellen Temperaturbereich, ob dies möglich ist.</translation>
+    </message>
+</context>
+<context>
+    <name>EpexDayAheadSetup</name>
+    <message>
+        <source>Reconfigure %1</source>
+        <translation type="unfinished">Konfiguriere %1</translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation type="unfinished">%1 einrichten</translation>
+    </message>
+    <message>
+        <source>Name the thing:</source>
+        <translation type="unfinished">Name:</translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation type="unfinished">Gerät parameter</translation>
+    </message>
+    <message>
+        <source>Reset values to default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing reconfigured!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing added!</source>
+        <translation type="unfinished">Thing hinzugefügt!</translation>
+    </message>
+    <message>
+        <source>Uh oh</source>
+        <translation type="unfinished">Uh oh</translation>
+    </message>
+    <message>
+        <source>All done. You can now start using %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Something went wrong setting up this thing...</source>
+        <translation type="unfinished">Etwas ist schiefgelaufen</translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3577,6 +3657,22 @@ fügen Sie eine weitere hinzu.</translation>
         <source>Absorbed elec. energy</source>
         <translation>Aufgenommene el. Energie</translation>
     </message>
+    <message>
+        <source>Optimization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV Surplus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dynamic Pricing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Speichern</translation>
+    </message>
 </context>
 <context>
     <name>HeatingConfigurationView</name>
@@ -3707,6 +3803,29 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
         <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
+    </message>
+</context>
+<context>
+    <name>HeatpumpPriceWidget</name>
+    <message>
+        <source>Dynamic Pricing Optimization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current price</source>
+        <translation type="unfinished">Aktueller Preis</translation>
+    </message>
+    <message>
+        <source>Current average deviation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit below average: %1 %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Note: The heat pump&apos;s operating mode is increased only at the top of each quarter-hour. After changing the price limit, there may be a delay of up to 15 minutes before the heat pump enters increased mode.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4742,8 +4861,20 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Tarifgesteuertes Laden</translation>
     </message>
     <message>
-        <source>The battery is charged from the grid as soon as the price falls below the price limit.</source>
-        <translation>Die Batterie wird aus dem Netz geladen, sobald die Preisgrenze unterschritten wird.</translation>
+        <source>Two price limits can be defined:</source>
+        <translation>Es können zwei Preisgrenzen definiert werden:</translation>
+    </message>
+    <message>
+        <source>- The first price limit is the value below which the battery will charge from the grid (indicated by the green bar).</source>
+        <translation>- Die erste Preisgrenze ist der Wert, unterhalb dessen die Batterie aus dem Netz geladen wird (sichtbar an grünen Balken).</translation>
+    </message>
+    <message>
+        <source>- The second price limit defines up to which price discharging should be blocked (indicated by the orange bar).</source>
+        <translation>- Die zweite Preisgrenze legt fest, bis zu welchem Preis das Entladen blockiert werden soll (sichtbar an orangen Balken).</translation>
+    </message>
+    <message>
+        <source>- If discharging should not be blocked, this value can simply be set to the same value as the charging limit.</source>
+        <translation>- Falls das Entladen nicht blockiert werden soll, kann dieser Wert einfach auf den gleichen Wert wie die Ladegrenze gesetzt werden.</translation>
     </message>
 </context>
 <context>
