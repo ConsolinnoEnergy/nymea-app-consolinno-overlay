@@ -238,7 +238,7 @@ SettingsPageBase {
 
         NymeaItemDelegate {
             Layout.fillWidth: true
-            iconName: modelData.pluggedIn ? "/icons/connections/network-wired.svg" : "/icons/connections/network-wired-offline.svg"
+            iconName: model.pluggedIn ? "/icons/connections/network-wired.svg" : "/icons/connections/network-wired-offline.svg"
             text: (model.interface.includes("eth") ? "LAN "+(index+1) : model.interface) + " (" + model.macAddress + ")"
             visible: networkManager.available && networkManager.networkingEnabled
             subText: {
