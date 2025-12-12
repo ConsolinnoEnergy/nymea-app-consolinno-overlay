@@ -236,8 +236,6 @@ Page {
                 groupByInterface: true
             }
 
-            onContentYChanged: print("contentY", contentY, contentHeight, originY)
-
             delegate: NymeaItemDelegate {
                 id: tingClassDelegate
                 width: listView.width
