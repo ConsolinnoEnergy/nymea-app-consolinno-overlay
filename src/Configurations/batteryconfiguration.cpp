@@ -68,6 +68,16 @@ void BatteryConfiguration::setPriceThreshold(float priceThreshold) {
     emit priceThresholdChanged(m_priceThreshold);
 }
 
+
+float BatteryConfiguration::dischargePriceThreshold() const {
+    return m_dischargePriceThreshold;
+}
+
+void BatteryConfiguration::setDischargePriceThreshold(float dischargePriceThreshold) {
+    m_dischargePriceThreshold = dischargePriceThreshold;
+    emit dischargePriceThresholdChanged(m_dischargePriceThreshold);
+}
+
 bool BatteryConfiguration::relativePriceEnabled() const {
     return m_relativePriceEnabled;
 }

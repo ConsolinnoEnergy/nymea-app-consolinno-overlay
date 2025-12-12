@@ -171,11 +171,6 @@ Page {
             bottomMargin: packagesFilterModel.count > 0 ? height : 0
 
             ThingsProxy {
-                id: electrics
-                engine: _engine
-                shownInterfaces: ["dynamicelectricitypricing"]
-            }
-            ThingsProxy {
                 id: gridSupport
                 engine: _engine
                 shownInterfaces: ["gridsupport"]
@@ -364,10 +359,8 @@ Page {
                       thingsListId[thingsListId.length] = epexDataSource.get(0).thingClass.id.toString();
                     }
 
-                    if(electrics.count === 1){
-                       thingsListId[thingsListId.length] = electrics.get(0).thingClass.id.toString()
-                    }else{
-                      thingsListId[thingsListId.length] = thingClassesProxyElectrics.get(0).id.toString()
+                    for (let i = 0; i < thingClassesProxyElectrics.count; i++) {
+                        thingsListId[thingsListId.length] = thingClassesProxyElectrics.get(i).id.toString();
                     }
 
                     thingClassesProxy.hiddenThingClassIds = thingsListId

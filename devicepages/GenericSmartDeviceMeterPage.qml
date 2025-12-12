@@ -16,6 +16,7 @@ GenericConfigPage {
     readonly property ThingClass thingClass: thing.thingClass
     property Thing gridSupportThing
     property double powerLimitLPP: gridSupportThing.stateByName("lppValue") ? gridSupportThing.stateByName("lppValue").value : 0
+    property double powerLimitLPC: gridSupportThing.stateByName("lpcValue") ? gridSupportThing.stateByName("lpcValue").value : 0
 
     readonly property bool isEnergyMeter: root.thing && root.thing.thingClass.interfaces.indexOf("energymeter") >= 0
     readonly property bool isConsumer: root.thing && root.thing.thingClass.interfaces.indexOf("smartmeterconsumer") >= 0
@@ -91,7 +92,7 @@ GenericConfigPage {
                     property var states: {
                         "limited": {
                             "header": qsTr("Limited consumption"),
-                            "content": qsTr("Consumption is <b>temporarily limited</b> on the basis of a control signal from the grid operator."),
+                            "content": qsTr("Due to a control order from the network operator, the total power of controllable devices is <b>temporarily limited</b> to <b>%1 kW</b>. If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.").arg(convertToKw(powerLimitLPC)),
                             "color": "warning",
                             "backgroundColor": "warningBackground"
                         },

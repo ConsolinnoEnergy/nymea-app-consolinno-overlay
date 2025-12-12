@@ -22,6 +22,8 @@ QVariant BatteryConfigurations::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->optimizationEnabled();
     case RolePriceThreshold:
         return m_list.at(index.row())->priceThreshold();
+    case RoleDischargePriceThreshold:
+        return m_list.at(index.row())->dischargePriceThreshold();
     case RoleRelativePriceEnabled:
         return m_list.at(index.row())->relativePriceEnabled();
     case RoleChargeOnce:
@@ -42,6 +44,7 @@ QHash<int, QByteArray> BatteryConfigurations::roleNames() const
     roles.insert(RoleBatteryThingId, "batteryThingId");
     roles.insert(RoleOptimizationEnabled, "optimizationEnabled");
     roles.insert(RolePriceThreshold, "priceThreshold");
+    roles.insert(RoleDischargePriceThreshold, "dischargePriceThreshold");
     roles.insert(RoleRelativePriceEnabled, "relativePriceEnabled");
     roles.insert(RoleChargeOnce, "chargeOnce");
     roles.insert(RoleControllableLocalSystemEnabled, "controllableLocalSystem");
@@ -85,6 +88,11 @@ void BatteryConfigurations::addConfiguration(BatteryConfiguration *batteryConfig
     connect(batteryConfiguration, &BatteryConfiguration::priceThresholdChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
         emit dataChanged(idx, idx, {RolePriceThreshold});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::dischargePriceThresholdChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleDischargePriceThreshold});
     });
 
     connect(batteryConfiguration, &BatteryConfiguration::relativePriceEnabledChanged, this, [=](){

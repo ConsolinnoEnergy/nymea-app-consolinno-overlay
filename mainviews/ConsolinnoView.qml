@@ -369,7 +369,7 @@ MainViewBase {
                 page.done.connect(function (skip, abort, back) {
 
                     if (back) {
-                        manualWizardSettings.heatPumpDone = false
+                        manualWizardSettings.heatingElementDone = false
                         pageStack.pop()
                         return
                     }
@@ -403,7 +403,7 @@ MainViewBase {
                             blackoutProtectionSetting.blackoutProtectionDone = false
                             blackoutProtectionSetting.blackoutBackPage = false
                         } else {
-                            manualWizardSettings.heatPumpDone = false
+                            manualWizardSettings.heatingElementDone = false
                         }
 
                         pageStack.pop()
@@ -906,7 +906,8 @@ MainViewBase {
                                         {
                                             "thing": thing,
                                             "isRootmeter": isRootmeter,
-                                            "isNotify": isNotify
+                                            "isNotify": isNotify,
+                                            "gridSupportThing": gridSupport.get(0)
                                         })
                         }
                     }

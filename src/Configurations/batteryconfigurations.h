@@ -16,6 +16,7 @@ public:
         RoleOptimizationEnabled,
         RolePriceThreshold,
         RoleRelativePriceEnabled,
+        RoleDischargePriceThreshold,
         RoleChargeOnce,
         RoleControllableLocalSystemEnabled,
         RoleAvoidZeroFeedInEnabled,
