@@ -29,7 +29,7 @@ GenericConfigPage {
     property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
     property Thing carThing
     property Thing thing
-    property var pageSelectedCar: carThing.name === null ? qsTr("no car selected") : carThing.name
+    property var pageSelectedCar: carThing ? carThing.name : qsTr("no car selected")
     property bool initializing: false
     property int currentValue : 0
     property double thresholdPrice: 0
@@ -325,7 +325,11 @@ GenericConfigPage {
                 anchors.top: parent.top
                 width: parent.width
                 height: parent.height
-                contentHeight: infoColumnLayout.implicitHeight + stateOfLoadingColumnLayout.implicitHeight + statusColumnLayout.implicitHeight + header.height + 100
+                contentHeight: infoColumnLayout.implicitHeight +
+                               stateOfLoadingColumnLayout.implicitHeight +
+                               statusColumnLayout.implicitHeight +
+                               (header ? header.height : 0) +
+                               100
                 contentWidth: parent.width
 
                 ColumnLayout {
