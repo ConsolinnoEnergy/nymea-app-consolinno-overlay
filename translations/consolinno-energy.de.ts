@@ -698,15 +698,15 @@
         <translation>Verhalten bei Abstecken</translation>
     </message>
     <message>
-        <source>Dynamic Tariff</source>
+        <source>Dynamic pricing</source>
         <translation>Dynamischer Tarif</translation>
     </message>
     <message>
-        <source>In dynamic tariff charging mode, charging takes place at maximum charging current as soon as the price falls below the set price limit. At times when charging does not take place because the price limit is exceeded, charging takes place if there is a PV surplus. If the price limit is changed, this limit is preselected the next time it is plugged in.</source>
-        <translation>Im Lademodus dynamischer Tarif wird mit maximalem Ladestrom geladen,  sobald der Preis unter die eingestellte Preisgrenze fällt. In Zeiten in  denen nicht geladen wird, weil die Preisgrenze überschritten ist, wird  geladen, falls PV-Überschuss vorhanden ist. Wenn die Preisgrenze  verändert wird, ist diese Grenze beim nächsten Anstecken vorausgewählt.</translation>
+        <source>In dynamic pricing charging mode, charging takes place at maximum charging current as soon as the price falls below the set price limit. At times when charging does not take place because the price limit is exceeded, charging takes place if there is a PV surplus. If the price limit is changed, this limit is preselected the next time it is plugged in.</source>
+        <translation>Im Lademodus dynamischer Tarif wird mit maximalem Ladestrom geladen, sobald der Preis unter die eingestellte Preisgrenze fällt. In Zeiten in denen nicht geladen wird, weil die Preisgrenze überschritten ist, wird geladen, falls PV-Überschuss vorhanden ist. Wenn die Preisgrenze verändert wird, ist diese Grenze beim nächsten Anstecken vorausgewählt.</translation>
     </message>
     <message>
-        <source>The charging modes &lt;font color=&quot;%1&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;%1&quot;&gt;Dynamic tariff&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;%1&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
+        <source>The charging modes &lt;font color=&quot;%1&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;%1&quot;&gt;Dynamic pricing&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;%1&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
         <translation>Die Lademodi &lt;font color=&quot;%1&quot;&gt;„Nur Solarstrom“&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;„Immer Laden“&lt;/font&gt; sowie &lt;font color=&quot;%1&quot;&gt;„Dynamischer Tarif“&lt;/font&gt; bleiben nachdem Abstecken weiterhin ausgewählt. Das heißt, wenn Sie wieder anstecken, ist der letzte gewählte Modus aktiv. Wenn Sie mit &lt;font color=&quot;%1&quot;&gt;„Nächster Fahrt“&lt;/font&gt; geladen haben, dann müssen Sie bei Anstecken wieder einen Lademodus wählen.</translation>
     </message>
 </context>
@@ -3796,22 +3796,8 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Optimierung</translation>
     </message>
     <message>
-        <source>Dynamic tariff</source>
-        <translation>Dynamischer Tarif</translation>
-    </message>
-    <message>
-        <source>The heat pump is given the command to increase operation if the price is below the defined price limit.If the price limit is changed, it can take up to 15 minutes for the changes to take effect.</source>
-        <translation>Der Wärmepumpe wird der Befehl zum erhöhten Betrieb gegeben, wenn der Preis unterhalb der definierten Preisgrenze liegt.
-Wird die Preisgrenze verändert, kann es bis zu 15 Minuten dauern, bis die Änderungen wirksam werden.</translation>
-    </message>
-    <message>
         <source>PV surplus</source>
         <translation>PV-Überschuss</translation>
-    </message>
-    <message>
-        <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized.If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the &quot;increased&quot; operating state.</source>
-        <translation>Die Wärmepumpe wird so gesteuert, dass der vorhandene PV-Überschuss optimal ausgenutzt wird.
-Beträgt der PV-Überschuss für 15 Minuten mehr als 50&#x202f;% der Nennleistung der Wärmepumpe, wird der Wärmepumpe der Betriebszustand „erhöht“ vorgegeben.</translation>
     </message>
     <message>
         <source>Off</source>
@@ -3828,6 +3814,18 @@ Beträgt der PV-Überschuss für 15 Minuten mehr als 50&#x202f;% der Nennleistun
     <message>
         <source>The operating state is implemented by the heat pump depending on the respective temperature conditions.</source>
         <translation>Der Betriebszustand wird abhängig von den jeweiligen Temperaturgegebenheiten von der Wärmepumpe umgesetzt.</translation>
+    </message>
+    <message>
+        <source>Dynamic pricing</source>
+        <translation>Dynamischer Tarif</translation>
+    </message>
+    <message>
+        <source>The heat pump is given the command to increase operation if the price is below the defined price limit. If the price limit is changed, it can take up to 15 minutes for the changes to take effect.</source>
+        <translation>Der Wärmepumpe wird der Befehl zum erhöhten Betrieb gegeben, wenn der Preis unterhalb der definierten Preisgrenze liegt. Wird die Preisgrenze verändert, kann es bis zu 15 Minuten dauern, bis die Änderungen wirksam werden.</translation>
+    </message>
+    <message>
+        <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the &quot;increased&quot; operating state.</source>
+        <translation>Die Wärmepumpe wird so gesteuert, dass der vorhandene PV-Überschuss optimal ausgenutzt wird. Beträgt der PV-Überschuss für 15 Minuten mehr als 50&#x202f;% der Nennleistung der Wärmepumpe, wird der Wärmepumpe der Betriebszustand „erhöht“ vorgegeben.</translation>
     </message>
 </context>
 <context>

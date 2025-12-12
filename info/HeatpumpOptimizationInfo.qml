@@ -31,7 +31,7 @@ Page {
                 Layout.preferredWidth: app.width
                 Layout.topMargin: Style.smallMargins + 10
                 font.bold: true
-                text: qsTr("Dynamic tariff")
+                text: qsTr("Dynamic pricing")
             }
 
             Label {
@@ -41,7 +41,7 @@ Page {
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 Layout.topMargin: Style.smallMargins
-                text: qsTr("The heat pump is given the command to increase operation if the price is below the defined price limit.If the price limit is changed, it can take up to 15 minutes for the changes to take effect.")
+                text: qsTr("The heat pump is given the command to increase operation if the price is below the defined price limit. If the price limit is changed, it can take up to 15 minutes for the changes to take effect.")
             }
 
             Label {
@@ -62,7 +62,7 @@ Page {
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 Layout.topMargin: Style.smallMargins
-                text: qsTr("The heat pump is controlled in such a way that the available PV surplus is optimally utilized.If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the \"increased\" operating state.")
+                text: qsTr("The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the \"increased\" operating state.")
             }
 
             Label {

@@ -101,7 +101,7 @@ Page {
             Label{
                 Layout.topMargin: 15
                 Layout.fillWidth: true
-                text: qsTr("Dynamic Tariff")
+                text: qsTr("Dynamic pricing")
                 leftPadding: app.margins +10
                 rightPadding: app.margins +10
                 font.bold: true
@@ -114,7 +114,7 @@ Page {
                 rightPadding: app.margins +10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
-                text: qsTr("In dynamic tariff charging mode, charging takes place at maximum charging current as soon as the price falls below the set price limit. At times when charging does not take place because the price limit is exceeded, charging takes place if there is a PV surplus. If the price limit is changed, this limit is preselected the next time it is plugged in.")
+                text: qsTr("In dynamic pricing charging mode, charging takes place at maximum charging current as soon as the price falls below the set price limit. At times when charging does not take place because the price limit is exceeded, charging takes place if there is a PV surplus. If the price limit is changed, this limit is preselected the next time it is plugged in.")
             }
 
             Label{
@@ -133,7 +133,7 @@ Page {
                 rightPadding: app.margins +10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
-                text: qsTr("The charging modes <font color=\"%1\">Solar power only</font>, <font color=\"%1\">Always charging</font> and <font color=\"%1\">Dynamic tariff</font> remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with <font color=\"%1\">Next trip</font>, you must select a charging mode again when you plug in.").arg(Style.consolinnoMedium)
+                text: qsTr("The charging modes <font color=\"%1\">Solar power only</font>, <font color=\"%1\">Always charging</font> and <font color=\"%1\">Dynamic pricing</font> remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with <font color=\"%1\">Next trip</font>, you must select a charging mode again when you plug in.").arg(Style.consolinnoMedium)
             }
 
         }

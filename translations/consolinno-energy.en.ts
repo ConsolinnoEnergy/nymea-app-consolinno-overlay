@@ -698,15 +698,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dynamic Tariff</source>
+        <source>Dynamic pricing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>In dynamic tariff charging mode, charging takes place at maximum charging current as soon as the price falls below the set price limit. At times when charging does not take place because the price limit is exceeded, charging takes place if there is a PV surplus. If the price limit is changed, this limit is preselected the next time it is plugged in.</source>
+        <source>In dynamic pricing charging mode, charging takes place at maximum charging current as soon as the price falls below the set price limit. At times when charging does not take place because the price limit is exceeded, charging takes place if there is a PV surplus. If the price limit is changed, this limit is preselected the next time it is plugged in.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The charging modes &lt;font color=&quot;%1&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;%1&quot;&gt;Dynamic tariff&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;%1&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
+        <source>The charging modes &lt;font color=&quot;%1&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;%1&quot;&gt;Dynamic pricing&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;%1&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3776,19 +3776,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dynamic tariff</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The heat pump is given the command to increase operation if the price is below the defined price limit.If the price limit is changed, it can take up to 15 minutes for the changes to take effect.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>PV surplus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized.If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the &quot;increased&quot; operating state.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3805,6 +3793,18 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>The operating state is implemented by the heat pump depending on the respective temperature conditions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dynamic pricing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heat pump is given the command to increase operation if the price is below the defined price limit. If the price limit is changed, it can take up to 15 minutes for the changes to take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the &quot;increased&quot; operating state.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
