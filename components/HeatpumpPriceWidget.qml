@@ -44,24 +44,12 @@ Item {
         id: columnLayer
 
         Layout.fillWidth: true
-        // Charging Plan Header
         width: parent.width
-
-        RowLayout {
-            Layout.topMargin: Style.margins
-
-            Label {
-                text: qsTr("Dynamic Pricing Optimization")
-                font.weight: Font.Bold
-            }
-
-        }
 
         // Price Limit
         RowLayout {
-            id: currentPriceRow
-
             Layout.topMargin: Style.margins
+            Layout.bottomMargin: Style.smallMargins
 
             Label {
                 Layout.fillWidth: true
@@ -69,30 +57,8 @@ Item {
             }
 
             Label {
-                id: currentPriceLabel
-
                 text: Number(currentPrice).toLocaleString(Qt.locale(), 'f', 1) + " ct/kWh"
             }
-
-        }
-
-        RowLayout {
-            id: averageDeviationRow
-
-            Layout.topMargin: Style.margins
-            Layout.bottomMargin: Style.smallMargins
-
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Current average deviation")
-            }
-
-            Label {
-                id: averageDeviationLabel
-
-                text: (averageDeviation > 0 ? "+" : "") + Number(averageDeviation) + " %"
-            }
-
         }
 
         // Graph Info Today
@@ -189,15 +155,6 @@ Item {
             from: 0
             to: 100
             stepSize: 1
-        }
-        // Add a note below the slider
-
-        Label {
-            Layout.fillWidth: true
-            text: qsTr("Note: The heat pump's operating mode is increased only at the top of each quarter-hour. After changing the price limit, there may be a delay of up to 15 minutes before the heat pump enters increased mode.")
-            wrapMode: Text.WordWrap
-            font.pixelSize: 12
-            color: "#666666"
         }
     }
 }
