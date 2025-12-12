@@ -59,7 +59,7 @@ ConsolinnoSwipeDelegate {
         }
 
     }
-    property var thingSetupStatus: isNaN(thing.setupStatus) ? thing.setupStatus : ""
+    property var thingSetupStatus: thing ? thing.setupStatus : ""
     iconColor: Style.consolinnoMedium
     text: thing ? thing.name : ""
     progressive: true
@@ -81,10 +81,10 @@ ConsolinnoSwipeDelegate {
     }
 
     tertiaryIconColor: {
-        if (thing.setupStatus == Thing.ThingSetupStatusFailed) {
+        if (thingSetupStatus === Thing.ThingSetupStatusFailed) {
             return Style.red
         }
-        if (thing.setupStatus == Thing.ThingSetupStatusInProgress) {
+        if (thingSetupStatus === Thing.ThingSetupStatusInProgress) {
             return Style.iconColor
         }
         if (connectedState && connectedState.value === false) {
