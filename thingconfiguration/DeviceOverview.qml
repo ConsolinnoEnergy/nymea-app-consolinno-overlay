@@ -24,14 +24,6 @@ Page {
             }
 
         }
-/* // Currently bugged on real mobile devices
-        HeaderButton {
-            imageSource: "/icons/find.svg"
-            color: filterInput.shown ? Style.accentColor : Style.iconColor
-            onClicked: filterInput.shown = !filterInput.shown
-
-        }
-*/
     }
 
     QtObject {
@@ -104,7 +96,6 @@ Page {
                 id: thingsProxy
                 engine: _engine
                 groupByInterface: true
-                nameFilter: filterInput.shown ? filterInput.text : ""
                 hideTagId: "hiddenInDeviceView"
                 hiddenInterfaces: ["gridsupport", "epexdatasource"]
             }
