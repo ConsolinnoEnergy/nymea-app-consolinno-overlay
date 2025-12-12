@@ -102,7 +102,7 @@ Page {
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
                 Layout.fillWidth: true
-                text: qsTr("Service %1 ").arg(Configuration.appBranding)
+                text: qsTr("%1 Service").arg(Configuration.appBranding)
                 onClicked:{
 
                     pageStack.push("ServicePage.qml")
@@ -147,7 +147,7 @@ Page {
                 Layout.topMargin: 10
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
-                text: qsTr("If there is a problem with the %1 itself, then contact %2 service.").arg(Configuration.deviceName).arg(Configuration.appBranding)
+                text: qsTr("If there is a problem with the %1 itself, then contact %2 Service.").arg(Configuration.deviceName).arg(Configuration.appBranding)
             }
 
         }

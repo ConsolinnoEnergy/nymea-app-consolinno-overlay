@@ -3273,53 +3273,6 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
 </context>
 <context>
-    <name>EpexDayAheadSetup</name>
-    <message>
-        <source>Reconfigure %1</source>
-        <translation type="unfinished">Konfiguriere %1</translation>
-    </message>
-    <message>
-        <source>Set up %1</source>
-        <translation type="unfinished">%1 einrichten</translation>
-    </message>
-    <message>
-        <source>Name the thing:</source>
-        <translation type="unfinished">Name:</translation>
-    </message>
-    <message>
-        <source>Thing parameters</source>
-        <translation type="unfinished">Gerät parameter</translation>
-    </message>
-    <message>
-        <source>Reset values to default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Thing reconfigured!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Thing added!</source>
-        <translation type="unfinished">Thing hinzugefügt!</translation>
-    </message>
-    <message>
-        <source>Uh oh</source>
-        <translation type="unfinished">Uh oh</translation>
-    </message>
-    <message>
-        <source>All done. You can now start using %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Something went wrong setting up this thing...</source>
-        <translation type="unfinished">Etwas ist schiefgelaufen</translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>EvChargerOptimization</name>
     <message>
         <source>Wallbox configuration</source>
@@ -3926,19 +3879,19 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>Under &apos;Manual&apos; you will find current instructions for the app.</source>
-        <translation>Unter &quot;Bedienungsanleitungen&quot; finden Sie aktuelle Anleitungen zur App</translation>
+        <translation>Unter &quot;Bedienungsanleitung&quot; finden Sie aktuelle Anleitungen zur App.</translation>
     </message>
     <message>
         <source>If you have any problems with your system, please contact the installer. Under &apos;Installation contact&apos; the installer&apos;s details are stored (if he has entered them in the app).</source>
         <translation>Bei Problem mit Ihrer Anlage, wenden Sie sich an den Installateur. Unter &quot;Kontaktdaten Installation&quot; sind die Daten des Installateurs gespeichert (falls er diese in der App hinterlegt hat).</translation>
     </message>
     <message>
-        <source>Service %1 </source>
-        <translation>Service %1 </translation>
+        <source>%1 Service</source>
+        <translation>%1 Service</translation>
     </message>
     <message>
-        <source>If there is a problem with the %1 itself, then contact %2 service.</source>
-        <translation>Falls ein Problem mit der %1 auftritt, kontaktieren Sie den %2-Service.</translation>
+        <source>If there is a problem with the %1 itself, then contact %2 Service.</source>
+        <translation>Falls ein Problem mit der %1 auftritt, kontaktieren Sie den %2 Service.</translation>
     </message>
 </context>
 <context>
@@ -4102,8 +4055,8 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
         <translation>Bedienungsanleitung</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can find current manuals for %1 in the download area of our &lt;a href=&quot;%2&quot;&gt;Website&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;Aktuelle Handbücher für %1 finden Sie im unsererem Downloadbereich &lt;a href=&quot;%2&quot;&gt;Webseite&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can find current manuals for %1 in the download area of our &lt;a href=&quot;%2&quot;&gt;website&lt;/a&gt;.&lt;/p&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;Aktuelle Handbücher für %1 finden Sie in unserem Downloadbereich auf unserer &lt;a href=&quot;%2&quot;&gt;Webseite&lt;/a&gt;.&lt;/p&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -4379,7 +4332,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>If there are problems with the %1, please refer to our service adress: </source>
-        <translation>Bei Problemen mit dem %1, wenden sie sich an unserere Serviceadresse: </translation>
+        <translation>Bei Problemen mit dem %1, wenden sie sich an unsere Serviceadresse: </translation>
     </message>
 </context>
 <context>

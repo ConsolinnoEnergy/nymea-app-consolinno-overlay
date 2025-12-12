@@ -35,7 +35,7 @@ Page {
         Label{
             Layout.fillWidth: true
             Layout.fillHeight: true
-            text: qsTr('<html><style type="text/css"></style><p>You can find current manuals for %1 in the download area of our <a href="%2">Website</a> </p></html>').arg(Configuration.deviceName).arg(Configuration.downloadMedia)
+            text: qsTr('<html><style type="text/css"></style><p>You can find current manuals for %1 in the download area of our <a href="%2">website</a>.</p></html>').arg(Configuration.deviceName).arg(Configuration.downloadMedia)
             wrapMode: Text.WordWrap
 
             onLinkActivated:{

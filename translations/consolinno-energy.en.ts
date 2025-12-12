@@ -3253,53 +3253,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
 </context>
 <context>
-    <name>EpexDayAheadSetup</name>
-    <message>
-        <source>Reconfigure %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set up %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Name the thing:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Thing parameters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reset values to default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Thing reconfigured!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Thing added!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Uh oh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All done. You can now start using %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Something went wrong setting up this thing...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>EvChargerOptimization</name>
     <message>
         <source>Wallbox configuration</source>
@@ -3913,11 +3866,11 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Service %1 </source>
+        <source>%1 Service</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If there is a problem with the %1 itself, then contact %2 service.</source>
+        <source>If there is a problem with the %1 itself, then contact %2 Service.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4078,7 +4031,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can find current manuals for %1 in the download area of our &lt;a href=&quot;%2&quot;&gt;Website&lt;/a&gt; &lt;/p&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can find current manuals for %1 in the download area of our &lt;a href=&quot;%2&quot;&gt;website&lt;/a&gt;.&lt;/p&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
