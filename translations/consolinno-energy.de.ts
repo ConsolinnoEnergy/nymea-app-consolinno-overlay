@@ -3831,24 +3831,12 @@ fügen Sie eine weitere hinzu.</translation>
 <context>
     <name>HeatpumpPriceWidget</name>
     <message>
-        <source>Dynamic Pricing Optimization</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Current price</source>
-        <translation type="unfinished">Aktueller Preis</translation>
-    </message>
-    <message>
-        <source>Current average deviation</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktueller Preis</translation>
     </message>
     <message>
         <source>Limit below average: %1 %</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Note: The heat pump&apos;s operating mode is increased only at the top of each quarter-hour. After changing the price limit, there may be a delay of up to 15 minutes before the heat pump enters increased mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Grenze unter Durchschnitt: %1 %</translation>
     </message>
 </context>
 <context>
