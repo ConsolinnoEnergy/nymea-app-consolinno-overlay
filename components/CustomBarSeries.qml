@@ -93,6 +93,8 @@ ChartView {
                 barToDraw = pricingPast;
             } else if ((root.currentPrice > itemValue) && (dateHour.getTime() == currentHour.getTime())) {
                 barToDraw = currentValueSeries;
+            } else if ((root.upperPriceLimit < itemValue) && (dateHour.getTime() == currentHour.getTime())) {
+                barToDraw = currentValueAboveUpperLimitSeries
             } else if (root.upperPriceLimit < itemValue) {
                 barToDraw = pricingAboveUpperLimit;
             } else if (dateHour.getTime() == currentHour.getTime()) {
@@ -123,6 +125,7 @@ ChartView {
     function clearValues() {
         mainSeries.clear();
         currentValueSeries.clear();
+        currentValueAboveUpperLimitSeries.clear();
         pricingPast.clear();
         pricingCurrentTime.clear();
         pricingAboveUpperLimit.clear();
@@ -243,6 +246,19 @@ ChartView {
 
         upperSeries: LineSeries {
             id: currentValueSeries
+        }
+
+    }
+
+    AreaSeries {
+        axisX: dateTimeAxis
+        axisY: valueAxis
+        color: root.enabled ? "#FF8400" : Style.barSeriesDisabled // #TODO define color via Style
+        borderWidth: 1
+        borderColor: Style.epexBarOutLine
+
+        upperSeries: LineSeries {
+            id: currentValueAboveUpperLimitSeries
         }
 
     }
