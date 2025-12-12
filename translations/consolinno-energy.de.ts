@@ -215,10 +215,6 @@
         <translation>Sofortladen aktivieren</translation>
     </message>
     <message>
-        <source>Price limit : %1 ct/kWh</source>
-        <translation>Preisgrenze : %1 ct/kWh</translation>
-    </message>
-    <message>
         <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
         <translation>Wenn Nullvergütung vermieden aktiv ist, dann ist kein Sofortladen der Batterie möglich.</translation>
     </message>
@@ -237,6 +233,26 @@
     <message>
         <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
         <translation type="unfinished">An Tagen mit negativen Strompreisen an der Strombörse wird aktiv Batteriekapazität freigehalten, um in den Stunden mit diesen negativen Börsenstrompreisen gezielt die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald diese Regelung aktiv ist, wird das Laden der Batterie limitiert (sichtbar an der gelben Meldung im Screen). Die Steuerung basiert auf der Vorhersage der PV-Produktion und des Hausverbrauchs und verschiebt die Ladung entsprechend.</translation>
+    </message>
+    <message>
+        <source>charging</source>
+        <translation>Laden</translation>
+    </message>
+    <message>
+        <source>discharging blocked</source>
+        <translation>Entladen blockiert</translation>
+    </message>
+    <message>
+        <source>discharging allowed</source>
+        <translation>Entladen erlaubt</translation>
+    </message>
+    <message>
+        <source>Charge under limit: %1 ct/kWh</source>
+        <translation>Laden unter Preisgrenze: %1 ct/kWh</translation>
+    </message>
+    <message>
+        <source>Block discharge until: %1 ct/kWh</source>
+        <translation>Entladen blockieren bis: %1 ct/kWh</translation>
     </message>
 </context>
 <context>
@@ -706,15 +722,15 @@
         <translation>Verhalten bei Abstecken</translation>
     </message>
     <message>
-        <source>Dynamic Tariff</source>
+        <source>Dynamic pricing</source>
         <translation>Dynamischer Tarif</translation>
     </message>
     <message>
-        <source>In dynamic tariff charging mode, charging takes place at maximum charging current as soon as the price falls below the set price limit. At times when charging does not take place because the price limit is exceeded, charging takes place if there is a PV surplus. If the price limit is changed, this limit is preselected the next time it is plugged in.</source>
-        <translation>Im Lademodus dynamischer Tarif wird mit maximalem Ladestrom geladen,  sobald der Preis unter die eingestellte Preisgrenze fällt. In Zeiten in  denen nicht geladen wird, weil die Preisgrenze überschritten ist, wird  geladen, falls PV-Überschuss vorhanden ist. Wenn die Preisgrenze  verändert wird, ist diese Grenze beim nächsten Anstecken vorausgewählt.</translation>
+        <source>In dynamic pricing charging mode, charging takes place at maximum charging current as soon as the price falls below the set price limit. At times when charging does not take place because the price limit is exceeded, charging takes place if there is a PV surplus. If the price limit is changed, this limit is preselected the next time it is plugged in.</source>
+        <translation>Im Lademodus dynamischer Tarif wird mit maximalem Ladestrom geladen, sobald der Preis unter die eingestellte Preisgrenze fällt. In Zeiten in denen nicht geladen wird, weil die Preisgrenze überschritten ist, wird geladen, falls PV-Überschuss vorhanden ist. Wenn die Preisgrenze verändert wird, ist diese Grenze beim nächsten Anstecken vorausgewählt.</translation>
     </message>
     <message>
-        <source>The charging modes &lt;font color=&quot;%1&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;%1&quot;&gt;Dynamic tariff&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;%1&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
+        <source>The charging modes &lt;font color=&quot;%1&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;%1&quot;&gt;Dynamic pricing&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;%1&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
         <translation>Die Lademodi &lt;font color=&quot;%1&quot;&gt;„Nur Solarstrom“&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;„Immer Laden“&lt;/font&gt; sowie &lt;font color=&quot;%1&quot;&gt;„Dynamischer Tarif“&lt;/font&gt; bleiben nachdem Abstecken weiterhin ausgewählt. Das heißt, wenn Sie wieder anstecken, ist der letzte gewählte Modus aktiv. Wenn Sie mit &lt;font color=&quot;%1&quot;&gt;„Nächster Fahrt“&lt;/font&gt; geladen haben, dann müssen Sie bei Anstecken wieder einen Lademodus wählen.</translation>
     </message>
 </context>
@@ -1312,6 +1328,12 @@
     <message>
         <source>Please provide information on taxes, surcharges and network fees. &lt;u&gt;Continue to configuration.&lt;/u&gt;</source>
         <translation>Bitte geben Sie Steuern und Abgaben sowie Netzentgelte ein. &lt;u&gt;Zur Konfiguration.&lt;/u&gt;</translation>
+    </message>
+    <message>
+        <source>Total: %1 %2
+Grid fee: %3 %2
+Levies: %4 %2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3040,6 +3062,10 @@ fügen Sie eine weitere hinzu.</translation>
         <source>ct/kWh</source>
         <translation type="unfinished">ct/kWh</translation>
     </message>
+    <message>
+        <source>%1=%2+%3+%4 %5</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DebugCharts</name>
@@ -3167,52 +3193,83 @@ fügen Sie eine weitere hinzu.</translation>
 <context>
     <name>EnergyManagerInfo</name>
     <message>
-        <source>Energymanager</source>
-        <translation type="unfinished">Energiemanager</translation>
-    </message>
-    <message>
-        <source>The energy manager regulates the heat pump to maximize the consumption of its own solar power. If you switch off the optimization, the energy manager no longer affects the control of the heat pump.</source>
-        <translation>Der Energiemanager steuert die Wärmepumpe so, dass der Verbrauch des eigenen Solarstroms maximiert wird. Wenn Sie die Optimerung ausschalten, greift der Energiemanager nicht mehr in die Steuerung der Wärmepumpe ein.</translation>
-    </message>
-    <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Increased&lt;/li&gt;: </source>
         <translation>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Erhöht&lt;/li&gt;: </translation>
     </message>
     <message>
-        <source>The operating status indicates the control of the heat pump:</source>
-        <translation>Der Betriebszustand zeigt die Steuerung der Wärmepumpe an:</translation>
-    </message>
-    <message>
-        <source>Optimization of the heat pump</source>
-        <translation type="unfinished">Optimierung der Wärmepumpe</translation>
-    </message>
-    <message>
-        <source>The heat pump is controlled via SG-ready states so that the available PV surplus is optimally utilized. A certain amount of PV surplus must be available for a certain period of time (currently 15 minutes) for an SG ready state to be switched.</source>
-        <translation type="unfinished">Die Wärmepumpe wird über SG-Ready-Zustände so gesteuert, dass vorhandener PV-Überschuss optimal ausgenutzt wird. Es muss für einen bestimmten Zeitraum (aktuell 15 Minuten), eine bestimmte Menge an PV-Überschuss vorhanden sein, damit ein SG-Ready-Zustand geschaltet wird.</translation>
-    </message>
-    <message>
-        <source>If the PV surplus is more than 50 % of the nominal output of the heat pump, SG ready state 3 is switched for at least 30 minutes (recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range).</source>
-        <translation type="unfinished">Beträgt der PV-Überschuss mehr als 50 % der Nennleistung der Wärmepumpe, wird SG-Ready-Zustand 3 für mind. 30 Minuten geschaltet (Empfehlung zu erhöhtem Betrieb, die Wärmepumpe entscheidet je nach momentanem Temperaturbereich, ob dies möglich ist).</translation>
-    </message>
-    <message>
         <source> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Off (= EVU block)&lt;/li&gt;: </source>
-        <translation type="unfinished"> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Aus (= EVU-Sperre)&lt;/li&gt;: </translation>
+        <translation> &lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Aus (= EVU-Sperre)&lt;/li&gt;: </translation>
     </message>
     <message>
         <source>Start-up block, is not used for optimization</source>
-        <translation type="unfinished">Anfahrtssperre, wird nicht zur Optimierung verwendet</translation>
+        <translation>Anfahrtssperre, wird nicht zur Optimierung verwendet</translation>
     </message>
     <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </source>
-        <translation type="unfinished">&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </translation>
+        <translation>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Standard&lt;/li&gt;: </translation>
     </message>
     <message>
         <source>Standard status, optimizer makes no specification</source>
-        <translation type="unfinished">Standardzustand, der Optimierer macht keine Vorgaben</translation>
+        <translation>Standardzustand, der Optimierer macht keine Vorgaben</translation>
     </message>
     <message>
         <source>Recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range.</source>
-        <translation type="unfinished">Empfehlung für erhöhten Betrieb, die Wärmepumpe entscheidet in Abhängigkeit vom aktuellen Temperaturbereich, ob dies möglich ist.</translation>
+        <translation>Empfehlung für erhöhten Betrieb, die Wärmepumpe entscheidet in Abhängigkeit vom aktuellen Temperaturbereich, ob dies möglich ist.</translation>
+    </message>
+    <message>
+        <source>Operating mode</source>
+        <translation>Betriebsmodus</translation>
+    </message>
+    <message>
+        <source>The operating mode indicates the control of the heat pump:</source>
+        <translation>Der Betriebszustand zeigt die Steuerung der Wärmepumpe an:</translation>
+    </message>
+</context>
+<context>
+    <name>EpexDayAheadSetup</name>
+    <message>
+        <source>Reconfigure %1</source>
+        <translation type="unfinished">Konfiguriere %1</translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation type="unfinished">%1 einrichten</translation>
+    </message>
+    <message>
+        <source>Name the thing:</source>
+        <translation type="unfinished">Name:</translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation type="unfinished">Gerät parameter</translation>
+    </message>
+    <message>
+        <source>Reset values to default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing reconfigured!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing added!</source>
+        <translation type="unfinished">Thing hinzugefügt!</translation>
+    </message>
+    <message>
+        <source>Uh oh</source>
+        <translation type="unfinished">Uh oh</translation>
+    </message>
+    <message>
+        <source>All done. You can now start using %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Something went wrong setting up this thing...</source>
+        <translation type="unfinished">Etwas ist schiefgelaufen</translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3655,6 +3712,22 @@ fügen Sie eine weitere hinzu.</translation>
         <source>Absorbed elec. energy</source>
         <translation>Aufgenommene el. Energie</translation>
     </message>
+    <message>
+        <source>Optimization</source>
+        <translation>Optimierung</translation>
+    </message>
+    <message>
+        <source>PV Surplus</source>
+        <translation>PV-Überschuss</translation>
+    </message>
+    <message>
+        <source>Dynamic Pricing</source>
+        <translation>Dynamischer Tarif</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
 </context>
 <context>
     <name>HeatingConfigurationView</name>
@@ -3785,6 +3858,56 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
         <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
+    </message>
+</context>
+<context>
+    <name>HeatpumpOptimizationInfo</name>
+    <message>
+        <source>Optimization</source>
+        <translation>Optimierung</translation>
+    </message>
+    <message>
+        <source>PV surplus</source>
+        <translation>PV-Überschuss</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>Aus</translation>
+    </message>
+    <message>
+        <source>The heat pump is not optimized.</source>
+        <translation>Die Wärmepumpe wird nicht optimiert.</translation>
+    </message>
+    <message>
+        <source>Please note:</source>
+        <translation>Bitte beachten:</translation>
+    </message>
+    <message>
+        <source>The operating state is implemented by the heat pump depending on the respective temperature conditions.</source>
+        <translation>Der Betriebszustand wird abhängig von den jeweiligen Temperaturgegebenheiten von der Wärmepumpe umgesetzt.</translation>
+    </message>
+    <message>
+        <source>Dynamic pricing</source>
+        <translation>Dynamischer Tarif</translation>
+    </message>
+    <message>
+        <source>The heat pump is given the command to increase operation if the price is below the defined price limit. If the price limit is changed, it can take up to 15 minutes for the changes to take effect.</source>
+        <translation>Der Wärmepumpe wird der Befehl zum erhöhten Betrieb gegeben, wenn der Preis unterhalb der definierten Preisgrenze liegt. Wird die Preisgrenze verändert, kann es bis zu 15 Minuten dauern, bis die Änderungen wirksam werden.</translation>
+    </message>
+    <message>
+        <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the &quot;increased&quot; operating state.</source>
+        <translation>Die Wärmepumpe wird so gesteuert, dass der vorhandene PV-Überschuss optimal ausgenutzt wird. Beträgt der PV-Überschuss für 15 Minuten mehr als 50&#x202f;% der Nennleistung der Wärmepumpe, wird der Wärmepumpe der Betriebszustand „erhöht“ vorgegeben.</translation>
+    </message>
+</context>
+<context>
+    <name>HeatpumpPriceWidget</name>
+    <message>
+        <source>Current price</source>
+        <translation>Aktueller Preis</translation>
+    </message>
+    <message>
+        <source>Limit below average: %1 %</source>
+        <translation>Grenze unter Durchschnitt: %1 %</translation>
     </message>
 </context>
 <context>
@@ -4820,8 +4943,20 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Tarifgesteuertes Laden</translation>
     </message>
     <message>
-        <source>The battery is charged from the grid as soon as the price falls below the price limit.</source>
-        <translation>Die Batterie wird aus dem Netz geladen, sobald die Preisgrenze unterschritten wird.</translation>
+        <source>Two price limits can be defined:</source>
+        <translation>Es können zwei Preisgrenzen definiert werden:</translation>
+    </message>
+    <message>
+        <source>- The first price limit is the value below which the battery will charge from the grid (indicated by the green bar).</source>
+        <translation>- Die erste Preisgrenze ist der Wert, unterhalb dessen die Batterie aus dem Netz geladen wird (sichtbar an grünen Balken).</translation>
+    </message>
+    <message>
+        <source>- If discharging should not be blocked, this value can simply be set to the same value as the charging limit.</source>
+        <translation>- Falls das Entladen nicht blockiert werden soll, kann dieser Wert einfach auf den gleichen Wert wie die Ladegrenze gesetzt werden.</translation>
+    </message>
+    <message>
+        <source>- The second price limit defines up to which price discharging should be blocked (indicated by the grey bar).</source>
+        <translation>- Die zweite Preisgrenze legt fest, bis zu welchem Preis das Entladen blockiert werden soll (sichtbar an grauen Balken).</translation>
     </message>
 </context>
 <context>

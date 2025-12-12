@@ -215,10 +215,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Price limit : %1 ct/kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -236,6 +232,26 @@
     </message>
     <message>
         <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>discharging blocked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>discharging allowed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charge under limit: %1 ct/kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Block discharge until: %1 ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -706,15 +722,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dynamic Tariff</source>
+        <source>Dynamic pricing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>In dynamic tariff charging mode, charging takes place at maximum charging current as soon as the price falls below the set price limit. At times when charging does not take place because the price limit is exceeded, charging takes place if there is a PV surplus. If the price limit is changed, this limit is preselected the next time it is plugged in.</source>
+        <source>In dynamic pricing charging mode, charging takes place at maximum charging current as soon as the price falls below the set price limit. At times when charging does not take place because the price limit is exceeded, charging takes place if there is a PV surplus. If the price limit is changed, this limit is preselected the next time it is plugged in.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The charging modes &lt;font color=&quot;%1&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;%1&quot;&gt;Dynamic tariff&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;%1&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
+        <source>The charging modes &lt;font color=&quot;%1&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;%1&quot;&gt;Dynamic pricing&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;%1&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1311,6 +1327,12 @@
     </message>
     <message>
         <source>Please provide information on taxes, surcharges and network fees. &lt;u&gt;Continue to configuration.&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total: %1 %2
+Grid fee: %3 %2
+Levies: %4 %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3021,6 +3043,10 @@ Use a timeout value greater or equal to 10 ms.</source>
         <source>ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>%1=%2+%3+%4 %5</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DebugCharts</name>
@@ -3147,31 +3173,7 @@ Use a timeout value greater or equal to 10 ms.</source>
 <context>
     <name>EnergyManagerInfo</name>
     <message>
-        <source>Energymanager</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The energy manager regulates the heat pump to maximize the consumption of its own solar power. If you switch off the optimization, the energy manager no longer affects the control of the heat pump.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Increased&lt;/li&gt;: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The operating status indicates the control of the heat pump:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Optimization of the heat pump</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The heat pump is controlled via SG-ready states so that the available PV surplus is optimally utilized. A certain amount of PV surplus must be available for a certain period of time (currently 15 minutes) for an SG ready state to be switched.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If the PV surplus is more than 50 % of the nominal output of the heat pump, SG ready state 3 is switched for at least 30 minutes (recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3192,6 +3194,61 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Recommendation for increased operation, the heat pump decides whether this is possible depending on the current temperature range.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operating mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The operating mode indicates the control of the heat pump:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EpexDayAheadSetup</name>
+    <message>
+        <source>Reconfigure %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name the thing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset values to default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing reconfigured!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing added!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uh oh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All done. You can now start using %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Something went wrong setting up this thing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3635,6 +3692,22 @@ Use a timeout value greater or equal to 10 ms.</source>
         <source>Absorbed elec. energy</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Optimization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV Surplus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dynamic Pricing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HeatingConfigurationView</name>
@@ -3764,6 +3837,56 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HeatpumpOptimizationInfo</name>
+    <message>
+        <source>Optimization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV surplus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heat pump is not optimized.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please note:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The operating state is implemented by the heat pump depending on the respective temperature conditions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dynamic pricing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heat pump is given the command to increase operation if the price is below the defined price limit. If the price limit is changed, it can take up to 15 minutes for the changes to take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the &quot;increased&quot; operating state.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HeatpumpPriceWidget</name>
+    <message>
+        <source>Current price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit below average: %1 %</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4795,7 +4918,19 @@ For further assistance, please contact our support team at: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The battery is charged from the grid as soon as the price falls below the price limit.</source>
+        <source>Two price limits can be defined:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>- The first price limit is the value below which the battery will charge from the grid (indicated by the green bar).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>- If discharging should not be blocked, this value can simply be set to the same value as the charging limit.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>- The second price limit defines up to which price discharging should be blocked (indicated by the grey bar).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

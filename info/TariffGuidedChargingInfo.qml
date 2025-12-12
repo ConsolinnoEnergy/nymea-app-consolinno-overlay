@@ -23,12 +23,42 @@ Page {
 
             Label{
                 Layout.fillWidth: true
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
                 Layout.topMargin: 10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
-                text: qsTr("The battery is charged from the grid as soon as the price falls below the price limit.")
+                text: qsTr("Two price limits can be defined:")
+            }
+
+            Label{
+                Layout.fillWidth: true
+                leftPadding: app.margins - 10
+                rightPadding: app.margins + 10
+                wrapMode: Text.WordWrap
+                Layout.preferredWidth: app.width
+                textFormat: Text.MarkdownText
+                text: qsTr("- The first price limit is the value below which the battery will charge from the grid (indicated by the green bar).")
+            }
+
+            Label{
+                Layout.fillWidth: true
+                leftPadding: app.margins - 10
+                rightPadding: app.margins + 10
+                wrapMode: Text.WordWrap
+                Layout.preferredWidth: app.width
+                textFormat: Text.MarkdownText
+                text: qsTr("- The second price limit defines up to which price discharging should be blocked (indicated by the grey bar).")
+            }
+
+            Label{
+                Layout.fillWidth: true
+                leftPadding: app.margins - 10
+                rightPadding: app.margins + 10
+                wrapMode: Text.WordWrap
+                Layout.preferredWidth: app.width
+                textFormat: Text.MarkdownText
+                text: qsTr("- If discharging should not be blocked, this value can simply be set to the same value as the charging limit.")
             }
         }
     }

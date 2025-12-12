@@ -317,9 +317,7 @@ Page {
 
                 Layout.alignment: Qt.AlignHCenter
                 onClicked:{
-                    if (solarInverterRepeater.count >0){
-                        root.done(true, false, false)
-                    }
+                    root.done(true, false, false)
                 }
             }
         }
