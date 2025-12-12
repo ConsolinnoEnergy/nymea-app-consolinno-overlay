@@ -242,6 +242,7 @@ Page {
                 text: model.displayName
                 subText: engine.thingManager.vendors.getVendor(model.vendorId).displayName
                 iconName:{
+                    if (!thingClass) { return ""; }
                     for (let i = 0; i < thingClass.interfaces.length; i++) {
                         let icon = "";
                         let interfaceIcons = thingClass.interfaces[i];
