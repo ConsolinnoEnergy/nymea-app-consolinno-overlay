@@ -3651,7 +3651,7 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>Dynamic Pricing</source>
-        <translation type="unfinished"></translation>
+        <translation>Dynamischer Tarif</translation>
     </message>
     <message>
         <source>Save</source>
