@@ -366,7 +366,7 @@ ChartView {
         axisX: dateTimeAxis
         axisY: valueAxis
         color: 'transparent'
-        borderWidth: 1
+        borderWidth: 1.5
         borderColor: root.enabled ? Style.consolinnoMedium : Style.barSeriesDisabled
 
         upperSeries: LineSeries {
@@ -383,7 +383,7 @@ ChartView {
         axisX: dateTimeAxis
         axisY: valueAxis
         color: 'transparent'
-        borderWidth: 1
+        borderWidth: 1.5
         borderColor: root.enabled ? Style.epexBarPricingCurrentTime : Style.barSeriesDisabled
 
         upperSeries: LineSeries {
