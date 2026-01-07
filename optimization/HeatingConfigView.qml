@@ -491,15 +491,30 @@ GenericConfigPage {
                         Label {
                             id: singleValue
 
-                            property string currentCOP: "currentCoefficientOfPerformance"
-                            property string averageCOP: "averageCoefficientOfPerformance"
-                            property double numberValue: Number(delegateValue)
-
-                            text: (numberValue && (delegateID === currentCOP || delegateID === averageCOP) ? (((+delegateValue.toFixed(1)) <= 0) ? 0 : (+delegateValue.toFixed(1)).toLocaleString()) : numberValue ? (((delegateValue.toFixed(0)) <= 0) ? 0 : (delegateValue.toFixed(0)).toLocaleString()) : delegateValue) + " " + delegateUnit
+                            text: {
+                                var str = "";
+                                var loc = Qt.locale();
+                                loc.numberOptions = Locale.OmitGroupSeparator;
+                                if (Number(delegateValue)) {
+                                    if (delegateID === "currentCoefficientOfPerformance" ||
+                                        delegateID === "averageCoefficientOfPerformance") {
+                                        str = Math.abs(delegateValue).toLocaleString(loc, 'f', 1);
+                                    } else if (delegateID === "flowTemperature" ||
+                                               delegateID === "returnTemperature" ||
+                                               delegateID === "hotWaterTemperature" ||
+                                               delegateID === "outdoorTemperature") {
+                                        str = delegateValue.toLocaleString(loc, 'f', 1);
+                                    } else {
+                                        str = delegateValue.toLocaleString(loc, 'f', 0);
+                                    }
+                                } else {
+                                    str = delegateValue;
+                                }
+                                str += " " + delegateUnit;
+                                return str;
+                            }
                         }
-
                     }
-
                 }
 
                 // Add a dropdown field "Optimization" with options "PV Surplus", "Dynamic Pricing", "Off"
