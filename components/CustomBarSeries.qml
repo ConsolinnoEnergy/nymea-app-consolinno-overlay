@@ -279,7 +279,7 @@ ChartView {
     AreaSeries {
         axisX: dateTimeAxis
         axisY: valueAxis
-        color: Configuration.batteryDischargeColor
+        color: root.enabled ? Configuration.batteryDischargeColor : Style.barSeriesDisabled
         borderWidth: 1
         borderColor: Style.epexBarOutLine
         upperSeries: LineSeries {
