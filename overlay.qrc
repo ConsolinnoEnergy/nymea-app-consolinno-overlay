@@ -100,8 +100,6 @@
         <file>components/ConsolinnoPVTextField.qml</file>
         <file>wizards/SetupHeatingElementWizard.qml</file>
         <file>optimization/HeatingElementConfigurationView.qml</file>
-        <file>components/ConsolinnoSwitchDelegate.qml</file>
-        <file>components/ConsolinnoRowLabelValue.qml</file>
         <file>devicepages/HeatingElementDevicePage.qml</file>
         <file>optimization/HeatingElementOptimization.qml</file>
         <file>mainviews/StartupNotificationPopup.qml</file>
@@ -144,7 +142,6 @@
         <file>components/ConsolinnoRadioDelegate.qml</file>
         <file>images/relais_screen.png</file>
         <file>images/eebus.svg</file>
-        <file>components/ConsolinnoGridSupportiveControlAlert.qml</file>
         <file>images/relais.svg</file>
         <file>components/ConsolinnoCheckbox.qml</file>
         <file>components/ConsolinnoDropdown.qml</file>
