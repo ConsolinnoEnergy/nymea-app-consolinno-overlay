@@ -91,19 +91,19 @@ GenericConfigPage {
 
                     property var states: {
                         "limited": {
-                            "header": qsTr("Limited consumption"),
-                            "content": qsTr("Due to a control order from the network operator, the total power of controllable devices is <b>temporarily limited</b> to <b>%1 kW</b>. If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.").arg(convertToKw(powerLimitLPC)),
+                            "header": qsTr("Grid-supportive control"),
+                            "content": qsTr("Due to a control order from the network operator, the total power of controllable devices is <b>temporarily limited</b> to <b>%1 kW.</b> If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.").arg(convertToKw(powerLimitLPC)),
                             "color": "warning",
                             "backgroundColor": "warningBackground"
                         },
                         "blocked": {
-                            "header": qsTr("Blocked consumption"),
+                            "header": qsTr("Grid-supportive control"),
                             "content": qsTr("Consumption is <b>temporarily blocked</b> on the basis of a control signal from the grid operator."),
                             "color": "danger",
                             "backgroundColor": "dangerBackground"
                         },
                         "unrestricted": {
-                            "header": qsTr("Grid-Supportive Control"),
+                            "header": qsTr("Grid-supportive control"),
                             "content": qsTr("unrestricted"),
                             "backgroundColor": "none",
                             "color": "none"

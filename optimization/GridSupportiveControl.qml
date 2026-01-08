@@ -28,7 +28,7 @@ StackView {
     property bool currentState: gridSupportThing.stateByName("isLpcActive").value
     property bool currentStateLPP: gridSupportThing.stateByName("isLppActive").value
     property string contentPlimLPP: currentStateLPP === true ? qsTr("The feed-in is <b>limited temporarily</b> to <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimitLPP)) : ""
-    property string contentPlim: currentState === true ? qsTr("Consumption is <b>temporarily limited</b> to a maximum of <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimit)) : ""
+    property string contentPlim: currentState === true ? qsTr("Due to a control order from the network operator, the total power of controllable devices is <b>temporarily limited</b> to <b>%1 kW.</b> If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.").arg(convertToKw(powerLimit)) : ""
 
 
     Settings {
@@ -159,7 +159,7 @@ StackView {
                         iconColor: Style.warningAccent
 
                         text: contentPlim
-                        headerText: qsTr("Limited consumption")
+                        headerText: qsTr("Grid-supportive control")
                     }
                 }
 
