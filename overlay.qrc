@@ -80,9 +80,6 @@
         <file>mainviews/energy/ConsolinnoConsumersHistory.qml</file>
         <file>mainviews/energy/ConsolinnoConsumerStats.qml</file>
         <file>mainviews/energy/ConsolinnoPowerBalanceStats.qml</file>
-        <file>mainviews/energy/ConsolinnoCurrentConsumptionBalancePieChart.qml</file>
-        <file>mainviews/energy/ConsolinnoConsumersPieChart.qml</file>
-        <file>mainviews/energy/ConsolinnoCurrentProductionBalancePieChart.qml</file>
         <file>mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml</file>
         <file>mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml</file>
         <file>mainviews/energy/ConsolinnoPowerBalanceHistory.qml</file>
