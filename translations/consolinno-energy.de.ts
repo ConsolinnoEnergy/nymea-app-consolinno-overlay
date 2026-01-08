@@ -3145,52 +3145,6 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
 </context>
 <context>
-    <name>DynamicElectricityRateFeedback</name>
-    <message>
-        <source>to the dashboard</source>
-        <translation>ZURÜCK ZUM DASHBOARD</translation>
-    </message>
-    <message>
-        <source>The following tariff is submitted:</source>
-        <translation>Der folgende Stromtarif wurde eingerichtet:</translation>
-    </message>
-    <message>
-        <source>Dynamic electricity tariff</source>
-        <translation>Dynamischer Stromtarif</translation>
-    </message>
-</context>
-<context>
-    <name>DynamicElectricityRateSettings</name>
-    <message>
-        <source>Dynamic Electricity Settings</source>
-        <translation>Einstellungen Dynamische Preise</translation>
-    </message>
-    <message>
-        <source>Current Market Price</source>
-        <translation>Aktueller Marktpreis</translation>
-    </message>
-    <message>
-        <source>ct</source>
-        <translation>ct</translation>
-    </message>
-    <message>
-        <source>Average Market Price</source>
-        <translation>Durchschnittlicher Marktpreis</translation>
-    </message>
-    <message>
-        <source>Lowest Market Price</source>
-        <translation>Niedrigster Marktpreis</translation>
-    </message>
-    <message>
-        <source>Highest Market Price</source>
-        <translation>Höchste Marktpreis</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
-    </message>
-</context>
-<context>
     <name>EnergyManagerInfo</name>
     <message>
         <source>&lt;ul style = &apos;list-style-type:circle;&apos;&gt; &lt;li&gt;Increased&lt;/li&gt;: </source>
