@@ -4867,23 +4867,40 @@ For further assistance, please contact our support team at: %5</translation>
 <context>
     <name>TariffGuidedChargingInfo</name>
     <message>
-        <source>Tariff guided charging</source>
+        <source>Tariff-guided charging</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Two price limits can be defined:</source>
+        <source>Two price limits can be set:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>- The first price limit is the value below which the battery will charge from the grid (indicated by the green bar).</source>
+        <source>Charging Threshold:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>- If discharging should not be blocked, this value can simply be set to the same value as the charging limit.</source>
+        <source>The battery will charge from the grid as soon as the electricity price falls below this threshold.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>- The second price limit defines up to which price discharging should be blocked (indicated by the grey bar).</source>
+        <source>Discharging Threshold:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The battery will only discharge when the electricity price exceeds this threshold. This ensures that discharging happens only when it is worthwhile.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In short:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charge when electricity is cheap.
+Discharge only when electricity is expensive.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you do not want to restrict discharging, you can set the discharging threshold to the same value as the charging threshold.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
