@@ -35,7 +35,6 @@
         <file>components/ConsolinnoButton.qml</file>
         <file>wizards/SetupSolarInverterWizard.qml</file>
         <file>wizards/SetupHeatPumpWizard.qml</file>
-        <file>wizards/ConfigureOptimizationsWizard.qml</file>
         <file>mainviews/HemsOptimizationPage.qml</file>
         <file>optimization/ChargingConfigurationView.qml</file>
         <file>optimization/HeatingConfigurationView.qml</file>
@@ -72,7 +71,6 @@
         <file>info/Help/ManualPage.qml</file>
         <file>info/Help/ContactPage.qml</file>
         <file>info/Help/ServicePage.qml</file>
-        <file>info/Privacy/PrivacyPage.qml</file>
         <file>components/ConsolinnoPasswordTextField.qml</file>
         <file>images/heatpump.svg</file>
         <file>images/grid.svg</file>
