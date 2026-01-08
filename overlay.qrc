@@ -109,9 +109,7 @@
         <file>optimization/HeatingElementOptimization.qml</file>
         <file>mainviews/StartupNotificationPopup.qml</file>
         <file>optimization/DynamicElectricityRate.qml</file>
-        <file>optimization/DynamicElectricityRateFeedback.qml</file>
         <file>mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml</file>
-        <file>optimization/DynamicElectricityRateSettings.qml</file>
         <file>devicepages/PageWraper.qml</file>
         <file>optimization/EvChargerOptimization.qml</file>
         <file>optimization/GridSupportiveControl.qml</file>
