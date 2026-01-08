@@ -58,7 +58,6 @@
         <file>components/ConsolinnoItemDelegate.qml</file>
         <file>thingconfiguration/CarInventory.qml</file>
         <file>components/ConsolinnoHeader.qml</file>
-        <file>thingconfiguration/carSimulation.qml</file>
         <file>info/MainviewInfo.qml</file>
         <file>optimization/UserConfig.qml</file>
         <file>optimization/DeveloperConfig.qml</file>
@@ -89,17 +88,14 @@
         <file>images/heating_rod.svg</file>
         <file>thingconfiguration/DebugCharts.qml</file>
         <file>thingconfiguration/ConEMSState.qml</file>
-        <file>wizards/ManualDeviceEssentialsWizard.qml</file>
         <file>devicepages/GenericSmartDeviceMeterPage.qml</file>
         <file>devicepages/GenericConfigPage.qml</file>
         <file>devicepages/GenericDeviceHistoryPage.qml</file>
-        <file>wizards/ConsolinnoPushButtonAuthPage.qml</file>
         <file>components/ConsolinnoPVTextField.qml</file>
         <file>wizards/SetupHeatingElementWizard.qml</file>
         <file>optimization/HeatingElementConfigurationView.qml</file>
         <file>devicepages/HeatingElementDevicePage.qml</file>
         <file>optimization/HeatingElementOptimization.qml</file>
-        <file>mainviews/StartupNotificationPopup.qml</file>
         <file>optimization/DynamicElectricityRate.qml</file>
         <file>mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml</file>
         <file>devicepages/PageWraper.qml</file>
