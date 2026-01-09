@@ -24,16 +24,16 @@ GenericConfigPage {
     property BatteryConfiguration batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id)
     property bool isZeroCompensation : batteryConfiguration.avoidZeroFeedInActive && batteryConfiguration.avoidZeroFeedInEnabled
 
-    // Propertes will be bound to the RangeSlider's values:
-    // Upper slider handle sets the Charge Price Limit
-    property double currentValue : batteryConfiguration.priceThreshold
-    // Lower slider handle sets the Discharge Price Offset
-    property double dischargePriceThresholdValue : batteryConfiguration.dischargePriceThreshold
+//    // Propertes will be bound to the RangeSlider's values:
+//    // Upper slider handle sets the Charge Price Limit
+//    property double currentValue : batteryConfiguration.priceThreshold
+//    // Lower slider handle sets the Discharge Price Offset
+//    property double dischargePriceThresholdValue : batteryConfiguration.dischargePriceThreshold
 
-    property double thresholdPrice: 0
-    property int valueAxisUpdate: {
-        (0 > barSeries.lowestValue) ? valueAxisUpdate = barSeries.lowestValue :  (currentValue < 0) ? valueAxisUpdate = currentValue - 2 : valueAxisUpdate = -2
-    }
+    property double absChargingThreshold: 0
+    property double absDischargeBlockedThreshold: 0
+    property double relChargingThreshold: batteryConfiguration.priceThreshold
+    property double relDischargeBlockedThreshold: batteryConfiguration.dischargePriceThreshold
 
     property int validSince: 0
     property int validUntil: 0
@@ -77,12 +77,14 @@ GenericConfigPage {
         }
 
         onBatteryConfigurationChanged: {
-            optimizationController.checked = batteryConfiguration.optimizationEnabled
-            chargeOnceController.checked = batteryConfiguration.chargeOnce
+            optimizationController.checked = batteryConfiguration.optimizationEnabled;
+            chargeOnceController.checked = batteryConfiguration.chargeOnce;
             // Initialize both properties for the RangeSlider
-            currentValue = batteryConfiguration.priceThreshold
-            dischargePriceThresholdValue = batteryConfiguration.dischargePriceThreshold
-            console.debug("Battery configuration changed received. New priceThreshold: " + batteryConfiguration.priceThreshold + ", dischargePriceThreshold: " + batteryConfiguration.dischargePriceThreshold)
+//            currentValue = batteryConfiguration.priceThreshold
+//            dischargePriceThresholdValue = batteryConfiguration.dischargePriceThreshold
+            relChargingThreshold = batteryConfiguration.priceThreshold;
+            relDischargeBlockedThreshold = batteryConfiguration.dischargePriceThreshold;
+            console.debug("Battery configuration changed received. New priceThreshold: " + batteryConfiguration.priceThreshold + ", dischargePriceThreshold: " + batteryConfiguration.dischargePriceThreshold);
         }
     }
 
@@ -102,12 +104,13 @@ GenericConfigPage {
 
 
     function relPrice2AbsPrice(relPrice){
-        averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
+        averagePrice = dynamicPrice.get(0).stateByName("averageTotalCost").value
         let minPrice = dynamicPrice.get(0).stateByName("lowestPrice").value
         let maxPrice = dynamicPrice.get(0).stateByName("highestPrice").value
         if (averagePrice === minPrice || averagePrice === maxPrice){
             return averagePrice
         }
+        var thresholdPrice;
         if (relPrice <= 0){
             thresholdPrice = averagePrice - 0.01 * relPrice * (minPrice - averagePrice)
         }else{
@@ -121,10 +124,16 @@ GenericConfigPage {
     function saveSettings()
     {
         // Save both values controlled by the RangeSlider
+//        rootObject.pendingCallId = hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": optimizationController.checked,
+//                                                                           "priceThreshold": currentValue,
+//                                                                           "dischargePriceThreshold": dischargePriceThresholdValue,
+//                                                                           "relativePriceEnabled": false,
+//                                                                           "chargeOnce": chargeOnceController.checked,
+//                                                                           "avoidZeroFeedInActive": batteryConfiguration.avoidZeroFeedInActive,})
         rootObject.pendingCallId = hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": optimizationController.checked,
-                                                                           "priceThreshold": currentValue,
-                                                                           "dischargePriceThreshold": dischargePriceThresholdValue,
-                                                                           "relativePriceEnabled": false,
+                                                                           "priceThreshold": relChargingThreshold,
+                                                                           "dischargePriceThreshold": relDischargeBlockedThreshold,
+                                                                           "relativePriceEnabled": true,
                                                                            "chargeOnce": chargeOnceController.checked,
                                                                            "avoidZeroFeedInActive": batteryConfiguration.avoidZeroFeedInActive,})
     }
@@ -132,7 +141,9 @@ GenericConfigPage {
     function enableSave(obj)
     {
         // Check if either of the two RangeSlider values has changed from the stored configuration
-        saveButton.enabled = batteryConfiguration.priceThreshold !== currentValue || batteryConfiguration.dischargePriceThreshold !== dischargePriceThresholdValue
+//        saveButton.enabled = batteryConfiguration.priceThreshold !== currentValue || batteryConfiguration.dischargePriceThreshold !== dischargePriceThresholdValue
+        saveButton.enabled = batteryConfiguration.priceThreshold !== relChargingThreshold ||
+                batteryConfiguration.dischargePriceThreshold !== relDischargeBlockedThreshold
     }
 
     ThingsProxy {
@@ -432,6 +443,8 @@ GenericConfigPage {
 
                             d.startTimeSince = new Date(dpThing.stateByName("validSince").value * 1000);
                             d.endTimeUntil = new Date(dpThing.stateByName("validUntil").value * 1000);
+                            absChargingThreshold = relPrice2AbsPrice(batteryConfiguration.priceThreshold);
+                            absDischargeBlockedThreshold = relPrice2AbsPrice(batteryConfiguration.dischargePriceThreshold);
                             currentPrice = dpThing.stateByName("currentTotalCost").value
                             averagePrice = dpThing.stateByName("averageTotalCost").value.toFixed(0).toString();
                             lowestPrice = dpThing.stateByName("lowestPrice").value
@@ -468,9 +481,11 @@ GenericConfigPage {
                                 startTime: d.startTimeSince
                                 endTime: d.endTimeUntil
                                 hoursNow: d.now.getHours()
-                                currentPrice: currentValue
+//                                currentPrice: currentValue
+                                currentPrice: absChargingThreshold
                                 currentMarketPrice: currentPrice
-                                upperPriceLimit: dischargePriceThresholdValue
+//                                upperPriceLimit: dischargePriceThresholdValue
+                                upperPriceLimit: absDischargeBlockedThreshold
                                 lowestValue: root.lowestPrice
                                 highestValue: root.highestPrice
                             }
@@ -553,27 +568,57 @@ GenericConfigPage {
                         Layout.fillWidth: true
                     }
 
+                    RowLayout {
+                        Layout.fillWidth: true
+                        Layout.topMargin: Style.smallMargins
+
+                        Label {
+                            visible: optimizationController.checked
+                            enabled: chargeOnceController.checked ? false : true
+                            Layout.fillWidth: true
+                            font.bold: true
+                            text: qsTr("Relative price threshold \"Charging\":")
+                        }
+
+                        Label {
+                            visible: optimizationController.checked
+                            enabled: chargeOnceController.checked ? false : true
+                            font.bold: true
+                            text: qsTr("%1 %").arg(relChargingThreshold.toFixed(0))
+                        }
+                    }
+
                     Label {
                         visible: optimizationController.checked
                         enabled: chargeOnceController.checked ? false : true
                         Layout.fillWidth: true
-                        text: qsTr("Charge under limit: %1 ct/kWh").arg(currentValue.toFixed(2))
+                        Layout.topMargin: Style.smallMargins
+                        text: qsTr("Currently corresponds to an electricity price of %1 ct/kWh.").arg(absChargingThreshold.toLocaleString(Qt.locale(), 'f', 2))
                     }
 
                     Slider {
+                        id: chargingThresholdSlider
                         visible: optimizationController.checked
                         enabled: chargeOnceController.checked ? false : true
                         Layout.fillWidth: true
-                        from: -5.0
-                        to: 90.0
-                        stepSize: 0.2
-                        value: currentValue
+                        from: -100
+                        to: 100
+                        stepSize: 1
+//                        value: currentValue
+                        value: batteryConfiguration.priceThreshold
 
                         onMoved: {
                             // Use a fixed precision and update the property
-                            currentValue = value.toFixed(2);
-                            if (currentValue > dischargePriceThresholdValue) {
-                                dischargePriceThresholdValue = currentValue;
+//                            currentValue = value.toFixed(2);
+//                            if (currentValue > dischargePriceThresholdValue) {
+//                                dischargePriceThresholdValue = currentValue;
+//                            }
+                            absChargingThreshold = relPrice2AbsPrice(value);
+                            relChargingThreshold = value.toFixed(2);
+                            if (absChargingThreshold > absDischargeBlockedThreshold) {
+                                absDischargeBlockedThreshold = absChargingThreshold;
+                                relDischargeBlockedThreshold = relChargingThreshold;
+                                dischargeBlockedThresholdSlider.value = relChargingThreshold
                             }
 
                             enableSave(this);
@@ -588,27 +633,57 @@ GenericConfigPage {
                         }
                     }
 
+                    RowLayout {
+                        Layout.fillWidth: true
+                        Layout.topMargin: Style.smallMargins
+
+                        Label {
+                            visible: optimizationController.checked
+                            enabled: chargeOnceController.checked ? false : true
+                            Layout.fillWidth: true
+                            font.bold: true
+                            text: qsTr("Relative price threshold \"Block discharge\":")
+                        }
+
+                        Label {
+                            visible: optimizationController.checked
+                            enabled: chargeOnceController.checked ? false : true
+                            font.bold: true
+                            text: qsTr("%1 %").arg(relDischargeBlockedThreshold.toFixed(0))
+                        }
+                    }
+
                     Label {
                         visible: optimizationController.checked
                         enabled: chargeOnceController.checked ? false : true
                         Layout.fillWidth: true
-                        text: qsTr("Block discharge until: %1 ct/kWh").arg(dischargePriceThresholdValue.toFixed(2))
+                        Layout.topMargin: Style.smallMargins
+                        text: qsTr("Currently corresponds to an electricity price of %1 ct/kWh.").arg(absDischargeBlockedThreshold.toLocaleString(Qt.locale(), 'f', 2))
                     }
 
                     Slider {
+                        id: dischargeBlockedThresholdSlider
                         visible: optimizationController.checked
                         enabled: chargeOnceController.checked ? false : true
                         Layout.fillWidth: true
-                        from: -5.0
-                        to: 90.0
-                        stepSize: 0.2
-                        value: dischargePriceThresholdValue
+                        from: -100
+                        to: 100
+                        stepSize: 1
+//                        value: dischargePriceThresholdValue
+                        value: batteryConfiguration.dischargePriceThreshold
 
                         onMoved: {
                             // Use a fixed precision and update the property
-                            dischargePriceThresholdValue = value.toFixed(2);
-                            if (dischargePriceThresholdValue < currentValue) {
-                                currentValue = dischargePriceThresholdValue;
+//                            dischargePriceThresholdValue = value.toFixed(2);
+//                            if (dischargePriceThresholdValue < currentValue) {
+//                                currentValue = dischargePriceThresholdValue;
+//                            }
+                            absDischargeBlockedThreshold = relPrice2AbsPrice(value);
+                            relDischargeBlockedThreshold = value.toFixed(2);
+                            if (absDischargeBlockedThreshold < absChargingThreshold) {
+                                absChargingThreshold = absDischargeBlockedThreshold;
+                                relChargingThreshold = relDischargeBlockedThreshold;
+                                chargingThresholdSlider.value = relDischargeBlockedThreshold;
                             }
 
                             enableSave(this);
