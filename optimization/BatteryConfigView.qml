@@ -323,7 +323,7 @@ GenericConfigPage {
                                     anchors.fill: parent
                                     spacing: 1
                                     height: 18
-                                    enabled: isZeroCompensation ? false : true
+                                    enabled: !isZeroCompensation
 
                                     Component.onCompleted: {
                                         checked = batteryConfiguration.chargeOnce
@@ -390,7 +390,7 @@ GenericConfigPage {
                         Layout.topMargin: Style.margins
                         Layout.bottomMargin: Style.smallMargins
                         visible: optimizationController.checked
-                        enabled: chargeOnceController.checked ? false : true
+                        enabled: !chargeOnceController.checked
                         Label {
                             text: qsTr("Charging Plan")
                             font.weight: Font.Bold
@@ -401,7 +401,7 @@ GenericConfigPage {
                     RowLayout {
                         id: currentPriceRow
                         visible: optimizationController.checked
-                        enabled: chargeOnceController.checked ? false : true
+                        enabled: !chargeOnceController.checked
                         Layout.topMargin: Style.smallMargins
                         Layout.bottomMargin: Style.smallMargins
 
@@ -420,7 +420,7 @@ GenericConfigPage {
                     ColumnLayout {
                         Layout.fillWidth: true
                         visible: optimizationController.checked
-                        enabled: chargeOnceController.checked ? false : true
+                        enabled: !chargeOnceController.checked
                         Component.onCompleted: {
                             const dpThing = dynamicPrice.get(0)
                             if(!dpThing)
@@ -557,7 +557,7 @@ GenericConfigPage {
 
                         Label {
                             visible: optimizationController.checked
-                            enabled: chargeOnceController.checked ? false : true
+                            enabled: !chargeOnceController.checked
                             Layout.fillWidth: true
                             font.bold: true
                             text: qsTr("Relative price threshold \"Charging\":")
@@ -565,7 +565,7 @@ GenericConfigPage {
 
                         Label {
                             visible: optimizationController.checked
-                            enabled: chargeOnceController.checked ? false : true
+                            enabled: !chargeOnceController.checked
                             font.bold: true
                             text: qsTr("%1 %").arg(relChargingThreshold.toFixed(0))
                         }
@@ -573,7 +573,7 @@ GenericConfigPage {
 
                     Label {
                         visible: optimizationController.checked
-                        enabled: chargeOnceController.checked ? false : true
+                        enabled: !chargeOnceController.checked
                         Layout.fillWidth: true
                         Layout.topMargin: Style.smallMargins
                         text: qsTr("Currently corresponds to an electricity price of %1 ct/kWh.").arg(absChargingThreshold.toLocaleString(Qt.locale(), 'f', 2))
@@ -582,7 +582,7 @@ GenericConfigPage {
                     Slider {
                         id: chargingThresholdSlider
                         visible: optimizationController.checked
-                        enabled: chargeOnceController.checked ? false : true
+                        enabled: !chargeOnceController.checked
                         Layout.fillWidth: true
                         from: -100
                         to: 100
@@ -591,7 +591,7 @@ GenericConfigPage {
 
                         onMoved: {
                             absChargingThreshold = relPrice2AbsPrice(value);
-                            relChargingThreshold = value.toFixed(0);
+                            relChargingThreshold = value;
                             if (absChargingThreshold > absDischargeBlockedThreshold) {
                                 absDischargeBlockedThreshold = absChargingThreshold;
                                 relDischargeBlockedThreshold = relChargingThreshold;
@@ -616,7 +616,7 @@ GenericConfigPage {
 
                         Label {
                             visible: optimizationController.checked
-                            enabled: chargeOnceController.checked ? false : true
+                            enabled: !chargeOnceController.checked
                             Layout.fillWidth: true
                             font.bold: true
                             text: qsTr("Relative price threshold \"Block discharge\":")
@@ -624,7 +624,7 @@ GenericConfigPage {
 
                         Label {
                             visible: optimizationController.checked
-                            enabled: chargeOnceController.checked ? false : true
+                            enabled: !chargeOnceController.checked
                             font.bold: true
                             text: qsTr("%1 %").arg(relDischargeBlockedThreshold.toFixed(0))
                         }
@@ -632,7 +632,7 @@ GenericConfigPage {
 
                     Label {
                         visible: optimizationController.checked
-                        enabled: chargeOnceController.checked ? false : true
+                        enabled: !chargeOnceController.checked
                         Layout.fillWidth: true
                         Layout.topMargin: Style.smallMargins
                         text: qsTr("Currently corresponds to an electricity price of %1 ct/kWh.").arg(absDischargeBlockedThreshold.toLocaleString(Qt.locale(), 'f', 2))
@@ -641,7 +641,7 @@ GenericConfigPage {
                     Slider {
                         id: dischargeBlockedThresholdSlider
                         visible: optimizationController.checked
-                        enabled: chargeOnceController.checked ? false : true
+                        enabled: !chargeOnceController.checked
                         Layout.fillWidth: true
                         from: -100
                         to: 100
@@ -650,7 +650,7 @@ GenericConfigPage {
 
                         onMoved: {
                             absDischargeBlockedThreshold = relPrice2AbsPrice(value);
-                            relDischargeBlockedThreshold = value.toFixed(0);
+                            relDischargeBlockedThreshold = value;
                             if (absDischargeBlockedThreshold < absChargingThreshold) {
                                 absChargingThreshold = absDischargeBlockedThreshold;
                                 relChargingThreshold = relDischargeBlockedThreshold;
