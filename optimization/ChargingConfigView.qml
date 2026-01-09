@@ -18,11 +18,6 @@ import "../devicepages"
 GenericConfigPage {
     id: root
 
-    //    function getCurrentFileName() {
-    //      var e = new Error();
-    //      return e.stack.match(/\/{1}([^\/]*)\./).pop()
-    //    }
-
     property HemsManager hemsManager
     property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
     property ChargingSessionConfiguration chargingSessionConfiguration: hemsManager.chargingSessionConfigurations.getChargingSessionConfiguration(thing.id)
@@ -34,9 +29,6 @@ GenericConfigPage {
     property int currentValue : 0
     property double thresholdPrice: 0
 
-    property int validSince: 0
-    property int validUntil: 0
-    property string averagePrice: ""
     property double currentPrice: 0
     property double lowestPrice: 0
     property double highestPrice: 0
@@ -152,8 +144,6 @@ GenericConfigPage {
                 // Running
                 if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state == 2)){
                     console.info("Going into running mode...")
-                    //batteryLevelRowLayout.visible = true
-                    //energyBatteryLayout.visible = true
                     if (settings.showHiddenOptions)
                     {
                         maxCurrentRowLayout.visible = true
@@ -165,8 +155,6 @@ GenericConfigPage {
                 // Pending
                 if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state == 6)){
                     console.info("Going into pending mode...")
-                    //batteryLevelRowLayout.visible = true
-                    //energyBatteryLayout.visible = true
                     if (settings.showHiddenOptions)
                     {
                         maxCurrentRowLayout.visible = true
@@ -1428,15 +1416,6 @@ GenericConfigPage {
                                     ListElement{key: qsTr("Pause charging"); mode: 200}
                                 }
                                 textRole: "key"
-                                /*contentItem: Text{
-                                    text: parent.displayText
-                                    width: parent.width
-                                    color: Material.foreground
-                                    verticalAlignment: Text.AlignVCenter;
-                                    horizontalAlignment: Text.AlignLeft;
-                                    leftPadding: app.margins
-                                    elide: Text.ElideRight
-                                }*/
                             }
                         }
 
@@ -1643,10 +1622,7 @@ GenericConfigPage {
                                     pricingUpperSeries.clear();
                                     pricingUpperSeriesAbove.clear();
 
-                                    validSince = dpThing.stateByName("validSince").value
-                                    validUntil = dpThing.stateByName("validUntil").value
                                     currentPrice = dpThing.stateByName("currentTotalCost").value
-                                    averagePrice = dpThing.stateByName("averageTotalCost").value.toFixed(0).toString();
 
                                     consumptionSeries.insertEntry(dpThing.stateByName("totalCostSeries").value, false)
                                     valueAxis.adjustMax((Math.ceil(lowestPrice)), highestPrice);

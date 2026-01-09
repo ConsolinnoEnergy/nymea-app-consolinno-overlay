@@ -123,7 +123,6 @@ MainViewBase {
         property bool energyMeterWiazrdSkipped: false
         property bool manualEnergyWizardBack: false
 
-        //readonly property bool loading: false
         function pushPage(comp, properties) {
             var page = pageStack.push(comp, properties)
             if (!d.firstWizardPage) {

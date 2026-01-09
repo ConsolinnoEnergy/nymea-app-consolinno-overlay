@@ -77,7 +77,6 @@ Item {
                 widgetRoot.averageDeviation = dpThing.stateByName("averageDeviation").value;
 //                barSeries.averageTotalCost = dpThing.stateByName("averageTotalCost").value;
                 currentPrice = dpThing.stateByName("currentTotalCost").value;
-                averagePrice = dpThing.stateByName("averageTotalCost").value.toFixed(0).toString();
                 lowestPrice = dpThing.stateByName("lowestPrice").value;
                 highestPrice = dpThing.stateByName("highestPrice").value;
                 barSeries.addValues(dpThing.stateByName("totalCostSeries").value, dpThing.stateByName("priceSeries").value, dpThing.stateByName("gridFeeSeries").value, dpThing.stateByName("leviesSeries").value, 19);

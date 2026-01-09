@@ -6,13 +6,6 @@ import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.3
 
 ChartView {
-    // get highestPrice and lowestPrice of Y
-    // Draw Bars
-    // Draw done to mimick a bar
-    // print all values in leviesSeries
-    // draw all unused bars along the x axis to prevent overlapping
-    // Check if date is in the past, current hour or out of limit
-
     id: root
 
     property double currentMarketPrice: 0
@@ -70,12 +63,6 @@ ChartView {
             priceLimitUp.append(currentTimestamp, currentPrice);
             priceLimitUpperUp.append(currentTimestamp, upperPriceLimit);
             if (lastChangeTimestamp === 0 || lastChangeDate.getMinutes() === 0) {
-                //                leviesUp.append(currentTimestamp - 3600000, itemLevies);
-                //                leviesUp.append(currentTimestamp, itemLevies);
-                //                gridUp.append(currentTimestamp-3600000, itemGrid + itemLevies);
-                //                gridUp.append(currentTimestamp, itemGrid + itemLevies);
-                //                energyUp.append(currentTimestamp-3600000, itemEnergy + itemLevies + itemGrid);
-                //                energyUp.append(currentTimestamp, itemEnergy + itemLevies + itemGrid);
                 barToDraw.append(currentTimestamp, lastChange);
                 barToDraw.append(currentTimestamp, valueAxis.min);
                 mainSeries.append(currentTimestamp, valueAxis.min);

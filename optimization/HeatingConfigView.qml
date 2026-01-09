@@ -15,14 +15,9 @@ GenericConfigPage {
     property Thing thing
     property HeatingConfiguration heatingconfig: hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id)
     property double thresholdPrice: 0
-    property int validSince: 0
-    property int validUntil: 0
-    property double averagePrice: 0
     property double currentPrice: 0
     property double lowestPrice: 0
     property double highestPrice: 0
-    property var prices: ({
-    })
 
     function updatePrice() {
         currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value;
