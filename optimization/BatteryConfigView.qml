@@ -545,15 +545,9 @@ GenericConfigPage {
                         }
                     }
 
-                    // Space divider
-                    Item {
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                    }
-
                     RowLayout {
                         Layout.fillWidth: true
-                        Layout.topMargin: Style.smallMargins
+                        Layout.topMargin: Style.margins
 
                         Label {
                             visible: optimizationController.checked
