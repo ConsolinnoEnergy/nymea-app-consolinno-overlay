@@ -24,12 +24,6 @@ GenericConfigPage {
     property BatteryConfiguration batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id)
     property bool isZeroCompensation : batteryConfiguration.avoidZeroFeedInActive && batteryConfiguration.avoidZeroFeedInEnabled
 
-//    // Propertes will be bound to the RangeSlider's values:
-//    // Upper slider handle sets the Charge Price Limit
-//    property double currentValue : batteryConfiguration.priceThreshold
-//    // Lower slider handle sets the Discharge Price Offset
-//    property double dischargePriceThresholdValue : batteryConfiguration.dischargePriceThreshold
-
     property double absChargingThreshold: 0
     property double absDischargeBlockedThreshold: 0
     property double relChargingThreshold: batteryConfiguration.priceThreshold
@@ -80,8 +74,6 @@ GenericConfigPage {
             optimizationController.checked = batteryConfiguration.optimizationEnabled;
             chargeOnceController.checked = batteryConfiguration.chargeOnce;
             // Initialize both properties for the RangeSlider
-//            currentValue = batteryConfiguration.priceThreshold
-//            dischargePriceThresholdValue = batteryConfiguration.dischargePriceThreshold
             relChargingThreshold = batteryConfiguration.priceThreshold;
             relDischargeBlockedThreshold = batteryConfiguration.dischargePriceThreshold;
             console.debug("Battery configuration changed received. New priceThreshold: " + batteryConfiguration.priceThreshold + ", dischargePriceThreshold: " + batteryConfiguration.dischargePriceThreshold);
@@ -124,12 +116,6 @@ GenericConfigPage {
     function saveSettings()
     {
         // Save both values controlled by the RangeSlider
-//        rootObject.pendingCallId = hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": optimizationController.checked,
-//                                                                           "priceThreshold": currentValue,
-//                                                                           "dischargePriceThreshold": dischargePriceThresholdValue,
-//                                                                           "relativePriceEnabled": false,
-//                                                                           "chargeOnce": chargeOnceController.checked,
-//                                                                           "avoidZeroFeedInActive": batteryConfiguration.avoidZeroFeedInActive,})
         rootObject.pendingCallId = hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": optimizationController.checked,
                                                                            "priceThreshold": relChargingThreshold,
                                                                            "dischargePriceThreshold": relDischargeBlockedThreshold,
@@ -141,7 +127,6 @@ GenericConfigPage {
     function enableSave(obj)
     {
         // Check if either of the two RangeSlider values has changed from the stored configuration
-//        saveButton.enabled = batteryConfiguration.priceThreshold !== currentValue || batteryConfiguration.dischargePriceThreshold !== dischargePriceThresholdValue
         saveButton.enabled = batteryConfiguration.priceThreshold !== relChargingThreshold ||
                 batteryConfiguration.dischargePriceThreshold !== relDischargeBlockedThreshold
     }
@@ -481,10 +466,8 @@ GenericConfigPage {
                                 startTime: d.startTimeSince
                                 endTime: d.endTimeUntil
                                 hoursNow: d.now.getHours()
-//                                currentPrice: currentValue
                                 currentPrice: absChargingThreshold
                                 currentMarketPrice: currentPrice
-//                                upperPriceLimit: dischargePriceThresholdValue
                                 upperPriceLimit: absDischargeBlockedThreshold
                                 lowestValue: root.lowestPrice
                                 highestValue: root.highestPrice
@@ -604,15 +587,9 @@ GenericConfigPage {
                         from: -100
                         to: 100
                         stepSize: 1
-//                        value: currentValue
                         value: batteryConfiguration.priceThreshold
 
                         onMoved: {
-                            // Use a fixed precision and update the property
-//                            currentValue = value.toFixed(2);
-//                            if (currentValue > dischargePriceThresholdValue) {
-//                                dischargePriceThresholdValue = currentValue;
-//                            }
                             absChargingThreshold = relPrice2AbsPrice(value);
                             relChargingThreshold = value.toFixed(2);
                             if (absChargingThreshold > absDischargeBlockedThreshold) {
@@ -669,15 +646,9 @@ GenericConfigPage {
                         from: -100
                         to: 100
                         stepSize: 1
-//                        value: dischargePriceThresholdValue
                         value: batteryConfiguration.dischargePriceThreshold
 
                         onMoved: {
-                            // Use a fixed precision and update the property
-//                            dischargePriceThresholdValue = value.toFixed(2);
-//                            if (dischargePriceThresholdValue < currentValue) {
-//                                currentValue = dischargePriceThresholdValue;
-//                            }
                             absDischargeBlockedThreshold = relPrice2AbsPrice(value);
                             relDischargeBlockedThreshold = value.toFixed(2);
                             if (absDischargeBlockedThreshold < absChargingThreshold) {
