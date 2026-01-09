@@ -591,7 +591,7 @@ GenericConfigPage {
 
                         onMoved: {
                             absChargingThreshold = relPrice2AbsPrice(value);
-                            relChargingThreshold = value.toFixed(2);
+                            relChargingThreshold = value.toFixed(0);
                             if (absChargingThreshold > absDischargeBlockedThreshold) {
                                 absDischargeBlockedThreshold = absChargingThreshold;
                                 relDischargeBlockedThreshold = relChargingThreshold;
@@ -650,7 +650,7 @@ GenericConfigPage {
 
                         onMoved: {
                             absDischargeBlockedThreshold = relPrice2AbsPrice(value);
-                            relDischargeBlockedThreshold = value.toFixed(2);
+                            relDischargeBlockedThreshold = value.toFixed(0);
                             if (absDischargeBlockedThreshold < absChargingThreshold) {
                                 absChargingThreshold = absDischargeBlockedThreshold;
                                 relChargingThreshold = relDischargeBlockedThreshold;
