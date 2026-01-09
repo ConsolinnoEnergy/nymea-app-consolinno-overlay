@@ -29,13 +29,10 @@ GenericConfigPage {
     property double relChargingThreshold: batteryConfiguration.priceThreshold
     property double relDischargeBlockedThreshold: batteryConfiguration.dischargePriceThreshold
 
-    property int validSince: 0
-    property int validUntil: 0
     property double averagePrice: 0
     property double currentPrice: 0
     property double lowestPrice: 0
     property double highestPrice: 0
-    property var prices: ({})
 
     title: root.thing.name
     headerOptionsVisible: true
