@@ -247,12 +247,20 @@
         <translation>Entladen erlaubt</translation>
     </message>
     <message>
-        <source>Charge under limit: %1 ct/kWh</source>
-        <translation>Laden unter Preisgrenze: %1 ct/kWh</translation>
+        <source>Relative price threshold &quot;Charging&quot;:</source>
+        <translation>Relative Preisgrenze &quot;Laden&quot;:</translation>
     </message>
     <message>
-        <source>Block discharge until: %1 ct/kWh</source>
-        <translation>Entladen blockieren bis: %1 ct/kWh</translation>
+        <source>%1 %</source>
+        <translation>%1 %</translation>
+    </message>
+    <message>
+        <source>Currently corresponds to an electricity price of %1 ct/kWh.</source>
+        <translation>Entspricht aktuell einem Strompreis von %1 ct/kWh.</translation>
+    </message>
+    <message>
+        <source>Relative price threshold &quot;Block discharge&quot;:</source>
+        <translation>Relative Preisgrenze &quot;Entladen blockieren&quot;:</translation>
     </message>
 </context>
 <context>
@@ -780,41 +788,6 @@
     </message>
 </context>
 <context>
-    <name>ConfigureOptimizationsWizard</name>
-    <message>
-        <source>Optimizations</source>
-        <translation>Optimierungen</translation>
-    </message>
-    <message>
-        <source>Please select the desired optimizations:</source>
-        <translation>Gewünschte Optimierungen auswählen:</translation>
-    </message>
-    <message>
-        <source>Overload protection</source>
-        <translation>Überlastschutz</translation>
-    </message>
-    <message>
-        <source>Smart charging</source>
-        <translation>Intelligentes Laden</translation>
-    </message>
-    <message>
-        <source>Smart heating</source>
-        <translation>Intelligentes Heizen</translation>
-    </message>
-    <message>
-        <source>cancel</source>
-        <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>next</source>
-        <translation>weiter</translation>
-    </message>
-    <message>
-        <source>Please set your power connection limit:</source>
-        <translation>Maximale Leistung des Hausanschlusses festlegen:</translation>
-    </message>
-</context>
-<context>
     <name>ConnectionWizard</name>
     <message>
         <source>Info</source>
@@ -1175,66 +1148,8 @@
 <context>
     <name>ConsolinnoConsumersPieChart</name>
     <message>
-        <source>Consumers balance</source>
-        <translation>Verbraucherbilanz</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation>Sonstige</translation>
-    </message>
-    <message>
-        <source>Total</source>
-        <translation>Gesamt</translation>
-    </message>
-    <message>
         <source></source>
         <translation></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoCurrentConsumptionBalancePieChart</name>
-    <message>
-        <source>Total</source>
-        <translation>Gesamt</translation>
-    </message>
-    <message>
-        <source>From grid</source>
-        <translation>Netzbezug</translation>
-    </message>
-    <message>
-        <source>From self production</source>
-        <translation>Eigenproduktion</translation>
-    </message>
-    <message>
-        <source>From battery</source>
-        <translation>Batterie</translation>
-    </message>
-    <message>
-        <source>My energy consumption</source>
-        <translation>Mein Energieverbrauch</translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoCurrentProductionBalancePieChart</name>
-    <message>
-        <source>My energy production</source>
-        <translation>Meine Energieproduktion</translation>
-    </message>
-    <message>
-        <source>Total</source>
-        <translation>Gesamt</translation>
-    </message>
-    <message>
-        <source>Consumed</source>
-        <translation>Verbraucht</translation>
-    </message>
-    <message>
-        <source>To grid</source>
-        <translation>Netzeinspeisung</translation>
-    </message>
-    <message>
-        <source>To battery</source>
-        <translation>Batterie</translation>
     </message>
 </context>
 <context>
@@ -1334,68 +1249,6 @@
 Grid fee: %3 %2
 Levies: %4 %2</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoGridSupportiveControlAlert</name>
-    <message>
-        <source>Attention</source>
-        <translation>Achtung</translation>
-    </message>
-    <message>
-        <source>Existing setup will be overwritten.</source>
-        <translation>Bestehende Einrichtungen werden überschrieben.</translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoImprint</name>
-    <message>
-        <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
-        <translation>Entwicklereinstellungen sind jetzt aktiviert. Falls Du diese Einstellung aus Zufall gefunden hast, wirst Du wahrscheinlich keinen Nutzen davon haben. Sie aktiviert nur ein wenig unverständliches Entwickler-Zeug. Berühre das Icon weitere 10 mal um die Entwicklereinstellungen wieder zu deaktivieren.</translation>
-    </message>
-    <message>
-        <source>Developer options are now disabled.</source>
-        <translation>Entwicklereinstellungen sind jetzt deaktiviert.</translation>
-    </message>
-    <message>
-        <source>Howdy cowboy!</source>
-        <translation>Howdy cowboy!</translation>
-    </message>
-    <message>
-        <source>Licensed under the terms of the GNU General Public License, version 3. Please visit the GitHub page for source code and build instructions.</source>
-        <translation>Lizensiert unter den Bedingungen der GNU General Public License, Version 3. Bitte besuche die GitHub Seite für mehr Informationen zum Quellcode und Kompilier-Anleitungen.</translation>
-    </message>
-    <message>
-        <source>Visit GitHub page</source>
-        <translation>Besuchen Sie die GitHub Seite</translation>
-    </message>
-    <message>
-        <source>View privacy policy</source>
-        <translation>Datenschutzerklärung anzeigen</translation>
-    </message>
-    <message>
-        <source>Additional software licenses</source>
-        <translation>Zusätzliche Software-Lizenzen</translation>
-    </message>
-    <message>
-        <source>Qt is a registered trademark of The Qt Company Ltd. and its subsidiaries.</source>
-        <translation>Qt ist ein eingetragenes Markenzeichen von The Qt Company Ltd.</translation>
-    </message>
-    <message>
-        <source>Visit the Qt website</source>
-        <translation>Besuchen Sie die Qt Webseite</translation>
-    </message>
-    <message>
-        <source>Common Licenses</source>
-        <translation>Allgemeine Lizenzen</translation>
-    </message>
-    <message>
-        <source>Common Licenses used for this Product</source>
-        <translation>Genutzte Lizenzen für dieses Produkt</translation>
-    </message>
-    <message>
-        <source>Only available on the local Network</source>
-        <translation>nur im lokalen Netzwerk abrufbar</translation>
     </message>
 </context>
 <context>
@@ -2633,25 +2486,6 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoPushButtonAuthPage</name>
-    <message>
-        <source>Complete Authentication</source>
-        <translation>Authentifizierung abschließen</translation>
-    </message>
-    <message>
-        <source>Sorry, something went wrong during the setup. Try again please.</source>
-        <translation>Um die Authentifizierung abzuschließen, drücken Sie bitte den Test-Taster erneut für 5 Sekunden, bis die Status-LED grün leuchtet.</translation>
-    </message>
-    <message>
-        <source>To complete the authentication, please press the &lt;b&gt;test button again for 5 seconds&lt;/b&gt; until the status LED lights up green.</source>
-        <translation>Um die Authentifizierung abzuschließen, drücken Sie bitte &lt;b&gt;den Test-Taster erneut für 5 Sekunden&lt;/b&gt;, bis die Status-LED grün leuchtet.</translation>
-    </message>
-    <message>
-        <source>If the status LED flashes red briefly or this screen remains displayed, the authentication has failed. Please go back and restart the process.</source>
-        <translation>Falls die Status-LED kurz rot leuchtet oder dieser Bildschirm dauerhaft angezeigt wird, ist die Authentifizierung abgebrochen. Gehen Sie zurück und starten Sie den Prozess erneut.</translation>
     </message>
 </context>
 <context>
@@ -3966,31 +3800,6 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
 </context>
 <context>
-    <name>ManualDeviceEssentialsWizard</name>
-    <message>
-        <source>Essential Optimizations Settings</source>
-        <translation>Notwendige Optimierungseinstellungen</translation>
-    </message>
-    <message>
-        <source>If a heat pump or an inverter is added, the settings for optimization must be entered.
-
- After adding a heat pump or a wallbox, the blackout protection must be adjusted accordingly.
-</source>
-        <translation>Wenn eine Wärmepumpe oder ein Wechselrichter hinzugefügt wird, müssen die Einstellungen für die Optimierung eingegeben werden.
-
-Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz entsprechend anzupassen.
-</translation>
-    </message>
-    <message>
-        <source>Next</source>
-        <translation>Weiter</translation>
-    </message>
-    <message>
-        <source>(The settings can be found in the wrench menu under &lt;font color=&quot;%1&quot;&gt; Optimization Settings &lt;/font&gt;).</source>
-        <translation type="unfinished">(Die Einstellungen sind zu finden im Schraubenschlüsselmenü unter &lt;font color=&quot;%1&quot;&gt; Optimierungseinstellungen &lt;/font&gt;).</translation>
-    </message>
-</context>
-<context>
     <name>ManualPage</name>
     <message>
         <source>Manual</source>
@@ -4088,19 +3897,6 @@ Nach Hinzufügen einer Wärmepumpe oder einer Wallbox ist der Überlastschutz en
     <message>
         <source>Battery</source>
         <translation>Batterie</translation>
-    </message>
-</context>
-<context>
-    <name>OutOfDate</name>
-    <message>
-        <source>This version of the App (%3) is not compatibile with the software running on your %4 system (%2) .
-Please upgrade your %4 system software to at least version %1.
-
-Please refer to our service if you have any questions: %5</source>
-        <translation type="unfinished">Die aktuelle Version der Anwendung (%3) ist nicht mit der auf Ihrem %4 System (%2) installierten Software kompatibel.
-Bitte aktualisieren Sie die Software Ihres %4 Systems auf mindestens Version %1, um eine ordnungsgemäße Funktion zu gewährleisten.
-
-Für weitere Unterstützung wenden Sie sich bitte an unseren Service: %5</translation>
     </message>
 </context>
 <context>
@@ -4219,20 +4015,8 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
 <context>
     <name>PrivacyPage</name>
     <message>
-        <source>I confirm that I have read the the agreement and am accepting it.</source>
-        <translation>Ich bestätige, dass ich die Bestimmungen gelesen habe und akzeptiere.</translation>
-    </message>
-    <message>
         <source></source>
         <translation></translation>
-    </message>
-    <message>
-        <source>Yes I agree to open a Useraccount, according to part 6 </source>
-        <translation>Ja ich möchte wie in Teil 6 beschrieben ein Benutzerkonto eröffnen</translation>
-    </message>
-    <message>
-        <source>License Terms HEMS&lt;br/&gt;(as of 11/2024)</source>
-        <translation type="unfinished">Lizenzbedingungen HEMS&lt;br/&gt;(Stand 11/2024)</translation>
     </message>
 </context>
 <context>
@@ -4900,21 +4684,6 @@ Entladen erst bei teurem Strom.</translation>
     <message>
         <source>Zero Compensation</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>carSimulation</name>
-    <message>
-        <source>car Simulation</source>
-        <translation>Autosimulation</translation>
-    </message>
-    <message>
-        <source>switch on</source>
-        <translation>einschalten</translation>
-    </message>
-    <message>
-        <source>plug in car: </source>
-        <translation>Auto einstecken</translation>
     </message>
 </context>
 </TS>
