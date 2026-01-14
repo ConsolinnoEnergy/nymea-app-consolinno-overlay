@@ -13,6 +13,8 @@ import "../components"
 import "../delegates"
 import "../devicepages"
 
+import "../utils/DynPricingUtils.js" as DynPricingUtils
+
 GenericConfigPage {
     id: root
     property Thing thing
@@ -133,21 +135,6 @@ GenericConfigPage {
     {
         // Check if either of the two RangeSlider values has changed from the stored configuration
         saveButton.enabled = batteryConfiguration.priceThreshold !== currentValue || batteryConfiguration.dischargePriceThreshold !== dischargePriceThresholdValue
-    }
-
-    function getVAT(dpThing) {
-        if (!dpThing || !dpThing.thingClass || !dpThing.thingClass.id) {
-            return 0.;
-        }
-
-        let epexDayAheadThingClassId = "{678dd2a6-b162-4bfb-98cc-47f225f9008c}";
-        if (dpThing.thingClass.id.toString() === epexDayAheadThingClassId) {
-            let vat = dpThing.paramByName("addedVAT").value;
-            return vat;
-        } else {
-            // Other dynamic tariffs already include the VAT in their prices.
-            return 0.;
-        }
     }
 
     ThingsProxy {
@@ -455,7 +442,7 @@ GenericConfigPage {
                                                 dpThing.stateByName("priceSeries").value,
                                                 dpThing.stateByName("gridFeeSeries").value,
                                                 dpThing.stateByName("leviesSeries").value,
-                                                getVAT(dpThing));
+                                                DynPricingUtils.getVAT(dpThing));
 
                         }
 
@@ -599,7 +586,7 @@ GenericConfigPage {
                                                 dynamicPrice.get(0).stateByName("priceSeries").value,
                                                 dynamicPrice.get(0).stateByName("gridFeeSeries").value,
                                                 dynamicPrice.get(0).stateByName("leviesSeries").value,
-                                                getVAT(dynamicPrice.get(0)));
+                                                DynPricingUtils.getVAT(dynamicPrice.get(0)));
                         }
                     }
 
@@ -633,7 +620,7 @@ GenericConfigPage {
                                                 dynamicPrice.get(0).stateByName("priceSeries").value,
                                                 dynamicPrice.get(0).stateByName("gridFeeSeries").value,
                                                 dynamicPrice.get(0).stateByName("leviesSeries").value,
-                                                getVAT(dynamicPrice.get(0)));
+                                                DynPricingUtils.getVAT(dynamicPrice.get(0)));
                         }
                     }
                 }

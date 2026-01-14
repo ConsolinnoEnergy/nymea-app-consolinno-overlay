@@ -7,6 +7,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
+import "../utils/DynPricingUtils.js" as DynPricingUtils
 
 Item {
     id: widgetRoot
@@ -35,21 +36,6 @@ Item {
             thresholdPrice = 0.01 * relPrice * (maxPrice - averagePrice) + averagePrice;
         thresholdPrice = thresholdPrice.toFixed(2);
         return thresholdPrice;
-    }
-
-    function getVAT(dpThing) {
-        if (!dpThing || !dpThing.thingClass || !dpThing.thingClass.id) {
-            return 0.;
-        }
-
-        let epexDayAheadThingClassId = "{678dd2a6-b162-4bfb-98cc-47f225f9008c}";
-        if (dpThing.thingClass.id.toString() === epexDayAheadThingClassId) {
-            let vat = dpThing.paramByName("addedVAT").value;
-            return vat;
-        } else {
-            // Other dynamic tariffs already include the VAT in their prices.
-            return 0.;
-        }
     }
 
     height: columnLayer.implicitHeight + 20
@@ -98,7 +84,7 @@ Item {
                                     dpThing.stateByName("priceSeries").value,
                                     dpThing.stateByName("gridFeeSeries").value,
                                     dpThing.stateByName("leviesSeries").value,
-                                    getVAT(dpThing));
+                                    DynPricingUtils.getVAT(dpThing));
             }
 
             QtObject {
@@ -172,7 +158,7 @@ Item {
                                              dynamicPrice.get(0).stateByName("priceSeries").value,
                                              dynamicPrice.get(0).stateByName("gridFeeSeries").value,
                                              dynamicPrice.get(0).stateByName("leviesSeries").value,
-                                             getVAT(dynamicPrice.get(0)));
+                                             DynPricingUtils.getVAT(dynamicPrice.get(0)));
                      }
             from: 0
             to: 100
