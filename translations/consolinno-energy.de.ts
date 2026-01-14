@@ -247,12 +247,20 @@
         <translation>Entladen erlaubt</translation>
     </message>
     <message>
-        <source>Charge under limit: %1 ct/kWh</source>
-        <translation>Laden unter Preisgrenze: %1 ct/kWh</translation>
+        <source>Relative price threshold &quot;Charging&quot;:</source>
+        <translation>Relative Preisgrenze &quot;Laden&quot;:</translation>
     </message>
     <message>
-        <source>Block discharge until: %1 ct/kWh</source>
-        <translation>Entladen blockieren bis: %1 ct/kWh</translation>
+        <source>%1 %</source>
+        <translation>%1 %</translation>
+    </message>
+    <message>
+        <source>Currently corresponds to an electricity price of %1 ct/kWh.</source>
+        <translation>Entspricht aktuell einem Strompreis von %1 ct/kWh.</translation>
+    </message>
+    <message>
+        <source>Relative price threshold &quot;Block discharge&quot;:</source>
+        <translation>Relative Preisgrenze &quot;Entladen blockieren&quot;:</translation>
     </message>
 </context>
 <context>

@@ -247,11 +247,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Charge under limit: %1 ct/kWh</source>
+        <source>Relative price threshold &quot;Charging&quot;:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Block discharge until: %1 ct/kWh</source>
+        <source>%1 %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Currently corresponds to an electricity price of %1 ct/kWh.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relative price threshold &quot;Block discharge&quot;:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -14,6 +14,7 @@ import "qrc:/ui/components"
 import "../components"
 import "../delegates"
 import "../devicepages"
+import "../utils/DynPricingUtils.js" as DynPricingUtils
 
 GenericConfigPage {
     id: root
@@ -62,22 +63,6 @@ GenericConfigPage {
         return false
     }
     
-    function relPrice2AbsPrice(relPrice){
-        let averagePrice = dynamicPrice.get(0).stateByName("averageTotalCost").value
-        let minPrice = dynamicPrice.get(0).stateByName("lowestPrice").value
-        let maxPrice = dynamicPrice.get(0).stateByName("highestPrice").value
-        if (averagePrice == minPrice || averagePrice == maxPrice){
-            return averagePrice
-        }
-        if (relPrice <= 0){
-            thresholdPrice = averagePrice - 0.01 * relPrice * (minPrice - averagePrice)
-        }else{
-            thresholdPrice = 0.01 * relPrice * (maxPrice - averagePrice) + averagePrice
-        }
-        thresholdPrice = thresholdPrice.toFixed(2)
-        return thresholdPrice
-    }
-
 
     function calcChargingCurrent(){
         // get the current power of the charger and null if not available
@@ -530,7 +515,7 @@ GenericConfigPage {
                             Layout.rightMargin: 0
 
                             Component.onCompleted: {
-                                thresholdPrice = relPrice2AbsPrice(priceThresholdProcentage)
+                                thresholdPrice = DynPricingUtils.relPrice2AbsPrice(priceThresholdProcentage, dynamicPrice.get(0))
                                 currentValue = (currentValue === 0 && chargingConfiguration.priceThreshold === 0 ? -10 : chargingConfiguration.priceThreshold )
                                 priceLimit.text = getText()
                             }
@@ -553,7 +538,7 @@ GenericConfigPage {
                                interval: firstRun == false ? 100 : 10000
                                onTriggered: {
                                    firstRun = true
-                                   thresholdPrice = relPrice2AbsPrice(priceThresholdProcentage)
+                                   thresholdPrice = DynPricingUtils.relPrice2AbsPrice(priceThresholdProcentage, dynamicPrice.get(0))
                                    priceLimit.text = getText()
                                }
                             }
@@ -1541,7 +1526,7 @@ GenericConfigPage {
 
                                 function getThresholdPrice(){
                                     let currentValue = parseInt(currentValueField.text)
-                                    thresholdPrice = relPrice2AbsPrice(currentValue)
+                                    thresholdPrice = DynPricingUtils.relPrice2AbsPrice(currentValue, dynamicPrice.get(0))
                                 }
 
                             }
