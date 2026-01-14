@@ -37,6 +37,20 @@ Item {
         return thresholdPrice;
     }
 
+    function getVAT(dpThing) {
+        if (!dpThing) {
+            return 0.;
+        }
+
+        if (dpThing.thingClass.id.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}") { // Epex Day-Ahead
+            let vat = dpThing.paramByName("addedVAT").value;
+            return vat;
+        } else {
+            // Other dynamic tariffs already include the VAT in their prices.
+            return 0.;
+        }
+    }
+
     height: columnLayer.implicitHeight + 20
     Layout.fillWidth: true
 
@@ -79,7 +93,11 @@ Item {
                 currentPrice = dpThing.stateByName("currentTotalCost").value;
                 lowestPrice = dpThing.stateByName("lowestPrice").value;
                 highestPrice = dpThing.stateByName("highestPrice").value;
-                barSeries.addValues(dpThing.stateByName("totalCostSeries").value, dpThing.stateByName("priceSeries").value, dpThing.stateByName("gridFeeSeries").value, dpThing.stateByName("leviesSeries").value, 19);
+                barSeries.addValues(dpThing.stateByName("totalCostSeries").value,
+                                    dpThing.stateByName("priceSeries").value,
+                                    dpThing.stateByName("gridFeeSeries").value,
+                                    dpThing.stateByName("leviesSeries").value,
+                                    getVAT(dpThing));
             }
 
             QtObject {
@@ -149,7 +167,11 @@ Item {
                          root.enableSave();
 
                          barSeries.clearValues();
-                         barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value, dynamicPrice.get(0).stateByName("priceSeries").value, dynamicPrice.get(0).stateByName("gridFeeSeries").value, dynamicPrice.get(0).stateByName("leviesSeries").value, 19);
+                         barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
+                                             dynamicPrice.get(0).stateByName("priceSeries").value,
+                                             dynamicPrice.get(0).stateByName("gridFeeSeries").value,
+                                             dynamicPrice.get(0).stateByName("leviesSeries").value,
+                                             getVAT(dynamicPrice.get(0)));
                      }
             from: 0
             to: 100

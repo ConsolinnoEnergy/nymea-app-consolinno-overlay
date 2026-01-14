@@ -135,6 +135,20 @@ GenericConfigPage {
         saveButton.enabled = batteryConfiguration.priceThreshold !== currentValue || batteryConfiguration.dischargePriceThreshold !== dischargePriceThresholdValue
     }
 
+    function getVAT(dpThing) {
+        if (!dpThing) {
+            return 0.;
+        }
+
+        if (dpThing.thingClass.id.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}") { // Epex Day-Ahead
+            let vat = dpThing.paramByName("addedVAT").value;
+            return vat;
+        } else {
+            // Other dynamic tariffs already include the VAT in their prices.
+            return 0.;
+        }
+    }
+
     ThingsProxy {
         id: dynamicPrice
         engine: _engine
@@ -440,7 +454,7 @@ GenericConfigPage {
                                                 dpThing.stateByName("priceSeries").value,
                                                 dpThing.stateByName("gridFeeSeries").value,
                                                 dpThing.stateByName("leviesSeries").value,
-                                                19.0);
+                                                getVAT(dpThing));
 
                         }
 
@@ -584,7 +598,7 @@ GenericConfigPage {
                                                 dynamicPrice.get(0).stateByName("priceSeries").value,
                                                 dynamicPrice.get(0).stateByName("gridFeeSeries").value,
                                                 dynamicPrice.get(0).stateByName("leviesSeries").value,
-                                                19.0);
+                                                getVAT(dynamicPrice.get(0)));
                         }
                     }
 
@@ -618,7 +632,7 @@ GenericConfigPage {
                                                 dynamicPrice.get(0).stateByName("priceSeries").value,
                                                 dynamicPrice.get(0).stateByName("gridFeeSeries").value,
                                                 dynamicPrice.get(0).stateByName("leviesSeries").value,
-                                                19.0);
+                                                getVAT(dynamicPrice.get(0)));
                         }
                     }
                 }
