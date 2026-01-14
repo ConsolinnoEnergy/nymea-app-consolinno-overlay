@@ -780,41 +780,6 @@
     </message>
 </context>
 <context>
-    <name>ConfigureOptimizationsWizard</name>
-    <message>
-        <source>Optimizations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please select the desired optimizations:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Overload protection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Smart charging</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Smart heating</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>next</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please set your power connection limit:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ConnectionWizard</name>
     <message>
         <source>Info</source>
@@ -1175,66 +1140,8 @@
 <context>
     <name>ConsolinnoConsumersPieChart</name>
     <message>
-        <source>Unknown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source></source>
         <translation></translation>
-    </message>
-    <message>
-        <source>Consumers balance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoCurrentConsumptionBalancePieChart</name>
-    <message>
-        <source>My energy consumption</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>From grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>From self production</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>From battery</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoCurrentProductionBalancePieChart</name>
-    <message>
-        <source>My energy production</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Consumed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To battery</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1333,68 +1240,6 @@
         <source>Total: %1 %2
 Grid fee: %3 %2
 Levies: %4 %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoGridSupportiveControlAlert</name>
-    <message>
-        <source>Attention</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Existing setup will be overwritten.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoImprint</name>
-    <message>
-        <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Developer options are now disabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Howdy cowboy!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Licensed under the terms of the GNU General Public License, version 3. Please visit the GitHub page for source code and build instructions.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Visit GitHub page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>View privacy policy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Additional software licenses</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qt is a registered trademark of The Qt Company Ltd. and its subsidiaries.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Visit the Qt website</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Common Licenses</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Common Licenses used for this Product</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Only available on the local Network</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2626,25 +2471,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
 </context>
 <context>
-    <name>ConsolinnoPushButtonAuthPage</name>
-    <message>
-        <source>Complete Authentication</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sorry, something went wrong during the setup. Try again please.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To complete the authentication, please press the &lt;b&gt;test button again for 5 seconds&lt;/b&gt; until the status LED lights up green.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If the status LED flashes red briefly or this screen remains displayed, the authentication has failed. Please go back and restart the process.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ConsolinnoSettingsPage</name>
     <message>
         <source>System settings</source>
@@ -3044,7 +2870,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1=%2+%3+%4 %5</source>
+        <source>%1 = %2 + %3 + %4 %5</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3945,28 +3771,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
 </context>
 <context>
-    <name>ManualDeviceEssentialsWizard</name>
-    <message>
-        <source>Essential Optimizations Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If a heat pump or an inverter is added, the settings for optimization must be entered.
-
- After adding a heat pump or a wallbox, the blackout protection must be adjusted accordingly.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Next</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(The settings can be found in the wrench menu under &lt;font color=&quot;%1&quot;&gt; Optimization Settings &lt;/font&gt;).</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ManualPage</name>
     <message>
         <source>Manual</source>
@@ -4064,19 +3868,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>Battery</source>
         <translation></translation>
-    </message>
-</context>
-<context>
-    <name>OutOfDate</name>
-    <message>
-        <source>This version of the App (%3) is not compatibile with the software running on your %4 system (%2) .
-Please upgrade your %4 system software to at least version %1.
-
-Please refer to our service if you have any questions: %5</source>
-        <translation type="unfinished">The current application version (%3) is incompatible with the software installed on your %4 system (%2).
-To ensure proper functionality, please update your %4 system software to version %1 or higher.
-
-For further assistance, please contact our support team at: %5</translation>
     </message>
 </context>
 <context>
@@ -4194,20 +3985,8 @@ For further assistance, please contact our support team at: %5</translation>
 <context>
     <name>PrivacyPage</name>
     <message>
-        <source>I confirm that I have read the the agreement and am accepting it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source></source>
         <translation></translation>
-    </message>
-    <message>
-        <source>Yes I agree to open a Useraccount, according to part 6 </source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>License Terms HEMS&lt;br/&gt;(as of 11/2024)</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4873,21 +4652,6 @@ Discharge only when electricity is expensive.</source>
     </message>
     <message>
         <source>Zero Compensation</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>carSimulation</name>
-    <message>
-        <source>car Simulation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>switch on</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>plug in car: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
