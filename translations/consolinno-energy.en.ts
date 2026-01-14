@@ -2878,7 +2878,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1=%2+%3+%4 %5</source>
+        <source>%1 = %2 + %3 + %4 %5</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

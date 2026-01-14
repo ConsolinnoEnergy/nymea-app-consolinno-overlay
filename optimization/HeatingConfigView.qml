@@ -499,6 +499,8 @@ GenericConfigPage {
                                                delegateID === "hotWaterTemperature" ||
                                                delegateID === "outdoorTemperature") {
                                         str = delegateValue.toLocaleString(loc, 'f', 1);
+                                    } else if (delegateID === "performanceTarget") {
+                                        str = Math.max(0, delegateValue).toLocaleString(loc, 'f', 0);
                                     } else {
                                         str = delegateValue.toLocaleString(loc, 'f', 0);
                                     }

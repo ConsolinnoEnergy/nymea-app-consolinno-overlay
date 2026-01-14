@@ -7,6 +7,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
+import "../utils/DynPricingUtils.js" as DynPricingUtils
 
 Item {
     id: widgetRoot
@@ -79,7 +80,11 @@ Item {
                 currentPrice = dpThing.stateByName("currentTotalCost").value;
                 lowestPrice = dpThing.stateByName("lowestPrice").value;
                 highestPrice = dpThing.stateByName("highestPrice").value;
-                barSeries.addValues(dpThing.stateByName("totalCostSeries").value, dpThing.stateByName("priceSeries").value, dpThing.stateByName("gridFeeSeries").value, dpThing.stateByName("leviesSeries").value, 19);
+                barSeries.addValues(dpThing.stateByName("totalCostSeries").value,
+                                    dpThing.stateByName("priceSeries").value,
+                                    dpThing.stateByName("gridFeeSeries").value,
+                                    dpThing.stateByName("leviesSeries").value,
+                                    DynPricingUtils.getVAT(dpThing));
             }
 
             QtObject {
@@ -149,7 +154,11 @@ Item {
                          root.enableSave();
 
                          barSeries.clearValues();
-                         barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value, dynamicPrice.get(0).stateByName("priceSeries").value, dynamicPrice.get(0).stateByName("gridFeeSeries").value, dynamicPrice.get(0).stateByName("leviesSeries").value, 19);
+                         barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
+                                             dynamicPrice.get(0).stateByName("priceSeries").value,
+                                             dynamicPrice.get(0).stateByName("gridFeeSeries").value,
+                                             dynamicPrice.get(0).stateByName("leviesSeries").value,
+                                             DynPricingUtils.getVAT(dynamicPrice.get(0)));
                      }
             from: 0
             to: 100

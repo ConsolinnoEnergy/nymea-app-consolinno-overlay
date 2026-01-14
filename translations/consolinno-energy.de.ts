@@ -2886,19 +2886,19 @@ fügen Sie eine weitere hinzu.</translation>
     <name>CustomBarSeries</name>
     <message>
         <source>No data available</source>
-        <translation type="unfinished">Keine Daten verfügbar</translation>
+        <translation>Keine Daten verfügbar</translation>
     </message>
     <message>
         <source>No prices available, yet</source>
-        <translation type="unfinished">Noch keine Preise verfügbar</translation>
+        <translation>Noch keine Preise verfügbar</translation>
     </message>
     <message>
         <source>ct/kWh</source>
-        <translation type="unfinished">ct/kWh</translation>
+        <translation>ct/kWh</translation>
     </message>
     <message>
-        <source>%1=%2+%3+%4 %5</source>
-        <translation type="unfinished"></translation>
+        <source>%1 = %2 + %3 + %4 %5</source>
+        <translation>%1 = %2 + %3 + %4 %5</translation>
     </message>
 </context>
 <context>
