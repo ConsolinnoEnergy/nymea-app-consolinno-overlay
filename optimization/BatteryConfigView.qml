@@ -93,25 +93,6 @@ GenericConfigPage {
         currentPriceLabel.text = Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh"
     }
 
-
-    function relPrice2AbsPrice(relPrice){
-        averagePrice = dynamicPrice.get(0).stateByName("averageTotalCost").value
-        let minPrice = dynamicPrice.get(0).stateByName("lowestPrice").value
-        let maxPrice = dynamicPrice.get(0).stateByName("highestPrice").value
-        if (averagePrice === minPrice || averagePrice === maxPrice){
-            return averagePrice
-        }
-        var thresholdPrice;
-        if (relPrice <= 0){
-            thresholdPrice = averagePrice - 0.01 * relPrice * (minPrice - averagePrice)
-        }else{
-            thresholdPrice = 0.01 * relPrice * (maxPrice - averagePrice) + averagePrice
-        }
-        thresholdPrice = thresholdPrice.toFixed(2)
-        return thresholdPrice
-    }
-
-
     function saveSettings()
     {
         // Save both values controlled by the RangeSlider
@@ -427,8 +408,10 @@ GenericConfigPage {
 
                             d.startTimeSince = new Date(dpThing.stateByName("validSince").value * 1000);
                             d.endTimeUntil = new Date(dpThing.stateByName("validUntil").value * 1000);
-                            absChargingThreshold = relPrice2AbsPrice(batteryConfiguration.priceThreshold);
-                            absDischargeBlockedThreshold = relPrice2AbsPrice(batteryConfiguration.dischargePriceThreshold);
+                            absChargingThreshold = DynPricingUtils.relPrice2AbsPrice(batteryConfiguration.priceThreshold,
+                                                                                     dpThing);
+                            absDischargeBlockedThreshold = DynPricingUtils.relPrice2AbsPrice(batteryConfiguration.dischargePriceThreshold,
+                                                                                             dpThing);
                             currentPrice = dpThing.stateByName("currentTotalCost").value
                             averagePrice = dpThing.stateByName("averageTotalCost").value.toFixed(0).toString();
                             lowestPrice = dpThing.stateByName("lowestPrice").value
@@ -583,7 +566,7 @@ GenericConfigPage {
                         value: batteryConfiguration.priceThreshold
 
                         onMoved: {
-                            absChargingThreshold = relPrice2AbsPrice(value);
+                            absChargingThreshold = DynPricingUtils.relPrice2AbsPrice(value, dynamicPrice.get(0));
                             relChargingThreshold = value;
                             if (absChargingThreshold > absDischargeBlockedThreshold) {
                                 absDischargeBlockedThreshold = absChargingThreshold;
@@ -642,7 +625,7 @@ GenericConfigPage {
                         value: batteryConfiguration.dischargePriceThreshold
 
                         onMoved: {
-                            absDischargeBlockedThreshold = relPrice2AbsPrice(value);
+                            absDischargeBlockedThreshold = DynPricingUtils.relPrice2AbsPrice(value, dynamicPrice.get(0));
                             relDischargeBlockedThreshold = value;
                             if (absDischargeBlockedThreshold < absChargingThreshold) {
                                 absChargingThreshold = absDischargeBlockedThreshold;
