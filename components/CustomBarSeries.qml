@@ -497,7 +497,7 @@ ChartView {
                         const energy = (+currentPrice.energy.toFixed(1)).toLocaleString();
                         const grid = (+currentPrice.grid.toFixed(1)).toLocaleString();
                         const levies = (+currentPrice.levies.toFixed(1)).toLocaleString();
-                        return qsTr("%1=%2+%3+%4 %5").arg(total).arg(energy).arg(grid).arg(levies).arg(unit);
+                        return qsTr("%1 = %2 + %3 + %4 %5").arg(total).arg(energy).arg(grid).arg(levies).arg(unit);
                     }
                     font: Style.extraSmallFont
                 }

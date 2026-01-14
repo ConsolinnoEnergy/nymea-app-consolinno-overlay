@@ -13,6 +13,8 @@ import "../components"
 import "../delegates"
 import "../devicepages"
 
+import "../utils/DynPricingUtils.js" as DynPricingUtils
+
 GenericConfigPage {
     id: root
     property Thing thing
@@ -440,7 +442,7 @@ GenericConfigPage {
                                                 dpThing.stateByName("priceSeries").value,
                                                 dpThing.stateByName("gridFeeSeries").value,
                                                 dpThing.stateByName("leviesSeries").value,
-                                                19.0);
+                                                DynPricingUtils.getVAT(dpThing));
 
                         }
 
@@ -584,7 +586,7 @@ GenericConfigPage {
                                                 dynamicPrice.get(0).stateByName("priceSeries").value,
                                                 dynamicPrice.get(0).stateByName("gridFeeSeries").value,
                                                 dynamicPrice.get(0).stateByName("leviesSeries").value,
-                                                19.0);
+                                                DynPricingUtils.getVAT(dynamicPrice.get(0)));
                         }
                     }
 
@@ -618,7 +620,7 @@ GenericConfigPage {
                                                 dynamicPrice.get(0).stateByName("priceSeries").value,
                                                 dynamicPrice.get(0).stateByName("gridFeeSeries").value,
                                                 dynamicPrice.get(0).stateByName("leviesSeries").value,
-                                                19.0);
+                                                DynPricingUtils.getVAT(dynamicPrice.get(0)));
                         }
                     }
                 }
