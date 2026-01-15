@@ -249,6 +249,9 @@ Page {
                 text: "OK"
                 onClicked: {
                     var params = []
+                    var leviesIsZero = false;
+                    var variableGridFees = false;
+                    var gridFeesIsZero = false;
                     for (var i = 0; i < paramRepeater.count; i++) {
                         var param = {}
                         var paramType = paramRepeater.itemAt(i).paramType
@@ -257,12 +260,39 @@ Page {
                             param.value = paramRepeater.itemAt(i).value
                             console.debug("adding param", param.paramTypeId, param.value)
                             params.push(param)
+                            if (param.paramTypeId.toString() === "{6f7b072a-bf09-46e2-87ee-3b887d6cc843}") {
+                                leviesIsZero = param.value === 0;
+                            }
+                            if (param.paramTypeId.toString() === "{9d80154a-4205-47cb-a69f-d151a836639b}") {
+                                gridFeesIsZero = param.value === 0;
+                            }
+                            if (param.paramTypeId.toString() === "{c39d158c-d9a4-40f2-8d6d-746eca80f9ec}") {
+                                variableGridFees = param.value;
+                            }
                         }
                     }
 
                     d.params = params
                     d.name = nameTextField.text
-                    d.pairThing();
+                    if (leviesIsZero || (gridFeesIsZero && !variableGridFees)) {
+                        var popup = continueWithNullParameterComponent.createObject(paramsView)
+                        popup.open()
+                    } else {
+                        d.pairThing();
+                    }
+                }
+            }
+
+            Component {
+                id: continueWithNullParameterComponent
+                NymeaDialog {
+                    headerIcon: "qrc:/icons/question.svg"
+                    title: qsTr("Parameter values")
+                    text: qsTr("There are parameters which are 0.\n\nDo you want to continue with these parameters?")
+                    standardButtons: Dialog.Yes | Dialog.No
+                    onAccepted: {
+                        d.pairThing();
+                    }
                 }
             }
         }
