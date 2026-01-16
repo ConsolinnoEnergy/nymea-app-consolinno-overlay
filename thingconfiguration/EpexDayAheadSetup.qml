@@ -147,7 +147,7 @@ Page {
             }
 
             SettingsPageSectionHeader {
-                text: qsTr("Name the thing:")
+                text: qsTr("Name:")
                 visible: root.thing ? false : true
             }
 
@@ -161,7 +161,7 @@ Page {
             }
 
             SettingsPageSectionHeader {
-                text: qsTr("Thing parameters")
+                text: qsTr("Parameters")
                 visible: paramRepeater.count > 0
             }
 
@@ -249,6 +249,9 @@ Page {
                 text: "OK"
                 onClicked: {
                     var params = []
+                    var leviesIsZero = false;
+                    var variableGridFees = false;
+                    var gridFeesIsZero = false;
                     for (var i = 0; i < paramRepeater.count; i++) {
                         var param = {}
                         var paramType = paramRepeater.itemAt(i).paramType
@@ -257,12 +260,48 @@ Page {
                             param.value = paramRepeater.itemAt(i).value
                             console.debug("adding param", param.paramTypeId, param.value)
                             params.push(param)
+                            let leviesParamId = "{6f7b072a-bf09-46e2-87ee-3b887d6cc843}";
+                            let gridFeesParamId = "{9d80154a-4205-47cb-a69f-d151a836639b}";
+                            let variableGridFeesParamId = "{c39d158c-d9a4-40f2-8d6d-746eca80f9ec}";
+                            if (param.paramTypeId.toString() === leviesParamId) {
+                                leviesIsZero = param.value === 0;
+                            }
+                            if (param.paramTypeId.toString() === gridFeesParamId) {
+                                gridFeesIsZero = param.value === 0;
+                            }
+                            if (param.paramTypeId.toString() === variableGridFeesParamId) {
+                                variableGridFees = param.value;
+                            }
                         }
                     }
 
                     d.params = params
                     d.name = nameTextField.text
-                    d.pairThing();
+                    // When variable grid fees are activated, the grid fees parameter is not used.
+                    if (leviesIsZero || (gridFeesIsZero && !variableGridFees)) {
+                        var popup = continueWithNullParameterComponent.createObject(paramsView)
+                        popup.open()
+                    } else {
+                        d.pairThing();
+                    }
+                }
+            }
+
+            Component {
+                id: continueWithNullParameterComponent
+                NymeaDialog {
+                    headerIcon: "qrc:/icons/question.svg"
+                    title: qsTr("Incomplete Price Information")
+                    text: qsTr(
+"At least one of your values for levies or grid fees is set to 0. \
+As a result, the total price shown will not be complete. \
+Please note that the actual final price may be higher.\
+\n\nWould you like to continue anyway?"
+                              )
+                    standardButtons: Dialog.Yes | Dialog.No
+                    onAccepted: {
+                        d.pairThing();
+                    }
                 }
             }
         }
@@ -294,7 +333,7 @@ Page {
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
-                    text: resultsView.success ? root.thing ? qsTr("Thing reconfigured!") : qsTr("Thing added!") : qsTr("Uh oh")
+                    text: resultsView.success ? root.thing ? qsTr("\"%1\" reconfigured!").arg(resultsView.thing.name) : qsTr("\"%1\" added!").arg(resultsView.thing.name) : qsTr("Uh oh")
                     font.pixelSize: app.largeFont
                     color: Style.accentColor
                 }
@@ -302,7 +341,7 @@ Page {
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WordWrap
-                    text: resultsView.success ? qsTr("All done. You can now start using %1.").arg(resultsView.thing.name) : qsTr("Something went wrong setting up this thing...");
+                    text: resultsView.success ? qsTr("All done. You can now start using \"%1\".").arg(resultsView.thing.name) : qsTr("Something went wrong setting up this thing...");
                 }
 
                 Label {
@@ -317,7 +356,7 @@ Page {
                     Layout.fillWidth: true
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     visible: !resultsView.success
-                    text: "Retry"
+                    text: qsTr("Retry")
                     onClicked: {
                         internalPageStack.pop({immediate: true});
                         internalPageStack.pop({immediate: true});
