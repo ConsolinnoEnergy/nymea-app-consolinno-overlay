@@ -1229,14 +1229,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Tariff details are not available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please provide information on taxes, surcharges and network fees. &lt;u&gt;Continue to configuration.&lt;/u&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Total: %1 %2
 Grid fee: %3 %2
 Levies: %4 %2</source>
@@ -2996,31 +2988,11 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Name the thing:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Thing parameters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Reset values to default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Thing reconfigured!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Thing added!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Uh oh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All done. You can now start using %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3029,6 +3001,40 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Incomplete Price Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At least one of your values for levies or grid fees is set to 0. As a result, the total price shown will not be complete. Please note that the actual final price may be higher.
+
+Would you like to continue anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;%1&quot; reconfigured!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;%1&quot; added!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All done. You can now start using &quot;%1&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

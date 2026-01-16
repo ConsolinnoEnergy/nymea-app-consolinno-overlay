@@ -1229,14 +1229,6 @@
         <translation>Durchschnittlicher Strompreis</translation>
     </message>
     <message>
-        <source>Tariff details are not available</source>
-        <translation>Tarifinformationen fehlen</translation>
-    </message>
-    <message>
-        <source>Please provide information on taxes, surcharges and network fees. &lt;u&gt;Continue to configuration.&lt;/u&gt;</source>
-        <translation>Bitte geben Sie Steuern und Abgaben sowie Netzentgelte ein. &lt;u&gt;Zur Konfiguration.&lt;/u&gt;</translation>
-    </message>
-    <message>
         <source>Total: %1 %2
 Grid fee: %3 %2
 Levies: %4 %2</source>
@@ -3009,47 +3001,63 @@ fügen Sie eine weitere hinzu.</translation>
     <name>EpexDayAheadSetup</name>
     <message>
         <source>Reconfigure %1</source>
-        <translation type="unfinished">Konfiguriere %1</translation>
+        <translation>%1 neu einrichten</translation>
     </message>
     <message>
         <source>Set up %1</source>
-        <translation type="unfinished">%1 einrichten</translation>
-    </message>
-    <message>
-        <source>Name the thing:</source>
-        <translation type="unfinished">Name:</translation>
-    </message>
-    <message>
-        <source>Thing parameters</source>
-        <translation type="unfinished">Gerät parameter</translation>
+        <translation>%1 einrichten</translation>
     </message>
     <message>
         <source>Reset values to default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Thing reconfigured!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Thing added!</source>
-        <translation type="unfinished">Thing hinzugefügt!</translation>
+        <translation>Werte auf Standard zurücksetzen</translation>
     </message>
     <message>
         <source>Uh oh</source>
-        <translation type="unfinished">Uh oh</translation>
-    </message>
-    <message>
-        <source>All done. You can now start using %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Oh oh</translation>
     </message>
     <message>
         <source>Something went wrong setting up this thing...</source>
-        <translation type="unfinished">Etwas ist schiefgelaufen</translation>
+        <translation>Etwas ist schiefgelaufen...</translation>
     </message>
     <message>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Incomplete Price Information</source>
+        <translation>Unvollständige Preisangaben</translation>
+    </message>
+    <message>
+        <source>At least one of your values for levies or grid fees is set to 0. As a result, the total price shown will not be complete. Please note that the actual final price may be higher.
+
+Would you like to continue anyway?</source>
+        <translation>Mindestens einer Ihrer Werte für Abgaben oder Netzentgelte ist auf 0 gesetzt. Dadurch wird Ihnen kein vollständiger Gesamtpreis angezeigt. Bitte beachten Sie, dass der tatsächliche Endpreis höher sein kann.
+
+Möchten Sie trotzdem fortfahren?</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Name:</translation>
+    </message>
+    <message>
+        <source>Parameters</source>
+        <translation>Parameter</translation>
+    </message>
+    <message>
+        <source>&quot;%1&quot; reconfigured!</source>
+        <translation>&quot;%1&quot; neu eingerichtet!</translation>
+    </message>
+    <message>
+        <source>&quot;%1&quot; added!</source>
+        <translation>&quot;%1&quot; hinzugefügt!</translation>
+    </message>
+    <message>
+        <source>All done. You can now start using &quot;%1&quot;.</source>
+        <translation>Sie können &quot;%1&quot; nun benutzen.</translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation>Erneut versuchen</translation>
     </message>
 </context>
 <context>

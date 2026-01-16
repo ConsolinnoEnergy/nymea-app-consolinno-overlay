@@ -147,7 +147,7 @@ Page {
             }
 
             SettingsPageSectionHeader {
-                text: qsTr("Name the thing:")
+                text: qsTr("Name:")
                 visible: root.thing ? false : true
             }
 
@@ -161,7 +161,7 @@ Page {
             }
 
             SettingsPageSectionHeader {
-                text: qsTr("Thing parameters")
+                text: qsTr("Parameters")
                 visible: paramRepeater.count > 0
             }
 
@@ -287,8 +287,13 @@ Page {
                 id: continueWithNullParameterComponent
                 NymeaDialog {
                     headerIcon: "qrc:/icons/question.svg"
-                    title: qsTr("Parameter values")
-                    text: qsTr("There are parameters which are 0.\n\nDo you want to continue with these parameters?")
+                    title: qsTr("Incomplete Price Information")
+                    text: qsTr(
+"At least one of your values for levies or grid fees is set to 0. \
+As a result, the total price shown will not be complete. \
+Please note that the actual final price may be higher.\
+\n\nWould you like to continue anyway?"
+                              )
                     standardButtons: Dialog.Yes | Dialog.No
                     onAccepted: {
                         d.pairThing();
@@ -324,7 +329,7 @@ Page {
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
-                    text: resultsView.success ? root.thing ? qsTr("Thing reconfigured!") : qsTr("Thing added!") : qsTr("Uh oh")
+                    text: resultsView.success ? root.thing ? qsTr("\"%1\" reconfigured!").arg(resultsView.thing.name) : qsTr("\"%1\" added!").arg(resultsView.thing.name) : qsTr("Uh oh")
                     font.pixelSize: app.largeFont
                     color: Style.accentColor
                 }
@@ -332,7 +337,7 @@ Page {
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WordWrap
-                    text: resultsView.success ? qsTr("All done. You can now start using %1.").arg(resultsView.thing.name) : qsTr("Something went wrong setting up this thing...");
+                    text: resultsView.success ? qsTr("All done. You can now start using \"%1\".").arg(resultsView.thing.name) : qsTr("Something went wrong setting up this thing...");
                 }
 
                 Label {
@@ -347,7 +352,7 @@ Page {
                     Layout.fillWidth: true
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     visible: !resultsView.success
-                    text: "Retry"
+                    text: qsTr("Retry")
                     onClicked: {
                         internalPageStack.pop({immediate: true});
                         internalPageStack.pop({immediate: true});
