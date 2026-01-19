@@ -152,7 +152,7 @@ GenericConfigPage {
                 //Status
                 RowLayout {
                     Layout.fillWidth: true
-                    Layout.topMargin: 5
+                    Layout.topMargin: Style.smallMargins
 
                     Label {
                         text: qsTr("Status")
