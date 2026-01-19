@@ -26,24 +26,15 @@ GenericConfigPage {
     property BatteryConfiguration batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id)
     property bool isZeroCompensation : batteryConfiguration.avoidZeroFeedInActive && batteryConfiguration.avoidZeroFeedInEnabled
 
-    // Propertes will be bound to the RangeSlider's values:
-    // Upper slider handle sets the Charge Price Limit
-    property double currentValue : batteryConfiguration.priceThreshold
-    // Lower slider handle sets the Discharge Price Offset
-    property double dischargePriceThresholdValue : batteryConfiguration.dischargePriceThreshold
+    property double absChargingThreshold: 0
+    property double absDischargeBlockedThreshold: 0
+    property double relChargingThreshold: batteryConfiguration.priceThreshold
+    property double relDischargeBlockedThreshold: batteryConfiguration.dischargePriceThreshold
 
-    property double thresholdPrice: 0
-    property int valueAxisUpdate: {
-        (0 > barSeries.lowestValue) ? valueAxisUpdate = barSeries.lowestValue :  (currentValue < 0) ? valueAxisUpdate = currentValue - 2 : valueAxisUpdate = -2
-    }
-
-    property int validSince: 0
-    property int validUntil: 0
     property double averagePrice: 0
     property double currentPrice: 0
     property double lowestPrice: 0
     property double highestPrice: 0
-    property var prices: ({})
 
     title: root.thing.name
     headerOptionsVisible: true
@@ -79,12 +70,12 @@ GenericConfigPage {
         }
 
         onBatteryConfigurationChanged: {
-            optimizationController.checked = batteryConfiguration.optimizationEnabled
-            chargeOnceController.checked = batteryConfiguration.chargeOnce
+            optimizationController.checked = batteryConfiguration.optimizationEnabled;
+            chargeOnceController.checked = batteryConfiguration.chargeOnce;
             // Initialize both properties for the RangeSlider
-            currentValue = batteryConfiguration.priceThreshold
-            dischargePriceThresholdValue = batteryConfiguration.dischargePriceThreshold
-            console.debug("Battery configuration changed received. New priceThreshold: " + batteryConfiguration.priceThreshold + ", dischargePriceThreshold: " + batteryConfiguration.dischargePriceThreshold)
+            relChargingThreshold = batteryConfiguration.priceThreshold;
+            relDischargeBlockedThreshold = batteryConfiguration.dischargePriceThreshold;
+            console.debug("Battery configuration changed received. New priceThreshold: " + batteryConfiguration.priceThreshold + ", dischargePriceThreshold: " + batteryConfiguration.dischargePriceThreshold);
         }
     }
 
@@ -102,31 +93,13 @@ GenericConfigPage {
         currentPriceLabel.text = Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh"
     }
 
-
-    function relPrice2AbsPrice(relPrice){
-        averagePrice = dynamicPrice.get(0).stateByName("averagePrice").value
-        let minPrice = dynamicPrice.get(0).stateByName("lowestPrice").value
-        let maxPrice = dynamicPrice.get(0).stateByName("highestPrice").value
-        if (averagePrice === minPrice || averagePrice === maxPrice){
-            return averagePrice
-        }
-        if (relPrice <= 0){
-            thresholdPrice = averagePrice - 0.01 * relPrice * (minPrice - averagePrice)
-        }else{
-            thresholdPrice = 0.01 * relPrice * (maxPrice - averagePrice) + averagePrice
-        }
-        thresholdPrice = thresholdPrice.toFixed(2)
-        return thresholdPrice
-    }
-
-
     function saveSettings()
     {
         // Save both values controlled by the RangeSlider
         rootObject.pendingCallId = hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": optimizationController.checked,
-                                                                           "priceThreshold": currentValue,
-                                                                           "dischargePriceThreshold": dischargePriceThresholdValue,
-                                                                           "relativePriceEnabled": false,
+                                                                           "priceThreshold": relChargingThreshold,
+                                                                           "dischargePriceThreshold": relDischargeBlockedThreshold,
+                                                                           "relativePriceEnabled": true,
                                                                            "chargeOnce": chargeOnceController.checked,
                                                                            "avoidZeroFeedInActive": batteryConfiguration.avoidZeroFeedInActive,})
     }
@@ -134,7 +107,8 @@ GenericConfigPage {
     function enableSave(obj)
     {
         // Check if either of the two RangeSlider values has changed from the stored configuration
-        saveButton.enabled = batteryConfiguration.priceThreshold !== currentValue || batteryConfiguration.dischargePriceThreshold !== dischargePriceThresholdValue
+        saveButton.enabled = batteryConfiguration.priceThreshold !== relChargingThreshold ||
+                batteryConfiguration.dischargePriceThreshold !== relDischargeBlockedThreshold
     }
 
     ThingsProxy {
@@ -178,7 +152,7 @@ GenericConfigPage {
                 //Status
                 RowLayout {
                     Layout.fillWidth: true
-                    Layout.topMargin: true ? 5 : 30
+                    Layout.topMargin: Style.smallMargins
 
                     Label {
                         text: qsTr("Status")
@@ -271,7 +245,7 @@ GenericConfigPage {
                         Layout.bottomMargin: Style.smallMargins
 
                         Label {
-                            text: qsTr("Tariff-guided charging")
+                            text: qsTr("Tariff-controlled charging")
                         }
 
                         InfoButton {
@@ -329,7 +303,7 @@ GenericConfigPage {
                                     anchors.fill: parent
                                     spacing: 1
                                     height: 18
-                                    enabled: isZeroCompensation ? false : true
+                                    enabled: !isZeroCompensation
 
                                     Component.onCompleted: {
                                         checked = batteryConfiguration.chargeOnce
@@ -396,7 +370,7 @@ GenericConfigPage {
                         Layout.topMargin: Style.margins
                         Layout.bottomMargin: Style.smallMargins
                         visible: optimizationController.checked
-                        enabled: chargeOnceController.checked ? false : true
+                        enabled: !chargeOnceController.checked
                         Label {
                             text: qsTr("Charging Plan")
                             font.weight: Font.Bold
@@ -407,7 +381,7 @@ GenericConfigPage {
                     RowLayout {
                         id: currentPriceRow
                         visible: optimizationController.checked
-                        enabled: chargeOnceController.checked ? false : true
+                        enabled: !chargeOnceController.checked
                         Layout.topMargin: Style.smallMargins
                         Layout.bottomMargin: Style.smallMargins
 
@@ -426,7 +400,7 @@ GenericConfigPage {
                     ColumnLayout {
                         Layout.fillWidth: true
                         visible: optimizationController.checked
-                        enabled: chargeOnceController.checked ? false : true
+                        enabled: !chargeOnceController.checked
                         Component.onCompleted: {
                             const dpThing = dynamicPrice.get(0)
                             if(!dpThing)
@@ -434,6 +408,10 @@ GenericConfigPage {
 
                             d.startTimeSince = new Date(dpThing.stateByName("validSince").value * 1000);
                             d.endTimeUntil = new Date(dpThing.stateByName("validUntil").value * 1000);
+                            absChargingThreshold = DynPricingUtils.relPrice2AbsPrice(batteryConfiguration.priceThreshold,
+                                                                                     dpThing);
+                            absDischargeBlockedThreshold = DynPricingUtils.relPrice2AbsPrice(batteryConfiguration.dischargePriceThreshold,
+                                                                                             dpThing);
                             currentPrice = dpThing.stateByName("currentTotalCost").value
                             averagePrice = dpThing.stateByName("averageTotalCost").value.toFixed(0).toString();
                             lowestPrice = dpThing.stateByName("lowestPrice").value
@@ -464,15 +442,15 @@ GenericConfigPage {
                                 anchors.fill: parent
                                 margins.left: 0
                                 margins.right: 0
-                                margins.top: 0
+                                margins.top: Style.margins
                                 margins.bottom: 0
                                 backgroundColor: isZeroCompensation || chargeOnceController.checked ? Style.barSeriesDisabled : "transparent"
                                 startTime: d.startTimeSince
                                 endTime: d.endTimeUntil
                                 hoursNow: d.now.getHours()
-                                currentPrice: currentValue
+                                currentPrice: absChargingThreshold
                                 currentMarketPrice: currentPrice
-                                upperPriceLimit: dischargePriceThresholdValue
+                                upperPriceLimit: absDischargeBlockedThreshold
                                 lowestValue: root.lowestPrice
                                 highestValue: root.highestPrice
                             }
@@ -502,7 +480,7 @@ GenericConfigPage {
                                     Label {
                                         anchors.verticalCenter: parent.verticalCenter
                                         font: Style.extraSmallFont
-                                        text: qsTr("charging")
+                                        text: qsTr("Charging")
                                     }
                                 }
 
@@ -518,7 +496,7 @@ GenericConfigPage {
                                     Label {
                                         anchors.verticalCenter: parent.verticalCenter
                                         font: Style.extraSmallFont
-                                        text: qsTr("discharging blocked")
+                                        text: qsTr("Discharging blocked")
                                     }
                                 }
 
@@ -534,7 +512,7 @@ GenericConfigPage {
                                     Label {
                                         anchors.verticalCenter: parent.verticalCenter
                                         font: Style.extraSmallFont
-                                        text: qsTr("discharging allowed")
+                                        text: qsTr("Discharging allowed")
                                     }
                                 }
                             }
@@ -549,33 +527,52 @@ GenericConfigPage {
                         }
                     }
 
-                    // Space divider
-                    Item {
-                        Layout.fillHeight: true
+                    RowLayout {
                         Layout.fillWidth: true
+                        Layout.topMargin: Style.margins
+
+                        Label {
+                            visible: optimizationController.checked
+                            enabled: !chargeOnceController.checked
+                            Layout.fillWidth: true
+                            font.bold: true
+                            text: qsTr("\"Charging\" price limit")
+                        }
+
+                        Label {
+                            visible: optimizationController.checked
+                            enabled: !chargeOnceController.checked
+                            font.bold: true
+                            text: qsTr("%1 %").arg(relChargingThreshold.toFixed(0))
+                        }
                     }
 
                     Label {
                         visible: optimizationController.checked
-                        enabled: chargeOnceController.checked ? false : true
+                        enabled: !chargeOnceController.checked
                         Layout.fillWidth: true
-                        text: qsTr("Charge under limit: %1 ct/kWh").arg(currentValue.toFixed(2))
+                        Layout.topMargin: Style.smallMargins
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.").arg(absChargingThreshold.toLocaleString(Qt.locale(), 'f', 2))
                     }
 
                     Slider {
+                        id: chargingThresholdSlider
                         visible: optimizationController.checked
-                        enabled: chargeOnceController.checked ? false : true
+                        enabled: !chargeOnceController.checked
                         Layout.fillWidth: true
-                        from: -5.0
-                        to: 90.0
-                        stepSize: 0.2
-                        value: currentValue
+                        from: -100
+                        to: 100
+                        stepSize: 1
+                        value: batteryConfiguration.priceThreshold
 
                         onMoved: {
-                            // Use a fixed precision and update the property
-                            currentValue = value.toFixed(2);
-                            if (currentValue > dischargePriceThresholdValue) {
-                                dischargePriceThresholdValue = currentValue;
+                            absChargingThreshold = DynPricingUtils.relPrice2AbsPrice(value, dynamicPrice.get(0));
+                            relChargingThreshold = value;
+                            if (absChargingThreshold > absDischargeBlockedThreshold) {
+                                absDischargeBlockedThreshold = absChargingThreshold;
+                                relDischargeBlockedThreshold = relChargingThreshold;
+                                dischargeBlockedThresholdSlider.value = relChargingThreshold
                             }
 
                             enableSave(this);
@@ -590,27 +587,52 @@ GenericConfigPage {
                         }
                     }
 
+                    RowLayout {
+                        Layout.fillWidth: true
+                        Layout.topMargin: Style.smallMargins
+
+                        Label {
+                            visible: optimizationController.checked
+                            enabled: !chargeOnceController.checked
+                            Layout.fillWidth: true
+                            font.bold: true
+                            text: qsTr("\"Block discharging\" price limit")
+                        }
+
+                        Label {
+                            visible: optimizationController.checked
+                            enabled: !chargeOnceController.checked
+                            font.bold: true
+                            text: qsTr("%1 %").arg(relDischargeBlockedThreshold.toFixed(0))
+                        }
+                    }
+
                     Label {
                         visible: optimizationController.checked
-                        enabled: chargeOnceController.checked ? false : true
+                        enabled: !chargeOnceController.checked
                         Layout.fillWidth: true
-                        text: qsTr("Block discharge until: %1 ct/kWh").arg(dischargePriceThresholdValue.toFixed(2))
+                        Layout.topMargin: Style.smallMargins
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Deviation from the 48-h average (in %) below which discharging is blocked. Currently corresponds to %1 ct/kWh.").arg(absDischargeBlockedThreshold.toLocaleString(Qt.locale(), 'f', 2))
                     }
 
                     Slider {
+                        id: dischargeBlockedThresholdSlider
                         visible: optimizationController.checked
-                        enabled: chargeOnceController.checked ? false : true
+                        enabled: !chargeOnceController.checked
                         Layout.fillWidth: true
-                        from: -5.0
-                        to: 90.0
-                        stepSize: 0.2
-                        value: dischargePriceThresholdValue
+                        from: -100
+                        to: 100
+                        stepSize: 1
+                        value: batteryConfiguration.dischargePriceThreshold
 
                         onMoved: {
-                            // Use a fixed precision and update the property
-                            dischargePriceThresholdValue = value.toFixed(2);
-                            if (dischargePriceThresholdValue < currentValue) {
-                                currentValue = dischargePriceThresholdValue;
+                            absDischargeBlockedThreshold = DynPricingUtils.relPrice2AbsPrice(value, dynamicPrice.get(0));
+                            relDischargeBlockedThreshold = value;
+                            if (absDischargeBlockedThreshold < absChargingThreshold) {
+                                absChargingThreshold = absDischargeBlockedThreshold;
+                                relChargingThreshold = relDischargeBlockedThreshold;
+                                chargingThresholdSlider.value = relDischargeBlockedThreshold;
                             }
 
                             enableSave(this);

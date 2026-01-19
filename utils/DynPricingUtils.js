@@ -16,3 +16,20 @@ function getVAT(dpThing) {
         return 0.;
     }
 }
+
+function relPrice2AbsPrice(relPrice, dynamicPriceThing) {
+    let averagePrice = dynamicPriceThing.stateByName("averageTotalCost").value;
+    let minPrice = dynamicPriceThing.stateByName("lowestPrice").value;
+    let maxPrice = dynamicPriceThing.stateByName("highestPrice").value;
+    if (averagePrice == minPrice || averagePrice == maxPrice) {
+        return averagePrice;
+    }
+    var thresholdPrice;
+    if (relPrice <= 0) {
+        thresholdPrice = averagePrice - 0.01 * relPrice * (minPrice - averagePrice);
+    } else {
+        thresholdPrice = 0.01 * relPrice * (maxPrice - averagePrice) + averagePrice;
+    }
+    thresholdPrice = thresholdPrice.toFixed(2);
+    return thresholdPrice;
+}

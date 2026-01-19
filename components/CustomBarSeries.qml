@@ -172,6 +172,15 @@ ChartView {
         shadesVisible: false
     }
 
+    Label {
+        text: qsTr("ct/kWh")
+        font.family: Style.extraSmallFont.family
+        font.pixelSize: Style.extraSmallFont.pixelSize
+        font.bold: true
+        x: Style.smallMargins
+        y: root.plotArea.y - 25
+    }
+
     Item {
         id: labelsLayout
 
@@ -187,7 +196,7 @@ ChartView {
                 y: parent.height / (valueAxis.tickCount - 1) * index - font.pixelSize / 2
                 width: parent.width - Style.smallMargins
                 horizontalAlignment: Text.AlignRight
-                text: (Math.ceil(valueAxis.max - index * (valueAxis.max - valueAxis.min) / (valueAxis.tickCount - 1))) + " ct" //linke Seite vom Graphen
+                text: (Math.ceil(valueAxis.max - index * (valueAxis.max - valueAxis.min) / (valueAxis.tickCount - 1))) //linke Seite vom Graphen
                 verticalAlignment: Text.AlignTop
                 font: Style.extraSmallFont
             }

@@ -23,20 +23,7 @@ Item {
     }
     property Thing dynamicPriceThing
 
-    function relPrice2AbsPrice(relPrice) {
-        let averagePrice = dynamicPrice.get(0).stateByName("averageTotalCost").value;
-        let minPrice = dynamicPrice.get(0).stateByName("lowestPrice").value;
-        let maxPrice = dynamicPrice.get(0).stateByName("highestPrice").value;
-        if (averagePrice == minPrice || averagePrice == maxPrice)
-            return averagePrice;
 
-        if (relPrice <= 0)
-            thresholdPrice = averagePrice - 0.01 * relPrice * (minPrice - averagePrice);
-        else
-            thresholdPrice = 0.01 * relPrice * (maxPrice - averagePrice) + averagePrice;
-        thresholdPrice = thresholdPrice.toFixed(2);
-        return thresholdPrice;
-    }
 
     height: columnLayer.implicitHeight + 20
     Layout.fillWidth: true
@@ -74,7 +61,7 @@ Item {
                 // update d object here
                 d.startTimeSince = new Date(dpThing.stateByName("validSince").value * 1000);
                 d.endTimeUntil = new Date(dpThing.stateByName("validUntil").value * 1000);
-                widgetRoot.currentValue = relPrice2AbsPrice(heatingConfiguration.priceThreshold);
+                widgetRoot.currentValue = DynPricingUtils.relPrice2AbsPrice(heatingConfiguration.priceThreshold, dpThing);
                 widgetRoot.averageDeviation = dpThing.stateByName("averageDeviation").value;
 //                barSeries.averageTotalCost = dpThing.stateByName("averageTotalCost").value;
                 currentPrice = dpThing.stateByName("currentTotalCost").value;
@@ -106,7 +93,7 @@ Item {
                     anchors.fill: parent
                     margins.left: 0
                     margins.right: 0
-                    margins.top: 0
+                    margins.top: Style.margins
                     margins.bottom: 0
                     backgroundColor: "transparent"
                     startTime: d.startTimeSince
@@ -148,7 +135,7 @@ Item {
             Layout.fillWidth: true
             value: -relativeValue
             onMoved: () => {
-                         currentValue = relPrice2AbsPrice(-value);
+                         currentValue = DynPricingUtils.relPrice2AbsPrice(-value, dynamicPrice.get(0));
                          currentRelativeValue = value;
                          if (heatingConfiguration.priceThreshold !== currentValue)
                          root.enableSave();
