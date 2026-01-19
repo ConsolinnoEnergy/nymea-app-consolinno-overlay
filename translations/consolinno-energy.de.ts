@@ -252,7 +252,7 @@
     </message>
     <message>
         <source>Deviation from the 48-h average (in %) below which discharging is blocked. Currently corresponds to %1 ct/kWh.</source>
-        <translation>Abweichung vom 48-h-Durchschnitt (in %) unterhalb  der das Entladen gesperrt wird. Entspricht aktuell %1 ct/kWh.</translation>
+        <translation>Abweichung vom 48-h-Durchschnitt (in %) unterhalb der das Entladen gesperrt wird. Entspricht aktuell %1 ct/kWh.</translation>
     </message>
     <message>
         <source>&quot;Charging&quot; price limit</source>
