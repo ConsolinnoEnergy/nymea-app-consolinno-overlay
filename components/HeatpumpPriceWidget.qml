@@ -93,7 +93,7 @@ Item {
                     anchors.fill: parent
                     margins.left: 0
                     margins.right: 0
-                    margins.top: 0
+                    margins.top: Style.margins
                     margins.bottom: 0
                     backgroundColor: "transparent"
                     startTime: d.startTimeSince

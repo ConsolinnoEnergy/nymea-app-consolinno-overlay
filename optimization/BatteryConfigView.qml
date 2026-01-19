@@ -245,7 +245,7 @@ GenericConfigPage {
                         Layout.bottomMargin: Style.smallMargins
 
                         Label {
-                            text: qsTr("Tariff-guided charging")
+                            text: qsTr("Tariff-controlled charging")
                         }
 
                         InfoButton {
@@ -442,7 +442,7 @@ GenericConfigPage {
                                 anchors.fill: parent
                                 margins.left: 0
                                 margins.right: 0
-                                margins.top: 0
+                                margins.top: Style.margins
                                 margins.bottom: 0
                                 backgroundColor: isZeroCompensation || chargeOnceController.checked ? Style.barSeriesDisabled : "transparent"
                                 startTime: d.startTimeSince
@@ -480,7 +480,7 @@ GenericConfigPage {
                                     Label {
                                         anchors.verticalCenter: parent.verticalCenter
                                         font: Style.extraSmallFont
-                                        text: qsTr("charging")
+                                        text: qsTr("Charging")
                                     }
                                 }
 
@@ -496,7 +496,7 @@ GenericConfigPage {
                                     Label {
                                         anchors.verticalCenter: parent.verticalCenter
                                         font: Style.extraSmallFont
-                                        text: qsTr("discharging blocked")
+                                        text: qsTr("Discharging blocked")
                                     }
                                 }
 
@@ -512,7 +512,7 @@ GenericConfigPage {
                                     Label {
                                         anchors.verticalCenter: parent.verticalCenter
                                         font: Style.extraSmallFont
-                                        text: qsTr("discharging allowed")
+                                        text: qsTr("Discharging allowed")
                                     }
                                 }
                             }
@@ -536,7 +536,7 @@ GenericConfigPage {
                             enabled: !chargeOnceController.checked
                             Layout.fillWidth: true
                             font.bold: true
-                            text: qsTr("Relative price threshold \"Charging\":")
+                            text: qsTr("\"Charging\" price limit")
                         }
 
                         Label {
@@ -552,7 +552,8 @@ GenericConfigPage {
                         enabled: !chargeOnceController.checked
                         Layout.fillWidth: true
                         Layout.topMargin: Style.smallMargins
-                        text: qsTr("Currently corresponds to an electricity price of %1 ct/kWh.").arg(absChargingThreshold.toLocaleString(Qt.locale(), 'f', 2))
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.").arg(absChargingThreshold.toLocaleString(Qt.locale(), 'f', 2))
                     }
 
                     Slider {
@@ -595,7 +596,7 @@ GenericConfigPage {
                             enabled: !chargeOnceController.checked
                             Layout.fillWidth: true
                             font.bold: true
-                            text: qsTr("Relative price threshold \"Block discharge\":")
+                            text: qsTr("\"Block discharging\" price limit")
                         }
 
                         Label {
@@ -611,7 +612,8 @@ GenericConfigPage {
                         enabled: !chargeOnceController.checked
                         Layout.fillWidth: true
                         Layout.topMargin: Style.smallMargins
-                        text: qsTr("Currently corresponds to an electricity price of %1 ct/kWh.").arg(absDischargeBlockedThreshold.toLocaleString(Qt.locale(), 'f', 2))
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Deviation from the 48-h average (in %) below which discharging is blocked. Currently corresponds to %1 ct/kWh.").arg(absDischargeBlockedThreshold.toLocaleString(Qt.locale(), 'f', 2))
                     }
 
                     Slider {

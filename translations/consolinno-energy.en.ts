@@ -207,10 +207,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Tariff-guided charging</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Activate instant charging</source>
         <translation type="unfinished"></translation>
     </message>
@@ -235,31 +231,35 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>charging</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>discharging blocked</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>discharging allowed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Relative price threshold &quot;Charging&quot;:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>%1 %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Currently corresponds to an electricity price of %1 ct/kWh.</source>
+        <source>Tariff-controlled charging</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Relative price threshold &quot;Block discharge&quot;:</source>
+        <source>Discharging blocked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Discharging allowed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deviation from the 48-h average (in %) below which discharging is blocked. Currently corresponds to %1 ct/kWh.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;Charging&quot; price limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;Block discharging&quot; price limit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4596,40 +4596,38 @@ Use a timeout value greater or equal to 10 ms.</source>
 <context>
     <name>TariffGuidedChargingInfo</name>
     <message>
-        <source>Tariff-guided charging</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Two price limits can be set:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Charging Threshold:</source>
+        <source>Tariff-controlled charging</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The battery will charge from the grid as soon as the electricity price falls below this threshold.</source>
+        <source>&quot;Charging&quot; price limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Discharging Threshold:</source>
+        <source>This is the price below which the battery is charged from the grid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The battery will only discharge when the electricity price exceeds this threshold. This ensures that discharging happens only when it is worthwhile.</source>
+        <source>&quot;Block discharging&quot; price limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>In short:</source>
+        <source>This value determines the price up to which discharging is blocked.
+
+If discharging is not to be blocked, simply set this value to the same value as the &quot;Charging&quot; price limit.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Charge when electricity is cheap.
-Discharge only when electricity is expensive.</source>
+        <source>Definition of price limits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If you do not want to restrict discharging, you can set the discharging threshold to the same value as the charging threshold.</source>
+        <source>The price limits are calculated relative to the current average price, e. g. average price –10 %.
+This means: The price limit corresponds to the current average price minus 10 %.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

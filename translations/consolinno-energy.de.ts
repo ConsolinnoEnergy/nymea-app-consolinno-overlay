@@ -207,10 +207,6 @@
         <translation>Beladen aus dem Netz</translation>
     </message>
     <message>
-        <source>Tariff-guided charging</source>
-        <translation>Tarifgesteuertes Laden</translation>
-    </message>
-    <message>
         <source>Activate instant charging</source>
         <translation>Sofortladen aktivieren</translation>
     </message>
@@ -220,47 +216,51 @@
     </message>
     <message>
         <source>Avoid zero compensation</source>
-        <translation type="unfinished">Nullvergütung vermeiden</translation>
+        <translation>Nullvergütung vermeiden</translation>
     </message>
     <message>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
-        <translation type="unfinished">Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
+        <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
     </message>
     <message>
         <source>Avoid zero compensation active</source>
-        <translation type="unfinished">Nullvergütung vermeiden aktiv</translation>
+        <translation>Nullvergütung vermeiden aktiv</translation>
     </message>
     <message>
         <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
-        <translation type="unfinished">An Tagen mit negativen Strompreisen an der Strombörse wird aktiv Batteriekapazität freigehalten, um in den Stunden mit diesen negativen Börsenstrompreisen gezielt die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald diese Regelung aktiv ist, wird das Laden der Batterie limitiert (sichtbar an der gelben Meldung im Screen). Die Steuerung basiert auf der Vorhersage der PV-Produktion und des Hausverbrauchs und verschiebt die Ladung entsprechend.</translation>
-    </message>
-    <message>
-        <source>charging</source>
-        <translation>Laden</translation>
-    </message>
-    <message>
-        <source>discharging blocked</source>
-        <translation>Entladen blockiert</translation>
-    </message>
-    <message>
-        <source>discharging allowed</source>
-        <translation>Entladen erlaubt</translation>
-    </message>
-    <message>
-        <source>Relative price threshold &quot;Charging&quot;:</source>
-        <translation>Relative Preisgrenze &quot;Laden&quot;:</translation>
+        <translation>An Tagen mit negativen Strompreisen an der Strombörse wird aktiv Batteriekapazität freigehalten, um in den Stunden mit diesen negativen Börsenstrompreisen gezielt die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald diese Regelung aktiv ist, wird das Laden der Batterie limitiert (sichtbar an der gelben Meldung im Screen). Die Steuerung basiert auf der Vorhersage der PV-Produktion und des Hausverbrauchs und verschiebt die Ladung entsprechend.</translation>
     </message>
     <message>
         <source>%1 %</source>
         <translation>%1 %</translation>
     </message>
     <message>
-        <source>Currently corresponds to an electricity price of %1 ct/kWh.</source>
-        <translation>Entspricht aktuell einem Strompreis von %1 ct/kWh.</translation>
+        <source>Tariff-controlled charging</source>
+        <translation>Tarifgesteuertes Laden</translation>
     </message>
     <message>
-        <source>Relative price threshold &quot;Block discharge&quot;:</source>
-        <translation>Relative Preisgrenze &quot;Entladen blockieren&quot;:</translation>
+        <source>Discharging blocked</source>
+        <translation>Entladen blockiert</translation>
+    </message>
+    <message>
+        <source>Discharging allowed</source>
+        <translation>Entladen erlaubt</translation>
+    </message>
+    <message>
+        <source>Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.</source>
+        <translation>Abweichung vom 48-h-Durchschnitt (in %) bei der geladen wird. Entspricht aktuell %1 ct/kWh.</translation>
+    </message>
+    <message>
+        <source>Deviation from the 48-h average (in %) below which discharging is blocked. Currently corresponds to %1 ct/kWh.</source>
+        <translation>Abweichung vom 48-h-Durchschnitt (in %) unterhalb  der das Entladen gesperrt wird. Entspricht aktuell %1 ct/kWh.</translation>
+    </message>
+    <message>
+        <source>&quot;Charging&quot; price limit</source>
+        <translation>Preisgrenze „Laden“</translation>
+    </message>
+    <message>
+        <source>&quot;Block discharging&quot; price limit</source>
+        <translation>Preisgrenze „Entladen sperren“</translation>
     </message>
 </context>
 <context>
@@ -4618,42 +4618,42 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
 <context>
     <name>TariffGuidedChargingInfo</name>
     <message>
-        <source>Tariff-guided charging</source>
-        <translation>Tarifgesteuertes Laden</translation>
-    </message>
-    <message>
         <source>Two price limits can be set:</source>
         <translation>Es können zwei Preisgrenzen festgelegt werden:</translation>
     </message>
     <message>
-        <source>Charging Threshold:</source>
-        <translation>Ladegrenze:</translation>
+        <source>Tariff-controlled charging</source>
+        <translation>Tarifgesteuertes Laden</translation>
     </message>
     <message>
-        <source>The battery will charge from the grid as soon as the electricity price falls below this threshold.</source>
-        <translation>Die Batterie wird aus dem Netz geladen, sobald der Strompreis unter der Ladegrenze liegt.</translation>
+        <source>&quot;Charging&quot; price limit</source>
+        <translation>Preisgrenze „Laden“</translation>
     </message>
     <message>
-        <source>Discharging Threshold:</source>
-        <translation>Entladegrenze:</translation>
+        <source>This is the price below which the battery is charged from the grid.</source>
+        <translation>Dies ist der Preis, unterhalb dessen die Batterie aus dem Netz geladen wird.</translation>
     </message>
     <message>
-        <source>The battery will only discharge when the electricity price exceeds this threshold. This ensures that discharging happens only when it is worthwhile.</source>
-        <translation>Das Entladen der Batterie wird bis zu dieser Grenze blockiert bzw. das Entladen erst freigegeben, wenn der Strompreis über der Entladegrenze liegt.</translation>
+        <source>&quot;Block discharging&quot; price limit</source>
+        <translation>Preisgrenze „Entladen sperren“</translation>
     </message>
     <message>
-        <source>In short:</source>
-        <translation>Kurz gesagt:</translation>
+        <source>This value determines the price up to which discharging is blocked.
+
+If discharging is not to be blocked, simply set this value to the same value as the &quot;Charging&quot; price limit.</source>
+        <translation>Dieser Wert bestimmt, bis zu welchem Preis das Entladen blockiert wird.
+
+Wenn das Entladen nicht blockiert werden soll, setzen Sie diesen Wert einfach auf den gleichen Wert wie die Preisgrenze “Laden“.</translation>
     </message>
     <message>
-        <source>Charge when electricity is cheap.
-Discharge only when electricity is expensive.</source>
-        <translation>Laden bei billigem Strom.
-Entladen erst bei teurem Strom.</translation>
+        <source>Definition of price limits</source>
+        <translation>Definition der Preisgrenzen</translation>
     </message>
     <message>
-        <source>If you do not want to restrict discharging, you can set the discharging threshold to the same value as the charging threshold.</source>
-        <translation>Falls das Entladen nicht blockiert werden soll, kann die Entladegrenze auf den Wert der Ladegrenze gesetzt werden.</translation>
+        <source>The price limits are calculated relative to the current average price, e. g. average price –10 %.
+This means: The price limit corresponds to the current average price minus 10 %.</source>
+        <translation>Die Preisgrenzen werden relativ zum aktuellen Durchschnittspreis berechnet, z.&#x202f;B. Durchschnittspreis –10&#x202f;%.
+Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 10&#x202f;%.</translation>
     </message>
 </context>
 <context>
