@@ -132,6 +132,14 @@ void ChargingConfiguration::setPriceThreshold(float priceThreshold) {
     emit priceThresholdChanged(m_priceThreshold);
 }
 
+QString ChargingConfiguration::chargingSchedule() const {
+    return m_chargingSchedule;
+}
 
+void ChargingConfiguration::setChargingSchedule(const QString &chargingSchedule) {
+    if (m_chargingSchedule == chargingSchedule)
+        return;
 
-
+    m_chargingSchedule = chargingSchedule;
+    emit chargingScheduleChanged(m_chargingSchedule);
+}

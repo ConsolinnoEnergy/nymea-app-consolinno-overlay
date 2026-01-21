@@ -40,7 +40,8 @@ GenericConfigPage {
         PV_OPTIMIZED = 1,
         PV_EXCESS = 2,
         SIMPLE_PV_EXCESS = 3,
-        DYN_PRICING = 4
+        DYN_PRICING = 4,
+        TIME_CONTROLLED = 5
     }
 
     property int no_optimization: ChargingConfigView.ChargingMode.NO_OPTIMIZATION
@@ -48,6 +49,7 @@ GenericConfigPage {
     property int pv_excess: ChargingConfigView.ChargingMode.PV_EXCESS
     property int simple_pv_excess: ChargingConfigView.ChargingMode.SIMPLE_PV_EXCESS
     property int dyn_pricing: ChargingConfigView.ChargingMode.DYN_PRICING
+    property int time_controlled: ChargingConfigView.ChargingMode.TIME_CONTROLLED
     property ConEMSState conState: hemsManager.conEMSState
 
     function timer() {
@@ -168,10 +170,13 @@ GenericConfigPage {
                     initializing = false
                 }
                 else if(chargingConfiguration.optimizationEnabled){
-                    if (chargingIsAnyOf([simple_pv_excess, no_optimization, dyn_pricing]))
+                    if (chargingIsAnyOf([simple_pv_excess, no_optimization, dyn_pricing, time_controlled]))
                     {
                         status.visible = thing.stateByName("pluggedIn")
-                        initializing = true
+                        initializing = chargingIsAnyOf([time_controlled]) ? false : true
+                        if (chargingIsAnyOf([time_controlled])) {
+                            busyOverlay.shown = false
+                        }
                         batteryLevelRowLayout.visible = false
                         energyBatteryLayout.visible = false
                         if (settings.showHiddenOptions)
@@ -273,6 +278,9 @@ GenericConfigPage {
         }
         if (opti_mode >= 4000 && opti_mode < 5000) {
             return dyn_pricing 
+        }
+        if (opti_mode >= 5000 && opti_mode < 6000) {
+            return time_controlled
         }
     }
 
@@ -457,6 +465,10 @@ GenericConfigPage {
                                 else if (chargingIsAnyOf([dyn_pricing]))
                                 {
                                     return qsTr("Dynamic pricing")
+                                }
+                                else if (chargingIsAnyOf([time_controlled]))
+                                {
+                                    return qsTr("Time controlled")
                                 }
                             }
                         }
@@ -676,7 +688,12 @@ GenericConfigPage {
 
                                 Label{
                                     id: description
-                                    text: initializing ? qsTr("Initialising") : (status.state === 2 ? qsTr("Running") : (status.state === 3 ? qsTr("Finished") : (status.state === 4 ? qsTr("Interrupted") : (status.state === 6 ? qsTr("Pending") :  qsTr("Failed")  ))))
+                                    text: {
+                                        if (chargingIsAnyOf([time_controlled])) {
+                                            return qsTr("Active")
+                                        }
+                                        return initializing ? qsTr("Initialising") : (status.state === 2 ? qsTr("Running") : (status.state === 3 ? qsTr("Finished") : (status.state === 4 ? qsTr("Interrupted") : (status.state === 6 ? qsTr("Pending") :  qsTr("Failed")  ))))
+                                    }
                                     color: "white"
                                     anchors.centerIn: parent
                                 }
@@ -1038,7 +1055,8 @@ GenericConfigPage {
                                     { key: qsTr("Charge always"), value: "No Optimization", mode: 0 },
                                     { key: qsTr("Solar only"), value: "Simple-Pv-Only", mode: 3000 },
                                     { key: qsTr("Next trip"), value: "Pv-Optimized", mode: 1000 },
-                                    { key: qsTr("Dynamic pricing"), value: "Dynamic-pricing", mode: 4000 }
+                                    { key: qsTr("Dynamic pricing"), value: "Dynamic-pricing", mode: 4000 },
+                                    { key: qsTr("Time controlled"), value: "Time-Controlled", mode: 5000 }
                                 ]
 
                                 // The model actually bound to the ComboBox
@@ -1063,6 +1081,8 @@ GenericConfigPage {
                                         else if ((item.mode === 1000 || item.mode === 3000) && pvEnabled)
                                             dynamicModel.append(item)
                                         else if (item.mode === 4000 && dynEnabled)
+                                            dynamicModel.append(item)
+                                        else if (item.mode === 5000)
                                             dynamicModel.append(item)
                                     }
                                     // Check which charging mode is currently set and update currentIndex accordingly
@@ -1254,7 +1274,6 @@ GenericConfigPage {
                                     id: endTimeSlider
 
                                     Layout.fillWidth: true
-                                    implicitWidth: backgroundEndTimeSlider.implicitWidth
                                     property int chargingConfigHours: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours()
                                     property int chargingConfigMinutes: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes()
                                     property int nextDay: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() < 0 ? 1 : 0
@@ -1347,6 +1366,132 @@ GenericConfigPage {
                                 }
                             }
 
+                        }
+
+                        // Time Controlled Mode Schedule
+                        ColumnLayout {
+                            Layout.fillWidth: true
+                            visible: isAnyOfModesSelected([time_controlled])
+                            spacing: 10
+
+                            Label {
+                                text: qsTr("Weekly schedule")
+                                font.pixelSize: 16
+                                font.bold: true
+                                Layout.topMargin: 10
+                            }
+
+                            Repeater {
+                                id: weekdayRepeater
+                                model: [
+                                    { day: qsTr("Monday"), startHour: 0, startMinute: 0, endHour: 5, endMinute: 0 },
+                                    { day: qsTr("Tuesday"), startHour: 0, startMinute: 0, endHour: 5, endMinute: 0 },
+                                    { day: qsTr("Wednesday"), startHour: 0, startMinute: 0, endHour: 5, endMinute: 0 },
+                                    { day: qsTr("Thursday"), startHour: 0, startMinute: 0, endHour: 5, endMinute: 0 },
+                                    { day: qsTr("Friday"), startHour: 0, startMinute: 0, endHour: 5, endMinute: 0 },
+                                    { day: qsTr("Saturday"), startHour: 0, startMinute: 0, endHour: 5, endMinute: 0 },
+                                    { day: qsTr("Sunday"), startHour: 0, startMinute: 0, endHour: 5, endMinute: 0 }
+                                ]
+
+                                delegate: ColumnLayout {
+                                    Layout.fillWidth: true
+                                    spacing: 5
+
+                                    Label {
+                                        text: modelData.day
+                                        font.pixelSize: 14
+                                        Layout.topMargin: index === 0 ? 0 : 5
+                                    }
+
+                                    RowLayout {
+                                        Layout.fillWidth: true
+                                        spacing: 10
+
+                                        Label {
+                                            text: qsTr("Start:")
+                                            Layout.minimumWidth: 50
+                                        }
+
+                                        ConsolinnoDropdown {
+                                            id: startHourDropdown
+                                            Layout.preferredWidth: 70
+                                            model: ListModel {
+                                                id: hourModel
+                                                Component.onCompleted: {
+                                                    for (var i = 0; i < 24; i++) {
+                                                        hourModel.append({text: i.toString().padStart(2, '0'), value: i})
+                                                    }
+                                                }
+                                            }
+                                            textRole: "text"
+                                            currentIndex: modelData.startHour
+                                        }
+
+                                        Label {
+                                            text: ":"
+                                        }
+
+                                        ConsolinnoDropdown {
+                                            id: startMinuteDropdown
+                                            Layout.preferredWidth: 70
+                                            model: ListModel {
+                                                id: startMinuteModel
+                                                Component.onCompleted: {
+                                                    for (var i = 0; i < 60; i++) {
+                                                        startMinuteModel.append({text: i.toString().padStart(2, '0'), value: i})
+                                                    }
+                                                }
+                                            }
+                                            textRole: "text"
+                                            currentIndex: modelData.startMinute
+                                        }
+
+                                        Label {
+                                            text: qsTr("End:")
+                                            Layout.leftMargin: 20
+                                            Layout.minimumWidth: 50
+                                        }
+
+                                        ConsolinnoDropdown {
+                                            id: endHourDropdown
+                                            Layout.preferredWidth: 70
+                                            model: ListModel {
+                                                id: endHourModel
+                                                Component.onCompleted: {
+                                                    for (var i = 0; i < 24; i++) {
+                                                        endHourModel.append({text: i.toString().padStart(2, '0'), value: i})
+                                                    }
+                                                }
+                                            }
+                                            textRole: "text"
+                                            currentIndex: modelData.endHour
+                                        }
+
+                                        Label {
+                                            text: ":"
+                                        }
+
+                                        ConsolinnoDropdown {
+                                            id: endMinuteDropdown
+                                            Layout.preferredWidth: 70
+                                            model: ListModel {
+                                                id: endMinuteModel
+                                                Component.onCompleted: {
+                                                    for (var i = 0; i < 60; i++) {
+                                                        endMinuteModel.append({text: i.toString().padStart(2, '0'), value: i})
+                                                    }
+                                                }
+                                            }
+                                            textRole: "text"
+                                            currentIndex: modelData.endMinute
+                                        }
+
+                                        Item {
+                                            Layout.fillWidth: true
+                                        }
+                                    }
+                                }
+                            }
                         }
 
 
@@ -1986,16 +2131,39 @@ GenericConfigPage {
                             text: qsTr("Save")
                             onClicked: {
                                 // if simple PV excess mode is used set the batteryLevel to 1
-                                if(isAnyOfModesSelected([simple_pv_excess, no_optimization, dyn_pricing])){
+                                if(isAnyOfModesSelected([simple_pv_excess, no_optimization, dyn_pricing, time_controlled])){
                                     batteryLevel.value = 1
                                     targetPercentageSlider.value = 100
                                 }
 
                                 // Set the endTime to maximum value for all modes except pv_optimized
-                                if(isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing, no_optimization])){
+                                if(isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing, no_optimization, time_controlled])){
                                     endTimeSlider.value = 24*60
                                 }
 
+                                // Collect time controlled schedule data
+                                var chargingSchedule = []
+                                if(isAnyOfModesSelected([time_controlled])){
+                                    var weekdays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+                                    for (var i = 0; i < weekdayRepeater.count; i++) {
+                                        var dayItem = weekdayRepeater.itemAt(i)
+                                        var startHourDrop = dayItem.children[1].children[1]
+                                        var startMinuteDrop = dayItem.children[1].children[3]
+                                        var endHourDrop = dayItem.children[1].children[5]
+                                        var endMinuteDrop = dayItem.children[1].children[7]
+                                        
+                                        var startHour = startHourDrop.model.get(startHourDrop.currentIndex).value
+                                        var startMinute = startMinuteDrop.model.get(startMinuteDrop.currentIndex).value
+                                        var endHour = endHourDrop.model.get(endHourDrop.currentIndex).value
+                                        var endMinute = endMinuteDrop.model.get(endMinuteDrop.currentIndex).value
+                                        
+                                        chargingSchedule.push({
+                                            day: weekdays[i],
+                                            startTime: startHour.toString().padStart(2, '0') + ":" + startMinute.toString().padStart(2, '0'),
+                                            endTime: endHour.toString().padStart(2, '0') + ":" + endMinute.toString().padStart(2, '0')
+                                        })
+                                    }
+                                }
 
                                 if ((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) && (endTimeSlider.value >= 30) && carSelector.holdingItem !== false && batteryLevel.value !== 0){
                                     if (carSelector.holdingItem.stateByName("batteryLevel").value){
@@ -2006,7 +2174,22 @@ GenericConfigPage {
                                     var optimizationMode = compute_OptimizationMode()
 
                                     hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
-                                    hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode, priceThreshold: currentValue})
+                                    
+                                    var configData = {
+                                        optimizationEnabled: true, 
+                                        carThingId: carSelector.holdingItem.id, 
+                                        endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", 
+                                        targetPercentage: targetPercentageSlider.value, 
+                                        optimizationMode: optimizationMode, 
+                                        priceThreshold: currentValue
+                                    }
+                                    
+                                    // Add charging schedule if time controlled mode
+                                    if(isAnyOfModesSelected([time_controlled])){
+                                        configData.chargingSchedule = JSON.stringify(chargingSchedule)
+                                    }
+                                    
+                                    hemsManager.setChargingConfiguration(thing.id, configData)
 
                                     optimizationPage.done()
                                     pageStack.pop()
