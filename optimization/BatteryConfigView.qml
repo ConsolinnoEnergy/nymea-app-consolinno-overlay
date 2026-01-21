@@ -108,7 +108,9 @@ GenericConfigPage {
     {
         // Check if either of the two RangeSlider values has changed from the stored configuration
         saveButton.enabled = batteryConfiguration.priceThreshold !== relChargingThreshold ||
-                batteryConfiguration.dischargePriceThreshold !== relDischargeBlockedThreshold
+                batteryConfiguration.dischargePriceThreshold !== relDischargeBlockedThreshold ||
+                (chargeOnceController.enabled && batteryConfiguration.chargeOnce !== chargeOnceController.checked) ||
+                batteryConfiguration.optimizationEnabled !== optimizationController.checked;
     }
 
     ThingsProxy {
