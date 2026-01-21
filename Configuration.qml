@@ -21,7 +21,7 @@ ConfigurationBase {
     property bool isIntroIcon: true
     //////////////////////////////////////////////////////////////////////////////////////
     // Defines the minimal compatible HEMS version
-    property string minSysVersion: "1.10.0"
+    property string minSysVersion: "1.11.0"
 
     // Identifier used for branding (e.g. to register for push notifications)
     property string branding: "consolinno"
@@ -55,28 +55,21 @@ ConfigurationBase {
     //////////////////////////////////////////////////////////////////////////////////////
 
     //Styles
-    property color secondaryDark: "#767676"
-
-    //MainMenuCirlce
-    readonly property color mainTimeCircle: "#d7d7d7"
-    readonly property color mainTimeCircleDivider: "#ffffff"
-    readonly property color mainCircleTimeColor: "gray"
-
-    readonly property color mainTimeNow: "gray"
-
-    readonly property color mainInnerCicleFirst: "#b6b6b6"
-    readonly property color mainInnerCicleSecond: "#b6b6b6"
-
     // Button
     readonly property color iconColor: "#87BD26"
-
-    readonly property color highlightForeground: "black"
+    readonly property color highlightForeground: "#000000"
 
     //static things colors
     //producers
     readonly property color rootMeterAcquisitionColor: "#F37B8E"
     readonly property color rootMeterReturnColor: "#45B4E4"
     readonly property color inverterColor: "#FCE487"
+
+    //other things
+    readonly property color epexColor: "#E056F5"
+    readonly property color epexMainLineColor: "#6CCB56"
+    readonly property color epexAverageColor: "#C65B5A"
+    readonly property color epexCurrentTime: "#2C723C"
 
     //other consumers
     readonly property color heatpumpColor: "#F7B772"
@@ -88,6 +81,7 @@ ConfigurationBase {
     readonly property color batteriesColor: "#BDD786"
     readonly property color batteryChargeColor: batteriesColor
     readonly property color batteryDischargeColor: "#F7B772"
+    readonly property color batteryDischargeHighlightColor: "#FF8400"
     readonly property color batteryIdleColor: "#B5B5B5"
 
     //static array of thing colors
@@ -181,7 +175,7 @@ ConfigurationBase {
     mainMenuLinks: [ 
         {
             text: qsTr("Help"),
-            iconName: "../images/help.svg",
+            iconName: "qrc:/icons/help.svg",
             page: "info/Help/HelpPage.qml"
         },
     ] 
