@@ -46,11 +46,42 @@ MainViewBase {
             }
         }
 
-        Text {
-            anchors.centerIn: parent
-            text: "Hier könnte Ihre Werbung stehen!"
-            wrapMode: Text.WordWrap
-        }
+        Item {
+            anchors.fill: parent
+            anchors.margins: 16 // #TODO use value from new style
 
+
+            ColumnLayout {
+                anchors.fill: parent
+
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    headerText: "Header"
+                    ColumnLayout {
+                        id: col
+                        anchors.fill: parent
+                        spacing: 16 // #TODO use value from new style
+
+                        Text {
+                            Layout.fillWidth: true
+                            text: "Text1"
+                            wrapMode: Text.WordWrap
+                        }
+
+                        Text {
+                            Layout.fillWidth: true
+                            text: "Some very very very very very very very very long text"
+                            wrapMode: Text.WordWrap
+                        }
+
+                        Item {
+                            Layout.fillHeight: true
+                        }
+                    }
+                }
+            }
+        }
     }
 }
