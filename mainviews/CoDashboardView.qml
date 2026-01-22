@@ -32,10 +32,25 @@ MainViewBase {
         anchors.fill: parent
         anchors.topMargin: root.topMargin
 
+        Rectangle {
+            id: background
+            anchors.fill: parent
+            color: "#FFFFFF" // #TODO color from new style
+
+            Rectangle {
+                anchors.fill: parent
+                gradient: Gradient {
+                    GradientStop{ position: 0.0; color: "#80BDD786" } // #TODO color from new style
+                    GradientStop{ position: 1.0; color: "#8083BC32" } // #TODO color from new style
+                }
+            }
+        }
+
         Text {
             anchors.centerIn: parent
             text: "Hier könnte Ihre Werbung stehen!"
             wrapMode: Text.WordWrap
         }
+
     }
 }
