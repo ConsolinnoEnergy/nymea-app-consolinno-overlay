@@ -7,7 +7,6 @@ Frame {
     default property alias content: body.data
 
     background: Rectangle {
-        anchors.fill: parent
         color: "#AAF4F6F4" // #TODO use color from new style
         radius: 16 // #TODO use value from style
     }
