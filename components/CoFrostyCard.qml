@@ -6,6 +6,13 @@ Frame {
     property alias headerText: header.text
     default property alias content: body.data
 
+    // #TODO remove again
+    Component.onCompleted: {
+        console.warn("---", width, height, implicitWidth, implicitHeight);
+        console.warn("--- header", header.width, header.height, header.implicitWidth, header.implicitHeight);
+        console.warn("--- body", body.width, body.height, body.implicitWidth, body.implicitHeight);
+    }
+
     background: Rectangle {
         color: "#AAF4F6F4" // #TODO use color from new style
         radius: 16 // #TODO use value from style
@@ -21,6 +28,11 @@ Frame {
                         body.anchors.bottomMargin
         implicitWidth: Math.max(header.implicitWidth + header.anchors.leftMargin + header.anchors.rightMargin,
                                 body.implicitWidth + body.anchors.leftMargin + body.anchors.rightMargin)
+
+        // #TODO remove again
+        Component.onCompleted: {
+            console.warn("-----", width, height, implicitWidth, implicitHeight);
+        }
 
         Text {
             id: header
@@ -41,12 +53,13 @@ Frame {
             id: body
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.bottom: parent.bottom
             anchors.top: header.bottom
             anchors.topMargin: 16
             anchors.leftMargin: 16 // #TODO use value from style
             anchors.rightMargin: 16 // #TODO use value from style
             anchors.bottomMargin: 8 // #TODO use value from style
+            // #TODO this probably does not work in all cases
+            implicitHeight: children.length > 0 ? children[0].implicitHeight : 0
         }
     }
 }
