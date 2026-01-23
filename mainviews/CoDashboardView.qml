@@ -50,18 +50,16 @@ MainViewBase {
             anchors.fill: parent
             anchors.margins: 16 // #TODO use value from new style
 
-
             ColumnLayout {
                 anchors.fill: parent
 
                 CoFrostyCard {
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
 
                     headerText: "Header"
                     ColumnLayout {
-                        id: col
-                        anchors.fill: parent
+                        anchors.left: parent.left
+                        anchors.right: parent.right
                         spacing: 16 // #TODO use value from new style
 
                         CoInfoCard {
@@ -74,6 +72,7 @@ MainViewBase {
 
                         RowLayout {
                             Layout.fillWidth: true
+                            spacing: 16
 
                             CoInfoCard {
                                 Layout.fillWidth: true
@@ -92,6 +91,25 @@ MainViewBase {
                                 value: "700 W"
                                 compactLayout: true
                             }
+                        }
+                    }
+                }
+
+                CoFrostyCard {
+                    Layout.fillWidth: true
+
+                    headerText: "Header"
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 16 // #TODO use value from new style
+
+                        CoInfoCard {
+                            Layout.fillWidth: true
+
+                            text: "Inverter"
+                            icon: Qt.resolvedUrl("qrc:/icons/heatpump.svg")
+                            value: "700 W"
                         }
                     }
                 }
