@@ -65,13 +65,6 @@ Item {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 size: 24 // #TODO use value from new style
                 // #TODO icon color?
-
-                Rectangle {
-                    anchors.fill: parent
-                    color: "transparent"
-                    border.color: "red"
-                    border.width: 1
-                }
             }
 
             Text {
@@ -82,16 +75,8 @@ Item {
 
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-
-                Rectangle {
-                    anchors.fill: parent
-                    color: "transparent"
-                    border.color: "blue"
-                    border.width: 1
-                }
             }
         }
-
 
         Text {
             id: valueText
@@ -104,13 +89,6 @@ Item {
 
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-
-            Rectangle {
-                anchors.fill: parent
-                color: "transparent"
-                border.color: "yellow"
-                border.width: 1
-            }
         }
     }
 }
