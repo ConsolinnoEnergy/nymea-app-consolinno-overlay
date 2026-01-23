@@ -15,10 +15,10 @@ Frame {
         id: contentRoot
         implicitHeight: header.implicitHeight +
                         header.anchors.topMargin +
-                        header.anchors.bottmMargin +
+                        header.anchors.bottomMargin +
                         body.implicitHeight +
                         body.anchors.topMargin +
-                        body.anchors.bottmMargin
+                        body.anchors.bottomMargin
         implicitWidth: Math.max(header.implicitWidth + header.anchors.leftMargin + header.anchors.rightMargin,
                                 body.implicitWidth + body.anchors.leftMargin + body.anchors.rightMargin)
 
