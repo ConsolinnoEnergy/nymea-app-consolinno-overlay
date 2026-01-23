@@ -7,13 +7,21 @@ Frame {
     default property alias content: body.data
 
     background: Rectangle {
+        anchors.fill: parent
         color: "#AAF4F6F4" // #TODO use color from new style
         radius: 16 // #TODO use value from style
     }
 
     contentItem: Item {
         id: contentRoot
-        anchors.fill: parent
+        implicitHeight: header.implicitHeight +
+                        header.anchors.topMargin +
+                        header.anchors.bottmMargin +
+                        body.implicitHeight +
+                        body.anchors.topMargin +
+                        body.anchors.bottmMargin
+        implicitWidth: Math.max(header.implicitWidth + header.anchors.leftMargin + header.anchors.rightMargin,
+                                body.implicitWidth + body.anchors.leftMargin + body.anchors.rightMargin)
 
         Text {
             id: header
