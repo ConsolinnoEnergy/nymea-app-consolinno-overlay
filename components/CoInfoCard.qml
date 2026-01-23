@@ -2,7 +2,6 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.2
 
 import "../components"
-//import "../../nymea-app/nymea-app/ui/components" // #TODO can we have this import easier?
 
 Item {
     property alias icon: icon.name
