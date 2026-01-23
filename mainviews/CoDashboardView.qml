@@ -93,23 +93,16 @@ MainViewBase {
                                 compactLayout: true
                             }
                         }
-
-                        Text {
-                            Layout.fillWidth: true
-                            text: "Text1"
-                            wrapMode: Text.WordWrap
-                        }
-
-                        Text {
-                            Layout.fillWidth: true
-                            text: "Some very very very very very very very very long text"
-                            wrapMode: Text.WordWrap
-                        }
-
-                        Item {
-                            Layout.fillHeight: true
-                        }
                     }
+                }
+
+                Rectangle {
+                    id: spacer
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    color: "transparent"
+                    border.color: "red"
+                    border.width: 1
                 }
             }
         }
