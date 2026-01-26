@@ -97,10 +97,6 @@ Item {
                    showErrorIndicator ?
                        "#FFC3CD" : // #TODO use color from new style
                        "transparent"
-
-        Component.onCompleted: {
-            console.warn("---i", color, border.color);
-        }
     }
 
     MouseArea {
