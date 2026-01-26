@@ -25,27 +25,6 @@ Item {
         border.color: mouseArea.containsMouse ? "#1F242B2D" : "transparent";
     }
 
-    Rectangle {
-        id: indicator
-        x: 8 // #TODO this is probably not right yet since new design contains paddings
-        y: 8
-        visible: showWarningIndicator || showErrorIndicator
-        width: 23   // #TODO are these fixed values in new design?
-        height: 23
-        radius: width / 2
-        border.width: 1
-        border.color: showWarningIndicator ?
-                          "#864A0D" : // #TODO use color from new style
-                          showErrorIndicator ?
-                              "#AA0A24" : // #TODO use color from new style
-                              "transparent"
-        color: showWarningIndicator ?
-                   "FFEE89" : // #TODO use color from new style
-                   showErrorIndicator ?
-                       "FFC3CD" : // #TODO use color from new style
-                       "transparent"
-    }
-
     GridLayout {
         id: gridLayout
         anchors.fill: parent
@@ -91,6 +70,36 @@ Item {
 
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
+        }
+    }
+
+    Rectangle {
+        id: indicator
+        anchors {
+            top: parent.top
+            left: parent.left
+            topMargin: 8 // #TODO this is probably not right yet since new design contains paddings
+            leftMargin: 8
+        }
+
+        visible: showWarningIndicator || showErrorIndicator
+        width: 17   // #TODO are these fixed values in new design?
+        height: 17
+        radius: width / 2
+        border.width: 1
+        border.color: showWarningIndicator ?
+                          "#864A0D" : // #TODO use color from new style
+                          showErrorIndicator ?
+                              "#AA0A24" : // #TODO use color from new style
+                              "transparent"
+        color: showWarningIndicator ?
+                   "#FFEE89" : // #TODO use color from new style
+                   showErrorIndicator ?
+                       "#FFC3CD" : // #TODO use color from new style
+                       "transparent"
+
+        Component.onCompleted: {
+            console.warn("---i", color, border.color);
         }
     }
 
