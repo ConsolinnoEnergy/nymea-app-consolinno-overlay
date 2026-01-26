@@ -39,7 +39,7 @@ Frame {
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.topMargin: 16 // #TODO use value from style
+            anchors.topMargin: 8 // #TODO use value from style
             anchors.leftMargin: 16 // #TODO use value from style
             anchors.rightMargin: 16 // #TODO use value from style
             anchors.bottomMargin: 16 // #TODO use value from style
@@ -57,7 +57,7 @@ Frame {
             anchors.topMargin: 16
             anchors.leftMargin: 16 // #TODO use value from style
             anchors.rightMargin: 16 // #TODO use value from style
-            anchors.bottomMargin: 8 // #TODO use value from style
+            anchors.bottomMargin: 0 // #TODO use value from style
             // #TODO this probably does not work in all cases
             implicitHeight: children.length > 0 ? children[0].implicitHeight : 0
         }
