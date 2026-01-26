@@ -18,8 +18,11 @@ Item {
     Rectangle { // background
         anchors.fill: parent
         radius: 8
-        color: "#FFFFFF" // #TODO use value from new style
-        border.width: 0
+        // #TODO is the transparent part (hover and pressed color) relative to CoInfoCard background or
+        // relative to this background (i.e. do we need another (white) background)?
+        color: mouseArea.pressed ? "#1F242B2D" : "#FFFFFF" // #TODO use values from new style
+        border.width: mouseArea.containsMouse ? 4 : 0
+        border.color: mouseArea.containsMouse ? "#1F242B2D" : "transparent";
     }
 
     Rectangle {
@@ -89,5 +92,11 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
         }
+    }
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        hoverEnabled: true
     }
 }
