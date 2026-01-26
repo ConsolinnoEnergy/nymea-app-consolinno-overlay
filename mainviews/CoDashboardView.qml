@@ -92,6 +92,14 @@ MainViewBase {
                                 compactLayout: true
                             }
                         }
+
+                        CoInfoCard {
+                            Layout.fillWidth: true
+
+                            text: "Inverter"
+                            icon: Qt.resolvedUrl("qrc:/icons/heatpump.svg")
+                            value: "700 W"
+                        }
                     }
                 }
 
@@ -103,6 +111,30 @@ MainViewBase {
                         anchors.left: parent.left
                         anchors.right: parent.right
                         spacing: 16 // #TODO use value from new style
+
+                        CoInfoCard {
+                            Layout.fillWidth: true
+
+                            text: "Inverter"
+                            icon: Qt.resolvedUrl("qrc:/icons/heatpump.svg")
+                            value: "700 W"
+                        }
+
+                        CoInfoCard {
+                            Layout.fillWidth: true
+
+                            text: "Inverter"
+                            icon: Qt.resolvedUrl("qrc:/icons/heatpump.svg")
+                            value: "700 W"
+                        }
+
+                        CoInfoCard {
+                            Layout.fillWidth: true
+
+                            text: "Inverter"
+                            icon: Qt.resolvedUrl("qrc:/icons/heatpump.svg")
+                            value: "700 W"
+                        }
 
                         CoInfoCard {
                             Layout.fillWidth: true
