@@ -142,5 +142,8 @@
         <file>delegates/ConsolinnoParamDelegate.qml</file>
         <file>thingconfiguration/EpexDayAheadSetup.qml</file>
         <file>utils/DynPricingUtils.js</file>
+        <file>mainviews/CoDashboardView.qml</file>
+        <file>components/CoFrostyCard.qml</file>
+        <file>components/CoInfoCard.qml</file>
     </qresource>
 </RCC>
