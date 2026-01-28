@@ -80,6 +80,7 @@ MainViewBase {
                                 text: "Inverter"
                                 icon: Qt.resolvedUrl("qrc:/icons/heatpump.svg")
                                 value: "700 W"
+                                showWarningIndicator: true
                             }
 
                             RowLayout {
@@ -93,6 +94,7 @@ MainViewBase {
                                     icon: Qt.resolvedUrl("qrc:/icons/heatpump.svg")
                                     value: "700 W"
                                     compactLayout: true
+                                    showErrorIndicator: true
                                 }
 
                                 CoInfoCard {
