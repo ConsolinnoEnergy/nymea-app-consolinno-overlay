@@ -537,17 +537,25 @@ MainViewBase {
             y: Math.round((parent.height - height) / 2)
 
             width: parent.width * 0.9
+            height: parent.height * 0.85
             modal: true
             focus: true
             closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-            contentItem: Label {
+            contentItem: Flickable {
                 Layout.fillWidth: true
-                Layout.topMargin: app.margins
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                wrapMode: Text.WordWrap
-                textFormat: Text.RichText
-                text: message
+                Layout.fillHeight: true
+                contentHeight: containerLabel.implicitHeight
+                clip: true
+                Label {
+                    id: containerLabel
+                    anchors.fill: parent
+                    anchors.topMargin: app.margins
+                    anchors.leftMargin: app.margins
+                    anchors.rightMargin: app.margins
+                    wrapMode: Text.WordWrap
+                    textFormat: Text.RichText
+                    text: message
+                }
             }
             onClosed: {
                 console.debug("shonwPopupsSetting.shown: ",
