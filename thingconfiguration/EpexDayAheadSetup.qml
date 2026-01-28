@@ -169,16 +169,20 @@ Page {
                 id: paramRepeater
 
                 Component.onCompleted: {
-                    if (root.thing) {
-                        var param = root.thing.params.getParam("c39d158c-d9a4-40f2-8d6d-746eca80f9ec");
-                        if (param) {
-                            paramd.variableGridFees = param.value
+                    if (settings.showHiddenOptions) {
+                        if (root.thing) {
+                            var param = root.thing.params.getParam("c39d158c-d9a4-40f2-8d6d-746eca80f9ec");
+                            if (param) {
+                                paramd.variableGridFees = param.value
+                            }
+                        } else {
+                            var paramType = root.thingClass.paramTypes.getParamType("c39d158c-d9a4-40f2-8d6d-746eca80f9ec");
+                            if (paramType) {
+                                paramd.variableGridFees = paramType.defaultValue
+                            }
                         }
                     } else {
-                        var paramType = root.thingClass.paramTypes.getParamType("c39d158c-d9a4-40f2-8d6d-746eca80f9ec");
-                        if (paramType) {
-                            paramd.variableGridFees = paramType.defaultValue
-                        }
+                        paramd.variableGridFees = false
                     }
                 }
 
@@ -189,21 +193,34 @@ Page {
                     enabled: !model.readOnly
                     paramType: root.thingClass.paramTypes.get(index)
                     visible: {
-                        if (paramType.id.toString() === "{f4b1b3b2-4c1c-4b1a-8f1a-9c2b2a1a1b1b}") {
-                            // "Grid operator" parameter
-                            return paramd.variableGridFees;
-                        } else if (paramType.id.toString() === "{9d80154a-4205-47cb-a69f-d151a836639b}") {
-                            // "Added grid fee" parameter
-                            return !paramd.variableGridFees;
+                        if (settings.showHiddenOptions) {
+                            if (paramType.id.toString() === "{f4b1b3b2-4c1c-4b1a-8f1a-9c2b2a1a1b1b}") {
+                                // "Grid operator" parameter
+                                return paramd.variableGridFees;
+                            } else if (paramType.id.toString() === "{9d80154a-4205-47cb-a69f-d151a836639b}") {
+                                // "Added grid fee" parameter
+                                return !paramd.variableGridFees;
+                            } else {
+                                return true;
+                            }
                         } else {
-                            return true;
+                            if (paramType.id.toString() === "{f4b1b3b2-4c1c-4b1a-8f1a-9c2b2a1a1b1b}") {
+                                // "Grid operator" parameter
+                                return false;
+                            } else if (paramType.id.toString() === "{c39d158c-d9a4-40f2-8d6d-746eca80f9ec}") {
+                                return false;
+                            } else {
+                                return true;
+                            }
                         }
                     }
 
                     onValueChanged: {
-                        if (paramType.id.toString() === "{c39d158c-d9a4-40f2-8d6d-746eca80f9ec}") {
-                            // "Variable grid fees" parameter
-                            paramd.variableGridFees = value;
+                        if (settings.showHiddenOptions) {
+                            if (paramType.id.toString() === "{c39d158c-d9a4-40f2-8d6d-746eca80f9ec}") {
+                                // "Variable grid fees" parameter
+                                paramd.variableGridFees = value;
+                            }
                         }
                     }
 
@@ -256,13 +273,17 @@ Page {
                         var param = {}
                         var paramType = paramRepeater.itemAt(i).paramType
                         if (!paramType.readOnly) {
-                            param.paramTypeId = paramType.id
-                            param.value = paramRepeater.itemAt(i).value
-                            console.debug("adding param", param.paramTypeId, param.value)
-                            params.push(param)
                             let leviesParamId = "{6f7b072a-bf09-46e2-87ee-3b887d6cc843}";
                             let gridFeesParamId = "{9d80154a-4205-47cb-a69f-d151a836639b}";
                             let variableGridFeesParamId = "{c39d158c-d9a4-40f2-8d6d-746eca80f9ec}";
+                            param.paramTypeId = paramType.id
+                            if (!settings.showHiddenOptions && param.paramTypeId.toString() === variableGridFeesParamId) {
+                                param.value = false;
+                            } else {
+                                param.value = paramRepeater.itemAt(i).value
+                            }
+                            console.debug("adding param", param.paramTypeId, param.value)
+                            params.push(param)
                             if (param.paramTypeId.toString() === leviesParamId) {
                                 leviesIsZero = param.value === 0;
                             }
