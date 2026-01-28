@@ -70,7 +70,6 @@ Page {
     }
 
     Component.onCompleted: {
-        console.warn("=== settings.showHiddenOptions", settings.showHiddenOptions);
         console.debug("Starting setup wizard. Create Methods:",
                       root.thingClass.createMethods,
                       "Setup method:",
