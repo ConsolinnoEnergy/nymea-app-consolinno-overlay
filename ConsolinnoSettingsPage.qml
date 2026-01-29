@@ -41,15 +41,18 @@ Page {
                 ColumnLayout {
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    spacing: 0 // #TODO use value from new style
+                    anchors.topMargin: 8 // #TODO use values from new style
+                    anchors.bottomMargin: 8 // #TODO use values from new style
+                    spacing: 0
 
-                    // #TODO use new Card Component instead of SettingsTile
+                    // #TODO use new Card Component instead of CoCard
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
                         text: qsTr("Optimization configuration")
-                        subText: qsTr("Optimize devices and system behavior")
-                        iconSource: "/icons/preferences-look-and-feel.svg" // #TODO
+                        helpText: qsTr("Optimize devices and system behavior")
+                        iconLeft: "/icons/preferences-look-and-feel.svg" // #TODO
+                        showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("mainviews/OptimizationConfiguration.qml"),
                                                   {
                                                       "hemsManager": hemsManager
@@ -57,11 +60,12 @@ Page {
                         // #TODO visibility (cf. HemsOptimizationPage.qml)
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
                         text: qsTr("Comissioning")
-                        subText: qsTr("Install devices and set up the system. For installers only.")
-                        iconSource: "/icons/preferences-look-and-feel.svg" // #TODO
+                        helpText: qsTr("Install devices and set up the system. For installers only.")
+                        iconLeft: "/icons/preferences-look-and-feel.svg" // #TODO
+                        showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("thingconfiguration/DeviceOverview.qml"),
                                                   {
                                                       "hemsManager": hemsManager
@@ -69,11 +73,12 @@ Page {
                         // #TODO visibility (cf. HemsOptimizationPage.qml)
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
                         text: qsTr("Development")
-                        subText: ""
-                        iconSource: "/icons/preferences-look-and-feel.svg" // #TODO
+                        helpText: ""
+                        iconLeft: "/icons/preferences-look-and-feel.svg" // #TODO
+                        showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("optimization/DeveloperConfig.qml"),
                                                   {
                                                       "hemsManager": hemsManager
@@ -81,11 +86,12 @@ Page {
                         // #TODO visibility (cf. HemsOptimizationPage.qml)
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
                         text: qsTr("Dynamic electricity tariff")
-                        subText: qsTr("Set up a dynamic electicity tariff for the system to operate with.")
-                        iconSource: "/icons/preferences-look-and-feel.svg" // #TODO
+                        helpText: qsTr("Set up a dynamic electicity tariff for the system to operate with.")
+                        iconLeft: "/icons/preferences-look-and-feel.svg" // #TODO
+                        showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("optimization/DynamicElectricityRate.qml"),
                                                   {
                                                       "hemsManager": hemsManager
@@ -93,11 +99,12 @@ Page {
                         // #TODO visibility (cf. HemsOptimizationPage.qml)
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
                         text: qsTr("Grid-supportive control")
-                        subText: qsTr("Configure grid support capabilities through relays or EEBUS. For installers only.")
-                        iconSource: "/icons/preferences-look-and-feel.svg" // #TODO
+                        helpText: qsTr("Configure grid support capabilities through relays or EEBUS. For installers only.")
+                        iconLeft: "/icons/preferences-look-and-feel.svg" // #TODO
+                        showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("optimization/GridSupportiveControl.qml"),
                                                   {
                                                       "hemsManager": hemsManager
@@ -116,27 +123,30 @@ Page {
                     anchors.right: parent.right
                     spacing: 0 // #TODO use value from new style
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
                         text: qsTr("Look & feel")
-                        subText: qsTr("Customize the app's look and behavior")
-                        iconSource: "/icons/preferences-look-and-feel.svg"
+                        helpText: qsTr("Customize the app's look and behavior")
+                        iconLeft: "/icons/preferences-look-and-feel.svg"
+                        showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("appsettings/ConsolinnoLookAndFeelSettingsPage.qml"))
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
                         text: qsTr("Developer options")
-                        subText: qsTr("Access tools for debugging and error reporting")
-                        iconSource: "/icons/sdk.svg"
+                        helpText: qsTr("Access tools for debugging and error reporting")
+                        iconLeft: "/icons/sdk.svg"
+                        showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("appsettings/DeveloperOptionsPage.qml"))
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
                         text: qsTr("About %1").arg(Configuration.appName)
-                        subText: qsTr("Find app versions and licence information")
-                        iconSource: "/icons/info.svg"
+                        helpText: qsTr("Find app versions and licence information")
+                        iconLeft: "/icons/info.svg"
+                        showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("appsettings/AboutPage.qml"))
                     }
                 }
@@ -151,70 +161,77 @@ Page {
                     anchors.right: parent.right
                     spacing: 0 // #TODO use value from new style
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
-                        iconSource: "/icons/configure.svg"
+                        iconLeft: "/icons/configure.svg"
                         text: qsTr("General")
-                        subText: qsTr("Change system name and time zone")
+                        helpText: qsTr("Change system name and time zone")
+                        showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
                         onClicked: pageStack.push(Qt.resolvedUrl("system/GeneralSettingsPage.qml"))
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
-                        iconSource: "/icons/account.svg"
+                        iconLeft: "/icons/account.svg"
                         text: qsTr("User settings")
-                        subText: qsTr("Configure who can log in")
+                        helpText: qsTr("Configure who can log in")
+                        showChildrenIndicator: true
                         visible: engine.jsonRpcClient.ensureServerVersion("4.2")
                                  && engine.jsonRpcClient.authenticated
                         onClicked: pageStack.push(Qt.resolvedUrl("system/ConsolinnoUsersSettingsPage.qml"))
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
-                        iconSource: "/icons/connections/network-wifi.svg"
+                        iconLeft: "/icons/connections/network-wifi.svg"
                         text: qsTr("Networking")
-                        subText: qsTr("Configure the system's network connection")
+                        helpText: qsTr("Configure the system's network connection")
+                        showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
                                  && Configuration.networkSettingsEnabled
                         onClicked: pageStack.push(Qt.resolvedUrl("system/ConsolinnoNetworkSettingsPage.qml"))
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
-                        iconSource: "/icons/connections/network-vpn.svg"
+                        iconLeft: "/icons/connections/network-vpn.svg"
                         text: qsTr("Connection settings")
-                        subText: qsTr("Configure how applications can connect to this system")
+                        helpText: qsTr("Configure how applications can connect to this system")
+                        showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
                                  && Configuration.apiSettingsEnabled
                         onClicked: pageStack.push(Qt.resolvedUrl("system/ConsolinnoConnectionInterfacesPage.qml"))
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
-                        iconSource: "/icons/modbus.svg"
+                        iconLeft: "/icons/modbus.svg"
                         text: qsTr("Modbus RTU")
-                        subText: qsTr("Configure Modbus RTU master interfaces")
+                        helpText: qsTr("Configure Modbus RTU master interfaces")
+                        showChildrenIndicator: true
                         visible: engine.jsonRpcClient.ensureServerVersion("5.6") &&
                                  NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
                         onClicked: pageStack.push(Qt.resolvedUrl("system/ConsolinnoModbusRtuSettingsPage.qml"),{settingsWizard: false})
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
-                        iconSource: "/icons/plugin.svg"
+                        iconLeft: "/icons/plugin.svg"
                         text: qsTr("Plugins")
-                        subText: qsTr("List and cofigure installed plugins")
+                        helpText: qsTr("List and cofigure installed plugins")
+                        showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
                                  Configuration.pluginSettingsEnabled
                         onClicked:pageStack.push(Qt.resolvedUrl("system/PluginsPage.qml"))
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
-                        iconSource: "/icons/logs.svg"
+                        iconLeft: "/icons/logs.svg"
                         text: qsTr("Log viewer")
-                        subText: qsTr("View system log")
+                        helpText: qsTr("View system log")
+                        showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
                         onClicked: {
                             if (engine.jsonRpcClient.ensureServerVersion("8.0")) {
@@ -225,11 +242,12 @@ Page {
                         }
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
-                        iconSource: "/icons/info.svg"
+                        iconLeft: "/icons/info.svg"
                         text: qsTr("About %1").arg(Configuration.systemName)
-                        subText: qsTr("Find server UUID and versions")
+                        helpText: qsTr("Find server UUID and versions")
+                        showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("system/AboutNymeaPage.qml"))
                     }
                 }
@@ -245,55 +263,60 @@ Page {
                     spacing: 0 // #TODO use value from new style
 
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
-                        iconSource: "/icons/mqtt.svg"
+                        iconLeft: "/icons/mqtt.svg"
                         text: qsTr("MQTT broker")
-                        subText: qsTr("Configure the MQTT broker")
+                        helpText: qsTr("Configure the MQTT broker")
+                        showChildrenIndicator: true
                         visible: engine.jsonRpcClient.ensureServerVersion("1.11") &&
                                  NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
                                  settings.showHiddenOptions
                         onClicked: pageStack.push(Qt.resolvedUrl("system/MqttBrokerSettingsPage.qml"))
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
-                        iconSource: "/icons/stock_website.svg"
+                        iconLeft: "/icons/stock_website.svg"
                         text: qsTr("Web server")
-                        subText: qsTr("Configure the web server")
+                        helpText: qsTr("Configure the web server")
+                        showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
                                  Configuration.webServerSettingsEnabled &&
                                  settings.showHiddenOptions
                         onClicked: pageStack.push(Qt.resolvedUrl("system/WebServerSettingsPage.qml"))
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
-                        iconSource: "/icons/zigbee.svg"
+                        iconLeft: "/icons/zigbee.svg"
                         text: qsTr("ZigBee")
-                        subText: qsTr("Configure ZigBee networks")
+                        helpText: qsTr("Configure ZigBee networks")
+                        showChildrenIndicator: true
                         visible: engine.jsonRpcClient.ensureServerVersion("5.3") &&
                                  NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
                                  settings.showHiddenOptions
                         onClicked: pageStack.push(Qt.resolvedUrl("system/zigbee/ZigbeeSettingsPage.qml"))
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
-                        iconSource: "/icons/z-wave.svg"
+                        iconLeft: "/icons/z-wave.svg"
                         text: qsTr("Z-Wave")
-                        subText: qsTr("Configure Z-Wave networks")
+                        helpText: qsTr("Configure Z-Wave networks")
+                        showChildrenIndicator: true
                         visible: engine.jsonRpcClient.ensureServerVersion("6.1") &&
                                  NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
                                  settings.showHiddenOptions
                         onClicked: pageStack.push(Qt.resolvedUrl("system/zwave/ZWaveSettingsPage.qml"))
                     }
 
-                    SettingsTile {
+                    CoCard {
                         Layout.fillWidth: true
-                        iconSource: "/icons/sdk.svg"
+                        iconLeft: "/icons/sdk.svg"
                         text: qsTr("Developer tools")
-                        subText: qsTr("Access tools for debugging and error reporting")
+                        helpText: qsTr("Access tools for debugging and error reporting")
+                        showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
                                  Configuration.developerSettingsEnabled
                         // #TODO what's the difference to settings.showHiddenOptions?
