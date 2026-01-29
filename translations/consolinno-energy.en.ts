@@ -2787,7 +2787,7 @@ Use a timeout value greater or equal to 10 ms.</source>
 &lt;h4&gt;Improvements&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Improved message texts related to LPC&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Pop-up message if the entry for taxes or grid fees is missing when setting up the electricity tariff&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Pop-up message if the entry for levies or grid fees is missing when setting up the electricity tariff&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Heating rod optimisation:&lt;br&gt;The heating rod now only activates once the battery is charged to 80 %&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
