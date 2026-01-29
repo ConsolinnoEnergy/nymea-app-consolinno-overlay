@@ -6,6 +6,11 @@ Frame {
     property alias headerText: header.text
     default property alias content: body.data
 
+    leftPadding: 0
+    rightPadding: 0
+    topPadding: 0
+    bottomPadding: 0
+
     // #TODO remove again
     Component.onCompleted: {
         console.warn("---", width, height, implicitWidth, implicitHeight);
@@ -54,10 +59,10 @@ Frame {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: header.bottom
-            anchors.topMargin: 16
-            anchors.leftMargin: 16 // #TODO use value from style
-            anchors.rightMargin: 16 // #TODO use value from style
-            anchors.bottomMargin: 0 // #TODO use value from style
+            anchors.topMargin: 8 // #TODO use value from new style
+            anchors.bottomMargin: 0
+            anchors.leftMargin: 0
+            anchors.rightMargin: 0
             // #TODO this probably does not work in all cases
             implicitHeight: children.length > 0 ? children[0].implicitHeight : 0
         }
