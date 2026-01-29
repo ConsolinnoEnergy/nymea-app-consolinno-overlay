@@ -18,7 +18,7 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: "#FFFFFF" // #TODO use values from new style
+        color: mouseArea.containsMouse ? "#FFFFFF" : "transparent" // #TODO use values from new style
 
         Rectangle {
             id: backgroundInteractionOverlay
