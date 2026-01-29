@@ -72,6 +72,11 @@ MainViewBase {
                         ColumnLayout {
                             anchors.left: parent.left
                             anchors.right: parent.right
+                            anchors.topMargin: 8 // #TODO use values from new style
+                            anchors.bottomMargin: 8 // #TODO use values from new style
+                            anchors.leftMargin: 16 // #TODO use values from new style
+                            anchors.rightMargin: 16 // #TODO use values from new style
+
                             spacing: 16 // #TODO use value from new style
 
                             CoInfoCard {
@@ -124,6 +129,10 @@ MainViewBase {
                         ColumnLayout {
                             anchors.left: parent.left
                             anchors.right: parent.right
+                            anchors.topMargin: 8 // #TODO use values from new style
+                            anchors.bottomMargin: 8 // #TODO use values from new style
+                            anchors.leftMargin: 16 // #TODO use values from new style
+                            anchors.rightMargin: 16 // #TODO use values from new style
                             spacing: 16 // #TODO use value from new style
 
                             CoInfoCard {
@@ -167,7 +176,9 @@ MainViewBase {
                         ColumnLayout {
                             anchors.left: parent.left
                             anchors.right: parent.right
-                            spacing: 16 // #TODO use value from new style
+                            anchors.topMargin: 8 // #TODO use values from new style
+                            anchors.bottomMargin: 8 // #TODO use values from new style
+                            spacing: 0
 
                             CoCard {
                                 Layout.fillWidth: true
