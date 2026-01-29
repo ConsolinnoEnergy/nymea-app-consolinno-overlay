@@ -2786,23 +2786,20 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.12.0&lt;/p&gt;
+&lt;p&gt;Version 1.13.0&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;§ 9EEG: Netzdienliche Abregelung jetzt für Hybrid-Systeme verfügbar&lt;/li&gt;
-&lt;li&gt;Feedback zu Updates: Visuelle Anzeige laufender Updates über LEDs&lt;/li&gt;
-&lt;li&gt;Service UI:
-&lt;ul&gt;
-&lt;li&gt;Installateur-Betriebe können sich registrieren&lt;/li&gt;
-&lt;li&gt;erhalten so Zugang zu den eigenen installierten Anlagen&lt;/li&gt;
-&lt;li&gt;Voraussetzung: Anmeldung des HEMS-Systems in der Service-UI&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
+&lt;li&gt;Optimierung von SG‑Ready‑Wärmepumpen mit dynamischem Stromtarif&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;HEMS-Konfiguration jetzt auch ohne PV möglich&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Einspeiseabregelung (LPP) für nicht‑hybride Wechselrichter&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Verbessertes Batterieladen mit dynamischem Tarif: Auch das Entladen der Batterie kann tarifabhängig gesperrt werden für maximale Effizienz.
+Preis- und Entladegrenzen werden auf Basis des Durchschnittspreises berechnet.&lt;br&gt;&lt;b&gt;Hinweis: Tarifgesteuertes Laden muss nach dem Update neu konfiguriert werden!&lt;/b&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Verbesserungen&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;Netzdienliche Steuerung: Optimiert für mehr Komfort und Effizienz&lt;/li&gt;
-&lt;li&gt;Wärmepumpensteuerung: SG-Ready-Standard  (1.0 oder 1.1) direkt einstellbar in der App&lt;/li&gt;
+&lt;li&gt;Aussagekräftigere Meldungstexte im Zusammenhang mit LPC&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Pop‑up Hinweis, wenn bei der Einrichtung des Stromtarifs die Eingabe für Abgaben oder Netzentgelte fehlt&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Optimierung des Heizstabs:&lt;br&gt;Der Heizstab aktiviert sich erst, wenn der Batteriespeicher mindestens 80 % geladen ist&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
