@@ -30,9 +30,9 @@ Page {
                 left: parent.left;
                 top: parent.top;
                 right: parent.right;
-                margins: Style.smallMargins
+                margins: 8 // #TODO use values from new style
             }
-            spacing: 0
+            spacing: 16 // #TODO use values from new style
 
             CoFrostyCard {
                 Layout.fillWidth: true
