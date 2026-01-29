@@ -2782,13 +2782,12 @@ Use a timeout value greater or equal to 10 ms.</source>
 &lt;li&gt;Optimisation of SG‑ready heat pumps with dynamic electricity tariffs&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;HEMS can now be configured without PV&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Feed‑in regulation (LPP) for non‑hybrid inverters&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Improved battery charging with dynamic tariffs: Battery discharge can also be blocked depending on the tariff for maximum efficiency.
-Price and discharge limits are calculated based on the average price.&lt;br&gt;&lt;b&gt;Note: Tariff-controlled charging must be reconfigured after the update!&lt;/b&gt;&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Improved battery charging with dynamic tariffs: Battery discharge can also be blocked depending on the tariff for maximum efficiency. Price and discharge limits are calculated based on the average price.&lt;br&gt;&lt;b&gt;Note: Tariff-controlled charging must be reconfigured after the update!&lt;/b&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Improvements&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Improved message texts related to LPC&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Pop‑up notification if feed-in or grid fee input is missing during electricity tariff setup&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Pop-up message if the entry for taxes or grid fees is missing when setting up the electricity tariff&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Heating rod optimisation:&lt;br&gt;The heating rod now only activates once the battery is charged to 80 %&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>

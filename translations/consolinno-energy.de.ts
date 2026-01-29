@@ -2798,7 +2798,7 @@ Preis- und Entladegrenzen werden auf Basis des Durchschnittspreises berechnet.&l
 &lt;h4&gt;Verbesserungen&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Aussagekräftigere Meldungstexte im Zusammenhang mit LPC&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Pop‑up Hinweis, wenn bei der Einrichtung des Stromtarifs die Eingabe für Einspeisevergütung oder Netzentgelte fehlt&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Pop‑up Hinweis, wenn bei der Einrichtung des Stromtarifs die Eingabe für Abgaben oder Netzentgelte fehlt&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Optimierung des Heizstabs:&lt;br&gt;Der Heizstab aktiviert sich erst, wenn der Batteriespeicher mindestens 80 % geladen ist&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
