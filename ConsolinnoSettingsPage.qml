@@ -43,6 +43,8 @@ Page {
                     anchors.right: parent.right
                     spacing: 0 // #TODO use value from new style
 
+                    // #TODO use new Card Component instead of SettingsTile
+
                     SettingsTile {
                         Layout.fillWidth: true
                         text: qsTr("Optimization configuration")
@@ -50,7 +52,7 @@ Page {
                         iconSource: "/icons/preferences-look-and-feel.svg" // #TODO
                         onClicked: pageStack.push(Qt.resolvedUrl("mainviews/OptimizationConfiguration.qml"),
                                                   {
-                                                      "hemsManager": root.hemsManager
+                                                      "hemsManager": hemsManager
                                                   })
                         // #TODO visibility (cf. HemsOptimizationPage.qml)
                     }
@@ -62,7 +64,7 @@ Page {
                         iconSource: "/icons/preferences-look-and-feel.svg" // #TODO
                         onClicked: pageStack.push(Qt.resolvedUrl("thingconfiguration/DeviceOverview.qml"),
                                                   {
-                                                      "hemsManager": root.hemsManager
+                                                      "hemsManager": hemsManager
                                                   })
                         // #TODO visibility (cf. HemsOptimizationPage.qml)
                     }
@@ -74,7 +76,7 @@ Page {
                         iconSource: "/icons/preferences-look-and-feel.svg" // #TODO
                         onClicked: pageStack.push(Qt.resolvedUrl("optimization/DeveloperConfig.qml"),
                                                   {
-                                                      "hemsManager": root.hemsManager
+                                                      "hemsManager": hemsManager
                                                   })
                         // #TODO visibility (cf. HemsOptimizationPage.qml)
                     }
@@ -86,7 +88,7 @@ Page {
                         iconSource: "/icons/preferences-look-and-feel.svg" // #TODO
                         onClicked: pageStack.push(Qt.resolvedUrl("optimization/DynamicElectricityRate.qml"),
                                                   {
-                                                      "hemsManager": root.hemsManager
+                                                      "hemsManager": hemsManager
                                                   })
                         // #TODO visibility (cf. HemsOptimizationPage.qml)
                     }
@@ -98,7 +100,7 @@ Page {
                         iconSource: "/icons/preferences-look-and-feel.svg" // #TODO
                         onClicked: pageStack.push(Qt.resolvedUrl("optimization/GridSupportiveControl.qml"),
                                                   {
-                                                      "hemsManager": root.hemsManager
+                                                      "hemsManager": hemsManager
                                                   })
                         // #TODO visibility (cf. HemsOptimizationPage.qml)
                     }
