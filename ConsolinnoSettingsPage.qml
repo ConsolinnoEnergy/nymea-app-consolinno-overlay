@@ -9,9 +9,14 @@ import "components"
 Page {
     id: root
     header: NymeaHeader {
-        text: qsTr("System settings")
-        backButtonVisible: true
+        text: qsTr("Settings")
+        backButtonVisible: true  // #TODO Back Button im Moment nicht im neuen Design. Wird der hier gebraucht?
         onBackPressed: pageStack.pop()
+    }
+
+    HemsManager{
+        id: hemsManager
+        engine: _engine
     }
 
     Flickable {
@@ -19,13 +24,108 @@ Page {
         contentHeight: layout.implicitHeight + app.margins
         clip: true
 
-        GridLayout {
+        ColumnLayout {
             id: layout
-            property bool isGrid: columns > 1
-            anchors { left: parent.left; top: parent.top; right: parent.right; margins: Style.smallMargins }
-            columns: Math.max(1, Math.floor(parent.width / 300))
-            rowSpacing: 0
-            columnSpacing: 0
+            anchors {
+                left: parent.left;
+                top: parent.top;
+                right: parent.right;
+                margins: Style.smallMargins
+            }
+            spacing: 0
+
+            // Configuration
+
+            SettingsTile {
+                Layout.fillWidth: true
+                text: qsTr("Optimization configuration")
+                subText: qsTr("Optimize devices and system behavior")
+                iconSource: "/icons/preferences-look-and-feel.svg" // #TODO
+                onClicked: pageStack.push(Qt.resolvedUrl("mainviews/OptimizationConfiguration.qml"),
+                                          {
+                                              "hemsManager": hemsManager
+                                          })
+                // #TODO visibility (cf. HemsOptimizationPage.qml)
+            }
+
+            SettingsTile {
+                Layout.fillWidth: true
+                text: qsTr("Comissioning")
+                subText: qsTr("Install devices and set up the system. For installers only.")
+                iconSource: "/icons/preferences-look-and-feel.svg" // #TODO
+                onClicked: pageStack.push(Qt.resolvedUrl("thingconfiguration/DeviceOverview.qml"),
+                                          {
+                                              "hemsManager": hemsManager
+                                          })
+                // #TODO visibility (cf. HemsOptimizationPage.qml)
+            }
+
+            SettingsTile {
+                Layout.fillWidth: true
+                text: qsTr("Development")
+                subText: ""
+                iconSource: "/icons/preferences-look-and-feel.svg" // #TODO
+                onClicked: pageStack.push(Qt.resolvedUrl("optimization/DeveloperConfig.qml"),
+                                          {
+                                              "hemsManager": hemsManager
+                                          })
+                // #TODO visibility (cf. HemsOptimizationPage.qml)
+            }
+
+            SettingsTile {
+                Layout.fillWidth: true
+                text: qsTr("Dynamic electricity tariff")
+                subText: qsTr("Set up a dynamic electicity tariff for the system to operate with.")
+                iconSource: "/icons/preferences-look-and-feel.svg" // #TODO
+                onClicked: pageStack.push(Qt.resolvedUrl("optimization/DynamicElectricityRate.qml"),
+                                          {
+                                              "hemsManager": hemsManager
+                                          })
+                // #TODO visibility (cf. HemsOptimizationPage.qml)
+            }
+
+            SettingsTile {
+                Layout.fillWidth: true
+                text: qsTr("Grid-supportive control")
+                subText: qsTr("Configure grid support capabilities through relays or EEBUS. For installers only.")
+                iconSource: "/icons/preferences-look-and-feel.svg" // #TODO
+                onClicked: pageStack.push(Qt.resolvedUrl("optimization/GridSupportiveControl.qml"),
+                                          {
+                                              "hemsManager": hemsManager
+                                          })
+                // #TODO visibility (cf. HemsOptimizationPage.qml)
+            }
+
+
+
+            // App Settings
+
+            SettingsTile {
+                Layout.fillWidth: true
+                text: qsTr("Look & feel")
+                subText: qsTr("Customize the app's look and behavior")
+                iconSource: "/icons/preferences-look-and-feel.svg"
+                onClicked: pageStack.push(Qt.resolvedUrl("appsettings/ConsolinnoLookAndFeelSettingsPage.qml"))
+            }
+
+            SettingsTile {
+                Layout.fillWidth: true
+                text: qsTr("Developer options")
+                subText: qsTr("Access tools for debugging and error reporting")
+                iconSource: "/icons/sdk.svg"
+                onClicked: pageStack.push(Qt.resolvedUrl("appsettings/DeveloperOptionsPage.qml"))
+            }
+
+            SettingsTile {
+                Layout.fillWidth: true
+                text: qsTr("About %1").arg(Configuration.appName)
+                subText: qsTr("Find app versions and licence information")
+                iconSource: "/icons/info.svg"
+                onClicked: pageStack.push(Qt.resolvedUrl("appsettings/AboutPage.qml"))
+            }
+
+
+            // System Settings
 
             SettingsTile {
                 Layout.fillWidth: true
@@ -71,8 +171,9 @@ Page {
                 iconSource: "/icons/mqtt.svg"
                 text: qsTr("MQTT broker")
                 subText: qsTr("Configure the MQTT broker")
-                visible: engine.jsonRpcClient.ensureServerVersion("1.11") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
-                         && settings.showHiddenOptions
+                visible: engine.jsonRpcClient.ensureServerVersion("1.11") &&
+                         NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
+                         settings.showHiddenOptions
                 onClicked: pageStack.push(Qt.resolvedUrl("system/MqttBrokerSettingsPage.qml"))
             }
 
@@ -81,8 +182,8 @@ Page {
                 iconSource: "/icons/stock_website.svg"
                 text: qsTr("Web server")
                 subText: qsTr("Configure the web server")
-                visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
-                         && Configuration.webServerSettingsEnabled && settings.showHiddenOptions
+                visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
+                         Configuration.webServerSettingsEnabled && settings.showHiddenOptions
                 onClicked: pageStack.push(Qt.resolvedUrl("system/WebServerSettingsPage.qml"))
             }
 
@@ -91,8 +192,9 @@ Page {
                 iconSource: "/icons/zigbee.svg"
                 text: qsTr("ZigBee")
                 subText: qsTr("Configure ZigBee networks")
-                visible: engine.jsonRpcClient.ensureServerVersion("5.3") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
-                         && settings.showHiddenOptions
+                visible: engine.jsonRpcClient.ensureServerVersion("5.3") &&
+                         NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
+                         settings.showHiddenOptions
                 onClicked: pageStack.push(Qt.resolvedUrl("system/zigbee/ZigbeeSettingsPage.qml"))
             }
 
@@ -101,8 +203,9 @@ Page {
                 iconSource: "/icons/z-wave.svg"
                 text: qsTr("Z-Wave")
                 subText: qsTr("Configure Z-Wave networks")
-                visible: engine.jsonRpcClient.ensureServerVersion("6.1") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
-                         && settings.showHiddenOptions
+                visible: engine.jsonRpcClient.ensureServerVersion("6.1") &&
+                         NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
+                         settings.showHiddenOptions
                 onClicked: pageStack.push(Qt.resolvedUrl("system/zwave/ZWaveSettingsPage.qml"))
             }
 
@@ -111,7 +214,8 @@ Page {
                 iconSource: "/icons/modbus.svg"
                 text: qsTr("Modbus RTU")
                 subText: qsTr("Configure Modbus RTU master interfaces")
-                visible: engine.jsonRpcClient.ensureServerVersion("5.6") && NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
+                visible: engine.jsonRpcClient.ensureServerVersion("5.6") &&
+                         NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
                 onClicked: pageStack.push(Qt.resolvedUrl("system/ConsolinnoModbusRtuSettingsPage.qml"),{settingsWizard: false})
             }
 
@@ -120,7 +224,8 @@ Page {
                 iconSource: "/icons/plugin.svg"
                 text: qsTr("Plugins")
                 subText: qsTr("List and cofigure installed plugins")
-                visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) && Configuration.pluginSettingsEnabled
+                visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
+                         Configuration.pluginSettingsEnabled
                 onClicked:pageStack.push(Qt.resolvedUrl("system/PluginsPage.qml"))
             }
 
@@ -129,8 +234,8 @@ Page {
                 iconSource: "/icons/sdk.svg"
                 text: qsTr("Developer tools")
                 subText: qsTr("Access tools for debugging and error reporting")
-                visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
-                         && Configuration.developerSettingsEnabled
+                visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
+                         Configuration.developerSettingsEnabled
                 onClicked: pageStack.push(Qt.resolvedUrl("system/DeveloperTools.qml"))
             }
 
@@ -166,6 +271,11 @@ Page {
                 subText: qsTr("Find server UUID and versions")
                 onClicked: pageStack.push(Qt.resolvedUrl("system/AboutNymeaPage.qml"))
             }
+
+
+            // #TODO Developer settings (move stuff here which is only visible when settings.showHiddenOptions is true
+            // ATTENTION: There is also Configuration.developerSettingsEnabled. What's the difference?
+
         }
     }
 }
