@@ -64,6 +64,7 @@ MainViewBase {
                 ColumnLayout {
                     id: dashboardLayout
                     anchors.fill: parent
+                    spacing: 16 // #TODO use value from new style
 
                     CoFrostyCard {
                         Layout.fillWidth: true
