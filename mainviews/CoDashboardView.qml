@@ -160,6 +160,37 @@ MainViewBase {
                         }
                     }
 
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+
+                        headerText: "Card component"
+                        ColumnLayout {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            spacing: 16 // #TODO use value from new style
+
+                            CoCard {
+                                Layout.fillWidth: true
+
+                                text: "Text"
+                                helpText: "Help text"
+                                labelText: "Label"
+                                iconLeft: Qt.resolvedUrl("qrc:/icons/up.svg")
+                                iconRight: Qt.resolvedUrl("qrc:/icons/down.svg")
+                                showChildrenIndicator: true
+                            }
+
+                            CoCard {
+                                Layout.fillWidth: true
+
+                                text: "Text"
+                                helpText: "Some very very very very very very very very very very very long text"
+                                labelText: "Another  very very very very very very very very very very long text"
+                                iconLeft: Qt.resolvedUrl("qrc:/icons/up.svg")
+                            }
+                        }
+                    }
+
                     Rectangle {
                         id: spacer
                         Layout.fillWidth: true

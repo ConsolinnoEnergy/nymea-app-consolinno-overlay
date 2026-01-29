@@ -1,1 +1,72 @@
-git restore Configuration.qml overlay.qrc packaging/android/appicon-legacy.svg packaging/android/appicon.svg packaging/android/notificationicon.svg packaging/android/res/drawable/splash_light.xml packaging/android/splash-dark.svg packaging/android/splash-light.svg packaging/android/store-feature-graphic.png packaging/android/store-feature-graphic.svg packaging/android/store-icon.png packaging/android/store-icon.svg packaging/appimage/consolinno-energy.desktop packaging/ios/AppIcon.svg packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon1024x1024.png packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon20x20.png packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon20x20@2x.png packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon20x20@3x.png packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon29x29.png packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon29x29@2x.png packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon29x29@3x.png packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon40x40.png packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon40x40@2x.png packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon40x40@3x.png packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon60x60@2x.png packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon60x60@3x.png packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon76x76.png packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon76x76@2x.png packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon83.5x83.5@2x.png packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreen@1x.png packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreen@2x.png packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreen@3x.png packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenD@1x.png packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenD@2x.png packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenD@3x.png packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenL@1x.png packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenL@2x.png packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenL@3x.png packaging/ios/splash-dark.svg packaging/ios/splash-light.svg packaging/linux-common/icons/hicolor/16x16/apps/consolinno-energy.png packaging/linux-common/icons/hicolor/22x22/apps/consolinno-energy.png packaging/linux-common/icons/hicolor/24x24/apps/consolinno-energy.png packaging/linux-common/icons/hicolor/256x256/apps/consolinno-energy.png packaging/linux-common/icons/hicolor/32x32/apps/consolinno-energy.png packaging/linux-common/icons/hicolor/48x48/apps/consolinno-energy.png packaging/linux-common/icons/hicolor/64x64/apps/consolinno-energy.png packaging/linux-common/leaf.svg packaging/osx/AppIcon.iconset/icon_128x128.png packaging/osx/AppIcon.iconset/icon_128x128@2x.png packaging/osx/AppIcon.iconset/icon_16x16.png packaging/osx/AppIcon.iconset/icon_16x16@2x.png packaging/osx/AppIcon.iconset/icon_256x256.png packaging/osx/AppIcon.iconset/icon_256x256@2x.png packaging/osx/AppIcon.iconset/icon_32x32.png packaging/osx/AppIcon.iconset/icon_32x32@2x.png packaging/osx/AppIcon.iconset/icon_512x512.png packaging/osx/AppIcon.iconset/icon_512x512@2x.png packaging/osx/AppIcon.svg packaging/windows/config/config.xml packaging/windows/packages/hems.consolinno.energy/meta/installscript.qs packaging/windows/packages/hems.consolinno.energy/meta/package.xml privacy_agreement_de_DE.html styles/dark/Style.qml styles/light/Style.qml styles/light/logo-wide.svg 
+#!/bin/bash
+
+git restore \
+Configuration.qml \
+overlay.qrc \
+packaging/android/appicon-legacy.svg \
+packaging/android/appicon.svg \
+packaging/android/notificationicon.svg \
+packaging/android/res/drawable/splash_light.xml \
+packaging/android/splash-dark.svg \
+packaging/android/splash-light.svg \
+packaging/android/store-feature-graphic.png \
+packaging/android/store-feature-graphic.svg \
+packaging/android/store-icon.png \
+packaging/android/store-icon.svg \
+packaging/appimage/consolinno-energy.desktop \
+packaging/ios/AppIcon.svg \
+packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon1024x1024.png \
+packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon20x20.png \
+packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon20x20@2x.png \
+packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon20x20@3x.png \
+packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon29x29.png \
+packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon29x29@2x.png \
+packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon29x29@3x.png \
+packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon40x40.png \
+packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon40x40@2x.png \
+packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon40x40@3x.png \
+packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon60x60@2x.png \
+packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon60x60@3x.png \
+packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon76x76.png \
+packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon76x76@2x.png \
+packaging/ios/Assets.xcassets/AppIcon.appiconset/AppIcon83.5x83.5@2x.png \
+packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreen@1x.png \
+packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreen@2x.png \
+packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreen@3x.png \
+packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenD@1x.png \
+packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenD@2x.png \
+packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenD@3x.png \
+packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenL@1x.png \
+packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenL@2x.png \
+packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenL@3x.png \
+packaging/ios/splash-dark.svg \
+packaging/ios/splash-light.svg \
+packaging/linux-common/icons/hicolor/16x16/apps/consolinno-energy.png \
+packaging/linux-common/icons/hicolor/22x22/apps/consolinno-energy.png \
+packaging/linux-common/icons/hicolor/24x24/apps/consolinno-energy.png \
+packaging/linux-common/icons/hicolor/256x256/apps/consolinno-energy.png \
+packaging/linux-common/icons/hicolor/32x32/apps/consolinno-energy.png \
+packaging/linux-common/icons/hicolor/48x48/apps/consolinno-energy.png \
+packaging/linux-common/icons/hicolor/64x64/apps/consolinno-energy.png \
+packaging/linux-common/leaf.svg \
+packaging/osx/AppIcon.iconset/icon_128x128.png \
+packaging/osx/AppIcon.iconset/icon_128x128@2x.png \
+packaging/osx/AppIcon.iconset/icon_16x16.png \
+packaging/osx/AppIcon.iconset/icon_16x16@2x.png \
+packaging/osx/AppIcon.iconset/icon_256x256.png \
+packaging/osx/AppIcon.iconset/icon_256x256@2x.png \
+packaging/osx/AppIcon.iconset/icon_32x32.png \
+packaging/osx/AppIcon.iconset/icon_32x32@2x.png \
+packaging/osx/AppIcon.iconset/icon_512x512.png \
+packaging/osx/AppIcon.iconset/icon_512x512@2x.png \
+packaging/osx/AppIcon.svg \
+packaging/windows/config/config.xml \
+packaging/windows/packages/hems.consolinno.energy/meta/installscript.qs \
+packaging/windows/packages/hems.consolinno.energy/meta/package.xml \
+privacy_agreement_de_DE.html \
+styles/dark/Style.qml \
+styles/light/Style.qml \
+styles/light/logo-wide.svg \
+
+rm -rf icons
+rm overlay-config.pri
