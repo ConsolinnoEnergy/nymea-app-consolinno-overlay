@@ -178,6 +178,10 @@ MainViewBase {
                                 iconLeft: Qt.resolvedUrl("qrc:/icons/up.svg")
                                 iconRight: Qt.resolvedUrl("qrc:/icons/down.svg")
                                 showChildrenIndicator: true
+
+                                onClicked: {
+                                    console.warn("======= CLICKED");
+                                }
                             }
 
                             CoCard {

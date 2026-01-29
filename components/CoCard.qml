@@ -11,6 +11,8 @@ Item {
     property alias iconLeft: leftIcon.name
     property alias iconRight: rightIcon.name
 
+    signal clicked()
+
     implicitHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
 
     Rectangle {
@@ -109,5 +111,6 @@ Item {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: true
+        onClicked: parent.clicked()
     }
 }
