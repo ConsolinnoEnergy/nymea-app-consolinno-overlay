@@ -124,6 +124,24 @@ MainViewBase {
         shownInterfaces: ["dynamicelectricitypricing"]
     }
 
+    ThingsProxy {
+        id: gridSupportThings
+        engine: _engine
+        shownInterfaces: ["gridsupport"]
+    }
+
+    ThingsProxy {
+        id: electricVehicleThings
+        engine: _engine
+        shownInterfaces: ["electricvehicle"]
+    }
+
+    readonly property Thing gridSupport: gridSupportThings.count > 0 ? gridSupportThings.get(0) : null
+    readonly property Thing rootMeter: engine.thingManager.fetchingData ?
+                                           null :
+                                           engine.thingManager.things.getThing(energyManager.rootMeterId)
+    readonly property Thing dynamicPricingThing: dynamicPricingThings.count > 0 ? dynamicPricingThings.get(0) : null
+
     Flickable {
         id: flickable
         anchors.fill: parent
@@ -190,13 +208,14 @@ MainViewBase {
                                 }
                             }
 
-                            CoInfoCard {
+                            CoPowerThingInfoCard {
                                 Layout.fillWidth: true
                                 Layout.row: 0
                                 Layout.column: 2
-                                text: qsTr("Grid") // #TODO English name
-                                value: "300 W" // #TODO value
+                                text: qsTr("Grid")
+                                thing: rootMeter
                                 compactLayout: true
+                                // #TODO LPP/LPC indicator
                                 icon: {
                                     if (Configuration.gridIcon !== "") {
                                         return Qt.resolvedUrl("/ui/images/" + Configuration.gridIcon)
@@ -205,8 +224,15 @@ MainViewBase {
                                     }
                                 }
                                 onClicked: {
-                                    // #TODO
-                                    console.warn("Clicked grid card");
+                                    console.info("Clicked grid card");
+                                    pageStack.push(
+                                                "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
+                                                {
+                                                    "thing": thing,
+                                                    "isRootmeter": true,
+                                                    "isNotify": false, // #TODO LPP/LPC notification
+                                                    "gridSupportThing": gridSupport
+                                                });
                                 }
                             }
 
@@ -293,10 +319,10 @@ MainViewBase {
 
                             CoInfoCard {
                                 Layout.fillWidth: true
-                                property Thing thing: dynamicPricingThings.count > 0 ? dynamicPricingThings.get(0) : null
+                                property Thing thing: dynamicPricingThing
                                 readonly property State currentMarketPriceState: thing ? thing.stateByName("currentTotalCost") : null
                                 readonly property double currentMarketPrice: currentMarketPriceState ? currentMarketPriceState.value.toFixed(2) : 0
-                                visible: dynamicPricingThings.count > 0
+                                visible: dynamicPricingThing ? true : false
                                 text: thing.name
                                 value: {
                                     let v = currentMarketPrice;
@@ -318,8 +344,9 @@ MainViewBase {
                                     }
                                 }
                                 onClicked: {
-                                    // #TODO open thing detail page here
-                                    console.warn("Clicked dynamic tariff:");
+                                    console.info("Clicked dynamic tariff");
+                                    pageStack.push("/ui/devicepages/PageWraper.qml",
+                                                   { "thing": thing });
                                 }
                             }
                         }
@@ -348,8 +375,14 @@ MainViewBase {
                                     icon: thingToIcon(thing)
                                     // #TODO warning indicator for LPP
                                     onClicked: {
-                                        // #TODO open thing detail page here
-                                        console.warn("Clicked thing:", index, thing.name);
+                                        console.info("Clicked inverter:", thing.name);
+                                        pageStack.push(
+                                                    "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
+                                                    {
+                                                        "thing": thing,
+                                                        "isNotify": false, // #TODO LPP active
+                                                        "gridSupportThing": gridSupport
+                                                    });
                                     }
                                 }
                             }
@@ -378,8 +411,16 @@ MainViewBase {
                                     thing: batteriesThings.get(index)
                                     icon: thingToIcon(thing)
                                     onClicked: {
-                                        // #TODO open thing detail page here
-                                        console.warn("Clicked thing:", index, thing.name);
+                                        console.info("Clicked battery:", thing.name);
+                                        let batteryView = thing.thingClass.interfaces.indexOf("controllablebattery") >= 0 ?
+                                                "/ui/optimization/BatteryConfigView.qml" :
+                                                "/ui/devicepages/GenericSmartDeviceMeterPage.qml";
+                                        pageStack.push(batteryView,
+                                                       {
+                                                           "hemsManager": hemsManager,
+                                                           "thing": thing,
+                                                           "isBatteryView": true
+                                                       });
                                     }
                                 }
                             }
@@ -408,8 +449,30 @@ MainViewBase {
                                     thing: heatingThings.get(index)
                                     icon: thingToIcon(thing)
                                     onClicked: {
-                                        // #TODO open thing detail page here
-                                        console.warn("Clicked thing:", index, thing.name);
+                                        console.info("Clicked heating thing:", thing.name);
+                                        if (thing.thingClass.interfaces.indexOf("heatpump") >= 0) {
+                                            pageStack.push(
+                                                        "/ui/optimization/HeatingConfigView.qml",
+                                                        {
+                                                            "hemsManager": hemsManager,
+                                                            "thing": thing
+                                                        });
+                                        } else if (thing.thingClass.interfaces.indexOf("heatingrod") >= 0) {
+                                            pageStack.push(
+                                                        "/ui/devicepages/HeatingElementDevicePage.qml",
+                                                        {
+                                                            "hemsManager": hemsManager,
+                                                            "thing": thing
+                                                        });
+                                        } else {
+                                            console.warn("Neither heatpump nor heatingrod interface found in thing interfaces:",
+                                                         thing.thingClass.interfaces);
+                                            pageStack.push(
+                                                        "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
+                                                        {
+                                                            "thing": thing
+                                                        });
+                                        }
                                     }
                                 }
                             }
@@ -438,8 +501,33 @@ MainViewBase {
                                     thing: evChargerThings.get(index)
                                     icon: thingToIcon(thing)
                                     onClicked: {
-                                        // #TODO open thing detail page here
-                                        console.warn("Clicked thing:", index, thing.name);
+                                        console.info("Clicked EV charger thing:", thing.name);
+                                        // Check if these states are provided by the thing
+                                        let pluggedIn = thing.stateByName("pluggedIn");
+                                        let maxChargingCurrent = thing.stateByName("maxChargingCurrent");
+                                        let phaseCount = thing.stateByName("phaseCount");
+
+                                        // If yes, you can use the optimization else you have to
+                                        // resort to the EvChargerThingPage
+                                        if (pluggedIn !== null &&
+                                                maxChargingCurrent !== null &&
+                                                phaseCount !== null) {
+                                            let carThingId =
+                                                hemsManager.chargingConfigurations.getChargingConfiguration(thing.id).carThingId;
+                                            pageStack.push(
+                                                        "../optimization/ChargingConfigView.qml",
+                                                        {
+                                                            "hemsManager": hemsManager,
+                                                            "thing": thing,
+                                                            "carThing": electricVehicleThings.getThing(carThingId)
+                                                        });
+                                        } else {
+                                            pageStack.push(
+                                                        "/ui/devicepages/EvChargerThingPage.qml",
+                                                        {
+                                                            "thing": thing
+                                                        });
+                                        }
                                     }
                                 }
                             }
@@ -468,8 +556,12 @@ MainViewBase {
                                     thing: otherConsumerThings.get(index)
                                     icon: thingToIcon(thing)
                                     onClicked: {
-                                        // #TODO open thing detail page here
-                                        console.warn("Clicked thing:", index, thing.name);
+                                        console.info("Clicked thing:", thing.name);
+                                        pageStack.push(
+                                                    "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
+                                                    {
+                                                        "thing": thing
+                                                    });
                                     }
                                 }
                             }
