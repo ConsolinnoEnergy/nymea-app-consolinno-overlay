@@ -12,6 +12,8 @@ Item {
     property bool showWarningIndicator: false
     property bool showErrorIndicator: false
 
+    signal clicked()
+
     implicitHeight: gridLayout.implicitHeight + gridLayout.anchors.topMargin + gridLayout.anchors.bottomMargin
     implicitWidth: gridLayout.implicitWidth + gridLayout.anchors.leftMargin + gridLayout.anchors.rightMargin
 
@@ -109,5 +111,6 @@ Item {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: true
+        onClicked: parent.clicked()
     }
 }
