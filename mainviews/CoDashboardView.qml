@@ -156,6 +156,18 @@ MainViewBase {
                     CoFrostyCard {
                         Layout.fillWidth: true
 
+                        headerText: qsTr("Live status")
+                    }
+
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+
+                        headerText: qsTr("Energy status")
+                    }
+
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+
                         headerText: qsTr("Inverters")
                         ColumnLayout {
                             anchors.left: parent.left
@@ -179,6 +191,7 @@ MainViewBase {
                                     text: thing.name
                                     value: currentPowerState ? Math.abs(currentPower) + " W" : "-"
                                     icon: thingToIcon(thing)
+                                    // #TODO warning indicator for LPP
                                     onClicked: {
                                         // #TODO open thing detail page here
                                         console.warn("Clicked thing:", index, thing.name);
@@ -323,110 +336,15 @@ MainViewBase {
                                 }
                             }
 
-                            // #TODO add info card for non-controllable consumer power
-                        }
-                    }
-
-                    CoFrostyCard {
-                        Layout.fillWidth: true
-
-                        headerText: "Header"
-                        ColumnLayout {
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-                            anchors.topMargin: 8 // #TODO use values from new style
-                            anchors.bottomMargin: 8 // #TODO use values from new style
-                            anchors.leftMargin: 16 // #TODO use values from new style
-                            anchors.rightMargin: 16 // #TODO use values from new style
-
-                            spacing: 16 // #TODO use value from new style
-
                             CoInfoCard {
                                 Layout.fillWidth: true
-
-                                text: "Inverter"
-                                icon: Qt.resolvedUrl("qrc:/icons/heatpump.svg")
-                                value: "700 W"
-                                showWarningIndicator: true
-                            }
-
-                            RowLayout {
-                                Layout.fillWidth: true
-                                spacing: 16
-
-                                CoInfoCard {
-                                    Layout.fillWidth: true
-
-                                    text: "Inverter"
-                                    icon: Qt.resolvedUrl("qrc:/icons/heatpump.svg")
-                                    value: "700 W"
-                                    compactLayout: true
-                                    showErrorIndicator: true
+                                text: qsTr("Non-controllable") // #TODO name
+                                value: "678 W" // #TODO value
+                                icon: Qt.resolvedUrl("qrc:/icons/select-none.svg") // #TODO icon
+                                onClicked: {
+                                    // #TODO is there a detail page for non-controllable consumers?
+                                    console.warn("Clicked thing:", index, thing.name);
                                 }
-
-                                CoInfoCard {
-                                    Layout.fillWidth: true
-
-                                    text: "Inverter"
-                                    icon: Qt.resolvedUrl("qrc:/icons/heatpump.svg")
-                                    value: "700 W"
-                                    compactLayout: true
-                                }
-                            }
-
-                            CoInfoCard {
-                                Layout.fillWidth: true
-
-                                text: "Inverter"
-                                icon: Qt.resolvedUrl("qrc:/icons/heatpump.svg")
-                                value: "700 W"
-                            }
-                        }
-                    }
-
-                    CoFrostyCard {
-                        Layout.fillWidth: true
-
-                        headerText: "Header"
-                        ColumnLayout {
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-                            anchors.topMargin: 8 // #TODO use values from new style
-                            anchors.bottomMargin: 8 // #TODO use values from new style
-                            anchors.leftMargin: 16 // #TODO use values from new style
-                            anchors.rightMargin: 16 // #TODO use values from new style
-                            spacing: 16 // #TODO use value from new style
-
-                            CoInfoCard {
-                                Layout.fillWidth: true
-
-                                text: "Inverter"
-                                icon: Qt.resolvedUrl("qrc:/icons/heatpump.svg")
-                                value: "700 W"
-                            }
-
-                            CoInfoCard {
-                                Layout.fillWidth: true
-
-                                text: "Inverter"
-                                icon: Qt.resolvedUrl("qrc:/icons/heatpump.svg")
-                                value: "700 W"
-                            }
-
-                            CoInfoCard {
-                                Layout.fillWidth: true
-
-                                text: "Inverter"
-                                icon: Qt.resolvedUrl("qrc:/icons/heatpump.svg")
-                                value: "700 W"
-                            }
-
-                            CoInfoCard {
-                                Layout.fillWidth: true
-
-                                text: "Inverter"
-                                icon: Qt.resolvedUrl("qrc:/icons/heatpump.svg")
-                                value: "700 W"
                             }
                         }
                     }
