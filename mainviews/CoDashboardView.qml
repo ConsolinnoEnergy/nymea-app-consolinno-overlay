@@ -20,6 +20,63 @@ MainViewBase {
 
     headerButtons: []
 
+    function thingToIcon(thing) {
+        let ifaces = thing.thingClass.interfaces;
+        for (var i = 0; i < ifaces.length; i++) {
+            let iface = ifaces[i];
+            let icon = ""
+
+            switch (iface) {
+            case "pvsurplusheatpump":
+            case "smartgridheatpump":
+            case "heatpump":
+                if (Configuration.heatpumpIcon !== ""){
+                    icon = "qrc:/ui/images/" + Configuration.heatpumpIcon;
+                } else {
+                    icon = "qrc:/icons/heatpump.svg";
+                }
+                break;
+            case "heatingrod":
+                if (Configuration.heatingRodIcon !== ""){
+                    icon = "qrc:/ui/images/" + Configuration.heatingRodIcon;
+                } else {
+                    icon = "qrc:/icons/heating_rod.svg";
+                }
+                break;
+            case "energystorage":
+                if (Configuration.batteryIcon !== ""){
+                    icon = "qrc:/ui/images/" + Configuration.batteryIcon
+                } else {
+                    icon = "qrc:/icons/battery/battery-060.svg";
+                }
+                break;
+            case "evcharger":
+                if (Configuration.evchargerIcon !== ""){
+                    icon = "qrc:/ui/images/" + Configuration.evchargerIcon
+                } else {
+                    icon = "qrc:/icons/ev-charger.svg";
+                }
+                break;
+            case "solarinverter":
+                if (Configuration.inverterIcon !== ""){
+                    icon = "qrc:/ui/images/" + Configuration.inverterIcon
+                } else {
+                    icon = "qrc:/icons/weathericons/weather-clear-day.svg";
+                }
+                break;
+            default:
+                icon = app.interfaceToIcon(iface)
+            }
+
+            if (icon !== "") {
+                return Qt.resolvedUrl(icon);
+            }
+        }
+        console.warn("thingToIcon: unable to determine icon for thing",
+                     thing.name);
+        return Qt.resolvedUrl("qrc:/icons/select-none.svg");
+    }
+
     EnergyManager {
         id: energyManager
         engine: _engine
@@ -28,6 +85,37 @@ MainViewBase {
     HemsManager {
         id: hemsManager
         engine: _engine
+    }
+
+    ThingsProxy {
+        id: producerThings
+        engine: _engine
+        shownInterfaces: ["smartmeterproducer"]
+    }
+
+    ThingsProxy {
+        id: batteriesThings
+        engine: _engine
+        shownInterfaces: ["energystorage"]
+    }
+
+    ThingsProxy {
+        id: heatingThings
+        engine: _engine
+        shownInterfaces: ["heatpump", "heatingrod"]
+    }
+
+    ThingsProxy {
+        id: evChargerThings
+        engine: _engine
+        shownInterfaces: ["evcharger"]
+    }
+
+    ThingsProxy {
+        id: otherConsumerThings
+        engine: _engine
+        shownInterfaces: ["smartmeterconsumer"]
+        hiddenInterfaces: ["heatpump", "heatingrod", "evcharger"]
     }
 
     Flickable {
@@ -64,6 +152,180 @@ MainViewBase {
                 ColumnLayout {
                     id: dashboardLayout
                     anchors.fill: parent
+
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+
+                        headerText: qsTr("Inverters")
+                        ColumnLayout {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.topMargin: 8 // #TODO use values from new style
+                            anchors.bottomMargin: 8 // #TODO use values from new style
+                            anchors.leftMargin: 16 // #TODO use values from new style
+                            anchors.rightMargin: 16 // #TODO use values from new style
+
+                            spacing: 16 // #TODO use value from new style
+
+                            Repeater {
+                                model: producerThings
+
+                                delegate: CoInfoCard {
+                                    // #TODO specialize CoInfoCard to avoid repetition
+                                    Layout.fillWidth: true
+                                    property Thing thing: producerThings.get(index)
+                                    readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
+                                    readonly property double currentPower: currentPowerState ? currentPowerState.value.toFixed(0) : 0
+                                    text: thing.name
+                                    value: currentPowerState ? Math.abs(currentPower) + " W" : "-"
+                                    icon: thingToIcon(thing)
+                                    onClicked: {
+                                        // #TODO open thing detail page here
+                                        console.warn("Clicked thing:", index, thing.name);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+
+                        headerText: qsTr("Batteries")
+                        ColumnLayout {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.topMargin: 8 // #TODO use values from new style
+                            anchors.bottomMargin: 8 // #TODO use values from new style
+                            anchors.leftMargin: 16 // #TODO use values from new style
+                            anchors.rightMargin: 16 // #TODO use values from new style
+
+                            spacing: 16 // #TODO use value from new style
+
+                            Repeater {
+                                model: batteriesThings
+
+                                delegate: CoInfoCard {
+                                    // #TODO specialize CoInfoCard to avoid repetition
+                                    Layout.fillWidth: true
+                                    property Thing thing: batteriesThings.get(index)
+                                    readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
+                                    readonly property double currentPower: currentPowerState ? currentPowerState.value.toFixed(0) : 0
+                                    text: thing.name
+                                    value: currentPowerState ? Math.abs(currentPower) + " W" : "-"
+                                    icon: thingToIcon(thing)
+                                    onClicked: {
+                                        // #TODO open thing detail page here
+                                        console.warn("Clicked thing:", index, thing.name);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+
+                        headerText: qsTr("Heating")
+                        ColumnLayout {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.topMargin: 8 // #TODO use values from new style
+                            anchors.bottomMargin: 8 // #TODO use values from new style
+                            anchors.leftMargin: 16 // #TODO use values from new style
+                            anchors.rightMargin: 16 // #TODO use values from new style
+
+                            spacing: 16 // #TODO use value from new style
+
+                            Repeater {
+                                model: heatingThings
+
+                                delegate: CoInfoCard {
+                                    Layout.fillWidth: true
+                                    property Thing thing: heatingThings.get(index)
+                                    readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
+                                    readonly property double currentPower: currentPowerState ? currentPowerState.value.toFixed(0) : 0
+                                    text: thing.name
+                                    value: currentPowerState ? Math.abs(currentPower) + " W" : "-"
+                                    icon: thingToIcon(thing)
+                                    onClicked: {
+                                        // #TODO open thing detail page here
+                                        console.warn("Clicked thing:", index, thing.name);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+
+                        headerText: qsTr("Mobility")
+                        ColumnLayout {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.topMargin: 8 // #TODO use values from new style
+                            anchors.bottomMargin: 8 // #TODO use values from new style
+                            anchors.leftMargin: 16 // #TODO use values from new style
+                            anchors.rightMargin: 16 // #TODO use values from new style
+
+                            spacing: 16 // #TODO use value from new style
+
+                            Repeater {
+                                model: evChargerThings
+
+                                delegate: CoInfoCard {
+                                    Layout.fillWidth: true
+                                    property Thing thing: evChargerThings.get(index)
+                                    readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
+                                    readonly property double currentPower: currentPowerState ? currentPowerState.value.toFixed(0) : 0
+                                    text: thing.name
+                                    value: currentPowerState ? Math.abs(currentPower) + " W" : "-"
+                                    icon: thingToIcon(thing)
+                                    onClicked: {
+                                        // #TODO open thing detail page here
+                                        console.warn("Clicked thing:", index, thing.name);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+
+                        headerText: qsTr("Other consumers")
+                        ColumnLayout {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.topMargin: 8 // #TODO use values from new style
+                            anchors.bottomMargin: 8 // #TODO use values from new style
+                            anchors.leftMargin: 16 // #TODO use values from new style
+                            anchors.rightMargin: 16 // #TODO use values from new style
+
+                            spacing: 16 // #TODO use value from new style
+
+                            Repeater {
+                                model: otherConsumerThings
+
+                                delegate: CoInfoCard {
+                                    Layout.fillWidth: true
+                                    property Thing thing: otherConsumerThings.get(index)
+                                    readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
+                                    readonly property double currentPower: currentPowerState ? currentPowerState.value.toFixed(0) : 0
+                                    text: thing.name
+                                    value: currentPowerState ? Math.abs(currentPower) + " W" : "-"
+                                    icon: thingToIcon(thing)
+                                    onClicked: {
+                                        // #TODO open thing detail page here
+                                        console.warn("Clicked thing:", index, thing.name);
+                                    }
+                                }
+                            }
+
+                            // #TODO add info card for non-controllable consumer power
+                        }
+                    }
 
                     CoFrostyCard {
                         Layout.fillWidth: true
