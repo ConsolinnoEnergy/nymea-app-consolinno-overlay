@@ -15,14 +15,20 @@ Item {
     implicitHeight: gridLayout.implicitHeight + gridLayout.anchors.topMargin + gridLayout.anchors.bottomMargin
     implicitWidth: gridLayout.implicitWidth + gridLayout.anchors.leftMargin + gridLayout.anchors.rightMargin
 
-    Rectangle { // background
+    Rectangle {
+        id: background
         anchors.fill: parent
-        radius: 8
-        // #TODO is the transparent part (hover and pressed color) relative to CoInfoCard background or
-        // relative to this background (i.e. do we need another (white) background)?
-        color: mouseArea.pressed ? "#1F242B2D" : "#FFFFFF" // #TODO use values from new style
-        border.width: mouseArea.containsMouse ? 4 : 0
-        border.color: mouseArea.containsMouse ? "#1F242B2D" : "transparent";
+        radius: 8 // #TODO value from new style?
+        color: "#FFFFFF" // #TODO use values from new style
+
+        Rectangle {
+            id: backgroundInteractionOverlay
+            anchors.fill: parent
+            radius: 8 // #TODO value from new style?
+            color: mouseArea.pressed ? "#1F242B2D" : "transparent" // #TODO use values from new style
+            border.width: mouseArea.containsMouse ? 4 : 0
+            border.color: mouseArea.containsMouse ? "#1F242B2D" : "transparent";
+        }
     }
 
     GridLayout {
