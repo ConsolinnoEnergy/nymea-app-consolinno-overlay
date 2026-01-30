@@ -118,6 +118,12 @@ MainViewBase {
         hiddenInterfaces: ["heatpump", "heatingrod", "evcharger"]
     }
 
+    ThingsProxy {
+        id: dynamicPricingThings
+        engine: _engine
+        shownInterfaces: ["dynamicelectricitypricing"]
+    }
+
     Flickable {
         id: flickable
         anchors.fill: parent
@@ -152,6 +158,8 @@ MainViewBase {
                 ColumnLayout {
                     id: dashboardLayout
                     anchors.fill: parent
+
+                    spacing: 16 // #TODO use value from style
 
                     CoFrostyCard {
                         Layout.fillWidth: true
@@ -250,6 +258,71 @@ MainViewBase {
                         Layout.fillWidth: true
 
                         headerText: qsTr("Energy status")
+
+                        ColumnLayout {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.topMargin: 8 // #TODO use values from new style
+                            anchors.bottomMargin: 8 // #TODO use values from new style
+                            anchors.leftMargin: 16 // #TODO use values from new style
+                            anchors.rightMargin: 16 // #TODO use values from new style
+
+                            spacing: 16 // #TODO use value from new style
+
+                            CoInfoCard {
+                                Layout.fillWidth: true
+                                text: qsTr("Self-sufficiency") // #TODO English name
+                                value: "70 %" // #TODO value
+                                icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
+                                onClicked: {
+                                    // #TODO
+                                    console.warn("Clicked self-sufficiency card");
+                                }
+                            }
+
+                            CoInfoCard {
+                                Layout.fillWidth: true
+                                text: qsTr("Self-consumption") // #TODO English name
+                                value: "93 %" // #TODO value
+                                icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
+                                onClicked: {
+                                    // #TODO
+                                    console.warn("Clicked self-consumption card");
+                                }
+                            }
+
+                            CoInfoCard {
+                                Layout.fillWidth: true
+                                property Thing thing: dynamicPricingThings.count > 0 ? dynamicPricingThings.get(0) : null
+                                readonly property State currentMarketPriceState: thing ? thing.stateByName("currentTotalCost") : null
+                                readonly property double currentMarketPrice: currentMarketPriceState ? currentMarketPriceState.value.toFixed(2) : 0
+                                visible: dynamicPricingThings.count > 0
+                                text: thing.name
+                                value: {
+                                    let v = currentMarketPrice;
+                                    let decimals = 0;
+                                    if (Math.abs(v) < 10.0) {
+                                        decimals = 2;
+                                    } else if (Math.abs(v) < 100.0) {
+                                        decimals = 1;
+                                    } else {
+                                        decimals = 0;
+                                    }
+                                    return v.toLocaleString(Qt.locale(), 'f', decimals) + " ct/kWh";
+                                }
+                                icon: {
+                                    if (Configuration.energyIcon !== "") {
+                                        return Qt.resolvedUrl("/ui/images/" + Configuration.energyIcon)
+                                    } else {
+                                        return Qt.resolvedUrl("/icons/energy.svg")
+                                    }
+                                }
+                                onClicked: {
+                                    // #TODO open thing detail page here
+                                    console.warn("Clicked dynamic tariff:");
+                                }
+                            }
+                        }
                     }
 
                     CoFrostyCard {
@@ -434,52 +507,6 @@ MainViewBase {
                                 }
                             }
                         }
-                    }
-
-                    CoFrostyCard {
-                        Layout.fillWidth: true
-
-                        headerText: "Card component"
-                        ColumnLayout {
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-                            anchors.topMargin: 8 // #TODO use values from new style
-                            anchors.bottomMargin: 8 // #TODO use values from new style
-                            spacing: 0
-
-                            CoCard {
-                                Layout.fillWidth: true
-
-                                text: "Text"
-                                helpText: "Help text"
-                                labelText: "Label"
-                                iconLeft: Qt.resolvedUrl("qrc:/icons/up.svg")
-                                iconRight: Qt.resolvedUrl("qrc:/icons/down.svg")
-                                showChildrenIndicator: true
-
-                                onClicked: {
-                                    console.warn("======= CLICKED");
-                                }
-                            }
-
-                            CoCard {
-                                Layout.fillWidth: true
-
-                                text: "Text"
-                                helpText: "Some very very very very very very very very very very very long text"
-                                labelText: "Another  very very very very very very very very very very long text"
-                                iconLeft: Qt.resolvedUrl("qrc:/icons/up.svg")
-                            }
-                        }
-                    }
-
-                    Rectangle {
-                        id: spacer
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        color: "transparent"
-                        border.color: "red"
-                        border.width: 1
                     }
                 }
             }
