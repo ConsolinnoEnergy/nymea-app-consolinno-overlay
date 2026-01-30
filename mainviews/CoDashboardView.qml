@@ -342,14 +342,9 @@ MainViewBase {
                             Repeater {
                                 model: producerThings
 
-                                delegate: CoInfoCard {
-                                    // #TODO specialize CoInfoCard to avoid repetition
+                                delegate: CoPowerThingInfoCard {
                                     Layout.fillWidth: true
-                                    property Thing thing: producerThings.get(index)
-                                    readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
-                                    readonly property double currentPower: currentPowerState ? currentPowerState.value.toFixed(0) : 0
-                                    text: thing.name
-                                    value: currentPowerState ? Math.abs(currentPower) + " W" : "-"
+                                    thing: producerThings.get(index)
                                     icon: thingToIcon(thing)
                                     // #TODO warning indicator for LPP
                                     onClicked: {
@@ -378,14 +373,9 @@ MainViewBase {
                             Repeater {
                                 model: batteriesThings
 
-                                delegate: CoInfoCard {
-                                    // #TODO specialize CoInfoCard to avoid repetition
+                                delegate: CoPowerThingInfoCard {
                                     Layout.fillWidth: true
-                                    property Thing thing: batteriesThings.get(index)
-                                    readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
-                                    readonly property double currentPower: currentPowerState ? currentPowerState.value.toFixed(0) : 0
-                                    text: thing.name
-                                    value: currentPowerState ? Math.abs(currentPower) + " W" : "-"
+                                    thing: batteriesThings.get(index)
                                     icon: thingToIcon(thing)
                                     onClicked: {
                                         // #TODO open thing detail page here
@@ -413,13 +403,9 @@ MainViewBase {
                             Repeater {
                                 model: heatingThings
 
-                                delegate: CoInfoCard {
+                                delegate: CoPowerThingInfoCard {
                                     Layout.fillWidth: true
-                                    property Thing thing: heatingThings.get(index)
-                                    readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
-                                    readonly property double currentPower: currentPowerState ? currentPowerState.value.toFixed(0) : 0
-                                    text: thing.name
-                                    value: currentPowerState ? Math.abs(currentPower) + " W" : "-"
+                                    thing: heatingThings.get(index)
                                     icon: thingToIcon(thing)
                                     onClicked: {
                                         // #TODO open thing detail page here
@@ -447,13 +433,9 @@ MainViewBase {
                             Repeater {
                                 model: evChargerThings
 
-                                delegate: CoInfoCard {
+                                delegate: CoPowerThingInfoCard {
                                     Layout.fillWidth: true
-                                    property Thing thing: evChargerThings.get(index)
-                                    readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
-                                    readonly property double currentPower: currentPowerState ? currentPowerState.value.toFixed(0) : 0
-                                    text: thing.name
-                                    value: currentPowerState ? Math.abs(currentPower) + " W" : "-"
+                                    thing: evChargerThings.get(index)
                                     icon: thingToIcon(thing)
                                     onClicked: {
                                         // #TODO open thing detail page here
@@ -481,13 +463,9 @@ MainViewBase {
                             Repeater {
                                 model: otherConsumerThings
 
-                                delegate: CoInfoCard {
+                                delegate: CoPowerThingInfoCard {
                                     Layout.fillWidth: true
-                                    property Thing thing: otherConsumerThings.get(index)
-                                    readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
-                                    readonly property double currentPower: currentPowerState ? currentPowerState.value.toFixed(0) : 0
-                                    text: thing.name
-                                    value: currentPowerState ? Math.abs(currentPower) + " W" : "-"
+                                    thing: otherConsumerThings.get(index)
                                     icon: thingToIcon(thing)
                                     onClicked: {
                                         // #TODO open thing detail page here
