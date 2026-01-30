@@ -157,6 +157,93 @@ MainViewBase {
                         Layout.fillWidth: true
 
                         headerText: qsTr("Live status")
+
+                        GridLayout {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.topMargin: 8 // #TODO use values from new style
+                            anchors.bottomMargin: 8 // #TODO use values from new style
+                            anchors.leftMargin: 16 // #TODO use values from new style
+                            anchors.rightMargin: 16 // #TODO use values from new style
+                            rowSpacing: 0
+                            columnSpacing: 0
+
+                            CoInfoCard {
+                                Layout.fillWidth: true
+                                Layout.row: 0
+                                Layout.column: 0
+                                text: qsTr("Solar") // #TODO English name
+                                value: "678 W" // #TODO value
+                                compactLayout: true
+                                icon: Qt.resolvedUrl("qrc:/icons/weathericons/weather-clear-day.svg") // #TODO icon
+                                onClicked: {
+                                    // #TODO
+                                    console.warn("Clicked solar card");
+                                }
+                            }
+
+                            CoInfoCard {
+                                Layout.fillWidth: true
+                                Layout.row: 0
+                                Layout.column: 2
+                                text: qsTr("Grid") // #TODO English name
+                                value: "300 W" // #TODO value
+                                compactLayout: true
+                                icon: {
+                                    if (Configuration.gridIcon !== "") {
+                                        return Qt.resolvedUrl("/ui/images/" + Configuration.gridIcon)
+                                    } else {
+                                        return Qt.resolvedUrl("/icons/grid.svg")
+                                    }
+                                }
+                                onClicked: {
+                                    // #TODO
+                                    console.warn("Clicked grid card");
+                                }
+                            }
+
+                            CoInfoCard {
+                                Layout.fillWidth: true
+                                Layout.row: 2
+                                Layout.column: 0
+                                text: qsTr("Battery") // #TODO English name
+                                value: "100 W" // #TODO value
+                                compactLayout: true
+                                icon: {
+                                    if (Configuration.batteryIcon !== ""){
+                                        return Qt.resolvedUrl("qrc:/ui/images/" + Configuration.batteryIcon)
+                                    } else {
+                                        return Qt.resolvedUrl("qrc:/icons/battery/battery-060.svg")
+                                    }
+                                }
+                                onClicked: {
+                                    // #TODO
+                                    console.warn("Clicked battery card");
+                                }
+                            }
+
+                            CoInfoCard {
+                                Layout.fillWidth: true
+                                Layout.row: 2
+                                Layout.column: 2
+                                text: qsTr("Consumption") // #TODO English name
+                                value: "500 W" // #TODO value
+                                compactLayout: true
+                                icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
+                                onClicked: {
+                                    // #TODO
+                                    console.warn("Clicked consumption card");
+                                }
+                            }
+
+                            Item {
+                                id: liveStatusSpacer
+                                Layout.row: 1
+                                Layout.column: 1
+                                width: 64
+                                height: 64
+                            }
+                        }
                     }
 
                     CoFrostyCard {
@@ -343,7 +430,7 @@ MainViewBase {
                                 icon: Qt.resolvedUrl("qrc:/icons/select-none.svg") // #TODO icon
                                 onClicked: {
                                     // #TODO is there a detail page for non-controllable consumers?
-                                    console.warn("Clicked thing:", index, thing.name);
+                                    console.warn("Clicked non-controllable");
                                 }
                             }
                         }
