@@ -182,8 +182,6 @@ MainViewBase {
                     anchors.fill: parent
                     spacing: 16 // #TODO use value from new style
 
-                    spacing: 16 // #TODO use value from style
-
                     CoFrostyCard {
                         Layout.fillWidth: true
 
