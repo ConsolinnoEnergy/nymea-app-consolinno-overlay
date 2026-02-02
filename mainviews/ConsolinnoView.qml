@@ -100,20 +100,6 @@ MainViewBase {
                                    "stack": pageStack
                                })
             }
-        }, {
-            "iconSource": Configuration.settingsIcon !== "" ? "/ui/images/"+Configuration.settingsIcon : "/icons/configure.svg",
-            "color": Style.iconColor,
-            "visible": hemsManager.available && rootMeter != null,
-            "trigger": function () {
-                var page = pageStack.push("HemsOptimizationPage.qml", {
-                                              "hemsManager": hemsManager
-                                          })
-                page.startWizard.connect(function () {
-                    pageStack.pop(pageStack.get(0))
-                    d.resetManualWizardSettings()
-                    d.setup(true)
-                })
-            }
         }]
 
     QtObject {
