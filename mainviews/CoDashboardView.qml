@@ -326,7 +326,7 @@ MainViewBase {
                                 readonly property State currentMarketPriceState: thing ? thing.stateByName("currentTotalCost") : null
                                 readonly property double currentMarketPrice: currentMarketPriceState ? currentMarketPriceState.value.toFixed(2) : 0
                                 visible: dynamicPricingThing ? true : false
-                                text: thing.name
+                                text: thing ? thing.name : ""
                                 value: {
                                     let v = currentMarketPrice;
                                     let decimals = 0;
