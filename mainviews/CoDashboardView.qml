@@ -7,6 +7,7 @@ import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.2
 import QtCharts 2.3
 import Nymea 1.0
+import NymeaApp.Utils 1.0
 import Qt.labs.settings 1.1
 import QtGraphicalEffects 1.15
 
@@ -89,6 +90,7 @@ MainViewBase {
 
     DashboardDataProvider {
         id: dataProvider
+        engine: _engine
     }
 
     ThingsProxy {
@@ -202,7 +204,7 @@ MainViewBase {
                                 Layout.row: 0
                                 Layout.column: 0
                                 text: qsTr("Solar") // #TODO English name
-                                value: "678 W" // #TODO value
+                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerProduction), 0)
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/weathericons/weather-clear-day.svg") // #TODO icon
                                 onClicked: {
