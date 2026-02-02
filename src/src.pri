@@ -14,6 +14,7 @@ HEADERS += \
     $$PWD/Configurations/heatingelementconfigurations.h \
     $$PWD/Configurations/pvconfiguration.h \
     $$PWD/Configurations/pvconfigurations.h \
+    $$PWD/dashboarddataprovider.h \
     $$PWD/qmltypes.h \
     $$PWD/Configurations/chargingconfiguration.h \
     $$PWD/Configurations/heatingconfiguration.h \
@@ -37,6 +38,7 @@ SOURCES += \
     $$PWD/Configurations/heatingconfigurations.cpp \
     $$PWD/Configurations/heatingelementconfiguration.cpp \
     $$PWD/Configurations/heatingelementconfigurations.cpp \
+    $$PWD/dashboarddataprovider.cpp \
     $$PWD/hemsmanager.cpp \
     $$PWD/Configurations/pvconfiguration.cpp \
     $$PWD/Configurations/pvconfigurations.cpp \

@@ -87,6 +87,10 @@ MainViewBase {
         engine: _engine
     }
 
+    DashboardDataProvider {
+        id: dataProvider
+    }
+
     ThingsProxy {
         id: producerThings
         engine: _engine
