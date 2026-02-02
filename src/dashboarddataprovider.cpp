@@ -7,12 +7,19 @@ NYMEA_LOGGING_CATEGORY(dcDashboardDataProvider, "DashboardDataProvider");
 DashboardDataProvider::DashboardDataProvider(QObject *parent)
     : QObject{ parent }
     , m_producerThingsProxy{ new ThingsProxy{ this } }
+    , m_batteryThingsProxy{ new ThingsProxy{ this } }
 {
     m_producerThingsProxy->setShownInterfaces({ "smartmeterproducer" });
     connect(m_producerThingsProxy, &ThingsProxy::engineChanged,
-            this, &DashboardDataProvider::setupProducerStats);
+            this, &DashboardDataProvider::setupPowerProductionStats);
     connect(m_producerThingsProxy, &ThingsProxy::countChanged,
-            this, &DashboardDataProvider::setupProducerStats);
+            this, &DashboardDataProvider::setupPowerProductionStats);
+
+    m_batteryThingsProxy->setShownInterfaces({ "energystorage" });
+    connect(m_producerThingsProxy, &ThingsProxy::engineChanged,
+            this, &DashboardDataProvider::setupBatteriesStats);
+    connect(m_producerThingsProxy, &ThingsProxy::countChanged,
+            this, &DashboardDataProvider::setupBatteriesStats);
 }
 
 Engine *DashboardDataProvider::engine() const
@@ -34,6 +41,7 @@ void DashboardDataProvider::setEngine(Engine *engine)
     emit engineChanged();
 
     m_producerThingsProxy->setEngine(m_engine);
+    m_batteryThingsProxy->setEngine(m_engine);
 
     if (m_engine) {
         // #TODO grab thing manager and connect to stuff needed
@@ -45,7 +53,12 @@ double DashboardDataProvider::currentPowerProduction() const
     return m_currentPowerProduction;
 }
 
-void DashboardDataProvider::setupProducerStats()
+double DashboardDataProvider::currentPowerBatteries() const
+{
+    return m_currentPowerBatteries;
+}
+
+void DashboardDataProvider::setupPowerProductionStats()
 {
     m_producerCurrentPowers.clear();
     qCDebug(dcDashboardDataProvider()) << "Got" << m_producerThingsProxy->rowCount() << "producers:";
@@ -55,7 +68,7 @@ void DashboardDataProvider::setupProducerStats()
         const auto currentPowerState = producer->stateByName("currentPower");
         if (!currentPowerState) {
             qCCritical(dcDashboardDataProvider())
-                    << "Got producer without \"currentPower\" state!"
+                    << "Got producer without \"currentPower\" state:"
                     << producer->name();
             continue;
         }
@@ -81,19 +94,72 @@ void DashboardDataProvider::updateCurrentPowerProduction()
     }
 }
 
-void DashboardDataProvider::updateProducerCurrentPower(Thing *producer, State *state)
+void DashboardDataProvider::updateProducerCurrentPower(Thing *producer, State *currentPowerState)
 {
     auto conversionOk = true;
-    const auto currentPower = state->value().toDouble(&conversionOk);
+    const auto currentPower = currentPowerState->value().toDouble(&conversionOk);
     if (!conversionOk) {
         qCWarning(dcDashboardDataProvider())
                 << "Producer"
                 << producer->name()
                 << "-> Can not convert value of state \"currentPower\" to double!"
-                << state->value().toString();
+                << currentPowerState->value().toString();
     }
     qCDebug(dcDashboardDataProvider()) << "Updating producer" << producer->name()
                                        << "-> Current power:" << currentPower;
-    m_producerCurrentPowers.insert(producer, currentPower);
+    m_producerCurrentPowers[producer] = currentPower;
     updateCurrentPowerProduction();
+}
+
+void DashboardDataProvider::setupBatteriesStats()
+{
+    m_batteryCurrentPowers.clear();
+    qCDebug(dcDashboardDataProvider()) << "Got" << m_batteryThingsProxy->rowCount() << "batteries:";
+    for (auto i = 0; i < m_batteryThingsProxy->rowCount(); ++i) {
+        const auto battery = m_batteryThingsProxy->get(i);
+        qCDebug(dcDashboardDataProvider()) << "  " << battery->name();
+        const auto currentPowerState = battery->stateByName("currentPower");
+        if (!currentPowerState) {
+            qCCritical(dcDashboardDataProvider())
+                    << "Got battery without \"currentPower\" state:"
+                    << battery->name();
+            continue;
+        }
+        updateBatteryCurrentPower(battery, currentPowerState);
+        connect(currentPowerState, &State::valueChanged, battery, [this, battery, currentPowerState]() {
+            updateBatteryCurrentPower(battery, currentPowerState);
+        });
+    }
+}
+
+void DashboardDataProvider::updateCurrentPowerBatteries()
+{
+    auto totalBatteryPower = 0.;
+    for (auto it = m_batteryCurrentPowers.constBegin();
+         it != m_batteryCurrentPowers.constEnd();
+         ++it) {
+        totalBatteryPower += it.value();
+    }
+
+    if (!qFuzzyCompare(m_currentPowerBatteries, totalBatteryPower)) {
+        m_currentPowerBatteries = totalBatteryPower;
+        emit currentPowerBatteriesChanged(m_currentPowerBatteries);
+    }
+}
+
+void DashboardDataProvider::updateBatteryCurrentPower(Thing *battery, State *currentPowerState)
+{
+    auto conversionOk = true;
+    const auto currentPower = currentPowerState->value().toDouble(&conversionOk);
+    if (!conversionOk) {
+        qCWarning(dcDashboardDataProvider())
+                << "Battery"
+                << battery->name()
+                << "-> Can not convert value of state \"currentPower\" to double!"
+                << currentPowerState->value().toString();
+    }
+    qCDebug(dcDashboardDataProvider()) << "Updating battery" << battery->name()
+                                       << "-> Current power:" << currentPower;
+    m_batteryCurrentPowers[battery] = currentPower;
+    updateCurrentPowerBatteries();
 }

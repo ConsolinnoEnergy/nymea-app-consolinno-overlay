@@ -246,9 +246,10 @@ MainViewBase {
                                 Layout.row: 2
                                 Layout.column: 0
                                 text: qsTr("Battery") // #TODO English name
-                                value: "100 W" // #TODO value
+                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerBatteries), 0)
                                 compactLayout: true
                                 icon: {
+                                    // #TODO icon via loaded battery capacity
                                     if (Configuration.batteryIcon !== ""){
                                         return Qt.resolvedUrl("qrc:/ui/images/" + Configuration.batteryIcon)
                                     } else {
