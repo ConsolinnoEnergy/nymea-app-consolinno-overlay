@@ -48,7 +48,7 @@ Item {
         ColorIcon {
             id: leftIcon
             Layout.alignment: Qt.AlignVCenter
-            size: 24 // #TODO use value from new style
+            size: 24
             color: Style.colors.brand_Basic_Icon_accent
         }
 
@@ -92,7 +92,7 @@ Item {
         ColorIcon {
             id: rightIcon
             Layout.alignment: Qt.AlignVCenter
-            size: 24 // #TODO use value from new style
+            size: 24
             color: Style.colors.brand_Basic_Icon
         }
 

@@ -58,7 +58,7 @@ Item {
             ColorIcon {
                 id: icon
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                size: 24 // #TODO use value from new style
+                size: 24
                 color: Style.colors.brand_Basic_Icon_accent
             }
 
@@ -96,12 +96,12 @@ Item {
         anchors {
             top: parent.top
             left: parent.left
-            topMargin: 8 // #TODO this is probably not right yet since new design contains paddings
-            leftMargin: 8
+            topMargin: 11
+            leftMargin: 11
         }
 
         visible: showWarningIndicator || showErrorIndicator
-        width: 17   // #TODO are these fixed values in new design?
+        width: 17
         height: 17
         radius: width / 2
         border.width: 1
