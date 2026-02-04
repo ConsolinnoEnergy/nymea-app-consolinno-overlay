@@ -23,6 +23,21 @@ MainViewBase {
 
     function thingToIcon(thing) {
         let ifaces = thing.thingClass.interfaces;
+        if (ifaces.indexOf("battery") >= 0) {
+            if (Configuration.batteryIcon !== ""){
+                return Qt.resolvedUrl("qrc:/ui/images/" + Configuration.batteryIcon);
+            } else {
+                let batteryLevelState = thing.stateByName("batteryLevel");
+                if (batteryLevelState) {
+                    let batteryLevel = batteryLevelState.value;
+                    let batteryLevelForIcon = NymeaUtils.pad(Math.round(batteryLevel / 10) * 10, 3);
+                    return Qt.resolvedUrl("qrc:/icons/battery/battery-" + batteryLevelForIcon + ".svg");
+                } else {
+                    return Qt.resolvedUrl("qrc:/icons/battery/battery-060.svg");
+                }
+            }
+        }
+
         for (var i = 0; i < ifaces.length; i++) {
             let iface = ifaces[i];
             let icon = ""
@@ -46,21 +61,21 @@ MainViewBase {
                 break;
             case "energystorage":
                 if (Configuration.batteryIcon !== ""){
-                    icon = "qrc:/ui/images/" + Configuration.batteryIcon
+                    icon = "qrc:/ui/images/" + Configuration.batteryIcon;
                 } else {
                     icon = "qrc:/icons/battery/battery-060.svg";
                 }
                 break;
             case "evcharger":
                 if (Configuration.evchargerIcon !== ""){
-                    icon = "qrc:/ui/images/" + Configuration.evchargerIcon
+                    icon = "qrc:/ui/images/" + Configuration.evchargerIcon;
                 } else {
                     icon = "qrc:/icons/ev-charger.svg";
                 }
                 break;
             case "solarinverter":
                 if (Configuration.inverterIcon !== ""){
-                    icon = "qrc:/ui/images/" + Configuration.inverterIcon
+                    icon = "qrc:/ui/images/" + Configuration.inverterIcon;
                 } else {
                     icon = "qrc:/icons/weathericons/weather-clear-day.svg";
                 }
@@ -246,7 +261,7 @@ MainViewBase {
                                 value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerBatteries), 0) + " W"
                                 compactLayout: true
                                 icon: {
-                                    // #TODO icon via loaded battery capacity
+                                    // #TODO icon via combined battery level
                                     if (Configuration.batteryIcon !== ""){
                                         return Qt.resolvedUrl("qrc:/ui/images/" + Configuration.batteryIcon)
                                     } else {
