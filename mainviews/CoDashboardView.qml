@@ -207,10 +207,7 @@ MainViewBase {
                                 value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerProduction), 0)
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/weathericons/weather-clear-day.svg") // #TODO icon
-                                onClicked: {
-                                    // #TODO
-                                    console.warn("Clicked solar card");
-                                }
+                                clickable: false
                             }
 
                             CoPowerThingInfoCard {
@@ -256,10 +253,7 @@ MainViewBase {
                                         return Qt.resolvedUrl("qrc:/icons/battery/battery-060.svg")
                                     }
                                 }
-                                onClicked: {
-                                    // #TODO
-                                    console.warn("Clicked battery card");
-                                }
+                                clickable: false
                             }
 
                             CoInfoCard {
@@ -270,10 +264,7 @@ MainViewBase {
                                 value: "500 W" // #TODO value
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
-                                onClicked: {
-                                    // #TODO
-                                    console.warn("Clicked consumption card");
-                                }
+                                clickable: false
                             }
 
                             Item {
@@ -306,10 +297,7 @@ MainViewBase {
                                 text: qsTr("Self-sufficiency") // #TODO English name
                                 value: "70 %" // #TODO value
                                 icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
-                                onClicked: {
-                                    // #TODO
-                                    console.warn("Clicked self-sufficiency card");
-                                }
+                                clickable: false
                             }
 
                             CoInfoCard {
@@ -317,10 +305,7 @@ MainViewBase {
                                 text: qsTr("Self-consumption") // #TODO English name
                                 value: "93 %" // #TODO value
                                 icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
-                                onClicked: {
-                                    // #TODO
-                                    console.warn("Clicked self-consumption card");
-                                }
+                                clickable: false
                             }
 
                             CoInfoCard {
@@ -577,10 +562,7 @@ MainViewBase {
                                 text: qsTr("Non-controllable") // #TODO name
                                 value: "678 W" // #TODO value
                                 icon: Qt.resolvedUrl("qrc:/icons/select-none.svg") // #TODO icon
-                                onClicked: {
-                                    // #TODO is there a detail page for non-controllable consumers?
-                                    console.warn("Clicked non-controllable");
-                                }
+                                clickable: false
                             }
                         }
                     }

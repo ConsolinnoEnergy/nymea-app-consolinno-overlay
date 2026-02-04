@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.2
 import "../components"
 
 Item {
+    id: root
     property alias icon: icon.name
     property alias text: titleText.text
     property alias value: valueText.text
@@ -11,6 +12,7 @@ Item {
     // #TODO naming (warning, error), are both needed?
     property bool showWarningIndicator: false
     property bool showErrorIndicator: false
+    property bool clickable: true
 
     signal clicked()
 
@@ -26,6 +28,7 @@ Item {
         Rectangle {
             id: backgroundInteractionOverlay
             anchors.fill: parent
+            visible: root.clickable
             radius: 8 // #TODO value from new style?
             color: mouseArea.pressed ? "#1F242B2D" : "transparent" // #TODO use values from new style
             border.width: mouseArea.containsMouse ? 4 : 0
@@ -111,6 +114,10 @@ Item {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: true
-        onClicked: parent.clicked()
+        onClicked: {
+            if (root.clickable) {
+                root.clicked()
+            }
+        }
     }
 }
