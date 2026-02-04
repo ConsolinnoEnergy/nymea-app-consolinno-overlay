@@ -204,7 +204,7 @@ MainViewBase {
                                 Layout.row: 0
                                 Layout.column: 0
                                 text: qsTr("Solar") // #TODO English name
-                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerProduction), 0)
+                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerProduction), 0) + " W"
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/weathericons/weather-clear-day.svg") // #TODO icon
                                 clickable: false
@@ -243,7 +243,7 @@ MainViewBase {
                                 Layout.row: 2
                                 Layout.column: 0
                                 text: qsTr("Battery") // #TODO English name
-                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerBatteries), 0)
+                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerBatteries), 0) + " W"
                                 compactLayout: true
                                 icon: {
                                     // #TODO icon via loaded battery capacity
