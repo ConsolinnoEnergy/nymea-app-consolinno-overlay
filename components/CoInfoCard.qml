@@ -17,7 +17,7 @@ Item {
     signal clicked()
 
     implicitHeight: gridLayout.implicitHeight + gridLayout.anchors.topMargin + gridLayout.anchors.bottomMargin
-    implicitWidth: gridLayout.implicitWidth + gridLayout.anchors.leftMargin + gridLayout.anchors.rightMargin
+    implicitWidth: compactLayout ? 150 : 300
 
     Rectangle {
         id: background
