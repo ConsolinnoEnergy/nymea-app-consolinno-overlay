@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
+import Nymea 1.0
 
 import "../components"
 
@@ -23,16 +24,16 @@ Item {
         id: background
         anchors.fill: parent
         radius: 8 // #TODO value from new style?
-        color: "#FFFFFF" // #TODO use values from new style
+        color: Style.colors.typography_Background_Default
 
         Rectangle {
             id: backgroundInteractionOverlay
             anchors.fill: parent
             visible: root.clickable
             radius: 8 // #TODO value from new style?
-            color: mouseArea.pressed ? "#1F242B2D" : "transparent" // #TODO use values from new style
+            color: mouseArea.pressed ? Style.colors.typography_States_Pressed : "transparent"
             border.width: mouseArea.containsMouse ? 4 : 0
-            border.color: mouseArea.containsMouse ? "#1F242B2D" : "transparent";
+            border.color: mouseArea.containsMouse ? Style.colors.typography_States_Pressed : "transparent"
         }
     }
 
@@ -58,7 +59,7 @@ Item {
                 id: icon
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 size: 24 // #TODO use value from new style
-                // #TODO icon color?
+                color: Style.colors.brand_Basic_Icon_accent
             }
 
             Text {
@@ -105,14 +106,14 @@ Item {
         radius: width / 2
         border.width: 1
         border.color: showWarningIndicator ?
-                          "#864A0D" : // #TODO use color from new style
+                          Style.colors.system_Warning_Status_border :
                           showErrorIndicator ?
-                              "#AA0A24" : // #TODO use color from new style
+                              Style.colors.system_Danger_Status_light_border :
                               "transparent"
         color: showWarningIndicator ?
-                   "#FFEE89" : // #TODO use color from new style
+                   Style.colors.system_Warning_Status_light :
                    showErrorIndicator ?
-                       "#FFC3CD" : // #TODO use color from new style
+                       Style.colors.system_Danger_Status_light :
                        "transparent"
     }
 

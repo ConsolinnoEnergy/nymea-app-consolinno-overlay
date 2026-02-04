@@ -298,6 +298,7 @@ MainViewBase {
                                 value: "70 %" // #TODO value
                                 icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
                                 clickable: false
+                                showWarningIndicator: true
                             }
 
                             CoInfoCard {
@@ -306,6 +307,7 @@ MainViewBase {
                                 value: "93 %" // #TODO value
                                 icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
                                 clickable: false
+                                showErrorIndicator: true
                             }
 
                             CoInfoCard {
