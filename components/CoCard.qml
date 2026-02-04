@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
+import Nymea 1.0
 
 import "../components"
 
@@ -18,18 +19,16 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: mouseArea.containsMouse ? "#FFFFFF" : "transparent" // #TODO use values from new style
+        color: mouseArea.containsMouse ? Style.colors.typography_Background_Default : "transparent"
 
         Rectangle {
             id: backgroundInteractionOverlay
             anchors.fill: parent
-            // #TODO is the transparent part (hover and pressed color) relative to CoInfoCard background or
-            // relative to this background (i.e. do we need another (white) background)?
             color: {
                 if (mouseArea.pressed) {
-                    return "#1E242B2D"; // #TODO use values from new style
+                    return Style.colors.typography_States_Pressed;
                 } else if (mouseArea.containsMouse) {
-                    return "#0F242B2D"; // #TODO use values from new style
+                    return Style.colors.typography_States_Hover;
                 } else {
                     return "transparent";
                 }
@@ -50,7 +49,7 @@ Item {
             id: leftIcon
             Layout.alignment: Qt.AlignVCenter
             size: 24 // #TODO use value from new style
-            // #TODO icon color?
+            color: Style.colors.brand_Basic_Icon_accent
         }
 
         ColumnLayout {
@@ -86,7 +85,7 @@ Item {
                 wrapMode: Text.WordWrap
                 // #TODO font from style
                 font.pixelSize: 10
-                color: "#627373" // #TODO use color from style
+                color: Style.colors.typography_Basic_Secondary
             }
         }
 
@@ -94,13 +93,13 @@ Item {
             id: rightIcon
             Layout.alignment: Qt.AlignVCenter
             size: 24 // #TODO use value from new style
-            // #TODO icon color?
+            color: Style.colors.brand_Basic_Icon
         }
 
         ColorIcon {
             id: hasChildrenIcon
             name: Qt.resolvedUrl("qrc:/icons/next.svg") // #TODO icon from new style
-            // #TODO icon color from new style?
+            color: Style.colors.brand_Basic_Icon
             Layout.alignment:  Qt.AlignVCenter
             size: 18
             visible: showChildrenIndicator
