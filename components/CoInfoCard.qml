@@ -36,6 +36,7 @@ Item {
         }
     }
 
+
     GridLayout {
         id: gridLayout
         anchors.fill: parent
@@ -48,7 +49,8 @@ Item {
             Layout.row: 0
             Layout.column: 0
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-            Layout.fillWidth: true
+            Layout.fillWidth: compactLayout
+            Layout.preferredWidth: compactLayout ? -1 : gridLayout.width / 2
 
             spacing: 8 // #TODO use value from new design
 
@@ -67,6 +69,9 @@ Item {
 
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
+                maximumLineCount: root.compactLayout ? 1 : 2
+                wrapMode: Text.WordWrap
+                elide: Text.ElideRight
             }
         }
 
@@ -76,7 +81,8 @@ Item {
 
             Layout.row: compactLayout ? 1 : 0
             Layout.column: compactLayout ? 0 : 1
-            Layout.fillWidth: true
+            Layout.fillWidth: compactLayout
+            Layout.preferredWidth: compactLayout ? -1 : gridLayout.width / 2
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
             horizontalAlignment: Text.AlignHCenter
