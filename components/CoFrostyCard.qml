@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.1
+import Nymea 1.0
 
 Frame {
     property alias headerText: header.text
@@ -19,7 +20,7 @@ Frame {
     }
 
     background: Rectangle {
-        color: "#AAF4F6F4" // #TODO use color from new style
+        color: Style.colors.components_Dashboard_Background_accent_dashboard
         radius: 16 // #TODO use value from style
     }
 
@@ -48,7 +49,7 @@ Frame {
             anchors.leftMargin: 16 // #TODO use value from style
             anchors.rightMargin: 16 // #TODO use value from style
             anchors.bottomMargin: 16 // #TODO use value from style
-            color: "#03693A" // #TODO use color from new style
+            color: Style.colors.typography_Headlines_H2
             // #TODO font from new style
             font.bold: true
             font.pixelSize: 16
