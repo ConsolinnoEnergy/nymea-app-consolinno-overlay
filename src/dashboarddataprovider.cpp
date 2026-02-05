@@ -8,6 +8,7 @@ DashboardDataProvider::DashboardDataProvider(QObject *parent)
     : QObject{ parent }
     , m_producerThingsProxy{ new ThingsProxy{ this } }
     , m_batteryThingsProxy{ new ThingsProxy{ this } }
+    , m_consumerThingsProxy{ new ThingsProxy{ this } }
 {
     m_producerThingsProxy->setShownInterfaces({ "smartmeterproducer" });
     connect(m_producerThingsProxy, &ThingsProxy::engineChanged,
@@ -20,6 +21,12 @@ DashboardDataProvider::DashboardDataProvider(QObject *parent)
             this, &DashboardDataProvider::setupBatteriesStats);
     connect(m_producerThingsProxy, &ThingsProxy::countChanged,
             this, &DashboardDataProvider::setupBatteriesStats);
+
+    m_consumerThingsProxy->setShownInterfaces({ "smartmeterconsumer" });
+    connect(m_consumerThingsProxy, &ThingsProxy::engineChanged,
+            this, &DashboardDataProvider::setupConsumersStats);
+    connect(m_consumerThingsProxy, &ThingsProxy::countChanged,
+            this, &DashboardDataProvider::setupConsumersStats);
 }
 
 Engine *DashboardDataProvider::engine() const
@@ -42,6 +49,7 @@ void DashboardDataProvider::setEngine(Engine *engine)
 
     m_producerThingsProxy->setEngine(m_engine);
     m_batteryThingsProxy->setEngine(m_engine);
+    m_consumerThingsProxy->setEngine(m_engine);
 
     if (m_engine) {
         // #TODO grab thing manager and connect to stuff needed
@@ -56,6 +64,11 @@ double DashboardDataProvider::currentPowerProduction() const
 double DashboardDataProvider::currentPowerBatteries() const
 {
     return m_currentPowerBatteries;
+}
+
+double DashboardDataProvider::currentMeasuredConsumptionPower() const
+{
+    return m_currentPowerMeasuredConsumers;
 }
 
 void DashboardDataProvider::setupPowerProductionStats()
@@ -162,4 +175,57 @@ void DashboardDataProvider::updateBatteryCurrentPower(Thing *battery, State *cur
                                        << "-> Current power:" << currentPower;
     m_batteryCurrentPowers[battery] = currentPower;
     updateCurrentPowerBatteries();
+}
+
+void DashboardDataProvider::setupConsumersStats()
+{
+    m_consumerCurrentPowers.clear();
+    qCDebug(dcDashboardDataProvider()) << "Got" << m_consumerThingsProxy->rowCount() << "consumers:";
+    for (auto i = 0; i < m_consumerThingsProxy->rowCount(); ++i) {
+        const auto consumer = m_consumerThingsProxy->get(i);
+        qCDebug(dcDashboardDataProvider()) << "  " << consumer->name();
+        const auto currentPowerState = consumer->stateByName("currentPower");
+        if (!currentPowerState) {
+            qCCritical(dcDashboardDataProvider())
+                    << "Got consumer without \"currentPower\" state:"
+                    << consumer->name();
+            continue;
+        }
+        updateConsumerCurrentPower(consumer, currentPowerState);
+        connect(currentPowerState, &State::valueChanged, this, [this, consumer, currentPowerState]() {
+            updateConsumerCurrentPower(consumer, currentPowerState);
+        });
+    }
+}
+
+void DashboardDataProvider::updateCurrentPowerConsumers()
+{
+    auto totalMeasuredConsumerPower = 0.;
+    for (auto it = m_consumerCurrentPowers.constBegin();
+         it != m_consumerCurrentPowers.constEnd();
+         ++it) {
+        totalMeasuredConsumerPower += it.value();
+    }
+
+    if (!qFuzzyCompare(m_currentPowerMeasuredConsumers, totalMeasuredConsumerPower)) {
+        m_currentPowerMeasuredConsumers = totalMeasuredConsumerPower;
+        emit currentMeasuredConsumptionPowerChanged(m_currentPowerMeasuredConsumers);
+    }
+}
+
+void DashboardDataProvider::updateConsumerCurrentPower(Thing *consumer, State *currentPowerState)
+{
+    auto conversionOk = true;
+    const auto currentPower = currentPowerState->value().toDouble(&conversionOk);
+    if (!conversionOk) {
+        qCWarning(dcDashboardDataProvider())
+                << "Consumer"
+                << consumer->name()
+                << "-> Can not convert value of state \"currentPower\" to double!"
+                << currentPowerState->value().toString();
+    }
+    qCDebug(dcDashboardDataProvider()) << "Updating consumer" << consumer->name()
+                                       << "-> Current power:" << currentPower;
+    m_consumerCurrentPowers[consumer] = currentPower;
+    updateCurrentPowerConsumers();
 }
