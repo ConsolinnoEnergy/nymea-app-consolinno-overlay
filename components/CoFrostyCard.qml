@@ -12,13 +12,6 @@ Frame {
     topPadding: 0
     bottomPadding: 0
 
-    // #TODO remove again
-    Component.onCompleted: {
-        console.warn("---", width, height, implicitWidth, implicitHeight);
-        console.warn("--- header", header.width, header.height, header.implicitWidth, header.implicitHeight);
-        console.warn("--- body", body.width, body.height, body.implicitWidth, body.implicitHeight);
-    }
-
     background: Rectangle {
         color: Style.colors.components_Dashboard_Background_accent_dashboard
         radius: 16 // #TODO use value from style
@@ -34,11 +27,6 @@ Frame {
                         body.anchors.bottomMargin
         implicitWidth: Math.max(header.implicitWidth + header.anchors.leftMargin + header.anchors.rightMargin,
                                 body.implicitWidth + body.anchors.leftMargin + body.anchors.rightMargin)
-
-        // #TODO remove again
-        Component.onCompleted: {
-            console.warn("-----", width, height, implicitWidth, implicitHeight);
-        }
 
         Text {
             id: header
