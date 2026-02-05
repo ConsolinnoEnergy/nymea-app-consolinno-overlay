@@ -73,7 +73,7 @@ void DashboardDataProvider::setupPowerProductionStats()
             continue;
         }
         updateProducerCurrentPower(producer, currentPowerState);
-        connect(currentPowerState, &State::valueChanged, producer, [this, producer, currentPowerState]() {
+        connect(currentPowerState, &State::valueChanged, this, [this, producer, currentPowerState]() {
             updateProducerCurrentPower(producer, currentPowerState);
         });
     }
@@ -126,7 +126,7 @@ void DashboardDataProvider::setupBatteriesStats()
             continue;
         }
         updateBatteryCurrentPower(battery, currentPowerState);
-        connect(currentPowerState, &State::valueChanged, battery, [this, battery, currentPowerState]() {
+        connect(currentPowerState, &State::valueChanged, this, [this, battery, currentPowerState]() {
             updateBatteryCurrentPower(battery, currentPowerState);
         });
     }
