@@ -1303,11 +1303,7 @@ MainViewBase {
                                 mouse.accepted = false
                             }
                         }
-                        onClicked: pageStack.push("DetailedGraphsPage.qml", {
-                                                      "energyManager": energyManager,
-                                                      "totalColors": Configuration.totalColors,
-                                                      "consumersColors": lsdChart.consumersColors
-                                                  })
+                        onClicked: pageStack.push("DetailedGraphsPage.qml", { "backButtonVisible": true })
                     }
 
                     ColumnLayout {

@@ -8,15 +8,23 @@ import Nymea 1.0
 Page {
     id: root
 
+    property alias backButtonVisible : nymeaHeader.backButtonVisible
+
     header: NymeaHeader {
-        //text: qsTr("History")
-        backButtonVisible: true
+        id: nymeaHeader
+//        text: qsTr("History")
+        backButtonVisible: false
         onBackPressed: pageStack.pop()
     }
 
-    property EnergyManager energyManager: null
-    property var totalColors: []
-    property var consumersColors: []
+    EnergyManager {
+        id: energyManager
+        engine: _engine
+    }
+
+    property var totalColors: Configuration.totalColors
+    property var consumersColors: Configuration.consumerColors
+
     property bool isDynamicPrice: true
 
     readonly property Thing rootMeter: engine.thingManager.fetchingData ? null : engine.thingManager.things.getThing(energyManager.rootMeterId)
