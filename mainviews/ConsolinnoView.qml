@@ -1303,7 +1303,6 @@ MainViewBase {
                                 mouse.accepted = false
                             }
                         }
-                        onClicked: pageStack.push("DetailedGraphsPage.qml", { "backButtonVisible": true })
                     }
 
                     ColumnLayout {

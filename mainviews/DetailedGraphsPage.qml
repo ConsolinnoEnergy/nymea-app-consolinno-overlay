@@ -5,17 +5,12 @@ import "qrc:/ui/mainviews/energy/"
 import "qrc:/ui/components/"
 import Nymea 1.0
 
-Page {
+MainViewBase {
     id: root
 
-    property alias backButtonVisible : nymeaHeader.backButtonVisible
+    contentY: flickable.contentY + topMargin
 
-    header: NymeaHeader {
-        id: nymeaHeader
-//        text: qsTr("History")
-        backButtonVisible: false
-        onBackPressed: pageStack.pop()
-    }
+    headerButtons: []
 
     EnergyManager {
         id: energyManager
