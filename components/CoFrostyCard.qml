@@ -64,8 +64,8 @@ Frame {
             anchors.bottomMargin: 0
             anchors.leftMargin: 0
             anchors.rightMargin: 0
-            // #TODO this probably does not work in all cases
-            implicitHeight: children.length > 0 ? children[0].implicitHeight : 0
+            height: implicitHeight
+            implicitHeight: childrenRect.height
         }
     }
 }
