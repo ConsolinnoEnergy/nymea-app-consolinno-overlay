@@ -21,6 +21,11 @@ MainViewBase {
 
     headerButtons: []
 
+    function batteryIconByLevel(batteryLevel) {
+        let batteryLevelForIcon = NymeaUtils.pad(Math.round(batteryLevel / 10) * 10, 3);
+        return Qt.resolvedUrl("qrc:/icons/battery/battery-" + batteryLevelForIcon + ".svg");
+    }
+
     function thingToIcon(thing) {
         let ifaces = thing.thingClass.interfaces;
         if (ifaces.indexOf("battery") >= 0) {
@@ -30,8 +35,7 @@ MainViewBase {
                 let batteryLevelState = thing.stateByName("batteryLevel");
                 if (batteryLevelState) {
                     let batteryLevel = batteryLevelState.value;
-                    let batteryLevelForIcon = NymeaUtils.pad(Math.round(batteryLevel / 10) * 10, 3);
-                    return Qt.resolvedUrl("qrc:/icons/battery/battery-" + batteryLevelForIcon + ".svg");
+                    return batteryIconByLevel(batteryLevel);
                 } else {
                     return Qt.resolvedUrl("qrc:/icons/battery/battery-060.svg");
                 }
@@ -262,11 +266,10 @@ MainViewBase {
                                 value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerBatteries), 0) + " W"
                                 compactLayout: true
                                 icon: {
-                                    // #TODO icon via combined battery level
                                     if (Configuration.batteryIcon !== ""){
-                                        return Qt.resolvedUrl("qrc:/ui/images/" + Configuration.batteryIcon)
+                                        return Qt.resolvedUrl("qrc:/ui/images/" + Configuration.batteryIcon);
                                     } else {
-                                        return Qt.resolvedUrl("qrc:/icons/battery/battery-060.svg")
+                                        return batteryIconByLevel(dataProvider.totalBatteryLevel);
                                     }
                                 }
                                 clickable: false

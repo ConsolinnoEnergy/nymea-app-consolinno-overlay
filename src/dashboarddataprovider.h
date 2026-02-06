@@ -19,6 +19,7 @@ class DashboardDataProvider : public QObject
     Q_PROPERTY(double currentPowerMeteredConsumption READ currentPowerMeteredConsumption NOTIFY currentPowerMeteredConsumptionChanged)
     Q_PROPERTY(double currentPowerUnmeteredConsumption READ currentPowerUnmeteredConsumption NOTIFY currentPowerUnmeteredConsumptionChanged)
     Q_PROPERTY(double currentPowerTotalConsumption READ currentPowerTotalConsumption NOTIFY currentPowerTotalConsumptionChanged)
+    Q_PROPERTY(double totalBatteryLevel READ totalBatteryLevel NOTIFY totalBatteryLevelChanged)
 
 public:
     explicit DashboardDataProvider(QObject *parent = nullptr);
@@ -35,6 +36,7 @@ public:
     double currentPowerMeteredConsumption() const;
     double currentPowerUnmeteredConsumption() const;
     double currentPowerTotalConsumption() const;
+    double totalBatteryLevel() const;
 
 signals:
     void engineChanged();
@@ -45,6 +47,7 @@ signals:
     void currentPowerMeteredConsumptionChanged(double currentPowerMeteredConsumption);
     void currentPowerUnmeteredConsumptionChanged(double currentPowerUnmeteredConsumption);
     void currentPowerTotalConsumptionChanged(double currentPowerTotalConsumption);
+    void totalBatteryLevelChanged(double totalBatteryLevel);
 
 private:
     void updateRootMeterCurrentPower(State *currentPowerState);
@@ -56,6 +59,9 @@ private:
     void setupBatteriesStats();
     void updateCurrentPowerBatteries();
     void updateBatteryCurrentPower(Thing *battery, State *currentPowerState);
+    void updateTotalBatteryLevel();
+    void updateBatteryCapacity(Thing *battery, State *capacityState);
+    void updateBatteryLevel(Thing *battery, State *batteryLevelState);
 
     void setupConsumersStats();
     void updateCurrentPowerConsumption();
@@ -77,6 +83,10 @@ private:
     QPointer<ThingsProxy> m_batteryThingsProxy = nullptr;
     QHash<Thing *, double> m_batteryCurrentPowers;
     double m_currentPowerBatteries = 0.;
+    QHash<Thing *, double> m_batteryCapacities;
+    double m_totalBatteryCapacity = 0.;
+    QHash<Thing *, double> m_batteryLevels;
+    double m_totalBatteryLevel = 0.;
 
     QPointer<ThingsProxy> m_consumerThingsProxy = nullptr;
     QHash<Thing *, double> m_consumerCurrentPowers;

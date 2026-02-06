@@ -123,6 +123,11 @@ double DashboardDataProvider::currentPowerTotalConsumption() const
     return m_currentPowerTotalConsumption;
 }
 
+double DashboardDataProvider::totalBatteryLevel() const
+{
+    return m_totalBatteryLevel;
+}
+
 void DashboardDataProvider::updateRootMeterCurrentPower(State *currentPowerState)
 {
     auto conversionOk = true;
@@ -200,10 +205,13 @@ void DashboardDataProvider::updateProducerCurrentPower(Thing *producer, State *c
 void DashboardDataProvider::setupBatteriesStats()
 {
     m_batteryCurrentPowers.clear();
+    m_batteryCapacities.clear();
+    m_batteryLevels.clear();
     qCDebug(dcDashboardDataProvider()) << "Got" << m_batteryThingsProxy->rowCount() << "batteries:";
     for (auto i = 0; i < m_batteryThingsProxy->rowCount(); ++i) {
         const auto battery = m_batteryThingsProxy->get(i);
         qCDebug(dcDashboardDataProvider()) << "  " << battery->name();
+
         const auto currentPowerState = battery->stateByName("currentPower");
         if (!currentPowerState) {
             qCCritical(dcDashboardDataProvider())
@@ -214,6 +222,30 @@ void DashboardDataProvider::setupBatteriesStats()
         updateBatteryCurrentPower(battery, currentPowerState);
         connect(currentPowerState, &State::valueChanged, this, [this, battery, currentPowerState]() {
             updateBatteryCurrentPower(battery, currentPowerState);
+        });
+
+        const auto capacityState = battery->stateByName("capacity");
+        if (!capacityState) {
+            qCCritical(dcDashboardDataProvider())
+                    << "Got battery without \"capacity\" state:"
+                    << battery->name();
+            continue;
+        }
+        updateBatteryCapacity(battery, capacityState);
+        connect(capacityState, &State::valueChanged, this, [this, battery, capacityState]() {
+            updateBatteryCapacity(battery, capacityState);
+        });
+
+        const auto batteryLevelState = battery->stateByName("batteryLevel");
+        if (!batteryLevelState) {
+            qCCritical(dcDashboardDataProvider())
+                    << "Got battery without \"batteryLevel\" state:"
+                    << battery->name();
+            continue;
+        }
+        updateBatteryLevel(battery, batteryLevelState);
+        connect(batteryLevelState, &State::valueChanged, this, [this, battery, batteryLevelState]() {
+            updateBatteryLevel(battery, batteryLevelState);
         });
     }
 }
@@ -251,6 +283,61 @@ void DashboardDataProvider::updateBatteryCurrentPower(Thing *battery, State *cur
                                        << "-> Current power:" << currentPower;
     m_batteryCurrentPowers[battery] = currentPower;
     updateCurrentPowerBatteries();
+}
+
+void DashboardDataProvider::updateTotalBatteryLevel()
+{
+    if (m_batteryLevels.isEmpty() || m_batteryCapacities.isEmpty()) { return; }
+
+    auto totalBatteryCapacity = 0.;
+    auto totalBatteryLevel = 0.;
+    const auto batteryThings = m_batteryLevels.keys();
+    for (const auto &batteryThing : batteryThings) {
+        totalBatteryCapacity += m_batteryCapacities[batteryThing];
+        totalBatteryLevel += m_batteryCapacities[batteryThing] * m_batteryLevels[batteryThing];
+    }
+    totalBatteryLevel /= totalBatteryCapacity;
+    if (!qFuzzyCompare(m_totalBatteryLevel, totalBatteryLevel)) {
+        m_totalBatteryLevel = totalBatteryLevel;
+        qCInfo(dcDashboardDataProvider()) << "Total battery level:" << m_totalBatteryLevel;
+        emit totalBatteryLevelChanged(m_totalBatteryLevel);
+    }
+}
+
+void DashboardDataProvider::updateBatteryCapacity(Thing *battery, State *capacityState)
+{
+    auto conversionOk = true;
+    const auto capacity = capacityState->value().toDouble(&conversionOk);
+    if (!conversionOk) {
+        qCWarning(dcDashboardDataProvider())
+                << "Battery"
+                << battery->name()
+                << "-> Can not convert value of state \"capacity\" to double!"
+                << capacityState->value().toString();
+        return;
+    }
+    qCDebug(dcDashboardDataProvider()) << "Updating battery" << battery->name()
+                                       << "-> Capacity:" << capacity;
+    m_batteryCapacities[battery] = capacity;
+    updateTotalBatteryLevel();
+}
+
+void DashboardDataProvider::updateBatteryLevel(Thing *battery, State *batteryLevelState)
+{
+    auto conversionOk = true;
+    const auto batteryLevel = batteryLevelState->value().toDouble(&conversionOk);
+    if (!conversionOk) {
+        qCWarning(dcDashboardDataProvider())
+                << "Battery"
+                << battery->name()
+                << "-> Can not convert value of state \"batteryLevel\" to double!"
+                << batteryLevelState->value().toString();
+        return;
+    }
+    qCDebug(dcDashboardDataProvider()) << "Updating battery" << battery->name()
+                                       << "-> battery level:" << batteryLevel;
+    m_batteryLevels[battery] = batteryLevel;
+    updateTotalBatteryLevel();
 }
 
 void DashboardDataProvider::setupConsumersStats()
