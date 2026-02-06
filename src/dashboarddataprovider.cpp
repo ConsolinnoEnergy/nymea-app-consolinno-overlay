@@ -56,6 +56,48 @@ void DashboardDataProvider::setEngine(Engine *engine)
     }
 }
 
+Thing *DashboardDataProvider::rootMeter() const
+{
+    return m_rootMeter;
+}
+
+void DashboardDataProvider::setRootMeter(Thing *rootMeter)
+{
+    if (m_rootMeter == rootMeter) { return; }
+
+    if (m_currentPowerRootMeterConn) {
+        // disconnect from old root meter thing.
+        QObject::disconnect(m_currentPowerRootMeterConn);
+    }
+
+    m_rootMeter = rootMeter;
+    m_currentPowerRootMeter = 0.;
+    emit rootMeterChanged();
+    emit currentPowerRootMeterChanged(m_currentPowerRootMeter);
+
+    if (m_rootMeter != nullptr) {
+        qCDebug(dcDashboardDataProvider()) << "Setting root meter:" << rootMeter->name();
+        const auto currentPowerState = m_rootMeter->stateByName("currentPower");
+        if (!currentPowerState) {
+            qCCritical(dcDashboardDataProvider())
+                    << "Got root meter without \"currentPower\" state:"
+                    << m_rootMeter->name();
+            return;
+        }
+        updateRootMeterCurrentPower(currentPowerState);
+        m_currentPowerRootMeterConn =
+                connect(currentPowerState, &State::valueChanged,
+                        this, [this, currentPowerState]() {
+            updateRootMeterCurrentPower(currentPowerState);
+        });
+    }
+}
+
+double DashboardDataProvider::currentPowerRootMeter() const
+{
+    return m_currentPowerRootMeter;
+}
+
 double DashboardDataProvider::currentPowerProduction() const
 {
     return m_currentPowerProduction;
@@ -66,9 +108,37 @@ double DashboardDataProvider::currentPowerBatteries() const
     return m_currentPowerBatteries;
 }
 
-double DashboardDataProvider::currentMeasuredConsumptionPower() const
+double DashboardDataProvider::currentPowerMeteredConsumption() const
 {
-    return m_currentPowerMeasuredConsumers;
+    return m_currentPowerMeteredConsumption;
+}
+
+double DashboardDataProvider::currentPowerUnmeteredConsumption() const
+{
+    return m_currentPowerUnmeteredConsumption;
+}
+
+double DashboardDataProvider::currentPowerTotalConsumption() const
+{
+    return m_currentPowerTotalConsumption;
+}
+
+void DashboardDataProvider::updateRootMeterCurrentPower(State *currentPowerState)
+{
+    auto conversionOk = true;
+    const auto currentPower = currentPowerState->value().toDouble(&conversionOk);
+    if (!conversionOk) {
+        qCWarning(dcDashboardDataProvider())
+                << "Root meter -> Can not convert value of state \"currentPower\" to double!"
+                << currentPowerState->value().toString();
+        return;
+    }
+    if (!qFuzzyCompare(m_currentPowerRootMeter, currentPower)) {
+        m_currentPowerRootMeter = currentPower;
+        qCInfo(dcDashboardDataProvider()) << "Root meter:" << m_currentPowerRootMeter;
+        emit currentPowerRootMeterChanged(m_currentPowerRootMeter);
+        updateConsumptions();
+    }
 }
 
 void DashboardDataProvider::setupPowerProductionStats()
@@ -94,16 +164,18 @@ void DashboardDataProvider::setupPowerProductionStats()
 
 void DashboardDataProvider::updateCurrentPowerProduction()
 {
-    auto totalCurrentPower = 0.;
+    auto totalProducerPower = 0.;
     for (auto it = m_producerCurrentPowers.constBegin();
          it != m_producerCurrentPowers.constEnd();
          ++it) {
-        totalCurrentPower += it.value();
+        totalProducerPower += it.value();
     }
 
-    if (!qFuzzyCompare(m_currentPowerProduction, totalCurrentPower)) {
-        m_currentPowerProduction = totalCurrentPower;
+    if (!qFuzzyCompare(m_currentPowerProduction, totalProducerPower)) {
+        m_currentPowerProduction = totalProducerPower;
+        qCInfo(dcDashboardDataProvider()) << "Production:" << m_currentPowerProduction;
         emit currentPowerProductionChanged(m_currentPowerProduction);
+        updateConsumptions();
     }
 }
 
@@ -117,6 +189,7 @@ void DashboardDataProvider::updateProducerCurrentPower(Thing *producer, State *c
                 << producer->name()
                 << "-> Can not convert value of state \"currentPower\" to double!"
                 << currentPowerState->value().toString();
+        return;
     }
     qCDebug(dcDashboardDataProvider()) << "Updating producer" << producer->name()
                                        << "-> Current power:" << currentPower;
@@ -156,7 +229,9 @@ void DashboardDataProvider::updateCurrentPowerBatteries()
 
     if (!qFuzzyCompare(m_currentPowerBatteries, totalBatteryPower)) {
         m_currentPowerBatteries = totalBatteryPower;
+        qCInfo(dcDashboardDataProvider()) << "Batteries:" << m_currentPowerBatteries;
         emit currentPowerBatteriesChanged(m_currentPowerBatteries);
+        updateConsumptions();
     }
 }
 
@@ -170,6 +245,7 @@ void DashboardDataProvider::updateBatteryCurrentPower(Thing *battery, State *cur
                 << battery->name()
                 << "-> Can not convert value of state \"currentPower\" to double!"
                 << currentPowerState->value().toString();
+        return;
     }
     qCDebug(dcDashboardDataProvider()) << "Updating battery" << battery->name()
                                        << "-> Current power:" << currentPower;
@@ -198,7 +274,7 @@ void DashboardDataProvider::setupConsumersStats()
     }
 }
 
-void DashboardDataProvider::updateCurrentPowerConsumers()
+void DashboardDataProvider::updateCurrentPowerConsumption()
 {
     auto totalMeasuredConsumerPower = 0.;
     for (auto it = m_consumerCurrentPowers.constBegin();
@@ -207,9 +283,11 @@ void DashboardDataProvider::updateCurrentPowerConsumers()
         totalMeasuredConsumerPower += it.value();
     }
 
-    if (!qFuzzyCompare(m_currentPowerMeasuredConsumers, totalMeasuredConsumerPower)) {
-        m_currentPowerMeasuredConsumers = totalMeasuredConsumerPower;
-        emit currentMeasuredConsumptionPowerChanged(m_currentPowerMeasuredConsumers);
+    if (!qFuzzyCompare(m_currentPowerMeteredConsumption, totalMeasuredConsumerPower)) {
+        m_currentPowerMeteredConsumption = totalMeasuredConsumerPower;
+        qCInfo(dcDashboardDataProvider()) << "Metered consumption:" << m_currentPowerMeteredConsumption;
+        emit currentPowerMeteredConsumptionChanged(m_currentPowerMeteredConsumption);
+        updateConsumptions();
     }
 }
 
@@ -223,9 +301,31 @@ void DashboardDataProvider::updateConsumerCurrentPower(Thing *consumer, State *c
                 << consumer->name()
                 << "-> Can not convert value of state \"currentPower\" to double!"
                 << currentPowerState->value().toString();
+        return;
     }
     qCDebug(dcDashboardDataProvider()) << "Updating consumer" << consumer->name()
                                        << "-> Current power:" << currentPower;
     m_consumerCurrentPowers[consumer] = currentPower;
-    updateCurrentPowerConsumers();
+    updateCurrentPowerConsumption();
+}
+
+void DashboardDataProvider::updateConsumptions()
+{
+    const auto currentPowerTotalConsumption =
+            m_currentPowerRootMeter -
+            m_currentPowerProduction -
+            m_currentPowerBatteries;
+    const auto currentPowerUnmeteredConsumption =
+            m_currentPowerTotalConsumption -
+            m_currentPowerMeteredConsumption;
+    if (!qFuzzyCompare(m_currentPowerUnmeteredConsumption, currentPowerUnmeteredConsumption)) {
+        m_currentPowerUnmeteredConsumption = currentPowerUnmeteredConsumption;
+        qCInfo(dcDashboardDataProvider()) << "Unmetered consumption:" << m_currentPowerUnmeteredConsumption;
+        emit currentPowerUnmeteredConsumptionChanged(m_currentPowerUnmeteredConsumption);
+    }
+    if (!qFuzzyCompare(m_currentPowerTotalConsumption, currentPowerTotalConsumption)) {
+        m_currentPowerTotalConsumption = currentPowerTotalConsumption;
+        qCInfo(dcDashboardDataProvider()) << "Total consumption:" << m_currentPowerTotalConsumption;
+        emit currentPowerTotalConsumptionChanged(m_currentPowerTotalConsumption);
+    }
 }

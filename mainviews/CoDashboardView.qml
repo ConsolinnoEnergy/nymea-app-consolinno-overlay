@@ -106,6 +106,7 @@ MainViewBase {
     DashboardDataProvider {
         id: dataProvider
         engine: _engine
+        rootMeter: root.rootMeter
     }
 
     ThingsProxy {
@@ -276,7 +277,7 @@ MainViewBase {
                                 Layout.row: 2
                                 Layout.column: 2
                                 text: qsTr("Consumption") // #TODO English name
-                                value: "500 W" // #TODO value
+                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerTotalConsumption), 0) + " W"
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
                                 clickable: false
@@ -577,7 +578,7 @@ MainViewBase {
                             CoInfoCard {
                                 Layout.fillWidth: true
                                 text: qsTr("Non-controllable") // #TODO name
-                                value: "678 W" // #TODO value
+                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerUnmeteredConsumption), 0) + " W"
                                 icon: Qt.resolvedUrl("qrc:/icons/select-none.svg") // #TODO icon
                                 clickable: false
                             }
