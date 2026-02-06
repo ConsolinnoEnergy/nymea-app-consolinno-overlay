@@ -70,3 +70,5 @@ styles/light/logo-wide.svg \
 
 rm -rf icons
 rm overlay-config.pri
+rm -rf styles/light/fonts
+rm -rf styles/dark/fonts
