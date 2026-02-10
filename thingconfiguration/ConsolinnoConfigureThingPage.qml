@@ -102,7 +102,10 @@ SettingsPageBase {
         }
 
         function reconfigureThing() {
-            var configPage = pageStack.push(Qt.resolvedUrl("SetupWizard.qml"), {thing: root.thing})
+            var isEpexDayAheadThing =
+                    root.thing.thingClassId.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}";
+            var pageUrl = isEpexDayAheadThing ? "EpexDayAheadSetup.qml" : "SetupWizard.qml";
+            var configPage = pageStack.push(Qt.resolvedUrl(pageUrl), {thing: root.thing})
             configPage.done.connect(function() {pageStack.pop(root)})
             configPage.aborted.connect(function() {pageStack.pop(root)})
         }
