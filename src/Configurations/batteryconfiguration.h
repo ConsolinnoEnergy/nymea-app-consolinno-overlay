@@ -16,6 +16,7 @@ class BatteryConfiguration : public QObject
     Q_PROPERTY(bool avoidZeroFeedInActive READ avoidZeroFeedInActive WRITE setAvoidZeroFeedInActive NOTIFY avoidZeroFeedInActiveChanged)
     Q_PROPERTY(bool avoidZeroFeedInEnabled READ avoidZeroFeedInEnabled WRITE setAvoidZeroFeedInEnabled NOTIFY avoidZeroFeedInEnabledChanged)
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
+    Q_PROPERTY(bool preventBatteryDischarge READ preventBatteryDischarge WRITE setPreventBatteryDischarge NOTIFY preventBatteryDischargeChanged)
 
 public:
     explicit BatteryConfiguration(QObject *parent = nullptr);
@@ -47,6 +48,9 @@ public:
     bool controllableLocalSystem() const;
     void setControllableLocalSystem(bool controllableLocalSystem);
 
+    bool preventBatteryDischarge() const;
+    void setPreventBatteryDischarge(bool preventBatteryDischarge);
+
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void priceThresholdChanged(float priceThreshold);
@@ -56,6 +60,7 @@ signals:
     void relativePriceEnabledChanged(bool relativePriceEnabled);
     void chargeOnceChanged(bool chargeOnce);
     void controllableLocalSystemChanged(bool controllableLocalSystem);
+    void preventBatteryDischargeChanged(bool preventBatteryDischarge);
 
 private:
     QUuid m_batteryThingId;
@@ -67,6 +72,7 @@ private:
     bool m_controllableLocalSystem = false;
     bool m_avoidZeroFeedInEnabled = false;
     bool m_avoidZeroFeedInActive = false;
+    bool m_preventBatteryDischarge = false;
 
 };
 

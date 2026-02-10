@@ -115,3 +115,17 @@ void BatteryConfiguration::setControllableLocalSystem(bool controllableLocalSyst
     m_controllableLocalSystem = controllableLocalSystem;
     emit controllableLocalSystemChanged(m_controllableLocalSystem);
 }
+
+bool BatteryConfiguration::preventBatteryDischarge() const
+{
+    return m_preventBatteryDischarge;
+}
+
+void BatteryConfiguration::setPreventBatteryDischarge(bool preventBatteryDischarge)
+{
+    if (m_preventBatteryDischarge == preventBatteryDischarge)
+        return;
+
+    m_preventBatteryDischarge = preventBatteryDischarge;
+    emit preventBatteryDischargeChanged(m_preventBatteryDischarge);
+}

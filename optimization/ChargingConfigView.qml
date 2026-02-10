@@ -1381,6 +1381,30 @@ GenericConfigPage {
                                 Layout.topMargin: 10
                             }
 
+                            RowLayout {
+                                Layout.fillWidth: true
+                                spacing: 10
+                                visible: isAnyOfModesSelected([time_controlled])
+
+                                Label {
+                                    text: qsTr("Prevent battery discharge")
+                                    Layout.fillWidth: true
+                                }
+                                ConsolinnoSwitch {
+                                    id: preventBatteryDischargeSwitch
+                                    // Default to false or fetch from existing config if possible.
+                                    // Since we don't have a direct link to a specific battery here easily without iteration,
+                                    // and usually there is 1 battery, we try to init from the first battery config if available.
+                                    Component.onCompleted: {
+                                        if (hemsManager.batteryConfigurations.count > 0) {
+                                            checked = hemsManager.batteryConfigurations.get(0).preventBatteryDischarge
+                                        } else {
+                                            checked = false
+                                        }
+                                    }
+                                }
+                            }
+
                             Repeater {
                                 id: weekdayRepeater
                                 model: [
@@ -2190,6 +2214,14 @@ GenericConfigPage {
                                     }
                                     
                                     hemsManager.setChargingConfiguration(thing.id, configData)
+
+                                    // Save battery configuration for time controlled mode
+                                    if(isAnyOfModesSelected([time_controlled])){
+                                        if (hemsManager.batteryConfigurations.count > 0) {
+                                            var battThingId = hemsManager.batteryConfigurations.get(0).batteryThingId
+                                            hemsManager.setBatteryConfiguration(battThingId, { preventBatteryDischarge: preventBatteryDischargeSwitch.checked })
+                                        }
+                                    }
 
                                     optimizationPage.done()
                                     pageStack.pop()
