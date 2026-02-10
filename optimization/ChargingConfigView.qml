@@ -948,8 +948,54 @@ GenericConfigPage {
                         return (modes.includes(selected_mode))
                     }
 
+                    function restoreSchedule() {
+                        var scheduleJson = chargingConfiguration.chargingSchedule
+                        console.log("Restoring schedule:", scheduleJson)
+                        if (scheduleJson === "" || scheduleJson === undefined || scheduleJson === "null") return
+
+                        try {
+                            var schedule = JSON.parse(scheduleJson)
+                            var weekdays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+
+                            // iterate over repeater items
+                            for (var i = 0; i < weekdayRepeater.count; i++) {
+                                var dayItem = weekdayRepeater.itemAt(i)
+                                if (!dayItem) continue
+
+                                // Robustly find dropdowns. Assumes structure defined in delegate.
+                                var startHourDrop = dayItem.children[1].children[1]
+                                var startMinuteDrop = dayItem.children[1].children[3]
+                                var endHourDrop = dayItem.children[1].children[5]
+                                var endMinuteDrop = dayItem.children[1].children[7]
+
+                                var currentDay = weekdays[i]
+                                var entry = schedule.find(function(e) { return e.day === currentDay })
+
+                                if (entry) {
+                                    var startParts = entry.startTime.split(":")
+                                    var endParts = entry.endTime.split(":")
+
+                                    if (startParts.length >= 2 && endParts.length >= 2) {
+                                        startHourDrop.currentIndex = parseInt(startParts[0])
+                                        startMinuteDrop.currentIndex = parseInt(startParts[1])
+                                        endHourDrop.currentIndex = parseInt(endParts[0])
+                                        endMinuteDrop.currentIndex = parseInt(endParts[1])
+                                    }
+                                }
+                            }
+                        } catch (e) {
+                            console.error("Failed to parse charging schedule:", e)
+                        }
+                    }
+
+                    Connections {
+                        target: chargingConfiguration
+                        onChargingScheduleChanged: restoreSchedule()
+                    }
+
                     Component.onCompleted:{
                         endTimeSlider.feasibilityText()
+                        restoreSchedule()
                     }
 
                     header: NymeaHeader {
@@ -1128,19 +1174,18 @@ GenericConfigPage {
                                 Layout.topMargin: 10
 
                                 ColumnLayout{
-                                    Row{
-                                        Label{
-                                            id: batteryid
+                        Row{
+                            spacing: 5
+                            Label{
+                                id: batteryid
 
-                                            text: qsTr("Battery level: ") + batteryLevel.value +" %"
-                                        }
+                                text: qsTr("Battery level: ") + batteryLevel.value +" %"
+                            }
 
-                                        InfoButton{
-                                            push: "BatteryLevel.qml"
-                                            anchors.left: batteryid.right
-                                            anchors.leftMargin:  5
-                                        }
-                                    }
+                            InfoButton{
+                                push: "BatteryLevel.qml"
+                            }
+                        }
 
                                     Slider {
                                         id: batteryLevel
@@ -1182,19 +1227,18 @@ GenericConfigPage {
                                 visible:  isAnyOfModesSelected([pv_optimized, pv_excess])
                                 ColumnLayout {
                                     spacing: 0
-                                    Row{
-                                        Label {
-                                            id: targetCharge
+                        Row{
+                            spacing: 5
+                            Label {
+                                id: targetCharge
 
-                                            text: qsTr("Target charge %1%").arg(targetPercentageSlider.value)
-                                        }
+                                text: qsTr("Target charge %1%").arg(targetPercentageSlider.value)
+                            }
 
-                                        InfoButton{
-                                            push: "TargetChargeInfo.qml"
-                                            anchors.left: targetCharge.right
-                                            anchors.leftMargin:  5
-                                        }
-                                    }
+                            InfoButton{
+                                push: "TargetChargeInfo.qml"
+                            }
+                        }
 
                                     Slider {
                                         id: targetPercentageSlider
@@ -1536,8 +1580,7 @@ GenericConfigPage {
                                     id: gridConsumptionInfoButton
                                     visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
                                     push: "GridConsumptionInfo.qml"
-                                    anchors.left: gridConsumptionLabel.right
-                                    anchors.leftMargin:  5
+                                    Layout.leftMargin: 5
                                 }
 
                                 Label {
@@ -1550,8 +1593,7 @@ GenericConfigPage {
                                     id: pausingModeInfoButton
                                     visible: isAnyOfModesSelected([dyn_pricing])
                                     push: "PausingInfo.qml"
-                                    anchors.left: pausingModeid.right
-                                    anchors.leftMargin:  5
+                                    Layout.leftMargin: 5
                                 }
 
                             }
@@ -1579,6 +1621,7 @@ GenericConfigPage {
                             visible: isAnyOfModesSelected([dyn_pricing])
 
                             RowLayout {
+                                id: priceRow
 
                                 Label {
                                     id: priceLimitigId
@@ -1590,8 +1633,7 @@ GenericConfigPage {
                                     id: priceLimitInfoButton
 
                                     push: "PriceLimitInfo.qml"
-                                    anchors.left: priceLimitigId.right
-                                    anchors.leftMargin:  5
+                                    Layout.leftMargin: 5
                                 }
 
                             }
@@ -1603,7 +1645,7 @@ GenericConfigPage {
                             visible: isAnyOfModesSelected([dyn_pricing])
 
                             RowLayout {
-                                id: priceRow
+                                id: averagePriceRow
 
                                 Label {
                                     id: averagePriceLimitigId
@@ -1641,12 +1683,12 @@ GenericConfigPage {
                                             text: qsTr("-")
                                             onClicked: {
                                                 currentValue = currentValue > -100 ? currentValue - 1 : -100
-                                                priceRow.getThresholdPrice()
+                                                averagePriceRow.getThresholdPrice()
                                                 parent.redrawChart();
                                             }
                                             onPressAndHold: {
                                                 currentValue = currentValue > -100 ? currentValue - 10 : -100
-                                                priceRow.getThresholdPrice()
+                                                averagePriceRow.getThresholdPrice()
                                                 parent.redrawChart();
                                             }
                                         }
@@ -1662,7 +1704,7 @@ GenericConfigPage {
                                             }
                                             onTextChanged: {
                                                 currentValue = currentValueField.text
-                                                priceRow.getThresholdPrice()
+                                                averagePriceRow.getThresholdPrice()
                                                 parent.redrawChart();
                                             }
                                         }
@@ -1675,12 +1717,12 @@ GenericConfigPage {
                                             text: qsTr("+")
                                             onClicked: {
                                                 currentValue = currentValue < 100 ? currentValue + 1 : 100
-                                                priceRow.getThresholdPrice()
+                                                averagePriceRow.getThresholdPrice()
                                                 parent.redrawChart();
                                             }
                                             onPressAndHold: {
                                                 currentValue = currentValue < 100 ? currentValue + 10 : 100
-                                                priceRow.getThresholdPrice()
+                                                averagePriceRow.getThresholdPrice()
                                                 parent.redrawChart();
                                             }
                                         }
@@ -1723,7 +1765,7 @@ GenericConfigPage {
                             Layout.rightMargin: app.margins
                             wrapMode: Text.WordWrap
                             font.pixelSize: app.smallFont
-                            color: Style.dangerAccent
+                            color: "#ff0000"
                             text: qsTr("please select a car")
                             visible: false
                         }
