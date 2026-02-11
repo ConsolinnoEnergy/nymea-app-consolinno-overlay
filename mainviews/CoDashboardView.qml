@@ -209,13 +209,45 @@ MainViewBase {
 
                         headerText: qsTr("Live status")
 
+                        Canvas {
+                            id: flowCanvas
+                            z: 100
+                            anchors.fill: liveStatusLayout
+                            renderStrategy: Canvas.Cooperative
+
+                            onPaint: {
+                                var ctx = getContext("2d");
+                                ctx.reset();
+                                ctx.save();
+
+                                ctx.strokeStyle = Style.colors.components_Dashboard_Flow;
+                                ctx.beginPath();
+                                ctx.lineWidth = 8;
+                                ctx.setLineDash([0.001, 2]);
+                                ctx.lineCap = "round";
+
+                                // Test. #TODO draw real lines
+                                var startX = liveStatusPVCard.x + liveStatusPVCard.width / 2;
+                                var startY = liveStatusPVCard.y + liveStatusPVCard.height / 2;
+                                var endX = liveStatusConsumptionCard.x + liveStatusConsumptionCard.width / 2;
+                                var endY = liveStatusConsumptionCard.y + liveStatusConsumptionCard.height / 2;
+
+                                ctx.moveTo(startX, startY);
+                                ctx.lineTo(endX, endY);
+                                ctx.stroke();
+                                ctx.closePath();
+                            }
+                        }
+
                         GridLayout {
+                            id: liveStatusLayout
                             anchors.left: parent.left
                             anchors.right: parent.right
                             rowSpacing: 0
                             columnSpacing: 0
 
                             CoInfoCard {
+                                id: liveStatusPVCard
                                 Layout.fillWidth: true
                                 Layout.row: 0
                                 Layout.column: 0
@@ -228,6 +260,7 @@ MainViewBase {
                             }
 
                             CoPowerThingInfoCard {
+                                id: liveStatusGridCard
                                 Layout.fillWidth: true
                                 Layout.row: 0
                                 Layout.column: 2
@@ -256,6 +289,7 @@ MainViewBase {
                             }
 
                             CoInfoCard {
+                                id: liveStatusBatteryCard
                                 Layout.fillWidth: true
                                 Layout.row: 2
                                 Layout.column: 0
@@ -274,6 +308,7 @@ MainViewBase {
                             }
 
                             CoInfoCard {
+                                id: liveStatusConsumptionCard
                                 Layout.fillWidth: true
                                 Layout.row: 2
                                 Layout.column: 2
