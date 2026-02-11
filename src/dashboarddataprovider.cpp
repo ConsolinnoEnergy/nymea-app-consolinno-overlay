@@ -11,20 +11,14 @@ DashboardDataProvider::DashboardDataProvider(QObject *parent)
     , m_consumerThingsProxy{ new ThingsProxy{ this } }
 {
     m_producerThingsProxy->setShownInterfaces({ "smartmeterproducer" });
-    connect(m_producerThingsProxy, &ThingsProxy::engineChanged,
-            this, &DashboardDataProvider::setupPowerProductionStats);
     connect(m_producerThingsProxy, &ThingsProxy::countChanged,
             this, &DashboardDataProvider::setupPowerProductionStats);
 
     m_batteryThingsProxy->setShownInterfaces({ "energystorage" });
-    connect(m_producerThingsProxy, &ThingsProxy::engineChanged,
-            this, &DashboardDataProvider::setupBatteriesStats);
-    connect(m_producerThingsProxy, &ThingsProxy::countChanged,
+    connect(m_batteryThingsProxy, &ThingsProxy::countChanged,
             this, &DashboardDataProvider::setupBatteriesStats);
 
     m_consumerThingsProxy->setShownInterfaces({ "smartmeterconsumer" });
-    connect(m_consumerThingsProxy, &ThingsProxy::engineChanged,
-            this, &DashboardDataProvider::setupConsumersStats);
     connect(m_consumerThingsProxy, &ThingsProxy::countChanged,
             this, &DashboardDataProvider::setupConsumersStats);
 }
@@ -40,7 +34,6 @@ void DashboardDataProvider::setEngine(Engine *engine)
 
     if (m_engine) {
         qCCritical(dcDashboardDataProvider()) << "Already have an engine:" << m_engine;
-        // #TODO disconnect from old engine's thing manager
     }
 
     qCDebug(dcDashboardDataProvider()) << "Setting engine:" << engine;
@@ -51,9 +44,9 @@ void DashboardDataProvider::setEngine(Engine *engine)
     m_batteryThingsProxy->setEngine(m_engine);
     m_consumerThingsProxy->setEngine(m_engine);
 
-    if (m_engine) {
-        // #TODO grab thing manager and connect to stuff needed
-    }
+    setupPowerProductionStats();
+    setupBatteriesStats();
+    setupConsumersStats();
 }
 
 Thing *DashboardDataProvider::rootMeter() const
