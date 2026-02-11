@@ -9,6 +9,7 @@ Item {
     property alias icon: icon.name
     property alias text: titleText.text
     property alias value: valueText.text
+    property alias unit: unitText.text
     property bool compactLayout: false
     // #TODO naming (warning, error), are both needed?
     property bool showWarningIndicator: false
@@ -64,7 +65,6 @@ Item {
 
             Text {
                 id: titleText
-                // #TODO font from new style
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
@@ -73,22 +73,50 @@ Item {
                 maximumLineCount: root.compactLayout ? 1 : 2
                 wrapMode: Text.WordWrap
                 elide: Text.ElideRight
+                font: Style.newParagraphFontBold
+                color: Style.colors.components_Dashboard_Info_card_title
             }
         }
 
-        Text {
-            id: valueText
-            // #TODO font from new style
-
+        Item {
+            id: valueItem
             Layout.row: compactLayout ? 1 : 0
             Layout.column: compactLayout ? 0 : 1
             Layout.fillWidth: compactLayout
             Layout.preferredWidth: compactLayout ? -1 : gridLayout.width / 2
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
+            implicitHeight: valueText.paintedHeight
+            implicitWidth: valueText.paintedWidth + unitText.paintedWidth
+
+            Text {
+                id: valueText
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                }
+                x: (valueItem.width - width - unitText.width) / 2
+
+                verticalAlignment: Text.AlignVCenter
+                font: Style.newH2Font
+                color: Style.colors.components_Dashboard_Info_card_value
+            }
+
+            Text {
+                id: unitText
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                    left: valueText.right
+                    leftMargin: 3
+                }
+
+                verticalAlignment: Text.AlignVCenter
+                font: Style.newParagraphFontBold
+                color: Style.colors.components_Dashboard_Info_card_value
+            }
         }
+
     }
 
     Rectangle {

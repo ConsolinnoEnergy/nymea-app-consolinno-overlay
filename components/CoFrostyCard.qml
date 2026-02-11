@@ -38,9 +38,7 @@ Frame {
             anchors.rightMargin: 16 // #TODO use value from style
             anchors.bottomMargin: 16 // #TODO use value from style
             color: Style.colors.typography_Headlines_H2
-            // #TODO font from new style
-            font.bold: true
-            font.pixelSize: 16
+            font: Style.newH2Font
         }
 
         Item {

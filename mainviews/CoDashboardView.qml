@@ -224,7 +224,8 @@ MainViewBase {
                                 Layout.row: 0
                                 Layout.column: 0
                                 text: qsTr("Solar") // #TODO English name
-                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerProduction), 0) + " W"
+                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerProduction), 0)
+                                unit: "W"
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/weathericons/weather-clear-day.svg") // #TODO icon
                                 clickable: false
@@ -263,7 +264,8 @@ MainViewBase {
                                 Layout.row: 2
                                 Layout.column: 0
                                 text: qsTr("Battery") // #TODO English name
-                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerBatteries), 0) + " W"
+                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerBatteries), 0)
+                                unit: "W"
                                 compactLayout: true
                                 icon: {
                                     if (Configuration.batteryIcon !== ""){
@@ -280,7 +282,8 @@ MainViewBase {
                                 Layout.row: 2
                                 Layout.column: 2
                                 text: qsTr("Consumption") // #TODO English name
-                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerTotalConsumption), 0) + " W"
+                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerTotalConsumption), 0)
+                                unit: "W"
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
                                 clickable: false
@@ -314,7 +317,8 @@ MainViewBase {
                             CoInfoCard {
                                 Layout.fillWidth: true
                                 text: qsTr("Self-sufficiency") // #TODO English name
-                                value: "70 %" // #TODO value
+                                value: "70" // #TODO value
+                                unit: "%"
                                 icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
                                 clickable: false
                                 showWarningIndicator: true
@@ -323,7 +327,8 @@ MainViewBase {
                             CoInfoCard {
                                 Layout.fillWidth: true
                                 text: qsTr("Self-consumption") // #TODO English name
-                                value: "93 %" // #TODO value
+                                value: "93" // #TODO value
+                                unit: "%"
                                 icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
                                 clickable: false
                                 showErrorIndicator: true
@@ -336,6 +341,7 @@ MainViewBase {
                                 readonly property double currentMarketPrice: currentMarketPriceState ? currentMarketPriceState.value.toFixed(2) : 0
                                 visible: dynamicPricingThing ? true : false
                                 text: thing ? thing.name : ""
+                                unit: "ct/kWh"
                                 value: {
                                     let v = currentMarketPrice;
                                     let decimals = 0;
@@ -346,7 +352,7 @@ MainViewBase {
                                     } else {
                                         decimals = 0;
                                     }
-                                    return v.toLocaleString(Qt.locale(), 'f', decimals) + " ct/kWh";
+                                    return v.toLocaleString(Qt.locale(), 'f', decimals);
                                 }
                                 icon: {
                                     if (Configuration.energyIcon !== "") {
@@ -581,7 +587,8 @@ MainViewBase {
                             CoInfoCard {
                                 Layout.fillWidth: true
                                 text: qsTr("Non-controllable") // #TODO name
-                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerUnmeteredConsumption), 0) + " W"
+                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerUnmeteredConsumption), 0)
+                                unit: "W"
                                 icon: Qt.resolvedUrl("qrc:/icons/select-none.svg") // #TODO icon
                                 clickable: false
                             }

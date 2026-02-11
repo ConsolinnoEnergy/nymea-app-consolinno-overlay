@@ -61,8 +61,8 @@ Item {
                 Layout.fillWidth: true
                 verticalAlignment: Text.AlignVCenter
                 wrapMode: Text.WordWrap
-                // #TODO font from style
-                font.pixelSize: 16
+                font: Style.newParagraphFont
+                color: Style.colors.typography_Basic_Default
             }
 
             Text {
@@ -72,8 +72,8 @@ Item {
                 text: ""
                 visible: text !== ""
                 wrapMode: Text.WordWrap
-                // #TODO font from style
-                font.pixelSize: 13
+                font: Style.newSmallFont
+                color: Style.colors.typography_Basic_Default
             }
 
             Text {
@@ -83,8 +83,7 @@ Item {
                 text: ""
                 visible: text !== ""
                 wrapMode: Text.WordWrap
-                // #TODO font from style
-                font.pixelSize: 10
+                font: Style.newExtraSmallFont
                 color: Style.colors.typography_Basic_Secondary
             }
         }
