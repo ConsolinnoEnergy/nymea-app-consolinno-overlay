@@ -212,10 +212,6 @@ MainViewBase {
                         GridLayout {
                             anchors.left: parent.left
                             anchors.right: parent.right
-                            anchors.topMargin: 8 // #TODO use values from new style
-                            anchors.bottomMargin: 8 // #TODO use values from new style
-                            anchors.leftMargin: 16 // #TODO use values from new style
-                            anchors.rightMargin: 16 // #TODO use values from new style
                             rowSpacing: 0
                             columnSpacing: 0
 
@@ -307,10 +303,6 @@ MainViewBase {
                         ColumnLayout {
                             anchors.left: parent.left
                             anchors.right: parent.right
-                            anchors.topMargin: 8 // #TODO use values from new style
-                            anchors.bottomMargin: 8 // #TODO use values from new style
-                            anchors.leftMargin: 16 // #TODO use values from new style
-                            anchors.rightMargin: 16 // #TODO use values from new style
 
                             spacing: 16 // #TODO use value from new style
 
@@ -377,10 +369,6 @@ MainViewBase {
                         ColumnLayout {
                             anchors.left: parent.left
                             anchors.right: parent.right
-                            anchors.topMargin: 8 // #TODO use values from new style
-                            anchors.bottomMargin: 8 // #TODO use values from new style
-                            anchors.leftMargin: 16 // #TODO use values from new style
-                            anchors.rightMargin: 16 // #TODO use values from new style
 
                             spacing: 16 // #TODO use value from new style
 
@@ -414,10 +402,6 @@ MainViewBase {
                         ColumnLayout {
                             anchors.left: parent.left
                             anchors.right: parent.right
-                            anchors.topMargin: 8 // #TODO use values from new style
-                            anchors.bottomMargin: 8 // #TODO use values from new style
-                            anchors.leftMargin: 16 // #TODO use values from new style
-                            anchors.rightMargin: 16 // #TODO use values from new style
 
                             spacing: 16 // #TODO use value from new style
 
@@ -452,10 +436,6 @@ MainViewBase {
                         ColumnLayout {
                             anchors.left: parent.left
                             anchors.right: parent.right
-                            anchors.topMargin: 8 // #TODO use values from new style
-                            anchors.bottomMargin: 8 // #TODO use values from new style
-                            anchors.leftMargin: 16 // #TODO use values from new style
-                            anchors.rightMargin: 16 // #TODO use values from new style
 
                             spacing: 16 // #TODO use value from new style
 
@@ -504,10 +484,6 @@ MainViewBase {
                         ColumnLayout {
                             anchors.left: parent.left
                             anchors.right: parent.right
-                            anchors.topMargin: 8 // #TODO use values from new style
-                            anchors.bottomMargin: 8 // #TODO use values from new style
-                            anchors.leftMargin: 16 // #TODO use values from new style
-                            anchors.rightMargin: 16 // #TODO use values from new style
 
                             spacing: 16 // #TODO use value from new style
 
@@ -559,10 +535,6 @@ MainViewBase {
                         ColumnLayout {
                             anchors.left: parent.left
                             anchors.right: parent.right
-                            anchors.topMargin: 8 // #TODO use values from new style
-                            anchors.bottomMargin: 8 // #TODO use values from new style
-                            anchors.leftMargin: 16 // #TODO use values from new style
-                            anchors.rightMargin: 16 // #TODO use values from new style
 
                             spacing: 16 // #TODO use value from new style
 

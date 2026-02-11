@@ -48,8 +48,8 @@ Frame {
             anchors.top: header.bottom
             anchors.topMargin: 8 // #TODO use value from new style
             anchors.bottomMargin: 0
-            anchors.leftMargin: 0
-            anchors.rightMargin: 0
+            anchors.leftMargin: 16 // #TODO use value from new style
+            anchors.rightMargin: 16 // #TODO use value from new style
             height: implicitHeight
             implicitHeight: childrenRect.height
         }
