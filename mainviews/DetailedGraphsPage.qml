@@ -106,7 +106,7 @@ MainViewBase {
                 ConsolinnoPowerBalanceStats {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
-                    energyManager: root.energyManager
+                    energyManager: energyManager
                     totalColors: root.totalColors
                     visible: rootMeter != null
                 }
@@ -114,7 +114,7 @@ MainViewBase {
                 ConsolinnoConsumerStats {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
-                    energyManager: root.energyManager
+                    energyManager: energyManager
                     visible: consumers.count > 0
                     consumerColors: root.consumersColors
                     consumers: consumers
