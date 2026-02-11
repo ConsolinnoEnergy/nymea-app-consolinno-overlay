@@ -3,8 +3,15 @@
 git restore \
 Configuration.qml \
 overlay.qrc \
+images/eebus.svg \
+images/leaf.svg \
+images/logo-wide.svg \
+images/relais.svg \
 packaging/android/appicon-legacy.svg \
 packaging/android/appicon.svg \
+packaging/android/AndroidManifest.xml \
+packaging/android/build.gradle \
+packaging/android/google-services.json \
 packaging/android/notificationicon.svg \
 packaging/android/res/drawable/splash_light.xml \
 packaging/android/splash-dark.svg \
@@ -39,6 +46,7 @@ packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenD@3x.png \
 packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenL@1x.png \
 packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenL@2x.png \
 packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenL@3x.png \
+packaging/ios/Info.plist.in \
 packaging/ios/splash-dark.svg \
 packaging/ios/splash-light.svg \
 packaging/linux-common/icons/hicolor/16x16/apps/consolinno-energy.png \
@@ -60,15 +68,27 @@ packaging/osx/AppIcon.iconset/icon_32x32@2x.png \
 packaging/osx/AppIcon.iconset/icon_512x512.png \
 packaging/osx/AppIcon.iconset/icon_512x512@2x.png \
 packaging/osx/AppIcon.svg \
+packaging/osx/Info.plist.in \
 packaging/windows/config/config.xml \
 packaging/windows/packages/hems.consolinno.energy/meta/installscript.qs \
+packaging/windows/packages/hems.consolinno.energy/meta/license-gpl.txt \
+packaging/windows/packages/hems.consolinno.energy/meta/logo.ico \
 packaging/windows/packages/hems.consolinno.energy/meta/package.xml \
 privacy_agreement_de_DE.html \
+styles/dark/logo-wide.svg \
+styles/dark/logo.svg \
 styles/dark/Style.qml \
+styles/light/logo.svg \
 styles/light/Style.qml \
 styles/light/logo-wide.svg \
+terms_of_use_de_DE.html \
 
 rm -rf icons
 rm overlay-config.pri
 rm -rf styles/light/fonts
 rm -rf styles/dark/fonts
+rm LICENSE.*
+rm packaging/appimage/Q.HOME-CONTROL.desktop
+rm packaging/appimage/Zewo-Dynamics.desktop
+rm -rf packaging/windows/packages/de.qcells.qhomecontrol/
+rm -rf packaging/windows/packages/ems.zewo.dynamics/
