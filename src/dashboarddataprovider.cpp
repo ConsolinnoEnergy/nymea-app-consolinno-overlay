@@ -1,5 +1,8 @@
 #include "dashboarddataprovider.h"
 
+#include <QDateTime>
+#include <QTimeZone>
+
 #include "logging.h"
 
 NYMEA_LOGGING_CATEGORY(dcDashboardDataProvider, "DashboardDataProvider");
@@ -21,6 +24,11 @@ DashboardDataProvider::DashboardDataProvider(QObject *parent)
     m_consumerThingsProxy->setShownInterfaces({ "smartmeterconsumer" });
     connect(m_consumerThingsProxy, &ThingsProxy::countChanged,
             this, &DashboardDataProvider::setupConsumersStats);
+
+    // Refresh KPIs every 5 minutes
+    m_kpiRefreshTimer.setInterval(5 * 60 * 1000);
+    connect(&m_kpiRefreshTimer, &QTimer::timeout,
+            this, &DashboardDataProvider::fetchEnergyKPIs);
 }
 
 Engine *DashboardDataProvider::engine() const
@@ -47,6 +55,17 @@ void DashboardDataProvider::setEngine(Engine *engine)
     setupPowerProductionStats();
     setupBatteriesStats();
     setupConsumersStats();
+
+    // Fetch KPIs periodically via timer (initial fetch delayed to allow connection to stabilize)
+    if (m_engine && m_engine->jsonRpcClient()) {
+        QTimer::singleShot(5000, this, [this]() {
+            // Extra guard: only fetch if still connected when the timer fires
+            if (m_engine && m_engine->jsonRpcClient() && m_engine->jsonRpcClient()->connected()) {
+                fetchEnergyKPIs();
+            }
+        });
+        m_kpiRefreshTimer.start();
+    }
 }
 
 Thing *DashboardDataProvider::rootMeter() const
@@ -409,3 +428,87 @@ void DashboardDataProvider::updateConsumptions()
         emit currentPowerTotalConsumptionChanged(m_currentPowerTotalConsumption);
     }
 }
+
+double DashboardDataProvider::selfSufficiencyRate() const
+{
+    return m_selfSufficiencyRate;
+}
+
+double DashboardDataProvider::selfConsumptionRate() const
+{
+    return m_selfConsumptionRate;
+}
+
+bool DashboardDataProvider::kpiValid() const
+{
+    return m_kpiValid;
+}
+
+void DashboardDataProvider::fetchEnergyKPIs()
+{
+    if (!m_engine || !m_engine->jsonRpcClient()) {
+        qCWarning(dcDashboardDataProvider()) << "Cannot fetch Energy KPIs: no engine or JSON-RPC client.";
+        return;
+    }
+
+    if (!m_engine->jsonRpcClient()->connected()) {
+        qCDebug(dcDashboardDataProvider()) << "Cannot fetch Energy KPIs: not connected.";
+        return;
+    }
+
+    // Calculate midnight today (local time) as Unix timestamp in seconds
+    const QDateTime now = QDateTime::currentDateTime();
+    QDateTime midnightToday(now.date(), QTime(0, 0, 0), now.timeZone());
+    const qint64 fromTimestamp = midnightToday.toSecsSinceEpoch();
+
+    QVariantMap params;
+    params.insert("from", fromTimestamp);
+
+    qCDebug(dcDashboardDataProvider()) << "Fetching Energy KPIs from" << fromTimestamp
+                                       << "(" << midnightToday.toString(Qt::ISODate) << ")";
+
+    m_engine->jsonRpcClient()->sendCommand("Energy.GetEnergyKPIs", params, this, "getEnergyKPIsResponse");
+}
+
+void DashboardDataProvider::getEnergyKPIsResponse(int commandId, const QVariantMap &data)
+{
+    Q_UNUSED(commandId);
+
+    // Check for error in response
+    if (data.contains("error") || data.contains("energyError")) {
+        qCWarning(dcDashboardDataProvider()) << "Energy KPIs request failed:"
+                                              << data.value("error").toString()
+                                              << data.value("energyError").toString();
+        return;
+    }
+
+    // Guard: if the expected fields are missing, don't update
+    if (!data.contains("selfSufficiencyRate") || !data.contains("selfConsumptionRate")) {
+        qCWarning(dcDashboardDataProvider()) << "Energy KPIs response missing expected fields. Keys:" << data.keys();
+        return;
+    }
+
+    const bool valid = data.value("valid").toBool();
+    const double selfSufficiencyRate = data.value("selfSufficiencyRate").toDouble();
+    const double selfConsumptionRate = data.value("selfConsumptionRate").toDouble();
+
+    qCDebug(dcDashboardDataProvider()) << "Energy KPIs parsed -> valid:" << valid
+                                       << "selfSufficiency:" << selfSufficiencyRate << "%"
+                                       << "selfConsumption:" << selfConsumptionRate << "%";
+
+    if (m_kpiValid != valid) {
+        m_kpiValid = valid;
+        emit kpiValidChanged(m_kpiValid);
+    }
+
+    if (!qFuzzyCompare(m_selfSufficiencyRate, selfSufficiencyRate)) {
+        m_selfSufficiencyRate = selfSufficiencyRate;
+        emit selfSufficiencyRateChanged(m_selfSufficiencyRate);
+    }
+
+    if (!qFuzzyCompare(m_selfConsumptionRate, selfConsumptionRate)) {
+        m_selfConsumptionRate = selfConsumptionRate;
+        emit selfConsumptionRateChanged(m_selfConsumptionRate);
+    }
+}
+

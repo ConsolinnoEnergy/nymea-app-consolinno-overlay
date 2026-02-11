@@ -116,4 +116,30 @@ StyleBase {
     readonly property color mainInnerCicleFirst: "#5A5A5A"
     readonly property color mainInnerCicleSecond: "#5A5A5A"
     readonly property color mainInnerCicleText: "#F4F6F4"
+
+    // Design token colors used by new dashboard components
+    readonly property QtObject colors: QtObject {
+        // Typography / Background
+        readonly property color typography_Background_Default: "#3A3A3A"
+        readonly property color typography_States_Pressed: "#20FFFFFF"
+        readonly property color typography_States_Hover: "#10FFFFFF"
+        readonly property color typography_Headlines_H2: "#F4F6F4"
+        readonly property color typography_Basic_Secondary: "#B6B6B6"
+
+        // Brand / Icon
+        readonly property color brand_Basic_Icon_accent: "#87BD26"
+        readonly property color brand_Basic_Icon: "#F4F6F4"
+
+        // System status
+        readonly property color system_Warning_Status_border: "#FDC812"
+        readonly property color system_Warning_Status_light: "#431E05"
+        readonly property color system_Danger_Status_light_border: "#FF5F79"
+        readonly property color system_Danger_Status_light: "#4D020E"
+
+        // Dashboard components
+        readonly property color components_Dashboard_Background_accent_dashboard: "#80303030"
+
+        // Menu
+        readonly property color menu_Header_Footer_Background: "#303030"
+    }
 }

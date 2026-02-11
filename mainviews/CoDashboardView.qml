@@ -1,4 +1,3 @@
-
 // #TODO copyright notice
 
 import QtQuick 2.8
@@ -53,7 +52,7 @@ MainViewBase {
                 if (Configuration.heatpumpIcon !== ""){
                     icon = "qrc:/ui/images/" + Configuration.heatpumpIcon;
                 } else {
-                    icon = "qrc:/icons/heatpump.svg";
+                    icon = "qrc:/ui/images/heatpump.svg";
                 }
                 break;
             case "heatingrod":
@@ -286,7 +285,7 @@ MainViewBase {
                                     if (Configuration.gridIcon !== "") {
                                         return Qt.resolvedUrl("/ui/images/" + Configuration.gridIcon)
                                     } else {
-                                        return Qt.resolvedUrl("/icons/grid.svg")
+                                        return Qt.resolvedUrl("/ui/images/grid.svg")
                                     }
                                 }
                                 onClicked: {
@@ -357,22 +356,22 @@ MainViewBase {
 
                             CoInfoCard {
                                 Layout.fillWidth: true
-                                text: qsTr("Self-sufficiency") // #TODO English name
-                                value: "70" // #TODO value
+                                text: qsTr("Self-sufficiency")
+                                value: dataProvider.kpiValid ? dataProvider.selfSufficiencyRate.toFixed(0) : "—"
                                 unit: "%"
                                 icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
                                 clickable: false
-                                showWarningIndicator: true
+                                showWarningIndicator: !dataProvider.kpiValid
                             }
 
                             CoInfoCard {
                                 Layout.fillWidth: true
-                                text: qsTr("Self-consumption") // #TODO English name
-                                value: "93" // #TODO value
+                                text: qsTr("Self-consumption")
+                                value: dataProvider.kpiValid ? dataProvider.selfConsumptionRate.toFixed(0) : "—"
                                 unit: "%"
                                 icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
                                 clickable: false
-                                showErrorIndicator: true
+                                showErrorIndicator: !dataProvider.kpiValid
                             }
 
                             CoInfoCard {
