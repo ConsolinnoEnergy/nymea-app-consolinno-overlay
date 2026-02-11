@@ -2786,7 +2786,7 @@ fügen Sie eine weitere hinzu.</translation>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.13.0&lt;/p&gt;
+&lt;p&gt;Version 1.13.1&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Optimierung von SG‑Ready‑Wärmepumpen mit dynamischem Stromtarif&lt;/li&gt;
@@ -2794,6 +2794,7 @@ fügen Sie eine weitere hinzu.</translation>
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Einspeiseabregelung (LPP) für nicht‑hybride Wechselrichter&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Verbessertes Batterieladen mit dynamischem Tarif: Auch das Entladen der Batterie kann tarifabhängig gesperrt werden für maximale Effizienz.
 Preis- und Entladegrenzen werden auf Basis des Durchschnittspreises berechnet.&lt;br&gt;&lt;b&gt;Hinweis: Tarifgesteuertes Laden muss nach dem Update neu konfiguriert werden!&lt;/b&gt;&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Unterstützung von variablen Netzentgelten&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Verbesserungen&lt;/h4&gt;
 &lt;ul&gt;

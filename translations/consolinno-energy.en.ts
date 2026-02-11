@@ -2776,13 +2776,14 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation>&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.13.0&lt;/p&gt;
+&lt;p&gt;Version 1.13.1&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Optimisation of SG‑ready heat pumps with dynamic electricity tariffs&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;HEMS can now be configured without PV&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Feed‑in regulation (LPP) for non‑hybrid inverters&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Improved battery charging with dynamic tariffs: Battery discharge can also be blocked depending on the tariff for maximum efficiency. Price and discharge limits are calculated based on the average price.&lt;br&gt;&lt;b&gt;Note: Tariff-controlled charging must be reconfigured after the update!&lt;/b&gt;&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Support of variable grid fees&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Improvements&lt;/h4&gt;
 &lt;ul&gt;
