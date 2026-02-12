@@ -211,9 +211,22 @@ MainViewBase {
 
                         Canvas {
                             id: flowCanvas
-                            z: 100
                             anchors.fill: liveStatusLayout
                             renderStrategy: Canvas.Cooperative
+
+                            property real lineAnimationProgress: 0
+                            NumberAnimation {
+                                target: flowCanvas
+                                property: "lineAnimationProgress"
+                                duration: 1000
+                                loops: Animation.Infinite
+                                from: 2
+                                to: 0
+                                running: flowCanvas.visible
+                                // #TODO use this?
+//                                         && Qt.application.state === Qt.ApplicationActive
+                            }
+                            onLineAnimationProgressChanged: requestPaint()
 
                             onPaint: {
                                 var ctx = getContext("2d");
@@ -223,6 +236,7 @@ MainViewBase {
                                 ctx.strokeStyle = Style.colors.components_Dashboard_Flow;
                                 ctx.beginPath();
                                 ctx.lineWidth = 8;
+                                ctx.lineDashOffset = lineAnimationProgress;
                                 ctx.setLineDash([0.001, 2]);
                                 ctx.lineCap = "round";
 
