@@ -29,7 +29,7 @@ MainViewBase {
     function thingToIcon(thing) {
         let ifaces = thing.thingClass.interfaces;
         if (ifaces.indexOf("battery") >= 0) {
-            if (Configuration.batteryIcon !== ""){
+            if (Configuration.batteryIcon !== ""){ // #TODO check if whitelabel customers really don't want the SoC represented by the battery icon
                 return Qt.resolvedUrl("qrc:/ui/images/" + Configuration.batteryIcon);
             } else {
                 let batteryLevelState = thing.stateByName("batteryLevel");
