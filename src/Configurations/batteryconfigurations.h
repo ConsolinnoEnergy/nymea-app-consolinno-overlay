@@ -20,7 +20,8 @@ public:
         RoleChargeOnce,
         RoleControllableLocalSystemEnabled,
         RoleAvoidZeroFeedInEnabled,
-        RoleAvoidZeroFeedInActive
+        RoleAvoidZeroFeedInActive,
+        RoleBlockBatteryOnGridConsumption
     };
     Q_ENUM(Role);
     explicit BatteryConfigurations(QObject *parent = nullptr);

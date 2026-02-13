@@ -16,8 +16,28 @@ class BatteryConfiguration : public QObject
     Q_PROPERTY(bool avoidZeroFeedInActive READ avoidZeroFeedInActive WRITE setAvoidZeroFeedInActive NOTIFY avoidZeroFeedInActiveChanged)
     Q_PROPERTY(bool avoidZeroFeedInEnabled READ avoidZeroFeedInEnabled WRITE setAvoidZeroFeedInEnabled NOTIFY avoidZeroFeedInEnabledChanged)
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
+    Q_PROPERTY(int blockBatteryOnGridConsumption READ blockBatteryOnGridConsumption WRITE setBlockBatteryOnGridConsumption NOTIFY blockBatteryOnGridConsumptionChanged)
 
 public:
+
+    // Block battery on grid consumption modes:
+    // 0 = Keine Sperrung (No blocking)
+    // 1 = Nur EvCharger (Wallbox) (Only EvCharger)
+    // 2 = Nur HeatPump (Only HeatPump)
+    // 3 = EvCharger + HeatPump (1|2)
+    // 4 = Nur HeatingRod (Only HeatingRod)
+    // 5 = EvCharger + HeatingRod (1|4)
+    // 6 = HeatPump + HeatingRod (2|4)
+    // 7 = Alle drei (1|2|4) (All three)
+    enum BlockBatteryOnGridConsumptionFlag {
+        NoBlocking = 0,
+        EvCharger = 1,
+        HeatPump = 2,
+        HeatingRod = 4
+    };
+    Q_FLAG(BlockBatteryOnGridConsumptionFlag);
+
+
     explicit BatteryConfiguration(QObject *parent = nullptr);
 
     QUuid batteryThingId() const;
@@ -47,6 +67,10 @@ public:
     bool controllableLocalSystem() const;
     void setControllableLocalSystem(bool controllableLocalSystem);
 
+    int blockBatteryOnGridConsumption() const;
+    void setBlockBatteryOnGridConsumption(int blockBatteryOnGridConsumption);
+
+
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void priceThresholdChanged(float priceThreshold);
@@ -56,6 +80,7 @@ signals:
     void relativePriceEnabledChanged(bool relativePriceEnabled);
     void chargeOnceChanged(bool chargeOnce);
     void controllableLocalSystemChanged(bool controllableLocalSystem);
+    void blockBatteryOnGridConsumptionChanged(int blockBatteryOnGridConsumption);
 
 private:
     QUuid m_batteryThingId;
@@ -67,7 +92,7 @@ private:
     bool m_controllableLocalSystem = false;
     bool m_avoidZeroFeedInEnabled = false;
     bool m_avoidZeroFeedInActive = false;
-
+    int m_blockBatteryOnGridConsumption = EvCharger;
 };
 
 #endif // BATTERYCONFIGURATION_H

@@ -561,6 +561,7 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
         dummyConfig.insert("relativePriceEnabled", false);
         dummyConfig.insert("chargeOnce", false);
         dummyConfig.insert("controllableLocalSystem", false);
+        dummyConfig.insert("blockBatteryOnGridConsumption", BatteryConfiguration::EvCharger);
 
         addOrUpdateBatteryConfiguration(dummyConfig);
         // and get the dummy Config
@@ -980,6 +981,7 @@ void HemsManager::addOrUpdateBatteryConfiguration(const QVariantMap &configurati
     configuration->setRelativePriceEnabled(configurationMap.value("relativePriceEnabled").toBool());
     configuration->setChargeOnce(configurationMap.value("chargeOnce").toBool());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
+    configuration->setBlockBatteryOnGridConsumption(configurationMap.value("blockBatteryOnGridConsumption").toInt());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Battery configuration added" << configuration->batteryThingId();

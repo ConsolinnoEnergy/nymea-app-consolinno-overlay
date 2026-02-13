@@ -285,27 +285,31 @@
     <name>BatteryOptimization</name>
     <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
-        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+        <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
     <message>
         <source>Could not save configuration. The thing is not valid.</source>
-        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+        <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
         <source>Grid-supportive-control</source>
-        <translation type="unfinished">Netzdienlichkeit</translation>
+        <translation>Netzdienlichkeit</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <source>Avoid zero compensation</source>
-        <translation type="unfinished">Nullvergütung vermeiden</translation>
+        <translation>Nullvergütung vermeiden</translation>
     </message>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
-        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
+        <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
+    </message>
+    <message>
+        <source>Block EV charging from the battery</source>
+        <translation>E-Auto -Laden aus Batterie sperren</translation>
     </message>
 </context>
 <context>
@@ -345,6 +349,17 @@
     <message>
         <source>Per phase A:</source>
         <translation>Pro Phase A:</translation>
+    </message>
+</context>
+<context>
+    <name>BlockEVChargingFromBatteryInfo</name>
+    <message>
+        <source>Block charging</source>
+        <translation>Laden sperren</translation>
+    </message>
+    <message>
+        <source>Charging the electric car from the battery is blocked.</source>
+        <translation>Das Laden des E-Autos aus der Batterie wird gesperrt.</translation>
     </message>
 </context>
 <context>
