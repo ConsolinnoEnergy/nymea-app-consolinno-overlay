@@ -52,6 +52,47 @@ GenericConfigPage {
     property int time_controlled: ChargingConfigView.ChargingMode.TIME_CONTROLLED
     property ConEMSState conState: hemsManager.conEMSState
 
+    // Model for schedule overview in status section
+    ListModel {
+        id: scheduleOverviewModel
+    }
+
+    function parseScheduleForOverview() {
+        scheduleOverviewModel.clear()
+        if (!chargingIsAnyOf([time_controlled])) return
+
+        var scheduleJson = chargingConfiguration.chargingSchedule
+        if (scheduleJson === "" || scheduleJson === undefined || scheduleJson === "null") return
+
+        var dayLabels = {
+            "monday": qsTr("Montag"),
+            "tuesday": qsTr("Dienstag"),
+            "wednesday": qsTr("Mittwoch"),
+            "thursday": qsTr("Donnerstag"),
+            "friday": qsTr("Freitag"),
+            "saturday": qsTr("Samstag"),
+            "sunday": qsTr("Sonntag")
+        }
+
+        try {
+            var schedule = JSON.parse(scheduleJson)
+            for (var i = 0; i < schedule.length; i++) {
+                var entry = schedule[i]
+                if (entry.startTime && entry.endTime) {
+                    // Skip entries with no actual time set (00:00 - 00:00)
+                    if (entry.startTime === "00:00" && entry.endTime === "00:00") continue
+                    var label = dayLabels[entry.day] || entry.day
+                    scheduleOverviewModel.append({
+                        timeText: entry.startTime + "–" + entry.endTime + " Uhr",
+                        dayText: label
+                    })
+                }
+            }
+        } catch (e) {
+            console.error("Failed to parse charging schedule for overview:", e)
+        }
+    }
+
     function timer() {
         return Qt.createQmlObject("import QtQuick 2.0; Timer {}", root);
     }
@@ -473,6 +514,35 @@ GenericConfigPage {
                             }
                         }
                     }
+
+                    // Schedule overview for time-controlled mode - show only days with time entries
+                    Repeater {
+                        model: scheduleOverviewModel
+                        delegate: ColumnLayout {
+                            Layout.fillWidth: true
+                            Layout.topMargin: 15
+                            visible: chargingIsAnyOf([time_controlled]) && chargingConfiguration.optimizationEnabled
+
+                            Label {
+                                text: model.timeText
+                                font.pixelSize: 16
+                            }
+                            Label {
+                                text: model.dayText
+                                font.pixelSize: 12
+                                color: Style.subTextColor
+                            }
+                        }
+                    }
+
+                    Connections {
+                        target: chargingConfiguration
+                        onChargingScheduleChanged: parseScheduleForOverview()
+                        onOptimizationModeChanged: parseScheduleForOverview()
+                        onOptimizationEnabledChanged: parseScheduleForOverview()
+                    }
+
+                    Component.onCompleted: parseScheduleForOverview()
 
                     RowLayout{
                         Layout.topMargin: 15
@@ -948,6 +1018,32 @@ GenericConfigPage {
                         return (modes.includes(selected_mode))
                     }
 
+                    ListModel {
+                        id: scheduleModel
+                    }
+
+                    function initScheduleModel() {
+                        var days = [
+                            { dayKey: "monday",    dayLabel: qsTr("Montag") },
+                            { dayKey: "tuesday",   dayLabel: qsTr("Dienstag") },
+                            { dayKey: "wednesday", dayLabel: qsTr("Mittwoch") },
+                            { dayKey: "thursday",  dayLabel: qsTr("Donnerstag") },
+                            { dayKey: "friday",    dayLabel: qsTr("Freitag") },
+                            { dayKey: "saturday",  dayLabel: qsTr("Samstag") },
+                            { dayKey: "sunday",    dayLabel: qsTr("Sonntag") }
+                        ]
+                        scheduleModel.clear()
+                        for (var i = 0; i < days.length; i++) {
+                            scheduleModel.append({
+                                dayKey: days[i].dayKey,
+                                dayLabel: days[i].dayLabel,
+                                startTime: "",
+                                endTime: "",
+                                hasEntry: false
+                            })
+                        }
+                    }
+
                     function restoreSchedule() {
                         var scheduleJson = chargingConfiguration.chargingSchedule
                         console.log("Restoring schedule:", scheduleJson)
@@ -957,29 +1053,16 @@ GenericConfigPage {
                             var schedule = JSON.parse(scheduleJson)
                             var weekdays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
 
-                            // iterate over repeater items
-                            for (var i = 0; i < weekdayRepeater.count; i++) {
-                                var dayItem = weekdayRepeater.itemAt(i)
-                                if (!dayItem) continue
-
-                                // Robustly find dropdowns. Assumes structure defined in delegate.
-                                var startHourDrop = dayItem.children[1].children[1]
-                                var startMinuteDrop = dayItem.children[1].children[3]
-                                var endHourDrop = dayItem.children[1].children[5]
-                                var endMinuteDrop = dayItem.children[1].children[7]
-
+                            for (var i = 0; i < weekdays.length; i++) {
                                 var currentDay = weekdays[i]
                                 var entry = schedule.find(function(e) { return e.day === currentDay })
 
-                                if (entry) {
-                                    var startParts = entry.startTime.split(":")
-                                    var endParts = entry.endTime.split(":")
-
-                                    if (startParts.length >= 2 && endParts.length >= 2) {
-                                        startHourDrop.currentIndex = parseInt(startParts[0])
-                                        startMinuteDrop.currentIndex = parseInt(startParts[1])
-                                        endHourDrop.currentIndex = parseInt(endParts[0])
-                                        endMinuteDrop.currentIndex = parseInt(endParts[1])
+                                if (entry && entry.startTime && entry.endTime) {
+                                    var hasTime = !(entry.startTime === "00:00" && entry.endTime === "00:00")
+                                    if (i < scheduleModel.count) {
+                                        scheduleModel.setProperty(i, "startTime", entry.startTime)
+                                        scheduleModel.setProperty(i, "endTime", entry.endTime)
+                                        scheduleModel.setProperty(i, "hasEntry", hasTime)
                                     }
                                 }
                             }
@@ -994,6 +1077,7 @@ GenericConfigPage {
                     }
 
                     Component.onCompleted:{
+                        initScheduleModel()
                         endTimeSlider.feasibilityText()
                         restoreSchedule()
                     }
@@ -1415,148 +1499,45 @@ GenericConfigPage {
                         // Time Controlled Mode Schedule
                         ColumnLayout {
                             Layout.fillWidth: true
+                            Layout.leftMargin: -app.margins
+                            Layout.rightMargin: -app.margins
                             visible: isAnyOfModesSelected([time_controlled])
-                            spacing: 10
-
-                            Label {
-                                text: qsTr("Weekly schedule")
-                                font.pixelSize: 16
-                                font.bold: true
-                                Layout.topMargin: 10
-                            }
-
-                            RowLayout {
-                                Layout.fillWidth: true
-                                spacing: 10
-                                visible: isAnyOfModesSelected([time_controlled])
-
-                                Label {
-                                    text: qsTr("Prevent battery discharge")
-                                    Layout.fillWidth: true
-                                }
-                                ConsolinnoSwitch {
-                                    id: preventBatteryDischargeSwitch
-                                    // Default to false or fetch from existing config if possible.
-                                    // Since we don't have a direct link to a specific battery here easily without iteration,
-                                    // and usually there is 1 battery, we try to init from the first battery config if available.
-                                    Component.onCompleted: {
-                                        if (hemsManager.batteryConfigurations.count > 0) {
-                                            checked = hemsManager.batteryConfigurations.get(0).preventBatteryDischarge
-                                        } else {
-                                            checked = false
-                                        }
-                                    }
-                                }
-                            }
+                            spacing: 0
 
                             Repeater {
                                 id: weekdayRepeater
-                                model: [
-                                    { day: qsTr("Monday"), startHour: 0, startMinute: 0, endHour: 5, endMinute: 0 },
-                                    { day: qsTr("Tuesday"), startHour: 0, startMinute: 0, endHour: 5, endMinute: 0 },
-                                    { day: qsTr("Wednesday"), startHour: 0, startMinute: 0, endHour: 5, endMinute: 0 },
-                                    { day: qsTr("Thursday"), startHour: 0, startMinute: 0, endHour: 5, endMinute: 0 },
-                                    { day: qsTr("Friday"), startHour: 0, startMinute: 0, endHour: 5, endMinute: 0 },
-                                    { day: qsTr("Saturday"), startHour: 0, startMinute: 0, endHour: 5, endMinute: 0 },
-                                    { day: qsTr("Sunday"), startHour: 0, startMinute: 0, endHour: 5, endMinute: 0 }
-                                ]
+                                model: scheduleModel
 
-                                delegate: ColumnLayout {
+                                delegate: ConsolinnoSwipeDelegate {
                                     Layout.fillWidth: true
-                                    spacing: 5
+                                    text: model.hasEntry ? model.startTime + "–" + model.endTime + " Uhr" : "—"
+                                    subText: model.dayLabel
+                                    progressive: true
+                                    canDelete: model.hasEntry
 
-                                    Label {
-                                        text: modelData.day
-                                        font.pixelSize: 14
-                                        Layout.topMargin: index === 0 ? 0 : 5
+                                    onDeleteClicked: {
+                                        scheduleModel.setProperty(index, "hasEntry", false)
+                                        scheduleModel.setProperty(index, "startTime", "")
+                                        scheduleModel.setProperty(index, "endTime", "")
                                     }
 
-                                    RowLayout {
-                                        Layout.fillWidth: true
-                                        spacing: 10
-
-                                        Label {
-                                            text: qsTr("Start:")
-                                            Layout.minimumWidth: 50
-                                        }
-
-                                        ConsolinnoDropdown {
-                                            id: startHourDropdown
-                                            Layout.preferredWidth: 70
-                                            model: ListModel {
-                                                id: hourModel
-                                                Component.onCompleted: {
-                                                    for (var i = 0; i < 24; i++) {
-                                                        hourModel.append({text: i.toString().padStart(2, '0'), value: i})
-                                                    }
-                                                }
-                                            }
-                                            textRole: "text"
-                                            currentIndex: modelData.startHour
-                                        }
-
-                                        Label {
-                                            text: ":"
-                                        }
-
-                                        ConsolinnoDropdown {
-                                            id: startMinuteDropdown
-                                            Layout.preferredWidth: 70
-                                            model: ListModel {
-                                                id: startMinuteModel
-                                                Component.onCompleted: {
-                                                    for (var i = 0; i < 60; i++) {
-                                                        startMinuteModel.append({text: i.toString().padStart(2, '0'), value: i})
-                                                    }
-                                                }
-                                            }
-                                            textRole: "text"
-                                            currentIndex: modelData.startMinute
-                                        }
-
-                                        Label {
-                                            text: qsTr("End:")
-                                            Layout.leftMargin: 20
-                                            Layout.minimumWidth: 50
-                                        }
-
-                                        ConsolinnoDropdown {
-                                            id: endHourDropdown
-                                            Layout.preferredWidth: 70
-                                            model: ListModel {
-                                                id: endHourModel
-                                                Component.onCompleted: {
-                                                    for (var i = 0; i < 24; i++) {
-                                                        endHourModel.append({text: i.toString().padStart(2, '0'), value: i})
-                                                    }
-                                                }
-                                            }
-                                            textRole: "text"
-                                            currentIndex: modelData.endHour
-                                        }
-
-                                        Label {
-                                            text: ":"
-                                        }
-
-                                        ConsolinnoDropdown {
-                                            id: endMinuteDropdown
-                                            Layout.preferredWidth: 70
-                                            model: ListModel {
-                                                id: endMinuteModel
-                                                Component.onCompleted: {
-                                                    for (var i = 0; i < 60; i++) {
-                                                        endMinuteModel.append({text: i.toString().padStart(2, '0'), value: i})
-                                                    }
-                                                }
-                                            }
-                                            textRole: "text"
-                                            currentIndex: modelData.endMinute
-                                        }
-
-                                        Item {
-                                            Layout.fillWidth: true
-                                        }
+                                    onClicked: {
+                                        var dayIndex = index
+                                        var page = pageStack.push(Qt.resolvedUrl("DayTimePickerPage.qml"), {
+                                            dayLabel: model.dayLabel,
+                                            initialStartTime: model.hasEntry ? model.startTime : "",
+                                            initialEndTime: model.hasEntry ? model.endTime : ""
+                                        })
+                                        page.timeSelected.connect(function(startTime, endTime) {
+                                            scheduleModel.setProperty(dayIndex, "startTime", startTime)
+                                            scheduleModel.setProperty(dayIndex, "endTime", endTime)
+                                            scheduleModel.setProperty(dayIndex, "hasEntry", true)
+                                        })
+                                        page.entryRemoved.connect(function() {
+                                            scheduleModel.setProperty(dayIndex, "hasEntry", false)
+                                            scheduleModel.setProperty(dayIndex, "startTime", "")
+                                            scheduleModel.setProperty(dayIndex, "endTime", "")
+                                        })
                                     }
                                 }
                             }
@@ -2207,26 +2188,15 @@ GenericConfigPage {
                                     endTimeSlider.value = 24*60
                                 }
 
-                                // Collect time controlled schedule data
+                                // Collect time controlled schedule data from scheduleModel
                                 var chargingSchedule = []
                                 if(isAnyOfModesSelected([time_controlled])){
-                                    var weekdays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-                                    for (var i = 0; i < weekdayRepeater.count; i++) {
-                                        var dayItem = weekdayRepeater.itemAt(i)
-                                        var startHourDrop = dayItem.children[1].children[1]
-                                        var startMinuteDrop = dayItem.children[1].children[3]
-                                        var endHourDrop = dayItem.children[1].children[5]
-                                        var endMinuteDrop = dayItem.children[1].children[7]
-                                        
-                                        var startHour = startHourDrop.model.get(startHourDrop.currentIndex).value
-                                        var startMinute = startMinuteDrop.model.get(startMinuteDrop.currentIndex).value
-                                        var endHour = endHourDrop.model.get(endHourDrop.currentIndex).value
-                                        var endMinute = endMinuteDrop.model.get(endMinuteDrop.currentIndex).value
-                                        
+                                    for (var i = 0; i < scheduleModel.count; i++) {
+                                        var entry = scheduleModel.get(i)
                                         chargingSchedule.push({
-                                            day: weekdays[i],
-                                            startTime: startHour.toString().padStart(2, '0') + ":" + startMinute.toString().padStart(2, '0'),
-                                            endTime: endHour.toString().padStart(2, '0') + ":" + endMinute.toString().padStart(2, '0')
+                                            day: entry.dayKey,
+                                            startTime: entry.hasEntry ? entry.startTime : "00:00",
+                                            endTime: entry.hasEntry ? entry.endTime : "00:00"
                                         })
                                     }
                                 }
@@ -2256,14 +2226,6 @@ GenericConfigPage {
                                     }
                                     
                                     hemsManager.setChargingConfiguration(thing.id, configData)
-
-                                    // Save battery configuration for time controlled mode
-                                    if(isAnyOfModesSelected([time_controlled])){
-                                        if (hemsManager.batteryConfigurations.count > 0) {
-                                            var battThingId = hemsManager.batteryConfigurations.get(0).batteryThingId
-                                            hemsManager.setBatteryConfiguration(battThingId, { preventBatteryDischarge: preventBatteryDischargeSwitch.checked })
-                                        }
-                                    }
 
                                     optimizationPage.done()
                                     pageStack.pop()

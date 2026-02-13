@@ -42,6 +42,7 @@
         <file>mainviews/DetailedGraphsPage.qml</file>
         <file>optimization/PVConfigurationView.qml</file>
         <file>optimization/ChargingConfigView.qml</file>
+        <file>optimization/DayTimePickerPage.qml</file>
         <file>thingconfiguration/AddGenericCar.qml</file>
         <file>components/InfoButton.qml</file>
         <file>info/TargetChargeInfo.qml</file>

@@ -679,6 +679,50 @@
         <source>pausing</source>
         <translation>pausieren</translation>
     </message>
+    <message>
+        <source>Time controlled</source>
+        <translation>Zeitgesteuertes Laden</translation>
+    </message>
+    <message>
+        <source>Zeitgesteuertes Laden</source>
+        <translation>Zeitgesteuertes Laden</translation>
+    </message>
+    <message>
+        <source>Prevent battery discharge</source>
+        <translation>Batterie-Entladung verhindern</translation>
+    </message>
+    <message>
+        <source>Active</source>
+        <translation>Aktiv</translation>
+    </message>
+    <message>
+        <source>Montag</source>
+        <translation>Montag</translation>
+    </message>
+    <message>
+        <source>Dienstag</source>
+        <translation>Dienstag</translation>
+    </message>
+    <message>
+        <source>Mittwoch</source>
+        <translation>Mittwoch</translation>
+    </message>
+    <message>
+        <source>Donnerstag</source>
+        <translation>Donnerstag</translation>
+    </message>
+    <message>
+        <source>Freitag</source>
+        <translation>Freitag</translation>
+    </message>
+    <message>
+        <source>Samstag</source>
+        <translation>Samstag</translation>
+    </message>
+    <message>
+        <source>Sonntag</source>
+        <translation>Sonntag</translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
