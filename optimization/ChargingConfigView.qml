@@ -1099,6 +1099,55 @@ GenericConfigPage {
                             }
                         }
 
+                        RowLayout {
+                            Layout.preferredWidth: app.width
+                            Layout.topMargin: 10
+                            Layout.bottomMargin: 10
+
+                            visible:  isAnyOfModesSelected([pv_optimized, simple_pv_excess]) /*&&
+                                      thing.thingClass.interfaces.includes("phaseswitching")*/ // #TODO uncomment again
+
+                            RowLayout{
+                                Label {
+                                    text: qsTr("Number of phases:")
+                                }
+
+                                InfoButton{
+                                    Layout.rightMargin: 15
+                                    push: "ChargingPhaseSwitchingInfo.qml"
+                                    Layout.fillWidth: true
+                                    Layout.alignment: Qt.AlignTop
+                                }
+                            }
+
+                            ConsolinnoDropdown {
+                                id: desiredPhaseCountDropdown
+                                Layout.fillWidth: true
+
+                                model: [
+                                    { key: "1", value: 1 },
+                                    { key: "3", value: 3 }
+                                ]
+
+                                textRole: "key"
+                                valueRole: "value"
+
+                                Component.onCompleted: {
+                                    let currentPhaseCount = parseInt(thing.stateByName("phaseCount").value);
+                                    // #TODO set value from current phaseCount value in evcharger interface
+                                    desiredPhaseCountDropdown.currentIndex = 1; // Default phase count: 3
+                                    for (let i = 0; i < model.length; ++i) {
+                                        const item = model[i];
+                                        if (item.value === currentPhaseCount) {
+                                            desiredPhaseCountDropdown.currentIndex = i;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+
                         ColumnLayout{
                             visible: isAnyOfModesSelected([pv_optimized, pv_excess])
                             //Slider 1
@@ -1348,7 +1397,6 @@ GenericConfigPage {
                             }
 
                         }
-
 
                         RowLayout {
                             Layout.preferredWidth: app.width
@@ -2005,8 +2053,21 @@ GenericConfigPage {
 
                                     var optimizationMode = compute_OptimizationMode()
 
+                                    var desiredPhaseCount = 3;
+                                    if (isAnyOfModesSelected([pv_optimized, simple_pv_excess]) /*&& // #TODO uncomment again
+                                            thing.thingClass.interfaces.includes("phaseswitching")*/) {
+                                        desiredPhaseCount = desiredPhaseCountDropdown.currentValue;
+                                    }
+
                                     hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
-                                    hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode, priceThreshold: currentValue})
+                                    hemsManager.setChargingConfiguration(thing.id,
+                                                                         {optimizationEnabled: true,
+                                                                             carThingId: carSelector.holdingItem.id,
+                                                                             endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00",
+                                                                             targetPercentage: targetPercentageSlider.value,
+                                                                             optimizationMode: optimizationMode,
+                                                                             priceThreshold: currentValue,
+                                                                             desiredPhaseCount: desiredPhaseCount})
 
                                     optimizationPage.done()
                                     pageStack.pop()

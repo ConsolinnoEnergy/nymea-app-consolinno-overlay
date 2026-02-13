@@ -419,6 +419,7 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
         dummyConfig.insert("targetPercentage", 100);
         dummyConfig.insert("controllableLocalSystem", false);
         dummyConfig.insert("priceThreshold", 0);
+        dummyConfig.insert("desiredPhaseCount", 3);
 
         addOrUpdateChargingConfiguration(dummyConfig);
         // and get the dummy Config
@@ -1010,6 +1011,7 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
     configuration->setUniqueIdentifier(configurationMap.value("uniqueIdentifier").toUuid());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
     configuration->setPriceThreshold(configurationMap.value("priceThreshold").toFloat());
+    configuration->setDesiredPhaseCount(configurationMap.value("desiredPhaseCount").toUInt());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Charging configuration added" << configuration->evChargerThingId();
