@@ -683,6 +683,18 @@
         <source>Number of phases:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Phase setting could not be applied</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Phase count</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>

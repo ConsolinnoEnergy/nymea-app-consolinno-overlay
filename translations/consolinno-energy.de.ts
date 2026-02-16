@@ -683,6 +683,18 @@
         <source>Number of phases:</source>
         <translation>Phasenanzahl</translation>
     </message>
+    <message>
+        <source>Phase setting could not be applied</source>
+        <translation>Phasenanzahl konnte nicht übernommen werden</translation>
+    </message>
+    <message>
+        <source>The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.</source>
+        <translation>Die gewählte %1‑phasige Einstellung konnte nicht übernommen werden. Der Ladevorgang erfolgt %2‑phasig.</translation>
+    </message>
+    <message>
+        <source>Phase count</source>
+        <translation>Phasenanzahl</translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
