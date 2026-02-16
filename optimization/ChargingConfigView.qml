@@ -314,6 +314,28 @@ GenericConfigPage {
                     anchors.topMargin: app.margins
                     anchors.margins: app.margins
 
+                    ConsolinnoAlert {
+                        Layout.fillWidth: true
+                        Layout.bottomMargin: 15
+
+                        property int desiredPhaseCount: isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : 0
+                        property int actualPhaseCount: thing ? thing.stateByName("phaseCount").value : 0
+
+                        visible: desiredPhaseCountLayout.visible &&
+                                 actualPhaseCountLayout.visible &&
+                                 desiredPhaseCount !== actualPhaseCount
+                        backgroundColor: Style.warningBackground
+                        borderColor: Style.warningAccent
+                        textColor: Style.warningAccent
+                        iconColor: Style.warningAccent
+
+
+                        headerText: qsTr("Phase setting could not be applied")
+                        text: qsTr("The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.")
+                        .arg(desiredPhaseCount)
+                        .arg(actualPhaseCount)
+                    }
+
                     RowLayout{
                         Label {
                             id: pluggedInLabel
@@ -631,6 +653,23 @@ GenericConfigPage {
                             Layout.rightMargin: 0
                         }
                     }
+
+                    RowLayout{
+                        id: desiredPhaseCountLayout
+                        visible: chargingIsAnyOf([pv_optimized, simple_pv_excess])
+                        Layout.topMargin: 15
+
+                        Label {
+                            Layout.fillWidth: true
+                            text: qsTr("Phase count")
+                        }
+
+                        Label {
+                            text: isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : " — "
+                            Layout.alignment: Qt.AlignRight
+                            Layout.rightMargin: 0
+                        }
+                    }
                 }
 
                 ColumnLayout {
@@ -863,6 +902,24 @@ GenericConfigPage {
                             property int hours: duration/3600
                             property int minutes: (duration - hours*3600)/60
                             text: (hours === 0) ? minutes +  "min " : hours+ "h " + minutes + "min"
+                            Layout.alignment: Qt.AlignRight
+                            Layout.rightMargin: 0
+                        }
+                    }
+
+                    RowLayout {
+                        id: actualPhaseCountLayout
+                        visible: chargingConfiguration.optimizationEnabled &&
+                                 isCarPluggedIn() &&
+                                 chargingIsAnyOf([pv_optimized, simple_pv_excess])
+
+                        Label {
+                            Layout.fillWidth: true
+                            text: qsTr("Phase count")
+                        }
+
+                        Label {
+                            text: thing ? thing.stateByName("phaseCount").value : " - "
                             Layout.alignment: Qt.AlignRight
                             Layout.rightMargin: 0
                         }
@@ -1104,8 +1161,8 @@ GenericConfigPage {
                             Layout.topMargin: 10
                             Layout.bottomMargin: 10
 
-                            visible:  isAnyOfModesSelected([pv_optimized, simple_pv_excess]) /*&&
-                                      thing.thingClass.interfaces.includes("phaseswitching")*/ // #TODO uncomment again
+                            visible:  isAnyOfModesSelected([pv_optimized, simple_pv_excess]) &&
+                                      thing.thingClass.interfaces.includes("phaseswitching")
 
                             RowLayout{
                                 Label {
@@ -2053,8 +2110,8 @@ GenericConfigPage {
                                     var optimizationMode = compute_OptimizationMode()
 
                                     var desiredPhaseCount = 3;
-                                    if (isAnyOfModesSelected([pv_optimized, simple_pv_excess]) /*&& // #TODO uncomment again
-                                            thing.thingClass.interfaces.includes("phaseswitching")*/) {
+                                    if (isAnyOfModesSelected([pv_optimized, simple_pv_excess]) &&
+                                            thing.thingClass.interfaces.includes("phaseswitching")) {
                                         desiredPhaseCount = desiredPhaseCountDropdown.currentValue;
                                     }
 
