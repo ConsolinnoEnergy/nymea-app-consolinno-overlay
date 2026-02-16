@@ -123,7 +123,7 @@ int BatteryConfiguration::blockBatteryOnGridConsumption() const
 
 void BatteryConfiguration::setBlockBatteryOnGridConsumption(int blockBatteryOnGridConsumption)
 {
-    if (m_blockBatteryOnGridConsumption != blockBatteryOnGridConsumption) { return; }
+    if (m_blockBatteryOnGridConsumption == blockBatteryOnGridConsumption) { return; }
     m_blockBatteryOnGridConsumption = blockBatteryOnGridConsumption;
     emit blockBatteryOnGridConsumptionChanged(blockBatteryOnGridConsumption);
 }
