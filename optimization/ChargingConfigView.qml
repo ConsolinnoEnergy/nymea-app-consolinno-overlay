@@ -1134,7 +1134,6 @@ GenericConfigPage {
 
                                 Component.onCompleted: {
                                     let currentPhaseCount = parseInt(thing.stateByName("phaseCount").value);
-                                    // #TODO set value from current phaseCount value in evcharger interface
                                     desiredPhaseCountDropdown.currentIndex = 1; // Default phase count: 3
                                     for (let i = 0; i < model.length; ++i) {
                                         const item = model[i];
