@@ -309,7 +309,7 @@
     </message>
     <message>
         <source>Block EV charging from the battery</source>
-        <translation>E-Auto -Laden aus Batterie sperren</translation>
+        <translation>E-Auto-Laden aus Batterie sperren</translation>
     </message>
 </context>
 <context>
