@@ -110,8 +110,8 @@ Page {
         RowLayout{
             Layout.fillWidth: true
             visible: thing.thingClass.interfaces.includes("controllablebattery") &&
-                     ((hemsManager.availableUseCases & HemsManager.HemsUseCaseBattery &&
-                      hemsManager.availableUseCases & HemsManager.HemsUseCaseCharging) !== 0)
+                     ((hemsManager.availableUseCases & HemsManager.HemsUseCaseBattery) &&
+                      (hemsManager.availableUseCases & HemsManager.HemsUseCaseCharging))
 
             Label {
                 text: qsTr("Block EV charging from the battery")
