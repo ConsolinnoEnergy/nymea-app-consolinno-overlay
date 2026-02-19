@@ -656,7 +656,7 @@ GenericConfigPage {
 
                     RowLayout{
                         id: desiredPhaseCountLayout
-                        visible: chargingIsAnyOf([pv_optimized, simple_pv_excess])
+                        visible: chargingIsAnyOf([pv_optimized, simple_pv_excess]) && thing.thingClass.interfaces.includes("phaseswitching")
                         Layout.topMargin: 15
 
                         Label {
