@@ -681,7 +681,7 @@
     </message>
     <message>
         <source>Number of phases:</source>
-        <translation>Phasenanzahl</translation>
+        <translation>Phasenanzahl:</translation>
     </message>
     <message>
         <source>Phase setting could not be applied</source>
