@@ -115,3 +115,15 @@ void BatteryConfiguration::setControllableLocalSystem(bool controllableLocalSyst
     m_controllableLocalSystem = controllableLocalSystem;
     emit controllableLocalSystemChanged(m_controllableLocalSystem);
 }
+
+int BatteryConfiguration::blockBatteryOnGridConsumption() const
+{
+    return m_blockBatteryOnGridConsumption;
+}
+
+void BatteryConfiguration::setBlockBatteryOnGridConsumption(int blockBatteryOnGridConsumption)
+{
+    if (m_blockBatteryOnGridConsumption == blockBatteryOnGridConsumption) { return; }
+    m_blockBatteryOnGridConsumption = blockBatteryOnGridConsumption;
+    emit blockBatteryOnGridConsumptionChanged(blockBatteryOnGridConsumption);
+}

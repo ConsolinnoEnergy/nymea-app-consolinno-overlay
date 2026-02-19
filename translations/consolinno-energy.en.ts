@@ -307,6 +307,10 @@
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Block EV charging from the battery</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BlackoutProtectionView</name>
@@ -344,6 +348,17 @@
     </message>
     <message>
         <source>Per phase A:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BlockEVChargingFromBatteryInfo</name>
+    <message>
+        <source>Block charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging the electric car from the battery is blocked.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

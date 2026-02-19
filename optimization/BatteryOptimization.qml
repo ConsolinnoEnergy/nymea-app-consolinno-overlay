@@ -107,6 +107,29 @@ Page {
             }
         }
 
+        RowLayout{
+            Layout.fillWidth: true
+            visible: thing.thingClass.interfaces.includes("controllablebattery") &&
+                     ((hemsManager.availableUseCases & HemsManager.HemsUseCaseBattery) &&
+                      (hemsManager.availableUseCases & HemsManager.HemsUseCaseCharging))
+
+            Label {
+                text: qsTr("Block EV charging from the battery")
+            }
+
+            InfoButton {
+                id: blockEVChargingFromBatteryInfo
+                Layout.fillWidth: true
+                Layout.bottomMargin: 17
+                push: "BlockEVChargingFromBatteryInfo.qml"
+            }
+
+            ConsolinnoSwitch {
+                id: blockEVChargingFromBatteryControl
+                Component.onCompleted: checked = (batteryConfiguration.blockBatteryOnGridConsumption & BatteryConfiguration.EvCharger)
+            }
+        }
+
         Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
@@ -129,11 +152,21 @@ Page {
             Layout.fillWidth: true
             text: qsTr("Save")
             onClicked: {
-                hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, { controllableLocalSystem: gridSupportControl.checked, avoidZeroFeedInEnabled: zeroCompensationControl.checked})
-                if(directionID !== 1){
-                    pageStack.pop()
+                var blockBatteryOnGridConsumption = batteryConfiguration.blockBatteryOnGridConsumption;
+                if (blockEVChargingFromBatteryControl.checked) {
+                    blockBatteryOnGridConsumption |= BatteryConfiguration.EvCharger;
+                } else {
+                    blockBatteryOnGridConsumption &= ~BatteryConfiguration.EvCharger;
                 }
-                root.done()
+
+                hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId,
+                                                    { controllableLocalSystem: gridSupportControl.checked,
+                                                        avoidZeroFeedInEnabled: zeroCompensationControl.checked,
+                                                    blockBatteryOnGridConsumption: blockBatteryOnGridConsumption});
+                if (directionID !== 1) {
+                    pageStack.pop();
+                }
+                root.done();
             }
         }
     }
