@@ -314,6 +314,28 @@ GenericConfigPage {
                     anchors.topMargin: app.margins
                     anchors.margins: app.margins
 
+                    ConsolinnoAlert {
+                        Layout.fillWidth: true
+                        Layout.bottomMargin: 15
+
+                        property int desiredPhaseCount: isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : 0
+                        property int actualPhaseCount: thing ? thing.stateByName("phaseCount").value : 0
+
+                        visible: desiredPhaseCountLayout.visible &&
+                                 actualPhaseCountLayout.visible &&
+                                 desiredPhaseCount !== actualPhaseCount
+                        backgroundColor: Style.warningBackground
+                        borderColor: Style.warningAccent
+                        textColor: Style.warningAccent
+                        iconColor: Style.warningAccent
+
+
+                        headerText: qsTr("Phase setting could not be applied")
+                        text: qsTr("The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.")
+                        .arg(desiredPhaseCount)
+                        .arg(actualPhaseCount)
+                    }
+
                     RowLayout{
                         Label {
                             id: pluggedInLabel
@@ -631,6 +653,23 @@ GenericConfigPage {
                             Layout.rightMargin: 0
                         }
                     }
+
+                    RowLayout{
+                        id: desiredPhaseCountLayout
+                        visible: chargingIsAnyOf([pv_optimized, simple_pv_excess]) && thing.thingClass.interfaces.includes("phaseswitching")
+                        Layout.topMargin: 15
+
+                        Label {
+                            Layout.fillWidth: true
+                            text: qsTr("Phase count")
+                        }
+
+                        Label {
+                            text: isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : " — "
+                            Layout.alignment: Qt.AlignRight
+                            Layout.rightMargin: 0
+                        }
+                    }
                 }
 
                 ColumnLayout {
@@ -868,6 +907,24 @@ GenericConfigPage {
                         }
                     }
 
+                    RowLayout {
+                        id: actualPhaseCountLayout
+                        visible: chargingConfiguration.optimizationEnabled &&
+                                 isCarPluggedIn() &&
+                                 chargingIsAnyOf([pv_optimized, simple_pv_excess])
+
+                        Label {
+                            Layout.fillWidth: true
+                            text: qsTr("Phase count")
+                        }
+
+                        Label {
+                            text: thing ? thing.stateByName("phaseCount").value : " - "
+                            Layout.alignment: Qt.AlignRight
+                            Layout.rightMargin: 0
+                        }
+                    }
+
                     RowLayout{
                         id: createLoadingSchedule
 
@@ -1098,6 +1155,54 @@ GenericConfigPage {
                                 }
                             }
                         }
+
+                        RowLayout {
+                            Layout.preferredWidth: app.width
+                            Layout.topMargin: 10
+                            Layout.bottomMargin: 10
+
+                            visible:  isAnyOfModesSelected([pv_optimized, simple_pv_excess]) &&
+                                      thing.thingClass.interfaces.includes("phaseswitching")
+
+                            RowLayout{
+                                Label {
+                                    text: qsTr("Number of phases:")
+                                }
+
+                                InfoButton{
+                                    Layout.rightMargin: 15
+                                    push: "ChargingPhaseSwitchingInfo.qml"
+                                    Layout.fillWidth: true
+                                    Layout.alignment: Qt.AlignTop
+                                }
+                            }
+
+                            ConsolinnoDropdown {
+                                id: desiredPhaseCountDropdown
+                                Layout.fillWidth: true
+
+                                model: [
+                                    { key: "1", value: 1 },
+                                    { key: "3", value: 3 }
+                                ]
+
+                                textRole: "key"
+                                valueRole: "value"
+
+                                Component.onCompleted: {
+                                    let currentPhaseCount = parseInt(thing.stateByName("phaseCount").value);
+                                    desiredPhaseCountDropdown.currentIndex = 1; // Default phase count: 3
+                                    for (let i = 0; i < model.length; ++i) {
+                                        const item = model[i];
+                                        if (item.value === currentPhaseCount) {
+                                            desiredPhaseCountDropdown.currentIndex = i;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
 
                         ColumnLayout{
                             visible: isAnyOfModesSelected([pv_optimized, pv_excess])
@@ -1348,7 +1453,6 @@ GenericConfigPage {
                             }
 
                         }
-
 
                         RowLayout {
                             Layout.preferredWidth: app.width
@@ -2005,8 +2109,21 @@ GenericConfigPage {
 
                                     var optimizationMode = compute_OptimizationMode()
 
+                                    var desiredPhaseCount = 3;
+                                    if (isAnyOfModesSelected([pv_optimized, simple_pv_excess]) &&
+                                            thing.thingClass.interfaces.includes("phaseswitching")) {
+                                        desiredPhaseCount = desiredPhaseCountDropdown.currentValue;
+                                    }
+
                                     hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
-                                    hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: true, carThingId: carSelector.holdingItem.id, endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00", targetPercentage: targetPercentageSlider.value, optimizationMode: optimizationMode, priceThreshold: currentValue})
+                                    hemsManager.setChargingConfiguration(thing.id,
+                                                                         {optimizationEnabled: true,
+                                                                             carThingId: carSelector.holdingItem.id,
+                                                                             endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00",
+                                                                             targetPercentage: targetPercentageSlider.value,
+                                                                             optimizationMode: optimizationMode,
+                                                                             priceThreshold: currentValue,
+                                                                             desiredPhaseCount: desiredPhaseCount})
 
                                     optimizationPage.done()
                                     pageStack.pop()

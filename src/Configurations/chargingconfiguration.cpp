@@ -132,6 +132,18 @@ void ChargingConfiguration::setPriceThreshold(float priceThreshold) {
     emit priceThresholdChanged(m_priceThreshold);
 }
 
+uint ChargingConfiguration::desiredPhaseCount() const
+{
+    return m_desiredPhaseCount;
+}
+
+void ChargingConfiguration::setDesiredPhaseCount(uint desiredPhaseCount)
+{
+    if (m_desiredPhaseCount == desiredPhaseCount) { return; }
+    m_desiredPhaseCount = desiredPhaseCount;
+    emit desiredPhaseCountChanged(m_desiredPhaseCount);
+}
+
 
 
 

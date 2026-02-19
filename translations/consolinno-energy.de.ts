@@ -679,6 +679,22 @@
         <source>pausing</source>
         <translation>pausieren</translation>
     </message>
+    <message>
+        <source>Number of phases:</source>
+        <translation>Phasenanzahl:</translation>
+    </message>
+    <message>
+        <source>Phase setting could not be applied</source>
+        <translation>Phasenanzahl konnte nicht übernommen werden</translation>
+    </message>
+    <message>
+        <source>The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.</source>
+        <translation>Die gewählte %1‑phasige Einstellung konnte nicht übernommen werden. Der Ladevorgang erfolgt %2‑phasig.</translation>
+    </message>
+    <message>
+        <source>Phase count</source>
+        <translation>Phasenanzahl</translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -767,6 +783,45 @@
     <message>
         <source>Setpoint:</source>
         <translation>Sollwert:</translation>
+    </message>
+</context>
+<context>
+    <name>ChargingPhaseSwitchingInfo</name>
+    <message>
+        <source>Number of phases</source>
+        <translation>Phasenanzahl beim Laden</translation>
+    </message>
+    <message>
+        <source>3 phases</source>
+        <translation>3 Phasen</translation>
+    </message>
+    <message>
+        <source>Higher charging capacity → faster to full</source>
+        <translation>Höhere Ladeleistung → schneller voll</translation>
+    </message>
+    <message>
+        <source>1 phase</source>
+        <translation>1 Phase</translation>
+    </message>
+    <message>
+        <source>Requires sufficient PV surplus</source>
+        <translation>Setzt ausreichend PV‑Überschuss voraus</translation>
+    </message>
+    <message>
+        <source>Ideal for stable, high solar radiation or when speed is more important</source>
+        <translation>Ideal bei stabiler, hoher Sonneneinstrahlung oder wenn Geschwindigkeit wichtiger ist</translation>
+    </message>
+    <message>
+        <source>Requires less minimum power from the PV system</source>
+        <translation>Benötigt weniger Mindestleistung aus der PV‑Anlage</translation>
+    </message>
+    <message>
+        <source>Particularly suitable for variable or low solar radiation</source>
+        <translation>Besonders geeignet bei wechselnder oder geringer Sonneneinstrahlung</translation>
+    </message>
+    <message>
+        <source>Charges the vehicle more slowly</source>
+        <translation>Lädt das Fahrzeug langsamer</translation>
     </message>
 </context>
 <context>

@@ -679,6 +679,22 @@
         <source>pausing</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Number of phases:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Phase setting could not be applied</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Phase count</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -766,6 +782,45 @@
     </message>
     <message>
         <source>Setpoint:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChargingPhaseSwitchingInfo</name>
+    <message>
+        <source>Number of phases</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3 phases</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Higher charging capacity → faster to full</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1 phase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Requires sufficient PV surplus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ideal for stable, high solar radiation or when speed is more important</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Requires less minimum power from the PV system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Particularly suitable for variable or low solar radiation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charges the vehicle more slowly</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
