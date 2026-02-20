@@ -234,18 +234,85 @@ MainViewBase {
                                 ctx.save();
 
                                 ctx.strokeStyle = Style.colors.components_Dashboard_Flow;
-                                ctx.beginPath();
-                                ctx.lineWidth = 8;
-                                ctx.lineDashOffset = lineAnimationProgress;
                                 ctx.setLineDash([0.001, 2]);
                                 ctx.lineCap = "round";
 
-                                // Test. #TODO draw real lines
-                                var startX = liveStatusPVCard.x + liveStatusPVCard.width / 2;
-                                var startY = liveStatusPVCard.y + liveStatusPVCard.height / 2;
-                                var endX = liveStatusConsumptionCard.x + liveStatusConsumptionCard.width / 2;
-                                var endY = liveStatusConsumptionCard.y + liveStatusConsumptionCard.height / 2;
+                                if (dataProvider.flowSolarToBattery !== 0) {
+                                    drawLine(ctx,
+                                             liveStatusPVCard,
+                                             liveStatusBatteryCard,
+                                             dataProvider.flowSolarToBattery);
+                                }
+                                if (dataProvider.flowSolarToConsumers !== 0) {
+                                    drawLine(ctx,
+                                             liveStatusPVCard,
+                                             liveStatusConsumptionCard,
+                                             dataProvider.flowSolarToConsumers);
+                                }
+                                if (dataProvider.flowSolarToGrid !== 0) {
+                                    drawLine(ctx,
+                                             liveStatusPVCard,
+                                             liveStatusGridCard,
+                                             dataProvider.flowSolarToGrid);
+                                }
+                                if (dataProvider.flowBatteryToConsumers !== 0) {
+                                    drawLine(ctx,
+                                             liveStatusBatteryCard,
+                                             liveStatusConsumptionCard,
+                                             dataProvider.flowBatteryToConsumers);
+                                }
+                                if (dataProvider.flowGridToBattery !== 0) {
+                                    drawLine(ctx,
+                                             liveStatusGridCard,
+                                             liveStatusBatteryCard,
+                                             dataProvider.flowGridToBattery);
+                                }
+                                if (dataProvider.flowGridToConsumers !== 0) {
+                                    drawLine(ctx,
+                                             liveStatusGridCard,
+                                             liveStatusConsumptionCard,
+                                             dataProvider.flowGridToConsumers);
+                                }
 
+//                                ctx.beginPath();
+//                                ctx.lineWidth = 8;
+
+//                                // Test. #TODO draw real lines
+//                                var startX = liveStatusPVCard.x + liveStatusPVCard.width / 2;
+//                                var startY = liveStatusPVCard.y + liveStatusPVCard.height / 2;
+//                                var endX = liveStatusConsumptionCard.x + liveStatusConsumptionCard.width / 2;
+//                                var endY = liveStatusConsumptionCard.y + liveStatusConsumptionCard.height / 2;
+
+//                                ctx.moveTo(startX, startY);
+//                                ctx.lineTo(endX, endY);
+//                                ctx.stroke();
+//                                ctx.closePath();
+                            }
+
+                            function lineWidth(value) {
+                                const valueAbs = Math.abs(value);
+                                const minValue = 200;
+                                const maxValue = 5000;
+                                const minWidth = 2;
+                                const maxWidth = 12;
+                                // #TODO is this scaling what we want?
+                                if (valueAbs < minValue) {
+                                    return minWidth;
+                                } else if (valueAbs < maxValue) {
+                                    return minWidth + (maxWidth - minWidth) * ((valueAbs - minValue) / (maxValue - minValue))
+                                } else {
+                                    return maxWidth;
+                                }
+                            }
+
+                            function drawLine(ctx, fromCard, toCard, value) {
+                                ctx.beginPath();
+                                ctx.lineWidth = lineWidth(value);
+                                ctx.lineDashOffset = value >= 0 ? lineAnimationProgress : -lineAnimationProgress;
+                                const startX = fromCard.x + fromCard.width / 2;
+                                const startY = fromCard.y + fromCard.height / 2;
+                                const endX = toCard.x + toCard.width / 2;
+                                const endY = toCard.y + toCard.height / 2;
                                 ctx.moveTo(startX, startY);
                                 ctx.lineTo(endX, endY);
                                 ctx.stroke();
@@ -266,7 +333,7 @@ MainViewBase {
                                 Layout.row: 0
                                 Layout.column: 0
                                 text: qsTr("Solar") // #TODO English name
-                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerProduction), 0)
+                                value: Math.abs(dataProvider.currentPowerProduction)
                                 unit: "W"
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/weathericons/weather-clear-day.svg") // #TODO icon
@@ -308,7 +375,7 @@ MainViewBase {
                                 Layout.row: 2
                                 Layout.column: 0
                                 text: qsTr("Battery") // #TODO English name
-                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerBatteries), 0)
+                                value: Math.abs(dataProvider.currentPowerBatteries)
                                 unit: "W"
                                 compactLayout: true
                                 icon: {
@@ -327,7 +394,7 @@ MainViewBase {
                                 Layout.row: 2
                                 Layout.column: 2
                                 text: qsTr("Consumption") // #TODO English name
-                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerTotalConsumption), 0)
+                                value: Math.abs(dataProvider.currentPowerTotalConsumption)
                                 unit: "W"
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
@@ -608,7 +675,7 @@ MainViewBase {
                             CoInfoCard {
                                 Layout.fillWidth: true
                                 text: qsTr("Non-controllable") // #TODO name
-                                value: NymeaUtils.floatToLocaleString(Math.abs(dataProvider.currentPowerUnmeteredConsumption), 0)
+                                value: Math.abs(dataProvider.currentPowerUnmeteredConsumption)
                                 unit: "W"
                                 icon: Qt.resolvedUrl("qrc:/icons/select-none.svg") // #TODO icon
                                 clickable: false
