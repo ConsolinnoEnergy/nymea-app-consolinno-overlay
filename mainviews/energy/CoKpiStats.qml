@@ -8,40 +8,44 @@ import "qrc:/ui/components/"
 
 StatsBase {
     id: root
-
     property EnergyManager energyManager: null
-
     property bool titleVisible: true
-
     property ThingsProxy producers: ThingsProxy {
         engine: _engine
         shownInterfaces: ["smartmeterproducer"]
     }
-
     readonly property bool hasProducers: producers.count > 0
+
+    DashboardDataProvider {
+        id: kpiProvider
+        engine: _engine
+    }
+
+    Connections {
+        target: kpiProvider
+        onKpiBarResult: {
+            autarkySet.replace(barIndex, selfSufficiency)
+            selfConsumptionSet.replace(barIndex, selfConsumption)
+        }
+    }
 
     QtObject {
         id: d
         property var config: root.configs[selectionTabs.currentValue.config]
         property int startOffset: 0
-
         property var selectedSet: null
-
         property date startTime: root.calculateTimestamp(config.startTime(), config.sampleRate, startOffset)
         property date endTime: root.calculateTimestamp(config.startTime(), config.sampleRate, startOffset + config.count)
 
-        property bool fetchPending: false
-        property bool loading: fetchPending || wheelStopTimer.running || powerBalanceLogs.fetchingData
+        property bool loading: kpiProvider.fetchingKpiSeries || wheelStopTimer.running
         onLoadingChanged: {
             if (!loading) {
-                refresh()
+                fetchKpis()
             }
         }
 
         onConfigChanged: valueAxis.max = 100
-        onStartOffsetChanged: {
-            refresh()
-        }
+        onStartOffsetChanged: fetchKpis()
 
         function selectSet(set) {
             if (d.selectedSet === set) {
@@ -51,54 +55,17 @@ StatsBase {
             }
         }
 
-        function refresh() {
-            if (powerBalanceLogs.loadingInhibited) {
-                return;
-            }
-
-            var upcomingTimestamp = root.calculateTimestamp(d.config.startTime(), d.config.sampleRate, d.config.count)
+        function fetchKpis() {
+            var periods = []
             for (var i = 0; i < d.config.count; i++) {
-                var timestamp = root.calculateTimestamp(d.config.startTime(), d.config.sampleRate, d.startOffset + i + 1)
-                var previousTimestamp = root.calculateTimestamp(timestamp, d.config.sampleRate, -1)
-                var idx = powerBalanceLogs.indexOf(timestamp);
-                var entry = powerBalanceLogs.get(idx)
-                var previousEntry = powerBalanceLogs.find(previousTimestamp);
-
-                var consumption = 0
-                var production = 0
-                var acquisition = 0
-                var returned = 0
-
-                if (timestamp < upcomingTimestamp && entry && (previousEntry || !d.loading)) {
-                    consumption = entry.totalConsumption
-                    production = entry.totalProduction
-                    acquisition = entry.totalAcquisition
-                    returned = entry.totalReturn
-                    if (previousEntry) {
-                        consumption -= previousEntry.totalConsumption
-                        production -= previousEntry.totalProduction
-                        acquisition -= previousEntry.totalAcquisition
-                        returned -= previousEntry.totalReturn
-                    }
-                } else if (timestamp.getTime() == upcomingTimestamp.getTime() && (previousEntry || !d.loading)) {
-                    consumption = energyManager.totalConsumption
-                    production = energyManager.totalProduction
-                    acquisition = energyManager.totalAcquisition
-                    returned = energyManager.totalReturn
-                    if (previousEntry) {
-                        consumption -= previousEntry.totalConsumption
-                        production -= previousEntry.totalProduction
-                        acquisition -= previousEntry.totalAcquisition
-                        returned -= previousEntry.totalReturn
-                    }
-                }
-
-                var autarky = consumption > 0 ? Math.max(0, Math.min(100, ((consumption - acquisition) / consumption) * 100)) : 0
-                var selfConsumption = production > 0 ? Math.max(0, Math.min(100, ((production - returned) / production) * 100)) : 0
-
-                autarkySet.replace(i, autarky)
-                selfConsumptionSet.replace(i, selfConsumption)
+                var toTimestamp = root.calculateTimestamp(d.config.startTime(), d.config.sampleRate, d.startOffset + i + 1)
+                var fromTimestamp = root.calculateTimestamp(toTimestamp, d.config.sampleRate, -1)
+                periods.push({
+                    from: Math.floor(fromTimestamp.getTime() / 1000),
+                    to: Math.floor(toTimestamp.getTime() / 1000)
+                })
             }
+            kpiProvider.fetchKpiSeries(periods)
         }
     }
 
@@ -129,40 +96,17 @@ StatsBase {
             }
             onTabSelected: {
                 d.startOffset = 0
-                powerBalanceLogs.fetchLogs()
             }
         }
 
         Connections {
             target: energyManager
             onPowerBalanceChanged: {
-                d.refresh();
+                d.fetchKpis()
             }
         }
 
-        PowerBalanceLogs {
-            id: powerBalanceLogs
-            engine: _engine
-            startTime: root.calculateTimestamp(d.startTime, d.config.sampleRate, -d.config.count)
-            endTime: root.calculateTimestamp(d.startTime, d.config.sampleRate, d.config.count)
-            sampleRate: d.config.sampleRate
-            Component.onCompleted: fetchLogs()
-
-            onFetchingDataChanged: {
-                if (!fetchingData) {
-                    d.fetchPending = false
-                    d.refresh()
-                }
-            }
-
-            onEntriesAdded: {
-                if (fetchingData) {
-                    return
-                }
-                d.startOffset--
-                d.startOffset++
-            }
-        }
+        Component.onCompleted: d.fetchKpis()
 
         Item {
             Layout.fillWidth: true
@@ -196,7 +140,7 @@ StatsBase {
                 ActivityIndicator {
                     x: chartView.plotArea.x + (chartView.plotArea.width - width) / 2
                     y: chartView.plotArea.y + (chartView.plotArea.height - height) / 2 + (chartView.plotArea.height / 8)
-                    visible: powerBalanceLogs.fetchingData
+                    visible: kpiProvider.fetchingKpiSeries
                     opacity: .5
                 }
 
@@ -346,7 +290,6 @@ StatsBase {
                         selectionTabs.currentIndex--
                         var startTime = d.config.startTime()
                         d.startOffset = (timestamp.getTime() - startTime.getTime()) / (d.config.sampleRate * 60 * 1000)
-                        powerBalanceLogs.fetchLogs();
                     }
                 }
 
@@ -366,7 +309,7 @@ StatsBase {
                     x: chartWidth - (idx * barWidth + barWidth + Style.smallMargins) > width ?
                            idx * barWidth + barWidth + Style.smallMargins
                          : idx * barWidth - Style.smallMargins - width
-                    
+
                     y: mouseArea.height / 2 - height / 2
                     width: tooltipLayout.implicitWidth + Style.smallMargins * 2
                     height: tooltipLayout.implicitHeight + Style.smallMargins * 2
@@ -392,3 +335,5 @@ StatsBase {
         }
     }
 }
+
+[Response interrupted by user]

@@ -26,6 +26,8 @@ class DashboardDataProvider : public QObject
     Q_PROPERTY(double selfConsumptionRate READ selfConsumptionRate NOTIFY selfConsumptionRateChanged)
     Q_PROPERTY(bool kpiValid READ kpiValid NOTIFY kpiValidChanged)
 
+    Q_PROPERTY(bool fetchingKpiSeries READ fetchingKpiSeries NOTIFY fetchingKpiSeriesChanged)
+
 public:
     explicit DashboardDataProvider(QObject *parent = nullptr);
 
@@ -47,6 +49,9 @@ public:
     double selfConsumptionRate() const;
     bool kpiValid() const;
 
+    bool fetchingKpiSeries() const;
+    Q_INVOKABLE void fetchKpiSeries(const QVariantList &periods);
+
 signals:
     void engineChanged();
     void rootMeterChanged();
@@ -61,6 +66,9 @@ signals:
     void selfSufficiencyRateChanged(double selfSufficiencyRate);
     void selfConsumptionRateChanged(double selfConsumptionRate);
     void kpiValidChanged(bool kpiValid);
+
+    void fetchingKpiSeriesChanged(bool fetchingKpiSeries);
+    void kpiBarResult(int barIndex, double selfSufficiency, double selfConsumption, bool valid);
 
 private:
     void updateRootMeterCurrentPower(State *currentPowerState);
@@ -85,6 +93,7 @@ private:
     void fetchEnergyKPIs();
 
     Q_INVOKABLE void getEnergyKPIsResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void kpiSeriesBarResponse(int commandId, const QVariantMap &data);
 
 private:
     QPointer<Engine> m_engine = nullptr;
@@ -118,6 +127,12 @@ private:
     bool m_kpiValid = false;
 
     QTimer m_kpiRefreshTimer;
+
+    // KPI series (time-bucketed chart data)
+    QHash<int, int> m_kpiSeriesCommandToBar;
+    int m_kpiSeriesTotalBars = 0;
+    int m_kpiSeriesReceivedBars = 0;
+    bool m_fetchingKpiSeries = false;
 };
 
 #endif // DASHBOARDDATAPROVIDER_H
