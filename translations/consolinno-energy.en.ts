@@ -307,6 +307,10 @@
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Block EV charging from the battery</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BlackoutProtectionView</name>
@@ -344,6 +348,17 @@
     </message>
     <message>
         <source>Per phase A:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BlockEVChargingFromBatteryInfo</name>
+    <message>
+        <source>Block charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging the electric car from the battery is blocked.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -679,6 +694,22 @@
         <source>pausing</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Number of phases:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Phase setting could not be applied</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Phase count</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -766,6 +797,45 @@
     </message>
     <message>
         <source>Setpoint:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChargingPhaseSwitchingInfo</name>
+    <message>
+        <source>Number of phases</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3 phases</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Higher charging capacity → faster to full</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1 phase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Requires sufficient PV surplus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ideal for stable, high solar radiation or when speed is more important</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Requires less minimum power from the PV system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Particularly suitable for variable or low solar radiation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charges the vehicle more slowly</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2776,13 +2846,14 @@ Use a timeout value greater or equal to 10 ms.</source>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation>&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.13.0&lt;/p&gt;
+&lt;p&gt;Version 1.13.1&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Optimisation of SG‑ready heat pumps with dynamic electricity tariffs&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;HEMS can now be configured without PV&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Feed‑in regulation (LPP) for non‑hybrid inverters&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Improved battery charging with dynamic tariffs: Battery discharge can also be blocked depending on the tariff for maximum efficiency. Price and discharge limits are calculated based on the average price.&lt;br&gt;&lt;b&gt;Note: Tariff-controlled charging must be reconfigured after the update!&lt;/b&gt;&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Support of variable grid fees&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Improvements&lt;/h4&gt;
 &lt;ul&gt;

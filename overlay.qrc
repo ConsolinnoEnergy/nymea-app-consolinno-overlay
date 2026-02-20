@@ -145,5 +145,6 @@
         <file>mainviews/CoDashboardView.qml</file>
         <file>components/CoFrostyCard.qml</file>
         <file>components/CoInfoCard.qml</file>
+        <file>info/ChargingPhaseSwitchingInfo.qml</file>
     </qresource>
 </RCC>

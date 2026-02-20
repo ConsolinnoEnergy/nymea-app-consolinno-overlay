@@ -419,6 +419,7 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
         dummyConfig.insert("targetPercentage", 100);
         dummyConfig.insert("controllableLocalSystem", false);
         dummyConfig.insert("priceThreshold", 0);
+        dummyConfig.insert("desiredPhaseCount", 3);
 
         addOrUpdateChargingConfiguration(dummyConfig);
         // and get the dummy Config
@@ -561,6 +562,7 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
         dummyConfig.insert("relativePriceEnabled", false);
         dummyConfig.insert("chargeOnce", false);
         dummyConfig.insert("controllableLocalSystem", false);
+        dummyConfig.insert("blockBatteryOnGridConsumption", BatteryConfiguration::EvCharger);
 
         addOrUpdateBatteryConfiguration(dummyConfig);
         // and get the dummy Config
@@ -980,6 +982,7 @@ void HemsManager::addOrUpdateBatteryConfiguration(const QVariantMap &configurati
     configuration->setRelativePriceEnabled(configurationMap.value("relativePriceEnabled").toBool());
     configuration->setChargeOnce(configurationMap.value("chargeOnce").toBool());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
+    configuration->setBlockBatteryOnGridConsumption(configurationMap.value("blockBatteryOnGridConsumption").toInt());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Battery configuration added" << configuration->batteryThingId();
@@ -1010,6 +1013,7 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
     configuration->setUniqueIdentifier(configurationMap.value("uniqueIdentifier").toUuid());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
     configuration->setPriceThreshold(configurationMap.value("priceThreshold").toFloat());
+    configuration->setDesiredPhaseCount(configurationMap.value("desiredPhaseCount").toUInt());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Charging configuration added" << configuration->evChargerThingId();
