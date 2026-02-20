@@ -371,7 +371,6 @@ MainViewBase {
                                 unit: "%"
                                 icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
                                 clickable: false
-                                showErrorIndicator: !dataProvider.kpiValid
                             }
 
                             CoInfoCard {
