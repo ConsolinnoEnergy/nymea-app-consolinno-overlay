@@ -21,6 +21,13 @@ class DashboardDataProvider : public QObject
     Q_PROPERTY(double currentPowerTotalConsumption READ currentPowerTotalConsumption NOTIFY currentPowerTotalConsumptionChanged)
     Q_PROPERTY(double totalBatteryLevel READ totalBatteryLevel NOTIFY totalBatteryLevelChanged)
 
+    Q_PROPERTY(int flowSolarToGrid READ flowSolarToGrid NOTIFY flowSolarToGridChanged)
+    Q_PROPERTY(int flowSolarToBattery READ flowSolarToBattery NOTIFY flowSolarToBatteryChanged)
+    Q_PROPERTY(int flowSolarToConsumers READ flowSolarToConsumers NOTIFY flowSolarToConsumersChanged)
+    Q_PROPERTY(int flowGridToConsumers READ flowGridToConsumers NOTIFY flowGridToConsumersChanged)
+    Q_PROPERTY(int flowGridToBattery READ flowGridToBattery NOTIFY flowGridToBatteryChanged)
+    Q_PROPERTY(int flowBatteryToConsumers READ flowBatteryToConsumers NOTIFY flowBatteryToConsumersChanged)
+
 public:
     explicit DashboardDataProvider(QObject *parent = nullptr);
 
@@ -38,6 +45,13 @@ public:
     double currentPowerTotalConsumption() const;
     double totalBatteryLevel() const;
 
+    int flowSolarToGrid() const;
+    int flowSolarToBattery() const;
+    int flowSolarToConsumers() const;
+    int flowGridToConsumers() const;
+    int flowGridToBattery() const;
+    int flowBatteryToConsumers() const;
+
 signals:
     void engineChanged();
     void rootMeterChanged();
@@ -48,6 +62,13 @@ signals:
     void currentPowerUnmeteredConsumptionChanged(double currentPowerUnmeteredConsumption);
     void currentPowerTotalConsumptionChanged(double currentPowerTotalConsumption);
     void totalBatteryLevelChanged(double totalBatteryLevel);
+
+    void flowSolarToGridChanged(int flowSolarToGrid);
+    void flowSolarToBatteryChanged(int flowSolarToBattery);
+    void flowSolarToConsumersChanged(int flowSolarToConsumers);
+    void flowGridToConsumersChanged(int flowGridToConsumers);
+    void flowGridToBatteryChanged(int flowGridToBattery);
+    void flowBatteryToConsumersChanged(int flowBatteryToConsumers);
 
 private:
     void updateRootMeterCurrentPower(State *currentPowerState);
@@ -68,6 +89,7 @@ private:
     void updateConsumerCurrentPower(Thing *consumer, State *currentPowerState);
 
     void updateConsumptions();
+    void updateEnergyFlow();
 
     QPointer<Engine> m_engine = nullptr;
 
@@ -94,6 +116,13 @@ private:
 
     double m_currentPowerUnmeteredConsumption = 0.;
     double m_currentPowerTotalConsumption = 0.;
+
+    int m_flowSolarToGrid = 0;
+    int m_flowSolarToBattery = 0;
+    int m_flowSolarToConsumers = 0;
+    int m_flowGridToConsumers = 0;
+    int m_flowGridToBattery = 0;
+    int m_flowBatteryToConsumers = 0;
 };
 
 #endif // DASHBOARDDATAPROVIDER_H

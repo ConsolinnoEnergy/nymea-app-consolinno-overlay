@@ -121,6 +121,36 @@ double DashboardDataProvider::totalBatteryLevel() const
     return m_totalBatteryLevel;
 }
 
+int DashboardDataProvider::flowSolarToGrid() const
+{
+    return m_flowSolarToGrid;
+}
+
+int DashboardDataProvider::flowSolarToBattery() const
+{
+    return m_flowSolarToBattery;
+}
+
+int DashboardDataProvider::flowSolarToConsumers() const
+{
+    return m_flowSolarToConsumers;
+}
+
+int DashboardDataProvider::flowGridToConsumers() const
+{
+    return m_flowGridToConsumers;
+}
+
+int DashboardDataProvider::flowGridToBattery() const
+{
+    return m_flowGridToBattery;
+}
+
+int DashboardDataProvider::flowBatteryToConsumers() const
+{
+    return m_flowBatteryToConsumers;
+}
+
 void DashboardDataProvider::updateRootMeterCurrentPower(State *currentPowerState)
 {
     auto conversionOk = true;
@@ -396,7 +426,7 @@ void DashboardDataProvider::updateConsumptions()
             m_currentPowerProduction -
             m_currentPowerBatteries;
     const auto currentPowerUnmeteredConsumption =
-            m_currentPowerTotalConsumption -
+            currentPowerTotalConsumption -
             m_currentPowerMeteredConsumption;
     if (!qFuzzyCompare(m_currentPowerUnmeteredConsumption, currentPowerUnmeteredConsumption)) {
         m_currentPowerUnmeteredConsumption = currentPowerUnmeteredConsumption;
@@ -408,4 +438,159 @@ void DashboardDataProvider::updateConsumptions()
         qCInfo(dcDashboardDataProvider()) << "Total consumption:" << m_currentPowerTotalConsumption;
         emit currentPowerTotalConsumptionChanged(m_currentPowerTotalConsumption);
     }
+    updateEnergyFlow();
+}
+
+void DashboardDataProvider::updateEnergyFlow()
+{
+    // Using the current power values of root meter, producers, batteries and consumers,
+    // we can calculate the energy flow between these entities.
+    //
+    //   -------------         -------------
+    //   | Producers |         |    Grid   |
+    //   |  (Solar)  |-------->|           |
+    //   |  P_prod   |         |   P_grid  |
+    //   -------------\       /-------------
+    //      |          \     /        |
+    //      |           \   /         |
+    //      |            \ /          |
+    //      |             \           |
+    //      |            / \          |
+    //      |           /   \         |
+    //      |          /     \        |
+    //      v         v       v       v
+    //   -------------         -------------
+    //   | Batteries |         | Consumers |
+    //   |           |-------->|           |
+    //   |  P_batt   |         |   P_cons  |
+    //   -------------         -------------
+    //
+    //
+    // Notes:
+    // - Consumption values are positive, production values are negative, i.e.
+    //   - P_prod (= m_currentPowerProduction) is always negative
+    //   - P_batt (= m_currentPowerBatteries) is positive when battery is charged, negative when it is discharged
+    //   - P_grid (= m_currentPowerRootMeter) is positive when energy is drawn from the grid, negative when energy is fed into the grid
+    //   - P_cons (= m_currentPowerTotalConsumption) is always positive
+    //
+    // The system of linear equations (4 power values given, 6 flow values to be determined) is underdetermined
+    // in the general case but we can apply restrictions to solve all cases which can happen realistically.
+    // This is done in the code below.
+
+    // #TODO make m_currentPower* values int instead of double
+
+    auto flowSolarToGrid = 0;
+    auto flowSolarToBattery = 0;
+    auto flowSolarToConsumers = 0;
+    auto flowGridToConsumers = 0;
+    auto flowGridToBattery = 0;
+    auto flowBatteryToConsumers = 0;
+
+    if (m_currentPowerRootMeter > 0) { // We draw energy from the grid
+        if (m_currentPowerBatteries > 0) { // Batteries are currently charging
+            // This case is basically underdetermined but we add the following restriction:
+            // The solar production primarily goes to the consumers, then to the batteries.
+            if (m_currentPowerTotalConsumption < -m_currentPowerProduction) {
+                // Energy consumption is smaller than solar energy production, so we have
+                // some solar energy left for the batteries.
+                flowGridToBattery = m_currentPowerRootMeter;
+                flowSolarToConsumers = m_currentPowerTotalConsumption;
+                flowSolarToBattery = -m_currentPowerProduction - m_currentPowerTotalConsumption;
+            } else if (m_currentPowerTotalConsumption == -m_currentPowerProduction) {
+                // Solar energy production is exactly the same as total consumption.
+                // Batteries are charged from the grid.
+                flowSolarToConsumers = m_currentPowerTotalConsumption;
+                flowGridToBattery = m_currentPowerRootMeter;
+            } else {
+                // Solar energy production is smaller than total consumption.
+                // We have consumption and battery charging from grid.
+                flowGridToBattery = m_currentPowerBatteries;
+                flowSolarToConsumers = -m_currentPowerProduction;
+                flowGridToConsumers = m_currentPowerRootMeter - m_currentPowerBatteries;
+            }
+        } else if (m_currentPowerBatteries == 0) { // Batteries are idle
+            flowSolarToConsumers = -m_currentPowerProduction;
+            flowGridToConsumers = m_currentPowerRootMeter;
+        } else { // Batteries are currently discharging
+            flowSolarToConsumers = -m_currentPowerProduction;
+            flowGridToConsumers = m_currentPowerRootMeter;
+            flowBatteryToConsumers = -m_currentPowerBatteries;
+        }
+    } else if (m_currentPowerRootMeter == 0) { // We don't draw or feed in enegry from/into the grid.
+        if (m_currentPowerBatteries > 0) { // Batteries are currently charging
+            flowSolarToBattery = m_currentPowerBatteries;
+            flowSolarToConsumers = m_currentPowerTotalConsumption;
+        } else if (m_currentPowerBatteries == 0) { // Batteries are idle
+            flowSolarToConsumers = m_currentPowerTotalConsumption;
+        } else { // Batteries are currently discharging
+            flowSolarToConsumers = -m_currentPowerProduction;
+            flowBatteryToConsumers = -m_currentPowerBatteries;
+        }
+    } else { // We feed energy into the grid
+        if (m_currentPowerBatteries > 0) { // Batteries are currently charging
+            flowSolarToBattery = m_currentPowerBatteries;
+            flowSolarToConsumers = m_currentPowerTotalConsumption;
+            flowSolarToGrid = -m_currentPowerRootMeter;
+        } else if (m_currentPowerBatteries == 0) { // Batteries are idle
+            flowSolarToConsumers = m_currentPowerTotalConsumption;
+            flowSolarToGrid = -m_currentPowerRootMeter;
+        } else { // Batteries are currently discharging
+            // This case is basically underdetermined but we add the following restriction:
+            // The battery power primarily goes to consumption, and only then is it fed
+            // into the grid. (In practice, this should never happen.)
+            if (m_currentPowerTotalConsumption < -m_currentPowerBatteries) {
+                // The batteries discharges with more power than the consumers need.
+                // Solar production and the excess energy from the batteries are fed
+                // into the grid.
+                flowBatteryToConsumers = m_currentPowerTotalConsumption;
+                flowSolarToGrid = -m_currentPowerProduction;
+                flowGridToBattery = m_currentPowerTotalConsumption + m_currentPowerBatteries;
+            } else if (m_currentPowerTotalConsumption == -m_currentPowerBatteries) {
+                // Battery power is exactly the same as consumption. Solar production
+                // is fed into the grid.
+                flowBatteryToConsumers = m_currentPowerTotalConsumption;
+                flowSolarToGrid = -m_currentPowerProduction;
+            } else {
+                // Battery power is less than the consumers need. A part of the solar
+                // production goes into the consumers, the rest to the grid.
+                flowBatteryToConsumers = -m_currentPowerBatteries;
+                flowSolarToGrid = -m_currentPowerRootMeter;
+                flowSolarToConsumers = -m_currentPowerProduction + m_currentPowerRootMeter;
+            }
+        }
+    }
+
+
+    if (flowSolarToGrid != m_flowSolarToGrid) {
+        m_flowSolarToGrid = flowSolarToGrid;
+        emit flowSolarToGridChanged(m_flowSolarToGrid);
+    }
+    if (flowSolarToBattery != m_flowSolarToBattery) {
+        m_flowSolarToBattery = flowSolarToBattery;
+        emit flowSolarToBatteryChanged(m_flowSolarToBattery);
+    }
+    if (flowSolarToConsumers != m_flowSolarToConsumers) {
+        m_flowSolarToConsumers = flowSolarToConsumers;
+        emit flowSolarToConsumersChanged(m_flowSolarToConsumers);
+    }
+    if (flowGridToConsumers != m_flowGridToConsumers) {
+        m_flowGridToConsumers = flowGridToConsumers;
+        emit flowGridToConsumersChanged(m_flowGridToConsumers);
+    }
+    if (flowGridToBattery != m_flowGridToBattery) {
+        m_flowGridToBattery = flowGridToBattery;
+        emit flowGridToBatteryChanged(m_flowGridToBattery);
+    }
+    if (flowBatteryToConsumers != m_flowBatteryToConsumers) {
+        m_flowBatteryToConsumers = flowBatteryToConsumers;
+        emit flowBatteryToConsumersChanged(m_flowBatteryToConsumers);
+    }
+
+    qCDebug(dcDashboardDataProvider()) << "Energy flows:";
+    qCDebug(dcDashboardDataProvider()) << "  solar -> battery:" << m_flowSolarToBattery << " W";
+    qCDebug(dcDashboardDataProvider()) << "  solar -> consumers:" << m_flowSolarToConsumers << " W";
+    qCDebug(dcDashboardDataProvider()) << "  solar -> grid:" << m_flowSolarToGrid << " W";
+    qCDebug(dcDashboardDataProvider()) << "  battery -> consumers:" << m_flowBatteryToConsumers << " W";
+    qCDebug(dcDashboardDataProvider()) << "  grid -> battery:" << m_flowGridToBattery << " W";
+    qCDebug(dcDashboardDataProvider()) << "  grid -> consumers:" << m_flowGridToConsumers << " W";
 }
