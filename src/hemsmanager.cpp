@@ -841,6 +841,17 @@ void HemsManager::setBatteryConfigurationResponse(int commandId, const QVariantM
     emit setBatteryConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
+int HemsManager::factoryReset()
+{
+    return m_engine->jsonRpcClient()->sendCommand("Hems.FactoryReset", QVariantMap(), this, "factoryResetResponse");
+}
+
+void HemsManager::factoryResetResponse(int commandId, const QVariantMap &data)
+{
+    qCDebug(dcHems()) << "Factory reset response" << data.value("hemsError").toString();
+    emit factoryResetReply(commandId, data.value("hemsError").toString());
+}
+
 
 void HemsManager::setPvConfigurationResponse(int commandId, const QVariantMap &data)
 {
