@@ -52,7 +52,7 @@ MainViewBase {
                 if (Configuration.heatpumpIcon !== ""){
                     icon = "qrc:/ui/images/" + Configuration.heatpumpIcon;
                 } else {
-                    icon = "qrc:/ui/images/heatpump.svg";
+                    icon = "qrc:/icons/heatpump.svg";
                 }
                 break;
             case "heatingrod":
@@ -285,7 +285,7 @@ MainViewBase {
                                     if (Configuration.gridIcon !== "") {
                                         return Qt.resolvedUrl("/ui/images/" + Configuration.gridIcon)
                                     } else {
-                                        return Qt.resolvedUrl("/ui/images/grid.svg")
+                                        return Qt.resolvedUrl("/icons/grid.svg")
                                     }
                                 }
                                 onClicked: {

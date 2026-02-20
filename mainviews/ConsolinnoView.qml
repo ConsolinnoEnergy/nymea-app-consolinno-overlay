@@ -722,8 +722,8 @@ MainViewBase {
                 ctx.fillStyle = Style.foregroundColor
 
 
-                lsdChart.currentGridValueState = gridSupport.count > 0 && gridSupport.get(0).stateByName("isLpcActive") !== null ? gridSupport.get(0).stateByName("isLpcActive").value : false
-                lsdChart.currentGridValueStateLPP = gridSupport.count > 0 && gridSupport.get(0).stateByName("isLppActive") !== null ? gridSupport.get(0).stateByName("isLppActive").value : false
+                lsdChart.currentGridValueState = gridSupport.get(0).stateByName("isLpcActive") !== null ? gridSupport.get(0).stateByName("isLpcActive").value : false
+                lsdChart.currentGridValueStateLPP = gridSupport.get(0).stateByName("isLppActive") !== null ? gridSupport.get(0).stateByName("isLppActive").value : false
 
                 var maxCurrentPower = rootMeter ? Math.abs(
                                                       rootMeter.stateByName(
@@ -772,7 +772,7 @@ MainViewBase {
 
                     // draw every producer, but not the rootMeter as producer, since it is already drawn.
                     var producer = producers.get(i)
-                    if (!rootMeter || producer.id !== rootMeter.id) {
+                    if (producer.id !== rootMeter.id) {
                         var tile = legendProducersRepeater.itemAt(i)
                         drawAnimatedLine(ctx, producer.stateByName(
                                              "currentPower").value, tile,
@@ -909,7 +909,7 @@ MainViewBase {
                         id: legendProducersRepeater
                         model: producers
                         delegate: LegendTile {
-                            visible: rootMeter ? producers.get(index).id !== rootMeter.id : true
+                            visible: producers.get(index).id !== rootMeter.id
                             isNotify: lsdChart.currentGridValueStateLPP &&
                                       (hemsManager.pvConfigurations.getPvConfiguration(producers.get(index).id) !== null ?
                                            hemsManager.pvConfigurations.getPvConfiguration(producers.get(index).id).controllableLocalSystem :
@@ -934,7 +934,7 @@ MainViewBase {
                         id: legendElectricsRepeater
                         model: electrics
                         delegate: LegendTile {
-                            visible: rootMeter ? electrics.get(index).id !== rootMeter.id : true
+                            visible: electrics.get(index).id !== rootMeter.id
                             color: lsdChart.electricsColor
                             thing: electrics.get(index)
                             isElectric: true

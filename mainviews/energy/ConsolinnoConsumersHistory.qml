@@ -528,13 +528,13 @@ Item {
                                             if(Configuration.heatpumpIcon !== ""){
                                                 return "qrc:/ui/images/"+Configuration.heatpumpIcon
                                             }else{
-                                                return "qrc:/ui/images/heatpump.svg"
+                                                return "qrc:/icons/heatpump.svg"
                                             }
                                         case "pvsurplusheatpump":
                                             if(Configuration.heatpumpIcon !== ""){
                                                 return "qrc:/ui/images/"+Configuration.heatpumpIcon
                                             }else{
-                                                return "qrc:/ui/images/heatpump.svg"
+                                                return "qrc:/icons/heatpump.svg"
                                             }
                                         case "heatingrod":
                                             if(Configuration.heatingRodIcon !== ""){
@@ -765,7 +765,7 @@ Item {
                             model: consumersRepeater.count
                             delegate: RowLayout {
                                 readonly property Item chartItem: consumersRepeater.itemAt(index)
-                                readonly property Thing thing: chartItem ? chartItem.thing : null
+                                readonly property Thing thing: chartItem.series.get(index).name
                                 id: consumerToolTipDelegate
                                 opacity: d.selectedSeries == null || d.selectedSeries === chartItem.series ? 1 : 0.3
                                 Rectangle {

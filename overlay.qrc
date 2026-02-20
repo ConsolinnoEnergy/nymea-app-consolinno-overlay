@@ -147,7 +147,5 @@
         <file>components/CoFrostyCard.qml</file>
         <file>components/CoInfoCard.qml</file>
         <file>info/ChargingPhaseSwitchingInfo.qml</file>
-        <file>components/CoPowerThingInfoCard.qml</file>
-        <file>components/CoCard.qml</file>
     </qresource>
 </RCC>
