@@ -273,20 +273,6 @@ MainViewBase {
                                              liveStatusConsumptionCard,
                                              dataProvider.flowGridToConsumers);
                                 }
-
-//                                ctx.beginPath();
-//                                ctx.lineWidth = 8;
-
-//                                // Test. #TODO draw real lines
-//                                var startX = liveStatusPVCard.x + liveStatusPVCard.width / 2;
-//                                var startY = liveStatusPVCard.y + liveStatusPVCard.height / 2;
-//                                var endX = liveStatusConsumptionCard.x + liveStatusConsumptionCard.width / 2;
-//                                var endY = liveStatusConsumptionCard.y + liveStatusConsumptionCard.height / 2;
-
-//                                ctx.moveTo(startX, startY);
-//                                ctx.lineTo(endX, endY);
-//                                ctx.stroke();
-//                                ctx.closePath();
                             }
 
                             function lineWidth(value) {
