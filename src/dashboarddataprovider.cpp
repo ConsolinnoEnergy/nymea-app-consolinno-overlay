@@ -42,6 +42,7 @@ void DashboardDataProvider::setEngine(Engine *engine)
 
     if (m_engine) {
         qCCritical(dcDashboardDataProvider()) << "Already have an engine:" << m_engine;
+        m_kpiRefreshTimer.stop();
     }
 
     qCDebug(dcDashboardDataProvider()) << "Setting engine:" << engine;
