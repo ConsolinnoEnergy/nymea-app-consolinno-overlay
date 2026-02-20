@@ -64,7 +64,7 @@ void DashboardDataProvider::setRootMeter(Thing *rootMeter)
     }
 
     m_rootMeter = rootMeter;
-    m_currentPowerRootMeter = 0.;
+    m_currentPowerRootMeter = 0;
     emit rootMeterChanged();
     emit currentPowerRootMeterChanged(m_currentPowerRootMeter);
 
@@ -86,32 +86,32 @@ void DashboardDataProvider::setRootMeter(Thing *rootMeter)
     }
 }
 
-double DashboardDataProvider::currentPowerRootMeter() const
+int DashboardDataProvider::currentPowerRootMeter() const
 {
     return m_currentPowerRootMeter;
 }
 
-double DashboardDataProvider::currentPowerProduction() const
+int DashboardDataProvider::currentPowerProduction() const
 {
     return m_currentPowerProduction;
 }
 
-double DashboardDataProvider::currentPowerBatteries() const
+int DashboardDataProvider::currentPowerBatteries() const
 {
     return m_currentPowerBatteries;
 }
 
-double DashboardDataProvider::currentPowerMeteredConsumption() const
+int DashboardDataProvider::currentPowerMeteredConsumption() const
 {
     return m_currentPowerMeteredConsumption;
 }
 
-double DashboardDataProvider::currentPowerUnmeteredConsumption() const
+int DashboardDataProvider::currentPowerUnmeteredConsumption() const
 {
     return m_currentPowerUnmeteredConsumption;
 }
 
-double DashboardDataProvider::currentPowerTotalConsumption() const
+int DashboardDataProvider::currentPowerTotalConsumption() const
 {
     return m_currentPowerTotalConsumption;
 }
@@ -154,14 +154,14 @@ int DashboardDataProvider::flowBatteryToConsumers() const
 void DashboardDataProvider::updateRootMeterCurrentPower(State *currentPowerState)
 {
     auto conversionOk = true;
-    const auto currentPower = currentPowerState->value().toDouble(&conversionOk);
+    const auto currentPower = qRound(currentPowerState->value().toDouble(&conversionOk));
     if (!conversionOk) {
         qCWarning(dcDashboardDataProvider())
                 << "Root meter -> Can not convert value of state \"currentPower\" to double!"
                 << currentPowerState->value().toString();
         return;
     }
-    if (!qFuzzyCompare(m_currentPowerRootMeter, currentPower)) {
+    if (m_currentPowerRootMeter != currentPower) {
         m_currentPowerRootMeter = currentPower;
         qCInfo(dcDashboardDataProvider()) << "Root meter:" << m_currentPowerRootMeter;
         emit currentPowerRootMeterChanged(m_currentPowerRootMeter);
@@ -192,14 +192,15 @@ void DashboardDataProvider::setupPowerProductionStats()
 
 void DashboardDataProvider::updateCurrentPowerProduction()
 {
-    auto totalProducerPower = 0.;
+    auto totalProducerPowerDouble = 0.;
     for (auto it = m_producerCurrentPowers.constBegin();
          it != m_producerCurrentPowers.constEnd();
          ++it) {
-        totalProducerPower += it.value();
+        totalProducerPowerDouble += it.value();
     }
 
-    if (!qFuzzyCompare(m_currentPowerProduction, totalProducerPower)) {
+    const auto totalProducerPower = qRound(totalProducerPowerDouble);
+    if (m_currentPowerProduction != totalProducerPower) {
         m_currentPowerProduction = totalProducerPower;
         qCInfo(dcDashboardDataProvider()) << "Production:" << m_currentPowerProduction;
         emit currentPowerProductionChanged(m_currentPowerProduction);
@@ -275,14 +276,15 @@ void DashboardDataProvider::setupBatteriesStats()
 
 void DashboardDataProvider::updateCurrentPowerBatteries()
 {
-    auto totalBatteryPower = 0.;
+    auto totalBatteryPowerDouble = 0.;
     for (auto it = m_batteryCurrentPowers.constBegin();
          it != m_batteryCurrentPowers.constEnd();
          ++it) {
-        totalBatteryPower += it.value();
+        totalBatteryPowerDouble += it.value();
     }
 
-    if (!qFuzzyCompare(m_currentPowerBatteries, totalBatteryPower)) {
+    const auto totalBatteryPower = qRound(totalBatteryPowerDouble);
+    if (m_currentPowerBatteries != totalBatteryPower) {
         m_currentPowerBatteries = totalBatteryPower;
         qCInfo(dcDashboardDataProvider()) << "Batteries:" << m_currentPowerBatteries;
         emit currentPowerBatteriesChanged(m_currentPowerBatteries);
@@ -386,14 +388,15 @@ void DashboardDataProvider::setupConsumersStats()
 
 void DashboardDataProvider::updateCurrentPowerConsumption()
 {
-    auto totalMeasuredConsumerPower = 0.;
+    auto totalMeasuredConsumerPowerDouble = 0.;
     for (auto it = m_consumerCurrentPowers.constBegin();
          it != m_consumerCurrentPowers.constEnd();
          ++it) {
-        totalMeasuredConsumerPower += it.value();
+        totalMeasuredConsumerPowerDouble += it.value();
     }
 
-    if (!qFuzzyCompare(m_currentPowerMeteredConsumption, totalMeasuredConsumerPower)) {
+    const auto totalMeasuredConsumerPower = qRound(totalMeasuredConsumerPowerDouble);
+    if (m_currentPowerMeteredConsumption != totalMeasuredConsumerPower) {
         m_currentPowerMeteredConsumption = totalMeasuredConsumerPower;
         qCInfo(dcDashboardDataProvider()) << "Metered consumption:" << m_currentPowerMeteredConsumption;
         emit currentPowerMeteredConsumptionChanged(m_currentPowerMeteredConsumption);
@@ -428,12 +431,12 @@ void DashboardDataProvider::updateConsumptions()
     const auto currentPowerUnmeteredConsumption =
             currentPowerTotalConsumption -
             m_currentPowerMeteredConsumption;
-    if (!qFuzzyCompare(m_currentPowerUnmeteredConsumption, currentPowerUnmeteredConsumption)) {
+    if (m_currentPowerUnmeteredConsumption != currentPowerUnmeteredConsumption) {
         m_currentPowerUnmeteredConsumption = currentPowerUnmeteredConsumption;
         qCInfo(dcDashboardDataProvider()) << "Unmetered consumption:" << m_currentPowerUnmeteredConsumption;
         emit currentPowerUnmeteredConsumptionChanged(m_currentPowerUnmeteredConsumption);
     }
-    if (!qFuzzyCompare(m_currentPowerTotalConsumption, currentPowerTotalConsumption)) {
+    if (m_currentPowerTotalConsumption != currentPowerTotalConsumption) {
         m_currentPowerTotalConsumption = currentPowerTotalConsumption;
         qCInfo(dcDashboardDataProvider()) << "Total consumption:" << m_currentPowerTotalConsumption;
         emit currentPowerTotalConsumptionChanged(m_currentPowerTotalConsumption);
@@ -560,7 +563,6 @@ void DashboardDataProvider::updateEnergyFlow()
         }
     }
 
-
     if (flowSolarToGrid != m_flowSolarToGrid) {
         m_flowSolarToGrid = flowSolarToGrid;
         emit flowSolarToGridChanged(m_flowSolarToGrid);
@@ -586,11 +588,11 @@ void DashboardDataProvider::updateEnergyFlow()
         emit flowBatteryToConsumersChanged(m_flowBatteryToConsumers);
     }
 
-    qCDebug(dcDashboardDataProvider()) << "Energy flows:";
-    qCDebug(dcDashboardDataProvider()) << "  solar -> battery:" << m_flowSolarToBattery << " W";
-    qCDebug(dcDashboardDataProvider()) << "  solar -> consumers:" << m_flowSolarToConsumers << " W";
-    qCDebug(dcDashboardDataProvider()) << "  solar -> grid:" << m_flowSolarToGrid << " W";
-    qCDebug(dcDashboardDataProvider()) << "  battery -> consumers:" << m_flowBatteryToConsumers << " W";
-    qCDebug(dcDashboardDataProvider()) << "  grid -> battery:" << m_flowGridToBattery << " W";
-    qCDebug(dcDashboardDataProvider()) << "  grid -> consumers:" << m_flowGridToConsumers << " W";
+    qCInfo(dcDashboardDataProvider()) << "Energy flows:";
+    qCInfo(dcDashboardDataProvider()) << "  solar -> battery:" << m_flowSolarToBattery << " W";
+    qCInfo(dcDashboardDataProvider()) << "  solar -> consumers:" << m_flowSolarToConsumers << " W";
+    qCInfo(dcDashboardDataProvider()) << "  solar -> grid:" << m_flowSolarToGrid << " W";
+    qCInfo(dcDashboardDataProvider()) << "  battery -> consumers:" << m_flowBatteryToConsumers << " W";
+    qCInfo(dcDashboardDataProvider()) << "  grid -> battery:" << m_flowGridToBattery << " W";
+    qCInfo(dcDashboardDataProvider()) << "  grid -> consumers:" << m_flowGridToConsumers << " W";
 }

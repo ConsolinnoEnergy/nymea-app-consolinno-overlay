@@ -13,12 +13,12 @@ class DashboardDataProvider : public QObject
     Q_PROPERTY(Engine *engine READ engine WRITE setEngine NOTIFY engineChanged)
     Q_PROPERTY(Thing *rootMeter READ rootMeter WRITE setRootMeter NOTIFY rootMeterChanged)
 
-    Q_PROPERTY(double currentPowerRootMeter READ currentPowerRootMeter NOTIFY currentPowerRootMeterChanged)
-    Q_PROPERTY(double currentPowerProduction READ currentPowerProduction NOTIFY currentPowerProductionChanged)
-    Q_PROPERTY(double currentPowerBatteries READ currentPowerBatteries NOTIFY currentPowerBatteriesChanged)
-    Q_PROPERTY(double currentPowerMeteredConsumption READ currentPowerMeteredConsumption NOTIFY currentPowerMeteredConsumptionChanged)
-    Q_PROPERTY(double currentPowerUnmeteredConsumption READ currentPowerUnmeteredConsumption NOTIFY currentPowerUnmeteredConsumptionChanged)
-    Q_PROPERTY(double currentPowerTotalConsumption READ currentPowerTotalConsumption NOTIFY currentPowerTotalConsumptionChanged)
+    Q_PROPERTY(int currentPowerRootMeter READ currentPowerRootMeter NOTIFY currentPowerRootMeterChanged)
+    Q_PROPERTY(int currentPowerProduction READ currentPowerProduction NOTIFY currentPowerProductionChanged)
+    Q_PROPERTY(int currentPowerBatteries READ currentPowerBatteries NOTIFY currentPowerBatteriesChanged)
+    Q_PROPERTY(int currentPowerMeteredConsumption READ currentPowerMeteredConsumption NOTIFY currentPowerMeteredConsumptionChanged)
+    Q_PROPERTY(int currentPowerUnmeteredConsumption READ currentPowerUnmeteredConsumption NOTIFY currentPowerUnmeteredConsumptionChanged)
+    Q_PROPERTY(int currentPowerTotalConsumption READ currentPowerTotalConsumption NOTIFY currentPowerTotalConsumptionChanged)
     Q_PROPERTY(double totalBatteryLevel READ totalBatteryLevel NOTIFY totalBatteryLevelChanged)
 
     Q_PROPERTY(int flowSolarToGrid READ flowSolarToGrid NOTIFY flowSolarToGridChanged)
@@ -37,12 +37,12 @@ public:
     Thing *rootMeter() const;
     void setRootMeter(Thing *rootMeter);
 
-    double currentPowerRootMeter() const;
-    double currentPowerProduction() const;
-    double currentPowerBatteries() const;
-    double currentPowerMeteredConsumption() const;
-    double currentPowerUnmeteredConsumption() const;
-    double currentPowerTotalConsumption() const;
+    int currentPowerRootMeter() const;
+    int currentPowerProduction() const;
+    int currentPowerBatteries() const;
+    int currentPowerMeteredConsumption() const;
+    int currentPowerUnmeteredConsumption() const;
+    int currentPowerTotalConsumption() const;
     double totalBatteryLevel() const;
 
     int flowSolarToGrid() const;
@@ -55,12 +55,12 @@ public:
 signals:
     void engineChanged();
     void rootMeterChanged();
-    void currentPowerRootMeterChanged(double currentPowerRootMeter);
-    void currentPowerProductionChanged(double currentPowerProduction);
-    void currentPowerBatteriesChanged(double currentPowerBatteries);
-    void currentPowerMeteredConsumptionChanged(double currentPowerMeteredConsumption);
-    void currentPowerUnmeteredConsumptionChanged(double currentPowerUnmeteredConsumption);
-    void currentPowerTotalConsumptionChanged(double currentPowerTotalConsumption);
+    void currentPowerRootMeterChanged(int currentPowerRootMeter);
+    void currentPowerProductionChanged(int currentPowerProduction);
+    void currentPowerBatteriesChanged(int currentPowerBatteries);
+    void currentPowerMeteredConsumptionChanged(int currentPowerMeteredConsumption);
+    void currentPowerUnmeteredConsumptionChanged(int currentPowerUnmeteredConsumption);
+    void currentPowerTotalConsumptionChanged(int currentPowerTotalConsumption);
     void totalBatteryLevelChanged(double totalBatteryLevel);
 
     void flowSolarToGridChanged(int flowSolarToGrid);
@@ -95,16 +95,16 @@ private:
 
     QPointer<Thing> m_rootMeter = nullptr;
     QUuid m_rootMeterId;
-    double m_currentPowerRootMeter = 0.;
+    int m_currentPowerRootMeter = 0;
     QMetaObject::Connection m_currentPowerRootMeterConn;
 
     QPointer<ThingsProxy> m_producerThingsProxy = nullptr;
     QHash<Thing *, double> m_producerCurrentPowers;
-    double m_currentPowerProduction = 0.;
+    int m_currentPowerProduction = 0;
 
     QPointer<ThingsProxy> m_batteryThingsProxy = nullptr;
     QHash<Thing *, double> m_batteryCurrentPowers;
-    double m_currentPowerBatteries = 0.;
+    int m_currentPowerBatteries = 0;
     QHash<Thing *, double> m_batteryCapacities;
     double m_totalBatteryCapacity = 0.;
     QHash<Thing *, double> m_batteryLevels;
@@ -112,10 +112,10 @@ private:
 
     QPointer<ThingsProxy> m_consumerThingsProxy = nullptr;
     QHash<Thing *, double> m_consumerCurrentPowers;
-    double m_currentPowerMeteredConsumption = 0.;
+    int m_currentPowerMeteredConsumption = 0;
 
-    double m_currentPowerUnmeteredConsumption = 0.;
-    double m_currentPowerTotalConsumption = 0.;
+    int m_currentPowerUnmeteredConsumption = 0;
+    int m_currentPowerTotalConsumption = 0;
 
     int m_flowSolarToGrid = 0;
     int m_flowSolarToBattery = 0;
