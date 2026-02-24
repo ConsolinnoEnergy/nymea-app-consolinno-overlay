@@ -127,6 +127,10 @@ Item {
                 wrapMode: Text.WordWrap
                 font: Style.newParagraphFont
                 color: root.accentColor()
+
+                onLinkActivated: {
+                    Qt.openUrlExternally(link)
+                }
             }
         }
     }
