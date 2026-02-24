@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Layouts 1.2
 import Nymea 1.0
 
 Item {
@@ -73,7 +74,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 if (root.dismissable) {
-                    root.clicked()
+                    root.dismiss()
                 }
             }
         }
