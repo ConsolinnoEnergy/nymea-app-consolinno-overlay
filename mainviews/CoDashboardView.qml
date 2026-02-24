@@ -237,7 +237,7 @@ MainViewBase {
                 anchors.fill: parent
                 anchors.margins: 16 // #TODO use value from new style
 
-                implicitHeight: dashboardLayout.childrenRect.height + anchors.margins * 2
+                implicitHeight: dashboardLayout.implicitHeight + anchors.margins * 2
 
                 ColumnLayout {
                     id: dashboardLayout
