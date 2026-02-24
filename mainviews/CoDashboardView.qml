@@ -97,6 +97,40 @@ MainViewBase {
         return Qt.resolvedUrl("qrc:/icons/select-none.svg");
     }
 
+    // #TODO next 2 functions copied from old ConsolinnoView. Oli wanted to extract this into so utils file.
+    // Use from there when that is done.
+    function compareSemanticVersions(version1, version2) {
+        // Returns 0 if version1 == version2
+        // Returns 1 if version1 > version2
+        // Returns -1 if version1 < version2
+
+        var v1 = version1.split('.').map(function(part) { return parseInt(part); });
+        var v2 = version2.split('.').map(function(part) { return parseInt(part); });
+
+        for (var i = 0; i < Math.max(v1.length, v2.length); i++) {
+            var num1 = i < v1.length ? v1[i] : 0;
+            var num2 = i < v2.length ? v2[i] : 0;
+
+            if (num1 < num2) {
+                return -1; // version1 is lower
+            } else if (num1 > num2) {
+                return 1; // version1 is higher
+            }
+        }
+
+        return 0; // versions are equal
+    }
+
+    function hemsVersionOk(){
+        var minSysVersion = Configuration.minSysVersion
+        // Checks if System version is less or equal to minSysVersion
+        if ([-1].includes(compareSemanticVersions(engine.jsonRpcClient.experiences.Hems, minSysVersion)))
+        {
+            return false
+        }
+        return true
+    }
+
     EnergyManager {
         id: energyManager
         engine: _engine
@@ -203,6 +237,31 @@ MainViewBase {
                     id: dashboardLayout
                     anchors.fill: parent
                     spacing: 16 // #TODO use value from new style
+
+                    CoNotification {
+                        id: incompatibilityWarning
+                        Layout.fillWidth: true
+                        visible: !hemsVersionOk()
+                        type: CoNotification.Type.Warning
+                        title: qsTr("Pending software update")
+                        message: qsTr('
+                            <p>Your %3 app has been updated to version <strong>%1</strong> and is more up-to-date than the firmware (<strong>%2</strong>) on your %5 device.</p>
+                            <p>Your %5 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.</p>
+                            <p>If this message is still displayed, please contact our service team.</p>
+                            <ul>
+                                %6
+                                <li>Email: <a href=\'mailto:%4\'>%4</a></li>
+                            </ul>
+                            <p>Best regards</p>
+                            <p>Your %3 Team</p>')
+                        .arg(appVersion)
+                        .arg(engine.jsonRpcClient.experiences.Hems)
+                        .arg(Configuration.appName)
+                        .arg(Configuration.serviceEmail)
+                        .arg(Configuration.deviceName)
+                        .arg(Configuration.serviceTel !== "" ? qsTr("<li>Phone: <a href='tel:%1'>%1</a></li>").arg(Configuration.serviceTel) : "")
+
+                    }
 
                     CoFrostyCard {
                         Layout.fillWidth: true
