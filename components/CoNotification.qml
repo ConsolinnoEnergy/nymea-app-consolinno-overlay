@@ -6,7 +6,7 @@ Item {
     id: root
 
     enum Type {
-        Info,
+        Information,
         Warning,
         Danger
     }
@@ -14,6 +14,7 @@ Item {
     required property int type
     property alias title: titleText.text
     property alias message: messageText.text
+    property alias messageTextFormat: messageText.textFormat
     property bool dismissable: false
 
     signal dismiss()
@@ -21,7 +22,7 @@ Item {
     implicitHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
 
     function accentColor() {
-        if (root.type === CoNotification.Type.Info) {
+        if (root.type === CoNotification.Type.Information) {
             return Style.colors.system_Success_Accent
         } else if (root.type === CoNotification.Type.Warning) {
             return Style.colors.system_Warning_Accent
@@ -34,7 +35,7 @@ Item {
     }
 
     function backgroundColor() {
-        if (root.type === CoNotification.Type.Info) {
+        if (root.type === CoNotification.Type.Information) {
             return Style.colors.system_Success_Background
         } else if (root.type === CoNotification.Type.Warning) {
             return Style.colors.system_Warning_Background
@@ -94,7 +95,7 @@ Item {
             size: 24
             color: root.accentColor()
             name: {
-                if (root.type === CoNotification.Type.Info) {
+                if (root.type === CoNotification.Type.Information) {
                     return Qt.resolvedUrl("qrc:/icons/tick.svg") // #TODO icon from new style
                 } else if (root.type === CoNotification.Type.Warning) {
                     return Qt.resolvedUrl("qrc:/icons/attention.svg") // #TODO icon from new style
