@@ -275,25 +275,8 @@ MainViewBase {
                         type: CoNotification.Type.Information
                         dismissable: true
                         title: qsTr("The app has been updated.")
-                        // #TODO message: qsTr('CHANGENOTIFICATION_PLACEHOLDER')
+                        message: qsTr('CHANGENOTIFICATION_PLACEHOLDER')
                         messageTextFormat: Text.RichText
-                        message: qsTr('
-                            <p>Version 1.13.1</p>
-                            <h4>Neu</h4>
-                            <ul>
-                            <li>Optimierung von SG‑Ready‑Wärmepumpen mit dynamischem Stromtarif</li>
-                            <li style="margin-top: 8px">HEMS-Konfiguration jetzt auch ohne PV möglich</li>
-                            <li style="margin-top: 8px">Einspeiseabregelung (LPP) für nicht‑hybride Wechselrichter</li>
-                            <li style="margin-top: 8px">Verbessertes Batterieladen mit dynamischem Tarif: Auch das Entladen der Batterie kann tarifabhängig gesperrt werden für maximale Effizienz.
-                            Preis- und Entladegrenzen werden auf Basis des Durchschnittspreises berechnet.<br><b>Hinweis: Tarifgesteuertes Laden muss nach dem Update neu konfiguriert werden!</b></li>
-                            <li style="margin-top: 8px">Unterstützung von variablen Netzentgelten</li>
-                            </ul>
-                            <h4>Verbesserungen</h4>
-                            <ul>
-                            <li>Aussagekräftigere Meldungstexte im Zusammenhang mit LPC</li>
-                            <li style="margin-top: 8px">Pop‑up Hinweis, wenn bei der Einrichtung des Stromtarifs die Eingabe für Abgaben oder Netzentgelte fehlt</li>
-                            <li style="margin-top: 8px">Optimierung des Heizstabs:<br>Der Heizstab aktiviert sich erst, wenn der Batteriespeicher mindestens 80 % geladen ist</li>
-                            </ul>')
 
                         onDismiss: {
                             console.debug("shonwPopupsSetting.shown: ", shownPopupsSetting.shown, appVersion)
