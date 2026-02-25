@@ -38,11 +38,6 @@ StatsBase {
         property date endTime: root.calculateTimestamp(config.startTime(), config.sampleRate, startOffset + config.count)
 
         property bool loading: kpiProvider.fetchingKpiSeries
-        onLoadingChanged: {
-            if (!loading) {
-                fetchKpis()
-            }
-        }
 
         onConfigChanged: valueAxis.max = 100
         onStartOffsetChanged: fetchKpis()
