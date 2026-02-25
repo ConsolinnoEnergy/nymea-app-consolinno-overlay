@@ -1603,7 +1603,7 @@ MainViewBase {
                     var tmpDate = new Date()
                     tmpDate.setHours(startHour + i, 0, 0)
                     ctx.textAlign = 'center'
-                    ctx.font = "" + Style.smallFont.pixelSize + "px " + Style.smallFont.family
+                    ctx.font = "" + Style.smallFont.pixelSize + "px ubuntu"
                     ctx.fillStyle = Style.mainCircleTimeColor //gray
                     var textY = -(chartView.plotArea.height + circleWidth) / 2
                             + Style.smallFont.pixelSize / 2

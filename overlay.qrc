@@ -16,6 +16,91 @@
         <file>styles/dark/logo.svg</file>
         <file>styles/dark/Page.qml</file>
         <file>styles/dark/Style.qml</file>
+        <file>icons-nd/account_circle.svg</file>
+        <file>icons-nd/add.svg</file>
+        <file>icons-nd/android_wifi_3_bar.svg</file>
+        <file>icons-nd/arming_countdown.svg</file>
+        <file>icons-nd/arrow_back_ios_new.svg</file>
+        <file>icons-nd/arrow_forward_ios.svg</file>
+        <file>icons-nd/attribution.svg</file>
+        <file>icons-nd/bar_chart.svg</file>
+        <file>icons-nd/build.svg</file>
+        <file>icons-nd/cable.svg</file>
+        <file>icons-nd/calendar_month.svg</file>
+        <file>icons-nd/cancel.svg</file>
+        <file>icons-nd/cardiology.svg</file>
+        <file>icons-nd/check_indeterminate_small.svg</file>
+        <file>icons-nd/check.svg</file>
+        <file>icons-nd/chevron_backward.svg</file>
+        <file>icons-nd/chevron_forward.svg</file>
+        <file>icons-nd/close.svg</file>
+        <file>icons-nd/co2.svg</file>
+        <file>icons-nd/code_blocks.svg</file>
+        <file>icons-nd/dashboard_2_edit.svg</file>
+        <file>icons-nd/delete_forever.svg</file>
+        <file>icons-nd/deployed_code.svg</file>
+        <file>icons-nd/device_thermostat.svg</file>
+        <file>icons-nd/dishwasher.svg</file>
+        <file>icons-nd/download.svg</file>
+        <file>icons-nd/drag_handle.svg</file>
+        <file>icons-nd/eco.svg</file>
+        <file>icons-nd/edit.svg</file>
+        <file>icons-nd/electric_bolt.svg</file>
+        <file>icons-nd/electric_car.svg</file>
+        <file>icons-nd/electric_meter.svg</file>
+        <file>icons-nd/error.svg</file>
+        <file>icons-nd/euro.svg</file>
+        <file>icons-nd/ev_station.svg</file>
+        <file>icons-nd/extension.svg</file>
+        <file>icons-nd/file_copy.svg</file>
+        <file>icons-nd/finance_mode.svg</file>
+        <file>icons-nd/first_page.svg</file>
+        <file>icons-nd/flowchart.svg</file>
+        <file>icons-nd/functions.svg</file>
+        <file>icons-nd/heat_pump.svg</file>
+        <file>icons-nd/help.svg</file>
+        <file>icons-nd/home.svg</file>
+        <file>icons-nd/hourglass.svg</file>
+        <file>icons-nd/house_with_shield.svg</file>
+        <file>icons-nd/Icon free text.svg</file>
+        <file>icons-nd/Icon Placeholder.svg</file>
+        <file>icons-nd/info.svg</file>
+        <file>icons-nd/input_circle.svg</file>
+        <file>icons-nd/interests.svg</file>
+        <file>icons-nd/keyboard_arrow_down.svg</file>
+        <file>icons-nd/keyboard_arrow_up.svg</file>
+        <file>icons-nd/language.svg</file>
+        <file>icons-nd/last_page.svg</file>
+        <file>icons-nd/laundry.svg</file>
+        <file>icons-nd/light_group.svg</file>
+        <file>icons-nd/local_laundry_service.svg</file>
+        <file>icons-nd/logo_dev.svg</file>
+        <file>icons-nd/menu.svg</file>
+        <file>icons-nd/mobile_gear.svg</file>
+        <file>icons-nd/more_time.svg</file>
+        <file>icons-nd/Mqtt.svg</file>
+        <file>icons-nd/network_manage.svg</file>
+        <file>icons-nd/offline_bolt.svg</file>
+        <file>icons-nd/output_circle.svg</file>
+        <file>icons-nd/pin.svg</file>
+        <file>icons-nd/receipt_long.svg</file>
+        <file>icons-nd/savings.svg</file>
+        <file>icons-nd/schedule.svg</file>
+        <file>icons-nd/search.svg</file>
+        <file>icons-nd/settings.svg</file>
+        <file>icons-nd/solar_power.svg</file>
+        <file>icons-nd/strategy.svg</file>
+        <file>icons-nd/style.svg</file>
+        <file>icons-nd/today.svg</file>
+        <file>icons-nd/trending_flat.svg</file>
+        <file>icons-nd/tune.svg</file>
+        <file>icons-nd/visibility_off.svg</file>
+        <file>icons-nd/visibility.svg</file>
+        <file>icons-nd/wand_stars.svg</file>
+        <file>icons-nd/warning.svg</file>
+        <file>icons-nd/water_heater.svg</file>
+        <file>icons-nd/zigbee.svg</file>
+        <file>icons-nd/z-wave.svg</file>
     </qresource>
     <qresource prefix="/ui">
         <file>system/ConsolinnoUsersSettingsPage.qml</file>
@@ -147,5 +232,8 @@
         <file>components/CoFrostyCard.qml</file>
         <file>components/CoInfoCard.qml</file>
         <file>info/ChargingPhaseSwitchingInfo.qml</file>
+        <file>components/CoPowerThingInfoCard.qml</file>
+        <file>components/CoCard.qml</file>
+        <file>components/CoNotification.qml</file>
     </qresource>
 </RCC>
