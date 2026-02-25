@@ -509,7 +509,7 @@ int HemsManager::setConEMSState( int currentState, int operationMode, int timest
 int HemsManager::setUserConfiguration(const QVariantMap &data){
 
 // We need this because the UserConfig is a bit special in the sense that it is not bound to a Thing
-    UserConfiguration *configuration = m_userConfigurations->getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72");
+    UserConfiguration *configuration = m_userConfigurations->getUserConfiguration(QUuid("528b3820-1b6d-4f37-aea7-a99d21d42e72"));
     if (!configuration){
         QVariantMap userConfig;
         userConfig.insert("userConfigID", "528b3820-1b6d-4f37-aea7-a99d21d42e72");
@@ -521,7 +521,7 @@ int HemsManager::setUserConfiguration(const QVariantMap &data){
         userConfig.insert("installerWorkplace", "");
 
         addOrUpdateUserConfiguration(userConfig);
-        configuration = m_userConfigurations->getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72");
+        configuration = m_userConfigurations->getUserConfiguration(QUuid("528b3820-1b6d-4f37-aea7-a99d21d42e72"));
     }
 
     // Make a MetaObject of an configuration
