@@ -16,7 +16,7 @@ StatsBase {
     }
     readonly property bool hasProducers: producers.count > 0
 
-    DashboardDataProvider {
+    CoKpiStatsProvider {
         id: kpiProvider
         engine: _engine
     }
