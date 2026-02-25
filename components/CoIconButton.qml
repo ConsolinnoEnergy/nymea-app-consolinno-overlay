@@ -10,8 +10,8 @@ Item {
 
     signal clicked()
 
-    height: 44
-    width: 44
+    height: 42
+    width: 42
 
     Rectangle {
         id: background
@@ -40,7 +40,7 @@ Item {
     ColorIcon {
         id: icon
         anchors.centerIn: parent
-        size: 20
+        size: 26
         color: root.isChecked ? Style.colors.typography_Basic_Default_inverted : Style.colors.brand_Basic_Icon
     }
 
