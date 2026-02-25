@@ -174,7 +174,7 @@ Page {
                 textRole: "text"
                 valueRole: "value"
                 Layout.fillWidth: false
-                Layout.preferredWidth: parent.width * 0.35 + Style.smallMargins
+                Layout.preferredWidth: contentColumn.width * 0.35 + Style.smallMargins
                 currentIndex: 4
                 Component.onCompleted: {
                     var current = indexOfValue(pvConfiguration.alignment)
