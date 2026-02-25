@@ -28,9 +28,9 @@
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-import QtQuick 2.9
+import QtQuick
 import QtQuick.Templates 2.2 as T
-import QtQuick.Controls 2.2
+import QtQuick.Controls
 import QtQuick.Controls.impl 2.2
 import QtQuick.Controls.Material 2.2
 import QtQuick.Controls.Material.impl 2.2

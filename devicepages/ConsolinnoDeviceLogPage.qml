@@ -28,10 +28,10 @@
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-import QtQuick 2.9
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Controls
 import QtQuick.Controls.Material 2.2
-import QtQuick.Layouts 1.1
+import QtQuick.Layouts
 import Nymea 1.0
 import "../components"
 import "../customviews"
