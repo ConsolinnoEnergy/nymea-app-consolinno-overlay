@@ -37,7 +37,7 @@ StatsBase {
         property date startTime: root.calculateTimestamp(config.startTime(), config.sampleRate, startOffset)
         property date endTime: root.calculateTimestamp(config.startTime(), config.sampleRate, startOffset + config.count)
 
-        property bool loading: kpiProvider.fetchingKpiSeries || wheelStopTimer.running
+        property bool loading: kpiProvider.fetchingKpiSeries
         onLoadingChanged: {
             if (!loading) {
                 fetchKpis()
