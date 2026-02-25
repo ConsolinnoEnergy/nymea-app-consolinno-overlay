@@ -308,8 +308,10 @@ Item {
 
                     lowerSeries: LineSeries {
                         id: zeroSeries
-                        XYPoint { x: dateTimeAxis.min.getTime(); y: 0 }
-                        XYPoint { x: dateTimeAxis.max.getTime(); y: 0 }
+                        Component.onCompleted: {
+                            append(dateTimeAxis.min.getTime(), 0)
+                            append(dateTimeAxis.max.getTime(), 0)
+                        }
                         function ensureValue(timestamp) {
                             if (count == 0) {
                                 append(timestamp, 0)

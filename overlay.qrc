@@ -95,6 +95,7 @@
         <file>devicepages/HeatingElementDevicePage.qml</file>
         <file>optimization/HeatingElementOptimization.qml</file>
         <file>optimization/DynamicElectricityRate.qml</file>
+        <file>mainviews/energy/ConsolinnoDynamicElectricPricing.qml</file>
         <file>mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml</file>
         <file>devicepages/PageWraper.qml</file>
         <file>optimization/EvChargerOptimization.qml</file>
