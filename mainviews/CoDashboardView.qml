@@ -402,40 +402,46 @@ MainViewBase {
                                 ctx.lineCap = "round";
 
                                 if (dataProvider.flowSolarToBattery !== 0) {
-                                    drawLine(ctx,
-                                             liveStatusPVCard,
-                                             liveStatusBatteryCard,
-                                             dataProvider.flowSolarToBattery);
+                                    const startX = liveStatusPVCard.x + liveStatusPVCard.width / 2;
+                                    const startY = liveStatusPVCard.y + liveStatusPVCard.height - 10;
+                                    const endX = liveStatusBatteryCard.x + liveStatusBatteryCard.width / 2;
+                                    const endY = liveStatusBatteryCard.y + 10;
+                                    drawLine(ctx, startX, startY, endX, endY, dataProvider.flowSolarToBattery);
                                 }
                                 if (dataProvider.flowSolarToConsumers !== 0) {
-                                    drawLine(ctx,
-                                             liveStatusPVCard,
-                                             liveStatusConsumptionCard,
-                                             dataProvider.flowSolarToConsumers);
+                                    const startX = liveStatusPVCard.x + liveStatusPVCard.width - 10;
+                                    const startY = liveStatusPVCard.y + liveStatusPVCard.height * 3 / 5;
+                                    const endX = liveStatusConsumptionCard.x + 20;
+                                    const endY = liveStatusConsumptionCard.y + 10;
+                                    drawLine(ctx, startX, startY, endX, endY, dataProvider.flowSolarToConsumers);
                                 }
                                 if (dataProvider.flowSolarToGrid !== 0) {
-                                    drawLine(ctx,
-                                             liveStatusPVCard,
-                                             liveStatusGridCard,
-                                             dataProvider.flowSolarToGrid);
+                                    const startX = liveStatusPVCard.x + liveStatusPVCard.width - 10;
+                                    const startY = liveStatusPVCard.y + liveStatusPVCard.height * 2 / 5;
+                                    const endX = liveStatusGridCard.x + 10;
+                                    const endY = liveStatusGridCard.y + liveStatusGridCard.height * 2 / 5;
+                                    drawLine(ctx, startX, startY, endX, endY, dataProvider.flowSolarToGrid);
                                 }
                                 if (dataProvider.flowBatteryToConsumers !== 0) {
-                                    drawLine(ctx,
-                                             liveStatusBatteryCard,
-                                             liveStatusConsumptionCard,
-                                             dataProvider.flowBatteryToConsumers);
+                                    const startX = liveStatusBatteryCard.x + liveStatusBatteryCard.width - 10;
+                                    const startY = liveStatusBatteryCard.y + liveStatusBatteryCard.height * 3 / 5;
+                                    const endX = liveStatusConsumptionCard.x + 10;
+                                    const endY = liveStatusConsumptionCard.y + liveStatusConsumptionCard.height * 3 / 5;
+                                    drawLine(ctx, startX, startY, endX, endY, dataProvider.flowBatteryToConsumers);
                                 }
                                 if (dataProvider.flowGridToBattery !== 0) {
-                                    drawLine(ctx,
-                                             liveStatusGridCard,
-                                             liveStatusBatteryCard,
-                                             dataProvider.flowGridToBattery);
+                                    const startX = liveStatusGridCard.x + 10;
+                                    const startY = liveStatusGridCard.y + liveStatusGridCard.height * 3 / 5;
+                                    const endX = liveStatusBatteryCard.x + liveStatusBatteryCard.width - 20;
+                                    const endY = liveStatusBatteryCard.y + 10;
+                                    drawLine(ctx, startX, startY, endX, endY, dataProvider.flowGridToBattery);
                                 }
                                 if (dataProvider.flowGridToConsumers !== 0) {
-                                    drawLine(ctx,
-                                             liveStatusGridCard,
-                                             liveStatusConsumptionCard,
-                                             dataProvider.flowGridToConsumers);
+                                    const startX = liveStatusGridCard.x + liveStatusGridCard.width / 2;
+                                    const startY = liveStatusGridCard.y + liveStatusGridCard.height - 10;
+                                    const endX = liveStatusConsumptionCard.x + liveStatusConsumptionCard.width / 2;
+                                    const endY = liveStatusConsumptionCard.y + 10;
+                                    drawLine(ctx, startX, startY, endX, endY, dataProvider.flowGridToConsumers);
                                 }
                             }
 
@@ -445,7 +451,6 @@ MainViewBase {
                                 const maxValue = 5000;
                                 const minWidth = 2;
                                 const maxWidth = 12;
-                                // #TODO is this scaling what we want?
                                 if (valueAbs < minValue) {
                                     return minWidth;
                                 } else if (valueAbs < maxValue) {
@@ -455,14 +460,10 @@ MainViewBase {
                                 }
                             }
 
-                            function drawLine(ctx, fromCard, toCard, value) {
+                            function drawLine(ctx, startX, startY, endX, endY, value) {
                                 ctx.beginPath();
                                 ctx.lineWidth = lineWidth(value);
                                 ctx.lineDashOffset = value >= 0 ? lineAnimationProgress : -lineAnimationProgress;
-                                const startX = fromCard.x + fromCard.width / 2;
-                                const startY = fromCard.y + fromCard.height / 2;
-                                const endX = toCard.x + toCard.width / 2;
-                                const endY = toCard.y + toCard.height / 2;
                                 ctx.moveTo(startX, startY);
                                 ctx.lineTo(endX, endY);
                                 ctx.stroke();
