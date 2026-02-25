@@ -234,5 +234,6 @@
         <file>components/CoPowerThingInfoCard.qml</file>
         <file>components/CoCard.qml</file>
         <file>components/CoNotification.qml</file>
+        <file>components/CoIconButton.qml</file>
     </qresource>
 </RCC>
