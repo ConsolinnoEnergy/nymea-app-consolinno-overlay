@@ -28,14 +28,14 @@
 * https://nymea.io/license/faq
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-import QtQuick 2.8
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Controls
 import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.2
-import QtCharts 2.3
+import QtQuick.Layouts
+import QtCharts
 import Nymea 1.0
 import Qt.labs.settings 1.1
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 
 import "../components"
 import "../delegates"
