@@ -131,6 +131,11 @@ MainViewBase {
         return true
     }
 
+    // #TODO move to some utils file
+    function convertToKw(numberW){
+        return (+(Math.round((numberW / 1000) * 100 ) / 100)).toLocaleString()
+    }
+
     EnergyManager {
         id: energyManager
         engine: _engine
@@ -207,13 +212,15 @@ MainViewBase {
                                            null :
                                            engine.thingManager.things.getThing(energyManager.rootMeterId)
     readonly property Thing dynamicPricingThing: dynamicPricingThings.count > 0 ? dynamicPricingThings.get(0) : null
-    property bool lpcActive: (gridSupport !== null && gridSupport.stateByName("isLpcActive") !== null) ?
+    property bool lpcActive: (gridSupport && gridSupport.stateByName("isLpcActive") !== null) ?
                                  gridSupport.stateByName("isLpcActive").value :
                                  false
-    property bool lppActive: (gridSupport !== null && gridSupport.stateByName("isLppActive") !== null) ?
+    property bool lppActive: (gridSupport && gridSupport.stateByName("isLppActive") !== null) ?
                                  gridSupport.stateByName("isLppActive").value :
                                  false
-    property bool anyInverterWarningIndicator: {
+    property double lppPowerLimit: gridSupport ? gridSupport.stateByName("lppValue").value : 0
+    property double lpcPowerLimit: gridSupport ? gridSupport.stateByName("lpcValue").value : 0
+    property bool anyInverterLppActive: {
         if (!lppActive) { return false; }
         for (var i = 0; i < producerThings.count; ++i) {
             let inverter = producerThings.get(i);
@@ -223,6 +230,13 @@ MainViewBase {
             }
         }
         return false;
+    }
+
+    onLppPowerLimitChanged: {
+        console.warn("=== lpp:", lppPowerLimit);
+    }
+    onLpcPowerLimitChanged: {
+        console.warn("=== lpc:", lpcPowerLimit);
     }
 
     Flickable {
@@ -294,6 +308,24 @@ MainViewBase {
                         .arg(Configuration.serviceEmail)
                         .arg(Configuration.deviceName)
                         .arg(Configuration.serviceTel !== "" ? qsTr("<li>Phone: <a href='tel:%1'>%1</a></li>").arg(Configuration.serviceTel) : "")
+                    }
+
+                    CoNotification {
+                        id: lppWarning
+                        Layout.fillWidth: true
+                        visible: anyInverterLppActive
+                        type: CoNotification.Type.Warning
+                        title: qsTr("Feed-in curtailment")
+                        message: qsTr("The feed-in is <b>limited temporarily</b> to <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(lppPowerLimit))
+                    }
+
+                    CoNotification {
+                        id: lpcWarning
+                        Layout.fillWidth: true
+                        visible: lpcActive
+                        type: CoNotification.Type.Warning
+                        title: qsTr("Grid-supportive control")
+                        message: qsTr("Due to a control order from the network operator, the total power of controllable devices is <b>temporarily limited</b> to <b>%1 kW.</b> If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.").arg(convertToKw(lpcPowerLimit))
                     }
 
                     CoNotification {
@@ -433,7 +465,7 @@ MainViewBase {
                                 unit: "W"
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/weathericons/weather-clear-day.svg") // #TODO icon
-                                showWarningIndicator: anyInverterWarningIndicator
+                                showWarningIndicator: anyInverterLppActive
                                 onClicked: {
                                     flickableContentYAnimation.to = invertersGroup.y - 50;
                                     flickableContentYAnimation.start();
