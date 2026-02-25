@@ -136,6 +136,13 @@ MainViewBase {
         return (+(Math.round((numberW / 1000) * 100 ) / 100)).toLocaleString()
     }
 
+    function avoidZeroCompensationActive(battery) {
+        if (!battery) { return false; }
+        if (battery.thingClass.interfaces.indexOf("controllablebattery") === 0) { return false; }
+        const batteryConfig = hemsManager.batteryConfigurations.getBatteryConfiguration(battery.id);
+        return batteryConfig.avoidZeroFeedInActive && batteryConfig.avoidZeroFeedInEnabled;
+    }
+
     EnergyManager {
         id: energyManager
         engine: _engine
@@ -159,7 +166,7 @@ MainViewBase {
     }
 
     ThingsProxy {
-        id: batteriesThings
+        id: batteryThings
         engine: _engine
         shownInterfaces: ["energystorage"]
     }
@@ -231,12 +238,14 @@ MainViewBase {
         }
         return false;
     }
-
-    onLppPowerLimitChanged: {
-        console.warn("=== lpp:", lppPowerLimit);
-    }
-    onLpcPowerLimitChanged: {
-        console.warn("=== lpc:", lpcPowerLimit);
+    property bool anyAvoidZeroCompensationActive: {
+        for (var i = 0; i < batteryThings.count; ++i) {
+            let battery = batteryThings.get(i);
+            if (avoidZeroCompensationActive(battery)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     Flickable {
@@ -326,6 +335,19 @@ MainViewBase {
                         type: CoNotification.Type.Warning
                         title: qsTr("Grid-supportive control")
                         message: qsTr("Due to a control order from the network operator, the total power of controllable devices is <b>temporarily limited</b> to <b>%1 kW.</b> If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.").arg(convertToKw(lpcPowerLimit))
+                    }
+
+                    CoNotification {
+                        id: avoidZeroCompensationWarning
+                        Layout.fillWidth: true
+                        visible: anyAvoidZeroCompensationActive
+                        type: CoNotification.Type.Warning
+                        title: qsTr("Avoid zero compensation active")
+                        message: qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
+                        clickable: true
+                        onClicked: {
+                            pageStack.push("/ui/info/AvoidZeroCompensationInfo.qml", {stack: pageStack});
+                        }
                     }
 
                     CoNotification {
@@ -510,6 +532,7 @@ MainViewBase {
                                 value: Math.abs(dataProvider.currentPowerBatteries)
                                 unit: "W"
                                 compactLayout: true
+                                showWarningIndicator: anyAvoidZeroCompensationActive
                                 icon: {
                                     if (Configuration.batteryIcon !== ""){
                                         return Qt.resolvedUrl("qrc:/ui/images/" + Configuration.batteryIcon);
@@ -665,12 +688,13 @@ MainViewBase {
                             spacing: 16 // #TODO use value from new style
 
                             Repeater {
-                                model: batteriesThings
+                                model: batteryThings
 
                                 delegate: CoPowerThingInfoCard {
                                     Layout.fillWidth: true
-                                    thing: batteriesThings.get(index)
+                                    thing: batteryThings.get(index)
                                     icon: thingToIcon(thing)
+                                    showWarningIndicator: avoidZeroCompensationActive(thing)
                                     onClicked: {
                                         console.info("Clicked battery:", thing.name);
                                         let batteryView = thing.thingClass.interfaces.indexOf("controllablebattery") >= 0 ?
