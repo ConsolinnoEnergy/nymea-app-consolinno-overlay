@@ -1,7 +1,7 @@
 
 // #TODO copyright notice
 
-import QtQuick 2.8
+import QtQuick 2.15
 import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.2
@@ -207,6 +207,23 @@ MainViewBase {
                                            null :
                                            engine.thingManager.things.getThing(energyManager.rootMeterId)
     readonly property Thing dynamicPricingThing: dynamicPricingThings.count > 0 ? dynamicPricingThings.get(0) : null
+    property bool lpcActive: (gridSupport !== null && gridSupport.stateByName("isLpcActive") !== null) ?
+                                 gridSupport.stateByName("isLpcActive").value :
+                                 false
+    property bool lppActive: (gridSupport !== null && gridSupport.stateByName("isLppActive") !== null) ?
+                                 gridSupport.stateByName("isLppActive").value :
+                                 false
+    property bool anyInverterWarningIndicator: {
+        if (!lppActive) { return false; }
+        for (var i = 0; i < producerThings.count; ++i) {
+            let inverter = producerThings.get(i);
+            let config = hemsManager.pvConfigurations.getPvConfiguration(inverter.id);
+            if (config !== null && config.controllableLocalSystem) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     Flickable {
         id: flickable
@@ -214,6 +231,17 @@ MainViewBase {
         contentHeight: dashboardRoot.implicitHeight
         topMargin: root.topMargin
         bottomMargin: root.bottomMargin
+
+        NumberAnimation {
+            id: flickableContentYAnimation
+            target: flickable
+            property: "contentY"
+            duration: 700
+            easing.type: Easing.InOutQuart
+            onFinished: {
+                flickable.returnToBounds();
+            }
+        }
 
         Item {
             anchors.fill: parent
@@ -405,7 +433,11 @@ MainViewBase {
                                 unit: "W"
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/weathericons/weather-clear-day.svg") // #TODO icon
-                                clickable: false
+                                showWarningIndicator: anyInverterWarningIndicator
+                                onClicked: {
+                                    flickableContentYAnimation.to = invertersGroup.y - 50;
+                                    flickableContentYAnimation.start();
+                                }
                             }
 
                             CoPowerThingInfoCard {
@@ -416,7 +448,7 @@ MainViewBase {
                                 text: qsTr("Grid")
                                 thing: rootMeter
                                 compactLayout: true
-                                // #TODO LPP/LPC indicator
+                                showWarningIndicator: lpcActive
                                 icon: {
                                     if (Configuration.gridIcon !== "") {
                                         return Qt.resolvedUrl("/ui/images/" + Configuration.gridIcon)
@@ -431,7 +463,7 @@ MainViewBase {
                                                 {
                                                     "thing": thing,
                                                     "isRootmeter": true,
-                                                    "isNotify": false, // #TODO LPP/LPC notification
+                                                    "isNotify": lpcActive,
                                                     "gridSupportThing": gridSupport
                                                 });
                                 }
@@ -453,7 +485,10 @@ MainViewBase {
                                         return batteryIconByLevel(dataProvider.totalBatteryLevel);
                                     }
                                 }
-                                clickable: false
+                                onClicked: {
+                                    flickableContentYAnimation.to = batteriesGroup.y - 50;
+                                    flickableContentYAnimation.start();
+                                }
                             }
 
                             CoInfoCard {
@@ -466,7 +501,10 @@ MainViewBase {
                                 unit: "W"
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
-                                clickable: false
+                                onClicked: {
+                                    flickableContentYAnimation.to = heatingGroup.y - 50;
+                                    flickableContentYAnimation.start();
+                                }
                             }
 
                             Item {
@@ -547,6 +585,7 @@ MainViewBase {
                     }
 
                     CoFrostyCard {
+                        id: invertersGroup
                         Layout.fillWidth: true
 
                         headerText: qsTr("Inverters")
@@ -563,14 +602,17 @@ MainViewBase {
                                     Layout.fillWidth: true
                                     thing: producerThings.get(index)
                                     icon: thingToIcon(thing)
-                                    // #TODO warning indicator for LPP
+                                    showWarningIndicator: lppActive &&
+                                                          (hemsManager.pvConfigurations.getPvConfiguration(thing.id) !== null ?
+                                                               hemsManager.pvConfigurations.getPvConfiguration(thing.id).controllableLocalSystem :
+                                                               false)
                                     onClicked: {
                                         console.info("Clicked inverter:", thing.name);
                                         pageStack.push(
                                                     "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                                     {
                                                         "thing": thing,
-                                                        "isNotify": false, // #TODO LPP active
+                                                        "isNotify": showWarningIndicator,
                                                         "gridSupportThing": gridSupport
                                                     });
                                     }
@@ -580,6 +622,7 @@ MainViewBase {
                     }
 
                     CoFrostyCard {
+                        id: batteriesGroup
                         Layout.fillWidth: true
 
                         headerText: qsTr("Batteries")
@@ -614,6 +657,7 @@ MainViewBase {
                     }
 
                     CoFrostyCard {
+                        id: heatingGroup
                         Layout.fillWidth: true
 
                         headerText: qsTr("Heating")
