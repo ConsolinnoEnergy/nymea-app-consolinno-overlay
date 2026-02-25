@@ -16,8 +16,10 @@ Item {
     property alias message: messageText.text
     property alias messageTextFormat: messageText.textFormat
     property bool dismissable: false
+    property bool clickable: false
 
     signal dismiss()
+    signal clicked()
 
     implicitHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
 
@@ -57,6 +59,16 @@ Item {
         border.color: root.accentColor()
     }
 
+    MouseArea {
+        id: mouseAreaClick
+        anchors.fill: parent
+        onClicked: {
+            if (root.clickable) {
+                root.clicked()
+            }
+        }
+    }
+
     ColorIcon {
         id: closeButton
         anchors {
@@ -71,7 +83,7 @@ Item {
         name: Qt.resolvedUrl("qrc:/icons/close.svg")
 
         MouseArea {
-            id: mouseArea
+            id: mouseAreaDismiss
             anchors.fill: parent
             onClicked: {
                 if (root.dismissable) {
