@@ -2,7 +2,7 @@ import Nymea 1.0
 import QtCharts
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material 2.12
+import QtQuick.Controls.Material
 import QtQuick.Layouts
 
 ChartView {

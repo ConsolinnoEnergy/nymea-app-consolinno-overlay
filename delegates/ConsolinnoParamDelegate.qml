@@ -31,7 +31,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import QtQuick.Controls.Material 2.1
+import QtQuick.Controls.Material
 import Qt5Compat.GraphicalEffects
 import Nymea 1.0
 import NymeaApp.Utils 1.0

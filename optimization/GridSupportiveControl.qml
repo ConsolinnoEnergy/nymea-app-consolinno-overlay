@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material 2.1
+import QtQuick.Controls.Material
 import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
 import QtCore
