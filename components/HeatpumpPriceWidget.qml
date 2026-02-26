@@ -2,10 +2,10 @@ import "../components"
 import "../delegates"
 import "../devicepages"
 import Nymea 1.0
-import QtQml 2.15
+import QtQml
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material 2.1
+import QtQuick.Controls.Material
 import QtQuick.Layouts
 import "../utils/DynPricingUtils.js" as DynPricingUtils
 

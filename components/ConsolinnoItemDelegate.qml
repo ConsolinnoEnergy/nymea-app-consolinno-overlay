@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QtQuick.Controls.Material 2.2
+import QtQuick.Controls.Material
 import Nymea 1.0
 
 // There's a bug in QtQuick.Controls' SwipeDelegate in that it appears with wrong

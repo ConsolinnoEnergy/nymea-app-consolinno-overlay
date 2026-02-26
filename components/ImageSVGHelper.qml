@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Window 2.15
+import QtQuick.Window
 
 Item {
     id: root

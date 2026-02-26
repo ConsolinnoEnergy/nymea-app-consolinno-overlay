@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Controls
-import QtQml 2.2
+import QtQml
 import Nymea 1.0
 
 import "../components"

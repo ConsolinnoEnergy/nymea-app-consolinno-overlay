@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QtQuick.Controls.Material 2.1
+import QtQuick.Controls.Material
 import Nymea 1.0
 
 ColumnLayout {

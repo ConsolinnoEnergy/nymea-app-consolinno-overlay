@@ -1,8 +1,8 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material 2.12
+import QtQuick.Controls.Material
 import QtQuick.Layouts
-import QtQml 2.2
+import QtQml
 import Qt5Compat.GraphicalEffects
 import Nymea 1.0
 import QtCharts
