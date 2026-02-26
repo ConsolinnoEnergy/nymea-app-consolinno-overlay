@@ -127,7 +127,14 @@ MainViewBase {
                     consumers: consumers
                 }
 
+                Item {
+                    id: spacer
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: root.bottomMargin
+                    height: root.bottomMargin
+                }
             }
+
         }
     }
 }
