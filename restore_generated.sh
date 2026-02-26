@@ -83,7 +83,6 @@ styles/light/Style.qml \
 styles/light/logo-wide.svg \
 terms_of_use_de_DE.html \
 
-rm -rf icons
 rm overlay-config.pri
 rm -rf styles/light/fonts
 rm -rf styles/dark/fonts
@@ -92,3 +91,7 @@ rm packaging/appimage/Q.HOME-CONTROL.desktop
 rm packaging/appimage/Zewo-Dynamics.desktop
 rm -rf packaging/windows/packages/de.qcells.qhomecontrol/
 rm -rf packaging/windows/packages/ems.zewo.dynamics/
+rm icons/grid.svg
+rm icons/heating_rod.svg
+rm icons/heatpump.svg
+rm icons/leaf.svg
