@@ -9,6 +9,7 @@ Item {
     property bool isChecked: false
 
     signal clicked()
+    signal pressAndHold()
 
     height: 42
     width: 42
@@ -49,5 +50,6 @@ Item {
         anchors.fill: parent
         hoverEnabled: true
         onClicked: parent.clicked()
+        onPressAndHold: parent.pressAndHold()
     }
 }
