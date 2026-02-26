@@ -96,6 +96,9 @@ public:
     // read only
     Q_INVOKABLE int setChargingSessionConfiguration(const QUuid carThingId, const QUuid evChargerThingid, const QString started_at, const QString finished_at, const float initial_battery_energy, const int duration, const float energy_charged, const float energy_battery, const int battery_level, const QUuid sessionId, const int state, const int timestamp);
     Q_INVOKABLE int setConEMSState(int currentState, int operationMode, int timestamp);
+
+    // System operations
+    Q_INVOKABLE int factoryReset();
 signals:
 
     void engineChanged();
@@ -129,6 +132,8 @@ signals:
     void setDynamicElectricPricingConfigurationReply(int commandId, const QString &error);
     void setBatteryConfigurationReply(int commandId, const QString &error);
 
+    void factoryResetReply(int commandId, const QString &error);
+
 private slots:
     Q_INVOKABLE void notificationReceived(const QVariantMap &data);
 
@@ -157,6 +162,9 @@ private slots:
     Q_INVOKABLE void setHeatingElementConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setDynamicElectricPricingConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setBatteryConfigurationResponse(int commandId, const QVariantMap &data);
+
+    Q_INVOKABLE void factoryResetResponse(int commandId, const QVariantMap &data);
+
 private:
     QPointer<Engine> m_engine = nullptr;
     bool m_fetchingData = false;

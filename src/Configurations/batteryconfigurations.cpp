@@ -34,6 +34,8 @@ QVariant BatteryConfigurations::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->avoidZeroFeedInEnabled();
     case RoleAvoidZeroFeedInActive:
         return m_list.at(index.row())->avoidZeroFeedInActive();
+    case RoleBlockBatteryOnGridConsumption:
+        return m_list.at(index.row())->blockBatteryOnGridConsumption();
     }
     return QVariant();
 }
@@ -50,6 +52,7 @@ QHash<int, QByteArray> BatteryConfigurations::roleNames() const
     roles.insert(RoleControllableLocalSystemEnabled, "controllableLocalSystem");
     roles.insert(RoleAvoidZeroFeedInEnabled, "avoidZeroFeedInEnabled");
     roles.insert(RoleAvoidZeroFeedInActive, "avoidZeroFeedInActive");
+    roles.insert(RoleBlockBatteryOnGridConsumption, "blockBatteryOnGridConsumption");
     return roles;
 }
 
@@ -118,6 +121,11 @@ void BatteryConfigurations::addConfiguration(BatteryConfiguration *batteryConfig
     connect(batteryConfiguration, &BatteryConfiguration::avoidZeroFeedInEnabledChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
         emit dataChanged(idx, idx, {RoleAvoidZeroFeedInEnabled});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::blockBatteryOnGridConsumptionChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleBlockBatteryOnGridConsumption});
     });
 
     endInsertRows();

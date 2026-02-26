@@ -285,27 +285,31 @@
     <name>BatteryOptimization</name>
     <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
-        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+        <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
     <message>
         <source>Could not save configuration. The thing is not valid.</source>
-        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+        <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
         <source>Grid-supportive-control</source>
-        <translation type="unfinished">Netzdienlichkeit</translation>
+        <translation>Netzdienlichkeit</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <source>Avoid zero compensation</source>
-        <translation type="unfinished">Nullvergütung vermeiden</translation>
+        <translation>Nullvergütung vermeiden</translation>
     </message>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
-        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
+        <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
+    </message>
+    <message>
+        <source>Block EV charging from the battery</source>
+        <translation>Fahrzeug-Laden aus Batterie sperren</translation>
     </message>
 </context>
 <context>
@@ -345,6 +349,17 @@
     <message>
         <source>Per phase A:</source>
         <translation>Pro Phase A:</translation>
+    </message>
+</context>
+<context>
+    <name>BlockEVChargingFromBatteryInfo</name>
+    <message>
+        <source>Block charging</source>
+        <translation>Laden sperren</translation>
+    </message>
+    <message>
+        <source>Charging the electric car from the battery is blocked.</source>
+        <translation>Das Laden des Fahrzeugs aus der Batterie wird gesperrt.</translation>
     </message>
 </context>
 <context>
@@ -688,10 +703,6 @@
         <translation>Zeitgesteuertes Laden</translation>
     </message>
     <message>
-        <source>Prevent battery discharge</source>
-        <translation>Batterie-Entladung verhindern</translation>
-    </message>
-    <message>
         <source>Active</source>
         <translation>Aktiv</translation>
     </message>
@@ -722,6 +733,22 @@
     <message>
         <source>Sonntag</source>
         <translation>Sonntag</translation>
+    </message>
+    <message>
+        <source>Number of phases:</source>
+        <translation>Phasenanzahl:</translation>
+    </message>
+    <message>
+        <source>Phase setting could not be applied</source>
+        <translation>Phasenanzahl konnte nicht übernommen werden</translation>
+    </message>
+    <message>
+        <source>The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.</source>
+        <translation>Die gewählte %1‑phasige Einstellung konnte nicht übernommen werden. Der Ladevorgang erfolgt %2‑phasig.</translation>
+    </message>
+    <message>
+        <source>Phase count</source>
+        <translation>Phasenanzahl</translation>
     </message>
 </context>
 <context>
@@ -811,6 +838,45 @@
     <message>
         <source>Setpoint:</source>
         <translation>Sollwert:</translation>
+    </message>
+</context>
+<context>
+    <name>ChargingPhaseSwitchingInfo</name>
+    <message>
+        <source>Number of phases</source>
+        <translation>Phasenanzahl beim Laden</translation>
+    </message>
+    <message>
+        <source>3 phases</source>
+        <translation>3 Phasen</translation>
+    </message>
+    <message>
+        <source>Higher charging capacity → faster to full</source>
+        <translation>Höhere Ladeleistung → schneller voll</translation>
+    </message>
+    <message>
+        <source>1 phase</source>
+        <translation>1 Phase</translation>
+    </message>
+    <message>
+        <source>Requires sufficient PV surplus</source>
+        <translation>Setzt ausreichend PV‑Überschuss voraus</translation>
+    </message>
+    <message>
+        <source>Ideal for stable, high solar radiation or when speed is more important</source>
+        <translation>Ideal bei stabiler, hoher Sonneneinstrahlung oder wenn Geschwindigkeit wichtiger ist</translation>
+    </message>
+    <message>
+        <source>Requires less minimum power from the PV system</source>
+        <translation>Benötigt weniger Mindestleistung aus der PV‑Anlage</translation>
+    </message>
+    <message>
+        <source>Particularly suitable for variable or low solar radiation</source>
+        <translation>Besonders geeignet bei wechselnder oder geringer Sonneneinstrahlung</translation>
+    </message>
+    <message>
+        <source>Charges the vehicle more slowly</source>
+        <translation>Lädt das Fahrzeug langsamer</translation>
     </message>
 </context>
 <context>

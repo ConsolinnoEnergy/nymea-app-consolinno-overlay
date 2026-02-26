@@ -18,6 +18,7 @@ class ChargingConfiguration : public QObject
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
     Q_PROPERTY(float priceThreshold READ priceThreshold WRITE setPriceThreshold NOTIFY priceThresholdChanged)
     Q_PROPERTY(QString chargingSchedule READ chargingSchedule WRITE setChargingSchedule NOTIFY chargingScheduleChanged)
+    Q_PROPERTY(uint desiredPhaseCount READ desiredPhaseCount WRITE setDesiredPhaseCount NOTIFY desiredPhaseCountChanged)
 
 public:
 
@@ -26,7 +27,15 @@ public:
         PVOptimized = 1
 
     };
-    Q_ENUM(OptimizationMode);
+    Q_ENUM(OptimizationMode)
+
+    enum PhaseMode {
+        Automatic = 0,
+        SinglePhase = 1,
+        ThreePhase = 3
+    };
+    Q_ENUM(PhaseMode)
+
 
     explicit ChargingConfiguration(QObject *parent = nullptr);
 
@@ -61,6 +70,9 @@ public:
     QString chargingSchedule() const;
     void setChargingSchedule(const QString &chargingSchedule);
 
+    uint desiredPhaseCount() const;
+    void setDesiredPhaseCount(uint desiredPhaseCount);
+
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void carThingIdChanged(const QUuid &carThingId);
@@ -71,6 +83,7 @@ signals:
     void controllableLocalSystemChanged(bool controllableLocalSystem);
     void priceThresholdChanged(float priceThreshold);
     void chargingScheduleChanged(const QString &chargingSchedule);
+    void desiredPhaseCountChanged(uint desiredPhaseCount);
 
 private:
     QUuid m_evChargerThingId;
@@ -83,6 +96,7 @@ private:
     bool m_controllableLocalSystem = false;
     float m_priceThreshold = 0.0;
     QString m_chargingSchedule = "";
+    uint m_desiredPhaseCount = ThreePhase;
 };
 
 #endif // CHARGINGCONFIGURATION_H

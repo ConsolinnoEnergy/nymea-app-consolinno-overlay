@@ -143,3 +143,15 @@ void ChargingConfiguration::setChargingSchedule(const QString &chargingSchedule)
     m_chargingSchedule = chargingSchedule;
     emit chargingScheduleChanged(m_chargingSchedule);
 }
+
+uint ChargingConfiguration::desiredPhaseCount() const
+{
+    return m_desiredPhaseCount;
+}
+
+void ChargingConfiguration::setDesiredPhaseCount(uint desiredPhaseCount)
+{
+    if (m_desiredPhaseCount == desiredPhaseCount) { return; }
+    m_desiredPhaseCount = desiredPhaseCount;
+    emit desiredPhaseCountChanged(m_desiredPhaseCount);
+}

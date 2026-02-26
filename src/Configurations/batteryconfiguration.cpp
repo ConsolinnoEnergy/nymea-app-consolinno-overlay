@@ -116,16 +116,14 @@ void BatteryConfiguration::setControllableLocalSystem(bool controllableLocalSyst
     emit controllableLocalSystemChanged(m_controllableLocalSystem);
 }
 
-bool BatteryConfiguration::preventBatteryDischarge() const
+int BatteryConfiguration::blockBatteryOnGridConsumption() const
 {
-    return m_preventBatteryDischarge;
+    return m_blockBatteryOnGridConsumption;
 }
 
-void BatteryConfiguration::setPreventBatteryDischarge(bool preventBatteryDischarge)
+void BatteryConfiguration::setBlockBatteryOnGridConsumption(int blockBatteryOnGridConsumption)
 {
-    if (m_preventBatteryDischarge == preventBatteryDischarge)
-        return;
-
-    m_preventBatteryDischarge = preventBatteryDischarge;
-    emit preventBatteryDischargeChanged(m_preventBatteryDischarge);
+    if (m_blockBatteryOnGridConsumption == blockBatteryOnGridConsumption) { return; }
+    m_blockBatteryOnGridConsumption = blockBatteryOnGridConsumption;
+    emit blockBatteryOnGridConsumptionChanged(blockBatteryOnGridConsumption);
 }

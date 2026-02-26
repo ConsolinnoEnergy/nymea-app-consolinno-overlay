@@ -417,6 +417,7 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
         dummyConfig.insert("targetPercentage", 100);
         dummyConfig.insert("controllableLocalSystem", false);
         dummyConfig.insert("priceThreshold", 0);
+        dummyConfig.insert("desiredPhaseCount", 3);
 
         addOrUpdateChargingConfiguration(dummyConfig);
         // and get the dummy Config
@@ -559,6 +560,7 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
         dummyConfig.insert("relativePriceEnabled", false);
         dummyConfig.insert("chargeOnce", false);
         dummyConfig.insert("controllableLocalSystem", false);
+        dummyConfig.insert("blockBatteryOnGridConsumption", BatteryConfiguration::EvCharger);
 
         addOrUpdateBatteryConfiguration(dummyConfig);
         // and get the dummy Config
@@ -837,6 +839,17 @@ void HemsManager::setBatteryConfigurationResponse(int commandId, const QVariantM
     emit setBatteryConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
+int HemsManager::factoryReset()
+{
+    return m_engine->jsonRpcClient()->sendCommand("Hems.FactoryReset", QVariantMap(), this, "factoryResetResponse");
+}
+
+void HemsManager::factoryResetResponse(int commandId, const QVariantMap &data)
+{
+    qCDebug(dcHems()) << "Factory reset response" << data.value("hemsError").toString();
+    emit factoryResetReply(commandId, data.value("hemsError").toString());
+}
+
 
 void HemsManager::setPvConfigurationResponse(int commandId, const QVariantMap &data)
 {
@@ -978,7 +991,7 @@ void HemsManager::addOrUpdateBatteryConfiguration(const QVariantMap &configurati
     configuration->setRelativePriceEnabled(configurationMap.value("relativePriceEnabled").toBool());
     configuration->setChargeOnce(configurationMap.value("chargeOnce").toBool());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
-    configuration->setPreventBatteryDischarge(configurationMap.value("preventBatteryDischarge").toBool());
+    configuration->setBlockBatteryOnGridConsumption(configurationMap.value("blockBatteryOnGridConsumption").toInt());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Battery configuration added" << configuration->batteryThingId();
@@ -1010,6 +1023,7 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
     configuration->setPriceThreshold(configurationMap.value("priceThreshold").toFloat());
     configuration->setChargingSchedule(configurationMap.value("chargingSchedule").toString());
+    configuration->setDesiredPhaseCount(configurationMap.value("desiredPhaseCount").toUInt());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Charging configuration added" << configuration->evChargerThingId();

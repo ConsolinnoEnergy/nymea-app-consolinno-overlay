@@ -287,6 +287,12 @@ Page {
                 }
             }
 
+            Item {
+                id: spacer
+                Layout.fillWidth: true
+                height: 500
+            }
+
             Component {
                 id: continueWithNullParameterComponent
                 NymeaDialog {
