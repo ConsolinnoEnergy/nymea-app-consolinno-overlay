@@ -162,6 +162,7 @@
         <file>mainviews/energy/ConsolinnoConsumersHistory.qml</file>
         <file>mainviews/energy/ConsolinnoConsumerStats.qml</file>
         <file>mainviews/energy/ConsolinnoPowerBalanceStats.qml</file>
+        <file>mainviews/energy/CoKpiStats.qml</file>
         <file>mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml</file>
         <file>mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml</file>
         <file>mainviews/energy/ConsolinnoPowerBalanceHistory.qml</file>

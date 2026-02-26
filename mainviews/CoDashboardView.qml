@@ -1,4 +1,3 @@
-
 // #TODO copyright notice
 
 import QtQuick 2.15
@@ -586,22 +585,20 @@ MainViewBase {
 
                             CoInfoCard {
                                 Layout.fillWidth: true
-                                text: qsTr("Self-sufficiency") // #TODO English name
-                                value: "70" // #TODO value
+                                text: qsTr("Self-sufficiency")
+                                value: dataProvider.kpiValid ? dataProvider.selfSufficiencyRate.toFixed(0) : "—"
                                 unit: "%"
                                 icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
                                 clickable: false
-                                showWarningIndicator: true
                             }
 
                             CoInfoCard {
                                 Layout.fillWidth: true
-                                text: qsTr("Self-consumption") // #TODO English name
-                                value: "93" // #TODO value
+                                text: qsTr("Self-consumption")
+                                value: dataProvider.kpiValid ? dataProvider.selfConsumptionRate.toFixed(0) : "—"
                                 unit: "%"
                                 icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
                                 clickable: false
-                                showErrorIndicator: true
                             }
 
                             CoInfoCard {

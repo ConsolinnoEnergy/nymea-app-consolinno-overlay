@@ -111,6 +111,13 @@ MainViewBase {
                     visible: rootMeter != null
                 }
 
+                CoKpiStats {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: width
+                    energyManager: energyManager
+                    visible: rootMeter != null
+                }
+
                 ConsolinnoConsumerStats {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width

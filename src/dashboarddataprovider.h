@@ -2,6 +2,7 @@
 #define DASHBOARDDATAPROVIDER_H
 
 #include <QObject>
+#include <QTimer>
 
 #include "engine.h"
 #include "thingsproxy.h"
@@ -20,6 +21,10 @@ class DashboardDataProvider : public QObject
     Q_PROPERTY(int currentPowerUnmeteredConsumption READ currentPowerUnmeteredConsumption NOTIFY currentPowerUnmeteredConsumptionChanged)
     Q_PROPERTY(int currentPowerTotalConsumption READ currentPowerTotalConsumption NOTIFY currentPowerTotalConsumptionChanged)
     Q_PROPERTY(double totalBatteryLevel READ totalBatteryLevel NOTIFY totalBatteryLevelChanged)
+
+    Q_PROPERTY(double selfSufficiencyRate READ selfSufficiencyRate NOTIFY selfSufficiencyRateChanged)
+    Q_PROPERTY(double selfConsumptionRate READ selfConsumptionRate NOTIFY selfConsumptionRateChanged)
+    Q_PROPERTY(bool kpiValid READ kpiValid NOTIFY kpiValidChanged)
 
     Q_PROPERTY(int flowSolarToGrid READ flowSolarToGrid NOTIFY flowSolarToGridChanged)
     Q_PROPERTY(int flowSolarToBattery READ flowSolarToBattery NOTIFY flowSolarToBatteryChanged)
@@ -45,6 +50,10 @@ public:
     int currentPowerTotalConsumption() const;
     double totalBatteryLevel() const;
 
+    double selfSufficiencyRate() const;
+    double selfConsumptionRate() const;
+    bool kpiValid() const;
+
     int flowSolarToGrid() const;
     int flowSolarToBattery() const;
     int flowSolarToConsumers() const;
@@ -62,6 +71,10 @@ signals:
     void currentPowerUnmeteredConsumptionChanged(int currentPowerUnmeteredConsumption);
     void currentPowerTotalConsumptionChanged(int currentPowerTotalConsumption);
     void totalBatteryLevelChanged(double totalBatteryLevel);
+
+    void selfSufficiencyRateChanged(double selfSufficiencyRate);
+    void selfConsumptionRateChanged(double selfConsumptionRate);
+    void kpiValidChanged(bool kpiValid);
 
     void flowSolarToGridChanged(int flowSolarToGrid);
     void flowSolarToBatteryChanged(int flowSolarToBattery);
@@ -91,6 +104,11 @@ private:
     void updateConsumptions();
     void updateEnergyFlow();
 
+    void fetchEnergyKPIs();
+
+    Q_INVOKABLE void getEnergyKPIsResponse(int commandId, const QVariantMap &data);
+
+private:
     QPointer<Engine> m_engine = nullptr;
 
     QPointer<Thing> m_rootMeter = nullptr;
@@ -113,6 +131,12 @@ private:
     QPointer<ThingsProxy> m_consumerThingsProxy = nullptr;
     QHash<Thing *, double> m_consumerCurrentPowers;
     int m_currentPowerMeteredConsumption = 0;
+
+    double m_selfSufficiencyRate = 0.;
+    double m_selfConsumptionRate = 0.;
+    bool m_kpiValid = false;
+
+    QTimer m_kpiRefreshTimer;
 
     int m_currentPowerUnmeteredConsumption = 0;
     int m_currentPowerTotalConsumption = 0;
