@@ -24,6 +24,16 @@
         <file>icons-nd/arrow_forward_ios.svg</file>
         <file>icons-nd/attribution.svg</file>
         <file>icons-nd/bar_chart.svg</file>
+        <file>icons-nd/battery/0.svg</file>
+        <file>icons-nd/battery/1.svg</file>
+        <file>icons-nd/battery/2.svg</file>
+        <file>icons-nd/battery/3.svg</file>
+        <file>icons-nd/battery/4.svg</file>
+        <file>icons-nd/battery/5.svg</file>
+        <file>icons-nd/battery/6.svg</file>
+        <file>icons-nd/battery/bolt.svg</file>
+        <file>icons-nd/battery/full.svg</file>
+        <file>icons-nd/battery_charging.svg</file>
         <file>icons-nd/build.svg</file>
         <file>icons-nd/cable.svg</file>
         <file>icons-nd/calendar_month.svg</file>
@@ -62,8 +72,8 @@
         <file>icons-nd/home.svg</file>
         <file>icons-nd/hourglass.svg</file>
         <file>icons-nd/house_with_shield.svg</file>
-        <file>icons-nd/Icon free text.svg</file>
-        <file>icons-nd/Icon Placeholder.svg</file>
+        <file>icons-nd/icon_free_text.svg</file>
+        <file>icons-nd/icon_placeholder.svg</file>
         <file>icons-nd/info.svg</file>
         <file>icons-nd/input_circle.svg</file>
         <file>icons-nd/interests.svg</file>
