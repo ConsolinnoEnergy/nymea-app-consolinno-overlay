@@ -326,7 +326,7 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
             }
     }
 
-    qCWarning(dcHems()) << "heatMeterThingId in config:" << config.value("heatMeterThingId") << "Type:" << config.value("heatMeterThingId").typeName();
+    qCDebug(dcHems()) << "heatMeterThingId in config:" << config.value("heatMeterThingId") << "Type:" << config.value("heatMeterThingId").typeName();
 
     QVariantMap params;
     params.insert("heatingConfiguration", config);
