@@ -787,6 +787,8 @@ MainViewBase {
                 for (var i = 0; i < consumers.count; i++) {
                     var consumer = consumers.get(i)
                     var tile = legendConsumersRepeater.itemAt(i)
+                    // skip SmartMeterConsumers that implement the hideable interface and have hidden=true
+                    if (!tile.visible) continue
                     if (consumer.thingClass.interfaces.indexOf(
                                 "smartmeterconsumer") >= 0) {
                         drawAnimatedLine(
@@ -1412,6 +1414,14 @@ MainViewBase {
                                 }else{
                                     return lsdChart.consumersColors[index]
                                 }
+                            }
+                            visible: {
+                                var t = consumers.get(index)
+                                if (t.thingClass.interfaces.indexOf("hideable") >= 0) {
+                                    var hiddenState = t.stateByName("hidden")
+                                    return !hiddenState || hiddenState.value !== true
+                                }
+                                return true
                             }
                             thing: consumers.get(index)
                             onClicked: {

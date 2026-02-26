@@ -592,6 +592,14 @@ MainViewBase {
                                     Layout.fillWidth: true
                                     thing: otherConsumerThings.get(index)
                                     icon: thingToIcon(thing)
+                                    visible: {
+                                        var t = otherConsumerThings.get(index)
+                                        if (t.thingClass.interfaces.indexOf("hideable") >= 0) {
+                                            var hiddenState = t.stateByName("hidden")
+                                            return !hiddenState || hiddenState.value !== true
+                                        }
+                                        return true
+                                    }
                                     onClicked: {
                                         console.info("Clicked thing:", thing.name);
                                         pageStack.push(
