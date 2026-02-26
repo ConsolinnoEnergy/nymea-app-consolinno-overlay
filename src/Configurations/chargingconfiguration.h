@@ -17,6 +17,36 @@ class ChargingConfiguration : public QObject
     Q_PROPERTY(QUuid uniqueIdentifier READ uniqueIdentifier WRITE setUniqueIdentifier NOTIFY uniqueIdentifierChanged)
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
     Q_PROPERTY(float priceThreshold READ priceThreshold WRITE setPriceThreshold NOTIFY priceThresholdChanged)
+    /*!
+     * \brief JSON-serialisierter Wochenzeitplan für den zeitgesteuerten Lademodus (TIME_CONTROLLED).
+     *
+     * Der String enthält ein JSON-Array mit genau 7 Einträgen – einen pro Wochentag.
+     * Die Einträge sind immer für alle Wochentage vorhanden; ein Eintrag mit
+     * \c startTime == "00:00" und \c endTime == "00:00" bedeutet, dass für diesen Tag
+     * kein Ladezeitfenster gesetzt ist.
+     *
+     * Jedes Objekt im Array hat folgende Felder:
+     * \li \c day       – Wochentag als englischer Kleinbuchstaben-String
+     *                    ("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
+     * \li \c startTime – Beginn des Ladezeitfensters im Format "HH:MM"
+     * \li \c endTime   – Ende des Ladezeitfensters im Format "HH:MM"
+     *
+     * Beispiel:
+     * \code{.json}
+     * [
+     *   {"day": "monday",    "startTime": "08:00", "endTime": "18:00"},
+     *   {"day": "tuesday",   "startTime": "00:00", "endTime": "00:00"},
+     *   {"day": "wednesday", "startTime": "08:00", "endTime": "18:00"},
+     *   {"day": "thursday",  "startTime": "00:00", "endTime": "00:00"},
+     *   {"day": "friday",    "startTime": "08:00", "endTime": "18:00"},
+     *   {"day": "saturday",  "startTime": "00:00", "endTime": "00:00"},
+     *   {"day": "sunday",    "startTime": "00:00", "endTime": "00:00"}
+     * ]
+     * \endcode
+     *
+     * Ein leerer String ("") bedeutet, dass noch kein Zeitplan konfiguriert wurde.
+     * Wird nur im Modus \c OptimizationMode == TIME_CONTROLLED (optimizationMode >= 5000) ausgewertet.
+     */
     Q_PROPERTY(QString chargingSchedule READ chargingSchedule WRITE setChargingSchedule NOTIFY chargingScheduleChanged)
     Q_PROPERTY(uint desiredPhaseCount READ desiredPhaseCount WRITE setDesiredPhaseCount NOTIFY desiredPhaseCountChanged)
 

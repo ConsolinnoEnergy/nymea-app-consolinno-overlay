@@ -1,4 +1,5 @@
 #include "chargingconfiguration.h"
+#include <QJsonDocument>
 
 ChargingConfiguration::ChargingConfiguration(QObject *parent) : QObject(parent)
 {
@@ -137,7 +138,12 @@ QString ChargingConfiguration::chargingSchedule() const {
 }
 
 void ChargingConfiguration::setChargingSchedule(const QString &chargingSchedule) {
-    if (m_chargingSchedule == chargingSchedule)
+    // Semantischer JSON-Vergleich: zwei Strings können textuell unterschiedlich
+    // sein (Whitespace, Schlüsselreihenfolge), aber denselben Zeitplan beschreiben.
+    // QJsonDocument::operator== vergleicht die Struktur, nicht den Rohstring.
+    QJsonDocument oldDoc = QJsonDocument::fromJson(m_chargingSchedule.toUtf8());
+    QJsonDocument newDoc = QJsonDocument::fromJson(chargingSchedule.toUtf8());
+    if (oldDoc == newDoc)
         return;
 
     m_chargingSchedule = chargingSchedule;

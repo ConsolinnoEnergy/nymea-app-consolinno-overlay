@@ -4,7 +4,6 @@
         <file>styles/light/Button.qml</file>
         <file>styles/light/logo.svg</file>
         <file>styles/light/logo-wide.svg</file>
-        <file>styles/light/Dialog.qml</file>
         <file>translations</file>
         <file>styles/light/Background.qml</file>
         <file>SOURCE_AVAIL_de_DE.txt</file>
@@ -16,8 +15,25 @@
         <file>styles/dark/logo.svg</file>
         <file>styles/dark/Page.qml</file>
         <file>styles/dark/Style.qml</file>
+        <file>icons/grid.svg</file>
+        <file>icons/heating_rod.svg</file>
+        <file>icons/heatpump.svg</file>
+        <file>icons/leaf.svg</file>
     </qresource>
     <qresource prefix="/ui">
+        <file>utils/DynPricingUtils.js</file>
+        <file>components/HeatpumpPriceWidget.qml</file>
+        <file>optimization/GridSupportiveControl.qml</file>
+        <file>components/ConsolinnoSelectionTabs.qml</file>
+        <file>components/ConsolinnoSwitch.qml</file>
+        <file>components/ConsolinnoTextField.qml</file>
+        <file>images/relais_screen.png</file>
+        <file>components/ConsolinnoCheckbox.qml</file>
+        <file>components/ConsolinnoDropdown.qml</file>
+        <file>system/ConsolinnoConnectionInterfacesPage.qml</file>
+        <file>thingconfiguration/ConsolinnoConfigureThingPage.qml</file>
+        <file>devicepages/ConsolinnoDeviceLogPage.qml</file>
+        <file>delegates/ConsolinnoParamDelegate.qml</file>
         <file>system/ConsolinnoUsersSettingsPage.qml</file>
         <file>ConsolinnoSettingsPage.qml</file>
         <file>mainviews/ConsolinnoView.qml</file>
@@ -42,7 +58,6 @@
         <file>mainviews/DetailedGraphsPage.qml</file>
         <file>optimization/PVConfigurationView.qml</file>
         <file>optimization/ChargingConfigView.qml</file>
-        <file>optimization/DayTimePickerPage.qml</file>
         <file>thingconfiguration/AddGenericCar.qml</file>
         <file>components/InfoButton.qml</file>
         <file>info/TargetChargeInfo.qml</file>
@@ -99,7 +114,6 @@
         <file>mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml</file>
         <file>devicepages/PageWraper.qml</file>
         <file>optimization/EvChargerOptimization.qml</file>
-        <file>optimization/GridSupportiveControl.qml</file>
         <file>info/PausingInfo.qml</file>
         <file>info/PriceLimitInfo.qml</file>
         <file>thingconfiguration/AddNewThings.qml</file>
@@ -122,27 +136,20 @@
         <file>system/ConsolinnoModbusRtuSettingsPage.qml</file>
         <file>system/ConsolinnoModbusRtuAddMasterPage.qml</file>
         <file>info/ZeroCompensationInfo.qml</file>
-        <file>components/ConsolinnoSelectionTabs.qml</file>
-        <file>components/ConsolinnoSwitch.qml</file>
-        <file>components/ConsolinnoTextField.qml</file>
         <file>components/ConsolinnoAlert.qml</file>
+        <file>info/AvoidZeroCompensationInfo.qml</file>
         <file>images/avoidZeroCompansation.svg</file>
         <file>components/ConsolinnoDialog.qml</file>
         <file>system/ConsolinnoModbusRtuReconfigureMasterPage.qml</file>
         <file>components/ImageSVGHelper.qml</file>
         <file>components/ConsolinnoSetUpButton.qml</file>
         <file>components/ConsolinnoRadioDelegate.qml</file>
-        <file>images/relais_screen.png</file>
         <file>images/eebus.svg</file>
         <file>images/relais.svg</file>
-        <file>components/ConsolinnoCheckbox.qml</file>
-        <file>components/ConsolinnoDropdown.qml</file>
-        <file>system/ConsolinnoConnectionInterfacesPage.qml</file>
-        <file>thingconfiguration/ConsolinnoConfigureThingPage.qml</file>
-        <file>devicepages/ConsolinnoDeviceLogPage.qml</file>
-        <file>delegates/ConsolinnoParamDelegate.qml</file>
         <file>thingconfiguration/EpexDayAheadSetup.qml</file>
-        <file>utils/DynPricingUtils.js</file>
+        <file>info/HeatpumpOptimizationInfo.qml</file>
+        <file>info/BlockEVChargingFromBatteryInfo.qml</file>
         <file>info/ChargingPhaseSwitchingInfo.qml</file>
+        <file>optimization/DayTimePickerPage.qml</file>
     </qresource>
 </RCC>

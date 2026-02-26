@@ -707,31 +707,31 @@
         <translation>Aktiv</translation>
     </message>
     <message>
-        <source>Montag</source>
+        <source>Monday</source>
         <translation>Montag</translation>
     </message>
     <message>
-        <source>Dienstag</source>
+        <source>Tuesday</source>
         <translation>Dienstag</translation>
     </message>
     <message>
-        <source>Mittwoch</source>
+        <source>Wednesday</source>
         <translation>Mittwoch</translation>
     </message>
     <message>
-        <source>Donnerstag</source>
+        <source>Thursday</source>
         <translation>Donnerstag</translation>
     </message>
     <message>
-        <source>Freitag</source>
+        <source>Friday</source>
         <translation>Freitag</translation>
     </message>
     <message>
-        <source>Samstag</source>
+        <source>Saturday</source>
         <translation>Samstag</translation>
     </message>
     <message>
-        <source>Sonntag</source>
+        <source>Sunday</source>
         <translation>Sonntag</translation>
     </message>
     <message>

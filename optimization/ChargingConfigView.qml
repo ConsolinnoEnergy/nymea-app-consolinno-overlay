@@ -65,13 +65,13 @@ GenericConfigPage {
         if (scheduleJson === "" || scheduleJson === undefined || scheduleJson === "null") return
 
         var dayLabels = {
-            "monday": qsTr("Montag"),
-            "tuesday": qsTr("Dienstag"),
-            "wednesday": qsTr("Mittwoch"),
-            "thursday": qsTr("Donnerstag"),
-            "friday": qsTr("Freitag"),
-            "saturday": qsTr("Samstag"),
-            "sunday": qsTr("Sonntag")
+            "monday": qsTr("Monday"),
+            "tuesday": qsTr("Tuesday"),
+            "wednesday": qsTr("Wednesday"),
+            "thursday": qsTr("Thursday"),
+            "friday": qsTr("Friday"),
+            "saturday": qsTr("Saturday"),
+            "sunday": qsTr("Sunday")
         }
 
         try {
@@ -1081,13 +1081,13 @@ GenericConfigPage {
 
                     function initScheduleModel() {
                         var days = [
-                            { dayKey: "monday",    dayLabel: qsTr("Montag") },
-                            { dayKey: "tuesday",   dayLabel: qsTr("Dienstag") },
-                            { dayKey: "wednesday", dayLabel: qsTr("Mittwoch") },
-                            { dayKey: "thursday",  dayLabel: qsTr("Donnerstag") },
-                            { dayKey: "friday",    dayLabel: qsTr("Freitag") },
-                            { dayKey: "saturday",  dayLabel: qsTr("Samstag") },
-                            { dayKey: "sunday",    dayLabel: qsTr("Sonntag") }
+                            { dayKey: "monday",    dayLabel: qsTr("Monday") },
+                            { dayKey: "tuesday",   dayLabel: qsTr("Tuesday") },
+                            { dayKey: "wednesday", dayLabel: qsTr("Wednesday") },
+                            { dayKey: "thursday",  dayLabel: qsTr("Thursday") },
+                            { dayKey: "friday",    dayLabel: qsTr("Friday") },
+                            { dayKey: "saturday",  dayLabel: qsTr("Saturday") },
+                            { dayKey: "sunday",    dayLabel: qsTr("Sunday") }
                         ]
                         scheduleModel.clear()
                         for (var i = 0; i < days.length; i++) {
@@ -1363,18 +1363,19 @@ GenericConfigPage {
                                 Layout.topMargin: 10
 
                                 ColumnLayout{
-                        Row{
-                            spacing: 5
-                            Label{
-                                id: batteryid
+                                    Row{
+                                        Label{
+                                            id: batteryid
 
-                                text: qsTr("Battery level: ") + batteryLevel.value +" %"
-                            }
+                                            text: qsTr("Battery level: ") + batteryLevel.value +" %"
+                                        }
 
-                            InfoButton{
-                                push: "BatteryLevel.qml"
-                            }
-                        }
+                                        InfoButton{
+                                            push: "BatteryLevel.qml"
+                                            anchors.left: batteryid.right
+                                            anchors.leftMargin:  5
+                                        }
+                                    }
 
                                     Slider {
                                         id: batteryLevel
@@ -1717,7 +1718,8 @@ GenericConfigPage {
                                     id: priceLimitInfoButton
 
                                     push: "PriceLimitInfo.qml"
-                                    Layout.leftMargin: 5
+                                    anchors.left: priceLimitigId.right
+                                    anchors.leftMargin:  5
                                 }
 
                             }
@@ -1849,7 +1851,7 @@ GenericConfigPage {
                             Layout.rightMargin: app.margins
                             wrapMode: Text.WordWrap
                             font.pixelSize: app.smallFont
-                            color: "#ff0000"
+                            color: Style.dangerAccent
                             text: qsTr("please select a car")
                             visible: false
                         }

@@ -262,6 +262,17 @@ Page {
                 }
             }
 
+            // Error label shown when start time >= end time
+            Label {
+                id: errorLabel
+                Layout.fillWidth: true
+                visible: false
+                text: qsTr("Die Startzeit muss vor der Endzeit liegen.")
+                color: "red"
+                wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignHCenter
+            }
+
             // Confirm button (green, at bottom)
             Button {
                 id: confirmButton
@@ -274,6 +285,16 @@ Page {
                     var sm = startMinuteTumbler.currentIndex
                     var eh = endHourTumbler.currentIndex
                     var em = endMinuteTumbler.currentIndex
+
+                    // Validate: start time must be before end time
+                    var startTotal = sh * 60 + sm
+                    var endTotal = eh * 60 + em
+                    if (startTotal >= endTotal) {
+                        errorLabel.visible = true
+                        return
+                    }
+
+                    errorLabel.visible = false
                     var startStr = (sh < 10 ? "0" : "") + sh + ":" + (sm < 10 ? "0" : "") + sm
                     var endStr = (eh < 10 ? "0" : "") + eh + ":" + (em < 10 ? "0" : "") + em
                     root.timeSelected(startStr, endStr)
