@@ -21,10 +21,12 @@ MainViewBase {
     headerButtons: []
 
     function batteryIconByLevel(batteryLevel) {
+        // #TODO use battery icons from new design
         let batteryLevelForIcon = NymeaUtils.pad(Math.round(batteryLevel / 10) * 10, 3);
         return Qt.resolvedUrl("qrc:/icons/battery/battery-" + batteryLevelForIcon + ".svg");
     }
 
+    // #TODO can we use app.interfaceToIcon (at least when whitelabel icon mechanism is obsolete)?
     function thingToIcon(thing) {
         let ifaces = thing.thingClass.interfaces;
         if (ifaces.indexOf("battery") >= 0) {
@@ -36,6 +38,7 @@ MainViewBase {
                     let batteryLevel = batteryLevelState.value;
                     return batteryIconByLevel(batteryLevel);
                 } else {
+                    // #TODO use battery icons from new design
                     return Qt.resolvedUrl("qrc:/icons/battery/battery-060.svg");
                 }
             }
@@ -52,20 +55,21 @@ MainViewBase {
                 if (Configuration.heatpumpIcon !== ""){
                     icon = "qrc:/ui/images/" + Configuration.heatpumpIcon;
                 } else {
-                    icon = "qrc:/icons/heatpump.svg";
+                    icon = "qrc:/icons/heat_pump.svg";
                 }
                 break;
             case "heatingrod":
                 if (Configuration.heatingRodIcon !== ""){
                     icon = "qrc:/ui/images/" + Configuration.heatingRodIcon;
                 } else {
-                    icon = "qrc:/icons/heating_rod.svg";
+                    icon = "qrc:/icons/water_heater.svg";
                 }
                 break;
             case "energystorage":
                 if (Configuration.batteryIcon !== ""){
                     icon = "qrc:/ui/images/" + Configuration.batteryIcon;
                 } else {
+                    // #TODO use battery icons from new design
                     icon = "qrc:/icons/battery/battery-060.svg";
                 }
                 break;
@@ -73,14 +77,14 @@ MainViewBase {
                 if (Configuration.evchargerIcon !== ""){
                     icon = "qrc:/ui/images/" + Configuration.evchargerIcon;
                 } else {
-                    icon = "qrc:/icons/ev-charger.svg";
+                    icon = "qrc:/icons/ev_station.svg";
                 }
                 break;
             case "solarinverter":
                 if (Configuration.inverterIcon !== ""){
                     icon = "qrc:/ui/images/" + Configuration.inverterIcon;
                 } else {
-                    icon = "qrc:/icons/weathericons/weather-clear-day.svg";
+                    icon = "qrc:/icons/solar_power.svg";
                 }
                 break;
             default:
@@ -385,9 +389,7 @@ MainViewBase {
                                 loops: Animation.Infinite
                                 from: 2
                                 to: 0
-                                running: flowCanvas.visible
-                                // #TODO use this?
-//                                         && Qt.application.state === Qt.ApplicationActive
+                                running: flowCanvas.visible && Qt.application.state === Qt.ApplicationActive
                             }
                             onLineAnimationProgressChanged: requestPaint()
 
@@ -486,7 +488,7 @@ MainViewBase {
                                 value: Math.abs(dataProvider.currentPowerProduction)
                                 unit: "W"
                                 compactLayout: true
-                                icon: Qt.resolvedUrl("qrc:/icons/weathericons/weather-clear-day.svg") // #TODO icon
+                                icon: Qt.resolvedUrl("qrc:/icons/solar_power.svg")
                                 showWarningIndicator: anyInverterLppActive
                                 onClicked: {
                                     flickableContentYAnimation.to = invertersGroup.y - 50;
@@ -507,7 +509,7 @@ MainViewBase {
                                     if (Configuration.gridIcon !== "") {
                                         return Qt.resolvedUrl("/ui/images/" + Configuration.gridIcon)
                                     } else {
-                                        return Qt.resolvedUrl("/icons/grid.svg")
+                                        return Qt.resolvedUrl("/icons/input_circle.svg")
                                     }
                                 }
                                 onClicked: {
@@ -555,7 +557,7 @@ MainViewBase {
                                 value: Math.abs(dataProvider.currentPowerTotalConsumption)
                                 unit: "W"
                                 compactLayout: true
-                                icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
+                                icon: Qt.resolvedUrl("qrc:/icons/electric_bolt.svg")
                                 onClicked: {
                                     flickableContentYAnimation.to = heatingGroup.y - 50;
                                     flickableContentYAnimation.start();
@@ -588,7 +590,7 @@ MainViewBase {
                                 text: qsTr("Self-sufficiency")
                                 value: dataProvider.kpiValid ? dataProvider.selfSufficiencyRate.toFixed(0) : "—"
                                 unit: "%"
-                                icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
+                                icon: Qt.resolvedUrl("qrc:/icons/house_with_shield.svg")
                                 clickable: false
                             }
 
@@ -597,7 +599,7 @@ MainViewBase {
                                 text: qsTr("Self-consumption")
                                 value: dataProvider.kpiValid ? dataProvider.selfConsumptionRate.toFixed(0) : "—"
                                 unit: "%"
-                                icon: Qt.resolvedUrl("qrc:/icons/energy.svg") // #TODO icon
+                                icon: Qt.resolvedUrl("qrc:/icons/attribution.svg")
                                 clickable: false
                             }
 
@@ -625,7 +627,7 @@ MainViewBase {
                                     if (Configuration.energyIcon !== "") {
                                         return Qt.resolvedUrl("/ui/images/" + Configuration.energyIcon)
                                     } else {
-                                        return Qt.resolvedUrl("/icons/energy.svg")
+                                        return Qt.resolvedUrl("/icons/euro.svg")
                                     }
                                 }
                                 onClicked: {
@@ -843,7 +845,7 @@ MainViewBase {
                                 text: qsTr("Non-controllable") // #TODO name
                                 value: Math.abs(dataProvider.currentPowerUnmeteredConsumption)
                                 unit: "W"
-                                icon: Qt.resolvedUrl("qrc:/icons/select-none.svg") // #TODO icon
+                                icon: Qt.resolvedUrl("qrc:/icons/interests.svg")
                                 clickable: false
                             }
                         }

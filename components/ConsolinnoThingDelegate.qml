@@ -13,7 +13,7 @@ ConsolinnoSwipeDelegate {
 
         if (thingInterface.indexOf("energymeter") >= 0) {
             if(Configuration.gridIcon === ""){
-                iconPath = "/icons/grid.svg";
+                iconPath = "/icons/electric_meter.svg";
             }else{
                 iconPath = "../images/" + Configuration.gridIcon;
             }
@@ -22,14 +22,14 @@ ConsolinnoSwipeDelegate {
             if (Configuration.heatpumpIcon !== "") {
                 iconPath = "../images/" + Configuration.heatpumpIcon;
             } else {
-                iconPath = "/icons/heatpump.svg";
+                iconPath = "/icons/heat_pump.svg";
             }
             return iconPath;
         } else if (thingInterface.indexOf("heatingrod") >= 0) {
             if (Configuration.heatingRodIcon !== "") {
                 iconPath = "../images/" + Configuration.heatingRodIcon;
             } else {
-                iconPath = "/icons/heating_rod.svg";
+                iconPath = "/icons/water_heater.svg";
             }
             return iconPath;
         } else if (thingInterface.indexOf("energystorage") >= 0 && Configuration.batteryIcon !== "") {
@@ -51,7 +51,7 @@ ConsolinnoSwipeDelegate {
             if (Configuration.energyIcon !== "") {
                 iconPath = "../images/" + Configuration.energyIcon;
             }else{
-                iconPath = "/icons/energy.svg"
+                iconPath = "/icons/electric_bolt.svg"
             }
             return iconPath;
         } else {

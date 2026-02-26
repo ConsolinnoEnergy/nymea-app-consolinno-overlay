@@ -270,7 +270,7 @@ Page {
                         if(Configuration.gridIcon !== ""){
                             return "/ui/images/"+Configuration.evchargerIcon
                         }else{
-                            return "/icons/grid.svg"
+                            return "/icons/electric_meter.svg"
                         }
                     }
                     progressive: false

@@ -10,7 +10,7 @@ Page {
     id: root
     header: NymeaHeader {
         text: qsTr("Settings")
-        backButtonVisible: true  // #TODO Back Button im Moment nicht im neuen Design. Wird der hier gebraucht?
+        backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
 
@@ -45,71 +45,65 @@ Page {
                     anchors.bottomMargin: 8 // #TODO use values from new style
                     spacing: 0
 
-                    // #TODO use new Card Component instead of CoCard
-
                     CoCard {
                         Layout.fillWidth: true
                         text: qsTr("Optimization configuration")
                         helpText: qsTr("Optimize devices and system behavior")
-                        iconLeft: "/icons/preferences-look-and-feel.svg" // #TODO
+                        iconLeft: "/icons/tune.svg"
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("mainviews/OptimizationConfiguration.qml"),
                                                   {
                                                       "hemsManager": hemsManager
                                                   })
-                        // #TODO visibility (cf. HemsOptimizationPage.qml)
                     }
 
                     CoCard {
                         Layout.fillWidth: true
                         text: qsTr("Comissioning")
                         helpText: qsTr("Install devices and set up the system. For installers only.")
-                        iconLeft: "/icons/preferences-look-and-feel.svg" // #TODO
+                        iconLeft: "/icons/build.svg"
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("thingconfiguration/DeviceOverview.qml"),
                                                   {
                                                       "hemsManager": hemsManager
                                                   })
-                        // #TODO visibility (cf. HemsOptimizationPage.qml)
                     }
 
                     CoCard {
                         Layout.fillWidth: true
                         text: qsTr("Development")
                         helpText: ""
-                        iconLeft: "/icons/preferences-look-and-feel.svg" // #TODO
+                        iconLeft: "/icons/configure.svg"
                         showChildrenIndicator: true
+                        visible: settings.showHiddenOptions
                         onClicked: pageStack.push(Qt.resolvedUrl("optimization/DeveloperConfig.qml"),
                                                   {
                                                       "hemsManager": hemsManager
                                                   })
-                        // #TODO visibility (cf. HemsOptimizationPage.qml)
                     }
 
                     CoCard {
                         Layout.fillWidth: true
                         text: qsTr("Dynamic electricity tariff")
                         helpText: qsTr("Set up a dynamic electicity tariff for the system to operate with.")
-                        iconLeft: "/icons/preferences-look-and-feel.svg" // #TODO
+                        iconLeft: "/icons/euro.svg"
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("optimization/DynamicElectricityRate.qml"),
                                                   {
                                                       "hemsManager": hemsManager
                                                   })
-                        // #TODO visibility (cf. HemsOptimizationPage.qml)
                     }
 
                     CoCard {
                         Layout.fillWidth: true
                         text: qsTr("Grid-supportive control")
                         helpText: qsTr("Configure grid support capabilities through relays or EEBUS. For installers only.")
-                        iconLeft: "/icons/preferences-look-and-feel.svg" // #TODO
+                        iconLeft: "/icons/electric_meter.svg"
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("optimization/GridSupportiveControl.qml"),
                                                   {
                                                       "hemsManager": hemsManager
                                                   })
-                        // #TODO visibility (cf. HemsOptimizationPage.qml)
                     }
                 }
             }
@@ -127,7 +121,7 @@ Page {
                         Layout.fillWidth: true
                         text: qsTr("Look & feel")
                         helpText: qsTr("Customize the app's look and behavior")
-                        iconLeft: "/icons/preferences-look-and-feel.svg"
+                        iconLeft: "/icons/style.svg"
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("appsettings/ConsolinnoLookAndFeelSettingsPage.qml"))
                     }
@@ -136,7 +130,7 @@ Page {
                         Layout.fillWidth: true
                         text: qsTr("Developer options")
                         helpText: qsTr("Access tools for debugging and error reporting")
-                        iconLeft: "/icons/sdk.svg"
+                        iconLeft: "/icons/logo_dev.svg"
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("appsettings/DeveloperOptionsPage.qml"))
                     }
@@ -163,7 +157,7 @@ Page {
 
                     CoCard {
                         Layout.fillWidth: true
-                        iconLeft: "/icons/configure.svg"
+                        iconLeft: "/icons/build.svg"
                         text: qsTr("General")
                         helpText: qsTr("Change system name and time zone")
                         showChildrenIndicator: true
@@ -173,7 +167,7 @@ Page {
 
                     CoCard {
                         Layout.fillWidth: true
-                        iconLeft: "/icons/account.svg"
+                        iconLeft: "/icons/account_circle.svg"
                         text: qsTr("User settings")
                         helpText: qsTr("Configure who can log in")
                         showChildrenIndicator: true
@@ -184,7 +178,7 @@ Page {
 
                     CoCard {
                         Layout.fillWidth: true
-                        iconLeft: "/icons/connections/network-wifi.svg"
+                        iconLeft: "/icons/android_wifi_3_bar.svg"
                         text: qsTr("Networking")
                         helpText: qsTr("Configure the system's network connection")
                         showChildrenIndicator: true
@@ -195,7 +189,7 @@ Page {
 
                     CoCard {
                         Layout.fillWidth: true
-                        iconLeft: "/icons/connections/network-vpn.svg"
+                        iconLeft: "/icons/network_manage.svg"
                         text: qsTr("Connection settings")
                         helpText: qsTr("Configure how applications can connect to this system")
                         showChildrenIndicator: true
@@ -206,7 +200,7 @@ Page {
 
                     CoCard {
                         Layout.fillWidth: true
-                        iconLeft: "/icons/modbus.svg"
+                        iconLeft: "/icons/flowchart.svg"
                         text: qsTr("Modbus RTU")
                         helpText: qsTr("Configure Modbus RTU master interfaces")
                         showChildrenIndicator: true
@@ -217,7 +211,7 @@ Page {
 
                     CoCard {
                         Layout.fillWidth: true
-                        iconLeft: "/icons/plugin.svg"
+                        iconLeft: "/icons/extension.svg"
                         text: qsTr("Plugins")
                         helpText: qsTr("List and cofigure installed plugins")
                         showChildrenIndicator: true
@@ -228,7 +222,7 @@ Page {
 
                     CoCard {
                         Layout.fillWidth: true
-                        iconLeft: "/icons/logs.svg"
+                        iconLeft: "/icons/receipt_long.svg"
                         text: qsTr("Log viewer")
                         helpText: qsTr("View system log")
                         showChildrenIndicator: true
@@ -262,22 +256,9 @@ Page {
                     anchors.right: parent.right
                     spacing: 0 // #TODO use value from new style
 
-
                     CoCard {
                         Layout.fillWidth: true
-                        iconLeft: "/icons/mqtt.svg"
-                        text: qsTr("MQTT broker")
-                        helpText: qsTr("Configure the MQTT broker")
-                        showChildrenIndicator: true
-                        visible: engine.jsonRpcClient.ensureServerVersion("1.11") &&
-                                 NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
-                                 settings.showHiddenOptions
-                        onClicked: pageStack.push(Qt.resolvedUrl("system/MqttBrokerSettingsPage.qml"))
-                    }
-
-                    CoCard {
-                        Layout.fillWidth: true
-                        iconLeft: "/icons/stock_website.svg"
+                        iconLeft: "/icons/language.svg"
                         text: qsTr("Web server")
                         helpText: qsTr("Configure the web server")
                         showChildrenIndicator: true
@@ -313,13 +294,24 @@ Page {
 
                     CoCard {
                         Layout.fillWidth: true
-                        iconLeft: "/icons/sdk.svg"
+                        iconLeft: "/icons/Mqtt.svg"
+                        text: qsTr("MQTT broker")
+                        helpText: qsTr("Configure the MQTT broker")
+                        showChildrenIndicator: true
+                        visible: engine.jsonRpcClient.ensureServerVersion("1.11") &&
+                                 NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
+                                 settings.showHiddenOptions
+                        onClicked: pageStack.push(Qt.resolvedUrl("system/MqttBrokerSettingsPage.qml"))
+                    }
+
+                    CoCard {
+                        Layout.fillWidth: true
+                        iconLeft: "/icons/build.svg"
                         text: qsTr("Developer tools")
                         helpText: qsTr("Access tools for debugging and error reporting")
                         showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
                                  Configuration.developerSettingsEnabled
-                        // #TODO what's the difference to settings.showHiddenOptions?
                         onClicked: pageStack.push(Qt.resolvedUrl("system/DeveloperTools.qml"))
                     }
                 }
