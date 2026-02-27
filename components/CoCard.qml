@@ -97,7 +97,7 @@ Item {
 
         ColorIcon {
             id: hasChildrenIcon
-            name: Qt.resolvedUrl("qrc:/icons/next.svg")
+            name: Qt.resolvedUrl("qrc:/icons/arrow_forward_ios.svg")
             color: Style.colors.brand_Basic_Icon
             Layout.alignment:  Qt.AlignVCenter
             size: 18
