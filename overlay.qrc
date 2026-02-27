@@ -143,5 +143,6 @@
         <file>thingconfiguration/EpexDayAheadSetup.qml</file>
         <file>utils/DynPricingUtils.js</file>
         <file>info/ChargingPhaseSwitchingInfo.qml</file>
+        <file>optimization/DayTimePickerPage.qml</file>
     </qresource>
 </RCC>

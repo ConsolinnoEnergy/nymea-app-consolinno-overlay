@@ -363,7 +363,6 @@ int HemsManager::setChargingOptimizationConfiguration(const QUuid &evChargerThin
     if (!configuration){
         qCDebug(dcHems()) << "Adding a dummy Config" << evChargerThingId;
         QVariantMap dummyConfig;
-        QUuid DummyIdentifier;
         dummyConfig.insert("evChargerThingId", evChargerThingId);
         dummyConfig.insert("reenableChargepoint", false);
         dummyConfig.insert("p_value", 0.001);
@@ -409,8 +408,7 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
     if (!configuration){
         qCDebug(dcHems()) << "Adding a dummy Config" << evChargerThingId;
         QVariantMap dummyConfig;
-        QUuid DummyIdentifier;
-        dummyConfig.insert("uniqueIdentifier", DummyIdentifier.createUuid());
+        dummyConfig.insert("uniqueIdentifier", QUuid::createUuid());
         dummyConfig.insert("evChargerThingId", evChargerThingId);
         dummyConfig.insert("optimizationEnabled", false);
         dummyConfig.insert("optimizationMode", 0);
@@ -419,6 +417,7 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
         dummyConfig.insert("targetPercentage", 100);
         dummyConfig.insert("controllableLocalSystem", false);
         dummyConfig.insert("priceThreshold", 0);
+        dummyConfig.insert("chargingSchedule", "");
         dummyConfig.insert("desiredPhaseCount", 3);
 
         addOrUpdateChargingConfiguration(dummyConfig);
@@ -1024,6 +1023,7 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
     configuration->setUniqueIdentifier(configurationMap.value("uniqueIdentifier").toUuid());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
     configuration->setPriceThreshold(configurationMap.value("priceThreshold").toFloat());
+    configuration->setChargingSchedule(configurationMap.value("chargingSchedule").toString());
     configuration->setDesiredPhaseCount(configurationMap.value("desiredPhaseCount").toUInt());
 
     if (newConfiguration) {
@@ -1226,4 +1226,3 @@ void HemsManager::updateAvailableUsecases(const QStringList &useCasesList)
         emit availableUseCasesChanged(m_availableUseCases);
     }
 }
-
