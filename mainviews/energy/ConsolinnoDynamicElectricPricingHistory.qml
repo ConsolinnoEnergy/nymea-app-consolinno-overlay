@@ -117,7 +117,6 @@ Item {
                 let arrLength = 192;
 
                 const pricelength = Object.keys(prices).length;
-                console.warn("=== onTabSelected", arrLength, pricelength, selectionTabs.currentIndex);
                 noDataLabel.visible = selectionTabs.currentIndex && pricelength < arrLength;
                 noDataIndicator.visible = selectionTabs.currentIndex && pricelength < arrLength;
 
