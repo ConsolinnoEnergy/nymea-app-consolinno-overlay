@@ -530,7 +530,7 @@ MainViewBase {
                                 Layout.fillWidth: true
                                 Layout.row: 2
                                 Layout.column: 0
-                                text: qsTr("Battery") // #TODO English name
+                                text: qsTr("Battery")
                                 value: Math.abs(dataProvider.currentPowerBatteries)
                                 unit: "W"
                                 compactLayout: true
@@ -553,7 +553,7 @@ MainViewBase {
                                 Layout.fillWidth: true
                                 Layout.row: 2
                                 Layout.column: 2
-                                text: qsTr("Consumption") // #TODO English name
+                                text: qsTr("Consumption")
                                 value: Math.abs(dataProvider.currentPowerTotalConsumption)
                                 unit: "W"
                                 compactLayout: true
