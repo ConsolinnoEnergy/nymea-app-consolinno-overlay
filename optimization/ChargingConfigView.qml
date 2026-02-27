@@ -2209,7 +2209,7 @@ GenericConfigPage {
                             id: savebutton
 
                             Layout.fillWidth: true
-                            Layout.alignment: bottom
+                            Layout.alignment: Qt.AlignBottom
                             text: qsTr("Save")
                             onClicked: {
                                 // if simple PV excess mode is used set the batteryLevel to 1

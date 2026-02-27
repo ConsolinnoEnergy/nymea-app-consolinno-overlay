@@ -69,7 +69,7 @@ Item {
     Connections {
         target: powerBalanceLogs
 
-        onEntriesAdded: {
+        onEntriesAdded: function(index, entries) {
 //            print("entries added", index, entries.length)
             for (var i = 0; i < entries.length; i++) {
                 var entry = entries[i]
@@ -524,7 +524,7 @@ Item {
                             margins: Style.smallMargins
                         }
                         Label {
-                            text: toolTip.entry.timestamp.toLocaleString(Qt.locale(), Locale.ShortFormat)
+                            text: toolTip.entry ? toolTip.entry.timestamp.toLocaleString(Qt.locale(), Locale.ShortFormat) : ""
                             font: Style.smallFont
                         }
 
