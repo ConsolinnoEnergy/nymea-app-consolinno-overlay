@@ -99,7 +99,7 @@ signals:
     void controllableLocalSystemChanged(const bool &controllableLocalSystem);
 
 private:
-    QUuid m_carThingId = "00000000-0000-0000-0000-000000000000";
+    QUuid m_carThingId = QUuid("00000000-0000-0000-0000-000000000000");
     QUuid m_evChargerThingId;
     QTime m_started_at;
     QString m_finished_at;

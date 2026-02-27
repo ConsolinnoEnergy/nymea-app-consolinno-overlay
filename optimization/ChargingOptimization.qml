@@ -1,7 +1,7 @@
-import QtQuick 2.8
-import QtQuick.Controls 2.1
-import QtQuick.Layouts 1.2
-import QtQuick.Controls.Material 2.12
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuick.Controls.Material
 
 import Nymea 1.0
 import "../components"
@@ -29,7 +29,7 @@ Page {
         id: wallboxflickable
         clip: true
         anchors.fill: parent
-        contentHeight: wallboxRepeaterColumLayout.height + header.height
+        contentHeight: flickableContentLayout.implicitHeight
         contentWidth: app.width
 
 
@@ -37,6 +37,7 @@ Page {
         flickableDirection: Flickable.VerticalFlick
 
         ColumnLayout{
+            id: flickableContentLayout
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top

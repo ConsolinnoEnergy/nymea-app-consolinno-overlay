@@ -1,9 +1,9 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.12
-import QtQuick.Layouts 1.3
-import QtGraphicalEffects 1.0
-import QtQml 2.2
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
+import QtQml
 import Nymea 1.0
 
 Rectangle {

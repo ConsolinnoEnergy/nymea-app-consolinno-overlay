@@ -1,7 +1,7 @@
-import QtQuick 2.8
-import QtQuick.Controls 2.1
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.2
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
 import Nymea 1.0
 import "../components"
 import "../delegates"
@@ -174,7 +174,7 @@ Page {
                 textRole: "text"
                 valueRole: "value"
                 Layout.fillWidth: false
-                Layout.preferredWidth: parent.width * 0.35 + Style.smallMargins
+                Layout.preferredWidth: contentColumn.width * 0.35 + Style.smallMargins
                 currentIndex: 4
                 Component.onCompleted: {
                     var current = indexOfValue(pvConfiguration.alignment)

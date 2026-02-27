@@ -1,7 +1,7 @@
-import QtQuick 2.8
-import QtQuick.Window 2.15
-import QtQuick.Controls 2.1
-import QtQuick.Layouts 1.2
+import QtQuick
+import QtQuick.Window
+import QtQuick.Controls
+import QtQuick.Layouts
 import Nymea 1.0
 import "../components"
 import "../delegates"

@@ -28,14 +28,14 @@
 * https://nymea.io/license/faq
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-import QtQuick 2.8
-import QtQuick.Controls 2.1
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.2
-import QtCharts 2.3
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
+import QtCharts
 import Nymea 1.0
-import Qt.labs.settings 1.1
-import QtGraphicalEffects 1.15
+import QtCore
+import Qt5Compat.GraphicalEffects
 
 import "../components"
 import "../delegates"
@@ -736,8 +736,8 @@ MainViewBase {
                 ctx.fillStyle = Style.foregroundColor
 
 
-                lsdChart.currentGridValueState = gridSupport.get(0).stateByName("isLpcActive") !== null ? gridSupport.get(0).stateByName("isLpcActive").value : false
-                lsdChart.currentGridValueStateLPP = gridSupport.get(0).stateByName("isLppActive") !== null ? gridSupport.get(0).stateByName("isLppActive").value : false
+                lsdChart.currentGridValueState = gridSupport.count > 0 && gridSupport.get(0).stateByName("isLpcActive") !== null ? gridSupport.get(0).stateByName("isLpcActive").value : false
+                lsdChart.currentGridValueStateLPP = gridSupport.count > 0 && gridSupport.get(0).stateByName("isLppActive") !== null ? gridSupport.get(0).stateByName("isLppActive").value : false
 
                 var maxCurrentPower = rootMeter ? Math.abs(
                                                       rootMeter.stateByName(
@@ -923,7 +923,7 @@ MainViewBase {
                         id: legendProducersRepeater
                         model: producers
                         delegate: LegendTile {
-                            visible: producers.get(index).id !== rootMeter.id
+                            visible: rootMeter === null || producers.get(index).id === null || producers.get(index).id !== rootMeter.id
                             isNotify: lsdChart.currentGridValueStateLPP &&
                                       (hemsManager.pvConfigurations.getPvConfiguration(producers.get(index).id) !== null ?
                                            hemsManager.pvConfigurations.getPvConfiguration(producers.get(index).id).controllableLocalSystem :
@@ -962,14 +962,9 @@ MainViewBase {
 
             LineSeries {
                 id: zeroSeries
-                XYPoint {
-                    x: new Date().setTime(new Date().getTime(
-                                              ) - 24 * 60 * 60 * 1000)
-                    y: 0
-                }
-                XYPoint {
-                    x: new Date().getTime()
-                    y: 0
+                Component.onCompleted: {
+                    append(new Date().getTime() - 24 * 60 * 60 * 1000, 0)
+                    append(new Date().getTime(), 0)
                 }
             }
 
@@ -1067,7 +1062,7 @@ MainViewBase {
 
                         Connections {
                             target: powerBalanceLogs
-                            onEntriesAdded: {
+                            onEntriesAdded: function(entries) {
                                 for (var i = 0; i < entries.length; i++) {
                                     var entry = entries[i]
                                     chartView.appendPoint(
@@ -1250,7 +1245,7 @@ MainViewBase {
                                 }
                                 Connections {
                                     target: thingPowerLogs
-                                    onEntriesAdded: {
+                                    onEntriesAdded: function(entries) {
                                         for (var i = 0; i < entries.length; i++) {
                                             var entry = entries[i]
                                             chartView.appendPoint(

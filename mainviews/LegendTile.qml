@@ -1,8 +1,8 @@
-import QtQuick 2.8
-import QtQuick.Controls 2.1
-import QtQuick.Layouts 1.2
-import QtGraphicalEffects 1.0
-import QtCharts 2.3
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
+import QtCharts
 import Nymea 1.0
 import "../components"
 import "../delegates"

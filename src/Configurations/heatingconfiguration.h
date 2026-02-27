@@ -77,7 +77,7 @@ signals:
 private:
     QUuid m_heatPumpThingId;
     bool m_optimizationEnabled = false;
-    QUuid m_heatMeterThingId = "{00000000-0000-0000-0000-000000000000}";
+    QUuid m_heatMeterThingId = QUuid("{00000000-0000-0000-0000-000000000000}");
     double m_priceThreshold = 0.30;
     bool m_relativePriceEnabled = false;
 

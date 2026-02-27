@@ -1,13 +1,13 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.12
-import QtQuick.Layouts 1.3
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
 //import QtQuick.Controls.Styles 1.4
-import QtQml 2.2
-import QtGraphicalEffects 1.15
+import QtQml
+import Qt5Compat.GraphicalEffects
 import Nymea 1.0
 import NymeaApp.Utils 1.0
-import QtCharts 2.3
+import QtCharts
 
 import "qrc:/ui/components"
 
@@ -51,7 +51,7 @@ GenericConfigPage {
     property ConEMSState conState: hemsManager.conEMSState
 
     function timer() {
-        return Qt.createQmlObject("import QtQuick 2.0; Timer {}", root);
+        return Qt.createQmlObject("import QtQuick; Timer {}", root);
     }
 
     function isCarPluggedIn()

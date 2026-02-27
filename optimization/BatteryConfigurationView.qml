@@ -1,10 +1,10 @@
-import QtQuick 2.12
-import QtGraphicalEffects 1.12
-import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.3
+import QtQuick
+import Qt5Compat.GraphicalEffects
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
 //import QtQuick.Controls.Styles 1.4
-import QtQml 2.2
+import QtQml
 import Nymea 1.0
 import "../components"
 import "../delegates"
