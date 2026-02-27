@@ -386,7 +386,9 @@ Item {
                         isOn = true;
                         var currentTime = new Date();
 
-                        currentValuePoint.remove(0);
+                        if (currentValuePoint.count > 0) {
+                            currentValuePoint.remove(0);
+                        }
                         currentPrice = thing.stateByName("currentTotalCost").value;
                         currentTime.setTime(currentTime.getTime() - (15 * 60 * 1000));
 
