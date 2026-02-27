@@ -161,15 +161,14 @@ ConfigurationBase {
     //////////////////////////////////////////////////////////////////////////////////////
     // Additional MainViews
     property var additionalMainViews: ListModel {
-        ListElement { name: "consolinno"; source: "ConsolinnoView"; displayName: qsTr("Consolinno") ; icon: "leaf" }
-        ListElement { name: "consolinnoDashboard"; source: "CoDashboardView"; displayName: qsTr("Co Dashboard") ; icon: "leaf" } // #TODO displayName, icon
-        ListElement { name: "consolinnoStats"; source: "DetailedGraphsPage"; displayName: qsTr("Co Stats") ; icon: "leaf" } // #TODO displayName, icon
+        ListElement { name: "consolinnoDashboard"; source: "CoDashboardView"; displayName: qsTr("Dashboard") ; icon: "home" }
+        ListElement { name: "consolinnoStats"; source: "DetailedGraphsPage"; displayName: qsTr("Statistics") ; icon: "bar_chart" }
     }
 
     // Main views filter: Only those main views are enabled
     //property var mainViewsFilter: ["consolinno"]
 
-    defaultMainView: "consolinno"
+    defaultMainViews: ["consolinnoDashboard", "consolinnoStats"]
 
     magicEnabled: true
     networkSettingsEnabled: true
