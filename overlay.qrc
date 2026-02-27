@@ -247,5 +247,6 @@
         <file>components/CoCard.qml</file>
         <file>components/CoNotification.qml</file>
         <file>components/CoIconButton.qml</file>
+        <file>optimization/DayTimePickerPage.qml</file>
     </qresource>
 </RCC>
