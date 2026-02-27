@@ -25,6 +25,24 @@ Item {
     readonly property var addedGridFee: thing.paramByName("addedGridFee").value
     readonly property var addedLevies: thing.paramByName("addedGridFee").value
 
+    onThingChanged: {
+        updateChart();
+    }
+    Component.onCompleted: {
+        updateChart();
+    }
+
+    function updateChart() {
+        if(!thing) { return; }
+
+        validSince = thing.stateByName("validSince").value
+        validUntil = thing.stateByName("validUntil").value
+        currentPrice = thing.stateByName("currentTotalCost").value
+        averagePrice = thing.stateByName("averageTotalCost").value.toFixed(2);
+        consumptionSeries.insertEntry(thing)
+        valueAxis.adjustMax((Math.ceil(lowestPrice)),highestPrice);
+    }
+
     QtObject {
         id: d
 
@@ -99,6 +117,7 @@ Item {
                 let arrLength = 192;
 
                 const pricelength = Object.keys(prices).length;
+                console.warn("=== onTabSelected", arrLength, pricelength, selectionTabs.currentIndex);
                 noDataLabel.visible = selectionTabs.currentIndex && pricelength < arrLength;
                 noDataIndicator.visible = selectionTabs.currentIndex && pricelength < arrLength;
 
@@ -110,18 +129,6 @@ Item {
                     consumptionSeriesAbove.visible = true
                 }
             }
-        }
-
-        Component.onCompleted: {
-            if(!thing)
-                return;
-
-            validSince = thing.stateByName("validSince").value
-            validUntil = thing.stateByName("validUntil").value
-            currentPrice = thing.stateByName("currentTotalCost").value
-            averagePrice = thing.stateByName("averageTotalCost").value.toFixed(2);
-            consumptionSeries.insertEntry(thing)
-            valueAxis.adjustMax((Math.ceil(lowestPrice)),highestPrice);
         }
 
         Label {
@@ -191,7 +198,7 @@ Item {
                         let step = Math.ceil(maxPrice / 4);
                         const rest = step % 5;
                         if(rest !== 0) {
-                           step += 5 - rest;
+                            step += 5 - rest;
                         }
 
                         max = step * 4;
@@ -249,101 +256,101 @@ Item {
                     }
 
                     function insertEntry(thing){
-    // Extract the series from the thing
-    var value = thing.stateByName("totalCostSeries").value;
-    var gridFeeSeries = thing.stateByName("gridFeeSeries").value;
-    var leviesSeries = thing.stateByName("leviesSeries").value;
+                        // Extract the series from the thing
+                        var value = thing.stateByName("totalCostSeries").value;
+                        var gridFeeSeries = thing.stateByName("gridFeeSeries").value;
+                        var leviesSeries = thing.stateByName("leviesSeries").value;
 
-    var lastObjectValue = value[Object.keys(value)[Object.keys(value).length - 1]];
+                        var lastObjectValue = value[Object.keys(value)[Object.keys(value).length - 1]];
 
-    var firstRun = true;
-    let lastChange = 0;
-    let lastChangeTimestamp = 0;
-    let identicalIndexes = [];
+                        var firstRun = true;
+                        let lastChange = 0;
+                        let lastChangeTimestamp = 0;
+                        let identicalIndexes = [];
 
-    // Clear previous data
-    prices = ({});
-    gridFees = ({});
-    levies = ({});
+                        // Clear previous data
+                        prices = ({});
+                        gridFees = ({});
+                        levies = ({});
 
-    for (const item in value){
-        const date = new Date(item);
-        let currentTimestamp = date.getTime();
-        let itemValue = value[item];
-        let gridFeeValue = gridFeeSeries[item];
-        let leviesValue = leviesSeries[item];
+                        for (const item in value){
+                            const date = new Date(item);
+                            let currentTimestamp = date.getTime();
+                            let itemValue = value[item];
+                            let gridFeeValue = gridFeeSeries[item];
+                            let leviesValue = leviesSeries[item];
 
-        if(itemValue < lowestPrice){
-            lowestPrice = itemValue
-        }
+                            if(itemValue < lowestPrice){
+                                lowestPrice = itemValue
+                            }
 
-        if(itemValue > highestPrice){
-            highestPrice = itemValue
-        }
+                            if(itemValue > highestPrice){
+                                highestPrice = itemValue
+                            }
 
-        if(lastChange !== itemValue) {
-            lastChangeTimestamp = currentTimestamp;
+                            if(lastChange !== itemValue) {
+                                lastChangeTimestamp = currentTimestamp;
 
-            for(const ts of identicalIndexes) {
-                prices[ts].end = currentTimestamp;
-                gridFees[ts].end = currentTimestamp;
-                levies[ts].end = currentTimestamp;
-            }
+                                for(const ts of identicalIndexes) {
+                                    prices[ts].end = currentTimestamp;
+                                    gridFees[ts].end = currentTimestamp;
+                                    levies[ts].end = currentTimestamp;
+                                }
 
-            identicalIndexes = [currentTimestamp];
-        }
-        else {
-            identicalIndexes.push(currentTimestamp);
-        }
+                                identicalIndexes = [currentTimestamp];
+                            }
+                            else {
+                                identicalIndexes.push(currentTimestamp);
+                            }
 
-        lastChange = itemValue;
+                            lastChange = itemValue;
 
-        prices[currentTimestamp] = {
-            start: lastChangeTimestamp,
-            value: itemValue
-        };
-        gridFees[currentTimestamp] = {
-            start: lastChangeTimestamp,
-            value: gridFeeValue
-        };
-        levies[currentTimestamp] = {
-            start: lastChangeTimestamp,
-            value: leviesValue
-        };
+                            prices[currentTimestamp] = {
+                                start: lastChangeTimestamp,
+                                value: itemValue
+                            };
+                            gridFees[currentTimestamp] = {
+                                start: lastChangeTimestamp,
+                                value: gridFeeValue
+                            };
+                            levies[currentTimestamp] = {
+                                start: lastChangeTimestamp,
+                                value: leviesValue
+                            };
 
-        if(firstRun === true){
-            firstRun = false;
-            highestPrice = itemValue
-            lowestPrice = itemValue
-            currentTimestamp = currentTimestamp - 600000;
-        }
+                            if(firstRun === true){
+                                firstRun = false;
+                                highestPrice = itemValue
+                                lowestPrice = itemValue
+                                currentTimestamp = currentTimestamp - 600000;
+                            }
 
-        pricingUpperSeriesAbove.append(currentTimestamp,averagePrice);
-        pricingLowerSeriesAbove.append(currentTimestamp,averagePrice);
+                            pricingUpperSeriesAbove.append(currentTimestamp,averagePrice);
+                            pricingLowerSeriesAbove.append(currentTimestamp,averagePrice);
 
-        pricingUpperSeries.append(currentTimestamp - (60000 * 15),itemValue);
-        pricingUpperSeries.append(currentTimestamp,itemValue);
+                            pricingUpperSeries.append(currentTimestamp - (60000 * 15),itemValue);
+                            pricingUpperSeries.append(currentTimestamp,itemValue);
 
-        pricingLowerSeries.append(currentTimestamp - (60000 * 15),itemValue);
-        pricingLowerSeries.append(currentTimestamp,itemValue);
-    }
+                            pricingLowerSeries.append(currentTimestamp - (60000 * 15),itemValue);
+                            pricingLowerSeries.append(currentTimestamp,itemValue);
+                        }
 
-    const todayMidnight = new Date(identicalIndexes[0]);
-    todayMidnight.setDate(todayMidnight.getDate() +1);
-    todayMidnight.setMinutes(0);
-    todayMidnight.setHours(0);
+                        const todayMidnight = new Date(identicalIndexes[0]);
+                        todayMidnight.setDate(todayMidnight.getDate() +1);
+                        todayMidnight.setMinutes(0);
+                        todayMidnight.setHours(0);
 
-    const todayMidnightTs = todayMidnight.getTime();
+                        const todayMidnightTs = todayMidnight.getTime();
 
-    for(const ts of identicalIndexes) {
-        prices[ts].end = todayMidnightTs;
-        gridFees[ts].end = todayMidnightTs;
-        levies[ts].end = todayMidnightTs;
-    }
+                        for(const ts of identicalIndexes) {
+                            prices[ts].end = todayMidnightTs;
+                            gridFees[ts].end = todayMidnightTs;
+                            levies[ts].end = todayMidnightTs;
+                        }
 
-    pricingUpperSeriesAbove.append(todayMidnightTs + 6000000, averagePrice);
-    pricingUpperSeries.append(todayMidnightTs + 6000000, lastObjectValue);
-}
+                        pricingUpperSeriesAbove.append(todayMidnightTs + 6000000, averagePrice);
+                        pricingUpperSeries.append(todayMidnightTs + 6000000, lastObjectValue);
+                    }
                 }
 
                 AreaSeries {
@@ -476,25 +483,25 @@ Item {
                     height: tooltipLayout.implicitHeight + Style.smallMargins * 2
 
                     function getQuaterlyTimestamp(ts) {
-                       const currTime = new Date(ts);
-                       const currMinutes = currTime.getMinutes();
-                       const modRes = currMinutes % 15;
+                        const currTime = new Date(ts);
+                        const currMinutes = currTime.getMinutes();
+                        const modRes = currMinutes % 15;
 
-                       if(modRes !== 0) {
-                           if(modRes < 8) {
-                               currTime.setMinutes(currMinutes - modRes);
-                           }
-                           else {
-                               currTime.setMinutes(currMinutes + (15 - modRes));
-                           }
+                        if(modRes !== 0) {
+                            if(modRes < 8) {
+                                currTime.setMinutes(currMinutes - modRes);
+                            }
+                            else {
+                                currTime.setMinutes(currMinutes + (15 - modRes));
+                            }
 
-                           currTime.setSeconds(0);
-                           return currTime.getTime();
-                       }
-                       else {
-                           return ts;
-                       }
-                   }
+                            currTime.setSeconds(0);
+                            return currTime.getTime();
+                        }
+                        else {
+                            return ts;
+                        }
+                    }
 
                     ColumnLayout {
                         id: tooltipLayout
@@ -535,45 +542,45 @@ Item {
                             font: Style.smallFont
                         }
                         Label {
-    property string unit: qsTr("ct/kWh")
-    text: {
-        if(!mouseArea.containsMouse) {
-            return "";
-        }
+                            property string unit: qsTr("ct/kWh")
+                            text: {
+                                if(!mouseArea.containsMouse) {
+                                    return "";
+                                }
 
-        let hoveredTime = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000;
+                                let hoveredTime = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000;
 
-        let currentPrice = prices[toolTip.getQuaterlyTimestamp(hoveredTime)];
-        let currentGridFee = gridFees[toolTip.getQuaterlyTimestamp(hoveredTime)];
-        let currentLevies = levies[toolTip.getQuaterlyTimestamp(hoveredTime)];
+                                let currentPrice = prices[toolTip.getQuaterlyTimestamp(hoveredTime)];
+                                let currentGridFee = gridFees[toolTip.getQuaterlyTimestamp(hoveredTime)];
+                                let currentLevies = levies[toolTip.getQuaterlyTimestamp(hoveredTime)];
 
-        if(!currentPrice)
-            return "";
+                                if(!currentPrice)
+                                    return "";
 
-        if(!currentPrice || typeof currentPrice === "undefined") {
-            const priceKeys = Object.keys(prices);
-            const lastItem = priceKeys[priceKeys.length -1];
-            currentPrice = prices[lastItem];
-            currentGridFee = gridFees[lastItem];
-            currentLevies = levies[lastItem];
-        }
+                                if(!currentPrice || typeof currentPrice === "undefined") {
+                                    const priceKeys = Object.keys(prices);
+                                    const lastItem = priceKeys[priceKeys.length -1];
+                                    currentPrice = prices[lastItem];
+                                    currentGridFee = gridFees[lastItem];
+                                    currentLevies = levies[lastItem];
+                                }
 
-        let dynamicVal = currentPrice.value;
-        let gridFeeVal = currentGridFee ? currentGridFee.value : 0;
-        let leviesVal = currentLevies ? currentLevies.value : 0;
+                                let dynamicVal = currentPrice.value;
+                                let gridFeeVal = currentGridFee ? currentGridFee.value : 0;
+                                let leviesVal = currentLevies ? currentLevies.value : 0;
 
-        const scaleValue = valueAxis.max + (valueAxis.min > 0 ? 0 : (valueAxis.min * (-1)));
+                                const scaleValue = valueAxis.max + (valueAxis.min > 0 ? 0 : (valueAxis.min * (-1)));
 
-        dynamicVal += valueAxis.min < 0 ? (valueAxis.min * (-1)) : 0;
+                                dynamicVal += valueAxis.min < 0 ? (valueAxis.min * (-1)) : 0;
 
-        toolTip.y = mouseArea.height - (mouseArea.height * (dynamicVal / scaleValue)) - toolTip.height - 2;
-        const val = (+currentPrice.value.toFixed(2)).toLocaleString();
-        const gridFeeStr = (+gridFeeVal.toFixed(2)).toLocaleString();
-        const leviesStr = (+leviesVal.toFixed(2)).toLocaleString();
-        return qsTr("Total: %1 %2\nGrid fee: %3 %2\nLevies: %4 %2").arg(val).arg(unit).arg(gridFeeStr).arg(leviesStr);
-    }
-    font: Style.extraSmallFont
-}
+                                toolTip.y = mouseArea.height - (mouseArea.height * (dynamicVal / scaleValue)) - toolTip.height - 2;
+                                const val = (+currentPrice.value.toFixed(2)).toLocaleString();
+                                const gridFeeStr = (+gridFeeVal.toFixed(2)).toLocaleString();
+                                const leviesStr = (+leviesVal.toFixed(2)).toLocaleString();
+                                return qsTr("Total: %1 %2\nGrid fee: %3 %2\nLevies: %4 %2").arg(val).arg(unit).arg(gridFeeStr).arg(leviesStr);
+                            }
+                            font: Style.extraSmallFont
+                        }
 
                     }
                 }
