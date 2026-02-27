@@ -786,7 +786,7 @@ MainViewBase {
 
                     // draw every producer, but not the rootMeter as producer, since it is already drawn.
                     var producer = producers.get(i)
-                    if (producer.id !== rootMeter.id) {
+                    if ((!rootMeter) || (producer.id !== rootMeter.id)) {
                         var tile = legendProducersRepeater.itemAt(i)
                         drawAnimatedLine(ctx, producer.stateByName(
                                              "currentPower").value, tile,
@@ -948,7 +948,7 @@ MainViewBase {
                         id: legendElectricsRepeater
                         model: electrics
                         delegate: LegendTile {
-                            visible: electrics.get(index).id !== rootMeter.id
+                            visible: rootMeter !== null && electrics.get(index).id !== rootMeter.id
                             color: lsdChart.electricsColor
                             thing: electrics.get(index)
                             isElectric: true
@@ -1062,7 +1062,7 @@ MainViewBase {
 
                         Connections {
                             target: powerBalanceLogs
-                            onEntriesAdded: function(entries) {
+                            onEntriesAdded: function(index, entries) {
                                 for (var i = 0; i < entries.length; i++) {
                                     var entry = entries[i]
                                     chartView.appendPoint(
@@ -1245,7 +1245,7 @@ MainViewBase {
                                 }
                                 Connections {
                                     target: thingPowerLogs
-                                    onEntriesAdded: function(entries) {
+                                    onEntriesAdded: function(index, entries) {
                                         for (var i = 0; i < entries.length; i++) {
                                             var entry = entries[i]
                                             chartView.appendPoint(
