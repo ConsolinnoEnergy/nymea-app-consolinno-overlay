@@ -25,12 +25,11 @@ ConsolinnoWizardPageBase {
         ColumnLayout {
             anchors.fill: parent
 
-            Flickable {
+            ScrollView {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
                 Layout.margins: Style.margins
-                contentHeight: textAreaTerms.height
                 clip: true
 
                 TextArea {
@@ -40,10 +39,10 @@ ConsolinnoWizardPageBase {
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     textFormat: Text.RichText
                     readOnly: true
-                }
 
-                Component.onCompleted: {
-                  loadHtmlFile("../terms_of_use_de_DE.html", textAreaTerms);
+                    Component.onCompleted: {
+                        loadHtmlFile("../terms_of_use_de_DE.html", textAreaTerms);
+                    }
                 }
             }
 
@@ -189,13 +188,11 @@ ConsolinnoWizardPageBase {
                 anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins; right: parent.right; left: parent.left }
                 width: Math.min(parent.width, 450)
 
-                Flickable {
+                ScrollView {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignHCenter
                     Layout.margins: Style.margins
-                    contentHeight: textArea.height
-
                     clip: true
 
                     TextArea {
@@ -206,10 +203,10 @@ ConsolinnoWizardPageBase {
                         textFormat: Text.RichText
                         readOnly: true
                         text: ""
-                    }
 
-                    Component.onCompleted: {
-                        loadHtmlFile("../privacy_agreement_de_DE.html", textArea);
+                        Component.onCompleted: {
+                            loadHtmlFile("../privacy_agreement_de_DE.html", textArea);
+                        }
                     }
                 }
 

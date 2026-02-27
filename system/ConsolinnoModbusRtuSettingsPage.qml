@@ -216,7 +216,7 @@ Page {
                 Layout.preferredWidth: root.width
                 Layout.rightMargin: Style.margins
 
-                contentHeight: modBusFlickable.height
+                contentHeight: repeaterName.implicitHeight
                 contentWidth: root.width
 
 

@@ -128,7 +128,7 @@ Page {
                 id: heatpumpFlickable
                 clip: true
                 Layout.fillWidth: true
-                contentHeight: heatpumpList.height
+                contentHeight: heatpumpList.implicitHeight
                 contentWidth: heatpumpList.width
                 visible: hpProxy.count !== 0
 
