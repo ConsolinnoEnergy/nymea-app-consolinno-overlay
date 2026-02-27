@@ -119,9 +119,7 @@ StatsBase {
                         valueAxis.adjustMax(consumption)
 
                     } else if (timestamp.getTime() == upcomingTimestamp.getTime() && (previousEntry || !d.loading)) {
-                        var liveEntry = thingPowerLogs.liveEntry()
-                        if (!liveEntry) return;
-                        var consumption = liveEntry.totalConsumption
+                        var consumption = thingPowerLogs.liveEntry().totalConsumption
 //                        print("it's today for thing", thing.name, consumption, previousEntry)
                         if (previousEntry) {
 //                            print("previous timestamp", previousEntry.timestamp, previousEntry.totalConsumption)
@@ -575,9 +573,7 @@ StatsBase {
                     property double setMaxValue: {
                         var max = 0;
                         for (var i = 0; i < consumersRepeater.count; i++) {
-                            var delegate = consumersRepeater.itemAt(i)
-                            if (!delegate || !delegate.barSet) continue
-                            max = Math.max(max, delegate.barSet.at(idx))
+                            max = Math.max(max, consumersRepeater.itemAt(i).barSet.at(idx))
                         }
                         return max
                     }
@@ -605,11 +601,10 @@ StatsBase {
                                     var unsorted = []
                                     for (var i = 0; i < consumersRepeater.count; i++) {
                                         var consumerDelegate = consumersRepeater.itemAt(i)
-                                        if (!consumerDelegate || !consumerDelegate.barSet) continue
                                         var consumer = consumerDelegate.thing
                                         var entry = {
                                             consumer: consumer,
-                                            value: consumerDelegate.barSet.at(toolTip.idx).toFixed(2),
+                                            value: consumersRepeater.itemAt(i).barSet.at(toolTip.idx).toFixed(2),
                                             indexInModel: i
                                         }
                                         unsorted.push(entry)
