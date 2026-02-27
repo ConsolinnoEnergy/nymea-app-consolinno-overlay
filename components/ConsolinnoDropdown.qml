@@ -85,10 +85,11 @@ ComboBox {
         implicitHeight: contentItem.implicitHeight
         padding: 0
         contentItem: ListView {
-            implicitHeight: contentHeight
+            implicitHeight: Math.min(contentHeight, 250)
             model: root.popup.visible ? root.delegateModel : null
             clip: true
             currentIndex: root.highlightedIndex
+            ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
         }
         background: Rectangle {
             id: dropDownPopUp
