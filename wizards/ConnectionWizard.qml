@@ -12,7 +12,6 @@ ConsolinnoWizardPageBase {
     headerBackButtonVisible: false
     showBackButton: false
     showNextButton: false
-    background: Item{}
     onNext: pageStack.push(privacyPolicyComponent)
 
     function exitWizard() {
@@ -58,10 +57,8 @@ ConsolinnoWizardPageBase {
                 Layout.alignment: Qt.AlignHCenter
                 text: readCheckbox.checked ? qsTr('next') : qsTr('cancel')
                 Layout.preferredWidth: 200
-                background: Rectangle{
-                    color: readCheckbox.checked ? Style.buttonColor : 'grey'
-                    radius: 4
-                }
+                highlighted: readCheckbox.checked
+                Material.accent: Style.buttonColor
 
 
                 onClicked: {
@@ -88,7 +85,6 @@ ConsolinnoWizardPageBase {
             onNext: pageStack.push(connectionInfo)
             onBack: pageStack.pop()
 
-            background: Item {}
             content: Item {
                 anchors.fill: parent
 
@@ -151,10 +147,10 @@ ConsolinnoWizardPageBase {
                             Layout.alignment: Qt.AlignHCenter
                             Layout.preferredWidth: 200
                             text: qsTr('Back')
-                            background: Rectangle{
-                                color: 'grey'
-                                radius: 4
-                            }
+                            // background: Rectangle{
+                            //     color: 'grey'
+                            //     radius: 4
+                            // }
                             onClicked: pageStack.pop()
                         }
                     }
@@ -183,7 +179,6 @@ ConsolinnoWizardPageBase {
             onNext: pageStack.push(demoModeComponent)
             onBack: pageStack.pop()
 
-            background: Item {}
             content: ColumnLayout {
                 anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins; right: parent.right; left: parent.left }
                 width: Math.min(parent.width, 450)
@@ -232,10 +227,8 @@ ConsolinnoWizardPageBase {
                     Layout.alignment: Qt.AlignHCenter
                     text: policyCheckbox.checked && accountCheckbox.checked ? qsTr('next') : qsTr('cancel')
                     Layout.preferredWidth: 200
-                    background: Rectangle{
-                        color: policyCheckbox.checked && accountCheckbox.checked ? Style.buttonColor : 'grey'
-                        radius: 4
-                    }
+                    highlighted: policyCheckbox.checked && accountCheckbox.checked
+                    Material.accent: Style.buttonColor
 
                     onClicked: {
                         if (policyCheckbox.checked && accountCheckbox.checked) {
@@ -257,7 +250,6 @@ ConsolinnoWizardPageBase {
             headerLabel: qsTr("Internet Connection")
             showNextButton: false
             showBackButton: false
-            background: Item {}
             onNext: pageStack.push(findLeafletComponent)
             onBack: pageStack.pop()
 
@@ -445,7 +437,6 @@ ConsolinnoWizardPageBase {
             headerLabel: qsTr("Manual Connection")
             showBackButton: false
             showNextButton: false
-            background: Item {}
 
             content: Item {
                 anchors {

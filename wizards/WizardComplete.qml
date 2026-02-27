@@ -8,7 +8,6 @@ ConsolinnoWizardPageBase {
     id: root
 
     headerLabel: qsTr("Installed Devices")
-    background: Item {}
 
     showNextButton: false
     showBackButton: false
