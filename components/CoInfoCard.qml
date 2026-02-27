@@ -33,8 +33,23 @@ Item {
             visible: root.clickable
             radius: 8 // #TODO value from new style?
             color: mouseArea.pressed ? Style.colors.typography_States_Pressed : "transparent"
-            border.width: mouseArea.containsMouse ? 4 : 0
-            border.color: mouseArea.containsMouse ? Style.colors.typography_States_Pressed : "transparent"
+            border.width: 4
+            border.color: "transparent"
+            ColorAnimation on border.color {
+                id: borderColorAnimation
+                duration: 300
+            }
+            Connections {
+                target: mouseArea
+                function onContainsMouseChanged() {
+                    borderColorAnimation.stop();
+                    borderColorAnimation.to = mouseArea.containsMouse ? Style.colors.typography_States_Hover_pressed_outline : "transparent";
+                    borderColorAnimation.start();
+                }
+                function onPressed(mouse) {
+                    borderColorAnimation.complete();
+                }
+            }
         }
     }
 
@@ -151,7 +166,7 @@ Item {
         hoverEnabled: true
         onClicked: {
             if (root.clickable) {
-                root.clicked()
+                root.clicked();
             }
         }
     }
