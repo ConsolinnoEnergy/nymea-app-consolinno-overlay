@@ -109,7 +109,7 @@ SettingsPageBase {
             id: unitsComboBox
             currentIndex: settings.units === "metric" ? 0 : 1
             model: [ qsTr("Metric"), qsTr("Imperial") ]
-            onActivated: {
+            onActivated: function(index) {
                 settings.units = index == 0 ? "metric" : "imperial";
             }
         }

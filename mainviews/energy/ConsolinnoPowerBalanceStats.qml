@@ -714,7 +714,7 @@ StatsBase {
                 }
 
                 property int wheelDelta: 0
-                onWheel: {
+                onWheel: function(wheel) {
                     wheelDelta += wheel.pixelDelta.x
                     var slotWidth = mouseArea.width / d.config.count
                     while (wheelDelta > slotWidth) {

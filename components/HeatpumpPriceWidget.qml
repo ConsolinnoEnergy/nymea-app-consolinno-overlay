@@ -135,17 +135,18 @@ Item {
             Layout.fillWidth: true
             value: -relativeValue
             onMoved: () => {
-                         currentValue = DynPricingUtils.relPrice2AbsPrice(-value, dynamicPrice.get(0));
+                         if (!dpThing) return;
+                         currentValue = DynPricingUtils.relPrice2AbsPrice(-value, dpThing);
                          currentRelativeValue = value;
                          if (heatingConfiguration.priceThreshold !== currentValue)
                          root.enableSave();
 
                          barSeries.clearValues();
-                         barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
-                                             dynamicPrice.get(0).stateByName("priceSeries").value,
-                                             dynamicPrice.get(0).stateByName("gridFeeSeries").value,
-                                             dynamicPrice.get(0).stateByName("leviesSeries").value,
-                                             DynPricingUtils.getVAT(dynamicPrice.get(0)));
+                         barSeries.addValues(dpThing.stateByName("totalCostSeries").value,
+                                             dpThing.stateByName("priceSeries").value,
+                                             dpThing.stateByName("gridFeeSeries").value,
+                                             dpThing.stateByName("leviesSeries").value,
+                                             DynPricingUtils.getVAT(dpThing));
                      }
             from: 0
             to: 100

@@ -29,7 +29,7 @@ Page {
 
     Connections {
         target: hemsManager
-        onSetChargingOptimizationConfigurationReply: {
+        onSetChargingOptimizationConfigurationReply: function(commandId, error) {
             if (commandId == d.pendingCallId) {
                 d.pendingCallId = -1
 

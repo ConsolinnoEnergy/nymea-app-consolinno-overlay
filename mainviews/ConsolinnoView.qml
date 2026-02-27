@@ -453,7 +453,7 @@ MainViewBase {
 
         // on ThingAded check if thing is energymeter
         // if yes, check if rootMeter was already assigned.
-        onThingAdded: {
+        onThingAdded: function(thing) {
             if (thing.thingClass.interfaces.indexOf("energymeter") >= 0) {
                 if (checkForRootmeter()) {
                     energyManager.setRootMeterId(thing.id)

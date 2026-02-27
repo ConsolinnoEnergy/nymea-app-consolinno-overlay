@@ -46,7 +46,7 @@ GenericConfigPage {
 
     Connections {
         target: hemsManager
-        onSetBatteryConfigurationReply: {
+        onSetBatteryConfigurationReply: function(commandId, error) {
 
             if (commandId === rootObject.pendingCallId) {
                 rootObject.pendingCallId = -1
@@ -82,13 +82,14 @@ GenericConfigPage {
     Connections {
         target: engine.thingManager
         onThingStateChanged: (thingId, stateTypeId, value)=> {
-                                 if (thingId === dynamicPrice.get(0).id ) {
+                                 if (dynamicPrice.count > 0 && thingId === dynamicPrice.get(0).id ) {
                                      updatePrice()
                                  }
                              }
     }
 
     function updatePrice() {
+        if (dynamicPrice.count === 0) return;
         currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value
         currentPriceLabel.text = Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh"
     }
@@ -569,7 +570,9 @@ GenericConfigPage {
                         value: batteryConfiguration.priceThreshold
 
                         onMoved: {
-                            absChargingThreshold = DynPricingUtils.relPrice2AbsPrice(value, dynamicPrice.get(0));
+                            const dpThing = dynamicPrice.get(0);
+                            if (!dpThing) return;
+                            absChargingThreshold = DynPricingUtils.relPrice2AbsPrice(value, dpThing);
                             relChargingThreshold = value;
                             if (absChargingThreshold > absDischargeBlockedThreshold) {
                                 absDischargeBlockedThreshold = absChargingThreshold;
@@ -581,11 +584,11 @@ GenericConfigPage {
 
                             // Redraw graph (Update the graph immediately when Charge Price changes)
                             barSeries.clearValues();
-                            barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
-                                                dynamicPrice.get(0).stateByName("priceSeries").value,
-                                                dynamicPrice.get(0).stateByName("gridFeeSeries").value,
-                                                dynamicPrice.get(0).stateByName("leviesSeries").value,
-                                                DynPricingUtils.getVAT(dynamicPrice.get(0)));
+                            barSeries.addValues(dpThing.stateByName("totalCostSeries").value,
+                                                dpThing.stateByName("priceSeries").value,
+                                                dpThing.stateByName("gridFeeSeries").value,
+                                                dpThing.stateByName("leviesSeries").value,
+                                                DynPricingUtils.getVAT(dpThing));
                         }
                     }
 
@@ -629,7 +632,9 @@ GenericConfigPage {
                         value: batteryConfiguration.dischargePriceThreshold
 
                         onMoved: {
-                            absDischargeBlockedThreshold = DynPricingUtils.relPrice2AbsPrice(value, dynamicPrice.get(0));
+                            const dpThing = dynamicPrice.get(0);
+                            if (!dpThing) return;
+                            absDischargeBlockedThreshold = DynPricingUtils.relPrice2AbsPrice(value, dpThing);
                             relDischargeBlockedThreshold = value;
                             if (absDischargeBlockedThreshold < absChargingThreshold) {
                                 absChargingThreshold = absDischargeBlockedThreshold;
@@ -640,11 +645,11 @@ GenericConfigPage {
                             enableSave(this);
                             // Redraw graph (Update the graph immediately when Charge Price changes)
                             barSeries.clearValues();
-                            barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
-                                                dynamicPrice.get(0).stateByName("priceSeries").value,
-                                                dynamicPrice.get(0).stateByName("gridFeeSeries").value,
-                                                dynamicPrice.get(0).stateByName("leviesSeries").value,
-                                                DynPricingUtils.getVAT(dynamicPrice.get(0)));
+                            barSeries.addValues(dpThing.stateByName("totalCostSeries").value,
+                                                dpThing.stateByName("priceSeries").value,
+                                                dpThing.stateByName("gridFeeSeries").value,
+                                                dpThing.stateByName("leviesSeries").value,
+                                                DynPricingUtils.getVAT(dpThing));
                         }
                     }
                 }

@@ -149,7 +149,7 @@ SettingsPageBase {
             }
             Connections {
                 target: userManager
-                onSetUserInfoReply: {
+                onSetUserInfoReply: function(id, error) {
                     editUserInfoPage.busy = false
                     if (error != UserManager.UserErrorNoError) {
                         var component = Qt.createComponent("../components/ErrorDialog.qml")

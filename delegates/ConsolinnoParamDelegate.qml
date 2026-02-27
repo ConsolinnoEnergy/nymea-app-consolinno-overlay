@@ -307,7 +307,7 @@ ItemDelegate {
             model: root.paramType.allowedValues
             displayText: currentText + ( root.paramType.unit != Types.UnitNone ? " " + Types.toUiUnit(root.paramType.unit) : "")
             currentIndex: root.paramType.allowedValues.indexOf(root.param.value !== undefined ? root.param.value : root.paramType.defaultValue)
-            onActivated: {
+            onActivated: function(index) {
                 root.param.value = root.paramType.allowedValues[index]
             }
             Component.onCompleted: {
@@ -357,7 +357,7 @@ ItemDelegate {
                 }
             }
 
-            onActivated: {
+            onActivated: function(index) {
                 d.activatedIndex = index;
             }
 

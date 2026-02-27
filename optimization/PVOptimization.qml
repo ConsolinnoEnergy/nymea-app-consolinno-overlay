@@ -38,7 +38,7 @@ Page {
 
     Connections {
         target: hemsManager
-        onSetPvConfigurationReply: {
+        onSetPvConfigurationReply: function(commandId, error) {
 
             if (commandId == d.pendingCallId) {
                 d.pendingCallId = -1

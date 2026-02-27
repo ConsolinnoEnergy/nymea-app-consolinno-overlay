@@ -264,25 +264,26 @@ GenericConfigPage {
             Binding {
                 target: stateDelegateLoader.item
                 property: "value"
-                value: stateDelegate.thingState.value
-                when: !stateDelegate.valueCacheDirty && stateDelegate.pendingActionId === -1
+                value: stateDelegate.thingState ? stateDelegate.thingState.value : undefined
+                when: stateDelegate.thingState !== null && !stateDelegate.valueCacheDirty && stateDelegate.pendingActionId === -1
             }
             Binding {
                 target: stateDelegateLoader.item
                 property: "from"
-                value: stateDelegate.thingState.minValue
-                when: stateDelegateLoader.item.hasOwnProperty("from")
+                value: stateDelegate.thingState ? stateDelegate.thingState.minValue : undefined
+                when: stateDelegate.thingState !== null && stateDelegateLoader.item.hasOwnProperty("from")
             }
             Binding {
                 target: stateDelegateLoader.item
                 property: "to"
-                value: stateDelegate.thingState.maxValue
-                when: stateDelegateLoader.item.hasOwnProperty("to")
+                value: stateDelegate.thingState ? stateDelegate.thingState.maxValue : undefined
+                when: stateDelegate.thingState !== null && stateDelegateLoader.item.hasOwnProperty("to")
             }
             Binding {
                 target: stateDelegateLoader.item.hasOwnProperty("unit") ? stateDelegateLoader.item : null
                 property: "unit"
-                value: stateDelegate.stateType.unit
+                when: stateDelegate.stateType !== null
+                value: stateDelegate.stateType ? stateDelegate.stateType.unit : undefined
             }
 
             Connections {

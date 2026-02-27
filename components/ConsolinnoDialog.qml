@@ -67,7 +67,7 @@ Dialog {
         parent: app.overlay
         anchors.fill: parent
         z: -1
-        onPressed: {
+        onPressed: function(mouse) {
             mouse.accepted = true
         }
     }

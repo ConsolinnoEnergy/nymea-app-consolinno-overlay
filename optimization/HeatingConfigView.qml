@@ -20,6 +20,7 @@ GenericConfigPage {
     property double highestPrice: 0
 
     function updatePrice() {
+        if (dynamicPrice.count === 0) return;
         currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value;
         currentPriceLabel.text = Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh";
     }
@@ -676,7 +677,7 @@ GenericConfigPage {
     Connections {
         target: engine.thingManager
         onThingStateChanged: (thingId, stateTypeId, value) => {
-            if (thingId === dynamicPrice.get(0).id)
+            if (dynamicPrice.count > 0 && thingId === dynamicPrice.get(0).id)
                 updatePrice();
 
         }

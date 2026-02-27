@@ -245,6 +245,9 @@ GenericConfigPage {
         shownInterfaces: ["dynamicelectricitypricing"]
     }
 
+    // Convenience property – always null-safe: check before use with `if (dpThing)`
+    readonly property var dpThing: dynamicPrice.count > 0 ? dynamicPrice.get(0) : null
+
     // check if there exists a Simulated Car which is plugged in
     function checkForPluggedInCars(){
         var exist = false
@@ -537,7 +540,8 @@ GenericConfigPage {
                             Layout.rightMargin: 0
 
                             Component.onCompleted: {
-                                thresholdPrice = DynPricingUtils.relPrice2AbsPrice(priceThresholdProcentage, dynamicPrice.get(0))
+                                if (!dpThing) return;
+                                thresholdPrice = DynPricingUtils.relPrice2AbsPrice(priceThresholdProcentage, dpThing)
                                 currentValue = (currentValue === 0 && chargingConfiguration.priceThreshold === 0 ? -10 : chargingConfiguration.priceThreshold )
                                 priceLimit.text = getText()
                             }
@@ -560,7 +564,8 @@ GenericConfigPage {
                                interval: firstRun == false ? 100 : 10000
                                onTriggered: {
                                    firstRun = true
-                                   thresholdPrice = DynPricingUtils.relPrice2AbsPrice(priceThresholdProcentage, dynamicPrice.get(0))
+                                   if (!dpThing) return;
+                                   thresholdPrice = DynPricingUtils.relPrice2AbsPrice(priceThresholdProcentage, dpThing)
                                    priceLimit.text = getText()
                                }
                             }
@@ -608,7 +613,8 @@ GenericConfigPage {
                             Layout.rightMargin: 0
 
                             Component.onCompleted: {
-                                currentPrice = dynamicPrice.get(0).stateByName("currentTotalCost").value;
+                                if (!dpThing) return;
+                                currentPrice = dpThing.stateByName("currentTotalCost").value;
                             }
                         }
                     }
@@ -1560,10 +1566,11 @@ GenericConfigPage {
                                             repeat: false
                                             running: false
                                             onTriggered: {
+                                                if (!dpThing) return;
                                                 pricingCurrentLimitSeries.clear();
                                                 pricingUpperSeriesAbove.clear();
                                                 pricingLowerSeriesAbove.clear();
-                                                consumptionSeries.insertEntry(dynamicPrice.get(0).stateByName("totalCostSeries").value, true);
+                                                consumptionSeries.insertEntry(dpThing.stateByName("totalCostSeries").value, true);
                                             }
                                         }
 
@@ -1592,8 +1599,8 @@ GenericConfigPage {
                                             horizontalAlignment: Qt.AlignHCenter
                                             verticalAlignment: Qt.AlignVCenter
                                             Layout.preferredWidth: 50
-                                            validator: RegExpValidator {
-                                                regExp: /^-?(100|[1-9]?[0-9])$/
+                                            validator: RegularExpressionValidator {
+                                                regularExpression: /^-?(100|[1-9]?[0-9])$/
                                             }
                                             onTextChanged: {
                                                 currentValue = currentValueField.text
@@ -1629,8 +1636,9 @@ GenericConfigPage {
                                 }
 
                                 function getThresholdPrice(){
+                                    if (!dpThing) return;
                                     let currentValue = parseInt(currentValueField.text)
-                                    thresholdPrice = DynPricingUtils.relPrice2AbsPrice(currentValue, dynamicPrice.get(0))
+                                    thresholdPrice = DynPricingUtils.relPrice2AbsPrice(currentValue, dpThing)
                                 }
 
                             }
@@ -1703,8 +1711,7 @@ GenericConfigPage {
                                 visible: isAnyOfModesSelected([dyn_pricing])
 
                                 Component.onCompleted: {
-                                    const dpThing = dynamicPrice.get(0)
-                                    if(!dpThing)
+                                    if (!dpThing)
                                         return;
 
                                     pricingCurrentLimitSeries.clear();
