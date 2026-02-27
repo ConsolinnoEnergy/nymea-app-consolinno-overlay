@@ -17,8 +17,8 @@ class DashboardDataProvider : public QObject
     Q_PROPERTY(int currentPowerRootMeter READ currentPowerRootMeter NOTIFY currentPowerRootMeterChanged)
     Q_PROPERTY(int currentPowerProduction READ currentPowerProduction NOTIFY currentPowerProductionChanged)
     Q_PROPERTY(int currentPowerBatteries READ currentPowerBatteries NOTIFY currentPowerBatteriesChanged)
-    Q_PROPERTY(int currentPowerMeteredConsumption READ currentPowerMeteredConsumption NOTIFY currentPowerMeteredConsumptionChanged)
-    Q_PROPERTY(int currentPowerUnmeteredConsumption READ currentPowerUnmeteredConsumption NOTIFY currentPowerUnmeteredConsumptionChanged)
+    Q_PROPERTY(int currentPowerAllocatedConsumption READ currentPowerAllocatedConsumption NOTIFY currentPowerAllocatedConsumptionChanged)
+    Q_PROPERTY(int currentPowerUnallocatedConsumption READ currentPowerUnallocatedConsumption NOTIFY currentPowerUnallocatedConsumptionChanged)
     Q_PROPERTY(int currentPowerTotalConsumption READ currentPowerTotalConsumption NOTIFY currentPowerTotalConsumptionChanged)
     Q_PROPERTY(double totalBatteryLevel READ totalBatteryLevel NOTIFY totalBatteryLevelChanged)
 
@@ -45,8 +45,8 @@ public:
     int currentPowerRootMeter() const;
     int currentPowerProduction() const;
     int currentPowerBatteries() const;
-    int currentPowerMeteredConsumption() const;
-    int currentPowerUnmeteredConsumption() const;
+    int currentPowerAllocatedConsumption() const;
+    int currentPowerUnallocatedConsumption() const;
     int currentPowerTotalConsumption() const;
     double totalBatteryLevel() const;
 
@@ -67,8 +67,8 @@ signals:
     void currentPowerRootMeterChanged(int currentPowerRootMeter);
     void currentPowerProductionChanged(int currentPowerProduction);
     void currentPowerBatteriesChanged(int currentPowerBatteries);
-    void currentPowerMeteredConsumptionChanged(int currentPowerMeteredConsumption);
-    void currentPowerUnmeteredConsumptionChanged(int currentPowerUnmeteredConsumption);
+    void currentPowerAllocatedConsumptionChanged(int currentPowerAllocatedConsumption);
+    void currentPowerUnallocatedConsumptionChanged(int currentPowerUnallocatedConsumption);
     void currentPowerTotalConsumptionChanged(int currentPowerTotalConsumption);
     void totalBatteryLevelChanged(double totalBatteryLevel);
 
@@ -130,16 +130,14 @@ private:
 
     QPointer<ThingsProxy> m_consumerThingsProxy = nullptr;
     QHash<Thing *, double> m_consumerCurrentPowers;
-    int m_currentPowerMeteredConsumption = 0;
+    int m_currentPowerAllocatedConsumption = 0;
+    int m_currentPowerUnallocatedConsumption = 0;
+    int m_currentPowerTotalConsumption = 0;
 
     double m_selfSufficiencyRate = 0.;
     double m_selfConsumptionRate = 0.;
     bool m_kpiValid = false;
-
     QTimer m_kpiRefreshTimer;
-
-    int m_currentPowerUnmeteredConsumption = 0;
-    int m_currentPowerTotalConsumption = 0;
 
     int m_flowSolarToGrid = 0;
     int m_flowSolarToBattery = 0;

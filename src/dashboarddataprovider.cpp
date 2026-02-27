@@ -117,14 +117,14 @@ int DashboardDataProvider::currentPowerBatteries() const
     return m_currentPowerBatteries;
 }
 
-int DashboardDataProvider::currentPowerMeteredConsumption() const
+int DashboardDataProvider::currentPowerAllocatedConsumption() const
 {
-    return m_currentPowerMeteredConsumption;
+    return m_currentPowerAllocatedConsumption;
 }
 
-int DashboardDataProvider::currentPowerUnmeteredConsumption() const
+int DashboardDataProvider::currentPowerUnallocatedConsumption() const
 {
-    return m_currentPowerUnmeteredConsumption;
+    return m_currentPowerUnallocatedConsumption;
 }
 
 int DashboardDataProvider::currentPowerTotalConsumption() const
@@ -412,10 +412,10 @@ void DashboardDataProvider::updateCurrentPowerConsumption()
     }
 
     const auto totalMeasuredConsumerPower = qRound(totalMeasuredConsumerPowerDouble);
-    if (m_currentPowerMeteredConsumption != totalMeasuredConsumerPower) {
-        m_currentPowerMeteredConsumption = totalMeasuredConsumerPower;
-        qCInfo(dcDashboardDataProvider()) << "Metered consumption:" << m_currentPowerMeteredConsumption;
-        emit currentPowerMeteredConsumptionChanged(m_currentPowerMeteredConsumption);
+    if (m_currentPowerAllocatedConsumption != totalMeasuredConsumerPower) {
+        m_currentPowerAllocatedConsumption = totalMeasuredConsumerPower;
+        qCInfo(dcDashboardDataProvider()) << "Metered consumption:" << m_currentPowerAllocatedConsumption;
+        emit currentPowerAllocatedConsumptionChanged(m_currentPowerAllocatedConsumption);
         updateConsumptions();
     }
 }
@@ -444,13 +444,13 @@ void DashboardDataProvider::updateConsumptions()
             m_currentPowerRootMeter -
             m_currentPowerProduction -
             m_currentPowerBatteries;
-    const auto currentPowerUnmeteredConsumption =
+    const auto currentPowerUnallocatedConsumption =
             currentPowerTotalConsumption -
-            m_currentPowerMeteredConsumption;
-    if (m_currentPowerUnmeteredConsumption != currentPowerUnmeteredConsumption) {
-        m_currentPowerUnmeteredConsumption = currentPowerUnmeteredConsumption;
-        qCInfo(dcDashboardDataProvider()) << "Unmetered consumption:" << m_currentPowerUnmeteredConsumption;
-        emit currentPowerUnmeteredConsumptionChanged(m_currentPowerUnmeteredConsumption);
+            m_currentPowerAllocatedConsumption;
+    if (m_currentPowerUnallocatedConsumption != currentPowerUnallocatedConsumption) {
+        m_currentPowerUnallocatedConsumption = currentPowerUnallocatedConsumption;
+        qCInfo(dcDashboardDataProvider()) << "Unmetered consumption:" << m_currentPowerUnallocatedConsumption;
+        emit currentPowerUnallocatedConsumptionChanged(m_currentPowerUnallocatedConsumption);
     }
     if (m_currentPowerTotalConsumption != currentPowerTotalConsumption) {
         m_currentPowerTotalConsumption = currentPowerTotalConsumption;

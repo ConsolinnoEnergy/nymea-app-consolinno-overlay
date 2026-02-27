@@ -849,8 +849,8 @@ MainViewBase {
 
                             CoInfoCard {
                                 Layout.fillWidth: true
-                                text: qsTr("Non-controllable") // #TODO name
-                                value: Math.abs(dataProvider.currentPowerUnmeteredConsumption)
+                                text: qsTr("Unallocated consumption")
+                                value: Math.abs(dataProvider.currentPowerUnallocatedConsumption)
                                 unit: "W"
                                 icon: Qt.resolvedUrl("qrc:/icons/interests.svg")
                                 clickable: false
