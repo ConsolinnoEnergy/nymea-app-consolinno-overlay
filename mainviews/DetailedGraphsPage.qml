@@ -50,7 +50,7 @@ MainViewBase {
         anchors.margins: app.margins / 2
         contentHeight: energyGrid.childrenRect.height
         visible: !engine.thingManager.fetchingData && engine.jsonRpcClient.experiences.hasOwnProperty("Energy")
-        topMargin: 0
+        topMargin: root.topMargin
 
         // GridLayout directly in a flickable causes problems at initialisation
         Item {
