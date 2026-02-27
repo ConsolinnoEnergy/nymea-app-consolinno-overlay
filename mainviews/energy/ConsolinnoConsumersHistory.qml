@@ -22,7 +22,7 @@ Item {
         sampleRate: d.sampleRate
         Component.onCompleted: fetchLogs()
 
-        onEntriesAdded: {
+        onEntriesAdded: function(index, entries) {
             print("entries added", index, entries.length)
             for (var i = 0; i < entries.length; i++) {
                 var entry = entries[i]
@@ -37,7 +37,7 @@ Item {
             }
         }
 
-        onEntriesRemoved: {
+        onEntriesRemoved: function(index, count) {
             consumptionUpperSeries.removePoints(index, count)
             zeroSeries.shrink()
         }
@@ -435,11 +435,11 @@ Item {
                             thingId: consumerDelegate.thing.id
                             loader: logsLoader
 
-                            onEntriesAdded: {
+                            onEntriesAdded: function(index, entries) {
                                 addTimer.addEntries(index, entries)
                             }
 
-                            onEntriesRemoved: {
+                            onEntriesRemoved: function(index, count){
                                 if (!consumerDelegate.series) return
                                 // Remove the leading 0-value entry
                                 consumerDelegate.series.lowerSeries.removePoints(0, 1);
@@ -776,7 +776,7 @@ Item {
                             model: consumersRepeater.count
                             delegate: RowLayout {
                                 readonly property Item chartItem: consumersRepeater.itemAt(index)
-                                readonly property Thing thing: chartItem.series.get(index).name
+                                readonly property Thing thing: chartItem.thing
                                 id: consumerToolTipDelegate
                                 opacity: d.selectedSeries == null || d.selectedSeries === chartItem.series ? 1 : 0.3
                                 Rectangle {

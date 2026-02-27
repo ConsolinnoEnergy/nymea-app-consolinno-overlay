@@ -119,7 +119,9 @@ StatsBase {
                         valueAxis.adjustMax(consumption)
 
                     } else if (timestamp.getTime() == upcomingTimestamp.getTime() && (previousEntry || !d.loading)) {
-                        var consumption = thingPowerLogs.liveEntry().totalConsumption
+                        var liveEntry = thingPowerLogs.liveEntry()
+                        if (!liveEntry) return;
+                        var consumption = liveEntry.totalConsumption
 //                        print("it's today for thing", thing.name, consumption, previousEntry)
                         if (previousEntry) {
 //                            print("previous timestamp", previousEntry.timestamp, previousEntry.totalConsumption)

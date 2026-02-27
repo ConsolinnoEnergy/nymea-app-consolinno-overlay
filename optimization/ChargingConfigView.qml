@@ -1365,7 +1365,6 @@ GenericConfigPage {
                                     id: endTimeSlider
 
                                     Layout.fillWidth: true
-                                    implicitWidth: backgroundEndTimeSlider.implicitWidth
                                     property int chargingConfigHours: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours()
                                     property int chargingConfigMinutes: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes()
                                     property int nextDay: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() < 0 ? 1 : 0
@@ -1477,8 +1476,7 @@ GenericConfigPage {
                                     id: gridConsumptionInfoButton
                                     visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
                                     push: "GridConsumptionInfo.qml"
-                                    anchors.left: gridConsumptionLabel.right
-                                    anchors.leftMargin:  5
+                                    Layout.leftMargin: 5
                                 }
 
                                 Label {
@@ -1491,8 +1489,7 @@ GenericConfigPage {
                                     id: pausingModeInfoButton
                                     visible: isAnyOfModesSelected([dyn_pricing])
                                     push: "PausingInfo.qml"
-                                    anchors.left: pausingModeid.right
-                                    anchors.leftMargin:  5
+                                    Layout.leftMargin: 5
                                 }
 
                             }
@@ -1531,8 +1528,7 @@ GenericConfigPage {
                                     id: priceLimitInfoButton
 
                                     push: "PriceLimitInfo.qml"
-                                    anchors.left: priceLimitigId.right
-                                    anchors.leftMargin:  5
+                                    Layout.leftMargin: 5
                                 }
 
                             }
@@ -2093,7 +2089,7 @@ GenericConfigPage {
                             id: savebutton
 
                             Layout.fillWidth: true
-                            Layout.alignment: bottom
+                            Layout.alignment: Qt.AlignBottom
                             text: qsTr("Save")
                             onClicked: {
                                 // if simple PV excess mode is used set the batteryLevel to 1
