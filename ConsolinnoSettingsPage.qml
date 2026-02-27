@@ -250,6 +250,11 @@ Page {
             CoFrostyCard {
                 Layout.fillWidth: true
                 headerText: qsTr("Developer settings")
+                visible: webServerCard.visible ||
+                         zigbeeCard.visible ||
+                         zwaveCard.visible ||
+                         mqttCard.visible ||
+                         developerToolsCard.visible
 
                 ColumnLayout {
                     anchors.left: parent.left
@@ -257,6 +262,7 @@ Page {
                     spacing: 0 // #TODO use value from new style
 
                     CoCard {
+                        id: webServerCard
                         Layout.fillWidth: true
                         iconLeft: "/icons/language.svg"
                         text: qsTr("Web server")
@@ -269,6 +275,7 @@ Page {
                     }
 
                     CoCard {
+                        id: zigbeeCard
                         Layout.fillWidth: true
                         iconLeft: "/icons/zigbee.svg"
                         text: qsTr("ZigBee")
@@ -281,6 +288,7 @@ Page {
                     }
 
                     CoCard {
+                        id: zwaveCard
                         Layout.fillWidth: true
                         iconLeft: "/icons/z-wave.svg"
                         text: qsTr("Z-Wave")
@@ -293,6 +301,7 @@ Page {
                     }
 
                     CoCard {
+                        id: mqttCard
                         Layout.fillWidth: true
                         iconLeft: "/icons/Mqtt.svg"
                         text: qsTr("MQTT broker")
@@ -305,6 +314,7 @@ Page {
                     }
 
                     CoCard {
+                        id: developerToolsCard
                         Layout.fillWidth: true
                         iconLeft: "/icons/build.svg"
                         text: qsTr("Developer tools")
