@@ -268,7 +268,7 @@ Page {
                     subText: model.description
                     iconName: {
                         if(Configuration.gridIcon !== ""){
-                            return "/ui/images/"+Configuration.evchargerIcon
+                            return "/ui/images/"+Configuration.gridIcon
                         }else{
                             return "/icons/electric_meter.svg"
                         }
