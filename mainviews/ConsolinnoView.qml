@@ -1217,7 +1217,9 @@ MainViewBase {
                             consumerSeries.borderColor = consumerSeries.color
                         }
                         Component.onDestruction: {
-                            chartView.removeSeries(consumerSeries)
+                            var s = consumerSeries
+                            consumerSeries = null
+                            if (s) chartView.removeSeries(s)
                         }
 
                         readonly property ThingPowerLogs logs: ThingPowerLogs {
@@ -1236,6 +1238,7 @@ MainViewBase {
                                 id: consumerUpperSeries
                                 Component.onCompleted: {
                                     for (var i = 0; i < thingPowerLogs.count; i++) {
+                                        if (!consumerDelegate.consumerSeries) return
                                         var entry = thingPowerLogs.get(i)
                                         chartView.appendPoint(
                                                     consumerUpperSeries,
@@ -1246,6 +1249,7 @@ MainViewBase {
                                 Connections {
                                     target: thingPowerLogs
                                     onEntriesAdded: function(index, entries) {
+                                        if (!consumerDelegate.consumerSeries) return
                                         for (var i = 0; i < entries.length; i++) {
                                             var entry = entries[i]
                                             chartView.appendPoint(
