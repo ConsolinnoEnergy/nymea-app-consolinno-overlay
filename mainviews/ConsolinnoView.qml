@@ -100,20 +100,6 @@ MainViewBase {
                                    "stack": pageStack
                                })
             }
-        }, {
-            "iconSource": Configuration.settingsIcon !== "" ? "/ui/images/"+Configuration.settingsIcon : "/icons/configure.svg",
-            "color": Style.iconColor,
-            "visible": hemsManager.available && rootMeter != null,
-            "trigger": function () {
-                var page = pageStack.push("HemsOptimizationPage.qml", {
-                                              "hemsManager": hemsManager
-                                          })
-                page.startWizard.connect(function () {
-                    pageStack.pop(pageStack.get(0))
-                    d.resetManualWizardSettings()
-                    d.setup(true)
-                })
-            }
         }]
 
     QtObject {
@@ -801,6 +787,8 @@ MainViewBase {
                 for (var i = 0; i < consumers.count; i++) {
                     var consumer = consumers.get(i)
                     var tile = legendConsumersRepeater.itemAt(i)
+                    // skip SmartMeterConsumers that implement the hideable interface and have hidden=true
+                    if (!tile.visible) continue
                     if (consumer.thingClass.interfaces.indexOf(
                                 "smartmeterconsumer") >= 0) {
                         drawAnimatedLine(
@@ -1317,11 +1305,6 @@ MainViewBase {
                                 mouse.accepted = false
                             }
                         }
-                        onClicked: pageStack.push("DetailedGraphsPage.qml", {
-                                                      "energyManager": energyManager,
-                                                      "totalColors": Configuration.totalColors,
-                                                      "consumersColors": lsdChart.consumersColors
-                                                  })
                     }
 
                     ColumnLayout {
@@ -1431,6 +1414,14 @@ MainViewBase {
                                 }else{
                                     return lsdChart.consumersColors[index]
                                 }
+                            }
+                            visible: {
+                                var t = consumers.get(index)
+                                if (t.thingClass.interfaces.indexOf("hideable") >= 0) {
+                                    var hiddenState = t.stateByName("hidden")
+                                    return !hiddenState || hiddenState.value !== true
+                                }
+                                return true
                             }
                             thing: consumers.get(index)
                             onClicked: {
@@ -1622,7 +1613,7 @@ MainViewBase {
                     var tmpDate = new Date()
                     tmpDate.setHours(startHour + i, 0, 0)
                     ctx.textAlign = 'center'
-                    ctx.font = "" + Style.smallFont.pixelSize + "px " + Style.smallFont.family
+                    ctx.font = "" + Style.smallFont.pixelSize + "px ubuntu"
                     ctx.fillStyle = Style.mainCircleTimeColor //gray
                     var textY = -(chartView.plotArea.height + circleWidth) / 2
                             + Style.smallFont.pixelSize / 2

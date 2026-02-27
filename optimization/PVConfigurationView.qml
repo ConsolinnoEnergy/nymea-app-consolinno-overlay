@@ -42,7 +42,7 @@ Page {
 
 
                 Layout.fillWidth: true
-                iconName: Configuration.inverterIcon !== "" ? "../images/" + Configuration.inverterIcon : "/icons/weathericons/weather-clear-day.svg";
+                iconName: Configuration.inverterIcon !== "" ? "../images/" + Configuration.inverterIcon : "/icons/solar_power.svg";
                 progressive: true
                 text: pvThing.name
                 onClicked: pageStack.push("PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration: pvConfiguration, thing: pvThing })

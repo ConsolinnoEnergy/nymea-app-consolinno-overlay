@@ -4797,4 +4797,43 @@ This means: The price limit corresponds to the current average price minus 10 %.
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>CoKpiStats</name>
+    <message>
+        <source>KPI Statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Self-sufficiency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Self-consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weeks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Years</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

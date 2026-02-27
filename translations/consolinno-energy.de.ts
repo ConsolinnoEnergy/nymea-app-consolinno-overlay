@@ -4825,4 +4825,47 @@ Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>CoKpiStats</name>
+    <message>
+        <source>KPI Statistics</source>
+        <translation>KPI-Statistiken</translation>
+    </message>
+    <message>
+        <source>Self-sufficiency</source>
+        <translation>Autarkie</translation>
+    </message>
+    <message>
+        <source>Self-consumption</source>
+        <translation>Eigenverbrauch</translation>
+    </message>
+    <message>
+        <source>Self-sufficiency: %1%</source>
+        <translation>Autarkie: %1%</translation>
+    </message>
+    <message>
+        <source>Self-consumption: %1%</source>
+        <translation>Eigenverbrauch: %1%</translation>
+    </message>
+    <message>
+        <source>Hours</source>
+        <translation>Stunden</translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation>Tage</translation>
+    </message>
+    <message>
+        <source>Weeks</source>
+        <translation>Wochen</translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation>Monate</translation>
+    </message>
+    <message>
+        <source>Years</source>
+        <translation>Jahre</translation>
+    </message>
+</context>
 </TS>

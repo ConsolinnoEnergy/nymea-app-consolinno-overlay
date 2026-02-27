@@ -528,25 +528,25 @@ Item {
                                             if(Configuration.heatpumpIcon !== ""){
                                                 return "qrc:/ui/images/"+Configuration.heatpumpIcon
                                             }else{
-                                                return "qrc:/icons/heatpump.svg"
+                                                return "qrc:/icons/heat_pump.svg"
                                             }
                                         case "pvsurplusheatpump":
                                             if(Configuration.heatpumpIcon !== ""){
                                                 return "qrc:/ui/images/"+Configuration.heatpumpIcon
                                             }else{
-                                                return "qrc:/icons/heatpump.svg"
+                                                return "qrc:/icons/heat_pump.svg"
                                             }
                                         case "heatingrod":
                                             if(Configuration.heatingRodIcon !== ""){
                                                 return "/ui/images/"+Configuration.heatingRodIcon
                                             }else{
-                                                return "/icons/heating_rod.svg"
+                                                return "/icons/water_heater.svg"
                                             }
                                         case "evcharger":
                                             if(Configuration.evchargerIcon !== ""){
                                                 return "/ui/images/"+Configuration.evchargerIcon
                                             }else{
-                                                return "/icons/ev-charger.svg"
+                                                return "/icons/ev_station.svg"
                                             }
                                         default:
                                             return app.interfacesToIcon(legendDelegate.thing.thingClass.interfaces)

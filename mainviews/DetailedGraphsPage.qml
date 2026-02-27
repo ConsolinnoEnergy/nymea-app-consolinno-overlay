@@ -5,18 +5,21 @@ import "qrc:/ui/mainviews/energy/"
 import "qrc:/ui/components/"
 import Nymea 1.0
 
-Page {
+MainViewBase {
     id: root
 
-    header: NymeaHeader {
-        //text: qsTr("History")
-        backButtonVisible: true
-        onBackPressed: pageStack.pop()
+    contentY: flickable.contentY + topMargin
+
+    headerButtons: []
+
+    EnergyManager {
+        id: energyManager
+        engine: _engine
     }
 
-    property EnergyManager energyManager: null
-    property var totalColors: []
-    property var consumersColors: []
+    property var totalColors: Configuration.totalColors
+    property var consumersColors: Configuration.consumerColors
+
     property bool isDynamicPrice: true
 
     readonly property Thing rootMeter: engine.thingManager.fetchingData ? null : engine.thingManager.things.getThing(energyManager.rootMeterId)
@@ -103,21 +106,35 @@ Page {
                 ConsolinnoPowerBalanceStats {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
-                    energyManager: root.energyManager
+                    energyManager: energyManager
                     totalColors: root.totalColors
+                    visible: rootMeter != null
+                }
+
+                CoKpiStats {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: width
+                    energyManager: energyManager
                     visible: rootMeter != null
                 }
 
                 ConsolinnoConsumerStats {
                     Layout.fillWidth: true
                     Layout.preferredHeight: width
-                    energyManager: root.energyManager
+                    energyManager: energyManager
                     visible: consumers.count > 0
                     consumerColors: root.consumersColors
                     consumers: consumers
                 }
 
+                Item {
+                    id: spacer
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: root.bottomMargin
+                    height: root.bottomMargin
+                }
             }
+
         }
     }
 }

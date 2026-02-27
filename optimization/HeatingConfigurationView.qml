@@ -33,7 +33,7 @@ Page {
                 property Thing heatPumpThing: engine.thingManager.things.getThing(model.heatPumpThingId)
 
                 Layout.fillWidth: true
-                iconName: Configuration.heatpumpIcon !== "" ? "qrc:/ui/images/"+Configuration.heatpumpIcon : "/icons/heatpump.svg"
+                iconName: Configuration.heatpumpIcon !== "" ? "qrc:/ui/images/"+Configuration.heatpumpIcon : "/icons/heat_pump.svg"
                 progressive: true
                 text: heatPumpThing.name
                 onClicked: pageStack.push("HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration: heatingConfiguration, heatPumpThing: heatPumpThing })

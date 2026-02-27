@@ -265,6 +265,7 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
         dummyConfig.insert("priceThreshold", 0.30);
         dummyConfig.insert("optimizationMode", 0);
         dummyConfig.insert("controllableLocalSystem", false);
+        dummyConfig.insert("heatMeterThingId", QUuid());
 
         addOrUpdateHeatingConfiguration(dummyConfig);
         // and get the dummy Config
@@ -295,13 +296,37 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
                         config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
                     }
                 }
-                qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
-                config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
+                // Convert heatMeterThingId from QString to QUuid; empty string means no meter (skip field)
+                else if (strcmp(metaObj->property(i).name(), "heatMeterThingId") == 0) {
+                    QVariant value = data.value(metaObj->property(i).name());
+                    if (value.type() == QVariant::String) {
+                        QString strValue = value.toString();
+                        if (strValue.isEmpty()) {
+                            qCDebug(dcHems()) << "Skipping heatMeterThingId (No Heat Meter selected)";
+                            // Don't insert anything – field is omitted from the request
+                        } else {
+                            if (!strValue.startsWith("{")) {
+                                strValue = "{" + strValue + "}";
+                            }
+                            QUuid uuid(strValue);
+                            qCDebug(dcHems()) << "Converting heatMeterThingId from QString to QUuid:" << uuid;
+                            config.insert(metaObj->property(i).name(), uuid);
+                        }
+                    } else if (!value.isNull()) {
+                        config.insert(metaObj->property(i).name(), value);
+                    }
+                }
+                else {
+                    qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
+                    config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
+                }
             }else{
                 qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
                 config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
             }
     }
+
+    qCDebug(dcHems()) << "heatMeterThingId in config:" << config.value("heatMeterThingId") << "Type:" << config.value("heatMeterThingId").typeName();
 
     QVariantMap params;
     params.insert("heatingConfiguration", config);
@@ -933,7 +958,6 @@ void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurati
     configuration->setPriceThreshold(configurationMap.value("priceThreshold").toFloat());
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
-
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Heating configuration added" << configuration->heatPumpThingId();

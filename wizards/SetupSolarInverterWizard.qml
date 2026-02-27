@@ -203,7 +203,7 @@ Page {
                                     if(Configuration.inverterIcon !== ""){
                                         return "/ui/images/"+Configuration.inverterIcon
                                     }else{
-                                        return "/icons/weathericons/weather-clear-day.svg"
+                                        return "/icons/solar_power.svg"
                                     }
                                 }
                                 progressive: false

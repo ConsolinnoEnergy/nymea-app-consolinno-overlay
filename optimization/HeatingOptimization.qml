@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.2
 import Nymea 1.0
 import "../components"
 import "../delegates"
+import QtQml 2.15
 
 
 Page {
@@ -15,6 +16,29 @@ Page {
     property int directionID: 0
     property bool isSetup: false
     signal done()
+
+    function buildMeterModel() {
+        meterModel.clear();
+        meterModel.append({ text: qsTr("No meter"), thingId: "" });
+        for (let i = 0; i < smartMeterConsumerProxy.count; i++) {
+            let t = smartMeterConsumerProxy.get(i);
+            if (t.thingClass.interfaces.indexOf("hideable") >= 0) {
+                meterModel.append({ text: t.name, thingId: t.id.toString() });
+            }
+        }
+        if (!heatingConfiguration) {
+            heatMeterDropdown.currentIndex = 0;
+            return;
+        }
+        let currentId = heatingConfiguration.heatMeterThingId.toString();
+        for (let j = 0; j < meterModel.count; j++) {
+            if (meterModel.get(j).thingId === currentId) {
+                heatMeterDropdown.currentIndex = j;
+                return;
+            }
+        }
+        heatMeterDropdown.currentIndex = 0;
+    }
 
     //property bool heatMeterIncluded: heatPumpThing.thingClass.interfaces.includes("heatmeter")
     // TODO: only if any configuration has changed, warn also on leaving if unsaved settings
@@ -171,6 +195,23 @@ Page {
             }
         }
 
+        RowLayout {
+            Layout.fillWidth: true
+            visible: heatPumpThing.thingClass.interfaces.includes("smartmeterconsumerassignable")
+
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("Electricity meter")
+            }
+
+            ConsolinnoDropdown {
+                id: heatMeterDropdown
+                Layout.preferredWidth: 150
+                textRole: "text"
+                model: ListModel { id: meterModel }
+            }
+        }
+
         Item {
             // place holder
             Layout.fillHeight: true
@@ -262,6 +303,7 @@ Page {
                     const newConfig = JSON.parse(JSON.stringify(heatingConfiguration));
                     newConfig.maxElectricalPower = +inputText;
                     newConfig.controllableLocalSystem = gridSupportControl.checked;
+                    newConfig.heatMeterThingId = meterModel.get(heatMeterDropdown.currentIndex).thingId;
 
                     // TODO this is terrible fix the enum mapping properly
                     // We just want to keep the current value
@@ -310,6 +352,17 @@ Page {
 
 
 
+    }
+
+    ThingsProxy {
+        id: smartMeterConsumerProxy
+        engine: _engine
+        shownInterfaces: ["smartmeterconsumer"]
+        onCountChanged: buildMeterModel()
+    }
+
+    Component.onCompleted: {
+        buildMeterModel();
     }
 }
 

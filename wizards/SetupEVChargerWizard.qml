@@ -146,7 +146,7 @@ Page {
                                     if(Configuration.evchargerIcon !== ""){
                                         return "/ui/images/"+Configuration.evchargerIcon
                                     }else{
-                                        return "/icons/ev-charger.svg"
+                                        return "/icons/ev_station.svg"
                                     }
                                 }
                                 progressive: false

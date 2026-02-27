@@ -16,6 +16,102 @@
         <file>styles/dark/logo.svg</file>
         <file>styles/dark/Page.qml</file>
         <file>styles/dark/Style.qml</file>
+        <file>icons/account_circle.svg</file>
+        <file>icons/add.svg</file>
+        <file>icons/android_wifi_3_bar.svg</file>
+        <file>icons/arming_countdown.svg</file>
+        <file>icons/arrow_back_ios_new.svg</file>
+        <file>icons/arrow_forward_ios.svg</file>
+        <file>icons/attribution.svg</file>
+        <file>icons/bar_chart.svg</file>
+        <file>icons/battery/0.svg</file>
+        <file>icons/battery/1.svg</file>
+        <file>icons/battery/2.svg</file>
+        <file>icons/battery/3.svg</file>
+        <file>icons/battery/4.svg</file>
+        <file>icons/battery/5.svg</file>
+        <file>icons/battery/6.svg</file>
+        <file>icons/battery/bolt.svg</file>
+        <file>icons/battery/full.svg</file>
+        <file>icons/battery_charging.svg</file>
+        <file>icons/build.svg</file>
+        <file>icons/cable.svg</file>
+        <file>icons/calendar_month.svg</file>
+        <file>icons/cancel.svg</file>
+        <file>icons/cardiology.svg</file>
+        <file>icons/check_indeterminate_small.svg</file>
+        <file>icons/check.svg</file>
+        <file>icons/chevron_backward.svg</file>
+        <file>icons/chevron_forward.svg</file>
+        <file>icons/close.svg</file>
+        <file>icons/co2.svg</file>
+        <file>icons/code_blocks.svg</file>
+        <file>icons/dashboard_2_edit.svg</file>
+        <file>icons/delete_forever.svg</file>
+        <file>icons/deployed_code.svg</file>
+        <file>icons/device_thermostat.svg</file>
+        <file>icons/dishwasher.svg</file>
+        <file>icons/download.svg</file>
+        <file>icons/drag_handle.svg</file>
+        <file>icons/eco.svg</file>
+        <file>icons/edit.svg</file>
+        <file>icons/electric_bolt.svg</file>
+        <file>icons/electric_car.svg</file>
+        <file>icons/electric_meter.svg</file>
+        <file>icons/error.svg</file>
+        <file>icons/euro.svg</file>
+        <file>icons/ev_station.svg</file>
+        <file>icons/extension.svg</file>
+        <file>icons/file_copy.svg</file>
+        <file>icons/finance_mode.svg</file>
+        <file>icons/first_page.svg</file>
+        <file>icons/flowchart.svg</file>
+        <file>icons/functions.svg</file>
+        <file>icons/heat_pump.svg</file>
+        <file>icons/help.svg</file>
+        <file>icons/home.svg</file>
+        <file>icons/hourglass.svg</file>
+        <file>icons/house_with_shield.svg</file>
+        <file>icons/icon_free_text.svg</file>
+        <file>icons/icon_placeholder.svg</file>
+        <file>icons/info.svg</file>
+        <file>icons/input_circle.svg</file>
+        <file>icons/interests.svg</file>
+        <file>icons/keyboard_arrow_down.svg</file>
+        <file>icons/keyboard_arrow_up.svg</file>
+        <file>icons/language.svg</file>
+        <file>icons/last_page.svg</file>
+        <file>icons/laundry.svg</file>
+        <file>icons/light_group.svg</file>
+        <file>icons/local_laundry_service.svg</file>
+        <file>icons/logo_dev.svg</file>
+        <file>icons/menu.svg</file>
+        <file>icons/mobile_gear.svg</file>
+        <file>icons/mode_heat.svg</file>
+        <file>icons/more_time.svg</file>
+        <file>icons/Mqtt.svg</file>
+        <file>icons/network_manage.svg</file>
+        <file>icons/offline_bolt.svg</file>
+        <file>icons/output_circle.svg</file>
+        <file>icons/pin.svg</file>
+        <file>icons/receipt_long.svg</file>
+        <file>icons/savings.svg</file>
+        <file>icons/schedule.svg</file>
+        <file>icons/search.svg</file>
+        <file>icons/settings.svg</file>
+        <file>icons/solar_power.svg</file>
+        <file>icons/strategy.svg</file>
+        <file>icons/style.svg</file>
+        <file>icons/today.svg</file>
+        <file>icons/trending_flat.svg</file>
+        <file>icons/tune.svg</file>
+        <file>icons/visibility_off.svg</file>
+        <file>icons/visibility.svg</file>
+        <file>icons/wand_stars.svg</file>
+        <file>icons/warning.svg</file>
+        <file>icons/water_heater.svg</file>
+        <file>icons/zigbee.svg</file>
+        <file>icons/z-wave.svg</file>
     </qresource>
     <qresource prefix="/ui">
         <file>system/ConsolinnoUsersSettingsPage.qml</file>
@@ -77,6 +173,7 @@
         <file>mainviews/energy/ConsolinnoConsumersHistory.qml</file>
         <file>mainviews/energy/ConsolinnoConsumerStats.qml</file>
         <file>mainviews/energy/ConsolinnoPowerBalanceStats.qml</file>
+        <file>mainviews/energy/CoKpiStats.qml</file>
         <file>mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml</file>
         <file>mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml</file>
         <file>mainviews/energy/ConsolinnoPowerBalanceHistory.qml</file>
@@ -142,7 +239,14 @@
         <file>delegates/ConsolinnoParamDelegate.qml</file>
         <file>thingconfiguration/EpexDayAheadSetup.qml</file>
         <file>utils/DynPricingUtils.js</file>
+        <file>mainviews/CoDashboardView.qml</file>
+        <file>components/CoFrostyCard.qml</file>
+        <file>components/CoInfoCard.qml</file>
         <file>info/ChargingPhaseSwitchingInfo.qml</file>
+        <file>components/CoPowerThingInfoCard.qml</file>
+        <file>components/CoCard.qml</file>
+        <file>components/CoNotification.qml</file>
+        <file>components/CoIconButton.qml</file>
         <file>optimization/DayTimePickerPage.qml</file>
     </qresource>
 </RCC>
