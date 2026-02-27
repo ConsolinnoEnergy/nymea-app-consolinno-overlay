@@ -699,10 +699,6 @@
         <translation>Zeitgesteuertes Laden</translation>
     </message>
     <message>
-        <source>Zeitgesteuertes Laden</source>
-        <translation>Zeitgesteuertes Laden</translation>
-    </message>
-    <message>
         <source>Active</source>
         <translation>Aktiv</translation>
     </message>
@@ -2999,6 +2995,33 @@ Preis- und Entladegrenzen werden auf Basis des Durchschnittspreises berechnet.&l
     <message>
         <source>%1 = %2 + %3 + %4 %5</source>
         <translation>%1 = %2 + %3 + %4 %5</translation>
+    </message>
+</context>
+<context>
+    <name>DayTimePickerPage</name>
+    <message>
+        <source>Time window</source>
+        <translation>Zeitfenster</translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation>Von</translation>
+    </message>
+    <message>
+        <source>To</source>
+        <translation>Bis</translation>
+    </message>
+    <message>
+        <source>The start time must be before the end time.</source>
+        <translation>Die Startzeit muss vor der Endzeit liegen.</translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <translation>Bestätigen</translation>
+    </message>
+    <message>
+        <source>Remove entry</source>
+        <translation>Eintrag entfernen</translation>
     </message>
 </context>
 <context>

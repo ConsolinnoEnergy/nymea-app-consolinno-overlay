@@ -64,7 +64,7 @@ Page {
         // Title
         Label {
             anchors.centerIn: parent
-            text: qsTr("Zeitfenster") + " " + root.dayLabel
+            text: qsTr("Time window") + " " + root.dayLabel
             font.pixelSize: 18
             font.bold: true
             color: Style.foregroundColor
@@ -102,7 +102,7 @@ Page {
                     spacing: 10
 
                     Label {
-                        text: qsTr("Von")
+                        text: qsTr("From")
                         font.pixelSize: 18
                         font.bold: true
                         color: Style.foregroundColor
@@ -187,7 +187,7 @@ Page {
                     spacing: 10
 
                     Label {
-                        text: qsTr("Bis")
+                        text: qsTr("To")
                         font.pixelSize: 18
                         font.bold: true
                         color: Style.foregroundColor
@@ -267,7 +267,7 @@ Page {
                 id: errorLabel
                 Layout.fillWidth: true
                 visible: false
-                text: qsTr("Die Startzeit muss vor der Endzeit liegen.")
+                text: qsTr("The start time must be before the end time.")
                 color: "red"
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignHCenter
@@ -278,7 +278,7 @@ Page {
                 id: confirmButton
                 Layout.fillWidth: true
                 Layout.topMargin: 20
-                text: qsTr("Bestätigen")
+                text: qsTr("Confirm")
 
                 onClicked: {
                     var sh = startHourTumbler.currentIndex
@@ -306,7 +306,7 @@ Page {
             Button {
                 id: removeButton
                 Layout.fillWidth: true
-                text: qsTr("Eintrag entfernen")
+                text: qsTr("Remove entry")
                 flat: true
 
                 contentItem: Label {
