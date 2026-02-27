@@ -28,7 +28,7 @@ Page {
 
     Connections {
         target: hemsManager
-        onSetBatteryConfigurationReply: {
+        onSetBatteryConfigurationReply: function(commandId, error) {
             if (commandId == d.pendingCallId) {
                 d.pendingCallId = -1
 

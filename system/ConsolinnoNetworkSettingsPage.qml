@@ -519,8 +519,8 @@ SettingsPageBase {
                         maximumLength: 32
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignRight
-                        validator: RegExpValidator {
-                            regExp:  /^((?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\.){0,3}(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$/
+                        validator: RegularExpressionValidator {
+                            regularExpression:  /^((?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\.){0,3}(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$/
                        }
                     }
 
@@ -546,8 +546,8 @@ SettingsPageBase {
                     id: defaultGwTextField
                     maximumLength: 32
                     Layout.fillWidth: true
-                    validator: RegExpValidator {
-                        regExp:  /^((?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\.){0,3}(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$/
+                    validator: RegularExpressionValidator {
+                        regularExpression:  /^((?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\.){0,3}(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$/
                    }
                 }
 
@@ -559,8 +559,8 @@ SettingsPageBase {
                     id: dnsTextField
                     maximumLength: 32
                     Layout.fillWidth: true
-                    validator: RegExpValidator {
-                        regExp:  /^((?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\.){0,3}(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$/
+                    validator: RegularExpressionValidator {
+                        regularExpression:  /^((?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\.){0,3}(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$/
                    }
                 }
             }

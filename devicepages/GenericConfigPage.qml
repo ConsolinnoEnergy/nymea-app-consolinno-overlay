@@ -114,7 +114,7 @@ Item {
             model: menuListModel
 
             Item {
-                width: ListView.view.width
+                width: menu.width
                 height: 56
 
                 RowLayout {

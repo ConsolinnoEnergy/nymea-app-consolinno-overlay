@@ -27,7 +27,7 @@ Page {
 
     Connections {
         target: hemsManager
-        onSetHeatingElementConfigurationReply: {
+        onSetHeatingElementConfigurationReply: function(commandId, error) {
 
             if (commandId === d.pendingCallId) {
                 d.pendingCallId = -1
