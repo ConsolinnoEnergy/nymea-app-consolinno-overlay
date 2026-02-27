@@ -425,7 +425,7 @@ StatsBase {
 
                             Image {
                                 id: sunIcon
-                                source: "qrc:/ui/images/"+Configuration.inverterIcon
+                                source: Configuration.inverterIcon !== "" ? "qrc:/ui/images/"+Configuration.inverterIcon : ""
                                 width: sun.size
                                 height: sun.size
                                 visible: Configuration.inverterIcon !== ""
@@ -467,7 +467,7 @@ StatsBase {
 
                                 Image {
                                     id: gridDown
-                                    source: "qrc:/ui/images/"+Configuration.gridIcon
+                                    source: Configuration.gridIcon !== "" ? "qrc:/ui/images/"+Configuration.gridIcon : ""
                                     width: gridDownID.size
                                     height: gridDownID.size
                                     visible: Configuration.gridIcon !== ""
@@ -549,7 +549,7 @@ StatsBase {
 
                                 Image {
                                     id: gridUp
-                                    source: "qrc:/ui/images/"+Configuration.gridIcon
+                                    source: Configuration.gridIcon !== "" ? "qrc:/ui/images/"+Configuration.gridIcon : ""
                                     width: gridUpID.size
                                     height: gridUpID.size
                                     visible: Configuration.gridIcon !== ""

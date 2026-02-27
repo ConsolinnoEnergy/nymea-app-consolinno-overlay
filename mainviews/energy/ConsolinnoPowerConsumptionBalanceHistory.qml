@@ -68,7 +68,7 @@ Item {
     Connections {
         target: powerBalanceLogs
 
-        onEntriesAdded: {
+        onEntriesAdded: function(index, entries) {
 //            print("entries added", index, entries.length)
             for (var i = 0; i < entries.length; i++) {
                 var entry = entries[i]
@@ -86,7 +86,7 @@ Item {
             }
         }
 
-        onEntriesRemoved: {
+        onEntriesRemoved: function(index, count) {
             acquisitionUpperSeries.removePoints(index, count)
             storageUpperSeries.removePoints(index, count)
             selfProductionUpperSeries.removePoints(index, count)
@@ -297,7 +297,7 @@ Item {
                     axisY: valueAxis
                     color: totalColors[1]
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     name: qsTr("From PV")
             //      visible: false
 
@@ -361,7 +361,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.batteryDischargeColor
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     name: qsTr("From Battery")
                     visible: root.batteries.count > 0
 
@@ -389,7 +389,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.rootMeterAcquisitionColor
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     name: qsTr("From grid")
             //      visible: false
 
