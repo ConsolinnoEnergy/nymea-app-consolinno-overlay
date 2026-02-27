@@ -38,7 +38,7 @@ Page{
 
     Flickable {
         anchors.fill: parent
-        contentHeight: mainColumnLayout.height
+        contentHeight: mainColumnLayout.implicitHeight
         clip: true
 
 

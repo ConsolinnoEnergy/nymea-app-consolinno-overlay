@@ -82,7 +82,7 @@ Page{
         anchors.top: parent.top
         width: parent.width
         height: parent.height
-        contentHeight: inventory.height
+        contentHeight: inventory.implicitHeight
         contentWidth: app.width
 
 

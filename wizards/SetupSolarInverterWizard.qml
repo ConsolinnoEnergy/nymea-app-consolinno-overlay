@@ -174,7 +174,7 @@ Page {
                 id: energyMeterFlickable
                 clip: true
                 Layout.fillWidth: true
-                contentHeight: energyMeterList.height
+                contentHeight: energyMeterList.implicitHeight
                 contentWidth: energyMeterList.width
                 visible: emProxy.count !== 0
 

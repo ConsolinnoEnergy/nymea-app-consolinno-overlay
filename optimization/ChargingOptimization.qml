@@ -29,7 +29,7 @@ Page {
         id: wallboxflickable
         clip: true
         anchors.fill: parent
-        contentHeight: wallboxRepeaterColumLayout.height + header.height
+        contentHeight: flickableContentLayout.implicitHeight
         contentWidth: app.width
 
 
@@ -37,6 +37,7 @@ Page {
         flickableDirection: Flickable.VerticalFlick
 
         ColumnLayout{
+            id: flickableContentLayout
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top

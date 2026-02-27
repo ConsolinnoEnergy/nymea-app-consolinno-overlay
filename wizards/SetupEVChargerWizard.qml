@@ -117,7 +117,7 @@ Page {
                 id: evChargerFlickable
                 clip: true
                 Layout.fillWidth: true
-                contentHeight: evChargerList.height
+                contentHeight: evChargerList.implicitHeight
                 contentWidth: evChargerList.width
                 visible: evProxy.count !== 0
 
