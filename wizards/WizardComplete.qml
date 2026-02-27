@@ -9,7 +9,6 @@ ConsolinnoWizardPageBase {
 
 //    headerBackgroundColor: "white"
     headerLabel: qsTr("Installed Devices")
-    background: Item {}
 
     property HemsManager hemsManager: null
 

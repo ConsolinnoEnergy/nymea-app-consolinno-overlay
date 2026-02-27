@@ -7,6 +7,8 @@ import QtQuick.Layouts
 Page {
     id: root
 
+    background: Rectangle { color: Style.backgroundColor }
+
     property alias content: contentContainer.children
     property alias showNextButton: nextButton.visible
     property alias nextButtonText: nextLabel.text
