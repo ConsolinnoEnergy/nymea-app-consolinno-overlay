@@ -294,7 +294,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.consumedColor
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     name: qsTr("Consumed")
             //        visible: false
 
@@ -355,7 +355,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.batteryChargeColor
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     visible: root.batteries.count > 0
                     name: qsTr("To battery")
 
@@ -384,7 +384,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.rootMeterReturnColor
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     name: qsTr("To grid")
             //        visible: false
 

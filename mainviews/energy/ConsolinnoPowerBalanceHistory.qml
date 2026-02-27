@@ -287,7 +287,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : totalColors[1]
 //                    borderWidth: 2
-                    borderColor: null
+                    borderColor: "transparent"
                     name: qsTr("From PV")
                     opacity: d.selectedSeries == null || d.selectedSeries == selfProductionConsumptionSeries ? 1 : 0.3
             //        visible: false
@@ -350,7 +350,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.customColor && Configuration.customBatteryPlusColor !== "" ? Configuration.customBatteryPlusColor : totalColors[4]
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     opacity: d.selectedSeries == null || d.selectedSeries == toStorageSeries ? 1 : 0.3
                     visible: root.batteries.count > 0
                     name: qsTr("To battery")
@@ -380,7 +380,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     name: qsTr("To grid")
                     opacity: d.selectedSeries == null || d.selectedSeries == returnSeries ? 1 : 0.3
             //        visible: false
@@ -409,7 +409,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.customColor && Configuration.customBatteryMinusColor !== "" ? Configuration.customBatteryMinusColor : totalColors[5]
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     name: qsTr("From battery")
                     opacity: d.selectedSeries == null || d.selectedSeries == fromStorageSeries ? 1 : 0.3
                     visible: root.batteries.count > 0
@@ -438,7 +438,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2]
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     name: qsTr("From grid")
                     opacity: d.selectedSeries == null || d.selectedSeries == acquisitionSeries ? 1 : 0.3
             //      visible: false
