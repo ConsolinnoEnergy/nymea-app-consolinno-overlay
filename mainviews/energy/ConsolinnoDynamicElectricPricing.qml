@@ -394,6 +394,7 @@ Item {
 
                         function insertEntry(idx, entry) {
 //                            print("inserting entry for", thing.name, entry.timestamp)
+                            if (!consumerDelegate.series) return
 
                             var baseValue = calculateBaseValue(entry.timestamp);
                             series.lowerSeries.insert(idx, entry.timestamp.getTime(), baseValue)
@@ -402,6 +403,7 @@ Item {
 
                         function addEntries(index, entries) {
 //                            print("adding entries for", thing.name)
+                            if (!consumerDelegate.series) return
                             // Remove the leading 0-value entry
                             series.lowerSeries.removePoints(0, 1);
                             series.upperSeries.removePoints(0, 1);
@@ -437,6 +439,7 @@ Item {
                             }
 
                             onEntriesRemoved: function(index, count) {
+                                if (!consumerDelegate.series) return
                                 // Remove the leading 0-value entry
                                 consumerDelegate.series.lowerSeries.removePoints(0, 1);
                                 consumerDelegate.series.upperSeries.removePoints(0, 1);
@@ -457,7 +460,10 @@ Item {
                             id: addTimer
                             interval: 1000
                             repeat: false
-                            onTriggered: consumerDelegate.addEntries(index, entries)
+                            onTriggered: {
+                                if (!consumerDelegate.series) return
+                                consumerDelegate.addEntries(index, entries)
+                            }
                             property int index
                             property var entries
                             function addEntries(index, entries) {
@@ -484,7 +490,10 @@ Item {
                         }
 
                         Component.onDestruction: {
-                            chartView.removeSeries(series)
+                            addTimer.stop()
+                            var s = series
+                            series = null
+                            if (s) chartView.removeSeries(s)
                         }
                     }
                 }
