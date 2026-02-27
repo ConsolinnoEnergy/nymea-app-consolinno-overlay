@@ -156,6 +156,8 @@ Item {
 
                 legend.visible: false
 
+                Component.onDestruction: currentValueTimer.running = false
+
                 ActivityIndicator {
                     id: noDataIndicator
                     x: chartView.plotArea.x + (chartView.plotArea.width - width) / 2
@@ -375,6 +377,7 @@ Item {
                 }
 
                 Timer {
+                    id: currentValueTimer
                     property bool isOn: false
                     interval: isOn ? 60000 : 100
                     running: true
