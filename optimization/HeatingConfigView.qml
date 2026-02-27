@@ -25,10 +25,17 @@ GenericConfigPage {
     }
 
     function saveSettings() {
-        var newConfig = JSON.parse(JSON.stringify(heatingconfig));
-        newConfig.priceThreshold = -heatpumpPriceWidget.currentRelativeValue;
-        newConfig.optimizationMode = optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).enumname;
-        newConfig.relativePriceEnabled = true;
+        var newConfig = {
+            "heatPumpThingId":       heatingconfig.heatPumpThingId,
+            "optimizationEnabled":   heatingconfig.optimizationEnabled,
+            "floorHeatingArea":      heatingconfig.floorHeatingArea,
+            "maxThermalEnergy":      heatingconfig.maxThermalEnergy,
+            "maxElectricalPower":    heatingconfig.maxElectricalPower,
+            "controllableLocalSystem": heatingconfig.controllableLocalSystem,
+            "priceThreshold":        -heatpumpPriceWidget.currentRelativeValue,
+            "relativePriceEnabled":  true,
+            "optimizationMode":      optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).enumname
+        };
         console.info("Saving new heating configuration: " + JSON.stringify(newConfig));
         rootObject.pendingCallId = hemsManager.setHeatingConfiguration(thing.id, newConfig);
     }
