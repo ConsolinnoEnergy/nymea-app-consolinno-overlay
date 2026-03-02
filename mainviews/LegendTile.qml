@@ -101,14 +101,14 @@ MouseArea {
             if(Configuration.heatpumpIcon !== ""){
                 icon = "qrc:/ui/images/"+Configuration.heatpumpIcon
             }else{
-                icon = "qrc:/icons/heatpump.svg"
+                icon = "qrc:/icons/heat_pump.svg"
             }
             return Qt.resolvedUrl(icon)
         case "heatingrod":
             if(Configuration.heatingRodIcon !== ""){
                 icon = "/ui/images/"+Configuration.heatingRodIcon
             }else{
-                icon = "/icons/heating_rod.svg"
+                icon = "/icons/water_heater.svg"
             }
             return Qt.resolvedUrl(icon)
         case "energystorage":
@@ -143,7 +143,7 @@ MouseArea {
             if(Configuration.gridIcon !== ""){
                 icon = "/ui/images/"+Configuration.gridIcon;
             }else{
-                icon = "/icons/grid.svg"
+                icon = "/icons/electric_meter.svg"
             }
             return Qt.resolvedUrl(icon);
         }
@@ -151,7 +151,7 @@ MouseArea {
             if(Configuration.energyIcon !== ""){
                 icon = "/ui/images/"+Configuration.energyIcon;
             }else{
-                icon = "/icons/energy.svg"
+                icon = "/icons/electric_bolt.svg"
             }
             return Qt.resolvedUrl(icon);
         }

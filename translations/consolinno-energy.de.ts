@@ -695,6 +695,42 @@
         <translation>pausieren</translation>
     </message>
     <message>
+        <source>Time controlled</source>
+        <translation>Zeitgesteuertes Laden</translation>
+    </message>
+    <message>
+        <source>Active</source>
+        <translation>Aktiv</translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation>Montag</translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation>Dienstag</translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation>Mittwoch</translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation>Donnerstag</translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation>Freitag</translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation>Samstag</translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation>Sonntag</translation>
+    </message>
+    <message>
         <source>Number of phases:</source>
         <translation>Phasenanzahl:</translation>
     </message>
@@ -2962,6 +2998,33 @@ Preis- und Entladegrenzen werden auf Basis des Durchschnittspreises berechnet.&l
     </message>
 </context>
 <context>
+    <name>DayTimePickerPage</name>
+    <message>
+        <source>Time window</source>
+        <translation>Zeitfenster</translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation>Von</translation>
+    </message>
+    <message>
+        <source>To</source>
+        <translation>Bis</translation>
+    </message>
+    <message>
+        <source>The start time must be before the end time.</source>
+        <translation>Die Startzeit muss vor der Endzeit liegen.</translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <translation>Bestätigen</translation>
+    </message>
+    <message>
+        <source>Remove entry</source>
+        <translation>Eintrag entfernen</translation>
+    </message>
+</context>
+<context>
     <name>DebugCharts</name>
     <message>
         <source>Debug Charts</source>
@@ -4760,6 +4823,49 @@ Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 
     <message>
         <source>Zero Compensation</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CoKpiStats</name>
+    <message>
+        <source>KPI Statistics</source>
+        <translation>KPI-Statistiken</translation>
+    </message>
+    <message>
+        <source>Self-sufficiency</source>
+        <translation>Autarkie</translation>
+    </message>
+    <message>
+        <source>Self-consumption</source>
+        <translation>Eigenverbrauch</translation>
+    </message>
+    <message>
+        <source>Self-sufficiency: %1%</source>
+        <translation>Autarkie: %1%</translation>
+    </message>
+    <message>
+        <source>Self-consumption: %1%</source>
+        <translation>Eigenverbrauch: %1%</translation>
+    </message>
+    <message>
+        <source>Hours</source>
+        <translation>Stunden</translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation>Tage</translation>
+    </message>
+    <message>
+        <source>Weeks</source>
+        <translation>Wochen</translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation>Monate</translation>
+    </message>
+    <message>
+        <source>Years</source>
+        <translation>Jahre</translation>
     </message>
 </context>
 </TS>

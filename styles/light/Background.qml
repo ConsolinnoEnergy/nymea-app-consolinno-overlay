@@ -2,5 +2,5 @@ import QtQuick
 import Nymea 1.0
 
 Rectangle {
-    color: Style.backgroundColor
+    color: Style.colors.menu_Header_Footer_Background
 }

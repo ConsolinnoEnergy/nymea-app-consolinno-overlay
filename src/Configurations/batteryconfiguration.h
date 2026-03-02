@@ -70,7 +70,6 @@ public:
     int blockBatteryOnGridConsumption() const;
     void setBlockBatteryOnGridConsumption(int blockBatteryOnGridConsumption);
 
-
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void priceThresholdChanged(float priceThreshold);

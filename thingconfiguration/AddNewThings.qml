@@ -255,42 +255,42 @@ Page {
                             if(Configuration.heatpumpIcon !== ""){
                                 icon = "/ui/images/"+Configuration.heatpumpIcon
                             }else{
-                                icon = "/icons/heatpump.svg"
+                                icon = "/icons/heat_pump.svg"
                             }
                             return Qt.resolvedUrl(icon)
                         case "heatingrod":
                             if(Configuration.heatingRodIcon !== ""){
                                 icon = "/ui/images/"+Configuration.heatingRodIcon
                             }else{
-                                icon = "/icons/heating_rod.svg"
+                                icon = "/icons/water_heater.svg"
                             }
                             return Qt.resolvedUrl(icon)
                         case "controllablebattery":
                             if(Configuration.batteryIcon !== ""){
                                 icon = "/ui/images/"+Configuration.batteryIcon
                             }else{
-                                icon = "/icons/battery/battery-080.svg"
+                                icon = "/icons/battery/battery-080.svg" // #TODO use battery icons from new design
                             }
                             return Qt.resolvedUrl(icon)
                         case "limitablebattery":
                             if(Configuration.batteryIcon !== ""){
                                 icon = "/ui/images/"+Configuration.batteryIcon
                             }else{
-                                icon = "/icons/battery/battery-080.svg"
+                                icon = "/icons/battery/battery-080.svg" // #TODO use battery icons from new design
                             }
                             return Qt.resolvedUrl(icon)
                         case "battery":
                             if(Configuration.batteryIcon !== ""){
                                 icon = "/ui/images/"+Configuration.batteryIcon
                             }else{
-                                icon = "/icons/battery/battery-080.svg"
+                                icon = "/icons/battery/battery-080.svg" // #TODO use battery icons from new design
                             }
                             return Qt.resolvedUrl(icon)
                         case "energystorage":
                             if(Configuration.batteryIcon !== ""){
                                 icon = "/ui/images/"+Configuration.batteryIcon
                             }else{
-                                icon = "/icons/battery/battery-080.svg"
+                                icon = "/icons/battery/battery-080.svg" // #TODO use battery icons from new design
                             }
                             return Qt.resolvedUrl(icon)
                         case "evcharger":

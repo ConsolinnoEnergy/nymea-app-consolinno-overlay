@@ -5,6 +5,7 @@ import QtQuick.Layouts
 import Nymea 1.0
 import "../components"
 import "../delegates"
+import QtQml 2.15
 
 
 Page {
@@ -15,6 +16,29 @@ Page {
     property int directionID: 0
     property bool isSetup: false
     signal done()
+
+    function buildMeterModel() {
+        meterModel.clear();
+        meterModel.append({ text: qsTr("No meter"), thingId: "" });
+        for (let i = 0; i < smartMeterConsumerProxy.count; i++) {
+            let t = smartMeterConsumerProxy.get(i);
+            if (t.thingClass.interfaces.indexOf("hideable") >= 0) {
+                meterModel.append({ text: t.name, thingId: t.id.toString() });
+            }
+        }
+        if (!heatingConfiguration) {
+            heatMeterDropdown.currentIndex = 0;
+            return;
+        }
+        let currentId = heatingConfiguration.heatMeterThingId.toString();
+        for (let j = 0; j < meterModel.count; j++) {
+            if (meterModel.get(j).thingId === currentId) {
+                heatMeterDropdown.currentIndex = j;
+                return;
+            }
+        }
+        heatMeterDropdown.currentIndex = 0;
+    }
 
     //property bool heatMeterIncluded: heatPumpThing.thingClass.interfaces.includes("heatmeter")
     // TODO: only if any configuration has changed, warn also on leaving if unsaved settings
@@ -171,6 +195,23 @@ Page {
             }
         }
 
+        RowLayout {
+            Layout.fillWidth: true
+            visible: heatPumpThing.thingClass.interfaces.includes("smartmeterconsumerassignable")
+
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("Electricity meter")
+            }
+
+            ConsolinnoDropdown {
+                id: heatMeterDropdown
+                Layout.preferredWidth: 150
+                textRole: "text"
+                model: ListModel { id: meterModel }
+            }
+        }
+
         Item {
             // place holder
             Layout.fillHeight: true
@@ -258,9 +299,15 @@ Page {
                 inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
                 if (savebutton.validated)
                 {
-                    // TODO: enum mapping is still a workaround - heatingConfiguration.optimizationMode
-                    // returns an int, but setHeatingConfiguration expects a string enum name.
-                    // Fix properly by handling the mapping in C++ (HemsManager or HeatingConfiguration).
+                   
+                    const newConfig = JSON.parse(JSON.stringify(heatingConfiguration));
+                    newConfig.maxElectricalPower = +inputText;
+                    newConfig.controllableLocalSystem = gridSupportControl.checked;
+                    newConfig.heatMeterThingId = meterModel.get(heatMeterDropdown.currentIndex).thingId;
+
+                    // TODO this is terrible fix the enum mapping properly
+                    // We just want to keep the current value
+                    // Mapping: number -> enum name
                     const optimizationModeMap = {
                       0: "OptimizationModePVSurplus",
                       1: "OptimizationModeDynamicPricing",
@@ -312,6 +359,17 @@ Page {
 
 
 
+    }
+
+    ThingsProxy {
+        id: smartMeterConsumerProxy
+        engine: _engine
+        shownInterfaces: ["smartmeterconsumer"]
+        onCountChanged: buildMeterModel()
+    }
+
+    Component.onCompleted: {
+        buildMeterModel();
     }
 }
 

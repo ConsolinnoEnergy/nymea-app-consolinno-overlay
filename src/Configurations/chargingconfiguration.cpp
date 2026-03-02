@@ -1,4 +1,5 @@
 #include "chargingconfiguration.h"
+#include <QJsonDocument>
 
 ChargingConfiguration::ChargingConfiguration(QObject *parent) : QObject(parent)
 {
@@ -132,6 +133,23 @@ void ChargingConfiguration::setPriceThreshold(float priceThreshold) {
     emit priceThresholdChanged(m_priceThreshold);
 }
 
+QString ChargingConfiguration::chargingSchedule() const {
+    return m_chargingSchedule;
+}
+
+void ChargingConfiguration::setChargingSchedule(const QString &chargingSchedule) {
+    // Semantischer JSON-Vergleich: zwei Strings können textuell unterschiedlich
+    // sein (Whitespace, Schlüsselreihenfolge), aber denselben Zeitplan beschreiben.
+    // QJsonDocument::operator== vergleicht die Struktur, nicht den Rohstring.
+    QJsonDocument oldDoc = QJsonDocument::fromJson(m_chargingSchedule.toUtf8());
+    QJsonDocument newDoc = QJsonDocument::fromJson(chargingSchedule.toUtf8());
+    if (oldDoc == newDoc)
+        return;
+
+    m_chargingSchedule = chargingSchedule;
+    emit chargingScheduleChanged(m_chargingSchedule);
+}
+
 uint ChargingConfiguration::desiredPhaseCount() const
 {
     return m_desiredPhaseCount;
@@ -143,7 +161,3 @@ void ChargingConfiguration::setDesiredPhaseCount(uint desiredPhaseCount)
     m_desiredPhaseCount = desiredPhaseCount;
     emit desiredPhaseCountChanged(m_desiredPhaseCount);
 }
-
-
-
-

@@ -40,7 +40,8 @@ GenericConfigPage {
         PV_OPTIMIZED = 1,
         PV_EXCESS = 2,
         SIMPLE_PV_EXCESS = 3,
-        DYN_PRICING = 4
+        DYN_PRICING = 4,
+        TIME_CONTROLLED = 5
     }
 
     property int no_optimization: ChargingConfigView.ChargingMode.NO_OPTIMIZATION
@@ -48,7 +49,49 @@ GenericConfigPage {
     property int pv_excess: ChargingConfigView.ChargingMode.PV_EXCESS
     property int simple_pv_excess: ChargingConfigView.ChargingMode.SIMPLE_PV_EXCESS
     property int dyn_pricing: ChargingConfigView.ChargingMode.DYN_PRICING
+    property int time_controlled: ChargingConfigView.ChargingMode.TIME_CONTROLLED
     property ConEMSState conState: hemsManager.conEMSState
+
+    // Model for schedule overview in status section
+    ListModel {
+        id: scheduleOverviewModel
+    }
+
+    function parseScheduleForOverview() {
+        scheduleOverviewModel.clear()
+        if (!chargingIsAnyOf([time_controlled])) return
+
+        var scheduleJson = chargingConfiguration.chargingSchedule
+        if (scheduleJson === "" || scheduleJson === undefined || scheduleJson === "null") return
+
+        var dayLabels = {
+            "monday": qsTr("Monday"),
+            "tuesday": qsTr("Tuesday"),
+            "wednesday": qsTr("Wednesday"),
+            "thursday": qsTr("Thursday"),
+            "friday": qsTr("Friday"),
+            "saturday": qsTr("Saturday"),
+            "sunday": qsTr("Sunday")
+        }
+
+        try {
+            var schedule = JSON.parse(scheduleJson)
+            for (var i = 0; i < schedule.length; i++) {
+                var entry = schedule[i]
+                if (entry.startTime && entry.endTime) {
+                    // Skip entries with no actual time set (00:00 - 00:00)
+                    if (entry.startTime === "00:00" && entry.endTime === "00:00") continue
+                    var label = dayLabels[entry.day] || entry.day
+                    scheduleOverviewModel.append({
+                        timeText: entry.startTime + "–" + entry.endTime + " Uhr",
+                        dayText: label
+                    })
+                }
+            }
+        } catch (e) {
+            console.error("Failed to parse charging schedule for overview:", e)
+        }
+    }
 
     function timer() {
         return Qt.createQmlObject("import QtQuick; Timer {}", root);
@@ -168,10 +211,13 @@ GenericConfigPage {
                     initializing = false
                 }
                 else if(chargingConfiguration.optimizationEnabled){
-                    if (chargingIsAnyOf([simple_pv_excess, no_optimization, dyn_pricing]))
+                    if (chargingIsAnyOf([simple_pv_excess, no_optimization, dyn_pricing, time_controlled]))
                     {
                         status.visible = thing.stateByName("pluggedIn")
-                        initializing = true
+                        initializing = chargingIsAnyOf([time_controlled]) ? false : true
+                        if (chargingIsAnyOf([time_controlled])) {
+                            busyOverlay.shown = false
+                        }
                         batteryLevelRowLayout.visible = false
                         energyBatteryLayout.visible = false
                         if (settings.showHiddenOptions)
@@ -276,6 +322,9 @@ GenericConfigPage {
         }
         if (opti_mode >= 4000 && opti_mode < 5000) {
             return dyn_pricing 
+        }
+        if (opti_mode >= 5000 && opti_mode < 6000) {
+            return time_controlled
         }
     }
 
@@ -483,9 +532,42 @@ GenericConfigPage {
                                 {
                                     return qsTr("Dynamic pricing")
                                 }
+                                else if (chargingIsAnyOf([time_controlled]))
+                                {
+                                    return qsTr("Time controlled")
+                                }
                             }
                         }
                     }
+
+                    // Schedule overview for time-controlled mode - show only days with time entries
+                    Repeater {
+                        model: scheduleOverviewModel
+                        delegate: ColumnLayout {
+                            Layout.fillWidth: true
+                            Layout.topMargin: 15
+                            visible: chargingIsAnyOf([time_controlled]) && chargingConfiguration.optimizationEnabled
+
+                            Label {
+                                text: model.timeText
+                                font.pixelSize: 16
+                            }
+                            Label {
+                                text: model.dayText
+                                font.pixelSize: 12
+                                color: Style.subTextColor
+                            }
+                        }
+                    }
+
+                    Connections {
+                        target: chargingConfiguration
+                        onChargingScheduleChanged: parseScheduleForOverview()
+                        onOptimizationModeChanged: parseScheduleForOverview()
+                        onOptimizationEnabledChanged: parseScheduleForOverview()
+                    }
+
+                    Component.onCompleted: parseScheduleForOverview()
 
                     RowLayout{
                         Layout.topMargin: 15
@@ -721,7 +803,12 @@ GenericConfigPage {
 
                                 Label{
                                     id: description
-                                    text: initializing ? qsTr("Initialising") : (status.state === 2 ? qsTr("Running") : (status.state === 3 ? qsTr("Finished") : (status.state === 4 ? qsTr("Interrupted") : (status.state === 6 ? qsTr("Pending") :  qsTr("Failed")  ))))
+                                    text: {
+                                        if (chargingIsAnyOf([time_controlled])) {
+                                            return qsTr("Active")
+                                        }
+                                        return initializing ? qsTr("Initialising") : (status.state === 2 ? qsTr("Running") : (status.state === 3 ? qsTr("Finished") : (status.state === 4 ? qsTr("Interrupted") : (status.state === 6 ? qsTr("Pending") :  qsTr("Failed")  ))))
+                                    }
                                     color: "white"
                                     anchors.centerIn: parent
                                 }
@@ -994,8 +1081,68 @@ GenericConfigPage {
                         return (modes.includes(selected_mode))
                     }
 
+                    ListModel {
+                        id: scheduleModel
+                    }
+
+                    function initScheduleModel() {
+                        var days = [
+                            { dayKey: "monday",    dayLabel: qsTr("Monday") },
+                            { dayKey: "tuesday",   dayLabel: qsTr("Tuesday") },
+                            { dayKey: "wednesday", dayLabel: qsTr("Wednesday") },
+                            { dayKey: "thursday",  dayLabel: qsTr("Thursday") },
+                            { dayKey: "friday",    dayLabel: qsTr("Friday") },
+                            { dayKey: "saturday",  dayLabel: qsTr("Saturday") },
+                            { dayKey: "sunday",    dayLabel: qsTr("Sunday") }
+                        ]
+                        scheduleModel.clear()
+                        for (var i = 0; i < days.length; i++) {
+                            scheduleModel.append({
+                                dayKey: days[i].dayKey,
+                                dayLabel: days[i].dayLabel,
+                                startTime: "",
+                                endTime: "",
+                                hasEntry: false
+                            })
+                        }
+                    }
+
+                    function restoreSchedule() {
+                        var scheduleJson = chargingConfiguration.chargingSchedule
+                        console.log("Restoring schedule:", scheduleJson)
+                        if (scheduleJson === "" || scheduleJson === undefined || scheduleJson === "null") return
+
+                        try {
+                            var schedule = JSON.parse(scheduleJson)
+                            var weekdays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+
+                            for (var i = 0; i < weekdays.length; i++) {
+                                var currentDay = weekdays[i]
+                                var entry = schedule.find(function(e) { return e.day === currentDay })
+
+                                if (entry && entry.startTime && entry.endTime) {
+                                    var hasTime = !(entry.startTime === "00:00" && entry.endTime === "00:00")
+                                    if (i < scheduleModel.count) {
+                                        scheduleModel.setProperty(i, "startTime", entry.startTime)
+                                        scheduleModel.setProperty(i, "endTime", entry.endTime)
+                                        scheduleModel.setProperty(i, "hasEntry", hasTime)
+                                    }
+                                }
+                            }
+                        } catch (e) {
+                            console.error("Failed to parse charging schedule:", e)
+                        }
+                    }
+
+                    Connections {
+                        target: chargingConfiguration
+                        onChargingScheduleChanged: restoreSchedule()
+                    }
+
                     Component.onCompleted:{
+                        initScheduleModel()
                         endTimeSlider.feasibilityText()
+                        restoreSchedule()
                     }
 
                     header: NymeaHeader {
@@ -1101,7 +1248,8 @@ GenericConfigPage {
                                     { key: qsTr("Charge always"), value: "No Optimization", mode: 0 },
                                     { key: qsTr("Solar only"), value: "Simple-Pv-Only", mode: 3000 },
                                     { key: qsTr("Next trip"), value: "Pv-Optimized", mode: 1000 },
-                                    { key: qsTr("Dynamic pricing"), value: "Dynamic-pricing", mode: 4000 }
+                                    { key: qsTr("Dynamic pricing"), value: "Dynamic-pricing", mode: 4000 },
+                                    { key: qsTr("Time controlled"), value: "Time-Controlled", mode: 5000 }
                                 ]
 
                                 // The model actually bound to the ComboBox
@@ -1126,6 +1274,8 @@ GenericConfigPage {
                                         else if ((item.mode === 1000 || item.mode === 3000) && pvEnabled)
                                             dynamicModel.append(item)
                                         else if (item.mode === 4000 && dynEnabled)
+                                            dynamicModel.append(item)
+                                        else if (item.mode === 5000)
                                             dynamicModel.append(item)
                                     }
                                     // Check which charging mode is currently set and update currentIndex accordingly
@@ -1273,19 +1423,18 @@ GenericConfigPage {
                                 visible:  isAnyOfModesSelected([pv_optimized, pv_excess])
                                 ColumnLayout {
                                     spacing: 0
-                                    Row{
-                                        Label {
-                                            id: targetCharge
+                        Row{
+                            spacing: 5
+                            Label {
+                                id: targetCharge
 
-                                            text: qsTr("Target charge %1%").arg(targetPercentageSlider.value)
-                                        }
+                                text: qsTr("Target charge %1%").arg(targetPercentageSlider.value)
+                            }
 
-                                        InfoButton{
-                                            push: "TargetChargeInfo.qml"
-                                            anchors.left: targetCharge.right
-                                            anchors.leftMargin:  5
-                                        }
-                                    }
+                            InfoButton{
+                                push: "TargetChargeInfo.qml"
+                            }
+                        }
 
                                     Slider {
                                         id: targetPercentageSlider
@@ -1459,6 +1608,52 @@ GenericConfigPage {
 
                         }
 
+                        // Time Controlled Mode Schedule
+                        ColumnLayout {
+                            Layout.fillWidth: true
+                            Layout.leftMargin: -app.margins
+                            Layout.rightMargin: -app.margins
+                            visible: isAnyOfModesSelected([time_controlled])
+                            spacing: 0
+
+                            Repeater {
+                                id: weekdayRepeater
+                                model: scheduleModel
+
+                                delegate: ConsolinnoSwipeDelegate {
+                                    Layout.fillWidth: true
+                                    text: model.hasEntry ? model.startTime + "–" + model.endTime + " Uhr" : "—"
+                                    subText: model.dayLabel
+                                    progressive: true
+                                    canDelete: model.hasEntry
+
+                                    onDeleteClicked: {
+                                        scheduleModel.setProperty(index, "hasEntry", false)
+                                        scheduleModel.setProperty(index, "startTime", "")
+                                        scheduleModel.setProperty(index, "endTime", "")
+                                    }
+
+                                    onClicked: {
+                                        var dayIndex = index
+                                        var page = pageStack.push(Qt.resolvedUrl("DayTimePickerPage.qml"), {
+                                            dayLabel: model.dayLabel,
+                                            initialStartTime: model.hasEntry ? model.startTime : "",
+                                            initialEndTime: model.hasEntry ? model.endTime : ""
+                                        })
+                                        page.timeSelected.connect(function(startTime, endTime) {
+                                            scheduleModel.setProperty(dayIndex, "startTime", startTime)
+                                            scheduleModel.setProperty(dayIndex, "endTime", endTime)
+                                            scheduleModel.setProperty(dayIndex, "hasEntry", true)
+                                        })
+                                        page.entryRemoved.connect(function() {
+                                            scheduleModel.setProperty(dayIndex, "hasEntry", false)
+                                            scheduleModel.setProperty(dayIndex, "startTime", "")
+                                            scheduleModel.setProperty(dayIndex, "endTime", "")
+                                        })
+                                    }
+                                }
+                            }
+                        }
                         RowLayout {
                             Layout.preferredWidth: app.width
                             Layout.topMargin: 10
@@ -1517,6 +1712,7 @@ GenericConfigPage {
                             visible: isAnyOfModesSelected([dyn_pricing])
 
                             RowLayout {
+                                id: priceRow
 
                                 Label {
                                     id: priceLimitigId
@@ -1540,7 +1736,7 @@ GenericConfigPage {
                             visible: isAnyOfModesSelected([dyn_pricing])
 
                             RowLayout {
-                                id: priceRow
+                                id: averagePriceRow
 
                                 Label {
                                     id: averagePriceLimitigId
@@ -1579,12 +1775,12 @@ GenericConfigPage {
                                             text: qsTr("-")
                                             onClicked: {
                                                 currentValue = currentValue > -100 ? currentValue - 1 : -100
-                                                priceRow.getThresholdPrice()
+                                                averagePriceRow.getThresholdPrice()
                                                 parent.redrawChart();
                                             }
                                             onPressAndHold: {
                                                 currentValue = currentValue > -100 ? currentValue - 10 : -100
-                                                priceRow.getThresholdPrice()
+                                                averagePriceRow.getThresholdPrice()
                                                 parent.redrawChart();
                                             }
                                         }
@@ -1600,7 +1796,7 @@ GenericConfigPage {
                                             }
                                             onTextChanged: {
                                                 currentValue = currentValueField.text
-                                                priceRow.getThresholdPrice()
+                                                averagePriceRow.getThresholdPrice()
                                                 parent.redrawChart();
                                             }
                                         }
@@ -1613,12 +1809,12 @@ GenericConfigPage {
                                             text: qsTr("+")
                                             onClicked: {
                                                 currentValue = currentValue < 100 ? currentValue + 1 : 100
-                                                priceRow.getThresholdPrice()
+                                                averagePriceRow.getThresholdPrice()
                                                 parent.redrawChart();
                                             }
                                             onPressAndHold: {
                                                 currentValue = currentValue < 100 ? currentValue + 10 : 100
-                                                priceRow.getThresholdPrice()
+                                                averagePriceRow.getThresholdPrice()
                                                 parent.redrawChart();
                                             }
                                         }
@@ -2093,16 +2289,28 @@ GenericConfigPage {
                             text: qsTr("Save")
                             onClicked: {
                                 // if simple PV excess mode is used set the batteryLevel to 1
-                                if(isAnyOfModesSelected([simple_pv_excess, no_optimization, dyn_pricing])){
+                                if(isAnyOfModesSelected([simple_pv_excess, no_optimization, dyn_pricing, time_controlled])){
                                     batteryLevel.value = 1
                                     targetPercentageSlider.value = 100
                                 }
 
                                 // Set the endTime to maximum value for all modes except pv_optimized
-                                if(isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing, no_optimization])){
+                                if(isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing, no_optimization, time_controlled])){
                                     endTimeSlider.value = 24*60
                                 }
 
+                                // Collect time controlled schedule data from scheduleModel
+                                var chargingSchedule = []
+                                if(isAnyOfModesSelected([time_controlled])){
+                                    for (var i = 0; i < scheduleModel.count; i++) {
+                                        var entry = scheduleModel.get(i)
+                                        chargingSchedule.push({
+                                            day: entry.dayKey,
+                                            startTime: entry.hasEntry ? entry.startTime : "00:00",
+                                            endTime: entry.hasEntry ? entry.endTime : "00:00"
+                                        })
+                                    }
+                                }
 
                                 if ((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) && (endTimeSlider.value >= 30) && carSelector.holdingItem !== false && batteryLevel.value !== 0){
                                     if (carSelector.holdingItem.stateByName("batteryLevel").value){
@@ -2119,14 +2327,23 @@ GenericConfigPage {
                                     }
 
                                     hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
-                                    hemsManager.setChargingConfiguration(thing.id,
-                                                                         {optimizationEnabled: true,
-                                                                             carThingId: carSelector.holdingItem.id,
-                                                                             endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00",
-                                                                             targetPercentage: targetPercentageSlider.value,
-                                                                             optimizationMode: optimizationMode,
-                                                                             priceThreshold: currentValue,
-                                                                             desiredPhaseCount: desiredPhaseCount})
+
+                                    var configData = {
+                                        optimizationEnabled: true,
+                                        carThingId: carSelector.holdingItem.id,
+                                        endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00",
+                                        targetPercentage: targetPercentageSlider.value,
+                                        optimizationMode: optimizationMode,
+                                        priceThreshold: currentValue,
+                                        desiredPhaseCount: desiredPhaseCount
+                                    }
+
+                                    // Add charging schedule if time controlled mode
+                                    if(isAnyOfModesSelected([time_controlled])){
+                                        configData.chargingSchedule = JSON.stringify(chargingSchedule)
+                                    }
+
+                                    hemsManager.setChargingConfiguration(thing.id, configData)
 
                                     optimizationPage.done()
                                     pageStack.pop()

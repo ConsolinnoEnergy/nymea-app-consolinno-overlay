@@ -157,7 +157,7 @@ Page {
                                     if(Configuration.heatpumpIcon !== ""){
                                         return "/ui/images/"+Configuration.heatpumpIcon;
                                     }else{
-                                        return "/icons/heatpump.svg";
+                                        return "/icons/heat_pump.svg";
                                     }
                                 }
                                 progressive: false

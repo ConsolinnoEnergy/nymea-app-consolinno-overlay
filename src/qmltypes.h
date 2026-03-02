@@ -1,11 +1,15 @@
 #include <QQmlEngine>
 
 #include "hemsmanager.h"
+#include "cokpistatsprovider.h"
+#include "dashboarddataprovider.h"
 #include "Configurations/userconfigurations.h"
 
 
 void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
     qmlRegisterType<HemsManager>(uri, versionMajor, versionMinor, "HemsManager");
+    qmlRegisterType<CoKpiStatsProvider>(uri, versionMajor, versionMinor, "CoKpiStatsProvider");
+    qmlRegisterType<DashboardDataProvider>(uri, versionMajor, versionMinor, "DashboardDataProvider");
     qmlRegisterUncreatableType<ChargingConfiguration>(uri, versionMajor, versionMinor, "ChargingConfiguration", "Get it from HemsManager");
     qmlRegisterUncreatableType<ChargingConfigurations>(uri, versionMajor, versionMinor, "ChargingConfigurations", "Get it from HemsManager");
     qmlRegisterUncreatableType<HeatingConfiguration>(uri, versionMajor, versionMinor, "HeatingConfiguration", "Get it from HemsManager");
