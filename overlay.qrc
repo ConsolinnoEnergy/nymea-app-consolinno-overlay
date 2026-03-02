@@ -116,7 +116,6 @@
     <qresource prefix="/ui">
         <file>system/ConsolinnoUsersSettingsPage.qml</file>
         <file>ConsolinnoSettingsPage.qml</file>
-        <file>mainviews/ConsolinnoView.qml</file>
         <file>images/leaf.svg</file>
         <file>Configuration.qml</file>
         <file>wizards/ConnectionWizard.qml</file>
