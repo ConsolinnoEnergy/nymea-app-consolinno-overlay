@@ -68,6 +68,7 @@ Page {
             Layout.minimumWidth: 100
             Layout.topMargin: 10
             onClicked:{
+                // go back to ConsolinnoView.qml
                 root.startWizard()
             }
 
