@@ -399,6 +399,16 @@ void DashboardDataProvider::setupConsumersStats()
         connect(currentPowerState, &State::valueChanged, this, [this, consumer, currentPowerState]() {
             updateConsumerCurrentPower(consumer, currentPowerState);
         });
+
+        // Also connect to hidden state changes for hideable consumers to recalculate totals
+        if (consumer->thingClass()->interfaces().contains("hideable")) {
+            State *hiddenState = consumer->stateByName("hidden");
+            if (hiddenState) {
+                connect(hiddenState, &State::valueChanged, this, [this]() {
+                    updateCurrentPowerConsumption();
+                });
+            }
+        }
     }
 }
 
@@ -408,6 +418,16 @@ void DashboardDataProvider::updateCurrentPowerConsumption()
     for (auto it = m_consumerCurrentPowers.constBegin();
          it != m_consumerCurrentPowers.constEnd();
          ++it) {
+        Thing *consumer = it.key();
+
+        // Skip consumers that have the "hideable" interface and are hidden
+        if (consumer->thingClass()->interfaces().contains("hideable")) {
+            State *hiddenState = consumer->stateByName("hidden");
+            if (hiddenState && hiddenState->value().toBool() == true) {
+                continue;
+            }
+        }
+
         totalMeasuredConsumerPowerDouble += it.value();
     }
 
