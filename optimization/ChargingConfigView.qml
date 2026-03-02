@@ -651,7 +651,7 @@ GenericConfigPage {
 
                     RowLayout{
                         Layout.topMargin: 15
-                        visible: !([pv_excess, simple_pv_excess, no_optimization, dyn_pricing].includes(getChargingMode(chargingConfiguration.optimizationMode)))
+                        visible: !([pv_excess, simple_pv_excess, no_optimization, dyn_pricing, time_controlled].includes(getChargingMode(chargingConfiguration.optimizationMode)))
 
                         Label{
                             id: targetChargeReachedLabel
@@ -717,7 +717,7 @@ GenericConfigPage {
                     }
 
                     RowLayout{
-                        visible: chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization]) ? false : true
+                        visible: !chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization, time_controlled])
                         Layout.topMargin: 15
 
                         Label{
@@ -828,7 +828,7 @@ GenericConfigPage {
 
                     RowLayout{
                         function isVisible() {
-                            if (chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization]))
+                            if (chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization, time_controlled]))
                             {
                                 return false
                             }
