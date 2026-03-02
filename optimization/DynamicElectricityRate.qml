@@ -208,7 +208,7 @@ StackView {
 
                         Connections {
                             target: engine.thingManager
-                            onThingAdded: {
+                            onThingAdded: function(thing){
                                 if (thing.thingClass.interfaces.includes("dynamicelectricitypricing")) {
                                     root.dynElectricThing = thing
                                 }
