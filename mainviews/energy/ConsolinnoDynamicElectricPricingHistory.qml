@@ -22,8 +22,8 @@ Item {
 
     property bool isDynamicPrice: false
 
-    readonly property var addedGridFee: thing.paramByName("addedGridFee").value
-    readonly property var addedLevies: thing.paramByName("addedGridFee").value
+    readonly property var addedGridFee: thing ? thing.paramByName("addedGridFee").value : undefined
+    readonly property var addedLevies: thing ? thing.paramByName("addedLevies").value : undefined
 
     onThingChanged: {
         updateChart();
@@ -392,6 +392,7 @@ Item {
                         isOn = true;
                         var currentTime = new Date();
 
+                        if (!thing) { return; }
                         if (currentValuePoint.count > 0) {
                             currentValuePoint.remove(0);
                         }
