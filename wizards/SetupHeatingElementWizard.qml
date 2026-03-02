@@ -14,6 +14,7 @@ Page {
     id: root
 
     signal done(bool skip, bool abort, bool back);
+    signal countChanged()
 
     header: NymeaHeader {
         text: qsTr("Setup heating element")

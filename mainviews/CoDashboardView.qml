@@ -210,6 +210,11 @@ MainViewBase {
         engine: _engine
         shownInterfaces: ["electricvehicle"]
     }
+    ThingsProxy {
+        id: energyMetersProxy
+        engine: _engine
+        shownInterfaces: ["energymeter"]
+    }
 
     Settings {
         id: shownPopupsSetting
@@ -257,6 +262,7 @@ MainViewBase {
         contentHeight: dashboardRoot.implicitHeight
         topMargin: root.topMargin
         bottomMargin: root.bottomMargin
+        visible: !unconfiguredHemsView.visible
 
         NumberAnimation {
             id: flickableContentYAnimation
@@ -860,5 +866,17 @@ MainViewBase {
                 }
             }
         }
+    }
+
+    UnconfiguredHemsView {
+        id: unconfiguredHemsView
+        anchors {
+            left: parent.left
+            right: parent.right
+            margins: app.margins
+        }
+        anchors.verticalCenter: parent.verticalCenter
+        visible: !engine.thingManager.fetchingData && energyMetersProxy.count === 0
+        hemsManager: hemsManager
     }
 }

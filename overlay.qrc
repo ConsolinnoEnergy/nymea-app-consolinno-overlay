@@ -236,6 +236,7 @@
         <file>thingconfiguration/EpexDayAheadSetup.qml</file>
         <file>utils/DynPricingUtils.js</file>
         <file>mainviews/CoDashboardView.qml</file>
+        <file>mainviews/UnconfiguredHemsView.qml</file>
         <file>components/CoFrostyCard.qml</file>
         <file>components/CoInfoCard.qml</file>
         <file>info/ChargingPhaseSwitchingInfo.qml</file>
