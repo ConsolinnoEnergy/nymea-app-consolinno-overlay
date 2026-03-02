@@ -1,3 +1,6 @@
+// #TODO copyright notice
+
+import QtCore
 import QtQuick 2.15
 import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
@@ -5,8 +8,7 @@ import QtQuick.Layouts 1.2
 import QtCharts 2.3
 import Nymea 1.0
 import NymeaApp.Utils 1.0
-import Qt.labs.settings 1.1
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 
 import "../components"
 import "../delegates"

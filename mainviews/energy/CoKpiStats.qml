@@ -1,5 +1,5 @@
 import QtQuick 2.3
-import QtGraphicalEffects 1.12
+import Qt5Compat.GraphicalEffects
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.2
 import QtCharts 2.3
@@ -23,7 +23,7 @@ StatsBase {
 
     Connections {
         target: kpiProvider
-        onKpiBarResult: {
+        onKpiBarResult: function(barIndex, selfSufficiency, selfConsumption) {
             autarkySet.replace(barIndex, selfSufficiency)
             selfConsumptionSet.replace(barIndex, selfConsumption)
         }
