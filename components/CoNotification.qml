@@ -17,6 +17,8 @@ Item {
     property alias messageTextFormat: messageText.textFormat
     property bool dismissable: false
     property bool clickable: false
+    property bool collapsible: false
+    property bool collapsed: false
 
     signal dismiss()
     signal clicked()
@@ -69,26 +71,48 @@ Item {
         }
     }
 
-    ColorIcon {
-        id: closeButton
+    Row {
+        id: buttonRow
         anchors {
             top: parent.top
             right: parent.right
             topMargin: 11
             rightMargin: 11
         }
-        visible: root.dismissable
-        size: 17
-        color: root.accentColor()
-        name: Qt.resolvedUrl("qrc:/icons/close.svg")
+        spacing: 6
+        layoutDirection: Qt.RightToLeft
 
-        MouseArea {
-            id: mouseAreaDismiss
-            anchors.fill: parent
-            onClicked: {
-                if (root.dismissable) {
-                    root.dismiss()
+        ColorIcon {
+            id: closeButton
+            visible: root.dismissable
+            size: 17
+            color: root.accentColor()
+            name: Qt.resolvedUrl("qrc:/icons/close.svg")
+
+            MouseArea {
+                id: mouseAreaDismiss
+                anchors.fill: parent
+                onClicked: {
+                    if (root.dismissable) {
+                        root.dismiss()
+                    }
                 }
+            }
+        }
+
+        ColorIcon {
+            id: collapseButton
+            visible: root.collapsible
+            size: 17
+            color: root.accentColor()
+            name: root.collapsed
+                  ? Qt.resolvedUrl("qrc:/icons/arrow-down.svg")
+                  : Qt.resolvedUrl("qrc:/icons/arrow-up.svg")
+
+            MouseArea {
+                id: mouseAreaCollapse
+                anchors.fill: parent
+                onClicked: root.collapsed = !root.collapsed
             }
         }
     }
@@ -140,6 +164,7 @@ Item {
                 wrapMode: Text.WordWrap
                 font: Style.newParagraphFont
                 color: root.accentColor()
+                visible: !root.collapsed
 
                 onLinkActivated: {
                     Qt.openUrlExternally(link)
