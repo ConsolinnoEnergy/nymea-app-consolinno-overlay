@@ -59,6 +59,13 @@ Page {
     WizardController {
         id: wizardController
         hemsManager: root.hemsManager
+        onWizardDone: {
+            // Nach dem Wizard: zurück zum Dashboard.
+            // Stack: empty Page(0) → MainPage(1) → SettingsPage(2) → DeviceOverview(3)
+            // Je zweimal poppen.
+            pageStack.pop()
+            pageStack.pop()
+        }
     }
 
     ColumnLayout {
@@ -74,7 +81,7 @@ Page {
             Layout.minimumWidth: 100
             Layout.topMargin: 10
             onClicked: {
-                wizardController.startSetup()
+                wizardController.startManualSetup()
             }
 
             }

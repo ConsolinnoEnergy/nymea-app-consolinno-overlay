@@ -8,6 +8,7 @@
  */
 
 import QtQuick 2.15
+import QtQuick.Controls 2.15
 import Nymea 1.0
 import Qt.labs.settings 1.1
 
@@ -22,12 +23,30 @@ Item {
 
     property HemsManager hemsManager
 
+    // Emitted once the wizard has fully completed and all wizard pages
+    // have been popped. The caller can connect to this to do any further
+    // navigation (e.g. pop back to dashboard from a settings page).
+    signal wizardDone()
+
     // Resets all wizard state and starts the wizard from the beginning.
+    // AuthorisationView is shown only when no energy meters are present.
     function startSetup() {
         _firstWizardPage = null
         _energyMeterWizardSkipped = false
         _resetWizardSettings()
         _initialManualWizardSettings()
+        _resetBlackoutProtectionSettings()
+        _setup(false)
+    }
+
+    // Starts the wizard in manual re-run mode (e.g. from DeviceOverview).
+    // AuthorisationView is always shown regardless of energy meter count.
+    function startManualSetup() {
+        _firstWizardPage = null
+        _energyMeterWizardSkipped = false
+        _resetWizardSettings()
+        _initialManualWizardSettings()
+        manualWizardSettings.authorisation = false  // force AuthorisationView
         _resetBlackoutProtectionSettings()
         _setup(false)
     }
@@ -92,6 +111,7 @@ Item {
         pageStack.pop(root._firstWizardPage, StackView.Immediate)
         pageStack.pop()
         root._firstWizardPage = null
+        root.wizardDone()
     }
 
     function _resetWizardSettings() {
