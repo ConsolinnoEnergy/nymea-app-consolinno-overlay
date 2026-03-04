@@ -5,6 +5,7 @@ import QtGraphicalEffects 1.12
 import "../components"
 import "../delegates"
 import "../mainviews"
+import "../wizards"
 import Nymea 1.0
 
 Page {
