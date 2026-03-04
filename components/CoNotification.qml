@@ -17,6 +17,8 @@ Item {
     property alias messageTextFormat: messageText.textFormat
     property bool dismissable: false
     property bool clickable: false
+    property bool collapsible: false
+    property bool collapsed: false
 
     signal dismiss()
     signal clicked()
@@ -69,27 +71,44 @@ Item {
         }
     }
 
-    ColorIcon {
-        id: closeButton
+    Row {
+        id: buttonRow
         anchors {
             top: parent.top
             right: parent.right
             topMargin: 11
             rightMargin: 11
         }
-        visible: root.dismissable
-        size: 17
-        color: root.accentColor()
-        name: Qt.resolvedUrl("qrc:/icons/close.svg")
+        spacing: 6
+        layoutDirection: Qt.RightToLeft
 
-        MouseArea {
-            id: mouseAreaDismiss
-            anchors.fill: parent
-            onClicked: {
-                if (root.dismissable) {
-                    root.dismiss()
+        ColorIcon {
+            id: closeButton
+            visible: root.dismissable
+            size: 20
+            color: root.accentColor()
+            name: Qt.resolvedUrl("qrc:/icons/close.svg")
+
+            MouseArea {
+                id: mouseAreaDismiss
+                anchors.fill: parent
+                onClicked: {
+                    if (root.dismissable) {
+                        root.dismiss()
+                    }
                 }
             }
+        }
+
+        ColorIcon {
+            id: collapseButton
+            visible: root.collapsible
+            size: 24
+            color: root.accentColor()
+            name: root.collapsed
+                  ? Qt.resolvedUrl("qrc:/icons/keyboard_arrow_down.svg")
+                  : Qt.resolvedUrl("qrc:/icons/keyboard_arrow_up.svg")
+
         }
     }
 
@@ -122,27 +141,47 @@ Item {
 
         ColumnLayout {
             Layout.fillWidth: true
-            spacing: 8 // #TODO use value from new style
+            spacing: 0 // #TODO use value from new style
 
             Text {
                 id: titleText
                 Layout.fillWidth: true
+                Layout.preferredHeight: font.pixelSize + 8 // #TODO use value from new style
                 verticalAlignment: Text.AlignVCenter
                 wrapMode: Text.WordWrap
                 font: Style.newH3Font
                 color: root.accentColor()
+
+                MouseArea {
+                    id: mouseAreaCollapse
+                    anchors.fill: parent
+                    enabled: root.collapsible
+                    propagateComposedEvents: !root.collapsible
+                    onClicked: root.collapsed = !root.collapsed
+                }
             }
 
-            Text {
-                id: messageText
-                Layout.fillWidth: true
-                verticalAlignment: Text.AlignVCenter
-                wrapMode: Text.WordWrap
-                font: Style.newParagraphFont
-                color: root.accentColor()
 
-                onLinkActivated: {
-                    Qt.openUrlExternally(link)
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: root.collapsed ? 0 : messageText.implicitHeight
+                clip: true
+
+                Behavior on Layout.preferredHeight {
+                    NumberAnimation { duration: 300; easing.type: Easing.InOutQuad }
+                }
+
+                Text {
+                    id: messageText
+                    width: parent.width
+                    verticalAlignment: Text.AlignVCenter
+                    wrapMode: Text.WordWrap
+                    font: Style.newParagraphFont
+                    color: root.accentColor()
+
+                    onLinkActivated: {
+                        Qt.openUrlExternally(link)
+                    }
                 }
             }
         }

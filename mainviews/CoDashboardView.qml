@@ -222,6 +222,12 @@ MainViewBase {
         property var shown: []
     }
 
+    Settings {
+        id: incompatibilityWarningSettings
+        category: "incompatibilityWarning"
+        property alias collapsed: incompatibilityWarning.collapsed
+    }
+
     readonly property Thing gridSupport: gridSupportThings.count > 0 ? gridSupportThings.get(0) : null
     readonly property Thing rootMeter: engine.thingManager.fetchingData ?
                                            null :
@@ -309,7 +315,9 @@ MainViewBase {
                         Layout.fillWidth: true
                         visible: !hemsVersionOk()
                         type: CoNotification.Type.Warning
+                        collapsible: true
                         title: qsTr("Pending software update")
+                        collapsed: false
                         message: qsTr('
                             <p>Your %3 app has been updated to version <strong>%1</strong> and is more up-to-date than the firmware (<strong>%2</strong>) on your %5 device.</p>
                             <p>Your %5 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.</p>
