@@ -103,11 +103,11 @@ Item {
         ColorIcon {
             id: collapseButton
             visible: root.collapsible
-            size: 17
+            size: 24
             color: root.accentColor()
             name: root.collapsed
-                  ? Qt.resolvedUrl("qrc:/icons/arrow-down.svg")
-                  : Qt.resolvedUrl("qrc:/icons/arrow-up.svg")
+                  ? Qt.resolvedUrl("qrc:/icons/keyboard_arrow_down.svg")
+                  : Qt.resolvedUrl("qrc:/icons/keyboard_arrow_up.svg")
 
             MouseArea {
                 id: mouseAreaCollapse
