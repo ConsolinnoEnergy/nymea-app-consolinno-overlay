@@ -36,7 +36,6 @@ Frame {
             anchors.topMargin: 8 // #TODO use value from style
             anchors.leftMargin: 16 // #TODO use value from style
             anchors.rightMargin: 16 // #TODO use value from style
-            anchors.bottomMargin: 16 // #TODO use value from style
             color: Style.colors.typography_Headlines_H2
             font: Style.newH2Font
         }
@@ -46,10 +45,9 @@ Frame {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: header.bottom
-            anchors.topMargin: 8 // #TODO use value from new style
-            anchors.bottomMargin: 0
-            anchors.leftMargin: 16 // #TODO use value from new style
-            anchors.rightMargin: 16 // #TODO use value from new style
+            anchors.topMargin: 16 // #TODO use value from new style
+            anchors.bottomMargin: 16 // #TODO use value from style
+
             height: implicitHeight
             implicitHeight: childrenRect.height
         }

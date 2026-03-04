@@ -30,7 +30,10 @@ Page {
                 left: parent.left;
                 top: parent.top;
                 right: parent.right;
-                margins: 8 // #TODO use values from new style
+                topMargin: 8 // #TODO use values from new style
+                bottomMargin: 8 // #TODO use values from new style
+                leftMargin: 16 // #TODO use values from new style
+                rightMargin: 16 // #TODO use values from new style
             }
             spacing: 16 // #TODO use values from new style
 
