@@ -4782,7 +4782,7 @@ This means: The price limit corresponds to the current average price minus 10 %.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Your %1 is now configured. The following devices have been set up:</source>
+        <source>Your %1 is now configured. The following devices are set up:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
