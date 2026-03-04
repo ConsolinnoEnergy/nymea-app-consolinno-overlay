@@ -85,7 +85,7 @@ Item {
         ColorIcon {
             id: closeButton
             visible: root.dismissable
-            size: 24
+            size: 20
             color: root.accentColor()
             name: Qt.resolvedUrl("qrc:/icons/close.svg")
 
@@ -155,6 +155,8 @@ Item {
                 MouseArea {
                     id: mouseAreaCollapse
                     anchors.fill: parent
+                    enabled: root.collapsible
+                    propagateComposedEvents: !root.collapsible
                     onClicked: root.collapsed = !root.collapsed
                 }
             }
