@@ -482,6 +482,9 @@ MainViewBase {
                             id: liveStatusLayout
                             anchors.left: parent.left
                             anchors.right: parent.right
+                            anchors.leftMargin: 16
+                            anchors.rightMargin: 16
+                            anchors.bottomMargin: 8
                             rowSpacing: 0
                             columnSpacing: 0
 
@@ -585,11 +588,9 @@ MainViewBase {
 
                         headerText: qsTr("Energy status")
 
-                        ColumnLayout {
+                        CoInfoCardContainer {
                             anchors.left: parent.left
                             anchors.right: parent.right
-
-                            spacing: 16 // #TODO use value from new style
 
                             CoInfoCard {
                                 Layout.fillWidth: true
@@ -648,13 +649,11 @@ MainViewBase {
                     CoFrostyCard {
                         id: invertersGroup
                         Layout.fillWidth: true
-
                         headerText: qsTr("Inverters")
-                        ColumnLayout {
+
+                        CoInfoCardContainer {
                             anchors.left: parent.left
                             anchors.right: parent.right
-
-                            spacing: 16 // #TODO use value from new style
 
                             Repeater {
                                 model: producerThings
@@ -685,13 +684,11 @@ MainViewBase {
                     CoFrostyCard {
                         id: batteriesGroup
                         Layout.fillWidth: true
-
                         headerText: qsTr("Batteries")
-                        ColumnLayout {
+
+                        CoInfoCardContainer {
                             anchors.left: parent.left
                             anchors.right: parent.right
-
-                            spacing: 16 // #TODO use value from new style
 
                             Repeater {
                                 model: batteryThings
@@ -721,13 +718,11 @@ MainViewBase {
                     CoFrostyCard {
                         id: heatingGroup
                         Layout.fillWidth: true
-
                         headerText: qsTr("Heating")
-                        ColumnLayout {
+
+                        CoInfoCardContainer {
                             anchors.left: parent.left
                             anchors.right: parent.right
-
-                            spacing: 16 // #TODO use value from new style
 
                             Repeater {
                                 model: heatingThings
@@ -769,13 +764,11 @@ MainViewBase {
 
                     CoFrostyCard {
                         Layout.fillWidth: true
-
                         headerText: qsTr("Mobility")
-                        ColumnLayout {
+
+                        CoInfoCardContainer {
                             anchors.left: parent.left
                             anchors.right: parent.right
-
-                            spacing: 16 // #TODO use value from new style
 
                             Repeater {
                                 model: evChargerThings
@@ -820,13 +813,11 @@ MainViewBase {
 
                     CoFrostyCard {
                         Layout.fillWidth: true
-
                         headerText: qsTr("Other consumers")
-                        ColumnLayout {
+
+                        CoInfoCardContainer {
                             anchors.left: parent.left
                             anchors.right: parent.right
-
-                            spacing: 16 // #TODO use value from new style
 
                             Repeater {
                                 model: otherConsumerThings
