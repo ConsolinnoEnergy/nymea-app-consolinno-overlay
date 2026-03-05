@@ -8,7 +8,6 @@
 
 
 void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
-    qmlRegisterSingletonType(QUrl("qrc:///ui/utils/ThingClassConfig.qml"), uri, versionMajor, versionMinor, "ThingClassConfig");
     qmlRegisterType<HemsManager>(uri, versionMajor, versionMinor, "HemsManager");
     qmlRegisterType<CoKpiStatsProvider>(uri, versionMajor, versionMinor, "CoKpiStatsProvider");
     qmlRegisterType<DashboardDataProvider>(uri, versionMajor, versionMinor, "DashboardDataProvider");
