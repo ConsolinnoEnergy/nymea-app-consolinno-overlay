@@ -279,6 +279,11 @@ MainViewBase {
             onFinished: {
                 flickable.returnToBounds();
             }
+
+            function setTargetY(targetY) {
+                to = Math.min(targetY - root.topMargin,
+                              flickable.contentHeight - flickable.height + root.bottomMargin);
+            }
         }
 
         Item {
@@ -508,7 +513,7 @@ MainViewBase {
                                 icon: Qt.resolvedUrl("qrc:/icons/solar_power.svg")
                                 showWarningIndicator: anyInverterLppActive
                                 onClicked: {
-                                    flickableContentYAnimation.to = invertersGroup.y - 50;
+                                    flickableContentYAnimation.setTargetY(invertersGroup.y);
                                     flickableContentYAnimation.start();
                                 }
                             }
@@ -560,7 +565,7 @@ MainViewBase {
                                     }
                                 }
                                 onClicked: {
-                                    flickableContentYAnimation.to = batteriesGroup.y - 50;
+                                    flickableContentYAnimation.setTargetY(batteriesGroup.y);
                                     flickableContentYAnimation.start();
                                 }
                             }
@@ -576,7 +581,7 @@ MainViewBase {
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/electric_bolt.svg")
                                 onClicked: {
-                                    flickableContentYAnimation.to = heatingGroup.y - 50;
+                                    flickableContentYAnimation.setTargetY(heatingGroup.y);
                                     flickableContentYAnimation.start();
                                 }
                             }
