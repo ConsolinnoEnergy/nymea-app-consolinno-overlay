@@ -14,12 +14,7 @@ Page {
         text: qsTr("Optimization configuration")
         backButtonVisible: true
         onBackPressed:{
-            if ( hemsManager.availableUseCases === 0){
-                pageStack.pop(root)
-            }
-            else{
-                pageStack.pop()
-            }
+            pageStack.pop()
         }
     }
 
@@ -131,5 +126,6 @@ Page {
         visible: hemsManager.availableUseCases === 0
         title: qsTr("No optimizations available")
         text: qsTr("Optimizations will be available once the required things have been added to the system.")
+        buttonVisible: false
     }
 }
