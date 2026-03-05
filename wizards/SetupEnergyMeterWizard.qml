@@ -266,13 +266,7 @@ Page {
                     Layout.fillWidth: true
                     text: model.name
                     subText: model.description
-                    iconName: {
-                        if(Configuration.gridIcon !== ""){
-                            return "/ui/images/"+Configuration.gridIcon
-                        }else{
-                            return "/icons/electric_meter.svg"
-                        }
-                    }
+                    iconName: Qt.resolvedUrl("/icons/electric_meter.svg")
                     progressive: false
                     Image {
                         id: iconEvCharger

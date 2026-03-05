@@ -21,83 +21,22 @@ MainViewBase {
     headerButtons: []
 
     function batteryIconByLevel(batteryLevel) {
-        // #TODO use battery icons from new design
         let batteryLevelForIcon = NymeaUtils.pad(Math.round(batteryLevel / 10) * 10, 3);
         return Qt.resolvedUrl("qrc:/icons/battery/battery-" + batteryLevelForIcon + ".svg");
     }
 
-    // #TODO can we use app.interfaceToIcon (at least when whitelabel icon mechanism is obsolete)?
     function thingToIcon(thing) {
         let ifaces = thing.thingClass.interfaces;
         if (ifaces.indexOf("battery") >= 0) {
-            if (Configuration.batteryIcon !== ""){ // #TODO check if whitelabel customers really don't want the SoC represented by the battery icon
-                return Qt.resolvedUrl("qrc:/ui/images/" + Configuration.batteryIcon);
+            let batteryLevelState = thing.stateByName("batteryLevel");
+            if (batteryLevelState) {
+                let batteryLevel = batteryLevelState.value;
+                return batteryIconByLevel(batteryLevel);
             } else {
-                let batteryLevelState = thing.stateByName("batteryLevel");
-                if (batteryLevelState) {
-                    let batteryLevel = batteryLevelState.value;
-                    return batteryIconByLevel(batteryLevel);
-                } else {
-                    // #TODO use battery icons from new design
-                    return Qt.resolvedUrl("qrc:/icons/battery/battery-060.svg");
-                }
+                return Qt.resolvedUrl("qrc:/icons/battery/battery-060.svg");
             }
         }
-
-        for (var i = 0; i < ifaces.length; i++) {
-            let iface = ifaces[i];
-            let icon = ""
-
-            switch (iface) {
-            case "pvsurplusheatpump":
-            case "smartgridheatpump":
-            case "heatpump":
-                if (Configuration.heatpumpIcon !== ""){
-                    icon = "qrc:/ui/images/" + Configuration.heatpumpIcon;
-                } else {
-                    icon = "qrc:/icons/heat_pump.svg";
-                }
-                break;
-            case "heatingrod":
-                if (Configuration.heatingRodIcon !== ""){
-                    icon = "qrc:/ui/images/" + Configuration.heatingRodIcon;
-                } else {
-                    icon = "qrc:/icons/water_heater.svg";
-                }
-                break;
-            case "energystorage":
-                if (Configuration.batteryIcon !== ""){
-                    icon = "qrc:/ui/images/" + Configuration.batteryIcon;
-                } else {
-                    // #TODO use battery icons from new design
-                    icon = "qrc:/icons/battery/battery-060.svg";
-                }
-                break;
-            case "evcharger":
-                if (Configuration.evchargerIcon !== ""){
-                    icon = "qrc:/ui/images/" + Configuration.evchargerIcon;
-                } else {
-                    icon = "qrc:/icons/ev_station.svg";
-                }
-                break;
-            case "solarinverter":
-                if (Configuration.inverterIcon !== ""){
-                    icon = "qrc:/ui/images/" + Configuration.inverterIcon;
-                } else {
-                    icon = "qrc:/icons/solar_power.svg";
-                }
-                break;
-            default:
-                icon = app.interfaceToIcon(iface)
-            }
-
-            if (icon !== "") {
-                return Qt.resolvedUrl(icon);
-            }
-        }
-        console.warn("thingToIcon: unable to determine icon for thing",
-                     thing.name);
-        return Qt.resolvedUrl("qrc:/icons/select-none.svg");
+        return app.interfacesToIcon(ifaces);
     }
 
     // #TODO next 2 functions copied from old ConsolinnoView. Oli wanted to extract this into so utils file.
@@ -522,13 +461,7 @@ MainViewBase {
                                 thing: rootMeter
                                 compactLayout: true
                                 showWarningIndicator: lpcActive
-                                icon: {
-                                    if (Configuration.gridIcon !== "") {
-                                        return Qt.resolvedUrl("/ui/images/" + Configuration.gridIcon)
-                                    } else {
-                                        return Qt.resolvedUrl("/icons/input_circle.svg")
-                                    }
-                                }
+                                icon: Qt.resolvedUrl("/icons/input_circle.svg")
                                 onClicked: {
                                     console.info("Clicked grid card");
                                     pageStack.push(
@@ -552,13 +485,7 @@ MainViewBase {
                                 unit: "W"
                                 compactLayout: true
                                 showWarningIndicator: anyAvoidZeroCompensationActive
-                                icon: {
-                                    if (Configuration.batteryIcon !== ""){
-                                        return Qt.resolvedUrl("qrc:/ui/images/" + Configuration.batteryIcon);
-                                    } else {
-                                        return batteryIconByLevel(dataProvider.totalBatteryLevel);
-                                    }
-                                }
+                                icon: batteryIconByLevel(dataProvider.totalBatteryLevel)
                                 onClicked: {
                                     flickableContentYAnimation.to = batteriesGroup.y - 50;
                                     flickableContentYAnimation.start();
@@ -638,13 +565,7 @@ MainViewBase {
                                     }
                                     return v.toLocaleString(Qt.locale(), 'f', decimals);
                                 }
-                                icon: {
-                                    if (Configuration.energyIcon !== "") {
-                                        return Qt.resolvedUrl("/ui/images/" + Configuration.energyIcon)
-                                    } else {
-                                        return Qt.resolvedUrl("/icons/euro.svg")
-                                    }
-                                }
+                                icon: Qt.resolvedUrl("/icons/euro.svg")
                                 onClicked: {
                                     console.info("Clicked dynamic tariff");
                                     pageStack.push("/ui/devicepages/PageWraper.qml",

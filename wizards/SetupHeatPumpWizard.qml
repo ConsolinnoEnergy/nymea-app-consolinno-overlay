@@ -153,13 +153,7 @@ Page {
                             contentItem: ConsolinnoItemDelegate{
                                 id: icon
                                 Layout.preferredWidth: root.width
-                                iconName:{
-                                    if(Configuration.heatpumpIcon !== ""){
-                                        return "/ui/images/"+Configuration.heatpumpIcon;
-                                    }else{
-                                        return "/icons/heat_pump.svg";
-                                    }
-                                }
+                                iconName: Qt.resolvedUrl("/icons/heat_pump.svg")
                                 progressive: false
                                 text: hpProxy.get(index) ? hpProxy.get(index).name : ""
                                 onClicked: {

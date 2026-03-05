@@ -92,7 +92,7 @@ MainViewBase {
     }
 
     headerButtons: [{
-            "iconSource": Configuration.infoIcon !== "" ? "/ui/images/"+Configuration.infoIcon : "/icons/info.svg",
+            "iconSource": "/icons/info.svg",
             "color": Material.foreground,
             "visible": true,
             "trigger": function () {

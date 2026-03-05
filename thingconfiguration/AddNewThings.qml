@@ -241,72 +241,9 @@ Page {
                 width: listView.width
                 text: model.displayName
                 subText: engine.thingManager.vendors.getVendor(model.vendorId).displayName
-                iconName:{
+                iconName: {
                     if (!thingClass) { return ""; }
-                    for (let i = 0; i < thingClass.interfaces.length; i++) {
-                        let icon = "";
-                        let interfaceIcons = thingClass.interfaces[i];
-                        let heatpumpName = "";
-                        let energyName = "";
-
-                        (interfaceIcons === "pvsurplusheatpump") ? heatpumpName = "pvsurplusheatpump" : (interfaceIcons === "smartgridheatpump") ? heatpumpName = "smartgridheatpump" : heatpumpName = "simpleheatpump"
-                        switch (interfaceIcons) {
-                        case heatpumpName:
-                            if(Configuration.heatpumpIcon !== ""){
-                                icon = "/ui/images/"+Configuration.heatpumpIcon
-                            }else{
-                                icon = "/icons/heat_pump.svg"
-                            }
-                            return Qt.resolvedUrl(icon)
-                        case "heatingrod":
-                            if(Configuration.heatingRodIcon !== ""){
-                                icon = "/ui/images/"+Configuration.heatingRodIcon
-                            }else{
-                                icon = "/icons/water_heater.svg"
-                            }
-                            return Qt.resolvedUrl(icon)
-                        case "controllablebattery":
-                            if(Configuration.batteryIcon !== ""){
-                                icon = "/ui/images/"+Configuration.batteryIcon
-                            }else{
-                                icon = "/icons/battery/battery-080.svg" // #TODO use battery icons from new design
-                            }
-                            return Qt.resolvedUrl(icon)
-                        case "limitablebattery":
-                            if(Configuration.batteryIcon !== ""){
-                                icon = "/ui/images/"+Configuration.batteryIcon
-                            }else{
-                                icon = "/icons/battery/battery-080.svg" // #TODO use battery icons from new design
-                            }
-                            return Qt.resolvedUrl(icon)
-                        case "battery":
-                            if(Configuration.batteryIcon !== ""){
-                                icon = "/ui/images/"+Configuration.batteryIcon
-                            }else{
-                                icon = "/icons/battery/battery-080.svg" // #TODO use battery icons from new design
-                            }
-                            return Qt.resolvedUrl(icon)
-                        case "energystorage":
-                            if(Configuration.batteryIcon !== ""){
-                                icon = "/ui/images/"+Configuration.batteryIcon
-                            }else{
-                                icon = "/icons/battery/battery-080.svg" // #TODO use battery icons from new design
-                            }
-                            return Qt.resolvedUrl(icon)
-                        case "evcharger":
-                            if(Configuration.evchargerIcon !== ""){
-                                icon = "/ui/images/"+Configuration.evchargerIcon
-                                return Qt.resolvedUrl(icon)
-                            }
-                        case "solarinverter":
-                            if(Configuration.inverterIcon !== ""){
-                                icon = "/ui/images/"+Configuration.inverterIcon
-                                return Qt.resolvedUrl(icon)
-                            }
-                        default:
-                            return app.interfaceToIcon(interfaceIcons)
-                        }
-                    }
+                    return app.interfacesToIcon(thingClass.interfaces);
                 }
                 Image {
                     id: tileIcon

@@ -199,13 +199,7 @@ Page {
                             contentItem: ConsolinnoItemDelegate{
                                 id: icon
                                 Layout.preferredWidth: root.width
-                                iconName: {
-                                    if(Configuration.inverterIcon !== ""){
-                                        return "/ui/images/"+Configuration.inverterIcon
-                                    }else{
-                                        return "/icons/solar_power.svg"
-                                    }
-                                }
+                                iconName: Qt.resolvedUrl("/icons/solar_power.svg")
                                 progressive: false
                                 text: emProxy.get(index) ? emProxy.get(index).name : ""
                                 onClicked: {
