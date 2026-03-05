@@ -69,7 +69,7 @@ Page {
                 property Thing heatingElementThing: engine.thingManager.things.getThing(model.heatingRodThingId)
 
                 Layout.fillWidth: true
-                iconName: Qt.resolvedUrl("/icons/heating_rod.svg")
+                iconName: Qt.resolvedUrl("/icons/water_heater.svg")
                 progressive: true
                 text: heatingElementThing.name
                 onClicked: pageStack.push("HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingElementConfiguration: heatingElementConfiguration, heatRodThing: heatingElementThing })
