@@ -266,8 +266,6 @@ MainViewBase {
         id: flickable
         anchors.fill: parent
         contentHeight: dashboardRoot.implicitHeight
-        topMargin: root.topMargin
-        bottomMargin: root.bottomMargin
         visible: !unconfiguredHemsView.visible
 
         NumberAnimation {
@@ -281,8 +279,8 @@ MainViewBase {
             }
 
             function setTargetY(targetY) {
-                to = Math.min(targetY - root.topMargin,
-                              flickable.contentHeight - flickable.height + root.bottomMargin);
+                to = Math.min(targetY - root.topMargin - 10,
+                              flickable.contentHeight - flickable.height);
             }
         }
 
@@ -292,13 +290,13 @@ MainViewBase {
             Rectangle {
                 id: background
                 anchors.fill: parent
-                color: "#FFFFFF" // #TODO color from new style
+                color: Style.colors.typography_Background_Default
 
                 Rectangle {
                     anchors.fill: parent
                     gradient: Gradient {
-                        GradientStop{ position: 0.0; color: "#80BDD786" } // #TODO color from new style
-                        GradientStop{ position: 1.0; color: "#8083BC32" } // #TODO color from new style
+                        GradientStop{ position: 0.0; color: Style.colors.components_Dashboard_Background_gradient_top }
+                        GradientStop{ position: 1.0; color: Style.colors.components_Dashboard_Background_gradient_bottom }
                     }
                 }
             }
@@ -306,7 +304,8 @@ MainViewBase {
             Item {
                 id: dashboardRoot
                 anchors.fill: parent
-                anchors.margins: 16 // #TODO use value from new style
+                anchors.leftMargin: 16 // #TODO use value from new style
+                anchors.rightMargin: 16 // #TODO use value from new style
 
                 implicitHeight: dashboardLayout.implicitHeight + anchors.margins * 2
 
@@ -314,6 +313,12 @@ MainViewBase {
                     id: dashboardLayout
                     anchors.fill: parent
                     spacing: 16 // #TODO use value from new style
+
+                    Item {
+                        id: spacerTopMargin
+                        height: root.topMargin
+                        Layout.fillWidth: true
+                    }
 
                     CoNotification {
                         id: incompatibilityWarning
@@ -878,6 +883,12 @@ MainViewBase {
                                 clickable: false
                             }
                         }
+                    }
+
+                    Item {
+                        id: spacerBottomMargin
+                        height: root.bottomMargin
+                        Layout.fillWidth: true
                     }
                 }
             }
