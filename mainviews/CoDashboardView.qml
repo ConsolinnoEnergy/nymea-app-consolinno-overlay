@@ -146,6 +146,12 @@ MainViewBase {
         return batteryConfig.avoidZeroFeedInActive && batteryConfig.avoidZeroFeedInEnabled;
     }
 
+    function adjustAlpha(color, alphaFactor) {
+        let newColor = color;
+        newColor.a *= alphaFactor;
+        return newColor;
+    }
+
     EnergyManager {
         id: energyManager
         engine: _engine
@@ -295,8 +301,16 @@ MainViewBase {
                 Rectangle {
                     anchors.fill: parent
                     gradient: Gradient {
-                        GradientStop{ position: 0.0; color: Style.colors.components_Dashboard_Background_gradient_top }
-                        GradientStop{ position: 1.0; color: Style.colors.components_Dashboard_Background_gradient_bottom }
+                        GradientStop{
+                            position: 0.0
+                            color: adjustAlpha(baseColor, 0.5)
+                            property color baseColor: Style.colors.components_Dashboard_Background_gradient_top
+                        }
+                        GradientStop{
+                            position: 1.0
+                            color: adjustAlpha(baseColor, 0.5)
+                            property color baseColor: Style.colors.components_Dashboard_Background_gradient_bottom
+                        }
                     }
                 }
             }
