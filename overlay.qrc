@@ -114,6 +114,7 @@
         <file>icons/z-wave.svg</file>
     </qresource>
     <qresource prefix="/ui">
+        <file>wizards/WizardController.qml</file>
         <file>system/ConsolinnoUsersSettingsPage.qml</file>
         <file>ConsolinnoSettingsPage.qml</file>
         <file>mainviews/ConsolinnoView.qml</file>

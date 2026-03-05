@@ -4810,8 +4810,8 @@ Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 
         <translation>Installierte Geräte</translation>
     </message>
     <message>
-        <source>Your %1 is now configured. The following devices have been set up:</source>
-        <translation>Ihre %1 ist jetzt konfiguriert. Die folgenden Geräte wurden eingerichtet:</translation>
+        <source>Your %1 is now configured. The following devices are set up:</source>
+        <translation>Ihre %1 ist jetzt konfiguriert. Die folgenden Geräte sind eingerichtet:</translation>
     </message>
 </context>
 <context>
