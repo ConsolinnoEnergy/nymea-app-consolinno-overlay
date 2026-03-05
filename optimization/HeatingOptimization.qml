@@ -198,15 +198,15 @@ Page {
         RowLayout {
             Layout.fillWidth: true
             visible: heatPumpThing.thingClass.interfaces.includes("smartmeterconsumerassignable")
+            spacing: 30
 
             Label {
-                Layout.fillWidth: true
                 text: qsTr("Electricity meter")
             }
 
             ConsolinnoDropdown {
                 id: heatMeterDropdown
-                Layout.preferredWidth: 150
+                Layout.fillWidth: true
                 textRole: "text"
                 model: ListModel { id: meterModel }
             }
