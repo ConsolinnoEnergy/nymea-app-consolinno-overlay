@@ -408,35 +408,41 @@ MainViewBase {
                                 ctx.setLineDash([0.001, 2]);
                                 ctx.lineCap = "round";
 
-                                if (dataProvider.flowSolarToBattery !== 0) {
+                                if (dataProvider.flowSolarToBattery !== 0 &&
+                                        liveStatusPVCard.visible &&
+                                        liveStatusBatteryCard.visible) {
                                     const startX = liveStatusPVCard.x + liveStatusPVCard.width / 2;
                                     const startY = liveStatusPVCard.y + liveStatusPVCard.height - 10;
                                     const endX = liveStatusBatteryCard.x + liveStatusBatteryCard.width / 2;
                                     const endY = liveStatusBatteryCard.y + 10;
                                     drawLine(ctx, startX, startY, endX, endY, dataProvider.flowSolarToBattery);
                                 }
-                                if (dataProvider.flowSolarToConsumers !== 0) {
+                                if (dataProvider.flowSolarToConsumers !== 0 &&
+                                        liveStatusPVCard.visible) {
                                     const startX = liveStatusPVCard.x + liveStatusPVCard.width - 10;
                                     const startY = liveStatusPVCard.y + liveStatusPVCard.height * 3 / 5;
                                     const endX = liveStatusConsumptionCard.x + 20;
                                     const endY = liveStatusConsumptionCard.y + 10;
                                     drawLine(ctx, startX, startY, endX, endY, dataProvider.flowSolarToConsumers);
                                 }
-                                if (dataProvider.flowSolarToGrid !== 0) {
+                                if (dataProvider.flowSolarToGrid !== 0 &&
+                                        liveStatusPVCard.visible) {
                                     const startX = liveStatusPVCard.x + liveStatusPVCard.width - 10;
                                     const startY = liveStatusPVCard.y + liveStatusPVCard.height * 2 / 5;
                                     const endX = liveStatusGridCard.x + 10;
                                     const endY = liveStatusGridCard.y + liveStatusGridCard.height * 2 / 5;
                                     drawLine(ctx, startX, startY, endX, endY, dataProvider.flowSolarToGrid);
                                 }
-                                if (dataProvider.flowBatteryToConsumers !== 0) {
+                                if (dataProvider.flowBatteryToConsumers !== 0 &&
+                                        liveStatusBatteryCard.visible) {
                                     const startX = liveStatusBatteryCard.x + liveStatusBatteryCard.width - 10;
                                     const startY = liveStatusBatteryCard.y + liveStatusBatteryCard.height * 3 / 5;
                                     const endX = liveStatusConsumptionCard.x + 10;
                                     const endY = liveStatusConsumptionCard.y + liveStatusConsumptionCard.height * 3 / 5;
                                     drawLine(ctx, startX, startY, endX, endY, dataProvider.flowBatteryToConsumers);
                                 }
-                                if (dataProvider.flowGridToBattery !== 0) {
+                                if (dataProvider.flowGridToBattery !== 0 &&
+                                        liveStatusBatteryCard.visible) {
                                     const startX = liveStatusGridCard.x + 10;
                                     const startY = liveStatusGridCard.y + liveStatusGridCard.height * 3 / 5;
                                     const endX = liveStatusBatteryCard.x + liveStatusBatteryCard.width - 20;
@@ -493,6 +499,7 @@ MainViewBase {
                                 Layout.fillWidth: true
                                 Layout.row: 0
                                 Layout.column: 0
+                                visible: producerThings.count > 0
                                 text: qsTr("Solar") // #TODO English name
                                 value: Math.abs(dataProvider.currentPowerProduction)
                                 unit: "W"
@@ -539,6 +546,7 @@ MainViewBase {
                                 Layout.fillWidth: true
                                 Layout.row: 2
                                 Layout.column: 0
+                                visible: batteryThings.count > 0
                                 text: qsTr("Battery")
                                 value: Math.abs(dataProvider.currentPowerBatteries)
                                 unit: "W"
@@ -577,7 +585,7 @@ MainViewBase {
                                 id: liveStatusSpacer
                                 Layout.row: 1
                                 Layout.column: 1
-                                width: 64
+                                Layout.preferredWidth: (batteryThings.count > 0 || producerThings.count > 0) ? 64 : 0
                                 height: 64
                             }
                         }
@@ -650,6 +658,7 @@ MainViewBase {
                         id: invertersGroup
                         Layout.fillWidth: true
                         headerText: qsTr("Inverters")
+                        visible: producerThings.count > 0
 
                         CoInfoCardContainer {
                             anchors.left: parent.left
@@ -685,6 +694,7 @@ MainViewBase {
                         id: batteriesGroup
                         Layout.fillWidth: true
                         headerText: qsTr("Batteries")
+                        visible: batteryThings.count > 0
 
                         CoInfoCardContainer {
                             anchors.left: parent.left
@@ -719,6 +729,7 @@ MainViewBase {
                         id: heatingGroup
                         Layout.fillWidth: true
                         headerText: qsTr("Heating")
+                        visible: heatingThings.count > 0
 
                         CoInfoCardContainer {
                             anchors.left: parent.left
@@ -765,6 +776,7 @@ MainViewBase {
                     CoFrostyCard {
                         Layout.fillWidth: true
                         headerText: qsTr("Mobility")
+                        visible: evChargerThings.count > 0
 
                         CoInfoCardContainer {
                             anchors.left: parent.left
