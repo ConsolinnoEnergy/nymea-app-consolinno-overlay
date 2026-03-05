@@ -798,9 +798,6 @@ GenericConfigPage {
                                 Label{
                                     id: description
                                     text: {
-                                        if (chargingIsAnyOf([time_controlled])) {
-                                            return qsTr("Active")
-                                        }
                                         return initializing ? qsTr("Initialising") : (status.state === 2 ? qsTr("Running") : (status.state === 3 ? qsTr("Finished") : (status.state === 4 ? qsTr("Interrupted") : (status.state === 6 ? qsTr("Pending") :  qsTr("Failed")  ))))
                                     }
                                     color: "white"
