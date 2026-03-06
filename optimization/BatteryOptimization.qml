@@ -90,14 +90,8 @@ Page {
             Layout.fillWidth: true
             visible: (hemsManager.availableUseCases & HemsManager.HemsUseCaseAvoidZeroCompensation) !== 0
 
-            Label {
+            LabelWithInfo {
                 text: qsTr("Avoid zero compensation")
-            }
-
-            InfoButton {
-                id: avoidZeroCompensationInfo
-                Layout.fillWidth: true
-                Layout.bottomMargin: 17
                 push: "AvoidZeroCompensationInfo.qml"
             }
 
@@ -113,14 +107,8 @@ Page {
                      ((hemsManager.availableUseCases & HemsManager.HemsUseCaseBattery) &&
                       (hemsManager.availableUseCases & HemsManager.HemsUseCaseCharging))
 
-            Label {
+            LabelWithInfo {
                 text: qsTr("Block EV charging from the battery")
-            }
-
-            InfoButton {
-                id: blockEVChargingFromBatteryInfo
-                Layout.fillWidth: true
-                Layout.bottomMargin: 17
                 push: "BlockEVChargingFromBatteryInfo.qml"
             }
 

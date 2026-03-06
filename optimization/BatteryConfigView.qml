@@ -246,14 +246,8 @@ GenericConfigPage {
                         Layout.topMargin: Style.smallMargins
                         Layout.bottomMargin: Style.smallMargins
 
-                        Label {
+                        LabelWithInfo {
                             text: qsTr("Tariff-controlled charging")
-                        }
-
-                        InfoButton {
-                            id: chargingOptimizationInfo
-                            Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignTop
                             push: "TariffGuidedChargingInfo.qml"
                         }
 
@@ -281,14 +275,8 @@ GenericConfigPage {
                         Layout.topMargin: Style.smallMargins
                         Layout.bottomMargin: Style.smallMargins
                         visible: optimizationController.checked
-                        Label {
+                        LabelWithInfo {
                             text: qsTr("Activate instant charging")
-                        }
-
-                        InfoButton {
-                            id: chargingOnceInfo
-                            Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignTop
                             push: "ActivateInstantChargingInfo.qml"
                         }
 
