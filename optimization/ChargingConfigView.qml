@@ -1212,22 +1212,9 @@ GenericConfigPage {
                             Layout.preferredWidth: app.width
                             Layout.topMargin: 10
 
-                            RowLayout{
-                                id: chargingModeRowid
-
-                                Label {
-                                    id: chargingModeid
-
-                                    text: qsTr("Charging mode: ")
-                                }
-
-                                InfoButton{
-                                    id: chargingModeInfoButton
-                                    Layout.rightMargin: 15
-                                    push: "ChargingModeInfo.qml"
-                                    Layout.fillWidth: true
-                                    Layout.alignment: Qt.AlignTop
-                                }
+                            LabelWithInfo {
+                                text: qsTr("Charging mode: ")
+                                push: "ChargingModeInfo.qml"
                             }
 
                             ConsolinnoDropdown {
@@ -1311,17 +1298,9 @@ GenericConfigPage {
                             visible:  isAnyOfModesSelected([pv_optimized, simple_pv_excess]) &&
                                       thing.thingClass.interfaces.includes("phaseswitching")
 
-                            RowLayout{
-                                Label {
-                                    text: qsTr("Number of phases:")
-                                }
-
-                                InfoButton{
-                                    Layout.rightMargin: 15
-                                    push: "ChargingPhaseSwitchingInfo.qml"
-                                    Layout.fillWidth: true
-                                    Layout.alignment: Qt.AlignTop
-                                }
+                            LabelWithInfo {
+                                text: qsTr("Number of phases:")
+                                push: "ChargingPhaseSwitchingInfo.qml"
                             }
 
                             ConsolinnoDropdown {
@@ -1360,18 +1339,9 @@ GenericConfigPage {
                                 Layout.topMargin: 10
 
                                 ColumnLayout{
-                                    Row{
-                                        Label{
-                                            id: batteryid
-
-                                            text: qsTr("Battery level: ") + batteryLevel.value +" %"
-                                        }
-
-                                        InfoButton{
-                                            push: "BatteryLevel.qml"
-                                            anchors.left: batteryid.right
-                                            anchors.leftMargin:  5
-                                        }
+                                    LabelWithInfo {
+                                        text: qsTr("Battery level: ") + batteryLevel.value +" %"
+                                        push: "BatteryLevel.qml"
                                     }
 
                                     Slider {
@@ -1414,17 +1384,9 @@ GenericConfigPage {
                                 visible:  isAnyOfModesSelected([pv_optimized, pv_excess])
                                 ColumnLayout {
                                     spacing: 0
-                        Row{
-                            spacing: 5
-                            Label {
-                                id: targetCharge
-
-                                text: qsTr("Target charge %1%").arg(targetPercentageSlider.value)
-                            }
-
-                            InfoButton{
-                                push: "TargetChargeInfo.qml"
-                            }
+                        LabelWithInfo {
+                            text: qsTr("Target charge %1%").arg(targetPercentageSlider.value)
+                            push: "TargetChargeInfo.qml"
                         }
 
                                     Slider {
@@ -1645,39 +1607,25 @@ GenericConfigPage {
                                 }
                             }
                         }
-                        RowLayout {
+                        ColumnLayout {
                             Layout.preferredWidth: app.width
                             Layout.topMargin: 10
+                            visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
 
-                            RowLayout {
-                                Layout.fillWidth: true
+                            LabelWithInfo {
+                                text: qsTr("Low solar avalaibility:")
+                                push: "GridConsumptionInfo.qml"
+                            }
+                        }
 
-                                Label{
-                                    id: gridConsumptionLabel
-                                    visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
-                                    text: qsTr("Low solar avalaibility:")
-                                }
+                        ColumnLayout {
+                            Layout.preferredWidth: app.width
+                            Layout.topMargin: 10
+                            visible: isAnyOfModesSelected([dyn_pricing])
 
-                                InfoButton{
-                                    id: gridConsumptionInfoButton
-                                    visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
-                                    push: "GridConsumptionInfo.qml"
-                                    Layout.leftMargin: 5
-                                }
-
-                                Label {
-                                    id: pausingModeid
-                                    visible: isAnyOfModesSelected([dyn_pricing])
-                                    text: qsTr("Pausing: ")
-                                }
-
-                                InfoButton{
-                                    id: pausingModeInfoButton
-                                    visible: isAnyOfModesSelected([dyn_pricing])
-                                    push: "PausingInfo.qml"
-                                    Layout.leftMargin: 5
-                                }
-
+                            LabelWithInfo {
+                                text: qsTr("Pausing: ")
+                                push: "PausingInfo.qml"
                             }
                         }
 
@@ -1702,23 +1650,9 @@ GenericConfigPage {
                             Layout.topMargin: 5
                             visible: isAnyOfModesSelected([dyn_pricing])
 
-                            RowLayout {
-                                id: priceRow
-
-                                Label {
-                                    id: priceLimitigId
-
-                                    text: qsTr("Price limit: ")
-                                }
-
-                                InfoButton{
-                                    id: priceLimitInfoButton
-
-                                    push: "PriceLimitInfo.qml"
-                                    anchors.left: priceLimitigId.right
-                                    anchors.leftMargin:  5
-                                }
-
+                            LabelWithInfo {
+                                text: qsTr("Price limit: ")
+                                push: "PriceLimitInfo.qml"
                             }
                         }
 
