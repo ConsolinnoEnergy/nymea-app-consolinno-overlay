@@ -48,7 +48,7 @@ SettingsPageBase {
         onBackPressed: pageStack.pop()
 
         HeaderButton {
-            imageSource: "/icons/navigation-menu.svg"
+            imageSource: "/icons/menu.svg"
             onClicked: deviceMenu.open()
         }
     }

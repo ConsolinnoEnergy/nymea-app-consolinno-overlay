@@ -46,7 +46,7 @@ Item {
         HeaderButton {
             id: menuButton
             objectName: "headerMenuButton"
-            imageSource: "/icons/navigation-menu.svg"
+            imageSource: "/icons/menu.svg"
             visible: false
             onClicked: root.menuPressed();
         }
@@ -98,7 +98,7 @@ Item {
         HeaderButton {
             id: menuOptionsButton
             objectName: "headerMenuOptionsButton"
-            imageSource: "/icons/navigation-menu.svg"
+            imageSource: "/icons/menu.svg"
             visible: false
             onClicked: root.menuOptionsPressed();
         }

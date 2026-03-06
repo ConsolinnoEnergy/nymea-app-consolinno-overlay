@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.12
 import "../components"
 import "../delegates"
+import "../wizards"
 import Nymea 1.0
 
 Page {
@@ -55,6 +56,18 @@ Page {
         }
     }
 
+    WizardController {
+        id: wizardController
+        hemsManager: root.hemsManager
+        onWizardDone: {
+            // Nach dem Wizard: zurück zum Dashboard.
+            // Stack: empty Page(0) → MainPage(1) → SettingsPage(2) → DeviceOverview(3)
+            // Je zweimal poppen.
+            pageStack.pop()
+            pageStack.pop()
+        }
+    }
+
     ColumnLayout {
         anchors.fill: parent
 
@@ -67,9 +80,8 @@ Page {
             Layout.preferredWidth: 300
             Layout.minimumWidth: 100
             Layout.topMargin: 10
-            onClicked:{
-                // go back to ConsolinnoView.qml
-                root.startWizard()
+            onClicked: {
+                wizardController.startManualSetup()
             }
 
             }

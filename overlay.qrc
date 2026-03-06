@@ -119,9 +119,9 @@
         <file>icons/z-wave.svg</file>
     </qresource>
     <qresource prefix="/ui">
+        <file>wizards/WizardController.qml</file>
         <file>system/ConsolinnoUsersSettingsPage.qml</file>
         <file>ConsolinnoSettingsPage.qml</file>
-        <file>mainviews/ConsolinnoView.qml</file>
         <file>images/leaf.svg</file>
         <file>Configuration.qml</file>
         <file>wizards/ConnectionWizard.qml</file>
@@ -244,6 +244,7 @@
         <file>mainviews/UnconfiguredHemsView.qml</file>
         <file>components/CoFrostyCard.qml</file>
         <file>components/CoInfoCard.qml</file>
+        <file>components/CoInfoCardContainer.qml</file>
         <file>info/ChargingPhaseSwitchingInfo.qml</file>
         <file>components/CoPowerThingInfoCard.qml</file>
         <file>components/CoCard.qml</file>
