@@ -6,6 +6,7 @@ Row {
     property alias text: label.text
     property alias push: infoButton.push
 
+    Layout.fillWidth: true
     spacing: 8
 
     Label {
