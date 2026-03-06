@@ -150,7 +150,7 @@ ConfigurationBase {
     // Additional MainViews
     property var additionalMainViews: ListModel {
         ListElement { name: "consolinnoDashboard"; source: "CoDashboardView"; displayName: qsTr("Dashboard") ; icon: "home" }
-        ListElement { name: "consolinnoStats"; source: "DetailedGraphsPage"; displayName: qsTr("Statistics") ; icon: "bar_chart" }
+        ListElement { name: "consolinnoStats"; source: "DetailedGraphsPage"; displayName: qsTr("History") ; icon: "bar_chart" }
     }
 
     // Main views filter: Only those main views are enabled
