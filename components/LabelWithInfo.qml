@@ -6,7 +6,7 @@ Row {
     property alias text: label.text
     property alias push: infoButton.push
 
-    spacing: 5
+    spacing: 8
 
     Label {
         id: label
