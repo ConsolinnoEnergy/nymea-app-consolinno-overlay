@@ -246,5 +246,6 @@
         <file>components/CoNotification.qml</file>
         <file>components/CoIconButton.qml</file>
         <file>optimization/DayTimePickerPage.qml</file>
+        <file>components/LabelWithInfo.qml</file>
     </qresource>
 </RCC>
