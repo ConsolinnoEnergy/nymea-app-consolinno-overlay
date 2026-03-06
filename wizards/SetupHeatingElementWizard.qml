@@ -137,13 +137,7 @@ Page {
                             contentItem: ConsolinnoItemDelegate{
                                 id: setupHeatingRoad
                                 Layout.preferredWidth: root.width
-                                iconName:{
-                                    if(Configuration.heatingRodIcon !== ""){
-                                        return "/ui/images/"+Configuration.heatingRodIcon;
-                                    }else{
-                                        return "/icons/heating_rod.svg";
-                                    }
-                                }
+                                iconName: Qt.resolvedUrl("/icons/water_heater.svg")
                                 progressive: false
                                 text: heProxy.get(index).name
 

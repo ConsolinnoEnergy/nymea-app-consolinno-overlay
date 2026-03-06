@@ -104,18 +104,6 @@ ConfigurationBase {
     readonly property color customBatteryMinusColor: configID.batteryDischargeColor
     readonly property color customPowerSockerColor: configID.consumedColor
 
-    //custom Icons
-    readonly property string gridIcon: ""
-    readonly property string heatpumpIcon: ""
-    readonly property string heatingRodIcon: ""
-    readonly property string energyIcon: ""
-    readonly property string inverterIcon: ""
-    readonly property string settingsIcon: ""
-    readonly property string evchargerIcon: ""
-    readonly property string batteryIcon: ""
-    readonly property string infoIcon: ""
-    readonly property string menuIcon: ""
-
     //////////////////////////////////////////////////////////////////////////////////////
     //Help links
     property ListModel softwareLinksApp: ListModel {

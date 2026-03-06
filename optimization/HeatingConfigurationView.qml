@@ -33,7 +33,7 @@ Page {
                 property Thing heatPumpThing: engine.thingManager.things.getThing(model.heatPumpThingId)
 
                 Layout.fillWidth: true
-                iconName: Configuration.heatpumpIcon !== "" ? "qrc:/ui/images/"+Configuration.heatpumpIcon : "/icons/heat_pump.svg"
+                iconName: Qt.resolvedUrl("/icons/heat_pump.svg")
                 progressive: true
                 text: heatPumpThing.name
                 onClicked: pageStack.push("HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration: heatingConfiguration, heatPumpThing: heatPumpThing })
@@ -69,7 +69,7 @@ Page {
                 property Thing heatingElementThing: engine.thingManager.things.getThing(model.heatingRodThingId)
 
                 Layout.fillWidth: true
-                iconName: Configuration.heatingRodIcon !== "" ? "/ui/images/"+Configuration.heatingRodIcon : "/icons/heating_rod.svg"
+                iconName: Qt.resolvedUrl("/icons/water_heater.svg")
                 progressive: true
                 text: heatingElementThing.name
                 onClicked: pageStack.push("HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingElementConfiguration: heatingElementConfiguration, heatRodThing: heatingElementThing })

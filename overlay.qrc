@@ -24,15 +24,20 @@
         <file>icons/arrow_forward_ios.svg</file>
         <file>icons/attribution.svg</file>
         <file>icons/bar_chart.svg</file>
-        <file>icons/battery/0.svg</file>
-        <file>icons/battery/1.svg</file>
-        <file>icons/battery/2.svg</file>
-        <file>icons/battery/3.svg</file>
-        <file>icons/battery/4.svg</file>
-        <file>icons/battery/5.svg</file>
-        <file>icons/battery/6.svg</file>
-        <file>icons/battery/bolt.svg</file>
-        <file>icons/battery/full.svg</file>
+        <file>icons/battery/battery-000.svg</file>
+        <file>icons/battery/battery-010.svg</file>
+        <file>icons/battery/battery-020.svg</file>
+        <file>icons/battery/battery-030.svg</file>
+        <file>icons/battery/battery-040.svg</file>
+        <file>icons/battery/battery-050.svg</file>
+        <file>icons/battery/battery-060.svg</file>
+        <file>icons/battery/battery-070.svg</file>
+        <file>icons/battery/battery-080.svg</file>
+        <file>icons/battery/battery-090.svg</file>
+        <file>icons/battery/battery-100.svg</file>
+        <file>icons/battery/battery-bolt.svg</file>
+        <file>icons/battery/battery_minus.svg</file>
+        <file>icons/battery/battery_plus.svg</file>
         <file>icons/battery_charging.svg</file>
         <file>icons/build.svg</file>
         <file>icons/cable.svg</file>
@@ -165,8 +170,6 @@
         <file>info/Help/ContactPage.qml</file>
         <file>info/Help/ServicePage.qml</file>
         <file>components/ConsolinnoPasswordTextField.qml</file>
-        <file>images/heatpump.svg</file>
-        <file>images/grid.svg</file>
         <file>mainviews/energy/ConsolinnoConsumersHistory.qml</file>
         <file>mainviews/energy/ConsolinnoConsumerStats.qml</file>
         <file>mainviews/energy/ConsolinnoPowerBalanceStats.qml</file>
@@ -177,7 +180,6 @@
         <file>components/ConsolinnoImprintSystem.qml</file>
         <file>components/ConsolinnoImprintApp.qml</file>
         <file>info/GridConsumptionInfo.qml</file>
-        <file>images/heating_rod.svg</file>
         <file>thingconfiguration/DebugCharts.qml</file>
         <file>thingconfiguration/ConEMSState.qml</file>
         <file>devicepages/GenericSmartDeviceMeterPage.qml</file>
@@ -206,6 +208,9 @@
         <file>optimization/BatteryConfigView.qml</file>
         <file>info/TariffGuidedChargingInfo.qml</file>
         <file>info/ActivateInstantChargingInfo.qml</file>
+        <file>info/AvoidZeroCompensationInfo.qml</file>
+        <file>info/BlockEVChargingFromBatteryInfo.qml</file>
+        <file>info/HeatpumpOptimizationInfo.qml</file>
         <file>components/ConsolinnoThingDelegate.qml</file>
         <file>components/ConsolinnoColorIcon.qml</file>
         <file>components/ConsolinnoSwipeDelegate.qml</file>

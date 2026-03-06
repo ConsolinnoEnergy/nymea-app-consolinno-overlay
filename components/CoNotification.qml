@@ -127,14 +127,14 @@ Item {
             color: root.accentColor()
             name: {
                 if (root.type === CoNotification.Type.Information) {
-                    return Qt.resolvedUrl("qrc:/icons/check.svg") // #TODO icon from new style
+                    return Qt.resolvedUrl("qrc:/icons/check.svg")
                 } else if (root.type === CoNotification.Type.Warning) {
-                    return Qt.resolvedUrl("qrc:/icons/error.svg") // #TODO icon from new style
+                    return Qt.resolvedUrl("qrc:/icons/error.svg")
                 } else if (root.type === CoNotification.Type.Danger) {
-                    return Qt.resolvedUrl("qrc:/icons/warning.svg") // #TODO icon from new style
+                    return Qt.resolvedUrl("qrc:/icons/warning.svg")
                 } else {
                     console.warn("CoNotification: unknown type:", root.type);
-                    return Qt.resolvedUrl("qrc:/icons/error.svg") // #TODO icon from new style
+                    return Qt.resolvedUrl("qrc:/icons/error.svg")
                 }
             }
         }

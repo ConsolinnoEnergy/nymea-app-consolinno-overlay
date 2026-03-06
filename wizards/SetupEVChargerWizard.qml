@@ -142,13 +142,7 @@ Page {
                             contentItem: ConsolinnoItemDelegate{
                                 id: iconEv
                                 Layout.preferredWidth: root.width
-                                iconName: {
-                                    if(Configuration.evchargerIcon !== ""){
-                                        return "/ui/images/"+Configuration.evchargerIcon
-                                    }else{
-                                        return "/icons/ev_station.svg"
-                                    }
-                                }
+                                iconName: Qt.resolvedUrl("/icons/ev_station.svg")
                                 progressive: false
                                 text: evProxy.get(index) ? evProxy.get(index).name : ""
                                 Image {

@@ -57,19 +57,19 @@ Page {
                             icon = "/icons/mode_heat.svg";
                             break;
                         case HemsManager.HemsUseCaseCharging:
-                            icon = Configuration.evchargerIcon !== "" ? "../images/" + Configuration.evchargerIcon : "/icons/ev_station.svg";
+                            icon = "/icons/ev_station.svg";
                             break;
                         case HemsManager.HemsUseCaseBattery:
-                            icon = Configuration.batteryIcon !== "" ? "../images/" + Configuration.batteryIcon : "/icons/battery/battery-080.svg"; // TODO use battery icons from new design
+                            icon = "/icons/battery/battery-060.svg";
                             break;
                         case HemsManager.HemsUseCasePv:
-                            icon = Configuration.inverterIcon !== "" ? "../images/" + Configuration.inverterIcon : "/icons/solar_power.svg";
+                            icon = "/icons/solar_power.svg";
                             break;
                         case HemsManager.HemsUseCaseHeatingRod:
-                            icon = "/icons/sensors/water.svg";
+                            icon = "/icons/water_heater.svg";
                             break;
                     }
-                    return icon;
+                    return Qt.resolvedUrl(icon);
                 }
 
                 Image {
