@@ -608,7 +608,7 @@ MainViewBase {
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/electric_bolt.svg")
                                 onClicked: {
-                                    flickableContentYAnimation.setTargetY(heatingGroup.y);
+                                    flickableContentYAnimation.setTargetY(consumptionGroup.y);
                                     flickableContentYAnimation.start();
                                 }
                             }
@@ -757,42 +757,132 @@ MainViewBase {
                         }
                     }
 
-                    CoFrostyCard {
-                        id: heatingGroup
+                    ColumnLayout {
+                        id: consumptionGroup
                         Layout.fillWidth: true
-                        headerText: qsTr("Heating")
-                        visible: heatingThings.count > 0
 
-                        CoInfoCardContainer {
-                            anchors.left: parent.left
-                            anchors.right: parent.right
+                            CoFrostyCard {
+                            id: heatingGroup
+                            Layout.fillWidth: true
+                            headerText: qsTr("Heating")
+                            visible: heatingThings.count > 0
 
-                            Repeater {
-                                model: heatingThings
+                            CoInfoCardContainer {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
 
-                                delegate: CoPowerThingInfoCard {
-                                    Layout.fillWidth: true
-                                    thing: heatingThings.get(index)
-                                    icon: thingToIcon(thing)
-                                    onClicked: {
-                                        console.info("Clicked heating thing:", thing.name);
-                                        if (thing.thingClass.interfaces.indexOf("heatpump") >= 0) {
-                                            pageStack.push(
-                                                        "/ui/optimization/HeatingConfigView.qml",
-                                                        {
-                                                            "hemsManager": hemsManager,
-                                                            "thing": thing
-                                                        });
-                                        } else if (thing.thingClass.interfaces.indexOf("heatingrod") >= 0) {
-                                            pageStack.push(
-                                                        "/ui/devicepages/HeatingElementDevicePage.qml",
-                                                        {
-                                                            "hemsManager": hemsManager,
-                                                            "thing": thing
-                                                        });
-                                        } else {
-                                            console.warn("Neither heatpump nor heatingrod interface found in thing interfaces:",
-                                                         thing.thingClass.interfaces);
+                                Repeater {
+                                    model: heatingThings
+
+                                    delegate: CoPowerThingInfoCard {
+                                        Layout.fillWidth: true
+                                        thing: heatingThings.get(index)
+                                        icon: thingToIcon(thing)
+                                        onClicked: {
+                                            console.info("Clicked heating thing:", thing.name);
+                                            if (thing.thingClass.interfaces.indexOf("heatpump") >= 0) {
+                                                pageStack.push(
+                                                            "/ui/optimization/HeatingConfigView.qml",
+                                                            {
+                                                                "hemsManager": hemsManager,
+                                                                "thing": thing
+                                                            });
+                                            } else if (thing.thingClass.interfaces.indexOf("heatingrod") >= 0) {
+                                                pageStack.push(
+                                                            "/ui/devicepages/HeatingElementDevicePage.qml",
+                                                            {
+                                                                "hemsManager": hemsManager,
+                                                                "thing": thing
+                                                            });
+                                            } else {
+                                                console.warn("Neither heatpump nor heatingrod interface found in thing interfaces:",
+                                                            thing.thingClass.interfaces);
+                                                pageStack.push(
+                                                            "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
+                                                            {
+                                                                "thing": thing
+                                                            });
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        CoFrostyCard {
+                            Layout.fillWidth: true
+                            headerText: qsTr("Mobility")
+                            visible: evChargerThings.count > 0
+
+                            CoInfoCardContainer {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+
+                                Repeater {
+                                    model: evChargerThings
+
+                                    delegate: CoPowerThingInfoCard {
+                                        Layout.fillWidth: true
+                                        thing: evChargerThings.get(index)
+                                        icon: thingToIcon(thing)
+                                        onClicked: {
+                                            console.info("Clicked EV charger thing:", thing.name);
+                                            // Check if these states are provided by the thing
+                                            let pluggedIn = thing.stateByName("pluggedIn");
+                                            let maxChargingCurrent = thing.stateByName("maxChargingCurrent");
+                                            let phaseCount = thing.stateByName("phaseCount");
+
+                                            // If yes, you can use the optimization else you have to
+                                            // resort to the EvChargerThingPage
+                                            if (pluggedIn !== null &&
+                                                    maxChargingCurrent !== null &&
+                                                    phaseCount !== null) {
+                                                let carThingId =
+                                                    hemsManager.chargingConfigurations.getChargingConfiguration(thing.id).carThingId;
+                                                pageStack.push(
+                                                            "../optimization/ChargingConfigView.qml",
+                                                            {
+                                                                "hemsManager": hemsManager,
+                                                                "thing": thing,
+                                                                "carThing": electricVehicleThings.getThing(carThingId)
+                                                            });
+                                            } else {
+                                                pageStack.push(
+                                                            "/ui/devicepages/EvChargerThingPage.qml",
+                                                            {
+                                                                "thing": thing
+                                                            });
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        CoFrostyCard {
+                            Layout.fillWidth: true
+                            headerText: qsTr("Other consumers")
+
+                            CoInfoCardContainer {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+
+                                Repeater {
+                                    model: otherConsumerThings
+
+                                    delegate: CoPowerThingInfoCard {
+                                        Layout.fillWidth: true
+                                        thing: otherConsumerThings.get(index)
+                                        icon: thingToIcon(thing)
+                                        visible: {
+                                            if (thing.thingClass.interfaces.indexOf("hideable") >= 0) {
+                                                var hiddenState = thing.stateByName("hidden")
+                                                return !hiddenState || hiddenState.value !== true
+                                            }
+                                            return true
+                                        }
+                                        onClicked: {
+                                            console.info("Clicked thing:", thing.name);
                                             pageStack.push(
                                                         "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                                         {
@@ -801,100 +891,15 @@ MainViewBase {
                                         }
                                     }
                                 }
-                            }
-                        }
-                    }
 
-                    CoFrostyCard {
-                        Layout.fillWidth: true
-                        headerText: qsTr("Mobility")
-                        visible: evChargerThings.count > 0
-
-                        CoInfoCardContainer {
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-
-                            Repeater {
-                                model: evChargerThings
-
-                                delegate: CoPowerThingInfoCard {
+                                CoInfoCard {
                                     Layout.fillWidth: true
-                                    thing: evChargerThings.get(index)
-                                    icon: thingToIcon(thing)
-                                    onClicked: {
-                                        console.info("Clicked EV charger thing:", thing.name);
-                                        // Check if these states are provided by the thing
-                                        let pluggedIn = thing.stateByName("pluggedIn");
-                                        let maxChargingCurrent = thing.stateByName("maxChargingCurrent");
-                                        let phaseCount = thing.stateByName("phaseCount");
-
-                                        // If yes, you can use the optimization else you have to
-                                        // resort to the EvChargerThingPage
-                                        if (pluggedIn !== null &&
-                                                maxChargingCurrent !== null &&
-                                                phaseCount !== null) {
-                                            let carThingId =
-                                                hemsManager.chargingConfigurations.getChargingConfiguration(thing.id).carThingId;
-                                            pageStack.push(
-                                                        "../optimization/ChargingConfigView.qml",
-                                                        {
-                                                            "hemsManager": hemsManager,
-                                                            "thing": thing,
-                                                            "carThing": electricVehicleThings.getThing(carThingId)
-                                                        });
-                                        } else {
-                                            pageStack.push(
-                                                        "/ui/devicepages/EvChargerThingPage.qml",
-                                                        {
-                                                            "thing": thing
-                                                        });
-                                        }
-                                    }
+                                    text: qsTr("Unallocated consumption")
+                                    value: Math.abs(dataProvider.currentPowerUnallocatedConsumption)
+                                    unit: "W"
+                                    icon: Qt.resolvedUrl("qrc:/icons/interests.svg")
+                                    clickable: false
                                 }
-                            }
-                        }
-                    }
-
-                    CoFrostyCard {
-                        Layout.fillWidth: true
-                        headerText: qsTr("Other consumers")
-
-                        CoInfoCardContainer {
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-
-                            Repeater {
-                                model: otherConsumerThings
-
-                                delegate: CoPowerThingInfoCard {
-                                    Layout.fillWidth: true
-                                    thing: otherConsumerThings.get(index)
-                                    icon: thingToIcon(thing)
-                                    visible: {
-                                        if (thing.thingClass.interfaces.indexOf("hideable") >= 0) {
-                                            var hiddenState = thing.stateByName("hidden")
-                                            return !hiddenState || hiddenState.value !== true
-                                        }
-                                        return true
-                                    }
-                                    onClicked: {
-                                        console.info("Clicked thing:", thing.name);
-                                        pageStack.push(
-                                                    "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
-                                                    {
-                                                        "thing": thing
-                                                    });
-                                    }
-                                }
-                            }
-
-                            CoInfoCard {
-                                Layout.fillWidth: true
-                                text: qsTr("Unallocated consumption")
-                                value: Math.abs(dataProvider.currentPowerUnallocatedConsumption)
-                                unit: "W"
-                                icon: Qt.resolvedUrl("qrc:/icons/interests.svg")
-                                clickable: false
                             }
                         }
                     }
