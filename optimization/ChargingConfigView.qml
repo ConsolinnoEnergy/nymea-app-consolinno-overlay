@@ -363,24 +363,17 @@ GenericConfigPage {
                     anchors.topMargin: app.margins
                     anchors.margins: app.margins
 
-                    ConsolinnoAlert {
+                    CoNotification {
                         Layout.fillWidth: true
                         Layout.bottomMargin: 15
-
-                        property int desiredPhaseCount: isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : 0
-                        property int actualPhaseCount: thing ? thing.stateByName("phaseCount").value : 0
-
+                        type: CoNotification.Type.Warning
                         visible: desiredPhaseCountLayout.visible &&
                                  actualPhaseCountLayout.visible &&
                                  desiredPhaseCount !== actualPhaseCount
-                        backgroundColor: Style.warningBackground
-                        borderColor: Style.warningAccent
-                        textColor: Style.warningAccent
-                        iconColor: Style.warningAccent
-
-
-                        headerText: qsTr("Phase setting could not be applied")
-                        text: qsTr("The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.")
+                        property int desiredPhaseCount: isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : 0
+                        property int actualPhaseCount: thing ? thing.stateByName("phaseCount").value : 0
+                        title: qsTr("Phase setting could not be applied")
+                        message: qsTr("The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.")
                         .arg(desiredPhaseCount)
                         .arg(actualPhaseCount)
                     }

@@ -53,23 +53,33 @@ SettingsPageBase {
         }
     }
 
-    ConsolinnoAlert {
-        id: alert
+    CoNotification {
+        id: notification
         Layout.rightMargin: Style.margins
         Layout.leftMargin: Style.margins
-        width: parent.width
+        Layout.fillWidth: true
         visible: isNaN(connectedState) && connectedState.value === false ? true : isNaN(batteryCriticalState) && batteryCriticalState.value === true ? true : false
+        type: CoNotification.Type.Warning
 
-        backgroundColor: Style.dangerBackground
-        borderColor: Style.dangerAccent
-        textColor: Style.dangerAccent
-        iconColor: Style.dangerAccent
-        iconPath: "/icons/dialog-warning-symbolic.svg"
-        text: qsTr("Further information in <u>Protocol.</u>")
-        paramsThing: root.thing
-        paramState: isNaN(connectedState) && connectedState.value === false ? ["signalStrength", "connected"]  : isNaN(batteryCriticalState) && batteryCriticalState.value === true ? ["batteryLevel", "batteryCritical"] : []
-        pageUrl: "../devicepages/ConsolinnoDeviceLogPage.qml"
-        headerText: isNaN(connectedState) && connectedState.value === false ? qsTr("Thing is not connected!") : isNaN(batteryCriticalState) && batteryCriticalState.value === true ? qsTr("Thing runs out of battery!") : ""
+        title: isNaN(connectedState) && connectedState.value === false ? qsTr("Thing is not connected!") : isNaN(batteryCriticalState) && batteryCriticalState.value === true ? qsTr("Thing runs out of battery!") : ""
+        message: qsTr("Further information in <u>Protocol.</u>")
+        clickable: true
+        onClicked: {
+            let paramsThing = root.thing;
+            let paramState = isNaN(connectedState) && connectedState.value === false ? ["signalStrength", "connected"]  : isNaN(batteryCriticalState) && batteryCriticalState.value === true ? ["batteryLevel", "batteryCritical"] : [];
+            let pageUrl = "../devicepages/ConsolinnoDeviceLogPage.qml";
+            let signalStateType = paramsThing.thingClass.stateTypes.findByName(paramState[0]);
+            let connectedStateType = paramsThing.thingClass.stateTypes.findByName(paramState[1]);
+            let stateTypes = [];
+            if (signalStateType) {
+                stateTypes.push(signalStateType.id);
+            }
+            if (connectedStateType) {
+                stateTypes.push(connectedStateType.id);
+            }
+            pageStack.push(pageUrl, {thing: paramsThing, filterTypeIds: stateTypes});
+        }
+
     }
 
     Menu {

@@ -79,63 +79,51 @@ GenericConfigPage {
             }
 
             Item {
-                id: containerAvoidZeroCompensationItem
+                id: containerWarningItem
                 anchors.top: parent.top
-                height: containerAvoidZeroCompensation.implicitHeight
+                height: containerWarnings.implicitHeight
                 width: parent.width
 
                 ColumnLayout {
-                    id: containerAvoidZeroCompensation
+                    id: containerWarnings
                     anchors.top: parent.top
                     width: root.width
 
-                    property var states: {
-                        "limited": {
-                            "header": qsTr("Grid-supportive control"),
-                            "content": qsTr("Due to a control order from the network operator, the total power of controllable devices is <b>temporarily limited</b> to <b>%1 kW.</b> If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.").arg(convertToKw(powerLimitLPC)),
-                            "color": "warning",
-                            "backgroundColor": "warningBackground"
-                        },
-                        "blocked": {
-                            "header": qsTr("Grid-supportive control"),
-                            "content": qsTr("Consumption is <b>temporarily blocked</b> on the basis of a control signal from the grid operator."),
-                            "color": "danger",
-                            "backgroundColor": "dangerBackground"
-                        },
-                        "unrestricted": {
-                            "header": qsTr("Grid-supportive control"),
-                            "content": qsTr("unrestricted"),
-                            "backgroundColor": "none",
-                            "color": "none"
-                        }
-                    }
-
-                    property var infoColors: {
-                        "warning": Style.warningAccent,
-                        "danger": Style.dangerAccent,
-                        "warningBackground": Style.warningBackground,
-                        "dangerBackground": Style.dangerBackground,
-                        "none": "#ffffff"
-                    }
-
-                    property string currentState: isNotify === true && isRootmeter ? "limited" : "unrestricted"
-                    ConsolinnoAlert {
-                        id: avoidZeroCompensation
+                    CoNotification {
+                        id: lppWarning
                         Layout.rightMargin: app.margins
                         Layout.leftMargin: app.margins
-                        width: containerAvoidZeroCompensation.width
-                        visible: (isBatteryView && isZeroCompensation) || (isNotify === true && isRootmeter) || (isNotify === true && isProducer)
+                        Layout.fillWidth: true
+                        visible: isNotify && isProducer
+                        type: CoNotification.Type.Warning
+                        title: qsTr("Feed-in curtailment")
+                        message: qsTr("The feed-in is <b>limited temporarily</b> to <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimitLPP))
+                    }
 
-                        backgroundColor: Style.warningBackground
-                        borderColor: Style.warningAccent
-                        textColor: Style.warningAccent
-                        iconColor: Style.warningAccent
-                        imagePath: (isNotify === true && isRootmeter) || (isNotify === true && isProducer) ? "" : "../components/ConsolinnoDialog.qml"
-                        dialogHeaderText: (isNotify === true && isRootmeter) || (isNotify === true && isProducer) ? "" : qsTr("Avoid zero compensation")
-                        dialogText: (isNotify === true && isRootmeter) || (isNotify === true && isProducer) ? "" : qsTr("On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:")
-                        dialogPicture: (isNotify === true && isRootmeter) || (isNotify === true && isProducer) ? "" : "../images/avoidZeroCompansation.svg"
-                        text: (isNotify === true && isProducer) ? qsTr("The feed-in is <b>limited temporarily</b> to <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimitLPP)) : (isNotify === true && isRootmeter) ? containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].content : qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
-                        headerText: (isNotify === true && isProducer) ? qsTr("Feed-in curtailment") : (isNotify === true && isRootmeter) ? containerAvoidZeroCompensation.states[containerAvoidZeroCompensation.currentState].header : qsTr("Avoid zero compensation active")
+                    CoNotification {
+                        id: lpcWarning
+                        Layout.rightMargin: app.margins
+                        Layout.leftMargin: app.margins
+                        Layout.fillWidth: true
+                        visible: isNotify && isRootmeter
+                        type: CoNotification.Type.Warning
+                        title: qsTr("Grid-supportive control")
+                        message: qsTr("Due to a control order from the network operator, the total power of controllable devices is <b>temporarily limited</b> to <b>%1 kW.</b> If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.").arg(convertToKw(powerLimitLPC))
+                    }
+
+                    CoNotification {
+                        id: avoidZeroCompensationWarning
+                        Layout.rightMargin: app.margins
+                        Layout.leftMargin: app.margins
+                        Layout.fillWidth: true
+                        visible: isBatteryView && isZeroCompensation
+                        type: CoNotification.Type.Warning
+                        title: qsTr("Avoid zero compensation active")
+                        message: qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
+                        clickable: true
+                        onClicked: {
+                            pageStack.push("/ui/info/AvoidZeroCompensationInfo.qml", {stack: pageStack});
+                        }
                     }
                 }
             }
@@ -146,7 +134,7 @@ GenericConfigPage {
                 height: parent.height / 2
                 iconSource: ""
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: containerAvoidZeroCompensationItem.bottom
+                anchors.top: containerWarningItem.bottom
                 anchors.topMargin: Style.margins
 
                 onColor: {
