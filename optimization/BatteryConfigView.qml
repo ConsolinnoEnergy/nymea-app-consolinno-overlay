@@ -135,20 +135,16 @@ GenericConfigPage {
                 anchors.left: parent.left
                 anchors.margins: app.margins
 
-                ConsolinnoAlert {
+                CoNotification {
+                    Layout.fillWidth: true
                     visible: isZeroCompensation
-                    backgroundColor: "#FFEE89"
-                    borderColor: "#864A0D"
-                    textColor: "#864A0D"
-                    iconColor: "#864A0D"
-
-                    imagePath: "../components/ConsolinnoDialog.qml"
-                    dialogHeaderText: qsTr("Avoid zero compensation")
-                    dialogText: qsTr("On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.")
-                    dialogPicture: "../images/avoidZeroCompansation.svg"
-
-                    text: qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
-                    headerText: qsTr("Avoid zero compensation active")
+                    type: CoNotification.Type.Warning
+                    title: qsTr("Avoid zero compensation active")
+                    message: qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
+                    clickable: true
+                    onClicked: {
+                        pageStack.push(Qt.resolvedUrl("../info/AvoidZeroCompensationInfo.qml"), { stack: pageStack });
+                    }
                 }
 
                 //Status
