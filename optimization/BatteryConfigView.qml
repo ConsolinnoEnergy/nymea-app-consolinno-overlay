@@ -123,7 +123,9 @@ GenericConfigPage {
 
         Flickable {
             anchors.fill: parent
-            contentHeight: columnLayoutContainer.implicitHeight + (isZeroCompensation ? 100 : 0)
+            contentHeight: columnLayoutContainer.implicitHeight +
+                           columnLayoutContainer.anchors.topMargin +
+                           columnLayoutContainer.anchors.bottomMargin
             topMargin: 0
             clip: true
 
