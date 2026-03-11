@@ -142,6 +142,7 @@
         <file>optimization/PVConfigurationView.qml</file>
         <file>optimization/ChargingConfigView.qml</file>
         <file>thingconfiguration/AddGenericCar.qml</file>
+        <file>components/HeatpumpPriceWidget.qml</file>
         <file>components/InfoButton.qml</file>
         <file>info/TargetChargeInfo.qml</file>
         <file>info/ChargingModeInfo.qml</file>
