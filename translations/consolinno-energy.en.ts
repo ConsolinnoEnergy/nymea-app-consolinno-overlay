@@ -2859,10 +2859,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Customize the app&apos;s look and behavior.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Access tools for debugging and error reporting.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2876,10 +2872,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Configure who can log in.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Configure the system&apos;s network connection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2916,6 +2908,14 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Configure the MQTT broker.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Customize the app’s look and behavior.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure the system’s network connection.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

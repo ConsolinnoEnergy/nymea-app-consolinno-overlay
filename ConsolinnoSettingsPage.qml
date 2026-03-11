@@ -123,7 +123,7 @@ Page {
                     CoCard {
                         Layout.fillWidth: true
                         text: qsTr("Look & feel")
-                        helpText: qsTr("Customize the app's look and behavior.")
+                        helpText: qsTr("Customize the app’s look and behavior.")
                         iconLeft: "/icons/style.svg"
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("appsettings/ConsolinnoLookAndFeelSettingsPage.qml"))
@@ -183,7 +183,7 @@ Page {
                         Layout.fillWidth: true
                         iconLeft: "/icons/android_wifi_3_bar.svg"
                         text: qsTr("Networking")
-                        helpText: qsTr("Configure the system's network connection.")
+                        helpText: qsTr("Configure the system’s network connection.")
                         showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
                                  && Configuration.networkSettingsEnabled
