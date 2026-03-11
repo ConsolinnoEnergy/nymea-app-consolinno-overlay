@@ -319,5 +319,6 @@
         <file>info/ChargingPhaseSwitchingInfo.qml</file>
         <file>mainviews/energy/CoKpiStats.qml</file>
         <file>optimization/DayTimePickerPage.qml</file>
+        <file>optimization/CloudServicesPage.qml</file>
     </qresource>
 </RCC>
