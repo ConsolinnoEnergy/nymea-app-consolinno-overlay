@@ -215,19 +215,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Avoid zero compensation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Avoid zero compensation active</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -924,20 +916,23 @@
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;p&gt;Version 1.13.1&lt;/p&gt;
+        <translation>&lt;p&gt;Version 2.0.1&lt;/p&gt;
+&lt;h4&gt;Redesign&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;The app is becoming more modern: the new design will be rolled out step by step&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;First Step: A redesigned home screen with a simplified energy flow and a new navigation structure&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;Optimisation of SG‑ready heat pumps with dynamic electricity tariffs&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;HEMS can now be configured without PV&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Feed‑in regulation (LPP) for non‑hybrid inverters&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Improved battery charging with dynamic tariffs: Battery discharge can also be blocked depending on the tariff for maximum efficiency. Price and discharge limits are calculated based on the average price.&lt;br&gt;&lt;b&gt;Note: Tariff-controlled charging must be reconfigured after the update!&lt;/b&gt;&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Support of variable grid fees&lt;/li&gt;
+&lt;li&gt;New KPIs: Self‑consumption rate and degree of autonomy, including historical data&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;SG‑Ready heat pump: Recording of power consumption via a separate compatible meter&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;New charging mode – Scheduled Charging: Define one time window per weekday to benefit from bonus/cashback tariffs&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Support for EEBUS‑compatible heat pumps&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Protection against home battery discharge when charging the EV: Activate through the app&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4&gt;Improvements&lt;/h4&gt;
+&lt;h4&gt;Improvement&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;Improved message texts related to LPC&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Pop-up message if the entry for levies or grid fees is missing when setting up the electricity tariff&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Heating rod optimisation:&lt;br&gt;The heating rod now only activates once the battery is charged to 80 %&lt;/li&gt;
+&lt;li&gt;Factory Reset available in the app&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -3510,18 +3505,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>unrestricted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Avoid zero compensation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3535,10 +3518,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
