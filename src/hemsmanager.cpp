@@ -710,7 +710,7 @@ void HemsManager::notificationReceived(const QVariantMap &data)
     } else if (notification == "Hems.CloudConfigurationChanged") {
         qCDebug(dcHems()) << "Cloud configuration changed";
         QVariantMap configMap = params.value("cloudConfiguration").toMap();
-        m_cloudConfiguration->setCloudEnabled(configMap.value("cloudEnabled").toBool());
+        m_cloudConfiguration->setCloudEnabled(configMap.value("cloudConnectionEnabled").toBool());
         m_cloudConfiguration->setEnergyMonitoringEnabled(configMap.value("energyMonitoringEnabled").toBool());
         m_cloudConfiguration->setResearchDataEnabled(configMap.value("researchDataEnabled").toBool());
     }
@@ -1267,14 +1267,14 @@ CloudConfiguration *HemsManager::cloudConfiguration() const
 int HemsManager::setCloudConfiguration(const QVariantMap &data)
 {
     QVariantMap cloudConfig;
-    cloudConfig.insert("cloudEnabled", data.contains("cloudEnabled") ? data.value("cloudEnabled") : m_cloudConfiguration->cloudEnabled());
+    cloudConfig.insert("cloudConnectionEnabled", data.contains("cloudEnabled") ? data.value("cloudEnabled") : m_cloudConfiguration->cloudEnabled());
     cloudConfig.insert("energyMonitoringEnabled", data.contains("energyMonitoringEnabled") ? data.value("energyMonitoringEnabled") : m_cloudConfiguration->energyMonitoringEnabled());
     cloudConfig.insert("researchDataEnabled", data.contains("researchDataEnabled") ? data.value("researchDataEnabled") : m_cloudConfiguration->researchDataEnabled());
 
     QVariantMap params;
     params.insert("cloudConfiguration", cloudConfig);
     // Optimistic local update so UI reflects change immediately
-    m_cloudConfiguration->setCloudEnabled(cloudConfig.value("cloudEnabled").toBool());
+    m_cloudConfiguration->setCloudEnabled(cloudConfig.value("cloudConnectionEnabled").toBool());
     m_cloudConfiguration->setEnergyMonitoringEnabled(cloudConfig.value("energyMonitoringEnabled").toBool());
     m_cloudConfiguration->setResearchDataEnabled(cloudConfig.value("researchDataEnabled").toBool());
 
@@ -1287,7 +1287,7 @@ void HemsManager::getCloudConfigurationResponse(int commandId, const QVariantMap
     Q_UNUSED(commandId);
     qCDebug(dcHems()) << "Cloud configuration" << data;
     QVariantMap configMap = data.value("cloudConfiguration").toMap();
-    m_cloudConfiguration->setCloudEnabled(configMap.value("cloudEnabled").toBool());
+    m_cloudConfiguration->setCloudEnabled(configMap.value("cloudConnectionEnabled").toBool());
     m_cloudConfiguration->setEnergyMonitoringEnabled(configMap.value("energyMonitoringEnabled").toBool());
     m_cloudConfiguration->setResearchDataEnabled(configMap.value("researchDataEnabled").toBool());
 }
