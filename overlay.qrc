@@ -222,9 +222,7 @@
         <file>components/ConsolinnoSelectionTabs.qml</file>
         <file>components/ConsolinnoSwitch.qml</file>
         <file>components/ConsolinnoTextField.qml</file>
-        <file>components/ConsolinnoAlert.qml</file>
         <file>images/avoidZeroCompansation.svg</file>
-        <file>components/ConsolinnoDialog.qml</file>
         <file>system/ConsolinnoModbusRtuReconfigureMasterPage.qml</file>
         <file>components/ImageSVGHelper.qml</file>
         <file>components/ConsolinnoSetUpButton.qml</file>
