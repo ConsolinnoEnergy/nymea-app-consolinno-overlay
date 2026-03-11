@@ -392,31 +392,31 @@ MainViewBase {
                                         liveStatusPVCard.visible) {
                                     const startX = liveStatusPVCard.x + liveStatusPVCard.width - 10;
                                     const startY = liveStatusPVCard.y + liveStatusPVCard.height * 3 / 5;
-                                    const endX = liveStatusConsumptionCard.x + 20;
+                                    const endX = liveStatusConsumptionCard.x + 30;
                                     const endY = liveStatusConsumptionCard.y + 10;
                                     drawLine(ctx, startX, startY, endX, endY, dataProvider.flowSolarToConsumers);
                                 }
                                 if (dataProvider.flowSolarToGrid !== 0 &&
                                         liveStatusPVCard.visible) {
                                     const startX = liveStatusPVCard.x + liveStatusPVCard.width - 10;
-                                    const startY = liveStatusPVCard.y + liveStatusPVCard.height * 2 / 5;
+                                    const startY = liveStatusPVCard.y + liveStatusPVCard.height /2;
                                     const endX = liveStatusGridCard.x + 10;
-                                    const endY = liveStatusGridCard.y + liveStatusGridCard.height * 2 / 5;
+                                    const endY = liveStatusGridCard.y + liveStatusGridCard.height / 2;
                                     drawLine(ctx, startX, startY, endX, endY, dataProvider.flowSolarToGrid);
                                 }
                                 if (dataProvider.flowBatteryToConsumers !== 0 &&
                                         liveStatusBatteryCard.visible) {
                                     const startX = liveStatusBatteryCard.x + liveStatusBatteryCard.width - 10;
-                                    const startY = liveStatusBatteryCard.y + liveStatusBatteryCard.height * 3 / 5;
+                                    const startY = liveStatusBatteryCard.y + liveStatusBatteryCard.height / 2;
                                     const endX = liveStatusConsumptionCard.x + 10;
-                                    const endY = liveStatusConsumptionCard.y + liveStatusConsumptionCard.height * 3 / 5;
+                                    const endY = liveStatusConsumptionCard.y + liveStatusConsumptionCard.height / 2;
                                     drawLine(ctx, startX, startY, endX, endY, dataProvider.flowBatteryToConsumers);
                                 }
                                 if (dataProvider.flowGridToBattery !== 0 &&
                                         liveStatusBatteryCard.visible) {
                                     const startX = liveStatusGridCard.x + 10;
                                     const startY = liveStatusGridCard.y + liveStatusGridCard.height * 3 / 5;
-                                    const endX = liveStatusBatteryCard.x + liveStatusBatteryCard.width - 20;
+                                    const endX = liveStatusBatteryCard.x + liveStatusBatteryCard.width - 30;
                                     const endY = liveStatusBatteryCard.y + 10;
                                     drawLine(ctx, startX, startY, endX, endY, dataProvider.flowGridToBattery);
                                 }
