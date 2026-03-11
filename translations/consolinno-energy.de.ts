@@ -2821,11 +2821,11 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     </message>
     <message>
         <source>Configuration</source>
-        <translation>Einstellungen</translation>
+        <translation>Konfiguration</translation>
     </message>
     <message>
         <source>Optimization configuration</source>
-        <translation>Optimierungseinstellungen</translation>
+        <translation>Optimierungskonfiguration</translation>
     </message>
     <message>
         <source>Comissioning</source>
@@ -2876,10 +2876,6 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Optimiere Geräte und Systemverhalten.</translation>
     </message>
     <message>
-        <source>Customize the app&apos;s look and behavior.</source>
-        <translation>Aussehen und Verhalten der App anpassen.</translation>
-    </message>
-    <message>
         <source>Access tools for debugging and error reporting.</source>
         <translation>Greife auf Werkzeuge und Fehleranalyse-Werkzeuge zu.</translation>
     </message>
@@ -2894,10 +2890,6 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     <message>
         <source>Configure who can log in.</source>
         <translation>Konfiguriere, wer sich verbinden darf.</translation>
-    </message>
-    <message>
-        <source>Configure the system&apos;s network connection.</source>
-        <translation>Richte das Netzwerk dieses Systems ein.</translation>
     </message>
     <message>
         <source>Configure how applications can connect to this system.</source>
@@ -2934,6 +2926,14 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     <message>
         <source>Configure the MQTT broker.</source>
         <translation>Konfiguriere den MQTT Broker.</translation>
+    </message>
+    <message>
+        <source>Customize the app’s look and behavior.</source>
+        <translation>Aussehen und Verhalten der App anpassen.</translation>
+    </message>
+    <message>
+        <source>Configure the system’s network connection.</source>
+        <translation>Richte das Netzwerk dieses Systems ein.</translation>
     </message>
 </context>
 <context>
