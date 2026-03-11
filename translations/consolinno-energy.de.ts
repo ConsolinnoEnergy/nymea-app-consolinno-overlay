@@ -215,20 +215,12 @@
         <translation>Wenn Nullvergütung vermieden aktiv ist, dann ist kein Sofortladen der Batterie möglich.</translation>
     </message>
     <message>
-        <source>Avoid zero compensation</source>
-        <translation>Nullvergütung vermeiden</translation>
-    </message>
-    <message>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
     </message>
     <message>
         <source>Avoid zero compensation active</source>
         <translation>Nullvergütung vermeiden aktiv</translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
-        <translation>An Tagen mit negativen Strompreisen an der Strombörse wird aktiv Batteriekapazität freigehalten, um in den Stunden mit diesen negativen Börsenstrompreisen gezielt die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald diese Regelung aktiv ist, wird das Laden der Batterie limitiert (sichtbar an der gelben Meldung im Screen). Die Steuerung basiert auf der Vorhersage der PV-Produktion und des Hausverbrauchs und verschiebt die Ladung entsprechend.</translation>
     </message>
     <message>
         <source>%1 %</source>
@@ -933,21 +925,23 @@
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;p&gt;Version 1.13.1&lt;/p&gt;
+        <translation>&lt;p&gt;Version 2.0.1&lt;/p&gt;
+&lt;h4&gt;Redesign&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Die App wird moderner: Schrittweise wird das neue Design der App sichtbar&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Erster Schritt: Startseite mit vereinfachtem Energiefluss und neuer Navigation&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;Optimierung von SG‑Ready‑Wärmepumpen mit dynamischem Stromtarif&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;HEMS-Konfiguration jetzt auch ohne PV möglich&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Einspeiseabregelung (LPP) für nicht‑hybride Wechselrichter&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Verbessertes Batterieladen mit dynamischem Tarif: Auch das Entladen der Batterie kann tarifabhängig gesperrt werden für maximale Effizienz.
-Preis- und Entladegrenzen werden auf Basis des Durchschnittspreises berechnet.&lt;br&gt;&lt;b&gt;Hinweis: Tarifgesteuertes Laden muss nach dem Update neu konfiguriert werden!&lt;/b&gt;&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Unterstützung von variablen Netzentgelten&lt;/li&gt;
+&lt;li&gt;Kennzahlen Eigenverbrauch und Autarkiegrad inklusive Historie&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;SG-Ready WP: Erfassung der Leistungsaufnahme über einen separaten kompatiblen Zähler&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Neuer Lademodus zeitgesteuertes Laden: pro Wochentag kann ein Zeitfenster angelegt werden um Bonus/Cashback optimal zu nutzen&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Unterstützung für EEBUS‑fähige Wärmepumpen&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Schutz vor Heimspeicher-Entladung bei Laden des E-Autos: Aktivieren über die App&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4&gt;Verbesserungen&lt;/h4&gt;
+&lt;h4&gt;Verbesserung&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;Aussagekräftigere Meldungstexte im Zusammenhang mit LPC&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Pop‑up Hinweis, wenn bei der Einrichtung des Stromtarifs die Eingabe für Abgaben oder Netzentgelte fehlt&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Optimierung des Heizstabs:&lt;br&gt;Der Heizstab aktiviert sich erst, wenn der Batteriespeicher mindestens 80 % geladen ist&lt;/li&gt;
+&lt;li&gt;Factory Reset in der App verfügbar&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -3541,18 +3535,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Bei der aktuellen Rate wird die Batterie bis %1 halten.</translation>
     </message>
     <message>
-        <source>unrestricted</source>
-        <translation>uneingeschränkt</translation>
-    </message>
-    <message>
-        <source>Avoid zero compensation</source>
-        <translation>Nullvergütung vermeiden</translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation>An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
-    </message>
-    <message>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
     </message>
@@ -3567,10 +3549,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
         <translation>Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend begrenzt&lt;/b&gt; auf &lt;b&gt;%1 kW.&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <source>Consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
-        <translation>Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend blockiert&lt;/b&gt;.</translation>
     </message>
     <message>
         <source>Grid-supportive control</source>
