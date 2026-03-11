@@ -108,6 +108,18 @@ Page {
                                                       "hemsManager": hemsManager
                                                   })
                     }
+
+                    CoCard {
+                        Layout.fillWidth: true
+                        text: qsTr("Cloud services")
+                        helpText: qsTr("Manage cloud connection and data sharing preferences.")
+                        iconLeft: "/icons/cloud.svg"
+                        showChildrenIndicator: true
+                        onClicked: pageStack.push(Qt.resolvedUrl("optimization/CloudServicesPage.qml"),
+                                                  {
+                                                      "hemsManager": hemsManager
+                                                  })
+                    }
                 }
             }
 

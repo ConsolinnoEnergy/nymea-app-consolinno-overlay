@@ -16,6 +16,7 @@
 #include "Configurations/dynamicelectricpricingconfigurations.h"
 #include "Configurations/batteryconfigurations.h"
 #include "Configurations/conemsstate.h"
+#include "Configurations/cloudconfiguration.h"
 
 
 
@@ -38,6 +39,7 @@ class HemsManager : public QObject
     Q_PROPERTY(ConEMSState *conEMSState READ conEMSState CONSTANT)
     Q_PROPERTY(UserConfigurations *userConfigurations READ userConfigurations CONSTANT)
     Q_PROPERTY(HeatingElementConfigurations *heatingElementConfigurations READ heatingElementConfigurations CONSTANT)
+    Q_PROPERTY(CloudConfiguration *cloudConfiguration READ cloudConfiguration CONSTANT)
 
 public:
     enum HemsUseCase {
@@ -81,6 +83,7 @@ public:
     HeatingElementConfigurations *heatingElementConfigurations() const;
     DynamicElectricPricingConfigurations *dynamicElectricPricingConfigurations() const;
     BatteryConfigurations *batteryConfigurations() const;
+    CloudConfiguration *cloudConfiguration() const;
 
     // write and read
     Q_INVOKABLE int setPvConfiguration(const QUuid &pvThingId, const QVariantMap &data);
@@ -92,6 +95,7 @@ public:
     Q_INVOKABLE int setDynamicElectricPricingConfiguration(const QUuid &electricThingId, const QVariantMap &data);
 
     Q_INVOKABLE int setBatteryConfiguration(const QUuid &batteryThingId, const QVariantMap &data);
+    Q_INVOKABLE int setCloudConfiguration(const QVariantMap &data);
 
     // read only
     Q_INVOKABLE int setChargingSessionConfiguration(const QUuid carThingId, const QUuid evChargerThingid, const QString started_at, const QString finished_at, const float initial_battery_energy, const int duration, const float energy_charged, const float energy_battery, const int battery_level, const QUuid sessionId, const int state, const int timestamp);
@@ -131,6 +135,7 @@ signals:
     void setHeatingElementConfigurationReply(int commandId, const QString &error);
     void setDynamicElectricPricingConfigurationReply(int commandId, const QString &error);
     void setBatteryConfigurationReply(int commandId, const QString &error);
+    void setCloudConfigurationReply(int commandId, const QString &error);
 
     void factoryResetReply(int commandId, const QString &error);
 
@@ -162,6 +167,8 @@ private slots:
     Q_INVOKABLE void setHeatingElementConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setDynamicElectricPricingConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setBatteryConfigurationResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void getCloudConfigurationResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void setCloudConfigurationResponse(int commandId, const QVariantMap &data);
 
     Q_INVOKABLE void factoryResetResponse(int commandId, const QVariantMap &data);
 
@@ -183,6 +190,7 @@ private:
     HeatingElementConfigurations *m_heatingElementConfigurations = nullptr;
     DynamicElectricPricingConfigurations *m_dynamicElectricPricingConfigurations = nullptr;
     BatteryConfigurations *m_batteryConfigurations = nullptr;
+    CloudConfiguration *m_cloudConfiguration = nullptr;
 
     void addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateChargingConfiguration(const QVariantMap &configurationMap);

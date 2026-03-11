@@ -1,10 +1,81 @@
 <RCC>
     <qresource prefix="/">
+        <file>styles/light/fonts/DMSans-Black.ttf</file>
+        <file>styles/light/fonts/DMSans-BlackItalic.ttf</file>
+        <file>styles/light/fonts/DMSans-Bold.ttf</file>
+        <file>styles/light/fonts/DMSans-BoldItalic.ttf</file>
+        <file>styles/light/fonts/DMSans-ExtraBold.ttf</file>
+        <file>styles/light/fonts/DMSans-ExtraBoldItalic.ttf</file>
+        <file>styles/light/fonts/DMSans-ExtraLight.ttf</file>
+        <file>styles/light/fonts/DMSans-ExtraLightItalic.ttf</file>
+        <file>styles/light/fonts/DMSans-Italic.ttf</file>
+        <file>styles/light/fonts/DMSans-Light.ttf</file>
+        <file>styles/light/fonts/DMSans-LightItalic.ttf</file>
+        <file>styles/light/fonts/DMSans-Medium.ttf</file>
+        <file>styles/light/fonts/DMSans-MediumItalic.ttf</file>
+        <file>styles/light/fonts/DMSans-Regular.ttf</file>
+        <file>styles/light/fonts/DMSans-SemiBold.ttf</file>
+        <file>styles/light/fonts/DMSans-SemiBoldItalic.ttf</file>
+        <file>styles/light/fonts/DMSans-Thin.ttf</file>
+        <file>styles/light/fonts/DMSans-ThinItalic.ttf</file>
+        <file>styles/light/fonts/Poppins-Black.ttf</file>
+        <file>styles/light/fonts/Poppins-BlackItalic.ttf</file>
+        <file>styles/light/fonts/Poppins-Bold.ttf</file>
+        <file>styles/light/fonts/Poppins-BoldItalic.ttf</file>
+        <file>styles/light/fonts/Poppins-ExtraBold.ttf</file>
+        <file>styles/light/fonts/Poppins-ExtraBoldItalic.ttf</file>
+        <file>styles/light/fonts/Poppins-ExtraLight.ttf</file>
+        <file>styles/light/fonts/Poppins-ExtraLightItalic.ttf</file>
+        <file>styles/light/fonts/Poppins-Italic.ttf</file>
+        <file>styles/light/fonts/Poppins-Light.ttf</file>
+        <file>styles/light/fonts/Poppins-LightItalic.ttf</file>
+        <file>styles/light/fonts/Poppins-Medium.ttf</file>
+        <file>styles/light/fonts/Poppins-MediumItalic.ttf</file>
+        <file>styles/light/fonts/Poppins-Regular.ttf</file>
+        <file>styles/light/fonts/Poppins-SemiBold.ttf</file>
+        <file>styles/light/fonts/Poppins-SemiBoldItalic.ttf</file>
+        <file>styles/light/fonts/Poppins-Thin.ttf</file>
+        <file>styles/light/fonts/Poppins-ThinItalic.ttf</file>
+        <file>styles/dark/fonts/DMSans-Black.ttf</file>
+        <file>styles/dark/fonts/DMSans-BlackItalic.ttf</file>
+        <file>styles/dark/fonts/DMSans-Bold.ttf</file>
+        <file>styles/dark/fonts/DMSans-BoldItalic.ttf</file>
+        <file>styles/dark/fonts/DMSans-ExtraBold.ttf</file>
+        <file>styles/dark/fonts/DMSans-ExtraBoldItalic.ttf</file>
+        <file>styles/dark/fonts/DMSans-ExtraLight.ttf</file>
+        <file>styles/dark/fonts/DMSans-ExtraLightItalic.ttf</file>
+        <file>styles/dark/fonts/DMSans-Italic.ttf</file>
+        <file>styles/dark/fonts/DMSans-Light.ttf</file>
+        <file>styles/dark/fonts/DMSans-LightItalic.ttf</file>
+        <file>styles/dark/fonts/DMSans-Medium.ttf</file>
+        <file>styles/dark/fonts/DMSans-MediumItalic.ttf</file>
+        <file>styles/dark/fonts/DMSans-Regular.ttf</file>
+        <file>styles/dark/fonts/DMSans-SemiBold.ttf</file>
+        <file>styles/dark/fonts/DMSans-SemiBoldItalic.ttf</file>
+        <file>styles/dark/fonts/DMSans-Thin.ttf</file>
+        <file>styles/dark/fonts/DMSans-ThinItalic.ttf</file>
+        <file>styles/dark/fonts/Poppins-Black.ttf</file>
+        <file>styles/dark/fonts/Poppins-BlackItalic.ttf</file>
+        <file>styles/dark/fonts/Poppins-Bold.ttf</file>
+        <file>styles/dark/fonts/Poppins-BoldItalic.ttf</file>
+        <file>styles/dark/fonts/Poppins-ExtraBold.ttf</file>
+        <file>styles/dark/fonts/Poppins-ExtraBoldItalic.ttf</file>
+        <file>styles/dark/fonts/Poppins-ExtraLight.ttf</file>
+        <file>styles/dark/fonts/Poppins-ExtraLightItalic.ttf</file>
+        <file>styles/dark/fonts/Poppins-Italic.ttf</file>
+        <file>styles/dark/fonts/Poppins-Light.ttf</file>
+        <file>styles/dark/fonts/Poppins-LightItalic.ttf</file>
+        <file>styles/dark/fonts/Poppins-Medium.ttf</file>
+        <file>styles/dark/fonts/Poppins-MediumItalic.ttf</file>
+        <file>styles/dark/fonts/Poppins-Regular.ttf</file>
+        <file>styles/dark/fonts/Poppins-SemiBold.ttf</file>
+        <file>styles/dark/fonts/Poppins-SemiBoldItalic.ttf</file>
+        <file>styles/dark/fonts/Poppins-Thin.ttf</file>
+        <file>styles/dark/fonts/Poppins-ThinItalic.ttf</file>
         <file>styles/light/Style.qml</file>
         <file>styles/light/Button.qml</file>
         <file>styles/light/logo.svg</file>
         <file>styles/light/logo-wide.svg</file>
-        <file>styles/light/Dialog.qml</file>
         <file>translations</file>
         <file>styles/light/Background.qml</file>
         <file>SOURCE_AVAIL_de_DE.txt</file>
@@ -16,6 +87,8 @@
         <file>styles/dark/logo.svg</file>
         <file>styles/dark/Page.qml</file>
         <file>styles/dark/Style.qml</file>
+        <file>LICENSE.DMSans</file>
+        <file>LICENSE.Poppins</file>
         <file>icons/account_circle.svg</file>
         <file>icons/add.svg</file>
         <file>icons/android_wifi_3_bar.svg</file>
@@ -119,18 +192,37 @@
         <file>icons/z-wave.svg</file>
     </qresource>
     <qresource prefix="/ui">
-        <file>wizards/WizardController.qml</file>
+        <file>components/CoIconButton.qml</file>
+        <file>components/CoNotification.qml</file>
+        <file>components/CoPowerThingInfoCard.qml</file>
+        <file>components/CoCard.qml</file>
+        <file>components/CoFrostyCard.qml</file>
+        <file>components/CoInfoCard.qml</file>
+        <file>components/CoInfoCardContainer.qml</file>
+        <file>components/LabelWithInfo.qml</file>
+        <file>mainviews/CoDashboardView.qml</file>
+        <file>mainviews/UnconfiguredHemsView.qml</file>
+        <file>utils/DynPricingUtils.js</file>
+        <file>components/HeatpumpPriceWidget.qml</file>
+        <file>optimization/GridSupportiveControl.qml</file>
+        <file>components/ConsolinnoSelectionTabs.qml</file>
+        <file>components/ConsolinnoSwitch.qml</file>
+        <file>components/ConsolinnoTextField.qml</file>
+        <file>images/relais_screen.png</file>
+        <file>components/ConsolinnoCheckbox.qml</file>
+        <file>components/ConsolinnoDropdown.qml</file>
+        <file>system/ConsolinnoConnectionInterfacesPage.qml</file>
+        <file>thingconfiguration/ConsolinnoConfigureThingPage.qml</file>
+        <file>devicepages/ConsolinnoDeviceLogPage.qml</file>
+        <file>delegates/ConsolinnoParamDelegate.qml</file>
         <file>system/ConsolinnoUsersSettingsPage.qml</file>
         <file>ConsolinnoSettingsPage.qml</file>
         <file>images/leaf.svg</file>
         <file>Configuration.qml</file>
         <file>wizards/ConnectionWizard.qml</file>
         <file>wizards/ConsolinnoWizardPageBase.qml</file>
-        <file>images/intro-bg-graphic.svg</file>
-        <file>images/leaflet-connect.png</file>
         <file>wizards/SetupEVChargerWizard.qml</file>
         <file>wizards/WizardComplete.qml</file>
-        <file>images/wizard-done.png</file>
         <file>wizards/SetupEnergyMeterWizard.qml</file>
         <file>components/ConsolinnoButton.qml</file>
         <file>wizards/SetupSolarInverterWizard.qml</file>
@@ -142,7 +234,6 @@
         <file>optimization/PVConfigurationView.qml</file>
         <file>optimization/ChargingConfigView.qml</file>
         <file>thingconfiguration/AddGenericCar.qml</file>
-        <file>components/HeatpumpPriceWidget.qml</file>
         <file>components/InfoButton.qml</file>
         <file>info/TargetChargeInfo.qml</file>
         <file>info/ChargingModeInfo.qml</file>
@@ -174,7 +265,6 @@
         <file>mainviews/energy/ConsolinnoConsumersHistory.qml</file>
         <file>mainviews/energy/ConsolinnoConsumerStats.qml</file>
         <file>mainviews/energy/ConsolinnoPowerBalanceStats.qml</file>
-        <file>mainviews/energy/CoKpiStats.qml</file>
         <file>mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml</file>
         <file>mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml</file>
         <file>mainviews/energy/ConsolinnoPowerBalanceHistory.qml</file>
@@ -188,6 +278,7 @@
         <file>devicepages/GenericDeviceHistoryPage.qml</file>
         <file>components/ConsolinnoPVTextField.qml</file>
         <file>wizards/SetupHeatingElementWizard.qml</file>
+        <file>wizards/WizardController.qml</file>
         <file>optimization/HeatingElementConfigurationView.qml</file>
         <file>devicepages/HeatingElementDevicePage.qml</file>
         <file>optimization/HeatingElementOptimization.qml</file>
@@ -195,11 +286,9 @@
         <file>mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml</file>
         <file>devicepages/PageWraper.qml</file>
         <file>optimization/EvChargerOptimization.qml</file>
-        <file>optimization/GridSupportiveControl.qml</file>
         <file>info/PausingInfo.qml</file>
         <file>info/PriceLimitInfo.qml</file>
         <file>thingconfiguration/AddNewThings.qml</file>
-        <file>images/leaflet-ethernet-connect.png</file>
         <file>system/ConsolinnoNetworkSettingsPage.qml</file>
         <file>appsettings/ConsolinnoLookAndFeelSettingsPage.qml</file>
         <file>appsettings/ConsolinnoAppSettingsPage.qml</file>
@@ -209,9 +298,6 @@
         <file>optimization/BatteryConfigView.qml</file>
         <file>info/TariffGuidedChargingInfo.qml</file>
         <file>info/ActivateInstantChargingInfo.qml</file>
-        <file>info/AvoidZeroCompensationInfo.qml</file>
-        <file>info/BlockEVChargingFromBatteryInfo.qml</file>
-        <file>info/HeatpumpOptimizationInfo.qml</file>
         <file>components/ConsolinnoThingDelegate.qml</file>
         <file>components/ConsolinnoColorIcon.qml</file>
         <file>components/ConsolinnoSwipeDelegate.qml</file>
@@ -220,36 +306,18 @@
         <file>optimization/BatteryConfigurationView.qml</file>
         <file>system/ConsolinnoModbusRtuSettingsPage.qml</file>
         <file>system/ConsolinnoModbusRtuAddMasterPage.qml</file>
-        <file>components/ConsolinnoSelectionTabs.qml</file>
-        <file>components/ConsolinnoSwitch.qml</file>
-        <file>components/ConsolinnoTextField.qml</file>
-        <file>images/avoidZeroCompansation.svg</file>
+        <file>info/AvoidZeroCompensationInfo.qml</file>
         <file>system/ConsolinnoModbusRtuReconfigureMasterPage.qml</file>
         <file>components/ImageSVGHelper.qml</file>
         <file>components/ConsolinnoSetUpButton.qml</file>
         <file>components/ConsolinnoRadioDelegate.qml</file>
-        <file>images/relais_screen.png</file>
         <file>images/eebus.svg</file>
         <file>images/relais.svg</file>
-        <file>components/ConsolinnoCheckbox.qml</file>
-        <file>components/ConsolinnoDropdown.qml</file>
-        <file>system/ConsolinnoConnectionInterfacesPage.qml</file>
-        <file>thingconfiguration/ConsolinnoConfigureThingPage.qml</file>
-        <file>devicepages/ConsolinnoDeviceLogPage.qml</file>
-        <file>delegates/ConsolinnoParamDelegate.qml</file>
         <file>thingconfiguration/EpexDayAheadSetup.qml</file>
-        <file>utils/DynPricingUtils.js</file>
-        <file>mainviews/CoDashboardView.qml</file>
-        <file>mainviews/UnconfiguredHemsView.qml</file>
-        <file>components/CoFrostyCard.qml</file>
-        <file>components/CoInfoCard.qml</file>
-        <file>components/CoInfoCardContainer.qml</file>
+        <file>info/HeatpumpOptimizationInfo.qml</file>
+        <file>info/BlockEVChargingFromBatteryInfo.qml</file>
         <file>info/ChargingPhaseSwitchingInfo.qml</file>
-        <file>components/CoPowerThingInfoCard.qml</file>
-        <file>components/CoCard.qml</file>
-        <file>components/CoNotification.qml</file>
-        <file>components/CoIconButton.qml</file>
+        <file>mainviews/energy/CoKpiStats.qml</file>
         <file>optimization/DayTimePickerPage.qml</file>
-        <file>components/LabelWithInfo.qml</file>
     </qresource>
 </RCC>

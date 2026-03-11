@@ -20,6 +20,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
     m_chargingSessionConfigurations = new ChargingSessionConfigurations(this);
     m_conEMSState = new ConEMSState();
     m_userConfigurations = new UserConfigurations(this);
+    m_cloudConfiguration = new CloudConfiguration(this);
 }
 
 HemsManager::~HemsManager()
@@ -81,6 +82,7 @@ void HemsManager::setEngine(Engine *engine)
         m_engine->jsonRpcClient()->sendCommand("Hems.GetBatteryConfigurations", QVariantMap(), this, "getBatteryConfigurationResponse");
 
         m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingRodConfigurations", QVariantMap(), this, "getHeatingElementConfigurationsResponse");
+        m_engine->jsonRpcClient()->sendCommand("Hems.GetCloudConfiguration", QVariantMap(), this, "getCloudConfigurationResponse");
 
     }
 }
@@ -705,6 +707,12 @@ void HemsManager::notificationReceived(const QVariantMap &data)
         m_heatingElementConfigurations->removeConfiguration(params.value("heatingRodThingId").toUuid());
     } else if (notification == "Hems.HeatingRodConfigurationChanged") {
         addOrUpdateHeatingElementConfiguration(params.value("heatingRodConfiguration").toMap());
+    } else if (notification == "Hems.CloudConfigurationChanged") {
+        qCDebug(dcHems()) << "Cloud configuration changed";
+        QVariantMap configMap = params.value("cloudConfiguration").toMap();
+        m_cloudConfiguration->setCloudEnabled(configMap.value("cloudEnabled").toBool());
+        m_cloudConfiguration->setEnergyMonitoringEnabled(configMap.value("energyMonitoringEnabled").toBool());
+        m_cloudConfiguration->setResearchDataEnabled(configMap.value("researchDataEnabled").toBool());
     }
 
 
@@ -1249,4 +1257,38 @@ void HemsManager::updateAvailableUsecases(const QStringList &useCasesList)
         m_availableUseCases = availableUseCases;
         emit availableUseCasesChanged(m_availableUseCases);
     }
+}
+
+CloudConfiguration *HemsManager::cloudConfiguration() const
+{
+    return m_cloudConfiguration;
+}
+
+int HemsManager::setCloudConfiguration(const QVariantMap &data)
+{
+    QVariantMap cloudConfig;
+    cloudConfig.insert("cloudEnabled", data.contains("cloudEnabled") ? data.value("cloudEnabled") : m_cloudConfiguration->cloudEnabled());
+    cloudConfig.insert("energyMonitoringEnabled", data.contains("energyMonitoringEnabled") ? data.value("energyMonitoringEnabled") : m_cloudConfiguration->energyMonitoringEnabled());
+    cloudConfig.insert("researchDataEnabled", data.contains("researchDataEnabled") ? data.value("researchDataEnabled") : m_cloudConfiguration->researchDataEnabled());
+
+    QVariantMap params;
+    params.insert("cloudConfiguration", cloudConfig);
+    qCDebug(dcHems()) << "Set cloud configuration" << params;
+    return m_engine->jsonRpcClient()->sendCommand("Hems.SetCloudConfiguration", params, this, "setCloudConfigurationResponse");
+}
+
+void HemsManager::getCloudConfigurationResponse(int commandId, const QVariantMap &data)
+{
+    Q_UNUSED(commandId);
+    qCDebug(dcHems()) << "Cloud configuration" << data;
+    QVariantMap configMap = data.value("cloudConfiguration").toMap();
+    m_cloudConfiguration->setCloudEnabled(configMap.value("cloudEnabled").toBool());
+    m_cloudConfiguration->setEnergyMonitoringEnabled(configMap.value("energyMonitoringEnabled").toBool());
+    m_cloudConfiguration->setResearchDataEnabled(configMap.value("researchDataEnabled").toBool());
+}
+
+void HemsManager::setCloudConfigurationResponse(int commandId, const QVariantMap &data)
+{
+    qCDebug(dcHems()) << "Set cloud configuration response" << data.value("hemsError").toString();
+    emit setCloudConfigurationReply(commandId, data.value("hemsError").toString());
 }
