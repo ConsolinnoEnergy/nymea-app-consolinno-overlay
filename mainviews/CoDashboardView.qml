@@ -681,8 +681,9 @@ MainViewBase {
                     ColumnLayout {
                         id: consumptionGroup
                         Layout.fillWidth: true
+                        spacing: 16 // #TODO use value from new style
 
-                            CoFrostyCard {
+                        CoFrostyCard {
                             id: heatingGroup
                             Layout.fillWidth: true
                             headerText: qsTr("Heating")
@@ -717,7 +718,7 @@ MainViewBase {
                                                             });
                                             } else {
                                                 console.warn("Neither heatpump nor heatingrod interface found in thing interfaces:",
-                                                            thing.thingClass.interfaces);
+                                                             thing.thingClass.interfaces);
                                                 pageStack.push(
                                                             "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
                                                             {
