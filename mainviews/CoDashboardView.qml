@@ -350,6 +350,7 @@ MainViewBase {
 
                     CoFrostyCard {
                         Layout.fillWidth: true
+                        contentBottomMargin: 16
 
                         headerText: qsTr("Live status")
 
@@ -461,7 +462,6 @@ MainViewBase {
                             anchors.right: parent.right
                             anchors.leftMargin: 16
                             anchors.rightMargin: 16
-                            anchors.bottomMargin: 8
                             rowSpacing: 0
                             columnSpacing: 0
 
@@ -552,6 +552,7 @@ MainViewBase {
 
                     CoFrostyCard {
                         Layout.fillWidth: true
+                        contentBottomMargin: 16
 
                         headerText: qsTr("Energy status")
 
@@ -610,6 +611,7 @@ MainViewBase {
                     CoFrostyCard {
                         id: invertersGroup
                         Layout.fillWidth: true
+                        contentBottomMargin: 16
                         headerText: qsTr("Inverters")
                         visible: producerThings.count > 0
 
@@ -646,6 +648,7 @@ MainViewBase {
                     CoFrostyCard {
                         id: batteriesGroup
                         Layout.fillWidth: true
+                        contentBottomMargin: 16
                         headerText: qsTr("Batteries")
                         visible: batteryThings.count > 0
 
@@ -686,6 +689,7 @@ MainViewBase {
                         CoFrostyCard {
                             id: heatingGroup
                             Layout.fillWidth: true
+                            contentBottomMargin: 16
                             headerText: qsTr("Heating")
                             visible: heatingThings.count > 0
 
@@ -733,6 +737,7 @@ MainViewBase {
 
                         CoFrostyCard {
                             Layout.fillWidth: true
+                            contentBottomMargin: 16
                             headerText: qsTr("Mobility")
                             visible: evChargerThings.count > 0
 
@@ -783,6 +788,7 @@ MainViewBase {
 
                         CoFrostyCard {
                             Layout.fillWidth: true
+                            contentBottomMargin: 16
                             headerText: qsTr("Other consumers")
 
                             CoInfoCardContainer {
