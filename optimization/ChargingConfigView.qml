@@ -1061,8 +1061,9 @@ GenericConfigPage {
 
                     function isAnyOfModesSelected(modes)
                     {
-                        var selected_mode = getSelectedMode()
-                        return (modes.includes(selected_mode))
+                        var selected_mode = getSelectedMode();
+                        if (typeof selected_mode !== "number") { return false; }
+                        return (modes.includes(selected_mode));
                     }
 
                     ListModel {
