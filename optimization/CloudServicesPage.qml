@@ -156,7 +156,8 @@ Page {
             CoFrostyCard {
                 Layout.fillWidth: true
                 headerText: qsTr("Data categories")
-                visible: cloudConfiguration.cloudEnabled
+                enabled: cloudConfiguration.cloudEnabled
+                opacity: cloudConfiguration.cloudEnabled ? 1.0 : 0.5
 
                 ColumnLayout {
                     anchors.left: parent.left
