@@ -1273,6 +1273,11 @@ int HemsManager::setCloudConfiguration(const QVariantMap &data)
 
     QVariantMap params;
     params.insert("cloudConfiguration", cloudConfig);
+    // Optimistic local update so UI reflects change immediately
+    m_cloudConfiguration->setCloudEnabled(cloudConfig.value("cloudEnabled").toBool());
+    m_cloudConfiguration->setEnergyMonitoringEnabled(cloudConfig.value("energyMonitoringEnabled").toBool());
+    m_cloudConfiguration->setResearchDataEnabled(cloudConfig.value("researchDataEnabled").toBool());
+
     qCDebug(dcHems()) << "Set cloud configuration" << params;
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetCloudConfiguration", params, this, "setCloudConfigurationResponse");
 }
