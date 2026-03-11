@@ -226,6 +226,7 @@ GenericConfigPage {
 
                 RowLayout {
                     Layout.topMargin: Style.margins
+                    visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
                     Label {
                         text: qsTr("Charging from grid")
                         font.weight: Font.Bold
@@ -638,6 +639,7 @@ GenericConfigPage {
                     id: saveBtnContainer
                     anchors.margins: app.margins
                     Layout.topMargin: 20
+                    visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
 
                     Button {
                         id: saveButton
