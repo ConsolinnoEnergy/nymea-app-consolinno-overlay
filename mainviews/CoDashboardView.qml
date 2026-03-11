@@ -461,7 +461,6 @@ MainViewBase {
                             anchors.right: parent.right
                             anchors.leftMargin: 16
                             anchors.rightMargin: 16
-                            anchors.bottomMargin: 8
                             rowSpacing: 0
                             columnSpacing: 0
 
