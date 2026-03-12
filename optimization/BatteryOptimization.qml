@@ -114,7 +114,7 @@ Page {
 
             ConsolinnoSwitch {
                 id: blockEVChargingFromBatteryControl
-                Component.onCompleted: checked = (batteryConfiguration.blockBatteryOnGridConsumption & BatteryConfiguration.EvCharger)            // We need to use an Item here to prevent the switch from stretching vertically when the text wraps into multiple lines
+                Component.onCompleted: checked = (batteryConfiguration.blockBatteryOnGridConsumption & BatteryConfiguration.EvCharger)
             }
         }
 
