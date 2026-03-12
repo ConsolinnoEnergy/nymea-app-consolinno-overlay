@@ -16,6 +16,7 @@ Row {
 
     InfoButton {
         id: infoButton
+        visible: push !== ""
         anchors.verticalCenter: parent.verticalCenter
     }
 }
