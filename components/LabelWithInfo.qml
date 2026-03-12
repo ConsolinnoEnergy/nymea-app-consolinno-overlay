@@ -11,11 +11,12 @@ Row {
 
     Label {
         id: label
-        width: parent.width - infoButton.width - parent.spacing
-        wrapMode: Text.WordWrap
+        anchors.verticalCenter: parent.verticalCenter
     }
 
     InfoButton {
         id: infoButton
+        visible: push !== ""
+        anchors.verticalCenter: parent.verticalCenter
     }
 }
