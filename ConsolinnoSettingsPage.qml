@@ -39,6 +39,7 @@ Page {
 
             CoFrostyCard {
                 Layout.fillWidth: true
+                contentTopMargin: 8
                 headerText: qsTr("Configuration")
 
                 ColumnLayout {
@@ -113,6 +114,7 @@ Page {
 
             CoFrostyCard {
                 Layout.fillWidth: true
+                contentTopMargin: 8
                 headerText: qsTr("App settings")
 
                 ColumnLayout {
@@ -151,6 +153,7 @@ Page {
 
             CoFrostyCard {
                 Layout.fillWidth: true
+                contentTopMargin: 8
                 headerText: qsTr("System settings")
 
                 ColumnLayout {
@@ -252,6 +255,7 @@ Page {
 
             CoFrostyCard {
                 Layout.fillWidth: true
+                contentTopMargin: 8
                 headerText: qsTr("Developer settings")
                 visible: webServerCard.visible ||
                          zigbeeCard.visible ||

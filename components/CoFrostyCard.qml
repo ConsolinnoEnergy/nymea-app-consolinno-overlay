@@ -7,7 +7,8 @@ import Nymea 1.0
 Frame {
     property alias headerText: header.text
     default property alias content: body.data
-    property int contentBottomMargin: 8 // #TODO use value from style
+    property int contentBottomMargin: 8
+    property int contentTopMargin: 16
 
     leftPadding: 0
     rightPadding: 0
@@ -70,7 +71,7 @@ Frame {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: header.bottom
-            anchors.topMargin: 16 // #TODO use value from new style
+            anchors.topMargin: contentTopMargin
             anchors.bottomMargin: contentBottomMargin
 
             height: implicitHeight
