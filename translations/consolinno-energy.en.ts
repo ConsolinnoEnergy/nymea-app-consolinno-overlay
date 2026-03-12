@@ -916,7 +916,7 @@
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;p&gt;Version 2.0.1&lt;/p&gt;
+        <translation>&lt;p&gt;Version 2.0.2&lt;/p&gt;
 &lt;h4&gt;Redesign&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;The app is becoming more modern: the new design will be rolled out step by step&lt;/li&gt;
@@ -1438,29 +1438,6 @@
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoDialog</name>
-    <message>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Market price</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PV production</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SoC without controller</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SoC with controller</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3086,65 +3063,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>The given username is already in use. Please choose a different username.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoView</name>
-    <message>
-        <source>Total current power usage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please complete the setup wizard or manually configure your devices.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Start setup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.13.1&lt;/p&gt;
-&lt;h4&gt;New&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Optimisation of SG‑ready heat pumps with dynamic electricity tariffs&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;HEMS can now be configured without PV&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Feed‑in regulation (LPP) for non‑hybrid inverters&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Improved battery charging with dynamic tariffs: Battery discharge can also be blocked depending on the tariff for maximum efficiency. Price and discharge limits are calculated based on the average price.&lt;br&gt;&lt;b&gt;Note: Tariff-controlled charging must be reconfigured after the update!&lt;/b&gt;&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Support of variable grid fees&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;Improvements&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Improved message texts related to LPC&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Pop-up message if the entry for levies or grid fees is missing when setting up the electricity tariff&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Heating rod optimisation:&lt;br&gt;The heating rod now only activates once the battery is charged to 80 %&lt;/li&gt;
-&lt;/ul&gt;</translation>
-    </message>
-    <message>
-        <source>Your %1 is not set up yet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Email: &lt;a href=&apos;mailto:%1&apos;&gt;%1&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;h3&gt;Pending software update&lt;/h3&gt;
-                &lt;p&gt;Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %6 device.&lt;/p&gt;
-                &lt;p&gt;Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;/p&gt;
-                &lt;p&gt;If this message is still displayed, please contact our service team.&lt;/p&gt;
-                &lt;ul&gt;
-                    %7
-                    &lt;li&gt;%4&lt;/li&gt;
-                &lt;/ul&gt;
-                &lt;p&gt;Best regards&lt;/p&gt;
-                &lt;p&gt;Your %5 Team&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

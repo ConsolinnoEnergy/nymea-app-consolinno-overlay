@@ -925,7 +925,7 @@
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;p&gt;Version 2.0.1&lt;/p&gt;
+        <translation>&lt;p&gt;Version 2.0.2&lt;/p&gt;
 &lt;h4&gt;Redesign&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Die App wird moderner: Schrittweise wird das neue Design der App sichtbar&lt;/li&gt;
@@ -1448,29 +1448,6 @@
     <message>
         <source>No</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoDialog</name>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>Market price</source>
-        <translation>Börsenpreis</translation>
-    </message>
-    <message>
-        <source>PV production</source>
-        <translation>PV-Produktion</translation>
-    </message>
-    <message>
-        <source>SoC without controller</source>
-        <translation>Soc ohne Steuerung</translation>
-    </message>
-    <message>
-        <source>SoC with controller</source>
-        <translation>SoC mit Nullvergütung vermeiden</translation>
     </message>
 </context>
 <context>
@@ -3104,75 +3081,6 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     <message>
         <source>Authenticated user</source>
         <translation>Authentifizierter User</translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoView</name>
-    <message>
-        <source>Total current power usage</source>
-        <translation>Gesamter Energieverbrauch</translation>
-    </message>
-    <message>
-        <source>Please complete the setup wizard or manually configure your devices.</source>
-        <translation>Bitte vervollständige den Einrichtungsassistenten oder füge Deine Geräte manuell hinzu.</translation>
-    </message>
-    <message>
-        <source>Start setup</source>
-        <translation>Einrichtung starten</translation>
-    </message>
-    <message>
-        <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.13.1&lt;/p&gt;
-&lt;h4&gt;Neu&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Optimierung von SG‑Ready‑Wärmepumpen mit dynamischem Stromtarif&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;HEMS-Konfiguration jetzt auch ohne PV möglich&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Einspeiseabregelung (LPP) für nicht‑hybride Wechselrichter&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Verbessertes Batterieladen mit dynamischem Tarif: Auch das Entladen der Batterie kann tarifabhängig gesperrt werden für maximale Effizienz.
-Preis- und Entladegrenzen werden auf Basis des Durchschnittspreises berechnet.&lt;br&gt;&lt;b&gt;Hinweis: Tarifgesteuertes Laden muss nach dem Update neu konfiguriert werden!&lt;/b&gt;&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Unterstützung von variablen Netzentgelten&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;Verbesserungen&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Aussagekräftigere Meldungstexte im Zusammenhang mit LPC&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Pop‑up Hinweis, wenn bei der Einrichtung des Stromtarifs die Eingabe für Abgaben oder Netzentgelte fehlt&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Optimierung des Heizstabs:&lt;br&gt;Der Heizstab aktiviert sich erst, wenn der Batteriespeicher mindestens 80 % geladen ist&lt;/li&gt;
-&lt;/ul&gt;</translation>
-    </message>
-    <message>
-        <source>Your %1 is not set up yet.</source>
-        <translation>Das %1 ist noch nicht eingerichtet.</translation>
-    </message>
-    <message>
-        <source>Email: &lt;a href=&apos;mailto:%1&apos;&gt;%1&lt;/a&gt;</source>
-        <translation>E-Mail: &lt;a href=&apos;mailto:%1&apos;&gt;%1&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <source>Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;</source>
-        <translation>Telefon: &lt;a href=&quot;tel:%1&quot;&gt;%1&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;h3&gt;Pending software update&lt;/h3&gt;
-                &lt;p&gt;Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %6 device.&lt;/p&gt;
-                &lt;p&gt;Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;/p&gt;
-                &lt;p&gt;If this message is still displayed, please contact our service team.&lt;/p&gt;
-                &lt;ul&gt;
-                    %7
-                    &lt;li&gt;%4&lt;/li&gt;
-                &lt;/ul&gt;
-                &lt;p&gt;Best regards&lt;/p&gt;
-                &lt;p&gt;Your %5 Team&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Ausstehendes Software-Update&lt;/h3&gt;
-                &lt;p&gt;Ihre %3 App wurde auf die Version &lt;strong&gt;%1&lt;/strong&gt; aktualisiert und ist somit aktueller als die Firmware (&lt;strong&gt;%2&lt;/strong&gt;) auf Ihrem %6-Gerät.&lt;/p&gt; 
-                &lt;p&gt;Ihr %6-Gerät wird im Laufe des Tages aktualisiert. Bis das Update abgeschlossen ist, kann die Verfügbarkeit der neuen                                 Funktionen vorübergehend eingeschränkt sein.&lt;/p&gt; 
-                &lt;p&gt;Sollte diese Meldung weiterhin angezeigt werden, kontaktieren Sie bitte unseren Service.&lt;/p&gt; 
-                &lt;ul&gt; 
-                    %7
-                    &lt;li&gt;%4&lt;/li&gt; 
-                &lt;/ul&gt; 
-                &lt;p&gt;Beste Grüße&lt;/p&gt; 
-                &lt;p&gt;Ihr %5 Team&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
