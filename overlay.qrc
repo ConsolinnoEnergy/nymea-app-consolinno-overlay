@@ -127,10 +127,8 @@
         <file>wizards/ConnectionWizard.qml</file>
         <file>wizards/ConsolinnoWizardPageBase.qml</file>
         <file>images/intro-bg-graphic.svg</file>
-        <file>images/leaflet-connect.png</file>
         <file>wizards/SetupEVChargerWizard.qml</file>
         <file>wizards/WizardComplete.qml</file>
-        <file>images/wizard-done.png</file>
         <file>wizards/SetupEnergyMeterWizard.qml</file>
         <file>components/ConsolinnoButton.qml</file>
         <file>wizards/SetupSolarInverterWizard.qml</file>
