@@ -596,7 +596,7 @@
     </message>
     <message>
         <source>Configure charging mode</source>
-        <translation>Lademodus konfiguieren</translation>
+        <translation>Lademodus konfigurieren</translation>
     </message>
     <message>
         <source>Target charging current</source>
