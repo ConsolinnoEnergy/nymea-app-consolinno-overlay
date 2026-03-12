@@ -1203,7 +1203,7 @@ GenericConfigPage {
                         }
 
                         RowLayout{
-                            Layout.fillWidth: true
+                            Layout.preferredWidth: app.width
                             Layout.topMargin: 10
 
                             LabelWithInfo {
