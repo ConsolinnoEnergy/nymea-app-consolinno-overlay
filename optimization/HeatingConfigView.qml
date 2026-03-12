@@ -90,6 +90,7 @@ GenericConfigPage {
                         "value": thing.stateByName("actualPvSurplus") ? thing.stateByName("actualPvSurplus").value : null,
                         "unit": "W",
                         "component": stringValues,
+                        "infoButtonURL": thing.stateByName("actualPvSurplus") ? "PvSurplusInfo.qml" : "",
                         "params": false,
                         "paramsSurPlus": thing.stateByName("actualPvSurplus") ? true : false
                     }, {
@@ -98,6 +99,7 @@ GenericConfigPage {
                         "value": translateNymeaHeatpumpValues(thing.stateByName("sgReadyMode") ? thing.stateByName("sgReadyMode").value : null),
                         "unit": "",
                         "component": stringValues,
+                        "infoButtonURL": thing.stateByName("sgReadyMode") ? "EnergyManagerInfo.qml" : "",
                         "params": thing.stateByName("sgReadyMode") ? true : false,
                         "paramsSurPlus": false
                     }]
@@ -161,6 +163,12 @@ GenericConfigPage {
                                         target: optimizationParams.item
                                         property: "delegateParamsSurPlus"
                                         value: modelData.paramsSurPlus
+                                    }
+
+                                    Binding {
+                                        target: optimizationParams.item
+                                        property: "delegateInfoButtonURL"
+                                        value: modelData.infoButtonURL
                                     }
 
                                 }
@@ -455,32 +463,13 @@ GenericConfigPage {
                         property var delegateName
                         property var delegateValue
                         property var delegateUnit
-                        property var delegateParams
-                        property bool delegateParamsSurPlus: false
+                        property string delegateInfoButtonURL
 
                         Layout.fillWidth: true
 
-                        Label {
-                            id: singleInput
-
+                        LabelWithInfo {
                             text: delegateName
-                            Layout.fillWidth: delegateParams === true || delegateParamsSurPlus === true ? false : true
-                        }
-
-                        InfoButton {
-                            stack: pageStack
-                            push: "EnergyManagerInfo.qml"
-                            Layout.alignment: Qt.AlignTop
-                            Layout.fillWidth: true
-                            visible: delegateParams
-                        }
-
-                        InfoButton {
-                            stack: pageStack
-                            push: "PvSurplusInfo.qml"
-                            Layout.alignment: Qt.AlignTop
-                            Layout.fillWidth: true
-                            visible: delegateParamsSurPlus
+                            push: delegateInfoButtonURL
                         }
 
                         Label {
