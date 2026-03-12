@@ -864,6 +864,61 @@
     </message>
 </context>
 <context>
+    <name>CloudServicesPage</name>
+    <message>
+        <source>Cloud services</source>
+        <translation>Cloud-Dienste</translation>
+    </message>
+    <message>
+        <source>Cloud connection</source>
+        <translation>Cloud-Verbindung</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>Deaktiviert</translation>
+    </message>
+    <message>
+        <source>Connected</source>
+        <translation>Verbunden</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation>Allgemein</translation>
+    </message>
+    <message>
+        <source>Enable cloud services</source>
+        <translation>Cloud-Dienste aktivieren</translation>
+    </message>
+    <message>
+        <source>Allow the system to connect to cloud services.</source>
+        <translation>Erlaubt dem System, sich mit Cloud-Diensten zu verbinden.</translation>
+    </message>
+    <message>
+        <source>Data categories</source>
+        <translation>Datenkategorien</translation>
+    </message>
+    <message>
+        <source>Energy monitoring</source>
+        <translation>Energieüberwachung</translation>
+    </message>
+    <message>
+        <source>Share energy consumption and production data.</source>
+        <translation>Energieverbrauchs- und Produktionsdaten teilen.</translation>
+    </message>
+    <message>
+        <source>Research data</source>
+        <translation>Forschungsdaten</translation>
+    </message>
+    <message>
+        <source>Share anonymized data to support research and system improvements.</source>
+        <translation>Anonymisierte Daten zur Unterstützung von Forschung und Systemverbesserungen teilen.</translation>
+    </message>
+</context>
+<context>
     <name>CoDashboardView</name>
     <message>
         <source>Pending software update</source>
@@ -1435,42 +1490,19 @@
     <name>ConsolinnoDeviceLogPage</name>
     <message>
         <source>History for %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Verlauf für %1</translation>
     </message>
     <message>
         <source>Filter by</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtern nach</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoDialog</name>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>Market price</source>
-        <translation>Börsenpreis</translation>
-    </message>
-    <message>
-        <source>PV production</source>
-        <translation>PV-Produktion</translation>
-    </message>
-    <message>
-        <source>SoC without controller</source>
-        <translation>Soc ohne Steuerung</translation>
-    </message>
-    <message>
-        <source>SoC with controller</source>
-        <translation>SoC mit Nullvergütung vermeiden</translation>
+        <translation>Nein</translation>
     </message>
 </context>
 <context>
@@ -2935,6 +2967,14 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <source>Configure the system’s network connection.</source>
         <translation>Richte das Netzwerk dieses Systems ein.</translation>
     </message>
+    <message>
+        <source>Cloud services</source>
+        <translation>Cloud-Dienste</translation>
+    </message>
+    <message>
+        <source>Manage cloud connection and data sharing preferences.</source>
+        <translation>Cloud-Verbindung und Datenweitergabe-Einstellungen verwalten.</translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoSwipeDelegate</name>
@@ -3107,75 +3147,6 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     </message>
 </context>
 <context>
-    <name>ConsolinnoView</name>
-    <message>
-        <source>Total current power usage</source>
-        <translation>Gesamter Energieverbrauch</translation>
-    </message>
-    <message>
-        <source>Please complete the setup wizard or manually configure your devices.</source>
-        <translation>Bitte vervollständige den Einrichtungsassistenten oder füge Deine Geräte manuell hinzu.</translation>
-    </message>
-    <message>
-        <source>Start setup</source>
-        <translation>Einrichtung starten</translation>
-    </message>
-    <message>
-        <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.13.1&lt;/p&gt;
-&lt;h4&gt;Neu&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Optimierung von SG‑Ready‑Wärmepumpen mit dynamischem Stromtarif&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;HEMS-Konfiguration jetzt auch ohne PV möglich&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Einspeiseabregelung (LPP) für nicht‑hybride Wechselrichter&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Verbessertes Batterieladen mit dynamischem Tarif: Auch das Entladen der Batterie kann tarifabhängig gesperrt werden für maximale Effizienz.
-Preis- und Entladegrenzen werden auf Basis des Durchschnittspreises berechnet.&lt;br&gt;&lt;b&gt;Hinweis: Tarifgesteuertes Laden muss nach dem Update neu konfiguriert werden!&lt;/b&gt;&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Unterstützung von variablen Netzentgelten&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;Verbesserungen&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Aussagekräftigere Meldungstexte im Zusammenhang mit LPC&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Pop‑up Hinweis, wenn bei der Einrichtung des Stromtarifs die Eingabe für Abgaben oder Netzentgelte fehlt&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Optimierung des Heizstabs:&lt;br&gt;Der Heizstab aktiviert sich erst, wenn der Batteriespeicher mindestens 80 % geladen ist&lt;/li&gt;
-&lt;/ul&gt;</translation>
-    </message>
-    <message>
-        <source>Your %1 is not set up yet.</source>
-        <translation>Das %1 ist noch nicht eingerichtet.</translation>
-    </message>
-    <message>
-        <source>Email: &lt;a href=&apos;mailto:%1&apos;&gt;%1&lt;/a&gt;</source>
-        <translation>E-Mail: &lt;a href=&apos;mailto:%1&apos;&gt;%1&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <source>Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;</source>
-        <translation>Telefon: &lt;a href=&quot;tel:%1&quot;&gt;%1&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;h3&gt;Pending software update&lt;/h3&gt;
-                &lt;p&gt;Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %6 device.&lt;/p&gt;
-                &lt;p&gt;Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;/p&gt;
-                &lt;p&gt;If this message is still displayed, please contact our service team.&lt;/p&gt;
-                &lt;ul&gt;
-                    %7
-                    &lt;li&gt;%4&lt;/li&gt;
-                &lt;/ul&gt;
-                &lt;p&gt;Best regards&lt;/p&gt;
-                &lt;p&gt;Your %5 Team&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Ausstehendes Software-Update&lt;/h3&gt;
-                &lt;p&gt;Ihre %3 App wurde auf die Version &lt;strong&gt;%1&lt;/strong&gt; aktualisiert und ist somit aktueller als die Firmware (&lt;strong&gt;%2&lt;/strong&gt;) auf Ihrem %6-Gerät.&lt;/p&gt; 
-                &lt;p&gt;Ihr %6-Gerät wird im Laufe des Tages aktualisiert. Bis das Update abgeschlossen ist, kann die Verfügbarkeit der neuen                                 Funktionen vorübergehend eingeschränkt sein.&lt;/p&gt; 
-                &lt;p&gt;Sollte diese Meldung weiterhin angezeigt werden, kontaktieren Sie bitte unseren Service.&lt;/p&gt; 
-                &lt;ul&gt; 
-                    %7
-                    &lt;li&gt;%4&lt;/li&gt; 
-                &lt;/ul&gt; 
-                &lt;p&gt;Beste Grüße&lt;/p&gt; 
-                &lt;p&gt;Ihr %5 Team&lt;/p&gt;</translation>
-    </message>
-</context>
-<context>
     <name>ConsolinnoWizardPageBase</name>
     <message>
         <source>Back</source>
@@ -3259,7 +3230,7 @@ Preis- und Entladegrenzen werden auf Basis des Durchschnittspreises berechnet.&l
     <name>DebugCharts</name>
     <message>
         <source>Debug Charts</source>
-        <translation type="unfinished"></translation>
+        <translation>Debug-Diagramme</translation>
     </message>
 </context>
 <context>
@@ -3461,23 +3432,23 @@ Möchten Sie trotzdem fortfahren?</translation>
     <name>GenericDeviceHistoryPage</name>
     <message>
         <source>States</source>
-        <translation type="unfinished"></translation>
+        <translation>Zustände</translation>
     </message>
     <message>
         <source>Actions</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktionen</translation>
     </message>
     <message>
         <source>Events</source>
-        <translation type="unfinished"></translation>
+        <translation>Ereignisse</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -4452,7 +4423,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>EvCharger set-up</source>
-        <translation type="unfinished">EV-Ladestation Einrichtung</translation>
+        <translation>EV-Ladestation Einrichtung</translation>
     </message>
     <message>
         <source>The following EEBUS devices were found:</source>
@@ -4464,7 +4435,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Integrated wallbox</source>
-        <translation type="unfinished">Eingerichtete Wallboxen</translation>
+        <translation>Eingerichtete Wallboxen</translation>
     </message>
 </context>
 <context>
@@ -4646,7 +4617,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Heatpump set-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Wärmepumpe einrichten</translation>
     </message>
     <message>
         <source>The following EEBUS devices were found:</source>
@@ -4884,7 +4855,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Integrated solar inverter</source>
-        <translation type="unfinished">Eingerichtete Wechselrichter</translation>
+        <translation>Eingerichtete Wechselrichter</translation>
     </message>
 </context>
 <context>
