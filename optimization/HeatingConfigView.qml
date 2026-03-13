@@ -57,6 +57,13 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     Layout.leftMargin: 15
                     Layout.topMargin: 10
+                    visible: {
+                        for (let i = 0; i < energyManagerRepeater.count; ++i) {
+                            const item = energyManagerRepeater.itemAt(i);
+                            if (item && item.visible) { return true; }
+                        }
+                        return false;
+                    }
 
                     Label {
                         id: energyManager
@@ -68,6 +75,7 @@ GenericConfigPage {
                 }
 
                 Repeater {
+                    id: energyManagerRepeater
                     function translateNymeaHeatpumpValues(something) {
                         switch (something) {
                         case "Off":
@@ -90,24 +98,20 @@ GenericConfigPage {
                         "value": thing.stateByName("actualPvSurplus") ? thing.stateByName("actualPvSurplus").value : null,
                         "unit": "W",
                         "component": stringValues,
-                        "infoButtonURL": thing.stateByName("actualPvSurplus") ? "PvSurplusInfo.qml" : "",
-                        "params": false,
-                        "paramsSurPlus": thing.stateByName("actualPvSurplus") ? true : false
+                        "infoButtonURL": thing.stateByName("actualPvSurplus") ? "PvSurplusInfo.qml" : ""
                     }, {
                         "Id": "operatingModeSG",
                         "name": qsTr("Operating mode"),
-                        "value": translateNymeaHeatpumpValues(thing.stateByName("sgReadyMode") ? thing.stateByName("sgReadyMode").value : null),
+                        "value": thing.stateByName("sgReadyMode") ? translateNymeaHeatpumpValues(thing.stateByName("sgReadyMode").value) : null,
                         "unit": "",
                         "component": stringValues,
-                        "infoButtonURL": thing.stateByName("sgReadyMode") ? "EnergyManagerInfo.qml" : "",
-                        "params": thing.stateByName("sgReadyMode") ? true : false,
-                        "paramsSurPlus": false
+                        "infoButtonURL": thing.stateByName("sgReadyMode") ? "EnergyManagerInfo.qml" : ""
                     }]
 
                     delegate: ItemDelegate {
                         id: optimizerMainParams
 
-                        visible: modelData.value !== null && (modelData.params === true || modelData.paramsSurPlus === true) ? true : false
+                        visible: modelData.value !== null
                         Layout.fillWidth: true
 
                         contentItem: ColumnLayout {
@@ -155,18 +159,6 @@ GenericConfigPage {
 
                                     Binding {
                                         target: optimizationParams.item
-                                        property: "delegateParams"
-                                        value: modelData.params
-                                    }
-
-                                    Binding {
-                                        target: optimizationParams.item
-                                        property: "delegateParamsSurPlus"
-                                        value: modelData.paramsSurPlus
-                                    }
-
-                                    Binding {
-                                        target: optimizationParams.item
                                         property: "delegateInfoButtonURL"
                                         value: modelData.infoButtonURL
                                     }
@@ -206,65 +198,49 @@ GenericConfigPage {
                         "name": qsTr("Status"),
                         "value": thing.stateByName("systemStatus") ? thing.stateByName("systemStatus").value : null,
                         "unit": "",
-                        "component": stringValues,
-                        "params": false,
-                        "paramsSurPlus": false
+                        "component": stringValues
                     }, {
                         "Id": "currentConsumption",
                         "name": qsTr("Current consumption"),
                         "value": thing.stateByName("currentPower") ? thing.stateByName("currentPower").value : null,
                         "unit": "W",
-                        "component": stringValues,
-                        "params": false,
-                        "paramsSurPlus": false
+                        "component": stringValues
                     }, {
                         "Id": "totalAmountOfEnergy",
                         "name": qsTr("Absorbed elec. energy"),
                         "value": thing.stateByName("totalEnergyConsumed") ? thing.stateByName("totalEnergyConsumed").value : null,
                         "unit": "kWh",
-                        "component": stringValues,
-                        "params": false,
-                        "paramsSurPlus": false
+                        "component": stringValues
                     }, {
                         "Id": "totalThermalEnergyGenerated",
                         "name": qsTr("Total thermal energy generated"),
                         "value": thing.stateByName("totalOutputThermalEnergy") ? thing.stateByName("totalOutputThermalEnergy").value : null,
                         "unit": "kWh",
-                        "component": stringValues,
-                        "params": false,
-                        "paramsSurPlus": false
+                        "component": stringValues
                     }, {
                         "Id": "outdoorTemperature",
                         "name": qsTr("Outdoor temperature"),
                         "value": thing.stateByName("outdoorTemperature") ? thing.stateByName("outdoorTemperature").value : null,
                         "unit": "°C",
-                        "component": stringValues,
-                        "params": false,
-                        "paramsSurPlus": false
+                        "component": stringValues
                     }, {
                         "Id": "currentCoefficientOfPerformance",
                         "name": qsTr("Current COP"),
                         "value": thing.stateByName("coefficientOfPerformance") ? thing.stateByName("coefficientOfPerformance").value : null,
                         "unit": "",
-                        "component": stringValues,
-                        "params": false,
-                        "paramsSurPlus": false
+                        "component": stringValues
                     }, {
                         "Id": "averageCoefficientOfPerformance",
                         "name": qsTr("Average COP"),
                         "value": thing.stateByName("averageCoefficientOfPerformance") ? thing.stateByName("averageCoefficientOfPerformance").value : null,
                         "unit": "",
-                        "component": stringValues,
-                        "params": false,
-                        "paramsSurPlus": false
+                        "component": stringValues
                     }, {
                         "Id": "hotWaterTemperature",
                         "name": qsTr("Domestic hot water temperature"),
                         "value": thing.stateByName("hotWaterTemperature") ? thing.stateByName("hotWaterTemperature").value : null,
                         "unit": "°C",
-                        "component": stringValues,
-                        "params": false,
-                        "paramsSurPlus": false
+                        "component": stringValues
                     }]
 
                     delegate: ItemDelegate {
@@ -327,19 +303,6 @@ GenericConfigPage {
                                         property: "delegateName"
                                         value: modelData.name
                                     }
-
-                                    Binding {
-                                        target: optimizationMainParams.item
-                                        property: "delegateParams"
-                                        value: modelData.params
-                                    }
-
-                                    Binding {
-                                        target: optimizationMainParams.item
-                                        property: "delegateParamsSurPlus"
-                                        value: modelData.paramsSurPlus
-                                    }
-
                                 }
 
                             }
@@ -371,17 +334,13 @@ GenericConfigPage {
                         "name": qsTr("Flow temperature"),
                         "value": thing.stateByName("flowTemperature") ? thing.stateByName("flowTemperature").value : null,
                         "unit": "°C",
-                        "component": stringValues,
-                        "params": false,
-                        "paramsSurPlus": false
+                        "component": stringValues
                     }, {
                         "Id": "returnTemperature",
                         "name": qsTr("Return temperature"),
                         "value": thing.stateByName("returnTemperature") ? thing.stateByName("returnTemperature").value : null,
                         "unit": "°C",
-                        "component": stringValues,
-                        "params": false,
-                        "paramsSurPlus": false
+                        "component": stringValues
                     }]
 
                     delegate: ItemDelegate {
@@ -432,19 +391,6 @@ GenericConfigPage {
                                         property: "delegateName"
                                         value: modelData.name
                                     }
-
-                                    Binding {
-                                        target: optimization.item
-                                        property: "delegateParams"
-                                        value: modelData.params
-                                    }
-
-                                    Binding {
-                                        target: optimization.item
-                                        property: "delegateParamsSurPlus"
-                                        value: modelData.paramsSurPlus
-                                    }
-
                                 }
 
                             }
