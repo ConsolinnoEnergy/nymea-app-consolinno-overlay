@@ -917,6 +917,58 @@
         <source>Share anonymized data to support research and system improvements.</source>
         <translation>Anonymisierte Daten zur Unterstützung von Forschung und Systemverbesserungen teilen.</translation>
     </message>
+    <message>
+        <source>Consolinno Cloud Services</source>
+        <translation>Consolinno-Cloud-Dienste</translation>
+    </message>
+    <message>
+        <source>Connection</source>
+        <translation>Verbindung</translation>
+    </message>
+    <message>
+        <source>Not connected</source>
+        <translation>Nicht verbunden</translation>
+    </message>
+    <message>
+        <source>Consent</source>
+        <translation>Zustimmung</translation>
+    </message>
+    <message>
+        <source>Activate Consolinno Cloud Services</source>
+        <translation>Consolinno-Cloud-Dienste aktivieren</translation>
+    </message>
+    <message>
+        <source>Activates the connection to our cloud services. Only the selected release categories will be shared.</source>
+        <translation>Aktiviert die Verbindung zu unseren Cloud-Diensten. Es werden nur die ausgewählten Freigabekategorien geteilt.</translation>
+    </message>
+    <message>
+        <source>More about data processing and privacy</source>
+        <translation>Mehr zu Datenverarbeitung und Datenschutz</translation>
+    </message>
+    <message>
+        <source>Release categories</source>
+        <translation>Freigabekategorien</translation>
+    </message>
+    <message>
+        <source>Energy Monitoring</source>
+        <translation>Energie-Monitoring</translation>
+    </message>
+    <message>
+        <source>Shares consumption and production data for accurate energy analysis.</source>
+        <translation>Teilt Verbrauchs- und Produktionsdaten für eine genaue Energieanalyse.</translation>
+    </message>
+    <message>
+        <source>Anonymized usage data</source>
+        <translation>Anonymisierte Nutzungsdaten</translation>
+    </message>
+    <message>
+        <source>Shares fully anonymized data for research and product improvement.</source>
+        <translation>Teilt vollständig anonymisierte Daten für Forschung und Produktverbesserung.</translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation>Änderungen übernehmen</translation>
+    </message>
 </context>
 <context>
     <name>CoDashboardView</name>
@@ -2968,7 +3020,7 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Richte das Netzwerk dieses Systems ein.</translation>
     </message>
     <message>
-        <source>Cloud services</source>
+        <source>Consolinno cloud services</source>
         <translation>Cloud-Dienste</translation>
     </message>
     <message>
@@ -4954,6 +5006,39 @@ Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 
     <message>
         <source>Your %1 is now configured. The following devices are set up:</source>
         <translation>Ihre %1 ist jetzt konfiguriert. Die folgenden Geräte sind eingerichtet:</translation>
+    </message>
+</context>
+<context>
+    <name>AnonymizedUsageDataInfo</name>
+    <message>
+        <source>Anonymized usage data</source>
+        <translation>Anonymisierte Nutzungsdaten</translation>
+    </message>
+    <message>
+        <source>Anonymized usage data help Consolinno to continuously improve the product and advance research and development. All transmitted data is completely anonymized before transmission – it is not possible to draw conclusions about individuals or specific systems. This data is used exclusively for internal analyses and is never shared with third parties.</source>
+        <translation>Anonymisierte Nutzungsdaten helfen Consolinno dabei, das Produkt kontinuierlich zu verbessern und Forschung sowie Entwicklung voranzutreiben. Alle übertragenen Daten werden vor der Übermittlung vollständig anonymisiert – Rückschlüsse auf Personen oder spezifische Anlagen sind nicht möglich. Diese Daten werden ausschließlich für interne Analysen verwendet und nie an Dritte weitergegeben.</translation>
+    </message>
+</context>
+<context>
+    <name>CloudServicesActivateInfo</name>
+    <message>
+        <source>Activate Cloud Services</source>
+        <translation>Cloud-Dienste aktivieren</translation>
+    </message>
+    <message>
+        <source>This setting enables exclusively the connection to the system&apos;s authorized cloud services. Through these, functions such as data synchronization, secure remote access, and system updates are provided. The system only connects to the manufacturer&apos;s explicitly designated services – not to external or arbitrary cloud providers.</source>
+        <translation>Diese Einstellung ermöglicht ausschließlich die Verbindung zu den autorisierten Cloud-Diensten des Systems. Darüber werden Funktionen wie Datenabgleich, sichere Fernzugriffe und Systemaktualisierungen bereitgestellt. Das System verbindet sich dabei nur mit den ausdrücklich vorgesehenen Diensten des Herstellers – nicht mit externen oder beliebigen Cloud-Anbietern.</translation>
+    </message>
+</context>
+<context>
+    <name>EnergyMonitoringInfo</name>
+    <message>
+        <source>Energy Monitoring</source>
+        <translation>Energie-Monitoring</translation>
+    </message>
+    <message>
+        <source>When energy monitoring is enabled, consumption and production data from your system is transmitted to the Consolinno Cloud. This data is used to provide you with detailed energy analyses and to continuously optimize the performance of your system. The transmission is encrypted and takes place exclusively via the authorized Consolinno Cloud services.</source>
+        <translation>Wenn das Energie-Monitoring aktiviert ist, werden Verbrauchs- und Erzeugungsdaten aus Ihrem System an die Consolinno-Cloud übertragen. Diese Daten dienen dazu, Ihnen detaillierte Energieanalysen bereitzustellen und die Leistung Ihres Systems kontinuierlich zu optimieren. Die Übertragung erfolgt verschlüsselt und ausschließlich über die autorisierten Consolinno-Cloud-Dienste.</translation>
     </message>
 </context>
 </TS>

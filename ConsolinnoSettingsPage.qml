@@ -109,17 +109,6 @@ Page {
                                                   })
                     }
 
-                    CoCard {
-                        Layout.fillWidth: true
-                        text: qsTr("Cloud services")
-                        helpText: qsTr("Manage cloud connection and data sharing preferences.")
-                        iconLeft: "/icons/cloud.svg"
-                        showChildrenIndicator: true
-                        onClicked: pageStack.push(Qt.resolvedUrl("optimization/CloudServicesPage.qml"),
-                                                  {
-                                                      "hemsManager": hemsManager
-                                                  })
-                    }
                 }
             }
 
@@ -211,6 +200,18 @@ Page {
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
                                  && Configuration.apiSettingsEnabled
                         onClicked: pageStack.push(Qt.resolvedUrl("system/ConsolinnoConnectionInterfacesPage.qml"))
+                    }
+
+                    CoCard {
+                        Layout.fillWidth: true
+                        iconLeft: "/icons/cloud.svg"
+                        text: qsTr("Consolinno cloud services")
+                        helpText: qsTr("Manage cloud connection and data sharing preferences.")
+                        showChildrenIndicator: true
+                        onClicked: pageStack.push(Qt.resolvedUrl("optimization/CloudServicesPage.qml"),
+                                                  {
+                                                      "hemsManager": hemsManager
+                                                  })
                     }
 
                     CoCard {
