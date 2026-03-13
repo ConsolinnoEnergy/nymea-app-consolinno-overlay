@@ -24,14 +24,14 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        radius: 8 // #TODO value from new style?
+        radius: Style.cornerRadius
         color: Style.colors.typography_Background_Default
 
         Rectangle {
             id: backgroundInteractionOverlay
             anchors.fill: parent
             visible: root.clickable
-            radius: 8 // #TODO value from new style?
+            radius: Style.cornerRadius
             color: mouseArea.pressed ? Style.colors.typography_States_Pressed : "transparent"
             border.width: 4
             border.color: "transparent"

@@ -55,7 +55,7 @@ Item {
         id: background
         anchors.fill: parent
 
-        radius: 8 // #TODO use value from new style
+        radius: Style.cornerRadius
         color: root.backgroundColor()
         border.width: 1
         border.color: root.accentColor()

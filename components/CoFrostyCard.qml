@@ -18,7 +18,7 @@ Frame {
     background: Rectangle {
         id: background
         color: Style.colors.components_Dashboard_Background_accent_dashboard
-        radius: 24 // #TODO use value from style
+        radius: Style.largeCornerRadius
     }
 
     // Mask source must live outside contentRoot so it is not included in the
