@@ -29,7 +29,6 @@ Page {
         id: useCasesModel
         ListElement { text: qsTr("Blackout protection"); value: HemsManager.HemsUseCaseBlackoutProtection; visible: true }
         ListElement { text: qsTr("Heating"); value: 0; visible: true } // For setting the value see the Component.onCompleted function above
-        //ListElement { text: qsTr("Heating Element"); value: HemsManager.HemsUseCaseHeatingElement; visible: true }
         ListElement { text: qsTr("Charging"); value: HemsManager.HemsUseCaseCharging; visible: true }
         ListElement { text: qsTr("Battery"); value: HemsManager.HemsUseCaseBattery; visible: true }
         ListElement { text: qsTr("Pv"); value: HemsManager.HemsUseCasePv; visible: true}
@@ -64,9 +63,6 @@ Page {
                             break;
                         case HemsManager.HemsUseCasePv:
                             icon = "/icons/solar_power.svg";
-                            break;
-                        case HemsManager.HemsUseCaseHeatingRod:
-                            icon = "/icons/water_heater.svg";
                             break;
                     }
                     return Qt.resolvedUrl(icon);
@@ -110,9 +106,6 @@ Page {
                         break;
                     case HemsManager.HemsUseCasePv:
                         pageStack.push(Qt.resolvedUrl("../optimization/PVConfigurationView.qml"), { hemsManager: hemsManager })
-                        break;
-                    case HemsManager.HemsUseCaseHeatingRod:
-                        pageStack.push(Qt.resolvedUrl("../optimization/HeatingElementConfigurationView.qml"), { hemsManager: hemsManager })
                         break;
                     }
                 }
