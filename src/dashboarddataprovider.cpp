@@ -516,8 +516,6 @@ void DashboardDataProvider::updateEnergyFlow()
     // in the general case but we can apply restrictions to solve all cases which can happen realistically.
     // This is done in the code below.
 
-    // #TODO make m_currentPower* values int instead of double
-
     auto flowSolarToGrid = 0;
     auto flowSolarToBattery = 0;
     auto flowSolarToConsumers = 0;

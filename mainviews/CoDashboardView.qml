@@ -471,7 +471,7 @@ MainViewBase {
                                 Layout.row: 0
                                 Layout.column: 0
                                 visible: producerThings.count > 0
-                                text: qsTr("Solar") // #TODO English name
+                                text: qsTr("Solar")
                                 value: Math.abs(dataProvider.currentPowerProduction)
                                 unit: "W"
                                 compactLayout: true
