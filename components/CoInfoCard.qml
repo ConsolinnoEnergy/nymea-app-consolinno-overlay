@@ -11,7 +11,6 @@ Item {
     property alias value: valueText.text
     property alias unit: unitText.text
     property bool compactLayout: false
-    // #TODO naming (warning, error), are both needed?
     property bool showWarningIndicator: false
     property bool showErrorIndicator: false
     property bool clickable: true
