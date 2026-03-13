@@ -18,7 +18,7 @@ Frame {
     background: Rectangle {
         id: background
         color: Style.colors.components_Dashboard_Background_accent_dashboard
-        radius: 24 // #TODO use value from style
+        radius: Style.largeCornerRadius
     }
 
     // Mask source must live outside contentRoot so it is not included in the
@@ -59,9 +59,9 @@ Frame {
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.topMargin: 8 // #TODO use value from style
-            anchors.leftMargin: 16 // #TODO use value from style
-            anchors.rightMargin: 16 // #TODO use value from style
+            anchors.topMargin: Style.smallMargins
+            anchors.leftMargin: Style.margins
+            anchors.rightMargin: Style.margins
             color: Style.colors.typography_Headlines_H2
             font: Style.newH2Font
         }

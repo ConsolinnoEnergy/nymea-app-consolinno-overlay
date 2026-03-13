@@ -39,11 +39,11 @@ Item {
     RowLayout {
         id: layout
         anchors.fill: parent
-        anchors.topMargin: 8 // #TODO use value from new design
-        anchors.bottomMargin: 8 // #TODO use value from new design
-        anchors.leftMargin: 16 // #TODO use value from new design
-        anchors.rightMargin: 16 // #TODO use value from new design
-        spacing: 16 // #TODO use value from new design
+        anchors.topMargin: Style.smallMargins
+        anchors.bottomMargin: Style.smallMargins
+        anchors.leftMargin: Style.margins
+        anchors.rightMargin: Style.margins
+        spacing: Style.margins
 
         ColorIcon {
             id: leftIcon

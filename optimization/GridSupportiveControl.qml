@@ -124,8 +124,8 @@ StackView {
 
                 ColumnLayout {
                     Layout.topMargin: app.margins
-                    Layout.leftMargin: app.bigMargins
-                    Layout.rightMargin: app.bigMargins
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
                     spacing: app.margins
 
                     Button {

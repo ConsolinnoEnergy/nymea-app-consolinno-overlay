@@ -30,12 +30,12 @@ Page {
                 left: parent.left;
                 top: parent.top;
                 right: parent.right;
-                topMargin: 8 // #TODO use values from new style
-                bottomMargin: 8 // #TODO use values from new style
-                leftMargin: 16 // #TODO use values from new style
-                rightMargin: 16 // #TODO use values from new style
+                topMargin: Style.smallMargins
+                bottomMargin: Style.smallMargins
+                leftMargin: Style.margins
+                rightMargin: Style.margins
             }
-            spacing: 16 // #TODO use values from new style
+            spacing: Style.margins
 
             CoFrostyCard {
                 Layout.fillWidth: true
@@ -45,8 +45,8 @@ Page {
                 ColumnLayout {
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    anchors.topMargin: 8 // #TODO use values from new style
-                    anchors.bottomMargin: 8 // #TODO use values from new style
+                    anchors.topMargin: Style.smallMargins
+                    anchors.bottomMargin: Style.smallMargins
                     spacing: 0
 
                     CoCard {
@@ -120,7 +120,7 @@ Page {
                 ColumnLayout {
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    spacing: 0 // #TODO use value from new style
+                    spacing: 0
 
                     CoCard {
                         Layout.fillWidth: true
@@ -159,7 +159,7 @@ Page {
                 ColumnLayout {
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    spacing: 0 // #TODO use value from new style
+                    spacing: 0
 
                     CoCard {
                         Layout.fillWidth: true
@@ -266,7 +266,7 @@ Page {
                 ColumnLayout {
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    spacing: 0 // #TODO use value from new style
+                    spacing: 0
 
                     CoCard {
                         id: webServerCard

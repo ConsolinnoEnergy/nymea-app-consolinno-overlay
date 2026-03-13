@@ -24,14 +24,14 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        radius: 8 // #TODO value from new style?
+        radius: Style.cornerRadius
         color: Style.colors.typography_Background_Default
 
         Rectangle {
             id: backgroundInteractionOverlay
             anchors.fill: parent
             visible: root.clickable
-            radius: 8 // #TODO value from new style?
+            radius: Style.cornerRadius
             color: mouseArea.pressed ? Style.colors.typography_States_Pressed : "transparent"
             border.width: 4
             border.color: "transparent"
@@ -57,10 +57,10 @@ Item {
     GridLayout {
         id: gridLayout
         anchors.fill: parent
-        anchors.topMargin: 8 // #TODO use value from new design
-        anchors.bottomMargin: 8 // #TODO use value from new design
-        anchors.leftMargin: 16 // #TODO use value from new design
-        anchors.rightMargin: 16 // #TODO use value from new design
+        anchors.topMargin: Style.smallMargins
+        anchors.bottomMargin: Style.smallMargins
+        anchors.leftMargin: Style.margins
+        anchors.rightMargin: Style.margins
 
         ColumnLayout {
             Layout.row: 0
@@ -69,7 +69,7 @@ Item {
             Layout.fillWidth: compactLayout
             Layout.preferredWidth: compactLayout ? -1 : gridLayout.width / 2
 
-            spacing: 8 // #TODO use value from new design
+            spacing: Style.smallMargins
 
             ColorIcon {
                 id: icon

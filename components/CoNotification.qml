@@ -55,7 +55,7 @@ Item {
         id: background
         anchors.fill: parent
 
-        radius: 8 // #TODO use value from new style
+        radius: Style.cornerRadius
         color: root.backgroundColor()
         border.width: 1
         border.color: root.accentColor()
@@ -115,11 +115,11 @@ Item {
     RowLayout {
         id: layout
         anchors.fill: parent
-        anchors.topMargin: 8 // #TODO use value from new design
-        anchors.bottomMargin: 8 // #TODO use value from new design
-        anchors.leftMargin: 8 // #TODO use value from new design
-        anchors.rightMargin: 8 // #TODO use value from new design
-        spacing: 8 // #TODO use value from new style
+        anchors.topMargin: Style.smallMargins
+        anchors.bottomMargin: Style.smallMargins
+        anchors.leftMargin: Style.smallMargins
+        anchors.rightMargin: Style.smallMargins
+        spacing: Style.smallMargins
 
         ColorIcon {
             Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
@@ -141,12 +141,12 @@ Item {
 
         ColumnLayout {
             Layout.fillWidth: true
-            spacing: 0 // #TODO use value from new style
+            spacing: 0
 
             Text {
                 id: titleText
                 Layout.fillWidth: true
-                Layout.preferredHeight: font.pixelSize + 8 // #TODO use value from new style
+                Layout.preferredHeight: font.pixelSize + Style.smallMargins
                 verticalAlignment: Text.AlignVCenter
                 wrapMode: Text.WordWrap
                 font: Style.newH3Font
