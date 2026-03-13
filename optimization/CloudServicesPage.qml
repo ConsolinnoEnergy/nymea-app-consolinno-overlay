@@ -13,7 +13,7 @@ Page {
     property CloudConfiguration cloudConfiguration: hemsManager.cloudConfiguration
 
     header: NymeaHeader {
-        text: qsTr("Cloud services")
+        text: qsTr("Consolinno Cloud Services")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
@@ -36,10 +36,10 @@ Page {
             }
             spacing: 16
 
-            // REQ1: Cloud connection status
+            // Section 1: Verbindung (Connection)
             CoFrostyCard {
                 Layout.fillWidth: true
-                headerText: qsTr("Cloud connection")
+                headerText: qsTr("Connection")
 
                 ColumnLayout {
                     anchors.left: parent.left
@@ -54,23 +54,13 @@ Page {
                         Layout.bottomMargin: 8
                         spacing: 16
 
-                        ColorIcon {
-                            name: "/icons/cloud.svg"
-                            size: 24
-                            color: {
-                                if (!cloudConfiguration.cloudEnabled)
-                                    return Style.colors.typography_Basic_Secondary
-                                return Style.colors.brand_Basic_Icon_accent
-                            }
-                        }
-
                         ColumnLayout {
                             Layout.fillWidth: true
                             spacing: 0
 
                             Text {
                                 Layout.fillWidth: true
-                                text: qsTr("Status")
+                                text: cloudConfiguration.cloudEnabled ? qsTr("Connected") : qsTr("Not connected")
                                 font: Style.newParagraphFont
                                 color: Style.colors.typography_Basic_Default
                                 wrapMode: Text.WordWrap
@@ -78,65 +68,69 @@ Page {
 
                             Text {
                                 Layout.fillWidth: true
-                                text: {
-                                    if (!cloudConfiguration.cloudEnabled)
-                                        return qsTr("Disabled")
-                                    return qsTr("Connected")
-                                }
+                                text: qsTr("Status")
                                 font: Style.newSmallFont
-                                color: {
-                                    if (!cloudConfiguration.cloudEnabled)
-                                        return Style.colors.typography_Basic_Secondary
-                                    return Style.colors.brand_Basic_Icon_accent
-                                }
+                                color: Style.colors.typography_Basic_Secondary
                                 wrapMode: Text.WordWrap
                             }
+                        }
+
+                        // Green status indicator dot
+                        Rectangle {
+                            width: 16
+                            height: 16
+                            radius: 8
+                            color: cloudConfiguration.cloudEnabled ? "#4CAF50" : Style.colors.typography_Basic_Secondary
+                            border.width: 0
                         }
                     }
                 }
             }
 
-            // REQ3: Full opt-out toggle
+            // Section 2: Zustimmung (Consent)
             CoFrostyCard {
                 Layout.fillWidth: true
-                headerText: qsTr("General")
+                headerText: qsTr("Consent")
 
                 ColumnLayout {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     spacing: 0
 
+                    // Enable cloud services toggle with info
                     RowLayout {
                         Layout.fillWidth: true
                         Layout.leftMargin: 16
                         Layout.rightMargin: 16
                         Layout.topMargin: 8
-                        Layout.bottomMargin: 8
-                        spacing: 16
-
-                        ColorIcon {
-                            name: "/icons/online.svg"
-                            size: 24
-                            color: Style.colors.brand_Basic_Icon_accent
-                        }
+                        Layout.bottomMargin: 4
+                        spacing: 12
 
                         ColumnLayout {
                             Layout.fillWidth: true
                             spacing: 0
 
-                            Text {
-                                Layout.fillWidth: true
-                                text: qsTr("Enable cloud services")
-                                font: Style.newParagraphFont
-                                color: Style.colors.typography_Basic_Default
-                                wrapMode: Text.WordWrap
+                            RowLayout {
+                                spacing: 8
+
+                                Text {
+                                    text: qsTr("Activate Consolinno Cloud Services")
+                                    font: Style.newParagraphFont
+                                    color: Style.colors.typography_Basic_Default
+                                    wrapMode: Text.WordWrap
+                                }
+
+                                InfoButton {
+                                    push: "CloudServicesActivateInfo.qml"
+                                }
                             }
 
                             Text {
                                 Layout.fillWidth: true
-                                text: qsTr("Allow the system to connect to cloud services.")
+                                Layout.topMargin: 4
+                                text: qsTr("Activates the connection to our cloud services. Only the selected release categories will be shared.")
                                 font: Style.newSmallFont
-                                color: Style.colors.typography_Basic_Default
+                                color: Style.colors.typography_Basic_Secondary
                                 wrapMode: Text.WordWrap
                             }
                         }
@@ -149,31 +143,18 @@ Page {
                             }
                         }
                     }
-                }
-            }
 
-            // REQ2: Granular data category toggles (only visible when cloud is enabled)
-            CoFrostyCard {
-                Layout.fillWidth: true
-                headerText: qsTr("Data categories")
-                enabled: cloudConfiguration.cloudEnabled
-                opacity: cloudConfiguration.cloudEnabled ? 1.0 : 0.5
-
-                ColumnLayout {
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    spacing: 0
-
+                    // Privacy link with cookie icon
                     RowLayout {
                         Layout.fillWidth: true
                         Layout.leftMargin: 16
                         Layout.rightMargin: 16
-                        Layout.topMargin: 8
+                        Layout.topMargin: 16
                         Layout.bottomMargin: 8
-                        spacing: 16
+                        spacing: 12
 
                         ColorIcon {
-                            name: "/icons/energy.svg"
+                            name: "/icons/cookie.svg"
                             size: 24
                             color: Style.colors.brand_Basic_Icon_accent
                         }
@@ -184,7 +165,7 @@ Page {
 
                             Text {
                                 Layout.fillWidth: true
-                                text: qsTr("Energy monitoring")
+                                text: qsTr("More about data processing and privacy")
                                 font: Style.newParagraphFont
                                 color: Style.colors.typography_Basic_Default
                                 wrapMode: Text.WordWrap
@@ -192,9 +173,77 @@ Page {
 
                             Text {
                                 Layout.fillWidth: true
-                                text: qsTr("Share energy consumption and production data.")
+                                text: "www.consolinno.de/hems-datenschutz"
                                 font: Style.newSmallFont
-                                color: Style.colors.typography_Basic_Default
+                                color: Style.colors.typography_Basic_Secondary
+                                wrapMode: Text.WordWrap
+                            }
+                        }
+
+                        ColorIcon {
+                            name: "/icons/next.svg"
+                            size: 20
+                            color: Style.colors.typography_Basic_Secondary
+                            rotation: 180
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                Qt.openUrlExternally("https://www.consolinno.de/hems-datenschutz")
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Section 3: Freigabekategorien (Release categories)
+            CoFrostyCard {
+                Layout.fillWidth: true
+                headerText: qsTr("Release categories")
+                enabled: cloudConfiguration.cloudEnabled
+                opacity: cloudConfiguration.cloudEnabled ? 1.0 : 0.5
+
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    // Energy Monitoring toggle
+                    RowLayout {
+                        Layout.fillWidth: true
+                        Layout.leftMargin: 16
+                        Layout.rightMargin: 16
+                        Layout.topMargin: 8
+                        Layout.bottomMargin: 8
+                        spacing: 12
+
+                        ColumnLayout {
+                            Layout.fillWidth: true
+                            spacing: 0
+
+                            RowLayout {
+                                spacing: 8
+
+                                Text {
+                                    text: qsTr("Energy Monitoring")
+                                    font: Style.newParagraphFont
+                                    color: cloudConfiguration.cloudEnabled ? Style.colors.typography_Basic_Default : Style.colors.typography_Basic_Secondary
+                                    wrapMode: Text.WordWrap
+                                }
+
+                                InfoButton {
+                                    push: "EnergyMonitoringInfo.qml"
+                                    visible: cloudConfiguration.cloudEnabled
+                                }
+                            }
+
+                            Text {
+                                Layout.fillWidth: true
+                                Layout.topMargin: 4
+                                text: qsTr("Shares consumption and production data for accurate energy analysis.")
+                                font: Style.newSmallFont
+                                color: cloudConfiguration.cloudEnabled ? Style.colors.typography_Basic_Secondary : Style.colors.typography_States_Disabled
                                 wrapMode: Text.WordWrap
                             }
                         }
@@ -202,6 +251,7 @@ Page {
                         ConsolinnoSwitch {
                             id: energyMonitoringSwitch
                             checked: cloudConfiguration.energyMonitoringEnabled
+                            enabled: cloudConfiguration.cloudEnabled
                             onToggled: {
                                 hemsManager.setCloudConfiguration({"energyMonitoringEnabled": checked})
                             }
@@ -216,37 +266,41 @@ Page {
                         color: Style.colors.typography_States_Hover
                     }
 
+                    // Anonymized usage data toggle
                     RowLayout {
                         Layout.fillWidth: true
                         Layout.leftMargin: 16
                         Layout.rightMargin: 16
                         Layout.topMargin: 8
                         Layout.bottomMargin: 8
-                        spacing: 16
-
-                        ColorIcon {
-                            name: "/icons/science.svg"
-                            size: 24
-                            color: Style.colors.brand_Basic_Icon_accent
-                        }
+                        spacing: 12
 
                         ColumnLayout {
                             Layout.fillWidth: true
                             spacing: 0
 
-                            Text {
-                                Layout.fillWidth: true
-                                text: qsTr("Research data")
-                                font: Style.newParagraphFont
-                                color: Style.colors.typography_Basic_Default
-                                wrapMode: Text.WordWrap
+                            RowLayout {
+                                spacing: 8
+
+                                Text {
+                                    text: qsTr("Anonymized usage data")
+                                    font: Style.newParagraphFont
+                                    color: cloudConfiguration.cloudEnabled ? Style.colors.typography_Basic_Default : Style.colors.typography_Basic_Secondary
+                                    wrapMode: Text.WordWrap
+                                }
+
+                                InfoButton {
+                                    push: "AnonymizedUsageDataInfo.qml"
+                                    visible: cloudConfiguration.cloudEnabled
+                                }
                             }
 
                             Text {
                                 Layout.fillWidth: true
-                                text: qsTr("Share anonymized data to support research and system improvements.")
+                                Layout.topMargin: 4
+                                text: qsTr("Shares fully anonymized data for research and product improvement.")
                                 font: Style.newSmallFont
-                                color: Style.colors.typography_Basic_Default
+                                color: cloudConfiguration.cloudEnabled ? Style.colors.typography_Basic_Secondary : Style.colors.typography_States_Disabled
                                 wrapMode: Text.WordWrap
                             }
                         }
@@ -254,6 +308,7 @@ Page {
                         ConsolinnoSwitch {
                             id: researchDataSwitch
                             checked: cloudConfiguration.researchDataEnabled
+                            enabled: cloudConfiguration.cloudEnabled
                             onToggled: {
                                 hemsManager.setCloudConfiguration({"researchDataEnabled": checked})
                             }
@@ -261,6 +316,7 @@ Page {
                     }
                 }
             }
+
         }
     }
 }
