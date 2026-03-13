@@ -11,9 +11,6 @@ ConfigurationBase {
     connectionWizard: "/ui/wizards/ConnectionWizard.qml"
 
     //////////////////////////////////////////////////////////////////////////////////////
-    //change "Ubuntu" string to set a different font or set "Ubuntu" to have standard font
-    property string fontFamily: "Ubuntu"
-
     //Wizard Complete
     property bool isIntroIcon: true
 
