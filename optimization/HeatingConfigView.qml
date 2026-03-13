@@ -109,7 +109,7 @@ GenericConfigPage {
                                 "unit": "",
                                 "infoButtonURL": thing.stateByName("sgReadyMode") ? "EnergyManagerInfo.qml" : ""
                             }]
-                        delegate: stringValuesNew
+                        delegate: stringValuesComponent
 
                     }
 
@@ -176,7 +176,7 @@ GenericConfigPage {
                                 "value": thing.stateByName("hotWaterTemperature") ? thing.stateByName("hotWaterTemperature").value : null,
                                 "unit": "°C"
                             }]
-                        delegate: stringValuesNew
+                        delegate: stringValuesComponent
                     }
 
                 }
@@ -212,12 +212,12 @@ GenericConfigPage {
                                 "value": thing.stateByName("returnTemperature") ? thing.stateByName("returnTemperature").value : null,
                                 "unit": "°C"
                             }]
-                        delegate: stringValuesNew
+                        delegate: stringValuesComponent
                     }
                 }
 
                 Component {
-                    id: stringValuesNew
+                    id: stringValuesComponent
 
                     RowLayout {
                         Layout.fillWidth: true
