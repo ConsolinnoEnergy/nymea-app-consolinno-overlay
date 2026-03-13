@@ -257,15 +257,15 @@ MainViewBase {
             Item {
                 id: dashboardRoot
                 anchors.fill: parent
-                anchors.leftMargin: 16 // #TODO use value from new style
-                anchors.rightMargin: 16 // #TODO use value from new style
+                anchors.leftMargin: Style.margins
+                anchors.rightMargin: Style.margins
 
                 implicitHeight: dashboardLayout.implicitHeight + anchors.margins * 2
 
                 ColumnLayout {
                     id: dashboardLayout
                     anchors.fill: parent
-                    spacing: 16 // #TODO use value from new style
+                    spacing: Style.margins
 
                     Item {
                         id: spacerTopMargin
@@ -684,7 +684,7 @@ MainViewBase {
                     ColumnLayout {
                         id: consumptionGroup
                         Layout.fillWidth: true
-                        spacing: 16 // #TODO use value from new style
+                        spacing: Style.margins
 
                         CoFrostyCard {
                             id: heatingGroup

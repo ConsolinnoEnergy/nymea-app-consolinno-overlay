@@ -57,10 +57,10 @@ Item {
     GridLayout {
         id: gridLayout
         anchors.fill: parent
-        anchors.topMargin: 8 // #TODO use value from new design
-        anchors.bottomMargin: 8 // #TODO use value from new design
-        anchors.leftMargin: 16 // #TODO use value from new design
-        anchors.rightMargin: 16 // #TODO use value from new design
+        anchors.topMargin: Style.smallMargins
+        anchors.bottomMargin: Style.smallMargins
+        anchors.leftMargin: Style.margins
+        anchors.rightMargin: Style.margins
 
         ColumnLayout {
             Layout.row: 0
@@ -69,7 +69,7 @@ Item {
             Layout.fillWidth: compactLayout
             Layout.preferredWidth: compactLayout ? -1 : gridLayout.width / 2
 
-            spacing: 8 // #TODO use value from new design
+            spacing: Style.smallMargins
 
             ColorIcon {
                 id: icon

@@ -59,9 +59,9 @@ Frame {
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.topMargin: 8 // #TODO use value from style
-            anchors.leftMargin: 16 // #TODO use value from style
-            anchors.rightMargin: 16 // #TODO use value from style
+            anchors.topMargin: Style.smallMargins
+            anchors.leftMargin: Style.margins
+            anchors.rightMargin: Style.margins
             color: Style.colors.typography_Headlines_H2
             font: Style.newH2Font
         }
