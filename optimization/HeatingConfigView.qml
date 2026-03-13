@@ -203,7 +203,7 @@ GenericConfigPage {
                     Layout.topMargin: 5
                     model: [{
                         "Id": "operatingMode",
-                        "name": qsTr("Operating mode"),
+                        "name": qsTr("Status"),
                         "value": thing.stateByName("systemStatus") ? thing.stateByName("systemStatus").value : null,
                         "unit": "",
                         "component": stringValues,
@@ -228,7 +228,7 @@ GenericConfigPage {
                     }, {
                         "Id": "totalThermalEnergyGenerated",
                         "name": qsTr("Total thermal energy generated"),
-                        "value": thing.stateByName("compressorTotalHeatOutput") ? thing.stateByName("compressorTotalHeatOutput").value : null,
+                        "value": thing.stateByName("totalOutputThermalEnergy") ? thing.stateByName("totalOutputThermalEnergy").value : null,
                         "unit": "kWh",
                         "component": stringValues,
                         "params": false,

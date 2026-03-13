@@ -3719,6 +3719,10 @@ Möchten Sie trotzdem fortfahren?</translation>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
 </context>
 <context>
     <name>HeatingConfigurationView</name>
