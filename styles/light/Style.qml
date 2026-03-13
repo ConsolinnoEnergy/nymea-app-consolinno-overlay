@@ -15,10 +15,8 @@ StyleBase {
     property color legendTileIconColor: "#222222"
 
     // Epex colors
-    readonly property color epexColor: "#E056F5"
     readonly property color epexMainLineColor: "#6CCB56"
     readonly property color epexAverageColor: "#C65B5A"
-    readonly property color epexCurrentTime: "#2C723C"
 
     readonly property color epexBarCurrentTime: "#189521"
     readonly property color epexBarPricingPast: "#F4F6F4"

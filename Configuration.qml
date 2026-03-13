@@ -11,14 +11,12 @@ ConfigurationBase {
     connectionWizard: "/ui/wizards/ConnectionWizard.qml"
 
     //////////////////////////////////////////////////////////////////////////////////////
-    //Main View
-    readonly property string mainMenuThingName: "black"
-
     //change "Ubuntu" string to set a different font or set "Ubuntu" to have standard font
     property string fontFamily: "Ubuntu"
 
     //Wizard Complete
     property bool isIntroIcon: true
+
     //////////////////////////////////////////////////////////////////////////////////////
     // Defines the minimal compatible HEMS version
     property string minSysVersion: "2.0.0"
