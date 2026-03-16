@@ -5015,8 +5015,28 @@ Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 
         <translation>Anonymisierte Nutzungsdaten</translation>
     </message>
     <message>
-        <source>Anonymized usage data help Consolinno to continuously improve the product and advance research and development. All transmitted data is completely anonymized before transmission – it is not possible to draw conclusions about individuals or specific systems. This data is used exclusively for internal analyses and is never shared with third parties.</source>
-        <translation>Anonymisierte Nutzungsdaten helfen Consolinno dabei, das Produkt kontinuierlich zu verbessern und Forschung sowie Entwicklung voranzutreiben. Alle übertragenen Daten werden vor der Übermittlung vollständig anonymisiert – Rückschlüsse auf Personen oder spezifische Anlagen sind nicht möglich. Diese Daten werden ausschließlich für interne Analysen verwendet und nie an Dritte weitergegeben.</translation>
+        <source>What are anonymized usage data?</source>
+        <translation>Was sind anonymisierte Nutzungsdaten?</translation>
+    </message>
+    <message>
+        <source>With this release, fully anonymized usage data is transmitted to Consolinno. This data does not contain any personal information and does not allow any conclusions to be drawn about individual persons or locations. All identifying characteristics are irrevocably removed before transmission.</source>
+        <translation>Mit dieser Freigabe werden vollständig anonymisierte Nutzungsdaten an Consolinno übermittelt. Diese Daten enthalten keinerlei persönliche Informationen und lassen keinen Rückschluss auf einzelne Personen oder Standorte zu. Alle identifizierenden Merkmale werden vor der Übertragung unwiederbringlich entfernt.</translation>
+    </message>
+    <message>
+        <source>What is this data used for?</source>
+        <translation>Wofür werden diese Daten verwendet?</translation>
+    </message>
+    <message>
+        <source>The anonymized data is used exclusively for research purposes as well as for the improvement of products and services. They help to further develop optimization algorithms, improve system stability and design new functions to meet demand. Your data thus makes a valuable contribution to the further development of the energy transition.</source>
+        <translation>Die anonymisierten Daten werden ausschließlich für Forschungszwecke sowie zur Verbesserung von Produkten und Dienstleistungen genutzt. Sie helfen dabei, Optimierungsalgorithmen weiterzuentwickeln, die Systemstabilität zu verbessern und neue Funktionen bedarfsgerecht zu gestalten. Ihre Daten leisten damit einen wertvollen Beitrag zur Weiterentwicklung der Energiewende.</translation>
+    </message>
+    <message>
+        <source>Will my data be shared with third parties?</source>
+        <translation>Werden meine Daten an Dritte weitergegeben?</translation>
+    </message>
+    <message>
+        <source>No. The anonymized usage data is not sold to third parties or used for advertising purposes. You can revoke this release at any time. For more information, please visit www.consolinno.de/hems-datenschutz.</source>
+        <translation>Nein. Die anonymisierten Nutzungsdaten werden nicht an Dritte verkauft oder zu Werbezwecken verwendet. Sie können diese Freigabe jederzeit widerrufen. Weitere Informationen finden Sie unter www.consolinno.de/hems-datenschutz.</translation>
     </message>
 </context>
 <context>
@@ -5026,8 +5046,28 @@ Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 
         <translation>Cloud-Dienste aktivieren</translation>
     </message>
     <message>
+        <source>What does this setting mean?</source>
+        <translation>Was bedeutet diese Einstellung?</translation>
+    </message>
+    <message>
         <source>This setting enables exclusively the connection to the system&apos;s authorized cloud services. Through these, functions such as data synchronization, secure remote access, and system updates are provided. The system only connects to the manufacturer&apos;s explicitly designated services – not to external or arbitrary cloud providers.</source>
         <translation>Diese Einstellung ermöglicht ausschließlich die Verbindung zu den autorisierten Cloud-Diensten des Systems. Darüber werden Funktionen wie Datenabgleich, sichere Fernzugriffe und Systemaktualisierungen bereitgestellt. Das System verbindet sich dabei nur mit den ausdrücklich vorgesehenen Diensten des Herstellers – nicht mit externen oder beliebigen Cloud-Anbietern.</translation>
+    </message>
+    <message>
+        <source>Which data is transmitted?</source>
+        <translation>Welche Daten werden übertragen?</translation>
+    </message>
+    <message>
+        <source>The connection enables basic communication between the system and the Consolinno servers. Which data categories are specifically shared is determined by the individual release settings below. No additional data is transmitted without your explicit consent.</source>
+        <translation>Die Verbindung ermöglicht grundlegende Kommunikation zwischen dem System und den Consolinno-Servern. Welche Datenkategorien konkret geteilt werden, legen Sie über die einzelnen Freigaben darunter fest. Ohne Ihre ausdrückliche Zustimmung werden keine weitergehenden Daten übermittelt.</translation>
+    </message>
+    <message>
+        <source>Can I deactivate the connection at any time?</source>
+        <translation>Kann ich die Verbindung jederzeit deaktivieren?</translation>
+    </message>
+    <message>
+        <source>Yes. You can deactivate the cloud connection at any time. The system will then continue to operate entirely in local mode. Some functions that require an active cloud connection will not be available in this case.</source>
+        <translation>Ja. Sie können die Cloud-Verbindung jederzeit deaktivieren. Das System arbeitet danach vollständig im lokalen Betrieb weiter. Einige Funktionen, die eine aktive Cloud-Verbindung erfordern, stehen in diesem Fall nicht zur Verfügung.</translation>
     </message>
 </context>
 <context>
@@ -5037,8 +5077,28 @@ Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 
         <translation>Energie-Monitoring</translation>
     </message>
     <message>
-        <source>When energy monitoring is enabled, consumption and production data from your system is transmitted to the Consolinno Cloud. This data is used to provide you with detailed energy analyses and to continuously optimize the performance of your system. The transmission is encrypted and takes place exclusively via the authorized Consolinno Cloud services.</source>
-        <translation>Wenn das Energie-Monitoring aktiviert ist, werden Verbrauchs- und Erzeugungsdaten aus Ihrem System an die Consolinno-Cloud übertragen. Diese Daten dienen dazu, Ihnen detaillierte Energieanalysen bereitzustellen und die Leistung Ihres Systems kontinuierlich zu optimieren. Die Übertragung erfolgt verschlüsselt und ausschließlich über die autorisierten Consolinno-Cloud-Dienste.</translation>
+        <source>What data is shared with Energy Monitoring?</source>
+        <translation>Was wird beim Energie-Monitoring geteilt?</translation>
+    </message>
+    <message>
+        <source>With this release, consumption and production data from your energy system is transmitted to the Consolinno Cloud. This includes, for example, measured values for solar production, grid consumption, feed-in, and the consumption of connected devices. This data forms the basis for precise energy analysis and enables continuous optimization of the system.</source>
+        <translation>Mit dieser Freigabe werden Verbrauchs- und Erzeugungsdaten Ihrer Energieanlage an die Consolinno-Cloud übermittelt. Dazu gehören beispielsweise Messwerte zur Solarproduktion, zum Netzbezug, zur Einspeisung sowie zum Verbrauch angeschlossener Geräte. Diese Daten bilden die Grundlage für eine präzise Energieanalyse und ermöglichen eine kontinuierliche Optimierung des Systems.</translation>
+    </message>
+    <message>
+        <source>What is the benefit for me?</source>
+        <translation>Welchen Nutzen hat das für mich?</translation>
+    </message>
+    <message>
+        <source>The transmitted data enables detailed analysis of your energy flows, long-term trend analysis, and improved control and optimization of your system. You benefit from well-founded recommendations for maximizing self-consumption and reducing costs.</source>
+        <translation>Die übermittelten Daten ermöglichen detaillierte Auswertungen Ihrer Energieflüsse, langfristige Verlaufsanalysen sowie eine verbesserte Steuerung und Optimierung Ihrer Anlage. Sie profitieren von fundierten Empfehlungen zur Eigenverbrauchsmaximierung und Kostenreduktion.</translation>
+    </message>
+    <message>
+        <source>Is personal data transmitted?</source>
+        <translation>Werden personenbezogene Daten übertragen?</translation>
+    </message>
+    <message>
+        <source>The transmitted energy data is assigned to your system. You can revoke this release at any time. For more information on data protection, please visit www.consolinno.de/hems-datenschutz.</source>
+        <translation>Die übermittelten Energiedaten sind Ihrer Anlage zugeordnet. Sie können diese Freigabe jederzeit widerrufen. Weitere Informationen zum Datenschutz finden Sie unter www.consolinno.de/hems-datenschutz.</translation>
     </message>
 </context>
 </TS>

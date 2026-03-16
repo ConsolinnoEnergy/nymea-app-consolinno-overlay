@@ -13,7 +13,7 @@ Page {
 
     header: ConsolinnoHeader {
         id: header
-        text: qsTr("Energie-Monitoring")
+        text: qsTr("Energy Monitoring")
         backButtonVisible: true
         onBackPressed: stack.pop()
         show_Image: true
@@ -33,7 +33,7 @@ Page {
                 Layout.topMargin: 8
                 font.bold: true
                 font.pixelSize: 16
-                text: qsTr("Was wird beim Energie-Monitoring geteilt?")
+                text: qsTr("What data is shared with Energy Monitoring?")
             }
 
             Label {
@@ -43,7 +43,7 @@ Page {
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 Layout.topMargin: 4
-                text: qsTr("Mit dieser Freigabe werden Verbrauchs- und Erzeugungsdaten Ihrer Energieanlage an die Consolinno-Cloud übermittelt. Dazu gehören beispielsweise Messwerte zur Solarproduktion, zum Netzbezug, zur Einspeisung sowie zum Verbrauch angeschlossener Geräte. Diese Daten bilden die Grundlage für eine präzise Energieanalyse und ermöglichen eine kontinuierliche Optimierung des Systems.")
+                text: qsTr("With this release, consumption and production data from your energy system is transmitted to the Consolinno Cloud. This includes, for example, measured values for solar production, grid consumption, feed-in, and the consumption of connected devices. This data forms the basis for precise energy analysis and enables continuous optimization of the system.")
             }
 
             Label {
@@ -55,7 +55,7 @@ Page {
                 Layout.topMargin: 16
                 font.bold: true
                 font.pixelSize: 16
-                text: qsTr("Welchen Nutzen hat das für mich?")
+                text: qsTr("What is the benefit for me?")
             }
 
             Label {
@@ -65,7 +65,7 @@ Page {
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 Layout.topMargin: 4
-                text: qsTr("Die übermittelten Daten ermöglichen detaillierte Auswertungen Ihrer Energieflüsse, langfristige Verlaufsanalysen sowie eine verbesserte Steuerung und Optimierung Ihrer Anlage. Sie profitieren von fundierten Empfehlungen zur Eigenverbrauchsmaximierung und Kostenreduktion.")
+                text: qsTr("The transmitted data enables detailed analysis of your energy flows, long-term trend analysis, and improved control and optimization of your system. You benefit from well-founded recommendations for maximizing self-consumption and reducing costs.")
             }
 
             Label {
@@ -77,7 +77,7 @@ Page {
                 Layout.topMargin: 16
                 font.bold: true
                 font.pixelSize: 16
-                text: qsTr("Werden personenbezogene Daten übertragen?")
+                text: qsTr("Is personal data transmitted?")
             }
 
             Label {
@@ -88,7 +88,7 @@ Page {
                 Layout.preferredWidth: app.width
                 Layout.topMargin: 4
                 Layout.bottomMargin: 16
-                text: qsTr("Die übermittelten Energiedaten sind Ihrer Anlage zugeordnet. Sie können diese Freigabe jederzeit widerrufen. Weitere Informationen zum Datenschutz finden Sie unter www.consolinno.de/hems-datenschutz.")
+                text: qsTr("The transmitted energy data is assigned to your system. You can revoke this release at any time. For more information on data protection, please visit www.consolinno.de/hems-datenschutz.")
             }
         }
     }
