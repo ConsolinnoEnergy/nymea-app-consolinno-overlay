@@ -4932,4 +4932,35 @@ This means: The price limit corresponds to the current average price minus 10 %.
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>CloudServicesActivateInfo</name>
+    <message>
+        <source>Activate Cloud Services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>What does this setting mean?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This setting enables exclusively the connection to the system&apos;s authorized cloud services. Through these, functions such as data synchronization, secure remote access, and system updates are provided. The system only connects to the manufacturer&apos;s explicitly designated services – not to external or arbitrary cloud providers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Which data is transmitted?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The connection enables basic communication between the system and the Consolinno servers. Which data categories are specifically shared is determined by the individual release settings below. No additional data is transmitted without your explicit consent.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can I deactivate the connection at any time?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes. You can deactivate the cloud connection at any time. The system will then continue to operate entirely in local mode. Some functions that require an active cloud connection will not be available in this case.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>
