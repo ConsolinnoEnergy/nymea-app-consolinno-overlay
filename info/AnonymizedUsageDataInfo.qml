@@ -13,7 +13,7 @@ Page {
 
     header: ConsolinnoHeader {
         id: header
-        text: qsTr("Anonymisierte Nutzungsdaten")
+        text: qsTr("Anonymized usage data")
         backButtonVisible: true
         onBackPressed: stack.pop()
         show_Image: true
@@ -33,7 +33,7 @@ Page {
                 Layout.topMargin: 8
                 font.bold: true
                 font.pixelSize: 16
-                text: qsTr("Was sind anonymisierte Nutzungsdaten?")
+                text: qsTr("What are anonymized usage data?")
             }
 
             Label {
@@ -43,7 +43,7 @@ Page {
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 Layout.topMargin: 4
-                text: qsTr("Mit dieser Freigabe werden vollständig anonymisierte Nutzungsdaten an Consolinno übermittelt. Diese Daten enthalten keinerlei persönliche Informationen und lassen keinen Rückschluss auf einzelne Personen oder Standorte zu. Alle identifizierenden Merkmale werden vor der Übertragung unwiederbringlich entfernt.")
+                text: qsTr("With this release, fully anonymized usage data is transmitted to Consolinno. This data does not contain any personal information and does not allow any conclusions to be drawn about individual persons or locations. All identifying characteristics are irrevocably removed before transmission.")
             }
 
             Label {
@@ -55,7 +55,7 @@ Page {
                 Layout.topMargin: 16
                 font.bold: true
                 font.pixelSize: 16
-                text: qsTr("Wofür werden diese Daten verwendet?")
+                text: qsTr("What is this data used for?")
             }
 
             Label {
@@ -65,7 +65,7 @@ Page {
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 Layout.topMargin: 4
-                text: qsTr("Die anonymisierten Daten werden ausschließlich für Forschungszwecke sowie zur Verbesserung von Produkten und Dienstleistungen genutzt. Sie helfen dabei, Optimierungsalgorithmen weiterzuentwickeln, die Systemstabilität zu verbessern und neue Funktionen bedarfsgerecht zu gestalten. Ihre Daten leisten damit einen wertvollen Beitrag zur Weiterentwicklung der Energiewende.")
+                text: qsTr("The anonymized data is used exclusively for research purposes as well as for the improvement of products and services. They help to further develop optimization algorithms, improve system stability and design new functions to meet demand. Your data thus makes a valuable contribution to the further development of the energy transition.")
             }
 
             Label {
@@ -77,7 +77,7 @@ Page {
                 Layout.topMargin: 16
                 font.bold: true
                 font.pixelSize: 16
-                text: qsTr("Werden meine Daten an Dritte weitergegeben?")
+                text: qsTr("Will my data be shared with third parties?")
             }
 
             Label {
@@ -88,7 +88,7 @@ Page {
                 Layout.preferredWidth: app.width
                 Layout.topMargin: 4
                 Layout.bottomMargin: 16
-                text: qsTr("Nein. Die anonymisierten Nutzungsdaten werden nicht an Dritte verkauft oder zu Werbezwecken verwendet. Sie können diese Freigabe jederzeit widerrufen. Weitere Informationen finden Sie unter www.consolinno.de/hems-datenschutz.")
+                text: qsTr("No. The anonymized usage data is not sold to third parties or used for advertising purposes. You can revoke this release at any time. For more information, please visit www.consolinno.de/hems-datenschutz.")
             }
         }
     }
