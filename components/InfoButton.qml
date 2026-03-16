@@ -15,6 +15,12 @@ Item {
     property var stack
     implicitWidth: 18
     implicitHeight: 18
+
+    InfoModal {
+        id: infoModal
+        parent: Overlay.overlay
+    }
+
     Image{
         id: infoImage
         anchors.fill: parent
@@ -24,13 +30,28 @@ Item {
             onClicked:{
                 if (push)
                 {
-                    if (stack)
-                    {
-                        stack.push("../info/" + push, {stack: stack})
-
+                    // Extract title from filename (remove .qml and add spaces)
+                    var titleText = push.replace(".qml", "").replace(/([A-Z])/g, " $1").trim()
+                    if (titleText === "CloudServicesActivateInfo") {
+                        titleText = qsTr("Activate Cloud Services")
+                    } else if (titleText === "EnergyMonitoringInfo") {
+                        titleText = qsTr("Energy Monitoring")
+                    } else if (titleText === "AnonymizedUsageDataInfo") {
+                        titleText = qsTr("Anonymized Usage Data")
                     }
-                    else{
-                        pageStack.push("../info/" + push, {stack: pageStack})
+                    infoModal.title = titleText
+
+                    // Load the content component
+                    var component = Qt.createComponent("../info/" + push)
+                    if (component.status === Component.Ready) {
+                        var content = component.createObject(infoModal, {})
+                        infoModal.contentItem = content
+                        if (content && content.closeRequested) {
+                            content.closeRequested.connect(infoModal.close)
+                        }
+                        infoModal.open()
+                    } else {
+                        console.warn("Failed to load info component:", push, component.errorString())
                     }
                 }
             }
