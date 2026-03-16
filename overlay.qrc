@@ -317,11 +317,11 @@
         <file>info/HeatpumpOptimizationInfo.qml</file>
         <file>info/BlockEVChargingFromBatteryInfo.qml</file>
         <file>info/ChargingPhaseSwitchingInfo.qml</file>
-        <file>info/CloudServicesActivateInfo.qml</file>
-        <file>info/EnergyMonitoringInfo.qml</file>
-        <file>info/AnonymizedUsageDataInfo.qml</file>
         <file>mainviews/energy/CoKpiStats.qml</file>
         <file>optimization/DayTimePickerPage.qml</file>
         <file>optimization/CloudServicesPage.qml</file>
+        <file>info/CloudServicesActivateInfo.qml</file>
+        <file>info/EnergyMonitoringInfo.qml</file>
+        <file>info/AnonymizedUsageDataInfo.qml</file>
     </qresource>
 </RCC>
