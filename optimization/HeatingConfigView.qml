@@ -29,6 +29,11 @@ GenericConfigPage {
         newConfig.priceThreshold = -heatpumpPriceWidget.currentRelativeValue;
         newConfig.optimizationMode = optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).enumname;
         newConfig.relativePriceEnabled = true;
+        // Null UUID means: no meter selected → pass empty string,
+        // so C++ omits the field from the RPC request (backend rejects null UUID)
+        if (newConfig.heatMeterThingId === "00000000-0000-0000-0000-000000000000") {
+            newConfig.heatMeterThingId = "";
+        }
         console.info("Saving new heating configuration: " + JSON.stringify(newConfig));
         rootObject.pendingCallId = hemsManager.setHeatingConfiguration(thing.id, newConfig);
     }

@@ -301,7 +301,8 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
                     QVariant value = data.value(metaObj->property(i).name());
                     if (value.type() == QVariant::String) {
                         QString strValue = value.toString();
-                        if (strValue.isEmpty()) {
+                        // Skip if empty string or null UUID (from QML JSON.stringify)
+                        if (strValue.isEmpty() || strValue == "00000000-0000-0000-0000-000000000000") {
                             qCDebug(dcHems()) << "Skipping heatMeterThingId (No Heat Meter selected)";
                             // Don't insert anything – field is omitted from the request
                         } else {
@@ -313,7 +314,13 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
                             config.insert(metaObj->property(i).name(), uuid);
                         }
                     } else if (!value.isNull()) {
-                        config.insert(metaObj->property(i).name(), value);
+                        // Also check if it's already a QUuid and is null
+                        QUuid uuid = value.toUuid();
+                        if (uuid.isNull()) {
+                            qCDebug(dcHems()) << "Skipping heatMeterThingId (null QUuid)";
+                        } else {
+                            config.insert(metaObj->property(i).name(), value);
+                        }
                     }
                 }
                 else {
