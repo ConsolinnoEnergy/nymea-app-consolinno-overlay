@@ -21,8 +21,6 @@ Page {
     Component.onCompleted: {
         // Update like this because qml does not allow to set the value directly when using calculations
         useCasesModel.set(1, {value: HemsManager.HemsUseCaseHeating | HemsManager.HemsUseCaseHeatingRod})
-
-        console.warn("---", hemsManager, hemsManager.available, hemsManager.fetchingData, hemsManager.availableUseCases);
     }
 
     ListModel {
