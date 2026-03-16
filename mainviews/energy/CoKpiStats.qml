@@ -49,7 +49,12 @@ StatsBase {
 
         property bool loading: kpiProvider.fetchingKpiSeries
 
-        onConfigChanged: valueAxis.max = 100
+        onConfigChanged: {
+            valueAxis.max = 100
+            if (root.visible) {
+                fetchKpis()
+            }
+        }
         onStartOffsetChanged: {
             if (root.visible) {
                 fetchKpis()
