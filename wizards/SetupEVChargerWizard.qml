@@ -808,7 +808,7 @@ Page {
                         text: qsTr("Next")
                         onClicked: {
                             if (thing){
-                                var page = pageStack.push("../optimization/EvChargerOptimization.qml", { chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id) ,directionID: 1})
+                                var page = pageStack.push("../optimization/EvChargerOptimization.qml", { thing: thing, chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id) ,directionID: 1})
                                 page.done.connect(function(){
                                     pageStack.pop(root)
                                 })

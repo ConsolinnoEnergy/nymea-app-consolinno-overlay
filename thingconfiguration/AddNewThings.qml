@@ -55,7 +55,7 @@ Page {
                 thingPage = pageStack.push("../optimization/HeatingOptimization.qml", { heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatPumpThing: thingDevice, directionID: 1})
                 navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("evcharger")){
-                thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", { chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thingDevice.id), directionID: 1})
+                thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", { chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thingDevice.id), thing: thingDevice, directionID: 1})
                 navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("heatingrod")){
                 thingPage = pageStack.push("../optimization/HeatingElementOptimization.qml", { heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatRodThing: thingDevice, directionID: 1})
