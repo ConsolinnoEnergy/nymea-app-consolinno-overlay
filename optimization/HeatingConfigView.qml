@@ -30,8 +30,13 @@ GenericConfigPage {
         newConfig.optimizationMode = optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).enumname;
         newConfig.relativePriceEnabled = true;
         // Null UUID means: no meter selected → pass empty string,
-        // so C++ omits the field from the RPC request (backend rejects null UUID)
-        if (newConfig.heatMeterThingId === "00000000-0000-0000-0000-000000000000") {
+        // so C++ omits the field from the RPC request (backend rejects null UUID).
+        // Qt serialises QUuid with braces, e.g. "{00000000-0000-0000-0000-000000000000}",
+        // so we check for the null-UUID pattern regardless of surrounding braces.
+        if (!newConfig.heatMeterThingId ||
+                newConfig.heatMeterThingId === "" ||
+                (typeof newConfig.heatMeterThingId === "string" &&
+                 newConfig.heatMeterThingId.indexOf("00000000-0000-0000-0000-000000000000") !== -1)) {
             newConfig.heatMeterThingId = "";
         }
         console.info("Saving new heating configuration: " + JSON.stringify(newConfig));

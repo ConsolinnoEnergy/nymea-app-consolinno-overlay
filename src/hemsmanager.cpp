@@ -296,31 +296,17 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
                         config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
                     }
                 }
-                // Convert heatMeterThingId from QString to QUuid; empty string means no meter (skip field)
+                // Convert heatMeterThingId to QUuid; skip (omit from request) when null/empty.
+                // QUuid::fromString / QVariant::toUuid handle both "{uuid}" and "uuid" formats,
+                // so this is robust regardless of how Qt serialised the property.
                 else if (strcmp(metaObj->property(i).name(), "heatMeterThingId") == 0) {
-                    QVariant value = data.value(metaObj->property(i).name());
-                    if (value.type() == QVariant::String) {
-                        QString strValue = value.toString();
-                        // Skip if empty string or null UUID (from QML JSON.stringify)
-                        if (strValue.isEmpty() || strValue == "00000000-0000-0000-0000-000000000000") {
-                            qCDebug(dcHems()) << "Skipping heatMeterThingId (No Heat Meter selected)";
-                            // Don't insert anything – field is omitted from the request
-                        } else {
-                            if (!strValue.startsWith("{")) {
-                                strValue = "{" + strValue + "}";
-                            }
-                            QUuid uuid(strValue);
-                            qCDebug(dcHems()) << "Converting heatMeterThingId from QString to QUuid:" << uuid;
-                            config.insert(metaObj->property(i).name(), uuid);
-                        }
-                    } else if (!value.isNull()) {
-                        // Also check if it's already a QUuid and is null
-                        QUuid uuid = value.toUuid();
-                        if (uuid.isNull()) {
-                            qCDebug(dcHems()) << "Skipping heatMeterThingId (null QUuid)";
-                        } else {
-                            config.insert(metaObj->property(i).name(), value);
-                        }
+                    QUuid uuid = data.value(metaObj->property(i).name()).toUuid();
+                    if (uuid.isNull()) {
+                        qCDebug(dcHems()) << "Skipping heatMeterThingId (no heat meter selected / null UUID)";
+                        // Intentionally not inserted – backend rejects a null UUID
+                    } else {
+                        qCDebug(dcHems()) << "Converting heatMeterThingId to QUuid:" << uuid;
+                        config.insert(metaObj->property(i).name(), uuid);
                     }
                 }
                 else {
