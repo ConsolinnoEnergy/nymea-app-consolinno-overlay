@@ -748,6 +748,8 @@ void HemsManager::getHeatingElementConfigurationsResponse(int commandId, const Q
     foreach (const QVariant &configurationVariant, data.value("heatingRodConfigurations").toList()) {
         addOrUpdateHeatingElementConfiguration(configurationVariant.toMap());
     }
+    m_fetchingData = false;
+    emit fetchingDataChanged();
 }
 
 
