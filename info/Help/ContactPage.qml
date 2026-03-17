@@ -21,7 +21,6 @@ Page {
 
     }
 
-    property HemsManager hemsManager
     property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
 
     ColumnLayout{

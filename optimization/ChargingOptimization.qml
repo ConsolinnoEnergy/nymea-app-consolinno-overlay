@@ -21,7 +21,6 @@ Page {
         shownInterfaces: ["evcharger"]
     }
 
-    property HemsManager hemsManager
     //TODO: built a page where every possible option is displayed (Similar to AddGenericCar I think)
     // Note there could be multiple Wallboxes, so we need to make it for every Wallbox
 

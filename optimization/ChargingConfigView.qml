@@ -19,7 +19,6 @@ import "../utils/DynPricingUtils.js" as DynPricingUtils
 GenericConfigPage {
     id: root
 
-    property HemsManager hemsManager
     property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
     property ChargingSessionConfiguration chargingSessionConfiguration: hemsManager.chargingSessionConfigurations.getChargingSessionConfiguration(thing.id)
     property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
@@ -1015,7 +1014,7 @@ GenericConfigPage {
 
                             onClicked: {
                                 if (isCarPluggedIn()){
-                                    var page = pageStack.push(optimizationComponent , { hemsManager: hemsManager, thing: thing })
+                                    var page = pageStack.push(optimizationComponent , { thing: thing })
                                     page.done.connect(function(){
                                         busyOverlay.shown = true
 
@@ -1051,7 +1050,6 @@ GenericConfigPage {
                 Page{
                     signal done()
                     id: optimizationPage
-                    property HemsManager hemsManager
                     property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
                     property Thing thing
 

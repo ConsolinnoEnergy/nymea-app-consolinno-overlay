@@ -21,8 +21,6 @@ Item {
 
     // ---- Public API --------------------------------------------------------
 
-    property HemsManager hemsManager
-
     // Emitted once the wizard has fully completed and all wizard pages
     // have been popped. The caller can connect to this to do any further
     // navigation (e.g. pop back to dashboard from a settings page).
@@ -147,7 +145,7 @@ Item {
 
             if ((energyMetersProxy.count === 0 && !wizardSettings.authorisation)
                     || !manualWizardSettings.authorisation) {
-                var page = pushPage("/ui/wizards/AuthorisationView.qml", { "hemsManager": hemsManager })
+                var page = pushPage("/ui/wizards/AuthorisationView.qml")
                 page.done.connect(function (abort, accepted) {
                     if (accepted) {
                         manualWizardSettings.authorisation = true
@@ -302,7 +300,6 @@ Item {
 
             if (!blackoutProtectionSetting.blackoutProtectionDone) {
                 var page = pushPage("../optimization/BlackoutProtectionView.qml", {
-                                        "hemsManager": hemsManager,
                                         "directionID": 1
                                     })
                 page.done.connect(function (skip, abort, back) {
@@ -325,7 +322,6 @@ Item {
 
             if ((!wizardSettings.installerData) || !manualWizardSettings.installerData) {
                 var page = pushPage("/ui/wizards/InstallerDataView.qml", {
-                                        "hemsManager": hemsManager,
                                         "directionID": 0
                                     })
                 page.done.connect(function (saved, skip, back) {
@@ -347,9 +343,7 @@ Item {
             }
 
             if (showFinalPage) {
-                var page = pushPage("/ui/wizards/WizardComplete.qml", {
-                                        "hemsManager": hemsManager
-                                    })
+                var page = pushPage("/ui/wizards/WizardComplete.qml")
                 page.done.connect(function (skip, abort) {
                     exitWizard()
                 })

@@ -29,7 +29,6 @@ Page {
         }
     }
 
-    property HemsManager hemsManager
     property ConEMSState conState: hemsManager.conEMSState
 
     Timer {

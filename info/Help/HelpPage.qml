@@ -21,12 +21,6 @@ Page {
 
     }
 
-
-    HemsManager {
-        id: hemsManager
-        engine: _engine
-    }
-
     ColumnLayout{
         id: helpOptionsColumnLayout
         anchors.left: parent.left
@@ -80,7 +74,7 @@ Page {
                 Layout.fillWidth: true
                 onClicked:{
 
-                    pageStack.push("ContactPage.qml", {hemsManager: hemsManager})
+                    pageStack.push("ContactPage.qml")
 
                 }
             }

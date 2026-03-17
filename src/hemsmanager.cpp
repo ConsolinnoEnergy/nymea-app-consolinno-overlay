@@ -43,45 +43,17 @@ void HemsManager::setEngine(Engine *engine)
     if (m_engine) {
         qCritical() << "Already have an engine:" << m_engine;
         m_engine->jsonRpcClient()->unregisterNotificationHandler(this);
+        disconnect(m_engine->jsonRpcClient(), &JsonRpcClient::authenticatedChanged,
+                   this, &HemsManager::initJsonRpcCommunication);
     }
 
     m_engine = engine;
     emit engineChanged();
 
     if (m_engine) {
-
-        if (!m_engine->jsonRpcClient()->experiences().contains("Hems")) {
-            qCWarning(dcHems()) << "Hems experience not available on core system.";
-            m_available = true;
-            emit availableChanged();
-            return;
-        }
-        m_available = true;
-        emit availableChanged();
-
-        m_fetchingData = true;
-        emit fetchingDataChanged();
-
-        // Register notifications
-        m_engine->jsonRpcClient()->registerNotificationHandler(this, "Hems", "notificationReceived");
-
-        // Fetch initial data
-        m_engine->jsonRpcClient()->sendCommand("Hems.GetUserConfigurations", QVariantMap(), this, "getUserConfigurationsResponse");
-        // This will crash if the Hems.GetConEMSState is not implemented on the server. No need to fetch this data initally
-        //m_engine->jsonRpcClient()->sendCommand("Hems.GetConEMSState", QVariantMap(), this, "getConEMSStateResponse");
-        m_engine->jsonRpcClient()->sendCommand("Hems.GetAvailableUseCases", QVariantMap(), this, "getAvailableUseCasesResponse");
-        m_engine->jsonRpcClient()->sendCommand("Hems.GetHousholdPhaseLimit", QVariantMap(), this, "getHousholdPhaseLimitResponse");
-        m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingConfigurations", QVariantMap(), this, "getHeatingConfigurationsResponse");
-        m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingConfigurations", QVariantMap(), this, "getChargingConfigurationsResponse");
-        m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingOptimizationConfigurations", QVariantMap(), this, "getChargingOptimizationConfigurationsResponse");
-        m_engine->jsonRpcClient()->sendCommand("Hems.GetPvConfigurations", QVariantMap(), this, "getPvConfigurationsResponse");
-        m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingSessionConfigurations", QVariantMap(), this, "getChargingSessionConfigurationsResponse");
-
-        m_engine->jsonRpcClient()->sendCommand("Hems.GetDynamicElectricPricingConfigurations", QVariantMap(), this, "getDynamicElectricPricingConfigurationResponse");
-        m_engine->jsonRpcClient()->sendCommand("Hems.GetBatteryConfigurations", QVariantMap(), this, "getBatteryConfigurationResponse");
-
-        m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingRodConfigurations", QVariantMap(), this, "getHeatingElementConfigurationsResponse");
-
+        connect(m_engine->jsonRpcClient(), &JsonRpcClient::authenticatedChanged,
+                this, &HemsManager::initJsonRpcCommunication);
+        initJsonRpcCommunication();
     }
 }
 
@@ -769,6 +741,8 @@ void HemsManager::getHeatingElementConfigurationsResponse(int commandId, const Q
     foreach (const QVariant &configurationVariant, data.value("heatingRodConfigurations").toList()) {
         addOrUpdateHeatingElementConfiguration(configurationVariant.toMap());
     }
+    m_fetchingData = false;
+    emit fetchingDataChanged();
 }
 
 
@@ -779,10 +753,6 @@ void HemsManager::getChargingConfigurationsResponse(int commandId, const QVarian
     foreach (const QVariant &configurationVariant, data.value("chargingConfigurations").toList()) {
         addOrUpdateChargingConfiguration(configurationVariant.toMap());
     }
-
-    // Last call from init sequence
-    m_fetchingData = false;
-    emit fetchingDataChanged();
 }
 
 
@@ -793,10 +763,6 @@ void HemsManager::getChargingOptimizationConfigurationsResponse(int commandId, c
     foreach (const QVariant &configurationVariant, data.value("chargingOptimizationConfigurations").toList()) {
         addOrUpdateChargingOptimizationConfiguration(configurationVariant.toMap());
     }
-
-    // Last call from init sequence
-    m_fetchingData = false;
-    emit fetchingDataChanged();
 }
 
 
@@ -807,10 +773,6 @@ void HemsManager::getChargingSessionConfigurationsResponse(int commandId, const 
     foreach (const QVariant &configurationVariant, data.value("chargingSessionConfigurations").toList()) {
         addOrUpdateChargingSessionConfiguration(configurationVariant.toMap());
     }
-
-    // Last call from init sequence
-    m_fetchingData = false;
-    emit fetchingDataChanged();
 }
 
 void HemsManager::getConEMSStateResponse(int commandId, const QVariantMap &data)
@@ -818,10 +780,6 @@ void HemsManager::getConEMSStateResponse(int commandId, const QVariantMap &data)
     Q_UNUSED(commandId);
     qCDebug(dcHems()) << "ConEMS State" << data;
     addOrUpdateConEMSState(data.value("conEMSState").toList()[0].toMap());
-
-    // Last call from init sequence
-    m_fetchingData = false;
-    emit fetchingDataChanged();
 }
 
 void HemsManager::getUserConfigurationsResponse(int commandId, const QVariantMap &data)
@@ -867,6 +825,81 @@ void HemsManager::factoryResetResponse(int commandId, const QVariantMap &data)
 {
     qCDebug(dcHems()) << "Factory reset response" << data.value("hemsError").toString();
     emit factoryResetReply(commandId, data.value("hemsError").toString());
+}
+
+bool HemsManager::initJsonRpcCommunication()
+{
+    qCDebug(dcHems()) << "initJsonRpcCommunication:"
+                        << "connected?" << m_engine->jsonRpcClient()->connected()
+                        << "connectionStatus:" <<m_engine->jsonRpcClient()->connectionStatus()
+                        << "authenticated?" <<m_engine->jsonRpcClient()->authenticated();
+
+    if (!m_engine->jsonRpcClient()->authenticated()) {
+        qCDebug(dcHems()) << "JsonRpcClient not ready yet";
+        m_engine->jsonRpcClient()->unregisterNotificationHandler(this);
+        return false;
+    }
+    if (!m_engine->jsonRpcClient()->experiences().contains("Hems")) {
+        qCWarning(dcHems()) << "Hems experience not available on core system.";
+        m_available = true;
+        emit availableChanged();
+        return false;
+    }
+
+    m_available = true;
+    emit availableChanged();
+    m_fetchingData = true;
+    emit fetchingDataChanged();
+
+    // Register notifications
+    m_engine->jsonRpcClient()->registerNotificationHandler(this, "Hems", "notificationReceived");
+
+    // Fetch initial data
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetUserConfigurations",
+                                           QVariantMap(),
+                                           this,
+                                           "getUserConfigurationsResponse");
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetAvailableUseCases",
+                                           QVariantMap(),
+                                           this,
+                                           "getAvailableUseCasesResponse");
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetHousholdPhaseLimit",
+                                           QVariantMap(),
+                                           this,
+                                           "getHousholdPhaseLimitResponse");
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingConfigurations",
+                                           QVariantMap(),
+                                           this,
+                                           "getHeatingConfigurationsResponse");
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingConfigurations",
+                                           QVariantMap(),
+                                           this,
+                                           "getChargingConfigurationsResponse");
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingOptimizationConfigurations",
+                                           QVariantMap(),
+                                           this,
+                                           "getChargingOptimizationConfigurationsResponse");
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetPvConfigurations",
+                                           QVariantMap(),
+                                           this,
+                                           "getPvConfigurationsResponse");
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingSessionConfigurations",
+                                           QVariantMap(),
+                                           this,
+                                           "getChargingSessionConfigurationsResponse");
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetDynamicElectricPricingConfigurations",
+                                           QVariantMap(),
+                                           this,
+                                           "getDynamicElectricPricingConfigurationResponse");
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetBatteryConfigurations",
+                                           QVariantMap(),
+                                           this,
+                                           "getBatteryConfigurationResponse");
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingRodConfigurations",
+                                           QVariantMap(),
+                                           this,
+                                           "getHeatingElementConfigurationsResponse");
+    return true;
 }
 
 

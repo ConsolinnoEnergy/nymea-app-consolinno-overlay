@@ -18,8 +18,6 @@ Page {
         }
     }
 
-    property HemsManager hemsManager
-
     Component.onCompleted: {
         // Update like this because qml does not allow to set the value directly when using calculations
         useCasesModel.set(1, {value: HemsManager.HemsUseCaseHeating | HemsManager.HemsUseCaseHeatingRod})
@@ -93,19 +91,19 @@ Page {
                 onClicked: {
                     switch (model.value) {
                     case HemsManager.HemsUseCaseBlackoutProtection:
-                        pageStack.push(Qt.resolvedUrl("../optimization/BlackoutProtectionView.qml"), { hemsManager: hemsManager })
+                        pageStack.push(Qt.resolvedUrl("../optimization/BlackoutProtectionView.qml"))
                         break;
                     case HemsManager.HemsUseCaseHeating | HemsManager.HemsUseCaseHeatingRod:
-                        pageStack.push(Qt.resolvedUrl("../optimization/HeatingConfigurationView.qml"), { hemsManager: hemsManager })
+                        pageStack.push(Qt.resolvedUrl("../optimization/HeatingConfigurationView.qml"))
                         break;
                     case HemsManager.HemsUseCaseCharging:
-                        pageStack.push(Qt.resolvedUrl("../optimization/ChargingConfigurationView.qml"), { hemsManager: hemsManager })
+                        pageStack.push(Qt.resolvedUrl("../optimization/ChargingConfigurationView.qml"))
                         break;
                     case HemsManager.HemsUseCaseBattery:
-                        pageStack.push(Qt.resolvedUrl("../optimization/BatteryConfigurationView.qml"), { hemsManager: hemsManager })
+                        pageStack.push(Qt.resolvedUrl("../optimization/BatteryConfigurationView.qml"))
                         break;
                     case HemsManager.HemsUseCasePv:
-                        pageStack.push(Qt.resolvedUrl("../optimization/PVConfigurationView.qml"), { hemsManager: hemsManager })
+                        pageStack.push(Qt.resolvedUrl("../optimization/PVConfigurationView.qml"))
                         break;
                     }
                 }

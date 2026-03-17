@@ -12,8 +12,6 @@ import "../delegates"
 Page {
     id: root
 
-    property HemsManager hemsManager
-
     header: NymeaHeader {
         text: qsTr("Charging")
         backButtonVisible: true
@@ -42,7 +40,7 @@ Page {
                 iconName: Qt.resolvedUrl("/icons/ev_station.svg")
                 progressive: true
                 text: thing.name
-                onClicked: pageStack.push("EvChargerOptimization.qml", { hemsManager: hemsManager, thing: thing })            
+                onClicked: pageStack.push("EvChargerOptimization.qml", { thing: thing })
 
 
                 Image {
