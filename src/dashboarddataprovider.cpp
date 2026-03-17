@@ -653,8 +653,8 @@ void DashboardDataProvider::fetchEnergyKPIs()
         return;
     }
 
-    if (!m_engine->jsonRpcClient()->connected()) {
-        qCDebug(dcDashboardDataProvider()) << "Cannot fetch Energy KPIs: not connected.";
+    if (!m_engine->jsonRpcClient()->authenticated()) {
+        qCDebug(dcDashboardDataProvider()) << "Cannot fetch Energy KPIs: not authenticated.";
         return;
     }
 
@@ -686,7 +686,12 @@ void DashboardDataProvider::getEnergyKPIsResponse(int commandId, const QVariantM
 
     // Guard: if the expected fields are missing, don't update
     if (!data.contains("selfSufficiencyRate") || !data.contains("selfConsumptionRate")) {
-        qCWarning(dcDashboardDataProvider()) << "Energy KPIs response missing expected fields. Keys:" << data.keys();
+        if (data.isEmpty()) {
+            // Empty response means "No such method" — backend does not support this API yet (version mismatch)
+            qCDebug(dcDashboardDataProvider()) << "Energy KPIs not supported by this backend (empty response).";
+        } else {
+            qCWarning(dcDashboardDataProvider()) << "Energy KPIs response missing expected fields. Keys:" << data.keys();
+        }
         return;
     }
 

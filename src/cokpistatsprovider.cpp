@@ -28,8 +28,8 @@ bool CoKpiStatsProvider::fetchingKpiSeries() const
 
 void CoKpiStatsProvider::fetchKpiSeries(const QVariantList &periods)
 {
-    if (!m_engine || !m_engine->jsonRpcClient() || !m_engine->jsonRpcClient()->connected()) {
-        qCWarning(dcCoKpiStatsProvider()) << "Cannot fetch KPI series: no engine or not connected.";
+    if (!m_engine || !m_engine->jsonRpcClient() || !m_engine->jsonRpcClient()->authenticated()) {
+        qCWarning(dcCoKpiStatsProvider()) << "Cannot fetch KPI series: no engine or not authenticated";
         return;
     }
 
@@ -88,6 +88,10 @@ void CoKpiStatsProvider::kpiSeriesBarResponse(int commandId, const QVariantMap &
         valid = data.value("valid").toBool();
         selfSufficiency = data.value("selfSufficiencyRate").toDouble();
         selfConsumption = data.value("selfConsumptionRate").toDouble();
+    } else if (data.isEmpty()) {
+        // Empty response means "No such method" — backend does not support this API yet (version mismatch)
+        qCDebug(dcCoKpiStatsProvider()) << "KPI series bar" << barIndex
+                                        << "not supported by this backend (empty response).";
     } else {
         qCWarning(dcCoKpiStatsProvider()) << "KPI series bar" << barIndex
                                           << "request failed or missing fields:"
