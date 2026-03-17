@@ -40,6 +40,7 @@ class HemsManager : public QObject
     Q_PROPERTY(UserConfigurations *userConfigurations READ userConfigurations CONSTANT)
     Q_PROPERTY(HeatingElementConfigurations *heatingElementConfigurations READ heatingElementConfigurations CONSTANT)
     Q_PROPERTY(CloudConfiguration *cloudConfiguration READ cloudConfiguration CONSTANT)
+    Q_PROPERTY(bool cloudConfigurationSupported READ cloudConfigurationSupported NOTIFY cloudConfigurationSupportedChanged)
 
 public:
     enum HemsUseCase {
@@ -84,6 +85,7 @@ public:
     DynamicElectricPricingConfigurations *dynamicElectricPricingConfigurations() const;
     BatteryConfigurations *batteryConfigurations() const;
     CloudConfiguration *cloudConfiguration() const;
+    bool cloudConfigurationSupported() const;
 
     // write and read
     Q_INVOKABLE int setPvConfiguration(const QUuid &pvThingId, const QVariantMap &data);
@@ -138,6 +140,7 @@ signals:
     void setCloudConfigurationReply(int commandId, const QString &error);
 
     void factoryResetReply(int commandId, const QString &error);
+    void cloudConfigurationSupportedChanged(bool supported);
 
 private slots:
     Q_INVOKABLE void notificationReceived(const QVariantMap &data);
@@ -191,6 +194,7 @@ private:
     DynamicElectricPricingConfigurations *m_dynamicElectricPricingConfigurations = nullptr;
     BatteryConfigurations *m_batteryConfigurations = nullptr;
     CloudConfiguration *m_cloudConfiguration = nullptr;
+    bool m_cloudConfigurationSupported = false;
 
     void addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateChargingConfiguration(const QVariantMap &configurationMap);

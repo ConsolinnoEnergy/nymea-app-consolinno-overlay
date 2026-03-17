@@ -208,6 +208,7 @@ Page {
                         text: qsTr("Consolinno cloud services")
                         helpText: qsTr("Manage cloud connection and data sharing preferences.")
                         showChildrenIndicator: true
+                        visible: hemsManager.cloudConfigurationSupported
                         onClicked: pageStack.push(Qt.resolvedUrl("optimization/CloudServicesPage.qml"),
                                                   {
                                                       "hemsManager": hemsManager

@@ -1264,6 +1264,11 @@ CloudConfiguration *HemsManager::cloudConfiguration() const
     return m_cloudConfiguration;
 }
 
+bool HemsManager::cloudConfigurationSupported() const
+{
+    return m_cloudConfigurationSupported;
+}
+
 int HemsManager::setCloudConfiguration(const QVariantMap &data)
 {
     QVariantMap cloudConfig;
@@ -1286,6 +1291,20 @@ void HemsManager::getCloudConfigurationResponse(int commandId, const QVariantMap
 {
     Q_UNUSED(commandId);
     qCDebug(dcHems()) << "Cloud configuration" << data;
+
+    // Silent fail: if the daemon does not support GetCloudConfiguration,
+    // the response will not contain "cloudConfiguration". In that case we
+    // leave m_cloudConfigurationSupported = false so the UI hides the menu entry.
+    if (!data.contains("cloudConfiguration")) {
+        qCWarning(dcHems()) << "Hems.GetCloudConfiguration not supported by this daemon - hiding cloud preferences menu.";
+        return;
+    }
+
+    if (!m_cloudConfigurationSupported) {
+        m_cloudConfigurationSupported = true;
+        emit cloudConfigurationSupportedChanged(m_cloudConfigurationSupported);
+    }
+
     QVariantMap configMap = data.value("cloudConfiguration").toMap();
     m_cloudConfiguration->setCloudEnabled(configMap.value("cloudConnectionEnabled").toBool());
     m_cloudConfiguration->setEnergyMonitoringEnabled(configMap.value("energyMonitoringEnabled").toBool());
