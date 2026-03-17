@@ -10,6 +10,8 @@ import "../delegates"
 Page {
     id: root
 
+    property HemsManager hemsManager
+
     header: NymeaHeader {
         text: qsTr("Heating")
         backButtonVisible: true
@@ -34,7 +36,7 @@ Page {
                 iconName: Qt.resolvedUrl("/icons/heat_pump.svg")
                 progressive: true
                 text: heatPumpThing.name
-                onClicked: pageStack.push("HeatingOptimization.qml", { heatingConfiguration: heatingConfiguration, heatPumpThing: heatPumpThing })
+                onClicked: pageStack.push("HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration: heatingConfiguration, heatPumpThing: heatPumpThing })
 
                 Image {
                     id: icons
@@ -70,7 +72,7 @@ Page {
                 iconName: Qt.resolvedUrl("/icons/water_heater.svg")
                 progressive: true
                 text: heatingElementThing.name
-                onClicked: pageStack.push("HeatingElementOptimization.qml", { heatingElementConfiguration: heatingElementConfiguration, heatRodThing: heatingElementThing })
+                onClicked: pageStack.push("HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingElementConfiguration: heatingElementConfiguration, heatRodThing: heatingElementThing })
 
                 Image {
                     id: iconsR

@@ -12,6 +12,7 @@ StackView {
     id: root
     initialItem: setUpStart
 
+    property HemsManager hemsManager
     property int directionID: 0
     property bool setupFinishedRelay: false
     property Thing gridSupportThing: gridSupport.get(0)

@@ -94,6 +94,11 @@ MainViewBase {
         engine: _engine
     }
 
+    HemsManager {
+        id: hemsManager
+        engine: _engine
+    }
+
     DashboardDataProvider {
         id: dataProvider
         engine: _engine
@@ -664,6 +669,7 @@ MainViewBase {
                                                 "/ui/devicepages/GenericSmartDeviceMeterPage.qml";
                                         pageStack.push(batteryView,
                                                        {
+                                                           "hemsManager": hemsManager,
                                                            "thing": thing,
                                                            "isBatteryView": true
                                                        });
@@ -702,12 +708,14 @@ MainViewBase {
                                                 pageStack.push(
                                                             "/ui/optimization/HeatingConfigView.qml",
                                                             {
+                                                                "hemsManager": hemsManager,
                                                                 "thing": thing
                                                             });
                                             } else if (thing.thingClass.interfaces.indexOf("heatingrod") >= 0) {
                                                 pageStack.push(
                                                             "/ui/devicepages/HeatingElementDevicePage.qml",
                                                             {
+                                                                "hemsManager": hemsManager,
                                                                 "thing": thing
                                                             });
                                             } else {
@@ -759,6 +767,7 @@ MainViewBase {
                                                 pageStack.push(
                                                             "../optimization/ChargingConfigView.qml",
                                                             {
+                                                                "hemsManager": hemsManager,
                                                                 "thing": thing,
                                                                 "carThing": electricVehicleThings.getThing(carThingId)
                                                             });
@@ -840,5 +849,6 @@ MainViewBase {
         }
         anchors.verticalCenter: parent.verticalCenter
         visible: !engine.thingManager.fetchingData && energyMetersProxy.count === 0
+        hemsManager: hemsManager
     }
 }

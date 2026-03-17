@@ -18,6 +18,7 @@ import "../utils/DynPricingUtils.js" as DynPricingUtils
 GenericConfigPage {
     id: root
     property Thing thing
+    property HemsManager hemsManager
     property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
     readonly property State batteryChargingState: root.thing.stateByName("chargingState")
     readonly property State batteryLevelState: root.thing.stateByName("batteryLevel")

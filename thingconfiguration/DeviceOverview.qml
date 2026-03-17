@@ -10,6 +10,8 @@ import Nymea 1.0
 Page {
     id: root
     signal startWizard()
+    property HemsManager hemsManager
+
 
     header: NymeaHeader {
         text: qsTr("Device Overview")
@@ -56,6 +58,7 @@ Page {
 
     WizardController {
         id: wizardController
+        hemsManager: root.hemsManager
         onWizardDone: {
             // Nach dem Wizard: zurück zum Dashboard.
             // Stack: empty Page(0) → MainPage(1) → SettingsPage(2) → DeviceOverview(3)
@@ -92,7 +95,7 @@ Page {
             Layout.preferredWidth: 300
             Layout.minimumWidth: 100
             onClicked:{
-                pageStack.push( "../wizards/AuthorisationView.qml", { directionID: 1 })
+                pageStack.push( "../wizards/AuthorisationView.qml", {directionID: 1, hemsManager: hemsManager})
             }
         }
 

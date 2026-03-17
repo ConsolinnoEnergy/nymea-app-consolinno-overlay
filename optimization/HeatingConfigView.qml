@@ -11,6 +11,7 @@ import QtQuick.Layouts 1.3
 GenericConfigPage {
     id: root
 
+    property HemsManager hemsManager
     property Thing thing
     property HeatingConfiguration heatingconfig: hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id)
     property double thresholdPrice: 0

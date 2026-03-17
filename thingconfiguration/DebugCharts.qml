@@ -10,6 +10,7 @@ import "../optimization"
 Page {
     id: root
 
+    property HemsManager hemsManager
     property ConEMSState conState: hemsManager.conEMSState
 
     PowerBalanceLogs {
