@@ -12,9 +12,6 @@ import "../delegates"
 Page {
     id: root
 
-
-    property HemsManager hemsManager
-
     header: NymeaHeader {
         text: qsTr("PV")
         backButtonVisible: true
@@ -45,7 +42,7 @@ Page {
                 iconName: Qt.resolvedUrl("/icons/solar_power.svg")
                 progressive: true
                 text: pvThing.name
-                onClicked: pageStack.push("PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration: pvConfiguration, thing: pvThing })
+                onClicked: pageStack.push("PVOptimization.qml", { pvConfiguration: pvConfiguration, thing: pvThing })
 
 
                 Image {
