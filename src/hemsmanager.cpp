@@ -51,7 +51,7 @@ void HemsManager::setEngine(Engine *engine)
     emit engineChanged();
 
     if (m_engine) {
-        connect(m_engine->jsonRpcClient(), &JsonRpcClient::authenticatedChanged,
+        connect(m_engine->jsonRpcClient(), &JsonRpcClient::connectedChanged,
                 this, &HemsManager::initJsonRpcCommunication);
         initJsonRpcCommunication();
     }
@@ -827,23 +827,24 @@ void HemsManager::factoryResetResponse(int commandId, const QVariantMap &data)
     emit factoryResetReply(commandId, data.value("hemsError").toString());
 }
 
-bool HemsManager::initJsonRpcCommunication()
+void HemsManager::initJsonRpcCommunication()
 {
     qCDebug(dcHems()) << "initJsonRpcCommunication:"
+                        << "host:" << (m_engine->jsonRpcClient()->currentHost() ? m_engine->jsonRpcClient()->currentHost()->name() : QString{ "No host" })
                         << "connected?" << m_engine->jsonRpcClient()->connected()
                         << "connectionStatus:" <<m_engine->jsonRpcClient()->connectionStatus()
                         << "authenticated?" <<m_engine->jsonRpcClient()->authenticated();
 
-    if (!m_engine->jsonRpcClient()->authenticated()) {
+    if (!m_engine->jsonRpcClient()->connected()) {
         qCDebug(dcHems()) << "JsonRpcClient not ready yet";
         m_engine->jsonRpcClient()->unregisterNotificationHandler(this);
-        return false;
+        return;
     }
     if (!m_engine->jsonRpcClient()->experiences().contains("Hems")) {
         qCWarning(dcHems()) << "Hems experience not available on core system.";
         m_available = true;
         emit availableChanged();
-        return false;
+        return;
     }
 
     m_available = true;
@@ -899,9 +900,7 @@ bool HemsManager::initJsonRpcCommunication()
                                            QVariantMap(),
                                            this,
                                            "getHeatingElementConfigurationsResponse");
-    return true;
 }
-
 
 void HemsManager::setPvConfigurationResponse(int commandId, const QVariantMap &data)
 {
