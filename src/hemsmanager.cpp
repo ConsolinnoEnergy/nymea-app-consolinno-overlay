@@ -452,11 +452,13 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
     // add the values from data which match with the MetaObject
     QVariantMap config;
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
-        // chargingSchedule is only supported by HEMS backend >= 2.0.
-        // Sending it to an older server causes "Invalid key" JSONRPC errors.
-        if (strcmp(metaObj->property(i).name(), "chargingSchedule") == 0) {
+        // chargingSchedule and desiredPhaseCount are only supported by HEMS backend >= 2.0.
+        // Sending them to an older server causes "Invalid key" JSONRPC errors.
+        if (strcmp(metaObj->property(i).name(), "chargingSchedule") == 0
+                || strcmp(metaObj->property(i).name(), "desiredPhaseCount") == 0) {
             if (m_hemsMajorVersion < 2) {
-                qCDebug(dcHems()) << "Skipping chargingSchedule: HEMS major version" << m_hemsMajorVersion << "< 2";
+                qCDebug(dcHems()) << "Skipping" << metaObj->property(i).name()
+                                  << ": HEMS major version" << m_hemsMajorVersion << "< 2";
                 continue;
             }
         }
