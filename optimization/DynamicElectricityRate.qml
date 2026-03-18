@@ -17,7 +17,6 @@ StackView {
 
     initialItem: setUpComponent
 
-    property HemsManager hemsManager
     property string name
     property bool newTariff: false
     property Thing dynElectricThing : thing.get(0)

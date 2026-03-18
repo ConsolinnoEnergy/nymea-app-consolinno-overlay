@@ -10,7 +10,6 @@ GenericConfigPage {
     id: root
 
     property Thing thing: null
-    property HemsManager hemsManager
     property BatteryConfiguration batteryConfiguration: isBatteryView ? hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id) : null
     property bool isZeroCompensation: isBatteryView ? batteryConfiguration.avoidZeroFeedInActive : false
     readonly property ThingClass thingClass: thing.thingClass

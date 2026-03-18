@@ -14,11 +14,6 @@ Page {
         onBackPressed: pageStack.pop()
     }
 
-    HemsManager{
-        id: hemsManager
-        engine: _engine
-    }
-
     Flickable {
         anchors.fill: parent
         contentHeight: layout.implicitHeight + app.margins

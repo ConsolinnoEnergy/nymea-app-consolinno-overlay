@@ -43,6 +43,8 @@ void HemsManager::setEngine(Engine *engine)
     if (m_engine) {
         qCritical() << "Already have an engine:" << m_engine;
         m_engine->jsonRpcClient()->unregisterNotificationHandler(this);
+        disconnect(m_engine->jsonRpcClient(), &JsonRpcClient::authenticatedChanged,
+                   this, &HemsManager::initJsonRpcCommunication);
     }
 
     m_engine = engine;
@@ -739,6 +741,8 @@ void HemsManager::getHeatingElementConfigurationsResponse(int commandId, const Q
     foreach (const QVariant &configurationVariant, data.value("heatingRodConfigurations").toList()) {
         addOrUpdateHeatingElementConfiguration(configurationVariant.toMap());
     }
+    m_fetchingData = false;
+    emit fetchingDataChanged();
 }
 
 
@@ -749,10 +753,6 @@ void HemsManager::getChargingConfigurationsResponse(int commandId, const QVarian
     foreach (const QVariant &configurationVariant, data.value("chargingConfigurations").toList()) {
         addOrUpdateChargingConfiguration(configurationVariant.toMap());
     }
-
-    // Last call from init sequence
-    m_fetchingData = false;
-    emit fetchingDataChanged();
 }
 
 
@@ -763,10 +763,6 @@ void HemsManager::getChargingOptimizationConfigurationsResponse(int commandId, c
     foreach (const QVariant &configurationVariant, data.value("chargingOptimizationConfigurations").toList()) {
         addOrUpdateChargingOptimizationConfiguration(configurationVariant.toMap());
     }
-
-    // Last call from init sequence
-    m_fetchingData = false;
-    emit fetchingDataChanged();
 }
 
 
@@ -777,10 +773,6 @@ void HemsManager::getChargingSessionConfigurationsResponse(int commandId, const 
     foreach (const QVariant &configurationVariant, data.value("chargingSessionConfigurations").toList()) {
         addOrUpdateChargingSessionConfiguration(configurationVariant.toMap());
     }
-
-    // Last call from init sequence
-    m_fetchingData = false;
-    emit fetchingDataChanged();
 }
 
 void HemsManager::getConEMSStateResponse(int commandId, const QVariantMap &data)
@@ -788,10 +780,6 @@ void HemsManager::getConEMSStateResponse(int commandId, const QVariantMap &data)
     Q_UNUSED(commandId);
     qCDebug(dcHems()) << "ConEMS State" << data;
     addOrUpdateConEMSState(data.value("conEMSState").toList()[0].toMap());
-
-    // Last call from init sequence
-    m_fetchingData = false;
-    emit fetchingDataChanged();
 }
 
 void HemsManager::getUserConfigurationsResponse(int commandId, const QVariantMap &data)
