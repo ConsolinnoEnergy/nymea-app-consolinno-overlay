@@ -137,6 +137,7 @@ signals:
 private slots:
     Q_INVOKABLE void notificationReceived(const QVariantMap &data);
 
+    Q_INVOKABLE void getHEMSVersionResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getAvailableUseCasesResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getHousholdPhaseLimitResponse(int commandId, const QVariantMap &data);
 
@@ -169,6 +170,7 @@ private:
     QPointer<Engine> m_engine = nullptr;
     bool m_fetchingData = false;
     bool m_available = false;
+    int m_hemsMajorVersion = 1; // Default to 1; updated via Hems.GetHEMSVersion on connect
 
     HemsUseCases m_availableUseCases;
     uint m_housholdPhaseLimit = 25;

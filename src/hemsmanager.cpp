@@ -65,6 +65,9 @@ void HemsManager::setEngine(Engine *engine)
         // Register notifications
         m_engine->jsonRpcClient()->registerNotificationHandler(this, "Hems", "notificationReceived");
 
+        // Fetch HEMS version first so m_hemsMajorVersion is known before other calls
+        m_engine->jsonRpcClient()->sendCommand("Hems.GetHEMSVersion", QVariantMap(), this, "getHEMSVersionResponse");
+
         // Fetch initial data
         m_engine->jsonRpcClient()->sendCommand("Hems.GetUserConfigurations", QVariantMap(), this, "getUserConfigurationsResponse");
         // This will crash if the Hems.GetConEMSState is not implemented on the server. No need to fetch this data initally
@@ -449,6 +452,15 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
     // add the values from data which match with the MetaObject
     QVariantMap config;
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
+        // chargingSchedule is only supported by HEMS backend >= 2.0.
+        // Sending it to an older server causes "Invalid key" JSONRPC errors.
+        if (strcmp(metaObj->property(i).name(), "chargingSchedule") == 0) {
+            if (m_hemsMajorVersion < 2) {
+                qCDebug(dcHems()) << "Skipping chargingSchedule: HEMS major version" << m_hemsMajorVersion << "< 2";
+                continue;
+            }
+        }
+
         if(data.contains(metaObj->property(i).name()))
             {
                 qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
@@ -701,6 +713,20 @@ void HemsManager::notificationReceived(const QVariantMap &data)
     }
 
 
+}
+
+void HemsManager::getHEMSVersionResponse(int commandId, const QVariantMap &data)
+{
+    Q_UNUSED(commandId)
+    // Response format: {"product": "...", "version": "X.Y.Z", "stage": "..."}
+    // If the server is too old and doesn't know GetHEMSVersion, the JSONRPC layer
+    // returns an error map – in that case "version" will be empty and we keep the
+    // default (m_hemsMajorVersion == 1).
+    QString version = data.value("version").toString();
+    if (!version.isEmpty()) {
+        m_hemsMajorVersion = version.split(".").first().toInt();
+    }
+    qCDebug(dcHems()) << "HEMS version:" << version << "-> Major:" << m_hemsMajorVersion;
 }
 
 void HemsManager::getAvailableUseCasesResponse(int commandId, const QVariantMap &data)
