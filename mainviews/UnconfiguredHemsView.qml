@@ -9,6 +9,8 @@ import "../components"
 EmptyViewPlaceholder {
     id: root
 
+    property HemsManager hemsManager
+
     title: qsTr("Your %1 is not set up yet.").arg(Configuration.deviceName)
     text: qsTr("Please complete the setup wizard or manually configure your devices.")
     imageSource: "/ui/images/leaf.svg"
@@ -19,6 +21,7 @@ EmptyViewPlaceholder {
 
     WizardController {
         id: wizardController
+        hemsManager: root.hemsManager
     }
 
 }

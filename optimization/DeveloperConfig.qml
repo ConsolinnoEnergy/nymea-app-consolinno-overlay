@@ -19,15 +19,23 @@ Page {
         onBackPressed: pageStack.pop()
     }
 
+    property HemsManager hemsManager
+
     Component.onCompleted: {
         //menuEntriesModel.append({ text: "ConEMS Observer", link: "../thingconfiguration/ConEMSObserver.qml", attributes: {hemsManager: hemsManager} })
         menuEntriesModel.append({
                                     "text": "Debug Charts",
-                                    "link": "../thingconfiguration/DebugCharts.qml"
+                                    "link": "../thingconfiguration/DebugCharts.qml",
+                                    "attributes": {
+                                        "hemsManager": hemsManager
+                                    }
                                 })
         menuEntriesModel.append({
                                     "text": "ConEMS State",
-                                    "link": "../thingconfiguration/ConEMSState.qml"
+                                    "link": "../thingconfiguration/ConEMSState.qml",
+                                    "attributes": {
+                                        "hemsManager": hemsManager
+                                    }
                                 })
         //menuEntriesModel.append({ text: "ChargingOptimization ConfigTest", link: "../optimization/ChargingOptimization.qml", attributes: {hemsManager: hemsManager} })
     }

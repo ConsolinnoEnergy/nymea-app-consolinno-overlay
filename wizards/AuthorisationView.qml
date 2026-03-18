@@ -12,6 +12,7 @@ ConsolinnoWizardPageBase {
     showNextButton: false
 
     property real directionID: 0
+    property HemsManager hemsManager
 
     content: ColumnLayout {
         anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right; margins: Style.margins }
@@ -65,7 +66,7 @@ ConsolinnoWizardPageBase {
                         if (directionID == 0){
                             root.done(false, true)
                         }else if(directionID == 1){
-                            pageStack.replace(Qt.resolvedUrl("../thingconfiguration/AddNewThings.qml"))
+                            pageStack.replace(Qt.resolvedUrl("../thingconfiguration/AddNewThings.qml"), { hemsManager: hemsManager })
                         }
 
                     }

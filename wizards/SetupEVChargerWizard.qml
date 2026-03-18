@@ -729,6 +729,11 @@ Page {
                 pendingCallId = engine.thingManager.addDiscoveredThing(thingDescriptor.thingClassId, thingDescriptor.id, thingDescriptor.name, {controllableLocalSystem: true})
             }
 
+            HemsManager{
+                id: hemsManager
+                engine: _engine
+            }
+
             Connections {
                 target: engine.thingManager
                 onAddThingReply: {
@@ -808,7 +813,7 @@ Page {
                         text: qsTr("Next")
                         onClicked: {
                             if (thing){
-                                var page = pageStack.push("../optimization/EvChargerOptimization.qml", { thing: thing, chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id) ,directionID: 1})
+                                var page = pageStack.push("../optimization/EvChargerOptimization.qml", { hemsManager: hemsManager, chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id) ,directionID: 1})
                                 page.done.connect(function(){
                                     pageStack.pop(root)
                                 })

@@ -8,6 +8,7 @@ import "../delegates"
 
 Page {
     id: root
+    property HemsManager hemsManager
     property int directionID: 0
 
     signal done(bool skip, bool abort, bool back)

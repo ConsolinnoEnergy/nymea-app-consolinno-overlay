@@ -184,8 +184,6 @@ private:
     DynamicElectricPricingConfigurations *m_dynamicElectricPricingConfigurations = nullptr;
     BatteryConfigurations *m_batteryConfigurations = nullptr;
 
-    bool initJsonRpcCommunication();
-
     void addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateChargingConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateChargingOptimizationConfiguration(const QVariantMap &configurationMap);
@@ -196,6 +194,8 @@ private:
     void addOrUpdateHeatingElementConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateDynamicElectricPricingConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateBatteryConfiguration(const QVariantMap &configurationMap);
+
+    void initJsonRpcCommunication();
 
     void updateAvailableUsecases(const QStringList &useCasesList);
     HemsManager::HemsUseCases unpackUseCases(const QStringList &useCasesList);

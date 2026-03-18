@@ -43,8 +43,6 @@ void HemsManager::setEngine(Engine *engine)
     if (m_engine) {
         qCritical() << "Already have an engine:" << m_engine;
         m_engine->jsonRpcClient()->unregisterNotificationHandler(this);
-        disconnect(m_engine->jsonRpcClient(), &JsonRpcClient::authenticatedChanged,
-                   this, &HemsManager::initJsonRpcCommunication);
     }
 
     m_engine = engine;
@@ -268,24 +266,17 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
                         config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
                     }
                 }
-                // Convert heatMeterThingId from QString to QUuid; empty string means no meter (skip field)
+                // Convert heatMeterThingId to QUuid; skip (omit from request) when null/empty.
+                // QUuid::fromString / QVariant::toUuid handle both "{uuid}" and "uuid" formats,
+                // so this is robust regardless of how Qt serialised the property.
                 else if (strcmp(metaObj->property(i).name(), "heatMeterThingId") == 0) {
-                    QVariant value = data.value(metaObj->property(i).name());
-                    if (value.type() == QVariant::String) {
-                        QString strValue = value.toString();
-                        if (strValue.isEmpty()) {
-                            qCDebug(dcHems()) << "Skipping heatMeterThingId (No Heat Meter selected)";
-                            // Don't insert anything – field is omitted from the request
-                        } else {
-                            if (!strValue.startsWith("{")) {
-                                strValue = "{" + strValue + "}";
-                            }
-                            QUuid uuid(strValue);
-                            qCDebug(dcHems()) << "Converting heatMeterThingId from QString to QUuid:" << uuid;
-                            config.insert(metaObj->property(i).name(), uuid);
-                        }
-                    } else if (!value.isNull()) {
-                        config.insert(metaObj->property(i).name(), value);
+                    QUuid uuid = data.value(metaObj->property(i).name()).toUuid();
+                    if (uuid.isNull()) {
+                        qCDebug(dcHems()) << "Skipping heatMeterThingId (no heat meter selected / null UUID)";
+                        // Intentionally not inserted – backend rejects a null UUID
+                    } else {
+                        qCDebug(dcHems()) << "Converting heatMeterThingId to QUuid:" << uuid;
+                        config.insert(metaObj->property(i).name(), uuid);
                     }
                 }
                 else {
@@ -748,8 +739,6 @@ void HemsManager::getHeatingElementConfigurationsResponse(int commandId, const Q
     foreach (const QVariant &configurationVariant, data.value("heatingRodConfigurations").toList()) {
         addOrUpdateHeatingElementConfiguration(configurationVariant.toMap());
     }
-    m_fetchingData = false;
-    emit fetchingDataChanged();
 }
 
 
@@ -760,6 +749,10 @@ void HemsManager::getChargingConfigurationsResponse(int commandId, const QVarian
     foreach (const QVariant &configurationVariant, data.value("chargingConfigurations").toList()) {
         addOrUpdateChargingConfiguration(configurationVariant.toMap());
     }
+
+    // Last call from init sequence
+    m_fetchingData = false;
+    emit fetchingDataChanged();
 }
 
 
@@ -770,6 +763,10 @@ void HemsManager::getChargingOptimizationConfigurationsResponse(int commandId, c
     foreach (const QVariant &configurationVariant, data.value("chargingOptimizationConfigurations").toList()) {
         addOrUpdateChargingOptimizationConfiguration(configurationVariant.toMap());
     }
+
+    // Last call from init sequence
+    m_fetchingData = false;
+    emit fetchingDataChanged();
 }
 
 
@@ -780,6 +777,10 @@ void HemsManager::getChargingSessionConfigurationsResponse(int commandId, const 
     foreach (const QVariant &configurationVariant, data.value("chargingSessionConfigurations").toList()) {
         addOrUpdateChargingSessionConfiguration(configurationVariant.toMap());
     }
+
+    // Last call from init sequence
+    m_fetchingData = false;
+    emit fetchingDataChanged();
 }
 
 void HemsManager::getConEMSStateResponse(int commandId, const QVariantMap &data)
@@ -787,6 +788,10 @@ void HemsManager::getConEMSStateResponse(int commandId, const QVariantMap &data)
     Q_UNUSED(commandId);
     qCDebug(dcHems()) << "ConEMS State" << data;
     addOrUpdateConEMSState(data.value("conEMSState").toList()[0].toMap());
+
+    // Last call from init sequence
+    m_fetchingData = false;
+    emit fetchingDataChanged();
 }
 
 void HemsManager::getUserConfigurationsResponse(int commandId, const QVariantMap &data)
@@ -834,7 +839,7 @@ void HemsManager::factoryResetResponse(int commandId, const QVariantMap &data)
     emit factoryResetReply(commandId, data.value("hemsError").toString());
 }
 
-bool HemsManager::initJsonRpcCommunication()
+void HemsManager::initJsonRpcCommunication()
 {
     qCDebug(dcHems()) << "initJsonRpcCommunication:"
                         << "host:" << (m_engine->jsonRpcClient()->currentHost() ? m_engine->jsonRpcClient()->currentHost()->name() : QString{ "No host" })
@@ -845,13 +850,13 @@ bool HemsManager::initJsonRpcCommunication()
     if (!m_engine->jsonRpcClient()->connected()) {
         qCDebug(dcHems()) << "JsonRpcClient not ready yet";
         m_engine->jsonRpcClient()->unregisterNotificationHandler(this);
-        return false;
+        return;
     }
     if (!m_engine->jsonRpcClient()->experiences().contains("Hems")) {
         qCWarning(dcHems()) << "Hems experience not available on core system.";
         m_available = true;
         emit availableChanged();
-        return false;
+        return;
     }
 
     m_available = true;
@@ -907,9 +912,7 @@ bool HemsManager::initJsonRpcCommunication()
                                            QVariantMap(),
                                            this,
                                            "getHeatingElementConfigurationsResponse");
-    return true;
 }
-
 
 void HemsManager::setPvConfigurationResponse(int commandId, const QVariantMap &data)
 {

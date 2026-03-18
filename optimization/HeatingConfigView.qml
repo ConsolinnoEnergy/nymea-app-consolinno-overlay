@@ -11,6 +11,7 @@ import QtQuick.Layouts 1.3
 GenericConfigPage {
     id: root
 
+    property HemsManager hemsManager
     property Thing thing
     property HeatingConfiguration heatingconfig: hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id)
     property double thresholdPrice: 0
@@ -28,6 +29,16 @@ GenericConfigPage {
         newConfig.priceThreshold = -heatpumpPriceWidget.currentRelativeValue;
         newConfig.optimizationMode = optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).enumname;
         newConfig.relativePriceEnabled = true;
+        // Null UUID means: no meter selected → pass empty string,
+        // so C++ omits the field from the RPC request (backend rejects null UUID).
+        // Qt serialises QUuid with braces, e.g. "{00000000-0000-0000-0000-000000000000}",
+        // so we check for the null-UUID pattern regardless of surrounding braces.
+        if (!newConfig.heatMeterThingId ||
+                newConfig.heatMeterThingId === "" ||
+                (typeof newConfig.heatMeterThingId === "string" &&
+                 newConfig.heatMeterThingId.indexOf("00000000-0000-0000-0000-000000000000") !== -1)) {
+            newConfig.heatMeterThingId = "";
+        }
         console.info("Saving new heating configuration: " + JSON.stringify(newConfig));
         rootObject.pendingCallId = hemsManager.setHeatingConfiguration(thing.id, newConfig);
     }

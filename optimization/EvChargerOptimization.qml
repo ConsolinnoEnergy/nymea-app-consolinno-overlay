@@ -9,6 +9,7 @@ import "../delegates"
 
 Page {
     id: root
+    property HemsManager hemsManager
     property Thing thing
     property ChargingOptimizationConfiguration chargingOptimizationConfiguration: hemsManager.chargingOptimizationConfigurations.getChargingOptimizationConfiguration(thing.id)
     property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)

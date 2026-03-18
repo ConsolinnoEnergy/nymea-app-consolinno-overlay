@@ -11,6 +11,7 @@ Page {
 
     property string filterInterface: ""
     property var thingsListId: []
+    property HemsManager hemsManager
     property Thing thingDevice
 
     function refreshAllDelegates() {
@@ -52,19 +53,19 @@ Page {
         page.done.connect(function() {
             var thingPage = "";
             if(thingClass.interfaces.includes("heatpump")){
-                thingPage = pageStack.push("../optimization/HeatingOptimization.qml", { heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatPumpThing: thingDevice, directionID: 1})
+                thingPage = pageStack.push("../optimization/HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatPumpThing: thingDevice, directionID: 1})
                 navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("evcharger")){
-                thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", { chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thingDevice.id), thing: thingDevice, directionID: 1})
+                thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", { hemsManager: hemsManager, chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thingDevice.id), directionID: 1})
                 navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("heatingrod")){
-                thingPage = pageStack.push("../optimization/HeatingElementOptimization.qml", { heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatRodThing: thingDevice, directionID: 1})
+                thingPage = pageStack.push("../optimization/HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatRodThing: thingDevice, directionID: 1})
                 navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("solarinverter")){
-                thingPage = pageStack.push("../optimization/PVOptimization.qml", { pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
+                thingPage = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
                 navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("energystorage")){
-                thingPage = pageStack.push("../optimization/BatteryOptimization.qml", { batteryConfiguration:  hemsManager.batteryConfigurations.getBatteryConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
+                thingPage = pageStack.push("../optimization/BatteryOptimization.qml", { hemsManager: hemsManager, batteryConfiguration:  hemsManager.batteryConfigurations.getBatteryConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
                 navigateBack(thingPage)
             }else{
                 pageStack.pop(root);
