@@ -50,7 +50,7 @@ T.Slider {
 
     padding: 6
 
-    // #TODO disabled state
+    // #TODO disabled state needed?
 
     handle: Rectangle {
         x: control.leftPadding + (control.horizontal ? control.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)

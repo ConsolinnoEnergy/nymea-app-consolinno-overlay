@@ -38,6 +38,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.impl 2.12
 import QtQuick.Templates 2.12 as T
+import Nymea 1.0
 
 T.Slider {
     id: control
@@ -49,15 +50,28 @@ T.Slider {
 
     padding: 6
 
+    // #TODO disabled state needed?
+
     handle: Rectangle {
         x: control.leftPadding + (control.horizontal ? control.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
         y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : control.visualPosition * (control.availableHeight - height))
-        implicitWidth: 28
-        implicitHeight: 28
+        implicitWidth: 30
+        implicitHeight: 30
         radius: width / 2
-        color: control.pressed ? control.palette.light : control.palette.window
-        border.width: control.visualFocus ? 2 : 1
-        border.color: control.visualFocus ? control.palette.highlight : control.enabled ? control.palette.mid : control.palette.midlight
+        color: control.pressed ?
+                   Style.colors.components_Forms_Slider_Handle_pressed_accent :
+                     control.hovered ?
+                         Style.colors.components_Forms_Slider_Handle_hover_accent :
+                         "transparent"
+
+        Rectangle {
+            property int ringWidth: control.pressed ? 5 : 7
+            anchors.centerIn: parent
+            width: parent.width - 2 * ringWidth
+            height: parent.height - 2 * ringWidth
+            radius: width / 2
+            color: Style.colors.components_Forms_Slider_Handle
+        }
     }
 
     background: Rectangle {
@@ -67,17 +81,27 @@ T.Slider {
         implicitHeight: control.horizontal ? 6 : 200
         width: control.horizontal ? control.availableWidth : implicitWidth
         height: control.horizontal ? implicitHeight : control.availableHeight
-        radius: 3
-        color: control.palette.midlight
+        radius: 4
+        color: Style.colors.components_Forms_Slider_Track
         scale: control.horizontal && control.mirrored ? -1 : 1
+        opacity: Style.numbers.components_Disabled_opacity
 
-        Rectangle {
-            y: control.horizontal ? 0 : control.visualPosition * parent.height
-            width: control.horizontal ? control.position * parent.width : 6
-            height: control.horizontal ? 6 : control.position * parent.height
+    }
 
-            radius: 3
-            color: control.palette.dark
-        }
+    // This is usually a child of the background Rectangle. But since the background color is specified using opacity
+    // in our design, we need to pull this Rectangle out of the background Rectangle due to opacity inheritance.
+    Rectangle {
+        property int backgroundX: control.leftPadding + (control.horizontal ? 0 : (control.availableWidth - backgroundWidth) / 2)
+        property int backgroundY: control.topPadding + (control.horizontal ? (control.availableHeight - backgroundHeight) / 2 : 0)
+        property int backgroundImplicitWidth: control.horizontal ? 200 : 6
+        property int backgroundImplicitHeight: control.horizontal ? 6 : 200
+        property int backgroundWidth: control.horizontal ? control.availableWidth : backgroundImplicitWidth
+        property int backgroundHeight: control.horizontal ? backgroundImplicitHeight : control.availableHeight
+        x: backgroundX
+        y: backgroundY + (control.horizontal ? 0 : control.visualPosition * backgroundHeight)
+        width: control.horizontal ? control.position * backgroundWidth : 6
+        height: control.horizontal ? 6 : control.position * backgroundHeight
+        radius: 4
+        color: Style.colors.components_Forms_Slider_Track
     }
 }
