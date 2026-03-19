@@ -29,15 +29,20 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 import QtQuick 2.9
+import QtQuick.Layouts 1.15
 import QtQuick.Templates 2.5 as T
 import QtQuick.Controls 2.5
 import QtQuick.Controls.impl 2.5
 import Nymea 1.0
 
+import "../../ui/components"
+
 T.Button {
     id: control
 
     property bool secondary: false
+    property alias iconLeft: iconLeft.name
+    property alias iconRight: iconRight.name
 
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentItem.implicitWidth + leftPadding + rightPadding)
@@ -55,17 +60,49 @@ T.Button {
     rightInset: 4
     opacity: !control.enabled ? Style.numbers.components_Disabled_opacity : 1
 
-    contentItem: Text {
-        text: control.text
-        color: control.secondary ?
-                   Style.colors.typography_Basic_Default :
-                   Style.colors.components_Forms_Buttons_Button_primary_text
-        font: Style.newParagraphFont
+    contentItem: RowLayout {
+        spacing: Style.smallMargins
 
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        elide: Text.ElideRight
+        ColorIcon {
+            id: iconLeft
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            size: 20
+            color: Style.colors.brand_Basic_Icon
+        }
+
+        Text {
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            text: control.text
+            color: control.secondary ?
+                       Style.colors.typography_Basic_Default :
+                       Style.colors.components_Forms_Buttons_Button_primary_text
+            font: Style.newParagraphFont
+
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            elide: Text.ElideRight
+        }
+
+        ColorIcon {
+            id: iconRight
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            size: 20
+            color: Style.colors.brand_Basic_Icon
+        }
     }
+
+//    contentItem: Text {
+//        text: control.text
+//        color: control.secondary ?
+//                   Style.colors.typography_Basic_Default :
+//                   Style.colors.components_Forms_Buttons_Button_primary_text
+//        font: Style.newParagraphFont
+
+//        horizontalAlignment: Text.AlignHCenter
+//        verticalAlignment: Text.AlignVCenter
+//        elide: Text.ElideRight
+//    }
 
     background: Rectangle {
         implicitWidth: 64
