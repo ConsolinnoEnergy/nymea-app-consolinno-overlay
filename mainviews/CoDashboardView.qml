@@ -356,7 +356,7 @@ MainViewBase {
                             NumberAnimation {
                                 target: flowCanvas
                                 property: "lineAnimationProgress"
-                                duration: 1000
+                                duration: 700
                                 loops: Animation.Infinite
                                 from: 2
                                 to: 0
@@ -385,8 +385,8 @@ MainViewBase {
                                 if (dataProvider.flowSolarToConsumers !== 0 &&
                                         liveStatusPVCard.visible) {
                                     const startX = liveStatusPVCard.x + liveStatusPVCard.width - 10;
-                                    const startY = liveStatusPVCard.y + liveStatusPVCard.height * 3 / 5;
-                                    const endX = liveStatusConsumptionCard.x + 30;
+                                    const startY = liveStatusPVCard.y + liveStatusPVCard.height - 10;
+                                    const endX = liveStatusConsumptionCard.x + 10;
                                     const endY = liveStatusConsumptionCard.y + 10;
                                     drawLine(ctx, startX, startY, endX, endY, dataProvider.flowSolarToConsumers);
                                 }
@@ -409,8 +409,8 @@ MainViewBase {
                                 if (dataProvider.flowGridToBattery !== 0 &&
                                         liveStatusBatteryCard.visible) {
                                     const startX = liveStatusGridCard.x + 10;
-                                    const startY = liveStatusGridCard.y + liveStatusGridCard.height * 3 / 5;
-                                    const endX = liveStatusBatteryCard.x + liveStatusBatteryCard.width - 30;
+                                    const startY = liveStatusGridCard.y + liveStatusGridCard.height - 10;
+                                    const endX = liveStatusBatteryCard.x + liveStatusBatteryCard.width - 10;
                                     const endY = liveStatusBatteryCard.y + 10;
                                     drawLine(ctx, startX, startY, endX, endY, dataProvider.flowGridToBattery);
                                 }
@@ -427,7 +427,7 @@ MainViewBase {
                                 const valueAbs = Math.abs(value);
                                 const minValue = 200;
                                 const maxValue = 5000;
-                                const minWidth = 2;
+                                const minWidth = 3;
                                 const maxWidth = 12;
                                 if (valueAbs < minValue) {
                                     return minWidth;

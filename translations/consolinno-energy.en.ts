@@ -916,7 +916,7 @@
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;p&gt;Version 2.0.2&lt;/p&gt;
+        <translation>&lt;p&gt;Version 2.0.5&lt;/p&gt;
 &lt;h4&gt;Redesign&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;The app is becoming more modern: the new design will be rolled out step by step&lt;/li&gt;
@@ -3708,13 +3708,6 @@ Would you like to continue anyway?</source>
     <name>HeatingConfigurationView</name>
     <message>
         <source>Heating</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>HeatingElementConfigurationView</name>
-    <message>
-        <source>Heating Element</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
