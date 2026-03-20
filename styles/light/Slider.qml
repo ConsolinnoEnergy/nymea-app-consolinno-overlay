@@ -48,13 +48,13 @@ T.Slider {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitHandleHeight + topPadding + bottomPadding)
 
-    padding: 6
+    padding: 1
 
     // #TODO disabled state needed?
 
     handle: Rectangle {
-        x: control.leftPadding + (control.horizontal ? control.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
-        y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : control.visualPosition * (control.availableHeight - height))
+        x: control.leftPadding + (control.horizontal ? control.visualPosition * (control.availableWidth - width + 2 * 7) - 7 : (control.availableWidth - width) / 2)
+        y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : control.visualPosition * (control.availableHeight - height + 2 * 7) - 7)
         implicitWidth: 30
         implicitHeight: 30
         radius: width / 2
