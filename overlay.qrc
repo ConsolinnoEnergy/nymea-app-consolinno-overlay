@@ -250,5 +250,7 @@
         <file>components/CoIconButton.qml</file>
         <file>optimization/DayTimePickerPage.qml</file>
         <file>components/LabelWithInfo.qml</file>
+        <file>components/CoSlider.qml</file>
+        <file>components/CoFieldNotification.qml</file>
     </qresource>
 </RCC>
