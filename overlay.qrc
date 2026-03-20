@@ -255,5 +255,6 @@
         <file>components/CoSlider.qml</file>
         <file>components/CoFieldNotification.qml</file>
         <file>components/CoSwitch.qml</file>
+        <file>components/CoKPICard.qml</file>
     </qresource>
 </RCC>

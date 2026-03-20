@@ -6,6 +6,8 @@ import Nymea 1.0
 Row {
     property alias text: label.text
     property alias push: infoButton.push
+    property alias font: label.font
+    property alias fontColor: label.color
 
     Layout.fillWidth: true
     spacing: 8
