@@ -215,19 +215,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Avoid zero compensation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Avoid zero compensation active</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -742,10 +734,6 @@
         <source>Time controlled</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Active</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ChargingConfigurationView</name>
@@ -876,6 +864,178 @@
     </message>
 </context>
 <context>
+    <name>CoDashboardView</name>
+    <message>
+        <source>Pending software update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+                            &lt;p&gt;Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %5 device.&lt;/p&gt;
+                            &lt;p&gt;Your %5 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;/p&gt;
+                            &lt;p&gt;If this message is still displayed, please contact our service team.&lt;/p&gt;
+                            &lt;ul&gt;
+                                %6
+                                &lt;li&gt;Email: &lt;a href=&apos;mailto:%4&apos;&gt;%4&lt;/a&gt;&lt;/li&gt;
+                            &lt;/ul&gt;
+                            &lt;p&gt;Best regards&lt;/p&gt;
+                            &lt;p&gt;Your %3 Team&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;&lt;/li&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Feed-in curtailment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Due to a control order from the network operator, the total power of controllable devices is &lt;b&gt;temporarily limited&lt;/b&gt; to &lt;b&gt;%1 kW.&lt;/b&gt; If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The app has been updated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CHANGENOTIFICATION_PLACEHOLDER</source>
+        <translation>&lt;p&gt;Version 2.0.2&lt;/p&gt;
+&lt;h4&gt;Redesign&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;The app is becoming more modern: the new design will be rolled out step by step&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;First Step: A redesigned home screen with a simplified energy flow and a new navigation structure&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;New&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;New KPIs: Self‑consumption rate and degree of autonomy, including historical data&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;SG‑Ready heat pump: Recording of power consumption via a separate compatible meter&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;New charging mode – Scheduled Charging: Define one time window per weekday to benefit from bonus/cashback tariffs&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Support for EEBUS‑compatible heat pumps&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Protection against home battery discharge when charging the EV: Activate through the app&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Improvement&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Factory Reset available in the app&lt;/li&gt;
+&lt;/ul&gt;</translation>
+    </message>
+    <message>
+        <source>Live status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Solar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Energy status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Self-sufficiency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Self-consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inverters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Batteries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heating</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mobility</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other consumers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unallocated consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CoKpiStats</name>
+    <message>
+        <source>KPI Statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Self-sufficiency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Self-consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weeks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Years</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Self-sufficiency: %1%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Self-consumption: %1%</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConEMSState</name>
     <message>
         <source>ConEMS State</source>
@@ -889,7 +1049,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Consolinno</source>
+        <source>Dashboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>History</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1274,29 +1438,6 @@
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoDialog</name>
-    <message>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Market price</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PV production</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SoC without controller</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SoC with controller</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2587,15 +2728,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Change system name and time zone</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>User settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Configure who can log in</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2603,15 +2736,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Configure the system&apos;s network connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Connection settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Configure how applications can connect to this system</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2619,15 +2744,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Configure the MQTT broker</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Web server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Configure the web server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2635,15 +2752,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Configure ZigBee networks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Z-Wave</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Configure Z-Wave networks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2651,15 +2760,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Configure Modbus RTU master interfaces</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Plugins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>List and cofigure installed plugins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2667,23 +2768,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Access tools for debugging and error reporting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>System update</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Update your %1 system</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Log viewer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>View system log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2691,7 +2776,123 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Find server UUID and versions</source>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optimization configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comissioning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Install devices and set up the system. For installers only.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Development</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dynamic electricity tariff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set up a dynamic electicity tariff for the system to operate with.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure grid support capabilities through relays or EEBUS. For installers only.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>App settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Look &amp; feel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optimize devices and system behavior.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Access tools for debugging and error reporting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find app versions and licence information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change system name and time zone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure who can log in.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure how applications can connect to this system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure Modbus RTU master interfaces.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List and cofigure installed plugins.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View system log.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find server UUID and versions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure the web server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure ZigBee networks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure Z-Wave networks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure the MQTT broker.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Customize the app’s look and behavior.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure the system’s network connection.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2862,65 +3063,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>The given username is already in use. Please choose a different username.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoView</name>
-    <message>
-        <source>Total current power usage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please complete the setup wizard or manually configure your devices.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Start setup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;h3&gt;The app has been updated.&lt;/h3&gt;
-&lt;p&gt;Version 1.13.1&lt;/p&gt;
-&lt;h4&gt;New&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Optimisation of SG‑ready heat pumps with dynamic electricity tariffs&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;HEMS can now be configured without PV&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Feed‑in regulation (LPP) for non‑hybrid inverters&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Improved battery charging with dynamic tariffs: Battery discharge can also be blocked depending on the tariff for maximum efficiency. Price and discharge limits are calculated based on the average price.&lt;br&gt;&lt;b&gt;Note: Tariff-controlled charging must be reconfigured after the update!&lt;/b&gt;&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Support of variable grid fees&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;Improvements&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Improved message texts related to LPC&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Pop-up message if the entry for levies or grid fees is missing when setting up the electricity tariff&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Heating rod optimisation:&lt;br&gt;The heating rod now only activates once the battery is charged to 80 %&lt;/li&gt;
-&lt;/ul&gt;</translation>
-    </message>
-    <message>
-        <source>Your %1 is not set up yet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Email: &lt;a href=&apos;mailto:%1&apos;&gt;%1&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;h3&gt;Pending software update&lt;/h3&gt;
-                &lt;p&gt;Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %6 device.&lt;/p&gt;
-                &lt;p&gt;Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;/p&gt;
-                &lt;p&gt;If this message is still displayed, please contact our service team.&lt;/p&gt;
-                &lt;ul&gt;
-                    %7
-                    &lt;li&gt;%4&lt;/li&gt;
-                &lt;/ul&gt;
-                &lt;p&gt;Best regards&lt;/p&gt;
-                &lt;p&gt;Your %5 Team&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3281,18 +3423,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>unrestricted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Avoid zero compensation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3306,10 +3436,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3573,6 +3699,10 @@ Would you like to continue anyway?</source>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Status</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HeatingConfigurationView</name>
@@ -3704,6 +3834,14 @@ Would you like to continue anyway?</source>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No meter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Electricity meter</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HeatpumpOptimizationInfo</name>
@@ -3787,41 +3925,6 @@ Would you like to continue anyway?</source>
     </message>
 </context>
 <context>
-    <name>HemsOptimizationPage</name>
-    <message>
-        <source>No optimizations available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Optimizations will be available once the required things have been added to the system.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Configurations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Optimization configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Comissioning</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Development</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dynamic electricity tariff</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid-supportive control</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>InfoTextInterface</name>
     <message>
         <source>Summary:</source>
@@ -3880,37 +3983,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>First name Last name</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>MainviewInfo</name>
-    <message>
-        <source>Dashboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Energy flow</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Consumption of the last 24 hours</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Interaction</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>By tapping on the consumers, you can access the settings, e.g. the charging of the e-car. If you tap on the evaluation of the last 24 hours, further statistics are displayed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In the middle of the dashboard you can see the consumption of the last 24 hours. The &lt;span style=&apos;color: %2&apos;&gt;%1&lt;/span&gt; area shows your produced energy. If more energy is produced than consumed, power is fed into the grid visible on the &lt;span style=&apos;color: %3&apos;&gt;%1&lt;/span&gt; area. If more energy is consumed than produced, then energy is drawn from the grid visible on the &lt;span style=&apos;color: %4&apos;&gt;%1&lt;/span&gt; area. The other colored areas represent the energy consumption of the different devices such as a wallbox or a heat pump.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The dashboard illustrates the energy flow in your house. The lines indicate by their thickness and direction where the current is flowing. At the top you can see the energy sources: Electricity can come from either their grid connection &lt;span style=&apos;color: %2&apos;&gt;%1&lt;/span&gt; or solar production &lt;span style=&apos;color: %3&apos;&gt;%1&lt;/span&gt;. If more solar power is produced than consumed, it is fed into the grid (grid connection changes color from &lt;span style=&apos;color: %4&apos;&gt;%1&lt;/span&gt; to &lt;span style=&apos;color: %5&apos;&gt;%1&lt;/span&gt;). At the bottom, your consumers and their current consumption are displayed.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4768,6 +4840,21 @@ This means: The price limit corresponds to the current average price minus 10 %.
     </message>
 </context>
 <context>
+    <name>UnconfiguredHemsView</name>
+    <message>
+        <source>Your %1 is not set up yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please complete the setup wizard or manually configure your devices.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>WizardComplete</name>
     <message>
         <source>Congratulations!</source>
@@ -4782,57 +4869,7 @@ This means: The price limit corresponds to the current average price minus 10 %.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Your %1 is now configured. The following devices have been set up:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ZeroCompensationInfo</name>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Zero Compensation</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>CoKpiStats</name>
-    <message>
-        <source>KPI Statistics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Self-sufficiency</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Self-consumption</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hours</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Days</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Weeks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Months</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Years</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No data available</source>
+        <source>Your %1 is now configured. The following devices are set up:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

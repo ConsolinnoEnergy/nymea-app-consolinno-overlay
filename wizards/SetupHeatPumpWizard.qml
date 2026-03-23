@@ -153,13 +153,7 @@ Page {
                             contentItem: ConsolinnoItemDelegate{
                                 id: icon
                                 Layout.preferredWidth: root.width
-                                iconName:{
-                                    if(Configuration.heatpumpIcon !== ""){
-                                        return "/ui/images/"+Configuration.heatpumpIcon;
-                                    }else{
-                                        return "/icons/heat_pump.svg";
-                                    }
-                                }
+                                iconName: Qt.resolvedUrl("/icons/heat_pump.svg")
                                 progressive: false
                                 text: hpProxy.get(index) ? hpProxy.get(index).name : ""
                                 onClicked: {
@@ -767,13 +761,6 @@ Page {
 
             }
 
-
-            HemsManager{
-                id: hemsManager
-                engine: _engine
-            }
-
-
             Connections {
                 target: engine.thingManager
                 onAddThingReply: {
@@ -854,7 +841,7 @@ Page {
                         onClicked:{
 
                             if (thing){
-                                var page = pageStack.push("../optimization/HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatPumpThing: thing, isSetup: true, directionID: 1})
+                                var page = pageStack.push("../optimization/HeatingOptimization.qml", { heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatPumpThing: thing, isSetup: true, directionID: 1})
                                 page.done.connect(function(){
                                     pageStack.pop(root)
                                 })

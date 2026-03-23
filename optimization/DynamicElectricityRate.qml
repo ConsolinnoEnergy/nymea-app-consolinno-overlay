@@ -17,7 +17,6 @@ StackView {
 
     initialItem: setUpComponent
 
-    property HemsManager hemsManager
     property string name
     property bool newTariff: false
     property Thing dynElectricThing : thing.get(0)
@@ -101,7 +100,7 @@ StackView {
                             delegate: ConsolinnoThingDelegate {
                                 implicitHeight: 50
                                 Layout.fillWidth: true
-                                iconName: Configuration.energyIcon !== "" ? "/ui/images/"+Configuration.energyIcon : "/icons/energy.svg"
+                                iconName: Qt.resolvedUrl("/icons/euro.svg")
                                 text: model.name
                                 progressive: true
                                 canDelete: true

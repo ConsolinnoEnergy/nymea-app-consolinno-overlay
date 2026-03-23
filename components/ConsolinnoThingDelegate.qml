@@ -8,57 +8,7 @@ import Nymea 1.0
 ConsolinnoSwipeDelegate {
     id: root
     width: parent.width
-    iconName: {
-        let thingInterface = thing.thingClass.interfaces
-
-        if (thingInterface.indexOf("energymeter") >= 0) {
-            if(Configuration.gridIcon === ""){
-                iconPath = "/icons/electric_meter.svg";
-            }else{
-                iconPath = "../images/" + Configuration.gridIcon;
-            }
-            return iconPath;
-        } else if (thingInterface.indexOf("heatpump") >= 0) {
-            if (Configuration.heatpumpIcon !== "") {
-                iconPath = "../images/" + Configuration.heatpumpIcon;
-            } else {
-                iconPath = "/icons/heat_pump.svg";
-            }
-            return iconPath;
-        } else if (thingInterface.indexOf("heatingrod") >= 0) {
-            if (Configuration.heatingRodIcon !== "") {
-                iconPath = "../images/" + Configuration.heatingRodIcon;
-            } else {
-                iconPath = "/icons/water_heater.svg";
-            }
-            return iconPath;
-        } else if (thingInterface.indexOf("energystorage") >= 0 && Configuration.batteryIcon !== "") {
-            if (Configuration.batteryIcon !== "") {
-                iconPath = "../images/" + Configuration.batteryIcon;
-            }
-            return iconPath;
-        } else if (thingInterface.indexOf("evcharger") >= 0 && Configuration.evchargerIcon !== "") {
-            if (Configuration.evchargerIcon !== "") {
-                iconPath = "../images/" + Configuration.evchargerIcon;
-            }
-            return iconPath;
-        } else if (thingInterface.indexOf("solarinverter") >= 0 && Configuration.inverterIcon !== "") {
-            if (Configuration.inverterIcon !== "") {
-                iconPath = "../images/" + Configuration.inverterIcon;
-            }
-            return iconPath;
-        } else if (thingInterface.indexOf("dynamicelectricitypricing") >= 0) {
-            if (Configuration.energyIcon !== "") {
-                iconPath = "../images/" + Configuration.energyIcon;
-            }else{
-                iconPath = "/icons/electric_bolt.svg"
-            }
-            return iconPath;
-        } else {
-            return app.interfacesToIcon(thing.thingClass.interfaces);
-        }
-
-    }
+    iconName: app.interfacesToIcon(thing.thingClass.interfaces)
     property var thingSetupStatus: thing ? thing.setupStatus : ""
     iconColor: Style.consolinnoMedium
     text: thing ? thing.name : ""

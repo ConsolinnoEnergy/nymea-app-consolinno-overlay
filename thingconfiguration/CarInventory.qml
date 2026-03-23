@@ -282,13 +282,12 @@ Page{
                         contentItem: ColumnLayout{
                             id: contentItemColumn
                             Layout.fillWidth: true
-                            spacing: 0
+                            spacing: 5
 
-                            Row{
+                            RowLayout {
                                 Layout.fillWidth: true
                                 Label{
                                     id: customRepeaterModelName
-                                    Layout.fillWidth: true
                                     horizontalAlignment: Text.AlignLeft
                                     text: modelData.displayName
 
@@ -299,13 +298,9 @@ Page{
                                     visible: modelData.info ? true : false
                                     push: infoPage
                                     stack: pageStack
-                                    anchors.left: customRepeaterModelName.right
-                                    anchors.leftMargin:  5
                                 }
-
-
-
                             }
+
                             // define the case in the Loader
                             Loader{
                                 id: paramLoader
@@ -483,37 +478,13 @@ Page{
 
                 }
 
-                RowLayout{
+                SecondaryButton {
                     Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignLeft
-                    Image{
-                        id: deleteButton
-                        source: "/icons/delete.svg"
-                        Layout.maximumWidth: 35
-                        Layout.maximumHeight: 35
-                        Layout.leftMargin: app.margins
-                        Layout.bottomMargin: 10
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignLeft
-                        MouseArea{
-                            width: parent.width + deleteLabel.width
-                            height: parent.height
-                            onClicked:{       
-                                engine.thingManager.removeThing(thing.id)
-                                pageStack.pop()
-                            }
+                    text: qsTr("delete")
 
-                        }
-                        ColorOverlay{
-                            width: parent.width
-                            height: parent.height
-                            source: deleteButton
-                            color: Material.foreground
-                        }
-                    }
-                    Label{
-                        id: deleteLabel
-                        text: qsTr("delete")
+                    onClicked:{
+                        engine.thingManager.removeThing(thing.id);
+                        pageStack.pop();
                     }
                 }
 
@@ -575,7 +546,6 @@ Page{
 
                     }
                 }
-
             }
         }
 

@@ -11,7 +11,6 @@ Page {
 
     property string filterInterface: ""
     property var thingsListId: []
-    property HemsManager hemsManager
     property Thing thingDevice
 
     function refreshAllDelegates() {
@@ -53,19 +52,19 @@ Page {
         page.done.connect(function() {
             var thingPage = "";
             if(thingClass.interfaces.includes("heatpump")){
-                thingPage = pageStack.push("../optimization/HeatingOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatPumpThing: thingDevice, directionID: 1})
+                thingPage = pageStack.push("../optimization/HeatingOptimization.qml", { heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatPumpThing: thingDevice, directionID: 1})
                 navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("evcharger")){
-                thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", { hemsManager: hemsManager, chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thingDevice.id), directionID: 1})
+                thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", { chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thingDevice.id), thing: thingDevice, directionID: 1})
                 navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("heatingrod")){
-                thingPage = pageStack.push("../optimization/HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatRodThing: thingDevice, directionID: 1})
+                thingPage = pageStack.push("../optimization/HeatingElementOptimization.qml", { heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatRodThing: thingDevice, directionID: 1})
                 navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("solarinverter")){
-                thingPage = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
+                thingPage = pageStack.push("../optimization/PVOptimization.qml", { pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
                 navigateBack(thingPage)
             }else if(thingClass.interfaces.includes("energystorage")){
-                thingPage = pageStack.push("../optimization/BatteryOptimization.qml", { hemsManager: hemsManager, batteryConfiguration:  hemsManager.batteryConfigurations.getBatteryConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
+                thingPage = pageStack.push("../optimization/BatteryOptimization.qml", { batteryConfiguration:  hemsManager.batteryConfigurations.getBatteryConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
                 navigateBack(thingPage)
             }else{
                 pageStack.pop(root);
@@ -241,72 +240,9 @@ Page {
                 width: listView.width
                 text: model.displayName
                 subText: engine.thingManager.vendors.getVendor(model.vendorId).displayName
-                iconName:{
+                iconName: {
                     if (!thingClass) { return ""; }
-                    for (let i = 0; i < thingClass.interfaces.length; i++) {
-                        let icon = "";
-                        let interfaceIcons = thingClass.interfaces[i];
-                        let heatpumpName = "";
-                        let energyName = "";
-
-                        (interfaceIcons === "pvsurplusheatpump") ? heatpumpName = "pvsurplusheatpump" : (interfaceIcons === "smartgridheatpump") ? heatpumpName = "smartgridheatpump" : heatpumpName = "simpleheatpump"
-                        switch (interfaceIcons) {
-                        case heatpumpName:
-                            if(Configuration.heatpumpIcon !== ""){
-                                icon = "/ui/images/"+Configuration.heatpumpIcon
-                            }else{
-                                icon = "/icons/heat_pump.svg"
-                            }
-                            return Qt.resolvedUrl(icon)
-                        case "heatingrod":
-                            if(Configuration.heatingRodIcon !== ""){
-                                icon = "/ui/images/"+Configuration.heatingRodIcon
-                            }else{
-                                icon = "/icons/water_heater.svg"
-                            }
-                            return Qt.resolvedUrl(icon)
-                        case "controllablebattery":
-                            if(Configuration.batteryIcon !== ""){
-                                icon = "/ui/images/"+Configuration.batteryIcon
-                            }else{
-                                icon = "/icons/battery/battery-080.svg" // #TODO use battery icons from new design
-                            }
-                            return Qt.resolvedUrl(icon)
-                        case "limitablebattery":
-                            if(Configuration.batteryIcon !== ""){
-                                icon = "/ui/images/"+Configuration.batteryIcon
-                            }else{
-                                icon = "/icons/battery/battery-080.svg" // #TODO use battery icons from new design
-                            }
-                            return Qt.resolvedUrl(icon)
-                        case "battery":
-                            if(Configuration.batteryIcon !== ""){
-                                icon = "/ui/images/"+Configuration.batteryIcon
-                            }else{
-                                icon = "/icons/battery/battery-080.svg" // #TODO use battery icons from new design
-                            }
-                            return Qt.resolvedUrl(icon)
-                        case "energystorage":
-                            if(Configuration.batteryIcon !== ""){
-                                icon = "/ui/images/"+Configuration.batteryIcon
-                            }else{
-                                icon = "/icons/battery/battery-080.svg" // #TODO use battery icons from new design
-                            }
-                            return Qt.resolvedUrl(icon)
-                        case "evcharger":
-                            if(Configuration.evchargerIcon !== ""){
-                                icon = "/ui/images/"+Configuration.evchargerIcon
-                                return Qt.resolvedUrl(icon)
-                            }
-                        case "solarinverter":
-                            if(Configuration.inverterIcon !== ""){
-                                icon = "/ui/images/"+Configuration.inverterIcon
-                                return Qt.resolvedUrl(icon)
-                            }
-                        default:
-                            return app.interfaceToIcon(interfaceIcons)
-                        }
-                    }
+                    return app.interfacesToIcon(thingClass.interfaces);
                 }
                 Image {
                     id: tileIcon

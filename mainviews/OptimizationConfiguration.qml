@@ -14,16 +14,9 @@ Page {
         text: qsTr("Optimization configuration")
         backButtonVisible: true
         onBackPressed:{
-            if ( hemsManager.availableUseCases === 0){
-                pageStack.pop(root)
-            }
-            else{
-                pageStack.pop()
-            }
+            pageStack.pop()
         }
     }
-
-    property HemsManager hemsManager
 
     Component.onCompleted: {
         // Update like this because qml does not allow to set the value directly when using calculations
@@ -34,7 +27,6 @@ Page {
         id: useCasesModel
         ListElement { text: qsTr("Blackout protection"); value: HemsManager.HemsUseCaseBlackoutProtection; visible: true }
         ListElement { text: qsTr("Heating"); value: 0; visible: true } // For setting the value see the Component.onCompleted function above
-        //ListElement { text: qsTr("Heating Element"); value: HemsManager.HemsUseCaseHeatingElement; visible: true }
         ListElement { text: qsTr("Charging"); value: HemsManager.HemsUseCaseCharging; visible: true }
         ListElement { text: qsTr("Battery"); value: HemsManager.HemsUseCaseBattery; visible: true }
         ListElement { text: qsTr("Pv"); value: HemsManager.HemsUseCasePv; visible: true}
@@ -62,19 +54,16 @@ Page {
                             icon = "/icons/mode_heat.svg";
                             break;
                         case HemsManager.HemsUseCaseCharging:
-                            icon = Configuration.evchargerIcon !== "" ? "../images/" + Configuration.evchargerIcon : "/icons/ev_station.svg";
+                            icon = "/icons/ev_station.svg";
                             break;
                         case HemsManager.HemsUseCaseBattery:
-                            icon = Configuration.batteryIcon !== "" ? "../images/" + Configuration.batteryIcon : "/icons/battery/battery-080.svg"; // TODO use battery icons from new design
+                            icon = "/icons/battery/battery-060.svg";
                             break;
                         case HemsManager.HemsUseCasePv:
-                            icon = Configuration.inverterIcon !== "" ? "../images/" + Configuration.inverterIcon : "/icons/solar_power.svg";
-                            break;
-                        case HemsManager.HemsUseCaseHeatingRod:
-                            icon = "/icons/sensors/water.svg";
+                            icon = "/icons/solar_power.svg";
                             break;
                     }
-                    return icon;
+                    return Qt.resolvedUrl(icon);
                 }
 
                 Image {
@@ -102,22 +91,19 @@ Page {
                 onClicked: {
                     switch (model.value) {
                     case HemsManager.HemsUseCaseBlackoutProtection:
-                        pageStack.push(Qt.resolvedUrl("../optimization/BlackoutProtectionView.qml"), { hemsManager: hemsManager })
+                        pageStack.push(Qt.resolvedUrl("../optimization/BlackoutProtectionView.qml"))
                         break;
                     case HemsManager.HemsUseCaseHeating | HemsManager.HemsUseCaseHeatingRod:
-                        pageStack.push(Qt.resolvedUrl("../optimization/HeatingConfigurationView.qml"), { hemsManager: hemsManager })
+                        pageStack.push(Qt.resolvedUrl("../optimization/HeatingConfigurationView.qml"))
                         break;
                     case HemsManager.HemsUseCaseCharging:
-                        pageStack.push(Qt.resolvedUrl("../optimization/ChargingConfigurationView.qml"), { hemsManager: hemsManager })
+                        pageStack.push(Qt.resolvedUrl("../optimization/ChargingConfigurationView.qml"))
                         break;
                     case HemsManager.HemsUseCaseBattery:
-                        pageStack.push(Qt.resolvedUrl("../optimization/BatteryConfigurationView.qml"), { hemsManager: hemsManager })
+                        pageStack.push(Qt.resolvedUrl("../optimization/BatteryConfigurationView.qml"))
                         break;
                     case HemsManager.HemsUseCasePv:
-                        pageStack.push(Qt.resolvedUrl("../optimization/PVConfigurationView.qml"), { hemsManager: hemsManager })
-                        break;
-                    case HemsManager.HemsUseCaseHeatingRod:
-                        pageStack.push(Qt.resolvedUrl("../optimization/HeatingElementConfigurationView.qml"), { hemsManager: hemsManager })
+                        pageStack.push(Qt.resolvedUrl("../optimization/PVConfigurationView.qml"))
                         break;
                     }
                 }
@@ -131,5 +117,6 @@ Page {
         visible: hemsManager.availableUseCases === 0
         title: qsTr("No optimizations available")
         text: qsTr("Optimizations will be available once the required things have been added to the system.")
+        buttonVisible: false
     }
 }

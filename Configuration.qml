@@ -11,17 +11,12 @@ ConfigurationBase {
     connectionWizard: "/ui/wizards/ConnectionWizard.qml"
 
     //////////////////////////////////////////////////////////////////////////////////////
-    //Main View
-    readonly property string mainMenuThingName: "black"
-
-    //change "Ubuntu" string to set a different font or set "Ubuntu" to have standard font
-    property string fontFamily: "Ubuntu"
-
     //Wizard Complete
     property bool isIntroIcon: true
+
     //////////////////////////////////////////////////////////////////////////////////////
     // Defines the minimal compatible HEMS version
-    property string minSysVersion: "1.12.0"
+    property string minSysVersion: "2.0.0"
 
     // Identifier used for branding (e.g. to register for push notifications)
     property string branding: "consolinno"
@@ -56,16 +51,6 @@ ConfigurationBase {
 
     //Styles
     property color secondaryDark: "#767676"
-
-    //MainMenuCirlce
-    readonly property color mainTimeCircle: "#d7d7d7"
-    readonly property color mainTimeCircleDivider: "#ffffff"
-    readonly property color mainCircleTimeColor: "gray"
-
-    readonly property color mainTimeNow: "gray"
-
-    readonly property color mainInnerCicleFirst: "#b6b6b6"
-    readonly property color mainInnerCicleSecond: "#b6b6b6"
 
     // Button
     readonly property color iconColor: "#87BD26"
@@ -103,18 +88,6 @@ ConfigurationBase {
     readonly property color customBatteryPlusColor: configID.batteryChargeColor
     readonly property color customBatteryMinusColor: configID.batteryDischargeColor
     readonly property color customPowerSockerColor: configID.consumedColor
-
-    //custom Icons
-    readonly property string gridIcon: ""
-    readonly property string heatpumpIcon: ""
-    readonly property string heatingRodIcon: ""
-    readonly property string energyIcon: ""
-    readonly property string inverterIcon: ""
-    readonly property string settingsIcon: ""
-    readonly property string evchargerIcon: ""
-    readonly property string batteryIcon: ""
-    readonly property string infoIcon: ""
-    readonly property string menuIcon: ""
 
     //////////////////////////////////////////////////////////////////////////////////////
     //Help links
@@ -162,7 +135,7 @@ ConfigurationBase {
     // Additional MainViews
     property var additionalMainViews: ListModel {
         ListElement { name: "consolinnoDashboard"; source: "CoDashboardView"; displayName: qsTr("Dashboard") ; icon: "home" }
-        ListElement { name: "consolinnoStats"; source: "DetailedGraphsPage"; displayName: qsTr("Statistics") ; icon: "bar_chart" }
+        ListElement { name: "consolinnoStats"; source: "DetailedGraphsPage"; displayName: qsTr("History") ; icon: "bar_chart" }
     }
 
     // Main views filter: Only those main views are enabled

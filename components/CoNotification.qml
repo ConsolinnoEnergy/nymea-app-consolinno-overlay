@@ -17,6 +17,8 @@ Item {
     property alias messageTextFormat: messageText.textFormat
     property bool dismissable: false
     property bool clickable: false
+    property bool collapsible: false
+    property bool collapsed: false
 
     signal dismiss()
     signal clicked()
@@ -53,7 +55,7 @@ Item {
         id: background
         anchors.fill: parent
 
-        radius: 8 // #TODO use value from new style
+        radius: Style.cornerRadius
         color: root.backgroundColor()
         border.width: 1
         border.color: root.accentColor()
@@ -69,38 +71,55 @@ Item {
         }
     }
 
-    ColorIcon {
-        id: closeButton
+    Row {
+        id: buttonRow
         anchors {
             top: parent.top
             right: parent.right
             topMargin: 11
             rightMargin: 11
         }
-        visible: root.dismissable
-        size: 17
-        color: root.accentColor()
-        name: Qt.resolvedUrl("qrc:/icons/close.svg")
+        spacing: 6
+        layoutDirection: Qt.RightToLeft
 
-        MouseArea {
-            id: mouseAreaDismiss
-            anchors.fill: parent
-            onClicked: {
-                if (root.dismissable) {
-                    root.dismiss()
+        ColorIcon {
+            id: closeButton
+            visible: root.dismissable
+            size: 20
+            color: root.accentColor()
+            name: Qt.resolvedUrl("qrc:/icons/close.svg")
+
+            MouseArea {
+                id: mouseAreaDismiss
+                anchors.fill: parent
+                onClicked: {
+                    if (root.dismissable) {
+                        root.dismiss()
+                    }
                 }
             }
+        }
+
+        ColorIcon {
+            id: collapseButton
+            visible: root.collapsible
+            size: 24
+            color: root.accentColor()
+            name: root.collapsed
+                  ? Qt.resolvedUrl("qrc:/icons/keyboard_arrow_down.svg")
+                  : Qt.resolvedUrl("qrc:/icons/keyboard_arrow_up.svg")
+
         }
     }
 
     RowLayout {
         id: layout
         anchors.fill: parent
-        anchors.topMargin: 8 // #TODO use value from new design
-        anchors.bottomMargin: 8 // #TODO use value from new design
-        anchors.leftMargin: 8 // #TODO use value from new design
-        anchors.rightMargin: 8 // #TODO use value from new design
-        spacing: 8 // #TODO use value from new style
+        anchors.topMargin: Style.smallMargins
+        anchors.bottomMargin: Style.smallMargins
+        anchors.leftMargin: Style.smallMargins
+        anchors.rightMargin: Style.smallMargins
+        spacing: Style.smallMargins
 
         ColorIcon {
             Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
@@ -108,41 +127,61 @@ Item {
             color: root.accentColor()
             name: {
                 if (root.type === CoNotification.Type.Information) {
-                    return Qt.resolvedUrl("qrc:/icons/check.svg") // #TODO icon from new style
+                    return Qt.resolvedUrl("qrc:/icons/check.svg")
                 } else if (root.type === CoNotification.Type.Warning) {
-                    return Qt.resolvedUrl("qrc:/icons/error.svg") // #TODO icon from new style
+                    return Qt.resolvedUrl("qrc:/icons/error.svg")
                 } else if (root.type === CoNotification.Type.Danger) {
-                    return Qt.resolvedUrl("qrc:/icons/warning.svg") // #TODO icon from new style
+                    return Qt.resolvedUrl("qrc:/icons/warning.svg")
                 } else {
                     console.warn("CoNotification: unknown type:", root.type);
-                    return Qt.resolvedUrl("qrc:/icons/error.svg") // #TODO icon from new style
+                    return Qt.resolvedUrl("qrc:/icons/error.svg")
                 }
             }
         }
 
         ColumnLayout {
             Layout.fillWidth: true
-            spacing: 8 // #TODO use value from new style
+            spacing: 0
 
             Text {
                 id: titleText
                 Layout.fillWidth: true
+                Layout.preferredHeight: font.pixelSize + Style.smallMargins
                 verticalAlignment: Text.AlignVCenter
                 wrapMode: Text.WordWrap
                 font: Style.newH3Font
                 color: root.accentColor()
+
+                MouseArea {
+                    id: mouseAreaCollapse
+                    anchors.fill: parent
+                    enabled: root.collapsible
+                    propagateComposedEvents: !root.collapsible
+                    onClicked: root.collapsed = !root.collapsed
+                }
             }
 
-            Text {
-                id: messageText
-                Layout.fillWidth: true
-                verticalAlignment: Text.AlignVCenter
-                wrapMode: Text.WordWrap
-                font: Style.newParagraphFont
-                color: root.accentColor()
 
-                onLinkActivated: {
-                    Qt.openUrlExternally(link)
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: root.collapsed ? 0 : messageText.implicitHeight
+                clip: true
+
+                Behavior on Layout.preferredHeight {
+                    NumberAnimation { duration: 300; easing.type: Easing.InOutQuad }
+                }
+
+                Text {
+                    id: messageText
+                    width: parent.width
+                    verticalAlignment: Text.AlignVCenter
+                    wrapMode: Text.WordWrap
+                    font: Style.newParagraphFont
+                    color: root.accentColor()
+
+                    onLinkActivated: {
+                        Qt.openUrlExternally(link)
+                    }
                 }
             }
         }

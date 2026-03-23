@@ -14,6 +14,7 @@ Page {
     id: root
 
     signal done(bool skip, bool abort, bool back);
+    signal countChanged()
 
     header: NymeaHeader {
         text: qsTr("Setup heating element")
@@ -136,13 +137,7 @@ Page {
                             contentItem: ConsolinnoItemDelegate{
                                 id: setupHeatingRoad
                                 Layout.preferredWidth: root.width
-                                iconName:{
-                                    if(Configuration.heatingRodIcon !== ""){
-                                        return "/ui/images/"+Configuration.heatingRodIcon;
-                                    }else{
-                                        return "/icons/heating_rod.svg";
-                                    }
-                                }
+                                iconName: Qt.resolvedUrl("/icons/water_heater.svg")
                                 progressive: false
                                 text: heProxy.get(index).name
 
@@ -582,11 +577,6 @@ Page {
                 }
             }
 
-            HemsManager{
-                id: hemsManager
-                engine: _engine
-            }
-
             Connections {
                 target: engine.thingManager
                 onAddThingReply: {
@@ -664,7 +654,7 @@ Page {
 
                         onClicked:{
                             if (thing){
-                                var page = pageStack.push("../optimization/HeatingElementOptimization.qml", { hemsManager: hemsManager, heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatRodThing: thing, directionID: 1})
+                                var page = pageStack.push("../optimization/HeatingElementOptimization.qml", { heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id), heatRodThing: thing, directionID: 1})
                                 page.done.connect(function(){
                                     pageStack.pop(root)
                                 })

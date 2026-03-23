@@ -129,13 +129,12 @@ Page {
                     contentItem: ColumnLayout{
                         id: contentItemColumn
                         Layout.fillWidth: true
-                        spacing: 0
+                        spacing: 5
 
-                            Row{
+                            RowLayout {
                                 Layout.fillWidth: true
                                 Label{
                                     id: customRepeaterModelName
-                                    Layout.fillWidth: true
                                     horizontalAlignment: Text.AlignLeft
                                     text: modelData.displayName
 
@@ -146,13 +145,9 @@ Page {
                                     visible: modelData.info ? true : false
                                     push: infoPage
                                     stack: internalPageStack
-                                    anchors.left: customRepeaterModelName.right
-                                    anchors.leftMargin:  5
                                 }
-
-
-
                             }
+
                             // define the case in the Loader
                             Loader{
                                 id: paramLoader

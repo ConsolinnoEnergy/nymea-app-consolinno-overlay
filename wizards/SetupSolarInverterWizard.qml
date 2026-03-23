@@ -19,12 +19,6 @@ Page {
         onBackPressed: root.done(false, false, true)
     }
 
-
-    HemsManager{
-        id: hemsManager
-        engine: _engine
-    }
-
     QtObject {
         id: d
         property var vendorId: null
@@ -199,13 +193,7 @@ Page {
                             contentItem: ConsolinnoItemDelegate{
                                 id: icon
                                 Layout.preferredWidth: root.width
-                                iconName: {
-                                    if(Configuration.inverterIcon !== ""){
-                                        return "/ui/images/"+Configuration.inverterIcon
-                                    }else{
-                                        return "/icons/solar_power.svg"
-                                    }
-                                }
+                                iconName: Qt.resolvedUrl("/icons/solar_power.svg")
                                 progressive: false
                                 text: emProxy.get(index) ? emProxy.get(index).name : ""
                                 onClicked: {
@@ -710,7 +698,7 @@ Page {
                         onClicked:{
 
                             if(thing){
-                                var page = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thing.id), thing: thing, directionID: 1} )
+                                var page = pageStack.push("../optimization/PVOptimization.qml", { pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thing.id), thing: thing, directionID: 1} )
                                 page.done.connect(function(){
                                     pageStack.pop(root)
                                     //root.done(false, false)
@@ -842,7 +830,7 @@ Page {
                     text: qsTr("Ok")
                     onClicked: {
                         if(thing){
-                            var page = pageStack.push("../optimization/PVOptimization.qml", { hemsManager: hemsManager, pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thing.id), thing: thing, directionID: 1} )
+                            var page = pageStack.push("../optimization/PVOptimization.qml", { pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thing.id), thing: thing, directionID: 1} )
                             page.done.connect(function(){
                                 pageStack.pop(root)
                                 //root.done(false, false)

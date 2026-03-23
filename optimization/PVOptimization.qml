@@ -8,7 +8,6 @@ import "../delegates"
 
 Page {
     id: root
-    property HemsManager hemsManager
     property PvConfiguration pvConfiguration
     property Thing thing
     property int directionID: 0

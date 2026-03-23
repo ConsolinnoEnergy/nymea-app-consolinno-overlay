@@ -91,7 +91,3 @@ rm packaging/appimage/Q.HOME-CONTROL.desktop
 rm packaging/appimage/Zewo-Dynamics.desktop
 rm -rf packaging/windows/packages/de.qcells.qhomecontrol/
 rm -rf packaging/windows/packages/ems.zewo.dynamics/
-rm icons/grid.svg
-rm icons/heating_rod.svg
-rm icons/heatpump.svg
-rm icons/leaf.svg

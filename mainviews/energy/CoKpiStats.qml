@@ -29,6 +29,16 @@ StatsBase {
         }
     }
 
+    // Fetch KPIs only when this component is actually visible on screen.
+    // CoKpiStats is instantiated eagerly (inside a GridLayout/Flickable) even when
+    // the stats page has never been opened, so we must guard every fetch with
+    // root.visible to avoid "No such method" errors at startup.
+    onVisibleChanged: {
+        if (root.visible && _engine && _engine.jsonRpcClient && _engine.jsonRpcClient.authenticated) {
+            d.fetchKpis()
+        }
+    }
+
     QtObject {
         id: d
         property var config: root.configs[selectionTabs.currentValue.config]
@@ -39,8 +49,17 @@ StatsBase {
 
         property bool loading: kpiProvider.fetchingKpiSeries
 
-        onConfigChanged: valueAxis.max = 100
-        onStartOffsetChanged: fetchKpis()
+        onConfigChanged: {
+            valueAxis.max = 100
+            if (root.visible) {
+                fetchKpis()
+            }
+        }
+        onStartOffsetChanged: {
+            if (root.visible) {
+                fetchKpis()
+            }
+        }
 
         function selectSet(set) {
             if (d.selectedSet === set) {
@@ -95,13 +114,14 @@ StatsBase {
         }
 
         Connections {
-            target: energyManager
-            onPowerBalanceChanged: {
-                d.fetchKpis()
+            target: _engine ? _engine.jsonRpcClient : null
+            onAuthenticatedChanged: {
+                if (root.visible && _engine && _engine.jsonRpcClient && _engine.jsonRpcClient.authenticated) {
+                    d.fetchKpis()
+                }
             }
         }
 
-        Component.onCompleted: d.fetchKpis()
 
         Item {
             Layout.fillWidth: true

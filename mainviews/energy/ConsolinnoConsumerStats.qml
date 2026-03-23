@@ -362,40 +362,7 @@ StatsBase {
                             spacing: Style.smallMargins
                             ColorIcon {
                                 id: icons
-                                name: {
-                                    for(let i = 0; i < legendDelegate.thing.thingClass.interfaces.length; i++){
-                                        let iconName = legendDelegate.thing.thingClass.interfaces[i]
-
-                                        switch (iconName) {
-                                        case "pvsurplusheatpump":
-                                            if(Configuration.heatpumpIcon !== ""){
-                                                return "qrc:/ui/images/"+Configuration.heatpumpIcon
-                                            }else{
-                                                return "qrc:/icons/heat_pump.svg"
-                                            }
-                                        case "smartgridheatpump":
-                                            if(Configuration.heatpumpIcon !== ""){
-                                                return "qrc:/ui/images/"+Configuration.heatpumpIcon
-                                            }else{
-                                                return "qrc:/icons/heat_pump.svg"
-                                            }
-                                        case "heatingrod":
-                                            if(Configuration.heatingRodIcon !== ""){
-                                                return "/ui/images/"+Configuration.heatingRodIcon
-                                            }else{
-                                                return "/icons/water_heater.svg"
-                                            }
-                                        case "evcharger":
-                                            if(Configuration.evchargerIcon !== ""){
-                                                return "/ui/images/"+Configuration.evchargerIcon
-                                            }else{
-                                                return "/icons/ev_station.svg"
-                                            }
-                                        default:
-                                            return app.interfacesToIcon(legendDelegate.thing.thingClass.interfaces)
-                                        }
-                                    }
-                                }
+                                name: app.interfacesToIcon(legendDelegate.thing.thingClass.interfaces)
                                 size: Style.smallIconSize
                                 color: {
                                     let consumerThingClass = legendDelegate.thing.thingClass.interfaces;
@@ -411,22 +378,6 @@ StatsBase {
                                     }
                                     return(col)
                                 }
-
-                                Image {
-                                    id: icon
-                                    source: icons.name
-                                    width: icons.size
-                                    height: icons.size
-                                    visible: Configuration.evchargerIcon !== "" || Configuration.heatingRodIcon !== "" || Configuration.heatpumpIcon
-                                }
-
-                                ColorOverlay {
-                                    anchors.fill: icon
-                                    source: icon
-                                    color: icons.color
-                                    visible: Configuration.evchargerIcon !== "" || Configuration.heatingRodIcon !== "" || Configuration.heatpumpIcon
-                                }
-
                             }
                             Label {
                                 text: legendDelegate.thing.name

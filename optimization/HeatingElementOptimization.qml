@@ -9,7 +9,6 @@ import "../delegates"
 Page {
     id: root
 
-    property HemsManager hemsManager
     property HeatingElementConfiguration heatingElementConfiguration
     property Thing heatRodThing
     property int directionID: 0

@@ -7,10 +7,7 @@ import Nymea 1.0
 ConsolinnoWizardPageBase {
     id: root
 
-//    headerBackgroundColor: "white"
     headerLabel: qsTr("Installed Devices")
-
-    property HemsManager hemsManager: null
 
     showNextButton: false
     showBackButton: false
@@ -55,7 +52,7 @@ ConsolinnoWizardPageBase {
                 Layout.margins: Style.margins
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
-                text: qsTr("Your %1 is now configured. The following devices have been set up:").arg(Configuration.deviceName)
+                text: qsTr("Your %1 is now configured. The following devices are set up:").arg(Configuration.deviceName)
             }
             ListView {
                 Layout.fillWidth: true
@@ -70,24 +67,6 @@ ConsolinnoWizardPageBase {
                     color: Style.accentColor
                 }
             }
-
-            //            ConsolinnoButton {
-            //                Layout.alignment: Qt.AlignHCenter
-            //                text: qsTr("Configure optimizations")
-            //                color: Style.accentColor
-            //                onClicked: {
-            //                    var page = pageStack.push(Qt.resolvedUrl("ConfigureOptimizationsWizard.qml"), {hemsManager: hemsManager})
-            //                    page.done.connect(function(skip, abort) {
-            //                        root.done(skip, abort)
-            //                    })
-            //                }
-            //            }
-            //            ConsolinnoButton {
-            //                Layout.alignment: Qt.AlignHCenter
-            //                text: qsTr("skip")
-            //                color: Style.blue
-            //                onClicked: root.done(true, false)
-            //            }
             Button {
                 Layout.alignment: Qt.AlignHCenter
                 text: qsTr("to the Dashboard")

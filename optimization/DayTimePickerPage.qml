@@ -302,26 +302,12 @@ Page {
                 }
             }
 
-            // "Eintrag entfernen" (Remove entry) button - secondary style
-            Button {
-                id: removeButton
-                Layout.fillWidth: true
+            // "Eintrag entfernen" (Remove entry) button
+            ConsolinnoSetUpButton {
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
                 text: qsTr("Remove entry")
-                flat: true
-
-                contentItem: Label {
-                    text: removeButton.text
-                    color: Style.buttonTextColorNoBg
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    font.pixelSize: Style.buttonFontSize
-                }
-
-                background: Rectangle {
-                    color: "transparent"
-                    implicitHeight: 48
-                }
-
+                backgroundColor: "transparent"
                 onClicked: {
                     root.entryRemoved()
                     pageStack.pop()

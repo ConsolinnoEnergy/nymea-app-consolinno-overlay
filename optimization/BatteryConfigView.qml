@@ -18,7 +18,6 @@ import "../utils/DynPricingUtils.js" as DynPricingUtils
 GenericConfigPage {
     id: root
     property Thing thing
-    property HemsManager hemsManager
     property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
     readonly property State batteryChargingState: root.thing.stateByName("chargingState")
     readonly property State batteryLevelState: root.thing.stateByName("batteryLevel")
@@ -124,7 +123,9 @@ GenericConfigPage {
 
         Flickable {
             anchors.fill: parent
-            contentHeight: columnLayoutContainer.implicitHeight + (isZeroCompensation ? 100 : 0)
+            contentHeight: columnLayoutContainer.implicitHeight +
+                           columnLayoutContainer.anchors.topMargin +
+                           columnLayoutContainer.anchors.bottomMargin
             topMargin: 0
             clip: true
 
@@ -136,20 +137,16 @@ GenericConfigPage {
                 anchors.left: parent.left
                 anchors.margins: app.margins
 
-                ConsolinnoAlert {
+                CoNotification {
+                    Layout.fillWidth: true
                     visible: isZeroCompensation
-                    backgroundColor: "#FFEE89"
-                    borderColor: "#864A0D"
-                    textColor: "#864A0D"
-                    iconColor: "#864A0D"
-
-                    imagePath: "../components/ConsolinnoDialog.qml"
-                    dialogHeaderText: qsTr("Avoid zero compensation")
-                    dialogText: qsTr("On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.")
-                    dialogPicture: "../images/avoidZeroCompansation.svg"
-
-                    text: qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
-                    headerText: qsTr("Avoid zero compensation active")
+                    type: CoNotification.Type.Warning
+                    title: qsTr("Avoid zero compensation active")
+                    message: qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
+                    clickable: true
+                    onClicked: {
+                        pageStack.push(Qt.resolvedUrl("../info/AvoidZeroCompensationInfo.qml"), { stack: pageStack });
+                    }
                 }
 
                 //Status
@@ -231,6 +228,7 @@ GenericConfigPage {
 
                 RowLayout {
                     Layout.topMargin: Style.margins
+                    visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
                     Label {
                         text: qsTr("Charging from grid")
                         font.weight: Font.Bold
@@ -247,14 +245,8 @@ GenericConfigPage {
                         Layout.topMargin: Style.smallMargins
                         Layout.bottomMargin: Style.smallMargins
 
-                        Label {
+                        LabelWithInfo {
                             text: qsTr("Tariff-controlled charging")
-                        }
-
-                        InfoButton {
-                            id: chargingOptimizationInfo
-                            Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignTop
                             push: "TariffGuidedChargingInfo.qml"
                         }
 
@@ -282,14 +274,8 @@ GenericConfigPage {
                         Layout.topMargin: Style.smallMargins
                         Layout.bottomMargin: Style.smallMargins
                         visible: optimizationController.checked
-                        Label {
+                        LabelWithInfo {
                             text: qsTr("Activate instant charging")
-                        }
-
-                        InfoButton {
-                            id: chargingOnceInfo
-                            Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignTop
                             push: "ActivateInstantChargingInfo.qml"
                         }
 
@@ -659,6 +645,7 @@ GenericConfigPage {
                     id: saveBtnContainer
                     anchors.margins: app.margins
                     Layout.topMargin: 20
+                    visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
 
                     Button {
                         id: saveButton

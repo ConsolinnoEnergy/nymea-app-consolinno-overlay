@@ -19,7 +19,6 @@ import "../utils/DynPricingUtils.js" as DynPricingUtils
 GenericConfigPage {
     id: root
 
-    property HemsManager hemsManager
     property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
     property ChargingSessionConfiguration chargingSessionConfiguration: hemsManager.chargingSessionConfigurations.getChargingSessionConfiguration(thing.id)
     property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
@@ -366,24 +365,17 @@ GenericConfigPage {
                     anchors.topMargin: app.margins
                     anchors.margins: app.margins
 
-                    ConsolinnoAlert {
+                    CoNotification {
                         Layout.fillWidth: true
                         Layout.bottomMargin: 15
-
-                        property int desiredPhaseCount: isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : 0
-                        property int actualPhaseCount: thing ? thing.stateByName("phaseCount").value : 0
-
+                        type: CoNotification.Type.Warning
                         visible: desiredPhaseCountLayout.visible &&
                                  actualPhaseCountLayout.visible &&
                                  desiredPhaseCount !== actualPhaseCount
-                        backgroundColor: Style.warningBackground
-                        borderColor: Style.warningAccent
-                        textColor: Style.warningAccent
-                        iconColor: Style.warningAccent
-
-
-                        headerText: qsTr("Phase setting could not be applied")
-                        text: qsTr("The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.")
+                        property int desiredPhaseCount: isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : 0
+                        property int actualPhaseCount: thing ? thing.stateByName("phaseCount").value : 0
+                        title: qsTr("Phase setting could not be applied")
+                        message: qsTr("The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.")
                         .arg(desiredPhaseCount)
                         .arg(actualPhaseCount)
                     }
@@ -656,7 +648,7 @@ GenericConfigPage {
 
                     RowLayout{
                         Layout.topMargin: 15
-                        visible: !([pv_excess, simple_pv_excess, no_optimization, dyn_pricing].includes(getChargingMode(chargingConfiguration.optimizationMode)))
+                        visible: !([pv_excess, simple_pv_excess, no_optimization, dyn_pricing, time_controlled].includes(getChargingMode(chargingConfiguration.optimizationMode)))
 
                         Label{
                             id: targetChargeReachedLabel
@@ -723,7 +715,7 @@ GenericConfigPage {
                     }
 
                     RowLayout{
-                        visible: chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization]) ? false : true
+                        visible: !chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization, time_controlled])
                         Layout.topMargin: 15
 
                         Label{
@@ -804,9 +796,6 @@ GenericConfigPage {
                                 Label{
                                     id: description
                                     text: {
-                                        if (chargingIsAnyOf([time_controlled])) {
-                                            return qsTr("Active")
-                                        }
                                         return initializing ? qsTr("Initialising") : (status.state === 2 ? qsTr("Running") : (status.state === 3 ? qsTr("Finished") : (status.state === 4 ? qsTr("Interrupted") : (status.state === 6 ? qsTr("Pending") :  qsTr("Failed")  ))))
                                     }
                                     color: "white"
@@ -834,7 +823,7 @@ GenericConfigPage {
 
                     RowLayout{
                         function isVisible() {
-                            if (chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization]))
+                            if (chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization, time_controlled]))
                             {
                                 return false
                             }
@@ -1031,7 +1020,7 @@ GenericConfigPage {
 
                             onClicked: {
                                 if (isCarPluggedIn()){
-                                    var page = pageStack.push(optimizationComponent , { hemsManager: hemsManager, thing: thing })
+                                    var page = pageStack.push(optimizationComponent , { thing: thing })
                                     page.done.connect(function(){
                                         busyOverlay.shown = true
 
@@ -1067,7 +1056,6 @@ GenericConfigPage {
                 Page{
                     signal done()
                     id: optimizationPage
-                    property HemsManager hemsManager
                     property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
                     property Thing thing
 
@@ -1077,8 +1065,9 @@ GenericConfigPage {
 
                     function isAnyOfModesSelected(modes)
                     {
-                        var selected_mode = getSelectedMode()
-                        return (modes.includes(selected_mode))
+                        var selected_mode = getSelectedMode();
+                        if (typeof selected_mode !== "number") { return false; }
+                        return (modes.includes(selected_mode));
                     }
 
                     ListModel {
@@ -1221,22 +1210,9 @@ GenericConfigPage {
                             Layout.preferredWidth: app.width
                             Layout.topMargin: 10
 
-                            RowLayout{
-                                id: chargingModeRowid
-
-                                Label {
-                                    id: chargingModeid
-
-                                    text: qsTr("Charging mode: ")
-                                }
-
-                                InfoButton{
-                                    id: chargingModeInfoButton
-                                    Layout.rightMargin: 15
-                                    push: "ChargingModeInfo.qml"
-                                    Layout.fillWidth: true
-                                    Layout.alignment: Qt.AlignTop
-                                }
+                            LabelWithInfo {
+                                text: qsTr("Charging mode: ")
+                                push: "ChargingModeInfo.qml"
                             }
 
                             ConsolinnoDropdown {
@@ -1320,17 +1296,9 @@ GenericConfigPage {
                             visible:  isAnyOfModesSelected([pv_optimized, simple_pv_excess]) &&
                                       thing.thingClass.interfaces.includes("phaseswitching")
 
-                            RowLayout{
-                                Label {
-                                    text: qsTr("Number of phases:")
-                                }
-
-                                InfoButton{
-                                    Layout.rightMargin: 15
-                                    push: "ChargingPhaseSwitchingInfo.qml"
-                                    Layout.fillWidth: true
-                                    Layout.alignment: Qt.AlignTop
-                                }
+                            LabelWithInfo {
+                                text: qsTr("Number of phases:")
+                                push: "ChargingPhaseSwitchingInfo.qml"
                             }
 
                             ConsolinnoDropdown {
@@ -1369,18 +1337,9 @@ GenericConfigPage {
                                 Layout.topMargin: 10
 
                                 ColumnLayout{
-                                    Row{
-                                        Label{
-                                            id: batteryid
-
-                                            text: qsTr("Battery level: ") + batteryLevel.value +" %"
-                                        }
-
-                                        InfoButton{
-                                            push: "BatteryLevel.qml"
-                                            anchors.left: batteryid.right
-                                            anchors.leftMargin:  5
-                                        }
+                                    LabelWithInfo {
+                                        text: qsTr("Battery level: ") + batteryLevel.value +" %"
+                                        push: "BatteryLevel.qml"
                                     }
 
                                     Slider {
@@ -1423,17 +1382,9 @@ GenericConfigPage {
                                 visible:  isAnyOfModesSelected([pv_optimized, pv_excess])
                                 ColumnLayout {
                                     spacing: 0
-                        Row{
-                            spacing: 5
-                            Label {
-                                id: targetCharge
-
-                                text: qsTr("Target charge %1%").arg(targetPercentageSlider.value)
-                            }
-
-                            InfoButton{
-                                push: "TargetChargeInfo.qml"
-                            }
+                        LabelWithInfo {
+                            text: qsTr("Target charge %1%").arg(targetPercentageSlider.value)
+                            push: "TargetChargeInfo.qml"
                         }
 
                                     Slider {
@@ -1654,39 +1605,25 @@ GenericConfigPage {
                                 }
                             }
                         }
-                        RowLayout {
+                        ColumnLayout {
                             Layout.preferredWidth: app.width
                             Layout.topMargin: 10
+                            visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
 
-                            RowLayout {
-                                Layout.fillWidth: true
+                            LabelWithInfo {
+                                text: qsTr("Low solar avalaibility:")
+                                push: "GridConsumptionInfo.qml"
+                            }
+                        }
 
-                                Label{
-                                    id: gridConsumptionLabel
-                                    visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
-                                    text: qsTr("Low solar avalaibility:")
-                                }
+                        ColumnLayout {
+                            Layout.preferredWidth: app.width
+                            Layout.topMargin: 10
+                            visible: isAnyOfModesSelected([dyn_pricing])
 
-                                InfoButton{
-                                    id: gridConsumptionInfoButton
-                                    visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
-                                    push: "GridConsumptionInfo.qml"
-                                    Layout.leftMargin: 5
-                                }
-
-                                Label {
-                                    id: pausingModeid
-                                    visible: isAnyOfModesSelected([dyn_pricing])
-                                    text: qsTr("Pausing: ")
-                                }
-
-                                InfoButton{
-                                    id: pausingModeInfoButton
-                                    visible: isAnyOfModesSelected([dyn_pricing])
-                                    push: "PausingInfo.qml"
-                                    Layout.leftMargin: 5
-                                }
-
+                            LabelWithInfo {
+                                text: qsTr("Pausing: ")
+                                push: "PausingInfo.qml"
                             }
                         }
 
@@ -1711,22 +1648,9 @@ GenericConfigPage {
                             Layout.topMargin: 5
                             visible: isAnyOfModesSelected([dyn_pricing])
 
-                            RowLayout {
-                                id: priceRow
-
-                                Label {
-                                    id: priceLimitigId
-
-                                    text: qsTr("Price limit: ")
-                                }
-
-                                InfoButton{
-                                    id: priceLimitInfoButton
-
-                                    push: "PriceLimitInfo.qml"
-                                    Layout.leftMargin: 5
-                                }
-
+                            LabelWithInfo {
+                                text: qsTr("Price limit: ")
+                                push: "PriceLimitInfo.qml"
                             }
                         }
 

@@ -4,13 +4,12 @@ import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
 import "../components"
 import "../delegates"
+import "../wizards"
 import Nymea 1.0
 
 Page {
     id: root
     signal startWizard()
-    property HemsManager hemsManager
-
 
     header: NymeaHeader {
         text: qsTr("Device Overview")
@@ -55,6 +54,17 @@ Page {
         }
     }
 
+    WizardController {
+        id: wizardController
+        onWizardDone: {
+            // Nach dem Wizard: zurück zum Dashboard.
+            // Stack: empty Page(0) → MainPage(1) → SettingsPage(2) → DeviceOverview(3)
+            // Je zweimal poppen.
+            pageStack.pop()
+            pageStack.pop()
+        }
+    }
+
     ColumnLayout {
         anchors.fill: parent
 
@@ -67,9 +77,8 @@ Page {
             Layout.preferredWidth: 300
             Layout.minimumWidth: 100
             Layout.topMargin: 10
-            onClicked:{
-                // go back to ConsolinnoView.qml
-                root.startWizard()
+            onClicked: {
+                wizardController.startManualSetup()
             }
 
             }
@@ -83,7 +92,7 @@ Page {
             Layout.preferredWidth: 300
             Layout.minimumWidth: 100
             onClicked:{
-                pageStack.push( "../wizards/AuthorisationView.qml", {directionID: 1, hemsManager: hemsManager})
+                pageStack.push( "../wizards/AuthorisationView.qml", { directionID: 1 })
             }
         }
 

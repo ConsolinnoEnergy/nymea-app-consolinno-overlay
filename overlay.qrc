@@ -24,15 +24,20 @@
         <file>icons/arrow_forward_ios.svg</file>
         <file>icons/attribution.svg</file>
         <file>icons/bar_chart.svg</file>
-        <file>icons/battery/0.svg</file>
-        <file>icons/battery/1.svg</file>
-        <file>icons/battery/2.svg</file>
-        <file>icons/battery/3.svg</file>
-        <file>icons/battery/4.svg</file>
-        <file>icons/battery/5.svg</file>
-        <file>icons/battery/6.svg</file>
-        <file>icons/battery/bolt.svg</file>
-        <file>icons/battery/full.svg</file>
+        <file>icons/battery/battery-000.svg</file>
+        <file>icons/battery/battery-010.svg</file>
+        <file>icons/battery/battery-020.svg</file>
+        <file>icons/battery/battery-030.svg</file>
+        <file>icons/battery/battery-040.svg</file>
+        <file>icons/battery/battery-050.svg</file>
+        <file>icons/battery/battery-060.svg</file>
+        <file>icons/battery/battery-070.svg</file>
+        <file>icons/battery/battery-080.svg</file>
+        <file>icons/battery/battery-090.svg</file>
+        <file>icons/battery/battery-100.svg</file>
+        <file>icons/battery/battery-bolt.svg</file>
+        <file>icons/battery/battery_minus.svg</file>
+        <file>icons/battery/battery_plus.svg</file>
         <file>icons/battery_charging.svg</file>
         <file>icons/build.svg</file>
         <file>icons/cable.svg</file>
@@ -114,24 +119,20 @@
         <file>icons/z-wave.svg</file>
     </qresource>
     <qresource prefix="/ui">
+        <file>wizards/WizardController.qml</file>
         <file>system/ConsolinnoUsersSettingsPage.qml</file>
         <file>ConsolinnoSettingsPage.qml</file>
-        <file>mainviews/ConsolinnoView.qml</file>
         <file>images/leaf.svg</file>
         <file>Configuration.qml</file>
         <file>wizards/ConnectionWizard.qml</file>
         <file>wizards/ConsolinnoWizardPageBase.qml</file>
         <file>images/intro-bg-graphic.svg</file>
-        <file>images/leaflet-connect.png</file>
         <file>wizards/SetupEVChargerWizard.qml</file>
         <file>wizards/WizardComplete.qml</file>
-        <file>images/wizard-done.png</file>
         <file>wizards/SetupEnergyMeterWizard.qml</file>
-        <file>mainviews/LegendTile.qml</file>
         <file>components/ConsolinnoButton.qml</file>
         <file>wizards/SetupSolarInverterWizard.qml</file>
         <file>wizards/SetupHeatPumpWizard.qml</file>
-        <file>mainviews/HemsOptimizationPage.qml</file>
         <file>optimization/ChargingConfigurationView.qml</file>
         <file>optimization/HeatingConfigurationView.qml</file>
         <file>optimization/BlackoutProtectionView.qml</file>
@@ -139,6 +140,7 @@
         <file>optimization/PVConfigurationView.qml</file>
         <file>optimization/ChargingConfigView.qml</file>
         <file>thingconfiguration/AddGenericCar.qml</file>
+        <file>components/HeatpumpPriceWidget.qml</file>
         <file>components/InfoButton.qml</file>
         <file>info/TargetChargeInfo.qml</file>
         <file>info/ChargingModeInfo.qml</file>
@@ -153,7 +155,6 @@
         <file>components/ConsolinnoItemDelegate.qml</file>
         <file>thingconfiguration/CarInventory.qml</file>
         <file>components/ConsolinnoHeader.qml</file>
-        <file>info/MainviewInfo.qml</file>
         <file>optimization/UserConfig.qml</file>
         <file>optimization/DeveloperConfig.qml</file>
         <file>wizards/AuthorisationView.qml</file>
@@ -168,8 +169,6 @@
         <file>info/Help/ContactPage.qml</file>
         <file>info/Help/ServicePage.qml</file>
         <file>components/ConsolinnoPasswordTextField.qml</file>
-        <file>images/heatpump.svg</file>
-        <file>images/grid.svg</file>
         <file>mainviews/energy/ConsolinnoConsumersHistory.qml</file>
         <file>mainviews/energy/ConsolinnoConsumerStats.qml</file>
         <file>mainviews/energy/ConsolinnoPowerBalanceStats.qml</file>
@@ -180,7 +179,6 @@
         <file>components/ConsolinnoImprintSystem.qml</file>
         <file>components/ConsolinnoImprintApp.qml</file>
         <file>info/GridConsumptionInfo.qml</file>
-        <file>images/heating_rod.svg</file>
         <file>thingconfiguration/DebugCharts.qml</file>
         <file>thingconfiguration/ConEMSState.qml</file>
         <file>devicepages/GenericSmartDeviceMeterPage.qml</file>
@@ -188,7 +186,6 @@
         <file>devicepages/GenericDeviceHistoryPage.qml</file>
         <file>components/ConsolinnoPVTextField.qml</file>
         <file>wizards/SetupHeatingElementWizard.qml</file>
-        <file>optimization/HeatingElementConfigurationView.qml</file>
         <file>devicepages/HeatingElementDevicePage.qml</file>
         <file>optimization/HeatingElementOptimization.qml</file>
         <file>optimization/DynamicElectricityRate.qml</file>
@@ -210,6 +207,9 @@
         <file>optimization/BatteryConfigView.qml</file>
         <file>info/TariffGuidedChargingInfo.qml</file>
         <file>info/ActivateInstantChargingInfo.qml</file>
+        <file>info/AvoidZeroCompensationInfo.qml</file>
+        <file>info/BlockEVChargingFromBatteryInfo.qml</file>
+        <file>info/HeatpumpOptimizationInfo.qml</file>
         <file>components/ConsolinnoThingDelegate.qml</file>
         <file>components/ConsolinnoColorIcon.qml</file>
         <file>components/ConsolinnoSwipeDelegate.qml</file>
@@ -218,13 +218,10 @@
         <file>optimization/BatteryConfigurationView.qml</file>
         <file>system/ConsolinnoModbusRtuSettingsPage.qml</file>
         <file>system/ConsolinnoModbusRtuAddMasterPage.qml</file>
-        <file>info/ZeroCompensationInfo.qml</file>
         <file>components/ConsolinnoSelectionTabs.qml</file>
         <file>components/ConsolinnoSwitch.qml</file>
         <file>components/ConsolinnoTextField.qml</file>
-        <file>components/ConsolinnoAlert.qml</file>
         <file>images/avoidZeroCompansation.svg</file>
-        <file>components/ConsolinnoDialog.qml</file>
         <file>system/ConsolinnoModbusRtuReconfigureMasterPage.qml</file>
         <file>components/ImageSVGHelper.qml</file>
         <file>components/ConsolinnoSetUpButton.qml</file>
@@ -241,13 +238,16 @@
         <file>thingconfiguration/EpexDayAheadSetup.qml</file>
         <file>utils/DynPricingUtils.js</file>
         <file>mainviews/CoDashboardView.qml</file>
+        <file>mainviews/UnconfiguredHemsView.qml</file>
         <file>components/CoFrostyCard.qml</file>
         <file>components/CoInfoCard.qml</file>
+        <file>components/CoInfoCardContainer.qml</file>
         <file>info/ChargingPhaseSwitchingInfo.qml</file>
         <file>components/CoPowerThingInfoCard.qml</file>
         <file>components/CoCard.qml</file>
         <file>components/CoNotification.qml</file>
         <file>components/CoIconButton.qml</file>
         <file>optimization/DayTimePickerPage.qml</file>
+        <file>components/LabelWithInfo.qml</file>
     </qresource>
 </RCC>

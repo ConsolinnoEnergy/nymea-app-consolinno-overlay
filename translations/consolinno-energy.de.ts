@@ -122,11 +122,11 @@
     </message>
     <message>
         <source>To comission devices with the %1, you must be authorized. Otherwise the warranty expires.</source>
-        <translation type="unfinished">Nur Personen mit ausreichenden Fachkenntnissen sollten Geräte in Betrieb nehmen. Andernfalls kann es zu einer Beeinträchtigung der Funktionsweise des %1 führen.</translation>
+        <translation>Nur Personen mit ausreichenden Fachkenntnissen sollten Geräte in Betrieb nehmen. Andernfalls kann es zu einer Beeinträchtigung der Funktionsweise des %1 führen.</translation>
     </message>
     <message>
         <source>I am authorized to operate the %1</source>
-        <translation type="unfinished">Ich bin berechtigt, %1 zu bedienen</translation>
+        <translation>Ich bin berechtigt, %1 zu bedienen</translation>
     </message>
 </context>
 <context>
@@ -137,23 +137,23 @@
     </message>
     <message>
         <source>Market price</source>
-        <translation type="unfinished">Börsenpreis</translation>
+        <translation>Börsenpreis</translation>
     </message>
     <message>
         <source>PV production</source>
-        <translation type="unfinished">PV-Produktion</translation>
+        <translation>PV-Produktion</translation>
     </message>
     <message>
         <source>SoC without controller</source>
-        <translation type="unfinished">Soc ohne Steuerung</translation>
+        <translation>Soc ohne Steuerung</translation>
     </message>
     <message>
         <source>SoC with controller</source>
-        <translation type="unfinished">SoC mit Nullvergütung vermeiden</translation>
+        <translation>SoC mit Nullvergütung vermeiden</translation>
     </message>
     <message>
         <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
-        <translation type="unfinished">An Tagen mit negativen Strompreisen an der Strombörse wird aktiv Batteriekapazität freigehalten, um in den Stunden mit diesen negativen Börsenstrompreisen gezielt die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald diese Regelung aktiv ist, wird das Laden der Batterie limitiert (sichtbar an der gelben Meldung im Screen). Die Steuerung basiert auf der Vorhersage der PV-Produktion und des Hausverbrauchs und verschiebt die Ladung entsprechend.</translation>
+        <translation>An Tagen mit negativen Strompreisen an der Strombörse wird aktiv Batteriekapazität freigehalten, um in den Stunden mit diesen negativen Börsenstrompreisen gezielt die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald diese Regelung aktiv ist, wird das Laden der Batterie limitiert (sichtbar an der gelben Meldung im Screen). Die Steuerung basiert auf der Vorhersage der PV-Produktion und des Hausverbrauchs und verschiebt die Ladung entsprechend.</translation>
     </message>
 </context>
 <context>
@@ -215,20 +215,12 @@
         <translation>Wenn Nullvergütung vermieden aktiv ist, dann ist kein Sofortladen der Batterie möglich.</translation>
     </message>
     <message>
-        <source>Avoid zero compensation</source>
-        <translation>Nullvergütung vermeiden</translation>
-    </message>
-    <message>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
     </message>
     <message>
         <source>Avoid zero compensation active</source>
         <translation>Nullvergütung vermeiden aktiv</translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices on the power exchange, battery capacity is actively reserved to allow charging the battery during hours with these negative exchange prices, thus avoiding feeding electricity into the grid without compensation. Once this control is active, battery charging is limited (indicated by the yellow message on the screen). The control system is based on PV production and household consumption forecasts and shifts the battery charging accordingly.</source>
-        <translation>An Tagen mit negativen Strompreisen an der Strombörse wird aktiv Batteriekapazität freigehalten, um in den Stunden mit diesen negativen Börsenstrompreisen gezielt die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald diese Regelung aktiv ist, wird das Laden der Batterie limitiert (sichtbar an der gelben Meldung im Screen). Die Steuerung basiert auf der Vorhersage der PV-Produktion und des Hausverbrauchs und verschiebt die Ladung entsprechend.</translation>
     </message>
     <message>
         <source>%1 %</source>
@@ -309,7 +301,7 @@
     </message>
     <message>
         <source>Block EV charging from the battery</source>
-        <translation>Fahrzeug-Laden aus Batterie sperren</translation>
+        <translation>Fahrzeug nicht aus Batterie laden</translation>
     </message>
 </context>
 <context>
@@ -604,7 +596,7 @@
     </message>
     <message>
         <source>Configure charging mode</source>
-        <translation>Lademodus konfiguieren</translation>
+        <translation>Lademodus konfigurieren</translation>
     </message>
     <message>
         <source>Target charging current</source>
@@ -697,10 +689,6 @@
     <message>
         <source>Time controlled</source>
         <translation>Zeitgesteuertes Laden</translation>
-    </message>
-    <message>
-        <source>Active</source>
-        <translation>Aktiv</translation>
     </message>
     <message>
         <source>Monday</source>
@@ -876,10 +864,191 @@
     </message>
 </context>
 <context>
+    <name>CoDashboardView</name>
+    <message>
+        <source>Pending software update</source>
+        <translation>Ausstehendes Software-Update</translation>
+    </message>
+    <message>
+        <source>
+                            &lt;p&gt;Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %5 device.&lt;/p&gt;
+                            &lt;p&gt;Your %5 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;/p&gt;
+                            &lt;p&gt;If this message is still displayed, please contact our service team.&lt;/p&gt;
+                            &lt;ul&gt;
+                                %6
+                                &lt;li&gt;Email: &lt;a href=&apos;mailto:%4&apos;&gt;%4&lt;/a&gt;&lt;/li&gt;
+                            &lt;/ul&gt;
+                            &lt;p&gt;Best regards&lt;/p&gt;
+                            &lt;p&gt;Your %3 Team&lt;/p&gt;</source>
+        <translation>
+                &lt;p&gt;Ihre %3 App wurde auf die Version &lt;strong&gt;%1&lt;/strong&gt; aktualisiert und ist somit aktueller als die Firmware (&lt;strong&gt;%2&lt;/strong&gt;) auf Ihrem %5-Gerät.&lt;/p&gt; 
+                &lt;p&gt;Ihr %5-Gerät wird im Laufe des Tages aktualisiert. Bis das Update abgeschlossen ist, kann die Verfügbarkeit der neuen Funktionen vorübergehend eingeschränkt sein.&lt;/p&gt; 
+                &lt;p&gt;Sollte diese Meldung weiterhin angezeigt werden, kontaktieren Sie bitte unseren Service.&lt;/p&gt; 
+                            &lt;ul&gt;
+                                %6
+                                &lt;li&gt;E-Mail: &lt;a href=&apos;mailto:%4&apos;&gt;%4&lt;/a&gt;&lt;/li&gt;
+                            &lt;/ul&gt;
+                &lt;p&gt;Beste Grüße&lt;/p&gt; 
+                &lt;p&gt;Ihr %3 Team&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;li&gt;Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;&lt;/li&gt;</source>
+        <translation>&lt;li&gt;Telefon: &lt;a href=&quot;tel:%1&quot;&gt;%1&lt;/a&gt;&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <source>Feed-in curtailment</source>
+        <translation>Einspeiseabregelung</translation>
+    </message>
+    <message>
+        <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <translation>Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend begrenzt&lt;/b&gt; auf &lt;b&gt;%1 kW.&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control</source>
+        <translation>Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>Due to a control order from the network operator, the total power of controllable devices is &lt;b&gt;temporarily limited&lt;/b&gt; to &lt;b&gt;%1 kW.&lt;/b&gt; If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.</source>
+        <translation>Wegen eines Steuerbefehls des Netzbetreibers ist die Gesamtleistung steuerbarer Geräte &lt;b&gt;vorübergehend&lt;/b&gt; auf &lt;b&gt;%1&#x202f;kW begrenzt.&lt;/b&gt; Sollten Sie z.&#x202f;B. Ihr E-Auto derzeit laden, erfolgt der Ladevorgang ggf. nicht mit gewohnter Leistung.</translation>
+    </message>
+    <message>
+        <source>Avoid zero compensation active</source>
+        <translation>Nullvergütung vermeiden aktiv</translation>
+    </message>
+    <message>
+        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
+        <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
+    </message>
+    <message>
+        <source>The app has been updated.</source>
+        <translation>Die App wurde aktualisiert.</translation>
+    </message>
+    <message>
+        <source>CHANGENOTIFICATION_PLACEHOLDER</source>
+        <translation>&lt;p&gt;Version 2.0.2&lt;/p&gt;
+&lt;h4&gt;Redesign&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Die App wird moderner: Schrittweise wird das neue Design der App sichtbar&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Erster Schritt: Startseite mit vereinfachtem Energiefluss und neuer Navigation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Neu&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Kennzahlen Eigenverbrauch und Autarkiegrad inklusive Historie&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;SG-Ready WP: Erfassung der Leistungsaufnahme über einen separaten kompatiblen Zähler&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Neuer Lademodus zeitgesteuertes Laden: pro Wochentag kann ein Zeitfenster angelegt werden um Bonus/Cashback optimal zu nutzen&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Unterstützung für EEBUS‑fähige Wärmepumpen&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Schutz vor Heimspeicher-Entladung bei Laden des E-Autos: Aktivieren über die App&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Verbesserung&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Factory Reset in der App verfügbar&lt;/li&gt;
+&lt;/ul&gt;</translation>
+    </message>
+    <message>
+        <source>Live status</source>
+        <translation>Live-Status</translation>
+    </message>
+    <message>
+        <source>Solar</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Grid</source>
+        <translation>Netz</translation>
+    </message>
+    <message>
+        <source>Battery</source>
+        <translation>Batterie</translation>
+    </message>
+    <message>
+        <source>Consumption</source>
+        <translation>Verbrauch</translation>
+    </message>
+    <message>
+        <source>Energy status</source>
+        <translation>Energie-Status</translation>
+    </message>
+    <message>
+        <source>Self-sufficiency</source>
+        <translation>Autarkie</translation>
+    </message>
+    <message>
+        <source>Self-consumption</source>
+        <translation>Eigenverbrauch</translation>
+    </message>
+    <message>
+        <source>Inverters</source>
+        <translation>Wechselrichter</translation>
+    </message>
+    <message>
+        <source>Batteries</source>
+        <translation>Batterien</translation>
+    </message>
+    <message>
+        <source>Heating</source>
+        <translation>Heizen</translation>
+    </message>
+    <message>
+        <source>Mobility</source>
+        <translation>Mobilität</translation>
+    </message>
+    <message>
+        <source>Other consumers</source>
+        <translation>Weitere Verbraucher</translation>
+    </message>
+    <message>
+        <source>Unallocated consumption</source>
+        <translation>Verbrauch ohne Zuordnung</translation>
+    </message>
+</context>
+<context>
+    <name>CoKpiStats</name>
+    <message>
+        <source>KPI Statistics</source>
+        <translation>KPI-Statistiken</translation>
+    </message>
+    <message>
+        <source>Self-sufficiency</source>
+        <translation>Autarkie</translation>
+    </message>
+    <message>
+        <source>Self-consumption</source>
+        <translation>Eigenverbrauch</translation>
+    </message>
+    <message>
+        <source>Self-sufficiency: %1%</source>
+        <translation>Autarkie: %1%</translation>
+    </message>
+    <message>
+        <source>Self-consumption: %1%</source>
+        <translation>Eigenverbrauch: %1%</translation>
+    </message>
+    <message>
+        <source>Hours</source>
+        <translation>Stunden</translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation>Tage</translation>
+    </message>
+    <message>
+        <source>Weeks</source>
+        <translation>Wochen</translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation>Monate</translation>
+    </message>
+    <message>
+        <source>Years</source>
+        <translation>Jahre</translation>
+    </message>
+</context>
+<context>
     <name>ConEMSState</name>
     <message>
         <source>ConEMS State</source>
-        <translation type="unfinished"></translation>
+        <translation>ConEMS Status</translation>
     </message>
 </context>
 <context>
@@ -889,8 +1058,12 @@
         <translation>Hilfe</translation>
     </message>
     <message>
-        <source>Consolinno</source>
-        <translation type="unfinished"></translation>
+        <source>Dashboard</source>
+        <translation>Dashboard</translation>
+    </message>
+    <message>
+        <source>History</source>
+        <translation>Historie</translation>
     </message>
 </context>
 <context>
@@ -989,31 +1162,31 @@
     </message>
     <message>
         <source>Welcome to %1!</source>
-        <translation type="unfinished">Willkommen zu %1!</translation>
+        <translation>Willkommen zu %1!</translation>
     </message>
     <message>
         <source>Please connect your device (LAN port 1) to your network. Be sure this app is also connected to the same network.</source>
-        <translation type="unfinished">Bitte verbinden Sie das Gerät (LAN Buchse 1) mit dem Netzwerk. Stellen Sie sicher, dass die App auch mit dem gleichen Netzwerk verbunden ist.</translation>
+        <translation>Bitte verbinden Sie das Gerät (LAN Buchse 1) mit dem Netzwerk. Stellen Sie sicher, dass die App auch mit dem gleichen Netzwerk verbunden ist.</translation>
     </message>
     <message>
         <source>Please select the device from the list that you want to set up. If no device is displayed in the list, please check the network connection! (Alternatively, a manual connection can also be established).</source>
-        <translation type="unfinished">Bitte das Gerät aus der Liste wählen, das eingerichtet werden soll. Wird kein Gerät in der Liste angezeigt bitte die Netzwerkverbindung prüfen! (Alternativ, kann auch eine manuelle Verbindung hergestellt werden).</translation>
+        <translation>Bitte das Gerät aus der Liste wählen, das eingerichtet werden soll. Wird kein Gerät in der Liste angezeigt bitte die Netzwerkverbindung prüfen! (Alternativ, kann auch eine manuelle Verbindung hergestellt werden).</translation>
     </message>
     <message>
         <source>Searching for your %1...</source>
-        <translation type="unfinished">Suche nach Deinem %1...</translation>
+        <translation>Suche nach Deinem %1...</translation>
     </message>
     <message>
         <source>Please wait while your %1 is being discovered.</source>
-        <translation type="unfinished">Bitte warten während nach dem %1 gesucht wird.</translation>
+        <translation>Bitte warten während nach dem %1 gesucht wird.</translation>
     </message>
     <message>
         <source>License Terms HEMS&lt;br/&gt;(as of 11/2024)</source>
-        <translation type="unfinished">Lizenzbedingungen HEMS&lt;br/&gt;(Stand 11/2024)</translation>
+        <translation>Lizenzbedingungen HEMS&lt;br/&gt;(Stand 11/2024)</translation>
     </message>
     <message>
         <source>Privacy Policy and License Agreement HEMS&lt;br/&gt;(as of 11/2024)</source>
-        <translation type="unfinished">Datenschutzerklärung HEMS&lt;br/&gt;(Stand 11/2024)</translation>
+        <translation>Datenschutzerklärung HEMS&lt;br/&gt;(Stand 11/2024)</translation>
     </message>
 </context>
 <context>
@@ -1278,29 +1451,6 @@
     </message>
 </context>
 <context>
-    <name>ConsolinnoDialog</name>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>Market price</source>
-        <translation>Börsenpreis</translation>
-    </message>
-    <message>
-        <source>PV production</source>
-        <translation>PV-Produktion</translation>
-    </message>
-    <message>
-        <source>SoC without controller</source>
-        <translation>Soc ohne Steuerung</translation>
-    </message>
-    <message>
-        <source>SoC with controller</source>
-        <translation>SoC mit Nullvergütung vermeiden</translation>
-    </message>
-</context>
-<context>
     <name>ConsolinnoDynamicElectricPricingHistory</name>
     <message>
         <source>today</source>
@@ -1346,7 +1496,9 @@
         <source>Total: %1 %2
 Grid fee: %3 %2
 Levies: %4 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Gesamt: %1 %2
+Netzentgelte: %3 %2
+Abgaben: %4 %2</translation>
     </message>
 </context>
 <context>
@@ -1484,7 +1636,7 @@ Levies: %4 %2</source>
     </message>
     <message>
         <source>Only available on the local network. Please connect the device running this app to the same network as your %1 system, e.g. your home network.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nur im lokalen Netzwerk verfügbar. Bitte verbinden Sie das Gerät, auf dem diese App ausgeführt wird, mit demselben Netzwerk wie Ihr %1-System, z. B. Ihrem Heimnetzwerk.</translation>
     </message>
 </context>
 <context>
@@ -1593,369 +1745,365 @@ Levies: %4 %2</source>
     <name>ConsolinnoModbusRtuAddMasterPage</name>
     <message>
         <source>Add a new Modbus RTU master</source>
-        <translation type="unfinished">Füge einen neuen Modbus RTU hinzu</translation>
+        <translation>Füge einen neuen Modbus RTU hinzu</translation>
     </message>
     <message>
         <source>Serial ports</source>
-        <translation type="unfinished">Serielle Schnittstellen</translation>
+        <translation>Serielle Schnittstellen</translation>
     </message>
     <message>
         <source>Select a serial port.</source>
-        <translation type="unfinished">Wähle eine serielle Schnittstelle.</translation>
+        <translation>Wähle eine serielle Schnittstelle.</translation>
     </message>
     <message>
         <source>There are no serial ports available.</source>
-        <translation type="unfinished">Es sind keine seriellen Schnittstellen verfügbar.</translation>
+        <translation>Es sind keine seriellen Schnittstellen verfügbar.</translation>
     </message>
     <message>
         <source>Please make sure the Modbus RTU interface is connected to the system.</source>
-        <translation type="unfinished">Stelle sicher, dass die Modbus RTU Schnittstelle mit dem System verbunden ist.</translation>
+        <translation>Stelle sicher, dass die Modbus RTU Schnittstelle mit dem System verbunden ist.</translation>
     </message>
     <message>
         <source>RJ45 connector</source>
-        <translation type="unfinished">RJ45-Stecker</translation>
+        <translation>RJ45-Stecker</translation>
     </message>
     <message>
         <source>14-pin connector</source>
-        <translation type="unfinished">14-poliger Stecker</translation>
+        <translation>14-poliger Stecker</translation>
     </message>
     <message>
         <source>Configure Modbus RTU master</source>
-        <translation type="unfinished">Modbus RTU Master einrichten</translation>
+        <translation>Modbus RTU Master einrichten</translation>
     </message>
     <message>
         <source>Serial port</source>
-        <translation type="unfinished">Serielle Schnittstelle</translation>
+        <translation>Serielle Schnittstelle</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation type="unfinished">Pfad</translation>
+        <translation>Pfad</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished">Beschreibung</translation>
+        <translation>Beschreibung</translation>
     </message>
     <message>
         <source>Manufacturer</source>
-        <translation type="unfinished">Hersteller</translation>
+        <translation>Hersteller</translation>
     </message>
     <message>
         <source>Serialnumber</source>
-        <translation type="unfinished">Seriennummer</translation>
+        <translation>Seriennummer</translation>
     </message>
     <message>
         <source>Configuration</source>
-        <translation type="unfinished">Einstellungen</translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <source>Baud rate</source>
-        <translation type="unfinished">Baudrate</translation>
+        <translation>Baudrate</translation>
     </message>
     <message>
         <source>Parity</source>
-        <translation type="unfinished">Parität</translation>
+        <translation>Parität</translation>
     </message>
     <message>
         <source>Data bits</source>
-        <translation type="unfinished">Datenbits</translation>
+        <translation>Datenbits</translation>
     </message>
     <message>
         <source>Stop bits</source>
-        <translation type="unfinished">Stopbits</translation>
+        <translation>Stopbits</translation>
     </message>
     <message>
         <source>Request retries</source>
-        <translation type="unfinished">Anfrageversuche</translation>
+        <translation>Anfrageversuche</translation>
     </message>
     <message>
         <source>Request timeout [ms]</source>
-        <translation type="unfinished">Versuchsdauer [ms]</translation>
+        <translation>Versuchsdauer [ms]</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Hinzufügen</translation>
+        <translation>Hinzufügen</translation>
     </message>
 </context>
 <context>
     <name>ConsolinnoModbusRtuReconfigureMasterPage</name>
     <message>
         <source>Reconfigure Modbus RTU master</source>
-        <translation type="unfinished">Modbus RTU-Master neu konfigurieren</translation>
+        <translation>Modbus RTU-Master neu konfigurieren</translation>
     </message>
     <message>
         <source>RJ45 connector</source>
-        <translation type="unfinished">RJ45-Stecker</translation>
+        <translation>RJ45-Stecker</translation>
     </message>
     <message>
         <source>14-pin connector</source>
-        <translation type="unfinished">14-poliger Stecker</translation>
+        <translation>14-poliger Stecker</translation>
     </message>
     <message>
         <source>UUID</source>
-        <translation type="unfinished">UUID</translation>
+        <translation>UUID</translation>
     </message>
     <message>
         <source>Serial port</source>
-        <translation type="unfinished">Serielle Schnittstelle</translation>
+        <translation>Serielle Schnittstelle</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation type="unfinished">Pfad</translation>
+        <translation>Pfad</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished">Beschreibung</translation>
+        <translation>Beschreibung</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Unbekannt</translation>
+        <translation>Unbekannt</translation>
     </message>
     <message>
         <source>Manufacturer</source>
-        <translation type="unfinished">Hersteller</translation>
+        <translation>Hersteller</translation>
     </message>
     <message>
         <source>Serialnumber</source>
-        <translation type="unfinished">Seriennummer</translation>
+        <translation>Seriennummer</translation>
     </message>
     <message>
         <source>Configuration</source>
-        <translation type="unfinished">Einstellungen</translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <source>Baud rate</source>
-        <translation type="unfinished">Baudrate</translation>
+        <translation>Baudrate</translation>
     </message>
     <message>
         <source>Parity</source>
-        <translation type="unfinished">Parität</translation>
+        <translation>Parität</translation>
     </message>
     <message>
         <source>Data bits</source>
-        <translation type="unfinished">Datenbits</translation>
+        <translation>Datenbits</translation>
     </message>
     <message>
         <source>Stop bits</source>
-        <translation type="unfinished">Stopbits</translation>
+        <translation>Stopbits</translation>
     </message>
     <message>
         <source>Request retries</source>
-        <translation type="unfinished">Anfrageversuche</translation>
+        <translation>Anfrageversuche</translation>
     </message>
     <message>
         <source>Request timeout [ms]</source>
-        <translation type="unfinished">Versuchsdauer [ms]</translation>
+        <translation>Versuchsdauer [ms]</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished">Anwenden</translation>
+        <translation>Anwenden</translation>
     </message>
 </context>
 <context>
     <name>ConsolinnoModbusRtuSettingsPage</name>
     <message>
         <source>Modbus-RTU-Interfaces</source>
-        <translation type="unfinished">Modbus RTU-Schnittstelle</translation>
+        <translation>Modbus RTU-Schnittstelle</translation>
     </message>
     <message>
         <source>Add Modbus RTU master</source>
-        <translation type="unfinished">Modbus RTU Master hinzufügen</translation>
+        <translation>Modbus RTU Master hinzufügen</translation>
     </message>
     <message>
         <source>The serial port is not available any more.</source>
-        <translation type="unfinished">Die serielle Schnittstelle ist nicht mehr verfügbar.</translation>
+        <translation>Die serielle Schnittstelle ist nicht mehr verfügbar.</translation>
     </message>
     <message>
         <source>Modbus is not supported on this platform.</source>
-        <translation type="unfinished">Modbus ist auf diesem System nicht unterstützt.</translation>
+        <translation>Modbus ist auf diesem System nicht unterstützt.</translation>
     </message>
     <message>
         <source>The Modbus RTU hardware could not be found.</source>
-        <translation type="unfinished">Das Modbus RTU Gerät konnte nicht gefunden werden.</translation>
+        <translation>Das Modbus RTU Gerät konnte nicht gefunden werden.</translation>
     </message>
     <message>
         <source>The selected Modbus RTU master does not exist any more.</source>
-        <translation type="unfinished">Der ausgewählte Modbus RTU Master existiert nicht mehr.</translation>
+        <translation>Der ausgewählte Modbus RTU Master existiert nicht mehr.</translation>
     </message>
     <message>
         <source>Unable to connect to the Modbus RTU master.
 
 Maybe the hardware is already in use.</source>
-        <translation type="unfinished">Verbindung zum Modbus RTU Master kann nicht hergestellt werden.
+        <translation>Verbindung zum Modbus RTU Master kann nicht hergestellt werden.
 
-Wird das Gerät bereits benutzt.</translation>
+Vielleicht ist die Hardware bereits in Gebrauch.</translation>
     </message>
     <message>
         <source>The specified timeout value is not valid.
 
 Use a timeout value greater or equal to 10 ms.</source>
-        <translation type="unfinished">Die angegebene Versuchsdauer ist ungültig.
+        <translation>Die angegebene Versuchsdauer ist ungültig.
 
 Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     </message>
     <message>
         <source>Unknown baud rate</source>
-        <translation type="unfinished">Unbekannte Baudrate</translation>
+        <translation>Unbekannte Baudrate</translation>
     </message>
     <message>
         <source>No parity</source>
-        <translation type="unfinished">Keine Parität</translation>
+        <translation>Keine Parität</translation>
     </message>
     <message>
         <source>Even parity</source>
-        <translation type="unfinished">Gerade Parität</translation>
+        <translation>Gerade Parität</translation>
     </message>
     <message>
         <source>Odd parity</source>
-        <translation type="unfinished">Ungerade Parität</translation>
+        <translation>Ungerade Parität</translation>
     </message>
     <message>
         <source>Space parity</source>
-        <translation type="unfinished">Raumparität</translation>
+        <translation>Raumparität</translation>
     </message>
     <message>
         <source>Mark parity</source>
-        <translation type="unfinished">Markierung</translation>
+        <translation>Mark-Parität</translation>
     </message>
     <message>
         <source>Unknown parity</source>
-        <translation type="unfinished">Unbekannte Parität</translation>
+        <translation>Unbekannte Parität</translation>
     </message>
     <message>
         <source>5 data bits</source>
-        <translation type="unfinished">5 Datenbits</translation>
+        <translation>5 Datenbits</translation>
     </message>
     <message>
         <source>6 data bits</source>
-        <translation type="unfinished">6 Datenbits</translation>
+        <translation>6 Datenbits</translation>
     </message>
     <message>
         <source>7 data bits</source>
-        <translation type="unfinished">7 Datenbits</translation>
+        <translation>7 Datenbits</translation>
     </message>
     <message>
         <source>8 data bits</source>
-        <translation type="unfinished">8 Datenbits</translation>
+        <translation>8 Datenbits</translation>
     </message>
     <message>
         <source>Unknown data bits</source>
-        <translation type="unfinished">Unbekannte Datenbits</translation>
+        <translation>Unbekannte Datenbits</translation>
     </message>
     <message>
         <source>One stop bit</source>
-        <translation type="unfinished">Ein Stopbit</translation>
+        <translation>Ein Stopbit</translation>
     </message>
     <message>
         <source>One and a half stop bits</source>
-        <translation type="unfinished">Eineinhalt Stopbits</translation>
+        <translation>Eineinhalb Stopbits</translation>
     </message>
     <message>
         <source>Two stop bits</source>
-        <translation type="unfinished">Zwei Stopbits</translation>
+        <translation>Zwei Stopbits</translation>
     </message>
     <message>
         <source>Unknown stop bits</source>
-        <translation type="unfinished">Unbekannte Stopbits</translation>
+        <translation>Unbekannte Stopbits</translation>
     </message>
     <message>
         <source>Note: If you intend to connect a device via &lt;b&gt;Modbus-RTU&lt;/b&gt;, please verify the Modbus interface settings to ensure they are compatible with the connected device. If you wish to use a different interface, please add another one.</source>
-        <translation type="unfinished">Hinweistext: Falls Sie ein Gerät über &lt;b&gt;Modbus-RTU&lt;/b&gt; anschließen wollen,
- überprüfen Sie bitte die Einstellungen der Modbus-Schnittstelle
-(diese müssen zum angeschlossenen Gerät passen).
-Falls Sie eine andere Schnittstelle verwenden wollen,
-fügen Sie eine weitere hinzu.</translation>
+        <translation>Hinweis: Falls Sie ein Gerät über &lt;b&gt;Modbus-RTU&lt;/b&gt; anschließen wollen, überprüfen Sie bitte die Einstellungen der Modbus-Schnittstelle (diese müssen zum angeschlossenen Gerät passen). Falls Sie eine andere Schnittstelle verwenden wollen, fügen Sie eine weitere hinzu.</translation>
     </message>
     <message>
         <source>Connected</source>
-        <translation type="unfinished">Verbunden</translation>
+        <translation>Verbunden</translation>
     </message>
     <message>
         <source>Disconnected</source>
-        <translation type="unfinished">Getrennt</translation>
+        <translation>Getrennt</translation>
     </message>
     <message>
         <source>Modbus-RTU is not supported on this platform.</source>
-        <translation type="unfinished">Modbus RTU ist auf diesem System nicht unterstützt.</translation>
+        <translation>Modbus RTU ist auf diesem System nicht unterstützt.</translation>
     </message>
     <message>
         <source>No devices discovered</source>
-        <translation type="unfinished">Keine Geräte entdeckt</translation>
+        <translation>Keine Geräte entdeckt</translation>
     </message>
     <message>
         <source>RJ45 connector</source>
-        <translation type="unfinished">RJ45-Stecker</translation>
+        <translation>RJ45-Stecker</translation>
     </message>
     <message>
         <source>14-pin connector</source>
-        <translation type="unfinished">14-poliger Stecker</translation>
+        <translation>14-poliger Stecker</translation>
     </message>
     <message>
         <source>Modbus-RTU-Interface</source>
-        <translation type="unfinished">Modbus RTU Master</translation>
+        <translation>Modbus RTU Master</translation>
     </message>
     <message>
         <source>Remove Modbus RTU Interface</source>
-        <translation type="unfinished">Modbus RTU Interface entfernen</translation>
+        <translation>Modbus RTU Interface entfernen</translation>
     </message>
     <message>
         <source>Are you sure you want to remove this Modbus RTU Interface?</source>
-        <translation type="unfinished">Bist Du sicher, dass Du diesen Modbus RTU Master entfernen möchtest?</translation>
+        <translation>Bist du sicher, dass du diesen Modbus RTU Master entfernen möchtest?</translation>
     </message>
     <message>
         <source>Please note that all related things will stop working until you assign a new Modbus RTU Interface to them.</source>
-        <translation type="unfinished">Bitte beachte, dass alle verknüpften &quot;Things&quot; nicht mehr funktionieren werden, bis sie einem neuen Modbus RTU Master zugewiesen werden.</translation>
+        <translation>Bitte beachte, dass alle verknüpften &quot;Things&quot; nicht mehr funktionieren werden, bis sie einem neuen Modbus RTU Master zugewiesen werden.</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation type="unfinished">Informationen</translation>
+        <translation>Informationen</translation>
     </message>
     <message>
         <source>Connection status</source>
-        <translation type="unfinished">Verbindungsstatus</translation>
+        <translation>Verbindungsstatus</translation>
     </message>
     <message>
         <source>UUID</source>
-        <translation type="unfinished">UUID</translation>
+        <translation>UUID</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation type="unfinished">Pfad</translation>
+        <translation>Pfad</translation>
     </message>
     <message>
         <source>Baud rate</source>
-        <translation type="unfinished">Baudrate</translation>
+        <translation>Baudrate</translation>
     </message>
     <message>
         <source>Parity</source>
-        <translation type="unfinished">Parität</translation>
+        <translation>Parität</translation>
     </message>
     <message>
         <source>Data bits</source>
-        <translation type="unfinished">Datenbits</translation>
+        <translation>Datenbits</translation>
     </message>
     <message>
         <source>Stop bits</source>
-        <translation type="unfinished">Stopbits</translation>
+        <translation>Stopbits</translation>
     </message>
     <message>
         <source>Request retries</source>
-        <translation type="unfinished">Anfrageversuche</translation>
+        <translation>Anfrageversuche</translation>
     </message>
     <message>
         <source>Request timeout [ms]</source>
-        <translation type="unfinished">Versuchsdauer [ms]</translation>
+        <translation>Versuchsdauer [ms]</translation>
     </message>
     <message>
         <source>Reconfigure</source>
-        <translation type="unfinished">Neu einrichten</translation>
+        <translation>Neu einrichten</translation>
     </message>
     <message>
         <source>cancel</source>
-        <translation type="unfinished">abbrechen</translation>
+        <translation>abbrechen</translation>
     </message>
     <message>
         <source>Next step</source>
-        <translation type="unfinished">Nächster Schritt</translation>
+        <translation>Nächster Schritt</translation>
     </message>
     <message>
         <source>Available interfaces</source>
@@ -2296,7 +2444,7 @@ fügen Sie eine weitere hinzu.</translation>
     <name>ConsolinnoParamDelegate</name>
     <message>
         <source>Type to search</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum Suchen eingeben</translation>
     </message>
 </context>
 <context>
@@ -2597,119 +2745,179 @@ fügen Sie eine weitere hinzu.</translation>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <source>Change system name and time zone</source>
-        <translation>Ändere Systemname und Zeitzone</translation>
-    </message>
-    <message>
         <source>User settings</source>
         <translation>Benutzereinstellungen</translation>
-    </message>
-    <message>
-        <source>Configure who can log in</source>
-        <translation>Konfiguriere wer sich Verbinden darf</translation>
     </message>
     <message>
         <source>Networking</source>
         <translation>Netzwerk</translation>
     </message>
     <message>
-        <source>Configure the system&apos;s network connection</source>
-        <translation>Richte das Netzwerk dieses Systems ein</translation>
-    </message>
-    <message>
         <source>Connection settings</source>
         <translation>Verbindungseinstellungen</translation>
-    </message>
-    <message>
-        <source>Configure how applications can connect to this system</source>
-        <translation>Verwalte wie sich Anwendungen zu diesem System verbinden können</translation>
     </message>
     <message>
         <source>MQTT broker</source>
         <translation>MQTT Broker</translation>
     </message>
     <message>
-        <source>Configure the MQTT broker</source>
-        <translation>Konfiguriere den MQTT Broker</translation>
-    </message>
-    <message>
         <source>Web server</source>
         <translation>Web Server</translation>
-    </message>
-    <message>
-        <source>Configure the web server</source>
-        <translation>Konfiguriere den Web Server</translation>
     </message>
     <message>
         <source>ZigBee</source>
         <translation>ZigBee</translation>
     </message>
     <message>
-        <source>Configure ZigBee networks</source>
-        <translation>ZigBee-Netzwerke einrichten</translation>
-    </message>
-    <message>
         <source>Z-Wave</source>
         <translation>Z-Wave</translation>
-    </message>
-    <message>
-        <source>Configure Z-Wave networks</source>
-        <translation>Z-Wave Netzwerke einrichten</translation>
     </message>
     <message>
         <source>Modbus RTU</source>
         <translation>Modbus RTU</translation>
     </message>
     <message>
-        <source>Configure Modbus RTU master interfaces</source>
-        <translation>Modbus RTU Master Schnittstellen einrichten</translation>
-    </message>
-    <message>
         <source>Plugins</source>
         <translation>Plugins</translation>
-    </message>
-    <message>
-        <source>List and cofigure installed plugins</source>
-        <translation>Installierte Plugins auflisten und einrichten</translation>
     </message>
     <message>
         <source>Developer tools</source>
         <translation>Entwicklerwerkzeuge</translation>
     </message>
     <message>
-        <source>Access tools for debugging and error reporting</source>
-        <translation>Greife auf Werkzeuge und Fehleranalyse-Werkzeuge zu</translation>
-    </message>
-    <message>
-        <source>System update</source>
-        <translation>System-Aktualisierung</translation>
-    </message>
-    <message>
-        <source>Update your %1 system</source>
-        <translation>Update Dein %1 System</translation>
-    </message>
-    <message>
         <source>Log viewer</source>
         <translation>Systemprotokoll</translation>
-    </message>
-    <message>
-        <source>View system log</source>
-        <translation>Systemprotokoll anzeigen</translation>
     </message>
     <message>
         <source>About %1</source>
         <translation>Über %1</translation>
     </message>
     <message>
-        <source>Find server UUID and versions</source>
-        <translation>Finde Server UUID und Versionen</translation>
+        <source>Settings</source>
+        <translation>Einstellungen</translation>
+    </message>
+    <message>
+        <source>Configuration</source>
+        <translation>Konfiguration</translation>
+    </message>
+    <message>
+        <source>Optimization configuration</source>
+        <translation>Optimierungskonfiguration</translation>
+    </message>
+    <message>
+        <source>Comissioning</source>
+        <translation>Inbetriebnahme</translation>
+    </message>
+    <message>
+        <source>Install devices and set up the system. For installers only.</source>
+        <translation>Installiere Geräte und richte das System ein. Nur für Installateure.</translation>
+    </message>
+    <message>
+        <source>Development</source>
+        <translation>Development</translation>
+    </message>
+    <message>
+        <source>Dynamic electricity tariff</source>
+        <translation>Dynamischer Stromtarif</translation>
+    </message>
+    <message>
+        <source>Set up a dynamic electicity tariff for the system to operate with.</source>
+        <translation>Richte einen dynamischen Stromtarif ein, mit dem das System arbeiten soll.</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control</source>
+        <translation>Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>Configure grid support capabilities through relays or EEBUS. For installers only.</source>
+        <translation>Konfiguriere netzdienliche Funktionen über Relais oder EEBUS. Nur für Installateure.</translation>
+    </message>
+    <message>
+        <source>App settings</source>
+        <translation>App-Einstellungen</translation>
+    </message>
+    <message>
+        <source>Look &amp; feel</source>
+        <translation>Aussehen &amp; Verhalten</translation>
+    </message>
+    <message>
+        <source>Developer options</source>
+        <translation>Entwicklereinstellungen</translation>
+    </message>
+    <message>
+        <source>Developer settings</source>
+        <translation>Developer-Einstellungen</translation>
+    </message>
+    <message>
+        <source>Optimize devices and system behavior.</source>
+        <translation>Optimiere Geräte und Systemverhalten.</translation>
+    </message>
+    <message>
+        <source>Access tools for debugging and error reporting.</source>
+        <translation>Greife auf Werkzeuge und Fehleranalyse-Werkzeuge zu.</translation>
+    </message>
+    <message>
+        <source>Find app versions and licence information.</source>
+        <translation>Finde App-Versionen und Lizenzinformationen.</translation>
+    </message>
+    <message>
+        <source>Change system name and time zone.</source>
+        <translation>Ändere Systemname und Zeitzone.</translation>
+    </message>
+    <message>
+        <source>Configure who can log in.</source>
+        <translation>Konfiguriere, wer sich verbinden darf.</translation>
+    </message>
+    <message>
+        <source>Configure how applications can connect to this system.</source>
+        <translation>Verwalte, wie sich Anwendungen zu diesem System verbinden können.</translation>
+    </message>
+    <message>
+        <source>Configure Modbus RTU master interfaces.</source>
+        <translation>Modbus-RTU-Master-Schnittstellen einrichten.</translation>
+    </message>
+    <message>
+        <source>List and cofigure installed plugins.</source>
+        <translation>Installierte Plugins auflisten und einrichten.</translation>
+    </message>
+    <message>
+        <source>View system log.</source>
+        <translation>Systemprotokoll anzeigen.</translation>
+    </message>
+    <message>
+        <source>Find server UUID and versions.</source>
+        <translation>Finde Server-UUID und Versionen.</translation>
+    </message>
+    <message>
+        <source>Configure the web server.</source>
+        <translation>Konfiguriere den Webserver.</translation>
+    </message>
+    <message>
+        <source>Configure ZigBee networks.</source>
+        <translation>ZigBee-Netzwerke einrichten.</translation>
+    </message>
+    <message>
+        <source>Configure Z-Wave networks.</source>
+        <translation>Z-Wave-Netzwerke einrichten.</translation>
+    </message>
+    <message>
+        <source>Configure the MQTT broker.</source>
+        <translation>Konfiguriere den MQTT Broker.</translation>
+    </message>
+    <message>
+        <source>Customize the app’s look and behavior.</source>
+        <translation>Aussehen und Verhalten der App anpassen.</translation>
+    </message>
+    <message>
+        <source>Configure the system’s network connection.</source>
+        <translation>Richte das Netzwerk dieses Systems ein.</translation>
     </message>
 </context>
 <context>
     <name>ConsolinnoSwipeDelegate</name>
     <message>
         <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
 </context>
 <context>
@@ -2876,75 +3084,6 @@ fügen Sie eine weitere hinzu.</translation>
     </message>
 </context>
 <context>
-    <name>ConsolinnoView</name>
-    <message>
-        <source>Total current power usage</source>
-        <translation>Gesamter Energieverbrauch</translation>
-    </message>
-    <message>
-        <source>Please complete the setup wizard or manually configure your devices.</source>
-        <translation>Bitte vervollständige den Einrichtungsassistenten oder füge Deine Geräte manuell hinzu.</translation>
-    </message>
-    <message>
-        <source>Start setup</source>
-        <translation>Einrichtung starten</translation>
-    </message>
-    <message>
-        <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;h3&gt;Die App wurde aktualisiert.&lt;/h3&gt;
-&lt;p&gt;Version 1.13.1&lt;/p&gt;
-&lt;h4&gt;Neu&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Optimierung von SG‑Ready‑Wärmepumpen mit dynamischem Stromtarif&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;HEMS-Konfiguration jetzt auch ohne PV möglich&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Einspeiseabregelung (LPP) für nicht‑hybride Wechselrichter&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Verbessertes Batterieladen mit dynamischem Tarif: Auch das Entladen der Batterie kann tarifabhängig gesperrt werden für maximale Effizienz.
-Preis- und Entladegrenzen werden auf Basis des Durchschnittspreises berechnet.&lt;br&gt;&lt;b&gt;Hinweis: Tarifgesteuertes Laden muss nach dem Update neu konfiguriert werden!&lt;/b&gt;&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Unterstützung von variablen Netzentgelten&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;Verbesserungen&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Aussagekräftigere Meldungstexte im Zusammenhang mit LPC&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Pop‑up Hinweis, wenn bei der Einrichtung des Stromtarifs die Eingabe für Abgaben oder Netzentgelte fehlt&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Optimierung des Heizstabs:&lt;br&gt;Der Heizstab aktiviert sich erst, wenn der Batteriespeicher mindestens 80 % geladen ist&lt;/li&gt;
-&lt;/ul&gt;</translation>
-    </message>
-    <message>
-        <source>Your %1 is not set up yet.</source>
-        <translation>Das %1 ist noch nicht eingerichtet.</translation>
-    </message>
-    <message>
-        <source>Email: &lt;a href=&apos;mailto:%1&apos;&gt;%1&lt;/a&gt;</source>
-        <translation>E-Mail: &lt;a href=&apos;mailto:%1&apos;&gt;%1&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <source>Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;</source>
-        <translation>Telefon: &lt;a href=&quot;tel:%1&quot;&gt;%1&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;h3&gt;Pending software update&lt;/h3&gt;
-                &lt;p&gt;Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %6 device.&lt;/p&gt;
-                &lt;p&gt;Your %6 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;/p&gt;
-                &lt;p&gt;If this message is still displayed, please contact our service team.&lt;/p&gt;
-                &lt;ul&gt;
-                    %7
-                    &lt;li&gt;%4&lt;/li&gt;
-                &lt;/ul&gt;
-                &lt;p&gt;Best regards&lt;/p&gt;
-                &lt;p&gt;Your %5 Team&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Ausstehendes Software-Update&lt;/h3&gt;
-                &lt;p&gt;Ihre %3 App wurde auf die Version &lt;strong&gt;%1&lt;/strong&gt; aktualisiert und ist somit aktueller als die Firmware (&lt;strong&gt;%2&lt;/strong&gt;) auf Ihrem %6-Gerät.&lt;/p&gt; 
-                &lt;p&gt;Ihr %6-Gerät wird im Laufe des Tages aktualisiert. Bis das Update abgeschlossen ist, kann die Verfügbarkeit der neuen                                 Funktionen vorübergehend eingeschränkt sein.&lt;/p&gt; 
-                &lt;p&gt;Sollte diese Meldung weiterhin angezeigt werden, kontaktieren Sie bitte unseren Service.&lt;/p&gt; 
-                &lt;ul&gt; 
-                    %7
-                    &lt;li&gt;%4&lt;/li&gt; 
-                &lt;/ul&gt; 
-                &lt;p&gt;Beste Grüße&lt;/p&gt; 
-                &lt;p&gt;Ihr %5 Team&lt;/p&gt;</translation>
-    </message>
-</context>
-<context>
     <name>ConsolinnoWizardPageBase</name>
     <message>
         <source>Back</source>
@@ -3066,23 +3205,23 @@ Preis- und Entladegrenzen werden auf Basis des Durchschnittspreises berechnet.&l
     <name>DynamicElectricityRate</name>
     <message>
         <source>Dynamic electricity tariff</source>
-        <translation type="unfinished">Dynamischer Stromtarif</translation>
+        <translation>Dynamischer Stromtarif</translation>
     </message>
     <message>
         <source>Submitted Rate</source>
-        <translation type="unfinished">Eingerichteter Tarif</translation>
+        <translation>Eingerichteter Tarif</translation>
     </message>
     <message>
         <source>There is no rate set up yet</source>
-        <translation type="unfinished">Es sind noch keine Tarife angelegt</translation>
+        <translation>Es sind noch keine Tarife angelegt</translation>
     </message>
     <message>
         <source>Add Rate: </source>
-        <translation type="unfinished">Tarif hinzufügen: </translation>
+        <translation>Tarif hinzufügen: </translation>
     </message>
     <message>
         <source>Add Rate</source>
-        <translation type="unfinished">Neuen Tarif hinzufügen</translation>
+        <translation>Neuen Tarif hinzufügen</translation>
     </message>
     <message>
         <source>Next</source>
@@ -3094,11 +3233,11 @@ Preis- und Entladegrenzen werden auf Basis des Durchschnittspreises berechnet.&l
     </message>
     <message>
         <source>Remove thing?</source>
-        <translation type="unfinished">&quot;Thing&quot; entfernen?</translation>
+        <translation>&quot;Thing&quot; entfernen?</translation>
     </message>
     <message>
         <source>Are you sure you want to remove %1 and all associated settings?</source>
-        <translation type="unfinished">Bist Du sicher, dass %1 und alle zugehörigen Einstellungen entfernt werden sollen?</translation>
+        <translation>Bist Du sicher, dass %1 und alle zugehörigen Einstellungen entfernt werden sollen?</translation>
     </message>
 </context>
 <context>
@@ -3304,36 +3443,20 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Bei der aktuellen Rate wird die Batterie bis %1 halten.</translation>
     </message>
     <message>
-        <source>unrestricted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Avoid zero compensation</source>
-        <translation type="unfinished">Nullvergütung vermeiden</translation>
-    </message>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively retained so that the battery can be charged during hours with negative electricity prices and feed-in without compensation is avoided. As soon as the control becomes active, the charging of the battery is limited (visible by the yellow message on the screen.) The control is based on the forecast of PV production and household consumption and postpones charging accordingly:</source>
-        <translation type="unfinished">An Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu den Stunden mit negativen Strompreisen in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden. Sobald die Regelung aktiv wird, ist das Laden der Batterie  limitiert (sichtbar an der gelben Meldung im Screen.) Die Steuerung basiert auf der Vorhersage der PV-Produktion und  Hausverbrauch und verschiebt die Ladung entsprechend:</translation>
-    </message>
-    <message>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
-        <translation type="unfinished">Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
+        <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
     </message>
     <message>
         <source>Avoid zero compensation active</source>
-        <translation type="unfinished">Nullvergütung vermeiden aktiv</translation>
+        <translation>Nullvergütung vermeiden aktiv</translation>
     </message>
     <message>
         <source>Feed-in curtailment</source>
-        <translation type="unfinished">Einspeiseabregelung</translation>
+        <translation>Einspeiseabregelung</translation>
     </message>
     <message>
         <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
         <translation>Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend begrenzt&lt;/b&gt; auf &lt;b&gt;%1 kW.&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <source>Consumption is &lt;b&gt;temporarily blocked&lt;/b&gt; on the basis of a control signal from the grid operator.</source>
-        <translation>Der Verbrauch wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend blockiert&lt;/b&gt;.</translation>
     </message>
     <message>
         <source>Grid-supportive control</source>
@@ -3467,7 +3590,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
         <source>Relais</source>
-        <translation type="unfinished"></translation>
+        <translation>Relais</translation>
     </message>
     <message>
         <source>Connect device</source>
@@ -3596,6 +3719,10 @@ Möchten Sie trotzdem fortfahren?</translation>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
 </context>
 <context>
     <name>HeatingConfigurationView</name>
@@ -3608,7 +3735,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     <name>HeatingElementConfigurationView</name>
     <message>
         <source>Heating Element</source>
-        <translation type="unfinished"></translation>
+        <translation>Heizstab</translation>
     </message>
 </context>
 <context>
@@ -3678,15 +3805,15 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
         <source>Grid-supportive-control</source>
-        <translation type="unfinished">Netzdienlichkeit</translation>
+        <translation>Netzdienlichkeit</translation>
     </message>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
-        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
+        <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
     </message>
     <message>
         <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
-        <translation type="unfinished">Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
+        <translation>Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
     </message>
 </context>
 <context>
@@ -3726,6 +3853,14 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
         <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
+    </message>
+    <message>
+        <source>No meter</source>
+        <translation>Kein Zähler</translation>
+    </message>
+    <message>
+        <source>Electricity meter</source>
+        <translation>Stromzähler</translation>
     </message>
 </context>
 <context>
@@ -3810,42 +3945,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
 </context>
 <context>
-    <name>HemsOptimizationPage</name>
-    <message>
-        <source>No optimizations available</source>
-        <translation>Keine Optimierungen verfügbar</translation>
-    </message>
-    <message>
-        <source>Optimizations will be available once the required things have been added to the system.</source>
-        <translation>Optimierungen sind verfügbar, sobald die benötigten Geräte im System eingerichtet wurden.</translation>
-    </message>
-    <message>
-        <source>Development</source>
-        <translation>Development
-</translation>
-    </message>
-    <message>
-        <source>Configurations</source>
-        <translation>Einstellungen</translation>
-    </message>
-    <message>
-        <source>Optimization configuration</source>
-        <translation>Optimierungseinstellungen</translation>
-    </message>
-    <message>
-        <source>Comissioning</source>
-        <translation>Inbetriebnahme</translation>
-    </message>
-    <message>
-        <source>Dynamic electricity tariff</source>
-        <translation>Dynamischer Stromtarif</translation>
-    </message>
-    <message>
-        <source>Grid-supportive control</source>
-        <translation>Netzdienlichkeit</translation>
-    </message>
-</context>
-<context>
     <name>InfoTextInterface</name>
     <message>
         <source>Summary:</source>
@@ -3905,37 +4004,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>First name Last name</source>
         <translation>Vor- und Nachname</translation>
-    </message>
-</context>
-<context>
-    <name>MainviewInfo</name>
-    <message>
-        <source>Dashboard</source>
-        <translation>Dashboard</translation>
-    </message>
-    <message>
-        <source>Energy flow</source>
-        <translation>Energiefluss</translation>
-    </message>
-    <message>
-        <source>Consumption of the last 24 hours</source>
-        <translation>Verbrauch der letzten 24 Stunden</translation>
-    </message>
-    <message>
-        <source>Interaction</source>
-        <translation>Interaktion</translation>
-    </message>
-    <message>
-        <source>By tapping on the consumers, you can access the settings, e.g. the charging of the e-car. If you tap on the evaluation of the last 24 hours, further statistics are displayed.</source>
-        <translation>Durch Tippen auf die Verbraucher gelangen Sie zu den Einstellungen z.B. dem Laden des E-Autos. Wenn Sie auf die Auswertung der letzten 24 Stunden tippen, werden Ihnen weitere Statistiken angezeigt.</translation>
-    </message>
-    <message>
-        <source>In the middle of the dashboard you can see the consumption of the last 24 hours. The &lt;span style=&apos;color: %2&apos;&gt;%1&lt;/span&gt; area shows your produced energy. If more energy is produced than consumed, power is fed into the grid visible on the &lt;span style=&apos;color: %3&apos;&gt;%1&lt;/span&gt; area. If more energy is consumed than produced, then energy is drawn from the grid visible on the &lt;span style=&apos;color: %4&apos;&gt;%1&lt;/span&gt; area. The other colored areas represent the energy consumption of the different devices such as a wallbox or a heat pump.</source>
-        <translation>In der Mitte des Dashboards sehen Sie den Verbrauch der letzten 24 Stunden. Die &lt;span style=&apos;color: %2&apos;&gt;%1&lt;/span&gt; Fläche zeigt ihre produzierte Energie an. Wird mehr Energie produziert als verbraucht, wird Strom ins Netz eingespeist sichtbar an der  &lt;span style=&apos;color: %3&apos;&gt;%1&lt;/span&gt; Fläche. Wenn mehr Energie verbraucht als produziert wird, dann wird Energie von Netz bezogen sichtbar an der &lt;span style=&apos;color: %4&apos;&gt;%1&lt;/span&gt; Fläche. Die anderen farbigen Flächen stehen für den Energieverbrauch der unterschiedlichen Geräte wie zum Beispiel eine Wallbox oder eine Wärmepumpe.</translation>
-    </message>
-    <message>
-        <source>The dashboard illustrates the energy flow in your house. The lines indicate by their thickness and direction where the current is flowing. At the top you can see the energy sources: Electricity can come from either their grid connection &lt;span style=&apos;color: %2&apos;&gt;%1&lt;/span&gt; or solar production &lt;span style=&apos;color: %3&apos;&gt;%1&lt;/span&gt;. If more solar power is produced than consumed, it is fed into the grid (grid connection changes color from &lt;span style=&apos;color: %4&apos;&gt;%1&lt;/span&gt; to &lt;span style=&apos;color: %5&apos;&gt;%1&lt;/span&gt;). At the bottom, your consumers and their current consumption are displayed.</source>
-        <translation>Das Dashboard veranschaulicht den Energiefluss in ihrem Haus. Die Linien zeigen durch ihre Dicke und Richtung an wohin der Strom gerade fließt. Oben werden Ihnen die Energiequellen angezeigt: Der Strom kann entweder von ihrem Netzanschluss &lt;span style=&apos;color: %2&apos;&gt;%1&lt;/span&gt; oder der Solarproduktion &lt;span style=&apos;color: %3&apos;&gt;%1&lt;/span&gt; kommen. Wird mehr Solarstrom produziert als verbraucht wird er ins Netz eingespeist (Netzanschluss verändert Farbe von &lt;span style=&apos;color: %4&apos;&gt;%1&lt;/span&gt;  zu &lt;span style=&apos;color: %5&apos;&gt;%1&lt;/span&gt;). Unten werden ihre Verbraucher und ihr aktueller Bezug angezeigt.</translation>
     </message>
 </context>
 <context>
@@ -4292,19 +4360,19 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>EEBUS Wallbox</source>
-        <translation type="unfinished"></translation>
+        <translation>EEBUS Wallbox</translation>
     </message>
     <message>
         <source>EvCharger set-up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">EV-Ladestation Einrichtung</translation>
     </message>
     <message>
         <source>The following EEBUS devices were found:</source>
-        <translation type="unfinished">Folgende EEBUS-Geräte wurden gefunden:</translation>
+        <translation>Folgende EEBUS-Geräte wurden gefunden:</translation>
     </message>
     <message>
         <source>Please change name if necessary.</source>
-        <translation type="unfinished">Wenn notwendig, bitte den Namen ändern.</translation>
+        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
     <message>
         <source>Integrated wallbox</source>
@@ -4406,7 +4474,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Integrated heat pumps</source>
-        <translation type="unfinished">Eingerichtete Wärmepumpen</translation>
+        <translation>Eingerichtete Wärmepumpen</translation>
     </message>
     <message>
         <source>add</source>
@@ -4494,11 +4562,11 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>The following EEBUS devices were found:</source>
-        <translation type="unfinished">Folgende EEBUS-Geräte wurden gefunden:</translation>
+        <translation>Folgende EEBUS-Geräte wurden gefunden:</translation>
     </message>
     <message>
         <source>Please change name if necessary.</source>
-        <translation type="unfinished">Wenn notwendig, bitte den Namen ändern.</translation>
+        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
 </context>
 <context>
@@ -4688,7 +4756,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Login required</source>
-        <translation type="unfinished"></translation>
+        <translation>Anmeldung erforderlich</translation>
     </message>
     <message>
         <source>Username</source>
@@ -4696,7 +4764,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Thing reconfigured!</source>
-        <translation type="unfinished"></translation>
+        <translation>Thing wurde neu konfiguriert!</translation>
     </message>
     <message>
         <source>Thing added!</source>
@@ -4708,15 +4776,15 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>All done. You can now start using %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie können nun %1 benutzen.</translation>
     </message>
     <message>
         <source>Something went wrong setting up this thing...</source>
-        <translation>Etwas ist schiefgelaufen</translation>
+        <translation>Etwas ist schiefgelaufen...</translation>
     </message>
     <message>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
@@ -4796,6 +4864,21 @@ Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 
     </message>
 </context>
 <context>
+    <name>UnconfiguredHemsView</name>
+    <message>
+        <source>Your %1 is not set up yet.</source>
+        <translation>Das %1 ist noch nicht eingerichtet.</translation>
+    </message>
+    <message>
+        <source>Please complete the setup wizard or manually configure your devices.</source>
+        <translation>Bitte vervollständige den Einrichtungsassistenten oder füge Deine Geräte manuell hinzu.</translation>
+    </message>
+    <message>
+        <source>Start setup</source>
+        <translation>Einrichtung starten</translation>
+    </message>
+</context>
+<context>
     <name>WizardComplete</name>
     <message>
         <source>Congratulations!</source>
@@ -4810,62 +4893,8 @@ Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 
         <translation>Installierte Geräte</translation>
     </message>
     <message>
-        <source>Your %1 is now configured. The following devices have been set up:</source>
-        <translation>Ihre %1 ist jetzt konfiguriert. Die folgenden Geräte wurden eingerichtet:</translation>
-    </message>
-</context>
-<context>
-    <name>ZeroCompensationInfo</name>
-    <message>
-        <source>On days with negative electricity prices, battery capacity is actively reserved to allow charging during these periods and to avoid feeding electricity into the grid without compensation. As soon as the control system is active, charging from the grid is disabled (as indicated by the greyed-out controls).</source>
-        <translation type="unfinished">Bei Tagen mit negativen Strompreisen wird aktiv Batteriekapazität vorgehalten, um zu diesen Zeiten in die Batterie laden zu können und eine Einspeisung ohne Vergütung zu vermeiden.  Sobald die Steuerung aktiv ist wird das Beladen aus dem Netz  deaktiviert (sichtbar an den ausgegrauten Bedienelementen).</translation>
-    </message>
-    <message>
-        <source>Zero Compensation</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>CoKpiStats</name>
-    <message>
-        <source>KPI Statistics</source>
-        <translation>KPI-Statistiken</translation>
-    </message>
-    <message>
-        <source>Self-sufficiency</source>
-        <translation>Autarkie</translation>
-    </message>
-    <message>
-        <source>Self-consumption</source>
-        <translation>Eigenverbrauch</translation>
-    </message>
-    <message>
-        <source>Self-sufficiency: %1%</source>
-        <translation>Autarkie: %1%</translation>
-    </message>
-    <message>
-        <source>Self-consumption: %1%</source>
-        <translation>Eigenverbrauch: %1%</translation>
-    </message>
-    <message>
-        <source>Hours</source>
-        <translation>Stunden</translation>
-    </message>
-    <message>
-        <source>Days</source>
-        <translation>Tage</translation>
-    </message>
-    <message>
-        <source>Weeks</source>
-        <translation>Wochen</translation>
-    </message>
-    <message>
-        <source>Months</source>
-        <translation>Monate</translation>
-    </message>
-    <message>
-        <source>Years</source>
-        <translation>Jahre</translation>
+        <source>Your %1 is now configured. The following devices are set up:</source>
+        <translation>Ihre %1 ist jetzt konfiguriert. Die folgenden Geräte sind eingerichtet:</translation>
     </message>
 </context>
 </TS>

@@ -12,7 +12,6 @@ StackView {
     id: root
     initialItem: setUpStart
 
-    property HemsManager hemsManager
     property int directionID: 0
     property bool setupFinishedRelay: false
     property Thing gridSupportThing: gridSupport.get(0)
@@ -124,8 +123,8 @@ StackView {
 
                 ColumnLayout {
                     Layout.topMargin: app.margins
-                    Layout.leftMargin: app.bigMargins
-                    Layout.rightMargin: app.bigMargins
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
                     spacing: app.margins
 
                     Button {
@@ -140,26 +139,20 @@ StackView {
                         }
                     }
 
-                    ConsolinnoAlert {
+                    CoNotification {
+                        Layout.fillWidth: true
                         visible: currentStateLPP === true && powerLimitSource !== "none"
-                        backgroundColor: Style.warningBackground
-                        borderColor: Style.warningAccent
-                        textColor: Style.warningAccent
-                        iconColor: Style.warningAccent
-
-                        text: contentPlimLPP
-                        headerText: qsTr("Feed-in curtailment")
+                        type: CoNotification.Type.Warning
+                        title: qsTr("Feed-in curtailment")
+                        message: contentPlimLPP
                     }
 
-                    ConsolinnoAlert {
+                    CoNotification {
+                        Layout.fillWidth: true
                         visible: currentState === true && powerLimitSource !== "none"
-                        backgroundColor: Style.warningBackground
-                        borderColor: Style.warningAccent
-                        textColor: Style.warningAccent
-                        iconColor: Style.warningAccent
-
-                        text: contentPlim
-                        headerText: qsTr("Grid-supportive control")
+                        type: CoNotification.Type.Warning
+                        title: qsTr("Grid-supportive control")
+                        message: contentPlim
                     }
                 }
 
@@ -360,18 +353,13 @@ StackView {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
-                    ConsolinnoAlert {
+                    CoNotification {
+                        Layout.fillWidth: true
                         visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
-                        backgroundColor: Style.dangerBackground
-                        borderColor: Style.dangerAccent
-                        textColor: Style.dangerAccent
-                        iconColor: Style.dangerAccent
-
-                        iconPath: "/icons/dialog-warning-symbolic.svg"
-                        text: qsTr("Existing setup will be overwritten.")
-                        headerText: qsTr("Attention")
+                        type: CoNotification.Type.Danger
+                        title: qsTr("Attention")
+                        message: qsTr("Existing setup will be overwritten.")
                     }
-
                 }
 
                 ColumnLayout {
@@ -739,16 +727,12 @@ StackView {
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
 
-                    ConsolinnoAlert {
+                    CoNotification {
+                        Layout.fillWidth: true
                         visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
-                        backgroundColor: Style.dangerBackground
-                        borderColor: Style.dangerAccent
-                        textColor: Style.dangerAccent
-                        iconColor: Style.dangerAccent
-
-                        iconPath: "/icons/dialog-warning-symbolic.svg"
-                        text: qsTr("Existing setup will be overwritten.")
-                        headerText: qsTr("Attention")
+                        type: CoNotification.Type.Danger
+                        title: qsTr("Attention")
+                        message: qsTr("Existing setup will be overwritten.")
                     }
 
                     ConsolinnoCheckbox {

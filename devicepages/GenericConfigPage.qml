@@ -81,9 +81,7 @@ Item {
                             width: 24
                             height: 24
                             anchors.centerIn: parent
-                            source: Configuration.menuIcon !== "" ?
-                                        "../images/" + Configuration.menuIcon :
-                                        "/icons/navigation-menu.svg"
+                            source: "/icons/menu.svg"
                             visible: parent.enabled
                         }
                         MouseArea {

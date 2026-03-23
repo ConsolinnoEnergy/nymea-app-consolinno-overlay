@@ -18,12 +18,8 @@ Item {
     property var prices: ({})
     property var gridFees: ({})
     property var levies: ({})
-
-
     property bool isDynamicPrice: false
 
-    readonly property var addedGridFee: thing ? thing.paramByName("addedGridFee").value : undefined
-    readonly property var addedLevies: thing ? thing.paramByName("addedLevies").value : undefined
 
     onThingChanged: {
         updateChart();
@@ -41,6 +37,7 @@ Item {
         averagePrice = thing.stateByName("averageTotalCost").value.toFixed(2);
         consumptionSeries.insertEntry(thing)
         valueAxis.adjustMax((Math.ceil(lowestPrice)),highestPrice);
+        timer.restartTimer();
     }
 
     QtObject {
@@ -256,7 +253,16 @@ Item {
                         id: pricingUpperSeries
                     }
 
+                    function clearSeries() {
+                        pricingLowerSeries.clear();
+                        pricingUpperSeries.clear();
+                        pricingUpperSeriesAbove.clear();
+                        pricingLowerSeriesAbove.clear();
+                    }
+
                     function insertEntry(thing){
+                        clearSeries();
+
                         // Extract the series from the thing
                         var value = thing.stateByName("totalCostSeries").value;
                         var gridFeeSeries = thing.stateByName("gridFeeSeries").value;
@@ -383,7 +389,7 @@ Item {
                 }
 
                 Timer {
-                    id: currentValueTimer
+                    id: timer
                     property bool isOn: false
                     interval: isOn ? 60000 : 100
                     running: true
@@ -400,6 +406,11 @@ Item {
                         currentTime.setTime(currentTime.getTime() - (15 * 60 * 1000));
 
                         currentValuePoint.append(currentTime.getTime(), currentPrice);
+                    }
+
+                    function restartTimer() {
+                        isOn = false;
+                        start();
                     }
                 }
 

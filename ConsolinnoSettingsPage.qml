@@ -14,11 +14,6 @@ Page {
         onBackPressed: pageStack.pop()
     }
 
-    HemsManager{
-        id: hemsManager
-        engine: _engine
-    }
-
     Flickable {
         anchors.fill: parent
         contentHeight: layout.implicitHeight + app.margins
@@ -30,25 +25,29 @@ Page {
                 left: parent.left;
                 top: parent.top;
                 right: parent.right;
-                margins: 8 // #TODO use values from new style
+                topMargin: Style.smallMargins
+                bottomMargin: Style.smallMargins
+                leftMargin: Style.margins
+                rightMargin: Style.margins
             }
-            spacing: 16 // #TODO use values from new style
+            spacing: Style.margins
 
             CoFrostyCard {
                 Layout.fillWidth: true
+                contentTopMargin: 8
                 headerText: qsTr("Configuration")
 
                 ColumnLayout {
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    anchors.topMargin: 8 // #TODO use values from new style
-                    anchors.bottomMargin: 8 // #TODO use values from new style
+                    anchors.topMargin: Style.smallMargins
+                    anchors.bottomMargin: Style.smallMargins
                     spacing: 0
 
                     CoCard {
                         Layout.fillWidth: true
                         text: qsTr("Optimization configuration")
-                        helpText: qsTr("Optimize devices and system behavior")
+                        helpText: qsTr("Optimize devices and system behavior.")
                         iconLeft: "/icons/tune.svg"
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("mainviews/OptimizationConfiguration.qml"),
@@ -110,17 +109,18 @@ Page {
 
             CoFrostyCard {
                 Layout.fillWidth: true
+                contentTopMargin: 8
                 headerText: qsTr("App settings")
 
                 ColumnLayout {
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    spacing: 0 // #TODO use value from new style
+                    spacing: 0
 
                     CoCard {
                         Layout.fillWidth: true
                         text: qsTr("Look & feel")
-                        helpText: qsTr("Customize the app's look and behavior")
+                        helpText: qsTr("Customize the app’s look and behavior.")
                         iconLeft: "/icons/style.svg"
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("appsettings/ConsolinnoLookAndFeelSettingsPage.qml"))
@@ -129,7 +129,7 @@ Page {
                     CoCard {
                         Layout.fillWidth: true
                         text: qsTr("Developer options")
-                        helpText: qsTr("Access tools for debugging and error reporting")
+                        helpText: qsTr("Access tools for debugging and error reporting.")
                         iconLeft: "/icons/logo_dev.svg"
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("appsettings/DeveloperOptionsPage.qml"))
@@ -138,7 +138,7 @@ Page {
                     CoCard {
                         Layout.fillWidth: true
                         text: qsTr("About %1").arg(Configuration.appName)
-                        helpText: qsTr("Find app versions and licence information")
+                        helpText: qsTr("Find app versions and licence information.")
                         iconLeft: "/icons/info.svg"
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("appsettings/AboutPage.qml"))
@@ -148,28 +148,32 @@ Page {
 
             CoFrostyCard {
                 Layout.fillWidth: true
+                contentTopMargin: 8
                 headerText: qsTr("System settings")
 
                 ColumnLayout {
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    spacing: 0 // #TODO use value from new style
+                    spacing: 0
 
                     CoCard {
                         Layout.fillWidth: true
                         iconLeft: "/icons/build.svg"
                         text: qsTr("General")
-                        helpText: qsTr("Change system name and time zone")
+                        helpText: qsTr("Change system name and time zone.")
                         showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
-                        onClicked: pageStack.push(Qt.resolvedUrl("system/GeneralSettingsPage.qml"))
+                        onClicked: pageStack.push(Qt.resolvedUrl("system/GeneralSettingsPage.qml"),
+                                                  {
+                                                      "hemsManager": hemsManager
+                                                  })
                     }
 
                     CoCard {
                         Layout.fillWidth: true
                         iconLeft: "/icons/account_circle.svg"
                         text: qsTr("User settings")
-                        helpText: qsTr("Configure who can log in")
+                        helpText: qsTr("Configure who can log in.")
                         showChildrenIndicator: true
                         visible: engine.jsonRpcClient.ensureServerVersion("4.2")
                                  && engine.jsonRpcClient.authenticated
@@ -180,7 +184,7 @@ Page {
                         Layout.fillWidth: true
                         iconLeft: "/icons/android_wifi_3_bar.svg"
                         text: qsTr("Networking")
-                        helpText: qsTr("Configure the system's network connection")
+                        helpText: qsTr("Configure the system’s network connection.")
                         showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
                                  && Configuration.networkSettingsEnabled
@@ -191,7 +195,7 @@ Page {
                         Layout.fillWidth: true
                         iconLeft: "/icons/network_manage.svg"
                         text: qsTr("Connection settings")
-                        helpText: qsTr("Configure how applications can connect to this system")
+                        helpText: qsTr("Configure how applications can connect to this system.")
                         showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
                                  && Configuration.apiSettingsEnabled
@@ -202,7 +206,7 @@ Page {
                         Layout.fillWidth: true
                         iconLeft: "/icons/flowchart.svg"
                         text: qsTr("Modbus RTU")
-                        helpText: qsTr("Configure Modbus RTU master interfaces")
+                        helpText: qsTr("Configure Modbus RTU master interfaces.")
                         showChildrenIndicator: true
                         visible: engine.jsonRpcClient.ensureServerVersion("5.6") &&
                                  NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
@@ -213,7 +217,7 @@ Page {
                         Layout.fillWidth: true
                         iconLeft: "/icons/extension.svg"
                         text: qsTr("Plugins")
-                        helpText: qsTr("List and cofigure installed plugins")
+                        helpText: qsTr("List and cofigure installed plugins.")
                         showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
                                  Configuration.pluginSettingsEnabled
@@ -224,7 +228,7 @@ Page {
                         Layout.fillWidth: true
                         iconLeft: "/icons/receipt_long.svg"
                         text: qsTr("Log viewer")
-                        helpText: qsTr("View system log")
+                        helpText: qsTr("View system log.")
                         showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
                         onClicked: {
@@ -240,7 +244,7 @@ Page {
                         Layout.fillWidth: true
                         iconLeft: "/icons/info.svg"
                         text: qsTr("About %1").arg(Configuration.systemName)
-                        helpText: qsTr("Find server UUID and versions")
+                        helpText: qsTr("Find server UUID and versions.")
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("system/AboutNymeaPage.qml"))
                     }
@@ -249,6 +253,7 @@ Page {
 
             CoFrostyCard {
                 Layout.fillWidth: true
+                contentTopMargin: 8
                 headerText: qsTr("Developer settings")
                 visible: webServerCard.visible ||
                          zigbeeCard.visible ||
@@ -259,14 +264,14 @@ Page {
                 ColumnLayout {
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    spacing: 0 // #TODO use value from new style
+                    spacing: 0
 
                     CoCard {
                         id: webServerCard
                         Layout.fillWidth: true
                         iconLeft: "/icons/language.svg"
                         text: qsTr("Web server")
-                        helpText: qsTr("Configure the web server")
+                        helpText: qsTr("Configure the web server.")
                         showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
                                  Configuration.webServerSettingsEnabled &&
@@ -279,7 +284,7 @@ Page {
                         Layout.fillWidth: true
                         iconLeft: "/icons/zigbee.svg"
                         text: qsTr("ZigBee")
-                        helpText: qsTr("Configure ZigBee networks")
+                        helpText: qsTr("Configure ZigBee networks.")
                         showChildrenIndicator: true
                         visible: engine.jsonRpcClient.ensureServerVersion("5.3") &&
                                  NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
@@ -292,7 +297,7 @@ Page {
                         Layout.fillWidth: true
                         iconLeft: "/icons/z-wave.svg"
                         text: qsTr("Z-Wave")
-                        helpText: qsTr("Configure Z-Wave networks")
+                        helpText: qsTr("Configure Z-Wave networks.")
                         showChildrenIndicator: true
                         visible: engine.jsonRpcClient.ensureServerVersion("6.1") &&
                                  NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
@@ -305,7 +310,7 @@ Page {
                         Layout.fillWidth: true
                         iconLeft: "/icons/Mqtt.svg"
                         text: qsTr("MQTT broker")
-                        helpText: qsTr("Configure the MQTT broker")
+                        helpText: qsTr("Configure the MQTT broker.")
                         showChildrenIndicator: true
                         visible: engine.jsonRpcClient.ensureServerVersion("1.11") &&
                                  NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
@@ -318,7 +323,7 @@ Page {
                         Layout.fillWidth: true
                         iconLeft: "/icons/build.svg"
                         text: qsTr("Developer tools")
-                        helpText: qsTr("Access tools for debugging and error reporting")
+                        helpText: qsTr("Access tools for debugging and error reporting.")
                         showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
                                  Configuration.developerSettingsEnabled

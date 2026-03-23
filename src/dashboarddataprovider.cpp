@@ -399,6 +399,16 @@ void DashboardDataProvider::setupConsumersStats()
         connect(currentPowerState, &State::valueChanged, this, [this, consumer, currentPowerState]() {
             updateConsumerCurrentPower(consumer, currentPowerState);
         });
+
+        // Also connect to hidden state changes for hideable consumers to recalculate totals
+        if (consumer->thingClass()->interfaces().contains("hideable")) {
+            State *hiddenState = consumer->stateByName("hidden");
+            if (hiddenState) {
+                connect(hiddenState, &State::valueChanged, this, [this]() {
+                    updateCurrentPowerConsumption();
+                });
+            }
+        }
     }
 }
 
@@ -408,6 +418,16 @@ void DashboardDataProvider::updateCurrentPowerConsumption()
     for (auto it = m_consumerCurrentPowers.constBegin();
          it != m_consumerCurrentPowers.constEnd();
          ++it) {
+        Thing *consumer = it.key();
+
+        // Skip consumers that have the "hideable" interface and are hidden
+        if (consumer->thingClass()->interfaces().contains("hideable")) {
+            State *hiddenState = consumer->stateByName("hidden");
+            if (hiddenState && hiddenState->value().toBool() == true) {
+                continue;
+            }
+        }
+
         totalMeasuredConsumerPowerDouble += it.value();
     }
 
@@ -495,8 +515,6 @@ void DashboardDataProvider::updateEnergyFlow()
     // The system of linear equations (4 power values given, 6 flow values to be determined) is underdetermined
     // in the general case but we can apply restrictions to solve all cases which can happen realistically.
     // This is done in the code below.
-
-    // #TODO make m_currentPower* values int instead of double
 
     auto flowSolarToGrid = 0;
     auto flowSolarToBattery = 0;
@@ -635,8 +653,8 @@ void DashboardDataProvider::fetchEnergyKPIs()
         return;
     }
 
-    if (!m_engine->jsonRpcClient()->connected()) {
-        qCDebug(dcDashboardDataProvider()) << "Cannot fetch Energy KPIs: not connected.";
+    if (!m_engine->jsonRpcClient()->authenticated()) {
+        qCDebug(dcDashboardDataProvider()) << "Cannot fetch Energy KPIs: not authenticated.";
         return;
     }
 
@@ -668,7 +686,12 @@ void DashboardDataProvider::getEnergyKPIsResponse(int commandId, const QVariantM
 
     // Guard: if the expected fields are missing, don't update
     if (!data.contains("selfSufficiencyRate") || !data.contains("selfConsumptionRate")) {
-        qCWarning(dcDashboardDataProvider()) << "Energy KPIs response missing expected fields. Keys:" << data.keys();
+        if (data.isEmpty()) {
+            // Empty response means "No such method" — backend does not support this API yet (version mismatch)
+            qCDebug(dcDashboardDataProvider()) << "Energy KPIs not supported by this backend (empty response).";
+        } else {
+            qCWarning(dcDashboardDataProvider()) << "Energy KPIs response missing expected fields. Keys:" << data.keys();
+        }
         return;
     }
 

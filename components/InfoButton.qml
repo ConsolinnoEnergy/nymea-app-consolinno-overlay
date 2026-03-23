@@ -13,10 +13,11 @@ import "../delegates"
 Item {
     property var push
     property var stack
+    implicitWidth: 18
+    implicitHeight: 18
     Image{
         id: infoImage
-        sourceSize.width: 18
-        sourceSize.height: 18
+        anchors.fill: parent
         source: "/icons/info.svg"
         MouseArea{
             anchors.fill: parent
