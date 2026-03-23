@@ -235,13 +235,21 @@ MainViewBase {
                     gradient: Gradient {
                         GradientStop{
                             position: 0.0
-                            color: adjustAlpha(baseColor, 0.5)
-                            property color baseColor: Style.colors.components_Dashboard_Background_gradient_top
+                            color: Qt.rgba(
+                                Style.colors.components_Dashboard_Background_gradient_top.r,
+                                Style.colors.components_Dashboard_Background_gradient_top.g,
+                                Style.colors.components_Dashboard_Background_gradient_top.b,
+                                Style.colors.components_Dashboard_Background_gradient_top.a * 0.5
+                            )
                         }
                         GradientStop{
                             position: 1.0
-                            color: adjustAlpha(baseColor, 0.5)
-                            property color baseColor: Style.colors.components_Dashboard_Background_gradient_bottom
+                            color: Qt.rgba(
+                                Style.colors.components_Dashboard_Background_gradient_bottom.r,
+                                Style.colors.components_Dashboard_Background_gradient_bottom.g,
+                                Style.colors.components_Dashboard_Background_gradient_bottom.b,
+                                Style.colors.components_Dashboard_Background_gradient_bottom.a * 0.5
+                            )
                         }
                     }
                 }
