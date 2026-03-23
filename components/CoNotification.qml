@@ -11,13 +11,18 @@ Item {
         Danger
     }
 
+    enum ActionType {
+        None,
+        Dismissable,
+        Collapsible
+    }
+
     required property int type
+    property int actionType: CoNotification.ActionType.None
     property alias title: titleText.text
     property alias message: messageText.text
     property alias messageTextFormat: messageText.textFormat
-    property bool dismissable: false
     property bool clickable: false
-    property bool collapsible: false
     property bool collapsed: false
 
     signal dismiss()
@@ -61,87 +66,40 @@ Item {
         border.color: root.accentColor()
     }
 
-    MouseArea {
-        id: mouseAreaClick
-        anchors.fill: parent
-        onClicked: {
-            if (root.clickable) {
-                root.clicked()
-            }
-        }
+    TapHandler {
+        enabled: root.clickable
+        onTapped: root.clicked()
     }
 
-    Row {
-        id: buttonRow
-        anchors {
-            top: parent.top
-            right: parent.right
-            topMargin: 11
-            rightMargin: 11
-        }
-        spacing: 6
-        layoutDirection: Qt.RightToLeft
+    ColumnLayout {
+        id: layout
+        anchors.fill: parent
+        anchors.margins: Style.smallMargins
+        spacing: 0
 
-        ColorIcon {
-            id: closeButton
-            visible: root.dismissable
-            size: 20
-            color: root.accentColor()
-            name: Qt.resolvedUrl("qrc:/icons/close.svg")
+        // ── Title row: [TypeIcon] [Title] [ActionButton] ──────────
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: Style.smallMargins
 
-            MouseArea {
-                id: mouseAreaDismiss
-                anchors.fill: parent
-                onClicked: {
-                    if (root.dismissable) {
-                        root.dismiss()
+            ColorIcon {
+                id: typeIcon
+                Layout.alignment: Qt.AlignVCenter
+                size: 24
+                color: root.accentColor()
+                name: {
+                    if (root.type === CoNotification.Type.Information) {
+                        return Qt.resolvedUrl("qrc:/icons/check.svg")
+                    } else if (root.type === CoNotification.Type.Warning) {
+                        return Qt.resolvedUrl("qrc:/icons/error.svg")
+                    } else if (root.type === CoNotification.Type.Danger) {
+                        return Qt.resolvedUrl("qrc:/icons/warning.svg")
+                    } else {
+                        console.warn("CoNotification: unknown type:", root.type);
+                        return Qt.resolvedUrl("qrc:/icons/error.svg")
                     }
                 }
             }
-        }
-
-        ColorIcon {
-            id: collapseButton
-            visible: root.collapsible
-            size: 24
-            color: root.accentColor()
-            name: root.collapsed
-                  ? Qt.resolvedUrl("qrc:/icons/keyboard_arrow_down.svg")
-                  : Qt.resolvedUrl("qrc:/icons/keyboard_arrow_up.svg")
-
-        }
-    }
-
-    RowLayout {
-        id: layout
-        anchors.fill: parent
-        anchors.topMargin: Style.smallMargins
-        anchors.bottomMargin: Style.smallMargins
-        anchors.leftMargin: Style.smallMargins
-        anchors.rightMargin: Style.smallMargins
-        spacing: Style.smallMargins
-
-        ColorIcon {
-            Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
-            size: 24
-            color: root.accentColor()
-            name: {
-                if (root.type === CoNotification.Type.Information) {
-                    return Qt.resolvedUrl("qrc:/icons/check.svg")
-                } else if (root.type === CoNotification.Type.Warning) {
-                    return Qt.resolvedUrl("qrc:/icons/error.svg")
-                } else if (root.type === CoNotification.Type.Danger) {
-                    return Qt.resolvedUrl("qrc:/icons/warning.svg")
-                } else {
-                    console.warn("CoNotification: unknown type:", root.type);
-                    return Qt.resolvedUrl("qrc:/icons/error.svg")
-                }
-            }
-        }
-
-        ColumnLayout {
-            Layout.fillWidth: true
-            spacing: 0
 
             Text {
                 id: titleText
@@ -152,15 +110,47 @@ Item {
                 font: Style.newH3Font
                 color: root.accentColor()
 
-                MouseArea {
-                    id: mouseAreaCollapse
-                    anchors.fill: parent
-                    enabled: root.collapsible
-                    propagateComposedEvents: !root.collapsible
-                    onClicked: root.collapsed = !root.collapsed
+                TapHandler {
+                    enabled: root.actionType === CoNotification.ActionType.Collapsible
+                    onTapped: root.collapsed = !root.collapsed
                 }
             }
 
+            ColorIcon {
+                id: actionButton
+                Layout.alignment: Qt.AlignVCenter
+                visible: root.actionType !== CoNotification.ActionType.None
+                size: 20
+                color: root.accentColor()
+                name: root.actionType === CoNotification.ActionType.Collapsible
+                      ? (root.collapsed
+                         ? Qt.resolvedUrl("qrc:/icons/keyboard_arrow_down.svg")
+                         : Qt.resolvedUrl("qrc:/icons/keyboard_arrow_up.svg"))
+                      : Qt.resolvedUrl("qrc:/icons/close.svg")
+
+                TapHandler {
+                    onTapped: {
+                        if (root.actionType === CoNotification.ActionType.Dismissable) {
+                            root.dismiss()
+                        } else if (root.actionType === CoNotification.ActionType.Collapsible) {
+                            root.collapsed = !root.collapsed
+                        }
+                    }
+                }
+            }
+        }
+
+        // ── Message row: [spacer] [message] [spacer?] ─────────────
+        // Right spacer only shown when actionButton is visible,
+        // so messageText stays aligned with titleText in both cases.
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: Style.smallMargins
+
+            Item {
+                Layout.preferredWidth: typeIcon.size
+                Layout.preferredHeight: 1
+            }
 
             Item {
                 Layout.fillWidth: true
@@ -183,6 +173,12 @@ Item {
                         Qt.openUrlExternally(link)
                     }
                 }
+            }
+
+            Item {
+                Layout.preferredWidth: actionButton.size
+                Layout.preferredHeight: 1
+                visible: root.actionType !== CoNotification.ActionType.None
             }
         }
     }
