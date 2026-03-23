@@ -1,9 +1,9 @@
 import QtCore
-import QtQuick 2.15
-import QtQuick.Controls 2.1
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.2
-import QtCharts 2.3
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
+import QtCharts
 import Nymea 1.0
 import NymeaApp.Utils 1.0
 import Qt5Compat.GraphicalEffects

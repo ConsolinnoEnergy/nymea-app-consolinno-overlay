@@ -5,7 +5,7 @@ import QtQuick.Layouts
 import Nymea 1.0
 import "../components"
 import "../delegates"
-import QtQml 2.15
+import QtQml
 
 
 Page {
