@@ -281,7 +281,7 @@ MainViewBase {
                         Layout.fillWidth: true
                         visible: !hemsVersionOk()
                         type: CoNotification.Type.Warning
-                        collapsible: true
+                        actionType: CoNotification.ActionType.Collapsible
                         title: qsTr("Pending software update")
                         collapsed: false
                         message: qsTr('
@@ -336,15 +336,16 @@ MainViewBase {
                     CoNotification {
                         id: releaseNotes
                         Layout.fillWidth: true
-                        visible: shownPopupsSetting.shown.indexOf(appVersion) === -1
+                        property bool dismissed: false
+                        visible: !dismissed && shownPopupsSetting.shown.indexOf(appVersion) === -1
                         type: CoNotification.Type.Information
-                        dismissable: true
+                        actionType: CoNotification.ActionType.Dismissable
                         title: qsTr("The app has been updated.")
                         message: qsTr('CHANGENOTIFICATION_PLACEHOLDER')
                         messageTextFormat: Text.RichText
 
                         onDismiss: {
-                            console.debug("shonwPopupsSetting.shown: ", shownPopupsSetting.shown, appVersion)
+                            dismissed = true
                             var shownPopups = shownPopupsSetting.shown
                             shownPopups.push(appVersion)
                             shownPopupsSetting.shown = shownPopups
