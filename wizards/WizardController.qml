@@ -7,10 +7,10 @@
  * Required properties: hemsManager
  */
 
+import QtCore
 import QtQuick
 import QtQuick.Controls
 import Nymea 1.0
-import Qt.labs.settings
 
 Item {
     id: root
