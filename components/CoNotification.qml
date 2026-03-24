@@ -84,7 +84,7 @@ Item {
 
             ColorIcon {
                 id: typeIcon
-                Layout.alignment: Qt.AlignVCenter
+                Layout.alignment: Qt.AlignTop
                 size: 24
                 color: root.accentColor()
                 name: {
@@ -118,7 +118,7 @@ Item {
 
             ColorIcon {
                 id: actionButton
-                Layout.alignment: Qt.AlignVCenter
+                Layout.alignment: Qt.AlignTop
                 visible: root.actionType !== CoNotification.ActionType.None
                 size: 20
                 color: root.accentColor()
