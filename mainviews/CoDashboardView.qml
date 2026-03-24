@@ -159,7 +159,20 @@ MainViewBase {
     Settings {
         id: shownPopupsSetting
         category: "shownPopups"
-        property var shown: []
+        property string shownVersions: "[]"
+
+        function getShownVersions() {
+            try { return JSON.parse(shownVersions); } catch(e) { return []; }
+        }
+        function addVersion(version) {
+            var list = getShownVersions();
+            list.push(version);
+            console.log("Adding version to shown popups:", version, "List after adding:", list);
+            shownVersions = JSON.stringify(list);
+        }
+        function hasVersion(version) {
+            return getShownVersions().indexOf(version) !== -1;
+        }
     }
 
     Settings {
@@ -337,7 +350,7 @@ MainViewBase {
                         id: releaseNotes
                         Layout.fillWidth: true
                         property bool dismissed: false
-                        visible: !dismissed && shownPopupsSetting.shown.indexOf(appVersion) === -1
+                        visible: !dismissed && !shownPopupsSetting.hasVersion(appVersion)
                         type: CoNotification.Type.Information
                         actionType: CoNotification.ActionType.Dismissable
                         title: qsTr("The app has been updated.")
@@ -346,9 +359,7 @@ MainViewBase {
 
                         onDismiss: {
                             dismissed = true
-                            var shownPopups = shownPopupsSetting.shown
-                            shownPopups.push(appVersion)
-                            shownPopupsSetting.shown = shownPopups
+                            shownPopupsSetting.addVersion(appVersion)
                         }
                     }
 
