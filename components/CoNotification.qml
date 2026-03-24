@@ -84,7 +84,7 @@ Item {
 
             ColorIcon {
                 id: typeIcon
-                Layout.alignment: Qt.AlignVCenter
+                Layout.alignment: Qt.AlignTop
                 size: 24
                 color: root.accentColor()
                 name: {
@@ -104,8 +104,7 @@ Item {
             Text {
                 id: titleText
                 Layout.fillWidth: true
-                Layout.preferredHeight: font.pixelSize + Style.smallMargins
-                verticalAlignment: Text.AlignVCenter
+                verticalAlignment: Text.AlignTop
                 wrapMode: Text.WordWrap
                 font: Style.newH3Font
                 color: root.accentColor()
@@ -118,7 +117,7 @@ Item {
 
             ColorIcon {
                 id: actionButton
-                Layout.alignment: Qt.AlignVCenter
+                Layout.alignment: Qt.AlignTop
                 visible: root.actionType !== CoNotification.ActionType.None
                 size: 20
                 color: root.accentColor()
