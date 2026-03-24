@@ -916,7 +916,8 @@
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;p&gt;Version 2.0.5&lt;/p&gt;
+        <translation>&lt;style&gt;ul { -qt-list-indent: 1; margin-left: -30px; }&lt;/style&gt;
+&lt;p&gt;Version 2.0.5&lt;/p&gt;
 &lt;h4&gt;Redesign&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;The app is becoming more modern: the new design will be rolled out step by step&lt;/li&gt;
