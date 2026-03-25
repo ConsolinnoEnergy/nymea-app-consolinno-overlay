@@ -32,7 +32,7 @@ Page {
 
     Connections {
         target: engine.thingManager
-        onRemoveThingReply: {
+        onRemoveThingReply: function(commandId, thingError, ruleIds) {
             if (!d.thingToRemove) {
                 return;
             }

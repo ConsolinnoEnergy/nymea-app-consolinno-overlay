@@ -78,7 +78,7 @@ Page {
 
     Connections {
         target: engine.thingManager
-        onAddThingReply: {
+        onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
             busyOverlay.shown = false;
             var thing = engine.thingManager.things.getThing(thingId)
             pageStack.push(setupHeatingElementComponent, {thingError: thingError, thing: thing, message: displayMessage})
@@ -579,7 +579,7 @@ Page {
 
             Connections {
                 target: engine.thingManager
-                onAddThingReply: {
+                onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
                     root.countChanged()
                     if (commandId === setupHeatingElementPage.pendingCallId) {
 

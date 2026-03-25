@@ -51,7 +51,7 @@ StackView {
 
     Connections {
         target: engine.thingManager
-        onAddThingReply: {
+        onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
             eeBusThing = engine.thingManager.things.getThing(thingId)
         }
     }

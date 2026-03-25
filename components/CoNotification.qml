@@ -168,7 +168,7 @@ Item {
                     font: Style.newParagraphFont
                     color: root.accentColor()
 
-                    onLinkActivated: {
+                    onLinkActivated: function(link) {
                         Qt.openUrlExternally(link)
                     }
                 }

@@ -87,7 +87,7 @@ Item {
             }
         }
 
-        onEntriesRemoved: {
+        onEntriesRemoved: function(index, count) {
             acquisitionUpperSeries.removePoints(index, count)
             storageUpperSeries.removePoints(index, count)
             selfConsumptionUpperSeries.removePoints(index, count)
@@ -135,7 +135,7 @@ Item {
                     range: 43200 // 30 Days: 30 * 24 * 60
                 }
             }
-            onTabSelected: {
+            onTabSelected: function(index) {
                 d.now = new Date()
                 powerBalanceLogs.fetchLogs()
             }

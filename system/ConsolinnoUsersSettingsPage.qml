@@ -13,7 +13,7 @@ SettingsPageBase {
         id: userManager
         engine: _engine
 
-        onChangePasswordReply: {
+        onChangePasswordReply: function(id, error) {
             if (error !== UserManager.UserErrorNoError) {
                 var component = Qt.createComponent("../components/ErrorDialog.qml")
                 var text;
@@ -410,7 +410,7 @@ SettingsPageBase {
 
             Connections {
                 target: userManager
-                onRemoveUserReply: {
+                onRemoveUserReply: function(id, error) {
                     userDetailsPage.busy = false
                     if (error !== UserManager.UserErrorNoError) {
                         var component = Qt.createComponent("../components/ErrorDialog.qml")
@@ -498,7 +498,7 @@ SettingsPageBase {
 
             Connections {
                 target: userManager
-                onCreateUserReply: {
+                onCreateUserReply: function(id, error) {
                     createUserPage.busy = false
                     if (error !== UserManager.UserErrorNoError) {
                         var component = Qt.createComponent("../components/ErrorDialog.qml")

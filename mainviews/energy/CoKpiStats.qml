@@ -108,7 +108,7 @@ StatsBase {
                 ListElement { modelData: qsTr("Months"); config: "months" }
                 ListElement { modelData: qsTr("Years"); config: "years" }
             }
-            onTabSelected: {
+            onTabSelected: function(index) {
                 d.startOffset = 0
             }
         }

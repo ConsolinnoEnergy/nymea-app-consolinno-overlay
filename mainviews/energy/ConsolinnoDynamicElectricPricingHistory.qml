@@ -108,7 +108,7 @@ Item {
                 }
             }
 
-            onTabSelected: {
+            onTabSelected: function(index) {
                 d.now = new Date();
 
                 let arrLength = 192;

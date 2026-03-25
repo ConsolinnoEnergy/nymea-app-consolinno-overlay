@@ -86,7 +86,7 @@ Page {
 
     Connections {
         target: engine.thingManager
-        onAddThingReply: {
+        onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
 
             busyOverlay.shown = false;
             var thing = engine.thingManager.things.getThing(thingId)
@@ -763,7 +763,7 @@ Page {
 
             Connections {
                 target: engine.thingManager
-                onAddThingReply: {
+                onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
                     root.countChanged()
                     if (commandId == setupHeatPumpPage.pendingCallId) {
 
