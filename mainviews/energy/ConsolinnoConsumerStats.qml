@@ -162,6 +162,9 @@ StatsBase {
                 barSet.opacity = d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? 1 : 0.3
 
                 barSet.color = Qt.binding(function() {
+                    if (consumerDelegate.thing == null) {
+                        return consumerColors[index];
+                    }
                     let consumerThingClass = consumerDelegate.thing.thingClass.interfaces;
                     var col = "";
 
@@ -555,6 +558,9 @@ StatsBase {
                                     for (var i = 0; i < consumersRepeater.count; i++) {
                                         var consumerDelegate = consumersRepeater.itemAt(i)
                                         var consumer = consumerDelegate.thing
+                                        if (!consumer) {
+                                            continue;
+                                        }
                                         var entry = {
                                             consumer: consumer,
                                             value: consumersRepeater.itemAt(i).barSet.at(toolTip.idx).toFixed(2),
