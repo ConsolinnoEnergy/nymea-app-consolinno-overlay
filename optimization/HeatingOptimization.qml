@@ -10,7 +10,6 @@ import QtQml 2.15
 
 Page {
     id: root
-    property HemsManager hemsManager
     property HeatingConfiguration heatingConfiguration
     property Thing heatPumpThing
     property int directionID: 0

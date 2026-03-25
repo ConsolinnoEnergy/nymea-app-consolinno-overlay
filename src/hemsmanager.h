@@ -184,6 +184,8 @@ private:
     DynamicElectricPricingConfigurations *m_dynamicElectricPricingConfigurations = nullptr;
     BatteryConfigurations *m_batteryConfigurations = nullptr;
 
+    void initJsonRpcCommunication();
+
     void addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateChargingConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateChargingOptimizationConfiguration(const QVariantMap &configurationMap);

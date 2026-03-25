@@ -12,8 +12,6 @@ import "../delegates"
 Page {
     id: root
 
-    property HemsManager hemsManager
-
     header: NymeaHeader {
         text: qsTr("Battery")
         backButtonVisible: true
@@ -40,7 +38,7 @@ Page {
                 iconName: Qt.resolvedUrl("/icons/battery/battery-060.svg")
                 progressive: true
                 text: thing.name
-                onClicked: pageStack.push("BatteryOptimization.qml", { hemsManager: hemsManager, thing: thing, batteryConfiguration:batteryConfiguration })
+                onClicked: pageStack.push("BatteryOptimization.qml", { thing: thing, batteryConfiguration:batteryConfiguration })
 
 
                 Image {
