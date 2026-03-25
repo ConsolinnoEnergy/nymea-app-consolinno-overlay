@@ -49,7 +49,6 @@ Item {
                 horizontalRadius: parent.width - 2 * parent.padding
                 verticalRadius: parent.height - 2 * parent.padding
                 gradient: Gradient {
-//                    property double gradientWidth: 0.01 + 0.09 * (Math.min(Math.abs(root.power), 5000) / 5000)
                     GradientStop{ position: 0.5; color: "transparent" }
                     GradientStop{ position: 0.5001; color: background.gradientColor }
                     GradientStop{ position: 0.53 + 0.07 * (Math.min(Math.abs(root.power), 5000) / 5000); color: "transparent" }
@@ -73,7 +72,6 @@ Item {
                 anchors.fill: parent
                 visible: !root.idle
                 gradient: Gradient {
-//                    property double gradientWidth: 0.01 + 0.19 * (Math.min(Math.abs(root.power), 5000) / 5000)
                     GradientStop{ position: 0.5; color: "transparent" }
                     GradientStop{ position: 0.4999; color: background.gradientColor }
                     GradientStop{ position: 0.47 - 0.17 * (Math.min(Math.abs(root.power), 5000) / 5000); color: Style.colors.typography_Background_Default }
