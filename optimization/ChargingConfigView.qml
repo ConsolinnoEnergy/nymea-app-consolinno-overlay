@@ -146,7 +146,7 @@ GenericConfigPage {
     // Connections to update the ChargingSessionConfiguration  and the ChargingConfiguration values
     Connections {
         target: hemsManager
-        onConEMSOperatingStateChanged: {
+        onConEMSOperatingStateChanged: function(state) {
             if (conState.currentState.operating_state === 1) // RUNNING
             {
                 busyOverlay.shown = false

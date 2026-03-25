@@ -22,20 +22,20 @@ Page {
 
     Connections {
         target: powerBalanceLogs
-        onEntriesAdded: {
+        onEntriesAdded: function(index, entries) {
             for (var i = 0; i < entries.length; i++) {
                 var entry = entries[i]
                 forecastChart.addEntry(entry)
             }
         }
-        onEntriesRemoved: {
+        onEntriesRemoved: function(index, count) {
             productionUpperSeries.removePoints(index, count)
         }
     }
 
     Connections {
         target: hemsManager
-        onConEMSStateChanged: {
+        onConEMSStateChanged: function(state) {
             formattedJSON.text = JSON.stringify(conState, undefined, 4)
         }
     }

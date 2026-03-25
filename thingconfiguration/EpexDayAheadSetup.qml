@@ -108,11 +108,11 @@ Page {
 
     Connections {
         target: engine.thingManager
-        onAddThingReply: {
+        onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
             busyOverlay.shown = false;
             internalPageStack.push(resultsPage, {thingError: thingError, thingId: thingId, message: displayMessage})
         }
-        onReconfigureThingReply: {
+        onReconfigureThingReply: function(commandId, thingError, displayMessage) {
             busyOverlay.shown = false;
             internalPageStack.push(resultsPage, {thingError: thingError, thingId: root.thing.id, message: displayMessage})
         }

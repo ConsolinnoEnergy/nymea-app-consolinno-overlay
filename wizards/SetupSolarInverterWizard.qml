@@ -97,7 +97,7 @@ Page {
     Connections {
         target: engine.thingManager
 
-        onAddThingReply: {
+        onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
 
             busyOverlay.shown = false;
             var thing = engine.thingManager.things.getThing(thingId)
@@ -106,12 +106,12 @@ Page {
 
         }
 
-        onConfirmPairingReply: {
+        onConfirmPairingReply: function(commandId, thingError, thingId, displayMessage) {
             busyOverlay.shown = false
             pageStack.push(resultsPage, {thingError: thingError, thingId: thingId, message: displayMessage})
         }
 
-        onPairThingReply: {
+        onPairThingReply: function(commandId, thingError, pairingTransactionId, setupMethod, displayMessage, oAuthUrl) {
             busyOverlay.shown = false
             if (thingError !== Thing.ThingErrorNoError) {
                 busyOverlay.shown = false;

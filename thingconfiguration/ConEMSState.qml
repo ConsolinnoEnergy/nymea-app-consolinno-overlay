@@ -51,7 +51,7 @@ Page {
 
     Connections {
         target: hemsManager
-        onConEMSStateChanged: {
+        onConEMSStateChanged: function(state) {
             opStatusValue.text = intToOperatingStateString(
                         conState.currentState.operating_state)
         }
