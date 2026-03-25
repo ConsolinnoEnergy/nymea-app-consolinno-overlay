@@ -42,7 +42,7 @@ Page {
     Connections {
         target: engine.thingManager
 
-        onThingAdded: {
+        onThingAdded: function(thing) {
             thingDevice = thing
         }
     }
