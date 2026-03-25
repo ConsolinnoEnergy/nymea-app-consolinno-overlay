@@ -318,6 +318,7 @@ Page {
                         "priceThreshold":        heatingConfiguration.priceThreshold,
                         "relativePriceEnabled":  heatingConfiguration.relativePriceEnabled,
                         "controllableLocalSystem": gridSupportControl.checked,
+                        "heatMeterThingId":      meterModel.get(heatMeterDropdown.currentIndex).thingId,
                         "optimizationMode":      optimizationModeMap.hasOwnProperty(currentValue)
                                                      ? optimizationModeMap[currentValue]
                                                      : "OptimizationModeOff"
