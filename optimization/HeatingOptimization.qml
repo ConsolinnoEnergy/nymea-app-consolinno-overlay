@@ -298,12 +298,6 @@ Page {
                 inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
                 if (savebutton.validated)
                 {
-                   
-                    const newConfig = JSON.parse(JSON.stringify(heatingConfiguration));
-                    newConfig.maxElectricalPower = +inputText;
-                    newConfig.controllableLocalSystem = gridSupportControl.checked;
-                    newConfig.heatMeterThingId = meterModel.get(heatMeterDropdown.currentIndex).thingId;
-
                     // TODO this is terrible fix the enum mapping properly
                     // We just want to keep the current value
                     // Mapping: number -> enum name
@@ -324,6 +318,7 @@ Page {
                         "priceThreshold":        heatingConfiguration.priceThreshold,
                         "relativePriceEnabled":  heatingConfiguration.relativePriceEnabled,
                         "controllableLocalSystem": gridSupportControl.checked,
+                        "heatMeterThingId":      meterModel.get(heatMeterDropdown.currentIndex).thingId,
                         "optimizationMode":      optimizationModeMap.hasOwnProperty(currentValue)
                                                      ? optimizationModeMap[currentValue]
                                                      : "OptimizationModeOff"
