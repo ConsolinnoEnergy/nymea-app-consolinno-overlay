@@ -3,6 +3,8 @@
 
 #include <QUuid>
 #include <QObject>
+#include <QVariant>
+#include <QList>
 
 class BatteryConfiguration : public QObject
 {
@@ -17,12 +19,17 @@ class BatteryConfiguration : public QObject
     Q_PROPERTY(bool avoidZeroFeedInEnabled READ avoidZeroFeedInEnabled WRITE setAvoidZeroFeedInEnabled NOTIFY avoidZeroFeedInEnabledChanged)
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
     Q_PROPERTY(int blockBatteryOnGridConsumption READ blockBatteryOnGridConsumption WRITE setBlockBatteryOnGridConsumption NOTIFY blockBatteryOnGridConsumptionChanged)
+    Q_PROPERTY(float maxElectricalPower READ maxElectricalPower WRITE setMaxElectricalPower NOTIFY maxElectricalPowerChanged)
+    Q_PROPERTY(QVariantList targetSocPvSurplus READ targetSocPvSurplus WRITE setTargetSocPvSurplus NOTIFY targetSocPvSurplusChanged)
 
-    // Self-consumption configuration parameters (new API)
-    Q_PROPERTY(bool selfConsumptionEnabled READ selfConsumptionEnabled WRITE setSelfConsumptionEnabled NOTIFY selfConsumptionEnabledChanged)
+    // Self-consumption configuration parameters (matching backend API)
     Q_PROPERTY(float selfConsumptionCapacity READ selfConsumptionCapacity WRITE setSelfConsumptionCapacity NOTIFY selfConsumptionCapacityChanged)
-    Q_PROPERTY(int targetSocPvSurplusMin READ targetSocPvSurplusMin WRITE setTargetSocPvSurplusMin NOTIFY targetSocPvSurplusMinChanged)
-    Q_PROPERTY(int targetSocPvSurplusMax READ targetSocPvSurplusMax WRITE setTargetSocPvSurplusMax NOTIFY targetSocPvSurplusMaxChanged)
+    Q_PROPERTY(int selfConsumptionSocFull READ selfConsumptionSocFull WRITE setSelfConsumptionSocFull NOTIFY selfConsumptionSocFullChanged)
+    Q_PROPERTY(int selfConsumptionSocEmpty READ selfConsumptionSocEmpty WRITE setSelfConsumptionSocEmpty NOTIFY selfConsumptionSocEmptyChanged)
+    Q_PROPERTY(int selfConsumptionSocTaper READ selfConsumptionSocTaper WRITE setSelfConsumptionSocTaper NOTIFY selfConsumptionSocTaperChanged)
+    Q_PROPERTY(int selfConsumptionMaxPower READ selfConsumptionMaxPower WRITE setSelfConsumptionMaxPower NOTIFY selfConsumptionMaxPowerChanged)
+    Q_PROPERTY(float selfConsumptionPriority READ selfConsumptionPriority WRITE setSelfConsumptionPriority NOTIFY selfConsumptionPriorityChanged)
+    Q_PROPERTY(int selfConsumptionRateLimit READ selfConsumptionRateLimit WRITE setSelfConsumptionRateLimit NOTIFY selfConsumptionRateLimitChanged)
 
 public:
 
@@ -75,18 +82,33 @@ public:
     int blockBatteryOnGridConsumption() const;
     void setBlockBatteryOnGridConsumption(int blockBatteryOnGridConsumption);
 
-    // Self-consumption configuration getters/setters
-    bool selfConsumptionEnabled() const;
-    void setSelfConsumptionEnabled(bool selfConsumptionEnabled);
+    float maxElectricalPower() const;
+    void setMaxElectricalPower(float maxElectricalPower);
 
+    QVariantList targetSocPvSurplus() const;
+    void setTargetSocPvSurplus(const QVariantList &targetSocPvSurplus);
+
+    // Self-consumption configuration getters/setters
     float selfConsumptionCapacity() const;
     void setSelfConsumptionCapacity(float selfConsumptionCapacity);
 
-    int targetSocPvSurplusMin() const;
-    void setTargetSocPvSurplusMin(int targetSocPvSurplusMin);
+    int selfConsumptionSocFull() const;
+    void setSelfConsumptionSocFull(int selfConsumptionSocFull);
 
-    int targetSocPvSurplusMax() const;
-    void setTargetSocPvSurplusMax(int targetSocPvSurplusMax);
+    int selfConsumptionSocEmpty() const;
+    void setSelfConsumptionSocEmpty(int selfConsumptionSocEmpty);
+
+    int selfConsumptionSocTaper() const;
+    void setSelfConsumptionSocTaper(int selfConsumptionSocTaper);
+
+    int selfConsumptionMaxPower() const;
+    void setSelfConsumptionMaxPower(int selfConsumptionMaxPower);
+
+    float selfConsumptionPriority() const;
+    void setSelfConsumptionPriority(float selfConsumptionPriority);
+
+    int selfConsumptionRateLimit() const;
+    void setSelfConsumptionRateLimit(int selfConsumptionRateLimit);
 
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
@@ -98,10 +120,15 @@ signals:
     void chargeOnceChanged(bool chargeOnce);
     void controllableLocalSystemChanged(bool controllableLocalSystem);
     void blockBatteryOnGridConsumptionChanged(int blockBatteryOnGridConsumption);
-    void selfConsumptionEnabledChanged(bool selfConsumptionEnabled);
+    void maxElectricalPowerChanged(float maxElectricalPower);
+    void targetSocPvSurplusChanged(const QVariantList &targetSocPvSurplus);
     void selfConsumptionCapacityChanged(float selfConsumptionCapacity);
-    void targetSocPvSurplusMinChanged(int targetSocPvSurplusMin);
-    void targetSocPvSurplusMaxChanged(int targetSocPvSurplusMax);
+    void selfConsumptionSocFullChanged(int selfConsumptionSocFull);
+    void selfConsumptionSocEmptyChanged(int selfConsumptionSocEmpty);
+    void selfConsumptionSocTaperChanged(int selfConsumptionSocTaper);
+    void selfConsumptionMaxPowerChanged(int selfConsumptionMaxPower);
+    void selfConsumptionPriorityChanged(float selfConsumptionPriority);
+    void selfConsumptionRateLimitChanged(int selfConsumptionRateLimit);
 
 private:
     QUuid m_batteryThingId;
@@ -114,12 +141,17 @@ private:
     bool m_avoidZeroFeedInEnabled = false;
     bool m_avoidZeroFeedInActive = false;
     int m_blockBatteryOnGridConsumption = EvCharger;
+    float m_maxElectricalPower = 0.0;
+    QVariantList m_targetSocPvSurplus = {QVariant(80)};
 
     // Self-consumption configuration member variables
-    bool m_selfConsumptionEnabled = false;
-    float m_selfConsumptionCapacity = -1.0;  // -1.0 = not configured sentinel
-    int m_targetSocPvSurplusMin = 20;
-    int m_targetSocPvSurplusMax = 80;
+    float m_selfConsumptionCapacity = -1.0;     // kWh, -1 = not configured
+    int m_selfConsumptionSocFull = 95;          // %
+    int m_selfConsumptionSocEmpty = 5;          // %
+    int m_selfConsumptionSocTaper = 5;          // %
+    int m_selfConsumptionMaxPower = 100000;     // W
+    float m_selfConsumptionPriority = 1.0;      // –
+    int m_selfConsumptionRateLimit = 0;         // W/s
 };
 
 #endif // BATTERYCONFIGURATION_H

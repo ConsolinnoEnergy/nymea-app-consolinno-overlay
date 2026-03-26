@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.2
 import Nymea 1.0
 import "../components"
 import "../delegates"
-
+import "../devicepages"
 
 Page {
     id: root
@@ -117,6 +117,128 @@ Page {
             }
         }
 
+        // Self-consumption Configuration Section
+        RowLayout {
+            Layout.fillWidth: true
+            Layout.topMargin: Style.margins * 2
+            visible: hemsManager.selfConsumptionSupported && thing.thingClass.interfaces.includes("controllablebattery") && hemsManager.selfConsumptionConfiguration && hemsManager.selfConsumptionConfiguration.selfConsumptionEnabled
+
+            Label {
+                text: qsTr("Self-consumption")
+                font.weight: Font.Bold
+            }
+        }
+
+        // Self-consumption configuration inputs
+        ColumnLayout {
+            Layout.fillWidth: true
+            visible: hemsManager.selfConsumptionSupported && thing.thingClass.interfaces.includes("controllablebattery") && hemsManager.selfConsumptionConfiguration && hemsManager.selfConsumptionConfiguration.selfConsumptionEnabled
+
+            // Capacity (kWh), -1 = not configured
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.topMargin: Style.smallMargins
+
+                Label {
+                    text: qsTr("Capacity")
+                    Layout.fillWidth: true
+                }
+
+                ConsolinnoTextField {
+                    id: selfConsumptionCapacityField
+                    Layout.preferredWidth: 100
+                    horizontalAlignment: Text.AlignRight
+                    validator: RegExpValidator {
+                        regExp: /^-?\d*\.?\d+$/
+                    }
+                    text: batteryConfiguration.selfConsumptionCapacity
+                }
+
+                Label {
+                    text: "kWh"
+                    Layout.leftMargin: 5
+                }
+            }
+
+            // SoC Full (%)
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.topMargin: Style.smallMargins
+
+                Label {
+                    text: qsTr("SoC Full")
+                    Layout.fillWidth: true
+                }
+
+                ConsolinnoTextField {
+                    id: selfConsumptionSocFullField
+                    Layout.preferredWidth: 100
+                    horizontalAlignment: Text.AlignRight
+                    validator: RegExpValidator {
+                        regExp: /^\d+$/
+                    }
+                    text: batteryConfiguration.selfConsumptionSocFull
+                }
+
+                Label {
+                    text: "%"
+                    Layout.leftMargin: 5
+                }
+            }
+
+            // SoC Empty (%)
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.topMargin: Style.smallMargins
+
+                Label {
+                    text: qsTr("SoC Empty")
+                    Layout.fillWidth: true
+                }
+
+                ConsolinnoTextField {
+                    id: selfConsumptionSocEmptyField
+                    Layout.preferredWidth: 100
+                    horizontalAlignment: Text.AlignRight
+                    validator: RegExpValidator {
+                        regExp: /^\d+$/
+                    }
+                    text: batteryConfiguration.selfConsumptionSocEmpty
+                }
+
+                Label {
+                    text: "%"
+                    Layout.leftMargin: 5
+                }
+            }
+
+            // Max Power (W)
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.topMargin: Style.smallMargins
+
+                Label {
+                    text: qsTr("Max Power")
+                    Layout.fillWidth: true
+                }
+
+                ConsolinnoTextField {
+                    id: selfConsumptionMaxPowerField
+                    Layout.preferredWidth: 100
+                    horizontalAlignment: Text.AlignRight
+                    validator: RegExpValidator {
+                        regExp: /^\d+$/
+                    }
+                    text: batteryConfiguration.selfConsumptionMaxPower
+                }
+
+                Label {
+                    text: "W"
+                    Layout.leftMargin: 5
+                }
+            }
+        }
+
         Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
@@ -146,10 +268,22 @@ Page {
                     blockBatteryOnGridConsumption &= ~BatteryConfiguration.EvCharger;
                 }
 
-                hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId,
-                                                    { controllableLocalSystem: gridSupportControl.checked,
-                                                        avoidZeroFeedInEnabled: zeroCompensationControl.checked,
-                                                    blockBatteryOnGridConsumption: blockBatteryOnGridConsumption});
+                var configData = {
+                    controllableLocalSystem: gridSupportControl.checked,
+                    avoidZeroFeedInEnabled: zeroCompensationControl.checked,
+                    blockBatteryOnGridConsumption: blockBatteryOnGridConsumption
+                };
+
+                // Include self-consumption config if supported, globally enabled, and battery is controllable
+                if (hemsManager.selfConsumptionSupported && thing.thingClass.interfaces.includes("controllablebattery") && hemsManager.selfConsumptionConfiguration && hemsManager.selfConsumptionConfiguration.selfConsumptionEnabled) {
+                    configData.selfConsumptionCapacity = parseFloat(selfConsumptionCapacityField.text);
+                    if (isNaN(configData.selfConsumptionCapacity)) configData.selfConsumptionCapacity = -1;
+                    configData.selfConsumptionSocFull = parseInt(selfConsumptionSocFullField.text) || 95;
+                    configData.selfConsumptionSocEmpty = parseInt(selfConsumptionSocEmptyField.text) || 5;
+                    configData.selfConsumptionMaxPower = parseInt(selfConsumptionMaxPowerField.text) || 100000;
+                }
+
+                hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, configData);
                 if (directionID !== 1) {
                     pageStack.pop();
                 }

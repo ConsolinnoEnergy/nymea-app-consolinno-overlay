@@ -106,18 +106,10 @@ GenericConfigPage {
     function enableSave(obj)
     {
         // Check if either of the two RangeSlider values has changed from the stored configuration
-        var selfConsumptionChanged = false
-        if (hemsManager.selfConsumptionSupported) {
-            selfConsumptionChanged = batteryConfiguration.selfConsumptionEnabled !== batterySelfConsumptionEnabledSwitch.checked ||
-                                     parseFloat(selfConsumptionCapacityField.text) !== batteryConfiguration.selfConsumptionCapacity ||
-                                     parseInt(targetSocMinField.text) !== batteryConfiguration.targetSocPvSurplusMin ||
-                                     parseInt(targetSocMaxField.text) !== batteryConfiguration.targetSocPvSurplusMax
-        }
         saveButton.enabled = batteryConfiguration.priceThreshold !== relChargingThreshold ||
                 batteryConfiguration.dischargePriceThreshold !== relDischargeBlockedThreshold ||
                 (chargeOnceController.enabled && batteryConfiguration.chargeOnce !== chargeOnceController.checked) ||
-                batteryConfiguration.optimizationEnabled !== optimizationController.checked ||
-                selfConsumptionChanged;
+                batteryConfiguration.optimizationEnabled !== optimizationController.checked;
     }
 
     ThingsProxy {
@@ -643,141 +635,6 @@ GenericConfigPage {
                     }
                 }
 
-                // Self-consumption Configuration Section
-                RowLayout {
-                    Layout.fillWidth: true
-                    Layout.topMargin: Style.margins * 2
-                    visible: hemsManager.selfConsumptionSupported
-
-                    Label {
-                        text: qsTr("Self-consumption")
-                        font.weight: Font.Bold
-                    }
-                }
-
-                // Self-consumption enable switch
-                RowLayout {
-                    Layout.fillWidth: true
-                    Layout.topMargin: Style.smallMargins
-                    visible: hemsManager.selfConsumptionSupported
-
-                    Label {
-                        text: qsTr("Battery self-consumption")
-                        Layout.fillWidth: true
-                    }
-
-                    ConsolinnoSwitch {
-                        id: batterySelfConsumptionEnabledSwitch
-                        height: 18
-                        spacing: 1
-                        checked: batteryConfiguration.selfConsumptionEnabled
-
-                        onClicked: {
-                            enableSave()
-                        }
-
-                        Component.onCompleted: {
-                            checked = batteryConfiguration.selfConsumptionEnabled
-                        }
-                    }
-                }
-
-                // Self-consumption configuration inputs (visible when enabled)
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    visible: hemsManager.selfConsumptionSupported && batterySelfConsumptionEnabledSwitch.checked
-
-                    // Capacity
-                    RowLayout {
-                        Layout.fillWidth: true
-                        Layout.topMargin: Style.smallMargins
-
-                        Label {
-                            text: qsTr("Capacity")
-                            Layout.fillWidth: true
-                        }
-
-                        ConsolinnoTextField {
-                            id: selfConsumptionCapacityField
-                            Layout.preferredWidth: 100
-                            horizontalAlignment: Text.AlignRight
-                            validator: RegExpValidator {
-                                regExp: /^-?\d*\.?\d+$/
-                            }
-                            text: batteryConfiguration.selfConsumptionCapacity
-
-                            onTextChanged: {
-                                enableSave()
-                            }
-                        }
-
-                        Label {
-                            text: "kWh"
-                            Layout.leftMargin: 5
-                        }
-                    }
-
-                    // Target SoC Min (PV Surplus)
-                    RowLayout {
-                        Layout.fillWidth: true
-                        Layout.topMargin: Style.smallMargins
-
-                        Label {
-                            text: qsTr("Target SoC min")
-                            Layout.fillWidth: true
-                        }
-
-                        ConsolinnoTextField {
-                            id: targetSocMinField
-                            Layout.preferredWidth: 100
-                            horizontalAlignment: Text.AlignRight
-                            validator: RegExpValidator {
-                                regExp: /^\d+$/
-                            }
-                            text: batteryConfiguration.targetSocPvSurplusMin
-
-                            onTextChanged: {
-                                enableSave()
-                            }
-                        }
-
-                        Label {
-                            text: "%"
-                            Layout.leftMargin: 5
-                        }
-                    }
-
-                    // Target SoC Max (PV Surplus)
-                    RowLayout {
-                        Layout.fillWidth: true
-                        Layout.topMargin: Style.smallMargins
-
-                        Label {
-                            text: qsTr("Target SoC max")
-                            Layout.fillWidth: true
-                        }
-
-                        ConsolinnoTextField {
-                            id: targetSocMaxField
-                            Layout.preferredWidth: 100
-                            horizontalAlignment: Text.AlignRight
-                            validator: RegExpValidator {
-                                regExp: /^\d+$/
-                            }
-                            text: batteryConfiguration.targetSocPvSurplusMax
-
-                            onTextChanged: {
-                                enableSave()
-                            }
-                        }
-
-                        Label {
-                            text: "%"
-                            Layout.leftMargin: 5
-                        }
-                    }
-                }
-
                 // Save Button
                 RowLayout {
                     id: saveBtnContainer
@@ -792,25 +649,6 @@ GenericConfigPage {
                         enabled: false
 
                         onClicked: {
-                            // Check if self-consumption settings have changed
-                            if (hemsManager.selfConsumptionSupported) {
-                                var selfConsumptionChanged = batteryConfiguration.selfConsumptionEnabled !== batterySelfConsumptionEnabledSwitch.checked ||
-                                    parseFloat(selfConsumptionCapacityField.text) !== batteryConfiguration.selfConsumptionCapacity ||
-                                    parseInt(targetSocMinField.text) !== batteryConfiguration.targetSocPvSurplusMin ||
-                                    parseInt(targetSocMaxField.text) !== batteryConfiguration.targetSocPvSurplusMax
-
-                                if (selfConsumptionChanged) {
-                                    // Send battery self-consumption configuration via new API
-                                    var selfConsumptionConfig = {
-                                        "selfConsumptionEnabled": batterySelfConsumptionEnabledSwitch.checked,
-                                        "selfConsumptionCapacity": parseFloat(selfConsumptionCapacityField.text),
-                                        "targetSocPvSurplusMin": parseInt(targetSocMinField.text),
-                                        "targetSocPvSurplusMax": parseInt(targetSocMaxField.text)
-                                    }
-                                    hemsManager.setBatteryConfiguration(thing.id, selfConsumptionConfig)
-                                }
-                            }
-
                             // Save tariff-controlled charging settings
                             saveSettings()
                             saveButton.enabled = false

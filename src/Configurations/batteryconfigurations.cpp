@@ -36,15 +36,25 @@ QVariant BatteryConfigurations::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->avoidZeroFeedInActive();
     case RoleBlockBatteryOnGridConsumption:
         return m_list.at(index.row())->blockBatteryOnGridConsumption();
-    // Self-consumption configuration roles (new API)
-    case RoleSelfConsumptionEnabled:
-        return m_list.at(index.row())->selfConsumptionEnabled();
+    // Self-consumption configuration roles (matching backend API)
+    case RoleMaxElectricalPower:
+        return m_list.at(index.row())->maxElectricalPower();
+    case RoleTargetSocPvSurplus:
+        return m_list.at(index.row())->targetSocPvSurplus();
     case RoleSelfConsumptionCapacity:
         return m_list.at(index.row())->selfConsumptionCapacity();
-    case RoleTargetSocPvSurplusMin:
-        return m_list.at(index.row())->targetSocPvSurplusMin();
-    case RoleTargetSocPvSurplusMax:
-        return m_list.at(index.row())->targetSocPvSurplusMax();
+    case RoleSelfConsumptionSocFull:
+        return m_list.at(index.row())->selfConsumptionSocFull();
+    case RoleSelfConsumptionSocEmpty:
+        return m_list.at(index.row())->selfConsumptionSocEmpty();
+    case RoleSelfConsumptionSocTaper:
+        return m_list.at(index.row())->selfConsumptionSocTaper();
+    case RoleSelfConsumptionMaxPower:
+        return m_list.at(index.row())->selfConsumptionMaxPower();
+    case RoleSelfConsumptionPriority:
+        return m_list.at(index.row())->selfConsumptionPriority();
+    case RoleSelfConsumptionRateLimit:
+        return m_list.at(index.row())->selfConsumptionRateLimit();
     }
     return QVariant();
 }
@@ -62,11 +72,16 @@ QHash<int, QByteArray> BatteryConfigurations::roleNames() const
     roles.insert(RoleAvoidZeroFeedInEnabled, "avoidZeroFeedInEnabled");
     roles.insert(RoleAvoidZeroFeedInActive, "avoidZeroFeedInActive");
     roles.insert(RoleBlockBatteryOnGridConsumption, "blockBatteryOnGridConsumption");
-    // Self-consumption configuration roles (new API)
-    roles.insert(RoleSelfConsumptionEnabled, "selfConsumptionEnabled");
+    // Self-consumption configuration roles (matching backend API)
+    roles.insert(RoleMaxElectricalPower, "maxElectricalPower");
+    roles.insert(RoleTargetSocPvSurplus, "targetSocPvSurplus");
     roles.insert(RoleSelfConsumptionCapacity, "selfConsumptionCapacity");
-    roles.insert(RoleTargetSocPvSurplusMin, "targetSocPvSurplusMin");
-    roles.insert(RoleTargetSocPvSurplusMax, "targetSocPvSurplusMax");
+    roles.insert(RoleSelfConsumptionSocFull, "selfConsumptionSocFull");
+    roles.insert(RoleSelfConsumptionSocEmpty, "selfConsumptionSocEmpty");
+    roles.insert(RoleSelfConsumptionSocTaper, "selfConsumptionSocTaper");
+    roles.insert(RoleSelfConsumptionMaxPower, "selfConsumptionMaxPower");
+    roles.insert(RoleSelfConsumptionPriority, "selfConsumptionPriority");
+    roles.insert(RoleSelfConsumptionRateLimit, "selfConsumptionRateLimit");
     return roles;
 }
 
@@ -142,10 +157,15 @@ void BatteryConfigurations::addConfiguration(BatteryConfiguration *batteryConfig
         emit dataChanged(idx, idx, {RoleBlockBatteryOnGridConsumption});
     });
 
-    // Self-consumption configuration signal connections (new API)
-    connect(batteryConfiguration, &BatteryConfiguration::selfConsumptionEnabledChanged, this, [=]() {
+    // Self-consumption configuration signal connections (matching backend API)
+    connect(batteryConfiguration, &BatteryConfiguration::maxElectricalPowerChanged, this, [=]() {
         QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
-        emit dataChanged(idx, idx, {RoleSelfConsumptionEnabled});
+        emit dataChanged(idx, idx, {RoleMaxElectricalPower});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::targetSocPvSurplusChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleTargetSocPvSurplus});
     });
 
     connect(batteryConfiguration, &BatteryConfiguration::selfConsumptionCapacityChanged, this, [=]() {
@@ -153,14 +173,34 @@ void BatteryConfigurations::addConfiguration(BatteryConfiguration *batteryConfig
         emit dataChanged(idx, idx, {RoleSelfConsumptionCapacity});
     });
 
-    connect(batteryConfiguration, &BatteryConfiguration::targetSocPvSurplusMinChanged, this, [=]() {
+    connect(batteryConfiguration, &BatteryConfiguration::selfConsumptionSocFullChanged, this, [=]() {
         QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
-        emit dataChanged(idx, idx, {RoleTargetSocPvSurplusMin});
+        emit dataChanged(idx, idx, {RoleSelfConsumptionSocFull});
     });
 
-    connect(batteryConfiguration, &BatteryConfiguration::targetSocPvSurplusMaxChanged, this, [=]() {
+    connect(batteryConfiguration, &BatteryConfiguration::selfConsumptionSocEmptyChanged, this, [=]() {
         QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
-        emit dataChanged(idx, idx, {RoleTargetSocPvSurplusMax});
+        emit dataChanged(idx, idx, {RoleSelfConsumptionSocEmpty});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::selfConsumptionSocTaperChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleSelfConsumptionSocTaper});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::selfConsumptionMaxPowerChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleSelfConsumptionMaxPower});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::selfConsumptionPriorityChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleSelfConsumptionPriority});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::selfConsumptionRateLimitChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleSelfConsumptionRateLimit});
     });
 
     endInsertRows();

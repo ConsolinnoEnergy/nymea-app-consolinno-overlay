@@ -126,17 +126,30 @@ void BatteryConfiguration::setBlockBatteryOnGridConsumption(int blockBatteryOnGr
     emit blockBatteryOnGridConsumptionChanged(m_blockBatteryOnGridConsumption);
 }
 
-bool BatteryConfiguration::selfConsumptionEnabled() const
+float BatteryConfiguration::maxElectricalPower() const
 {
-    return m_selfConsumptionEnabled;
+    return m_maxElectricalPower;
 }
 
-void BatteryConfiguration::setSelfConsumptionEnabled(bool selfConsumptionEnabled)
+void BatteryConfiguration::setMaxElectricalPower(float maxElectricalPower)
 {
-    if (m_selfConsumptionEnabled == selfConsumptionEnabled)
+    if (qFuzzyCompare(m_maxElectricalPower, maxElectricalPower))
         return;
-    m_selfConsumptionEnabled = selfConsumptionEnabled;
-    emit selfConsumptionEnabledChanged(m_selfConsumptionEnabled);
+    m_maxElectricalPower = maxElectricalPower;
+    emit maxElectricalPowerChanged(m_maxElectricalPower);
+}
+
+QVariantList BatteryConfiguration::targetSocPvSurplus() const
+{
+    return m_targetSocPvSurplus;
+}
+
+void BatteryConfiguration::setTargetSocPvSurplus(const QVariantList &targetSocPvSurplus)
+{
+    if (m_targetSocPvSurplus == targetSocPvSurplus)
+        return;
+    m_targetSocPvSurplus = targetSocPvSurplus;
+    emit targetSocPvSurplusChanged(m_targetSocPvSurplus);
 }
 
 float BatteryConfiguration::selfConsumptionCapacity() const
@@ -152,28 +165,80 @@ void BatteryConfiguration::setSelfConsumptionCapacity(float selfConsumptionCapac
     emit selfConsumptionCapacityChanged(m_selfConsumptionCapacity);
 }
 
-int BatteryConfiguration::targetSocPvSurplusMin() const
+int BatteryConfiguration::selfConsumptionSocFull() const
 {
-    return m_targetSocPvSurplusMin;
+    return m_selfConsumptionSocFull;
 }
 
-void BatteryConfiguration::setTargetSocPvSurplusMin(int targetSocPvSurplusMin)
+void BatteryConfiguration::setSelfConsumptionSocFull(int selfConsumptionSocFull)
 {
-    if (m_targetSocPvSurplusMin == targetSocPvSurplusMin)
+    if (m_selfConsumptionSocFull == selfConsumptionSocFull)
         return;
-    m_targetSocPvSurplusMin = targetSocPvSurplusMin;
-    emit targetSocPvSurplusMinChanged(m_targetSocPvSurplusMin);
+    m_selfConsumptionSocFull = selfConsumptionSocFull;
+    emit selfConsumptionSocFullChanged(m_selfConsumptionSocFull);
 }
 
-int BatteryConfiguration::targetSocPvSurplusMax() const
+int BatteryConfiguration::selfConsumptionSocEmpty() const
 {
-    return m_targetSocPvSurplusMax;
+    return m_selfConsumptionSocEmpty;
 }
 
-void BatteryConfiguration::setTargetSocPvSurplusMax(int targetSocPvSurplusMax)
+void BatteryConfiguration::setSelfConsumptionSocEmpty(int selfConsumptionSocEmpty)
 {
-    if (m_targetSocPvSurplusMax == targetSocPvSurplusMax)
+    if (m_selfConsumptionSocEmpty == selfConsumptionSocEmpty)
         return;
-    m_targetSocPvSurplusMax = targetSocPvSurplusMax;
-    emit targetSocPvSurplusMaxChanged(m_targetSocPvSurplusMax);
+    m_selfConsumptionSocEmpty = selfConsumptionSocEmpty;
+    emit selfConsumptionSocEmptyChanged(m_selfConsumptionSocEmpty);
+}
+
+int BatteryConfiguration::selfConsumptionSocTaper() const
+{
+    return m_selfConsumptionSocTaper;
+}
+
+void BatteryConfiguration::setSelfConsumptionSocTaper(int selfConsumptionSocTaper)
+{
+    if (m_selfConsumptionSocTaper == selfConsumptionSocTaper)
+        return;
+    m_selfConsumptionSocTaper = selfConsumptionSocTaper;
+    emit selfConsumptionSocTaperChanged(m_selfConsumptionSocTaper);
+}
+
+int BatteryConfiguration::selfConsumptionMaxPower() const
+{
+    return m_selfConsumptionMaxPower;
+}
+
+void BatteryConfiguration::setSelfConsumptionMaxPower(int selfConsumptionMaxPower)
+{
+    if (m_selfConsumptionMaxPower == selfConsumptionMaxPower)
+        return;
+    m_selfConsumptionMaxPower = selfConsumptionMaxPower;
+    emit selfConsumptionMaxPowerChanged(m_selfConsumptionMaxPower);
+}
+
+float BatteryConfiguration::selfConsumptionPriority() const
+{
+    return m_selfConsumptionPriority;
+}
+
+void BatteryConfiguration::setSelfConsumptionPriority(float selfConsumptionPriority)
+{
+    if (qFuzzyCompare(m_selfConsumptionPriority, selfConsumptionPriority))
+        return;
+    m_selfConsumptionPriority = selfConsumptionPriority;
+    emit selfConsumptionPriorityChanged(m_selfConsumptionPriority);
+}
+
+int BatteryConfiguration::selfConsumptionRateLimit() const
+{
+    return m_selfConsumptionRateLimit;
+}
+
+void BatteryConfiguration::setSelfConsumptionRateLimit(int selfConsumptionRateLimit)
+{
+    if (m_selfConsumptionRateLimit == selfConsumptionRateLimit)
+        return;
+    m_selfConsumptionRateLimit = selfConsumptionRateLimit;
+    emit selfConsumptionRateLimitChanged(m_selfConsumptionRateLimit);
 }

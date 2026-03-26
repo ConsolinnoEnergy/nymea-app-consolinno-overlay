@@ -22,11 +22,16 @@ public:
         RoleAvoidZeroFeedInEnabled,
         RoleAvoidZeroFeedInActive,
         RoleBlockBatteryOnGridConsumption,
-        // Self-consumption configuration roles (new API)
-        RoleSelfConsumptionEnabled,
+        // Self-consumption configuration roles (matching backend API)
+        RoleMaxElectricalPower,
+        RoleTargetSocPvSurplus,
         RoleSelfConsumptionCapacity,
-        RoleTargetSocPvSurplusMin,
-        RoleTargetSocPvSurplusMax
+        RoleSelfConsumptionSocFull,
+        RoleSelfConsumptionSocEmpty,
+        RoleSelfConsumptionSocTaper,
+        RoleSelfConsumptionMaxPower,
+        RoleSelfConsumptionPriority,
+        RoleSelfConsumptionRateLimit
     };
     Q_ENUM(Role);
     explicit BatteryConfigurations(QObject *parent = nullptr);

@@ -1089,6 +1089,35 @@ void HemsManager::addOrUpdateBatteryConfiguration(const QVariantMap &configurati
     configuration->setChargeOnce(configurationMap.value("chargeOnce").toBool());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
     configuration->setBlockBatteryOnGridConsumption(configurationMap.value("blockBatteryOnGridConsumption").toInt());
+    configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toFloat());
+
+    // Parse targetSocPvSurplus (JSON array of ints -> QVariantList)
+    if (configurationMap.contains("targetSocPvSurplus")) {
+        configuration->setTargetSocPvSurplus(configurationMap.value("targetSocPvSurplus").toList());
+    }
+
+    // Self-consumption fields
+    if (configurationMap.contains("selfConsumptionCapacity")) {
+        configuration->setSelfConsumptionCapacity(configurationMap.value("selfConsumptionCapacity").toFloat());
+    }
+    if (configurationMap.contains("selfConsumptionSocFull")) {
+        configuration->setSelfConsumptionSocFull(configurationMap.value("selfConsumptionSocFull").toInt());
+    }
+    if (configurationMap.contains("selfConsumptionSocEmpty")) {
+        configuration->setSelfConsumptionSocEmpty(configurationMap.value("selfConsumptionSocEmpty").toInt());
+    }
+    if (configurationMap.contains("selfConsumptionSocTaper")) {
+        configuration->setSelfConsumptionSocTaper(configurationMap.value("selfConsumptionSocTaper").toInt());
+    }
+    if (configurationMap.contains("selfConsumptionMaxPower")) {
+        configuration->setSelfConsumptionMaxPower(configurationMap.value("selfConsumptionMaxPower").toInt());
+    }
+    if (configurationMap.contains("selfConsumptionPriority")) {
+        configuration->setSelfConsumptionPriority(configurationMap.value("selfConsumptionPriority").toFloat());
+    }
+    if (configurationMap.contains("selfConsumptionRateLimit")) {
+        configuration->setSelfConsumptionRateLimit(configurationMap.value("selfConsumptionRateLimit").toInt());
+    }
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Battery configuration added" << configuration->batteryThingId();
