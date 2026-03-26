@@ -259,5 +259,6 @@
         <file>components/CoSwitch.qml</file>
         <file>components/CoKPICard.qml</file>
         <file>components/CoEnergyCircle.qml</file>
+        <file>components/CoComboBox.qml</file>
     </qresource>
 </RCC>

@@ -64,9 +64,9 @@ T.ComboBox {
         hoverEnabled: control.hoverEnabled
         leftPadding: 12
         palette.text: Style.colors.components_Forms_Fields_Field_user_input
-        palette.highlightedText: palette.text
+        palette.highlightedText: Style.colors.components_Forms_Fields_Field_user_input
         palette.highlight: Style.colors.typography_Background_Selection
-        palette.midlight: palette.highlight
+        palette.midlight: Style.colors.typography_Background_Selection
         palette.light: Style.colors.typography_Background_Default
     }
 
