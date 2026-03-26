@@ -6,6 +6,7 @@ import Nymea 1.0
 import "../components"
 
 Item {
+    id: root
     property alias checked: toggle.checked
     property alias text: label.text
     property alias infoUrl: label.push
@@ -42,6 +43,7 @@ Item {
 
         ColumnLayout {
             Layout.fillWidth: true
+            opacity: root.enabled ? 1 : Style.numbers.components_Disabled_opacity
 
             LabelWithInfo {
                 id: label

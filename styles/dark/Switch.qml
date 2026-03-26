@@ -54,37 +54,45 @@ T.Switch {
     spacing: 6
 
     indicator: Rectangle {
-        implicitWidth: 38
-        implicitHeight: 13
+        implicitWidth: 42
+        implicitHeight: 20
 
         x: control.text ? (control.mirrored ? control.width - width - control.rightPadding : control.leftPadding) : control.leftPadding + (control.availableWidth - width) / 2
         y: control.topPadding + (control.availableHeight - height) / 2
 
         radius: height / 2
-        color: control.checked ?
-                   "#B3D2C4" /*Style.colors.components_Forms_Toggle_Track_active*/ : // #TODO update color when defined by Joseph
-                   Style.colors.components_Forms_Toggle_Track_inactive
-        // #TODO references to components_Forms_Slider in design -> Joseph
-        // #TODO cannot use opacity here for checked state like in design since it is inherited to child item
+        color: {
+            if (control.checked) {
+                return control.enabled ?
+                            Style.colors.components_Forms_Toggle_Track_active :
+                            Style.colors.components_Forms_Toggle_Toggle_disabled;
+            } else {
+                if (control.pressed) {
+                    return Style.colors.typography_States_Pressed;
+                } else if (control.hovered) {
+                    return Style.colors.typography_States_Hover;
+                } else {
+                    return "transparent";
+                }
+            }
+        }
+
+        border.width: control.checked ? 0 : 1
+        border.color: control.enabled ?
+                          Style.colors.components_Forms_Toggle_Thumb_Track_inactive :
+                          Style.colors.components_Forms_Toggle_Toggle_disabled
 
         Rectangle {
-            x: Math.max(0, Math.min(parent.width - width, control.visualPosition * parent.width - (width / 2)))
+            x: Math.max(4, Math.min(parent.width - width - 4, control.visualPosition * parent.width - (width / 2) + 4))
             y: (parent.height - height) / 2
-            width: 20
-            height: 20
+            width: 12
+            height: 12
             radius: width / 2
             color: control.checked ?
-                       Style.colors.components_Forms_Toggle_Handle_active :
-                       Style.colors.components_Forms_Toggle_Handle_inactive
-
-            layer.enabled: true
-            layer.effect: DropShadow {
-                horizontalOffset: 3
-                verticalOffset: 3
-                radius: 8
-                samples: 17
-                color: "#29000000"
-            }
+                       Style.colors.components_Forms_Toggle_Thumb_active :
+                       control.enabled ?
+                           Style.colors.components_Forms_Toggle_Thumb_Track_inactive :
+                           Style.colors.components_Forms_Toggle_Toggle_disabled
 
             Behavior on x {
                 enabled: !control.down
