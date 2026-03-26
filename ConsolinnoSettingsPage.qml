@@ -50,10 +50,7 @@ Page {
                         helpText: qsTr("Optimize devices and system behavior.")
                         iconLeft: "/icons/tune.svg"
                         showChildrenIndicator: true
-                        onClicked: pageStack.push(Qt.resolvedUrl("mainviews/OptimizationConfiguration.qml"),
-                                                  {
-                                                      "hemsManager": hemsManager
-                                                  })
+                        onClicked: pageStack.push(Qt.resolvedUrl("mainviews/OptimizationConfiguration.qml"))
                     }
 
                     CoCard {
@@ -62,10 +59,7 @@ Page {
                         helpText: qsTr("Install devices and set up the system. For installers only.")
                         iconLeft: "/icons/build.svg"
                         showChildrenIndicator: true
-                        onClicked: pageStack.push(Qt.resolvedUrl("thingconfiguration/DeviceOverview.qml"),
-                                                  {
-                                                      "hemsManager": hemsManager
-                                                  })
+                        onClicked: pageStack.push(Qt.resolvedUrl("thingconfiguration/DeviceOverview.qml"))
                     }
 
                     CoCard {
@@ -75,10 +69,7 @@ Page {
                         iconLeft: "/icons/configure.svg"
                         showChildrenIndicator: true
                         visible: settings.showHiddenOptions
-                        onClicked: pageStack.push(Qt.resolvedUrl("optimization/DeveloperConfig.qml"),
-                                                  {
-                                                      "hemsManager": hemsManager
-                                                  })
+                        onClicked: pageStack.push(Qt.resolvedUrl("optimization/DeveloperConfig.qml"))
                     }
 
                     CoCard {
@@ -87,10 +78,7 @@ Page {
                         helpText: qsTr("Set up a dynamic electicity tariff for the system to operate with.")
                         iconLeft: "/icons/euro.svg"
                         showChildrenIndicator: true
-                        onClicked: pageStack.push(Qt.resolvedUrl("optimization/DynamicElectricityRate.qml"),
-                                                  {
-                                                      "hemsManager": hemsManager
-                                                  })
+                        onClicked: pageStack.push(Qt.resolvedUrl("optimization/DynamicElectricityRate.qml"))
                     }
 
                     CoCard {
@@ -99,10 +87,7 @@ Page {
                         helpText: qsTr("Configure grid support capabilities through relays or EEBUS. For installers only.")
                         iconLeft: "/icons/electric_meter.svg"
                         showChildrenIndicator: true
-                        onClicked: pageStack.push(Qt.resolvedUrl("optimization/GridSupportiveControl.qml"),
-                                                  {
-                                                      "hemsManager": hemsManager
-                                                  })
+                        onClicked: pageStack.push(Qt.resolvedUrl("optimization/GridSupportiveControl.qml"))
                     }
                 }
             }
@@ -163,10 +148,7 @@ Page {
                         helpText: qsTr("Change system name and time zone.")
                         showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
-                        onClicked: pageStack.push(Qt.resolvedUrl("system/GeneralSettingsPage.qml"),
-                                                  {
-                                                      "hemsManager": hemsManager
-                                                  })
+                        onClicked: pageStack.push(Qt.resolvedUrl("system/GeneralSettingsPage.qml"))
                     }
 
                     CoCard {
