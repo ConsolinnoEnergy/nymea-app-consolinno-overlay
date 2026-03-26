@@ -529,7 +529,8 @@ StatsBase {
                     property double setMaxValue: {
                         var max = 0;
                         for (var i = 0; i < consumersRepeater.count; i++) {
-                            max = Math.max(max, consumersRepeater.itemAt(i).barSet.at(idx))
+                            var bs = consumersRepeater.itemAt(i).barSet;
+                            if (bs) max = Math.max(max, bs.at(idx))
                         }
                         return max
                     }
@@ -561,9 +562,10 @@ StatsBase {
                                         if (!consumer) {
                                             continue;
                                         }
+                                        var bs = consumersRepeater.itemAt(i).barSet;
                                         var entry = {
                                             consumer: consumer,
-                                            value: consumersRepeater.itemAt(i).barSet.at(toolTip.idx).toFixed(2),
+                                            value: bs ? bs.at(toolTip.idx).toFixed(2) : "0.00",
                                             indexInModel: i
                                         }
                                         unsorted.push(entry)
