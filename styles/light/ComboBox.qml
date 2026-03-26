@@ -45,6 +45,8 @@ import Nymea 1.0
 T.ComboBox {
     id: control
 
+    // #TODO Feedback state
+
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
