@@ -33,12 +33,12 @@ void SelfConsumptionConfiguration::setSelfConsumptionTargetPower(int selfConsump
     emit selfConsumptionTargetPowerChanged(m_selfConsumptionTargetPower);
 }
 
-float SelfConsumptionConfiguration::selfConsumptionKp() const
+double SelfConsumptionConfiguration::selfConsumptionKp() const
 {
     return m_selfConsumptionKp;
 }
 
-void SelfConsumptionConfiguration::setSelfConsumptionKp(float selfConsumptionKp)
+void SelfConsumptionConfiguration::setSelfConsumptionKp(double selfConsumptionKp)
 {
     if (qFuzzyCompare(m_selfConsumptionKp, selfConsumptionKp))
         return;
@@ -47,12 +47,12 @@ void SelfConsumptionConfiguration::setSelfConsumptionKp(float selfConsumptionKp)
     emit selfConsumptionKpChanged(m_selfConsumptionKp);
 }
 
-float SelfConsumptionConfiguration::selfConsumptionKi() const
+double SelfConsumptionConfiguration::selfConsumptionKi() const
 {
     return m_selfConsumptionKi;
 }
 
-void SelfConsumptionConfiguration::setSelfConsumptionKi(float selfConsumptionKi)
+void SelfConsumptionConfiguration::setSelfConsumptionKi(double selfConsumptionKi)
 {
     if (qFuzzyCompare(m_selfConsumptionKi, selfConsumptionKi))
         return;
@@ -61,12 +61,12 @@ void SelfConsumptionConfiguration::setSelfConsumptionKi(float selfConsumptionKi)
     emit selfConsumptionKiChanged(m_selfConsumptionKi);
 }
 
-float SelfConsumptionConfiguration::selfConsumptionKd() const
+double SelfConsumptionConfiguration::selfConsumptionKd() const
 {
     return m_selfConsumptionKd;
 }
 
-void SelfConsumptionConfiguration::setSelfConsumptionKd(float selfConsumptionKd)
+void SelfConsumptionConfiguration::setSelfConsumptionKd(double selfConsumptionKd)
 {
     if (qFuzzyCompare(m_selfConsumptionKd, selfConsumptionKd))
         return;

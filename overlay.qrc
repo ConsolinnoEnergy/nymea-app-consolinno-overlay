@@ -117,6 +117,80 @@
         <file>icons/water_heater.svg</file>
         <file>icons/zigbee.svg</file>
         <file>icons/z-wave.svg</file>
+        <file>LICENSE.DMSans</file>
+        <file>LICENSE.Poppins</file>
+        <file>styles/dark/fonts/DMSans-Black.ttf</file>
+        <file>styles/dark/fonts/DMSans-BlackItalic.ttf</file>
+        <file>styles/dark/fonts/DMSans-Bold.ttf</file>
+        <file>styles/dark/fonts/DMSans-BoldItalic.ttf</file>
+        <file>styles/dark/fonts/DMSans-ExtraBold.ttf</file>
+        <file>styles/dark/fonts/DMSans-ExtraBoldItalic.ttf</file>
+        <file>styles/dark/fonts/DMSans-ExtraLight.ttf</file>
+        <file>styles/dark/fonts/DMSans-ExtraLightItalic.ttf</file>
+        <file>styles/dark/fonts/DMSans-Italic.ttf</file>
+        <file>styles/dark/fonts/DMSans-Light.ttf</file>
+        <file>styles/dark/fonts/DMSans-LightItalic.ttf</file>
+        <file>styles/dark/fonts/DMSans-Medium.ttf</file>
+        <file>styles/dark/fonts/DMSans-MediumItalic.ttf</file>
+        <file>styles/dark/fonts/DMSans-Regular.ttf</file>
+        <file>styles/dark/fonts/DMSans-SemiBold.ttf</file>
+        <file>styles/dark/fonts/DMSans-SemiBoldItalic.ttf</file>
+        <file>styles/dark/fonts/DMSans-Thin.ttf</file>
+        <file>styles/dark/fonts/DMSans-ThinItalic.ttf</file>
+        <file>styles/dark/fonts/Poppins-Black.ttf</file>
+        <file>styles/dark/fonts/Poppins-BlackItalic.ttf</file>
+        <file>styles/dark/fonts/Poppins-Bold.ttf</file>
+        <file>styles/dark/fonts/Poppins-BoldItalic.ttf</file>
+        <file>styles/dark/fonts/Poppins-ExtraBold.ttf</file>
+        <file>styles/dark/fonts/Poppins-ExtraBoldItalic.ttf</file>
+        <file>styles/dark/fonts/Poppins-ExtraLight.ttf</file>
+        <file>styles/dark/fonts/Poppins-ExtraLightItalic.ttf</file>
+        <file>styles/dark/fonts/Poppins-Italic.ttf</file>
+        <file>styles/dark/fonts/Poppins-Light.ttf</file>
+        <file>styles/dark/fonts/Poppins-LightItalic.ttf</file>
+        <file>styles/dark/fonts/Poppins-Medium.ttf</file>
+        <file>styles/dark/fonts/Poppins-MediumItalic.ttf</file>
+        <file>styles/dark/fonts/Poppins-Regular.ttf</file>
+        <file>styles/dark/fonts/Poppins-SemiBold.ttf</file>
+        <file>styles/dark/fonts/Poppins-SemiBoldItalic.ttf</file>
+        <file>styles/dark/fonts/Poppins-Thin.ttf</file>
+        <file>styles/dark/fonts/Poppins-ThinItalic.ttf</file>
+        <file>styles/light/fonts/DMSans-Black.ttf</file>
+        <file>styles/light/fonts/DMSans-BlackItalic.ttf</file>
+        <file>styles/light/fonts/DMSans-Bold.ttf</file>
+        <file>styles/light/fonts/DMSans-BoldItalic.ttf</file>
+        <file>styles/light/fonts/DMSans-ExtraBold.ttf</file>
+        <file>styles/light/fonts/DMSans-ExtraBoldItalic.ttf</file>
+        <file>styles/light/fonts/DMSans-ExtraLight.ttf</file>
+        <file>styles/light/fonts/DMSans-ExtraLightItalic.ttf</file>
+        <file>styles/light/fonts/DMSans-Italic.ttf</file>
+        <file>styles/light/fonts/DMSans-Light.ttf</file>
+        <file>styles/light/fonts/DMSans-LightItalic.ttf</file>
+        <file>styles/light/fonts/DMSans-Medium.ttf</file>
+        <file>styles/light/fonts/DMSans-MediumItalic.ttf</file>
+        <file>styles/light/fonts/DMSans-Regular.ttf</file>
+        <file>styles/light/fonts/DMSans-SemiBold.ttf</file>
+        <file>styles/light/fonts/DMSans-SemiBoldItalic.ttf</file>
+        <file>styles/light/fonts/DMSans-Thin.ttf</file>
+        <file>styles/light/fonts/DMSans-ThinItalic.ttf</file>
+        <file>styles/light/fonts/Poppins-Black.ttf</file>
+        <file>styles/light/fonts/Poppins-BlackItalic.ttf</file>
+        <file>styles/light/fonts/Poppins-Bold.ttf</file>
+        <file>styles/light/fonts/Poppins-BoldItalic.ttf</file>
+        <file>styles/light/fonts/Poppins-ExtraBold.ttf</file>
+        <file>styles/light/fonts/Poppins-ExtraBoldItalic.ttf</file>
+        <file>styles/light/fonts/Poppins-ExtraLight.ttf</file>
+        <file>styles/light/fonts/Poppins-ExtraLightItalic.ttf</file>
+        <file>styles/light/fonts/Poppins-Italic.ttf</file>
+        <file>styles/light/fonts/Poppins-Light.ttf</file>
+        <file>styles/light/fonts/Poppins-LightItalic.ttf</file>
+        <file>styles/light/fonts/Poppins-Medium.ttf</file>
+        <file>styles/light/fonts/Poppins-MediumItalic.ttf</file>
+        <file>styles/light/fonts/Poppins-Regular.ttf</file>
+        <file>styles/light/fonts/Poppins-SemiBold.ttf</file>
+        <file>styles/light/fonts/Poppins-SemiBoldItalic.ttf</file>
+        <file>styles/light/fonts/Poppins-Thin.ttf</file>
+        <file>styles/light/fonts/Poppins-ThinItalic.ttf</file>
     </qresource>
     <qresource prefix="/ui">
         <file>wizards/WizardController.qml</file>
@@ -247,6 +321,7 @@
         <file>components/CoNotification.qml</file>
         <file>components/CoIconButton.qml</file>
         <file>optimization/DayTimePickerPage.qml</file>
+        <file>optimization/SelfConsumptionConfigPage.qml</file>
         <file>components/LabelWithInfo.qml</file>
     </qresource>
 </RCC>

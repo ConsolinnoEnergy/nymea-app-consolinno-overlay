@@ -679,9 +679,9 @@ void HemsManager::notificationReceived(const QVariantMap &data)
         if (!configMap.isEmpty()) {
             m_selfConsumptionConfiguration->setSelfConsumptionEnabled(configMap.value("selfConsumptionEnabled").toBool());
             m_selfConsumptionConfiguration->setSelfConsumptionTargetPower(configMap.value("selfConsumptionTargetPower").toInt());
-            m_selfConsumptionConfiguration->setSelfConsumptionKp(configMap.value("selfConsumptionKp").toFloat());
-            m_selfConsumptionConfiguration->setSelfConsumptionKi(configMap.value("selfConsumptionKi").toFloat());
-            m_selfConsumptionConfiguration->setSelfConsumptionKd(configMap.value("selfConsumptionKd").toFloat());
+            m_selfConsumptionConfiguration->setSelfConsumptionKp(configMap.value("selfConsumptionKp").toDouble());
+            m_selfConsumptionConfiguration->setSelfConsumptionKi(configMap.value("selfConsumptionKi").toDouble());
+            m_selfConsumptionConfiguration->setSelfConsumptionKd(configMap.value("selfConsumptionKd").toDouble());
         }
 
         emit selfConsumptionConfigChanged();
@@ -779,15 +779,15 @@ void HemsManager::getSelfConsumptionConfigurationResponse(int commandId, const Q
     if (!configMap.isEmpty()) {
         m_selfConsumptionConfiguration->setSelfConsumptionEnabled(configMap.value("selfConsumptionEnabled").toBool());
         m_selfConsumptionConfiguration->setSelfConsumptionTargetPower(configMap.value("selfConsumptionTargetPower").toInt());
-        m_selfConsumptionConfiguration->setSelfConsumptionKp(configMap.value("selfConsumptionKp").toFloat());
-        m_selfConsumptionConfiguration->setSelfConsumptionKi(configMap.value("selfConsumptionKi").toFloat());
-        m_selfConsumptionConfiguration->setSelfConsumptionKd(configMap.value("selfConsumptionKd").toFloat());
+        m_selfConsumptionConfiguration->setSelfConsumptionKp(configMap.value("selfConsumptionKp").toDouble());
+        m_selfConsumptionConfiguration->setSelfConsumptionKi(configMap.value("selfConsumptionKi").toDouble());
+        m_selfConsumptionConfiguration->setSelfConsumptionKd(configMap.value("selfConsumptionKd").toDouble());
         qCDebug(dcHems()) << "Self-consumption configuration loaded:"
                          << "enabled:" << configMap.value("selfConsumptionEnabled").toBool()
                          << "targetPower:" << configMap.value("selfConsumptionTargetPower").toInt()
-                         << "kp:" << configMap.value("selfConsumptionKp").toFloat()
-                         << "ki:" << configMap.value("selfConsumptionKi").toFloat()
-                         << "kd:" << configMap.value("selfConsumptionKd").toFloat();
+                         << "kp:" << configMap.value("selfConsumptionKp").toDouble()
+                         << "ki:" << configMap.value("selfConsumptionKi").toDouble()
+                         << "kd:" << configMap.value("selfConsumptionKd").toDouble();
     }
 
     emit selfConsumptionConfigChanged();
