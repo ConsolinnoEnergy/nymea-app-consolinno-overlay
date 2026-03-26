@@ -993,6 +993,13 @@
     </message>
 </context>
 <context>
+    <name>CoEnergyCircle</name>
+    <message>
+        <source>W</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CoKpiStats</name>
     <message>
         <source>KPI Statistics</source>
@@ -3708,13 +3715,6 @@ Would you like to continue anyway?</source>
     <name>HeatingConfigurationView</name>
     <message>
         <source>Heating</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>HeatingElementConfigurationView</name>
-    <message>
-        <source>Heating Element</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
