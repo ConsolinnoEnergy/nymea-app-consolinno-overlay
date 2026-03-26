@@ -53,7 +53,7 @@ Page {
         target: hemsManager
         onConEMSStateChanged: function(state) {
             opStatusValue.text = intToOperatingStateString(
-                        conState.currentState.operating_state)
+                        state.currentState.operating_state)
         }
     }
 

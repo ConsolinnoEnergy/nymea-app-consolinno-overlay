@@ -36,7 +36,7 @@ Page {
     Connections {
         target: hemsManager
         onConEMSStateChanged: function(state) {
-            formattedJSON.text = JSON.stringify(conState, undefined, 4)
+            formattedJSON.text = JSON.stringify(state, undefined, 4)
         }
     }
 
