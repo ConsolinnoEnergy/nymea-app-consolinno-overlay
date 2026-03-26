@@ -6,15 +6,14 @@ import Nymea 1.0
 import "../components"
 
 Item {
+    id: root
     property alias value: slider.value
     property alias from: slider.from
     property alias to: slider.to
     property alias labelText: label.text
     property alias infoUrl: label.push
     property alias valueText: valueLabel.text
-    property alias showHelpText: helpLabel.visible
     property alias helpText: helpLabel.text
-    property alias showFeedback: notification.visible
     property alias feedbackText: notification.text
     property alias showLabel: labelLayout.visible
 
@@ -31,6 +30,7 @@ Item {
             id: labelLayout
             Layout.fillWidth: true
             spacing: Style.smallMargins
+            opacity: root.enabled ? 1 : Style.numbers.components_Disabled_opacity
 
             ColumnLayout {
                 Layout.fillWidth: true
@@ -46,6 +46,8 @@ Item {
                     font: Style.newParagraphFont
                     color: Style.colors.typography_Basic_Default
                     wrapMode: Text.WordWrap
+                    text: ""
+                    visible: text !== ""
                 }
             }
 
@@ -65,7 +67,8 @@ Item {
         CoFieldNotification {
             id: notification
             Layout.fillWidth: true
-            visible: text !== ""
+            text: ""
+            visible: root.enabled && text !== ""
         }
     }
 }
