@@ -5,6 +5,10 @@
         <file>styles/light/logo.svg</file>
         <file>styles/light/logo-wide.svg</file>
         <file>styles/light/Dialog.qml</file>
+        <file>styles/light/Slider.qml</file>
+        <file>styles/light/Switch.qml</file>
+        <file>styles/light/ComboBox.qml</file>
+        <file>styles/light/TextField.qml</file>
         <file>translations</file>
         <file>styles/light/Background.qml</file>
         <file>SOURCE_AVAIL_de_DE.txt</file>
@@ -16,6 +20,10 @@
         <file>styles/dark/logo.svg</file>
         <file>styles/dark/Page.qml</file>
         <file>styles/dark/Style.qml</file>
+        <file>styles/dark/Slider.qml</file>
+        <file>styles/dark/Switch.qml</file>
+        <file>styles/dark/ComboBox.qml</file>
+        <file>styles/dark/TextField.qml</file>
         <file>icons/account_circle.svg</file>
         <file>icons/add.svg</file>
         <file>icons/android_wifi_3_bar.svg</file>
@@ -248,5 +256,12 @@
         <file>components/CoIconButton.qml</file>
         <file>optimization/DayTimePickerPage.qml</file>
         <file>components/LabelWithInfo.qml</file>
+        <file>components/CoSlider.qml</file>
+        <file>components/CoFieldNotification.qml</file>
+        <file>components/CoSwitch.qml</file>
+        <file>components/CoKPICard.qml</file>
+        <file>components/CoEnergyCircle.qml</file>
+        <file>components/CoComboBox.qml</file>
+        <file>components/CoInputField.qml</file>
     </qresource>
 </RCC>

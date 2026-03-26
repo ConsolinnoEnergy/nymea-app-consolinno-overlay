@@ -39,7 +39,7 @@ Item {
     ColorOverlay{
         anchors.fill: infoImage
         source: infoImage
-        color: Material.foreground
+        color: Style.colors.brand_Basic_Icon
     }
 
 }
