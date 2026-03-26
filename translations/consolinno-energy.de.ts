@@ -1002,6 +1002,13 @@
     </message>
 </context>
 <context>
+    <name>CoEnergyCircle</name>
+    <message>
+        <source>W</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CoKpiStats</name>
     <message>
         <source>KPI Statistics</source>
@@ -3732,13 +3739,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
 </context>
 <context>
-    <name>HeatingElementConfigurationView</name>
-    <message>
-        <source>Heating Element</source>
-        <translation>Heizstab</translation>
-    </message>
-</context>
-<context>
     <name>HeatingElementDevicePage</name>
     <message>
         <source>Current Temperature</source>
@@ -4095,7 +4095,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
         <source>Optimization configuration</source>
-        <translation>Optimierungseinstellungen</translation>
+        <translation>Optimierungskonfiguration</translation>
     </message>
     <message>
         <source>Charging</source>
