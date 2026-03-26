@@ -161,7 +161,7 @@ Item {
                     range: 43200 // 30 Days: 30 * 24 * 60
                 }
             }
-            onTabSelected: {
+            onTabSelected: function(index) {
                 d.now = new Date()
                 powerBalanceLogs.fetchLogs()
                 d.update()

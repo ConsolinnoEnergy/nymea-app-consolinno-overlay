@@ -294,7 +294,7 @@ GenericConfigPage {
             }
             Connections {
                 target: engine.thingManager
-                onExecuteActionReply: {
+                onExecuteActionReply: function(commandId, thingError, displayMessage) {
                     if (stateDelegate.pendingActionId === commandId) {
                         stateDelegate.pendingActionId = -1
                         if (stateDelegate.valueCacheDirty) {
@@ -319,7 +319,7 @@ GenericConfigPage {
 
             Connections {
                 target: engine.thingManager
-                onExecuteActionReply: {
+                onExecuteActionReply: function(commandId, thingError, displayMessage) {
                     if (commandId === actionDelegate.pendingActionId) {
                         pendingTimer.start();
                         actionDelegate.lastSuccess = thingError === Thing.ThingErrorNoError
@@ -443,7 +443,7 @@ GenericConfigPage {
             }
             Connections {
                 target: root.thing
-                onEventTriggered: {
+                onEventTriggered: function(eventTypeId, params) {
                     if (eventTypeId === eventComponentItem.eventType.id) {
                         flashlightAnimation.start();
                     }

@@ -21,7 +21,7 @@ Item {
         sampleRate: d.sampleRate
         Component.onCompleted: fetchLogs()
 
-        onEntriesAdded: {
+        onEntriesAdded: function(index, entries) {
             print("entries added", index, entries.length)
             for (var i = 0; i < entries.length; i++) {
                 var entry = entries[i]
@@ -36,7 +36,7 @@ Item {
             }
         }
 
-        onEntriesRemoved: {
+        onEntriesRemoved: function(index, count) {
             consumptionUpperSeries.removePoints(index, count)
             zeroSeries.shrink()
         }
@@ -160,7 +160,7 @@ Item {
                     range: 43200 // 30 Days: 30 * 24 * 60
                 }
             }
-            onTabSelected: {
+            onTabSelected: function(index) {
                 d.now = new Date()
                 powerBalanceLogs.fetchLogs()
                 d.update()
@@ -434,11 +434,11 @@ Item {
                             thingId: consumerDelegate.thing.id
                             loader: logsLoader
 
-                            onEntriesAdded: {
+                            onEntriesAdded: function(index, entries) {
                                 addTimer.addEntries(index, entries)
                             }
 
-                            onEntriesRemoved: {
+                            onEntriesRemoved: function(index, count) {
                                 if (!consumerDelegate.series) return
                                 // Remove the leading 0-value entry
                                 consumerDelegate.series.lowerSeries.removePoints(0, 1);

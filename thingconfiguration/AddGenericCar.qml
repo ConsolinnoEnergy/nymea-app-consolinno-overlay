@@ -47,12 +47,12 @@ Page {
     Connections {
         target: engine.thingManager
 
-        onAddThingReply: {
+        onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
             busyOverlay.shown = false;
             internalPageStack.push(resultsPage, {thingError: thingError, thingId: thingId, message: displayMessage})
         }
 
-        onThingAdded:{
+        onThingAdded: function(thing) {
 
             for(var i = 0; i < d.states.length; i++){
                 thing.executeAction( d.states[i].name, [{ paramName: d.states[i].name , value: d.states[i].value }])

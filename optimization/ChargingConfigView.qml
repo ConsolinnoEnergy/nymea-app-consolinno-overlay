@@ -49,7 +49,6 @@ GenericConfigPage {
     property int simple_pv_excess: ChargingConfigView.ChargingMode.SIMPLE_PV_EXCESS
     property int dyn_pricing: ChargingConfigView.ChargingMode.DYN_PRICING
     property int time_controlled: ChargingConfigView.ChargingMode.TIME_CONTROLLED
-    property ConEMSState conState: hemsManager.conEMSState
 
     // Model for schedule overview in status section
     ListModel {
@@ -146,8 +145,8 @@ GenericConfigPage {
     // Connections to update the ChargingSessionConfiguration  and the ChargingConfiguration values
     Connections {
         target: hemsManager
-        onConEMSOperatingStateChanged: {
-            if (conState.currentState.operating_state === 1) // RUNNING
+        onConEMSOperatingStateChanged: function(state) {
+            if (state.currentState.operating_state === 1) // RUNNING
             {
                 busyOverlay.shown = false
             }
