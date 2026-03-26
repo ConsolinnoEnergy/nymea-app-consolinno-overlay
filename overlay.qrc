@@ -137,11 +137,8 @@
         <file>components/ConsolinnoButton.qml</file>
         <file>wizards/SetupSolarInverterWizard.qml</file>
         <file>wizards/SetupHeatPumpWizard.qml</file>
-        <file>optimization/ChargingConfigurationView.qml</file>
-        <file>optimization/HeatingConfigurationView.qml</file>
         <file>optimization/BlackoutProtectionView.qml</file>
         <file>mainviews/DetailedGraphsPage.qml</file>
-        <file>optimization/PVConfigurationView.qml</file>
         <file>optimization/ChargingConfigView.qml</file>
         <file>thingconfiguration/AddGenericCar.qml</file>
         <file>components/HeatpumpPriceWidget.qml</file>
@@ -218,7 +215,6 @@
         <file>components/ConsolinnoSwipeDelegate.qml</file>
         <file>components/CustomBarSeries.qml</file>
         <file>optimization/BatteryOptimization.qml</file>
-        <file>optimization/BatteryConfigurationView.qml</file>
         <file>system/ConsolinnoModbusRtuSettingsPage.qml</file>
         <file>system/ConsolinnoModbusRtuAddMasterPage.qml</file>
         <file>components/ConsolinnoSelectionTabs.qml</file>
