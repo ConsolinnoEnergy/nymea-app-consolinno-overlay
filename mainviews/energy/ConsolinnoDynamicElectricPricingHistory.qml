@@ -158,7 +158,7 @@ Item {
 
                 legend.visible: false
 
-                Component.onDestruction: currentValueTimer.running = false
+                Component.onDestruction: timer.running = false
 
                 ActivityIndicator {
                     id: noDataIndicator
