@@ -18,93 +18,216 @@ Page {
         }
     }
 
-    Component.onCompleted: {
-        // Update like this because qml does not allow to set the value directly when using calculations
-        useCasesModel.set(1, {value: HemsManager.HemsUseCaseHeating | HemsManager.HemsUseCaseHeatingRod})
-    }
+    Flickable {
+        anchors.fill: parent
+        contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
+        clip: true
 
-    ListModel {
-        id: useCasesModel
-        ListElement { text: qsTr("Blackout protection"); value: HemsManager.HemsUseCaseBlackoutProtection; visible: true }
-        ListElement { text: qsTr("Heating"); value: 0; visible: true } // For setting the value see the Component.onCompleted function above
-        ListElement { text: qsTr("Charging"); value: HemsManager.HemsUseCaseCharging; visible: true }
-        ListElement { text: qsTr("Battery"); value: HemsManager.HemsUseCaseBattery; visible: true }
-        ListElement { text: qsTr("Pv"); value: HemsManager.HemsUseCasePv; visible: true}
-    }
+        ColumnLayout {
+            id: layout
+            anchors.fill: parent
+            anchors.margins: Style.margins
+            spacing: Style.margins
 
-    ColumnLayout {
-        id: contentColumn
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.topMargin: app.margins
-
-        Repeater {
-            model: useCasesModel
-            delegate: NymeaItemDelegate {
-                id: allIcons
+            CoFrostyCard {
+                id: systemGroup
                 Layout.fillWidth: true
-                iconName: {
-                    let icon = "";
-                    switch (model.value) {
-                        case HemsManager.HemsUseCaseBlackoutProtection:
-                            icon = "/icons/arming_countdown.svg";
-                            break;
-                        case HemsManager.HemsUseCaseHeating | HemsManager.HemsUseCaseHeatingRod:
-                            icon = "/icons/mode_heat.svg";
-                            break;
-                        case HemsManager.HemsUseCaseCharging:
-                            icon = "/icons/ev_station.svg";
-                            break;
-                        case HemsManager.HemsUseCaseBattery:
-                            icon = "/icons/battery/battery-060.svg";
-                            break;
-                        case HemsManager.HemsUseCasePv:
-                            icon = "/icons/solar_power.svg";
-                            break;
-                    }
-                    return Qt.resolvedUrl(icon);
-                }
+                contentTopMargin: 8
+                headerText: qsTr("System")
+                visible: blackoutProtectionCard.available ||
+                         pvPriorizationCard.available
 
-                Image {
-                    id: icons
-                    height: 24
-                    width: 24
-                    source: allIcons.iconName
-                    anchors.verticalCenter: parent.verticalCenter
+                ColumnLayout {
                     anchors.left: parent.left
-                    anchors.leftMargin: 16
-                    z: 2
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    CoCard {
+                        id: blackoutProtectionCard
+                        property bool available: (hemsManager.availableUseCases & HemsManager.HemsUseCaseBlackoutProtection) != 0 ||
+                                                 settings.showHiddenOptions
+                        Layout.fillWidth: true
+                        visible: available
+                        text: qsTr("Blackout protection")
+                        iconLeft: Qt.resolvedUrl("/icons/arming_countdown.svg")
+                        showChildrenIndicator: true
+                        onClicked: pageStack.push(Qt.resolvedUrl("../optimization/BlackoutProtectionView.qml"))
+                    }
+
+                    CoCard {
+                        id: pvPriorizationCard
+                        property bool available: (hemsManager.availableUseCases & HemsManager.HemsUseCasePv) != 0 ||
+                                                 settings.showHiddenOptions
+                        Layout.fillWidth: true
+                        visible: available
+                        text: qsTr("PV device priorization") // #TODO wording
+                        iconLeft: Qt.resolvedUrl("/icons/pin.svg")
+                        showChildrenIndicator: true
+                        // onClicked: pageStack.push(Qt.resolvedUrl("../optimization/BlackoutProtectionView.qml")) // #TODO
+                        onClicked: {
+                            console.warn("--- clicked PrioPanda card");
+                        }
+                    }
                 }
+            }
 
-                ColorOverlay {
-                    anchors.fill: icons
-                    source: icons
-                    color: Style.consolinnoMedium
-                    z: 3
+            CoFrostyCard {
+                id: heatingGroup
+                Layout.fillWidth: true
+                contentTopMargin: 8
+                headerText: qsTr("Heating")
+                visible: ((hemsManager.availableUseCases & (HemsManager.HemsUseCaseHeating | HemsManager.HemsUseCaseHeatingRod)) != 0 ||
+                          settings.showHiddenOptions) &&
+                         (heatPumpRepeater.count + heatingRodRepeater.count) > 0
+
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    Repeater {
+                        id: heatPumpRepeater
+                        model: hemsManager.heatingConfigurations
+                        delegate: CoCard {
+                            property HeatingConfiguration heatingConfiguration:
+                                hemsManager.heatingConfigurations.getHeatingConfiguration(model.heatPumpThingId)
+                            property Thing heatPumpThing:
+                                engine.thingManager.things.getThing(model.heatPumpThingId)
+                            Layout.fillWidth: true
+                            text: heatPumpThing.name
+                            iconLeft: Qt.resolvedUrl("/icons/heat_pump.svg")
+                            showChildrenIndicator: true
+                            onClicked: pageStack.push(Qt.resolvedUrl("../optimization/HeatingOptimization.qml"),
+                                                      {
+                                                          heatingConfiguration: heatingConfiguration,
+                                                          heatPumpThing: heatPumpThing
+                                                      })
+                        }
+                    }
+
+                    Repeater {
+                        id: heatingRodRepeater
+                        model: hemsManager.heatingElementConfigurations
+                        delegate: CoCard {
+                            property HeatingElementConfiguration heatingRodConfiguration:
+                                hemsManager.heatingElementConfigurations.getHeatingElementConfiguration(model.heatingRodThingId)
+                            property Thing heatingRodThing:
+                                engine.thingManager.things.getThing(model.heatingRodThingId)
+                            Layout.fillWidth: true
+                            text: heatingRodThing.name
+                            iconLeft: Qt.resolvedUrl("/icons/water_heater.svg")
+                            showChildrenIndicator: true
+                            onClicked: pageStack.push(Qt.resolvedUrl("../optimization/HeatingElementOptimization.qml"),
+                                                      {
+                                                          heatingElementConfiguration: heatingRodConfiguration,
+                                                          heatRodThing: heatingRodThing
+                                                      })
+                        }
+                    }
                 }
+            }
 
+            CoFrostyCard {
+                id: wallboxGroup
+                Layout.fillWidth: true
+                contentTopMargin: 8
+                headerText: qsTr("Charging")
+                visible: ((hemsManager.availableUseCases & HemsManager.HemsUseCaseCharging) != 0 ||
+                          settings.showHiddenOptions) &&
+                         wallboxRepeater.count > 0
 
-                text: model.text
-                visible: (hemsManager.availableUseCases & model.value) != 0 && (model.visible || settings.showHiddenOptions)
-                progressive: true
-                onClicked: {
-                    switch (model.value) {
-                    case HemsManager.HemsUseCaseBlackoutProtection:
-                        pageStack.push(Qt.resolvedUrl("../optimization/BlackoutProtectionView.qml"))
-                        break;
-                    case HemsManager.HemsUseCaseHeating | HemsManager.HemsUseCaseHeatingRod:
-                        pageStack.push(Qt.resolvedUrl("../optimization/HeatingConfigurationView.qml"))
-                        break;
-                    case HemsManager.HemsUseCaseCharging:
-                        pageStack.push(Qt.resolvedUrl("../optimization/ChargingConfigurationView.qml"))
-                        break;
-                    case HemsManager.HemsUseCaseBattery:
-                        pageStack.push(Qt.resolvedUrl("../optimization/BatteryConfigurationView.qml"))
-                        break;
-                    case HemsManager.HemsUseCasePv:
-                        pageStack.push(Qt.resolvedUrl("../optimization/PVConfigurationView.qml"))
-                        break;
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    Repeater {
+                        id: wallboxRepeater
+                        model: hemsManager.chargingConfigurations
+                        delegate: CoCard {
+                            property ChargingConfiguration chargingConfiguration:
+                                hemsManager.chargingConfigurations.getChargingConfiguration(model.evChargerThingId)
+                            property Thing wallboxThing:
+                                engine.thingManager.things.getThing(model.evChargerThingId)
+                            Layout.fillWidth: true
+                            text: wallboxThing.name
+                            iconLeft: Qt.resolvedUrl("/icons/ev_station.svg")
+                            showChildrenIndicator: true
+                            onClicked: pageStack.push(Qt.resolvedUrl("../optimization/EvChargerOptimization.qml"),
+                                                      { thing: wallboxThing })
+                        }
+                    }
+                }
+            }
+
+            CoFrostyCard {
+                id: batteryGroup
+                Layout.fillWidth: true
+                contentTopMargin: 8
+                headerText: qsTr("Battery")
+                visible: ((hemsManager.availableUseCases & HemsManager.HemsUseCaseBattery) != 0 ||
+                          settings.showHiddenOptions) &&
+                         batteryRepeater.count > 0
+
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    Repeater {
+                        id: batteryRepeater
+                        model: hemsManager.batteryConfigurations
+                        delegate: CoCard {
+                            property BatteryConfiguration batteryConfiguration:
+                                hemsManager.batteryConfigurations.getBatteryConfiguration(model.batteryThingId)
+                            property Thing batteryThing:
+                                engine.thingManager.things.getThing(model.batteryThingId)
+                            Layout.fillWidth: true
+                            text: batteryThing.name
+                            iconLeft: Qt.resolvedUrl("/icons/battery/battery-060.svg")
+                            showChildrenIndicator: true
+                            onClicked: pageStack.push(Qt.resolvedUrl("../optimization/BatteryOptimization.qml"),
+                                                      {
+                                                          thing: batteryThing,
+                                                          batteryConfiguration:batteryConfiguration
+                                                      })
+                        }
+                    }
+                }
+            }
+
+            CoFrostyCard {
+                id: inverterGroup
+                Layout.fillWidth: true
+                contentTopMargin: 8
+                headerText: qsTr("PV")
+                visible: ((hemsManager.availableUseCases & HemsManager.HemsUseCasePv) != 0 ||
+                          settings.showHiddenOptions) &&
+                         inverterRepeater.count > 0
+
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    Repeater {
+                        id: inverterRepeater
+                        model: hemsManager.pvConfigurations
+                        delegate: CoCard {
+                            property PvConfiguration inverterConfiguration:
+                                hemsManager.pvConfigurations.getPvConfiguration(model.PvThingId)
+                            property Thing inverterThing:
+                                engine.thingManager.things.getThing(model.PvThingId)
+                            Layout.fillWidth: true
+                            text: inverterThing.name
+                            iconLeft: Qt.resolvedUrl("/icons/solar_power.svg")
+                            showChildrenIndicator: true
+                            onClicked: pageStack.push(Qt.resolvedUrl("../optimization/PVOptimization.qml"),
+                                                      {
+                                                          pvConfiguration: inverterConfiguration,
+                                                          thing: inverterThing
+                                                      })
+                        }
                     }
                 }
             }
@@ -114,7 +237,11 @@ Page {
     EmptyViewPlaceholder {
         anchors { left: parent.left; right: parent.right; margins: app.margins }
         anchors.verticalCenter: parent.verticalCenter
-        visible: hemsManager.availableUseCases === 0
+        visible: !systemGroup.visible &&
+                 !heatingGroup.visible &&
+                 !wallboxGroup.visible &&
+                 !batteryGroup.visible &&
+                 !inverterGroup.visible
         title: qsTr("No optimizations available")
         text: qsTr("Optimizations will be available once the required things have been added to the system.")
         buttonVisible: false
