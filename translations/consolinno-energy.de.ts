@@ -3733,13 +3733,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
 </context>
 <context>
-    <name>HeatingElementConfigurationView</name>
-    <message>
-        <source>Heating Element</source>
-        <translation>Heizstab</translation>
-    </message>
-</context>
-<context>
     <name>HeatingElementDevicePage</name>
     <message>
         <source>Current Temperature</source>

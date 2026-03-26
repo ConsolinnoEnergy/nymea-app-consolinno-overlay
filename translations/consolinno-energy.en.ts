@@ -3713,13 +3713,6 @@ Would you like to continue anyway?</source>
     </message>
 </context>
 <context>
-    <name>HeatingElementConfigurationView</name>
-    <message>
-        <source>Heating Element</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>HeatingElementDevicePage</name>
     <message>
         <source>Current Temperature</source>

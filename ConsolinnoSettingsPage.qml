@@ -237,11 +237,11 @@ Page {
                 Layout.fillWidth: true
                 contentTopMargin: 8
                 headerText: qsTr("Developer settings")
-                visible: webServerCard.visible ||
-                         zigbeeCard.visible ||
-                         zwaveCard.visible ||
-                         mqttCard.visible ||
-                         developerToolsCard.visible
+                visible: webServerCard.available ||
+                         zigbeeCard.available ||
+                         zwaveCard.available ||
+                         mqttCard.available ||
+                         developerToolsCard.available
 
                 ColumnLayout {
                     anchors.left: parent.left
@@ -250,65 +250,70 @@ Page {
 
                     CoCard {
                         id: webServerCard
+                        property bool available: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
+                                                 Configuration.webServerSettingsEnabled &&
+                                                 settings.showHiddenOptions
                         Layout.fillWidth: true
                         iconLeft: "/icons/language.svg"
                         text: qsTr("Web server")
                         helpText: qsTr("Configure the web server.")
                         showChildrenIndicator: true
-                        visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
-                                 Configuration.webServerSettingsEnabled &&
-                                 settings.showHiddenOptions
+                        visible: available
                         onClicked: pageStack.push(Qt.resolvedUrl("system/WebServerSettingsPage.qml"))
                     }
 
                     CoCard {
                         id: zigbeeCard
+                        property bool available: engine.jsonRpcClient.ensureServerVersion("5.3") &&
+                                                 NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
+                                                 settings.showHiddenOptions
                         Layout.fillWidth: true
                         iconLeft: "/icons/zigbee.svg"
                         text: qsTr("ZigBee")
                         helpText: qsTr("Configure ZigBee networks.")
                         showChildrenIndicator: true
-                        visible: engine.jsonRpcClient.ensureServerVersion("5.3") &&
-                                 NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
-                                 settings.showHiddenOptions
+                        visible: available
                         onClicked: pageStack.push(Qt.resolvedUrl("system/zigbee/ZigbeeSettingsPage.qml"))
                     }
 
                     CoCard {
                         id: zwaveCard
+                        property bool available: engine.jsonRpcClient.ensureServerVersion("6.1") &&
+                                                 NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
+                                                 settings.showHiddenOptions
                         Layout.fillWidth: true
                         iconLeft: "/icons/z-wave.svg"
                         text: qsTr("Z-Wave")
                         helpText: qsTr("Configure Z-Wave networks.")
                         showChildrenIndicator: true
-                        visible: engine.jsonRpcClient.ensureServerVersion("6.1") &&
-                                 NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
-                                 settings.showHiddenOptions
+                        visible: available
                         onClicked: pageStack.push(Qt.resolvedUrl("system/zwave/ZWaveSettingsPage.qml"))
                     }
 
                     CoCard {
                         id: mqttCard
+                        property bool available: engine.jsonRpcClient.ensureServerVersion("1.11") &&
+                                                 NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
+                                                 settings.showHiddenOptions
                         Layout.fillWidth: true
                         iconLeft: "/icons/Mqtt.svg"
                         text: qsTr("MQTT broker")
                         helpText: qsTr("Configure the MQTT broker.")
                         showChildrenIndicator: true
-                        visible: engine.jsonRpcClient.ensureServerVersion("1.11") &&
-                                 NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
-                                 settings.showHiddenOptions
+                        visible: available
                         onClicked: pageStack.push(Qt.resolvedUrl("system/MqttBrokerSettingsPage.qml"))
                     }
 
                     CoCard {
                         id: developerToolsCard
+                        property bool available: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
+                                                 Configuration.developerSettingsEnabled
                         Layout.fillWidth: true
                         iconLeft: "/icons/build.svg"
                         text: qsTr("Developer tools")
                         helpText: qsTr("Access tools for debugging and error reporting.")
                         showChildrenIndicator: true
-                        visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
-                                 Configuration.developerSettingsEnabled
+                        visible: available
                         onClicked: pageStack.push(Qt.resolvedUrl("system/DeveloperTools.qml"))
                     }
                 }
