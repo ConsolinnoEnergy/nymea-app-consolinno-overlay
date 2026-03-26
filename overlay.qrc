@@ -262,5 +262,6 @@
         <file>components/CoKPICard.qml</file>
         <file>components/CoEnergyCircle.qml</file>
         <file>components/CoComboBox.qml</file>
+        <file>components/CoInputField.qml</file>
     </qresource>
 </RCC>
