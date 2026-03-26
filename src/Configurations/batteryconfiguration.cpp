@@ -57,7 +57,6 @@ void BatteryConfiguration::setAvoidZeroFeedInEnabled(bool avoidZeroFeedInEnabled
     emit avoidZeroFeedInEnabledChanged(m_avoidZeroFeedInEnabled);
 }
 
-
 float BatteryConfiguration::priceThreshold() const {
     return m_priceThreshold;
 }
@@ -67,7 +66,6 @@ void BatteryConfiguration::setPriceThreshold(float priceThreshold) {
     m_priceThreshold = priceThreshold;
     emit priceThresholdChanged(m_priceThreshold);
 }
-
 
 float BatteryConfiguration::dischargePriceThreshold() const {
     return m_dischargePriceThreshold;
@@ -125,5 +123,57 @@ void BatteryConfiguration::setBlockBatteryOnGridConsumption(int blockBatteryOnGr
 {
     if (m_blockBatteryOnGridConsumption == blockBatteryOnGridConsumption) { return; }
     m_blockBatteryOnGridConsumption = blockBatteryOnGridConsumption;
-    emit blockBatteryOnGridConsumptionChanged(blockBatteryOnGridConsumption);
+    emit blockBatteryOnGridConsumptionChanged(m_blockBatteryOnGridConsumption);
+}
+
+bool BatteryConfiguration::selfConsumptionEnabled() const
+{
+    return m_selfConsumptionEnabled;
+}
+
+void BatteryConfiguration::setSelfConsumptionEnabled(bool selfConsumptionEnabled)
+{
+    if (m_selfConsumptionEnabled == selfConsumptionEnabled)
+        return;
+    m_selfConsumptionEnabled = selfConsumptionEnabled;
+    emit selfConsumptionEnabledChanged(m_selfConsumptionEnabled);
+}
+
+float BatteryConfiguration::selfConsumptionCapacity() const
+{
+    return m_selfConsumptionCapacity;
+}
+
+void BatteryConfiguration::setSelfConsumptionCapacity(float selfConsumptionCapacity)
+{
+    if (qFuzzyCompare(m_selfConsumptionCapacity, selfConsumptionCapacity))
+        return;
+    m_selfConsumptionCapacity = selfConsumptionCapacity;
+    emit selfConsumptionCapacityChanged(m_selfConsumptionCapacity);
+}
+
+int BatteryConfiguration::targetSocPvSurplusMin() const
+{
+    return m_targetSocPvSurplusMin;
+}
+
+void BatteryConfiguration::setTargetSocPvSurplusMin(int targetSocPvSurplusMin)
+{
+    if (m_targetSocPvSurplusMin == targetSocPvSurplusMin)
+        return;
+    m_targetSocPvSurplusMin = targetSocPvSurplusMin;
+    emit targetSocPvSurplusMinChanged(m_targetSocPvSurplusMin);
+}
+
+int BatteryConfiguration::targetSocPvSurplusMax() const
+{
+    return m_targetSocPvSurplusMax;
+}
+
+void BatteryConfiguration::setTargetSocPvSurplusMax(int targetSocPvSurplusMax)
+{
+    if (m_targetSocPvSurplusMax == targetSocPvSurplusMax)
+        return;
+    m_targetSocPvSurplusMax = targetSocPvSurplusMax;
+    emit targetSocPvSurplusMaxChanged(m_targetSocPvSurplusMax);
 }

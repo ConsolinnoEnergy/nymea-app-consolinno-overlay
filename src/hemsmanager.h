@@ -16,6 +16,7 @@
 #include "Configurations/dynamicelectricpricingconfigurations.h"
 #include "Configurations/batteryconfigurations.h"
 #include "Configurations/conemsstate.h"
+#include "Configurations/selfconsumptionconfiguration.h"
 
 
 
@@ -38,6 +39,8 @@ class HemsManager : public QObject
     Q_PROPERTY(ConEMSState *conEMSState READ conEMSState CONSTANT)
     Q_PROPERTY(UserConfigurations *userConfigurations READ userConfigurations CONSTANT)
     Q_PROPERTY(HeatingElementConfigurations *heatingElementConfigurations READ heatingElementConfigurations CONSTANT)
+    Q_PROPERTY(SelfConsumptionConfiguration *selfConsumptionConfiguration READ selfConsumptionConfiguration CONSTANT)
+    Q_PROPERTY(bool selfConsumptionSupported READ selfConsumptionSupported NOTIFY selfConsumptionSupportedChanged)
 
 public:
     enum HemsUseCase {
@@ -93,6 +96,12 @@ public:
 
     Q_INVOKABLE int setBatteryConfiguration(const QUuid &batteryThingId, const QVariantMap &data);
 
+    // Self-consumption methods
+    Q_INVOKABLE void checkSelfConsumptionSupport();
+    Q_INVOKABLE int setSelfConsumptionConfig(const QVariantMap &globalConfig);
+    bool selfConsumptionSupported() const;
+    SelfConsumptionConfiguration *selfConsumptionConfiguration() const;
+
     // read only
     Q_INVOKABLE int setChargingSessionConfiguration(const QUuid carThingId, const QUuid evChargerThingid, const QString started_at, const QString finished_at, const float initial_battery_energy, const int duration, const float energy_charged, const float energy_battery, const int battery_level, const QUuid sessionId, const int state, const int timestamp);
     Q_INVOKABLE int setConEMSState(int currentState, int operationMode, int timestamp);
@@ -134,6 +143,10 @@ signals:
 
     void factoryResetReply(int commandId, const QString &error);
 
+    void selfConsumptionSupportedChanged(bool supported);
+    void setSelfConsumptionConfigReply(int commandId, const QVariantMap &data);
+    void selfConsumptionConfigChanged();
+
 private slots:
     Q_INVOKABLE void notificationReceived(const QVariantMap &data);
 
@@ -165,6 +178,10 @@ private slots:
 
     Q_INVOKABLE void factoryResetResponse(int commandId, const QVariantMap &data);
 
+    Q_INVOKABLE void checkSelfConsumptionSupportResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void getSelfConsumptionConfigurationResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void setSelfConsumptionConfigResponse(int commandId, const QVariantMap &data);
+
 private:
     QPointer<Engine> m_engine = nullptr;
     bool m_fetchingData = false;
@@ -183,6 +200,9 @@ private:
     HeatingElementConfigurations *m_heatingElementConfigurations = nullptr;
     DynamicElectricPricingConfigurations *m_dynamicElectricPricingConfigurations = nullptr;
     BatteryConfigurations *m_batteryConfigurations = nullptr;
+
+    bool m_selfConsumptionSupported = false;
+    SelfConsumptionConfiguration *m_selfConsumptionConfiguration = nullptr;
 
     void initJsonRpcCommunication();
 

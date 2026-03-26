@@ -4,6 +4,7 @@
 #include "cokpistatsprovider.h"
 #include "dashboarddataprovider.h"
 #include "Configurations/userconfigurations.h"
+#include "Configurations/selfconsumptionconfiguration.h"
 
 
 void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
@@ -27,4 +28,5 @@ void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
     qmlRegisterUncreatableType<HeatingElementConfigurations>(uri, versionMajor, versionMinor, "HeatingElementConfigurations", "Get it from HemsManager");
     qmlRegisterUncreatableType<BatteryConfiguration>(uri, versionMajor, versionMinor, "BatteryConfiguration", "Get it from HemsManager");
     qmlRegisterUncreatableType<BatteryConfigurations>(uri, versionMajor, versionMinor, "BatteryConfigurations", "Get it from HemsManager");
+    qmlRegisterUncreatableType<SelfConsumptionConfiguration>(uri, versionMajor, versionMinor, "SelfConsumptionConfiguration", "Get it from HemsManager");
 }

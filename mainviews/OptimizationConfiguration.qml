@@ -30,6 +30,7 @@ Page {
         ListElement { text: qsTr("Charging"); value: HemsManager.HemsUseCaseCharging; visible: true }
         ListElement { text: qsTr("Battery"); value: HemsManager.HemsUseCaseBattery; visible: true }
         ListElement { text: qsTr("Pv"); value: HemsManager.HemsUseCasePv; visible: true}
+        ListElement { text: qsTr("Self-consumption"); value: 0; visible: false; isSelfConsumption: true } // visible set dynamically
     }
 
     ColumnLayout {
@@ -45,6 +46,9 @@ Page {
                 id: allIcons
                 Layout.fillWidth: true
                 iconName: {
+                    if (model.isSelfConsumption) {
+                        return Qt.resolvedUrl("/icons/savings.svg");
+                    }
                     let icon = "";
                     switch (model.value) {
                         case HemsManager.HemsUseCaseBlackoutProtection:
@@ -84,27 +88,30 @@ Page {
                     z: 3
                 }
 
-
                 text: model.text
-                visible: (hemsManager.availableUseCases & model.value) != 0 && (model.visible || settings.showHiddenOptions)
+                visible: model.isSelfConsumption ? hemsManager.selfConsumptionSupported : ((hemsManager.availableUseCases & model.value) != 0 && (model.visible || settings.showHiddenOptions))
                 progressive: true
                 onClicked: {
-                    switch (model.value) {
-                    case HemsManager.HemsUseCaseBlackoutProtection:
-                        pageStack.push(Qt.resolvedUrl("../optimization/BlackoutProtectionView.qml"))
-                        break;
-                    case HemsManager.HemsUseCaseHeating | HemsManager.HemsUseCaseHeatingRod:
-                        pageStack.push(Qt.resolvedUrl("../optimization/HeatingConfigurationView.qml"))
-                        break;
-                    case HemsManager.HemsUseCaseCharging:
-                        pageStack.push(Qt.resolvedUrl("../optimization/ChargingConfigurationView.qml"))
-                        break;
-                    case HemsManager.HemsUseCaseBattery:
-                        pageStack.push(Qt.resolvedUrl("../optimization/BatteryConfigurationView.qml"))
-                        break;
-                    case HemsManager.HemsUseCasePv:
-                        pageStack.push(Qt.resolvedUrl("../optimization/PVConfigurationView.qml"))
-                        break;
+                    if (model.isSelfConsumption) {
+                        pageStack.push(Qt.resolvedUrl("../optimization/SelfConsumptionConfigPage.qml"))
+                    } else {
+                        switch (model.value) {
+                        case HemsManager.HemsUseCaseBlackoutProtection:
+                            pageStack.push(Qt.resolvedUrl("../optimization/BlackoutProtectionView.qml"))
+                            break;
+                        case HemsManager.HemsUseCaseHeating | HemsManager.HemsUseCaseHeatingRod:
+                            pageStack.push(Qt.resolvedUrl("../optimization/HeatingConfigurationView.qml"))
+                            break;
+                        case HemsManager.HemsUseCaseCharging:
+                            pageStack.push(Qt.resolvedUrl("../optimization/ChargingConfigurationView.qml"))
+                            break;
+                        case HemsManager.HemsUseCaseBattery:
+                            pageStack.push(Qt.resolvedUrl("../optimization/BatteryConfigurationView.qml"))
+                            break;
+                        case HemsManager.HemsUseCasePv:
+                            pageStack.push(Qt.resolvedUrl("../optimization/PVConfigurationView.qml"))
+                            break;
+                        }
                     }
                 }
             }

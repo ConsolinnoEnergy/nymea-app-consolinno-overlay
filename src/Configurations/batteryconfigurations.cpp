@@ -36,6 +36,15 @@ QVariant BatteryConfigurations::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->avoidZeroFeedInActive();
     case RoleBlockBatteryOnGridConsumption:
         return m_list.at(index.row())->blockBatteryOnGridConsumption();
+    // Self-consumption configuration roles (new API)
+    case RoleSelfConsumptionEnabled:
+        return m_list.at(index.row())->selfConsumptionEnabled();
+    case RoleSelfConsumptionCapacity:
+        return m_list.at(index.row())->selfConsumptionCapacity();
+    case RoleTargetSocPvSurplusMin:
+        return m_list.at(index.row())->targetSocPvSurplusMin();
+    case RoleTargetSocPvSurplusMax:
+        return m_list.at(index.row())->targetSocPvSurplusMax();
     }
     return QVariant();
 }
@@ -53,6 +62,11 @@ QHash<int, QByteArray> BatteryConfigurations::roleNames() const
     roles.insert(RoleAvoidZeroFeedInEnabled, "avoidZeroFeedInEnabled");
     roles.insert(RoleAvoidZeroFeedInActive, "avoidZeroFeedInActive");
     roles.insert(RoleBlockBatteryOnGridConsumption, "blockBatteryOnGridConsumption");
+    // Self-consumption configuration roles (new API)
+    roles.insert(RoleSelfConsumptionEnabled, "selfConsumptionEnabled");
+    roles.insert(RoleSelfConsumptionCapacity, "selfConsumptionCapacity");
+    roles.insert(RoleTargetSocPvSurplusMin, "targetSocPvSurplusMin");
+    roles.insert(RoleTargetSocPvSurplusMax, "targetSocPvSurplusMax");
     return roles;
 }
 
@@ -126,6 +140,27 @@ void BatteryConfigurations::addConfiguration(BatteryConfiguration *batteryConfig
     connect(batteryConfiguration, &BatteryConfiguration::blockBatteryOnGridConsumptionChanged, this, [=]() {
         QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
         emit dataChanged(idx, idx, {RoleBlockBatteryOnGridConsumption});
+    });
+
+    // Self-consumption configuration signal connections (new API)
+    connect(batteryConfiguration, &BatteryConfiguration::selfConsumptionEnabledChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleSelfConsumptionEnabled});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::selfConsumptionCapacityChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleSelfConsumptionCapacity});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::targetSocPvSurplusMinChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleTargetSocPvSurplusMin});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::targetSocPvSurplusMaxChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleTargetSocPvSurplusMax});
     });
 
     endInsertRows();

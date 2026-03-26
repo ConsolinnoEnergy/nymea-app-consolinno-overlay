@@ -20,6 +20,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
     m_chargingSessionConfigurations = new ChargingSessionConfigurations(this);
     m_conEMSState = new ConEMSState();
     m_userConfigurations = new UserConfigurations(this);
+    m_selfConsumptionConfiguration = new SelfConsumptionConfiguration(this);
 }
 
 HemsManager::~HemsManager()
@@ -670,8 +671,21 @@ void HemsManager::notificationReceived(const QVariantMap &data)
         m_heatingElementConfigurations->removeConfiguration(params.value("heatingRodThingId").toUuid());
     } else if (notification == "Hems.HeatingRodConfigurationChanged") {
         addOrUpdateHeatingElementConfiguration(params.value("heatingRodConfiguration").toMap());
-    }
+    } else if (notification == "Hems.SelfConsumptionConfigurationChanged") {
+        qCDebug(dcHems()) << "Self-consumption configuration changed notification" << params;
 
+        // Parse self-consumption configuration
+        QVariantMap configMap = params.value("selfConsumptionConfiguration").toMap();
+        if (!configMap.isEmpty()) {
+            m_selfConsumptionConfiguration->setSelfConsumptionEnabled(configMap.value("selfConsumptionEnabled").toBool());
+            m_selfConsumptionConfiguration->setSelfConsumptionTargetPower(configMap.value("selfConsumptionTargetPower").toInt());
+            m_selfConsumptionConfiguration->setSelfConsumptionKp(configMap.value("selfConsumptionKp").toFloat());
+            m_selfConsumptionConfiguration->setSelfConsumptionKi(configMap.value("selfConsumptionKi").toFloat());
+            m_selfConsumptionConfiguration->setSelfConsumptionKd(configMap.value("selfConsumptionKd").toFloat());
+        }
+
+        emit selfConsumptionConfigChanged();
+    }
 
 }
 
@@ -743,8 +757,41 @@ void HemsManager::getHeatingElementConfigurationsResponse(int commandId, const Q
     }
     m_fetchingData = false;
     emit fetchingDataChanged();
+    
+    // Now that all initial data has been fetched, check if self-consumption is supported
+    // This is called here to ensure the backend has registered all its methods first
+    checkSelfConsumptionSupport();
+    // Also fetch self-consumption configuration
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetSelfConsumptionConfiguration",
+                                           QVariantMap(),
+                                           this,
+                                           "getSelfConsumptionConfigurationResponse");
 }
 
+
+void HemsManager::getSelfConsumptionConfigurationResponse(int commandId, const QVariantMap &data)
+{
+    Q_UNUSED(commandId);
+    qCDebug(dcHems()) << "Get self-consumption configuration response" << data;
+
+    // Parse self-consumption configuration
+    QVariantMap configMap = data.value("selfConsumptionConfiguration").toMap();
+    if (!configMap.isEmpty()) {
+        m_selfConsumptionConfiguration->setSelfConsumptionEnabled(configMap.value("selfConsumptionEnabled").toBool());
+        m_selfConsumptionConfiguration->setSelfConsumptionTargetPower(configMap.value("selfConsumptionTargetPower").toInt());
+        m_selfConsumptionConfiguration->setSelfConsumptionKp(configMap.value("selfConsumptionKp").toFloat());
+        m_selfConsumptionConfiguration->setSelfConsumptionKi(configMap.value("selfConsumptionKi").toFloat());
+        m_selfConsumptionConfiguration->setSelfConsumptionKd(configMap.value("selfConsumptionKd").toFloat());
+        qCDebug(dcHems()) << "Self-consumption configuration loaded:"
+                         << "enabled:" << configMap.value("selfConsumptionEnabled").toBool()
+                         << "targetPower:" << configMap.value("selfConsumptionTargetPower").toInt()
+                         << "kp:" << configMap.value("selfConsumptionKp").toFloat()
+                         << "ki:" << configMap.value("selfConsumptionKi").toFloat()
+                         << "kd:" << configMap.value("selfConsumptionKd").toFloat();
+    }
+
+    emit selfConsumptionConfigChanged();
+}
 
 void HemsManager::getChargingConfigurationsResponse(int commandId, const QVariantMap &data)
 {
@@ -1275,3 +1322,62 @@ void HemsManager::updateAvailableUsecases(const QStringList &useCasesList)
         emit availableUseCasesChanged(m_availableUseCases);
     }
 }
+
+bool HemsManager::selfConsumptionSupported() const
+{
+    return m_selfConsumptionSupported;
+}
+
+SelfConsumptionConfiguration *HemsManager::selfConsumptionConfiguration() const
+{
+    return m_selfConsumptionConfiguration;
+}
+
+void HemsManager::checkSelfConsumptionSupport()
+{
+    qCDebug(dcHems()) << "Checking self-consumption support...";
+    // Try to call Hems.SelfConsumptionGetSupported
+    // If backend doesn't support it, we'll get an error response
+    // Use string-based callback since lambdas aren't supported
+    m_engine->jsonRpcClient()->sendCommand("Hems.SelfConsumptionGetSupported",
+                                           QVariantMap(),
+                                           this,
+                                           "checkSelfConsumptionSupportResponse");
+}
+
+void HemsManager::checkSelfConsumptionSupportResponse(int commandId, const QVariantMap &data)
+{
+    Q_UNUSED(commandId);
+    bool supported = false;
+    
+    // Try Nymea format first: { "params": { "supported": true } }
+    if (data.contains("params")) {
+        supported = data.value("params").toMap().value("supported").toBool();
+    }
+    // Fallback: direct format { "supported": true }
+    else if (data.contains("supported")) {
+        supported = data.value("supported").toBool();
+    }
+    
+    qCDebug(dcHems()) << "Self-consumption support:" << supported;
+    if (m_selfConsumptionSupported != supported) {
+        m_selfConsumptionSupported = supported;
+        emit selfConsumptionSupportedChanged(m_selfConsumptionSupported);
+    }
+}
+
+int HemsManager::setSelfConsumptionConfig(const QVariantMap &globalConfig)
+{
+    QVariantMap params;
+    // Full selfConsumptionConfiguration object (Read-Modify-Write pattern)
+    params.insert("selfConsumptionConfiguration", globalConfig);
+    qCDebug(dcHems()) << "Set self-consumption configuration" << params;
+    return m_engine->jsonRpcClient()->sendCommand("Hems.SetSelfConsumptionConfiguration", params, this, "setSelfConsumptionConfigResponse");
+}
+
+void HemsManager::setSelfConsumptionConfigResponse(int commandId, const QVariantMap &data)
+{
+    qCDebug(dcHems()) << "Set self-consumption config response" << data;
+    emit setSelfConsumptionConfigReply(commandId, data);
+}
+

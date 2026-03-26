@@ -18,6 +18,12 @@ class BatteryConfiguration : public QObject
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
     Q_PROPERTY(int blockBatteryOnGridConsumption READ blockBatteryOnGridConsumption WRITE setBlockBatteryOnGridConsumption NOTIFY blockBatteryOnGridConsumptionChanged)
 
+    // Self-consumption configuration parameters (new API)
+    Q_PROPERTY(bool selfConsumptionEnabled READ selfConsumptionEnabled WRITE setSelfConsumptionEnabled NOTIFY selfConsumptionEnabledChanged)
+    Q_PROPERTY(float selfConsumptionCapacity READ selfConsumptionCapacity WRITE setSelfConsumptionCapacity NOTIFY selfConsumptionCapacityChanged)
+    Q_PROPERTY(int targetSocPvSurplusMin READ targetSocPvSurplusMin WRITE setTargetSocPvSurplusMin NOTIFY targetSocPvSurplusMinChanged)
+    Q_PROPERTY(int targetSocPvSurplusMax READ targetSocPvSurplusMax WRITE setTargetSocPvSurplusMax NOTIFY targetSocPvSurplusMaxChanged)
+
 public:
 
     // Block battery on grid consumption modes:
@@ -36,7 +42,6 @@ public:
         HeatingRod = 4
     };
     Q_FLAG(BlockBatteryOnGridConsumptionFlag);
-
 
     explicit BatteryConfiguration(QObject *parent = nullptr);
 
@@ -70,6 +75,19 @@ public:
     int blockBatteryOnGridConsumption() const;
     void setBlockBatteryOnGridConsumption(int blockBatteryOnGridConsumption);
 
+    // Self-consumption configuration getters/setters
+    bool selfConsumptionEnabled() const;
+    void setSelfConsumptionEnabled(bool selfConsumptionEnabled);
+
+    float selfConsumptionCapacity() const;
+    void setSelfConsumptionCapacity(float selfConsumptionCapacity);
+
+    int targetSocPvSurplusMin() const;
+    void setTargetSocPvSurplusMin(int targetSocPvSurplusMin);
+
+    int targetSocPvSurplusMax() const;
+    void setTargetSocPvSurplusMax(int targetSocPvSurplusMax);
+
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void priceThresholdChanged(float priceThreshold);
@@ -80,6 +98,10 @@ signals:
     void chargeOnceChanged(bool chargeOnce);
     void controllableLocalSystemChanged(bool controllableLocalSystem);
     void blockBatteryOnGridConsumptionChanged(int blockBatteryOnGridConsumption);
+    void selfConsumptionEnabledChanged(bool selfConsumptionEnabled);
+    void selfConsumptionCapacityChanged(float selfConsumptionCapacity);
+    void targetSocPvSurplusMinChanged(int targetSocPvSurplusMin);
+    void targetSocPvSurplusMaxChanged(int targetSocPvSurplusMax);
 
 private:
     QUuid m_batteryThingId;
@@ -92,6 +114,12 @@ private:
     bool m_avoidZeroFeedInEnabled = false;
     bool m_avoidZeroFeedInActive = false;
     int m_blockBatteryOnGridConsumption = EvCharger;
+
+    // Self-consumption configuration member variables
+    bool m_selfConsumptionEnabled = false;
+    float m_selfConsumptionCapacity = -1.0;  // -1.0 = not configured sentinel
+    int m_targetSocPvSurplusMin = 20;
+    int m_targetSocPvSurplusMax = 80;
 };
 
 #endif // BATTERYCONFIGURATION_H

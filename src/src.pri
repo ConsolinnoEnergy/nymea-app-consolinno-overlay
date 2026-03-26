@@ -1,6 +1,7 @@
 HEADERS += \
     $$PWD/Configurations/batteryconfiguration.h \
     $$PWD/Configurations/batteryconfigurations.h \
+    $$PWD/Configurations/selfconsumptionconfiguration.h \
     $$PWD/Configurations/chargingconfigurations.h \
     $$PWD/Configurations/chargingoptimizationconfiguration.h \
     $$PWD/Configurations/chargingoptimizationconfigurations.h \
@@ -26,6 +27,7 @@ HEADERS += \
 SOURCES += \
     $$PWD/Configurations/batteryconfiguration.cpp \
     $$PWD/Configurations/batteryconfigurations.cpp \
+    $$PWD/Configurations/selfconsumptionconfiguration.cpp \
     $$PWD/Configurations/chargingconfiguration.cpp \
     $$PWD/Configurations/chargingconfigurations.cpp \
     $$PWD/Configurations/chargingoptimizationconfiguration.cpp \
