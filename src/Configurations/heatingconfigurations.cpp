@@ -24,8 +24,6 @@ QVariant HeatingConfigurations::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->optimizationEnabled();
     case RoleHeatMeterThingId:
         return m_list.at(index.row())->heatMeterThingId();
-    case RoleHouseType:
-        return m_list.at(index.row())->houseType();
     case RolePvSurplusThreshold:
         return m_list.at(index.row())->pvSurplusThreshold();
     case RoleDurationMinAfterTurnOn:
@@ -42,7 +40,6 @@ QHash<int, QByteArray> HeatingConfigurations::roleNames() const
     roles.insert(RoleHeatPumpThingId, "heatPumpThingId");
     roles.insert(RoleOptimizationEnabled, "optimizationEnabled");
     roles.insert(RoleHeatMeterThingId, "heatMeterThingId");
-    roles.insert(RoleHouseType, "houseType");
     roles.insert(RolePvSurplusThreshold, "pvSurplusThreshold");
     roles.insert(RoleDurationMinAfterTurnOn, "durationMinAfterTurnOn");
     roles.insert(RoleDurationMaxTotal, "durationMaxTotal");
@@ -84,11 +81,6 @@ void HeatingConfigurations::addConfiguration(HeatingConfiguration *heatingConfig
     connect(heatingConfiguration, &HeatingConfiguration::heatMeterThingIdChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(heatingConfiguration));
         emit dataChanged(idx, idx, {RoleHeatMeterThingId});
-    });
-
-    connect(heatingConfiguration, &HeatingConfiguration::houseTypeChanged, this, [=](){
-        QModelIndex idx = index(m_list.indexOf(heatingConfiguration));
-        emit dataChanged(idx, idx, {RoleHouseType});
     });
 
     connect(heatingConfiguration, &HeatingConfiguration::pvSurplusThresholdChanged, this, [=](){

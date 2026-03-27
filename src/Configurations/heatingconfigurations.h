@@ -16,7 +16,6 @@ public:
         RoleHeatPumpThingId,
         RoleOptimizationEnabled,
         RoleHeatMeterThingId,
-        RoleHouseType,
         RolePvSurplusThreshold,
         RoleDurationMinAfterTurnOn,
         RoleDurationMaxTotal

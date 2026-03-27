@@ -118,20 +118,6 @@ void HeatingConfiguration::setFloorHeatingArea(const double &floorHeatingArea)
     m_floorHeatingArea = floorHeatingArea;
 }
 
-HeatingConfiguration::HouseType HeatingConfiguration::houseType() const
-{
-    return m_houseType;
-}
-
-void HeatingConfiguration::setHouseType(HouseType houseType)
-{
-    if (m_houseType == houseType)
-        return;
-
-    m_houseType = houseType;
-    emit houseTypeChanged(m_houseType);
-}
-
 double HeatingConfiguration::pvSurplusThreshold() const
 {
     return m_pvSurplusThreshold;

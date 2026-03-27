@@ -17,25 +17,12 @@ class HeatingConfiguration : public QObject
     Q_PROPERTY(bool relativePriceEnabled READ relativePriceEnabled WRITE setRelativePriceEnabled USER true NOTIFY relativePriceEnabledChanged)
     Q_PROPERTY(HPOptimizationMode optimizationMode READ optimizationMode WRITE setOptimizationMode USER true NOTIFY optimizationModeChanged)
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
-    Q_PROPERTY(HeatingConfiguration::HouseType houseType READ houseType WRITE setHouseType NOTIFY houseTypeChanged)
     Q_PROPERTY(double pvSurplusThreshold READ pvSurplusThreshold WRITE setPvSurplusThreshold NOTIFY pvSurplusThresholdChanged)
     Q_PROPERTY(int durationMinAfterTurnOn READ durationMinAfterTurnOn WRITE setDurationMinAfterTurnOn NOTIFY durationMinAfterTurnOnChanged)
     Q_PROPERTY(double durationMaxTotal READ durationMaxTotal WRITE setDurationMaxTotal NOTIFY durationMaxTotalChanged)
 
 public:
     explicit HeatingConfiguration(QObject *parent = nullptr);
-
-    enum HouseType {
-        HouseTypePassive,
-        HouseTypeLowEnergy,
-        HouseTypeEnEV2016,
-        HouseTypeBefore1949,
-        HouseTypeSince1949,
-        HouseTypeSince1969,
-        HouseTypeSince1979,
-        HouseTypeSince1984
-    };
-    Q_ENUM(HouseType)
 
     enum HPOptimizationMode {
         OptimizationModePVSurplus,
@@ -79,9 +66,6 @@ public:
     bool controllableLocalSystem() const;
     void setControllableLocalSystem(bool controllableLocalSystem);
 
-    HeatingConfiguration::HouseType houseType() const;
-    void setHouseType(HouseType houseType);
-
     double pvSurplusThreshold() const;
     void setPvSurplusThreshold(double pvSurplusThreshold);
 
@@ -98,7 +82,6 @@ signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void heatMeterThingIdChanged(const QUuid &heatMeterThingId);
     void controllableLocalSystemChanged(bool controllableLocalSystem);
-    void houseTypeChanged(HeatingConfiguration::HouseType houseType);
     void pvSurplusThresholdChanged(double pvSurplusThreshold);
     void durationMinAfterTurnOnChanged(int durationMinAfterTurnOn);
     void durationMaxTotalChanged(double durationMaxTotal);
@@ -118,7 +101,6 @@ private:
     double m_maxThermalEnergy = 0;
     double m_floorHeatingArea = 0;
     bool m_controllableLocalSystem = false;
-    HouseType m_houseType = HouseTypeSince1984;
     double m_pvSurplusThreshold = 500.0;
     int m_durationMinAfterTurnOn = 15;
     double m_durationMaxTotal = 240.0;
