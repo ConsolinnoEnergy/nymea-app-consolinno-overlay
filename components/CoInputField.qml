@@ -7,6 +7,7 @@ import "../components"
 
 Item {
     id: root
+    property alias text: textinput.text
     property alias textField: textinput
     property alias labelText: label.text
     property alias infoUrl: label.push
@@ -14,6 +15,7 @@ Item {
     property alias unit: unitLabel.text
     property alias feedbackText: notification.text
     property alias showLabel: labelLayout.visible
+    property bool compactTextField: false
 
     implicitHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
     implicitWidth: layout.implicitWidth + layout.anchors.leftMargin + layout.anchors.rightMargin
@@ -60,6 +62,7 @@ Item {
 
             Text {
                 id: unitLabel
+                Layout.fillWidth: root.compactTextField ? true : false
                 font: Style.newParagraphFont
                 color: Style.colors.typography_Basic_Default
                 text: ""
