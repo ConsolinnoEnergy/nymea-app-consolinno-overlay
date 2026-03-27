@@ -259,5 +259,7 @@
         <file>components/CoEnergyCircle.qml</file>
         <file>components/CoComboBox.qml</file>
         <file>components/CoInputField.qml</file>
+        <file>components/CoSortableCard.qml</file>
+        <file>optimization/PVPriorities.qml</file>
     </qresource>
 </RCC>

@@ -50,6 +50,8 @@ Item {
             Layout.alignment: Qt.AlignVCenter
             size: 24
             color: Style.colors.brand_Basic_Icon_accent
+            name: ""
+            visible: name !== ""
         }
 
         ColumnLayout {
@@ -93,6 +95,8 @@ Item {
             Layout.alignment: Qt.AlignVCenter
             size: 24
             color: Style.colors.brand_Basic_Icon
+            name: ""
+            visible: name !== ""
         }
 
         ColorIcon {

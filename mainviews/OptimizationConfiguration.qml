@@ -63,10 +63,7 @@ Page {
                         text: qsTr("PV device priorization") // #TODO wording
                         iconLeft: Qt.resolvedUrl("/icons/pin.svg")
                         showChildrenIndicator: true
-                        // onClicked: pageStack.push(Qt.resolvedUrl("../optimization/BlackoutProtectionView.qml")) // #TODO
-                        onClicked: {
-                            console.warn("--- clicked PrioPanda card");
-                        }
+                        onClicked: pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"))
                     }
                 }
             }
