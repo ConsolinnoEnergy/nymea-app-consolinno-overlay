@@ -16,6 +16,7 @@
 #include "Configurations/dynamicelectricpricingconfigurations.h"
 #include "Configurations/batteryconfigurations.h"
 #include "Configurations/conemsstate.h"
+#include "Configurations/emsconfiguration.h"
 
 
 
@@ -38,6 +39,7 @@ class HemsManager : public QObject
     Q_PROPERTY(ConEMSState *conEMSState READ conEMSState CONSTANT)
     Q_PROPERTY(UserConfigurations *userConfigurations READ userConfigurations CONSTANT)
     Q_PROPERTY(HeatingElementConfigurations *heatingElementConfigurations READ heatingElementConfigurations CONSTANT)
+    Q_PROPERTY(EmsConfiguration *emsConfiguration READ emsConfiguration CONSTANT)
 
 public:
     enum HemsUseCase {
@@ -81,6 +83,7 @@ public:
     HeatingElementConfigurations *heatingElementConfigurations() const;
     DynamicElectricPricingConfigurations *dynamicElectricPricingConfigurations() const;
     BatteryConfigurations *batteryConfigurations() const;
+    EmsConfiguration *emsConfiguration() const;
 
     // write and read
     Q_INVOKABLE int setPvConfiguration(const QUuid &pvThingId, const QVariantMap &data);
@@ -99,6 +102,8 @@ public:
 
     // System operations
     Q_INVOKABLE int factoryReset();
+
+    Q_INVOKABLE int setPVSurplusPriolist(const QList<QUuid> &pvSurplusPriolist);
 signals:
 
     void engineChanged();
@@ -134,6 +139,8 @@ signals:
 
     void factoryResetReply(int commandId, const QString &error);
 
+    void setPVSurplusPriolistReply(int commandId, const QString &error);
+
 private slots:
     Q_INVOKABLE void notificationReceived(const QVariantMap &data);
 
@@ -150,8 +157,9 @@ private slots:
     Q_INVOKABLE void getHeatingElementConfigurationsResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getDynamicElectricPricingConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getBatteryConfigurationResponse(int commandId, const QVariantMap &data);
-    Q_INVOKABLE void setHousholdPhaseLimitResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void getEmsConfigurationResponse(int commandId, const QVariantMap &data);
 
+    Q_INVOKABLE void setHousholdPhaseLimitResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setPvConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setHeatingConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setChargingConfigurationResponse(int commandId, const QVariantMap &data);
@@ -162,8 +170,10 @@ private slots:
     Q_INVOKABLE void setHeatingElementConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setDynamicElectricPricingConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setBatteryConfigurationResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void setEmsConfigurationResponse(int commandId, const QVariantMap &data);
 
     Q_INVOKABLE void factoryResetResponse(int commandId, const QVariantMap &data);
+
 
 private:
     QPointer<Engine> m_engine = nullptr;
@@ -183,6 +193,7 @@ private:
     HeatingElementConfigurations *m_heatingElementConfigurations = nullptr;
     DynamicElectricPricingConfigurations *m_dynamicElectricPricingConfigurations = nullptr;
     BatteryConfigurations *m_batteryConfigurations = nullptr;
+    EmsConfiguration *m_emsConfiguration = nullptr;
 
     void initJsonRpcCommunication();
 
@@ -196,6 +207,7 @@ private:
     void addOrUpdateHeatingElementConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateDynamicElectricPricingConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateBatteryConfiguration(const QVariantMap &configurationMap);
+    void updateEmsConfiguration(const QVariantMap &configurationMap);
 
     void updateAvailableUsecases(const QStringList &useCasesList);
     HemsManager::HemsUseCases unpackUseCases(const QStringList &useCasesList);
