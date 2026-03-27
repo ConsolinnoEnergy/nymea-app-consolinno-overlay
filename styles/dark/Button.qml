@@ -68,6 +68,8 @@ T.Button {
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
             size: 20
             color: Style.colors.brand_Basic_Icon
+            name: ""
+            visible: name !== ""
         }
 
         Text {
@@ -89,6 +91,8 @@ T.Button {
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
             size: 20
             color: Style.colors.brand_Basic_Icon
+            name: ""
+            visible: name !== ""
         }
     }
 
