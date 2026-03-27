@@ -117,3 +117,59 @@ void HeatingConfiguration::setFloorHeatingArea(const double &floorHeatingArea)
 {
     m_floorHeatingArea = floorHeatingArea;
 }
+
+HeatingConfiguration::HouseType HeatingConfiguration::houseType() const
+{
+    return m_houseType;
+}
+
+void HeatingConfiguration::setHouseType(HouseType houseType)
+{
+    if (m_houseType == houseType)
+        return;
+
+    m_houseType = houseType;
+    emit houseTypeChanged(m_houseType);
+}
+
+double HeatingConfiguration::pvSurplusThreshold() const
+{
+    return m_pvSurplusThreshold;
+}
+
+void HeatingConfiguration::setPvSurplusThreshold(double pvSurplusThreshold)
+{
+    if (m_pvSurplusThreshold == pvSurplusThreshold)
+        return;
+
+    m_pvSurplusThreshold = pvSurplusThreshold;
+    emit pvSurplusThresholdChanged(m_pvSurplusThreshold);
+}
+
+int HeatingConfiguration::durationMinAfterTurnOn() const
+{
+    return m_durationMinAfterTurnOn;
+}
+
+void HeatingConfiguration::setDurationMinAfterTurnOn(int durationMinAfterTurnOn)
+{
+    if (m_durationMinAfterTurnOn == durationMinAfterTurnOn)
+        return;
+
+    m_durationMinAfterTurnOn = durationMinAfterTurnOn;
+    emit durationMinAfterTurnOnChanged(m_durationMinAfterTurnOn);
+}
+
+double HeatingConfiguration::durationMaxTotal() const
+{
+    return m_durationMaxTotal;
+}
+
+void HeatingConfiguration::setDurationMaxTotal(double durationMaxTotal)
+{
+    if (m_durationMaxTotal == durationMaxTotal)
+        return;
+
+    m_durationMaxTotal = durationMaxTotal;
+    emit durationMaxTotalChanged(m_durationMaxTotal);
+}
