@@ -11,6 +11,7 @@ Item {
     property bool showChildrenIndicator: false
     property alias iconLeft: leftIcon.name
     property alias iconRight: rightIcon.name
+    property alias interactive: mouseArea.enabled
 
     signal clicked()
 

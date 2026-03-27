@@ -5,7 +5,6 @@ import Nymea 1.0
 import "../components"
 
 Item {
-    id: root
     property alias text: card.text
     property alias helpText: card.helpText
     property alias labelText: card.labelText
@@ -13,30 +12,9 @@ Item {
     property alias iconLeft: card.iconLeft
     property alias iconRight: card.iconRight
 
-    signal clicked()
-    signal dragStarted()
+    readonly property real dragHandleStartX: width - 2 * Style.margins - dragHandleIcon.width
 
     implicitHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
-
-    Rectangle {
-        id: background
-        anchors.fill: parent
-        color: mouseArea.containsMouse ? Style.colors.typography_Background_Default : "transparent"
-
-        Rectangle {
-            id: backgroundInteractionOverlay
-            anchors.fill: parent
-            color: {
-                if (mouseArea.pressed) {
-                    return Style.colors.typography_States_Pressed;
-                } else if (mouseArea.containsMouse) {
-                    return Style.colors.typography_States_Hover;
-                } else {
-                    return "transparent";
-                }
-            }
-        }
-    }
 
     RowLayout {
         id: layout
@@ -50,6 +28,7 @@ Item {
         CoCard {
             id: card
             Layout.fillWidth: true
+            interactive: false
         }
 
         Rectangle {
@@ -65,24 +44,6 @@ Item {
             color: Style.colors.brand_Basic_Icon
             Layout.alignment:  Qt.AlignVCenter
             size: 24
-        }
-    }
-
-    MouseArea {
-        id: mouseArea
-        anchors.fill: root
-        hoverEnabled: true
-        onClicked: (mouse) => {
-            if (!dragHandleIcon.contains(mapToItem(dragHandleIcon, mouse.x, mouse.y))) {
-                console.warn("--- clicked");
-                root.clicked();
-            }
-        }
-        onPressed: (mouse) => {
-            if (dragHandleIcon.contains(mapToItem(dragHandleIcon, mouse.x, mouse.y))) {
-                console.warn("--- dragStarted");
-                root.dragStarted();
-            }
         }
     }
 }
