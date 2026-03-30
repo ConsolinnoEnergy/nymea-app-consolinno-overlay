@@ -3,7 +3,6 @@
 
 ChargingConfiguration::ChargingConfiguration(QObject *parent) : QObject(parent)
 {
-    QUuid carThingId;
     m_carThingId = QUuid("00000000-0000-0000-0000-000000000000"); //"00000000-0000-0000-0000-000000000000"; //"91849ca3-f49f-49bc-a99c-f01075d050b0"
 
     QUuid uniqueIdentifier;
