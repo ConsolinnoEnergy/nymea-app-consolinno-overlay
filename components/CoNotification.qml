@@ -146,7 +146,7 @@ Item {
             Text {
                 id: titleText
                 Layout.fillWidth: true
-                Layout.preferredHeight: font.pixelSize + Style.smallMargins
+                Layout.bottomMargin: Style.smallMargins
                 verticalAlignment: Text.AlignVCenter
                 wrapMode: Text.WordWrap
                 font: Style.newH3Font
