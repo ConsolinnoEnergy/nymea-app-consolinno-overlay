@@ -19,6 +19,36 @@ GenericConfigPage {
     title: root.thing.name
     headerOptionsVisible: false
 
+    QtObject {
+        id: d
+        property int pendingCallId: -1
+    }
+
+    Connections {
+        target: hemsManager
+        onSetHeatingElementConfigurationReply: {
+            if (commandId === d.pendingCallId) {
+                d.pendingCallId = -1;
+                let props = "";
+                switch (error) {
+                case "HemsErrorNoError":
+                    return;
+                case "HemsErrorInvalidParameter":
+                    props.text = qsTr("Could not save configuration. One of the parameters is invalid.");
+                    break;
+                case "HemsErrorInvalidThing":
+                    props.text = qsTr("Could not save configuration. The thing is not valid.");
+                    break;
+                default:
+                    props.errorCode = error;
+                }
+                var comp = Qt.createComponent("../components/ErrorDialog.qml");
+                var popup = comp.createObject(app, { props });
+                popup.open();
+            }
+        }
+    }
+
     ListModel {
         id: optimizationModesModel
         // #TODO wordings
@@ -160,28 +190,27 @@ GenericConfigPage {
                             showChildrenIndicator: true
 
                             onClicked: {
-                                console.warn("--- Priority clicked");
-                                // #TODO
+                                pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"));
                             }
                         }
                     }
                 }
 
-                // Item {
-                //     id: spacer
-                //     Layout.fillHeight: true
-                //     Layout.fillWidth: true
-                // }
-
                 Button {
                     id: savebutton
                     Layout.fillWidth: true
-                    // #TODO enabled:
                     text: qsTr("Save")
+                    enabled: {
+                        let optimizationEnabledInConfig = heatingRodConfig.optimizationEnabled;
+                        let optimizationEnabledInComboBox = optimizationModeCombobox.currentValue === 1; // PV surplus
+                        return optimizationEnabledInConfig != optimizationEnabledInComboBox;
+                    }
 
                     onClicked: {
-                        console.warn("--- Save clicked");
-                        // #TODO
+                        d.pendingCallId = hemsManager.setHeatingElementConfiguration(root.heatingRodConfig.heatingRodThingId,
+                                                                                     {
+                                                                                         optimizationEnabled: optimizationModeCombobox.currentValue === 1 // PV surplus
+                                                                                     });
                     }
                 }
             }
