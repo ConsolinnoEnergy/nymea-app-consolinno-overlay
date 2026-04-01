@@ -5,6 +5,16 @@ import Nymea 1.0
 import "../components"
 
 Item {
+    id: root
+
+    enum StatusType {
+        NoStatus,
+        Neutral,
+        Success,
+        Warning,
+        Danger
+    }
+
     property alias text: titleText.text
     property alias helpText: helpText.text
     property alias labelText: labelText.text
@@ -12,6 +22,7 @@ Item {
     property alias iconLeft: leftIcon.name
     property alias iconRight: rightIcon.name
     property alias interactive: mouseArea.enabled
+    property int status: CoCard.StatusType.NoStatus
 
     signal clicked()
 
@@ -98,6 +109,44 @@ Item {
             color: Style.colors.brand_Basic_Icon
             name: ""
             visible: name !== ""
+        }
+
+        Rectangle {
+            id: statusLight
+            Layout.alignment: Qt.AlignCenter
+            visible: root.status !== CoCard.StatusType.NoStatus
+            width: 17
+            height: 17
+            radius: width / 2
+            border.width: 1
+            border.color: {
+                switch (root.status) {
+                case CoCard.StatusType.NoStatus:
+                    return "transparent";
+                case CoCard.StatusType.Neutral:
+                    return Style.colors.system_Neutral_Status_light_border;
+                case CoCard.StatusType.Success:
+                    return Style.colors.system_Success_Status_light_border;
+                case CoCard.StatusType.Warning:
+                    return Style.colors.system_Warning_Status_border;
+                case CoCard.StatusType.Danger:
+                    return Style.colors.system_Danger_Status_light_border;
+                }
+            }
+            color: {
+                switch (root.status) {
+                case CoCard.StatusType.NoStatus:
+                    return "transparent";
+                case CoCard.StatusType.Neutral:
+                    return Style.colors.system_Neutral_Status_light;
+                case CoCard.StatusType.Success:
+                    return Style.colors.system_Success_Status_light;
+                case CoCard.StatusType.Warning:
+                    return Style.colors.system_Warning_Status_light;
+                case CoCard.StatusType.Danger:
+                    return Style.colors.system_Danger_Status_light;
+                }
+            }
         }
 
         ColorIcon {
