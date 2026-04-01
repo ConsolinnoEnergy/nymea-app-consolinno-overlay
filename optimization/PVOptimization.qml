@@ -63,269 +63,192 @@ Page {
         }
     }
 
-    ColumnLayout {
-        id: contentColumn
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.topMargin: app.margins
-        anchors.margins: app.margins
-        spacing: 5
-
-        function parseNumber(text) {
-            try {
-                // Try locale parse
-                var v = Number.fromLocaleString(Qt.locale(), text)
-                //print("parsed locale")
-            } catch (e) {
-                try {
-                    // Parse EN (decimal point)
-                    var v = Number.fromLocaleString(Qt.locale("en_EN"), text)
-                    //print("parsed EN")
-                } catch (e) {
-                    // Last try, parse float. Returns 0 if fail to convert
-                    var v = parseFloat(text)
-                    //print("parsed float")
-                }
-            }
-            return v
-        }
-
-        Label {
-            Layout.fillWidth: true
-            text: thing.name
-            wrapMode: Text.WordWrap
-        }
-
-        ConsolinnoPVTextField {
-            id: latitudeInput
-
-            Layout.fillWidth: true
-            Layout.fillHeight: false
-            label: qsTr("Latitude")
-            text: pvConfiguration.latitude.toLocaleString(Qt.locale())
-
-            validator: DoubleValidator {
-                bottom: 30
-                top: 60
-                decimals: 4
-                notation: "StandardNotation"
-            }
-
-        }
-
-        ConsolinnoPVTextField {
-            id: longitudeInput
-
-            Layout.fillWidth: true
-            Layout.fillHeight: false
-            label: qsTr("Longitude")
-            text: pvConfiguration.longitude.toLocaleString(Qt.locale())
-
-            validator: DoubleValidator {
-                bottom: -10 
-                top: 30
-                decimals: 4
-                notation: "StandardNotation"
-            }
-        }
-
-        ConsolinnoPVTextField {
-            id: roofpitchInput
-
-            Layout.fillWidth: true
-            Layout.fillHeight: false
-            label: qsTr("Roof pitch")
-            text: pvConfiguration.roofPitch
-            maximumLength: 2
-
-            validator: IntValidator {
-                bottom: 0
-                top: 90
-            }
-        }
-
-        RowLayout {
-            Layout.fillWidth: true
-
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Alignment")
-            }
-
-            //            TextField {
-            //                id: alignment
-            //                property bool alignment_validated
-            //                maximumLength: 3
-            //                Layout.minimumWidth: 55
-            //                Layout.maximumWidth: 55
-            //                Layout.rightMargin: 48
-            //                text: pvConfiguration.alignment //                validator: IntValidator {
-            //                    bottom: 0
-            //                    top: 360
-            //                }
-            //                onTextChanged: acceptableInput ? alignment_validated
-            //                                                 = true : alignment_validated = false
-            //            }
-
-            ComboBox {
-                id: alignment
-                textRole: "text"
-                valueRole: "value"
-                Layout.fillWidth: false
-                Layout.preferredWidth: parent.width * 0.35 + Style.smallMargins
-                currentIndex: 4
-                Component.onCompleted: {
-                    var current = indexOfValue(pvConfiguration.alignment)
-                    if (current !== -1)
-                    {
-                        currentIndex =  current
-                    }else{
-                        currentIndex = 4 // south
-                    }
-                }
-                model: [
-                    { value: 0, text: qsTr("north") },
-                    { value: 45, text: qsTr("northeast") },
-                    { value: 90, text: qsTr("east") },
-                    { value: 135, text: qsTr("southeast") },
-                    { value: 180, text: qsTr("south") },
-                    { value: 225, text: qsTr("southwest") },
-                    { value: 270, text: qsTr("west") },
-                    { value: 315, text: qsTr("northwest") },
-                ]
-            }
-        }
-
-        ConsolinnoPVTextField {
-            id: peakPowerInput
-
-            Layout.fillWidth: true
-            Layout.fillHeight: false
-            label: qsTr("Peak power")
-            text: pvConfiguration.kwPeak.toLocaleString(Qt.locale())
-            unit: qsTr("kW")
-
-            validator: DoubleValidator {
-                bottom: 1
-                top: 30
-                decimals: 2
-                notation: "StandardNotation"
-            }
-        }
-
-        RowLayout{
-            Layout.fillWidth: true
-            visible: thing.thingClass.interfaces.includes("limitgridexport") ||
-                     thing.thingClass.interfaces.includes("limitableproducer")
-
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Grid-supportive-control")
-            }
-
-            Switch {
-                id: gridSupportControl
-                Component.onCompleted: checked = pvConfiguration.controllableLocalSystem
-            }
-        }
+    Flickable {
+        anchors.fill: parent
+        // anchors.topMargin: root.implicitHeaderHeight
+        clip: true
+        contentHeight: contentColumn.implicitHeight +
+                       contentColumn.anchors.topMargin +
+                       contentColumn.anchors.bottomMargin
 
         ColumnLayout {
-            Layout.fillWidth: true
-            visible: thing.thingClass.interfaces.includes("limitgridexport") ||
-                     thing.thingClass.interfaces.includes("limitableproducer")
+            id: contentColumn
+            anchors.fill: parent
+            anchors.margins: app.margins
 
-            Text {
+            CoFrostyCard {
                 Layout.fillWidth: true
-                font: Style.smallFont
-                color: Style.consolinnoMedium
-                wrapMode: Text.Wrap
-                text: qsTr("If the device must be controlled in accordance with § 9, this setting must be enabled.")
-            }
-        }
+                contentTopMargin: Style.smallMargins
+                headerText: thing.name
 
-        //margins filler
-        Item {
-            Layout.fillWidth: true
-            Layout.fillHeight: false
-            Layout.preferredHeight: Style.bigMargins
-        }
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: Style.margins
+                    anchors.rightMargin: Style.margins
+                    spacing: 0
 
-        Button {
-            id: savebutton
-
-            Layout.fillWidth: true
-
-            property bool validated: latitudeInput.acceptableInput
-                                     && longitudeInput.acceptableInput
-                                     && roofpitchInput.acceptableInput
-                                     && peakPowerInput.acceptableInput
-
-
-            text: qsTr("Save")
-            //enabled: configurationSettingsChanged
-
-            function validateValues() {
-                latitudeInput.validateValue();
-                longitudeInput.validateValue();
-                roofpitchInput.validateValue();
-                peakPowerInput.validateValue();
-            }
-
-            onClicked: {
-                validateValues();
-
-                // the input is in the range that is defined in the individual Validator
-                if (validated == false) {
-                    return
-                }
-
-                if (directionID === 1) {
-
-                    if (Number.fromLocaleString(Qt.locale(),
-                                                longitudeInput.text) !== 0
-                            || Number.fromLocaleString(Qt.locale(),
-                                                       latitudeInput.text) !== 0) {
-
-                        header.text = longitudeInput.text
-                        hemsManager.setPvConfiguration(thing.id, {
-                                                           "longitude": Number.fromLocaleString(
-                                                                            Qt.locale(),
-                                                                            longitudeInput.text),
-                                                           "latitude": Number.fromLocaleString(
-                                                                           Qt.locale(),
-                                                                           latitudeInput.text),
-                                                           "roofPitch": roofpitchInput.text,
-                                                           "alignment": alignment.currentValue,
-                                                           "kwPeak": Number.fromLocaleString(
-                                                                           Qt.locale(),
-                                                                           peakPowerInput.text),
-                                                           "controllableLocalSystem": gridSupportControl.checked
-                                                       })
-                        root.done()
-                    } else {
+                    CoInputField {
+                        id: latitudeInput
+                        Layout.fillWidth: true
+                        labelText: qsTr("Latitude")
+                        compactTextField: true
+                        unit: qsTr("°")
+                        helpText: qsTr("The value must be between 30 and 60.") // #TODO wording
+                        textField.text: pvConfiguration.latitude.toLocaleString(Qt.locale())
+                        textField.validator: DoubleValidator {
+                            bottom: 30
+                            top: 60
+                            decimals: 4
+                            notation: "StandardNotation"
+                        }
                     }
-                } else if (directionID === 0) {
-                    if (Number.fromLocaleString(Qt.locale(),
-                                                longitudeInput.text) !== 0
-                            || Number.fromLocaleString(Qt.locale(),
-                                                       latitudeInput.text) !== 0) {
 
-                        d.pendingCallId = hemsManager.setPvConfiguration(
-                                    thing.id, {
-                                        "longitude": Number.fromLocaleString(
-                                                         Qt.locale(),
-                                                         longitudeInput.text),
-                                        "latitude": Number.fromLocaleString(
-                                                        Qt.locale(),
-                                                        latitudeInput.text),
-                                        "roofPitch": roofpitchInput.text,
-                                        "alignment": alignment.currentValue,
-                                        "kwPeak": Number.fromLocaleString(
-                                                        Qt.locale(),
-                                                        peakPowerInput.text),
-                                        "controllableLocalSystem": gridSupportControl.checked
-                                    })
+                    CoInputField {
+                        id: longitudeInput
+                        Layout.fillWidth: true
+                        labelText: qsTr("Longitude")
+                        compactTextField: true
+                        unit: qsTr("°")
+                        textField.text: pvConfiguration.longitude.toLocaleString(Qt.locale())
+                        textField.validator: DoubleValidator {
+                            bottom: -10
+                            top: 30
+                            decimals: 4
+                            notation: "StandardNotation"
+                        }
+                    }
+
+                    CoInputField {
+                        id: roofpitchInput
+                        Layout.fillWidth: true
+                        labelText: qsTr("Roof pitch")
+                        compactTextField: true
+                        unit: qsTr("°")
+                        textField.text: pvConfiguration.roofPitch
+                        textField.maximumLength: 2
+                        textField.validator: IntValidator {
+                            bottom: 0
+                            top: 90
+                        }
+                    }
+
+                    CoComboBox {
+                        id: alignment
+                        Layout.fillWidth: true
+                        labelText: qsTr("Alignment")
+                        comboBox.textRole: "text"
+                        comboBox.valueRole: "value"
+                        comboBox.currentIndex: 4
+                        Component.onCompleted: {
+                            var current = comboBox.indexOfValue(pvConfiguration.alignment)
+                            if (current !== -1) {
+                                comboBox.currentIndex =  current
+                            } else {
+                                comboBox.currentIndex = 4 // south
+                            }
+                        }
+                        comboBox.model: [
+                            { value: 0, text: qsTr("north") },
+                            { value: 45, text: qsTr("northeast") },
+                            { value: 90, text: qsTr("east") },
+                            { value: 135, text: qsTr("southeast") },
+                            { value: 180, text: qsTr("south") },
+                            { value: 225, text: qsTr("southwest") },
+                            { value: 270, text: qsTr("west") },
+                            { value: 315, text: qsTr("northwest") },
+                        ]
+                    }
+
+                    CoInputField {
+                        id: peakPowerInput
+                        Layout.fillWidth: true
+                        labelText: qsTr("Peak power")
+                        compactTextField: true
+                        unit: qsTr("kW")
+                        textField.text: pvConfiguration.kwPeak.toLocaleString(Qt.locale())
+                        textField.validator: DoubleValidator {
+                            bottom: 1
+                            top: 30
+                            decimals: 2
+                            notation: "StandardNotation"
+                        }
+                    }
+
+                    CoSwitch {
+                        id: gridSupportControl
+                        Layout.fillWidth: true
+                        visible: thing.thingClass.interfaces.includes("limitgridexport") ||
+                                 thing.thingClass.interfaces.includes("limitableproducer")
+                        text: qsTr("Grid-supportive-control")
+                        helpText: qsTr("If the device must be controlled in accordance with § 9, this setting must be enabled.")
+
+                        Component.onCompleted: {
+                            checked = pvConfiguration.controllableLocalSystem;
+                        }
+                    }
+                }
+            }
+
+            Item {
+                id: spacer
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
+
+            Button {
+                id: savebutton
+                Layout.fillWidth: true
+                text: qsTr("Save")
+                property bool validated: latitudeInput.acceptableInput
+                                         && longitudeInput.acceptableInput
+                                         && roofpitchInput.acceptableInput
+                                         && peakPowerInput.acceptableInput
+
+                onClicked: {
+                    // the input is in the range that is defined in the individual Validator
+                    if (!validated) { return; }
+
+                    if (directionID === 1) {
+                        if (Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== 0 ||
+                                Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== 0) {
+                            header.text = longitudeInput.text;
+                            hemsManager.setPvConfiguration(thing.id,
+                                                           {
+                                                               "longitude": Number.fromLocaleString(
+                                                                                Qt.locale(),
+                                                                                longitudeInput.text),
+                                                               "latitude": Number.fromLocaleString(
+                                                                               Qt.locale(),
+                                                                               latitudeInput.text),
+                                                               "roofPitch": roofpitchInput.text,
+                                                               "alignment": alignment.comboBox.currentValue,
+                                                               "kwPeak": Number.fromLocaleString(
+                                                                             Qt.locale(),
+                                                                             peakPowerInput.text),
+                                                               "controllableLocalSystem": gridSupportControl.checked
+                                                           });
+                            root.done();
+                        }
+                    } else if (directionID === 0) {
+                        if (Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== 0 ||
+                                Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== 0) {
+                            d.pendingCallId = hemsManager.setPvConfiguration(thing.id,
+                                                                             {
+                                                                                 "longitude": Number.fromLocaleString(
+                                                                                                  Qt.locale(),
+                                                                                                  longitudeInput.text),
+                                                                                 "latitude": Number.fromLocaleString(
+                                                                                                 Qt.locale(),
+                                                                                                 latitudeInput.text),
+                                                                                 "roofPitch": roofpitchInput.text,
+                                                                                 "alignment": alignment.comboBox.currentValue,
+                                                                                 "kwPeak": Number.fromLocaleString(
+                                                                                               Qt.locale(),
+                                                                                               peakPowerInput.text),
+                                                                                 "controllableLocalSystem": gridSupportControl.checked
+                                                                             });
+                        }
                     }
                 }
             }
