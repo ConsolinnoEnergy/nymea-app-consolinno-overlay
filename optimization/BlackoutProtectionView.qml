@@ -147,14 +147,11 @@ Page {
             id: savebutton
             Layout.fillWidth: true
             enabled: {
-                if (phaseLimit === configuredPhaseLimit) {
-                    return false;
-                }
                 if (currentCombo.comboBox.currentValue === 0 &&
                         !currentInput.textField.acceptableInput) {
                     return false;
                 }
-                return true;
+                return phaseLimit > 15;
             }
             text: qsTr("Save")
 
