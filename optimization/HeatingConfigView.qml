@@ -290,7 +290,7 @@ GenericConfigPage {
                     }
 
 
-                    ConsolinnoDropdown {
+                    ComboBox {
                          id: optimizationModeDropdown
                          Layout.fillWidth: true
                          textRole: "text"

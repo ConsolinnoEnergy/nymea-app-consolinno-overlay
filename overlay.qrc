@@ -234,7 +234,6 @@
         <file>images/eebus.svg</file>
         <file>images/relais.svg</file>
         <file>components/ConsolinnoCheckbox.qml</file>
-        <file>components/ConsolinnoDropdown.qml</file>
         <file>system/ConsolinnoConnectionInterfacesPage.qml</file>
         <file>thingconfiguration/ConsolinnoConfigureThingPage.qml</file>
         <file>devicepages/ConsolinnoDeviceLogPage.qml</file>

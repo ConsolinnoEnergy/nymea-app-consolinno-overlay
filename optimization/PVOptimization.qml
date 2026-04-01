@@ -168,7 +168,7 @@ Page {
             //                                                 = true : alignment_validated = false
             //            }
 
-            ConsolinnoDropdown {
+            ComboBox {
                 id: alignment
                 textRole: "text"
                 valueRole: "value"

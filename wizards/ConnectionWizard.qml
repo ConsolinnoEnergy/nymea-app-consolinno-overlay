@@ -474,7 +474,7 @@ ConsolinnoWizardPageBase {
                         text: qsTr('Protocol')
                     }
 
-                    ConsolinnoDropdown {
+                    ComboBox {
                         id: connectionTypeComboBox
                         Layout.fillWidth: true
                         model: [ qsTr("TCP"), qsTr("Websocket"), qsTr("Remote proxy") ]

@@ -1209,7 +1209,7 @@ GenericConfigPage {
                                 push: "ChargingModeInfo.qml"
                             }
 
-                            ConsolinnoDropdown {
+                            ComboBox {
                                 id: comboboxloadingmod
                                 Layout.fillWidth: true
 
@@ -1295,7 +1295,7 @@ GenericConfigPage {
                                 push: "ChargingPhaseSwitchingInfo.qml"
                             }
 
-                            ConsolinnoDropdown {
+                            ComboBox {
                                 id: desiredPhaseCountDropdown
                                 Layout.fillWidth: true
 
@@ -1625,7 +1625,7 @@ GenericConfigPage {
                             Layout.preferredWidth: app.width
                             Layout.topMargin: 10
 
-                            ConsolinnoDropdown {
+                            ComboBox {
                                 visible: isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])
                                 id: gridConsumptionloadingmod
                                 Layout.fillWidth: true
