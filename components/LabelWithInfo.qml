@@ -23,5 +23,6 @@ Row {
         id: infoButton
         visible: typeof push === "string" && push !== ""
         anchors.verticalCenter: parent.verticalCenter
+        push: ""
     }
 }
