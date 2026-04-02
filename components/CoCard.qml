@@ -16,6 +16,7 @@ Item {
     }
 
     property alias text: titleText.text
+    property alias infoUrl: titleText.push
     property alias helpText: helpText.text
     property alias labelText: labelText.text
     property bool showChildrenIndicator: false
@@ -70,13 +71,15 @@ Item {
             Layout.fillWidth: true
             spacing: 0
 
-            Text {
+            LabelWithInfo {
+            // Text {
                 id: titleText
                 Layout.fillWidth: true
-                verticalAlignment: Text.AlignVCenter
-                wrapMode: Text.WordWrap
+                // verticalAlignment: Text.AlignVCenter
+                // wrapMode: Text.WordWrap
                 font: Style.newParagraphFont
-                color: Style.colors.typography_Basic_Default
+                // color: Style.colors.typography_Basic_Default
+                fontColor: Style.colors.typography_Basic_Default
             }
 
             Text {
