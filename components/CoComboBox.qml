@@ -10,6 +10,7 @@ Item {
     property alias comboBox: combo
     property alias currentIndex: combo.currentIndex
     property alias currentValue: combo.currentValue
+    property alias model: combo.model
     property alias labelText: label.text
     property alias infoUrl: label.push
     property alias helpText: helpLabel.text
