@@ -15,7 +15,10 @@ public:
     enum Role {
         RoleHeatPumpThingId,
         RoleOptimizationEnabled,
-        RoleHeatMeterThingId
+        RoleHeatMeterThingId,
+        RolePvSurplusThreshold,
+        RoleDurationMinAfterTurnOn,
+        RoleDurationMaxTotal
     };
     Q_ENUM(Role);
 

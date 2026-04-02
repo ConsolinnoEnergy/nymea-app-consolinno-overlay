@@ -394,7 +394,7 @@ SettingsPageBase {
 //                    text: qsTr("Thing")
 //                }
 
-                ConsolinnoDropdown {
+                ComboBox {
                     id: ioThingComboBox
                     model: ThingsProxy {
                         id: connectableIODevices
@@ -428,7 +428,7 @@ SettingsPageBase {
 //                    text: (ioConnectionDialog.ioStateType.ioType == Types.IOTypeDigitalInput || ioConnectionDialog.ioStateType.ioType == Types.IOTypeAnalogInput) ? qsTr("Output") : qsTr("Input")
 //                }
 
-                ConsolinnoDropdown {
+                ComboBox {
                     id: ioStateComboBox
                     model: StateTypesProxy {
                         id: connectableStateTypes

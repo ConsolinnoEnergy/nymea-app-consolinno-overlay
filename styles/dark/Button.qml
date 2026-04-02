@@ -29,15 +29,20 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 import QtQuick 2.9
-import QtQuick.Templates 2.2 as T
-import QtQuick.Controls 2.2
-import QtQuick.Controls.impl 2.2
-import QtQuick.Controls.Material 2.2
-import QtQuick.Controls.Material.impl 2.2
+import QtQuick.Layouts 1.15
+import QtQuick.Templates 2.5 as T
+import QtQuick.Controls 2.5
+import QtQuick.Controls.impl 2.5
 import Nymea 1.0
+
+import "../../ui/components"
 
 T.Button {
     id: control
+
+    property bool secondary: false
+    property alias iconLeft: iconLeft.name
+    property alias iconRight: iconRight.name
 
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentItem.implicitWidth + leftPadding + rightPadding)
@@ -45,74 +50,105 @@ T.Button {
                              contentItem.implicitHeight + topPadding + bottomPadding)
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
-    // external vertical padding is 6 (to increase touch area)
-    padding: 12
-    leftPadding: padding - 4
-    rightPadding: padding - 4
-    opacity: !control.enabled ? 0.3 : 1
+    topPadding: Style.numbers.components_Forms_Buttons_Vertical_padding
+    bottomPadding: Style.numbers.components_Forms_Buttons_Vertical_padding
+    leftPadding: Style.numbers.components_Forms_Buttons_Horizontal_padding
+    rightPadding: Style.numbers.components_Forms_Buttons_Horizontal_padding
+    topInset: 4
+    bottomInset: 4
+    leftInset: 4
+    rightInset: 4
+    opacity: !control.enabled ? Style.numbers.components_Disabled_opacity : 1
 
-//    Material.elevation: flat ? control.down || control.hovered ? 2 : 0
-//                             : control.down ? 8 : 2
-//    Material.background: flat ? "transparent" : undefined
+    contentItem: RowLayout {
+        spacing: Style.smallMargins
 
-    contentItem: Text {
-        text: control.text
-        color: Style.buttonTextColor
-        font.bold: control.font.bold
-        font.capitalization: Font.AllUppercase
-        font.family: control.font.family
-        font.hintingPreference: control.font.hintingPreference
-        font.italic: control.font.italic
-        font.letterSpacing: 2
-        font.overline: control.font.overline
-        font.pixelSize: app.smallFont
-        font.weight: Font.Bold
+        ColorIcon {
+            id: iconLeft
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            size: 20
+            color: Style.colors.brand_Basic_Icon
+            name: ""
+            visible: name !== ""
+        }
 
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        elide: Text.ElideRight
+        Text {
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            text: control.text
+            color: control.secondary ?
+                       Style.colors.typography_Basic_Default :
+                       Style.colors.components_Forms_Buttons_Button_primary_text
+            font: Style.newParagraphFont
+
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            elide: Text.ElideRight
+        }
+
+        ColorIcon {
+            id: iconRight
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            size: 20
+            color: Style.colors.brand_Basic_Icon
+            name: ""
+            visible: name !== ""
+        }
     }
 
-    // TODO: Add a proper ripple/ink effect for mouse/touch input and focus state
+//    contentItem: Text {
+//        text: control.text
+//        color: control.secondary ?
+//                   Style.colors.typography_Basic_Default :
+//                   Style.colors.components_Forms_Buttons_Button_primary_text
+//        font: Style.newParagraphFont
+
+//        horizontalAlignment: Text.AlignHCenter
+//        verticalAlignment: Text.AlignVCenter
+//        elide: Text.ElideRight
+//    }
+
     background: Rectangle {
         implicitWidth: 64
         implicitHeight: 48
 
-        // external vertical padding is 6 (to increase touch area)
-        y: 6
         width: parent.width
-        height: parent.height - 12
-        radius: 4
-        color: !control.enabled ? Style.buttonColor :
-                control.highlighted ? control.Material.iconColor : Style.buttonColor
-
-        PaddedRectangle {
-            y: parent.height - 4
-            width: parent.width
-            height: 4
-            radius: 2
-            topPadding: -2
-            clip: true
-            visible: control.checkable && (!control.highlighted || control.flat)
-            color: control.checked && control.enabled ? control.Material.accentColor : control.Material.secondaryTextColor
+        height: parent.height // - 12
+        radius: height / 2
+        color: {
+            if (control.secondary) {
+                if (control.pressed) {
+                    return Style.colors.typography_States_Pressed;
+                } else if (control.hovered) {
+                    return Style.colors.typography_Background_Default;
+                } else {
+                    return "transparent";
+                }
+            } else {
+                return Style.colors.components_Forms_Buttons_Button_primary;
+            }
         }
+        border.width: control.secondary ? 0 : 1
+        border.color: Style.colors.components_Forms_Buttons_Button_primary_border
 
-        // The layer is disabled when the button color is transparent so you can do
-        // Material.background: "transparent" and get a proper flat button without needing
-        // to set Material.elevation as well
-        layer.enabled: control.enabled && Style.buttonColor.a > 0
-        layer.effect: ElevationEffect {
-            elevation: control.Material.elevation
-        }
-
-        Ripple {
-            clipRadius: 2
+        Rectangle {
             width: parent.width
             height: parent.height
-            pressed: control.pressed
-            anchor: control
-            active: control.down || control.visualFocus || control.hovered
-            color: control.Material.rippleColor
+            radius: height / 2
+            color: Style.colors.typography_States_Pressed
+            visible: control.pressed && !control.secondary
+        }
+
+        Rectangle {
+            x: -4
+            y: -4
+            width: parent.width + 8
+            height: parent.height + 8
+            radius: height / 2
+            visible: control.hovered
+            color: "transparent"
+            border.width: 4
+            border.color: Style.colors.typography_States_Hover_pressed_outline
         }
     }
 }

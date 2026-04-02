@@ -1,22 +1,29 @@
-import "../components"
-import "../delegates"
-import "../devicepages"
-import Nymea 1.0
 import QtQml 2.15
 import QtQuick 2.12
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
+import Nymea 1.0
+import NymeaApp.Utils 1.0
+import "../components"
+import "../delegates"
+import "../devicepages"
 
 GenericConfigPage {
     id: root
 
     property Thing thing
     property HeatingConfiguration heatingconfig: hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id)
-    property double thresholdPrice: 0
     property double currentPrice: 0
     property double lowestPrice: 0
     property double highestPrice: 0
+    readonly property State currentPowerState: thing.stateByName("currentPower")
+    readonly property State totalConsumptionState: thing.stateByName("totalEnergyConsumed")
+    readonly property State pvSurplusPowerState: thing.stateByName("actualPvSurplus")
+    readonly property State sgReadyModeState: thing.stateByName("sgReadyMode")
+
+    title: root.thing.name
+    headerOptionsVisible: false
 
     function updatePrice() {
         currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value;
@@ -39,395 +46,301 @@ GenericConfigPage {
             newConfig.heatMeterThingId = "";
         }
         console.info("Saving new heating configuration: " + JSON.stringify(newConfig));
-        rootObject.pendingCallId = hemsManager.setHeatingConfiguration(thing.id, newConfig);
+        d.pendingCallId = hemsManager.setHeatingConfiguration(thing.id, newConfig);
     }
 
     function enableSave() {
         saveButton.enabled = true;
     }
 
-    title: root.thing.name
-    headerOptionsVisible: false
-    content: [
-        Flickable {
-            anchors.fill: parent
-            contentHeight: columnLayout.implicitHeight + 30
-            clip: true
-
-            ColumnLayout {
-                id: columnLayout
-
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.topMargin: Style.margins
-                anchors.leftMargin: Style.margins
-                anchors.rightMargin: Style.margins
-
-                Row {
-                    Layout.fillWidth: true
-                    Layout.topMargin: Style.smallMargins
-                    visible: {
-                        for (let i = 0; i < energyManagerRepeater.count; ++i) {
-                            const item = energyManagerRepeater.itemAt(i);
-                            if (item && item.visible) { return true; }
-                        }
-                        return false;
-                    }
-
-                    Label {
-                        id: energyManager
-
-                        text: qsTr("Energymanager")
-                        font.bold: true
-                    }
-
-                }
-
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    Layout.topMargin: Style.margins
-                    spacing: Style.margins
-
-                    Repeater {
-                        id: energyManagerRepeater
-
-                        function translateNymeaHeatpumpValues(something) {
-                            switch (something) {
-                            case "Off":
-                                return qsTr("Off");
-                            case "Low":
-                                return qsTr("Standard");
-                            case "Standard":
-                                return qsTr("Increased");
-                            case "High":
-                                return qsTr("High");
-                            }
-                        }
-
-                        model: [{
-                                "Id": "performanceTarget",
-                                "name": qsTr("Forwarded Solar Surplus"),
-                                "value": thing.stateByName("actualPvSurplus") ? thing.stateByName("actualPvSurplus").value : null,
-                                "unit": "W",
-                                "infoButtonURL": thing.stateByName("actualPvSurplus") ? "PvSurplusInfo.qml" : ""
-                            }, {
-                                "Id": "operatingModeSG",
-                                "name": qsTr("Operating mode"),
-                                "value": thing.stateByName("sgReadyMode") ? translateNymeaHeatpumpValues(thing.stateByName("sgReadyMode").value) : null,
-                                "unit": "",
-                                "infoButtonURL": thing.stateByName("sgReadyMode") ? "EnergyManagerInfo.qml" : ""
-                            }]
-                        delegate: stringValuesComponent
-
-                    }
-
-                }
-
-                Row {
-                    Layout.fillWidth: true
-                    Layout.topMargin: Style.margins
-
-                    Label {
-                        id: heatingPumpStates
-
-                        text: qsTr("Heatpump condition")
-                        font.bold: true
-                    }
-
-                }
-
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    Layout.topMargin: Style.margins
-                    spacing: Style.margins
-
-                    Repeater {
-                        id: heatpumpConditions
-                        model: [{
-                                "Id": "operatingMode",
-                                "name": qsTr("Status"),
-                                "value": thing.stateByName("systemStatus") ? thing.stateByName("systemStatus").value : null,
-                                "unit": ""
-                            }, {
-                                "Id": "currentConsumption",
-                                "name": qsTr("Current consumption"),
-                                "value": thing.stateByName("currentPower") ? thing.stateByName("currentPower").value : null,
-                                "unit": "W"
-                            }, {
-                                "Id": "totalAmountOfEnergy",
-                                "name": qsTr("Absorbed elec. energy"),
-                                "value": thing.stateByName("totalEnergyConsumed") ? thing.stateByName("totalEnergyConsumed").value : null,
-                                "unit": "kWh"
-                            }, {
-                                "Id": "totalThermalEnergyGenerated",
-                                "name": qsTr("Total thermal energy generated"),
-                                "value": thing.stateByName("totalOutputThermalEnergy") ? thing.stateByName("totalOutputThermalEnergy").value : null,
-                                "unit": "kWh"
-                            }, {
-                                "Id": "outdoorTemperature",
-                                "name": qsTr("Outdoor temperature"),
-                                "value": thing.stateByName("outdoorTemperature") ? thing.stateByName("outdoorTemperature").value : null,
-                                "unit": "°C"
-                            }, {
-                                "Id": "currentCoefficientOfPerformance",
-                                "name": qsTr("Current COP"),
-                                "value": thing.stateByName("coefficientOfPerformance") ? thing.stateByName("coefficientOfPerformance").value : null,
-                                "unit": ""
-                            }, {
-                                "Id": "averageCoefficientOfPerformance",
-                                "name": qsTr("Average COP"),
-                                "value": thing.stateByName("averageCoefficientOfPerformance") ? thing.stateByName("averageCoefficientOfPerformance").value : null,
-                                "unit": ""
-                            }, {
-                                "Id": "hotWaterTemperature",
-                                "name": qsTr("Domestic hot water temperature"),
-                                "value": thing.stateByName("hotWaterTemperature") ? thing.stateByName("hotWaterTemperature").value : null,
-                                "unit": "°C"
-                            }]
-                        delegate: stringValuesComponent
-                    }
-
-                }
-
-                Row {
-                    Layout.fillWidth: true
-                    Layout.topMargin: Style.margins
-                    visible: thing && (thing.stateByName("flowTemperature") || thing.stateByName("returnTemperature"))
-
-                    Label {
-                        id: heatingPumpCircuit
-
-                        text: qsTr("Heating circuit")
-                        font.bold: true
-                    }
-
-                }
-
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    Layout.topMargin: Style.margins
-                    spacing: Style.margins
-
-                    Repeater {
-                        model: [{
-                                "Id": "flowTemperature",
-                                "name": qsTr("Flow temperature"),
-                                "value": thing.stateByName("flowTemperature") ? thing.stateByName("flowTemperature").value : null,
-                                "unit": "°C"
-                            }, {
-                                "Id": "returnTemperature",
-                                "name": qsTr("Return temperature"),
-                                "value": thing.stateByName("returnTemperature") ? thing.stateByName("returnTemperature").value : null,
-                                "unit": "°C"
-                            }]
-                        delegate: stringValuesComponent
-                    }
-                }
-
-                Component {
-                    id: stringValuesComponent
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        visible: modelData.value !== null
-
-                        LabelWithInfo {
-                            text: modelData.name
-                            push: modelData.infoButtonURL ?? ""
-                        }
-
-                        Label {
-                            text: {
-                                var str = "";
-                                var loc = Qt.locale();
-                                loc.numberOptions = Locale.OmitGroupSeparator;
-                                if (Number(modelData.value)) {
-                                    if (modelData.Id === "currentCoefficientOfPerformance" ||
-                                        modelData.Id === "averageCoefficientOfPerformance") {
-                                        str = Math.abs(modelData.value).toLocaleString(loc, 'f', 1);
-                                    } else if (modelData.Id === "flowTemperature" ||
-                                               modelData.Id === "returnTemperature" ||
-                                               modelData.Id === "hotWaterTemperature" ||
-                                               modelData.Id === "outdoorTemperature") {
-                                        str = modelData.value.toLocaleString(loc, 'f', 1);
-                                    } else if (modelData.Id === "performanceTarget") {
-                                        str = Math.max(0, modelData.value).toLocaleString(loc, 'f', 0);
-                                    } else {
-                                        str = modelData.value.toLocaleString(loc, 'f', 0);
-                                    }
-                                } else {
-                                    str = modelData.value;
-                                }
-                                if (modelData.unit !== "") {
-                                    str += " " + modelData.unit;
-                                }
-                                return str;
-                            }
-                        }
-                    }
-                }
-
-                // Add a dropdown field "Optimization" with options "PV Surplus", "Dynamic Pricing", "Off"
-                RowLayout {
-                    Layout.fillWidth: true
-                    Layout.topMargin: Style.margins
-                    // visible only if interface of heatpump is smartgridheatpump
-                    visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
-
-                    Label {
-                        Layout.fillWidth: true
-
-                        text: qsTr("Optimization")
-                        font.bold: true
-
-                        InfoButton {
-                            x: parent.paintedWidth + 10
-                            push: "HeatpumpOptimizationInfo.qml"
-                            Layout.alignment: Qt.AlignTop
-                            Layout.fillWidth: true
-                        }
-                    }
-
-
-                    ConsolinnoDropdown {
-                         id: optimizationModeDropdown
-                         Layout.fillWidth: true
-                         textRole: "text"
-
-                         // Base model that holds *all* possible options
-                         property var fullModel: [
-                             { text: qsTr("PV Surplus"), enumname: "OptimizationModePVSurplus", value: 0},
-                             { text: qsTr("Dynamic Pricing"), enumname: "OptimizationModeDynamicPricing", value: 1},
-                             { text: qsTr("Off"), enumname: "OptimizationModeOff", value: 2},
-                         ]
-
-                         // Actual ComboBox model
-                         model: ListModel { id: filteredModel }
-
-                         // Keep ComboBox selection consistent with config
-                         currentIndex: {
-                             if (!heatingconfig)
-                                 return -1
-
-                             for (let i = 0; i < filteredModel.count; ++i) {
-                                 if (filteredModel.get(i).enumname === heatingconfig.optimizationMode)
-                                     return i
-                             }
-                             return -1
-                         }
-
-                         onCurrentIndexChanged: {
-                             console.info(heatingconfig.optimizationMode)
-                             if (currentIndex >= 0 && model.get(currentIndex).value !== heatingconfig.optimizationMode) {
-                                 console.debug("Optimization mode changed to:", model.get(currentIndex).enumname)
-                                 enableSave()
-                             }
-                         }
-
-                         // --- Core filtering logic ---
-                         function rebuildModel() {
-                             filteredModel.clear()
-
-                             console.info("Heating Config:", JSON.stringify(heatingconfig))
-
-                             const pvEnabled  = hemsManager.availableUseCases & HemsManager.HemsUseCasePv
-                             const dynEnabled = hemsManager.availableUseCases & HemsManager.HemsUseCaseDynamicEPricing
-
-                             for (let i = 0; i < fullModel.length; ++i) {
-                                 const item = fullModel[i]
-
-                                 // show PV Surplus only if PV use case is available
-                                 if (item.enumname === "OptimizationModePVSurplus" && pvEnabled)
-                                     filteredModel.append(item)
-
-                                 // show Dynamic Pricing only if Dynamic Pricing use case is available
-                                 else if (item.enumname === "OptimizationModeDynamicPricing" && dynEnabled)
-                                     filteredModel.append(item)
-
-                                 else if (item.enumname === "OptimizationModeOff")
-                                     filteredModel.append(item)
-                             }
-
-                             // Set current index to match existing config
-                             for (let i = 0; i < filteredModel.count; ++i) {
-                                 if (filteredModel.get(i).value === heatingconfig.optimizationMode) {
-                                     optimizationModeDropdown.currentIndex = i
-                                     return
-                                 }
-                             }
-                         }
-
-                         Component.onCompleted: rebuildModel()
-                         Connections {
-                             target: hemsManager
-                             onAvailableUseCasesChanged: optimizationModeDropdown.rebuildModel()
-                         }
-                    }
-                }
-
-                RowLayout {
-                    Layout.fillWidth: true
-                    Layout.topMargin: Style.margins
-                    visible: optimizationModeDropdown.currentIndex >= 0 && optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).enumname === "OptimizationModeDynamicPricing" 
-
-                    HeatpumpPriceWidget {
-                        id: heatpumpPriceWidget
-                        currentPrice: currentPrice
-                        heatingConfiguration: heatingconfig
-                        dynamicPriceThing: dynamicPrice.get(0)
-                    }
-
-                }
-
-                RowLayout {
-                    id: saveBtnContainer
-                    visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
-
-                    Layout.fillWidth: true
-                    Layout.topMargin: Style.margins
-
-                    Button {
-                        id: saveButton
-
-
-                        Layout.fillWidth: true
-                        text: qsTr("Save")
-                        enabled: false
-                        onClicked: {
-                            console.error("Saving new price limit: " + heatpumpPriceWidget.currentValue);
-                            saveSettings();
-                            saveButton.enabled = false;
-                        }
-                    }
-
-                }
-
-            }
-
+    function translateNymeaHeatpumpValues(something) {
+        switch (something) {
+        case "Off":
+            return qsTr("Off");
+        case "Low":
+            return qsTr("Standard");
+        case "Standard":
+            return qsTr("Increased");
+        case "High":
+            return qsTr("High");
         }
-    ]
+    }
 
     QtObject {
-        id: rootObject
-
+        id: d
         property int pendingCallId: -1
     }
 
     Connections {
         target: engine.thingManager
         onThingStateChanged: (thingId, stateTypeId, value) => {
-            if (thingId === dynamicPrice.get(0).id)
-                updatePrice();
+                                 if (thingId === dynamicPrice.get(0).id) {
+                                     updatePrice();
+                                 }
+                             }
+    }
 
+    Connections {
+        target: hemsManager
+        onSetHeatingConfigurationReply: {
+            if (commandId === d.pendingCallId) {
+                d.pendingCallId = -1;
+                let props = "";
+                switch (error) {
+                case "HemsErrorNoError":
+                    return;
+                case "HemsErrorInvalidParameter":
+                    props.text = qsTr("Could not save configuration. One of the parameters is invalid.");
+                    break;
+                case "HemsErrorInvalidThing":
+                    props.text = qsTr("Could not save configuration. The thing is not valid.");
+                    break;
+                default:
+                    props.errorCode = error;
+                }
+                var comp = Qt.createComponent("../components/ErrorDialog.qml");
+                var popup = comp.createObject(app, { props });
+                popup.open();
+            }
         }
     }
 
     ThingsProxy {
         id: dynamicPrice
-
         engine: _engine
         shownInterfaces: ["dynamicelectricitypricing"]
     }
 
+    content: [
+        Flickable {
+            anchors.fill: parent
+            contentHeight: columnLayout.implicitHeight +
+                           columnLayout.anchors.topMargin +
+                           columnLayout.anchors.bottomMargin
+            clip: true
+
+            ColumnLayout {
+                id: columnLayout
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
+
+                CoEnergyCircle {
+                    id: energyCircle
+                    Layout.fillWidth: true
+                    visible: root.currentPowerState !== null
+                    power: root.currentPowerState.value
+                    icon: app.interfacesToIcon(root.thing.thingClass.interfaces)
+                    label: qsTr("Current power consumption")
+                    circleColor: Style.colors.components_Dashboard_Detail_Energy_circle_border // #TODO same for all energy circles? -> then move to CoEnergyCircle directly
+                }
+
+                RowLayout {
+                    id: kpiCardsLayout
+                    Layout.fillWidth: true
+                    spacing: Style.margins
+
+                    CoKPICard {
+                        id: totalConsumptionCard
+                        Layout.fillWidth: true
+                        visible: root.totalConsumptionState !== null
+                        icon: Qt.resolvedUrl("qrc:/icons/electric_bolt.svg")
+                        labelText: qsTr("Total consumption") // #TODO wording
+                        // #TODO use decimal places when value is small?
+                        valueText: (root.totalConsumptionState ? NymeaUtils.floatToLocaleString((+root.totalConsumptionState.value), 0) : "-") + qsTr(" kWh")
+                    }
+
+                    CoKPICard {
+                        id: pvSurplusPowerCard
+                        Layout.fillWidth: true
+                        visible: root.pvSurplusPowerState !== null
+                        icon: Qt.resolvedUrl("qrc:/icons/solar_power.svg")
+                        labelText: qsTr("Forwarded Solar Surplus")
+                        valueText: (root.pvSurplusPowerState ? NymeaUtils.floatToLocaleString((+root.pvSurplusPowerState.value) / 1000, 2) : "-") + qsTr(" kW")
+                    }
+                }
+
+                CoFrostyCard {
+                    id: sgReadyStatusGroup
+                    Layout.fillWidth: true
+                    visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("Status")
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        CoCard {
+                            id: sgReadyStatusCard
+                            Layout.fillWidth: true
+                            labelText: qsTr("Operating mode")
+                            text: root.sgReadyModeState ? translateNymeaHeatpumpValues(root.sgReadyModeState.value) : ""
+                            infoUrl: "EnergyManagerInfo.qml"
+                            interactive: false
+                        }
+                    }
+                }
+
+                CoFrostyCard {
+                    id: controlGroup
+                    Layout.fillWidth: true
+                    visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("Control") // #TODO wording
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: Style.smallMargins
+
+                        CoComboBox {
+                            id: optimizationModeDropdown
+                            Layout.fillWidth: true
+                            labelText: qsTr("Optimization") // #TODO wording
+                            infoUrl: "HeatpumpOptimizationInfo.qml"
+                            comboBox.textRole: "text"
+
+                            // Base model that holds *all* possible options
+                            property var fullModel: [
+                                { text: qsTr("PV Surplus"), enumname: "OptimizationModePVSurplus", value: 0},
+                                { text: qsTr("Dynamic Pricing"), enumname: "OptimizationModeDynamicPricing", value: 1},
+                                { text: qsTr("Off"), enumname: "OptimizationModeOff", value: 2},
+                            ]
+                            // Actual ComboBox model
+                            comboBox.model: ListModel { id: filteredModel }
+
+                            currentIndex: {
+                                if (!root.heatingconfig) {
+                                    return -1;
+                                }
+                                for (let i = 0; i < filteredModel.count; ++i) {
+                                    if (filteredModel.get(i).enumname === root.heatingconfig.optimizationMode) {
+                                        return i;
+                                    }
+                                }
+                                return -1;
+                            }
+
+                            onCurrentIndexChanged: {
+                                console.info(root.heatingconfig.optimizationMode);
+                                if (currentIndex >= 0 &&
+                                        comboBox.model.get(currentIndex).value !== root.heatingconfig.optimizationMode) {
+                                    console.debug("Optimization mode changed to:", comboBox.model.get(currentIndex).enumname);
+                                    enableSave();
+                                }
+                            }
+
+                            Component.onCompleted: {
+                                rebuildModel();
+                            }
+
+                            Connections {
+                                target: hemsManager
+                                onAvailableUseCasesChanged: {
+                                    optimizationModeDropdown.rebuildModel();
+                                }
+                            }
+
+                            // --- Core filtering logic ---
+                            function rebuildModel() {
+                                console.info("Heating Config:", JSON.stringify(root.heatingconfig));
+
+                                filteredModel.clear();
+                                const pvEnabled = hemsManager.availableUseCases & HemsManager.HemsUseCasePv;
+                                const dynEnabled = hemsManager.availableUseCases & HemsManager.HemsUseCaseDynamicEPricing;
+
+                                for (let i = 0; i < fullModel.length; ++i) {
+                                    const item = fullModel[i];
+                                    if (item.enumname === "OptimizationModePVSurplus" && pvEnabled) {
+                                        filteredModel.append(item);
+                                    }
+                                    else if (item.enumname === "OptimizationModeDynamicPricing" && dynEnabled) {
+                                        filteredModel.append(item);
+                                    }
+                                    else if (item.enumname === "OptimizationModeOff") {
+                                        filteredModel.append(item);
+                                    }
+                                }
+
+                                // Set current index to match existing config
+                                for (let i = 0; i < filteredModel.count; ++i) {
+                                    if (filteredModel.get(i).value === root.heatingconfig.optimizationMode) {
+                                        optimizationModeDropdown.currentIndex = i;
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                CoFrostyCard {
+                    id: pvPrioGroup
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("PV Surplus") // #TODO wording, quotation marks from design?
+                    visible: thing.thingClass.interfaces.indexOf("pvsurplusheatpump") >= 0 ||
+                             (thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0 &&
+                              optimizationModeDropdown.currentIndex >= 0 &&
+                              optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).enumname === "OptimizationModePVSurplus")
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: Style.smallMargins
+
+                        CoCard {
+                            id: pvPrioCard
+                            Layout.fillWidth: true
+                            labelText: qsTr("Priority")
+                            text: "1" // #TODO get real priority from config
+                            showChildrenIndicator: true
+
+                            onClicked: {
+                                pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"));
+                            }
+                        }
+                    }
+                }
+
+                CoFrostyCard {
+                    id: dynamicPricingGroup
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("Dynamic pricing") // #TODO wording, quotation marks from design?
+                    visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0 &&
+                             optimizationModeDropdown.currentIndex >= 0 &&
+                             optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).enumname === "OptimizationModeDynamicPricing"
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.margins: Style.margins
+
+                        HeatpumpPriceWidget {
+                            id: heatpumpPriceWidget
+                            Layout.fillWidth: true
+                            currentPrice: root.currentPrice
+                            heatingConfiguration: root.heatingconfig
+                            dynamicPriceThing: dynamicPrice.get(0)
+                        }
+                    }
+                }
+
+                Button {
+                    id: saveButton
+                    Layout.fillWidth: true
+                    visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
+                    text: qsTr("Save")
+                    enabled: false
+                    onClicked: {
+                        saveSettings();
+                        saveButton.enabled = false;
+                    }
+                }
+            }
+        }
+    ]
 }

@@ -13,7 +13,6 @@ Page {
     property HeatingConfiguration heatingConfiguration
     property Thing heatPumpThing
     property int directionID: 0
-    property bool isSetup: false
     signal done()
 
     function buildMeterModel() {
@@ -26,25 +25,21 @@ Page {
             }
         }
         if (!heatingConfiguration) {
-            heatMeterDropdown.currentIndex = 0;
+            heatMeterCombo.comboBox.currentIndex = 0;
             return;
         }
         let currentId = heatingConfiguration.heatMeterThingId.toString();
         for (let j = 0; j < meterModel.count; j++) {
             if (meterModel.get(j).thingId === currentId) {
-                heatMeterDropdown.currentIndex = j;
+                heatMeterCombo.comboBox.currentIndex = j;
                 return;
             }
         }
-        heatMeterDropdown.currentIndex = 0;
+        heatMeterCombo.comboBox.currentIndex = 0;
     }
 
-    //property bool heatMeterIncluded: heatPumpThing.thingClass.interfaces.includes("heatmeter")
-    // TODO: only if any configuration has changed, warn also on leaving if unsaved settings
-    //property bool configurationSettingsChanged
-
     header: NymeaHeader {
-        text: qsTr("Heating configuration")
+        text: qsTr("Heating")
         backButtonVisible: directionID === 1 ? false : true
         onBackPressed: pageStack.pop()
     }
@@ -80,197 +75,77 @@ Page {
         }
     }
 
+    ThingsProxy {
+        id: smartMeterConsumerProxy
+        engine: _engine
+        shownInterfaces: ["smartmeterconsumer"]
+        onCountChanged: buildMeterModel()
+    }
+
+    Component.onCompleted: {
+        buildMeterModel();
+    }
+
     ColumnLayout {
         id: contentColumn
         anchors.fill: parent
         anchors.margins: app.margins
 
-        Label {
+        CoFrostyCard {
             Layout.fillWidth: true
-            text: heatPumpThing.name
-            wrapMode: Text.WordWrap
+            contentTopMargin: Style.smallMargins
+            headerText: heatPumpThing.name
 
-        }
-//        RowLayout {
-//            Layout.fillWidth: true
-
-//            //            Label {
-//            //                Layout.fillWidth: true
-//            //                text: qsTr("Optimization enabled")
-//            //            }
-
-//            //            Switch {
-//            //                id: optimizationEnabledSwitch
-//            //                Component.onCompleted: checked = heatingConfiguration.optimizationEnabled
-//            //            }
-
-//        }
-
-        /*
-        RowLayout{
-            Layout.fillWidth: true
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Floor heating area")
-
-            }
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Style.margins
+                anchors.rightMargin: Style.margins
+                spacing: 0
 
 
-            TextField {
-                id: floorHeatingAreaId
-                property bool floorHeatingArea_validated
-                Layout.preferredWidth: 60
-                Layout.rightMargin: 10
-                text: heatingConfiguration.floorHeatingArea
-                maximumLength: 5
-                validator: DoubleValidator{bottom: 1}
+                CoInputField {
+                    id: maxElectricalPower
+                    property bool maxElectricalPowerValid: textField.acceptableInput
+                    Layout.fillWidth: true
+                    labelText: qsTr("Maximal electrical power")
+                    compactTextField: true
+                    unit: qsTr("kW")
+                    textField.text: (+heatingConfiguration.maxElectricalPower).toLocaleString()
+                    textField.maximumLength: 10
+                    textField.validator: DoubleValidator{ bottom: 1 }
+                }
 
-                onTextChanged: acceptableInput ?floorHeatingArea_validated = true : floorHeatingArea_validated = false
-            }
+                CoSwitch {
+                    id: gridSupportControl
+                    Layout.fillWidth: true
+                    text: qsTr("Grid-supportive-control")
+                    helpText: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
+                    visible: heatPumpThing.thingClass.interfaces.includes("smartgridheatpump") ||
+                             heatPumpThing.thingClass.interfaces.includes("limitableconsumer") ||
+                             heatPumpThing.thingClass.interfaces.includes("heatpump")
 
-            Label {
-                id: floorHeatingunit
-                text: qsTr("m²")
-            }
+                    Component.onCompleted: {
+                        checked = heatingConfiguration.controllableLocalSystem;
+                    }
+                }
 
-
-
-        }*/
-
-        RowLayout{
-            Layout.fillWidth: true
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Maximal electrical power")
-
-            }
-
-
-            ConsolinnoTextField {
-                id: maxElectricalPower
-                property bool maxElectricalPower_validated
-                Layout.preferredWidth: 60
-                Layout.rightMargin: 8
-                text: (+heatingConfiguration.maxElectricalPower).toLocaleString()
-                maximumLength: 10
-                validator: DoubleValidator{bottom: 1 }
-
-                onTextChanged: acceptableInput ?maxElectricalPower_validated = true : maxElectricalPower_validated = false
-            }
-
-            Label {
-                id: maxElectricalPowerunit
-                text: qsTr("kW")
-            }
-
-        }
-
-        RowLayout{
-            Layout.fillWidth: true
-            visible: heatPumpThing.thingClass.interfaces.includes("smartgridheatpump") || heatPumpThing.thingClass.interfaces.includes("limitableconsumer") || heatPumpThing.thingClass.interfaces.includes("heatpump")
-
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Grid-supportive-control")
-
-            }
-
-            ConsolinnoSwitch {
-                id: gridSupportControl
-                Component.onCompleted: checked = heatingConfiguration.controllableLocalSystem
-            }
-        }
-
-        ColumnLayout {
-            Layout.fillWidth: true
-            visible: heatPumpThing.thingClass.interfaces.includes("smartgridheatpump") || heatPumpThing.thingClass.interfaces.includes("limitableconsumer") || heatPumpThing.thingClass.interfaces.includes("heatpump")
-
-            Text {
-                Layout.fillWidth: true
-                font: Style.smallFont
-                color: Style.consolinnoMedium
-                wrapMode: Text.Wrap
-                text: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
-            }
-        }
-
-        RowLayout {
-            Layout.fillWidth: true
-            visible: heatPumpThing.thingClass.interfaces.includes("smartmeterconsumerassignable")
-            spacing: 30
-
-            Label {
-                text: qsTr("Electricity meter")
-            }
-
-            ConsolinnoDropdown {
-                id: heatMeterDropdown
-                Layout.fillWidth: true
-                textRole: "text"
-                model: ListModel { id: meterModel }
+                CoComboBox {
+                    id: heatMeterCombo
+                    Layout.fillWidth: true
+                    visible: heatPumpThing.thingClass.interfaces.includes("smartmeterconsumerassignable")
+                    labelText: qsTr("Electricity meter")
+                    comboBox.textRole: "text"
+                    comboBox.model: ListModel { id: meterModel }
+                }
             }
         }
 
         Item {
-            // place holder
+            id: spacer
             Layout.fillHeight: true
             Layout.fillWidth: true
         }
-
-//        RowLayout{
-//            Layout.fillWidth: true
-//            Label {
-//                Layout.fillWidth: true
-//                text: qsTr("Thermal storage capacity")
-
-//            }
-
-
-//            TextField {
-//                id: maxThermalEnergy
-//                property bool maxThermalEnergy_validated
-//                Layout.preferredWidth: 60
-//                text: heatingConfiguration.maxThermalEnergy
-//                maximumLength: 10
-//                validator: DoubleValidator{bottom: 1}
-
-//                onTextChanged: acceptableInput ?maxThermalEnergy_validated = true : maxThermalEnergy_validated = false
-//            }
-//            Label {
-//                id: maxThermalEnergyunit
-//                text: qsTr("kWh")
-//            }
-
-
-//        }
-
-
-
-
-
-
-//                Label {
-//                    Layout.fillWidth: true
-//                    Layout.leftMargin: app.margins
-//                    Layout.rightMargin: app.margins
-//                    text: qsTr("For a better optimization you can assign a heat meter which is measuring the produced heat energy of this heat pump.")
-//                    wrapMode: Text.WordWrap
-//                    font.pixelSize: app.smallFont
-//                    visible: !heatMeterIncluded
-//                }
-
-
-
-
-//                Button {
-//                    id: assignHeatMeter
-//                    Layout.fillWidth: true
-//                    // We only need to assign a hear meter if this heatpump does not provide one
-//                    visible: !heatMeterIncluded
-//                    text: qsTr("TODO: Assign heat meter")
-//                    // TODO: Select a heat meter from the things and show it here. Allow to reassign a heat meter and remove the assignment
-//                }
-
 
         // potential footer for the config app, as a way to show the user that certain attributes where invalid.
         Label {
@@ -282,27 +157,24 @@ Page {
             //text: qsTr("For a better optimization you can please insert the upper data, so our optimizer has the information it needs.")
             wrapMode: Text.WordWrap
             font.pixelSize: app.smallFont
-
         }
-
 
         Button {
             id: savebutton
-            property bool validated: maxElectricalPower.maxElectricalPower_validated
-
+            property bool inputValid: maxElectricalPower.maxElectricalPowerValid
 
             Layout.fillWidth: true
             text: qsTr("Save")
             onClicked: {
                 let inputText = maxElectricalPower.text
                 inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
-                if (savebutton.validated)
+                if (savebutton.inputValid)
                 {
                    
                     const newConfig = JSON.parse(JSON.stringify(heatingConfiguration));
                     newConfig.maxElectricalPower = +inputText;
                     newConfig.controllableLocalSystem = gridSupportControl.checked;
-                    newConfig.heatMeterThingId = meterModel.get(heatMeterDropdown.currentIndex).thingId;
+                    newConfig.heatMeterThingId = meterModel.get(heatMeterCombo.comboBox.currentIndex).thingId;
 
                     // TODO this is terrible fix the enum mapping properly
                     // We just want to keep the current value
@@ -336,32 +208,6 @@ Page {
                 }
             }
         }
-
-        // only visible if installation mode (directionID == 1)
-//        Button {
-//            id: passbutton
-//            visible: directionID === 1
-
-//            Layout.fillWidth: true
-//            text: qsTr("skip")
-//            onClicked: {
-//                root.done()
-//            }
-//        }
-
-
-
-    }
-
-    ThingsProxy {
-        id: smartMeterConsumerProxy
-        engine: _engine
-        shownInterfaces: ["smartmeterconsumer"]
-        onCountChanged: buildMeterModel()
-    }
-
-    Component.onCompleted: {
-        buildMeterModel();
     }
 }
 

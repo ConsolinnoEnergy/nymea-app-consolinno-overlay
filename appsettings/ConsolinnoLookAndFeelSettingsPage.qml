@@ -25,7 +25,7 @@ SettingsPageBase {
 
         ListModel { id: stylesModel }
 
-        ConsolinnoDropdown {
+        ComboBox {
           id: cb
           model: stylesModel
           textRole: "text"
@@ -59,7 +59,7 @@ SettingsPageBase {
             Layout.fillWidth: true
             text: qsTr("View mode")
         }
-        ConsolinnoDropdown {
+        ComboBox {
             model: [qsTr("Windowed"), qsTr("Maximized"), qsTr("Fullscreen"), qsTr("Automatic")]
             currentIndex: {
                 switch (settings.viewMode) {
@@ -105,7 +105,7 @@ SettingsPageBase {
             Layout.fillWidth: true
             text: qsTr("Unit system")
         }
-        ConsolinnoDropdown {
+        ComboBox {
             id: unitsComboBox
             currentIndex: settings.units === "metric" ? 0 : 1
             model: [ qsTr("Metric"), qsTr("Imperial") ]
@@ -124,7 +124,7 @@ SettingsPageBase {
             Layout.fillWidth: true
             text: qsTr("Language")
         }
-        ConsolinnoDropdown {
+        ComboBox {
             id: languageComboBox
             currentIndex: settings.units === "metric" ? 0 : 1
             //model: [ qsTr("Metric"), qsTr("Imperial") ]

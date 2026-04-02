@@ -301,7 +301,7 @@ ItemDelegate {
 
     Component {
         id: comboBoxComponent
-        ConsolinnoDropdown {
+        ComboBox {
             id: control
             Layout.fillWidth: true
             model: root.paramType.allowedValues

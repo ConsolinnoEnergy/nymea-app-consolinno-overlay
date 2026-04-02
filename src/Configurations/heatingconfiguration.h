@@ -17,6 +17,9 @@ class HeatingConfiguration : public QObject
     Q_PROPERTY(bool relativePriceEnabled READ relativePriceEnabled WRITE setRelativePriceEnabled USER true NOTIFY relativePriceEnabledChanged)
     Q_PROPERTY(HPOptimizationMode optimizationMode READ optimizationMode WRITE setOptimizationMode USER true NOTIFY optimizationModeChanged)
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
+    Q_PROPERTY(double pvSurplusThreshold READ pvSurplusThreshold WRITE setPvSurplusThreshold NOTIFY pvSurplusThresholdChanged)
+    Q_PROPERTY(int durationMinAfterTurnOn READ durationMinAfterTurnOn WRITE setDurationMinAfterTurnOn NOTIFY durationMinAfterTurnOnChanged)
+    Q_PROPERTY(double durationMaxTotal READ durationMaxTotal WRITE setDurationMaxTotal NOTIFY durationMaxTotalChanged)
 
 public:
     explicit HeatingConfiguration(QObject *parent = nullptr);
@@ -63,6 +66,15 @@ public:
     bool controllableLocalSystem() const;
     void setControllableLocalSystem(bool controllableLocalSystem);
 
+    double pvSurplusThreshold() const;
+    void setPvSurplusThreshold(double pvSurplusThreshold);
+
+    int durationMinAfterTurnOn() const;
+    void setDurationMinAfterTurnOn(int durationMinAfterTurnOn);
+
+    double durationMaxTotal() const;
+    void setDurationMaxTotal(double durationMaxTotal);
+
 signals:
     void maxThermalEnergyChanged(const double maxThermalEnergy);
     void maxElectricalPowerChanged(const double maxElectricalPower);
@@ -70,6 +82,9 @@ signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void heatMeterThingIdChanged(const QUuid &heatMeterThingId);
     void controllableLocalSystemChanged(bool controllableLocalSystem);
+    void pvSurplusThresholdChanged(double pvSurplusThreshold);
+    void durationMinAfterTurnOnChanged(int durationMinAfterTurnOn);
+    void durationMaxTotalChanged(double durationMaxTotal);
     void priceThresholdChanged(double priceThreshold);
     void relativePriceEnabledChanged(bool relativePriceEnabled);
     void optimizationModeChanged(HeatingConfiguration::HPOptimizationMode optimizationMode);
@@ -86,6 +101,9 @@ private:
     double m_maxThermalEnergy = 0;
     double m_floorHeatingArea = 0;
     bool m_controllableLocalSystem = false;
+    double m_pvSurplusThreshold = 500.0;
+    int m_durationMinAfterTurnOn = 15;
+    double m_durationMaxTotal = 240.0;
 
 };
 

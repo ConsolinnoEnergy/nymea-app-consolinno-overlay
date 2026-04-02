@@ -5,6 +5,10 @@
         <file>styles/light/logo.svg</file>
         <file>styles/light/logo-wide.svg</file>
         <file>styles/light/Dialog.qml</file>
+        <file>styles/light/Slider.qml</file>
+        <file>styles/light/Switch.qml</file>
+        <file>styles/light/ComboBox.qml</file>
+        <file>styles/light/TextField.qml</file>
         <file>translations</file>
         <file>styles/light/Background.qml</file>
         <file>SOURCE_AVAIL_de_DE.txt</file>
@@ -16,6 +20,10 @@
         <file>styles/dark/logo.svg</file>
         <file>styles/dark/Page.qml</file>
         <file>styles/dark/Style.qml</file>
+        <file>styles/dark/Slider.qml</file>
+        <file>styles/dark/Switch.qml</file>
+        <file>styles/dark/ComboBox.qml</file>
+        <file>styles/dark/TextField.qml</file>
         <file>icons/account_circle.svg</file>
         <file>icons/add.svg</file>
         <file>icons/android_wifi_3_bar.svg</file>
@@ -110,6 +118,7 @@
         <file>icons/today.svg</file>
         <file>icons/trending_flat.svg</file>
         <file>icons/tune.svg</file>
+        <file>icons/undo.svg</file>
         <file>icons/visibility_off.svg</file>
         <file>icons/visibility.svg</file>
         <file>icons/wand_stars.svg</file>
@@ -133,11 +142,8 @@
         <file>components/ConsolinnoButton.qml</file>
         <file>wizards/SetupSolarInverterWizard.qml</file>
         <file>wizards/SetupHeatPumpWizard.qml</file>
-        <file>optimization/ChargingConfigurationView.qml</file>
-        <file>optimization/HeatingConfigurationView.qml</file>
         <file>optimization/BlackoutProtectionView.qml</file>
         <file>mainviews/DetailedGraphsPage.qml</file>
-        <file>optimization/PVConfigurationView.qml</file>
         <file>optimization/ChargingConfigView.qml</file>
         <file>thingconfiguration/AddGenericCar.qml</file>
         <file>components/HeatpumpPriceWidget.qml</file>
@@ -214,7 +220,6 @@
         <file>components/ConsolinnoSwipeDelegate.qml</file>
         <file>components/CustomBarSeries.qml</file>
         <file>optimization/BatteryOptimization.qml</file>
-        <file>optimization/BatteryConfigurationView.qml</file>
         <file>system/ConsolinnoModbusRtuSettingsPage.qml</file>
         <file>system/ConsolinnoModbusRtuAddMasterPage.qml</file>
         <file>components/ConsolinnoSelectionTabs.qml</file>
@@ -229,7 +234,6 @@
         <file>images/eebus.svg</file>
         <file>images/relais.svg</file>
         <file>components/ConsolinnoCheckbox.qml</file>
-        <file>components/ConsolinnoDropdown.qml</file>
         <file>system/ConsolinnoConnectionInterfacesPage.qml</file>
         <file>thingconfiguration/ConsolinnoConfigureThingPage.qml</file>
         <file>devicepages/ConsolinnoDeviceLogPage.qml</file>
@@ -248,5 +252,14 @@
         <file>components/CoIconButton.qml</file>
         <file>optimization/DayTimePickerPage.qml</file>
         <file>components/LabelWithInfo.qml</file>
+        <file>components/CoSlider.qml</file>
+        <file>components/CoFieldNotification.qml</file>
+        <file>components/CoSwitch.qml</file>
+        <file>components/CoKPICard.qml</file>
+        <file>components/CoEnergyCircle.qml</file>
+        <file>components/CoComboBox.qml</file>
+        <file>components/CoInputField.qml</file>
+        <file>components/CoSortableCard.qml</file>
+        <file>optimization/PVPriorities.qml</file>
     </qresource>
 </RCC>

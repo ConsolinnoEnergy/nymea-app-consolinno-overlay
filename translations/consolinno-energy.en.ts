@@ -993,6 +993,13 @@
     </message>
 </context>
 <context>
+    <name>CoEnergyCircle</name>
+    <message>
+        <source>W</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CoKpiStats</name>
     <message>
         <source>KPI Statistics</source>

@@ -7,8 +7,6 @@ import QtGraphicalEffects 1.15
 import Nymea 1.0
 import QtCharts 2.3
 
-import "qrc:/ui/components"
-
 import "../components"
 import "../delegates"
 import "../devicepages"
@@ -18,11 +16,10 @@ import "../utils/DynPricingUtils.js" as DynPricingUtils
 GenericConfigPage {
     id: root
     property Thing thing
-    property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
-    readonly property State batteryChargingState: root.thing.stateByName("chargingState")
-    readonly property State batteryLevelState: root.thing.stateByName("batteryLevel")
-    readonly property State currentPowerState: root.thing.stateByName("currentPower")
     property BatteryConfiguration batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id)
+    readonly property State batteryChargingState: thing.stateByName("chargingState")
+    readonly property State batteryLevelState: thing.stateByName("batteryLevel")
+    readonly property State currentPowerState: thing.stateByName("currentPower")
     property bool isZeroCompensation : batteryConfiguration.avoidZeroFeedInActive && batteryConfiguration.avoidZeroFeedInEnabled
 
     property double absChargingThreshold: 0
@@ -30,7 +27,6 @@ GenericConfigPage {
     property double relChargingThreshold: batteryConfiguration.priceThreshold
     property double relDischargeBlockedThreshold: batteryConfiguration.dischargePriceThreshold
 
-    property double averagePrice: 0
     property double currentPrice: 0
     property double lowestPrice: 0
     property double highestPrice: 0
@@ -39,42 +35,46 @@ GenericConfigPage {
     headerOptionsVisible: true
 
     QtObject {
-        id: rootObject
+        id: d
         property int pendingCallId: -1
+        property date now: new Date()
+        property date startTimeSince: new Date(0)
+        property date endTimeUntil: new Date(0)
     }
 
     Connections {
         target: hemsManager
         onSetBatteryConfigurationReply: {
-
-            if (commandId === rootObject.pendingCallId) {
-                rootObject.pendingCallId = -1
+            if (commandId === d.pendingCallId) {
+                d.pendingCallId = -1;
                 let props = "";
                 switch (error) {
                 case "HemsErrorNoError":
-                    return
+                    return;
                 case "HemsErrorInvalidParameter":
-                    props.text = qsTr("Could not save configuration. One of the parameters is invalid.")
-                    break
+                    props.text = qsTr("Could not save configuration. One of the parameters is invalid.");
+                    break;
                 case "HemsErrorInvalidThing":
-                    props.text = qsTr("Could not save configuration. The thing is not valid.")
-                    break
+                    props.text = qsTr("Could not save configuration. The thing is not valid.");
+                    break;
                 default:
-                    props.errorCode = error
+                    props.errorCode = error;
                 }
-                var comp = Qt.createComponent("../components/ErrorDialog.qml")
-                var popup = comp.createObject(app, {props})
-                popup.open()
+                var comp = Qt.createComponent("../components/ErrorDialog.qml");
+                var popup = comp.createObject(app, { props });
+                popup.open();
             }
         }
 
         onBatteryConfigurationChanged: {
             optimizationController.checked = batteryConfiguration.optimizationEnabled;
             chargeOnceController.checked = batteryConfiguration.chargeOnce;
-            // Initialize both properties for the RangeSlider
             relChargingThreshold = batteryConfiguration.priceThreshold;
             relDischargeBlockedThreshold = batteryConfiguration.dischargePriceThreshold;
-            console.debug("Battery configuration changed received. New priceThreshold: " + batteryConfiguration.priceThreshold + ", dischargePriceThreshold: " + batteryConfiguration.dischargePriceThreshold);
+            console.debug("Battery configuration changed received. New priceThreshold: " +
+                          batteryConfiguration.priceThreshold +
+                          ", dischargePriceThreshold: " +
+                          batteryConfiguration.dischargePriceThreshold);
         }
     }
 
@@ -82,30 +82,31 @@ GenericConfigPage {
         target: engine.thingManager
         onThingStateChanged: (thingId, stateTypeId, value)=> {
                                  if (thingId === dynamicPrice.get(0).id ) {
-                                     updatePrice()
+                                     updatePrice();
                                  }
                              }
     }
 
     function updatePrice() {
-        currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value
-        currentPriceLabel.text = Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh"
+        currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value;
+        currentPriceLabel.text = Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh";
     }
 
     function saveSettings()
     {
-        // Save both values controlled by the RangeSlider
-        rootObject.pendingCallId = hemsManager.setBatteryConfiguration(thing.id, {"optimizationEnabled": optimizationController.checked,
-                                                                           "priceThreshold": relChargingThreshold,
-                                                                           "dischargePriceThreshold": relDischargeBlockedThreshold,
-                                                                           "relativePriceEnabled": true,
-                                                                           "chargeOnce": chargeOnceController.checked,
-                                                                           "avoidZeroFeedInActive": batteryConfiguration.avoidZeroFeedInActive,})
+        d.pendingCallId = hemsManager.setBatteryConfiguration(thing.id,
+                                                              {
+                                                                  "optimizationEnabled": optimizationController.checked,
+                                                                  "priceThreshold": relChargingThreshold,
+                                                                  "dischargePriceThreshold": relDischargeBlockedThreshold,
+                                                                  "relativePriceEnabled": true,
+                                                                  "chargeOnce": chargeOnceController.checked,
+                                                                  "avoidZeroFeedInActive": batteryConfiguration.avoidZeroFeedInActive
+                                                              })
     }
 
     function enableSave(obj)
     {
-        // Check if either of the two RangeSlider values has changed from the stored configuration
         saveButton.enabled = batteryConfiguration.priceThreshold !== relChargingThreshold ||
                 batteryConfiguration.dischargePriceThreshold !== relDischargeBlockedThreshold ||
                 (chargeOnceController.enabled && batteryConfiguration.chargeOnce !== chargeOnceController.checked) ||
@@ -118,540 +119,321 @@ GenericConfigPage {
         shownInterfaces: ["dynamicelectricitypricing"]
     }
 
-    content: [
+    Component.onCompleted: {
+        const dpThing = dynamicPrice.get(0);
+        if (!dpThing) { return; }
 
+        d.startTimeSince = new Date(dpThing.stateByName("validSince").value * 1000);
+        d.endTimeUntil = new Date(dpThing.stateByName("validUntil").value * 1000);
+        absChargingThreshold = DynPricingUtils.relPrice2AbsPrice(batteryConfiguration.priceThreshold,
+                                                                 dpThing);
+        absDischargeBlockedThreshold = DynPricingUtils.relPrice2AbsPrice(batteryConfiguration.dischargePriceThreshold,
+                                                                         dpThing);
+        currentPrice = dpThing.stateByName("currentTotalCost").value;
+        lowestPrice = dpThing.stateByName("lowestPrice").value;
+        highestPrice = dpThing.stateByName("highestPrice").value;
+        barSeries.addValues(dpThing.stateByName("totalCostSeries").value,
+                            dpThing.stateByName("priceSeries").value,
+                            dpThing.stateByName("gridFeeSeries").value,
+                            dpThing.stateByName("leviesSeries").value,
+                            DynPricingUtils.getVAT(dpThing));
+
+    }
+
+    content: [
         Flickable {
             anchors.fill: parent
-            contentHeight: columnLayoutContainer.implicitHeight +
-                           columnLayoutContainer.anchors.topMargin +
-                           columnLayoutContainer.anchors.bottomMargin
-            topMargin: 0
+            contentHeight: columnLayout.implicitHeight +
+                           columnLayout.anchors.topMargin +
+                           columnLayout.anchors.bottomMargin
             clip: true
 
             ColumnLayout {
-                id: columnLayoutContainer
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.right: parent.right
-                anchors.left: parent.left
-                anchors.margins: app.margins
+                id: columnLayout
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
 
-                CoNotification {
+                CoEnergyCircle {
+                    id: energyCircle
                     Layout.fillWidth: true
-                    visible: isZeroCompensation
-                    type: CoNotification.Type.Warning
-                    title: qsTr("Avoid zero compensation active")
-                    message: qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
-                    clickable: true
-                    onClicked: {
-                        pageStack.push(Qt.resolvedUrl("../info/AvoidZeroCompensationInfo.qml"), { stack: pageStack });
-                    }
+                    power: root.currentPowerState ? root.currentPowerState.value : 0
+                    icon: app.interfacesToIcon(root.thing.thingClass.interfaces)
+                    label: !root.currentPowerState ?
+                               "" :
+                               Math.round(root.currentPowerState.value) > 0 ?
+                                   qsTr("Charging") :
+                                   Math.round(root.currentPowerState.value) < 0 ?
+                                       qsTr("Discharging") :
+                                       qsTr("Idle")
+                    // label: !root.batteryChargingState ?
+                    //            "foo" : // #TODO
+                    //            root.batteryChargingState.value === "charging" ?
+                    //                qsTr("Charging") :
+                    //                root.batteryChargingState.value === "discharging" ?
+                    //                    qsTr("Discharging") :
+                    //                    qsTr("Idle")
+                    circleColor: Style.colors.components_Dashboard_Detail_Energy_circle_border // #TODO same for all energy circles? -> then move to CoEnergyCircle directly
                 }
 
-                //Status
-                RowLayout {
+                CoKPICard {
+                    id: batteryLevelCard
                     Layout.fillWidth: true
-                    Layout.topMargin: Style.smallMargins
+                    visible: root.batteryLevelState !== null
+                    // #TODO icon by batteryLevel (extract batteryIconByLevel function from CoDashboardView.qml into some utils file)
+                    icon: Qt.resolvedUrl("qrc:/icons/battery/battery-060.svg");
+                    labelText: qsTr("State of Charge") // #TODO wording
+                    valueText: (root.batteryLevelState ? Math.round(root.batteryLevelState.value) : "-") + qsTr(" %")
+                }
 
-                    Label {
-                        text: qsTr("Status")
-                        Layout.fillWidth: true
-                        font.weight: Font.Bold
-                    }
+                CoFrostyCard {
+                    id: pvPrioGroup
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("PV device prioritization") // #TODO wording
+                    // #TODO visible: ? only for controllablebatteries?
 
                     ColumnLayout {
-                        Layout.fillWidth: true
-                        spacing: 0
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: Style.smallMargins
 
-                        Rectangle {
-                            id: status
+                        CoCard {
+                            id: pvPrioCard
+                            Layout.fillWidth: true
+                            labelText: qsTr("Priority")
+                            text: "3" // #TODO get real priority from config
+                            showChildrenIndicator: true
 
-                            width: 120
-                            height: description.height + 10
-                            Layout.alignment: Qt.AlignRight
-
-                            color: batteryChargingState.value === "charging" ? Configuration.batteriesColor : batteryChargingState.value === "discharging" ? Configuration.batteryDischargeColor : Configuration.batteryIdleColor
-                            radius: width*0.1
-
-                            Label {
-                                id: description
-                                text: batteryChargingState.value === "charging" ? qsTr("Charging") : batteryChargingState.value === "discharging" ? qsTr("Discharging") : qsTr("Idle")
-                                color: "white"
-                                anchors.centerIn: parent
+                            onClicked: {
+                                pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"));
                             }
                         }
+
+                        CoSlider {
+                            id: pvPrioSlider
+                            Layout.fillWidth: true
+                            from: 0
+                            to: 100
+                            stepSize: 1
+                            labelText: qsTr("Priority applies up to state of charge") // #TODO wording
+                            helpText: qsTr("Above this state of charge, the battery is always considered last") // #TODO wording
+                            value: 20 // #TODO get real value
+                            valueText: Math.round(value) + " %"
+                            // #TODO needs to be saved to config when clicking "Save"?
+                        }
                     }
                 }
 
-                // Current Battery Level
-                RowLayout {
+                CoFrostyCard {
+                    id: chargingFromGridGroup
                     Layout.fillWidth: true
-                    Layout.topMargin: Style.smallMargins
-                    Label {
-                        text: qsTr("State of Charge")
-                        Layout.fillWidth: true
-                    }
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("Charging from grid") // #TODO wording
+                    visible: thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
 
-                    RowLayout {
-                        spacing: 0
-                        Layout.rightMargin: 20
-                        Label {
-                            text: ("%1 %").arg(batteryLevelState.value)
-                            horizontalAlignment: Text.AlignRight
-                        }
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: Style.smallMargins
 
-                        ThingInfoPane {
-                            id: infoPane
-                            width: 0
-                            Layout.leftMargin: -12
-                            thing: root.thing
-                            hideLabel: true
-                        }
-                    }
-                }
-
-                // Current Power
-                RowLayout {
-                    Layout.topMargin: Style.smallMargins
-                    Layout.bottomMargin: Style.smallMargins
-
-                    Label {
-                        Layout.fillWidth: true
-                        text: qsTr("Power")
-                    }
-
-                    Label {
-                        text: currentPowerState.value > 0 ? Math.round(currentPowerState.value) + " W" : (Math.round(currentPowerState.value) * -1) + " W"
-                    }
-                }
-
-                RowLayout {
-                    Layout.topMargin: Style.margins
-                    visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
-                    Label {
-                        text: qsTr("Charging from grid")
-                        font.weight: Font.Bold
-                    }
-                }
-
-                ColumnLayout {
-                    id: columnContainer
-                    visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
-                    Layout.topMargin: Style.smallMargins
-
-                    // Optimization enabled
-                    RowLayout {
-                        Layout.topMargin: Style.smallMargins
-                        Layout.bottomMargin: Style.smallMargins
-
-                        LabelWithInfo {
+                        CoSwitch {
+                            id: optimizationController // #TODO rename
+                            Layout.fillWidth: true
                             text: qsTr("Tariff-controlled charging")
-                            push: "TariffGuidedChargingInfo.qml"
-                        }
+                            visible: dynamicPrice.count >= 1
 
-                        Column {
-                            ConsolinnoSwitch {
-                                spacing: 1
-                                height: 18
-                                id: optimizationController
-
-                                onClicked: {
-                                    if(!optimizationController.checked){
-                                        chargeOnceController.checked = false;
-                                    }
-                                    enableSave(this)
+                            Component.onCompleted: {
+                                checked = root.batteryConfiguration.optimizationEnabled;
+                            }
+                            onCheckedChanged: {
+                                if(!optimizationController.checked){
+                                    chargeOnceController.checked = false;
                                 }
-                                Component.onCompleted: {
-                                    checked = batteryConfiguration.optimizationEnabled
-                                }
+                                enableSave(this);
                             }
                         }
-                    }
 
-                    // Charge once
-                    RowLayout {
-                        Layout.topMargin: Style.smallMargins
-                        Layout.bottomMargin: Style.smallMargins
-                        visible: optimizationController.checked
-                        LabelWithInfo {
+                        CoSwitch {
+                            id: chargeOnceController // #TODO rename
+                            Layout.fillWidth: true
                             text: qsTr("Activate instant charging")
-                            push: "ActivateInstantChargingInfo.qml"
-                        }
+                            enabled: !root.isZeroCompensation
+                            // #TODO show helpText when not enabled to explain why?
+                            visible: optimizationController.checked
 
-                        Column {
-                            id: columnArea
-
-                            Item {
-                                id: switchContainer
-                                width: chargeOnceController.width
-                                height: chargeOnceController.height
-
-                                ConsolinnoSwitch {
-                                    id: chargeOnceController
-                                    anchors.fill: parent
-                                    spacing: 1
-                                    height: 18
-                                    enabled: !isZeroCompensation
-
-                                    Component.onCompleted: {
-                                        checked = batteryConfiguration.chargeOnce
-                                    }
-                                    onClicked: {
-                                        if (!isZeroCompensation)
-                                            enableSave(this)
-                                    }
-                                }
-
-                                MouseArea {
-                                    id: mouseArea
-                                    anchors.fill: parent
-                                    hoverEnabled: true
-                                    enabled: isZeroCompensation
-
-                                    onEntered: {
-                                        if (isZeroCompensation)
-                                            toolTipSwitch.visible = true
-                                    }
-                                    onExited: {
-                                        if (isZeroCompensation)
-                                            toolTipSwitch.visible = false
-                                    }
-                                }
-
-                                NymeaToolTip {
-                                    id: toolTipSwitch
-                                    visible: false
-
-                                    z: 10
-                                    anchors.right: parent.right
-                                    anchors.bottom: parent.top
-                                    anchors.bottomMargin: 5
-
-                                    width: toolTopLayout.width + Style.smallMargins * 2
-                                    height: toolTopLayout.implicitHeight + Style.smallMargins * 2
-
-                                    ColumnLayout {
-                                        id: toolTopLayout
-                                        width: 305
-                                        anchors.fill: parent
-                                        anchors.margins: Style.smallMargins
-
-                                        Label {
-                                            id: labelID
-                                            Layout.fillWidth: true
-                                            wrapMode: Text.WordWrap
-                                            text: qsTr("If the zero-compensation avoidance is active, immediate battery charging is not possible.")
-                                            font: Style.smallFont
-                                        }
-                                    }
+                            Component.onCompleted: {
+                                checked = root.batteryConfiguration.chargeOnce;
+                            }
+                            onCheckedChanged: {
+                                if (!root.isZeroCompensation) {
+                                    enableSave(this);
                                 }
                             }
                         }
                     }
                 }
 
-                ColumnLayout {
-                    id: columnLayer
+                CoFrostyCard {
+                    id: dynamicPricingGroup
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("Charging plan") // #TODO wording
+                    visible: optimizationController.checked
 
-                    // Charging Plan Header
-                    RowLayout {
-                        Layout.topMargin: Style.margins
-                        Layout.bottomMargin: Style.smallMargins
-                        visible: optimizationController.checked
-                        enabled: !chargeOnceController.checked
-                        Label {
-                            text: qsTr("Charging Plan")
-                            font.weight: Font.Bold
-                        }
-                    }
-
-                    // Price Limit (Current Price)
-                    RowLayout {
-                        id: currentPriceRow
-                        visible: optimizationController.checked
-                        enabled: !chargeOnceController.checked
-                        Layout.topMargin: Style.smallMargins
-                        Layout.bottomMargin: Style.smallMargins
-
-                        Label {
-                            Layout.fillWidth: true
-                            text: qsTr("Current price")
-                        }
-
-                        Label {
-                            id: currentPriceLabel
-                            text: Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh"
-                        }
-                    }
-
-                    // Graph Info Today
                     ColumnLayout {
-                        Layout.fillWidth: true
-                        visible: optimizationController.checked
+                        anchors.left: parent.left
+                        anchors.right: parent.right
                         enabled: !chargeOnceController.checked
-                        Component.onCompleted: {
-                            const dpThing = dynamicPrice.get(0)
-                            if(!dpThing)
-                                return;
 
-                            d.startTimeSince = new Date(dpThing.stateByName("validSince").value * 1000);
-                            d.endTimeUntil = new Date(dpThing.stateByName("validUntil").value * 1000);
-                            absChargingThreshold = DynPricingUtils.relPrice2AbsPrice(batteryConfiguration.priceThreshold,
-                                                                                     dpThing);
-                            absDischargeBlockedThreshold = DynPricingUtils.relPrice2AbsPrice(batteryConfiguration.dischargePriceThreshold,
-                                                                                             dpThing);
-                            currentPrice = dpThing.stateByName("currentTotalCost").value
-                            averagePrice = dpThing.stateByName("averageTotalCost").value.toFixed(0).toString();
-                            lowestPrice = dpThing.stateByName("lowestPrice").value
-                            highestPrice = dpThing.stateByName("highestPrice").value
-                            barSeries.addValues(dpThing.stateByName("totalCostSeries").value,
-                                                dpThing.stateByName("priceSeries").value,
-                                                dpThing.stateByName("gridFeeSeries").value,
-                                                dpThing.stateByName("leviesSeries").value,
-                                                DynPricingUtils.getVAT(dpThing));
-
-                        }
-
-                        QtObject {
-                            id: d
-
-                            property date now: new Date()
-                            property date startTimeSince: new Date(0) // placeholder
-                            property date endTimeUntil: new Date(0) // placeholder
-                        }
-
-                        Item {
-                            Layout.fillWidth: parent.width
-                            Layout.fillHeight: true
-                            Layout.minimumHeight: 150
-
-                            CustomBarSeries {
-                                id: barSeries
-                                anchors.fill: parent
-                                margins.left: 0
-                                margins.right: 0
-                                margins.top: Style.margins
-                                margins.bottom: 0
-                                backgroundColor: isZeroCompensation || chargeOnceController.checked ? Style.barSeriesDisabled : "transparent"
-                                startTime: d.startTimeSince
-                                endTime: d.endTimeUntil
-                                hoursNow: d.now.getHours()
-                                currentPrice: absChargingThreshold
-                                currentMarketPrice: currentPrice
-                                upperPriceLimit: absDischargeBlockedThreshold
-                                lowestValue: root.lowestPrice
-                                highestValue: root.highestPrice
-                            }
-                        }
-
-                        Item {
-                            visible: optimizationController.checked
+                        CoSlider {
+                            id: chargingThresholdSlider
                             Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            Layout.margins: Style.margins
+                            visible: optimizationController.checked
+                            from: -100
+                            to: 100
+                            stepSize: 1
+                            value: root.batteryConfiguration.priceThreshold
+                            labelText: qsTr("\"Charging\" price limit")
+                            helpText: qsTr("Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.").arg(root.absChargingThreshold.toLocaleString(Qt.locale(), 'f', 2))
+                            valueText: qsTr("%1 %").arg(relChargingThreshold.toFixed(0))
 
-                            GridLayout {
-                                anchors { left: parent.left; bottom: parent.bottom; right: parent.right }
-                                columns: 3
-                                height: Style.smallIconSize
-                                Layout.topMargin: Style.margins
-
-                                Row {
-                                    Layout.alignment: Qt.AlignHCenter
-                                    spacing: 5
-                                    Rectangle {
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        color: Style.epexBarMainLineColor
-                                        width: 8
-                                        height: 8
-                                    }
-                                    Label {
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        font: Style.extraSmallFont
-                                        text: qsTr("Charging")
-                                    }
+                            slider.onMoved: {
+                                absChargingThreshold = DynPricingUtils.relPrice2AbsPrice(value, dynamicPrice.get(0));
+                                relChargingThreshold = value;
+                                if (absChargingThreshold > absDischargeBlockedThreshold) {
+                                    absDischargeBlockedThreshold = absChargingThreshold;
+                                    relDischargeBlockedThreshold = relChargingThreshold;
+                                    dischargeBlockedThresholdSlider.value = relChargingThreshold
                                 }
 
-                                Row {
-                                    Layout.alignment: Qt.AlignHCenter
-                                    spacing: 5
-                                    Rectangle {
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        color: Style.epexBarPricingOutOfLimit
-                                        width: 8
-                                        height: 8
-                                    }
-                                    Label {
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        font: Style.extraSmallFont
-                                        text: qsTr("Discharging blocked")
-                                    }
+                                enableSave(this);
+
+                                // Redraw graph (Update the graph immediately when Charge Price changes)
+                                barSeries.clearValues();
+                                barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
+                                                    dynamicPrice.get(0).stateByName("priceSeries").value,
+                                                    dynamicPrice.get(0).stateByName("gridFeeSeries").value,
+                                                    dynamicPrice.get(0).stateByName("leviesSeries").value,
+                                                    DynPricingUtils.getVAT(dynamicPrice.get(0)));
+                            }
+                        }
+
+                        CoSlider {
+                            id: dischargeBlockedThresholdSlider
+                            Layout.fillWidth: true
+                            visible: optimizationController.checked
+                            from: -100
+                            to: 100
+                            stepSize: 1
+                            value: root.batteryConfiguration.dischargePriceThreshold
+                            labelText: qsTr("\"Block discharging\" price limit")
+                            helpText: qsTr("Deviation from the 48-h average (in %) below which discharging is blocked. Currently corresponds to %1 ct/kWh.").arg(root.absDischargeBlockedThreshold.toLocaleString(Qt.locale(), 'f', 2))
+                            valueText: qsTr("%1 %").arg(relDischargeBlockedThreshold.toFixed(0))
+
+                            slider.onMoved: {
+                                absDischargeBlockedThreshold = DynPricingUtils.relPrice2AbsPrice(value, dynamicPrice.get(0));
+                                relDischargeBlockedThreshold = value;
+                                if (absDischargeBlockedThreshold < absChargingThreshold) {
+                                    absChargingThreshold = absDischargeBlockedThreshold;
+                                    relChargingThreshold = relDischargeBlockedThreshold;
+                                    chargingThresholdSlider.value = relDischargeBlockedThreshold;
                                 }
 
-                                Row {
-                                    Layout.alignment: Qt.AlignHCenter
-                                    spacing: 5
-                                    Rectangle {
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        color: Configuration.batteryDischargeColor
-                                        width: 8
-                                        height: 8
-                                    }
-                                    Label {
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        font: Style.extraSmallFont
-                                        text: qsTr("Discharging allowed")
-                                    }
+                                enableSave(this);
+                                // Redraw graph (Update the graph immediately when Charge Price changes)
+                                barSeries.clearValues();
+                                barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
+                                                    dynamicPrice.get(0).stateByName("priceSeries").value,
+                                                    dynamicPrice.get(0).stateByName("gridFeeSeries").value,
+                                                    dynamicPrice.get(0).stateByName("leviesSeries").value,
+                                                    DynPricingUtils.getVAT(dynamicPrice.get(0)));
+                            }
+                        }
+
+                        CustomBarSeries {
+                            id: barSeries
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 200
+                            Layout.leftMargin: Style.smallMargins
+                            backgroundColor: isZeroCompensation || chargeOnceController.checked ? Style.barSeriesDisabled : "transparent"
+                            startTime: d.startTimeSince
+                            endTime: d.endTimeUntil
+                            hoursNow: d.now.getHours()
+                            currentPrice: absChargingThreshold
+                            currentMarketPrice: currentPrice
+                            upperPriceLimit: absDischargeBlockedThreshold
+                            lowestValue: root.lowestPrice
+                            highestValue: root.highestPrice
+                        }
+
+                        GridLayout {
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignHCenter
+                            columns: 3
+                            height: Style.smallIconSize
+
+                            Row {
+                                Layout.alignment: Qt.AlignHCenter
+                                spacing: 5
+                                Rectangle {
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    color: Style.epexBarMainLineColor
+                                    width: 8
+                                    height: 8
+                                }
+                                Label {
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    font: Style.extraSmallFont
+                                    text: qsTr("Charging")
                                 }
                             }
-                        }
 
-                        Label { // breaks view when removed
-                            visible: optimizationController.checked
-                            wrapMode: Text.WordWrap
-                            Layout.fillWidth: true
-                            text: ""
-                            font.pixelSize: 1
-                        }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        Layout.topMargin: Style.margins
-
-                        Label {
-                            visible: optimizationController.checked
-                            enabled: !chargeOnceController.checked
-                            Layout.fillWidth: true
-                            font.bold: true
-                            text: qsTr("\"Charging\" price limit")
-                        }
-
-                        Label {
-                            visible: optimizationController.checked
-                            enabled: !chargeOnceController.checked
-                            font.bold: true
-                            text: qsTr("%1 %").arg(relChargingThreshold.toFixed(0))
-                        }
-                    }
-
-                    Label {
-                        visible: optimizationController.checked
-                        enabled: !chargeOnceController.checked
-                        Layout.fillWidth: true
-                        Layout.topMargin: Style.smallMargins
-                        wrapMode: Text.WordWrap
-                        text: qsTr("Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.").arg(absChargingThreshold.toLocaleString(Qt.locale(), 'f', 2))
-                    }
-
-                    Slider {
-                        id: chargingThresholdSlider
-                        visible: optimizationController.checked
-                        enabled: !chargeOnceController.checked
-                        Layout.fillWidth: true
-                        from: -100
-                        to: 100
-                        stepSize: 1
-                        value: batteryConfiguration.priceThreshold
-
-                        onMoved: {
-                            absChargingThreshold = DynPricingUtils.relPrice2AbsPrice(value, dynamicPrice.get(0));
-                            relChargingThreshold = value;
-                            if (absChargingThreshold > absDischargeBlockedThreshold) {
-                                absDischargeBlockedThreshold = absChargingThreshold;
-                                relDischargeBlockedThreshold = relChargingThreshold;
-                                dischargeBlockedThresholdSlider.value = relChargingThreshold
+                            Row {
+                                Layout.alignment: Qt.AlignHCenter
+                                spacing: 5
+                                Rectangle {
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    color: Style.epexBarPricingOutOfLimit
+                                    width: 8
+                                    height: 8
+                                }
+                                Label {
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    font: Style.extraSmallFont
+                                    text: qsTr("Discharging blocked")
+                                }
                             }
 
-                            enableSave(this);
-
-                            // Redraw graph (Update the graph immediately when Charge Price changes)
-                            barSeries.clearValues();
-                            barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
-                                                dynamicPrice.get(0).stateByName("priceSeries").value,
-                                                dynamicPrice.get(0).stateByName("gridFeeSeries").value,
-                                                dynamicPrice.get(0).stateByName("leviesSeries").value,
-                                                DynPricingUtils.getVAT(dynamicPrice.get(0)));
-                        }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        Layout.topMargin: Style.smallMargins
-
-                        Label {
-                            visible: optimizationController.checked
-                            enabled: !chargeOnceController.checked
-                            Layout.fillWidth: true
-                            font.bold: true
-                            text: qsTr("\"Block discharging\" price limit")
-                        }
-
-                        Label {
-                            visible: optimizationController.checked
-                            enabled: !chargeOnceController.checked
-                            font.bold: true
-                            text: qsTr("%1 %").arg(relDischargeBlockedThreshold.toFixed(0))
-                        }
-                    }
-
-                    Label {
-                        visible: optimizationController.checked
-                        enabled: !chargeOnceController.checked
-                        Layout.fillWidth: true
-                        Layout.topMargin: Style.smallMargins
-                        wrapMode: Text.WordWrap
-                        text: qsTr("Deviation from the 48-h average (in %) below which discharging is blocked. Currently corresponds to %1 ct/kWh.").arg(absDischargeBlockedThreshold.toLocaleString(Qt.locale(), 'f', 2))
-                    }
-
-                    Slider {
-                        id: dischargeBlockedThresholdSlider
-                        visible: optimizationController.checked
-                        enabled: !chargeOnceController.checked
-                        Layout.fillWidth: true
-                        from: -100
-                        to: 100
-                        stepSize: 1
-                        value: batteryConfiguration.dischargePriceThreshold
-
-                        onMoved: {
-                            absDischargeBlockedThreshold = DynPricingUtils.relPrice2AbsPrice(value, dynamicPrice.get(0));
-                            relDischargeBlockedThreshold = value;
-                            if (absDischargeBlockedThreshold < absChargingThreshold) {
-                                absChargingThreshold = absDischargeBlockedThreshold;
-                                relChargingThreshold = relDischargeBlockedThreshold;
-                                chargingThresholdSlider.value = relDischargeBlockedThreshold;
+                            Row {
+                                Layout.alignment: Qt.AlignHCenter
+                                spacing: 5
+                                Rectangle {
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    color: Configuration.batteryDischargeColor
+                                    width: 8
+                                    height: 8
+                                }
+                                Label {
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    font: Style.extraSmallFont
+                                    text: qsTr("Discharging allowed")
+                                }
                             }
-
-                            enableSave(this);
-                            // Redraw graph (Update the graph immediately when Charge Price changes)
-                            barSeries.clearValues();
-                            barSeries.addValues(dynamicPrice.get(0).stateByName("totalCostSeries").value,
-                                                dynamicPrice.get(0).stateByName("priceSeries").value,
-                                                dynamicPrice.get(0).stateByName("gridFeeSeries").value,
-                                                dynamicPrice.get(0).stateByName("leviesSeries").value,
-                                                DynPricingUtils.getVAT(dynamicPrice.get(0)));
                         }
                     }
                 }
 
-                // Save Button
-                RowLayout {
-                    id: saveBtnContainer
-                    anchors.margins: app.margins
-                    Layout.topMargin: 20
-                    visible: dynamicPrice.count >= 1 && thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
+                Button {
+                    id: saveButton
+                    Layout.fillWidth: true
+                    text: qsTr("Save")
+                    enabled: false
+                    visible: thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
 
-                    Button {
-                        id: saveButton
-                        Layout.fillWidth: true
-                        text: qsTr("Save")
-                        enabled: false
-
-                        onClicked: {
-                            saveSettings()
-                            saveButton.enabled = false
-                        }
+                    onClicked: {
+                        saveSettings()
+                        saveButton.enabled = false
                     }
                 }
             }

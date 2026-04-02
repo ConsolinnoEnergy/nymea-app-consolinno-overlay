@@ -2,201 +2,218 @@ import QtQuick 2.5
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.1
 import Nymea 1.0
+import NymeaApp.Utils 1.0
 import "../components"
 
 GenericConfigPage {
     id: root
 
+    property Thing thing: null
+    property HeatingElementConfiguration heatingRodConfig: hemsManager.heatingElementConfigurations.getHeatingElementConfiguration(thing.id)
     readonly property State currentTemperature: root.thing.stateByName("waterTemperature")
-    readonly property State targetTemperature: root.thing.stateByName("targetWaterTemperature")
-    readonly property State minTemperature: root.thing.stateByName("minWaterTemperature")
     readonly property State currentConsumption: root.thing.stateByName("currentPower")
     readonly property State totalConsumption: root.thing.stateByName("totalEnergyConsumed")
     readonly property State powerSetpointActive: root.thing.stateByName("activateControlConsumer")
     readonly property State powerSetpoint: root.thing.stateByName("powerSetpointConsumer")
 
-    readonly property real operatingModeStatus: 1;
-
-    property Thing thing: null
-
     title: root.thing.name
     headerOptionsVisible: false
 
-    content: [
+    QtObject {
+        id: d
+        property int pendingCallId: -1
+    }
 
+    Connections {
+        target: hemsManager
+        onSetHeatingElementConfigurationReply: {
+            if (commandId === d.pendingCallId) {
+                d.pendingCallId = -1;
+                let props = "";
+                switch (error) {
+                case "HemsErrorNoError":
+                    return;
+                case "HemsErrorInvalidParameter":
+                    props.text = qsTr("Could not save configuration. One of the parameters is invalid.");
+                    break;
+                case "HemsErrorInvalidThing":
+                    props.text = qsTr("Could not save configuration. The thing is not valid.");
+                    break;
+                default:
+                    props.errorCode = error;
+                }
+                var comp = Qt.createComponent("../components/ErrorDialog.qml");
+                var popup = comp.createObject(app, { props });
+                popup.open();
+            }
+        }
+    }
+
+    ListModel {
+        id: optimizationModesModel
+        // #TODO wordings
+        ListElement{ name: qsTr("No control"); value: 0 }
+        ListElement{ name: qsTr("PV surplus"); value: 1 }
+    }
+
+    content: [
         Flickable {
             anchors.fill: parent
-            contentHeight: columnLayout.implicitHeight
-            clip: false
+            contentHeight: columnLayout.implicitHeight +
+                           columnLayout.anchors.topMargin +
+                           columnLayout.anchors.bottomMargin
+            clip: true
 
-            ColumnLayout{
+            ColumnLayout {
                 id: columnLayout
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.topMargin: app.margins
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
 
-                Repeater {
-
+                CoEnergyCircle {
+                    id: energyCircle
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    Layout.topMargin: 5
+                    power: root.currentConsumption.value
+                    icon: app.interfacesToIcon(root.thing.thingClass.interfaces)
+                    label: Math.round(power) > 0 ? qsTr("Consuming") : qsTr("Idle")
+                    circleColor: Style.colors.components_Dashboard_Detail_Energy_circle_border // #TODO same for all energy circles? -> then move to CoEnergyCircle directly
+                }
 
-                    model: [
-                        {
-                            Id: "currentTemperature",
-                            name: qsTr("Current Temperature"),
-                            value: (root.currentTemperature === null) ? 0 : (+root.currentTemperature.value).toLocaleString(),
-                            unit: " °C",
-                            component: stringValues,
-                            visible: true
-                        },
-                        {
-                            Id: "targetTemperature",
-                            name: qsTr("Target Temperature"),
-                            value: (root.targetTemperature === null) ? 0 : (+root.targetTemperature.value).toLocaleString(),
-                            unit: " °C",
-                            component: stringValues,
-                            visible: root.targetTemperature !== null
-                        },
-                        {
-                            Id: "minTemperature",
-                            name: qsTr("Minimal Temperature"),
-                            value: (root.minTemperature === null) ? 0 : (+root.minTemperature.value).toLocaleString(),
-                            unit: " °C",
-                            component: stringValues,
-                            visible: root.minTemperature !== null
-                        },
-                        {
-                            Id: "currentConsumtion",
-                            name: qsTr("Current Consumption"),
-                            value: (+root.currentConsumption.value).toLocaleString(),
-                            unit: " W",
-                            component: stringValues,
-                            visible: true
-                        },
-                        {
-                            Id: "totalConsumption",
-                            name: qsTr("Total Consumption"),
-                            value: (+root.totalConsumption.value.toFixed(2)).toLocaleString(),
-                            unit: " kWh",
-                            component: stringValues,
-                            visible: true
-                        },
-                        {
-                            Id: "powerSetpointActive",
-                            name: qsTr("Power Setpoint Active"),
-                            value: root.powerSetpointActive.value,
-                            component: boolValues,
-                            visible: true
-                        },
-                        {
-                            Id: "powerSetpoint",
-                            name: qsTr("Power Setpoint"),
-                            value: (+root.powerSetpoint.value).toLocaleString(),
-                            unit: " W",
-                            component: stringValues,
-                            visible: root.powerSetpointActive.value
-                        }
-                    ]
+                RowLayout {
+                    id: kpiCardsLayout
+                    Layout.fillWidth: true
+                    spacing: Style.margins
 
-                    delegate: ItemDelegate {
-                        id: optimizerMainParams
+                    CoKPICard {
+                        id: temperatureCard
                         Layout.fillWidth: true
-                        visible: modelData.visible
-                        contentItem: ColumnLayout
-                        {
+                        icon: Qt.resolvedUrl("qrc:/icons/device_thermostat.svg")
+                        labelText: qsTr("Current temperature") // #TODO wording
+                        valueText: (root.currentTemperature ? NymeaUtils.floatToLocaleString((+root.currentTemperature.value), 1) : "-") + qsTr(" °C")
+                    }
+
+                    CoKPICard {
+                        id: totalConsumptionCard
+                        Layout.fillWidth: true
+                        icon: Qt.resolvedUrl("qrc:/icons/functions.svg")
+                        labelText: qsTr("Total consumption") // #TODO wording
+                        // #TODO use decimal places when value is small?
+                        valueText: (root.totalConsumption ? NymeaUtils.floatToLocaleString((+root.totalConsumption.value), 0) : "-") + qsTr(" kWh")
+                    }
+                }
+
+                CoFrostyCard {
+                    id: statusGroup
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("Status") // #TODO wording
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        CoCard {
+                            id: powerSetpointStatusCard
                             Layout.fillWidth: true
+                            interactive: false
+                            labelText: qsTr("Power Setpoint")
+                            text: root.powerSetpointActive.value ?
+                                      qsTr("Active") :
+                                      qsTr("Inactive")
+                            status: root.powerSetpointActive.value ?
+                                        CoCard.StatusType.Success :
+                                        CoCard.StatusType.Neutral
+                        }
 
-                            RowLayout{
-                                Layout.fillWidth: true
+                        CoCard {
+                            id: powerSetpointCard
+                            Layout.fillWidth: true
+                            interactive: false
+                            labelText: qsTr("Power Setpoint Value")
+                            // #TODO use kW for power setpoint value?
+                            text: (root.powerSetpointActive.value ?
+                                       (root.powerSetpoint ? NymeaUtils.floatToLocaleString((+root.powerSetpoint.value), 0) : "-") :
+                                       "-") +
+                                  qsTr(" W")
+                        }
+                    }
+                }
 
-                                Loader
-                                {
-                                    id: optimizationParams
+                CoFrostyCard {
+                    id: controlGroup
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("Control") // #TODO wording
 
-                                    Binding{
-                                        target: optimizationParams.item
-                                        property: "delegateID"
-                                        value: modelData.Id
-                                    }
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: Style.smallMargins
 
-                                    Binding{
-                                        target: optimizationParams.item
-                                        property: "delegateName"
-                                        value: modelData.name
-                                    }
-
-                                    Binding{
-                                        target: optimizationParams.item
-                                        property: "delegateValue"
-                                        value: modelData.value
-                                    }
-
-                                    Binding{
-                                        target: optimizationParams.item
-                                        property: "delegateUnit"
-                                        value: modelData.unit
-                                        when: typeof modelData.unit !== "undefined"
-                                    }
-
-                                    Layout.fillWidth: true
-                                    sourceComponent:
-                                    {
-                                        return modelData.component
-                                    }
+                        CoComboBox {
+                            id: optimizationModeCombobox
+                            Layout.fillWidth: true
+                            labelText: qsTr("Operating mode") // #TODO wording
+                            // #TODO infoUrl:
+                            comboBox.model: optimizationModesModel
+                            comboBox.textRole: "name"
+                            comboBox.valueRole: "value"
+                            Component.onCompleted: {
+                                if (!heatingRodConfig) {
+                                    comboBox.currentIndex = 0;
+                                } else {
+                                    comboBox.currentIndex = heatingRodConfig.optimizationEnabled ? 1 : 0;
                                 }
                             }
                         }
                     }
                 }
 
-                Component {
-                    id: stringValues
+                CoFrostyCard {
+                    id: pvSurplusGroup
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("PV Surplus") // #TODO wording, quotation marks from design?
+                    visible: optimizationModeCombobox.currentValue === 1 // PV surplus
 
-                    RowLayout {
-                        property string delegateID: ""
-                        property var delegateName
-                        property var delegateValue
-                        property var delegateUnit
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: Style.smallMargins
 
-                        Label{
-                            id: singleInput
-                            text: delegateName
+                        CoCard {
+                            id: pvPrioCard
                             Layout.fillWidth: true
-                        }
+                            labelText: qsTr("Priority")
+                            text: "4" // #TODO get real priority from config
+                            showChildrenIndicator: true
 
-                        Label{
-                            id: singleValue
-                            text: delegateValue + delegateUnit
+                            onClicked: {
+                                pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"));
+                            }
                         }
                     }
                 }
 
-                Component {
-                    id: boolValues
+                Button {
+                    id: savebutton
+                    Layout.fillWidth: true
+                    text: qsTr("Save")
+                    enabled: {
+                        let optimizationEnabledInConfig = heatingRodConfig.optimizationEnabled;
+                        let optimizationEnabledInComboBox = optimizationModeCombobox.currentValue === 1; // PV surplus
+                        return optimizationEnabledInConfig != optimizationEnabledInComboBox;
+                    }
 
-                    RowLayout {
-                        property string delegateID: ""
-                        property var delegateName
-                        property var delegateValue
-
-                        Label{
-                            id: singleInput
-                            text: delegateName
-                            Layout.fillWidth: true
-                        }
-
-                        Led {
-                            id: led
-                            width: height
-                            state: delegateValue === true ? "on" : "off"
-                        }
+                    onClicked: {
+                        d.pendingCallId = hemsManager.setHeatingElementConfiguration(root.heatingRodConfig.heatingRodThingId,
+                                                                                     {
+                                                                                         optimizationEnabled: optimizationModeCombobox.currentValue === 1 // PV surplus
+                                                                                     });
                     }
                 }
             }
         }
     ]
-
-
 }
