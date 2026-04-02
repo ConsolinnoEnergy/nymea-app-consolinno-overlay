@@ -254,11 +254,14 @@ SettingsPageBase {
                 }
 
                 var wiredNetworkDevice = networkManager.wiredNetworkDevices.getWiredNetworkDevice(model.interface);
-                if (wiredNetworkDevice.state === NetworkDevice.NetworkDeviceStateDisconnected) {
-                    pageStack.push(createWiredConnectionPageComponent, {wiredNetworkDevice: wiredNetworkDevice})
-                } else {
-                    pageStack.push(currentEthernetConnectionPageComponent, {wiredNetworkDevice: wiredNetworkDevice})
-                }
+                pageStack.push(createWiredConnectionPageComponent, {wiredNetworkDevice: wiredNetworkDevice})
+                // if (wiredNetworkDevice.state === NetworkDevice.NetworkDeviceStateDisconnected) {
+                //     console.log("Pushing create wired connection page for", wiredNetworkDevice.interface, wiredNetworkDevice.state)
+                //     pageStack.push(createWiredConnectionPageComponent, {wiredNetworkDevice: wiredNetworkDevice})
+                // } else {
+                //     console.log("Pushing current ethernet connection page for", wiredNetworkDevice.interface, wiredNetworkDevice.state)
+                //     pageStack.push(currentEthernetConnectionPageComponent, {wiredNetworkDevice: wiredNetworkDevice})
+                // }
             }
         }
     }
