@@ -1,6 +1,6 @@
-import QtQuick 2.9
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.9
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 import "qrc:/ui/components"
 import Nymea 1.0
 
@@ -8,7 +8,6 @@ ConsolinnoWizardPageBase {
     id: root
 
     headerLabel: qsTr("Installed Devices")
-    background: Item {}
 
     showNextButton: false
     showBackButton: false

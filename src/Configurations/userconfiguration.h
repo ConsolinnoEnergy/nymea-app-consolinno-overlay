@@ -59,8 +59,8 @@ signals:
 
 
 private:
-    QUuid m_userConfigID = "528b3820-1b6d-4f37-aea7-a99d21d42e72";
-    QUuid m_lastSelectedCar = "282d39a8-3537-4c22-a386-b31faeebbb55";
+    QUuid m_userConfigID = QUuid("528b3820-1b6d-4f37-aea7-a99d21d42e72");
+    QUuid m_lastSelectedCar = QUuid("282d39a8-3537-4c22-a386-b31faeebbb55");
     int m_defaultChargingMode = 0;
     QString m_installerName = "";
     QString m_installerEmail = "";

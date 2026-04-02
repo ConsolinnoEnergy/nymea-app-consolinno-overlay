@@ -1,7 +1,7 @@
-import QtQuick 2.5
-import QtQuick.Controls 2.2
-import QtQuick.Controls.Material 2.2
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
 import Nymea 1.0
 import "../components"
 import "../delegates"
@@ -264,25 +264,26 @@ GenericConfigPage {
             Binding {
                 target: stateDelegateLoader.item
                 property: "value"
-                value: stateDelegate.thingState.value
-                when: !stateDelegate.valueCacheDirty && stateDelegate.pendingActionId === -1
+                value: stateDelegate.thingState ? stateDelegate.thingState.value : undefined
+                when: stateDelegate.thingState !== null && !stateDelegate.valueCacheDirty && stateDelegate.pendingActionId === -1
             }
             Binding {
                 target: stateDelegateLoader.item
                 property: "from"
-                value: stateDelegate.thingState.minValue
-                when: stateDelegateLoader.item.hasOwnProperty("from")
+                value: stateDelegate.thingState ? stateDelegate.thingState.minValue : undefined
+                when: stateDelegate.thingState !== null && stateDelegateLoader.item.hasOwnProperty("from")
             }
             Binding {
                 target: stateDelegateLoader.item
                 property: "to"
-                value: stateDelegate.thingState.maxValue
-                when: stateDelegateLoader.item.hasOwnProperty("to")
+                value: stateDelegate.thingState ? stateDelegate.thingState.maxValue : undefined
+                when: stateDelegate.thingState !== null && stateDelegateLoader.item.hasOwnProperty("to")
             }
             Binding {
                 target: stateDelegateLoader.item.hasOwnProperty("unit") ? stateDelegateLoader.item : null
                 property: "unit"
-                value: stateDelegate.stateType.unit
+                when: stateDelegate.stateType !== null
+                value: stateDelegate.stateType ? stateDelegate.stateType.unit : undefined
             }
 
             Connections {
@@ -293,7 +294,7 @@ GenericConfigPage {
             }
             Connections {
                 target: engine.thingManager
-                onExecuteActionReply: {
+                onExecuteActionReply: function(commandId, thingError, displayMessage) {
                     if (stateDelegate.pendingActionId === commandId) {
                         stateDelegate.pendingActionId = -1
                         if (stateDelegate.valueCacheDirty) {
@@ -318,7 +319,7 @@ GenericConfigPage {
 
             Connections {
                 target: engine.thingManager
-                onExecuteActionReply: {
+                onExecuteActionReply: function(commandId, thingError, displayMessage) {
                     if (commandId === actionDelegate.pendingActionId) {
                         pendingTimer.start();
                         actionDelegate.lastSuccess = thingError === Thing.ThingErrorNoError
@@ -442,7 +443,7 @@ GenericConfigPage {
             }
             Connections {
                 target: root.thing
-                onEventTriggered: {
+                onEventTriggered: function(eventTypeId, params) {
                     if (eventTypeId === eventComponentItem.eventType.id) {
                         flashlightAnimation.start();
                     }

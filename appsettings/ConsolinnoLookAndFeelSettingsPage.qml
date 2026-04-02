@@ -1,7 +1,7 @@
-import QtQuick 2.5
-import QtQuick.Controls 2.1
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
 import Nymea 1.0
 import "../components"
 
@@ -109,7 +109,7 @@ SettingsPageBase {
             id: unitsComboBox
             currentIndex: settings.units === "metric" ? 0 : 1
             model: [ qsTr("Metric"), qsTr("Imperial") ]
-            onActivated: {
+            onActivated: function(index) {
                 settings.units = index == 0 ? "metric" : "imperial";
             }
         }

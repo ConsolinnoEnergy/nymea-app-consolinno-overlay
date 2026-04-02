@@ -1,8 +1,8 @@
-import QtQuick 2.0
-import QtGraphicalEffects 1.12
-import QtCharts 2.3
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.2
+import QtQuick
+import Qt5Compat.GraphicalEffects
+import QtCharts
+import QtQuick.Layouts
+import QtQuick.Controls
 import Nymea 1.0
 import "qrc:/ui/components"
 
@@ -22,7 +22,7 @@ Item {
         sampleRate: d.sampleRate
         Component.onCompleted: fetchLogs()
 
-        onEntriesAdded: {
+        onEntriesAdded: function(index, entries) {
             print("entries added", index, entries.length)
             for (var i = 0; i < entries.length; i++) {
                 var entry = entries[i]
@@ -37,7 +37,7 @@ Item {
             }
         }
 
-        onEntriesRemoved: {
+        onEntriesRemoved: function(index, count) {
             consumptionUpperSeries.removePoints(index, count)
             zeroSeries.shrink()
         }
@@ -161,7 +161,7 @@ Item {
                     range: 43200 // 30 Days: 30 * 24 * 60
                 }
             }
-            onTabSelected: {
+            onTabSelected: function(index) {
                 d.now = new Date()
                 powerBalanceLogs.fetchLogs()
                 d.update()
@@ -309,8 +309,10 @@ Item {
 
                     lowerSeries: LineSeries {
                         id: zeroSeries
-                        XYPoint { x: dateTimeAxis.min.getTime(); y: 0 }
-                        XYPoint { x: dateTimeAxis.max.getTime(); y: 0 }
+                        Component.onCompleted: {
+                            append(dateTimeAxis.min.getTime(), 0)
+                            append(dateTimeAxis.max.getTime(), 0)
+                        }
                         function ensureValue(timestamp) {
                             if (count == 0) {
                                 append(timestamp, 0)
@@ -393,6 +395,7 @@ Item {
 
                         function insertEntry(idx, entry) {
 //                            print("inserting entry for", thing.name, entry.timestamp)
+                            if (!consumerDelegate.series) return
 
                             var baseValue = calculateBaseValue(entry.timestamp);
                             series.lowerSeries.insert(idx, entry.timestamp.getTime(), baseValue)
@@ -401,6 +404,7 @@ Item {
 
                         function addEntries(index, entries) {
 //                            print("adding entries for", thing.name)
+                            if (!consumerDelegate.series) return
                             // Remove the leading 0-value entry
                             series.lowerSeries.removePoints(0, 1);
                             series.upperSeries.removePoints(0, 1);
@@ -431,11 +435,12 @@ Item {
                             thingId: consumerDelegate.thing.id
                             loader: logsLoader
 
-                            onEntriesAdded: {
+                            onEntriesAdded: function(index, entries) {
                                 addTimer.addEntries(index, entries)
                             }
 
-                            onEntriesRemoved: {
+                            onEntriesRemoved: function(index, count){
+                                if (!consumerDelegate.series) return
                                 // Remove the leading 0-value entry
                                 consumerDelegate.series.lowerSeries.removePoints(0, 1);
                                 consumerDelegate.series.upperSeries.removePoints(0, 1);
@@ -456,7 +461,10 @@ Item {
                             id: addTimer
                             interval: 1000
                             repeat: false
-                            onTriggered: consumerDelegate.addEntries(index, entries)
+                            onTriggered: {
+                                if (!consumerDelegate.series) return
+                                consumerDelegate.addEntries(index, entries)
+                            }
                             property int index
                             property var entries
                             function addEntries(index, entries) {
@@ -493,7 +501,10 @@ Item {
                         }
 
                         Component.onDestruction: {
-                            chartView.removeSeries(series)
+                            addTimer.stop()
+                            var s = series
+                            series = null
+                            if (s) chartView.removeSeries(s)
                         }
                     }
                 }
@@ -630,7 +641,7 @@ Item {
                     d.now = new Date(Math.min(new Date(), new Date(startDatetime.getTime() + timeDelta)))
                 }
 
-                onWheel: {
+                onWheel: function(wheel) {
                     startDatetime = d.now
                     var totalTime = d.endTime.getTime() - d.startTime.getTime()
                     // pixelDelta : timeDelta = width : totalTime
@@ -717,7 +728,7 @@ Item {
                             model: consumersRepeater.count
                             delegate: RowLayout {
                                 readonly property Item chartItem: consumersRepeater.itemAt(index)
-                                readonly property Thing thing: chartItem.series.get(index).name
+                                readonly property Thing thing: chartItem.thing
                                 id: consumerToolTipDelegate
                                 opacity: d.selectedSeries == null || d.selectedSeries === chartItem.series ? 1 : 0.3
                                 Rectangle {

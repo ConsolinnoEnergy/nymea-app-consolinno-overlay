@@ -2,11 +2,11 @@ import "../components"
 import "../delegates"
 import "../devicepages"
 import Nymea 1.0
-import QtQml 2.15
-import QtQuick 2.12
-import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.3
+import QtQml
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
 
 GenericConfigPage {
     id: root
@@ -19,6 +19,7 @@ GenericConfigPage {
     property double highestPrice: 0
 
     function updatePrice() {
+        if (dynamicPrice.count === 0) return;
         currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value;
         currentPriceLabel.text = Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh";
     }
@@ -417,7 +418,7 @@ GenericConfigPage {
     Connections {
         target: engine.thingManager
         onThingStateChanged: (thingId, stateTypeId, value) => {
-            if (thingId === dynamicPrice.get(0).id)
+            if (dynamicPrice.count > 0 && thingId === dynamicPrice.get(0).id)
                 updatePrice();
 
         }

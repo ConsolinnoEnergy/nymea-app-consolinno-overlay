@@ -1,11 +1,13 @@
-import QtQuick 2.15
+import QtQuick
 import "qrc:/ui/components"
 import Nymea 1.0
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.2
+import QtQuick.Controls
+import QtQuick.Layouts
 
 Page {
     id: root
+
+    background: Rectangle { color: Style.backgroundColor }
 
     property alias content: contentContainer.children
     property alias showNextButton: nextButton.visible

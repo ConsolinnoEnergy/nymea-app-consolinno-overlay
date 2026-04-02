@@ -1,8 +1,8 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.2
-import QtQuick.Controls.Material 2.12
-import QtQuick.Layouts 1.2
-import QtCharts 2.3
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
+import QtCharts
 import Nymea 1.0
 import "../components"
 import "../optimization"
@@ -22,21 +22,21 @@ Page {
 
     Connections {
         target: powerBalanceLogs
-        onEntriesAdded: {
+        onEntriesAdded: function(index, entries) {
             for (var i = 0; i < entries.length; i++) {
                 var entry = entries[i]
                 forecastChart.addEntry(entry)
             }
         }
-        onEntriesRemoved: {
+        onEntriesRemoved: function(index, count) {
             productionUpperSeries.removePoints(index, count)
         }
     }
 
     Connections {
         target: hemsManager
-        onConEMSStateChanged: {
-            formattedJSON.text = JSON.stringify(conState, undefined, 4)
+        onConEMSStateChanged: function(state) {
+            formattedJSON.text = JSON.stringify(state, undefined, 4)
         }
     }
 

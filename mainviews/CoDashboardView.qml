@@ -1,12 +1,14 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.1
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.2
-import QtCharts 2.3
+// #TODO copyright notice
+
+import QtCore
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
+import QtCharts
 import Nymea 1.0
 import NymeaApp.Utils 1.0
-import Qt.labs.settings 1.1
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 
 import "../components"
 import "../delegates"
@@ -157,7 +159,20 @@ MainViewBase {
     Settings {
         id: shownPopupsSetting
         category: "shownPopups"
-        property var shown: []
+        property string shownVersions: "[]"
+
+        function getShownVersions() {
+            try { return JSON.parse(shownVersions); } catch(e) { return []; }
+        }
+        function addVersion(version) {
+            var list = getShownVersions();
+            list.push(version);
+            console.log("Adding version to shown popups:", version, "List after adding:", list);
+            shownVersions = JSON.stringify(list);
+        }
+        function hasVersion(version) {
+            return getShownVersions().indexOf(version) !== -1;
+        }
     }
 
     Settings {
@@ -235,13 +250,21 @@ MainViewBase {
                     gradient: Gradient {
                         GradientStop{
                             position: 0.0
-                            color: adjustAlpha(baseColor, 0.5)
-                            property color baseColor: Style.colors.components_Dashboard_Background_gradient_top
+                            color: Qt.rgba(
+                                Style.colors.components_Dashboard_Background_gradient_top.r,
+                                Style.colors.components_Dashboard_Background_gradient_top.g,
+                                Style.colors.components_Dashboard_Background_gradient_top.b,
+                                Style.colors.components_Dashboard_Background_gradient_top.a * 0.5
+                            )
                         }
                         GradientStop{
                             position: 1.0
-                            color: adjustAlpha(baseColor, 0.5)
-                            property color baseColor: Style.colors.components_Dashboard_Background_gradient_bottom
+                            color: Qt.rgba(
+                                Style.colors.components_Dashboard_Background_gradient_bottom.r,
+                                Style.colors.components_Dashboard_Background_gradient_bottom.g,
+                                Style.colors.components_Dashboard_Background_gradient_bottom.b,
+                                Style.colors.components_Dashboard_Background_gradient_bottom.a * 0.5
+                            )
                         }
                     }
                 }
@@ -271,7 +294,7 @@ MainViewBase {
                         Layout.fillWidth: true
                         visible: !hemsVersionOk()
                         type: CoNotification.Type.Warning
-                        collapsible: true
+                        actionType: CoNotification.ActionType.Collapsible
                         title: qsTr("Pending software update")
                         collapsed: false
                         message: qsTr('
@@ -326,18 +349,17 @@ MainViewBase {
                     CoNotification {
                         id: releaseNotes
                         Layout.fillWidth: true
-                        visible: shownPopupsSetting.shown.indexOf(appVersion) === -1
+                        property bool dismissed: false
+                        visible: !dismissed && !shownPopupsSetting.hasVersion(appVersion)
                         type: CoNotification.Type.Information
-                        dismissable: true
+                        actionType: CoNotification.ActionType.Dismissable
                         title: qsTr("The app has been updated.")
                         message: qsTr('CHANGENOTIFICATION_PLACEHOLDER')
                         messageTextFormat: Text.RichText
 
                         onDismiss: {
-                            console.debug("shonwPopupsSetting.shown: ", shownPopupsSetting.shown, appVersion)
-                            var shownPopups = shownPopupsSetting.shown
-                            shownPopups.push(appVersion)
-                            shownPopupsSetting.shown = shownPopups
+                            dismissed = true
+                            shownPopupsSetting.addVersion(appVersion)
                         }
                     }
 

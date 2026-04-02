@@ -1,10 +1,10 @@
-import QtQuick 2.12
-import QtQuick.Window 2.15
-import QtQuick.Controls 2.15
-import QtQml 2.2
+import QtQuick
+import QtQuick.Window
+import QtQuick.Controls
+import QtQml
 import Nymea 1.0
-import QtQuick.Layouts 1.2
-import QtCharts 2.15
+import QtQuick.Layouts
+import QtCharts
 import "../components"
 import "../delegates"
 

@@ -18,6 +18,7 @@ function getVAT(dpThing) {
 }
 
 function relPrice2AbsPrice(relPrice, dynamicPriceThing) {
+    if (!dynamicPriceThing) return 0;
     let averagePrice = dynamicPriceThing.stateByName("averageTotalCost").value;
     let minPrice = dynamicPriceThing.stateByName("lowestPrice").value;
     let maxPrice = dynamicPriceThing.stateByName("highestPrice").value;
