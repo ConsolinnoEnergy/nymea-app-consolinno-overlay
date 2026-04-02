@@ -20,7 +20,6 @@ Item {
     property var levies: ({})
     property bool isDynamicPrice: false
 
-
     onThingChanged: {
         updateChart();
     }
@@ -37,7 +36,7 @@ Item {
         averagePrice = thing.stateByName("averageTotalCost").value.toFixed(2);
         consumptionSeries.insertEntry(thing)
         valueAxis.adjustMax((Math.ceil(lowestPrice)),highestPrice);
-        timer.restartTimer();
+        currentValueTimer.restartTimer();
     }
 
     QtObject {
@@ -389,7 +388,7 @@ Item {
                 }
 
                 Timer {
-                    id: timer
+                    id: currentValueTimer
                     property bool isOn: false
                     interval: isOn ? 60000 : 100
                     running: true

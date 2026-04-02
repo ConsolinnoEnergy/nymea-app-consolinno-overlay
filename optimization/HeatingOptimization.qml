@@ -298,9 +298,9 @@ Page {
                 inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
                 if (savebutton.validated)
                 {
-                    // TODO this is terrible fix the enum mapping properly
-                    // We just want to keep the current value
-                    // Mapping: number -> enum name
+                    // TODO: enum mapping is still a workaround - heatingConfiguration.optimizationMode
+                    // returns an int, but setHeatingConfiguration expects a string enum name.
+                    // Fix properly by handling the mapping in C++ (HemsManager or HeatingConfiguration).
                     const optimizationModeMap = {
                       0: "OptimizationModePVSurplus",
                       1: "OptimizationModeDynamicPricing",
