@@ -80,6 +80,7 @@ Item {
 
             ColumnLayout {
                 anchors.centerIn: parent
+                width: parent.width - 50
                 spacing: 0
 
                 ColorIcon {
@@ -97,7 +98,8 @@ Item {
 
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    maximumLineCount: 1
+                    maximumLineCount: 2
+                    wrapMode: Text.WordWrap
                     elide: Text.ElideRight
                     font: Style.newParagraphFontBold
                     color: Style.colors.components_Dashboard_Info_card_title
