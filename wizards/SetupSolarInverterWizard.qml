@@ -1,8 +1,8 @@
-import QtQuick 2.9
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.9
-import QtQuick.Controls.Material 2.12
-import QtGraphicalEffects 1.15
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import Qt5Compat.GraphicalEffects
 import "../delegates"
 import "qrc:/ui/components"
 import Nymea 1.0
@@ -97,7 +97,7 @@ Page {
     Connections {
         target: engine.thingManager
 
-        onAddThingReply: {
+        onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
 
             busyOverlay.shown = false;
             var thing = engine.thingManager.things.getThing(thingId)
@@ -106,12 +106,12 @@ Page {
 
         }
 
-        onConfirmPairingReply: {
+        onConfirmPairingReply: function(commandId, thingError, thingId, displayMessage) {
             busyOverlay.shown = false
             pageStack.push(resultsPage, {thingError: thingError, thingId: thingId, message: displayMessage})
         }
 
-        onPairThingReply: {
+        onPairThingReply: function(commandId, thingError, pairingTransactionId, setupMethod, displayMessage, oAuthUrl) {
             busyOverlay.shown = false
             if (thingError !== Thing.ThingErrorNoError) {
                 busyOverlay.shown = false;
@@ -168,7 +168,7 @@ Page {
                 id: energyMeterFlickable
                 clip: true
                 Layout.fillWidth: true
-                contentHeight: energyMeterList.height
+                contentHeight: energyMeterList.implicitHeight
                 contentWidth: energyMeterList.width
                 visible: emProxy.count !== 0
 

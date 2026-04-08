@@ -1,8 +1,8 @@
-import QtQuick 2.3
-import QtGraphicalEffects 1.12
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.2
-import QtCharts 2.3
+import QtQuick
+import Qt5Compat.GraphicalEffects
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtCharts
 import Nymea 1.0
 import "qrc:/ui/components/"
 
@@ -146,7 +146,7 @@ StatsBase {
                 ListElement { modelData: qsTr("Years"); config: "years" }
 //                ListElement { modelData: qsTr("Minutes"); config: "minutes" }
             }
-            onTabSelected: {
+            onTabSelected: function(index) {
                 d.startOffset = 0
                 powerBalanceLogs.fetchLogs()
             }
@@ -175,7 +175,7 @@ StatsBase {
                 }
             }
 
-            onEntriesAdded: {
+            onEntriesAdded: function(index, entries) {
                 if (fetchingData) {
                     return
                 }
@@ -568,7 +568,7 @@ StatsBase {
                 }
 
                 property int wheelDelta: 0
-                onWheel: {
+                onWheel: function(wheel) {
                     wheelDelta += wheel.pixelDelta.x
                     var slotWidth = mouseArea.width / d.config.count
                     while (wheelDelta > slotWidth) {

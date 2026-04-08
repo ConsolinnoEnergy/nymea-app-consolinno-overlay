@@ -1,8 +1,8 @@
-import QtQuick 2.9
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Controls.Material 2.1
-import QtGraphicalEffects 1.15
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuick.Controls.Material
+import Qt5Compat.GraphicalEffects
 import "qrc:/ui/components"
 
 import Nymea 1.0
@@ -79,7 +79,7 @@ Page {
 
     Connections {
         target: engine.thingManager
-        onAddThingReply: {
+        onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
 
             busyOverlay.shown = false;
             var thing = engine.thingManager.things.getThing(thingId)
@@ -117,7 +117,7 @@ Page {
                 id: evChargerFlickable
                 clip: true
                 Layout.fillWidth: true
-                contentHeight: evChargerList.height
+                contentHeight: evChargerList.implicitHeight
                 contentWidth: evChargerList.width
                 visible: evProxy.count !== 0
 
@@ -731,7 +731,7 @@ Page {
 
             Connections {
                 target: engine.thingManager
-                onAddThingReply: {
+                onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
                     root.countChanged()
                     if (commandId == setupEnergyMeterPage.pendingCallId) {
                         setupEnergyMeterPage.thingError = thingError

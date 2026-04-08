@@ -1,7 +1,7 @@
-import QtQuick 2.9
-import QtGraphicalEffects 1.15
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.9
+import QtQuick
+import Qt5Compat.GraphicalEffects
+import QtQuick.Layouts
+import QtQuick.Controls
 import "qrc:/ui/components"
 import Nymea 1.0
 
@@ -85,7 +85,7 @@ Page {
 
     Connections {
         target: engine.thingManager
-        onAddThingReply: {
+        onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
 
             busyOverlay.shown = false;
             var thing = engine.thingManager.things.getThing(thingId)
@@ -445,7 +445,7 @@ Page {
 
             Connections {
                 target: engine.thingManager
-                onAddThingReply: {
+                onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
                     if (commandId == setupEnergyMeterPage.pendingCallId) {
                         setupEnergyMeterPage.thingError = thingError
                         setupEnergyMeterPage.pendingCallId = -1

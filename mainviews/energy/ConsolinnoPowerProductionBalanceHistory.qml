@@ -1,7 +1,7 @@
-import QtQuick 2.0
-import QtCharts 2.2
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.2
+import QtQuick
+import QtCharts
+import QtQuick.Layouts
+import QtQuick.Controls
 import Nymea 1.0
 import "qrc:/ui/components"
 
@@ -69,7 +69,7 @@ Item {
     Connections {
         target: powerBalanceLogs
 
-        onEntriesAdded: {
+        onEntriesAdded: function(index, entries) {
 //            print("entries added", index, entries.length)
             for (var i = 0; i < entries.length; i++) {
                 var entry = entries[i]
@@ -87,7 +87,7 @@ Item {
             }
         }
 
-        onEntriesRemoved: {
+        onEntriesRemoved: function(index, count) {
             acquisitionUpperSeries.removePoints(index, count)
             storageUpperSeries.removePoints(index, count)
             selfConsumptionUpperSeries.removePoints(index, count)
@@ -135,7 +135,7 @@ Item {
                     range: 43200 // 30 Days: 30 * 24 * 60
                 }
             }
-            onTabSelected: {
+            onTabSelected: function(index) {
                 d.now = new Date()
                 powerBalanceLogs.fetchLogs()
             }
@@ -294,14 +294,16 @@ Item {
                     axisY: valueAxis
                     color: Configuration.consumedColor
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     name: qsTr("Consumed")
             //        visible: false
 
                     lowerSeries: LineSeries {
                         id: zeroSeries
-                        XYPoint { x: dateTimeAxis.min.getTime(); y: 0 }
-                        XYPoint { x: dateTimeAxis.max.getTime(); y: 0 }
+                        Component.onCompleted: {
+                            append(dateTimeAxis.min.getTime(), 0)
+                            append(dateTimeAxis.max.getTime(), 0)
+                        }
                         function ensureValue(timestamp) {
                             if (count == 0) {
                                 append(timestamp, 0)
@@ -353,7 +355,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.batteryChargeColor
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     visible: root.batteries.count > 0
                     name: qsTr("To battery")
 
@@ -382,7 +384,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.rootMeterReturnColor
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     name: qsTr("To grid")
             //        visible: false
 
@@ -471,7 +473,7 @@ Item {
                     d.now = new Date(Math.min(new Date(), new Date(startDatetime.getTime() + timeDelta)))
                 }
 
-                onWheel: {
+                onWheel: function(wheel) {
                     startDatetime = d.now
                     var totalTime = d.endTime.getTime() - d.startTime.getTime()
                     // pixelDelta : timeDelta = width : totalTime
@@ -522,7 +524,7 @@ Item {
                             margins: Style.smallMargins
                         }
                         Label {
-                            text: toolTip.entry.timestamp.toLocaleString(Qt.locale(), Locale.ShortFormat)
+                            text: toolTip.entry ? toolTip.entry.timestamp.toLocaleString(Qt.locale(), Locale.ShortFormat) : ""
                             font: Style.smallFont
                         }
 

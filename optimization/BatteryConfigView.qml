@@ -1,11 +1,11 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.12
-import QtQuick.Layouts 1.3
-import QtQml 2.2
-import QtGraphicalEffects 1.15
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
+import QtQml
+import Qt5Compat.GraphicalEffects
 import Nymea 1.0
-import QtCharts 2.3
+import QtCharts
 
 import "../components"
 import "../delegates"
@@ -44,9 +44,10 @@ GenericConfigPage {
 
     Connections {
         target: hemsManager
-        onSetBatteryConfigurationReply: {
+        onSetBatteryConfigurationReply: function(commandId, error) {
+
             if (commandId === d.pendingCallId) {
-                d.pendingCallId = -1;
+                d.pendingCallId = -1
                 let props = "";
                 switch (error) {
                 case "HemsErrorNoError":
@@ -81,13 +82,14 @@ GenericConfigPage {
     Connections {
         target: engine.thingManager
         onThingStateChanged: (thingId, stateTypeId, value)=> {
-                                 if (thingId === dynamicPrice.get(0).id ) {
+                                 if (dynamicPrice.count > 0 && thingId === dynamicPrice.get(0).id ) {
                                      updatePrice();
                                  }
                              }
     }
 
     function updatePrice() {
+        if (dynamicPrice.count === 0) return;
         currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value;
         currentPriceLabel.text = Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh";
     }

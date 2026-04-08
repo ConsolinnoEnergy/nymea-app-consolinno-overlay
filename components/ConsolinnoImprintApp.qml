@@ -1,6 +1,6 @@
-import QtQuick 2.9
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.3
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 import Nymea 1.0
 
 Item {
@@ -192,51 +192,52 @@ Item {
             font.bold: true
             text: qsTr("Source code availability")
         }
-            ColumnLayout {
+
+        ColumnLayout {
+            Layout.fillWidth: true
+            Layout.leftMargin: app.margins
+            Layout.rightMargin: app.margins
+
+            Label {
                 Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
+                wrapMode: Text.WordWrap
+                font.pixelSize: app.smallFont
+                text: qsTr("Anyone can obtain the source code of these software components from us on a data carrier (CD-ROM, DVD or USB stick) if a request is made to our customer service department at the following address within three years after delivery of the product to the customer or as long as we offer spare parts or support for the product:")
+            }
 
-                Label{
-                    Layout.fillWidth: true
-                    wrapMode: Text.WordWrap
-                    font.pixelSize: app.smallFont
-                    text: qsTr("Anyone can obtain the source code of these software components from us on a data carrier (CD-ROM, DVD or USB stick) if a request is made to our customer service department at the following address within three years after delivery of the product to the customer or as long as we offer spare parts or support for the product:")
-                }
+            Label {
+                Layout.fillWidth: true
+                Layout.topMargin: 7
+                wrapMode: Text.WordWrap
+                font.pixelSize: app.smallFont
+                text: `${Configuration.companyName}\r\n${Configuration.companyAddress}\r\n${Configuration.companyZip} ${Configuration.companyLocation}\r\nTel: ${Configuration.companyTel}\r\nMail: ${Configuration.serviceEmail}`
+            }
 
-                Label{
-                    Layout.fillWidth: true
-                    Layout.topMargin: 7
-                    wrapMode: Text.WordWrap
-                    font.pixelSize: app.smallFont
-                    text: `${Configuration.companyName}\r\n${Configuration.companyAddress}\r\n${Configuration.companyZip} ${Configuration.companyLocation}\r\nTel: ${Configuration.companyTel}\r\nMail: ${Configuration.serviceEmail}`
-                }
+            Label {
+                Layout.fillWidth: true
+                Layout.topMargin: 7
+                wrapMode: Text.WordWrap
+                font.pixelSize: app.smallFont
+                text: qsTr("Please provide the following product data:")
+            }
 
-                Label{
-                    Layout.fillWidth: true
-                    Layout.topMargin: 7
-                    wrapMode: Text.WordWrap
-                    font.pixelSize: app.smallFont
-                    text: qsTr("Please provide the following product data:")
-                }
+            Label {
+                Layout.fillWidth: true
+                Layout.topMargin: 7
+                wrapMode: Text.WordWrap
+                font.pixelSize: app.smallFont
+                text: qsTr("- Product name\r\n- Software version\r\n- Serial number - if known")
+            }
 
-                Label{
-                    Layout.fillWidth: true
-                    Layout.topMargin: 7
-                    wrapMode: Text.WordWrap
-                    font.pixelSize: app.smallFont
-                    text: qsTr("- Product name\r\n- Software version\r\n- Serial number - if known")
-                }
-
-                Label{
-                    Layout.fillWidth: true
-                    Layout.topMargin: 7
-                    wrapMode: Text.WordWrap
-                    font.pixelSize: app.smallFont
-                    text: qsTr("and transfer an amount of money in advance, based on the information provided by the support, to cover the costs of creating and sending the disk. Alternatively, the source code can be downloaded free of charge.")
-                }
+            Label {
+                Layout.fillWidth: true
+                Layout.topMargin: 7
+                wrapMode: Text.WordWrap
+                font.pixelSize: app.smallFont
+                text: qsTr("and transfer an amount of money in advance, based on the information provided by the support, to cover the costs of creating and sending the disk. Alternatively, the source code can be downloaded free of charge.")
             }
         }
+    }
 
 
     Component {

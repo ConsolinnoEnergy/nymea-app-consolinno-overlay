@@ -28,11 +28,11 @@
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-import QtQuick 2.9
-import QtQuick.Layouts 1.15
-import QtQuick.Templates 2.5 as T
-import QtQuick.Controls 2.5
-import QtQuick.Controls.impl 2.5
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Templates as T
+import QtQuick.Controls
+import QtQuick.Controls.impl
 import Nymea 1.0
 
 import "../../ui/components"

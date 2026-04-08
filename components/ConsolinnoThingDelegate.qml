@@ -1,7 +1,7 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.2
-import QtGraphicalEffects 1.12
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
 import "../components"
 import Nymea 1.0
 

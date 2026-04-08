@@ -1,9 +1,9 @@
-import QtQuick 2.8
-import QtQuick.Controls 2.12
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.2
-import QtGraphicalEffects 1.0
-import Qt.labs.settings 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
+import QtCore
 import Nymea 1.0
 import "../components"
 import "../delegates"
@@ -51,7 +51,7 @@ StackView {
 
     Connections {
         target: engine.thingManager
-        onAddThingReply: {
+        onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
             eeBusThing = engine.thingManager.things.getThing(thingId)
         }
     }

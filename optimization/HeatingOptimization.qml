@@ -1,11 +1,11 @@
-import QtQuick 2.8
-import QtQuick.Controls 2.1
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.2
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
 import Nymea 1.0
 import "../components"
 import "../delegates"
-import QtQml 2.15
+import QtQml
 
 
 Page {
@@ -51,7 +51,7 @@ Page {
 
     Connections {
         target: hemsManager
-        onSetHeatingConfigurationReply: {
+        onSetHeatingConfigurationReply: function(commandId, error) {
             if (commandId == d.pendingCallId) {
                 d.pendingCallId = -1
 
@@ -170,29 +170,31 @@ Page {
                 inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
                 if (savebutton.inputValid)
                 {
-                   
-                    const newConfig = JSON.parse(JSON.stringify(heatingConfiguration));
-                    newConfig.maxElectricalPower = +inputText;
-                    newConfig.controllableLocalSystem = gridSupportControl.checked;
-                    newConfig.heatMeterThingId = meterModel.get(heatMeterCombo.comboBox.currentIndex).thingId;
-
-                    // TODO this is terrible fix the enum mapping properly
-                    // We just want to keep the current value
-                    // Mapping: number -> enum name
+                    // TODO: enum mapping is still a workaround - heatingConfiguration.optimizationMode
+                    // returns an int, but setHeatingConfiguration expects a string enum name.
+                    // Fix properly by handling the mapping in C++ (HemsManager or HeatingConfiguration).
                     const optimizationModeMap = {
                       0: "OptimizationModePVSurplus",
                       1: "OptimizationModeDynamicPricing",
                       2: "OptimizationModeOff",
                     };
 
-                    // Read the current numeric value from the original config
                     const currentValue = heatingConfiguration.optimizationMode;
 
-                    // Write the enum name instead of the number
-                    newConfig.optimizationMode = optimizationModeMap.hasOwnProperty(currentValue)
-                      ? optimizationModeMap[currentValue]
-                      : "OptimizationModeOff";
-                    // end of terrible hack 
+                    const newConfig = {
+                        "heatPumpThingId":       heatingConfiguration.heatPumpThingId,
+                        "optimizationEnabled":   heatingConfiguration.optimizationEnabled,
+                        "floorHeatingArea":      heatingConfiguration.floorHeatingArea,
+                        "maxThermalEnergy":      heatingConfiguration.maxThermalEnergy,
+                        "maxElectricalPower":    +inputText,
+                        "priceThreshold":        heatingConfiguration.priceThreshold,
+                        "relativePriceEnabled":  heatingConfiguration.relativePriceEnabled,
+                        "controllableLocalSystem": gridSupportControl.checked,
+                        "heatMeterThingId":      meterModel.get(heatMeterDropdown.currentIndex).thingId,
+                        "optimizationMode":      optimizationModeMap.hasOwnProperty(currentValue)
+                                                     ? optimizationModeMap[currentValue]
+                                                     : "OptimizationModeOff"
+                    };
 
                     d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, newConfig)
                     if(directionID !== 1){

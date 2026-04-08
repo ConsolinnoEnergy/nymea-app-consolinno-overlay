@@ -1,7 +1,7 @@
-import QtQuick 2.5
-import QtQuick.Controls 2.1
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
 import Nymea 1.0
 import "../components"
 
@@ -13,7 +13,7 @@ SettingsPageBase {
         id: userManager
         engine: _engine
 
-        onChangePasswordReply: {
+        onChangePasswordReply: function(id, error) {
             if (error !== UserManager.UserErrorNoError) {
                 var component = Qt.createComponent("../components/ErrorDialog.qml")
                 var text;
@@ -149,7 +149,7 @@ SettingsPageBase {
             }
             Connections {
                 target: userManager
-                onSetUserInfoReply: {
+                onSetUserInfoReply: function(id, error) {
                     editUserInfoPage.busy = false
                     if (error != UserManager.UserErrorNoError) {
                         var component = Qt.createComponent("../components/ErrorDialog.qml")
@@ -410,7 +410,7 @@ SettingsPageBase {
 
             Connections {
                 target: userManager
-                onRemoveUserReply: {
+                onRemoveUserReply: function(id, error) {
                     userDetailsPage.busy = false
                     if (error !== UserManager.UserErrorNoError) {
                         var component = Qt.createComponent("../components/ErrorDialog.qml")
@@ -498,7 +498,7 @@ SettingsPageBase {
 
             Connections {
                 target: userManager
-                onCreateUserReply: {
+                onCreateUserReply: function(id, error) {
                     createUserPage.busy = false
                     if (error !== UserManager.UserErrorNoError) {
                         var component = Qt.createComponent("../components/ErrorDialog.qml")
