@@ -132,6 +132,8 @@ Item {
         Slider {
             id: priceSlider
 
+            property var dpThing: (dynamicPrice && dynamicPrice.count > 0) ? dynamicPrice.get(0) : null
+
             Layout.fillWidth: true
             value: -relativeValue
             onMoved: () => {

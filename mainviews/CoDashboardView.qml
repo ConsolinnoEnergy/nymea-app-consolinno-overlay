@@ -684,11 +684,7 @@ MainViewBase {
                                         let batteryView = thing.thingClass.interfaces.indexOf("controllablebattery") >= 0 ?
                                                 "/ui/optimization/BatteryConfigView.qml" :
                                                 "/ui/devicepages/GenericSmartDeviceMeterPage.qml";
-                                        pageStack.push(batteryView,
-                                                       {
-                                                           "thing": thing,
-                                                           "isBatteryView": true
-                                                       });
+                                        pageStack.push(batteryView, { "thing": thing });
                                     }
                                 }
                             }

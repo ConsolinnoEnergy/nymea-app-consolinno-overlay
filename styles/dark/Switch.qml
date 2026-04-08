@@ -34,11 +34,11 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.12
-import QtQuick.Templates 2.12 as T
-import QtQuick.Controls 2.12
-import QtQuick.Controls.impl 2.12
-import QtGraphicalEffects 1.15
+import QtQuick
+import QtQuick.Templates as T
+import QtQuick.Controls
+import QtQuick.Controls.impl
+import Qt5Compat.GraphicalEffects
 import Nymea 1.0
 
 T.Switch {
