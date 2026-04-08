@@ -95,6 +95,7 @@ GenericConfigPage {
 
     function saveSettings()
     {
+        let targetSocPvSurplus = [ Math.round(pvPrioSlider.value) ];
         d.pendingCallId = hemsManager.setBatteryConfiguration(thing.id,
                                                               {
                                                                   "optimizationEnabled": optimizationController.checked,
@@ -102,8 +103,9 @@ GenericConfigPage {
                                                                   "dischargePriceThreshold": relDischargeBlockedThreshold,
                                                                   "relativePriceEnabled": true,
                                                                   "chargeOnce": chargeOnceController.checked,
-                                                                  "avoidZeroFeedInActive": batteryConfiguration.avoidZeroFeedInActive
-                                                              })
+                                                                  "avoidZeroFeedInActive": batteryConfiguration.avoidZeroFeedInActive,
+                                                                  "targetSocPvSurplus": targetSocPvSurplus
+                                                              });
     }
 
     function enableSave(obj)
@@ -111,7 +113,8 @@ GenericConfigPage {
         saveButton.enabled = batteryConfiguration.priceThreshold !== relChargingThreshold ||
                 batteryConfiguration.dischargePriceThreshold !== relDischargeBlockedThreshold ||
                 (chargeOnceController.enabled && batteryConfiguration.chargeOnce !== chargeOnceController.checked) ||
-                batteryConfiguration.optimizationEnabled !== optimizationController.checked;
+                batteryConfiguration.optimizationEnabled !== optimizationController.checked ||
+                (batteryConfiguration.targetSocPvSurplus.length > 0 && batteryConfiguration.targetSocPvSurplus[0] !== Math.round(pvPrioSlider.value));
     }
 
     ThingsProxy {
@@ -219,9 +222,9 @@ GenericConfigPage {
                             stepSize: 1
                             labelText: qsTr("Priority applies up to state of charge") // #TODO wording
                             helpText: qsTr("Above this state of charge, the battery is always considered last") // #TODO wording
-                            value: 20 // #TODO get real value
+                            value: batteryConfiguration.targetSocPvSurplus.length > 0 ? batteryConfiguration.targetSocPvSurplus[0] : 80
                             valueText: Math.round(value) + " %"
-                            // #TODO needs to be saved to config when clicking "Save"?
+                            onValueChanged: enableSave(this)
                         }
                     }
                 }
