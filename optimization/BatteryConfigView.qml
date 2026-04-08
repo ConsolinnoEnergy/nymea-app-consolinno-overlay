@@ -67,8 +67,8 @@ GenericConfigPage {
         }
 
         onBatteryConfigurationChanged: {
-            optimizationController.checked = batteryConfiguration.optimizationEnabled;
-            chargeOnceController.checked = batteryConfiguration.chargeOnce;
+            tariffControlledChargingToggle.checked = batteryConfiguration.optimizationEnabled;
+            chargeOnceToggle.checked = batteryConfiguration.chargeOnce;
             relChargingThreshold = batteryConfiguration.priceThreshold;
             relDischargeBlockedThreshold = batteryConfiguration.dischargePriceThreshold;
             console.debug("Battery configuration changed received. New priceThreshold: " +
@@ -98,11 +98,11 @@ GenericConfigPage {
         let targetSocPvSurplus = [ Math.round(pvPrioSlider.value) ];
         d.pendingCallId = hemsManager.setBatteryConfiguration(thing.id,
                                                               {
-                                                                  "optimizationEnabled": optimizationController.checked,
+                                                                  "optimizationEnabled": tariffControlledChargingToggle.checked,
                                                                   "priceThreshold": relChargingThreshold,
                                                                   "dischargePriceThreshold": relDischargeBlockedThreshold,
                                                                   "relativePriceEnabled": true,
-                                                                  "chargeOnce": chargeOnceController.checked,
+                                                                  "chargeOnce": chargeOnceToggle.checked,
                                                                   "avoidZeroFeedInActive": batteryConfiguration.avoidZeroFeedInActive,
                                                                   "targetSocPvSurplus": targetSocPvSurplus
                                                               });
@@ -112,8 +112,8 @@ GenericConfigPage {
     {
         saveButton.enabled = batteryConfiguration.priceThreshold !== relChargingThreshold ||
                 batteryConfiguration.dischargePriceThreshold !== relDischargeBlockedThreshold ||
-                (chargeOnceController.enabled && batteryConfiguration.chargeOnce !== chargeOnceController.checked) ||
-                batteryConfiguration.optimizationEnabled !== optimizationController.checked ||
+                (chargeOnceToggle.enabled && batteryConfiguration.chargeOnce !== chargeOnceToggle.checked) ||
+                batteryConfiguration.optimizationEnabled !== tariffControlledChargingToggle.checked ||
                 (batteryConfiguration.targetSocPvSurplus.length > 0 && batteryConfiguration.targetSocPvSurplus[0] !== Math.round(pvPrioSlider.value));
     }
 
@@ -170,13 +170,6 @@ GenericConfigPage {
                                    Math.round(root.currentPowerState.value) < 0 ?
                                        qsTr("Discharging") :
                                        qsTr("Idle")
-                    // label: !root.batteryChargingState ?
-                    //            "foo" : // #TODO
-                    //            root.batteryChargingState.value === "charging" ?
-                    //                qsTr("Charging") :
-                    //                root.batteryChargingState.value === "discharging" ?
-                    //                    qsTr("Discharging") :
-                    //                    qsTr("Idle")
                     circleColor: Style.colors.components_Dashboard_Detail_Energy_circle_border // #TODO same for all energy circles? -> then move to CoEnergyCircle directly
                 }
 
@@ -242,7 +235,7 @@ GenericConfigPage {
                         spacing: Style.smallMargins
 
                         CoSwitch {
-                            id: optimizationController // #TODO rename
+                            id: tariffControlledChargingToggle
                             Layout.fillWidth: true
                             text: qsTr("Tariff-controlled charging")
                             visible: dynamicPrice.count >= 1
@@ -251,20 +244,20 @@ GenericConfigPage {
                                 checked = root.batteryConfiguration.optimizationEnabled;
                             }
                             onCheckedChanged: {
-                                if(!optimizationController.checked){
-                                    chargeOnceController.checked = false;
+                                if(!tariffControlledChargingToggle.checked){
+                                    chargeOnceToggle.checked = false;
                                 }
                                 enableSave(this);
                             }
                         }
 
                         CoSwitch {
-                            id: chargeOnceController // #TODO rename
+                            id: chargeOnceToggle
                             Layout.fillWidth: true
                             text: qsTr("Activate instant charging")
                             enabled: !root.isZeroCompensation
                             // #TODO show helpText when not enabled to explain why?
-                            visible: optimizationController.checked
+                            visible: tariffControlledChargingToggle.checked
 
                             Component.onCompleted: {
                                 checked = root.batteryConfiguration.chargeOnce;
@@ -283,17 +276,17 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("Charging plan") // #TODO wording
-                    visible: optimizationController.checked
+                    visible: tariffControlledChargingToggle.checked
 
                     ColumnLayout {
                         anchors.left: parent.left
                         anchors.right: parent.right
-                        enabled: !chargeOnceController.checked
+                        enabled: !chargeOnceToggle.checked
 
                         CoSlider {
                             id: chargingThresholdSlider
                             Layout.fillWidth: true
-                            visible: optimizationController.checked
+                            visible: tariffControlledChargingToggle.checked
                             from: -100
                             to: 100
                             stepSize: 1
@@ -326,7 +319,7 @@ GenericConfigPage {
                         CoSlider {
                             id: dischargeBlockedThresholdSlider
                             Layout.fillWidth: true
-                            visible: optimizationController.checked
+                            visible: tariffControlledChargingToggle.checked
                             from: -100
                             to: 100
                             stepSize: 1
@@ -360,7 +353,7 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             Layout.preferredHeight: 200
                             Layout.leftMargin: Style.smallMargins
-                            backgroundColor: isZeroCompensation || chargeOnceController.checked ? Style.barSeriesDisabled : "transparent"
+                            backgroundColor: isZeroCompensation || chargeOnceToggle.checked ? Style.barSeriesDisabled : "transparent"
                             startTime: d.startTimeSince
                             endTime: d.endTimeUntil
                             hoursNow: d.now.getHours()
