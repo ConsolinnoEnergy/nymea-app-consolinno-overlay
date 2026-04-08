@@ -1,8 +1,8 @@
-import QtQuick 2.3
-import QtGraphicalEffects 1.12
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.2
-import QtCharts 2.3
+import QtQuick
+import Qt5Compat.GraphicalEffects
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtCharts
 import Nymea 1.0
 import "qrc:/ui/components/"
 
@@ -119,7 +119,9 @@ StatsBase {
                         valueAxis.adjustMax(consumption)
 
                     } else if (timestamp.getTime() == upcomingTimestamp.getTime() && (previousEntry || !d.loading)) {
-                        var consumption = thingPowerLogs.liveEntry().totalConsumption
+                        var liveEntry = thingPowerLogs.liveEntry()
+                        if (!liveEntry) return;
+                        var consumption = liveEntry.totalConsumption
 //                        print("it's today for thing", thing.name, consumption, previousEntry)
                         if (previousEntry) {
 //                            print("previous timestamp", previousEntry.timestamp, previousEntry.totalConsumption)
@@ -160,6 +162,9 @@ StatsBase {
                 barSet.opacity = d.selectedThing == null || consumerDelegate.thing == d.selectedThing ? 1 : 0.3
 
                 barSet.color = Qt.binding(function() {
+                    if (consumerDelegate.thing == null) {
+                        return consumerColors[index];
+                    }
                     let consumerThingClass = consumerDelegate.thing.thingClass.interfaces;
                     var col = "";
 
@@ -211,7 +216,7 @@ StatsBase {
                 ListElement { modelData: qsTr("Years"); config: "years" }
 //                ListElement { modelData: qsTr("Minutes"); config: "minutes" }
             }
-            onTabSelected: {
+            onTabSelected: function(index) {
                 d.startOffset = 0
                 logsLoader.fetchLogs();
             }
@@ -480,7 +485,7 @@ StatsBase {
                 }
 
                 property int wheelDelta: 0
-                onWheel: {
+                onWheel: function(wheel) {
                     wheelDelta += wheel.pixelDelta.x
                     var slotWidth = mouseArea.width / d.config.count
                     while (wheelDelta > slotWidth) {
@@ -524,7 +529,8 @@ StatsBase {
                     property double setMaxValue: {
                         var max = 0;
                         for (var i = 0; i < consumersRepeater.count; i++) {
-                            max = Math.max(max, consumersRepeater.itemAt(i).barSet.at(idx))
+                            var bs = consumersRepeater.itemAt(i).barSet;
+                            if (bs) max = Math.max(max, bs.at(idx))
                         }
                         return max
                     }
@@ -553,9 +559,13 @@ StatsBase {
                                     for (var i = 0; i < consumersRepeater.count; i++) {
                                         var consumerDelegate = consumersRepeater.itemAt(i)
                                         var consumer = consumerDelegate.thing
+                                        if (!consumer) {
+                                            continue;
+                                        }
+                                        var bs = consumersRepeater.itemAt(i).barSet;
                                         var entry = {
                                             consumer: consumer,
-                                            value: consumersRepeater.itemAt(i).barSet.at(toolTip.idx).toFixed(2),
+                                            value: bs ? bs.at(toolTip.idx).toFixed(2) : "0.00",
                                             indexInModel: i
                                         }
                                         unsorted.push(entry)

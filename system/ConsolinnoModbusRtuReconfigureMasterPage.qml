@@ -1,7 +1,7 @@
-import QtQuick 2.8
-import QtQuick.Controls 2.2
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.3
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
 import "../components"
 import Nymea 1.0
 
@@ -37,7 +37,7 @@ SettingsPageBase {
 
     Connections {
         target: root.modbusRtuManager
-        onReconfigureModbusRtuMasterReply: {
+        onReconfigureModbusRtuMasterReply: function(commandId, error) {
             if (commandId === d.pendingCommandId) {
                 d.pendingCommandId = -1
                 if (modbusRtuManager.handleModbusError(error)) {

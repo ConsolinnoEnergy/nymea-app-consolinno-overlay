@@ -1,7 +1,7 @@
-import QtQuick 2.9
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.2
-import QtQuick.Controls.Material 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Controls.Material
 import 'qrc:/ui/components'
 import Nymea 1.0
 
@@ -12,7 +12,6 @@ ConsolinnoWizardPageBase {
     headerBackButtonVisible: false
     showBackButton: false
     showNextButton: false
-    background: Item{}
     onNext: pageStack.push(privacyPolicyComponent)
 
     function exitWizard() {
@@ -25,12 +24,11 @@ ConsolinnoWizardPageBase {
         ColumnLayout {
             anchors.fill: parent
 
-            Flickable {
+            ScrollView {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
                 Layout.margins: Style.margins
-                contentHeight: textAreaTerms.height
                 clip: true
 
                 TextArea {
@@ -40,10 +38,10 @@ ConsolinnoWizardPageBase {
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     textFormat: Text.RichText
                     readOnly: true
-                }
 
-                Component.onCompleted: {
-                  loadHtmlFile("../terms_of_use_de_DE.html", textAreaTerms);
+                    Component.onCompleted: {
+                        loadHtmlFile("../terms_of_use_de_DE.html", textAreaTerms);
+                    }
                 }
             }
 
@@ -59,10 +57,8 @@ ConsolinnoWizardPageBase {
                 Layout.alignment: Qt.AlignHCenter
                 text: readCheckbox.checked ? qsTr('next') : qsTr('cancel')
                 Layout.preferredWidth: 200
-                background: Rectangle{
-                    color: readCheckbox.checked ? Style.buttonColor : 'grey'
-                    radius: 4
-                }
+                highlighted: readCheckbox.checked
+                Material.accent: Style.buttonColor
 
 
                 onClicked: {
@@ -89,7 +85,6 @@ ConsolinnoWizardPageBase {
             onNext: pageStack.push(connectionInfo)
             onBack: pageStack.pop()
 
-            background: Item {}
             content: Item {
                 anchors.fill: parent
 
@@ -152,10 +147,10 @@ ConsolinnoWizardPageBase {
                             Layout.alignment: Qt.AlignHCenter
                             Layout.preferredWidth: 200
                             text: qsTr('Back')
-                            background: Rectangle{
-                                color: 'grey'
-                                radius: 4
-                            }
+                            // background: Rectangle{
+                            //     color: 'grey'
+                            //     radius: 4
+                            // }
                             onClicked: pageStack.pop()
                         }
                     }
@@ -184,18 +179,15 @@ ConsolinnoWizardPageBase {
             onNext: pageStack.push(demoModeComponent)
             onBack: pageStack.pop()
 
-            background: Item {}
             content: ColumnLayout {
                 anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins; right: parent.right; left: parent.left }
                 width: Math.min(parent.width, 450)
 
-                Flickable {
+                ScrollView {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignHCenter
                     Layout.margins: Style.margins
-                    contentHeight: textArea.height
-
                     clip: true
 
                     TextArea {
@@ -206,10 +198,10 @@ ConsolinnoWizardPageBase {
                         textFormat: Text.RichText
                         readOnly: true
                         text: ""
-                    }
 
-                    Component.onCompleted: {
-                        loadHtmlFile("../privacy_agreement_de_DE.html", textArea);
+                        Component.onCompleted: {
+                            loadHtmlFile("../privacy_agreement_de_DE.html", textArea);
+                        }
                     }
                 }
 
@@ -235,10 +227,8 @@ ConsolinnoWizardPageBase {
                     Layout.alignment: Qt.AlignHCenter
                     text: policyCheckbox.checked && accountCheckbox.checked ? qsTr('next') : qsTr('cancel')
                     Layout.preferredWidth: 200
-                    background: Rectangle{
-                        color: policyCheckbox.checked && accountCheckbox.checked ? Style.buttonColor : 'grey'
-                        radius: 4
-                    }
+                    highlighted: policyCheckbox.checked && accountCheckbox.checked
+                    Material.accent: Style.buttonColor
 
                     onClicked: {
                         if (policyCheckbox.checked && accountCheckbox.checked) {
@@ -260,7 +250,6 @@ ConsolinnoWizardPageBase {
             headerLabel: qsTr("Internet Connection")
             showNextButton: false
             showBackButton: false
-            background: Item {}
             onNext: pageStack.push(findLeafletComponent)
             onBack: pageStack.pop()
 
@@ -448,7 +437,6 @@ ConsolinnoWizardPageBase {
             headerLabel: qsTr("Manual Connection")
             showBackButton: false
             showNextButton: false
-            background: Item {}
 
             content: Item {
                 anchors {

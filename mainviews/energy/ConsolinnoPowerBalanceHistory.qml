@@ -1,8 +1,8 @@
-import QtQuick 2.0
-import QtGraphicalEffects 1.12
-import QtCharts 2.2
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.2
+import QtQuick
+import Qt5Compat.GraphicalEffects
+import QtCharts
+import QtQuick.Layouts
+import QtQuick.Controls
 import Nymea 1.0
 import "qrc:/ui/components"
 
@@ -81,7 +81,7 @@ Item {
     Connections {
         target: powerBalanceLogs
 
-        onEntriesAdded: {
+        onEntriesAdded: function(index, entries) {
 //            print("entries added", index, entries.length)
             for (var i = 0; i < entries.length; i++) {
                 var entry = entries[i]
@@ -102,7 +102,7 @@ Item {
             }
         }
 
-        onEntriesRemoved: {
+        onEntriesRemoved: function(index, count) {
             acquisitionUpperSeries.removePoints(index, count)
             returnUpperSeries.removePoints(index, count)
             fromStorageUpperSeries.removePoints(index, count)
@@ -155,7 +155,7 @@ Item {
                     range: 43200 // 30 Days: 30 * 24 * 60
                 }
             }
-            onTabSelected: {
+            onTabSelected: function(index) {
                 d.now = new Date()
                 powerBalanceLogs.fetchLogs()
             }
@@ -287,7 +287,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.customColor && Configuration.customInverterColor !== "" ? Configuration.customInverterColor : totalColors[1]
 //                    borderWidth: 2
-                    borderColor: null
+                    borderColor: "transparent"
                     name: qsTr("From PV")
                     opacity: d.selectedSeries == null || d.selectedSeries == selfProductionConsumptionSeries ? 1 : 0.3
             //        visible: false
@@ -295,8 +295,10 @@ Item {
                     onClicked: d.selectedSeries(selfProductionConsumptionSeries)
                     lowerSeries: LineSeries {
                         id: zeroSeries
-                        XYPoint { x: dateTimeAxis.min.getTime(); y: 0 }
-                        XYPoint { x: dateTimeAxis.max.getTime(); y: 0 }
+                        Component.onCompleted: {
+                            append(dateTimeAxis.min.getTime(), 0)
+                            append(dateTimeAxis.max.getTime(), 0)
+                        }
                         function ensureValue(timestamp) {
                             if (count == 0) {
                                 append(timestamp, 0)
@@ -348,7 +350,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.customColor && Configuration.customBatteryPlusColor !== "" ? Configuration.customBatteryPlusColor : totalColors[4]
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     opacity: d.selectedSeries == null || d.selectedSeries == toStorageSeries ? 1 : 0.3
                     visible: root.batteries.count > 0
                     name: qsTr("To battery")
@@ -378,7 +380,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     name: qsTr("To grid")
                     opacity: d.selectedSeries == null || d.selectedSeries == returnSeries ? 1 : 0.3
             //        visible: false
@@ -407,7 +409,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.customColor && Configuration.customBatteryMinusColor !== "" ? Configuration.customBatteryMinusColor : totalColors[5]
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     name: qsTr("From battery")
                     opacity: d.selectedSeries == null || d.selectedSeries == fromStorageSeries ? 1 : 0.3
                     visible: root.batteries.count > 0
@@ -436,7 +438,7 @@ Item {
                     axisY: valueAxis
                     color: Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2]
                     borderWidth: 0
-                    borderColor: null
+                    borderColor: "transparent"
                     name: qsTr("From grid")
                     opacity: d.selectedSeries == null || d.selectedSeries == acquisitionSeries ? 1 : 0.3
             //      visible: false
@@ -714,7 +716,7 @@ Item {
                     d.now = new Date(Math.min(new Date(), new Date(startDatetime.getTime() + timeDelta)))
                 }
 
-                onWheel: {
+                onWheel: function(wheel) {
                     startDatetime = d.now
                     var totalTime = d.endTime.getTime() - d.startTime.getTime()
                     // pixelDelta : timeDelta = width : totalTime
@@ -767,7 +769,7 @@ Item {
                             margins: Style.smallMargins
                         }
                         Label {
-                            text: toolTip.entry.timestamp.toLocaleString(Qt.locale(), Locale.ShortFormat)
+                            text: toolTip.entry ? toolTip.entry.timestamp.toLocaleString(Qt.locale(), Locale.ShortFormat) : ""
                             font: Style.smallFont
                         }
 
@@ -779,7 +781,7 @@ Item {
                                                    : 0
                             property bool translate: value >= 1000
                             property double translatedValue: value / (translate ? 1000 : 1)
-                            text: toolTip.entry.acquisition >= 0 ? qsTr("Consumed: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
+                            text: toolTip.entry && toolTip.entry.acquisition >= 0 ? qsTr("Consumed: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                                                                  : qsTr("Produced: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                             font: Style.smallFont
                         }
@@ -795,7 +797,7 @@ Item {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: toolTip.entry.acquisition >= 0 ? Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2] : Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
+                                color: toolTip.entry && toolTip.entry.acquisition >= 0 ? Configuration.customColor && Configuration.customGridDownColor !== "" ? Configuration.customGridDownColor : totalColors[2] : Configuration.customColor && Configuration.customGridUpColor !== "" ? Configuration.customGridUpColor : totalColors[3]
                             }
 
                             Label {
@@ -808,7 +810,7 @@ Item {
                                 property double value: toolTip.entry ? Math.abs(toolTip.entry.acquisition) : 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
-                                text: toolTip.entry.acquisition >= 0 ? qsTr("From grid: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
+                                text: toolTip.entry && toolTip.entry.acquisition >= 0 ? qsTr("From grid: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                                                                      : qsTr("To grid: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                                 font: Style.extraSmallFont
                             }
@@ -830,7 +832,7 @@ Item {
                                 property double value: toolTip.entry ? Math.min(Math.max(0, toolTip.entry.consumption), -toolTip.entry.production) : 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
-                                text: toolTip.entry.acquisition >= 0 ? qsTr("From self production: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
+                                text: toolTip.entry && toolTip.entry.acquisition >= 0 ? qsTr("From self production: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                                                                      : qsTr("Consumed: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                                 font: Style.extraSmallFont
                             }
@@ -840,7 +842,7 @@ Item {
                             Rectangle {
                                 width: Style.extraSmallFont.pixelSize
                                 height: width
-                                color: toolTip.entry.storage > 0 ? Configuration.customColor && Configuration.customBatteryPlusColor !== "" ? Configuration.customBatteryPlusColor : totalColors[4] : Configuration.customColor && Configuration.customBatteryMinusColor !== "" ? Configuration.customBatteryMinusColor : totalColors[5]
+                                color: toolTip.entry && toolTip.entry.storage > 0 ? Configuration.customColor && Configuration.customBatteryPlusColor !== "" ? Configuration.customBatteryPlusColor : totalColors[4] : Configuration.customColor && Configuration.customBatteryMinusColor !== "" ? Configuration.customBatteryMinusColor : totalColors[5]
                             }
 
                             Label {
@@ -853,7 +855,7 @@ Item {
                                 property double value: toolTip.entry ? Math.abs(toolTip.entry.storage) : 0
                                 property bool translate: value >= 1000
                                 property double translatedValue: value / (translate ? 1000 : 1)
-                                text: toolTip.entry.storage > 0 ? qsTr("To battery: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W") :
+                                text: toolTip.entry && toolTip.entry.storage > 0 ? qsTr("To battery: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W") :
                                                                     qsTr("From battery: %1 %2").arg((+translatedValue.toFixed(2)).toLocaleString()).arg(translate ? "kW" : "W")
                                 font: Style.extraSmallFont
                             }

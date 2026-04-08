@@ -1,13 +1,13 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.15
-import QtQuick.Controls.Material 2.12
-import QtQuick.Layouts 1.3
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
 //import QtQuick.Controls.Styles 1.4
-import QtQml 2.2
-import QtGraphicalEffects 1.15
+import QtQml
+import Qt5Compat.GraphicalEffects
 import Nymea 1.0
 import NymeaApp.Utils 1.0
-import QtCharts 2.3
+import QtCharts
 
 import "qrc:/ui/components"
 
@@ -49,7 +49,6 @@ GenericConfigPage {
     property int simple_pv_excess: ChargingConfigView.ChargingMode.SIMPLE_PV_EXCESS
     property int dyn_pricing: ChargingConfigView.ChargingMode.DYN_PRICING
     property int time_controlled: ChargingConfigView.ChargingMode.TIME_CONTROLLED
-    property ConEMSState conState: hemsManager.conEMSState
 
     // Model for schedule overview in status section
     ListModel {
@@ -93,7 +92,7 @@ GenericConfigPage {
     }
 
     function timer() {
-        return Qt.createQmlObject("import QtQuick 2.0; Timer {}", root);
+        return Qt.createQmlObject("import QtQuick; Timer {}", root);
     }
 
     function isCarPluggedIn()
@@ -146,8 +145,8 @@ GenericConfigPage {
     // Connections to update the ChargingSessionConfiguration  and the ChargingConfiguration values
     Connections {
         target: hemsManager
-        onConEMSOperatingStateChanged: {
-            if (conState.currentState.operating_state === 1) // RUNNING
+        onConEMSOperatingStateChanged: function(state) {
+            if (state.currentState.operating_state === 1) // RUNNING
             {
                 busyOverlay.shown = false
             }
@@ -289,6 +288,9 @@ GenericConfigPage {
         engine: _engine
         shownInterfaces: ["dynamicelectricitypricing"]
     }
+
+    // Convenience property – always null-safe: check before use with `if (dpThing)`
+    readonly property var dpThing: dynamicPrice.count > 0 ? dynamicPrice.get(0) : null
 
     // check if there exists a Simulated Car which is plugged in
     function checkForPluggedInCars(){
@@ -611,7 +613,8 @@ GenericConfigPage {
                             Layout.rightMargin: 0
 
                             Component.onCompleted: {
-                                thresholdPrice = DynPricingUtils.relPrice2AbsPrice(priceThresholdProcentage, dynamicPrice.get(0))
+                                if (!dpThing) return;
+                                thresholdPrice = DynPricingUtils.relPrice2AbsPrice(priceThresholdProcentage, dpThing)
                                 currentValue = (currentValue === 0 && chargingConfiguration.priceThreshold === 0 ? -10 : chargingConfiguration.priceThreshold )
                                 priceLimit.text = getText()
                             }
@@ -634,7 +637,8 @@ GenericConfigPage {
                                interval: firstRun == false ? 100 : 10000
                                onTriggered: {
                                    firstRun = true
-                                   thresholdPrice = DynPricingUtils.relPrice2AbsPrice(priceThresholdProcentage, dynamicPrice.get(0))
+                                   if (!dpThing) return;
+                                   thresholdPrice = DynPricingUtils.relPrice2AbsPrice(priceThresholdProcentage, dpThing)
                                    priceLimit.text = getText()
                                }
                             }
@@ -682,7 +686,8 @@ GenericConfigPage {
                             Layout.rightMargin: 0
 
                             Component.onCompleted: {
-                                currentPrice = dynamicPrice.get(0).stateByName("currentTotalCost").value;
+                                if (!dpThing) return;
+                                currentPrice = dpThing.stateByName("currentTotalCost").value;
                             }
                         }
                     }
@@ -1676,10 +1681,11 @@ GenericConfigPage {
                                             repeat: false
                                             running: false
                                             onTriggered: {
+                                                if (!dpThing) return;
                                                 pricingCurrentLimitSeries.clear();
                                                 pricingUpperSeriesAbove.clear();
                                                 pricingLowerSeriesAbove.clear();
-                                                consumptionSeries.insertEntry(dynamicPrice.get(0).stateByName("totalCostSeries").value, true);
+                                                consumptionSeries.insertEntry(dpThing.stateByName("totalCostSeries").value, true);
                                             }
                                         }
 
@@ -1708,8 +1714,8 @@ GenericConfigPage {
                                             horizontalAlignment: Qt.AlignHCenter
                                             verticalAlignment: Qt.AlignVCenter
                                             Layout.preferredWidth: 50
-                                            validator: RegExpValidator {
-                                                regExp: /^-?(100|[1-9]?[0-9])$/
+                                            validator: RegularExpressionValidator {
+                                                regularExpression: /^-?(100|[1-9]?[0-9])$/
                                             }
                                             onTextChanged: {
                                                 currentValue = currentValueField.text
@@ -1745,8 +1751,9 @@ GenericConfigPage {
                                 }
 
                                 function getThresholdPrice(){
+                                    if (!dpThing) return;
                                     let currentValue = parseInt(currentValueField.text)
-                                    thresholdPrice = DynPricingUtils.relPrice2AbsPrice(currentValue, dynamicPrice.get(0))
+                                    thresholdPrice = DynPricingUtils.relPrice2AbsPrice(currentValue, dpThing)
                                 }
 
                             }
@@ -1819,8 +1826,7 @@ GenericConfigPage {
                                 visible: isAnyOfModesSelected([dyn_pricing])
 
                                 Component.onCompleted: {
-                                    const dpThing = dynamicPrice.get(0)
-                                    if(!dpThing)
+                                    if (!dpThing)
                                         return;
 
                                     pricingCurrentLimitSeries.clear();
@@ -2202,7 +2208,7 @@ GenericConfigPage {
                             id: savebutton
 
                             Layout.fillWidth: true
-                            Layout.alignment: bottom
+                            Layout.alignment: Qt.AlignBottom
                             text: qsTr("Save")
                             onClicked: {
                                 // if simple PV excess mode is used set the batteryLevel to 1

@@ -1,7 +1,7 @@
-import QtQuick 2.8
-import QtQuick.Controls 2.1
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.2
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
 import Nymea 1.0
 import "../components"
 import "../delegates"
@@ -27,7 +27,7 @@ Page {
 
     Connections {
         target: hemsManager
-        onSetHeatingElementConfigurationReply: {
+        onSetHeatingElementConfigurationReply: function(commandId, error) {
 
             if (commandId === d.pendingCallId) {
                 d.pendingCallId = -1

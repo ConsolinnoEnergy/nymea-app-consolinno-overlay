@@ -28,11 +28,11 @@
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-import QtQuick 2.8
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.2
-import QtQuick.Controls.Material 2.1
-import QtGraphicalEffects 1.15
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import Qt5Compat.GraphicalEffects
 import Nymea 1.0
 import NymeaApp.Utils 1.0
 import "../components"
@@ -307,7 +307,7 @@ ItemDelegate {
             model: root.paramType.allowedValues
             displayText: currentText + ( root.paramType.unit != Types.UnitNone ? " " + Types.toUiUnit(root.paramType.unit) : "")
             currentIndex: root.paramType.allowedValues.indexOf(root.param.value !== undefined ? root.param.value : root.paramType.defaultValue)
-            onActivated: {
+            onActivated: function(index) {
                 root.param.value = root.paramType.allowedValues[index]
             }
             Component.onCompleted: {
@@ -357,7 +357,7 @@ ItemDelegate {
                 }
             }
 
-            onActivated: {
+            onActivated: function(index) {
                 d.activatedIndex = index;
             }
 

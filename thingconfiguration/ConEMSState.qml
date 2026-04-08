@@ -1,8 +1,8 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.2
-import QtQuick.Controls.Material 2.12
-import QtQuick.Layouts 1.2
-import QtCharts 2.3
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
+import QtCharts
 import Nymea 1.0
 import "../components"
 import "../optimization"
@@ -51,9 +51,9 @@ Page {
 
     Connections {
         target: hemsManager
-        onConEMSStateChanged: {
+        onConEMSStateChanged: function(state) {
             opStatusValue.text = intToOperatingStateString(
-                        conState.currentState.operating_state)
+                        state.currentState.operating_state)
         }
     }
 

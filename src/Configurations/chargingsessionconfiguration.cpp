@@ -149,3 +149,17 @@ void ChargingSessionConfiguration::setControllableLocalSystem(bool controllableL
 {
     m_controllableLocalSystem = controllableLocalSystem;
 }
+
+bool ChargingSessionConfiguration::operator==(const ChargingSessionConfiguration &other) const
+{
+    return m_sessionId == other.m_sessionId
+        && m_carThingId == other.m_carThingId
+        && m_evChargerThingId == other.m_evChargerThingId;
+}
+
+QDebug operator<<(QDebug debug, const ChargingSessionConfiguration &c)
+{
+    debug.nospace() << "ChargingSessionConfiguration(sessionId: " << c.sessionId()
+                    << ", state: " << c.state() << ")";
+    return debug.maybeSpace();
+}

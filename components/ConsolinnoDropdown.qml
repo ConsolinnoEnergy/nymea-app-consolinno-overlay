@@ -1,8 +1,8 @@
-import QtQuick 2.8
-import QtQuick.Window 2.15
-import QtQuick.Controls 2.1
-import QtQuick.Layouts 1.2
-import QtGraphicalEffects 1.0
+import QtQuick
+import QtQuick.Window
+import QtQuick.Controls
+import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
 import Nymea 1.0
 
 ComboBox {
@@ -85,10 +85,11 @@ ComboBox {
         implicitHeight: contentItem.implicitHeight
         padding: 0
         contentItem: ListView {
-            implicitHeight: contentHeight
+            implicitHeight: Math.min(contentHeight, 250)
             model: root.popup.visible ? root.delegateModel : null
             clip: true
             currentIndex: root.highlightedIndex
+            ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
         }
         background: Rectangle {
             id: dropDownPopUp

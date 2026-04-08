@@ -1,8 +1,8 @@
-import QtQuick 2.0
-import QtCharts 2.3
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.2
-import QtGraphicalEffects 1.15
+import QtQuick
+import QtCharts
+import QtQuick.Layouts
+import QtQuick.Controls
+import Qt5Compat.GraphicalEffects
 import Nymea 1.0
 import "qrc:/ui/components"
 
@@ -20,7 +20,6 @@ Item {
     property var levies: ({})
     property bool isDynamicPrice: false
 
-
     onThingChanged: {
         updateChart();
     }
@@ -37,7 +36,7 @@ Item {
         averagePrice = thing.stateByName("averageTotalCost").value.toFixed(2);
         consumptionSeries.insertEntry(thing)
         valueAxis.adjustMax((Math.ceil(lowestPrice)),highestPrice);
-        timer.restartTimer();
+        currentValueTimer.restartTimer();
     }
 
     QtObject {
@@ -108,7 +107,7 @@ Item {
                 }
             }
 
-            onTabSelected: {
+            onTabSelected: function(index) {
                 d.now = new Date();
 
                 let arrLength = 192;
@@ -158,6 +157,8 @@ Item {
                 margins.bottom: Style.smallIconSize + Style.margins
 
                 legend.visible: false
+
+                Component.onDestruction: timer.running = false
 
                 ActivityIndicator {
                     id: noDataIndicator
@@ -387,7 +388,7 @@ Item {
                 }
 
                 Timer {
-                    id: timer
+                    id: currentValueTimer
                     property bool isOn: false
                     interval: isOn ? 60000 : 100
                     running: true
@@ -396,7 +397,10 @@ Item {
                         isOn = true;
                         var currentTime = new Date();
 
-                        currentValuePoint.remove(0);
+                        if (!thing) { return; }
+                        if (currentValuePoint.count > 0) {
+                            currentValuePoint.remove(0);
+                        }
                         currentPrice = thing.stateByName("currentTotalCost").value;
                         currentTime.setTime(currentTime.getTime() - (15 * 60 * 1000));
 

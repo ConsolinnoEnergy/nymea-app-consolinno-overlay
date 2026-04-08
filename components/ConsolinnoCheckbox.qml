@@ -1,9 +1,9 @@
-import QtQuick 2.5
-import QtQuick.Controls 2.2
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Layouts
 import Nymea 1.0
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 
 RowLayout {
     id: root

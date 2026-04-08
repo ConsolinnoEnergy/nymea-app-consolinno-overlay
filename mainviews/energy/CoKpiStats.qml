@@ -1,8 +1,8 @@
-import QtQuick 2.3
-import QtGraphicalEffects 1.12
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.2
-import QtCharts 2.3
+import QtQuick
+import Qt5Compat.GraphicalEffects
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtCharts
 import Nymea 1.0
 import "qrc:/ui/components/"
 
@@ -23,7 +23,7 @@ StatsBase {
 
     Connections {
         target: kpiProvider
-        onKpiBarResult: {
+        onKpiBarResult: function(barIndex, selfSufficiency, selfConsumption) {
             autarkySet.replace(barIndex, selfSufficiency)
             selfConsumptionSet.replace(barIndex, selfConsumption)
         }
@@ -108,7 +108,7 @@ StatsBase {
                 ListElement { modelData: qsTr("Months"); config: "months" }
                 ListElement { modelData: qsTr("Years"); config: "years" }
             }
-            onTabSelected: {
+            onTabSelected: function(index) {
                 d.startOffset = 0
             }
         }
