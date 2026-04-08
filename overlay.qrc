@@ -9,6 +9,7 @@
         <file>styles/light/Switch.qml</file>
         <file>styles/light/ComboBox.qml</file>
         <file>styles/light/TextField.qml</file>
+        <file>styles/light/qmldir</file>
         <file>translations</file>
         <file>styles/light/Background.qml</file>
         <file>SOURCE_AVAIL_de_DE.txt</file>
@@ -19,6 +20,7 @@
         <file>styles/dark/logo-wide.svg</file>
         <file>styles/dark/logo.svg</file>
         <file>styles/dark/Page.qml</file>
+        <file>styles/dark/qmldir</file>
         <file>styles/dark/Style.qml</file>
         <file>styles/dark/Slider.qml</file>
         <file>styles/dark/Switch.qml</file>
