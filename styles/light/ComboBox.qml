@@ -76,10 +76,10 @@ T.ComboBox {
         x: control.mirrored ? control.padding + 16 : control.width - width - control.padding - 16
         y: control.topPadding + (control.availableHeight - height) / 2
         color: Style.colors.brand_Basic_Icon
-        width: 13
-        height: 8
+        width: 24
+        height: 24
         defaultColor: "#353637"
-        source: "qrc:/qt-project.org/imports/QtQuick/Controls.2/images/drop-indicator.png"
+        source: "qrc:/icons/keyboard_arrow_down.svg"
         opacity: enabled ? 1 : 0.3
     }
 
