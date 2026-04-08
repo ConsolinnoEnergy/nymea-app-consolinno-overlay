@@ -194,14 +194,14 @@ GenericConfigPage {
             console.info("Charging session configuration changed...")
             if (configuration.evChargerThingId === thing.id){
 
-                batteryLevelValue.text  = configuration.batteryLevel  + " %"
-                energyChargedValue.text = (+configuration.energyCharged.toFixed(2)).toLocaleString() + " kWh"
-                energyBatteryValue.text = (+configuration.energyBattery.toFixed(2)).toLocaleString() + " kWh"
+                batteryLevelCard.text  = configuration.batteryLevel  + " %"
+                energyChargedCard.text = (+configuration.energyCharged.toFixed(2)).toLocaleString() + " kWh"
+                batteryEnergyCard.text = (+configuration.energyBattery.toFixed(2)).toLocaleString() + " kWh"
                 if (configuration.state === 2){
                     var duration = configuration.duration
-                    var hours   = Math.floor(duration/3600)
-                    var minutes = Math.floor((duration - hours*3600)/60)
-                    durationValue.text = (hours === 0) ? minutes +  "min " : hours+ "h " + minutes + "min"
+                    var hours   = Math.floor(duration / 3600)
+                    var minutes = Math.floor((duration - hours * 3600) / 60)
+                    durationCard.text = (hours === 0) ? minutes +  " min " : hours + " h " + minutes + " min"
 
                 }
                 // Running
@@ -209,10 +209,10 @@ GenericConfigPage {
                     console.info("Going into running mode...")
                     if (settings.showHiddenOptions)
                     {
-                        maxCurrentRowLayout.visible = true
-                        measuredCurrentRowLayout.visible = true
+                        maxChargingCurrentCard.visible = true
+                        measuredChargingCurrentCard.visible = true
                     }
-                    energyChargedLayout.visible = true
+                    energyChargedCard.visible = true
                     initializing = false
                 }
                 // Pending
@@ -220,10 +220,10 @@ GenericConfigPage {
                     console.info("Going into pending mode...")
                     if (settings.showHiddenOptions)
                     {
-                        maxCurrentRowLayout.visible = true
-                        measuredCurrentRowLayout.visible = true
+                        maxChargingCurrentCard.visible = true
+                        measuredChargingCurrentCard.visible = true
                     }
-                    energyChargedLayout.visible = true
+                    energyChargedCard.visible = true
                     initializing = false
                 }
             }
@@ -234,11 +234,11 @@ GenericConfigPage {
             console.info("Charging session configuration changed...")
             if (configuration.evChargerThingId === thing.id){
                 if (!configuration.optimizationEnabled){
-                    batteryLevelRowLayout.visible = false
-                    energyBatteryLayout.visible = false
-                    maxCurrentRowLayout.visible = false
-                    measuredCurrentRowLayout.visible = false
-                    energyChargedLayout.visible = false
+                    batteryLevelCard.visible = false
+                    batteryEnergyCard.visible = false
+                    maxChargingCurrentCard.visible = false
+                    measuredChargingCurrentCard.visible = false
+                    energyChargedCard.visible = false
                     status.visible = false
                     initializing = false
                 }
@@ -250,14 +250,14 @@ GenericConfigPage {
                         if (chargingIsAnyOf([time_controlled])) {
                             busyOverlay.shown = false
                         }
-                        batteryLevelRowLayout.visible = false
-                        energyBatteryLayout.visible = false
+                        batteryLevelCard.visible = false
+                        batteryEnergyCard.visible = false
                         if (settings.showHiddenOptions)
                         {
-                            maxCurrentRowLayout.visible = true
-                            measuredCurrentRowLayout.visible = true
+                            maxChargingCurrentCard.visible = true
+                            measuredChargingCurrentCard.visible = true
                         }
-                        energyChargedLayout.visible = true
+                        energyChargedCard.visible = true
                         batteryLevelValue.text  = 0 + " %"
                         energyChargedValue.text = 0 + " kWh"
                         energyBatteryValue.text = 0 + " kWh"
@@ -266,15 +266,15 @@ GenericConfigPage {
                     else{
                         status.visible = true
                         initializing = true
-                        batteryLevelRowLayout.visible = true
-                        energyBatteryLayout.visible = true
+                        batteryLevelCard.visible = true
+                        batteryEnergyCard.visible = true
                         if (settings.showHiddenOptions)
                         {
-                            maxCurrentRowLayout.visible = true
-                            measuredCurrentRowLayout.visible = true
+                            maxChargingCurrentCard.visible = true
+                            measuredChargingCurrentCard.visible = true
                         }
-                        measuredCurrentRowLayout.visible = true
-                        energyChargedLayout.visible = true
+                        measuredChargingCurrentCard.visible = true
+                        energyChargedCard.visible = true
                         batteryLevelValue.text  = 0 + " %"
                         energyChargedValue.text = 0 + " kWh"
                         energyBatteryValue.text = 0 + " kWh"
@@ -312,168 +312,124 @@ GenericConfigPage {
     readonly property var dpThing: dynamicPrice.count > 0 ? dynamicPrice.get(0) : null
 
     content: [
-        Item {
+        Flickable {
+            id: chargingflickable
+
+            clip: true
             anchors.fill: parent
+            contentHeight: contentColumn.implicitHeight +
+                           (header ? header.height : 0)
 
-            Flickable{
-                id: chargingflickable
+            ColumnLayout {
+                id: contentColumn
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
 
-                clip: true
-                anchors.top: parent.top
-                width: parent.width
-                height: parent.height
-                contentHeight: infoColumnLayout.implicitHeight +
-                               stateOfLoadingColumnLayout.implicitHeight +
-                               statusColumnLayout.implicitHeight +
-                               (header ? header.height : 0) +
-                               100
-                contentWidth: parent.width
+                CoNotification {
+                    id: phaseCountNotification
+                    Layout.fillWidth: true
+                    Layout.bottomMargin: 15
+                    type: CoNotification.Type.Warning
+                    visible: desiredPhaseCountCard.visible &&
+                             actualPhaseCountCard.visible &&
+                             desiredPhaseCount !== actualPhaseCount
+                    property int desiredPhaseCount: isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : 0
+                    property int actualPhaseCount: thing ? thing.stateByName("phaseCount").value : 0
+                    title: qsTr("Phase setting could not be applied")
+                    message: qsTr("The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.")
+                    .arg(desiredPhaseCount)
+                    .arg(actualPhaseCount)
+                }
 
-                ColumnLayout {
-                    id: infoColumnLayout
+                CoFrostyCard {
+                    id: vehicleGroup
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("Vehicle") // #TODO wording
 
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.topMargin: app.margins
-                    anchors.margins: app.margins
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
 
-                    CoNotification {
-                        Layout.fillWidth: true
-                        Layout.bottomMargin: 15
-                        type: CoNotification.Type.Warning
-                        visible: desiredPhaseCountLayout.visible &&
-                                 actualPhaseCountLayout.visible &&
-                                 desiredPhaseCount !== actualPhaseCount
-                        property int desiredPhaseCount: isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : 0
-                        property int actualPhaseCount: thing ? thing.stateByName("phaseCount").value : 0
-                        title: qsTr("Phase setting could not be applied")
-                        message: qsTr("The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.")
-                        .arg(desiredPhaseCount)
-                        .arg(actualPhaseCount)
-                    }
-
-                    RowLayout{
-                        Label {
-                            id: pluggedInLabel
-
+                        CoCard {
+                            id: vehiclePluggedInCard
                             Layout.fillWidth: true
-                            text: qsTr("Car plugged in:")
+                            text: qsTr("Car plugged in")
+                            status: isCarPluggedIn() ?
+                                        CoCard.StatusType.Success :
+                                        CoCard.StatusType.Danger
+                            interactive: false
                         }
 
-                        Rectangle{
-                            id: pluggedInLight
-
-                            width: 17
-                            height: 17
-                            Layout.rightMargin: 0
-                            Layout.alignment: Qt.AlignRight
-                            color: isCarPluggedIn() ? "#87BD26" : "#CD5C5C"
-                            border.color: "black"
-                            border.width: 0
-                            radius: width*0.5
-                        }
-                    }
-
-                    RowLayout{
-                        id: noPluggedInRowLayout
-
-                        visible: !(isCarPluggedIn())
-
-                        Label{
-                            id: noPluggedInLabel
+                        CoCard {
+                            id: noVehiclePluggedInCard
+                            Layout.fillWidth: true
                             text: qsTr("No car is connected at the moment. Please connect a car.")
-                            horizontalAlignment: Text.AlignHCenter
-                            Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignCenter
-                            wrapMode: Text.WordWrap
-                            Layout.preferredWidth: app.width
-                        }
-                    }
-
-                    RowLayout{
-                        id: simulationSwitchLayout
-
-                        Layout.fillWidth: true
-                        visible: !(isCarPluggedIn()) && (simulationEvProxy.count > 0)  && (thing.thingClassId.toString() === "{21a48e6d-6152-407a-a303-3b46e29bbb94}")
-
-                        Label{
-                            id: simulationLabel
-                            text: qsTr("Activate simulated car")
-                            Layout.fillWidth: true
-                            wrapMode: Text.WordWrap
+                            visible: !(isCarPluggedIn())
+                            interactive: false
                         }
 
-                        Switch{
+                        CoSwitch {
                             id: simulationSwitch
+                            Layout.fillWidth: true
+                            text: qsTr("Activate simulated car")
+                            visible: !(isCarPluggedIn()) &&
+                                     (simulationEvProxy.count > 0)  &&
+                                     (thing.thingClassId.toString() === "{21a48e6d-6152-407a-a303-3b46e29bbb94}")
 
-                            onClicked: {
-                                if (simulationSwitch.checked){
-                                    simulationEvProxy.get(0).executeAction("pluggedIn", [{paramName: "pluggedIn", value: true}])
-                                }
-                                else{
-                                    simulationEvProxy.get(0).executeAction("pluggedIn", [{paramName: "pluggedIn", value: false}])
+                            onCheckedChanged: {
+                                if (simulationSwitch.checked) {
+                                    simulationEvProxy.get(0).executeAction("pluggedIn", [{paramName: "pluggedIn", value: true}]);
+                                } else {
+                                    simulationEvProxy.get(0).executeAction("pluggedIn", [{paramName: "pluggedIn", value: false}]);
                                 }
                             }
                         }
                     }
                 }
 
-                ColumnLayout {
-                    id: stateOfLoadingColumnLayout
+                CoFrostyCard {
+                    id: chargingSettingsGroup
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("Charging settings") // #TODO wording
 
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: infoColumnLayout.top
-                    anchors.topMargin: infoColumnLayout.height + 30
-                    anchors.margins: app.margins
-
-                    RowLayout{
-                        Label{
-                            id: loadingState
-
-                            Layout.fillWidth: true
-                            text: qsTr("Charging configuration")
-                            font.pixelSize: 22
-                            font.bold: true
-                        }
+                    Connections {
+                        target: chargingConfiguration
+                        onChargingScheduleChanged: parseScheduleForOverview()
+                        onOptimizationModeChanged: parseScheduleForOverview()
+                        onOptimizationEnabledChanged: parseScheduleForOverview()
                     }
 
-                    RowLayout{
-                        Layout.topMargin: 15
-                        visible:  chargingIsAnyOf([pv_optimized]) ? true: false
-
-                        Label{
-                            id: selectedCarLabel
-                            Layout.fillWidth: true
-                            text: qsTr("Car")
-                        }
-
-                        Label{
-                            id: selectedCar
-
-                            text: qsTr(isCarPluggedIn() ? (chargingConfiguration.optimizationEnabled ? pageSelectedCar: " — " )  : " — ")
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
-                        }
+                    Component.onCompleted: {
+                        parseScheduleForOverview();
                     }
 
-                    RowLayout{
-                        Layout.topMargin: 15
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
 
-                        Label{
-                            id: loadingModesLabel
-
+                        CoCard {
+                            id: chargingModeCard
                             Layout.fillWidth: true
-                            text: qsTr("Charging mode")
-                        }
+                            text: chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationMode) : "—"
+                            labelText: qsTr("Charging mode") // #TODO wording
+                            showChildrenIndicator: isCarPluggedIn()
+                            interactive: isCarPluggedIn()
 
-                        Label{
-                            id: loadingModes
-
-                            text: chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationMode) : " — "
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
+                            onClicked: {
+                                if (isCarPluggedIn()){
+                                    // #TODO Cancel charging already here if charging is currently active? (Or only
+                                    // when new charging mode is set in optimizationComponent) Cf. old cancelLoadingSchedule
+                                    var page = pageStack.push(optimizationComponent , { thing: thing });
+                                    page.done.connect(function() {
+                                        busyOverlay.shown = true;
+                                    });
+                                }
+                            }
 
                             function selectMode(){
 
@@ -503,530 +459,967 @@ GenericConfigPage {
                                 }
                             }
                         }
-                    }
 
-                    // Schedule overview for time-controlled mode - show only days with time entries
-                    Repeater {
-                        model: scheduleOverviewModel
-                        delegate: ColumnLayout {
+                        CoCard {
+                            id: selectedCarCard
                             Layout.fillWidth: true
-                            Layout.topMargin: 15
-                            visible: chargingIsAnyOf([time_controlled]) && chargingConfiguration.optimizationEnabled
+                            text: qsTr(isCarPluggedIn() ? (chargingConfiguration.optimizationEnabled ? pageSelectedCar: "—" )  : "—")
+                            labelText: qsTr("Car")
+                            visible:  chargingIsAnyOf([pv_optimized])
+                            interactive: false
+                        }
 
-                            Label {
+                        Repeater {
+                            id: timeControlledChargingScheduleRepeater
+                            model: scheduleOverviewModel
+                            delegate: CoCard {
+                                Layout.fillWidth: true
+                                visible: chargingIsAnyOf([time_controlled]) && chargingConfiguration.optimizationEnabled
                                 text: model.timeText
-                                font.pixelSize: 16
-                            }
-                            Label {
-                                text: model.dayText
-                                font.pixelSize: 12
-                                color: Style.subTextColor
+                                labelText: model.dayText
+                                interactive: false
                             }
                         }
-                    }
 
-                    Connections {
-                        target: chargingConfiguration
-                        onChargingScheduleChanged: parseScheduleForOverview()
-                        onOptimizationModeChanged: parseScheduleForOverview()
-                        onOptimizationEnabledChanged: parseScheduleForOverview()
-                    }
-
-                    Component.onCompleted: parseScheduleForOverview()
-
-                    RowLayout{
-                        Layout.topMargin: 15
-                        visible:  chargingIsAnyOf([simple_pv_excess, dyn_pricing])
-                        Label{
-                            id: ongridConsumptionLabel
-                            visible: chargingIsAnyOf([dyn_pricing])
+                        CoCard {
+                            id: onGridConsumptionCard
                             Layout.fillWidth: true
-                            text: qsTr("Pausing")
-                        }
-
-                        Label{
-                            visible: chargingIsAnyOf([simple_pv_excess])
-                            Layout.fillWidth: true
-                            text: qsTr("Low solar availability")
-                        }
-
-                        Label{
-                            id: ongridConsumption
                             text: (typeof getText() === "undefined" ? "" : getText())
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
+                            labelText: chargingIsAnyOf([dyn_pricing]) ?
+                                           qsTr("Pausing") :
+                                           qsTr("Low solar availability") // #TODO wording
+                            visible:  chargingIsAnyOf([simple_pv_excess, dyn_pricing])
+                            interactive: false
+
                             function getText(){
-                                if (getChargingModeOpts(chargingConfiguration.optimizationMode)[0] === 0)
-                                {
-                                    return qsTr("Minimal current")
-                                }
-                                else if (getChargingModeOpts(chargingConfiguration.optimizationMode)[0] === 2)
-                                {
-                                    return qsTr("pausing")
+                                if (getChargingModeOpts(chargingConfiguration.optimizationMode)[0] === 0) {
+                                    return qsTr("Minimal current");
+                                } else if (getChargingModeOpts(chargingConfiguration.optimizationMode)[0] === 2) {
+                                    return qsTr("Pausing");
                                 }
                             }
-
                         }
-                    }
 
-                    RowLayout{
-                        Layout.topMargin: 15
-                        visible: chargingIsAnyOf([dyn_pricing])
-                        Label{
-                            id: priceLimitLabel
-
+                        CoCard {
+                            id: priceLimitCard
                             Layout.fillWidth: true
-                            text: qsTr("Price limit")
-                        }
-
-                        Label{
-                            id: priceLimit
-                            property double priceThresholdProcentage: chargingConfiguration.priceThreshold
                             text: getText()
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
+                            labelText: qsTr("Price limit")
+                            visible: chargingIsAnyOf([dyn_pricing])
+                            interactive: false
 
                             Component.onCompleted: {
                                 if (!dpThing) return;
-                                thresholdPrice = DynPricingUtils.relPrice2AbsPrice(priceThresholdProcentage, dpThing)
-                                currentValue = (currentValue === 0 && chargingConfiguration.priceThreshold === 0 ? -10 : chargingConfiguration.priceThreshold )
-                                priceLimit.text = getText()
+                                thresholdPrice = DynPricingUtils.relPrice2AbsPrice(chargingConfiguration.priceThreshold, dpThing);
+                                currentValue = (currentValue === 0 && chargingConfiguration.priceThreshold === 0 ? -10 : chargingConfiguration.priceThreshold );
+                                priceLimitCard.text = getText();
                             }
 
                             function getText(){
-                                if (priceThresholdProcentage < 0)
-                                {
-                                    return (thresholdPrice.toLocaleString() + " ct/kWh ") + "(↓" +  (Math.abs(priceThresholdProcentage.toLocaleString()) + " %)")
-                                }
-                                else{
-                                    return (thresholdPrice.toLocaleString() + " ct/kWh ") + "(↑" +  (Math.abs(priceThresholdProcentage.toLocaleString()) + " %)")
+                                if (chargingConfiguration.priceThreshold < 0) {
+                                    return (thresholdPrice.toLocaleString() + " ct/kWh ") + "(↓ " +  (Math.abs(chargingConfiguration.priceThreshold.toLocaleString()) + " %)");
+                                } else {
+                                    return (thresholdPrice.toLocaleString() + " ct/kWh ") + "(↑ " +  (Math.abs(chargingConfiguration.priceThreshold.toLocaleString()) + " %)");
                                 }
                             }
-
-                            // Probably not needed anymore, should be checked at next refactoring.
-                            // Leaving this untouched for now
-                            Timer{
-                               property bool firstRun: false
-                               repeat: true
-                               interval: firstRun == false ? 100 : 10000
-                               onTriggered: {
-                                   firstRun = true
-                                   if (!dpThing) return;
-                                   thresholdPrice = DynPricingUtils.relPrice2AbsPrice(priceThresholdProcentage, dpThing)
-                                   priceLimit.text = getText()
-                               }
-                            }
                         }
-                    }
 
-                    RowLayout{
-                        Layout.topMargin: 15
-                        visible: !([pv_excess, simple_pv_excess, no_optimization, dyn_pricing, time_controlled].includes(getChargingMode(chargingConfiguration.optimizationMode)))
-
-                        Label{
-                            id: targetChargeReachedLabel
-
+                        CoCard {
+                            id: currentPriceCard
                             Layout.fillWidth: true
-                            text: qsTr("Ending time")
-                        }
-
-                        Label{
-                            id: targetChargeReached
-                            property var today: new Date()
-                            property var tomorrow: new Date( today.getTime() + 1000*60*60*24)
-                            // determine whether it is today or tomorrow
-                            property var date: (parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) < today.getHours() ) | ( ( parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) === today.getHours() ) & parseInt(chargingConfiguration.endTime[3]+chargingConfiguration.endTime[4]) >= today.getMinutes() ) ? tomorrow : today
-
-                            text: isCarPluggedIn() ? (chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd.MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "H:m:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : " — "  )   : " — "
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
-
-                        }
-                    }
-
-                    RowLayout{
-                        Layout.topMargin: 10
-                        visible: chargingIsAnyOf([dyn_pricing])
-
-                        Label{
-                            Layout.fillWidth: true
-                            text: qsTr("Current Price")
-                        }
-
-                        Label{
-                            id: currentMarketPrice
                             text: qsTr("%1 ct/kWh").arg((Math.round(currentPrice * 100) / 100).toLocaleString());
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
+                            labelText: qsTr("Current Price")
+                            visible: chargingIsAnyOf([dyn_pricing])
+                            interactive: false
 
+                            // #TODO needed here?
                             Component.onCompleted: {
                                 if (!dpThing) return;
                                 currentPrice = dpThing.stateByName("currentTotalCost").value;
                             }
                         }
-                    }
 
-                    RowLayout{
-                        Layout.topMargin: 10
-                        visible: chargingIsAnyOf([dyn_pricing])
-                        id: belowPriceLimit
-                        Label{
+                        CoCard {
+                            id: belowPriceLimitCard
                             Layout.fillWidth: true
                             text: qsTr("Below price limit")
+                            visible: chargingIsAnyOf([dyn_pricing])
+                            status: (currentPrice <= thresholdPrice) ?
+                                        CoCard.StatusType.Success :
+                                        CoCard.StatusType.Danger
+                            interactive: false
                         }
 
-                        Rectangle{
-                            width: 17
-                            height: 17
-                            Layout.rightMargin: 0
-                            Layout.alignment: Qt.AlignRight
-                            color: (currentPrice <= thresholdPrice) ? "#87BD26" : "#CD5C5C"
-                            border.color: "black"
-                            border.width: 0
-                            radius: width*0.5
-                        }
-                    }
+                        CoCard {
+                            id: endingTimeCard
 
-                    RowLayout{
-                        visible: !chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization, time_controlled])
-                        Layout.topMargin: 15
-
-                        Label{
-                            id: targetChargeLabel
+                            property var today: new Date()
+                            property var tomorrow: new Date(today.getTime() + 1000 * 60 * 60 * 24)
+                            // determine whether it is today or tomorrow
+                            property var date: (parseInt(chargingConfiguration.endTime[0] + chargingConfiguration.endTime[1]) < today.getHours()) | ((parseInt(chargingConfiguration.endTime[0] + chargingConfiguration.endTime[1]) === today.getHours()) & parseInt(chargingConfiguration.endTime[3] + chargingConfiguration.endTime[4]) >= today.getMinutes()) ? tomorrow : today
 
                             Layout.fillWidth: true
-                            text: qsTr("Target charge")
+                            text: isCarPluggedIn() ? (chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd.MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "H:m:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : "—"  )   : "—"
+                            labelText: qsTr("Ending time")
+                            visible: !([pv_excess, simple_pv_excess, no_optimization, dyn_pricing, time_controlled].includes(getChargingMode(chargingConfiguration.optimizationMode)))
+                            interactive: false
                         }
 
-                        Label{
-                            id: targetCharge
-
-                            text: isCarPluggedIn() ?(chargingConfiguration.optimizationEnabled ? chargingConfiguration.targetPercentage + " %" : " — " ) : " — "
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
-                        }
-                    }
-
-                    RowLayout{
-                        id: desiredPhaseCountLayout
-                        visible: chargingIsAnyOf([pv_optimized, simple_pv_excess]) && thing.thingClass.interfaces.includes("phaseswitching")
-                        Layout.topMargin: 15
-
-                        Label {
+                        CoCard {
+                            id: targetChargeCard
                             Layout.fillWidth: true
-                            text: qsTr("Phase count")
+                            text: isCarPluggedIn() ?(chargingConfiguration.optimizationEnabled ? chargingConfiguration.targetPercentage + " %" : "—" ) : "—"
+                            labelText: qsTr("Target charge")
+                            visible: !chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization, time_controlled])
+                            interactive: false
                         }
 
-                        Label {
-                            text: isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : " — "
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
+                        CoCard {
+                            id: desiredPhaseCountCard
+                            Layout.fillWidth: true
+                            text: isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : "—"
+                            labelText: qsTr("Phase count")
+                            visible: chargingIsAnyOf([pv_optimized, simple_pv_excess]) && thing.thingClass.interfaces.includes("phaseswitching")
+                            interactive: false
                         }
                     }
                 }
 
-                ColumnLayout {
-                    id: statusColumnLayout
-
+                CoFrostyCard {
+                    id: statusGroup
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("Status") // #TODO wording
                     visible: isCarPluggedIn()
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: stateOfLoadingColumnLayout.top
-                    anchors.topMargin: stateOfLoadingColumnLayout.height + 50
-                    anchors.margins: app.margins
-                    spacing: 15
 
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
 
-                    RowLayout{
-
-                        Label{
-                            id: statusLabel
-
+                        CoCard {
+                            id: noLoadingCard
                             Layout.fillWidth: true
-                            text: qsTr("Status")
-                            font.pixelSize: 22
-                            font.bold: true
+                            text: qsTr("Charging deactivated. Please choose a charging mode.")
+                            visible: !(chargingConfiguration.optimizationEnabled && isCarPluggedIn())
+                            interactive: false
                         }
 
-                        ColumnLayout{
+                        CoCard {
+                            id: chargingStatusCard
                             Layout.fillWidth: true
-                            spacing: 0
-                            visible: (chargingConfiguration.optimizationEnabled && isCarPluggedIn())
-
-                            Rectangle{
-                                id: status
-
-                                property int state: chargingSessionConfiguration.state
-                                width: 120
-                                height: description.height + 10
-                                Layout.alignment: Qt.AlignRight
-
-
-                                //check if plugged in                 check if current power == 0           else show the current state the session is in atm
-                                color:  isCarPluggedIn() ? (initializing ? "blue" : state === 2 ? "green" : state === 3 ? "#66a5e2" : state === 4 ? "grey" : "lightgrey" ) : "lightgrey"
-                                radius: width*0.1
-
-                                Label{
-                                    id: description
-                                    text: {
-                                        return initializing ? qsTr("Initialising") : (status.state === 2 ? qsTr("Running") : (status.state === 3 ? qsTr("Finished") : (status.state === 4 ? qsTr("Interrupted") : (status.state === 6 ? qsTr("Pending") :  qsTr("Failed")  ))))
-                                    }
-                                    color: "white"
-                                    anchors.centerIn: parent
+                            text: {
+                                if (initializing) {
+                                    return qsTr("Initialising");
+                                } else if (chargingSessionConfiguration.state === 2) {
+                                    return qsTr("Running");
+                                } else if (chargingSessionConfiguration.state === 3) {
+                                    return qsTr("Finished");
+                                } else if (chargingSessionConfiguration.state === 4) {
+                                    return qsTr("Interrupted");
+                                } else if (chargingSessionConfiguration.state === 6) {
+                                    return qsTr("Pending");
+                                } else {
+                                    return qsTr("Failed");
+                                }
+                            }
+                            labelText: qsTr("Status")
+                            visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
+                            interactive: false
+                            status: {
+                                if (initializing) {
+                                    return CoCard.StatusType.Warning; // yellow
+                                } else if (chargingSessionConfiguration.state === 2) {
+                                    return CoCard.StatusType.Success;
+                                } else if (chargingSessionConfiguration.state === 3) {
+                                    return CoCard.StatusType.Success; // #TODO was formerly blue. what color/type should be used?
+                                } else if (chargingSessionConfiguration.state === 4) {
+                                    return CoCard.StatusType.Neutral;
+                                } else if (chargingSessionConfiguration.state === 6) {
+                                    return CoCard.StatusType.Neutral;
+                                } else {
+                                    return CoCard.StatusType.Danger;
                                 }
                             }
                         }
-                    }
 
-                    RowLayout{
-                        id: noLoadingRowLayout
-
-                        visible: !(chargingConfiguration.optimizationEnabled && isCarPluggedIn())
-
-                        Label{
-                            id: noLoadingLabel
-
-                            text: qsTr("Charging deactivated. Please choose a charging mode.")
-                            horizontalAlignment: Text.AlignHCenter
+                        CoCard {
+                            id: batteryLevelCard
                             Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignCenter
-                            wrapMode: Text.WordWrap
-                        }
-                    }
-
-                    RowLayout{
-                        function isVisible() {
-                            if (chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization, time_controlled]))
-                            {
-                                return false
-                            }
-                            if (!(chargingConfiguration.optimizationEnabled && isCarPluggedIn())){
-                                return false
-                            }
-                            return true
-                        }
-
-                        id: batteryLevelRowLayout
-                        visible: isVisible()
-                        Label{
-                            id: batteryLevelLabel
-
-                            Layout.fillWidth: true
-                            text: qsTr("Battery level")
-
-                        }
-
-                        Label{
-                            id: batteryLevelValue
-
                             text: chargingSessionConfiguration.batteryLevel + " %"
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
-                        }
-                    }
-
-                    RowLayout{
-                        function isVisible() {
-                            if (chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization]))
-                            {
-                                return false
+                            labelText: qsTr("Battery level")
+                            interactive: false
+                            visible: {
+                                if (chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization, time_controlled])) {
+                                    return false;
+                                }
+                                if (!(chargingConfiguration.optimizationEnabled && isCarPluggedIn())) {
+                                    return false;
+                                }
+                                return true
                             }
-                            if (!(chargingConfiguration.optimizationEnabled && isCarPluggedIn())){
-                                return false
-                            }
-
-
-                            return true
                         }
 
-                        id: energyBatteryLayout
-                        visible: isVisible()
-                        Label{
-                            id: energyBatteryLabel
-
+                        CoCard {
+                            id: batteryEnergyCard
                             Layout.fillWidth: true
-                            text: qsTr("Battery charge")
-
-                        }
-
-                        Label{
-                            id: energyBatteryValue
-
                             text: (+chargingSessionConfiguration.energyBattery.toFixed(2)).toLocaleString() + " kWh"
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
+                            labelText: qsTr("Battery charge")
+                            interactive: false
+                            visible: {
+                                if (chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization])) {
+                                    return false;
+                                }
+                                if (!(chargingConfiguration.optimizationEnabled && isCarPluggedIn())) {
+                                    return false;
+                                }
+                                return true;
+                            }
                         }
-                    }
 
-                    RowLayout{
-                        id: chargingPowerRowLayout
-
-                        visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
-
-                        Label{
-                            id: chargingPowerLabel
-
+                        CoCard {
+                            id: chargingPowerCard
                             Layout.fillWidth: true
-                            text: qsTr("Charging power")
-                        }
-
-                        Label{
-                            id: chargingPowerValue
                             text: initializing ? 0 : getUserVisibleChargingPower()
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
+                            labelText: qsTr("Charging power")
+                            visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
+                            interactive: false
                         }
-                    }
 
-                    RowLayout{
-                        id: maxCurrentRowLayout
-
-                        visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn() && settings.showHiddenOptions
-
-                        Label{
-                            id: maxCurrentLabel
-
+                        CoCard {
+                            id: maxChargingCurrentCard
                             Layout.fillWidth: true
-                            text: qsTr("Target charging current")
-                        }
-
-                        Label{
-                            id: maxCurrentValue
                             text: (initializing ? 0 : thing.stateByName("maxChargingCurrent").value) + " A"
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
+                            labelText: qsTr("Target charging current")
+                            visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn() && settings.showHiddenOptions
+                            interactive: false
                         }
-                    }
-                    RowLayout{
-                        id: measuredCurrentRowLayout
 
-                        visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn() && settings.showHiddenOptions
-
-                        Label{
-                            id: measuredCurrentLabel
+                        CoCard {
+                            id: measuredChargingCurrentCard
                             Layout.fillWidth: true
-                            text: qsTr("Actual charging current")
-                        }
-
-                        Label{
-                            id: measuredCurrentValue
                             text: (initializing ? 0 : calcChargingCurrent()) + " A"
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
+                            labelText: qsTr("Actual charging current")
+                            visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn() && settings.showHiddenOptions
+                            interactive: false
                         }
-                    }
 
-                    RowLayout{
-                        id: energyChargedLayout
-
-                        visible: (chargingConfiguration.optimizationEnabled && isCarPluggedIn())
-
-                        Label{
-                            id: alreadyLoadedLabel
+                        CoCard {
+                            id: energyChargedCard
                             Layout.fillWidth: true
-                            text: qsTr("Energy charged")
-
-                        }
-
-                        Label{
-                            id: energyChargedValue
-
                             text: (+chargingSessionConfiguration.energyCharged.toFixed(2)).toLocaleString() + " kWh"
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
-                        }
-                    }
-
-                    RowLayout{
-                        id: durationLayout
-
-                        visible: (chargingConfiguration.optimizationEnabled && isCarPluggedIn())
-
-                        Label{
-                            id: durationLabel
-
-                            Layout.fillWidth: true
-                            text: qsTr("Time elapsed")
-
+                            labelText: qsTr("Energy charged")
+                            visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
+                            interactive: false
                         }
 
-                        Label{
-                            id: durationValue
+                        CoCard {
+                            id: durationCard
 
                             property int duration: chargingSessionConfiguration.duration
-                            property int hours: duration/3600
-                            property int minutes: (duration - hours*3600)/60
-                            text: (hours === 0) ? minutes +  "min " : hours+ "h " + minutes + "min"
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
-                        }
-                    }
+                            property int hours: duration / 3600
+                            property int minutes: (duration - hours * 3600) / 60
 
-                    RowLayout {
-                        id: actualPhaseCountLayout
-                        visible: chargingConfiguration.optimizationEnabled &&
-                                 isCarPluggedIn() &&
-                                 chargingIsAnyOf([pv_optimized, simple_pv_excess])
-
-                        Label {
                             Layout.fillWidth: true
-                            text: qsTr("Phase count")
+                            text: (hours === 0) ? minutes +  " min " : hours + " h " + minutes + " min"
+                            labelText: qsTr("Time elapsed")
+                            visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
+                            interactive: false
                         }
 
-                        Label {
-                            text: thing ? thing.stateByName("phaseCount").value : " - "
-                            Layout.alignment: Qt.AlignRight
-                            Layout.rightMargin: 0
-                        }
-                    }
-
-                    RowLayout{
-                        id: createLoadingSchedule
-
-                        Layout.fillWidth: true
-                        visible: !cancelLoadingSchedule.visible
-
-                        Button{
+                        CoCard {
+                            id: actualPhaseCountCard
                             Layout.fillWidth: true
-                            text: qsTr("Configure Charging")
-                            enabled: isCarPluggedIn()
-
-                            onClicked: {
-                                if (isCarPluggedIn()){
-                                    var page = pageStack.push(optimizationComponent , { thing: thing })
-                                    page.done.connect(function(){
-                                        busyOverlay.shown = true
-
-                                    })
-                                }
-                            }
-                        }
-                    }
-
-
-
-                    RowLayout{
-                        id: cancelLoadingSchedule
-
-                        Layout.fillWidth: true
-                        visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
-
-                        Button{
-                            Layout.fillWidth: true
-                            text:  status.state == 3 ? qsTr("Configure charging mode") : qsTr("Cancel & reconfigure charging mode" )
-                            onClicked: {
-                                hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: false, optimizationMode:9})
-                                busyOverlay.shown = true
-                            }
+                            text: thing ? thing.stateByName("phaseCount").value : "—"
+                            labelText: qsTr("Phase count")
+                            visible: chargingConfiguration.optimizationEnabled &&
+                                     isCarPluggedIn() &&
+                                     chargingIsAnyOf([pv_optimized, simple_pv_excess])
+                            interactive: false
                         }
                     }
                 }
+
+
+
+
+
+
+
+
+                    //     RowLayout{
+                    //         Label {
+                    //             id: pluggedInLabel
+
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Car plugged in:")
+                    //         }
+
+                    //         Rectangle{
+                    //             id: pluggedInLight
+
+                    //             width: 17
+                    //             height: 17
+                    //             Layout.rightMargin: 0
+                    //             Layout.alignment: Qt.AlignRight
+                    //             color: isCarPluggedIn() ? "#87BD26" : "#CD5C5C"
+                    //             border.color: "black"
+                    //             border.width: 0
+                    //             radius: width*0.5
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         id: noPluggedInRowLayout
+
+                    //         visible: !(isCarPluggedIn())
+
+                    //         Label{
+                    //             id: noPluggedInLabel
+                    //             text: qsTr("No car is connected at the moment. Please connect a car.")
+                    //             horizontalAlignment: Text.AlignHCenter
+                    //             Layout.fillWidth: true
+                    //             Layout.alignment: Qt.AlignCenter
+                    //             wrapMode: Text.WordWrap
+                    //             Layout.preferredWidth: app.width
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         id: simulationSwitchLayout
+
+                    //         Layout.fillWidth: true
+                    //         visible: !(isCarPluggedIn()) && (simulationEvProxy.count > 0)  && (thing.thingClassId.toString() === "{21a48e6d-6152-407a-a303-3b46e29bbb94}")
+
+                    //         Label{
+                    //             id: simulationLabel
+                    //             text: qsTr("Activate simulated car")
+                    //             Layout.fillWidth: true
+                    //             wrapMode: Text.WordWrap
+                    //         }
+
+                    //         Switch{
+                    //             id: simulationSwitch
+
+                    //             onClicked: {
+                    //                 if (simulationSwitch.checked){
+                    //                     simulationEvProxy.get(0).executeAction("pluggedIn", [{paramName: "pluggedIn", value: true}])
+                    //                 }
+                    //                 else{
+                    //                     simulationEvProxy.get(0).executeAction("pluggedIn", [{paramName: "pluggedIn", value: false}])
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+                    // }
+
+                    // ColumnLayout {
+                    //     id: stateOfLoadingColumnLayout
+
+                    //     anchors.left: parent.left
+                    //     anchors.right: parent.right
+                    //     anchors.top: infoColumnLayout.top
+                    //     anchors.topMargin: infoColumnLayout.height + 30
+                    //     anchors.margins: app.margins
+
+                    //     RowLayout{
+                    //         Label{
+                    //             id: loadingState
+
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Charging configuration")
+                    //             font.pixelSize: 22
+                    //             font.bold: true
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         Layout.topMargin: 15
+                    //         visible:  chargingIsAnyOf([pv_optimized]) ? true: false
+
+                    //         Label{
+                    //             id: selectedCarLabel
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Car")
+                    //         }
+
+                    //         Label{
+                    //             id: selectedCar
+
+                    //             text: qsTr(isCarPluggedIn() ? (chargingConfiguration.optimizationEnabled ? pageSelectedCar: " — " )  : " — ")
+                    //             Layout.alignment: Qt.AlignRight
+                    //             Layout.rightMargin: 0
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         Layout.topMargin: 15
+
+                    //         Label{
+                    //             id: loadingModesLabel
+
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Charging mode")
+                    //         }
+
+                    //         Label{
+                    //             id: loadingModes
+
+                    //             text: chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationMode) : " — "
+                    //             Layout.alignment: Qt.AlignRight
+                    //             Layout.rightMargin: 0
+
+                    //             function selectMode(){
+
+                    //                 if (chargingIsAnyOf([no_optimization]))
+                    //                 {
+                    //                     return qsTr("Charge always")
+                    //                 }
+                    //                 else if (chargingIsAnyOf([pv_optimized]))
+                    //                 {
+                    //                     return qsTr("Next trip")
+                    //                 }
+                    //                 else if (chargingIsAnyOf([pv_excess]))
+                    //                 {
+                    //                     return qsTr("PV only")
+                    //                 }
+                    //                 else if (chargingIsAnyOf([simple_pv_excess]))
+                    //                 {
+                    //                     return qsTr("Solar only")
+                    //                 }
+                    //                 else if (chargingIsAnyOf([dyn_pricing]))
+                    //                 {
+                    //                     return qsTr("Dynamic pricing")
+                    //                 }
+                    //                 else if (chargingIsAnyOf([time_controlled]))
+                    //                 {
+                    //                     return qsTr("Time controlled")
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+
+                    //     // Schedule overview for time-controlled mode - show only days with time entries
+                    //     Repeater {
+                    //         model: scheduleOverviewModel
+                    //         delegate: ColumnLayout {
+                    //             Layout.fillWidth: true
+                    //             Layout.topMargin: 15
+                    //             visible: chargingIsAnyOf([time_controlled]) && chargingConfiguration.optimizationEnabled
+
+                    //             Label {
+                    //                 text: model.timeText
+                    //                 font.pixelSize: 16
+                    //             }
+                    //             Label {
+                    //                 text: model.dayText
+                    //                 font.pixelSize: 12
+                    //                 color: Style.subTextColor
+                    //             }
+                    //         }
+                    //     }
+
+                    //     Connections {
+                    //         target: chargingConfiguration
+                    //         onChargingScheduleChanged: parseScheduleForOverview()
+                    //         onOptimizationModeChanged: parseScheduleForOverview()
+                    //         onOptimizationEnabledChanged: parseScheduleForOverview()
+                    //     }
+
+                    //     Component.onCompleted: parseScheduleForOverview()
+
+                    //     RowLayout{
+                    //         Layout.topMargin: 15
+                    //         visible:  chargingIsAnyOf([simple_pv_excess, dyn_pricing])
+                    //         Label{
+                    //             id: ongridConsumptionLabel
+                    //             visible: chargingIsAnyOf([dyn_pricing])
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Pausing")
+                    //         }
+
+                    //         Label{
+                    //             visible: chargingIsAnyOf([simple_pv_excess])
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Low solar availability")
+                    //         }
+
+                    //         Label{
+                    //             id: ongridConsumption
+                    //             text: (typeof getText() === "undefined" ? "" : getText())
+                    //             Layout.alignment: Qt.AlignRight
+                    //             Layout.rightMargin: 0
+                    //             function getText(){
+                    //                 if (getChargingModeOpts(chargingConfiguration.optimizationMode)[0] === 0)
+                    //                 {
+                    //                     return qsTr("Minimal current")
+                    //                 }
+                    //                 else if (getChargingModeOpts(chargingConfiguration.optimizationMode)[0] === 2)
+                    //                 {
+                    //                     return qsTr("pausing")
+                    //                 }
+                    //             }
+
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         Layout.topMargin: 15
+                    //         visible: chargingIsAnyOf([dyn_pricing])
+                    //         Label{
+                    //             id: priceLimitLabel
+
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Price limit")
+                    //         }
+
+                    //         Label{
+                    //             id: priceLimit
+                    //             property double priceThresholdProcentage: chargingConfiguration.priceThreshold
+                    //             text: getText()
+                    //             Layout.alignment: Qt.AlignRight
+                    //             Layout.rightMargin: 0
+
+                    //             Component.onCompleted: {
+                    //                 if (!dpThing) return;
+                    //                 thresholdPrice = DynPricingUtils.relPrice2AbsPrice(priceThresholdProcentage, dpThing)
+                    //                 currentValue = (currentValue === 0 && chargingConfiguration.priceThreshold === 0 ? -10 : chargingConfiguration.priceThreshold )
+                    //                 priceLimit.text = getText()
+                    //             }
+
+                    //             function getText(){
+                    //                 if (priceThresholdProcentage < 0)
+                    //                 {
+                    //                     return (thresholdPrice.toLocaleString() + " ct/kWh ") + "(↓" +  (Math.abs(priceThresholdProcentage.toLocaleString()) + " %)")
+                    //                 }
+                    //                 else{
+                    //                     return (thresholdPrice.toLocaleString() + " ct/kWh ") + "(↑" +  (Math.abs(priceThresholdProcentage.toLocaleString()) + " %)")
+                    //                 }
+                    //             }
+
+                    //             // Probably not needed anymore, should be checked at next refactoring.
+                    //             // Leaving this untouched for now
+                    //             Timer{
+                    //                property bool firstRun: false
+                    //                repeat: true
+                    //                interval: firstRun == false ? 100 : 10000
+                    //                onTriggered: {
+                    //                    firstRun = true
+                    //                    if (!dpThing) return;
+                    //                    thresholdPrice = DynPricingUtils.relPrice2AbsPrice(priceThresholdProcentage, dpThing)
+                    //                    priceLimit.text = getText()
+                    //                }
+                    //             }
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         Layout.topMargin: 15
+                    //         visible: !([pv_excess, simple_pv_excess, no_optimization, dyn_pricing, time_controlled].includes(getChargingMode(chargingConfiguration.optimizationMode)))
+
+                    //         Label{
+                    //             id: targetChargeReachedLabel
+
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Ending time")
+                    //         }
+
+                    //         Label{
+                    //             id: targetChargeReached
+                    //             property var today: new Date()
+                    //             property var tomorrow: new Date( today.getTime() + 1000*60*60*24)
+                    //             // determine whether it is today or tomorrow
+                    //             property var date: (parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) < today.getHours() ) | ( ( parseInt(chargingConfiguration.endTime[0]+chargingConfiguration.endTime[1]) === today.getHours() ) & parseInt(chargingConfiguration.endTime[3]+chargingConfiguration.endTime[4]) >= today.getMinutes() ) ? tomorrow : today
+
+                    //             text: isCarPluggedIn() ? (chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd.MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "H:m:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : " — "  )   : " — "
+                    //             Layout.alignment: Qt.AlignRight
+                    //             Layout.rightMargin: 0
+
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         Layout.topMargin: 10
+                    //         visible: chargingIsAnyOf([dyn_pricing])
+
+                    //         Label{
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Current Price")
+                    //         }
+
+                    //         Label{
+                    //             id: currentMarketPrice
+                    //             text: qsTr("%1 ct/kWh").arg((Math.round(currentPrice * 100) / 100).toLocaleString());
+                    //             Layout.alignment: Qt.AlignRight
+                    //             Layout.rightMargin: 0
+
+                    //             Component.onCompleted: {
+                    //                 if (!dpThing) return;
+                    //                 currentPrice = dpThing.stateByName("currentTotalCost").value;
+                    //             }
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         Layout.topMargin: 10
+                    //         visible: chargingIsAnyOf([dyn_pricing])
+                    //         id: belowPriceLimit
+                    //         Label{
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Below price limit")
+                    //         }
+
+                    //         Rectangle{
+                    //             width: 17
+                    //             height: 17
+                    //             Layout.rightMargin: 0
+                    //             Layout.alignment: Qt.AlignRight
+                    //             color: (currentPrice <= thresholdPrice) ? "#87BD26" : "#CD5C5C"
+                    //             border.color: "black"
+                    //             border.width: 0
+                    //             radius: width*0.5
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         visible: !chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization, time_controlled])
+                    //         Layout.topMargin: 15
+
+                    //         Label{
+                    //             id: targetChargeLabel
+
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Target charge")
+                    //         }
+
+                    //         Label{
+                    //             id: targetCharge
+
+                    //             text: isCarPluggedIn() ?(chargingConfiguration.optimizationEnabled ? chargingConfiguration.targetPercentage + " %" : " — " ) : " — "
+                    //             Layout.alignment: Qt.AlignRight
+                    //             Layout.rightMargin: 0
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         id: desiredPhaseCountLayout
+                    //         visible: chargingIsAnyOf([pv_optimized, simple_pv_excess]) && thing.thingClass.interfaces.includes("phaseswitching")
+                    //         Layout.topMargin: 15
+
+                    //         Label {
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Phase count")
+                    //         }
+
+                    //         Label {
+                    //             text: isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : " — "
+                    //             Layout.alignment: Qt.AlignRight
+                    //             Layout.rightMargin: 0
+                    //         }
+                    //     }
+                    // }
+
+                    // ColumnLayout {
+                    //     id: statusColumnLayout
+
+                    //     visible: isCarPluggedIn()
+                    //     anchors.left: parent.left
+                    //     anchors.right: parent.right
+                    //     anchors.top: stateOfLoadingColumnLayout.top
+                    //     anchors.topMargin: stateOfLoadingColumnLayout.height + 50
+                    //     anchors.margins: app.margins
+                    //     spacing: 15
+
+
+                    //     RowLayout{
+
+                    //         Label{
+                    //             id: statusLabel
+
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Status")
+                    //             font.pixelSize: 22
+                    //             font.bold: true
+                    //         }
+
+                    //         ColumnLayout{
+                    //             Layout.fillWidth: true
+                    //             spacing: 0
+                    //             visible: (chargingConfiguration.optimizationEnabled && isCarPluggedIn())
+
+                    //             Rectangle{
+                    //                 id: status
+
+                    //                 property int state: chargingSessionConfiguration.state
+                    //                 width: 120
+                    //                 height: description.height + 10
+                    //                 Layout.alignment: Qt.AlignRight
+
+
+                    //                 //check if plugged in                 check if current power == 0           else show the current state the session is in atm
+                    //                 color:  isCarPluggedIn() ? (initializing ? "blue" : state === 2 ? "green" : state === 3 ? "#66a5e2" : state === 4 ? "grey" : "lightgrey" ) : "lightgrey"
+                    //                 radius: width*0.1
+
+                    //                 Label{
+                    //                     id: description
+                    //                     text: {
+                    //                         return initializing ? qsTr("Initialising") : (status.state === 2 ? qsTr("Running") : (status.state === 3 ? qsTr("Finished") : (status.state === 4 ? qsTr("Interrupted") : (status.state === 6 ? qsTr("Pending") :  qsTr("Failed")  ))))
+                    //                     }
+                    //                     color: "white"
+                    //                     anchors.centerIn: parent
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         id: noLoadingRowLayout
+
+                    //         visible: !(chargingConfiguration.optimizationEnabled && isCarPluggedIn())
+
+                    //         Label{
+                    //             id: noLoadingLabel
+
+                    //             text: qsTr("Charging deactivated. Please choose a charging mode.")
+                    //             horizontalAlignment: Text.AlignHCenter
+                    //             Layout.fillWidth: true
+                    //             Layout.alignment: Qt.AlignCenter
+                    //             wrapMode: Text.WordWrap
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         function isVisible() {
+                    //             if (chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization, time_controlled]))
+                    //             {
+                    //                 return false
+                    //             }
+                    //             if (!(chargingConfiguration.optimizationEnabled && isCarPluggedIn())){
+                    //                 return false
+                    //             }
+                    //             return true
+                    //         }
+
+                    //         id: batteryLevelRowLayout
+                    //         visible: isVisible()
+                    //         Label{
+                    //             id: batteryLevelLabel
+
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Battery level")
+
+                    //         }
+
+                    //         Label{
+                    //             id: batteryLevelValue
+
+                    //             text: chargingSessionConfiguration.batteryLevel + " %"
+                    //             Layout.alignment: Qt.AlignRight
+                    //             Layout.rightMargin: 0
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         function isVisible() {
+                    //             if (chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization]))
+                    //             {
+                    //                 return false
+                    //             }
+                    //             if (!(chargingConfiguration.optimizationEnabled && isCarPluggedIn())){
+                    //                 return false
+                    //             }
+
+
+                    //             return true
+                    //         }
+
+                    //         id: energyBatteryLayout
+                    //         visible: isVisible()
+                    //         Label{
+                    //             id: energyBatteryLabel
+
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Battery charge")
+
+                    //         }
+
+                    //         Label{
+                    //             id: energyBatteryValue
+
+                    //             text: (+chargingSessionConfiguration.energyBattery.toFixed(2)).toLocaleString() + " kWh"
+                    //             Layout.alignment: Qt.AlignRight
+                    //             Layout.rightMargin: 0
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         id: chargingPowerRowLayout
+
+                    //         visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
+
+                    //         Label{
+                    //             id: chargingPowerLabel
+
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Charging power")
+                    //         }
+
+                    //         Label{
+                    //             id: chargingPowerValue
+                    //             text: initializing ? 0 : getUserVisibleChargingPower()
+                    //             Layout.alignment: Qt.AlignRight
+                    //             Layout.rightMargin: 0
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         id: maxCurrentRowLayout
+
+                    //         visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn() && settings.showHiddenOptions
+
+                    //         Label{
+                    //             id: maxCurrentLabel
+
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Target charging current")
+                    //         }
+
+                    //         Label{
+                    //             id: maxCurrentValue
+                    //             text: (initializing ? 0 : thing.stateByName("maxChargingCurrent").value) + " A"
+                    //             Layout.alignment: Qt.AlignRight
+                    //             Layout.rightMargin: 0
+                    //         }
+                    //     }
+                    //     RowLayout{
+                    //         id: measuredCurrentRowLayout
+
+                    //         visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn() && settings.showHiddenOptions
+
+                    //         Label{
+                    //             id: measuredCurrentLabel
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Actual charging current")
+                    //         }
+
+                    //         Label{
+                    //             id: measuredCurrentValue
+                    //             text: (initializing ? 0 : calcChargingCurrent()) + " A"
+                    //             Layout.alignment: Qt.AlignRight
+                    //             Layout.rightMargin: 0
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         id: energyChargedLayout
+
+                    //         visible: (chargingConfiguration.optimizationEnabled && isCarPluggedIn())
+
+                    //         Label{
+                    //             id: alreadyLoadedLabel
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Energy charged")
+
+                    //         }
+
+                    //         Label{
+                    //             id: energyChargedValue
+
+                    //             text: (+chargingSessionConfiguration.energyCharged.toFixed(2)).toLocaleString() + " kWh"
+                    //             Layout.alignment: Qt.AlignRight
+                    //             Layout.rightMargin: 0
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         id: durationLayout
+
+                    //         visible: (chargingConfiguration.optimizationEnabled && isCarPluggedIn())
+
+                    //         Label{
+                    //             id: durationLabel
+
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Time elapsed")
+
+                    //         }
+
+                    //         Label{
+                    //             id: durationValue
+
+                    //             property int duration: chargingSessionConfiguration.duration
+                    //             property int hours: duration/3600
+                    //             property int minutes: (duration - hours*3600)/60
+                    //             text: (hours === 0) ? minutes +  "min " : hours+ "h " + minutes + "min"
+                    //             Layout.alignment: Qt.AlignRight
+                    //             Layout.rightMargin: 0
+                    //         }
+                    //     }
+
+                    //     RowLayout {
+                    //         id: actualPhaseCountLayout
+                    //         visible: chargingConfiguration.optimizationEnabled &&
+                    //                  isCarPluggedIn() &&
+                    //                  chargingIsAnyOf([pv_optimized, simple_pv_excess])
+
+                    //         Label {
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Phase count")
+                    //         }
+
+                    //         Label {
+                    //             text: thing ? thing.stateByName("phaseCount").value : " - "
+                    //             Layout.alignment: Qt.AlignRight
+                    //             Layout.rightMargin: 0
+                    //         }
+                    //     }
+
+                    //     RowLayout{
+                    //         id: createLoadingSchedule
+
+                    //         Layout.fillWidth: true
+                    //         visible: !cancelLoadingSchedule.visible
+
+                    //         Button{
+                    //             Layout.fillWidth: true
+                    //             text: qsTr("Configure Charging")
+                    //             enabled: isCarPluggedIn()
+
+                    //             onClicked: {
+                    //                 if (isCarPluggedIn()){
+                    //                     var page = pageStack.push(optimizationComponent , { thing: thing })
+                    //                     page.done.connect(function(){
+                    //                         busyOverlay.shown = true
+
+                    //                     })
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+
+
+
+                    //     RowLayout{
+                    //         id: cancelLoadingSchedule
+
+                    //         Layout.fillWidth: true
+                    //         visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
+
+                    //         Button{
+                    //             Layout.fillWidth: true
+                    //             text:  status.state == 3 ? qsTr("Configure charging mode") : qsTr("Cancel & reconfigure charging mode" )
+                    //             onClicked: {
+                    //                 hemsManager.setChargingConfiguration(thing.id, {optimizationEnabled: false, optimizationMode:9})
+                    //                 busyOverlay.shown = true
+                    //             }
+                    //         }
+                    //     }
+                    // }
             }
 
             BusyOverlay {
                 id: busyOverlay
             }
-
         }
     ]
 
