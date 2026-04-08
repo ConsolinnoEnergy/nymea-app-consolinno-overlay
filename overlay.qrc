@@ -171,7 +171,6 @@
         <file>thingconfiguration/DeviceOverview.qml</file>
         <file>mainviews/OptimizationConfiguration.qml</file>
         <file>wizards/InstallerDataView.qml</file>
-        <file>optimization/ChargingOptimization.qml</file>
         <file>info/Help/HelpPage.qml</file>
         <file>info/Help/ManualPage.qml</file>
         <file>info/Help/ContactPage.qml</file>
