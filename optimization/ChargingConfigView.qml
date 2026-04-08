@@ -1,8 +1,6 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import QtQuick.Layouts
-//import QtQuick.Controls.Styles 1.4
 import QtQml
 import Qt5Compat.GraphicalEffects
 import Nymea 1.0
@@ -91,10 +89,6 @@ GenericConfigPage {
         }
     }
 
-    function timer() {
-        return Qt.createQmlObject("import QtQuick; Timer {}", root);
-    }
-
     function isCarPluggedIn()
     {
         if (thing.stateByName("pluggedIn").value)
@@ -138,6 +132,49 @@ GenericConfigPage {
         return NymeaUtils.floatToLocaleString(userVisiblePower) + " " + unit;
     }
 
+    // check if there exists a Simulated Car which is plugged in
+    function checkForPluggedInCars(){
+        var exist = false
+        for( var i = 0; i < simulationEvProxy.count; i++){
+            if (simulationEvProxy.get(i).stateByName("pluggedIn").value === true )
+            {
+                exist = true
+            }
+        }
+        return exist
+    }
+
+    function getChargingMode(opti_mode){
+
+        if (opti_mode < 1000) {
+            return no_optimization
+        }
+        if (opti_mode >= 1000 && opti_mode < 2000) {
+            return pv_optimized
+        }
+        if (opti_mode >= 2000 && opti_mode < 3000) {
+            return pv_excess
+        }
+        if (opti_mode >= 3000 && opti_mode < 4000) {
+            return simple_pv_excess
+        }
+        if (opti_mode >= 4000 && opti_mode < 5000) {
+            return dyn_pricing
+        }
+        if (opti_mode >= 5000 && opti_mode < 6000) {
+            return time_controlled
+        }
+    }
+
+    function chargingIsAnyOf(modes)
+    {
+        return modes.includes(getChargingMode(chargingConfiguration.optimizationMode))
+    }
+
+    // 1234 -> mode==1; option1==2; option2==3; option3==4
+    function getChargingModeOpts(opti_mode){
+        return([(opti_mode/100) % 10, (opti_mode/10) % 10, opti_mode % 10])
+    }
 
     title: root.thing.name
     headerOptionsVisible: false
@@ -152,23 +189,23 @@ GenericConfigPage {
             }
         }
 
-        onChargingSessionConfigurationChanged:
+        onChargingSessionConfigurationChanged: function(configuration)
         {
             console.info("Charging session configuration changed...")
-            if (chargingSessionConfiguration.evChargerThingId === thing.id){
+            if (configuration.evChargerThingId === thing.id){
 
-                batteryLevelValue.text  = chargingSessionConfiguration.batteryLevel  + " %"
-                energyChargedValue.text = (+chargingSessionConfiguration.energyCharged.toFixed(2)).toLocaleString() + " kWh"
-                energyBatteryValue.text = (+chargingSessionConfiguration.energyBattery.toFixed(2)).toLocaleString() + " kWh"
-                if (chargingSessionConfiguration.state === 2){
-                    var duration = chargingSessionConfiguration.duration
+                batteryLevelValue.text  = configuration.batteryLevel  + " %"
+                energyChargedValue.text = (+configuration.energyCharged.toFixed(2)).toLocaleString() + " kWh"
+                energyBatteryValue.text = (+configuration.energyBattery.toFixed(2)).toLocaleString() + " kWh"
+                if (configuration.state === 2){
+                    var duration = configuration.duration
                     var hours   = Math.floor(duration/3600)
                     var minutes = Math.floor((duration - hours*3600)/60)
                     durationValue.text = (hours === 0) ? minutes +  "min " : hours+ "h " + minutes + "min"
 
                 }
                 // Running
-                if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state == 2)){
+                if (chargingConfiguration.optimizationEnabled && (configuration.state == 2)){
                     console.info("Going into running mode...")
                     if (settings.showHiddenOptions)
                     {
@@ -179,7 +216,7 @@ GenericConfigPage {
                     initializing = false
                 }
                 // Pending
-                if (chargingConfiguration.optimizationEnabled && (chargingSessionConfiguration.state == 6)){
+                if (chargingConfiguration.optimizationEnabled && (configuration.state == 6)){
                     console.info("Going into pending mode...")
                     if (settings.showHiddenOptions)
                     {
@@ -189,17 +226,14 @@ GenericConfigPage {
                     energyChargedLayout.visible = true
                     initializing = false
                 }
-
             }
-
-
         }
 
-        onChargingConfigurationChanged:
+        onChargingConfigurationChanged: function(configuration)
         {
             console.info("Charging session configuration changed...")
-            if (chargingConfiguration.evChargerThingId === thing.id){
-                if (!chargingConfiguration.optimizationEnabled){
+            if (configuration.evChargerThingId === thing.id){
+                if (!configuration.optimizationEnabled){
                     batteryLevelRowLayout.visible = false
                     energyBatteryLayout.visible = false
                     maxCurrentRowLayout.visible = false
@@ -208,7 +242,7 @@ GenericConfigPage {
                     status.visible = false
                     initializing = false
                 }
-                else if(chargingConfiguration.optimizationEnabled){
+                else if(configuration.optimizationEnabled){
                     if (chargingIsAnyOf([simple_pv_excess, no_optimization, dyn_pricing, time_controlled]))
                     {
                         status.visible = thing.stateByName("pluggedIn")
@@ -250,16 +284,9 @@ GenericConfigPage {
                     if (chargingIsAnyOf([dyn_pricing])){
                         priceLimit.text = priceLimit.getText()
                     }
-
-
                 }
-
-
             }
-
         }
-
-
     }
 
     ThingsProxy {
@@ -275,14 +302,6 @@ GenericConfigPage {
         shownInterfaces: ["electricvehicle"]
     }
 
-    ThingClassesProxy{
-        id: thingClassesProxy
-        engine: _engine
-        filterInterface: "electricvehicle"
-        includeProvidedInterfaces: true
-        groupByInterface: true
-    }
-
     ThingsProxy {
         id: dynamicPrice
         engine: _engine
@@ -291,51 +310,6 @@ GenericConfigPage {
 
     // Convenience property – always null-safe: check before use with `if (dpThing)`
     readonly property var dpThing: dynamicPrice.count > 0 ? dynamicPrice.get(0) : null
-
-    // check if there exists a Simulated Car which is plugged in
-    function checkForPluggedInCars(){
-        var exist = false
-        for( var i = 0; i < simulationEvProxy.count; i++){
-            if (simulationEvProxy.get(i).stateByName("pluggedIn").value === true )
-            {
-                exist = true
-            }
-        }
-        return exist
-    }
-
-    function getChargingMode(opti_mode){
-
-        if (opti_mode < 1000) {
-            return no_optimization
-        }
-        if (opti_mode >= 1000 && opti_mode < 2000) {
-            return pv_optimized
-        }
-        if (opti_mode >= 2000 && opti_mode < 3000) {
-            return pv_excess
-        }
-        if (opti_mode >= 3000 && opti_mode < 4000) {
-            return simple_pv_excess
-        }
-        if (opti_mode >= 4000 && opti_mode < 5000) {
-            return dyn_pricing 
-        }
-        if (opti_mode >= 5000 && opti_mode < 6000) {
-            return time_controlled
-        }
-    }
-
-    function chargingIsAnyOf(modes)
-    {
-        return modes.includes(getChargingMode(chargingConfiguration.optimizationMode))
-    }
-
-    // 1234 -> mode==1; option1==2; option2==3; option3==4
-    function getChargingModeOpts(opti_mode){
-        return([(opti_mode/100) % 10, (opti_mode/10) % 10, opti_mode % 10])
-    }
-
 
     content: [
         Item {
@@ -1049,32 +1023,39 @@ GenericConfigPage {
                 }
             }
 
-            Component{
-                id: optimizationComponent
+            BusyOverlay {
+                id: busyOverlay
+            }
 
-                Page{
-                    signal done()
-                    id: optimizationPage
-                    property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
-                    property Thing thing
+        }
+    ]
 
-                    function getSelectedMode(){
-                        return getChargingMode(comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode)
-                    }
+    Component{
+        id: optimizationComponent
 
-                    function isAnyOfModesSelected(modes)
-                    {
-                        var selected_mode = getSelectedMode();
-                        if (typeof selected_mode !== "number") { return false; }
-                        return (modes.includes(selected_mode));
-                    }
+        Page{
+            signal done()
+            id: optimizationPage
+            property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
+            property Thing thing
 
-                    ListModel {
-                        id: scheduleModel
-                    }
+            function getSelectedMode(){
+                return getChargingMode(comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode)
+            }
 
-                    function initScheduleModel() {
-                        var days = [
+            function isAnyOfModesSelected(modes)
+            {
+                var selected_mode = getSelectedMode();
+                if (typeof selected_mode !== "number") { return false; }
+                return (modes.includes(selected_mode));
+            }
+
+            ListModel {
+                id: scheduleModel
+            }
+
+            function initScheduleModel() {
+                var days = [
                             { dayKey: "monday",    dayLabel: qsTr("Monday") },
                             { dayKey: "tuesday",   dayLabel: qsTr("Tuesday") },
                             { dayKey: "wednesday", dayLabel: qsTr("Wednesday") },
@@ -1083,1234 +1064,1227 @@ GenericConfigPage {
                             { dayKey: "saturday",  dayLabel: qsTr("Saturday") },
                             { dayKey: "sunday",    dayLabel: qsTr("Sunday") }
                         ]
-                        scheduleModel.clear()
-                        for (var i = 0; i < days.length; i++) {
-                            scheduleModel.append({
-                                dayKey: days[i].dayKey,
-                                dayLabel: days[i].dayLabel,
-                                startTime: "",
-                                endTime: "",
-                                hasEntry: false
-                            })
+                scheduleModel.clear()
+                for (var i = 0; i < days.length; i++) {
+                    scheduleModel.append({
+                                             dayKey: days[i].dayKey,
+                                             dayLabel: days[i].dayLabel,
+                                             startTime: "",
+                                             endTime: "",
+                                             hasEntry: false
+                                         })
+                }
+            }
+
+            function restoreSchedule() {
+                var scheduleJson = chargingConfiguration.chargingSchedule
+                console.log("Restoring schedule:", scheduleJson)
+                if (scheduleJson === "" || scheduleJson === undefined || scheduleJson === "null") return
+
+                try {
+                    var schedule = JSON.parse(scheduleJson)
+                    var weekdays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+
+                    for (var i = 0; i < weekdays.length; i++) {
+                        var currentDay = weekdays[i]
+                        var entry = schedule.find(function(e) { return e.day === currentDay })
+
+                        if (entry && entry.startTime && entry.endTime) {
+                            var hasTime = !(entry.startTime === "00:00" && entry.endTime === "00:00")
+                            if (i < scheduleModel.count) {
+                                scheduleModel.setProperty(i, "startTime", entry.startTime)
+                                scheduleModel.setProperty(i, "endTime", entry.endTime)
+                                scheduleModel.setProperty(i, "hasEntry", hasTime)
+                            }
                         }
                     }
+                } catch (e) {
+                    console.error("Failed to parse charging schedule:", e)
+                }
+            }
 
-                    function restoreSchedule() {
-                        var scheduleJson = chargingConfiguration.chargingSchedule
-                        console.log("Restoring schedule:", scheduleJson)
-                        if (scheduleJson === "" || scheduleJson === undefined || scheduleJson === "null") return
+            Connections {
+                target: chargingConfiguration
+                onChargingScheduleChanged: restoreSchedule()
+            }
 
-                        try {
-                            var schedule = JSON.parse(scheduleJson)
-                            var weekdays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+            Component.onCompleted:{
+                initScheduleModel()
+                endTimeSlider.feasibilityText()
+                restoreSchedule()
+            }
 
-                            for (var i = 0; i < weekdays.length; i++) {
-                                var currentDay = weekdays[i]
-                                var entry = schedule.find(function(e) { return e.day === currentDay })
+            header: NymeaHeader {
+                id: header
+                text: qsTr("Configure charging mode")
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
 
-                                if (entry && entry.startTime && entry.endTime) {
-                                    var hasTime = !(entry.startTime === "00:00" && entry.endTime === "00:00")
-                                    if (i < scheduleModel.count) {
-                                        scheduleModel.setProperty(i, "startTime", entry.startTime)
-                                        scheduleModel.setProperty(i, "endTime", entry.endTime)
-                                        scheduleModel.setProperty(i, "hasEntry", hasTime)
+            ColumnLayout {
+                spacing: 1
+                id: optimizationColumnLayout
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.topMargin: app.margins
+                anchors.rightMargin: app.margins
+                anchors.margins: app.margins
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    id: evRow
+
+                    Label {
+                        id: evLabel
+                        //Layout.fillWidth: true
+                        text: qsTr("Electric car:")
+                    }
+
+                    ConsolinnoItemDelegate {
+                        id: carSelector
+
+                        Layout.fillWidth: true
+                        //Layout.maximumWidth: 300
+                        Layout.minimumWidth: 50
+                        Layout.leftMargin: 20
+                        Layout.alignment: Qt.AlignRight
+
+                        text:  evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar).name : qsTr("Select/Add Car")
+                        holdingItem: evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar) : false
+                        onClicked: {
+
+                            var page = pageStack.push("../thingconfiguration/CarInventory.qml")
+                            page.done.connect(function(selectedCar){
+
+                                footer.visible = false
+                                hemsManager.setUserConfiguration({lastSelectedCar: selectedCar.id})
+                                carSelector.text = selectedCar.name
+                                holdingItem = selectedCar
+                                batteryLevel.value = 0
+
+
+                            })
+
+                            page.back.connect(function(){
+                                pageStack.pop()
+                                carSelector.text = evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar).name : qsTr("Select/Add Car")
+                                if (!(evProxy.getThing(userconfig.lastSelectedCar))){
+                                    holdingItem = false
+                                }
+
+                            })
+
+                        }
+                        onHoldingItemChanged:{
+                            if (holdingItem !== false){
+                                endTimeSlider.computeFeasibility()
+                                endTimeSlider.feasibilityText()
+                            }
+                        }
+                    }
+                }
+
+                RowLayout{
+                    Layout.preferredWidth: app.width
+                    Layout.topMargin: 10
+
+                    LabelWithInfo {
+                        text: qsTr("Charging mode: ")
+                        push: "ChargingModeInfo.qml"
+                    }
+
+                    ComboBox {
+                        id: comboboxloadingmod
+                        Layout.fillWidth: true
+
+                        // This is your full source model (static)
+                        property var fullModel: [
+                            { key: qsTr("Charge always"), value: "No Optimization", mode: 0 },
+                            { key: qsTr("Solar only"), value: "Simple-Pv-Only", mode: 3000 },
+                            { key: qsTr("Next trip"), value: "Pv-Optimized", mode: 1000 },
+                            { key: qsTr("Dynamic pricing"), value: "Dynamic-pricing", mode: 4000 },
+                            { key: qsTr("Time controlled"), value: "Time-Controlled", mode: 5000 }
+                        ]
+
+                        // The model actually bound to the ComboBox
+                        model: ListModel { id: dynamicModel }
+
+                        textRole: "key"
+                        valueRole: "value"
+
+                        // Function to rebuild model based on available use cases
+                        function rebuildModel() {
+                            dynamicModel.clear()
+
+                            const pvEnabled = hemsManager.availableUseCases & HemsManager.HemsUseCasePv
+                            const dynEnabled = hemsManager.availableUseCases & HemsManager.HemsUseCaseDynamicEPricing
+
+                            for (let i = 0; i < fullModel.length; ++i) {
+                                const item = fullModel[i]
+
+                                // Determine visibility
+                                if (item.mode === 0)
+                                    dynamicModel.append(item)
+                                else if ((item.mode === 1000 || item.mode === 3000) && pvEnabled)
+                                    dynamicModel.append(item)
+                                else if (item.mode === 4000 && dynEnabled)
+                                    dynamicModel.append(item)
+                                else if (item.mode === 5000)
+                                    dynamicModel.append(item)
+                            }
+                            // Check which charging mode is currently set and update currentIndex accordingly
+                            for (let j = 0; j < dynamicModel.count; ++j) {
+                                console.info("Current dynamic model mode: " + dynamicModel.get(j).mode + " vs config mode: " + chargingConfiguration.optimizationMode)
+                                if (dynamicModel.get(j).mode === chargingConfiguration.optimizationMode) {
+                                    comboboxloadingmod.currentIndex = j
+                                    return
+                                }
+                                if (chargingConfiguration.optimizationMode === 9) {
+                                    // If optimizationMode is 9 (no optimization), set to "Charge always"
+                                    if (dynamicModel.get(j).mode === 0) {
+                                        comboboxloadingmod.currentIndex = j
+                                        return
                                     }
                                 }
                             }
-                        } catch (e) {
-                            console.error("Failed to parse charging schedule:", e)
+                        }
+
+                        // Rebuild when hemsManager changes
+                        Component.onCompleted: rebuildModel()
+
+                        Connections {
+                            target: hemsManager
+                            onAvailableUseCasesChanged: comboboxloadingmod.rebuildModel()
+                        }
+
+                        onCurrentIndexChanged:
+                        {
+                            endTimeSlider.computeFeasibility()
+                            endTimeSlider.feasibilityText()
+                            comboboxloadingmod.currentIndex === 3 ? gridConsumptionloadingmod.currentIndex = 1 : gridConsumptionloadingmod.currentIndex = 0
                         }
                     }
+                }
 
-                    Connections {
-                        target: chargingConfiguration
-                        onChargingScheduleChanged: restoreSchedule()
+                RowLayout {
+                    Layout.preferredWidth: app.width
+                    Layout.topMargin: 10
+                    Layout.bottomMargin: 10
+
+                    visible:  isAnyOfModesSelected([pv_optimized, simple_pv_excess]) &&
+                              thing.thingClass.interfaces.includes("phaseswitching")
+
+                    LabelWithInfo {
+                        text: qsTr("Number of phases:")
+                        push: "ChargingPhaseSwitchingInfo.qml"
                     }
 
-                    Component.onCompleted:{
-                        initScheduleModel()
-                        endTimeSlider.feasibilityText()
-                        restoreSchedule()
+                    ComboBox {
+                        id: desiredPhaseCountDropdown
+                        Layout.fillWidth: true
+
+                        model: [
+                            { key: "1", value: 1 },
+                            { key: "3", value: 3 }
+                        ]
+
+                        textRole: "key"
+                        valueRole: "value"
+
+                        Component.onCompleted: {
+                            let currentPhaseCount = parseInt(thing.stateByName("phaseCount").value);
+                            desiredPhaseCountDropdown.currentIndex = 1; // Default phase count: 3
+                            for (let i = 0; i < model.length; ++i) {
+                                const item = model[i];
+                                if (item.value === currentPhaseCount) {
+                                    desiredPhaseCountDropdown.currentIndex = i;
+                                    break;
+                                }
+                            }
+                        }
                     }
+                }
 
-                    header: NymeaHeader {
-                        id: header
-                        text: qsTr("Configure charging mode")
-                        backButtonVisible: true
-                        onBackPressed: pageStack.pop()
-                    }
 
-                    ColumnLayout {
-                        spacing: 1
-                        id: optimizationColumnLayout
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        anchors.top: parent.top
-                        anchors.bottom: parent.bottom
-                        anchors.topMargin: app.margins
-                        anchors.rightMargin: app.margins
-                        anchors.margins: app.margins
+                ColumnLayout{
+                    visible: isAnyOfModesSelected([pv_optimized, pv_excess])
+                    //Slider 1
+                    RowLayout{
+                        visible: isAnyOfModesSelected([pv_optimized, pv_excess])
+                        spacing: 0
+                        Layout.topMargin: 10
 
-                        RowLayout {
-                            Layout.fillWidth: true
-                            id: evRow
-
-                            Label {
-                                id: evLabel
-                                //Layout.fillWidth: true
-                                text: qsTr("Electric car:")
+                        ColumnLayout{
+                            LabelWithInfo {
+                                text: qsTr("Battery level: ") + batteryLevel.value +" %"
+                                push: "BatteryLevel.qml"
                             }
 
-                            ConsolinnoItemDelegate {
-                                id: carSelector
+                            Slider {
+                                id: batteryLevel
 
                                 Layout.fillWidth: true
-                                //Layout.maximumWidth: 300
-                                Layout.minimumWidth: 50
-                                Layout.leftMargin: 20
-                                Layout.alignment: Qt.AlignRight
+                                from: 0
+                                to: 100
+                                stepSize: 1
+                                // when entering the Optimization page -> get values from holdingItem (selected Car)
+                                //                            Component.onCompleted:
+                                //                            {
+                                //                                    if (carSelector.holdingItem !== false){
+                                //                                        value = carSelector.holdingItem.stateByName("batteryLevel").value
+                                //                                    }
+                                //                            }
 
-                                text:  evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar).name : qsTr("Select/Add Car")
-                                holdingItem: evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar) : false
-                                onClicked: {
+                                onPositionChanged:
+                                {
+                                    // if the "new Car" option is not picked do something
+                                    if (carSelector.holdingItem !== false){
+                                        if (value  >= targetPercentageSlider.value)
+                                        {
+                                            if (value === 100){
+                                                value = 99
+                                            }
 
-                                    var page = pageStack.push("../thingconfiguration/CarInventory.qml")
-                                    page.done.connect(function(selectedCar){
-
-                                        footer.visible = false
-                                        hemsManager.setUserConfiguration({lastSelectedCar: selectedCar.id})
-                                        carSelector.text = selectedCar.name
-                                        holdingItem = selectedCar
-                                        batteryLevel.value = 0
-
-
-                                    })
-
-                                    page.back.connect(function(){
-                                        pageStack.pop()
-                                        carSelector.text = evProxy.getThing(userconfig.lastSelectedCar) ? evProxy.getThing(userconfig.lastSelectedCar).name : qsTr("Select/Add Car")
-                                        if (!(evProxy.getThing(userconfig.lastSelectedCar))){
-                                            holdingItem = false
+                                            targetPercentageSlider.value = value +1
                                         }
 
-                                    })
-
-                                }
-                                onHoldingItemChanged:{
-                                    if (holdingItem !== false){
                                         endTimeSlider.computeFeasibility()
                                         endTimeSlider.feasibilityText()
                                     }
                                 }
                             }
                         }
-
-                        RowLayout{
-                            Layout.preferredWidth: app.width
-                            Layout.topMargin: 10
-
-                            LabelWithInfo {
-                                text: qsTr("Charging mode: ")
-                                push: "ChargingModeInfo.qml"
-                            }
-
-                            ComboBox {
-                                id: comboboxloadingmod
-                                Layout.fillWidth: true
-
-                                // This is your full source model (static)
-                                property var fullModel: [
-                                    { key: qsTr("Charge always"), value: "No Optimization", mode: 0 },
-                                    { key: qsTr("Solar only"), value: "Simple-Pv-Only", mode: 3000 },
-                                    { key: qsTr("Next trip"), value: "Pv-Optimized", mode: 1000 },
-                                    { key: qsTr("Dynamic pricing"), value: "Dynamic-pricing", mode: 4000 },
-                                    { key: qsTr("Time controlled"), value: "Time-Controlled", mode: 5000 }
-                                ]
-
-                                // The model actually bound to the ComboBox
-                                model: ListModel { id: dynamicModel }
-
-                                textRole: "key"
-                                valueRole: "value"
-
-                                // Function to rebuild model based on available use cases
-                                function rebuildModel() {
-                                    dynamicModel.clear()
-
-                                    const pvEnabled = hemsManager.availableUseCases & HemsManager.HemsUseCasePv
-                                    const dynEnabled = hemsManager.availableUseCases & HemsManager.HemsUseCaseDynamicEPricing
-
-                                    for (let i = 0; i < fullModel.length; ++i) {
-                                        const item = fullModel[i]
-
-                                        // Determine visibility
-                                        if (item.mode === 0)
-                                            dynamicModel.append(item)
-                                        else if ((item.mode === 1000 || item.mode === 3000) && pvEnabled)
-                                            dynamicModel.append(item)
-                                        else if (item.mode === 4000 && dynEnabled)
-                                            dynamicModel.append(item)
-                                        else if (item.mode === 5000)
-                                            dynamicModel.append(item)
-                                    }
-                                    // Check which charging mode is currently set and update currentIndex accordingly
-                                    for (let j = 0; j < dynamicModel.count; ++j) {
-                                        console.info("Current dynamic model mode: " + dynamicModel.get(j).mode + " vs config mode: " + chargingConfiguration.optimizationMode)
-                                        if (dynamicModel.get(j).mode === chargingConfiguration.optimizationMode) {
-                                            comboboxloadingmod.currentIndex = j
-                                            return
-                                        }
-                                        if (chargingConfiguration.optimizationMode === 9) {
-                                            // If optimizationMode is 9 (no optimization), set to "Charge always"
-                                            if (dynamicModel.get(j).mode === 0) {
-                                                comboboxloadingmod.currentIndex = j
-                                                return
-                                            }
-                                        }
-                                    }
-                                }
-
-                                // Rebuild when hemsManager changes
-                                Component.onCompleted: rebuildModel()
-
-                                Connections {
-                                    target: hemsManager
-                                    onAvailableUseCasesChanged: comboboxloadingmod.rebuildModel()
-                                } 
-
-                                onCurrentIndexChanged:
-                                {
-                                    endTimeSlider.computeFeasibility()
-                                    endTimeSlider.feasibilityText()
-                                    comboboxloadingmod.currentIndex === 3 ? gridConsumptionloadingmod.currentIndex = 1 : gridConsumptionloadingmod.currentIndex = 0
-                                }
-                            }
-                        }
-
-                        RowLayout {
-                            Layout.preferredWidth: app.width
-                            Layout.topMargin: 10
-                            Layout.bottomMargin: 10
-
-                            visible:  isAnyOfModesSelected([pv_optimized, simple_pv_excess]) &&
-                                      thing.thingClass.interfaces.includes("phaseswitching")
-
-                            LabelWithInfo {
-                                text: qsTr("Number of phases:")
-                                push: "ChargingPhaseSwitchingInfo.qml"
-                            }
-
-                            ComboBox {
-                                id: desiredPhaseCountDropdown
-                                Layout.fillWidth: true
-
-                                model: [
-                                    { key: "1", value: 1 },
-                                    { key: "3", value: 3 }
-                                ]
-
-                                textRole: "key"
-                                valueRole: "value"
-
-                                Component.onCompleted: {
-                                    let currentPhaseCount = parseInt(thing.stateByName("phaseCount").value);
-                                    desiredPhaseCountDropdown.currentIndex = 1; // Default phase count: 3
-                                    for (let i = 0; i < model.length; ++i) {
-                                        const item = model[i];
-                                        if (item.value === currentPhaseCount) {
-                                            desiredPhaseCountDropdown.currentIndex = i;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-
-                        ColumnLayout{
-                            visible: isAnyOfModesSelected([pv_optimized, pv_excess])
-                            //Slider 1
-                            RowLayout{
-                                visible: isAnyOfModesSelected([pv_optimized, pv_excess])
-                                spacing: 0
-                                Layout.topMargin: 10
-
-                                ColumnLayout{
-                                    LabelWithInfo {
-                                        text: qsTr("Battery level: ") + batteryLevel.value +" %"
-                                        push: "BatteryLevel.qml"
-                                    }
-
-                                    Slider {
-                                        id: batteryLevel
-
-                                        Layout.fillWidth: true
-                                        from: 0
-                                        to: 100
-                                        stepSize: 1
-                                        // when entering the Optimization page -> get values from holdingItem (selected Car)
-                                        //                            Component.onCompleted:
-                                        //                            {
-                                        //                                    if (carSelector.holdingItem !== false){
-                                        //                                        value = carSelector.holdingItem.stateByName("batteryLevel").value
-                                        //                                    }
-                                        //                            }
-
-                                        onPositionChanged:
-                                        {
-                                            // if the "new Car" option is not picked do something
-                                            if (carSelector.holdingItem !== false){
-                                                if (value  >= targetPercentageSlider.value)
-                                                {
-                                                    if (value === 100){
-                                                        value = 99
-                                                    }
-
-                                                    targetPercentageSlider.value = value +1
-                                                }
-
-                                                endTimeSlider.computeFeasibility()
-                                                endTimeSlider.feasibilityText()
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            //Slider 2
-                            RowLayout{
-                                visible:  isAnyOfModesSelected([pv_optimized, pv_excess])
-                                ColumnLayout {
-                                    spacing: 0
-                        LabelWithInfo {
-                            text: qsTr("Target charge %1%").arg(targetPercentageSlider.value)
-                            push: "TargetChargeInfo.qml"
-                        }
-
-                                    Slider {
-                                        id: targetPercentageSlider
-
-                                        Layout.fillWidth: true
-                                        from: 0
-                                        to: 100
-                                        stepSize: 1
-                                        value: 0
-
-                                        Component.onCompleted: {
-                                            if (carSelector.holdingItem !== false){
-                                                //                                    value = chargingConfiguration.targetPercentage
-                                                endTimeSlider.computeFeasibility()
-                                                endTimeSlider.feasibilityText()
-                                            }
-                                        }
-                                        onPositionChanged: {
-                                            if (carSelector.holdingItem !== false){
-                                                endTimeSlider.computeFeasibility()
-                                                endTimeSlider.feasibilityText()
-
-                                                if (value <= batteryLevel.value)
-                                                {
-                                                    if (value === 100){
-                                                        value = batteryLevel.value
-                                                    }else{
-                                                        value = batteryLevel.value + 1
-                                                    }
-                                                }
-                                                //                                    if (value == 0){
-
-                                                //                                        value = 1
-                                                //                                    }
-
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            //Slider 3 Label
-                            RowLayout{
-                                Layout.fillWidth: true
-                                visible:  isAnyOfModesSelected([pv_optimized])
-
-                                Label {
-                                    id: endTimeLabel
-
-                                    Layout.fillWidth: true
-                                    property var today: new Date()
-                                    property var endTime: new Date(today.getTime() + endTimeSlider.value * 60000)
-                                    text: qsTr("Ending time: ") + endTime.toLocaleString(Qt.locale("de-DE"), "dd.MM HH:mm")
-
-                                    function endTimeValidityPrediction(d){
-                                        switch (d){
-                                        case 1:
-                                            feasibilityMessage.visible = true
-
-                                            break
-                                        case 2:
-                                            feasibilityMessage.visible = false
-                                            break
-
-                                        }
-                                        return
-                                    }
-                                }
-                            }
-
-                            //Slider 3
-                            RowLayout{
-                                Layout.fillWidth: true
-                                //Layout.alignment: Qt.AlignTop
-                                visible:   isAnyOfModesSelected([pv_optimized])
-
-                                Slider {
-                                    id: endTimeSlider
-
-                                    Layout.fillWidth: true
-                                    property int chargingConfigHours: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours()
-                                    property int chargingConfigMinutes: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes()
-                                    property int nextDay: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() < 0 ? 1 : 0
-                                    property int targetSOC: targetPercentageSlider.value
-
-                                    property real minimumChargingthreshhold
-                                    property real maximumChargingthreshhold
-
-                                    property var batteryLevel
-                                    property var capacityInAh
-                                    property var batteryContentInAh
-                                    property var minChargingCurrent
-
-                                    from: 0
-                                    to: 24*60
-                                    stepSize: 1
-                                    //         from config hours      from config minutes         current hours                    current minutes                 add a day if negative (since it means it is the next day)
-                                    value: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() + nextDay*24*60
-
-
-                                    onPositionChanged: {
-                                        feasibilityText()
-                                    }
-
-                                    function feasibilityText(){
-                                        if (value < maximumChargingthreshhold){
-                                            endTimeLabel.endTimeValidityPrediction(1)
-                                        }
-                                        else{
-                                            endTimeLabel.endTimeValidityPrediction(2)
-                                        }
-                                    }
-
-                                    function computeFeasibility(){
-
-                                        // TODo: Determine charging Voltage of wallbox
-                                        //       How many phases does the wallbox have
-                                        if (carSelector.holdingItem !== false){
-                                            var maxChargingCurrent = thing.stateByName("maxChargingCurrent").maxValue
-
-
-                                            var loadingVoltage = thing.stateByName("phaseCount").value * 230
-
-                                            for (let i = 0; i < carSelector.holdingItem.thingClass.stateTypes.count; i++){
-
-                                                var thingStateId = carSelector.holdingItem.thingClass.stateTypes.get(i).id
-
-                                                if (carSelector.holdingItem.thingClass.stateTypes.get(i).name === "capacity" ){
-                                                    // capacity in KWh
-                                                    var capacity = carSelector.holdingItem.states.getState(thingStateId).value
-                                                    capacityInAh = (capacity*1000)/loadingVoltage
-                                                }
-                                                if (carSelector.holdingItem.thingClass.stateTypes.get(i).name === "minChargingCurrent" ){
-
-                                                    minChargingCurrent = carSelector.holdingItem.states.getState(thingStateId).value
-                                                }
-
-                                            }
-
-                                            batteryContentInAh = capacityInAh * batteryLevel.value/100
-
-                                            var targetSOCinAh = capacityInAh * targetSOC/100
-
-                                            var necessaryTimeinHMinCharg = (targetSOCinAh - batteryContentInAh)/minChargingCurrent
-                                            var necessaryTimeinHMaxCharg = (targetSOCinAh - batteryContentInAh)/maxChargingCurrent
-
-
-                                            minimumChargingthreshhold = necessaryTimeinHMinCharg*60
-                                            maximumChargingthreshhold = necessaryTimeinHMaxCharg*60
-
-                                        }
-                                    }
-                                }
-                            }
-
-                            //Slider error
-                            RowLayout{
-                                visible: isAnyOfModesSelected([pv_optimized])
-
-                                Label
-                                {
-                                    id: feasibilityMessage
-                                    Layout.fillHeight: true
-                                    Layout.fillWidth: true
-                                    Layout.alignment: Qt.AlignRight
-                                    text: qsTr("In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time")
-                                    Material.foreground: Material.Red
-                                    visible: false
-                                    wrapMode: Text.WordWrap
-                                }
-                            }
-
-                        }
-
-                        // Time Controlled Mode Schedule
+                    }
+                    //Slider 2
+                    RowLayout{
+                        visible:  isAnyOfModesSelected([pv_optimized, pv_excess])
                         ColumnLayout {
-                            Layout.fillWidth: true
-                            Layout.leftMargin: -app.margins
-                            Layout.rightMargin: -app.margins
-                            visible: isAnyOfModesSelected([time_controlled])
                             spacing: 0
-
-                            Repeater {
-                                id: weekdayRepeater
-                                model: scheduleModel
-
-                                delegate: ConsolinnoSwipeDelegate {
-                                    Layout.fillWidth: true
-                                    text: model.hasEntry ? model.startTime + "–" + model.endTime + " Uhr" : "—"
-                                    subText: model.dayLabel
-                                    progressive: true
-                                    canDelete: model.hasEntry
-
-                                    onDeleteClicked: {
-                                        scheduleModel.setProperty(index, "hasEntry", false)
-                                        scheduleModel.setProperty(index, "startTime", "")
-                                        scheduleModel.setProperty(index, "endTime", "")
-                                    }
-
-                                    onClicked: {
-                                        var dayIndex = index
-                                        var page = pageStack.push(Qt.resolvedUrl("DayTimePickerPage.qml"), {
-                                            dayLabel: model.dayLabel,
-                                            initialStartTime: model.hasEntry ? model.startTime : "",
-                                            initialEndTime: model.hasEntry ? model.endTime : ""
-                                        })
-                                        page.timeSelected.connect(function(startTime, endTime) {
-                                            scheduleModel.setProperty(dayIndex, "startTime", startTime)
-                                            scheduleModel.setProperty(dayIndex, "endTime", endTime)
-                                            scheduleModel.setProperty(dayIndex, "hasEntry", true)
-                                        })
-                                        page.entryRemoved.connect(function() {
-                                            scheduleModel.setProperty(dayIndex, "hasEntry", false)
-                                            scheduleModel.setProperty(dayIndex, "startTime", "")
-                                            scheduleModel.setProperty(dayIndex, "endTime", "")
-                                        })
-                                    }
-                                }
-                            }
-                        }
-                        ColumnLayout {
-                            Layout.preferredWidth: app.width
-                            Layout.topMargin: 10
-                            visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
-
                             LabelWithInfo {
-                                text: qsTr("Low solar avalaibility:")
-                                push: "GridConsumptionInfo.qml"
+                                text: qsTr("Target charge %1%").arg(targetPercentageSlider.value)
+                                push: "TargetChargeInfo.qml"
                             }
-                        }
 
-                        ColumnLayout {
-                            Layout.preferredWidth: app.width
-                            Layout.topMargin: 10
-                            visible: isAnyOfModesSelected([dyn_pricing])
+                            Slider {
+                                id: targetPercentageSlider
 
-                            LabelWithInfo {
-                                text: qsTr("Pausing: ")
-                                push: "PausingInfo.qml"
-                            }
-                        }
-
-                        RowLayout {
-                            Layout.preferredWidth: app.width
-                            Layout.topMargin: 10
-
-                            ComboBox {
-                                visible: isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])
-                                id: gridConsumptionloadingmod
                                 Layout.fillWidth: true
-                                model: ListModel{
-                                    ListElement{key: qsTr("Charge with minimum current"); mode: 0}
-                                    ListElement{key: qsTr("Pause charging"); mode: 200}
-                                }
-                                textRole: "key"
-                            }
-                        }
-
-                        RowLayout {
-                            Layout.preferredWidth: app.width
-                            Layout.topMargin: 5
-                            visible: isAnyOfModesSelected([dyn_pricing])
-
-                            LabelWithInfo {
-                                text: qsTr("Price limit: ")
-                                push: "PriceLimitInfo.qml"
-                            }
-                        }
-
-                        RowLayout {
-                            Layout.preferredWidth: app.width
-                            Layout.topMargin: 5
-                            visible: isAnyOfModesSelected([dyn_pricing])
-
-                            RowLayout {
-                                id: averagePriceRow
-
-                                Label {
-                                    id: averagePriceLimitigId
-                                    text: qsTr("average price: ")
-                                    Layout.fillWidth: true
-                                    Layout.rightMargin: 10
-                                }
-
-                                ToolBar {
-
-                                    background: Rectangle {
-                                        color: "transparent"
-                                    }
-
-                                    RowLayout {
-                                        anchors.fill: parent
-                                        property var debounceTimer: Timer {
-                                            interval: 1000
-                                            repeat: false
-                                            running: false
-                                            onTriggered: {
-                                                if (!dpThing) return;
-                                                pricingCurrentLimitSeries.clear();
-                                                pricingUpperSeriesAbove.clear();
-                                                pricingLowerSeriesAbove.clear();
-                                                consumptionSeries.insertEntry(dpThing.stateByName("totalCostSeries").value, true);
-                                            }
-                                        }
-
-                                        function redrawChart() {
-                                            debounceTimer.stop();
-                                            debounceTimer.start();
-                                        }
-
-                                        ToolButton {
-                                            text: qsTr("-")
-                                            onClicked: {
-                                                currentValue = currentValue > -100 ? currentValue - 1 : -100
-                                                averagePriceRow.getThresholdPrice()
-                                                parent.redrawChart();
-                                            }
-                                            onPressAndHold: {
-                                                currentValue = currentValue > -100 ? currentValue - 10 : -100
-                                                averagePriceRow.getThresholdPrice()
-                                                parent.redrawChart();
-                                            }
-                                        }
-
-                                        TextField {
-                                            id: currentValueField
-                                            text: currentValue
-                                            horizontalAlignment: Qt.AlignHCenter
-                                            verticalAlignment: Qt.AlignVCenter
-                                            Layout.preferredWidth: 50
-                                            validator: RegularExpressionValidator {
-                                                regularExpression: /^-?(100|[1-9]?[0-9])$/
-                                            }
-                                            onTextChanged: {
-                                                currentValue = currentValueField.text
-                                                averagePriceRow.getThresholdPrice()
-                                                parent.redrawChart();
-                                            }
-                                        }
-
-                                        Label {
-                                            text: "%"
-                                        }
-
-                                        ToolButton { 
-                                            text: qsTr("+")
-                                            onClicked: {
-                                                currentValue = currentValue < 100 ? currentValue + 1 : 100
-                                                averagePriceRow.getThresholdPrice()
-                                                parent.redrawChart();
-                                            }
-                                            onPressAndHold: {
-                                                currentValue = currentValue < 100 ? currentValue + 10 : 100
-                                                averagePriceRow.getThresholdPrice()
-                                                parent.redrawChart();
-                                            }
-                                        }
-
-                                    }
-
-                                }
+                                from: 0
+                                to: 100
+                                stepSize: 1
+                                value: 0
 
                                 Component.onCompleted: {
-                                    getThresholdPrice()
+                                    if (carSelector.holdingItem !== false){
+                                        //                                    value = chargingConfiguration.targetPercentage
+                                        endTimeSlider.computeFeasibility()
+                                        endTimeSlider.feasibilityText()
+                                    }
                                 }
+                                onPositionChanged: {
+                                    if (carSelector.holdingItem !== false){
+                                        endTimeSlider.computeFeasibility()
+                                        endTimeSlider.feasibilityText()
 
-                                function getThresholdPrice(){
-                                    if (!dpThing) return;
-                                    let currentValue = parseInt(currentValueField.text)
-                                    thresholdPrice = DynPricingUtils.relPrice2AbsPrice(currentValue, dpThing)
+                                        if (value <= batteryLevel.value)
+                                        {
+                                            if (value === 100){
+                                                value = batteryLevel.value
+                                            }else{
+                                                value = batteryLevel.value + 1
+                                            }
+                                        }
+                                        //                                    if (value == 0){
+
+                                        //                                        value = 1
+                                        //                                    }
+
+                                    }
                                 }
-
-                            }
-
-                        }
-
-
-
-
-                        RowLayout {
-                            Layout.preferredWidth: parent.width
-                            Layout.topMargin: 5
-                            visible: isAnyOfModesSelected([dyn_pricing])
-                            Label {
-                                text: qsTr("Currently corresponds to a electricity price of %1 ct/kWh.").arg(thresholdPrice.toLocaleString())
-                                font.pixelSize: 13
                             }
                         }
+                    }
+                    //Slider 3 Label
+                    RowLayout{
+                        Layout.fillWidth: true
+                        visible:  isAnyOfModesSelected([pv_optimized])
 
                         Label {
-                            id: footer
+                            id: endTimeLabel
 
                             Layout.fillWidth: true
-                            Layout.leftMargin: app.margins
-                            Layout.rightMargin: app.margins
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: app.smallFont
-                            color: Style.dangerAccent
-                            text: qsTr("please select a car")
-                            visible: false
-                        }
-
-                        Item {
-                            id: rootChart
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            QtObject {
-                                id: d
-
-                                property date now: new Date()
-
-                                readonly property var startTimeSince: {
-                                    var date = new Date();
-                                    date.setHours(0);
-                                    date.setMinutes(0);
-                                    date.setSeconds(0);
-
-                                    return date;
-                                }
-
-                                readonly property var endTimeUntil: {
-                                    var date = new Date();
-                                    date.setHours(0);
-                                    date.setMinutes(0);
-                                    date.setSeconds(0);
-                                    date.setDate(date.getDate()+1);
-                                    return date;
-                                }
-
-                            }
-
-                            Component {
-                                id: lineSeriesComponent
-                                LineSeries { }
-                            }
-
-                            ColumnLayout {
-                                anchors.fill: parent
-                                spacing: 0
-                                visible: isAnyOfModesSelected([dyn_pricing])
-
-                                Component.onCompleted: {
-                                    if (!dpThing)
-                                        return;
-
-                                    pricingCurrentLimitSeries.clear();
-                                    pricingUpperSeries.clear();
-                                    pricingUpperSeriesAbove.clear();
-
-                                    currentPrice = dpThing.stateByName("currentTotalCost").value
-
-                                    consumptionSeries.insertEntry(dpThing.stateByName("totalCostSeries").value, false)
-                                    valueAxis.adjustMax((Math.ceil(lowestPrice)), highestPrice);
-                                }
-
-                                Item {
-                                    Layout.fillWidth: true
-                                    Layout.fillHeight: true
-
-                                    ChartView {
-                                        id: chartView
-                                        anchors.fill: parent
-
-                                        backgroundColor: "transparent"
-                                        margins.left: 0
-                                        margins.right: 0
-                                        margins.top: 0
-                                        margins.bottom: Style.smallIconSize + Style.margins
-
-                                        legend.visible: false
-
-                                        ActivityIndicator {
-                                            id: noDataIndicator
-                                            x: chartView.plotArea.x + (chartView.plotArea.width - width) / 2
-                                            y: chartView.plotArea.y + (chartView.plotArea.height - height) / 2 + (chartView.plotArea.height / 8)
-                                            visible: false
-                                            opacity: .5
-                                        }
-
-                                        Label {
-                                            id: noDataLabel
-                                            x: chartView.plotArea.x + (chartView.plotArea.width - width) / 2
-                                            y: chartView.plotArea.y + (chartView.plotArea.height - height) / 2 + (chartView.plotArea.height / 8)
-                                            text: qsTr("No data available")
-                                            visible: false
-                                            font: Style.smallFont
-                                            opacity: .5
-                                        }
-
-                                        ValueAxis {
-                                            id: valueAxis
-                                            min: 0
-                                            max: 1
-                                            labelFormat: ""
-                                            gridLineColor: Style.tileOverlayColor
-                                            labelsVisible: false
-                                            tickCount: 5
-                                            lineVisible: false
-                                            titleVisible: false
-                                            shadesVisible: false
-
-                                            function adjustMax(minPrice,maxPrice) {
-                                                // force yaxis steps to multiples of 5
-                                                let step = Math.ceil(maxPrice / 4);
-                                                const rest = step % 5;
-                                                if(rest !== 0) {
-                                                   step += 5 - rest;
-                                                }
-
-                                                max = step * 4;
-                                            }
-                                        }
-
-                                        Item {
-                                            id: labelsLayout
-                                            x: Style.smallMargins
-                                            y: chartView.plotArea.y
-                                            height: chartView.plotArea.height
-                                            width: chartView.plotArea.x - x
-                                            Repeater {
-                                                model: valueAxis.tickCount
-                                                delegate: Label {
-                                                    y: parent.height / (valueAxis.tickCount - 1) * index - font.pixelSize / 2
-                                                    width: parent.width - Style.smallMargins
-                                                    horizontalAlignment: Text.AlignRight
-                                                    text: (Math.ceil(valueAxis.max - index * (valueAxis.max - valueAxis.min) / (valueAxis.tickCount - 1))) + " ct"  //linke Seite vom Graphen
-                                                    verticalAlignment: Text.AlignTop
-                                                    font: Style.extraSmallFont
-                                                }
-                                            }
-                                        }
-
-                                        DateTimeAxis {
-                                            id: dateTimeAxis
-                                            min: d.startTimeSince
-                                            max: d.endTimeUntil
-                                            format: "HH:mm"
-                                            tickCount: 5
-                                            labelsFont: Style.extraSmallFont
-                                            gridVisible: false
-                                            minorGridVisible: false
-                                            lineVisible: false
-                                            shadesVisible: false
-                                            labelsColor: Style.foregroundColor
-                                        }
-
-
-                                        AreaSeries {
-                                            id: currentLimitSeries
-                                            axisX: dateTimeAxis
-                                            axisY: valueAxis
-                                            color: '#ccc'
-                                            borderWidth: 1
-                                            borderColor: 'transparent'
-
-                                            upperSeries: LineSeries {
-                                                id: pricingCurrentLimitSeries
-                                            }
-                                        }
-
-                                        AreaSeries {
-                                            id: consumptionSeries
-                                            axisX: dateTimeAxis
-                                            axisY: valueAxis
-                                            color: 'transparent'
-                                            borderWidth: 1
-                                            borderColor: Style.epexMainLineColor
-
-
-                                            upperSeries: LineSeries {
-                                                id: pricingUpperSeries
-                                            }
-
-                                            function insertEntry(value, onlyThreshold){
-                                                var lastObjectValue = value[Object.keys(value)[Object.keys(value).length - 1]];
-
-                                                var firstRun = true;
-                                                let lastChange = 0;
-                                                let lastChangeTimestamp = 0;
-                                                let identicalIndexes = [];
-
-                                                for (const item in value){
-                                                    const date = new Date(item);
-                                                    let currentTimestamp = date.getTime();
-                                                    let itemValue = value[item];
-                                                    if(itemValue < lowestPrice){
-                                                        lowestPrice = itemValue
-                                                    }
-
-                                                    if(itemValue > highestPrice){
-                                                        highestPrice = itemValue
-                                                    }
-
-                                                    if(lastChange !== itemValue) {
-                                                        lastChangeTimestamp = currentTimestamp;
-
-                                                        for(const ts of identicalIndexes) {
-                                                            prices[ts].end = currentTimestamp;
-                                                        }
-
-                                                        identicalIndexes = [currentTimestamp];
-                                                    }
-                                                    else {
-                                                        identicalIndexes.push(currentTimestamp);
-                                                    }
-
-                                                    lastChange = itemValue;
-
-                                                    prices[currentTimestamp] = {
-                                                        start: lastChangeTimestamp,
-                                                        value: itemValue
-                                                    };
-
-                                                    if(firstRun === true){
-                                                        firstRun = false;
-                                                        highestPrice = itemValue
-                                                        lowestPrice = itemValue
-                                                        currentTimestamp = currentTimestamp - 600000;
-                                                    }
-
-                                                    if(itemValue < thresholdPrice) {
-                                                        pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),thresholdPrice);
-                                                        pricingCurrentLimitSeries.append(currentTimestamp,thresholdPrice);
-                                                    }
-                                                    else {
-                                                        pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),valueAxis.min -5);
-                                                        pricingCurrentLimitSeries.append(currentTimestamp,valueAxis.min - 5);
-                                                    }
-
-                                                    pricingUpperSeriesAbove.append(currentTimestamp,thresholdPrice);
-                                                    if(!onlyThreshold) {
-                                                        pricingUpperSeries.append(currentTimestamp - (60000 * 15) + 1,itemValue);
-                                                        pricingUpperSeries.append(currentTimestamp,itemValue);
-                                                    }
-                                                }
-
-                                                const todayMidnight = new Date(identicalIndexes[0]);
-                                                todayMidnight.setDate(todayMidnight.getDate() +1);
-                                                todayMidnight.setMinutes(0);
-                                                todayMidnight.setHours(0);
-
-                                                const todayMidnightTs = todayMidnight.getTime();
-
-                                                for(const ts of identicalIndexes) {
-                                                    prices[ts].end = todayMidnightTs;
-                                                }
-
-                                                pricingCurrentLimitSeries.append(todayMidnightTs + 6000000, valueAxis.min - 5);
-                                                pricingUpperSeriesAbove.append(todayMidnightTs + 6000000, thresholdPrice);
-                                                pricingLowerSeriesAbove.append(todayMidnightTs + 6000000, thresholdPrice);
-
-                                                if(!onlyThreshold) {
-                                                    pricingUpperSeries.append(todayMidnightTs + 6000000, lastObjectValue);
-                                                }
-                                            }
-                                        }
-
-                                        AreaSeries {
-                                            id: consumptionSeriesAbove
-                                            axisX: dateTimeAxis
-                                            axisY: valueAxis
-                                            color: 'transparent'
-                                            borderWidth: 1
-                                            borderColor: Configuration.epexAverageColor
-
-                                            upperSeries: LineSeries {
-                                                id: pricingUpperSeriesAbove
-                                            }
-
-                                            lowerSeries: LineSeries {
-                                                id: pricingLowerSeriesAbove
-                                            }
-                                        }
-                                    }
-
-                                    MouseArea {
-                                        id: mouseArea
-                                        anchors.fill: parent
-                                        anchors.leftMargin: chartView.plotArea.x
-                                        anchors.topMargin: chartView.plotArea.y
-                                        anchors.rightMargin: chartView.width - chartView.plotArea.width - chartView.plotArea.x
-                                        anchors.bottomMargin: chartView.height - chartView.plotArea.height - chartView.plotArea.y
-
-                                        hoverEnabled: true
-                                        preventStealing: tooltipping
-
-                                        property int startMouseX: 0
-                                        property bool tooltipping: false
-                                        property var startDatetime: null
-
-                                        Rectangle {
-                                            height: parent.height
-                                            width: 1
-                                            color: Style.foregroundColor
-                                            x: Math.min(mouseArea.width - 1, Math.max(0, mouseArea.mouseX))
-                                            visible: (mouseArea.containsMouse || mouseArea.tooltipping)
-                                        }
-
-                                        //Mouseover Details in Graph
-                                        NymeaToolTip {
-                                            id: toolTip
-                                            visible: (mouseArea.containsMouse || mouseArea.tooltipping)
-
-                                            backgroundRect: Qt.rect(mouseArea.x + toolTip.x, mouseArea.y + toolTip.y, toolTip.width, toolTip.height)
-
-                                            property double currentValueY: 0
-                                            property int idx: mouseArea.mouseX
-                                            property int timeSince: new Date(d.startTimeSince).getTime()
-                                            property int timestamp: (new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())
-
-                                            property int xOnRight: Math.max(0, mouseArea.mouseX) + Style.smallMargins
-                                            property int xOnLeft: Math.min(mouseArea.width, mouseArea.mouseX) - Style.smallMargins - width
-                                            x: xOnRight + width < mouseArea.width ? xOnRight : xOnLeft
-                                            property double maxValue: 0
-                                            y: Math.min(Math.max(mouseArea.height - (maxValue * mouseArea.height / valueAxis.max) - height - Style.margins, 0), mouseArea.height - height)
-
-                                            width: tooltipLayout.implicitWidth + Style.smallMargins * 2
-                                            height: tooltipLayout.implicitHeight + Style.smallMargins * 2
-
-                                            function getQuaterlyTimestamp(ts) {
-                                               const currTime = new Date(ts);
-                                               const currMinutes = currTime.getMinutes();
-                                               const modRes = currMinutes % 15;
-
-                                               if(modRes !== 0) {
-                                                   if(modRes < 8) {
-                                                       currTime.setMinutes(currMinutes - modRes);
-                                                   }
-                                                   else {
-                                                       currTime.setMinutes(currMinutes + (15 - modRes));
-                                                   }
-
-                                                   currTime.setSeconds(0);
-                                                   return currTime.getTime();
-                                               }
-                                               else {
-                                                   return ts;
-                                               }
-                                           }
-
-                                            ColumnLayout {
-                                                id: tooltipLayout
-                                                anchors {
-                                                    left: parent.left
-                                                    top: parent.top
-                                                    margins: Style.smallMargins
-                                                }
-                                                Label {
-                                                    text: {
-                                                        if(!mouseArea.containsMouse) {
-                                                            return "";
-                                                        }
-
-                                                        let hoveredTime = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000;
-
-                                                        d.startTimeSince.toLocaleString(Qt.locale(), Locale.ShortFormat);
-
-                                                        let currentPrice = prices[toolTip.getQuaterlyTimestamp(hoveredTime)];
-
-                                                        if(!currentPrice)
-                                                            return qsTr("No prices available, yet");
-
-                                                        if(!currentPrice || typeof currentPrice === "undefined") {
-                                                            const priceKeys = Object.keys(prices);
-                                                            const lastItem = priceKeys[priceKeys.length -1];
-                                                            currentPrice = prices[lastItem];
-                                                        }
-
-                                                        let val = currentPrice.start;
-                                                        val = new Date(val).toLocaleString(Qt.locale(), Locale.ShortFormat);
-
-                                                        let endVal = currentPrice.end;
-                                                        endVal = new Date(endVal).toLocaleTimeString(Qt.locale(), Locale.ShortFormat) + ":00";
-
-                                                        return val + " - " + endVal.slice(0, -3);
-                                                    }
-                                                    font: Style.smallFont
-                                                }
-                                                Label {
-                                                    property string unit: qsTr("ct/kWh")
-                                                    text: {
-                                                        if(!mouseArea.containsMouse) {
-                                                            return "";
-                                                        }
-
-                                                        let hoveredTime = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000;
-
-                                                        let currentPrice = prices[toolTip.getQuaterlyTimestamp(hoveredTime)];
-
-                                                        if(!currentPrice)
-                                                            return "";
-
-                                                        if(!currentPrice || typeof currentPrice === "undefined") {
-                                                            const priceKeys = Object.keys(prices);
-                                                            const lastItem = priceKeys[priceKeys.length -1];
-                                                            currentPrice = prices[lastItem];
-                                                        }
-
-                                                        let dynamicVal = currentPrice.value;
-
-                                                        const scaleValue = valueAxis.max + (valueAxis.min > 0 ? 0 : (valueAxis.min * (-1)));
-
-                                                        dynamicVal += valueAxis.min < 0 ? (valueAxis.min * (-1)) : 0;
-
-                                                        toolTip.y = mouseArea.height - (mouseArea.height * (dynamicVal / scaleValue)) - toolTip.height - 2;
-                                                        const val = (+currentPrice.value.toFixed(2)).toLocaleString();
-                                                        return "%1 %2".arg(val).arg(unit);
-                                                    }
-                                                    font: Style.extraSmallFont
-                                                }
-
-                                            }
-                                        }
-                                    }
-
+                            property var today: new Date()
+                            property var endTime: new Date(today.getTime() + endTimeSlider.value * 60000)
+                            text: qsTr("Ending time: ") + endTime.toLocaleString(Qt.locale("de-DE"), "dd.MM HH:mm")
+
+                            function endTimeValidityPrediction(d){
+                                switch (d){
+                                case 1:
+                                    feasibilityMessage.visible = true
+
+                                    break
+                                case 2:
+                                    feasibilityMessage.visible = false
+                                    break
 
                                 }
+                                return
                             }
                         }
+                    }
 
-                        Button {
-                            id: savebutton
+                    //Slider 3
+                    RowLayout{
+                        Layout.fillWidth: true
+                        //Layout.alignment: Qt.AlignTop
+                        visible:   isAnyOfModesSelected([pv_optimized])
+
+                        Slider {
+                            id: endTimeSlider
 
                             Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignBottom
-                            text: qsTr("Save")
-                            onClicked: {
-                                // if simple PV excess mode is used set the batteryLevel to 1
-                                if(isAnyOfModesSelected([simple_pv_excess, no_optimization, dyn_pricing, time_controlled])){
-                                    batteryLevel.value = 1
-                                    targetPercentageSlider.value = 100
-                                }
+                            property int chargingConfigHours: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getHours()
+                            property int chargingConfigMinutes: Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime , "HH:mm:ss").getMinutes()
+                            property int nextDay: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() < 0 ? 1 : 0
+                            property int targetSOC: targetPercentageSlider.value
 
-                                // Set the endTime to maximum value for all modes except pv_optimized
-                                if(isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing, no_optimization, time_controlled])){
-                                    endTimeSlider.value = 24*60
-                                }
+                            property real minimumChargingthreshhold
+                            property real maximumChargingthreshhold
 
-                                // Collect time controlled schedule data from scheduleModel
-                                var chargingSchedule = []
-                                if(isAnyOfModesSelected([time_controlled])){
-                                    for (var i = 0; i < scheduleModel.count; i++) {
-                                        var entry = scheduleModel.get(i)
-                                        chargingSchedule.push({
-                                            day: entry.dayKey,
-                                            startTime: entry.hasEntry ? entry.startTime : "00:00",
-                                            endTime: entry.hasEntry ? entry.endTime : "00:00"
-                                        })
-                                    }
-                                }
+                            property var batteryLevel
+                            property var capacityInAh
+                            property var batteryContentInAh
+                            property var minChargingCurrent
 
-                                if ((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) && (endTimeSlider.value >= 30) && carSelector.holdingItem !== false && batteryLevel.value !== 0){
-                                    if (carSelector.holdingItem.stateByName("batteryLevel").value){
-                                        carSelector.holdingItem.executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batteryLevel.value }])
-                                    }
-                                    pageSelectedCar = carSelector.holdingItem.name
+                            from: 0
+                            to: 24*60
+                            stepSize: 1
+                            //         from config hours      from config minutes         current hours                    current minutes                 add a day if negative (since it means it is the next day)
+                            value: chargingConfigHours*60 + chargingConfigMinutes - endTimeLabel.today.getHours()*60 - endTimeLabel.today.getMinutes() + nextDay*24*60
 
-                                    var optimizationMode = compute_OptimizationMode()
 
-                                    var desiredPhaseCount = 3;
-                                    if (isAnyOfModesSelected([pv_optimized, simple_pv_excess]) &&
-                                            thing.thingClass.interfaces.includes("phaseswitching")) {
-                                        desiredPhaseCount = desiredPhaseCountDropdown.currentValue;
-                                    }
+                            onPositionChanged: {
+                                feasibilityText()
+                            }
 
-                                    hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
-
-                                    var configData = {
-                                        optimizationEnabled: true,
-                                        carThingId: carSelector.holdingItem.id,
-                                        endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00",
-                                        targetPercentage: targetPercentageSlider.value,
-                                        optimizationMode: optimizationMode,
-                                        priceThreshold: currentValue,
-                                        desiredPhaseCount: desiredPhaseCount
-                                    }
-
-                                    // Add charging schedule if time controlled mode
-                                    if(isAnyOfModesSelected([time_controlled])){
-                                        configData.chargingSchedule = JSON.stringify(chargingSchedule)
-                                    }
-
-                                    hemsManager.setChargingConfiguration(thing.id, configData)
-
-                                    optimizationPage.done()
-                                    pageStack.pop()
-
+                            function feasibilityText(){
+                                if (value < maximumChargingthreshhold){
+                                    endTimeLabel.endTimeValidityPrediction(1)
                                 }
                                 else{
-                                    // footer message to notifiy the user, what is wrong
-                                    if(batteryLevel.value === 0){
-                                        footer.text = qsTr("Please select a battery level greater than 0%.")
-                                    }
-                                    else if (carSelector.holdingItem === false){
-                                        footer.text = qsTr("Please select a car")
-                                    }
-                                    else if((endTimeSlider.value < endTimeSlider.maximumChargingthreshhold) || (endTimeSlider.value < 30)){
-                                        footer.text = qsTr("Please select a valid target time")
-                                    }
-                                    else{
-                                        footer.text = qsTr("Unknown error")
-                                    }
-
-                                    footer.visible = true
+                                    endTimeLabel.endTimeValidityPrediction(2)
                                 }
-
-
-
                             }
 
-                            function compute_OptimizationMode(){
-                                var mode = comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode
-                                if(isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])){
-                                    // single digit
-                                    var gridConsumptionOption = gridConsumptionloadingmod.model.get(gridConsumptionloadingmod.currentIndex).mode
-                                    mode = mode + gridConsumptionOption
+                            function computeFeasibility(){
+
+                                // TODo: Determine charging Voltage of wallbox
+                                //       How many phases does the wallbox have
+                                if (carSelector.holdingItem !== false){
+                                    var maxChargingCurrent = thing.stateByName("maxChargingCurrent").maxValue
+
+
+                                    var loadingVoltage = thing.stateByName("phaseCount").value * 230
+
+                                    for (let i = 0; i < carSelector.holdingItem.thingClass.stateTypes.count; i++){
+
+                                        var thingStateId = carSelector.holdingItem.thingClass.stateTypes.get(i).id
+
+                                        if (carSelector.holdingItem.thingClass.stateTypes.get(i).name === "capacity" ){
+                                            // capacity in KWh
+                                            var capacity = carSelector.holdingItem.states.getState(thingStateId).value
+                                            capacityInAh = (capacity*1000)/loadingVoltage
+                                        }
+                                        if (carSelector.holdingItem.thingClass.stateTypes.get(i).name === "minChargingCurrent" ){
+
+                                            minChargingCurrent = carSelector.holdingItem.states.getState(thingStateId).value
+                                        }
+
+                                    }
+
+                                    batteryContentInAh = capacityInAh * batteryLevel.value/100
+
+                                    var targetSOCinAh = capacityInAh * targetSOC/100
+
+                                    var necessaryTimeinHMinCharg = (targetSOCinAh - batteryContentInAh)/minChargingCurrent
+                                    var necessaryTimeinHMaxCharg = (targetSOCinAh - batteryContentInAh)/maxChargingCurrent
+
+
+                                    minimumChargingthreshhold = necessaryTimeinHMinCharg*60
+                                    maximumChargingthreshhold = necessaryTimeinHMaxCharg*60
+
                                 }
-                                return mode
+                            }
+                        }
+                    }
+
+                    //Slider error
+                    RowLayout{
+                        visible: isAnyOfModesSelected([pv_optimized])
+
+                        Label
+                        {
+                            id: feasibilityMessage
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignRight
+                            text: qsTr("In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time")
+                            visible: false
+                            wrapMode: Text.WordWrap
+                        }
+                    }
+
+                }
+
+                // Time Controlled Mode Schedule
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    Layout.leftMargin: -app.margins
+                    Layout.rightMargin: -app.margins
+                    visible: isAnyOfModesSelected([time_controlled])
+                    spacing: 0
+
+                    Repeater {
+                        id: weekdayRepeater
+                        model: scheduleModel
+
+                        delegate: ConsolinnoSwipeDelegate {
+                            Layout.fillWidth: true
+                            text: model.hasEntry ? model.startTime + "–" + model.endTime + " Uhr" : "—"
+                            subText: model.dayLabel
+                            progressive: true
+                            canDelete: model.hasEntry
+
+                            onDeleteClicked: {
+                                scheduleModel.setProperty(index, "hasEntry", false)
+                                scheduleModel.setProperty(index, "startTime", "")
+                                scheduleModel.setProperty(index, "endTime", "")
+                            }
+
+                            onClicked: {
+                                var dayIndex = index
+                                var page = pageStack.push(Qt.resolvedUrl("DayTimePickerPage.qml"), {
+                                                              dayLabel: model.dayLabel,
+                                                              initialStartTime: model.hasEntry ? model.startTime : "",
+                                                              initialEndTime: model.hasEntry ? model.endTime : ""
+                                                          })
+                                page.timeSelected.connect(function(startTime, endTime) {
+                                    scheduleModel.setProperty(dayIndex, "startTime", startTime)
+                                    scheduleModel.setProperty(dayIndex, "endTime", endTime)
+                                    scheduleModel.setProperty(dayIndex, "hasEntry", true)
+                                })
+                                page.entryRemoved.connect(function() {
+                                    scheduleModel.setProperty(dayIndex, "hasEntry", false)
+                                    scheduleModel.setProperty(dayIndex, "startTime", "")
+                                    scheduleModel.setProperty(dayIndex, "endTime", "")
+                                })
                             }
                         }
                     }
                 }
-            }
-            BusyOverlay {
-                id: busyOverlay
-            }
+                ColumnLayout {
+                    Layout.preferredWidth: app.width
+                    Layout.topMargin: 10
+                    visible: isAnyOfModesSelected([pv_excess, simple_pv_excess])
 
+                    LabelWithInfo {
+                        text: qsTr("Low solar avalaibility:")
+                        push: "GridConsumptionInfo.qml"
+                    }
+                }
+
+                ColumnLayout {
+                    Layout.preferredWidth: app.width
+                    Layout.topMargin: 10
+                    visible: isAnyOfModesSelected([dyn_pricing])
+
+                    LabelWithInfo {
+                        text: qsTr("Pausing: ")
+                        push: "PausingInfo.qml"
+                    }
+                }
+
+                RowLayout {
+                    Layout.preferredWidth: app.width
+                    Layout.topMargin: 10
+
+                    ComboBox {
+                        visible: isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])
+                        id: gridConsumptionloadingmod
+                        Layout.fillWidth: true
+                        model: ListModel{
+                            ListElement{key: qsTr("Charge with minimum current"); mode: 0}
+                            ListElement{key: qsTr("Pause charging"); mode: 200}
+                        }
+                        textRole: "key"
+                    }
+                }
+
+                RowLayout {
+                    Layout.preferredWidth: app.width
+                    Layout.topMargin: 5
+                    visible: isAnyOfModesSelected([dyn_pricing])
+
+                    LabelWithInfo {
+                        text: qsTr("Price limit: ")
+                        push: "PriceLimitInfo.qml"
+                    }
+                }
+
+                RowLayout {
+                    Layout.preferredWidth: app.width
+                    Layout.topMargin: 5
+                    visible: isAnyOfModesSelected([dyn_pricing])
+
+                    RowLayout {
+                        id: averagePriceRow
+
+                        Label {
+                            id: averagePriceLimitigId
+                            text: qsTr("average price: ")
+                            Layout.fillWidth: true
+                            Layout.rightMargin: 10
+                        }
+
+                        ToolBar {
+
+                            background: Rectangle {
+                                color: "transparent"
+                            }
+
+                            RowLayout {
+                                anchors.fill: parent
+                                property var debounceTimer: Timer {
+                                    interval: 1000
+                                    repeat: false
+                                    running: false
+                                    onTriggered: {
+                                        if (!dpThing) return;
+                                        pricingCurrentLimitSeries.clear();
+                                        pricingUpperSeriesAbove.clear();
+                                        pricingLowerSeriesAbove.clear();
+                                        consumptionSeries.insertEntry(dpThing.stateByName("totalCostSeries").value, true);
+                                    }
+                                }
+
+                                function redrawChart() {
+                                    debounceTimer.stop();
+                                    debounceTimer.start();
+                                }
+
+                                ToolButton {
+                                    text: qsTr("-")
+                                    onClicked: {
+                                        currentValue = currentValue > -100 ? currentValue - 1 : -100
+                                        averagePriceRow.getThresholdPrice()
+                                        parent.redrawChart();
+                                    }
+                                    onPressAndHold: {
+                                        currentValue = currentValue > -100 ? currentValue - 10 : -100
+                                        averagePriceRow.getThresholdPrice()
+                                        parent.redrawChart();
+                                    }
+                                }
+
+                                TextField {
+                                    id: currentValueField
+                                    text: currentValue
+                                    horizontalAlignment: Qt.AlignHCenter
+                                    verticalAlignment: Qt.AlignVCenter
+                                    Layout.preferredWidth: 50
+                                    validator: RegularExpressionValidator {
+                                        regularExpression: /^-?(100|[1-9]?[0-9])$/
+                                    }
+                                    onTextChanged: {
+                                        currentValue = currentValueField.text
+                                        averagePriceRow.getThresholdPrice()
+                                        parent.redrawChart();
+                                    }
+                                }
+
+                                Label {
+                                    text: "%"
+                                }
+
+                                ToolButton {
+                                    text: qsTr("+")
+                                    onClicked: {
+                                        currentValue = currentValue < 100 ? currentValue + 1 : 100
+                                        averagePriceRow.getThresholdPrice()
+                                        parent.redrawChart();
+                                    }
+                                    onPressAndHold: {
+                                        currentValue = currentValue < 100 ? currentValue + 10 : 100
+                                        averagePriceRow.getThresholdPrice()
+                                        parent.redrawChart();
+                                    }
+                                }
+
+                            }
+
+                        }
+
+                        Component.onCompleted: {
+                            getThresholdPrice()
+                        }
+
+                        function getThresholdPrice(){
+                            if (!dpThing) return;
+                            let currentValue = parseInt(currentValueField.text)
+                            thresholdPrice = DynPricingUtils.relPrice2AbsPrice(currentValue, dpThing)
+                        }
+
+                    }
+
+                }
+
+
+
+
+                RowLayout {
+                    Layout.preferredWidth: parent.width
+                    Layout.topMargin: 5
+                    visible: isAnyOfModesSelected([dyn_pricing])
+                    Label {
+                        text: qsTr("Currently corresponds to a electricity price of %1 ct/kWh.").arg(thresholdPrice.toLocaleString())
+                        font.pixelSize: 13
+                    }
+                }
+
+                Label {
+                    id: footer
+
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: app.smallFont
+                    color: Style.dangerAccent
+                    text: qsTr("please select a car")
+                    visible: false
+                }
+
+                Item {
+                    id: rootChart
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    QtObject {
+                        id: d
+
+                        property date now: new Date()
+
+                        readonly property var startTimeSince: {
+                            var date = new Date();
+                            date.setHours(0);
+                            date.setMinutes(0);
+                            date.setSeconds(0);
+
+                            return date;
+                        }
+
+                        readonly property var endTimeUntil: {
+                            var date = new Date();
+                            date.setHours(0);
+                            date.setMinutes(0);
+                            date.setSeconds(0);
+                            date.setDate(date.getDate()+1);
+                            return date;
+                        }
+
+                    }
+
+                    Component {
+                        id: lineSeriesComponent
+                        LineSeries { }
+                    }
+
+                    ColumnLayout {
+                        anchors.fill: parent
+                        spacing: 0
+                        visible: isAnyOfModesSelected([dyn_pricing])
+
+                        Component.onCompleted: {
+                            if (!dpThing)
+                                return;
+
+                            pricingCurrentLimitSeries.clear();
+                            pricingUpperSeries.clear();
+                            pricingUpperSeriesAbove.clear();
+
+                            currentPrice = dpThing.stateByName("currentTotalCost").value
+
+                            consumptionSeries.insertEntry(dpThing.stateByName("totalCostSeries").value, false)
+                            valueAxis.adjustMax((Math.ceil(lowestPrice)), highestPrice);
+                        }
+
+                        Item {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+
+                            ChartView {
+                                id: chartView
+                                anchors.fill: parent
+
+                                backgroundColor: "transparent"
+                                margins.left: 0
+                                margins.right: 0
+                                margins.top: 0
+                                margins.bottom: Style.smallIconSize + Style.margins
+
+                                legend.visible: false
+
+                                ActivityIndicator {
+                                    id: noDataIndicator
+                                    x: chartView.plotArea.x + (chartView.plotArea.width - width) / 2
+                                    y: chartView.plotArea.y + (chartView.plotArea.height - height) / 2 + (chartView.plotArea.height / 8)
+                                    visible: false
+                                    opacity: .5
+                                }
+
+                                Label {
+                                    id: noDataLabel
+                                    x: chartView.plotArea.x + (chartView.plotArea.width - width) / 2
+                                    y: chartView.plotArea.y + (chartView.plotArea.height - height) / 2 + (chartView.plotArea.height / 8)
+                                    text: qsTr("No data available")
+                                    visible: false
+                                    font: Style.smallFont
+                                    opacity: .5
+                                }
+
+                                ValueAxis {
+                                    id: valueAxis
+                                    min: 0
+                                    max: 1
+                                    labelFormat: ""
+                                    gridLineColor: Style.tileOverlayColor
+                                    labelsVisible: false
+                                    tickCount: 5
+                                    lineVisible: false
+                                    titleVisible: false
+                                    shadesVisible: false
+
+                                    function adjustMax(minPrice,maxPrice) {
+                                        // force yaxis steps to multiples of 5
+                                        let step = Math.ceil(maxPrice / 4);
+                                        const rest = step % 5;
+                                        if(rest !== 0) {
+                                            step += 5 - rest;
+                                        }
+
+                                        max = step * 4;
+                                    }
+                                }
+
+                                Item {
+                                    id: labelsLayout
+                                    x: Style.smallMargins
+                                    y: chartView.plotArea.y
+                                    height: chartView.plotArea.height
+                                    width: chartView.plotArea.x - x
+                                    Repeater {
+                                        model: valueAxis.tickCount
+                                        delegate: Label {
+                                            y: parent.height / (valueAxis.tickCount - 1) * index - font.pixelSize / 2
+                                            width: parent.width - Style.smallMargins
+                                            horizontalAlignment: Text.AlignRight
+                                            text: (Math.ceil(valueAxis.max - index * (valueAxis.max - valueAxis.min) / (valueAxis.tickCount - 1))) + " ct"  //linke Seite vom Graphen
+                                            verticalAlignment: Text.AlignTop
+                                            font: Style.extraSmallFont
+                                        }
+                                    }
+                                }
+
+                                DateTimeAxis {
+                                    id: dateTimeAxis
+                                    min: d.startTimeSince
+                                    max: d.endTimeUntil
+                                    format: "HH:mm"
+                                    tickCount: 5
+                                    labelsFont: Style.extraSmallFont
+                                    gridVisible: false
+                                    minorGridVisible: false
+                                    lineVisible: false
+                                    shadesVisible: false
+                                    labelsColor: Style.foregroundColor
+                                }
+
+
+                                AreaSeries {
+                                    id: currentLimitSeries
+                                    axisX: dateTimeAxis
+                                    axisY: valueAxis
+                                    color: '#ccc'
+                                    borderWidth: 1
+                                    borderColor: 'transparent'
+
+                                    upperSeries: LineSeries {
+                                        id: pricingCurrentLimitSeries
+                                    }
+                                }
+
+                                AreaSeries {
+                                    id: consumptionSeries
+                                    axisX: dateTimeAxis
+                                    axisY: valueAxis
+                                    color: 'transparent'
+                                    borderWidth: 1
+                                    borderColor: Style.epexMainLineColor
+
+
+                                    upperSeries: LineSeries {
+                                        id: pricingUpperSeries
+                                    }
+
+                                    function insertEntry(value, onlyThreshold){
+                                        var lastObjectValue = value[Object.keys(value)[Object.keys(value).length - 1]];
+
+                                        var firstRun = true;
+                                        let lastChange = 0;
+                                        let lastChangeTimestamp = 0;
+                                        let identicalIndexes = [];
+
+                                        for (const item in value){
+                                            const date = new Date(item);
+                                            let currentTimestamp = date.getTime();
+                                            let itemValue = value[item];
+                                            if(itemValue < lowestPrice){
+                                                lowestPrice = itemValue
+                                            }
+
+                                            if(itemValue > highestPrice){
+                                                highestPrice = itemValue
+                                            }
+
+                                            if(lastChange !== itemValue) {
+                                                lastChangeTimestamp = currentTimestamp;
+
+                                                for(const ts of identicalIndexes) {
+                                                    prices[ts].end = currentTimestamp;
+                                                }
+
+                                                identicalIndexes = [currentTimestamp];
+                                            }
+                                            else {
+                                                identicalIndexes.push(currentTimestamp);
+                                            }
+
+                                            lastChange = itemValue;
+
+                                            prices[currentTimestamp] = {
+                                                start: lastChangeTimestamp,
+                                                value: itemValue
+                                            };
+
+                                            if(firstRun === true){
+                                                firstRun = false;
+                                                highestPrice = itemValue
+                                                lowestPrice = itemValue
+                                                currentTimestamp = currentTimestamp - 600000;
+                                            }
+
+                                            if(itemValue < thresholdPrice) {
+                                                pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),thresholdPrice);
+                                                pricingCurrentLimitSeries.append(currentTimestamp,thresholdPrice);
+                                            }
+                                            else {
+                                                pricingCurrentLimitSeries.append(currentTimestamp - (60000 * 15),valueAxis.min -5);
+                                                pricingCurrentLimitSeries.append(currentTimestamp,valueAxis.min - 5);
+                                            }
+
+                                            pricingUpperSeriesAbove.append(currentTimestamp,thresholdPrice);
+                                            if(!onlyThreshold) {
+                                                pricingUpperSeries.append(currentTimestamp - (60000 * 15) + 1,itemValue);
+                                                pricingUpperSeries.append(currentTimestamp,itemValue);
+                                            }
+                                        }
+
+                                        const todayMidnight = new Date(identicalIndexes[0]);
+                                        todayMidnight.setDate(todayMidnight.getDate() +1);
+                                        todayMidnight.setMinutes(0);
+                                        todayMidnight.setHours(0);
+
+                                        const todayMidnightTs = todayMidnight.getTime();
+
+                                        for(const ts of identicalIndexes) {
+                                            prices[ts].end = todayMidnightTs;
+                                        }
+
+                                        pricingCurrentLimitSeries.append(todayMidnightTs + 6000000, valueAxis.min - 5);
+                                        pricingUpperSeriesAbove.append(todayMidnightTs + 6000000, thresholdPrice);
+                                        pricingLowerSeriesAbove.append(todayMidnightTs + 6000000, thresholdPrice);
+
+                                        if(!onlyThreshold) {
+                                            pricingUpperSeries.append(todayMidnightTs + 6000000, lastObjectValue);
+                                        }
+                                    }
+                                }
+
+                                AreaSeries {
+                                    id: consumptionSeriesAbove
+                                    axisX: dateTimeAxis
+                                    axisY: valueAxis
+                                    color: 'transparent'
+                                    borderWidth: 1
+                                    borderColor: Configuration.epexAverageColor
+
+                                    upperSeries: LineSeries {
+                                        id: pricingUpperSeriesAbove
+                                    }
+
+                                    lowerSeries: LineSeries {
+                                        id: pricingLowerSeriesAbove
+                                    }
+                                }
+                            }
+
+                            MouseArea {
+                                id: mouseArea
+                                anchors.fill: parent
+                                anchors.leftMargin: chartView.plotArea.x
+                                anchors.topMargin: chartView.plotArea.y
+                                anchors.rightMargin: chartView.width - chartView.plotArea.width - chartView.plotArea.x
+                                anchors.bottomMargin: chartView.height - chartView.plotArea.height - chartView.plotArea.y
+
+                                hoverEnabled: true
+                                preventStealing: tooltipping
+
+                                property int startMouseX: 0
+                                property bool tooltipping: false
+                                property var startDatetime: null
+
+                                Rectangle {
+                                    height: parent.height
+                                    width: 1
+                                    color: Style.foregroundColor
+                                    x: Math.min(mouseArea.width - 1, Math.max(0, mouseArea.mouseX))
+                                    visible: (mouseArea.containsMouse || mouseArea.tooltipping)
+                                }
+
+                                //Mouseover Details in Graph
+                                NymeaToolTip {
+                                    id: toolTip
+                                    visible: (mouseArea.containsMouse || mouseArea.tooltipping)
+
+                                    backgroundRect: Qt.rect(mouseArea.x + toolTip.x, mouseArea.y + toolTip.y, toolTip.width, toolTip.height)
+
+                                    property double currentValueY: 0
+                                    property int idx: mouseArea.mouseX
+                                    property int timeSince: new Date(d.startTimeSince).getTime()
+                                    property int timestamp: (new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())
+
+                                    property int xOnRight: Math.max(0, mouseArea.mouseX) + Style.smallMargins
+                                    property int xOnLeft: Math.min(mouseArea.width, mouseArea.mouseX) - Style.smallMargins - width
+                                    x: xOnRight + width < mouseArea.width ? xOnRight : xOnLeft
+                                    property double maxValue: 0
+                                    y: Math.min(Math.max(mouseArea.height - (maxValue * mouseArea.height / valueAxis.max) - height - Style.margins, 0), mouseArea.height - height)
+
+                                    width: tooltipLayout.implicitWidth + Style.smallMargins * 2
+                                    height: tooltipLayout.implicitHeight + Style.smallMargins * 2
+
+                                    function getQuaterlyTimestamp(ts) {
+                                        const currTime = new Date(ts);
+                                        const currMinutes = currTime.getMinutes();
+                                        const modRes = currMinutes % 15;
+
+                                        if(modRes !== 0) {
+                                            if(modRes < 8) {
+                                                currTime.setMinutes(currMinutes - modRes);
+                                            }
+                                            else {
+                                                currTime.setMinutes(currMinutes + (15 - modRes));
+                                            }
+
+                                            currTime.setSeconds(0);
+                                            return currTime.getTime();
+                                        }
+                                        else {
+                                            return ts;
+                                        }
+                                    }
+
+                                    ColumnLayout {
+                                        id: tooltipLayout
+                                        anchors {
+                                            left: parent.left
+                                            top: parent.top
+                                            margins: Style.smallMargins
+                                        }
+                                        Label {
+                                            text: {
+                                                if(!mouseArea.containsMouse) {
+                                                    return "";
+                                                }
+
+                                                let hoveredTime = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000;
+
+                                                d.startTimeSince.toLocaleString(Qt.locale(), Locale.ShortFormat);
+
+                                                let currentPrice = prices[toolTip.getQuaterlyTimestamp(hoveredTime)];
+
+                                                if(!currentPrice)
+                                                    return qsTr("No prices available, yet");
+
+                                                if(!currentPrice || typeof currentPrice === "undefined") {
+                                                    const priceKeys = Object.keys(prices);
+                                                    const lastItem = priceKeys[priceKeys.length -1];
+                                                    currentPrice = prices[lastItem];
+                                                }
+
+                                                let val = currentPrice.start;
+                                                val = new Date(val).toLocaleString(Qt.locale(), Locale.ShortFormat);
+
+                                                let endVal = currentPrice.end;
+                                                endVal = new Date(endVal).toLocaleTimeString(Qt.locale(), Locale.ShortFormat) + ":00";
+
+                                                return val + " - " + endVal.slice(0, -3);
+                                            }
+                                            font: Style.smallFont
+                                        }
+                                        Label {
+                                            property string unit: qsTr("ct/kWh")
+                                            text: {
+                                                if(!mouseArea.containsMouse) {
+                                                    return "";
+                                                }
+
+                                                let hoveredTime = Number.parseInt(((new Date(d.endTimeUntil).getTime() - new Date(d.startTimeSince).getTime())/Math.ceil(mouseArea.width)*toolTip.idx+new Date(d.startTimeSince).getTime())/100000) * 100000;
+
+                                                let currentPrice = prices[toolTip.getQuaterlyTimestamp(hoveredTime)];
+
+                                                if(!currentPrice)
+                                                    return "";
+
+                                                if(!currentPrice || typeof currentPrice === "undefined") {
+                                                    const priceKeys = Object.keys(prices);
+                                                    const lastItem = priceKeys[priceKeys.length -1];
+                                                    currentPrice = prices[lastItem];
+                                                }
+
+                                                let dynamicVal = currentPrice.value;
+
+                                                const scaleValue = valueAxis.max + (valueAxis.min > 0 ? 0 : (valueAxis.min * (-1)));
+
+                                                dynamicVal += valueAxis.min < 0 ? (valueAxis.min * (-1)) : 0;
+
+                                                toolTip.y = mouseArea.height - (mouseArea.height * (dynamicVal / scaleValue)) - toolTip.height - 2;
+                                                const val = (+currentPrice.value.toFixed(2)).toLocaleString();
+                                                return "%1 %2".arg(val).arg(unit);
+                                            }
+                                            font: Style.extraSmallFont
+                                        }
+
+                                    }
+                                }
+                            }
+
+
+                        }
+                    }
+                }
+
+                Button {
+                    id: savebutton
+
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignBottom
+                    text: qsTr("Save")
+                    onClicked: {
+                        // if simple PV excess mode is used set the batteryLevel to 1
+                        if(isAnyOfModesSelected([simple_pv_excess, no_optimization, dyn_pricing, time_controlled])){
+                            batteryLevel.value = 1
+                            targetPercentageSlider.value = 100
+                        }
+
+                        // Set the endTime to maximum value for all modes except pv_optimized
+                        if(isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing, no_optimization, time_controlled])){
+                            endTimeSlider.value = 24*60
+                        }
+
+                        // Collect time controlled schedule data from scheduleModel
+                        var chargingSchedule = []
+                        if(isAnyOfModesSelected([time_controlled])){
+                            for (var i = 0; i < scheduleModel.count; i++) {
+                                var entry = scheduleModel.get(i)
+                                chargingSchedule.push({
+                                                          day: entry.dayKey,
+                                                          startTime: entry.hasEntry ? entry.startTime : "00:00",
+                                                          endTime: entry.hasEntry ? entry.endTime : "00:00"
+                                                      })
+                            }
+                        }
+
+                        if ((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) && (endTimeSlider.value >= 30) && carSelector.holdingItem !== false && batteryLevel.value !== 0){
+                            if (carSelector.holdingItem.stateByName("batteryLevel").value){
+                                carSelector.holdingItem.executeAction("batteryLevel", [{ paramName: "batteryLevel", value: batteryLevel.value }])
+                            }
+                            pageSelectedCar = carSelector.holdingItem.name
+
+                            var optimizationMode = compute_OptimizationMode()
+
+                            var desiredPhaseCount = 3;
+                            if (isAnyOfModesSelected([pv_optimized, simple_pv_excess]) &&
+                                    thing.thingClass.interfaces.includes("phaseswitching")) {
+                                desiredPhaseCount = desiredPhaseCountDropdown.currentValue;
+                            }
+
+                            hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex})
+
+                            var configData = {
+                                optimizationEnabled: true,
+                                carThingId: carSelector.holdingItem.id,
+                                endTime: endTimeLabel.endTime.getHours() + ":" +  endTimeLabel.endTime.getMinutes() + ":00",
+                                targetPercentage: targetPercentageSlider.value,
+                                optimizationMode: optimizationMode,
+                                priceThreshold: currentValue,
+                                desiredPhaseCount: desiredPhaseCount
+                            }
+
+                            // Add charging schedule if time controlled mode
+                            if(isAnyOfModesSelected([time_controlled])){
+                                configData.chargingSchedule = JSON.stringify(chargingSchedule)
+                            }
+
+                            hemsManager.setChargingConfiguration(thing.id, configData)
+
+                            optimizationPage.done()
+                            pageStack.pop()
+
+                        }
+                        else{
+                            // footer message to notifiy the user, what is wrong
+                            if(batteryLevel.value === 0){
+                                footer.text = qsTr("Please select a battery level greater than 0%.")
+                            }
+                            else if (carSelector.holdingItem === false){
+                                footer.text = qsTr("Please select a car")
+                            }
+                            else if((endTimeSlider.value < endTimeSlider.maximumChargingthreshhold) || (endTimeSlider.value < 30)){
+                                footer.text = qsTr("Please select a valid target time")
+                            }
+                            else{
+                                footer.text = qsTr("Unknown error")
+                            }
+
+                            footer.visible = true
+                        }
+
+
+
+                    }
+
+                    function compute_OptimizationMode(){
+                        var mode = comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode
+                        if(isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])){
+                            // single digit
+                            var gridConsumptionOption = gridConsumptionloadingmod.model.get(gridConsumptionloadingmod.currentIndex).mode
+                            mode = mode + gridConsumptionOption
+                        }
+                        return mode
+                    }
+                }
+            }
         }
-    ]
+    }
 }
