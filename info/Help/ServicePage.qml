@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import QtQml
 import Nymea 1.0
 import QtQuick.Layouts
