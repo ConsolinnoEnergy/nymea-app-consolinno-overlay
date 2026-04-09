@@ -164,6 +164,7 @@ Page {
                     CoSortableCard {
                         id: dndItem
                         visible: priorityListView.dragging
+                        dragging: true
                         y: dndArea.mouseY - dndArea.dragOffset
                         width: priorityListView.width
                         iconLeft: Qt.resolvedUrl("qrc:/icons/interests.svg")

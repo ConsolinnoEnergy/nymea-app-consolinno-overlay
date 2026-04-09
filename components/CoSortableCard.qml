@@ -11,10 +11,21 @@ Item {
     property alias showChildrenIndicator: card.showChildrenIndicator
     property alias iconLeft: card.iconLeft
     property alias iconRight: card.iconRight
+    property bool dragging: false
 
     readonly property real dragHandleStartX: width - 2 * Style.margins - dragHandleIcon.width
 
     implicitHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
+
+    Rectangle {
+        anchors.fill: parent
+        color: dragging ? Style.colors.typography_Background_Default : "transparent"
+
+        Rectangle {
+            anchors.fill: parent
+            color: dragging ? Style.colors.typography_States_Pressed : "transparent"
+        }
+    }
 
     RowLayout {
         id: layout
