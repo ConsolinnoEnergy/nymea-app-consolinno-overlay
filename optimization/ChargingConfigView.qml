@@ -89,22 +89,24 @@ GenericConfigPage {
         }
     }
 
-    function isCarPluggedIn() {
-        if (thing.stateByName("pluggedIn").value) {
-            return true;
+    function isCarPluggedIn()
+    {
+        if (thing.stateByName("pluggedIn").value)
+        {
+            return true
         }
-        return false;
+        return false
     }
     
 
     function calcChargingCurrent(){
         // get the current power of the charger and null if not available
-        var power = thing.stateByName("currentPower");
-        var phaseCount = thing.stateByName("phaseCount").value;
-        if (phaseCount === 0 | power === null) {
-            return "–";
+        var power = thing.stateByName("currentPower")
+        var phaseCount = thing.stateByName("phaseCount").value
+        if (phaseCount === 0 | power === null){
+            return " – "
         }
-        return power.value / (230 * phaseCount);
+        return power.value/(230*phaseCount)
     }
 
     function getUserVisibleChargingPower(){
@@ -142,24 +144,25 @@ GenericConfigPage {
         return exist
     }
 
-    function getChargingMode(opti_mode) {
+    function getChargingMode(opti_mode){
+
         if (opti_mode < 1000) {
-            return no_optimization;
+            return no_optimization
         }
         if (opti_mode >= 1000 && opti_mode < 2000) {
-            return pv_optimized;
+            return pv_optimized
         }
         if (opti_mode >= 2000 && opti_mode < 3000) {
-            return pv_excess;
+            return pv_excess
         }
         if (opti_mode >= 3000 && opti_mode < 4000) {
-            return simple_pv_excess;
+            return simple_pv_excess
         }
         if (opti_mode >= 4000 && opti_mode < 5000) {
-            return dyn_pricing;
+            return dyn_pricing
         }
         if (opti_mode >= 5000 && opti_mode < 6000) {
-            return time_controlled;
+            return time_controlled
         }
     }
 
@@ -312,6 +315,8 @@ GenericConfigPage {
             clip: true
             anchors.fill: parent
             contentHeight: contentColumn.implicitHeight +
+                           contentColumn.anchors.topMargin +
+                           contentColumn.anchors.bottomMargin +
                            (header ? header.height : 0)
 
             ColumnLayout {
@@ -409,9 +414,7 @@ GenericConfigPage {
                         CoCard {
                             id: chargingModeCard
                             Layout.fillWidth: true
-                            text: chargingConfiguration.optimizationEnabled ?
-                                                      selectMode(chargingConfiguration.optimizationMode) :
-                                                      "—"
+                            text: chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationMode) : "—"
                             labelText: qsTr("Charging mode") // #TODO wording
                             showChildrenIndicator: isCarPluggedIn()
                             interactive: isCarPluggedIn()
@@ -733,6 +736,25 @@ GenericConfigPage {
                                      chargingIsAnyOf([pv_optimized, simple_pv_excess])
                             interactive: false
                         }
+
+                        Button {
+                            id: cancelChargingButton
+                            Layout.fillWidth: true
+                            Layout.topMargin: Style.smallMargins
+                            Layout.leftMargin: Style.margins
+                            Layout.rightMargin: Style.margins
+                            visible: chargingConfiguration.optimizationEnabled
+                            text: qsTr("Cancel charging") // #TODO wording
+
+                            onClicked: {
+                                hemsManager.setChargingConfiguration(thing.id,
+                                                                     {
+                                                                         optimizationEnabled: false,
+                                                                         optimizationMode: 9
+                                                                     });
+                                busyOverlay.shown = true;
+                            }
+                        }
                     }
                 }
             }
@@ -916,7 +938,6 @@ GenericConfigPage {
                                 // #TODO add "No charging" mode
                                 // This is your full source model (static)
                                 property var fullModel: [
-                                    { key: qsTr("No charging"), mode: -1 },
                                     { key: qsTr("Charge always"), mode: 0 },
                                     { key: qsTr("Solar only"), mode: 3000 },
                                     { key: qsTr("Next trip"), mode: 1000 },
@@ -945,7 +966,7 @@ GenericConfigPage {
                                 onCurrentIndexChanged: {
                                     endTimeSlider.computeFeasibility();
                                     endTimeSlider.feasibilityText();
-                                    comboboxloadingmod.currentIndex === 4 ?
+                                    comboboxloadingmod.currentIndex === 3 ?
                                                 gridConsumptionloadingmod.currentIndex = 1 :
                                                 gridConsumptionloadingmod.currentIndex = 0;
                                 }
@@ -961,9 +982,7 @@ GenericConfigPage {
                                         const item = fullModel[i];
 
                                         // Determine visibility
-                                        if (item.mode === -1) {
-                                            dynamicModel.append(item);
-                                        } else if (item.mode === 0) {
+                                        if (item.mode === 0) {
                                             dynamicModel.append(item);
                                         } else if ((item.mode === 1000 || item.mode === 3000) && pvEnabled) {
                                             dynamicModel.append(item);
@@ -979,17 +998,17 @@ GenericConfigPage {
                                     let currentChargingConfigOptimizationMode = chargingConfiguration.optimizationMode - (chargingConfiguration.optimizationMode % 1000);
                                     for (let j = 0; j < dynamicModel.count; ++j) {
                                         console.debug("Current dynamic model mode: " +
-                                                      dynamicModel.get(j).mode +
-                                                      " vs config mode: " +
-                                                      currentChargingConfigOptimizationMode);
+                                                     dynamicModel.get(j).mode +
+                                                     " vs config mode: " +
+                                                     currentChargingConfigOptimizationMode);
                                         if (dynamicModel.get(j).mode === currentChargingConfigOptimizationMode) {
                                             comboboxloadingmod.currentIndex = j;
                                             return;
                                         }
                                         // #TODO does this work for "no charging"
                                         if (chargingConfiguration.optimizationMode === 9) {
-                                            // If optimizationMode is 9 (no optimization), set to "No charging"
-                                            if (dynamicModel.get(j).mode === -1) {
+                                            // If optimizationMode is 9 (no optimization), set to "Charge always"
+                                            if (dynamicModel.get(j).mode === 0) {
                                                 comboboxloadingmod.currentIndex = j;
                                                 return;
                                             }
@@ -1765,19 +1784,6 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: qsTr("Save")
                             onClicked: {
-                                // No charging
-                                if (comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode === -1) {
-                                    hemsManager.setChargingConfiguration(thing.id,
-                                                                         {
-                                                                             optimizationEnabled: false,
-                                                                             optimizationMode: 9
-                                                                         });
-                                    busyOverlay.shown = true;
-                                    optimizationPage.done();
-                                    pageStack.pop();
-                                    return;
-                                }
-
                                 // if simple PV excess mode is used set the batteryLevel to 1
                                 if(isAnyOfModesSelected([simple_pv_excess, no_optimization, dyn_pricing, time_controlled])) {
                                     batteryLevel.value = 1;
