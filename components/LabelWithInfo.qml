@@ -8,6 +8,7 @@ Row {
     property alias push: infoButton.push
     property alias font: label.font
     property alias fontColor: label.color
+    property alias wrapMode: label.wrapMode
 
     Layout.fillWidth: true
     spacing: 8
@@ -17,6 +18,9 @@ Row {
         anchors.verticalCenter: parent.verticalCenter
         font: Style.newParagraphFontBold
         color: Style.colors.components_Forms_Fields_Field_label
+        wrapMode: Text.Wrap
+        width: Math.min(implicitWidth,
+                        parent.width - (infoButton.visible ? infoButton.width + parent.spacing : 0))
     }
 
     InfoButton {

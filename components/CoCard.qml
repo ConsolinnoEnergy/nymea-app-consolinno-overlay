@@ -21,7 +21,9 @@ Item {
     property alias labelText: labelText.text
     property bool showChildrenIndicator: false
     property alias iconLeft: leftIcon.name
+    property alias iconLeftColor: leftIcon.color
     property alias iconRight: rightIcon.name
+    property alias iconRightColor: rightIcon.color
     property alias interactive: mouseArea.enabled
     property int status: CoCard.StatusType.NoStatus
 
@@ -72,13 +74,10 @@ Item {
             spacing: 0
 
             LabelWithInfo {
-            // Text {
                 id: titleText
                 Layout.fillWidth: true
-                // verticalAlignment: Text.AlignVCenter
-                // wrapMode: Text.WordWrap
+                wrapMode: Text.WordWrap
                 font: Style.newParagraphFont
-                // color: Style.colors.typography_Basic_Default
                 fontColor: Style.colors.typography_Basic_Default
             }
 
