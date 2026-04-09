@@ -156,7 +156,7 @@ GenericConfigPage {
                         visible: root.pvSurplusPowerState !== null
                         icon: Qt.resolvedUrl("qrc:/icons/solar_power.svg")
                         labelText: qsTr("Forwarded Solar Surplus")
-                        infoUrl: "PVSurplusInfo.qml"
+                        infoUrl: "PvSurplusInfo.qml"
                         valueText: (root.pvSurplusPowerState ? NymeaUtils.floatToLocaleString((+root.pvSurplusPowerState.value) / 1000, 2) : "-") + qsTr(" kW")
                     }
                 }
