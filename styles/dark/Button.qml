@@ -59,6 +59,7 @@ T.Button {
     leftInset: 4
     rightInset: 4
     opacity: !control.enabled ? Style.numbers.components_Disabled_opacity : 1
+    font: Style.newParagraphFont
 
     contentItem: RowLayout {
         spacing: Style.smallMargins
@@ -79,7 +80,7 @@ T.Button {
             color: control.secondary ?
                        Style.colors.typography_Basic_Default :
                        Style.colors.components_Forms_Buttons_Button_primary_text
-            font: Style.newParagraphFont
+            font: control.font
 
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter

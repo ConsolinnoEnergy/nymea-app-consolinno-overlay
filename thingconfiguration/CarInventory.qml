@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import QtQml
 import QtQuick.Layouts
 import Nymea 1.0
@@ -11,6 +10,9 @@ import "../delegates"
 
 Page{
     id: root
+
+    property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
+
     signal done(var selectedCar)
     signal back()
 
@@ -40,159 +42,143 @@ Page{
 
     QtObject {
         id: d
-        property var vendorId: null
-        property ThingDescriptor thingDescriptor: null
-        property var discoveryParams: []
-        property string thingName: ""
-        property int pairRequestId: 0
-        property var pairingTransactionId: null
-        property int addRequestId: 0
         property var name: ""
-        property var params: []
         property var states: []
         property var settings: []
         property var attr: []
 
-
         function updateThing(thing) {
-
-            for(var i = 0; i < d.states.length; i++){
-
-                thing.executeAction( d.states[i].name, [{ paramName: d.states[i].name , value: d.states[i].value }])
-
+            for(var i = 0; i < d.states.length; i++) {
+                thing.executeAction( d.states[i].name, [{ paramName: d.states[i].name , value: d.states[i].value }]);
             }
 
-            for (var j = 0; j < d.settings.length; j++){
-                engine.thingManager.setThingSettings(thing.id, [{ paramTypeId: d.settings[j].paramTypeId , value: d.settings[j].value }])
+            for (var j = 0; j < d.settings.length; j++) {
+                engine.thingManager.setThingSettings(thing.id,
+                                                     [{ paramTypeId: d.settings[j].paramTypeId , value: d.settings[j].value }]);
             }
-                engine.thingManager.editThing(thing.id, d.name)
+            engine.thingManager.editThing(thing.id, d.name);
+            pageStack.push(resultsPage, {thing: thing});
+        }
+    }
 
-            pageStack.push(resultsPage, {thing: thing})
+    Flickable {
+        clip: true
+        anchors.fill: parent
+        contentHeight: layout.implicitHeight +
+                       layout.anchors.topMargin +
+                       layout.anchors.bottomMargin
 
+        ColumnLayout {
+            id: layout
+            anchors.fill: parent
+            anchors.margins: Style.margins
+            spacing: Style.margins
+
+            CoFrostyCard {
+                id: vehiclesGroup
+                Layout.fillWidth: true
+                contentTopMargin: Style.smallMargins
+                headerText: qsTr("Electric vehicles") // #TODO wording
+
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    Repeater {
+                        id: optimizerRepeater
+                        Layout.fillWidth: true
+                        model: evProxy
+
+                        function updateRadioButtonCheckStates(clickedIndex) {
+                            for (let i = 0; i < count; ++i) {
+                                if (i === clickedIndex) { continue; }
+                                let item = itemAt(i);
+                                item.checked = false;
+                            }
+                        }
+
+                        function checkedIndex() {
+                            for (let i = 0; i < count; ++i) {
+                                let item = itemAt(i);
+                                if (item.checked) { return i; }
+                            }
+                            return -1;
+                        }
+
+                        delegate: CoCardWithRadioButton {
+                            Layout.fillWidth: true
+                            text: evProxy.get(index) ? evProxy.get(index).name : ""
+                            iconRight: Qt.resolvedUrl("/icons/edit.svg")
+                            checked: evProxy.get(index).id === userconfig.lastSelectedCar
+
+                            onClicked: {
+                                pageStack.push(carData, { thing: evProxy.get(index) });
+                            }
+
+                            onRadioButtonClicked: {
+                                // Don't allow to uncheck a radio button by clicking.
+                                if (!checked) {
+                                    checked = true;
+                                    return;
+                                }
+                                optimizerRepeater.updateRadioButtonCheckStates(index);
+                            }
+                        }
+                    }
+                }
+            }
+
+            Button {
+                id: addCarButton
+                Layout.alignment: Qt.AlignCenter
+                text: "+"
+                font.pixelSize: 32
+                topPadding: 6
+                leftPadding: 6
+                rightPadding: 6
+                bottomPadding: 6
+                width: height
+                implicitWidth: implicitHeight
+
+                onClicked: {
+                    for (var i = 0; i < thingClassesProxy.count; i++) {
+                        if (thingClassesProxy.get(i).id.toString() === "{dbe0a9ff-94ba-4a94-ae52-51da3f05c717}" ||
+                                thingClassesProxy.get(i).id.toString() === "{0d6151d6-e013-47ab-a8c1-9c516a2c8664}"  ) {
+                            var page = pageStack.push("../thingconfiguration/AddGenericCar.qml",
+                                                      { thingClass: thingClassesProxy.get(i) });
+                            page.done.connect(function() {
+                                pageStack.pop();
+                            });
+                            page.aborted.connect(function() {
+                                pageStack.pop();
+                            });
+                        }
+                    }
+                }
+            }
 
         }
     }
 
+    footer: ColumnLayout {
+        Button {
+            Layout.fillWidth: true
+            Layout.margins: Style.margins
+            id: saveButton
+            text: qsTr("Save") // #TODO wording
+            enabled: optimizerRepeater.checkedIndex() !== -1
 
-
-
-    Flickable{
-        clip: true
-        id: inventoryScroller
-        anchors.top: parent.top
-        width: parent.width
-        height: parent.height
-        contentHeight: inventory.implicitHeight
-        contentWidth: app.width
-
-
-        ColumnLayout{
-            id: inventory
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.topMargin: app.margins
-            anchors.margins: app.margins
-            Repeater{
-                id: addCarRepeater
-                Layout.fillWidth: true
-                Layout.topMargin: 5
-                model: 1
-                delegate: ItemDelegate{
-                    Layout.fillWidth: true
-                    contentItem: ColumnLayout{
-                        id: carRepeaterLayout
-                        Layout.fillWidth: true
-
-                        VerticalDivider
-                        {
-                            Layout.fillWidth: true
-                            dividerColor: Material.accent
-                        }
-
-                        ConsolinnoItemDelegate{
-                            id: addCardelegate
-                            iconName: "add"
-                            iconColor: Material.foreground
-                            Layout.fillWidth: true
-                            text: qsTr("Add new car")
-                            progressive: false
-                            onClicked:{
-
-                                for (var i = 0; i<thingClassesProxy.count; i++){
-                                    if (thingClassesProxy.get(i).id.toString() === "{dbe0a9ff-94ba-4a94-ae52-51da3f05c717}" || thingClassesProxy.get(i).id.toString() === "{0d6151d6-e013-47ab-a8c1-9c516a2c8664}"  ){
-                                        var page = pageStack.push("../thingconfiguration/AddGenericCar.qml" , {thingClass: thingClassesProxy.get(i)})
-                                        page.done.connect(function(attr){
-                                            pageStack.pop()
-                                        })
-                                        page.aborted.connect(function(){
-                                            pageStack.pop()
-                                        })
-                                    }
-                                }
-                            }
-
-                        }
-                        VerticalDivider
-                        {
-                            Layout.fillWidth: true
-                            dividerColor: Material.accent
-                        }
-                    }
+            onClicked: {
+                const checkedIndex = optimizerRepeater.checkedIndex();
+                let carThing = evProxy.getThing(userconfig.lastSelectedCar);
+                if (checkedIndex === -1) {
+                    console.error("No car selected!");
+                } else {
+                    carThing = evProxy.get(checkedIndex);
                 }
-            }
-
-            Repeater{
-                id: optimizerRepeater
-                Layout.fillWidth: true
-                model: evProxy
-                delegate: ItemDelegate{
-                    id: optimizerInputs
-                    Layout.fillWidth: true
-                    contentItem: ColumnLayout{
-                        Layout.fillWidth: true
-                        objectName: "optimizerRepeater_" + index.toString()
-                        RowLayout{
-
-                            ConsolinnoItemDelegate{
-
-                                Layout.fillWidth: true
-                                Layout.preferredWidth: app.width/1.5
-                                progressive: false
-                                text: evProxy.get(index) ? evProxy.get(index).name : ""
-                                onClicked: {
-                                    root.done(evProxy.get(index))
-                                    pageStack.pop()
-                                }
-
-                            }
-
-                            ConsolinnoItemDelegate{
-                                Layout.fillWidth: true
-                                primetextElide: Text.ElideNone
-                                text: qsTr("edit")
-                                iconName: "edit"
-                                iconColor: Material.foreground
-                                progressive: false
-                                onClicked: {
-                                    pageStack.push(carData, {thing: evProxy.get(index)})
-                                }
-
-                            }
-
-
-                        }
-
-                        VerticalDivider
-                        {
-                            dividerColor: Material.accent
-                            Layout.fillWidth: true
-                        }
-
-                    }
-
-                }
-
+                root.done(carThing);
+                pageStack.pop();
             }
         }
     }
@@ -207,7 +193,6 @@ Page{
                 text: qsTr("Reconfigure " + thing.name)
                 onBackPressed: pageStack.pop()
             }
-
 
             ColumnLayout {
                 width: Math.min(500, parent.width - app.margins * 2)
@@ -228,8 +213,6 @@ Page{
                     text: qsTr("All done. You can now start using %1.").arg(thing.name)
                 }
 
-
-
                 Button {
                     Layout.fillWidth: true
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
@@ -248,310 +231,121 @@ Page{
 
 
 
-    Component
-    {
+    Component {
         id: carData
-        SettingsPageBase{
+
+        SettingsPageBase {
             property var thing
             title: thing ? thing.name : ""
 
-            ColumnLayout{
+            ColumnLayout {
+                Layout.fillWidth: true
+                Layout.margins: Style.margins
+                spacing: Style.margins
 
-
-                Repeater{
-                    id: customRepeater
+                CoFrostyCard {
+                    id: vehiclesGroup
                     Layout.fillWidth: true
-                    property var attributes: ({})
-                    // if you want to add atribute:
-                    // add one in the model
-                    model:[
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("Setup car") // #TODO wording
 
-                        {id: "name", name: "Name: ", displayName: qsTr("Name: "), component: nameComponent, type: "name", Uuid: "", info: ""  },
-                        {id: "capacity", name: "Battery capacity", displayName: qsTr("Battery capacity"),component: capacityComponent, type: "setting", Uuid: "57f36386-dd71-4ab0-8d2f-8c74a391f90d", info: "Capacity.qml"  },
-                        {id: "minChargingCurrent", name: "Minimum charging current", displayName: qsTr("Minimum charging current"), component: minimumChargingCurrentComponent, type: "setting", Uuid: "0c55516d-4285-4d02-8926-1dae03649e18", info: "MinimumChargingCurrent.qml"},
-                        {id: "batteryLevelLimit", name: "Maximum charging limit" , displayName: qsTr("Maximum charging limit"), component: maximumAllowedChargingLimitComponent, type: "state", Uuid: "70cbfe6a-6119-4434-8a06-2d6b7c9a30ea", info: "MaximumAllowedChargingLimit.qml" },
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
 
-
-                    ]
-
-                    delegate: ItemDelegate
-                    {
-                        id: attribute
-                        Layout.fillWidth: true
-
-                        contentItem: ColumnLayout{
-                            id: contentItemColumn
+                        CoInputField {
+                            id: nameInput
                             Layout.fillWidth: true
-                            spacing: 5
-
-                            RowLayout {
-                                Layout.fillWidth: true
-                                Label{
-                                    id: customRepeaterModelName
-                                    horizontalAlignment: Text.AlignLeft
-                                    text: modelData.displayName
-
-                                }
-
-                                InfoButton{
-                                    property var infoPage: modelData.info
-                                    visible: modelData.info ? true : false
-                                    push: infoPage
-                                    stack: pageStack
-                                }
-                            }
-
-                            // define the case in the Loader
-                            Loader{
-                                id: paramLoader
-
-                                Binding{
-                                    target: paramLoader.item
-                                    property: "thing"
-                                    value: thing
-                                }
-
-                                Layout.fillWidth: true
-                                Layout.rightMargin: 0
-                                sourceComponent: {
-                                    switch(modelData.id){
-                                    case "batteryLevelLimit":
-                                    {
-                                        return maximumAllowedChargingLimitComponent
-                                    }
-                                    case "minChargingCurrent":
-                                    {
-                                        return minimumChargingCurrentComponent
-                                    }
-                                    case "capacity":
-                                    {
-                                        return capacityComponent
-                                    }
-                                    case "name":
-                                    {
-                                        return nameComponent
-                                    }
-
-                                    }
-
-                                }
-                            }
-
-
-
-                        }
-                    }
-
-                }
-
-                // individual Components for the different attributes
-                // and build a component
-                Component{
-                    id: maximumAllowedChargingLimitComponent
-                    RowLayout{
-                        property var thing
-                        Layout.fillWidth: true
-                        Slider
-                        {
-                            id: maximumChargingSlider
-                            Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignLeft
-                            from: 0
-                            to: 100
-                            stepSize: 1
-                            value: thing ? thing.stateByName("batteryLevelLimit").value : 100
-
-                            onPositionChanged:{
-                                customRepeater.attributes["batteryLevelLimit"] = value
-                            }
-
-                        }
-                        Label{
-
-                            Layout.fillWidth: true
-                            Layout.maximumWidth: 40
-                            Layout.rightMargin: 0
-                            horizontalAlignment: Text.AlignRight
-                            id: maximumChargingLimitLabel
-                            text: maximumChargingSlider.value + "%"
+                            labelText: qsTr("Name")
+                            text: thing ? thing.name : ""
                         }
 
-                    }
-
-                }
-
-                Component{
-                    id: minimumChargingCurrentComponent
-
-                    RowLayout{
-                        property var thing
-                        Layout.fillWidth: true
-                        Slider
-                        {
+                        // #TODO use CoInputStepper when ready
+                        CoInputField {
+                            id: capacityInput
                             Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignLeft
-                            id: minimumChargingCurrentSlider
+                            labelText: qsTr("Capacity")
+                            infoUrl: "Capacity.qml"
+                            text: thing ? thing.stateByName("capacity").value : 0
+                            unit: "kWh"
+                        }
+
+                        CoSlider {
+                            id: minChargingCurrentInput
+                            Layout.fillWidth: true
+                            labelText: qsTr("Minimum charging current")
+                            infoUrl: "MinimumChargingCurrent.qml"
                             from: 6
                             to: 16
                             stepSize: 1
                             value: thing ?  thing.stateByName("minChargingCurrent").value : 6
-
-                            onPositionChanged:{
-                                customRepeater.attributes["minChargingCurrent"] = value
-                            }
-
+                            valueText: value + " A"
                         }
 
-                        Label{
-                            Layout.preferredWidth: 40
-                            Layout.rightMargin: 0
-                            horizontalAlignment: Text.AlignRight
-                            id: minimumChargingCurrentLabel
-                            text: minimumChargingCurrentSlider.value + " A"
-                        }
-
-                    }
-
-                }
-
-                Component{
-                    id: capacityComponent
-                    RowLayout{
-                        property var thing
-                        Layout.fillWidth: true
-                        // at some time replace this one
-                        RowLayout{
-                            Layout.alignment: Qt.AlignHCenter
-                            NymeaSpinBox
-                            {
-
-                                Layout.maximumWidth: 150
-
-                                value: thing ? thing.stateByName("capacity").value : 0
-                                id: capacitySpinbox
-                                from: 0
-                                to: 100
-
-                                onValueChanged:{
-
-                                    if (value >= 0){
-                                        customRepeater.attributes["capacity"] = value
-                                    }else{
-                                        value = 0
-                                    }
-
-                                }
-
-
-
-                            }
-
-                            Label{
-                                Layout.preferredWidth: 20
-                                id: capacityComponentLabel
-                                text: " kWh"
-                            }
-                        }
-
-                    }
-
-                }
-
-
-                Component{
-                    id: nameComponent
-                    RowLayout{
-                        property var thing
-                        TextField {
-                            id: nameTextField
-                            text: thing ? thing.name : ""
+                        CoSlider {
+                            id: maxChargingLimitInput
                             Layout.fillWidth: true
-                            Layout.leftMargin: app.margins
-                            Layout.rightMargin: app.margins
-                            onTextEdited: {
-                                customRepeater.attributes["name"] = nameTextField.text
-                            }
+                            labelText: qsTr("Maximum charging limit")
+                            infoUrl: "MaximumAllowedChargingLimit.qml"
+                            from: 0
+                            to: 100
+                            stepSize: 1
+                            value: thing ? thing.stateByName("batteryLevelLimit").value : 100
+                            valueText: value + " %"
                         }
-
-
                     }
-
                 }
 
                 SecondaryButton {
                     Layout.fillWidth: true
-                    text: qsTr("delete")
+                    text: qsTr("Delete")
 
-                    onClicked:{
+                    onClicked: {
                         engine.thingManager.removeThing(thing.id);
                         pageStack.pop();
                     }
                 }
-
 
                 Button {
                     Layout.fillWidth: true
                     Layout.leftMargin: app.margins
                     Layout.rightMargin: app.margins
                     text: qsTr("Save")
-                    onClicked: {
-                        var states = []
-                        var settings = []
-                        var attrs = []
-
-                        for(var i = 0; i < customRepeater.count; i++)
-                        {
-                            var state   = {}
-                            var setting = {}
-                            var attr   = {}
-
-                            var attribute = customRepeater.model[i]
-                            if (attribute.type === "state")
-                            {
-
-                                state.value = customRepeater.attributes[attribute.id]
-                                state.name = attribute.id
-                                states.push(state)
-
-                            }else if(attribute.type === "setting"){
-
-                                setting.paramTypeId = attribute.Uuid
-
-                                setting.value = customRepeater.attributes[attribute.id]
-                                settings.push(setting)
-
-                            }else if(attribute.type === "attr"){
-
-                                attr.id = attribute.id
-                                attr.value = customRepeater.attributes[attribute.id]
-                                attrs.push(attr)
-                            }else if(attribute.type === "name"){
-
-                                if ("name" in customRepeater.attributes){
-                                    d.name = customRepeater.attributes[attribute.id]
-                                }else{
-                                    d.name = thing.name
-                                }
-
-                            }
-
-
-
+                    enabled: {
+                        if (nameInput.text === "") {
+                            return false;
                         }
-
-                        d.settings = settings
-                        d.states = states
-                        d.attr = attrs
-                        d.updateThing( thing );
-
+                        let capacity = parseInt(capacityInput.text);
+                        if (isNaN(capacity)) {
+                            return false;
+                        }
+                        return true;
+                    }
+                    onClicked: {
+                        var states = [];
+                        var settings = [];
+                        var capacitySetting = {};
+                        capacitySetting.paramTypeId = "57f36386-dd71-4ab0-8d2f-8c74a391f90d";
+                        capacitySetting.value = parseInt(capacityInput.text);
+                        settings.push(capacitySetting);
+                        var minChargingCurrentSetting = {};
+                        minChargingCurrentSetting.paramTypeId = "0c55516d-4285-4d02-8926-1dae03649e18";
+                        minChargingCurrentSetting.value = minChargingCurrentInput.value;
+                        settings.push(minChargingCurrentSetting);
+                        var maxChargingLimitState = {};
+                        maxChargingLimitState.name = "batteryLevelLimit";
+                        maxChargingLimitState.value = maxChargingLimitInput.value;
+                        states.push(maxChargingLimitState);
+                        d.name = nameInput.text;
+                        d.settings = settings;
+                        d.states = states;
+                        d.updateThing(thing);
                     }
                 }
             }
         }
-
     }
-
-
 }
 
 
