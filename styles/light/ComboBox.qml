@@ -59,8 +59,11 @@ T.ComboBox {
     font: Style.newParagraphFont
 
     delegate: ItemDelegate {
+        required property var model
+        required property int index
+
         width: ListView.view.width
-        text: control.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : model[control.textRole]) : modelData
+        text: control.textRole ? model[control.textRole] : model
         font: Style.newParagraphFont
         highlighted: control.highlightedIndex === index
         hoverEnabled: control.hoverEnabled

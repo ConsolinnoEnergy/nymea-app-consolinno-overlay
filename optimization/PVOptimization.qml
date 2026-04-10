@@ -142,15 +142,15 @@ Page {
                         Component.onCompleted: {
                             var current = comboBox.indexOfValue(pvConfiguration.alignment)
                             if (current !== -1) {
-                                comboBox.currentIndex =  current
+                                comboBox.currentIndex = current
                             } else {
                                 comboBox.currentIndex = 4 // south
                             }
                         }
                         model: [
-                            { value: 0, text: qsTr("north") },
-                            { value: 45, text: qsTr("northeast") },
-                            { value: 90, text: qsTr("east") },
+                            { value: 0,   text: qsTr("north") },
+                            { value: 45,  text: qsTr("northeast") },
+                            { value: 90,  text: qsTr("east") },
                             { value: 135, text: qsTr("southeast") },
                             { value: 180, text: qsTr("south") },
                             { value: 225, text: qsTr("southwest") },
