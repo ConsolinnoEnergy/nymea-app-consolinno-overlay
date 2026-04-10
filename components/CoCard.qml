@@ -169,13 +169,33 @@ Item {
             Layout.alignment: Qt.AlignVCenter
             size: 24
             visible: false
+            width: 0
+            clip: true
+
+            Behavior on width {
+                NumberAnimation {
+                    id: deleteWidthAnimation
+                    duration: 200
+                    easing.type: Easing.OutCubic
+                }
+            }
+
+            // Needed to avoid a visual glitch when hiding the deleteIcon with animation.
+            // Without this, the icon is visible in full size for a short moment just before
+            // the width reaches zero. (This is also the case when using "visible: width > 0",
+            // so that doesn't work, too.)
+            onWidthChanged: {
+                if (width < 1 && deleteWidthAnimation.running) {
+                    visible = false;
+                }
+            }
 
             MouseArea {
                 id: deleteMouseArea
                 anchors.fill: parent
                 onClicked: (mouse) => {
                     mouse.accepted = true;
-                    deleteIcon.visible = false;
+                    deleteIcon.width = 0;
                     root.deleteClicked();
                 }
             }
@@ -193,7 +213,7 @@ Item {
                 return;
             }
             if (deleteIcon.visible) {
-                deleteIcon.visible = false;
+                deleteIcon.width = 0;
                 return;
             }
             parent.clicked();
@@ -201,6 +221,7 @@ Item {
         onPressAndHold: {
             if (root.deletable) {
                 deleteIcon.visible = true;
+                deleteIcon.width = deleteIcon.size;
             }
         }
     }
