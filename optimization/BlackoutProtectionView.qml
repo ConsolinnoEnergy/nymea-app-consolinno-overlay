@@ -103,10 +103,10 @@ Page {
                     Layout.fillWidth: true
                     labelText: qsTr("Blackout protection per phase") // #TODO wording
                     helpText: qsTr("Select the maximum current that this installation can safely handle.") // #TODO wording
-                    comboBox.model: blackoutProtectionModel
-                    comboBox.textRole: "name"
-                    comboBox.valueRole: "current"
-                    comboBox.onCurrentValueChanged: {
+                    model: blackoutProtectionModel
+                    textRole: "name"
+                    valueRole: "current"
+                    onCurrentValueChanged: {
                         if (comboBox.currentValue > 0) {
                             root.phaseLimit = comboBox.currentValue;
                         } else {

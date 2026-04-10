@@ -134,8 +134,8 @@ Page {
                     Layout.fillWidth: true
                     visible: heatPumpThing.thingClass.interfaces.includes("smartmeterconsumerassignable")
                     labelText: qsTr("Electricity meter")
-                    comboBox.textRole: "text"
-                    comboBox.model: ListModel { id: meterModel }
+                    textRole: "text"
+                    model: ListModel { id: meterModel }
                 }
             }
         }

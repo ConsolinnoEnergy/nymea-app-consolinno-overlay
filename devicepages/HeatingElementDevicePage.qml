@@ -156,9 +156,9 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             labelText: qsTr("Operating mode") // #TODO wording
                             // #TODO infoUrl:
-                            comboBox.model: optimizationModesModel
-                            comboBox.textRole: "name"
-                            comboBox.valueRole: "value"
+                            model: optimizationModesModel
+                            textRole: "name"
+                            valueRole: "value"
                             Component.onCompleted: {
                                 if (!heatingRodConfig) {
                                     comboBox.currentIndex = 0;

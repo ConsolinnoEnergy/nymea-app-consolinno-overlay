@@ -201,7 +201,7 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             labelText: qsTr("Optimization") // #TODO wording
                             infoUrl: "HeatpumpOptimizationInfo.qml"
-                            comboBox.textRole: "text"
+                            textRole: "text"
 
                             // Base model that holds *all* possible options
                             property var fullModel: [
@@ -210,7 +210,7 @@ GenericConfigPage {
                                 { text: qsTr("Off"), enumname: "OptimizationModeOff", value: 2},
                             ]
                             // Actual ComboBox model
-                            comboBox.model: ListModel { id: filteredModel }
+                            model: ListModel { id: filteredModel }
 
                             currentIndex: {
                                 if (!root.heatingconfig) {

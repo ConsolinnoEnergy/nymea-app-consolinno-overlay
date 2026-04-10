@@ -945,7 +945,7 @@ GenericConfigPage {
 
                                 model: ListModel { id: dynamicModel }
 
-                                comboBox.textRole: "key"
+                                textRole: "key"
                                 // #TODO use mode as valueRole (easier access via currentValue)?
                                 //comboBox.valueRole: "value"
 
@@ -1061,8 +1061,8 @@ GenericConfigPage {
                                     { key: "3", value: 3 }
                                 ]
 
-                                comboBox.textRole: "key"
-                                comboBox.valueRole: "value"
+                                textRole: "key"
+                                valueRole: "value"
 
                                 Component.onCompleted: {
                                     let currentPhaseCount = parseInt(thing.stateByName("phaseCount").value);
@@ -1277,7 +1277,7 @@ GenericConfigPage {
                                     ListElement{ key: qsTr("Charge with minimum current"); mode: 0 }
                                     ListElement{ key: qsTr("Pause charging"); mode: 200 }
                                 }
-                                comboBox.textRole: "key"
+                                textRole: "key"
                             }
                         }
                     }

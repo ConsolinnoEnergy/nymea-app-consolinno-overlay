@@ -136,9 +136,9 @@ Page {
                         id: alignment
                         Layout.fillWidth: true
                         labelText: qsTr("Alignment")
-                        comboBox.textRole: "text"
-                        comboBox.valueRole: "value"
-                        comboBox.currentIndex: 4
+                        textRole: "text"
+                        valueRole: "value"
+                        currentIndex: 4
                         Component.onCompleted: {
                             var current = comboBox.indexOfValue(pvConfiguration.alignment)
                             if (current !== -1) {
@@ -147,7 +147,7 @@ Page {
                                 comboBox.currentIndex = 4 // south
                             }
                         }
-                        comboBox.model: [
+                        model: [
                             { value: 0, text: qsTr("north") },
                             { value: 45, text: qsTr("northeast") },
                             { value: 90, text: qsTr("east") },
