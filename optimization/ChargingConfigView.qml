@@ -777,7 +777,7 @@ GenericConfigPage {
             property Thing thing
 
             function getSelectedMode() {
-                return getChargingMode(comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode);
+                return getChargingMode(comboboxloadingmod.currentValue);
             }
 
             function isAnyOfModesSelected(modes)
@@ -946,8 +946,7 @@ GenericConfigPage {
                                 model: ListModel { id: dynamicModel }
 
                                 textRole: "key"
-                                // #TODO use mode as valueRole (easier access via currentValue)?
-                                //comboBox.valueRole: "value"
+                                valueRole: "mode"
 
                                 Component.onCompleted: {
                                     rebuildModel();
@@ -963,7 +962,7 @@ GenericConfigPage {
                                 onCurrentIndexChanged: {
                                     endTimeSlider.computeFeasibility();
                                     endTimeSlider.feasibilityText();
-                                    comboboxloadingmod.currentIndex === 3 ?
+                                    comboboxloadingmod.currentValue === 4000 ?
                                                 gridConsumptionloadingmod.currentIndex = 1 :
                                                 gridConsumptionloadingmod.currentIndex = 0;
                                 }
@@ -1278,6 +1277,7 @@ GenericConfigPage {
                                     ListElement{ key: qsTr("Pause charging"); mode: 200 }
                                 }
                                 textRole: "key"
+                                valueRole: "mode"
                             }
                         }
                     }
@@ -1861,9 +1861,9 @@ GenericConfigPage {
                             }
 
                             function compute_OptimizationMode(){
-                                var mode = comboboxloadingmod.model.get(comboboxloadingmod.currentIndex).mode;
+                                var mode = comboboxloadingmod.currentValue;
                                 if(isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])) {
-                                    var gridConsumptionOption = gridConsumptionloadingmod.model.get(gridConsumptionloadingmod.currentIndex).mode;
+                                    var gridConsumptionOption = gridConsumptionloadingmod.currentValue;
                                     mode = mode + gridConsumptionOption;
                                 }
                                 return mode;
