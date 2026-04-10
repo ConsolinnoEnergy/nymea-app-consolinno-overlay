@@ -26,8 +26,10 @@ Item {
     property alias iconRightColor: rightIcon.color
     property alias interactive: mouseArea.enabled
     property int status: CoCard.StatusType.NoStatus
+    property bool deletable: false
 
     signal clicked()
+    signal deleteClicked()
 
     implicitHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
 
@@ -155,9 +157,28 @@ Item {
             id: hasChildrenIcon
             name: Qt.resolvedUrl("qrc:/icons/arrow_forward_ios.svg")
             color: Style.colors.brand_Basic_Icon
-            Layout.alignment:  Qt.AlignVCenter
+            Layout.alignment: Qt.AlignVCenter
             size: 18
             visible: showChildrenIndicator
+        }
+
+        ColorIcon {
+            id: deleteIcon
+            name: Qt.resolvedUrl("qrc:/icons/delete_forever.svg")
+            color: Style.colors.system_Danger_Accent
+            Layout.alignment: Qt.AlignVCenter
+            size: 24
+            visible: false
+
+            MouseArea {
+                id: deleteMouseArea
+                anchors.fill: parent
+                onClicked: (mouse) => {
+                    mouse.accepted = true;
+                    deleteIcon.visible = false;
+                    root.deleteClicked();
+                }
+            }
         }
     }
 
@@ -165,6 +186,22 @@ Item {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: true
-        onClicked: parent.clicked()
+        propagateComposedEvents: true
+        onClicked: (mouse) => {
+            if (deleteIcon.visible && deleteIcon.contains(mapToItem(deleteIcon, mouse.x, mouse.y))) {
+                mouse.accepted = false;
+                return;
+            }
+            if (deleteIcon.visible) {
+                deleteIcon.visible = false;
+                return;
+            }
+            parent.clicked();
+        }
+        onPressAndHold: {
+            if (root.deletable) {
+                deleteIcon.visible = true;
+            }
+        }
     }
 }

@@ -935,8 +935,6 @@ GenericConfigPage {
                                 labelText: qsTr("Charging mode")
                                 infoUrl: "ChargingModeInfo.qml"
 
-                                // #TODO add "No charging" mode
-                                // This is your full source model (static)
                                 property var fullModel: [
                                     { key: qsTr("Charge always"), mode: 0 },
                                     { key: qsTr("Solar only"), mode: 3000 },
@@ -945,7 +943,6 @@ GenericConfigPage {
                                     { key: qsTr("Time controlled"), mode: 5000 }
                                 ]
 
-                                // The model actually bound to the ComboBox
                                 model: ListModel { id: dynamicModel }
 
                                 comboBox.textRole: "key"
@@ -1237,6 +1234,7 @@ GenericConfigPage {
                                     labelText: model.dayLabel
                                     showChildrenIndicator: true
                                     visible: isAnyOfModesSelected([time_controlled])
+                                    deletable: model.hasEntry
 
                                     onClicked: {
                                         var dayIndex = index;
@@ -1257,12 +1255,11 @@ GenericConfigPage {
                                         });
                                     }
 
-                                    // #TODO deleteable by longPress (on
-                                    // onDeleteClicked: {
-                                    //     scheduleModel.setProperty(index, "hasEntry", false)
-                                    //     scheduleModel.setProperty(index, "startTime", "")
-                                    //     scheduleModel.setProperty(index, "endTime", "")
-                                    // }
+                                    onDeleteClicked: {
+                                        scheduleModel.setProperty(index, "hasEntry", false)
+                                        scheduleModel.setProperty(index, "startTime", "")
+                                        scheduleModel.setProperty(index, "endTime", "")
+                                    }
                                 }
                             }
 

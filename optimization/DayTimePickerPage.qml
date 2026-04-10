@@ -301,8 +301,7 @@ Page {
                 }
             }
 
-            // "Eintrag entfernen" (Remove entry) button
-            ConsolinnoSetUpButton {
+            SecondaryButton {
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
                 text: qsTr("Remove entry")
