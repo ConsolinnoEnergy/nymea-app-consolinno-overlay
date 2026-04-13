@@ -110,6 +110,7 @@ Page {
                     labelText: qsTr("Maximal electrical power")
                     compactTextField: true
                     unit: qsTr("kW")
+                    feedbackText: qsTr("The value is outside the valid range.")
                     textField.text: (+heatingConfiguration.maxElectricalPower).toLocaleString()
                     textField.maximumLength: 10
                     textField.validator: DoubleValidator{ bottom: 1 }
@@ -189,7 +190,7 @@ Page {
                         "priceThreshold":        heatingConfiguration.priceThreshold,
                         "relativePriceEnabled":  heatingConfiguration.relativePriceEnabled,
                         "controllableLocalSystem": gridSupportControl.checked,
-                        "heatMeterThingId":      meterModel.get(heatMeterDropdown.currentIndex).thingId,
+                        "heatMeterThingId":      meterModel.get(heatMeterCombo.currentIndex).thingId,
                         "optimizationMode":      optimizationModeMap.hasOwnProperty(currentValue)
                                                      ? optimizationModeMap[currentValue]
                                                      : "OptimizationModeOff"

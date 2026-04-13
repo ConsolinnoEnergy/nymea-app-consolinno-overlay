@@ -74,6 +74,7 @@ Page {
                     labelText: qsTr("Maximal electrical power")
                     compactTextField: true
                     unit: qsTr("kW")
+                    feedbackText: qsTr("The value is outside the valid range.")
                     textField.text: (+heatingElementConfiguration.maxElectricalPower).toLocaleString()
                     textField.maximumLength: 10
                     textField.validator: DoubleValidator { bottom: 0.5 }

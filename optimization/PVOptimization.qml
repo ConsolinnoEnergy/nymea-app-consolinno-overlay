@@ -94,6 +94,7 @@ Page {
                         compactTextField: true
                         unit: qsTr("°")
                         helpText: qsTr("The value must be between 30 and 60.") // #TODO wording
+                        feedbackText: qsTr("The value is outside the valid range.")
                         textField.text: pvConfiguration.latitude.toLocaleString(Qt.locale())
                         textField.validator: DoubleValidator {
                             bottom: 30
@@ -109,6 +110,7 @@ Page {
                         labelText: qsTr("Longitude")
                         compactTextField: true
                         unit: qsTr("°")
+                        feedbackText: qsTr("The value is outside the valid range.")
                         textField.text: pvConfiguration.longitude.toLocaleString(Qt.locale())
                         textField.validator: DoubleValidator {
                             bottom: -10
@@ -124,6 +126,7 @@ Page {
                         labelText: qsTr("Roof pitch")
                         compactTextField: true
                         unit: qsTr("°")
+                        feedbackText: qsTr("The value is outside the valid range.")
                         textField.text: pvConfiguration.roofPitch
                         textField.maximumLength: 2
                         textField.validator: IntValidator {
@@ -165,6 +168,7 @@ Page {
                         labelText: qsTr("Peak power")
                         compactTextField: true
                         unit: qsTr("kW")
+                        feedbackText: qsTr("The value is outside the valid range.")
                         textField.text: pvConfiguration.kwPeak.toLocaleString(Qt.locale())
                         textField.validator: DoubleValidator {
                             bottom: 1
