@@ -56,7 +56,7 @@ Item {
                         Layout.minimumWidth: 40
                         Layout.maximumWidth: 40
                         objectName: "backButton"
-                        imageSource: "/icons/back.svg"
+                        imageSource: "/icons/arrow_back_ios_new.svg"
                         onClicked: pageStack.pop()
                     }
 

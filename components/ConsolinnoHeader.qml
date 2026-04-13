@@ -54,7 +54,7 @@ Item {
         HeaderButton {
             id: backButton
             objectName: "backButton"
-            imageSource: "/icons/back.svg"
+            imageSource: "/icons/arrow_back_ios_new.svg"
             onClicked: root.backPressed();
         }
 

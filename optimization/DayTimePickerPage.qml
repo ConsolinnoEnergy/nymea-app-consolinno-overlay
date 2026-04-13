@@ -55,7 +55,7 @@ Page {
                 anchors.centerIn: parent
                 height: Style.smallIconSize
                 width: height
-                name: "/icons/back.svg"
+                name: "/icons/arrow_back_ios_new.svg"
                 color: Style.foregroundColor
             }
         }
