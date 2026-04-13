@@ -125,6 +125,7 @@ Page {
                     labelText: qsTr("User defined current") // #TODO wording
                     helpText: qsTr("Enter a value between 16 and 100 A.") // #TODO wording
                     unit: "A"
+                    compactTextField: true
                     textField.inputMethodHints: Qt.ImhDigitsOnly
                     textField.validator: RegularExpressionValidator {
                         regularExpression: /^(1[6-9]|[2-9][0-9]|100)$/

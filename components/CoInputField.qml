@@ -56,6 +56,7 @@ Item {
             TextField {
                 id: textinput
                 Layout.fillWidth: true
+                Layout.preferredWidth: root.compactTextField ? 0 : -1
                 Layout.leftMargin: -4
                 Layout.topMargin: 4
                 Layout.bottomMargin: 4
@@ -63,7 +64,8 @@ Item {
 
             Text {
                 id: unitLabel
-                Layout.fillWidth: root.compactTextField ? true : false
+                Layout.fillWidth: root.compactTextField
+                Layout.preferredWidth: root.compactTextField ? 0 : -1
                 font: Style.newParagraphFont
                 color: Style.colors.typography_Basic_Default
                 text: ""
