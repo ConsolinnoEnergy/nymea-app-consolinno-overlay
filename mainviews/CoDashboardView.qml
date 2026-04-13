@@ -815,7 +815,7 @@ MainViewBase {
                                         onClicked: {
                                             console.info("Clicked thing:", thing.name);
                                             pageStack.push(
-                                                        "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
+                                                        "/ui/devicepages/SimpleConsumerDevicePage.qml",
                                                         {
                                                             "thing": thing
                                                         });
