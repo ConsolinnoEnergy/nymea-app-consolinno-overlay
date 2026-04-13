@@ -510,12 +510,11 @@ MainViewBase {
                                 onClicked: {
                                     console.info("Clicked grid card");
                                     pageStack.push(
-                                                "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
+                                                "/ui/devicepages/RootMeterDevicePage.qml",
+                                                // #TODO remove unnecessary stuff
                                                 {
                                                     "thing": thing,
-                                                    "isRootmeter": true,
-                                                    "isNotify": lpcActive,
-                                                    "gridSupportThing": gridSupport
+                                                    "gridSupport": gridSupport
                                                 });
                                 }
                             }
