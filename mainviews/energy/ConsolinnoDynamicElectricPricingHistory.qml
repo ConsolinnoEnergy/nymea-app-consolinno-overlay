@@ -151,7 +151,7 @@ Item {
                 anchors.fill: parent
 
                 backgroundColor: "transparent"
-                margins.left: 0
+                margins.left: Math.max(Style.margins, valueLabelMetrics.width - 16)
                 margins.right: 0
                 margins.top: 0
                 margins.bottom: Style.smallIconSize + Style.margins
@@ -200,7 +200,15 @@ Item {
 
                         max = step * 4;
                     }
+                }
 
+                TextMetrics {
+                    id: valueLabelMetrics
+                    property var repeaterItem: valueAxisRepeater.count > 0 ?
+                                                   valueAxisRepeater.itemAt(0) :
+                                                   null
+                    font: repeaterItem ? repeaterItem.font : Style.extraSmallFont
+                    text: repeaterItem ? repeaterItem.text : ""
                 }
 
                 Item {
@@ -210,12 +218,13 @@ Item {
                     height: chartView.plotArea.height
                     width: chartView.plotArea.x - x
                     Repeater {
+                        id: valueAxisRepeater
                         model: valueAxis.tickCount
                         delegate: Label {
                             y: parent.height / (valueAxis.tickCount - 1) * index - font.pixelSize / 2
                             width: parent.width - Style.smallMargins
                             horizontalAlignment: Text.AlignRight
-                            text: (Math.ceil(valueAxis.max - index * (valueAxis.max - valueAxis.min) / (valueAxis.tickCount - 1))) + " ct"  //linke Seite vom Graphen
+                            text: (Math.ceil(valueAxis.max - index * (valueAxis.max - valueAxis.min) / (valueAxis.tickCount - 1))) + "ct"  //linke Seite vom Graphen
                             verticalAlignment: Text.AlignTop
                             font: Style.extraSmallFont
                         }

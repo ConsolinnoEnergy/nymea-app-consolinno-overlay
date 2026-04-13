@@ -240,7 +240,7 @@ StatsBase {
                 anchors.fill: parent
 
                 backgroundColor: "transparent"
-                //    margins.left: 0
+                margins.left: Math.max(Style.margins, valueLabelMetrics.width)
                 margins.right: 0
                 margins.top: 0
                 margins.bottom: Style.smallIconSize + Style.margins
@@ -284,6 +284,15 @@ StatsBase {
                     Behavior on opacity { NumberAnimation {}}
                 }
 
+                TextMetrics {
+                    id: valueLabelMetrics
+                    property var repeaterItem: valueAxisRepeater.count > 0 ?
+                                                   valueAxisRepeater.itemAt(0) :
+                                                   null
+                    font: repeaterItem ? repeaterItem.font : Style.extraSmallFont
+                    text: repeaterItem ? repeaterItem.text : ""
+                }
+
                 Item {
                     id: labelsLayout
                     x: Style.smallMargins
@@ -291,12 +300,13 @@ StatsBase {
                     height: chartView.plotArea.height
                     width: chartView.plotArea.x - x
                     Repeater {
+                        id: valueAxisRepeater
                         model: valueAxis.tickCount
                         delegate: Label {
                             y: parent.height / (valueAxis.tickCount - 1) * index - font.pixelSize / 2
                             width: parent.width - Style.smallMargins
                             horizontalAlignment: Text.AlignRight
-                            text: ((valueAxis.max - (index * valueAxis.max / (valueAxis.tickCount - 1)))).toFixed(1) + "kWh"
+                            text: ((valueAxis.max - (index * valueAxis.max / (valueAxis.tickCount - 1)))).toFixed(1) + " kWh"
                             verticalAlignment: Text.AlignTop
                             font: Style.extraSmallFont
                             color: Style.foregroundColor
