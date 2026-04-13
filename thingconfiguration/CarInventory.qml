@@ -297,9 +297,10 @@ Page{
                     }
                 }
 
-                SecondaryButton {
+                Button {
                     Layout.fillWidth: true
                     text: qsTr("Delete")
+                    secondary: true
 
                     onClicked: {
                         engine.thingManager.removeThing(thing.id);
@@ -309,8 +310,6 @@ Page{
 
                 Button {
                     Layout.fillWidth: true
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
                     text: qsTr("Save")
                     enabled: {
                         if (nameInput.text === "") {

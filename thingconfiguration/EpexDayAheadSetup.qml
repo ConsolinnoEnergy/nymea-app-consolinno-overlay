@@ -219,13 +219,14 @@ Page {
                 }
             }
 
-            SecondaryButton {
+            Button {
                 visible: root.thing ? true : false
                 Layout.fillWidth: true
                 Layout.leftMargin: app.margins
                 Layout.rightMargin: app.margins
                 Layout.topMargin: Style.bigMargins
 
+                secondary: true
                 text: qsTr("Reset values to default")
                 onClicked: {
                     // Need to force reload of model here since otherwise the code below

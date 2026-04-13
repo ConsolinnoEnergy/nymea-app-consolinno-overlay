@@ -272,11 +272,20 @@ Page {
                 horizontalAlignment: Text.AlignHCenter
             }
 
+            Button {
+                Layout.fillWidth: true
+                secondary: true
+                text: qsTr("Remove entry")
+                onClicked: {
+                    root.entryRemoved()
+                    pageStack.pop()
+                }
+            }
+
             // Confirm button (green, at bottom)
             Button {
                 id: confirmButton
                 Layout.fillWidth: true
-                Layout.topMargin: 20
                 text: qsTr("Confirm")
 
                 onClicked: {
@@ -297,17 +306,6 @@ Page {
                     var startStr = (sh < 10 ? "0" : "") + sh + ":" + (sm < 10 ? "0" : "") + sm
                     var endStr = (eh < 10 ? "0" : "") + eh + ":" + (em < 10 ? "0" : "") + em
                     root.timeSelected(startStr, endStr)
-                    pageStack.pop()
-                }
-            }
-
-            SecondaryButton {
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                text: qsTr("Remove entry")
-                backgroundColor: "transparent"
-                onClicked: {
-                    root.entryRemoved()
                     pageStack.pop()
                 }
             }
