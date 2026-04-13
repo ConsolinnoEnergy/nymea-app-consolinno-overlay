@@ -85,7 +85,8 @@ Page {
                     Layout.fillWidth: true
                     text: qsTr("Avoid zero compensation")
                     infoUrl: "AvoidZeroCompensationInfo.qml"
-                    visible: (hemsManager.availableUseCases & HemsManager.HemsUseCaseAvoidZeroCompensation) !== 0
+                    visible: thing.thingClass.interfaces.includes("controllablebattery") &&
+                             ((hemsManager.availableUseCases & HemsManager.HemsUseCaseAvoidZeroCompensation) !== 0)
 
                     Component.onCompleted: {
                         checked = batteryConfiguration.avoidZeroFeedInEnabled;
