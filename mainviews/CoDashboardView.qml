@@ -680,10 +680,7 @@ MainViewBase {
                                     showWarningIndicator: avoidZeroCompensationActive(thing)
                                     onClicked: {
                                         console.info("Clicked battery:", thing.name);
-                                        let batteryView = thing.thingClass.interfaces.indexOf("controllablebattery") >= 0 ?
-                                                "/ui/optimization/BatteryConfigView.qml" :
-                                                "/ui/devicepages/GenericSmartDeviceMeterPage.qml";
-                                        pageStack.push(batteryView, { "thing": thing });
+                                        pageStack.push("/ui/optimization/BatteryConfigView.qml", { "thing": thing });
                                     }
                                 }
                             }

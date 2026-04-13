@@ -158,6 +158,19 @@ GenericConfigPage {
                 anchors.margins: Style.margins
                 spacing: Style.margins
 
+                CoNotification {
+                    id: avoidZeroCompensationWarning
+                    Layout.fillWidth: true
+                    visible: isZeroCompensation
+                    type: CoNotification.Type.Warning
+                    title: qsTr("Avoid zero compensation active")
+                    message: qsTr("Battery charging is limited while the controller is active. <u>More Information</u>")
+                    clickable: true
+                    onClicked: {
+                        pageStack.push("/ui/info/AvoidZeroCompensationInfo.qml", {stack: pageStack});
+                    }
+                }
+
                 CoEnergyCircle {
                     id: energyCircle
                     Layout.fillWidth: true
@@ -188,7 +201,7 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("PV device prioritization") // #TODO wording
-                    // #TODO visible: ? only for controllablebatteries?
+                    visible: thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
 
                     ColumnLayout {
                         anchors.left: parent.left
