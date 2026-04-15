@@ -845,12 +845,23 @@ int HemsManager::factoryReset()
 
 int HemsManager::setPVSurplusPriolist(const QStringList &pvSurplusPriolist)
 {
+    auto toVariantList = [](const QList<QUuid> &uuids) {
+        QVariantList list;
+        foreach (const QUuid &uuid, uuids)
+            list.append(uuid.toString());
+        return list;
+    };
+
     QVariantList uuidList;
     foreach (const QString &uuid, pvSurplusPriolist)
         uuidList.append(uuid);
 
     QVariantMap emsConfiguration;
     emsConfiguration.insert("pvSurplusPriolist", uuidList);
+    // Include all other lists unchanged — omitting them would cause the backend to clear them.
+    emsConfiguration.insert("defaultPvSurplusPriolist", toVariantList(m_emsConfiguration->defaultPvSurplusPriolist()));
+    emsConfiguration.insert("limitPriolist", toVariantList(m_emsConfiguration->limitPriolist()));
+    emsConfiguration.insert("defaultLimitPriolist", toVariantList(m_emsConfiguration->defaultLimitPriolist()));
 
     QVariantMap params;
     params.insert("emsConfiguration", emsConfiguration);
