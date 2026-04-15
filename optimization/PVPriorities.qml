@@ -51,8 +51,11 @@ Page {
     }
 
     function populatePrioModel() {
+        populateFromPrioList(hemsManager.emsConfiguration.pvSurplusPriolist);
+    }
+
+    function populateFromPrioList(prioList) {
         prioListModel.clear();
-        var prioList = hemsManager.emsConfiguration.pvSurplusPriolist;
         for (var i = 0; i < prioList.length; i++) {
             var thingId = prioList[i];
             var thing = engine.thingManager.things.getThing(thingId);
@@ -188,6 +191,20 @@ Page {
                         dragging: true
                         y: dndArea.mouseY - dndArea.dragOffset
                         width: priorityListView.width
+                    }
+                }
+
+                Button {
+                    id: restoreDefaultListButton
+                    // Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignHCenter
+                    visible: hemsManager.emsConfiguration.defaultPvSurplusPriolist.length === hemsManager.emsConfiguration.pvSurplusPriolist.length
+                    text: qsTr("Restore default order")
+                    iconRight: Qt.resolvedUrl("qrc:/icons/undo.svg")
+                    secondary: true
+
+                    onClicked: {
+                        populateFromPrioList(hemsManager.emsConfiguration.defaultPvSurplusPriolist);
                     }
                 }
             }
