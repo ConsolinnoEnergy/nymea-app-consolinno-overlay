@@ -843,11 +843,11 @@ int HemsManager::factoryReset()
     return m_engine->jsonRpcClient()->sendCommand("Hems.FactoryReset", QVariantMap(), this, "factoryResetResponse");
 }
 
-int HemsManager::setPVSurplusPriolist(const QList<QUuid> &pvSurplusPriolist)
+int HemsManager::setPVSurplusPriolist(const QStringList &pvSurplusPriolist)
 {
     QVariantList uuidList;
-    foreach (const QUuid &uuid, pvSurplusPriolist)
-        uuidList.append(uuid.toString());
+    foreach (const QString &uuid, pvSurplusPriolist)
+        uuidList.append(uuid);
 
     QVariantMap emsConfiguration;
     emsConfiguration.insert("pvSurplusPriolist", uuidList);

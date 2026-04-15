@@ -2,6 +2,7 @@ import QtQuick 2.8
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.2
 import Nymea 1.0
+import NymeaApp.Utils 1.0
 import "../components"
 import "../delegates"
 
@@ -24,60 +25,78 @@ Page {
         }
     }
 
-    // QtObject {
-    //     id: d
-    //     property int pendingCallId: -1
-    // }
+    QtObject {
+        id: d
+        property int pendingCallId: -1
+    }
 
-    // Connections {
-    //     target: hemsManager
-    //     onHousholdPhaseLimitChanged: {
-    //         configuredPhaseLimit = housholdPhaseLimit;
-    //     }
+    // #TODO the following 2 functions were copied from CoDashboardView.qml -> move to common utils file
+    function batteryIconByLevel(batteryLevel) {
+        let batteryLevelForIcon = NymeaUtils.pad(Math.round(batteryLevel / 10) * 10, 3);
+        return Qt.resolvedUrl("qrc:/icons/battery/battery-" + batteryLevelForIcon + ".svg");
+    }
 
-    //     onSetHousholdPhaseLimitReply: {
-    //         if (commandId == d.pendingCallId) {
-    //             d.pendingCallId = -1;
-    //             var props = {};
-    //             switch (error) {
-    //             case "HemsErrorNoError":
-    //                 pageStack.pop();
-    //                 return;
-    //             case "HemsErrorInvalidPhaseLimit":
-    //                 props.text = qsTr("Invalid phase limit.");
-    //                 break;
-    //             default:
-    //                 props.errorCode = error;
-    //             }
-    //             var comp = Qt.createComponent("../components/ErrorDialog.qml");
-    //             var popup = comp.createObject(app, props);
-    //             popup.open();
-    //         }
-    //     }
-    // }
+    function thingToIcon(thing) {
+        let ifaces = thing.thingClass.interfaces;
+        if (ifaces.indexOf("battery") >= 0) {
+            let batteryLevelState = thing.stateByName("batteryLevel");
+            if (batteryLevelState) {
+                let batteryLevel = batteryLevelState.value;
+                return batteryIconByLevel(batteryLevel);
+            } else {
+                return Qt.resolvedUrl("qrc:/icons/battery/battery-060.svg");
+            }
+        }
+        return app.interfacesToIcon(ifaces);
+    }
 
-    // Component.onCompleted: {
-    //     phaseLimit = hemsManager.housholdPhaseLimit;
-    //     configuredPhaseLimit = hemsManager.housholdPhaseLimit;
-    //     const comboIndex = currentCombo.comboBox.indexOfValue(configuredPhaseLimit);
-    //     if (comboIndex !== -1) {
-    //         currentCombo.comboBox.currentIndex = comboIndex;
-    //         currentInput.textField.text = "16";
-    //     } else {
-    //         // Last item is "user defined" current.
-    //         currentCombo.comboBox.currentIndex = currentCombo.comboBox.count -1;
-    //         currentInput.textField.text = configuredPhaseLimit.toString();
-    //     }
-    // }
+    function populatePrioModel() {
+        prioListModel.clear();
+        var prioList = hemsManager.emsConfiguration.pvSurplusPriolist;
+        for (var i = 0; i < prioList.length; i++) {
+            var thingId = prioList[i];
+            var thing = engine.thingManager.things.getThing(thingId);
+            prioListModel.append({
+                "name": thing ? thing.name : thingId.toString(),
+                // QML ListModel cannot store C++ QUuid/ThingId objects — they come back
+                // as undefined on retrieval. Coercing with "" + thing.id forces a plain
+                // JS string, which ListModel preserves and Qt auto-converts back to QUuid
+                // when passed to setPVSurplusPriolist(QList<QUuid>).
+                "thingId": thing ? "" + thing.id : "",
+                "icon": thing ? root.thingToIcon(thing) : Qt.resolvedUrl("qrc:/icons/select-none.svg")
+            });
+        }
+    }
+
+    Connections {
+        target: hemsManager.emsConfiguration
+        onPvSurplusPriolistChanged: root.populatePrioModel()
+    }
+
+    Connections {
+        target: hemsManager
+        onSetPVSurplusPriolistReply: function(commandId, error) {
+            if (commandId === d.pendingCallId) {
+                d.pendingCallId = -1;
+                if (error === "HemsErrorNoError") {
+                    if (directionID === 0) {
+                        pageStack.pop();
+                    } else {
+                        root.done(false, false, false);
+                    }
+                } else {
+                    var comp = Qt.createComponent("../components/ErrorDialog.qml");
+                    var popup = comp.createObject(app, { errorCode: error });
+                    popup.open();
+                }
+            }
+        }
+    }
+
+    Component.onCompleted: root.populatePrioModel()
 
     ListModel {
-        id: blackoutProtectionModel
-        ListElement { name: qsTr("25 A"); current: 25 }
-        ListElement { name: qsTr("35 A"); current: 35 }
-        ListElement { name: qsTr("40 A"); current: 40 }
-        ListElement { name: qsTr("50 A"); current: 50 }
-        ListElement { name: qsTr("63 A"); current: 63 }
-        ListElement { name: qsTr("User defined"); current: 0 }
+        id: prioListModel
     }
 
     ColumnLayout {
@@ -110,7 +129,8 @@ Page {
                     id: priorityListView
                     Layout.fillWidth: true
                     height: contentHeight
-                    model: blackoutProtectionModel // #TODO
+                    implicitHeight: contentHeight
+                    model: prioListModel
                     clip: true
 
                     property bool dragging: draggingIndex >= 0
@@ -121,7 +141,7 @@ Page {
                     delegate: CoSortableCard {
                         width: priorityListView.width
                         text: model.name
-                        iconLeft: Qt.resolvedUrl("qrc:/icons/interests.svg")
+                        iconLeft: model.icon
                         visible: index !== priorityListView.draggingIndex
                     }
 
@@ -140,7 +160,8 @@ Page {
                                 return;
                             }
                             priorityListView.draggingIndex = priorityListView.indexAt(mouseX, mouseYInList);
-                            dndItem.text = blackoutProtectionModel.get(priorityListView.draggingIndex).name;
+                            dndItem.text = prioListModel.get(priorityListView.draggingIndex).name;
+                            dndItem.iconLeft = prioListModel.get(priorityListView.draggingIndex).icon;
                             dndArea.dragOffset = priorityListView.mapToItem(item, mouseX, mouseY).y;
                         }
 
@@ -151,7 +172,7 @@ Page {
                             if (indexUnderMouse < 0) { return; }
                             indexUnderMouse = Math.min(Math.max(0, indexUnderMouse), priorityListView.count - 1);
                             if (priorityListView.draggingIndex !== indexUnderMouse) {
-                                blackoutProtectionModel.move(priorityListView.draggingIndex, indexUnderMouse, 1);
+                                prioListModel.move(priorityListView.draggingIndex, indexUnderMouse, 1);
                                 priorityListView.draggingIndex = indexUnderMouse;
                             }
                         }
@@ -167,7 +188,6 @@ Page {
                         dragging: true
                         y: dndArea.mouseY - dndArea.dragOffset
                         width: priorityListView.width
-                        iconLeft: Qt.resolvedUrl("qrc:/icons/interests.svg")
                     }
                 }
             }
@@ -181,27 +201,15 @@ Page {
         Button {
             id: savebutton
             Layout.fillWidth: true
-            // #TODO
-            // enabled: {
-            //     if (phaseLimit === configuredPhaseLimit) {
-            //         return false;
-            //     }
-            //     if (currentCombo.comboBox.currentValue === 0 &&
-            //             !currentInput.textField.acceptableInput) {
-            //         return false;
-            //     }
-            //     return true;
-            // }
+            // #TODO enable only when list changed
             text: qsTr("Save")
 
             onClicked: {
-                // #TODO
-                // if (directionID === 0) {
-                //     d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit);
-                // } else if (directionID === 1) {
-                //     hemsManager.setHousholdPhaseLimit(root.phaseLimit);
-                //     root.done(false, false, false);
-                // }
+                var uuidList = [];
+                for (var i = 0; i < prioListModel.count; i++) {
+                    uuidList.push(prioListModel.get(i).thingId);
+                }
+                d.pendingCallId = hemsManager.setPVSurplusPriolist(uuidList);
             }
         }
     }

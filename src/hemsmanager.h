@@ -103,7 +103,7 @@ public:
     // System operations
     Q_INVOKABLE int factoryReset();
 
-    Q_INVOKABLE int setPVSurplusPriolist(const QList<QUuid> &pvSurplusPriolist);
+    Q_INVOKABLE int setPVSurplusPriolist(const QStringList &pvSurplusPriolist);
 signals:
 
     void engineChanged();
