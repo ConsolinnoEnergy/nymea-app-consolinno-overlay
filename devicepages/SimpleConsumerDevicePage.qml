@@ -35,7 +35,6 @@ GenericConfigPage {
                     power: root.currentConsumption ? root.currentConsumption.value : 0
                     icon: app.interfacesToIcon(root.thing.thingClass.interfaces)
                     label: Math.round(power) > 0 ? qsTr("Consuming") : qsTr("Idle")
-                    circleColor: Style.colors.components_Dashboard_Detail_Energy_circle_border // #TODO same for all energy circles? -> then move to CoEnergyCircle directly
                 }
 
                 RowLayout {

@@ -11,7 +11,7 @@ Item {
     property alias icon: icon.name
     property alias label: labelText.text
     property double power: 0
-    property color circleColor: "transparent"
+    property color circleColor: Style.colors.components_Dashboard_Detail_Energy_circle_border
     property bool idle: Math.round(power) === 0
 
     implicitHeight: background.implicitHeight

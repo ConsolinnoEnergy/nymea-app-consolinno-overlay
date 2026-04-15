@@ -64,7 +64,6 @@ GenericConfigPage {
                                Math.round(rawPowerValue) < 0 ?
                                    qsTr("Producing") :
                                    qsTr("Idle")
-                    circleColor: Style.colors.components_Dashboard_Detail_Energy_circle_border // #TODO same for all energy circles? -> then move to CoEnergyCircle directly
                 }
 
                 RowLayout {
