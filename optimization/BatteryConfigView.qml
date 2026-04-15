@@ -30,6 +30,12 @@ GenericConfigPage {
     property double lowestPrice: 0
     property double highestPrice: 0
 
+    // #TODO copied from CoDashboardView.qml -> extract to some common utils file
+    function batteryIconByLevel(batteryLevel) {
+        let batteryLevelForIcon = NymeaUtils.pad(Math.round(batteryLevel / 10) * 10, 3);
+        return Qt.resolvedUrl("qrc:/icons/battery/battery-" + batteryLevelForIcon + ".svg");
+    }
+
     title: root.thing.name
     headerOptionsVisible: true
 
@@ -190,8 +196,9 @@ GenericConfigPage {
                     id: batteryLevelCard
                     Layout.fillWidth: true
                     visible: root.batteryLevelState !== null
-                    // #TODO icon by batteryLevel (extract batteryIconByLevel function from CoDashboardView.qml into some utils file)
-                    icon: Qt.resolvedUrl("qrc:/icons/battery/battery-060.svg");
+                    icon: root.batteryLevelState ?
+                              batteryIconByLevel(root.batteryLevelState.value) :
+                              Qt.resolvedUrl("qrc:/icons/battery/battery-060.svg")
                     labelText: qsTr("State of Charge") // #TODO wording
                     valueText: (root.batteryLevelState ? Math.round(root.batteryLevelState.value) : "-") + qsTr(" %")
                 }
