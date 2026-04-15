@@ -174,6 +174,11 @@ GenericConfigPage {
         return([(opti_mode/100) % 10, (opti_mode/10) % 10, opti_mode % 10])
     }
 
+    QtObject {
+        id: internal
+        property int pendingCallId: -1
+    }
+
     title: root.thing.name
     headerOptionsVisible: false
 
@@ -223,6 +228,18 @@ GenericConfigPage {
                     }
                     energyChargedCard.visible = true
                     initializing = false
+                }
+            }
+        }
+
+        onSetChargingConfigurationReply: function (commandId, error) {
+            busyOverlay.shown = false;
+            if (commandId === internal.pendingCallId) {
+                internal.pendingCallId = -1;
+                if (error !== "HemsErrorNoError") {
+                    var comp = Qt.createComponent("../components/ErrorDialog.qml");
+                    var popup = comp.createObject(app, { errorCode: error });
+                    popup.open();
                 }
             }
         }
@@ -1746,7 +1763,7 @@ GenericConfigPage {
                         Button {
                             id: savebutton
                             Layout.fillWidth: true
-                            text: qsTr("Save")
+                            text: qsTr("Apply changes")
                             onClicked: {
                                 // if simple PV excess mode is used set the batteryLevel to 1
                                 if(isAnyOfModesSelected([simple_pv_excess, no_optimization, dyn_pricing, time_controlled])) {
@@ -1808,7 +1825,7 @@ GenericConfigPage {
                                         configData.chargingSchedule = JSON.stringify(chargingSchedule);
                                     }
 
-                                    hemsManager.setChargingConfiguration(thing.id, configData);
+                                    internal.pendingCallId = hemsManager.setChargingConfiguration(thing.id, configData);
                                     optimizationPage.done();
                                     pageStack.pop();
                                 } else {
