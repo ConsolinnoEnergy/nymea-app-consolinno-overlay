@@ -53,6 +53,32 @@ Page {
         return app.interfacesToIcon(ifaces);
     }
 
+    function thingOptimizationEnabled(thing) {
+        let ifaces = thing.thingClass.interfaces;
+        if (ifaces.indexOf("heatingrod") >= 0) {
+            let config = hemsManager.heatingElementConfigurations.getHeatingElementConfiguration(thing.id);
+            return config ? config.optimizationEnabled : false;
+        }
+        if (ifaces.indexOf("pvsurplusheatpump") >= 0) {
+            return true;
+        }
+        if (ifaces.indexOf("smartgridheatpump") >= 0) {
+            let config = hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id);
+            return config ? config.optimizationMode === HeatingConfiguration.OptimizationModePVSurplus : false;
+        }
+        if (ifaces.indexOf("controllablebattery") >= 0) {
+            return true;
+        }
+        if (ifaces.indexOf("evcharger") >= 0) {
+            let config = hemsManager.chargingConfigurations.getChargingConfiguration(thing.id);
+            if (!config) return false;
+            // pvPrioCard in ChargingConfigView is visible for pv_excess (2000–2999),
+            // simple_pv_excess (3000–3999) and dyn_pricing (4000–4999) modes.
+            return config.optimizationMode >= 2000 && config.optimizationMode < 5000;
+        }
+        return false;
+    }
+
     function populatePrioModel() {
         populateFromPrioList(hemsManager.emsConfiguration.pvSurplusPriolist);
     }
@@ -69,7 +95,8 @@ Page {
                 // JS string, which ListModel preserves and Qt auto-converts back to QUuid
                 // when passed to setPVSurplusPriolist(QList<QUuid>).
                 "thingId": thing ? "" + thing.id : "",
-                "icon": thing ? root.thingToIcon(thing) : Qt.resolvedUrl("qrc:/icons/select-none.svg")
+                "icon": thing ? root.thingToIcon(thing) : Qt.resolvedUrl("qrc:/icons/select-none.svg"),
+                "optimizationEnabled": thing ? root.thingOptimizationEnabled(thing) : false
             });
         }
         d.modelRevision++;
@@ -150,6 +177,7 @@ Page {
                         text: model.name
                         iconLeft: model.icon
                         visible: index !== priorityListView.draggingIndex
+                        card.opacity: model.optimizationEnabled ? 1 : 0.3
                     }
 
                     MouseArea {

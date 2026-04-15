@@ -11,6 +11,7 @@ Item {
     property alias showChildrenIndicator: card.showChildrenIndicator
     property alias iconLeft: card.iconLeft
     property alias iconRight: card.iconRight
+    property alias card: card
     property bool dragging: false
 
     readonly property real dragHandleStartX: width - 2 * Style.margins - dragHandleIcon.width
