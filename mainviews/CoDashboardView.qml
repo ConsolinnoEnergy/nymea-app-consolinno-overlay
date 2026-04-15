@@ -807,11 +807,19 @@ MainViewBase {
                                         }
                                         onClicked: {
                                             console.info("Clicked thing:", thing.name);
-                                            pageStack.push(
-                                                        "/ui/devicepages/SimpleConsumerDevicePage.qml",
-                                                        {
-                                                            "thing": thing
-                                                        });
+                                            if (thing.thingClass.interfaces.indexOf("powersocket") >= 0) {
+                                                pageStack.push(
+                                                            "/ui/devicepages/SwitchableConsumerDevicePage.qml",
+                                                            {
+                                                                "thing": thing
+                                                            });
+                                            } else {
+                                                pageStack.push(
+                                                            "/ui/devicepages/SimpleConsumerDevicePage.qml",
+                                                            {
+                                                                "thing": thing
+                                                            });
+                                            }
                                         }
                                     }
                                 }
