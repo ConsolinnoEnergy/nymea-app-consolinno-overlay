@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import QtQml
 import Qt5Compat.GraphicalEffects
 import Nymea 1.0
+import NymeaApp.Utils 1.0
 import QtCharts
 
 import "../components"
@@ -181,7 +182,9 @@ GenericConfigPage {
                     id: energyCircle
                     Layout.fillWidth: true
                     power: root.currentPowerState ? root.currentPowerState.value : 0
-                    icon: app.interfacesToIcon(root.thing.thingClass.interfaces)
+                    icon: root.batteryLevelState ?
+                              batteryIconByLevel(root.batteryLevelState.value) :
+                              app.interfacesToIcon(root.thing.thingClass.interfaces)
                     label: !root.currentPowerState ?
                                "" :
                                Math.round(root.currentPowerState.value) > 0 ?
@@ -197,7 +200,7 @@ GenericConfigPage {
                     visible: root.batteryLevelState !== null
                     icon: root.batteryLevelState ?
                               batteryIconByLevel(root.batteryLevelState.value) :
-                              Qt.resolvedUrl("qrc:/icons/battery/battery-060.svg")
+                              app.interfacesToIcon(root.thing.thingClass.interfaces)
                     labelText: qsTr("State of Charge") // #TODO wording
                     valueText: (root.batteryLevelState ? Math.round(root.batteryLevelState.value) : "-") + qsTr(" %")
                 }
