@@ -52,9 +52,6 @@ Item {
 
                     HeaderButton {
                         id: backButton
-                        Layout.preferredWidth: 40
-                        Layout.minimumWidth: 40
-                        Layout.maximumWidth: 40
                         objectName: "backButton"
                         imageSource: "/icons/arrow_back_ios_new.svg"
                         onClicked: pageStack.pop()
@@ -63,7 +60,7 @@ Item {
                     Label {
                         id: titleText
                         Layout.fillWidth: true
-                        font.pixelSize: 18
+                        font: Style.newH3Font
                         horizontalAlignment: Text.AlignHCenter
                         elide: Text.ElideRight
                         maximumLineCount: 1
