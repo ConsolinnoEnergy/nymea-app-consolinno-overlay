@@ -28,6 +28,9 @@ Page {
     QtObject {
         id: d
         property int pendingCallId: -1
+        // Incremented on every model modification so that bindings depending on
+        // model order (which ListModel doesn't track reactively) are re-evaluated.
+        property int modelRevision: 0
     }
 
     // #TODO the following 2 functions were copied from CoDashboardView.qml -> move to common utils file
@@ -69,6 +72,7 @@ Page {
                 "icon": thing ? root.thingToIcon(thing) : Qt.resolvedUrl("qrc:/icons/select-none.svg")
             });
         }
+        d.modelRevision++;
     }
 
     Connections {
@@ -182,6 +186,7 @@ Page {
 
                         onReleased: {
                             priorityListView.draggingIndex = -1;
+                            d.modelRevision++;
                         }
                     }
 
@@ -220,12 +225,19 @@ Page {
             Layout.fillWidth: true
             text: qsTr("Save")
             enabled: {
+                // ListModel.move() and clear()+append() do not change any property that
+                // QML's binding engine tracks, so this expression would never re-evaluate
+                // after a drag or restore without an explicit reactive dependency.
+                // d.modelRevision is incremented on every such modification to serve as
+                // that dependency and trigger re-evaluation.
+                d.modelRevision;
                 // Enabled only when the current list order differs from the saved pvSurplusPriolist.
                 var prioList = hemsManager.emsConfiguration.pvSurplusPriolist;
-                if (prioListModel.count !== prioList.length) return true;
+                if (prioListModel.count !== prioList.length) { return true; }
                 for (var i = 0; i < prioListModel.count; i++) {
-                    if (prioListModel.get(i).thingId !== "" + engine.thingManager.things.getThing(prioList[i]).id)
+                    if (prioListModel.get(i).thingId !== "" + engine.thingManager.things.getThing(prioList[i]).id) {
                         return true;
+                    }
                 }
                 return false;
             }
