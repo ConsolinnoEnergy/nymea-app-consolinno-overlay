@@ -420,9 +420,7 @@ GenericConfigPage {
                             interactive: isCarPluggedIn()
 
                             onClicked: {
-                                if (isCarPluggedIn()){
-                                    // #TODO Cancel charging already here if charging is currently active? (Or only
-                                    // when new charging mode is set in optimizationComponent) Cf. old cancelLoadingSchedule
+                                if (isCarPluggedIn()) {
                                     var page = pageStack.push(optimizationComponent , { thing: thing });
                                     page.done.connect(function() {
                                         busyOverlay.shown = true;
@@ -849,7 +847,7 @@ GenericConfigPage {
 
             Component.onCompleted: {
                 initScheduleModel();
-                endTimeSlider.feasibilityText();
+                endTimeSlider.updateFeasibilityWarning();
                 restoreSchedule();
             }
 
@@ -924,7 +922,7 @@ GenericConfigPage {
                                 onHoldingItemChanged: {
                                     if (holdingItem !== false){
                                         endTimeSlider.computeFeasibility();
-                                        endTimeSlider.feasibilityText();
+                                        endTimeSlider.updateFeasibilityWarning();
                                     }
                                 }
                             }
@@ -961,7 +959,7 @@ GenericConfigPage {
 
                                 onCurrentIndexChanged: {
                                     endTimeSlider.computeFeasibility();
-                                    endTimeSlider.feasibilityText();
+                                    endTimeSlider.updateFeasibilityWarning();
                                     comboboxloadingmod.currentValue === 4000 ?
                                                 gridConsumptionloadingmod.currentIndex = 1 :
                                                 gridConsumptionloadingmod.currentIndex = 0;
@@ -1001,7 +999,6 @@ GenericConfigPage {
                                             comboboxloadingmod.currentIndex = j;
                                             return;
                                         }
-                                        // #TODO does this work for "no charging"
                                         if (chargingConfiguration.optimizationMode === 9) {
                                             // If optimizationMode is 9 (no optimization), set to "Charge always"
                                             if (dynamicModel.get(j).mode === 0) {
@@ -1097,7 +1094,7 @@ GenericConfigPage {
                                             targetPercentageSlider.value = value + 1;
                                         }
                                         endTimeSlider.computeFeasibility();
-                                        endTimeSlider.feasibilityText();
+                                        endTimeSlider.updateFeasibilityWarning();
                                     }
                                 }
                             }
@@ -1117,13 +1114,13 @@ GenericConfigPage {
                                 Component.onCompleted: {
                                     if (carSelector.holdingItem !== false) {
                                         endTimeSlider.computeFeasibility();
-                                        endTimeSlider.feasibilityText();
+                                        endTimeSlider.updateFeasibilityWarning();
                                     }
                                 }
                                 onValueChanged: {
                                     if (carSelector.holdingItem !== false) {
                                         endTimeSlider.computeFeasibility();
-                                        endTimeSlider.feasibilityText();
+                                        endTimeSlider.updateFeasibilityWarning();
 
                                         if (value <= batteryLevel.value) {
                                             if (value === 100) {
@@ -1160,30 +1157,17 @@ GenericConfigPage {
                                 stepSize: 1
                                 //     from config hours          from config minutes     current hours           current minutes      add a day if negative (since it means it is the next day)
                                 value: chargingConfigHours * 60 + chargingConfigMinutes - today.getHours() * 60 - today.getMinutes() + nextDay * 24 * 60
+                                feedbackText: qsTr("In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time")
 
                                 onValueChanged: {
-                                    feasibilityText()
+                                    updateFeasibilityWarning();
                                 }
 
-                                // #TODO feasibility message
-                                function endTimeValidityPrediction(d) {
-                                    switch (d) {
-                                    case 1:
-                                        feasibilityMessage.visible = true;
-                                        break;
-                                    case 2:
-                                        feasibilityMessage.visible = false;
-                                        break;
-                                    }
-                                    return;
-                                }
-
-                                function feasibilityText(){
-                                    if (value < maximumChargingthreshhold){
-                                        endTimeValidityPrediction(1);
-                                    }
-                                    else{
-                                        endTimeValidityPrediction(2);
+                                function updateFeasibilityWarning() {
+                                    if (value < maximumChargingthreshhold) {
+                                        feedbackText = qsTr("In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time");
+                                    } else {
+                                        feedbackText = "";
                                     }
                                 }
 
@@ -1212,15 +1196,6 @@ GenericConfigPage {
                                         maximumChargingthreshhold = necessaryTimeinHMaxCharg * 60;
                                     }
                                 }
-                            }
-
-                            // #TODO replace by CoSlider feedback mechanism
-                            CoCard {
-                                id: feasibilityMessage
-                                Layout.fillWidth: true
-                                visible: false
-                                interactive: false
-                                helpText: qsTr("In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time")
                             }
 
                             Repeater {
