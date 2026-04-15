@@ -59,7 +59,7 @@ T.Button {
     leftInset: 4
     rightInset: 4
     opacity: !control.enabled ? Style.numbers.components_Disabled_opacity : 1
-    font: Style.newParagraphFont
+    font: Style.newParagraphFontBold
 
     contentItem: RowLayout {
         spacing: Style.smallMargins
