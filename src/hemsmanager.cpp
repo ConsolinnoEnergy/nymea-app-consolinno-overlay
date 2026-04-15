@@ -734,8 +734,7 @@ void HemsManager::getBatteryConfigurationResponse(int commandId, const QVariantM
 void HemsManager::getEmsConfigurationResponse(int commandId, const QVariantMap &data)
 {
     Q_UNUSED(commandId);
-    // #TODO qCDebug
-    qCWarning(dcHems()) << "EMS configuration" << data;
+    qCDebug(dcHems()) << "EMS configuration" << data;
     if (!data.contains("emsConfigurations")) {
         qCWarning(dcHems()) << "Missing entry \"emsConfigurations\"";
         return;
