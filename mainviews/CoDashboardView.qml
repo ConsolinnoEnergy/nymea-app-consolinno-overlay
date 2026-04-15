@@ -511,7 +511,6 @@ MainViewBase {
                                     console.info("Clicked grid card");
                                     pageStack.push(
                                                 "/ui/devicepages/RootMeterDevicePage.qml",
-                                                // #TODO remove unnecessary stuff
                                                 {
                                                     "thing": thing,
                                                     "gridSupport": gridSupport

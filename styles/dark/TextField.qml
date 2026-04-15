@@ -51,8 +51,6 @@ T.TextField {
 
     padding: 12
 
-    // #TODO Feedback state
-
     color: Style.colors.components_Forms_Fields_Field_user_input
     selectionColor: control.palette.highlight
     selectedTextColor: control.palette.highlightedText
