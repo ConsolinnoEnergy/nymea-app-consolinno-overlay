@@ -724,13 +724,8 @@ MainViewBase {
                                                                 "thing": thing
                                                             });
                                             } else {
-                                                console.warn("Neither heatpump nor heatingrod interface found in thing interfaces:",
-                                                             thing.thingClass.interfaces);
-                                                pageStack.push(
-                                                            "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
-                                                            {
-                                                                "thing": thing
-                                                            });
+                                                console.error("Neither heatpump nor heatingrod interface found in thing interfaces:",
+                                                              thing.thingClass.interfaces);
                                             }
                                         }
                                     }
