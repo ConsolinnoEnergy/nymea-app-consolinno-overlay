@@ -198,6 +198,7 @@
         <file>devicepages/HeatingElementDevicePage.qml</file>
         <file>devicepages/SimpleConsumerDevicePage.qml</file>
         <file>devicepages/RootMeterDevicePage.qml</file>
+        <file>devicepages/InverterDevicePage.qml</file>
         <file>optimization/HeatingElementOptimization.qml</file>
         <file>optimization/DynamicElectricityRate.qml</file>
         <file>mainviews/energy/ConsolinnoDynamicElectricPricing.qml</file>

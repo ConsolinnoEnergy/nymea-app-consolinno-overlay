@@ -646,11 +646,11 @@ MainViewBase {
                                     onClicked: {
                                         console.info("Clicked inverter:", thing.name);
                                         pageStack.push(
-                                                    "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
+                                                    "/ui/devicepages/InverterDevicePage.qml",
                                                     {
                                                         "thing": thing,
-                                                        "isNotify": showWarningIndicator,
-                                                        "gridSupportThing": gridSupport
+                                                        "showLppWarning": showWarningIndicator,
+                                                        "gridSupport": gridSupport
                                                     });
                                     }
                                 }
