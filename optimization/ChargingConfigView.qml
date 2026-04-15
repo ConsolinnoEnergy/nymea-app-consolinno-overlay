@@ -89,13 +89,11 @@ GenericConfigPage {
         }
     }
 
-    function isCarPluggedIn()
-    {
-        if (thing.stateByName("pluggedIn").value)
-        {
-            return true
+    function isCarPluggedIn() {
+        if (thing.stateByName("pluggedIn").value) {
+            return true;
         }
-        return false
+        return false;
     }
     
 
@@ -355,18 +353,12 @@ GenericConfigPage {
                         CoCard {
                             id: vehiclePluggedInCard
                             Layout.fillWidth: true
-                            text: qsTr("Car plugged in")
+                            text: isCarPluggedIn() ?
+                                      qsTr("Car plugged in") :
+                                      qsTr("Car not plugged in")
                             status: isCarPluggedIn() ?
                                         CoCard.StatusType.Success :
                                         CoCard.StatusType.Danger
-                            interactive: false
-                        }
-
-                        CoCard {
-                            id: noVehiclePluggedInCard
-                            Layout.fillWidth: true
-                            text: qsTr("No car is connected at the moment. Please connect a car.")
-                            visible: !(isCarPluggedIn())
                             interactive: false
                         }
 
