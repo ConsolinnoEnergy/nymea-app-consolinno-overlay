@@ -251,7 +251,7 @@ Page {
         Button {
             id: savebutton
             Layout.fillWidth: true
-            text: qsTr("Save")
+            text: qsTr("Apply changes")
             enabled: {
                 // ListModel.move() and clear()+append() do not change any property that
                 // QML's binding engine tracks, so this expression would never re-evaluate

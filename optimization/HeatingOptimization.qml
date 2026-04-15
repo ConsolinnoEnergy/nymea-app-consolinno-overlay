@@ -164,7 +164,7 @@ Page {
             property bool inputValid: maxElectricalPower.maxElectricalPowerValid
 
             Layout.fillWidth: true
-            text: qsTr("Save")
+            text: qsTr("Apply changes")
             onClicked: {
                 let inputText = maxElectricalPower.text
                 inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText

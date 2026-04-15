@@ -130,7 +130,7 @@ Page {
             id: savebutton
 
             Layout.fillWidth: true
-            text: qsTr("Save")
+            text: qsTr("Apply changes")
             onClicked: {
                 var blockBatteryOnGridConsumption = batteryConfiguration.blockBatteryOnGridConsumption;
                 if (blockEVChargingFromBatteryControl.checked) {

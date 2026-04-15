@@ -202,7 +202,7 @@ Page {
             Button {
                 id: savebutton
                 Layout.fillWidth: true
-                text: qsTr("Save")
+                text: qsTr("Apply changes")
                 property bool validated: latitudeInput.acceptableInput
                                          && longitudeInput.acceptableInput
                                          && roofpitchInput.acceptableInput

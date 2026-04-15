@@ -101,7 +101,7 @@ Page {
         Button {
             id: savebutton
             Layout.fillWidth: true
-            text: qsTr("Save")
+            text: qsTr("Apply changes")
             onClicked: {
                     hemsManager.setChargingOptimizationConfiguration(chargingConfiguration.evChargerThingId,
                                                                      {

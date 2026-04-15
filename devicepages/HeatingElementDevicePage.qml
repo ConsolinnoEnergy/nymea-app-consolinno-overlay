@@ -198,7 +198,7 @@ GenericConfigPage {
                 Button {
                     id: savebutton
                     Layout.fillWidth: true
-                    text: qsTr("Save")
+                    text: qsTr("Apply changes")
                     enabled: {
                         let optimizationEnabledInConfig = heatingRodConfig.optimizationEnabled;
                         let optimizationEnabledInComboBox = optimizationModeCombobox.currentValue === 1; // PV surplus

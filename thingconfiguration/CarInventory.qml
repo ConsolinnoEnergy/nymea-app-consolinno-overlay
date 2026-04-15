@@ -166,7 +166,7 @@ Page{
             Layout.fillWidth: true
             Layout.margins: Style.margins
             id: saveButton
-            text: qsTr("Save") // #TODO wording
+            text: qsTr("Apply changes")
             enabled: optimizerRepeater.checkedIndex() !== -1
 
             onClicked: {
@@ -310,7 +310,7 @@ Page{
 
                 Button {
                     Layout.fillWidth: true
-                    text: qsTr("Save")
+                    text: qsTr("Apply changes")
                     enabled: {
                         if (nameInput.text === "") {
                             return false;

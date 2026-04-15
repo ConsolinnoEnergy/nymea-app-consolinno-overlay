@@ -446,7 +446,7 @@ GenericConfigPage {
                 Button {
                     id: saveButton
                     Layout.fillWidth: true
-                    text: qsTr("Save")
+                    text: qsTr("Apply changes")
                     enabled: false
                     visible: thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
 

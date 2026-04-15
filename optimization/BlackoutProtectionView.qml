@@ -155,7 +155,7 @@ Page {
                 }
                 return phaseLimit > 15;
             }
-            text: qsTr("Save")
+            text: qsTr("Apply changes")
 
             onClicked: {
                 if (directionID === 0) {

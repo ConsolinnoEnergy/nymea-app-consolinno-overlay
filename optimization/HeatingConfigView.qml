@@ -333,7 +333,7 @@ GenericConfigPage {
                     id: saveButton
                     Layout.fillWidth: true
                     visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
-                    text: qsTr("Save")
+                    text: qsTr("Apply changes")
                     enabled: false
                     onClicked: {
                         saveSettings();
