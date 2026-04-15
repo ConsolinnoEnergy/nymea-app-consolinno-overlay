@@ -218,8 +218,17 @@ Page {
         Button {
             id: savebutton
             Layout.fillWidth: true
-            // #TODO enable only when list changed
             text: qsTr("Save")
+            enabled: {
+                // Enabled only when the current list order differs from the saved pvSurplusPriolist.
+                var prioList = hemsManager.emsConfiguration.pvSurplusPriolist;
+                if (prioListModel.count !== prioList.length) return true;
+                for (var i = 0; i < prioListModel.count; i++) {
+                    if (prioListModel.get(i).thingId !== "" + engine.thingManager.things.getThing(prioList[i]).id)
+                        return true;
+                }
+                return false;
+            }
 
             onClicked: {
                 var uuidList = [];
