@@ -9,6 +9,7 @@ GenericConfigPage {
     id: root
 
     property Thing thing: null
+    property SwitchableConsumerConfiguration consumerConfig: hemsManager.switchableConsumerConfigurations.getSwitchableConsumerConfiguration(thing.id)
     readonly property State connectedState: root.thing.stateByName("connected")
     readonly property State powerState: root.thing.stateByName("power")
     readonly property State currentConsumptionState: root.thing.stateByName("currentPower")
@@ -24,7 +25,27 @@ GenericConfigPage {
 
     Connections {
         target: hemsManager
-        // #TODO
+        onSetSwitchableConsumerConfigurationReply: function(commandId, error) {
+            if (commandId === d.pendingCallId) {
+                d.pendingCallId = -1;
+                let props = "";
+                switch (error) {
+                case "HemsErrorNoError":
+                    return;
+                case "HemsErrorInvalidParameter":
+                    props.text = qsTr("Could not save configuration. One of the parameters is invalid.");
+                    break;
+                case "HemsErrorInvalidThing":
+                    props.text = qsTr("Could not save configuration. The thing is not valid.");
+                    break;
+                default:
+                    props.errorCode = error;
+                }
+                var comp = Qt.createComponent("../components/ErrorDialog.qml");
+                var popup = comp.createObject(app, { props });
+                popup.open();
+            }
+        }
     }
 
     ListModel {
@@ -134,12 +155,11 @@ GenericConfigPage {
                             textRole: "name"
                             valueRole: "value"
                             Component.onCompleted: {
-                                // #TODO
-                                // if (!heatingRodConfig) {
-                                //     comboBox.currentIndex = 0;
-                                // } else {
-                                //     comboBox.currentIndex = heatingRodConfig.optimizationEnabled ? 1 : 0;
-                                // }
+                                if (!root.consumerConfig) {
+                                    currentIndex = 0;
+                                } else {
+                                    currentIndex = comboBox.indexOfValue(root.consumerConfig.optimizationMode);
+                                }
                             }
                         }
                     }
@@ -178,19 +198,16 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     text: qsTr("Apply changes")
                     enabled: {
-                        // #TODO
-                        // let optimizationEnabledInConfig = heatingRodConfig.optimizationEnabled;
-                        // let optimizationEnabledInComboBox = optimizationModeCombobox.currentValue === 1; // PV surplus
-                        // return optimizationEnabledInConfig != optimizationEnabledInComboBox;
-                        return true;
+                        if (!root.consumerConfig) return false;
+                        return optimizationModeCombobox.currentValue !== root.consumerConfig.optimizationMode;
+                        // #TODO check other parameters
                     }
 
                     onClicked: {
-                        // #TODO
-                        // d.pendingCallId = hemsManager.setHeatingElementConfiguration(root.heatingRodConfig.heatingRodThingId,
-                        //                                                              {
-                        //                                                                  optimizationEnabled: optimizationModeCombobox.currentValue === 1 // PV surplus
-                        //                                                              });
+                        d.pendingCallId = hemsManager.setSwitchableConsumerConfiguration(
+                            root.consumerConfig.switchableConsumerThingId,
+                            { optimizationMode: optimizationModeCombobox.currentValue } // #TODO add other parameters
+                        );
                     }
                 }
             }
