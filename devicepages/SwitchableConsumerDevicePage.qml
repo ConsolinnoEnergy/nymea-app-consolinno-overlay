@@ -189,6 +189,20 @@ GenericConfigPage {
                             }
                         }
 
+                        CoInputField {
+                            id: mindPVSurplusPower
+                            Layout.fillWidth: true
+                            compactTextField: true
+                            labelText: qsTr("Minimum power")
+                            helpText: qsTr("Minimum PV power required for activation.")
+                            unit: "W"
+                            text: consumerConfig.pvSurplusThreshold
+                            textField.validator: IntValidator { bottom: 0 }
+                            // #TODO feedbackText?
+                        }
+
+
+
                         // #TODO add controls for other parameters
                     }
                 }
