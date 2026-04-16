@@ -68,6 +68,20 @@ Page {
                 anchors.rightMargin: Style.margins
                 spacing: 0
 
+                CoInputField {
+                    id: maxElectricalPower
+                    property bool maxElectricalPowerValid: !visible || textField.acceptableInput
+                    Layout.fillWidth: true
+                    visible: !thing.thingClass.interfaces.includes("controllablebattery")
+                    labelText: qsTr("Maximal electrical power")
+                    compactTextField: true
+                    unit: qsTr("kW")
+                    feedbackText: qsTr("The value is outside the valid range.")
+                    textField.text: (+batteryConfiguration.maxElectricalPower).toLocaleString()
+                    textField.maximumLength: 10
+                    textField.validator: DoubleValidator { bottom: 0.5 }
+                }
+
                 CoSwitch {
                     id: gridSupportControl
                     Layout.fillWidth: true
@@ -130,6 +144,7 @@ Page {
             id: savebutton
 
             Layout.fillWidth: true
+            enabled: maxElectricalPower.maxElectricalPowerValid
             text: qsTr("Apply changes")
             onClicked: {
                 var blockBatteryOnGridConsumption = batteryConfiguration.blockBatteryOnGridConsumption;
@@ -139,10 +154,15 @@ Page {
                     blockBatteryOnGridConsumption &= ~BatteryConfiguration.EvCharger;
                 }
 
+                let inputText = maxElectricalPower.text;
+                inputText.includes(",") === true ? inputText = inputText.replace(",", ".") : inputText;
+
                 hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId,
-                                                    { controllableLocalSystem: gridSupportControl.checked,
+                                                    {
+                                                        controllableLocalSystem: gridSupportControl.checked,
                                                         avoidZeroFeedInEnabled: zeroCompensationControl.checked,
-                                                        blockBatteryOnGridConsumption: blockBatteryOnGridConsumption
+                                                        blockBatteryOnGridConsumption: blockBatteryOnGridConsumption,
+                                                        maxElectricalPower: parseFloat(inputText)
                                                     });
                 if (directionID !== 1) {
                     pageStack.pop();

@@ -583,6 +583,15 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
         }
     }
 
+    // QList<int> does not serialize to JSON via the meta-object system, convert explicitly
+    if (!data.contains("targetSocPvSurplus")) {
+        QVariantList targetSocPvSurplusList;
+        foreach (int v, configuration->targetSocPvSurplus()) {
+            targetSocPvSurplusList.append(v);
+        }
+        config.insert("targetSocPvSurplus", targetSocPvSurplusList);
+    }
+
     QVariantMap params;
     params.insert("batteryConfiguration", config);
     qCWarning(dcHems()) << "Set Battery configuration" << params;
@@ -1170,6 +1179,13 @@ void HemsManager::addOrUpdateBatteryConfiguration(const QVariantMap &configurati
     configuration->setChargeOnce(configurationMap.value("chargeOnce").toBool());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
     configuration->setBlockBatteryOnGridConsumption(configurationMap.value("blockBatteryOnGridConsumption").toInt());
+    configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toFloat());
+
+    QList<int> targetSocPvSurplus;
+    foreach (const QVariant &v, configurationMap.value("targetSocPvSurplus").toList()) {
+        targetSocPvSurplus.append(v.toInt());
+    }
+    configuration->setTargetSocPvSurplus(targetSocPvSurplus);
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Battery configuration added" << configuration->batteryThingId();
