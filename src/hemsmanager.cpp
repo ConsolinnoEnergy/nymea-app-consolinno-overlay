@@ -784,6 +784,8 @@ void HemsManager::getBatteryConfigurationResponse(int commandId, const QVariantM
 void HemsManager::getSwitchableConsumerConfigurationsResponse(int commandId, const QVariantMap &data)
 {
     Q_UNUSED(commandId);
+    // #TODO logging level
+    qCWarning(dcHems()) << "Switchable consumer configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("switchableConsumerConfigurations").toList()) {
         addOrUpdateSwitchableConsumerConfiguration(configurationVariant.toMap());
     }
