@@ -228,6 +228,40 @@ Page {
                     }
                 }
             }
+
+            CoFrostyCard {
+                id: switchableConsumerGroup
+                Layout.fillWidth: true
+                contentTopMargin: 8
+                headerText: qsTr("Switchable consumers")
+                visible: switchableConsumerRepeater.count > 0 || settings.showHiddenOptions
+
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    Repeater {
+                        id: switchableConsumerRepeater
+                        model: hemsManager.switchableConsumerConfigurations
+                        delegate: CoCard {
+                            property SwitchableConsumerConfiguration switchableConsumerConfiguration:
+                                hemsManager.switchableConsumerConfigurations.getSwitchableConsumerConfiguration(model.switchableConsumerThingId)
+                            property Thing switchableConsumerThing:
+                                engine.thingManager.things.getThing(model.switchableConsumerThingId)
+                            Layout.fillWidth: true
+                            text: switchableConsumerThing.name
+                            iconLeft: app.interfacesToIcon(switchableConsumerThing.thingClass.interfaces)
+                            showChildrenIndicator: true
+                            onClicked: pageStack.push(Qt.resolvedUrl("../optimization/SwitchableConsumerOptimization.qml"),
+                                                      {
+                                                          switchableConsumerConfiguration: switchableConsumerConfiguration,
+                                                          switchableConsumerThing: switchableConsumerThing
+                                                      })
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -238,7 +272,8 @@ Page {
                  !heatingGroup.visible &&
                  !wallboxGroup.visible &&
                  !batteryGroup.visible &&
-                 !inverterGroup.visible
+                 !inverterGroup.visible &&
+                 !switchableConsumerGroup.visible
         title: qsTr("No optimizations available")
         text: qsTr("Optimizations will be available once the required things have been added to the system.")
         buttonVisible: false

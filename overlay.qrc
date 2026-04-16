@@ -202,6 +202,7 @@
         <file>devicepages/RootMeterDevicePage.qml</file>
         <file>devicepages/InverterDevicePage.qml</file>
         <file>optimization/HeatingElementOptimization.qml</file>
+        <file>optimization/SwitchableConsumerOptimization.qml</file>
         <file>optimization/DynamicElectricityRate.qml</file>
         <file>mainviews/energy/ConsolinnoDynamicElectricPricing.qml</file>
         <file>mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml</file>
