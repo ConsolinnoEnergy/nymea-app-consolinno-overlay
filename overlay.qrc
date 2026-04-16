@@ -11,6 +11,7 @@
         <file>styles/light/TextField.qml</file>
         <file>styles/light/RadioButton.qml</file>
         <file>styles/light/qmldir</file>
+        <file>styles/light/SpinBox.qml</file>
         <file>translations</file>
         <file>styles/light/Background.qml</file>
         <file>SOURCE_AVAIL_de_DE.txt</file>
@@ -28,6 +29,7 @@
         <file>styles/dark/ComboBox.qml</file>
         <file>styles/dark/TextField.qml</file>
         <file>styles/dark/RadioButton.qml</file>
+        <file>styles/dark/SpinBox.qml</file>
         <file>icons/account_circle.svg</file>
         <file>icons/add.svg</file>
         <file>icons/android_wifi_3_bar.svg</file>
@@ -266,6 +268,7 @@
         <file>components/CoEnergyCircle.qml</file>
         <file>components/CoComboBox.qml</file>
         <file>components/CoInputField.qml</file>
+        <file>components/CoInputStepper.qml</file>
         <file>components/CoSortableCard.qml</file>
         <file>optimization/PVPriorities.qml</file>
         <file>components/CoCardWithRadioButton.qml</file>
