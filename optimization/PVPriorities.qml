@@ -66,7 +66,7 @@ Page {
             let config = hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id);
             return config ? config.optimizationMode === HeatingConfiguration.OptimizationModePVSurplus : false;
         }
-        if (ifaces.indexOf("controllablebattery") >= 0) {
+        if (ifaces.indexOf("battery") >= 0) {
             return true;
         }
         if (ifaces.indexOf("evcharger") >= 0) {
