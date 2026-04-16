@@ -53,8 +53,23 @@ GenericConfigPage {
         // #TODO wordings
         ListElement{ name: qsTr("Always on"); value: 1 }   // SwitchableConsumerConfiguration.OptimizationModeManualOn
         ListElement{ name: qsTr("Off"); value: 2 }          // SwitchableConsumerConfiguration.OptimizationModeManualOff
-        ListElement{ name: qsTr("PV surplus"); value: 0 }   // SwitchableConsumerConfiguration.OptimizationModePvSurplus
         ListElement{ name: qsTr("No control"); value: 3 }   // SwitchableConsumerConfiguration.OptimizationModeNoControl
+
+        Component.onCompleted: {
+            if (hemsManager.availableUseCases & HemsManager.HemsUseCasePv) {
+                insert(2, { name: qsTr("PV surplus"), value: 0 }); // SwitchableConsumerConfiguration.OptimizationModePvSurplus
+            }
+            if (!root.consumerConfig) {
+                optimizationModeCombobox.currentIndex = 0;
+            } else {
+                const ind = optimizationModeCombobox.comboBox.indexOfValue(root.consumerConfig.optimizationMode);
+                if (ind !== -1) {
+                    optimizationModeCombobox.currentIndex = ind;
+                } else {
+                    optimizationModeCombobox.currentIndex = 0;
+                }
+            }
+        }
     }
 
     content: [
@@ -154,13 +169,6 @@ GenericConfigPage {
                             model: optimizationModesModel
                             textRole: "name"
                             valueRole: "value"
-                            Component.onCompleted: {
-                                if (!root.consumerConfig) {
-                                    currentIndex = 0;
-                                } else {
-                                    currentIndex = comboBox.indexOfValue(root.consumerConfig.optimizationMode);
-                                }
-                            }
                         }
                     }
                 }
