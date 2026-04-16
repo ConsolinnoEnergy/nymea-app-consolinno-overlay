@@ -116,6 +116,7 @@ Page {
             property bool inputValid: maxElectricalPower.maxElectricalPowerValid
 
             Layout.fillWidth: true
+            enabled: inputValid
             text: qsTr("Apply changes")
             onClicked: {
                 let inputText = maxElectricalPower.text
