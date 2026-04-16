@@ -100,12 +100,20 @@ HeatingConfiguration::HPOptimizationMode HeatingConfiguration::optimizationMode(
 
 void HeatingConfiguration::setOptimizationMode(HPOptimizationMode optimizationMode)
 {
+    if (m_optimizationMode == optimizationMode)
+        return;
+
     m_optimizationMode = optimizationMode;
+    emit optimizationModeChanged(m_optimizationMode);
 }
 
 void HeatingConfiguration::setMaxThermalEnergy(const double &maxThermalEnergy)
 {
+    if (m_maxThermalEnergy == maxThermalEnergy)
+        return;
+
     m_maxThermalEnergy = maxThermalEnergy;
+    emit maxThermalEnergyChanged(m_maxThermalEnergy);
 }
 
 double HeatingConfiguration::floorHeatingArea() const
