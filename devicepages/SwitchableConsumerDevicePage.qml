@@ -177,6 +177,18 @@ GenericConfigPage {
                         anchors.right: parent.right
                         spacing: Style.smallMargins
 
+                        // Initialization is done here rather than in each stepper's Component.onCompleted
+                        // because the parent's onCompleted fires after all children are fully constructed.
+                        // This guarantees maxTotalRuntimeStepper exists and its value is set first, so
+                        // minRuntimeStepper.to (which binds to maxTotalRuntimeStepper.value) is already
+                        // at the correct upper bound when minRuntimeStepper.value is assigned — preventing
+                        // it from being spuriously clamped to 0.
+                        Component.onCompleted: {
+                            if (!root.consumerConfig) { return; }
+                            maxTotalRuntimeStepper.value = Math.round(root.consumerConfig.durationMaxTotal / 15);
+                            minRuntimeStepper.value = Math.round(root.consumerConfig.durationMinAfterTurnOn / 15);
+                        }
+
                         CoCard {
                             id: pvPrioCard
                             Layout.fillWidth: true
@@ -190,20 +202,69 @@ GenericConfigPage {
                         }
 
                         CoInputField {
-                            id: mindPVSurplusPower
+                            id: minPVSurplusPower
                             Layout.fillWidth: true
                             compactTextField: true
                             labelText: qsTr("Minimum power")
                             helpText: qsTr("Minimum PV power required for activation.")
                             unit: "W"
                             text: consumerConfig.pvSurplusThreshold
-                            textField.validator: IntValidator { bottom: 0 }
-                            // #TODO feedbackText?
+                            feedbackText: qsTr("Value must not be below %1 W.").arg(minPVSurplusPowerValidator.bottom)
+                            textField.validator: IntValidator  {
+                                id: minPVSurplusPowerValidator
+                                bottom: 100
+                            }
                         }
 
+                        CoInputStepper {
+                            id: minRuntimeStepper
+                            Layout.fillWidth: true
+                            labelText: qsTr("Minimum runtime")
+                            helpText: qsTr("Runs at least this long after activation.")
+                            unit: qsTr("h")
+                            compact: true
+                            from: 0
+                            to: maxTotalRuntimeStepper.value
+                            stepSize: 1
+                            feedbackText: qsTr("Value must be between 0 and %1 h.").arg(NymeaUtils.floatToLocaleString(maxTotalRuntimeStepper.value / 4, 2))
+                            spinbox.textFromValue: function(value, locale) {
+                                return NymeaUtils.floatToLocaleString(value / 4, 2);
+                            }
+                            spinbox.valueFromText: function(text, locale) {
+                                return Math.round(Number.fromLocaleString(Qt.locale(), text) * 4);
+                            }
+                            spinbox.validator: DoubleValidator {
+                                bottom: 0
+                                top: maxTotalRuntimeStepper.value / 4
+                                decimals: 2
+                                notation: DoubleValidator.StandardNotation
+                            }
+                        }
 
-
-                        // #TODO add controls for other parameters
+                        CoInputStepper {
+                            id: maxTotalRuntimeStepper
+                            Layout.fillWidth: true
+                            labelText: qsTr("Maximum runtime")
+                            helpText: qsTr("Limits the daily runtime and automatically switches the device off.")
+                            unit: qsTr("h")
+                            compact: true
+                            from: minRuntimeStepper.value
+                            to: 96 // 24 h * 4 quarter-hours
+                            stepSize: 1
+                            feedbackText: qsTr("Value must be between %1 and 24 h.").arg(NymeaUtils.floatToLocaleString(minRuntimeStepper.value / 4, 2))
+                            spinbox.textFromValue: function(value, locale) {
+                                return NymeaUtils.floatToLocaleString(value / 4, 2);
+                            }
+                            spinbox.valueFromText: function(text, locale) {
+                                return Math.round(Number.fromLocaleString(Qt.locale(), text) * 4);
+                            }
+                            spinbox.validator: DoubleValidator {
+                                bottom: minRuntimeStepper.value / 4
+                                top: 24
+                                decimals: 2
+                                notation: DoubleValidator.StandardNotation
+                            }
+                        }
                     }
                 }
 
@@ -212,15 +273,25 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     text: qsTr("Apply changes")
                     enabled: {
-                        if (!root.consumerConfig) return false;
-                        return optimizationModeCombobox.currentValue !== root.consumerConfig.optimizationMode;
-                        // #TODO check other parameters
+                        if (!root.consumerConfig) { return false; }
+                        if (pvSurplusGroup.visible && (!minRuntimeStepper.acceptableInput || !maxTotalRuntimeStepper.acceptableInput)) { return false; }
+                        if (pvSurplusGroup.visible && !minPVSurplusPower.acceptableInput) { return false; }
+                        if (optimizationModeCombobox.currentValue !== root.consumerConfig.optimizationMode) { return true; }
+                        if (pvSurplusGroup.visible && minRuntimeStepper.value * 15 !== root.consumerConfig.durationMinAfterTurnOn) { return true; }
+                        if (pvSurplusGroup.visible && maxTotalRuntimeStepper.value * 15 !== root.consumerConfig.durationMaxTotal) { return true; }
+                        if (pvSurplusGroup.visible && parseInt(minPVSurplusPower.text) !== root.consumerConfig.pvSurplusThreshold) { return true; }
+                        return false;
                     }
 
                     onClicked: {
                         d.pendingCallId = hemsManager.setSwitchableConsumerConfiguration(
                             root.consumerConfig.switchableConsumerThingId,
-                            { optimizationMode: optimizationModeCombobox.currentValue } // #TODO add other parameters
+                            {
+                                optimizationMode: optimizationModeCombobox.currentValue,
+                                durationMinAfterTurnOn: minRuntimeStepper.value * 15,
+                                durationMaxTotal: maxTotalRuntimeStepper.value * 15,
+                                pvSurplusThreshold: parseInt(minPVSurplusPower.text)
+                            }
                         );
                     }
                 }
