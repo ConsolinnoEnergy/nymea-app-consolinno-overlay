@@ -102,7 +102,7 @@ GenericConfigPage {
 
     function saveSettings()
     {
-        let targetSocPvSurplus = [ Math.round(pvPrioSlider.value) ];
+        let targetSocPvSurplus = pvPrioGroup.visible ? [ Math.round(pvPrioSlider.value) ] : batteryConfiguration.targetSocPvSurplus;
         d.pendingCallId = hemsManager.setBatteryConfiguration(thing.id,
                                                               {
                                                                   "optimizationEnabled": tariffControlledChargingToggle.checked,
@@ -121,7 +121,7 @@ GenericConfigPage {
                 batteryConfiguration.dischargePriceThreshold !== relDischargeBlockedThreshold ||
                 (chargeOnceToggle.enabled && batteryConfiguration.chargeOnce !== chargeOnceToggle.checked) ||
                 batteryConfiguration.optimizationEnabled !== tariffControlledChargingToggle.checked ||
-                (batteryConfiguration.targetSocPvSurplus.length > 0 && batteryConfiguration.targetSocPvSurplus[0] !== Math.round(pvPrioSlider.value));
+                (pvPrioGroup.visible && batteryConfiguration.targetSocPvSurplus.length > 0 && batteryConfiguration.targetSocPvSurplus[0] !== Math.round(pvPrioSlider.value));
     }
 
     ThingsProxy {
@@ -210,7 +210,7 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("PV device prioritization") // #TODO wording
-                    visible: thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
+                    visible: thing.thingClass.interfaces.indexOf("battery") >= 0
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -448,7 +448,7 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     text: qsTr("Apply changes")
                     enabled: false
-                    visible: thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
+                    visible: thing.thingClass.interfaces.indexOf("battery") >= 0
 
                     onClicked: {
                         saveSettings()

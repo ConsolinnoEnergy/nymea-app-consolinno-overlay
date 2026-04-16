@@ -8,13 +8,13 @@ import "../delegates"
 Page {
     id: root
 
-    property HeatingElementConfiguration heatingElementConfiguration
-    property Thing heatRodThing
+    property SwitchableConsumerConfiguration switchableConsumerConfiguration
+    property Thing switchableConsumerThing
     property int directionID: 0
     signal done()
 
     header: NymeaHeader {
-        text: qsTr("Heating")
+        text: switchableConsumerThing.name
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
@@ -26,7 +26,7 @@ Page {
 
     Connections {
         target: hemsManager
-        onSetHeatingElementConfigurationReply: function(commandId, error) {
+        onSetSwitchableConsumerConfigurationReply: function(commandId, error) {
 
             if (commandId === d.pendingCallId) {
                 d.pendingCallId = -1
@@ -58,7 +58,7 @@ Page {
         CoFrostyCard {
             Layout.fillWidth: true
             contentTopMargin: Style.smallMargins
-            headerText: heatRodThing.name
+            headerText: switchableConsumerThing.name
 
             ColumnLayout {
                 anchors.left: parent.left
@@ -75,7 +75,7 @@ Page {
                     compactTextField: true
                     unit: qsTr("kW")
                     feedbackText: qsTr("The value is outside the valid range.")
-                    textField.text: (+heatingElementConfiguration.maxElectricalPower).toLocaleString()
+                    textField.text: (+switchableConsumerConfiguration.maxElectricalPower).toLocaleString()
                     textField.maximumLength: 10
                     textField.validator: DoubleValidator { bottom: 0.5 }
                 }
@@ -85,11 +85,9 @@ Page {
                     Layout.fillWidth: true
                     text: qsTr("Grid-supportive-control")
                     helpText: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
-                    visible: heatRodThing.thingClass.interfaces.includes("controllableconsumer") ||
-                             heatRodThing.thingClass.interfaces.includes("heatingrod")
 
                     Component.onCompleted: {
-                        checked = heatingElementConfiguration.controllableLocalSystem
+                        checked = switchableConsumerConfiguration.controllableLocalSystem;
                     }
                 }
             }
@@ -122,11 +120,13 @@ Page {
                 let inputText = maxElectricalPower.text
                 inputText.includes(",") === true ? inputText = inputText.replace(",", ".") : inputText
                 if (savebutton.inputValid) {
-                    d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, {
-                        "maxElectricalPower": parseFloat(inputText),
-                        "optimizationEnabled": heatingElementConfiguration ? heatingElementConfiguration.optimizationEnabled : true,
-                        "controllableLocalSystem": controllSwitch.checked
-                    })
+                    d.pendingCallId = hemsManager.setSwitchableConsumerConfiguration(
+                        switchableConsumerConfiguration.switchableConsumerThingId,
+                        {
+                            "maxElectricalPower": parseFloat(inputText),
+                            "controllableLocalSystem": controllSwitch.checked
+                        }
+                    )
                     if (directionID !== 1) {
                         pageStack.pop()
                     }
