@@ -48,7 +48,7 @@ ConsolinnoWizardPageBase {
 
             Button {
                 Layout.alignment: Qt.AlignHCenter
-                text: qsTr("cancel")
+                text: qsTr("Cancel")
                 Layout.preferredWidth: 200
                 onClicked: {
                     pageStack.pop()
@@ -57,7 +57,7 @@ ConsolinnoWizardPageBase {
 
             Button {
                 Layout.alignment: Qt.AlignHCenter
-                text: qsTr("next")
+                text: qsTr("Next")
                 enabled: authorisationCheckbox.checked
                 Layout.preferredWidth: 200
                 onClicked: {
