@@ -162,6 +162,7 @@
         <file>info/MaximumAllowedChargingLimit.qml</file>
         <file>info/InfoTextInterface.qml</file>
         <file>optimization/HeatingConfigView.qml</file>
+        <file>optimization/HeatingDetailView.qml</file>
         <file>components/VerticalDivider.qml</file>
         <file>info/EnergyManagerInfo.qml</file>
         <file>components/ConsolinnoItemDelegate.qml</file>
