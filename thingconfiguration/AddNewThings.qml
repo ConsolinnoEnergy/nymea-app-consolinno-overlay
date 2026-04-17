@@ -14,8 +14,8 @@ Page {
     property Thing thingDevice
 
     function refreshAllDelegates() {
-        for (let i = 0; i < listView.count; ++i) {
-            let item = listView.itemAtIndex(i);
+        for (let i = 0; i < baseInterfaceRepeater.count; ++i) {
+            let item = baseInterfaceRepeater.itemAt(i);
             if (item && item.refresh) {
                 item.refresh();
             }
@@ -31,12 +31,6 @@ Page {
         onBackPressed: {
             pageStack.pop();
         }
-    }
-
-    ThingsProxy {
-        id: evChargersProxy
-        engine: _engine
-        shownInterfaces: ["evcharger"]
     }
 
     Connections {
@@ -81,253 +75,191 @@ Page {
         }
     }
 
+    QtObject {
+        id: d
+        property var baseInterfacesWithThingClasses: ({})
+    }
+
+    ThingClassesProxy {
+        id: allThingClassesProxy
+        engine: _engine
+        includeProvidedInterfaces: true
+        groupByInterface: true
+    }
+
+    Component.onCompleted: {
+        let map = {};
+        for (let i = 0; i < allThingClassesProxy.count; ++i) {
+            const item = allThingClassesProxy.get(i);
+            const baseInterface = item.baseInterface;
+            if (!map[baseInterface]) {
+                map[baseInterface] = [];
+            }
+            map[baseInterface].push(item.id);
+        }
+        d.baseInterfacesWithThingClasses = map;
+    }
+
+    ThingsProxy {
+        id: gridSupport
+        engine: _engine
+        shownInterfaces: ["gridsupport"]
+    }
+
+    ThingsProxy {
+        id: epexDataSource
+        engine: _engine
+        shownInterfaces: ["epexdatasource"]
+    }
+
+    ThingsProxy {
+        id: evCharger
+        engine: _engine
+        shownInterfaces: ["evcharger"]
+    }
+
+    ThingsProxy {
+        id: heatPump
+        engine: _engine
+        shownInterfaces: ["heatpump"]
+    }
+
+    ThingsProxy {
+        id: heatingRod
+        engine: _engine
+        shownInterfaces: ["heatingrod"]
+    }
+
+    ThingClassesProxy {
+        id: thingClassesProxyEvCharger
+        engine: _engine
+        filterInterface: "evcharger"
+        includeProvidedInterfaces: true
+    }
+
+    ThingClassesProxy {
+        id: thingClassesProxyHeatPump
+        engine: _engine
+        filterInterface: "heatpump"
+        includeProvidedInterfaces: true
+    }
+    ThingClassesProxy {
+        id: thingClassesProxyElectrics
+        engine: _engine
+        filterInterface: "dynamicelectricitypricing"
+        includeProvidedInterfaces: true
+    }
+    ThingClassesProxy {
+        id: thingClassesProxySmartHeatingRod
+        engine: _engine
+        filterInterface: "heatingrod"
+        includeProvidedInterfaces: true
+    }
+
     ColumnLayout {
         anchors.fill: parent
+        spacing: 0
 
-        GridLayout {
+        Flickable {
             Layout.fillWidth: true
+            Layout.fillHeight: true
             Layout.leftMargin: Style.margins
             Layout.rightMargin: Style.margins
-            columnSpacing: app.margins
-            columns: Math.max(1, Math.floor(width / 250)) * 2
-            visible: root.filterInterface == ""
-            z: 1
-            Label {
-                text: qsTr("Vendor")
-            }
+            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
+            clip: true
 
-            ComboBox {
-                id: vendorFilterComboBox
-                Layout.fillWidth: true
-                textRole: "displayName"
-                currentIndex: -1
-                VendorsProxy {
-                    id: vendorsProxy
-                    vendors: engine.thingManager.vendors
-                }
-                model: ListModel {
-                    id: vendorsFilterModel
-                    dynamicRoles: true
+            ColumnLayout {
+                id: layout
+                anchors.fill: parent
+                anchors.topMargin: Style.margins
+                anchors.bottomMargin: Style.margins
+                spacing: Style.margins
 
-                    Component.onCompleted: {
-                        append({displayName: qsTr("All"), vendorId: ""})
-                        for (var i = 0; i < vendorsProxy.count; i++) {
-                            var vendor = vendorsProxy.get(i);
-                            append({displayName: vendor.displayName, vendorId: vendor.id})
+                Repeater {
+                    id: baseInterfaceRepeater
+                    model: Object.keys(d.baseInterfacesWithThingClasses)
+
+                    delegate: CoFrostyCard {
+                        Layout.fillWidth: true
+                        contentTopMargin: 8
+                        headerText: app.interfaceToString(modelData)
+                        visible: thingClassesProxy.count > 0
+
+                        Component.onCompleted: {
+                            refresh();
                         }
-                        vendorFilterComboBox.currentIndex = 0
-                    }
-                }
-            }
-            Label {
-                text: qsTr("Type")
-            }
 
-            ComboBox {
-                id: typeFilterComboBox
-                Layout.fillWidth: true
-                textRole: "displayName"
-                InterfacesSortModel {
-                    id: interfacesSortModel
-                    interfacesModel: InterfacesModel {
-                        engine: _engine
-                        shownInterfaces: app.supportedInterfaces
-                        showUncategorized: false
-                    }
-                }
-                model: ListModel {
-                    id: typeFilterModel
-                    ListElement { interfaceName: ""; displayName: qsTr("All") }
+                        function refresh(){
+                            var thingsListId = [];
+                            if (evCharger.count === 1) {
+                                for (let i = 0; i < thingClassesProxyEvCharger.count; i++) {
+                                    thingsListId[thingsListId.length] = thingClassesProxyEvCharger.get(i).id.toString();
+                                }
+                            }
+                            if (heatPump.count === 1) {
+                                for (let i = 0; i < thingClassesProxyHeatPump.count; i++) {
+                                    thingsListId[thingsListId.length] = thingClassesProxyHeatPump.get(i).id.toString();
+                                }
+                            }
+                            if (heatingRod.count === 1) {
+                                for (let i = 0; i < thingClassesProxySmartHeatingRod.count; i++) {
+                                    thingsListId[thingsListId.length] = thingClassesProxySmartHeatingRod.get(i).id.toString();
+                                }
+                            }
+                            if (gridSupport.count === 1) {
+                                thingsListId[thingsListId.length] = gridSupport.get(0).thingClass.id.toString();
+                            }
+                            if (epexDataSource.count === 1) {
+                                thingsListId[thingsListId.length] = epexDataSource.get(0).thingClass.id.toString();
+                            }
+                            for (let i = 0; i < thingClassesProxyElectrics.count; i++) {
+                                thingsListId[thingsListId.length] = thingClassesProxyElectrics.get(i).id.toString();
+                            }
+                            thingClassesProxy.hiddenThingClassIds = thingsListId;
+                        }
 
-                    Component.onCompleted: {
-                        for (var i = 0; i < interfacesSortModel.count; i++) {
-                            append({interfaceName: interfacesSortModel.get(i), displayName: app.interfaceToString(interfacesSortModel.get(i))});
+                        ThingClassesProxy {
+                            id: thingClassesProxy
+                            engine: _engine
+                            shownThingClassIds: d.baseInterfacesWithThingClasses[modelData]
+                            filterString: filterField.text
+                        }
+
+                        ColumnLayout {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            spacing: 0
+
+                            Repeater {
+                                id: thingClassesRepeater
+                                model: thingClassesProxy
+                                delegate: CoCard {
+                                    property ThingClass thingClass: thingClassesProxy.get(index)
+
+                                    Layout.fillWidth: true
+                                    text: thingClass ? thingClass.displayName : ""
+                                    helpText: thingClass ?
+                                                  engine.thingManager.vendors.getVendor(thingClass.vendorId).displayName :
+                                                  ""
+                                    iconLeft: thingClass ? app.interfacesToIcon(thingClass.interfaces) : ""
+                                    showChildrenIndicator: true
+                                    visible: thingClass !== null
+
+                                    onClicked: {
+                                        root.startWizard(thingClass)
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-            }
-
-            Item {
-                Layout.preferredHeight: Style.iconSize
-                Layout.minimumWidth: Style.iconSize
-
-                ColorIcon {
-                    size: Style.iconSize
-                    name: "/icons/find.svg"
-                }
-            }
-
-            TextField {
-                id: displayNameFilterField
-                Layout.fillWidth: true
             }
         }
 
-        GroupedListView {
-            id: listView
+        CoInputField {
+            id: filterField
             Layout.fillWidth: true
-            Layout.fillHeight: true
-            bottomMargin: packagesFilterModel.count > 0 ? height : 0
-
-            ThingsProxy {
-                id: gridSupport
-                engine: _engine
-                shownInterfaces: ["gridsupport"]
-            }
-
-            ThingsProxy {
-                id: epexDataSource
-                engine: _engine
-                shownInterfaces: ["epexdatasource"]
-            }
-
-            ThingsProxy {
-                id: evCharger
-                engine: _engine
-                shownInterfaces: ["evcharger"]
-            }
-
-            ThingsProxy {
-                id: heatPump
-                engine: _engine
-                shownInterfaces: ["heatpump"]
-            }
-
-            ThingsProxy {
-                id: heatingRod
-                engine: _engine
-                shownInterfaces: ["heatingrod"]
-            }
-
-            ThingClassesProxy {
-                id: thingClassesProxyEvCharger
-                engine: _engine
-                filterInterface: "evcharger"
-                includeProvidedInterfaces: true
-            }
-
-            ThingClassesProxy {
-                id: thingClassesProxyHeatPump
-                engine: _engine
-                filterInterface: "heatpump"
-                includeProvidedInterfaces: true
-            }
-            ThingClassesProxy {
-                id: thingClassesProxyElectrics
-                engine: _engine
-                filterInterface: "dynamicelectricitypricing"
-                includeProvidedInterfaces: true
-            }
-            ThingClassesProxy {
-                id: thingClassesProxySmartHeatingRod
-                engine: _engine
-                filterInterface: "heatingrod"
-                includeProvidedInterfaces: true
-            }
-
-            model: ThingClassesProxy {
-                id: thingClassesProxy
-                engine: _engine
-                filterInterface: root.filterInterface != "" ? root.filterInterface : typeFilterModel.get(typeFilterComboBox.currentIndex).interfaceName
-                includeProvidedInterfaces: true
-                filterVendorId: vendorFilterComboBox.currentIndex >= 0 ? vendorsFilterModel.get(vendorFilterComboBox.currentIndex).vendorId : ""
-                filterString: displayNameFilterField.displayText
-                groupByInterface: true
-            }
-
-            delegate: NymeaItemDelegate {
-                id: tingClassDelegate
-                width: listView.width
-                text: model.displayName
-                subText: engine.thingManager.vendors.getVendor(model.vendorId).displayName
-                iconName: {
-                    if (!thingClass) { return ""; }
-                    return app.interfacesToIcon(thingClass.interfaces);
-                }
-                Image {
-                    id: tileIcon
-                    height: 24
-                    width: 24
-                    source: tingClassDelegate.iconName
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.leftMargin: 16
-                }
-                ColorOverlay {
-                    anchors.fill: tileIcon
-                    source: tileIcon
-                    color: Style.consolinnoMedium
-                }
-                prominentSubText: false
-                wrapTexts: false
-
-                Component.onCompleted: {
-                    refresh();
-                }
-
-                property ThingClass thingClass: thingClassesProxy.get(index)
-
-                function refresh(){
-                    if(evCharger.count === 1){
-                        for(let i = 0; i < thingClassesProxyEvCharger.count; i++){
-                            thingsListId[thingsListId.length] = thingClassesProxyEvCharger.get(i).id.toString()
-                        }
-                    }
-
-                    if(heatPump.count === 1){
-                        for(let i = 0; i < thingClassesProxyHeatPump.count; i++){
-                            thingsListId[thingsListId.length] = thingClassesProxyHeatPump.get(i).id.toString()
-                        }
-                    }
-
-                    if(heatingRod.count === 1){
-                        for(let i = 0; i < thingClassesProxySmartHeatingRod.count; i++){
-                            thingsListId[thingsListId.length] = thingClassesProxySmartHeatingRod.get(i).id.toString()
-                        }
-                    }
-
-                    if(gridSupport.count === 1){
-                        thingsListId[thingsListId.length] = gridSupport.get(0).thingClass.id.toString()
-                    }
-
-                    if(epexDataSource.count === 1){
-                      thingsListId[thingsListId.length] = epexDataSource.get(0).thingClass.id.toString();
-                    }
-
-                    for (let i = 0; i < thingClassesProxyElectrics.count; i++) {
-                        thingsListId[thingsListId.length] = thingClassesProxyElectrics.get(i).id.toString();
-                    }
-
-                    thingClassesProxy.hiddenThingClassIds = thingsListId
-                }
-
-                onClicked: {
-                    root.startWizard(thingClass)
-                }
-
-            }
-
-            EmptyViewPlaceholder {
-                anchors.centerIn: parent
-                width: parent.width - Style.margins * 2
-                opacity: packagesFilterModel.count > 0 &&
-                         (thingClassesProxy.count == 0 || listView.contentY >= listView.contentHeight + listView.originY)
-                         ? 1 : 0
-                Behavior on opacity { NumberAnimation { duration: Style.shortAnimationDuration } }
-                visible: opacity > 0
-                title: qsTr("Looking for something else?")
-                text: qsTr("Try to install more plugins.")
-                imageSource: "/icons/save.svg"
-                buttonText: qsTr("Install plugins")
-                onButtonClicked: {
-                    pageStack.push(Qt.resolvedUrl("/ui/system/PackageListPage.qml"), {filter: "nymea-plugin-"})
-                }
-                PackagesFilterModel {
-                    id: packagesFilterModel
-                    packages: engine.systemController.packages
-                    nameFilter: "nymea-plugin-"
-                }
-            }
+            labelText: qsTr("Search")
         }
     }
 }
