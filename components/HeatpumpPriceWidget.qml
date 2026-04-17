@@ -5,7 +5,6 @@ import Nymea 1.0
 import QtQml
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import QtQuick.Layouts
 import "../utils/DynPricingUtils.js" as DynPricingUtils
 
@@ -131,6 +130,8 @@ Item {
 
         Slider {
             id: priceSlider
+
+            property var dpThing: (dynamicPrice && dynamicPrice.count > 0) ? dynamicPrice.get(0) : null
 
             Layout.fillWidth: true
             value: -relativeValue

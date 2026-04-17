@@ -193,7 +193,7 @@ Page {
                 text: qsTr("Add heating element: ")
             }
 
-            ConsolinnoDropdown {
+            ComboBox {
                 id: thingClassComboBox
 
                 Layout.fillWidth: true

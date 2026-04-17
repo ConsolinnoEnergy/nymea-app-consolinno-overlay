@@ -1,0 +1,10 @@
+module dark
+Button 1.0 Button.qml
+ComboBox 1.0 ComboBox.qml
+Dialog 1.0 Dialog.qml
+Page 1.0 Page.qml
+RadioButton 1.0 RadioButton.qml
+Slider 1.0 Slider.qml
+Switch 1.0 Switch.qml
+TextField 1.0 TextField.qml
+SpinBox 1.0 SpinBox.qml

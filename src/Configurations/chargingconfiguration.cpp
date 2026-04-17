@@ -132,6 +132,20 @@ void ChargingConfiguration::setPriceThreshold(float priceThreshold) {
     emit priceThresholdChanged(m_priceThreshold);
 }
 
+bool ChargingConfiguration::relativePriceEnabled() const
+{
+    return m_relativePriceEnabled;
+}
+
+void ChargingConfiguration::setRelativePriceEnabled(bool relativePriceEnabled)
+{
+    if (m_relativePriceEnabled == relativePriceEnabled)
+        return;
+
+    m_relativePriceEnabled = relativePriceEnabled;
+    emit relativePriceEnabledChanged(m_relativePriceEnabled);
+}
+
 QString ChargingConfiguration::chargingSchedule() const {
     return m_chargingSchedule;
 }

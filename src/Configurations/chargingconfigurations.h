@@ -22,7 +22,8 @@ public:
         RoleUniqueIdentifier,
         RoleControllableLocalSystem,
         RolePriceThreshold,
-        RoleDesiredPhaseCount
+        RoleDesiredPhaseCount,
+        RoleRelativePriceEnabled
     };
     Q_ENUM(Role);
 

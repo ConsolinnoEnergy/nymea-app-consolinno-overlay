@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import QtQuick.Layouts
 import Nymea 1.0
 
@@ -56,7 +55,7 @@ Page {
                 anchors.centerIn: parent
                 height: Style.smallIconSize
                 width: height
-                name: "/icons/back.svg"
+                name: "/icons/arrow_back_ios_new.svg"
                 color: Style.foregroundColor
             }
         }
@@ -273,11 +272,20 @@ Page {
                 horizontalAlignment: Text.AlignHCenter
             }
 
+            Button {
+                Layout.fillWidth: true
+                secondary: true
+                text: qsTr("Remove entry")
+                onClicked: {
+                    root.entryRemoved()
+                    pageStack.pop()
+                }
+            }
+
             // Confirm button (green, at bottom)
             Button {
                 id: confirmButton
                 Layout.fillWidth: true
-                Layout.topMargin: 20
                 text: qsTr("Confirm")
 
                 onClicked: {
@@ -298,18 +306,6 @@ Page {
                     var startStr = (sh < 10 ? "0" : "") + sh + ":" + (sm < 10 ? "0" : "") + sm
                     var endStr = (eh < 10 ? "0" : "") + eh + ":" + (em < 10 ? "0" : "") + em
                     root.timeSelected(startStr, endStr)
-                    pageStack.pop()
-                }
-            }
-
-            // "Eintrag entfernen" (Remove entry) button
-            ConsolinnoSetUpButton {
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                text: qsTr("Remove entry")
-                backgroundColor: "transparent"
-                onClicked: {
-                    root.entryRemoved()
                     pageStack.pop()
                 }
             }
