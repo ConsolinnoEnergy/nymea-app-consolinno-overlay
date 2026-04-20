@@ -283,7 +283,7 @@ Page {
 
         Button {
             Layout.fillWidth: true
-            text: qsTr("Next step")
+            text: qsTr("Next")
             onClicked: root.done(true, false, false)
         }
 
