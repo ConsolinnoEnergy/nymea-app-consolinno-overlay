@@ -38,12 +38,12 @@ import Nymea 1.0
 Page {
     id: root
     property bool settingsWizard: true
-    signal done(bool skip, bool abort);
+    signal done(bool skip, bool abort, bool back)
 
     header: NymeaHeader {
         text: qsTr("Modbus-RTU-Interfaces")
         backButtonVisible: true
-        onBackPressed: pageStack.pop()
+        onBackPressed: root.done(false, false, true)
     }
 
     ModbusRtuManager {

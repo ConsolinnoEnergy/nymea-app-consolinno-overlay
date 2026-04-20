@@ -8,14 +8,15 @@ import Nymea 1.0
 Page {
     id: root
 
-    signal done(bool skip, bool abort)
+    // Signal params: abort (user cancelled), accepted (user authorized)
+    signal done(bool abort, bool accepted)
 
     property real directionID: 0
 
     header: NymeaHeader {
         text: qsTr("Authorisation page")
         backButtonVisible: true
-        onBackPressed: pageStack.pop()
+        onBackPressed: root.done(true, false)
     }
 
     ColumnLayout {
@@ -55,7 +56,7 @@ Page {
             onClicked: {
                 if (authorisationCheckbox.checked) {
                     if (directionID == 0) {
-                        root.done(false, true);
+                        root.done(false, true);  // abort=false, accepted=true
                     } else if (directionID == 1) {
                         pageStack.replace(Qt.resolvedUrl("../thingconfiguration/AddNewThings.qml"));
                     }
@@ -68,7 +69,7 @@ Page {
             text: qsTr("Cancel")
             secondary: true
             onClicked: {
-                pageStack.pop();
+                root.done(true, false);  // abort=true, accepted=false
             }
         }
     }
