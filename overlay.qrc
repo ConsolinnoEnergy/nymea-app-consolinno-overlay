@@ -141,6 +141,7 @@
         <file>Configuration.qml</file>
         <file>wizards/ConnectionWizard.qml</file>
         <file>wizards/ConsolinnoWizardPageBase.qml</file>
+        <file>wizards/SetupWizardBase.qml</file>
         <file>images/intro-bg-graphic.svg</file>
         <file>wizards/SetupEVChargerWizard.qml</file>
         <file>wizards/WizardComplete.qml</file>
