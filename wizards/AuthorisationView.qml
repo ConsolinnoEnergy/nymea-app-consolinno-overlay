@@ -5,25 +5,27 @@ import "qrc:/ui/components"
 import Nymea 1.0
 
 
-ConsolinnoWizardPageBase {
+Page {
     id: root
 
-    showBackButton: false
-    showNextButton: false
+    signal done(bool skip, bool abort)
 
     property real directionID: 0
 
-    content: ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right; margins: Style.margins }
-        width: Math.min(parent.width - Style.margins * 2, 300)
+    header: NymeaHeader {
+        text: qsTr("Authorisation page")
+        backButtonVisible: true
+        onBackPressed: pageStack.pop()
+    }
+
+    ColumnLayout {
+        anchors.fill: parent
+        anchors.margins: Style.margins
         spacing: Style.margins
 
-        Label {
+        Item {
             Layout.fillWidth: true
-            horizontalAlignment: Text.AlignHCenter
-            font: Style.bigFont
-            wrapMode: Text.WordWrap
-            text: qsTr("Authorisation page")
+            Layout.fillHeight: true
         }
 
         Label {
@@ -41,39 +43,33 @@ ConsolinnoWizardPageBase {
             text: qsTr("I am authorized to operate the %1").arg(Configuration.coreBranding)
         }
 
+        Item {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+        }
 
-        ColumnLayout {
-            spacing: Style.margins
-            Layout.alignment: Qt.AlignHCenter
-
-            Button {
-                Layout.alignment: Qt.AlignHCenter
-                text: qsTr("Cancel")
-                Layout.preferredWidth: 200
-                onClicked: {
-                    pageStack.pop()
-                }
-            }
-
-            Button {
-                Layout.alignment: Qt.AlignHCenter
-                text: qsTr("Next")
-                enabled: authorisationCheckbox.checked
-                Layout.preferredWidth: 200
-                onClicked: {
-                    if (authorisationCheckbox.checked) {
-                        if (directionID == 0){
-                            root.done(false, true)
-                        }else if(directionID == 1){
-                            pageStack.replace(Qt.resolvedUrl("../thingconfiguration/AddNewThings.qml"))
-                        }
-
+        Button {
+            Layout.fillWidth: true
+            text: qsTr("Next")
+            enabled: authorisationCheckbox.checked
+            onClicked: {
+                if (authorisationCheckbox.checked) {
+                    if (directionID == 0) {
+                        root.done(false, true);
+                    } else if (directionID == 1) {
+                        pageStack.replace(Qt.resolvedUrl("../thingconfiguration/AddNewThings.qml"));
                     }
                 }
             }
-
         }
 
+        Button {
+            Layout.fillWidth: true
+            text: qsTr("Cancel")
+            secondary: true
+            onClicked: {
+                pageStack.pop();
+            }
+        }
     }
-
 }
