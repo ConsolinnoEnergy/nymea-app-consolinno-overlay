@@ -364,7 +364,7 @@ Page {
                               + (thingClass.id.toString().match(/\{?f0dd4c03-0aca-42cc-8f34-9902457b05de\}?/) ?
                                      " (" + PlatformHelper.machineHostname + ")" :
                                      "")
-                        labelText: qsTr("Please change name if necessary.")
+                        labelText: qsTr("Please change name if necessary")
                     }
                 }
             }

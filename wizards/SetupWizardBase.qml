@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import Qt5Compat.GraphicalEffects
 import "qrc:/ui/components"
 import Nymea 1.0
@@ -38,6 +37,7 @@ Page {
         backButtonVisible: true
         onBackPressed: root.done(false, false, true)
     }
+    background: Item {}
 
     // Internal state object
     QtObject {
@@ -156,195 +156,142 @@ Page {
 
     // Main content layout
     ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right }
-        Layout.preferredWidth: root.width
+        anchors.fill: parent
+        anchors.margins: Style.margins
+        spacing: Style.margins
 
-        ColumnLayout {
+        CoFrostyCard {
             Layout.fillWidth: true
-            Layout.fillHeight: true
+            contentTopMargin: Style.margins
+            headerText: root.integratedDevicesLabel
 
-            Label {
-                Layout.leftMargin: Style.margins
-                Layout.rightMargin: Style.margins
-                text: root.integratedDevicesLabel
-                wrapMode: Text.WordWrap
-                Layout.alignment: Qt.AlignRight
-                horizontalAlignment: Text.AlignLeft
-            }
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: 0
 
-            VerticalDivider {
-                Layout.preferredWidth: root.width
-                dividerColor: Material.accent
-            }
+                Flickable {
+                    id: deviceFlickable
+                    clip: true
+                    Layout.fillWidth: true
+                    contentHeight: deviceList.implicitHeight
+                    contentWidth: width
+                    visible: deviceProxy.count !== 0
 
-            Flickable {
-                id: deviceFlickable
-                clip: true
-                Layout.fillWidth: true
-                contentHeight: deviceList.implicitHeight
-                contentWidth: deviceList.width
-                visible: deviceProxy.count !== 0
+                    Layout.preferredHeight: Math.min(deviceList.implicitHeight, app.height / 3)
+                    flickableDirection: Flickable.VerticalFlick
 
-                Layout.alignment: Qt.AlignHCenter
-                Layout.preferredHeight: app.height / 3
-                flickableDirection: Flickable.VerticalFlick
+                    ColumnLayout {
+                        id: deviceList
+                        width: parent.width
+                        spacing: 0
 
-                ColumnLayout {
-                    id: deviceList
-                    Layout.preferredWidth: root.width
-                    Layout.fillHeight: true
-
-                    Repeater {
-                        id: deviceRepeater
-                        Layout.fillWidth: true
-                        model: ThingsProxy {
-                            id: deviceProxy
-                            engine: _engine
-                            shownInterfaces: root.shownInterfaces.length > 0 ? root.shownInterfaces : [root.filterInterface]
-                        }
-                        delegate: ItemDelegate {
-                            Layout.preferredWidth: root.width
-                            contentItem: ConsolinnoItemDelegate {
-                                id: delegateIcon
-                                Layout.preferredWidth: root.width
-                                iconName: Qt.resolvedUrl(root.deviceIcon)
-                                progressive: false
+                        Repeater {
+                            id: deviceRepeater
+                            Layout.fillWidth: true
+                            model: ThingsProxy {
+                                id: deviceProxy
+                                engine: _engine
+                                shownInterfaces: root.shownInterfaces.length > 0 ? root.shownInterfaces : [root.filterInterface]
+                            }
+                            delegate: CoCard {
+                                Layout.fillWidth: true
                                 text: deviceProxy.get(index) ? deviceProxy.get(index).name : ""
-
-                                Image {
-                                    id: iconImage
-                                    height: 24
-                                    width: 24
-                                    source: delegateIcon.iconName
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    anchors.left: parent.left
-                                    anchors.leftMargin: 16
-                                }
-                                ColorOverlay {
-                                    anchors.fill: iconImage
-                                    source: iconImage
-                                    color: Style.consolinnoMedium
-                                }
+                                iconLeft: Qt.resolvedUrl(root.deviceIcon)
+                                interactive: false
                             }
                         }
                     }
                 }
-            }
 
-            Rectangle {
-                Layout.preferredHeight: app.height / 3
-                Layout.fillWidth: true
-                visible: deviceProxy.count === 0
-                color: Material.background
-                Text {
+                Label {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: app.height / 6
+                    visible: deviceProxy.count === 0
                     text: root.emptyListText
-                    color: Material.foreground
-                    anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                }
-            }
-
-            VerticalDivider {
-                Layout.preferredWidth: root.width
-                dividerColor: Material.accent
-            }
-        }
-
-        ColumnLayout {
-            Layout.topMargin: Style.margins
-            Layout.leftMargin: Style.margins
-            Layout.rightMargin: Style.margins
-            Layout.fillWidth: true
-
-            Label {
-                text: root.addDeviceLabel
-                wrapMode: Text.WordWrap
-            }
-
-            ComboBox {
-                id: thingClassComboBox
-                Layout.fillWidth: true
-                textRole: "displayName"
-                valueRole: "id"
-                model: ThingClassesProxy {
-                    engine: _engine
-                    filterInterface: root.filterInterface
-                    includeProvidedInterfaces: true
-                }
-            }
-        }
-
-        ColumnLayout {
-            spacing: 0
-            Layout.alignment: Qt.AlignHCenter
-
-            Button {
-                text: qsTr("cancel")
-                Layout.preferredWidth: 200
-                Layout.alignment: Qt.AlignHCenter
-                onClicked: root.done(false, true, false)
-            }
-
-            Popup {
-                id: deviceLimitPopup
-                parent: Overlay.overlay
-                x: Math.round((parent.width - width) / 2)
-                y: Math.round((parent.height - height) / 2)
-                width: parent.width
-                height: 100
-                modal: true
-                focus: true
-                closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-                contentItem: Label {
-                    Layout.fillWidth: true
-                    Layout.topMargin: app.margins
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
                     wrapMode: Text.WordWrap
-                    text: root.limitPopupText
                 }
             }
+        }
 
-            Button {
-                id: addButton
-                text: qsTr("add")
-                Layout.preferredWidth: 200
-                Layout.alignment: Qt.AlignHCenter
-                onClicked: {
-                    if (root.deviceLimit > 0 && deviceRepeater.model.count >= root.deviceLimit) {
-                        deviceLimitPopup.open();
-                        return;
+        CoFrostyCard {
+            Layout.fillWidth: true
+            contentTopMargin: 8
+            headerText: root.addDeviceLabel
+            visible: root.deviceLimit > 0 ? deviceRepeater.model.count < root.deviceLimit : true
+
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: 0
+
+                CoComboBox {
+                    id: thingClassComboBox
+                    Layout.fillWidth: true
+                    labelText: qsTr("Please select your model:")
+                    textRole: "displayName"
+                    valueRole: "id"
+                    model: ThingClassesProxy {
+                        engine: _engine
+                        filterInterface: root.filterInterface
+                        includeProvidedInterfaces: true
                     }
-                    internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue});
                 }
-            }
 
-            Button {
-                id: nextStepButton
-                text: qsTr("Next step")
-                Layout.preferredWidth: 200
-                Layout.alignment: Qt.AlignHCenter
-
-                Image {
-                    id: headerImage
-                    sourceSize.width: 18
-                    sourceSize.height: 18
-                    anchors.right: nextStepButton.right
-                    anchors.verticalCenter: nextStepButton.verticalCenter
-                    anchors.rightMargin: 5
-                    source: "/icons/next.svg"
-
-                    layer {
-                        enabled: true
-                        effect: ColorOverlay {
-                            color: Style.consolinnoHighlightForeground
+                Button {
+                    Layout.fillWidth: true
+                    Layout.leftMargin: Style.margins
+                    Layout.rightMargin: Style.margins
+                    text: qsTr("Add")
+                    onClicked: {
+                        if (root.deviceLimit > 0 && deviceRepeater.model.count >= root.deviceLimit) {
+                            deviceLimitPopup.open();
+                            return;
                         }
+                        internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue});
                     }
                 }
-
-                onClicked: root.done(true, false, false)
             }
+        }
+
+        Item {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+        }
+
+        Popup {
+            id: deviceLimitPopup
+            parent: Overlay.overlay
+            x: Math.round((parent.width - width) / 2)
+            y: Math.round((parent.height - height) / 2)
+            width: parent.width
+            height: 100
+            modal: true
+            focus: true
+            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+            contentItem: Label {
+                Layout.fillWidth: true
+                Layout.topMargin: app.margins
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
+                wrapMode: Text.WordWrap
+                text: root.limitPopupText
+            }
+        }
+
+        Button {
+            Layout.fillWidth: true
+            text: qsTr("Next step")
+            onClicked: root.done(true, false, false)
+        }
+
+        Button {
+            Layout.fillWidth: true
+            text: qsTr("Cancel")
+            secondary: true
+            onClicked: root.done(false, true, false)
         }
     }
 
@@ -388,34 +335,45 @@ Page {
 
             title: qsTr("Discover %1").arg(thingClass.displayName)
 
-            SettingsPageSectionHeader {
-                text: qsTr("Discovery options")
-            }
-
-            Repeater {
-                id: paramRepeater
-                model: thingClass ? thingClass.discoveryParamTypes : null
-                delegate: ParamDelegate {
-                    Layout.fillWidth: true
-                    paramType: thingClass.discoveryParamTypes.get(index)
-                }
-            }
-
-            Button {
+            CoFrostyCard {
                 Layout.fillWidth: true
-                Layout.margins: app.margins
-                text: qsTr("Next")
-                onClicked: {
-                    var paramTypes = thingClass.discoveryParamTypes;
-                    d.discoveryParams = [];
-                    for (var i = 0; i < paramTypes.count; i++) {
-                        var param = {};
-                        param["paramTypeId"] = paramTypes.get(i).id;
-                        param["value"] = paramRepeater.itemAt(i).value;
-                        d.discoveryParams.push(param);
+                Layout.topMargin: Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                contentTopMargin: Style.margins
+                headerText: qsTr("Discovery options")
+
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    Repeater {
+                        id: paramRepeater
+                        model: thingClass ? thingClass.discoveryParamTypes : null
+                        delegate: ParamDelegate {
+                            Layout.fillWidth: true
+                            paramType: thingClass.discoveryParamTypes.get(index)
+                        }
                     }
-                    discovery.discoverThings(thingClass.id, d.discoveryParams);
-                    pageStack.push(discoveryPage, {thingClass: thingClass});
+
+                    Button {
+                        Layout.fillWidth: true
+                        Layout.topMargin: Style.margins
+                        text: qsTr("Next")
+                        onClicked: {
+                            var paramTypes = thingClass.discoveryParamTypes;
+                            d.discoveryParams = [];
+                            for (var i = 0; i < paramTypes.count; i++) {
+                                var param = {};
+                                param["paramTypeId"] = paramTypes.get(i).id;
+                                param["value"] = paramRepeater.itemAt(i).value;
+                                d.discoveryParams.push(param);
+                            }
+                            discovery.discoverThings(thingClass.id, d.discoveryParams);
+                            pageStack.push(discoveryPage, {thingClass: thingClass});
+                        }
+                    }
                 }
             }
         }
@@ -437,27 +395,41 @@ Page {
                 onBackPressed: pageStack.pop()
             }
 
-            SettingsPageSectionHeader {
-                text: qsTr("The following devices were found:")
+            CoFrostyCard {
+                Layout.fillWidth: true
+                Layout.topMargin: Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                contentTopMargin: Style.margins
+                headerText: qsTr("The following devices were found:")
                 visible: !discovery.busy && discoveryProxy.count > 0
-            }
 
-            Repeater {
-                model: ThingDiscoveryProxy {
-                    id: discoveryProxy
-                    thingDiscovery: discovery
-                    showAlreadyAdded: thing !== null
-                    showNew: thing === null
-                }
-                delegate: NymeaItemDelegate {
-                    Layout.fillWidth: true
-                    text: model.name
-                    subText: model.description
-                    iconName: app.interfacesToIcon(discoveryView.thingClass.interfaces)
-                    onClicked: {
-                        d.thingDescriptor = discoveryProxy.get(index);
-                        d.thingName = model.name;
-                        pageStack.push(paramsPage, {thingClass: thingClass, thing: thing});
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    Repeater {
+                        model: ThingDiscoveryProxy {
+                            id: discoveryProxy
+                            thingDiscovery: discovery
+                            showAlreadyAdded: thing !== null
+                            showNew: thing === null
+                        }
+
+                        delegate: CoCard {
+                            Layout.fillWidth: true
+                            text: model.name
+                            helpText: model.description
+                            iconLeft: root.deviceIcon !== "" ? Qt.resolvedUrl(root.deviceIcon) : app.interfacesToIcon(discoveryView.thingClass.interfaces)
+                            showChildrenIndicator: true
+
+                            onClicked: {
+                                d.thingDescriptor = discoveryProxy.get(index);
+                                d.thingName = model.name;
+                                pageStack.push(paramsPage, {thingClass: thingClass, thing: thing});
+                            }
+                        }
                     }
                 }
             }
@@ -474,16 +446,14 @@ Page {
                     text: qsTr("Too bad...")
                     font.pixelSize: app.largeFont
                     Layout.fillWidth: true
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
+                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     horizontalAlignment: Text.AlignHCenter
                 }
 
                 Label {
                     text: qsTr("No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to 'Search again'.")
                     Layout.fillWidth: true
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
+                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
                 }
@@ -492,9 +462,11 @@ Page {
             Button {
                 id: retryButton
                 Layout.fillWidth: true
-                Layout.margins: app.margins
+                Layout.margins: Style.margins
                 text: qsTr("Search again")
-                onClicked: discovery.discoverThings(thingClass.id, d.discoveryParams)
+                onClicked: {
+                    discovery.discoverThings(thingClass.id, d.discoveryParams);
+                }
                 visible: !discovery.busy
             }
         }
@@ -512,58 +484,77 @@ Page {
 
             title: thing ? qsTr("Reconfigure %1").arg(thing.name) : qsTr("Set up %1").arg(thingClass.displayName)
 
-            SettingsPageSectionHeader {
-                text: qsTr("Name the thing:")
-            }
-
-            TextField {
-                id: nameTextField
-                text: (d.thingName ? d.thingName : thingClass.displayName)
-                      + (thingClass.id.toString().match(/\{?f0dd4c03-0aca-42cc-8f34-9902457b05de\}?/) ? " (" + PlatformHelper.machineHostname + ")" : "")
+            CoFrostyCard {
+                id: nameGroup
                 Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
+                Layout.topMargin: Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                contentTopMargin: Style.smallMargins
+                headerText: qsTr("Name")
+
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    CoInputField {
+                        id: nameTextField
+                        Layout.fillWidth: true
+                        text: (d.thingName ?
+                                   d.thingName :
+                                   thingClass.displayName)
+                              + (thingClass.id.toString().match(/\{?f0dd4c03-0aca-42cc-8f34-9902457b05de\}?/) ?
+                                     " (" + PlatformHelper.machineHostname + ")" :
+                                     "")
+                        labelText: qsTr("Please change name if necessary")
+                    }
+                }
             }
 
-            Label {
-                id: nameExplain
-                text: qsTr("Please change name if necessary.")
-                Layout.alignment: Qt.AlignTop
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                verticalAlignment: Text.AlignTop
-                Layout.topMargin: 0
-                color: Style.accentColor
-                font.pixelSize: 12
-            }
-
-            SettingsPageSectionHeader {
-                text: qsTr("Thing parameters")
+            CoFrostyCard {
+                id: paramsGroup
+                Layout.fillWidth: true
+                Layout.topMargin: Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                contentTopMargin: Style.smallMargins
+                headerText: qsTr("Thing parameters")
                 visible: paramRepeater.count > 0
-            }
 
-            Repeater {
-                id: paramRepeater
-                model: engine.jsonRpcClient.ensureServerVersion("1.12") || d.thingDescriptor == null ? thingClass.paramTypes : null
-                delegate: ParamDelegate {
-                    Layout.fillWidth: true
-                    enabled: !model.readOnly
-                    paramType: thingClass.paramTypes.get(index)
-                    value: {
-                        // Discovery: use params from discovered descriptor
-                        if (d.thingDescriptor && d.thingDescriptor.params.getParam(paramType.id)) {
-                            return d.thingDescriptor.params.getParam(paramType.id).value;
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    Repeater {
+                        id: paramRepeater
+                        model: engine.jsonRpcClient.ensureServerVersion("1.12") || d.thingDescriptor == null ?
+                                   thingClass.paramTypes :
+                                   null
+                        delegate: ParamDelegate {
+                            Layout.fillWidth: true
+                            enabled: !model.readOnly
+                            paramType: thingClass.paramTypes.get(index)
+                            value: {
+                                // Discovery: use params from discovered descriptor
+                                if (d.thingDescriptor && d.thingDescriptor.params.getParam(paramType.id)) {
+                                    return d.thingDescriptor.params.getParam(paramType.id).value
+                                }
+                                // Manual setup: use default value from thing class
+                                return thingClass.paramTypes.get(index).defaultValue
+                            }
                         }
-                        // Manual setup: use default value from thing class
-                        return thingClass.paramTypes.get(index).defaultValue;
                     }
                 }
             }
 
             Button {
                 Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                Layout.topMargin: Style.margins
+
                 text: qsTr("OK")
                 onClicked: {
                     var params = [];
@@ -683,43 +674,49 @@ Page {
 
             title: qsTr("Reconfigure %1").arg(d.thingName)
 
-            SettingsPageSectionHeader {
-                text: qsTr("Login required")
-            }
-
-            Label {
-                id: textLabel
+            CoFrostyCard {
                 Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                wrapMode: Text.WordWrap
-            }
+                Layout.topMargin: Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                contentTopMargin: Style.margins
+                headerText: qsTr("Login required")
 
-            TextField {
-                id: usernameTextField
-                Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                placeholderText: qsTr("Username")
-                visible: pairingPage.setupMethod === "SetupMethodUserAndPassword"
-            }
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: Style.smallMargins
 
-            ConsolinnoPasswordTextField {
-                id: pinTextField
-                Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                visible: pairingPage.setupMethod === "SetupMethodDisplayPin" || pairingPage.setupMethod === "SetupMethodEnterPin" || pairingPage.setupMethod === "SetupMethodUserAndPassword"
-                signup: false
-            }
+                    Label {
+                        id: textLabel
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                    }
 
-            Button {
-                Layout.fillWidth: true
-                Layout.margins: app.margins
-                text: qsTr("OK")
-                onClicked: {
-                    engine.thingManager.confirmPairing(transactionId, pinTextField.password, usernameTextField.displayText);
-                    busyOverlay.shown = true;
+                    CoInputField {
+                        id: usernameTextField
+                        Layout.fillWidth: true
+                        textField.placeholderText: qsTr("Username")
+                        labelText: qsTr("Username")
+                        visible: pairingPage.setupMethod === "SetupMethodUserAndPassword"
+                    }
+
+                    ConsolinnoPasswordTextField {
+                        id: pinTextField
+                        Layout.fillWidth: true
+                        visible: pairingPage.setupMethod === "SetupMethodDisplayPin" || pairingPage.setupMethod === "SetupMethodEnterPin" || pairingPage.setupMethod === "SetupMethodUserAndPassword"
+                        signup: false
+                    }
+
+                    Button {
+                        Layout.fillWidth: true
+                        Layout.topMargin: Style.margins
+                        text: qsTr("OK")
+                        onClicked: {
+                            engine.thingManager.confirmPairing(transactionId, pinTextField.password, usernameTextField.text);
+                            busyOverlay.shown = true;
+                        }
+                    }
                 }
             }
         }
