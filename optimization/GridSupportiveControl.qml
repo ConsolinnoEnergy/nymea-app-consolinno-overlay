@@ -771,7 +771,8 @@ StackView {
                                     delegate: CoCard {
                                         Layout.fillWidth: true
                                         property var paramType: eeBusThing.thingClass.paramTypes.get(index)
-                                        property string paramValue: isNaN(eeBusThing.params.getParam(eeBusThing.thingClass.paramTypes.get(index).id)) ? eeBusThing.params.getParam(eeBusThing.thingClass.paramTypes.get(index).id).value : ""
+                                        property var param: eeBusThing.params.getParam(paramType.id)
+                                        property string paramValue: param ? param.value : ""
                                         text: paramValue !== "" ? paramValue : "—"
                                         labelText: model.displayName
                                         helpText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
