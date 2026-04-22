@@ -30,13 +30,13 @@ Page {
 
             if (commandId === d.pendingCallId) {
                 d.pendingCallId = -1
-                let props = "";
+                let props = {}
                 switch (error) {
                 case "HemsErrorNoError":
                     return
                 case "HemsErrorInvalidParameter":
                     footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
-                    break
+                    return
                 case "HemsErrorInvalidThing":
                     props.text = qsTr("Could not save configuration. The thing is not valid.")
                     break
@@ -44,7 +44,7 @@ Page {
                     props.errorCode = error
                 }
                 var comp = Qt.createComponent("../components/ErrorDialog.qml")
-                var popup = comp.createObject(app, {props})
+                var popup = comp.createObject(app, props)
                 popup.open()
             }
         }

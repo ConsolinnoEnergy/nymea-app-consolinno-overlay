@@ -28,7 +28,7 @@ GenericConfigPage {
         onSetSwitchableConsumerConfigurationReply: function(commandId, error) {
             if (commandId === d.pendingCallId) {
                 d.pendingCallId = -1;
-                let props = "";
+                let props = {};
                 switch (error) {
                 case "HemsErrorNoError":
                     return;
@@ -42,7 +42,7 @@ GenericConfigPage {
                     props.errorCode = error;
                 }
                 var comp = Qt.createComponent("../components/ErrorDialog.qml");
-                var popup = comp.createObject(app, { props });
+                var popup = comp.createObject(app, props);
                 popup.open();
             }
         }
