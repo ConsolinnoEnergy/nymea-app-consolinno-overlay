@@ -20,6 +20,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
     m_chargingSessionConfigurations = new ChargingSessionConfigurations(this);
     m_conEMSState = new ConEMSState();
     m_userConfigurations = new UserConfigurations(this);
+    m_emsConfiguration = new EmsConfiguration(this);
 }
 
 HemsManager::~HemsManager()
@@ -123,6 +124,11 @@ DynamicElectricPricingConfigurations *HemsManager::dynamicElectricPricingConfigu
 BatteryConfigurations *HemsManager::batteryConfigurations() const
 {
     return m_batteryConfigurations;
+}
+
+EmsConfiguration *HemsManager::emsConfiguration() const
+{
+    return m_emsConfiguration;
 }
 
 ConEMSState *HemsManager::conEMSState() const
@@ -670,6 +676,9 @@ void HemsManager::notificationReceived(const QVariantMap &data)
         m_heatingElementConfigurations->removeConfiguration(params.value("heatingRodThingId").toUuid());
     } else if (notification == "Hems.HeatingRodConfigurationChanged") {
         addOrUpdateHeatingElementConfiguration(params.value("heatingRodConfiguration").toMap());
+    } else if (notification == "Hems.EmsConfigurationChanged") {
+        qCDebug(dcHems()) << "EMS configuration changed";
+        updateEmsConfiguration(params.value("emsConfiguration").toMap());
     }
 
 
@@ -720,6 +729,18 @@ void HemsManager::getBatteryConfigurationResponse(int commandId, const QVariantM
     foreach (const QVariant &configurationVariant, data.value("batteryConfigurations").toList()) {
         addOrUpdateBatteryConfiguration(configurationVariant.toMap());
     }
+}
+
+void HemsManager::getEmsConfigurationResponse(int commandId, const QVariantMap &data)
+{
+    Q_UNUSED(commandId);
+    qCDebug(dcHems()) << "EMS configuration" << data;
+    if (!data.contains("emsConfigurations")) {
+        qCWarning(dcHems()) << "Missing entry \"emsConfigurations\"";
+        return;
+    }
+
+    updateEmsConfiguration(data.value("emsConfigurations").toList()[0].toMap());
 }
 
 void HemsManager::getPvConfigurationsResponse(int commandId, const QVariantMap &data)
@@ -821,10 +842,43 @@ int HemsManager::factoryReset()
     return m_engine->jsonRpcClient()->sendCommand("Hems.FactoryReset", QVariantMap(), this, "factoryResetResponse");
 }
 
+int HemsManager::setPVSurplusPriolist(const QStringList &pvSurplusPriolist)
+{
+    auto toVariantList = [](const QList<QUuid> &uuids) {
+        QVariantList list;
+        foreach (const QUuid &uuid, uuids)
+            list.append(uuid.toString());
+        return list;
+    };
+
+    QVariantList uuidList;
+    foreach (const QString &uuid, pvSurplusPriolist)
+        uuidList.append(uuid);
+
+    QVariantMap emsConfiguration;
+    emsConfiguration.insert("pvSurplusPriolist", uuidList);
+    // Include all other lists unchanged — omitting them would cause the backend to clear them.
+    emsConfiguration.insert("defaultPvSurplusPriolist", toVariantList(m_emsConfiguration->defaultPvSurplusPriolist()));
+    emsConfiguration.insert("limitPriolist", toVariantList(m_emsConfiguration->limitPriolist()));
+    emsConfiguration.insert("defaultLimitPriolist", toVariantList(m_emsConfiguration->defaultLimitPriolist()));
+
+    QVariantMap params;
+    params.insert("emsConfiguration", emsConfiguration);
+    qCDebug(dcHems()) << "Set PV surplus priolist" << params;
+
+    return m_engine->jsonRpcClient()->sendCommand("Hems.SetEmsConfiguration", params, this, "setEmsConfigurationResponse");
+}
+
 void HemsManager::factoryResetResponse(int commandId, const QVariantMap &data)
 {
     qCDebug(dcHems()) << "Factory reset response" << data.value("hemsError").toString();
     emit factoryResetReply(commandId, data.value("hemsError").toString());
+}
+
+void HemsManager::setEmsConfigurationResponse(int commandId, const QVariantMap &data)
+{
+    qCDebug(dcHems()) << "Set EMS configuration response" << data.value("hemsError").toString();
+    emit setPVSurplusPriolistReply(commandId, data.value("hemsError").toString());
 }
 
 void HemsManager::initJsonRpcCommunication()
@@ -896,6 +950,10 @@ void HemsManager::initJsonRpcCommunication()
                                            QVariantMap(),
                                            this,
                                            "getBatteryConfigurationResponse");
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetEmsConfigurations",
+                                           QVariantMap(),
+                                           this,
+                                           "getEmsConfigurationResponse");
     m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingRodConfigurations",
                                            QVariantMap(),
                                            this,
@@ -1051,6 +1109,21 @@ void HemsManager::addOrUpdateBatteryConfiguration(const QVariantMap &configurati
         qCDebug(dcHems()) << "Battery configuration changed" << configuration->batteryThingId();
         emit batteryConfigurationChanged(configuration);
     }
+}
+
+void HemsManager::updateEmsConfiguration(const QVariantMap &configurationMap)
+{
+    auto uuidListFromVariant = [](const QVariant &v) {
+        QList<QUuid> result;
+        foreach (const QVariant &entry, v.toList())
+            result.append(QUuid(entry.toString()));
+        return result;
+    };
+
+    m_emsConfiguration->setPvSurplusPriolist(uuidListFromVariant(configurationMap.value("pvSurplusPriolist")));
+    m_emsConfiguration->setDefaultPvSurplusPriolist(uuidListFromVariant(configurationMap.value("defaultPvSurplusPriolist")));
+    m_emsConfiguration->setLimitPriolist(uuidListFromVariant(configurationMap.value("limitPriolist")));
+    m_emsConfiguration->setDefaultLimitPriolist(uuidListFromVariant(configurationMap.value("defaultLimitPriolist")));
 }
 
 void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurationMap)

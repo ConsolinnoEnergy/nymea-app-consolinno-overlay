@@ -3,7 +3,6 @@
 import QtCore
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import QtQuick.Layouts
 import QtCharts
 import Nymea 1.0
@@ -511,12 +510,10 @@ MainViewBase {
                                 onClicked: {
                                     console.info("Clicked grid card");
                                     pageStack.push(
-                                                "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
+                                                "/ui/devicepages/RootMeterDevicePage.qml",
                                                 {
                                                     "thing": thing,
-                                                    "isRootmeter": true,
-                                                    "isNotify": lpcActive,
-                                                    "gridSupportThing": gridSupport
+                                                    "gridSupport": gridSupport
                                                 });
                                 }
                             }
@@ -648,11 +645,11 @@ MainViewBase {
                                     onClicked: {
                                         console.info("Clicked inverter:", thing.name);
                                         pageStack.push(
-                                                    "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
+                                                    "/ui/devicepages/InverterDevicePage.qml",
                                                     {
                                                         "thing": thing,
-                                                        "isNotify": showWarningIndicator,
-                                                        "gridSupportThing": gridSupport
+                                                        "showLppWarning": showWarningIndicator,
+                                                        "gridSupport": gridSupport
                                                     });
                                     }
                                 }
@@ -681,14 +678,7 @@ MainViewBase {
                                     showWarningIndicator: avoidZeroCompensationActive(thing)
                                     onClicked: {
                                         console.info("Clicked battery:", thing.name);
-                                        let batteryView = thing.thingClass.interfaces.indexOf("controllablebattery") >= 0 ?
-                                                "/ui/optimization/BatteryConfigView.qml" :
-                                                "/ui/devicepages/GenericSmartDeviceMeterPage.qml";
-                                        pageStack.push(batteryView,
-                                                       {
-                                                           "thing": thing,
-                                                           "isBatteryView": true
-                                                       });
+                                        pageStack.push("/ui/optimization/BatteryConfigView.qml", { "thing": thing });
                                     }
                                 }
                             }
@@ -733,13 +723,8 @@ MainViewBase {
                                                                 "thing": thing
                                                             });
                                             } else {
-                                                console.warn("Neither heatpump nor heatingrod interface found in thing interfaces:",
-                                                             thing.thingClass.interfaces);
-                                                pageStack.push(
-                                                            "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
-                                                            {
-                                                                "thing": thing
-                                                            });
+                                                console.error("Neither heatpump nor heatingrod interface found in thing interfaces:",
+                                                              thing.thingClass.interfaces);
                                             }
                                         }
                                     }
@@ -823,7 +808,7 @@ MainViewBase {
                                         onClicked: {
                                             console.info("Clicked thing:", thing.name);
                                             pageStack.push(
-                                                        "/ui/devicepages/GenericSmartDeviceMeterPage.qml",
+                                                        "/ui/devicepages/SimpleConsumerDevicePage.qml",
                                                         {
                                                             "thing": thing
                                                         });

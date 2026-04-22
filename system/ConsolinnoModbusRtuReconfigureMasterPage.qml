@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import QtQuick.Layouts
 import "../components"
 import Nymea 1.0
@@ -58,204 +57,204 @@ SettingsPageBase {
         }
     }
 
-    NymeaSwipeDelegate {
+
+    CoFrostyCard {
+        id: infoGroup
         Layout.fillWidth: true
-        text: qsTr("UUID")
-        subText: modbusRtuMaster.modbusUuid
-        progressive: false
-        prominentSubText: false
-    }
+        Layout.topMargin: Style.margins
+        Layout.leftMargin: Style.margins
+        Layout.rightMargin: Style.margins
+        contentTopMargin: Style.smallMargins
+        headerText: qsTr("Information")
 
-    SettingsPageSectionHeader {
-        text: qsTr("Serial port")
-    }
+        ColumnLayout {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            spacing: 0
 
-    NymeaSwipeDelegate {
-        Layout.fillWidth: true
-        text: qsTr("Path")
-        subText: root.getName(serialPort.systemLocation)
-        progressive: false
-        prominentSubText: false
-    }
-
-    NymeaSwipeDelegate {
-        Layout.fillWidth: true
-        text: qsTr("Description")
-        subText: serialPort.description.length > 0 ? serialPort.description : qsTr("Unknown")
-        progressive: false
-        prominentSubText: false
-    }
-
-    NymeaSwipeDelegate {
-        Layout.fillWidth: true
-        text: qsTr("Manufacturer")
-        subText: serialPort.manufacturer
-        progressive: false
-        prominentSubText: false
-        visible: serialPort.manufacturer !== ""
-    }
-
-    NymeaSwipeDelegate {
-        Layout.fillWidth: true
-        text: qsTr("Serialnumber")
-        subText: serialPort.serialNumber
-        progressive: false
-        prominentSubText: false
-        visible: serialPort.serialNumber !== ""
-    }
-
-    SettingsPageSectionHeader {
-        text: qsTr("Configuration")
-    }
-
-    RowLayout {
-        Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-        Label {
-            text: qsTr("Baud rate")
-            Layout.fillWidth: true
+            CoCard {
+                Layout.fillWidth: true
+                helpText: qsTr("UUID")
+                text: modbusRtuMaster.modbusUuid
+            }
         }
+    }
 
-        ConsolinnoDropdown {
-            id: baudRateComboBox
-            Layout.minimumWidth: 250
-            enabled: !root.busy
-            textRole: "value"
-            model: serialPortBaudrateModel
-            Component.onCompleted: {
-                for (var i = 0; i < serialPortBaudrateModel.count; i++) {
-                    if (serialPortBaudrateModel.get(i).value === modbusRtuMaster.baudrate) {
-                        currentIndex = i
+    CoFrostyCard {
+        id: serialPortGroup
+        Layout.fillWidth: true
+        Layout.topMargin: Style.margins
+        Layout.leftMargin: Style.margins
+        Layout.rightMargin: Style.margins
+        contentTopMargin: Style.smallMargins
+        headerText: qsTr("Serial port")
+
+        ColumnLayout {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            spacing: 0
+
+            CoCard {
+                Layout.fillWidth: true
+                helpText: qsTr("Path")
+                text: root.getName(serialPort.systemLocation)
+                interactive: false
+            }
+
+            CoCard {
+                Layout.fillWidth: true
+                helpText: qsTr("Description")
+                text: serialPort.description.length > 0 ? serialPort.description : qsTr("Unknown")
+                interactive: false
+            }
+
+            CoCard {
+                Layout.fillWidth: true
+                helpText: qsTr("Manufacturer")
+                text: serialPort.manufacturer
+                visible: serialPort.manufacturer !== ""
+                interactive: false
+            }
+
+            CoCard {
+                Layout.fillWidth: true
+                helpText: qsTr("Serialnumber")
+                text: serialPort.serialNumber
+                visible: serialPort.serialNumber !== ""
+                interactive: false
+            }
+        }
+    }
+
+    CoFrostyCard {
+        id: configurationGroup
+        Layout.fillWidth: true
+        Layout.topMargin: Style.margins
+        Layout.leftMargin: Style.margins
+        Layout.rightMargin: Style.margins
+        contentTopMargin: Style.smallMargins
+        headerText: qsTr("Configuration")
+
+        ColumnLayout {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            spacing: 0
+
+            CoComboBox {
+                id: baudRateComboBox
+                Layout.fillWidth: true
+                labelText: qsTr("Baud rate")
+                enabled: !root.busy
+                model: serialPortBaudrateModel
+                textRole: "value"
+                Component.onCompleted: {
+                    for (var i = 0; i < serialPortBaudrateModel.count; i++) {
+                        if (serialPortBaudrateModel.get(i).value === modbusRtuMaster.baudrate) {
+                            currentIndex = i;
+                        }
                     }
+                }
+            }
+
+            CoComboBox {
+                id: parityComboBox
+                Layout.fillWidth: true
+                labelText: qsTr("Parity")
+                enabled: !root.busy
+                model: serialPortParityModel
+                textRole: "text"
+                Component.onCompleted: {
+                    for (var i = 0; i < serialPortParityModel.count; i++) {
+                        if (serialPortParityModel.get(i).value === modbusRtuMaster.parity) {
+                            currentIndex = i;
+                        }
+                    }
+                }
+            }
+
+            CoComboBox {
+                id: dataBitsComboBox
+                Layout.fillWidth: true
+                labelText: qsTr("Data bits")
+                enabled: !root.busy
+                textRole: "text"
+                model: serialPortDataBitsModel
+                Component.onCompleted: {
+                    for (var i = 0; i < serialPortDataBitsModel.count; i++) {
+                        if (serialPortDataBitsModel.get(i).value === modbusRtuMaster.dataBits) {
+                            currentIndex = i;
+                        }
+                    }
+                }
+            }
+
+            CoComboBox {
+                id: stopBitsComboBox
+                Layout.fillWidth: true
+                labelText: qsTr("Stop bits")
+                enabled: !root.busy
+                model: serialPortStopBitsModel
+                textRole: "text"
+                Component.onCompleted: {
+                    for (var i = 0; i < serialPortStopBitsModel.count; i++) {
+                        if (serialPortStopBitsModel.get(i).value === modbusRtuMaster.stopBits) {
+                            currentIndex = i;
+                        }
+                    }
+                }
+            }
+
+            CoInputField {
+                id: numberOfRetriesText
+                Layout.fillWidth: true
+                compactTextField: true
+                labelText: qsTr("Request retries")
+                text: "3"
+                textField.validator: IntValidator { bottom: 0; top: 100 }
+                textField.inputMethodHints: Qt.ImhDigitsOnly
+                Component.onCompleted: {
+                    numberOfRetriesText.text = modbusRtuMaster.numberOfRetries;
+                }
+            }
+
+            CoInputField {
+                id: timeoutText
+                Layout.fillWidth: true
+                compactTextField: true
+                labelText: qsTr("Request timeout")
+                text: "100"
+                unit: qsTr("ms")
+                textField.inputMethodHints: Qt.ImhDigitsOnly
+                textField.validator: IntValidator { bottom: 10; top: 100000 }
+                Component.onCompleted: {
+                    timeoutText.text = modbusRtuMaster.timeout;
                 }
             }
         }
     }
-
-    RowLayout {
-        Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-
-        Label {
-            text: qsTr("Parity")
-            Layout.fillWidth: true
-        }
-
-        ConsolinnoDropdown {
-            id: parityComboBox
-            textRole: "text"
-            enabled: !root.busy
-            Layout.minimumWidth: 250
-            model: serialPortParityModel
-            Component.onCompleted: {
-                for (var i = 0; i < serialPortParityModel.count; i++) {
-                    if (serialPortParityModel.get(i).value === modbusRtuMaster.parity) {
-                        currentIndex = i
-                    }
-                }
-            }
-        }
-    }
-
-    RowLayout {
-        Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-
-        Label {
-            text: qsTr("Data bits")
-            Layout.fillWidth: true
-        }
-
-        ConsolinnoDropdown {
-            id: dataBitsComboBox
-            textRole: "text"
-            enabled: !root.busy
-            Layout.minimumWidth: 250
-            model: serialPortDataBitsModel
-            Component.onCompleted: {
-                for (var i = 0; i < serialPortDataBitsModel.count; i++) {
-                    if (serialPortDataBitsModel.get(i).value === modbusRtuMaster.dataBits) {
-                        currentIndex = i
-                    }
-                }
-            }
-        }
-    }
-
-    RowLayout {
-        Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-
-        Label {
-            text: qsTr("Stop bits")
-            Layout.fillWidth: true
-        }
-
-        ConsolinnoDropdown {
-            id: stopBitsComboBox
-            textRole: "text"
-            enabled: !root.busy
-            Layout.minimumWidth: 250
-            model: serialPortStopBitsModel
-            Component.onCompleted: {
-                for (var i = 0; i < serialPortStopBitsModel.count; i++) {
-                    if (serialPortStopBitsModel.get(i).value === modbusRtuMaster.stopBits) {
-                        currentIndex = i
-                    }
-                }
-            }
-        }
-    }
-
-    RowLayout {
-        Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-
-        Label {
-            text: qsTr("Request retries")
-            Layout.fillWidth: true
-        }
-        TextField {
-            id: numberOfRetriesText
-            inputMethodHints: Qt.ImhDigitsOnly
-            text: "3"
-            validator: IntValidator { bottom: 0; top: 100 }
-            Component.onCompleted: {
-                numberOfRetriesText.text = modbusRtuMaster.numberOfRetries
-            }
-        }
-    }
-
-    RowLayout {
-        Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-
-        Label {
-            text: qsTr("Request timeout [ms]")
-            Layout.fillWidth: true
-        }
-
-        TextField {
-            id: timeoutText
-            inputMethodHints: Qt.ImhDigitsOnly
-            text: "100"
-            validator: IntValidator { bottom: 10; top: 100000 }
-            Component.onCompleted: {
-                timeoutText.text = modbusRtuMaster.timeout
-            }
-        }
-    }
-
 
     Button {
         Layout.fillWidth: true
-        Layout.leftMargin: app.margins
-        Layout.rightMargin: app.margins
+        Layout.leftMargin: Style.margins
+        Layout.rightMargin: Style.margins
+        Layout.topMargin: Style.margins
         text: qsTr("Apply")
         enabled: !root.busy
         onClicked: {
-            var baudrate = serialPortBaudrateModel.get(baudRateComboBox.currentIndex).value
-            var parity = serialPortParityModel.get(parityComboBox.currentIndex).value
-            var dataBits = serialPortDataBitsModel.get(dataBitsComboBox.currentIndex).value
-            var stopBits = serialPortStopBitsModel.get(stopBitsComboBox.currentIndex).value
-            var numberOfRetries = numberOfRetriesText.text
-            var timeout = timeoutText.text
-
-            d.reconfigureModbusRtuMaster(modbusRtuMaster.modbusUuid, serialPort.systemLocation, baudrate, parity, dataBits, stopBits, numberOfRetries, timeout)
+            var baudrate = serialPortBaudrateModel.get(baudRateComboBox.currentIndex).value;
+            var parity = serialPortParityModel.get(parityComboBox.currentIndex).value;
+            var dataBits = serialPortDataBitsModel.get(dataBitsComboBox.currentIndex).value;
+            var stopBits = serialPortStopBitsModel.get(stopBitsComboBox.currentIndex).value;
+            var numberOfRetries = numberOfRetriesText.text;
+            var timeout = timeoutText.text;
+            d.reconfigureModbusRtuMaster(modbusRtuMaster.modbusUuid,
+                                         serialPort.systemLocation,
+                                         baudrate,
+                                         parity,
+                                         dataBits,
+                                         stopBits,
+                                         numberOfRetries,
+                                         timeout);
         }
     }
 

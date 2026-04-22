@@ -175,7 +175,7 @@ StackView {
                         wrapMode: Text.WordWrap
                     }
 
-                    ConsolinnoDropdown {
+                    ComboBox {
                         id: energyRateComboBox
                         Layout.fillWidth: true
                         Layout.leftMargin: Style.margins

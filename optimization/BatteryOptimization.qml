@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import QtQuick.Layouts
 import Nymea 1.0
 import "../components"
@@ -16,7 +15,7 @@ Page {
     signal done()
 
     header: NymeaHeader {
-        text: thing.name
+        text: qsTr("Battery")
         backButtonVisible: directionID === 1 ? false : true
         onBackPressed: pageStack.pop()
     }
@@ -57,67 +56,61 @@ Page {
         anchors.fill: parent
         anchors.margins: app.margins
 
-        RowLayout{
+        CoFrostyCard {
             Layout.fillWidth: true
-            visible: thing.thingClass.interfaces.includes("controllablebattery")
+            contentTopMargin: Style.smallMargins
+            headerText: thing.name
 
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Grid-supportive-control")
-            }
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Style.margins
+                anchors.rightMargin: Style.margins
+                spacing: 0
 
-            ConsolinnoSwitch {
-                id: gridSupportControl
-                Component.onCompleted: checked = batteryConfiguration.controllableLocalSystem
-            }
-        }
+                CoSwitch {
+                    id: gridSupportControl
+                    Layout.fillWidth: true
+                    text: qsTr("Grid-supportive-control")
+                    helpText: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled.")
+                    visible: thing.thingClass.interfaces.includes("controllablebattery")
 
-        ColumnLayout {
-            Layout.fillWidth: true
-            visible: thing.thingClass.interfaces.includes("controllablebattery")
+                    Component.onCompleted: {
+                        checked = batteryConfiguration.controllableLocalSystem;
+                    }
+                }
 
-            Text {
-                Layout.fillWidth: true
-                font: Style.smallFont
-                color: Style.consolinnoMedium
-                wrapMode: Text.Wrap
-                text: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled.")
-            }
-        }
+                CoSwitch {
+                    id: zeroCompensationControl
+                    Layout.fillWidth: true
+                    text: qsTr("Avoid zero compensation")
+                    infoUrl: "AvoidZeroCompensationInfo.qml"
+                    visible: thing.thingClass.interfaces.includes("controllablebattery") &&
+                             ((hemsManager.availableUseCases & HemsManager.HemsUseCaseAvoidZeroCompensation) !== 0)
 
-        RowLayout{
-            Layout.fillWidth: true
-            visible: (hemsManager.availableUseCases & HemsManager.HemsUseCaseAvoidZeroCompensation) !== 0
+                    Component.onCompleted: {
+                        checked = batteryConfiguration.avoidZeroFeedInEnabled;
+                    }
+                }
 
-            LabelWithInfo {
-                text: qsTr("Avoid zero compensation")
-                push: "AvoidZeroCompensationInfo.qml"
-            }
+                CoSwitch {
+                    id: blockEVChargingFromBatteryControl
+                    Layout.fillWidth: true
+                    text: qsTr("Block EV charging from the battery")
+                    infoUrl: "BlockEVChargingFromBatteryInfo.qml"
+                    visible: thing.thingClass.interfaces.includes("controllablebattery") &&
+                             ((hemsManager.availableUseCases & HemsManager.HemsUseCaseBattery) &&
+                              (hemsManager.availableUseCases & HemsManager.HemsUseCaseCharging))
 
-            ConsolinnoSwitch {
-                id: zeroCompensationControl
-                Component.onCompleted: checked = batteryConfiguration.avoidZeroFeedInEnabled
-            }
-        }
-
-        RowLayout{
-            Layout.fillWidth: true
-            visible: thing.thingClass.interfaces.includes("controllablebattery") &&
-                     ((hemsManager.availableUseCases & HemsManager.HemsUseCaseBattery) &&
-                      (hemsManager.availableUseCases & HemsManager.HemsUseCaseCharging))
-
-            LabelWithInfo {
-                text: qsTr("Block EV charging from the battery")
-                push: "BlockEVChargingFromBatteryInfo.qml"
-            }
-
-            ConsolinnoSwitch {
-                id: blockEVChargingFromBatteryControl
-                Component.onCompleted: checked = (batteryConfiguration.blockBatteryOnGridConsumption & BatteryConfiguration.EvCharger)
+                    Component.onCompleted: {
+                        checked = (batteryConfiguration.blockBatteryOnGridConsumption & BatteryConfiguration.EvCharger);
+                    }
+                }
             }
         }
 
         Item {
+            id: spacer
             Layout.fillHeight: true
             Layout.fillWidth: true
         }
@@ -137,7 +130,7 @@ Page {
             id: savebutton
 
             Layout.fillWidth: true
-            text: qsTr("Save")
+            text: qsTr("Apply changes")
             onClicked: {
                 var blockBatteryOnGridConsumption = batteryConfiguration.blockBatteryOnGridConsumption;
                 if (blockEVChargingFromBatteryControl.checked) {
@@ -149,7 +142,8 @@ Page {
                 hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId,
                                                     { controllableLocalSystem: gridSupportControl.checked,
                                                         avoidZeroFeedInEnabled: zeroCompensationControl.checked,
-                                                    blockBatteryOnGridConsumption: blockBatteryOnGridConsumption});
+                                                        blockBatteryOnGridConsumption: blockBatteryOnGridConsumption
+                                                    });
                 if (directionID !== 1) {
                     pageStack.pop();
                 }

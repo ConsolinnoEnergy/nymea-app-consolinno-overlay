@@ -59,6 +59,7 @@ T.Button {
     leftInset: 4
     rightInset: 4
     opacity: !control.enabled ? Style.numbers.components_Disabled_opacity : 1
+    font: Style.newParagraphFontBold
 
     contentItem: RowLayout {
         spacing: Style.smallMargins
@@ -68,6 +69,8 @@ T.Button {
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
             size: 20
             color: Style.colors.brand_Basic_Icon
+            name: ""
+            visible: name !== ""
         }
 
         Text {
@@ -77,7 +80,7 @@ T.Button {
             color: control.secondary ?
                        Style.colors.typography_Basic_Default :
                        Style.colors.components_Forms_Buttons_Button_primary_text
-            font: Style.newParagraphFont
+            font: control.font
 
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
@@ -89,27 +92,17 @@ T.Button {
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
             size: 20
             color: Style.colors.brand_Basic_Icon
+            name: ""
+            visible: name !== ""
         }
     }
-
-//    contentItem: Text {
-//        text: control.text
-//        color: control.secondary ?
-//                   Style.colors.typography_Basic_Default :
-//                   Style.colors.components_Forms_Buttons_Button_primary_text
-//        font: Style.newParagraphFont
-
-//        horizontalAlignment: Text.AlignHCenter
-//        verticalAlignment: Text.AlignVCenter
-//        elide: Text.ElideRight
-//    }
 
     background: Rectangle {
         implicitWidth: 64
         implicitHeight: 48
 
-        width: parent.width
-        height: parent.height // - 12
+        width: parent.width - control.leftInset - control.rightInset
+        height: parent.height - control.topInset - control.bottomInset
         radius: height / 2
         color: {
             if (control.secondary) {
@@ -141,7 +134,7 @@ T.Button {
             width: parent.width + 8
             height: parent.height + 8
             radius: height / 2
-            visible: control.hovered
+            visible: control.enabled && control.hovered
             color: "transparent"
             border.width: 4
             border.color: Style.colors.typography_States_Hover_pressed_outline

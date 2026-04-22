@@ -148,6 +148,7 @@ StatsBase {
                 legend.font: Style.extraSmallFont
                 legend.labelColor: Style.foregroundColor
 
+                margins.left: Math.max(Style.margins, valueLabelMetrics.width)
                 margins.right: 0
                 margins.bottom: Style.smallIconSize + Style.margins
                 margins.top: 0
@@ -159,6 +160,15 @@ StatsBase {
                     opacity: .5
                 }
 
+                TextMetrics {
+                    id: valueLabelMetrics
+                    property var repeaterItem: valueAxisRepeater.count > 0 ?
+                                                   valueAxisRepeater.itemAt(0) :
+                                                   null
+                    font: repeaterItem ? repeaterItem.font : Style.extraSmallFont
+                    text: repeaterItem ? repeaterItem.text : ""
+                }
+
                 Item {
                     id: labelsLayout
                     x: Style.smallMargins
@@ -167,6 +177,7 @@ StatsBase {
                     width: chartView.plotArea.x - x
 
                     Repeater {
+                        id: valueAxisRepeater
                         model: 6
                         delegate: Label {
                             y: parent.height / 5 * index - font.pixelSize / 2

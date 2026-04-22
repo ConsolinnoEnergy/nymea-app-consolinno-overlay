@@ -1,6 +1,7 @@
 #ifndef BATTERYCONFIGURATION_H
 #define BATTERYCONFIGURATION_H
 
+#include <QList>
 #include <QUuid>
 #include <QObject>
 
@@ -17,6 +18,8 @@ class BatteryConfiguration : public QObject
     Q_PROPERTY(bool avoidZeroFeedInEnabled READ avoidZeroFeedInEnabled WRITE setAvoidZeroFeedInEnabled NOTIFY avoidZeroFeedInEnabledChanged)
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
     Q_PROPERTY(int blockBatteryOnGridConsumption READ blockBatteryOnGridConsumption WRITE setBlockBatteryOnGridConsumption NOTIFY blockBatteryOnGridConsumptionChanged)
+    Q_PROPERTY(float maxElectricalPower READ maxElectricalPower WRITE setMaxElectricalPower NOTIFY maxElectricalPowerChanged)
+    Q_PROPERTY(QList<int> targetSocPvSurplus READ targetSocPvSurplus WRITE setTargetSocPvSurplus NOTIFY targetSocPvSurplusChanged)
 
 public:
 
@@ -70,6 +73,12 @@ public:
     int blockBatteryOnGridConsumption() const;
     void setBlockBatteryOnGridConsumption(int blockBatteryOnGridConsumption);
 
+    float maxElectricalPower() const;
+    void setMaxElectricalPower(float maxElectricalPower);
+
+    QList<int> targetSocPvSurplus() const;
+    void setTargetSocPvSurplus(const QList<int> &targetSocPvSurplus);
+
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void priceThresholdChanged(float priceThreshold);
@@ -80,6 +89,8 @@ signals:
     void chargeOnceChanged(bool chargeOnce);
     void controllableLocalSystemChanged(bool controllableLocalSystem);
     void blockBatteryOnGridConsumptionChanged(int blockBatteryOnGridConsumption);
+    void maxElectricalPowerChanged(float maxElectricalPower);
+    void targetSocPvSurplusChanged(const QList<int> &targetSocPvSurplus);
 
 private:
     QUuid m_batteryThingId;
@@ -92,6 +103,8 @@ private:
     bool m_avoidZeroFeedInEnabled = false;
     bool m_avoidZeroFeedInActive = false;
     int m_blockBatteryOnGridConsumption = EvCharger;
+    float m_maxElectricalPower = 0.0;
+    QList<int> m_targetSocPvSurplus = {80};
 };
 
 #endif // BATTERYCONFIGURATION_H

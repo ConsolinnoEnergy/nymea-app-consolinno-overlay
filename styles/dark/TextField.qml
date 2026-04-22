@@ -51,8 +51,6 @@ T.TextField {
 
     padding: 12
 
-    // #TODO Feedback state
-
     color: Style.colors.components_Forms_Fields_Field_user_input
     selectionColor: control.palette.highlight
     selectedTextColor: control.palette.highlightedText
@@ -91,12 +89,16 @@ T.TextField {
             anchors.margins: 4
             radius: Style.cornerRadius
             border.width: control.activeFocus ? 2 : 1
-            color: Style.colors.typography_Background_Default
+            color: control.acceptableInput ?
+                       Style.colors.typography_Background_Default :
+                       Style.colors.system_Danger_Background
             border.color: !control.enabled ?
                               Style.colors.components_Forms_Slider_Thumb_Track_disabled :
-                              control.activeFocus ?
-                                  Style.colors.components_Forms_Fields_Field_border_active :
-                                  Style.colors.components_Forms_Fields_Field_border
+                              !control.acceptableInput ?
+                                  Style.colors.system_Danger_Accent :
+                                  control.activeFocus ?
+                                      Style.colors.components_Forms_Fields_Field_border_active :
+                                      Style.colors.components_Forms_Fields_Field_border
         }
     }
 }

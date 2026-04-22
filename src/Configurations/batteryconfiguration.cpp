@@ -127,3 +127,31 @@ void BatteryConfiguration::setBlockBatteryOnGridConsumption(int blockBatteryOnGr
     m_blockBatteryOnGridConsumption = blockBatteryOnGridConsumption;
     emit blockBatteryOnGridConsumptionChanged(blockBatteryOnGridConsumption);
 }
+
+float BatteryConfiguration::maxElectricalPower() const
+{
+    return m_maxElectricalPower;
+}
+
+void BatteryConfiguration::setMaxElectricalPower(float maxElectricalPower)
+{
+    if (m_maxElectricalPower == maxElectricalPower)
+        return;
+
+    m_maxElectricalPower = maxElectricalPower;
+    emit maxElectricalPowerChanged(m_maxElectricalPower);
+}
+
+QList<int> BatteryConfiguration::targetSocPvSurplus() const
+{
+    return m_targetSocPvSurplus;
+}
+
+void BatteryConfiguration::setTargetSocPvSurplus(const QList<int> &targetSocPvSurplus)
+{
+    if (m_targetSocPvSurplus == targetSocPvSurplus)
+        return;
+
+    m_targetSocPvSurplus = targetSocPvSurplus;
+    emit targetSocPvSurplusChanged(m_targetSocPvSurplus);
+}

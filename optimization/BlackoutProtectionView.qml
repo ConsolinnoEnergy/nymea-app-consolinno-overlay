@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import QtQuick.Layouts
 import Nymea 1.0
 import "../components"
@@ -16,19 +15,16 @@ Page {
         text: qsTr("Blackout protection")
         backButtonVisible: true
         onBackPressed:{
-            if (directionID == 0)
-            {
-                pageStack.pop()
-            }else{
-                root.done(false, false, true)
+            if (directionID == 0) {
+                pageStack.pop();
+            } else {
+                root.done(false, false, true);
             }
-
         }
     }
 
     property int phaseLimit: 25
     property int configuredPhaseLimit: 25
-    property bool settingsChanged: phaseLimit != configuredPhaseLimit
 
     QtObject {
         id: d
@@ -38,17 +34,16 @@ Page {
     Connections {
         target: hemsManager
         onHousholdPhaseLimitChanged: function(housholdPhaseLimit) {
-            configuredPhaseLimit = housholdPhaseLimit
+            configuredPhaseLimit = housholdPhaseLimit;
         }
 
         onSetHousholdPhaseLimitReply: function(commandId, error) {
             if (commandId == d.pendingCallId) {
-                d.pendingCallId = -1
-
+                d.pendingCallId = -1;
                 var props = {};
                 switch (error) {
                 case "HemsErrorNoError":
-                    pageStack.pop()
+                    pageStack.pop();
                     return;
                 case "HemsErrorInvalidPhaseLimit":
                     props.text = qsTr("Invalid phase limit.");
@@ -56,161 +51,120 @@ Page {
                 default:
                     props.errorCode = error;
                 }
-                var comp = Qt.createComponent("../components/ErrorDialog.qml")
-                var popup = comp.createObject(app, props)
+                var comp = Qt.createComponent("../components/ErrorDialog.qml");
+                var popup = comp.createObject(app, props);
                 popup.open();
             }
         }
     }
 
-    // TODO: maybe allow to disable, or prioritize which ev charger should be adjusted first or something like that
+    Component.onCompleted: {
+        phaseLimit = hemsManager.housholdPhaseLimit;
+        configuredPhaseLimit = hemsManager.housholdPhaseLimit;
+        const comboIndex = currentCombo.comboBox.indexOfValue(configuredPhaseLimit);
+        if (comboIndex !== -1) {
+            currentCombo.comboBox.currentIndex = comboIndex;
+            currentInput.textField.text = "16";
+        } else {
+            // Last item is "user defined" current.
+            currentCombo.comboBox.currentIndex = currentCombo.comboBox.count -1;
+            currentInput.textField.text = configuredPhaseLimit.toString();
+        }
+    }
 
-    // Houshold phase limit [A]
+    ListModel {
+        id: blackoutProtectionModel
+        ListElement { name: qsTr("25 A"); current: 25 }
+        ListElement { name: qsTr("35 A"); current: 35 }
+        ListElement { name: qsTr("40 A"); current: 40 }
+        ListElement { name: qsTr("50 A"); current: 50 }
+        ListElement { name: qsTr("63 A"); current: 63 }
+        ListElement { name: qsTr("User defined"); current: 0 }
+    }
+
     ColumnLayout {
         anchors.fill: parent
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.topMargin: app.margins
-        //anchors.margins: app.margins
+        anchors.margins: Style.margins
 
+        CoFrostyCard {
+            Layout.fillWidth: true
+            contentTopMargin: Style.smallMargins
+            headerText: qsTr("Blackout protection")
 
-        RadioDelegate {
-            id: limit25
-            Layout.fillWidth: true
-            text: qsTr("Per phase: 25 A")
-            onClicked: phaseLimit = 25
-        }
-        RadioDelegate {
-            id: limit35
-            Layout.fillWidth: true
-            text: qsTr("Per phase: 35 A")
-            onClicked: phaseLimit = 35
-        }
-        RadioDelegate {
-            id: limit40
-            Layout.fillWidth: true
-            text: qsTr("Per phase: 40 A")
-            onClicked: phaseLimit = 40
-        }
-        RadioDelegate {
-            id: limit50
-            Layout.fillWidth: true
-            text: qsTr("Per phase: 50 A")
-            onClicked: phaseLimit = 50
-        }
-        RadioDelegate {
-            id: limit63
-            Layout.fillWidth: true
-            text: qsTr("Per phase: 63 A")
-            onClicked: phaseLimit = 63
-        }
-        RadioDelegate {
-            id: limitOther
-            Layout.fillWidth: true
-            text: "other"
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Style.margins
+                anchors.rightMargin: Style.margins
+                spacing: 0
 
-            contentItem: RowLayout {
-              Label {
-                text: qsTr("Per phase A:")
-                Layout.rightMargin: 40
-              }
-              ConsolinnoTextField {
-                id: otherLimit
-                rightPadding: 50
-                placeholderText: "16 - 100"
-                onTextChanged: {
-                    limitOther.checked = true
-                    phaseLimit = parseInt(text)
+                CoComboBox {
+                    id: currentCombo
+                    Layout.fillWidth: true
+                    labelText: qsTr("Blackout protection per phase") // #TODO wording
+                    helpText: qsTr("Select the maximum current that this installation can safely handle.") // #TODO wording
+                    model: blackoutProtectionModel
+                    textRole: "name"
+                    valueRole: "current"
+                    onCurrentValueChanged: {
+                        if (comboBox.currentValue > 0) {
+                            root.phaseLimit = comboBox.currentValue;
+                        } else {
+                            if (currentInput.textField.acceptableInput) {
+                                root.phaseLimit = parseInt(currentInput.textField.text);
+                            }
+                        }
+                    }
                 }
-                validator: RegularExpressionValidator {
-                    regularExpression: /^(1[6-9]|[2-9][0-9]|100)$/
-                }
-                inputMethodHints: Qt.ImhDigitsOnly
-              }
-              Item {
-                  Layout.fillWidth: true
 
-              }
+
+                CoInputField {
+                    id: currentInput
+                    Layout.fillWidth: true
+                    visible: currentCombo.comboBox.currentValue === 0
+                    labelText: qsTr("User defined current") // #TODO wording
+                    helpText: qsTr("Enter a value between 16 and 100 A.") // #TODO wording
+                    unit: "A"
+                    compactTextField: true
+                    feedbackText: qsTr("The value is outside the valid range.")
+                    textField.inputMethodHints: Qt.ImhDigitsOnly
+                    textField.validator: RegularExpressionValidator {
+                        regularExpression: /^(1[6-9]|[2-9][0-9]|100)$/
+                    }
+                    textField.onTextChanged: {
+                        if (visible && textField.acceptableInput) {
+                            root.phaseLimit = parseInt(textField.text)
+                        }
+                    }
+                }
             }
-            onClicked: phaseLimit = otherLimit.text
         }
 
-
-        Label {
-            id: footer
+        Item {
+            Layout.fillHeight: true
             Layout.fillWidth: true
-            Layout.leftMargin: app.margins
-            Layout.rightMargin: app.margins
-            color: Style.dangerAccent
-            wrapMode: Text.WordWrap
-            font.pixelSize: app.smallFont
-
         }
 
         Button {
             id: savebutton
             Layout.fillWidth: true
-            Layout.leftMargin: app.margins
-            Layout.rightMargin: app.margins
-            enabled: phaseLimit > 15
-            text: qsTr("Save")
+            enabled: {
+                if (currentCombo.comboBox.currentValue === 0 &&
+                        !currentInput.textField.acceptableInput) {
+                    return false;
+                }
+                return phaseLimit > 15;
+            }
+            text: qsTr("Apply changes")
 
             onClicked: {
-                // TODO: wait for response
-                // for debugging purposes or to let the user know that some values are not valid
-                //footer.text = "clicked"
-
-                if(directionID === 0){
-                    d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit)
+                if (directionID === 0) {
+                    d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit);
+                } else if (directionID === 1) {
+                    hemsManager.setHousholdPhaseLimit(root.phaseLimit);
+                    root.done(false, false, false);
                 }
-                else if(directionID === 1)
-                {
-                    hemsManager.setHousholdPhaseLimit(root.phaseLimit)
-                    root.done(false, false, false)
-                }
-
-            }
-
-        }
-
-        Item {
-            // place holder
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
-
-
-        Component.onCompleted: {
-            phaseLimit = hemsManager.housholdPhaseLimit
-            configuredPhaseLimit = hemsManager.housholdPhaseLimit
-            switch (configuredPhaseLimit) {
-            case 25:
-                limit25.checked = true
-                break
-            case 35:
-                limit35.checked = true
-                break
-            case 40:
-                limit40.checked = true
-                break
-            case 50:
-                limit50.checked = true
-                break
-            case 63:
-                limit63.checked = true
-                break
-            default:
-                limitOther.checked = true
-                otherLimit.text = configuredPhaseLimit
-                break
             }
         }
-
-
-
-
-
     }
-
 }

@@ -52,6 +52,7 @@ Item {
         id: wizardSettings
         category: "setupWizard"
         property bool modBusDone: false
+        property bool eebusDone: false
         property bool solarPanelDone: false
         property bool evChargerDone: false
         property bool heatPumpDone: false
@@ -64,6 +65,7 @@ Item {
         id: manualWizardSettings
         category: "manualSetupWizard"
         property bool modBusDone: true
+        property bool eebusDone: true
         property bool solarPanelDone: true
         property bool evChargerDone: true
         property bool heatPumpDone: true
@@ -105,6 +107,7 @@ Item {
 
         function resetWizardSettings() {
             wizardSettings.modBusDone = false
+            wizardSettings.eebusDone = false
             wizardSettings.solarPanelDone = false
             wizardSettings.evChargerDone = false
             wizardSettings.heatPumpDone = false
@@ -115,6 +118,7 @@ Item {
 
         function resetManualWizardSettings() {
             manualWizardSettings.modBusDone = false
+            manualWizardSettings.eebusDone = false
             manualWizardSettings.solarPanelDone = false
             manualWizardSettings.evChargerDone = false
             manualWizardSettings.heatPumpDone = false
@@ -130,6 +134,7 @@ Item {
 
         function initialManualWizardSettings() {
             manualWizardSettings.modBusDone = true
+            manualWizardSettings.eebusDone = true
             manualWizardSettings.solarPanelDone = true
             manualWizardSettings.evChargerDone = true
             manualWizardSettings.heatPumpDone = true
@@ -204,12 +209,33 @@ Item {
                 return
             }
 
+            if ((!wizardSettings.eebusDone) || !manualWizardSettings.eebusDone) {
+                var page = pushPage("/ui/wizards/SetupEEBUSWizard.qml")
+                page.done.connect(function (skip, abort, back) {
+                    if (back) {
+                        energyMeterWizardSkipped = false
+                        manualWizardSettings.energymeter = false
+                        pageStack.pop()
+                        return
+                    }
+                    if (abort) {
+                        manualWizardSettings.eebusDone = true
+                        exitWizard()
+                        return
+                    }
+                    wizardSettings.eebusDone = true
+                    manualWizardSettings.eebusDone = true
+                    setup(true)
+                })
+                wizardSettings.eebusDone = true
+                return
+            }
+
             if ((!wizardSettings.solarPanelDone) || !manualWizardSettings.solarPanelDone) {
                 var page = pushPage("/ui/wizards/SetupSolarInverterWizard.qml")
                 page.done.connect(function (skip, abort, back) {
                     if (back) {
-                        energyMeterWizardSkipped = false
-                        manualWizardSettings.modBusDone = false
+                        manualWizardSettings.eebusDone = false
                         pageStack.pop()
                         return
                     }

@@ -21,7 +21,8 @@ HEADERS += \
     $$PWD/Configurations/heatingconfiguration.h \
     $$PWD/hemsmanager.h \
     $$PWD/Configurations/userconfiguration.h \
-    $$PWD/Configurations/userconfigurations.h
+    $$PWD/Configurations/userconfigurations.h \
+    $$PWD/Configurations/emsconfiguration.h
 
 SOURCES += \
     $$PWD/Configurations/batteryconfiguration.cpp \
@@ -45,6 +46,7 @@ SOURCES += \
     $$PWD/Configurations/pvconfiguration.cpp \
     $$PWD/Configurations/pvconfigurations.cpp \
     $$PWD/Configurations/userconfiguration.cpp \
-    $$PWD/Configurations/userconfigurations.cpp
+    $$PWD/Configurations/userconfigurations.cpp \
+    $$PWD/Configurations/emsconfiguration.cpp
 
 

@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import QtQuick.Layouts
 import Nymea 1.0
 import "../components"
@@ -16,7 +15,7 @@ Page {
     signal done()
 
     header: NymeaHeader {
-        text: qsTr("Wallbox configuration")
+        text: qsTr("Charging")
         backButtonVisible: directionID === 1 ? false : true
         onBackPressed: pageStack.pop()
     }
@@ -57,41 +56,36 @@ Page {
         anchors.fill: parent
         anchors.margins: app.margins
 
-
-        RowLayout{
+        CoFrostyCard {
             Layout.fillWidth: true
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Grid-supportive control")
+            contentTopMargin: Style.smallMargins
+            headerText: thing.name
 
-            }
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Style.margins
+                anchors.rightMargin: Style.margins
+                spacing: 0
 
-            ConsolinnoSwitch {
-                id: gridSupportControl
-                Component.onCompleted: checked = chargingOptimizationConfiguration.controllableLocalSystem
-            }
-        }
+                CoSwitch {
+                    id: gridSupportControl
+                    Layout.fillWidth: true
+                    text: qsTr("Grid-supportive-control")
+                    helpText: qsTr("If the device must be controlled according to §14a, then this setting must be enabled.")
 
-
-        ColumnLayout {
-            Layout.fillWidth: true
-
-            Text {
-                Layout.fillWidth: true
-                font: Style.smallFont
-                wrapMode: Text.Wrap
-                color: Style.consolinnoMedium
-                text: qsTr("If the device must be controlled according to §14a, then this setting must be enabled.")
+                    Component.onCompleted: {
+                        checked = chargingOptimizationConfiguration.controllableLocalSystem;
+                    }
+                }
             }
         }
 
         Item {
-            // place holder
+            id: spacer
             Layout.fillHeight: true
             Layout.fillWidth: true
         }
-
-
 
         // potential footer for the config app, as a way to show the user that certain attributes where invalid.
         Label {
@@ -102,20 +96,21 @@ Page {
             color: Style.dangerAccent
             wrapMode: Text.WordWrap
             font.pixelSize: app.smallFont
-
         }
-
 
         Button {
             id: savebutton
             Layout.fillWidth: true
-            text: qsTr("Save")
+            text: qsTr("Apply changes")
             onClicked: {
-                    hemsManager.setChargingOptimizationConfiguration(chargingConfiguration.evChargerThingId, {controllableLocalSystem: gridSupportControl.checked,})
-                    if(directionID !== 1){
-                        pageStack.pop()
+                    hemsManager.setChargingOptimizationConfiguration(chargingConfiguration.evChargerThingId,
+                                                                     {
+                                                                         controllableLocalSystem: gridSupportControl.checked
+                                                                     });
+                    if (directionID !== 1) {
+                        pageStack.pop();
                     }
-                    root.done()
+                    root.done();
             }
         }
     }

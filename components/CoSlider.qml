@@ -7,9 +7,11 @@ import "../components"
 
 Item {
     id: root
+    property alias slider: slider
     property alias value: slider.value
     property alias from: slider.from
     property alias to: slider.to
+    property alias stepSize: slider.stepSize
     property alias labelText: label.text
     property alias infoUrl: label.push
     property alias valueText: valueLabel.text

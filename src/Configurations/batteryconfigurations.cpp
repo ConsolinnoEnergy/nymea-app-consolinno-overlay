@@ -36,6 +36,10 @@ QVariant BatteryConfigurations::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->avoidZeroFeedInActive();
     case RoleBlockBatteryOnGridConsumption:
         return m_list.at(index.row())->blockBatteryOnGridConsumption();
+    case RoleMaxElectricalPower:
+        return m_list.at(index.row())->maxElectricalPower();
+    case RoleTargetSocPvSurplus:
+        return QVariant::fromValue(m_list.at(index.row())->targetSocPvSurplus());
     }
     return QVariant();
 }
@@ -53,6 +57,8 @@ QHash<int, QByteArray> BatteryConfigurations::roleNames() const
     roles.insert(RoleAvoidZeroFeedInEnabled, "avoidZeroFeedInEnabled");
     roles.insert(RoleAvoidZeroFeedInActive, "avoidZeroFeedInActive");
     roles.insert(RoleBlockBatteryOnGridConsumption, "blockBatteryOnGridConsumption");
+    roles.insert(RoleMaxElectricalPower, "maxElectricalPower");
+    roles.insert(RoleTargetSocPvSurplus, "targetSocPvSurplus");
     return roles;
 }
 
@@ -126,6 +132,16 @@ void BatteryConfigurations::addConfiguration(BatteryConfiguration *batteryConfig
     connect(batteryConfiguration, &BatteryConfiguration::blockBatteryOnGridConsumptionChanged, this, [=]() {
         QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
         emit dataChanged(idx, idx, {RoleBlockBatteryOnGridConsumption});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::maxElectricalPowerChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleMaxElectricalPower});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::targetSocPvSurplusChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleTargetSocPvSurplus});
     });
 
     endInsertRows();

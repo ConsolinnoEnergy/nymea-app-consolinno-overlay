@@ -28,6 +28,7 @@ Page {
     QtObject {
         id: d
         property var thingToRemove: null
+        property var baseInterfacesWithThingClasses: ({})
     }
 
     Connections {
@@ -65,64 +66,115 @@ Page {
         }
     }
 
+    ThingClassesProxy {
+        id: thingClassesProxy
+        engine: _engine
+        includeProvidedInterfaces: true
+        groupByInterface: true
+    }
+
+    Component.onCompleted: {
+        let map = {};
+        for (let i = 0; i < thingClassesProxy.count; ++i) {
+            const item = thingClassesProxy.get(i);
+            const baseInterface = item.baseInterface;
+            if (!map[baseInterface]) {
+                map[baseInterface] = [];
+            }
+            map[baseInterface].push(item.id);
+        }
+        d.baseInterfacesWithThingClasses = map;
+    }
+
+
     ColumnLayout {
         anchors.fill: parent
+        anchors.margins: Style.margins
+        spacing: Style.margins
 
+        Flickable {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
+            clip: true
 
-        Button{
-            id: startWizardButton
-            text: qsTr("Start Wizard")
-            Layout.alignment: Qt.AlignHCenter
+            ColumnLayout {
+                id: layout
+                anchors.fill: parent
+                spacing: Style.margins
 
-            Layout.preferredWidth: 300
-            Layout.minimumWidth: 100
-            Layout.topMargin: 10
-            onClicked: {
-                wizardController.startManualSetup()
-            }
+                Repeater {
+                    id: baseInterfaceRepeater
+                    model: Object.keys(d.baseInterfacesWithThingClasses)
 
-            }
+                    delegate: CoFrostyCard {
+                        Layout.fillWidth: true
+                        contentTopMargin: 8
+                        headerText: app.interfaceToString(modelData)
+                        visible: thingsProxy.count > 0
 
+                        ThingsProxy {
+                            id: thingsProxy
+                            engine: _engine
+                            hideTagId: "hiddenInDeviceView"
+                            hiddenInterfaces: ["gridsupport", "epexdatasource"]
+                            shownThingClassIds: d.baseInterfacesWithThingClasses[modelData]
+                        }
 
+                        ColumnLayout {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            spacing: 0
 
-        Button{
-            id: addDevice
-            text: qsTr("Set up new device")
-            Layout.alignment: Qt.AlignHCenter
-            Layout.preferredWidth: 300
-            Layout.minimumWidth: 100
-            onClicked:{
-                pageStack.push( "../wizards/AuthorisationView.qml", { directionID: 1 })
+                            Repeater {
+                                id: thingsRepeater
+                                model: thingsProxy
+                                delegate: CoCard {
+                                    property var thing: thingsProxy.getThing(model.id)
+
+                                    Layout.fillWidth: true
+                                    text: thing.name
+                                    // #TODO use same stuff as in CoDashboardView.qml to get battery icons right
+                                    iconLeft: app.interfacesToIcon(thing.thingClass.interfaces)
+                                    showChildrenIndicator: true
+
+                                    // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
+                                    // This check might be wrong for thingClasses with multiple create methods...
+                                    deletable: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
+
+                                    onClicked: {
+                                        pageStack.push(Qt.resolvedUrl("ConsolinnoConfigureThingPage.qml"),
+                                                       { thing: thing });
+                                    }
+
+                                    onDeleteClicked: {
+                                        d.thingToRemove = thing;
+                                        engine.thingManager.removeThing(d.thingToRemove.id);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
-        GroupedListView {
+        Button{
+            id: startWizardButton
             Layout.fillWidth: true
-            Layout.fillHeight: true
-            clip: true
-
-            model: ThingsProxy {
-                id: thingsProxy
-                engine: _engine
-                groupByInterface: true
-                hideTagId: "hiddenInDeviceView"
-                hiddenInterfaces: ["gridsupport", "epexdatasource"]
+            Layout.topMargin: Style.margins
+            text: qsTr("Start Wizard")
+            onClicked: {
+                wizardController.startManualSetup();
             }
+        }
 
-            delegate: ConsolinnoThingDelegate {
-                property string iconPath: ""
-                thing: thingsProxy.getThing(model.id)
-                // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
-                // This check might be wrong for thingClasses with multiple create methods...
-
-                canDelete: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("ConsolinnoConfigureThingPage.qml"), {thing: thing})
-                }
-                onDeleteClicked: {
-                    d.thingToRemove = thing;
-                    engine.thingManager.removeThing(d.thingToRemove.id)
-                }
+        Button{
+            id: addDevice
+            Layout.fillWidth: true
+            text: qsTr("Set up new device")
+            onClicked: {
+                pageStack.push( "../wizards/AuthorisationView.qml", { directionID: 1 });
             }
         }
     }

@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import QtQuick.Layouts
 import Nymea 1.0
 import "../components"
@@ -15,7 +14,7 @@ Page {
     signal done()
 
     header: NymeaHeader {
-        text: qsTr("Heating Element Configuration")
+        text: qsTr("Heating")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
@@ -52,86 +51,52 @@ Page {
     }
 
     ColumnLayout {
+        id: contentColumn
         anchors.fill: parent
         anchors.margins: app.margins
 
-        RowLayout{
+        CoFrostyCard {
             Layout.fillWidth: true
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Maximal electrical power")
-            }
+            contentTopMargin: Style.smallMargins
+            headerText: heatRodThing.name
 
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Style.margins
+                anchors.rightMargin: Style.margins
+                spacing: 0
 
-            TextField {
-                id: maxPowerInput
-                Layout.preferredWidth: 60
-                Layout.rightMargin: 8
-                text: (+heatingElementConfiguration.maxElectricalPower).toLocaleString()
-                maximumLength: 10
-                validator: DoubleValidator{bottom: 0.5 }
-            }
+                CoInputField {
+                    id: maxElectricalPower
+                    property bool maxElectricalPowerValid: textField.acceptableInput
+                    Layout.fillWidth: true
+                    labelText: qsTr("Maximal electrical power")
+                    compactTextField: true
+                    unit: qsTr("kW")
+                    feedbackText: qsTr("The value is outside the valid range.")
+                    textField.text: (+heatingElementConfiguration.maxElectricalPower).toLocaleString()
+                    textField.maximumLength: 10
+                    textField.validator: DoubleValidator { bottom: 0.5 }
+                }
 
-            Label {
-                id: maxElectricalPowerunit
-                text: qsTr("kW")
-            }
-
-        }
-
-        RowLayout{
-            Layout.fillWidth: true
-            visible: hemsManager.availableUseCases & HemsManager.HemsUseCasePv
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Operating mode (Solar Only)")
-            }
-
-            ConsolinnoSwitch {
-                id: operatingModeSwitch
-                Component.onCompleted: checked = heatingElementConfiguration.optimizationEnabled
-            }
-        }
-
-        ColumnLayout {
-            Layout.fillWidth: true
-
-            Text {
-                Layout.fillWidth: true
-                font: Style.smallFont
-                color: Style.consolinnoMedium
-                wrapMode: Text.Wrap
-                text: operatingModeSwitch.checked ? qsTr("The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.") : qsTr("The heating element is not controlled by the %1.").arg(Configuration.deviceName)
-            }
-        }
-
-        ColumnLayout {
-            Layout.fillWidth: true
-            visible: heatRodThing.thingClass.interfaces.includes("controllableconsumer") || heatRodThing.thingClass.interfaces.includes("heatingrod");
-            RowLayout {
-                Label {
+                CoSwitch {
+                    id: controllSwitch
                     Layout.fillWidth: true
                     text: qsTr("Grid-supportive-control")
-                }
-                ConsolinnoSwitch {
-                    id: controllSwitch
-                    Component.onCompleted: checked = heatingElementConfiguration.controllableLocalSystem
+                    helpText: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
+                    visible: heatRodThing.thingClass.interfaces.includes("controllableconsumer") ||
+                             heatRodThing.thingClass.interfaces.includes("heatingrod")
+
+                    Component.onCompleted: {
+                        checked = heatingElementConfiguration.controllableLocalSystem
+                    }
                 }
             }
-
-            Text {
-                Layout.fillWidth: true
-                font: Style.smallFont
-                color: Style.consolinnoMedium
-                wrapMode: Text.Wrap
-                text: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
-            }
-
         }
 
-
         Item {
-            // place holder
+            id: spacer
             Layout.fillHeight: true
             Layout.fillWidth: true
         }
@@ -147,18 +112,27 @@ Page {
         }
 
         Button {
-            Layout.fillWidth: true
-            text: qsTr("Ok")
-            enabled: maxPowerInput.acceptableInput
+            id: savebutton
+            property bool inputValid: maxElectricalPower.maxElectricalPowerValid
 
+            Layout.fillWidth: true
+            text: qsTr("Apply changes")
             onClicked: {
-                let inputText = maxPowerInput.text
-                inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
-                d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, { "maxElectricalPower": parseFloat(inputText), "optimizationEnabled": operatingModeSwitch.checked, controllableLocalSystem: controllSwitch.checked})
-                if(directionID !== 1){
-                    pageStack.pop()
+                let inputText = maxElectricalPower.text
+                inputText.includes(",") === true ? inputText = inputText.replace(",", ".") : inputText
+                if (savebutton.inputValid) {
+                    d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, {
+                        "maxElectricalPower": parseFloat(inputText),
+                        "optimizationEnabled": heatingElementConfiguration ? heatingElementConfiguration.optimizationEnabled : true,
+                        "controllableLocalSystem": controllSwitch.checked
+                    })
+                    if (directionID !== 1) {
+                        pageStack.pop()
+                    }
+                    root.done()
+                } else {
+                    footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
                 }
-                root.done()
             }
         }
     }

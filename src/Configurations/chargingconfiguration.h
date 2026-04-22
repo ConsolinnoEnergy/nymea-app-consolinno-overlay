@@ -17,6 +17,7 @@ class ChargingConfiguration : public QObject
     Q_PROPERTY(QUuid uniqueIdentifier READ uniqueIdentifier WRITE setUniqueIdentifier NOTIFY uniqueIdentifierChanged)
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
     Q_PROPERTY(float priceThreshold READ priceThreshold WRITE setPriceThreshold NOTIFY priceThresholdChanged)
+    Q_PROPERTY(bool relativePriceEnabled READ relativePriceEnabled WRITE setRelativePriceEnabled NOTIFY relativePriceEnabledChanged)
     /*!
      * \brief JSON-serialisierter Wochenzeitplan für den zeitgesteuerten Lademodus (TIME_CONTROLLED).
      *
@@ -97,6 +98,9 @@ public:
     float priceThreshold() const;
     void setPriceThreshold(float priceThreshold);
 
+    bool relativePriceEnabled() const;
+    void setRelativePriceEnabled(bool relativePriceEnabled);
+
     QString chargingSchedule() const;
     void setChargingSchedule(const QString &chargingSchedule);
 
@@ -112,6 +116,7 @@ signals:
     void uniqueIdentifierChanged(QUuid uniqueIdentifier);
     void controllableLocalSystemChanged(bool controllableLocalSystem);
     void priceThresholdChanged(float priceThreshold);
+    void relativePriceEnabledChanged(bool relativePriceEnabled);
     void chargingScheduleChanged(const QString &chargingSchedule);
     void desiredPhaseCountChanged(uint desiredPhaseCount);
 
@@ -125,6 +130,7 @@ private:
     QUuid m_uniqueIdentifier = QUuid("2e2d25c5-57c7-419a-b294-881f11ed01c4");
     bool m_controllableLocalSystem = false;
     float m_priceThreshold = 0.0;
+    bool m_relativePriceEnabled = false;
     QString m_chargingSchedule = "";
     uint m_desiredPhaseCount = ThreePhase;
 };

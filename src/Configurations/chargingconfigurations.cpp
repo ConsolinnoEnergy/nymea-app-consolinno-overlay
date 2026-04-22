@@ -35,6 +35,8 @@ QVariant ChargingConfigurations::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->priceThreshold();
     case RoleDesiredPhaseCount:
         return m_list.at(index.row())->desiredPhaseCount();
+    case RoleRelativePriceEnabled:
+        return m_list.at(index.row())->relativePriceEnabled();
     }
     return QVariant();
 }
@@ -52,6 +54,7 @@ QHash<int, QByteArray> ChargingConfigurations::roleNames() const
     roles.insert(RoleControllableLocalSystem, "controllableLocalSystem");
     roles.insert(RolePriceThreshold, "priceThreshold");
     roles.insert(RoleDesiredPhaseCount, "desiredPhaseCount");
+    roles.insert(RoleRelativePriceEnabled, "relativePriceEnabled");
     return roles;
 }
 
@@ -117,6 +120,11 @@ void ChargingConfigurations::addConfiguration(ChargingConfiguration *chargingCon
     connect(chargingConfiguration, &ChargingConfiguration::desiredPhaseCountChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(chargingConfiguration));
         emit dataChanged(idx, idx, {RoleDesiredPhaseCount});
+    });
+
+    connect(chargingConfiguration, &ChargingConfiguration::relativePriceEnabledChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(chargingConfiguration));
+        emit dataChanged(idx, idx, {RoleRelativePriceEnabled});
     });
 
     endInsertRows();

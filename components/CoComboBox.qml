@@ -8,6 +8,12 @@ import "../components"
 Item {
     id: root
     property alias comboBox: combo
+    property alias currentIndex: combo.currentIndex
+    property alias currentValue: combo.currentValue
+    property alias currentText: combo.currentText
+    property alias model: combo.model
+    property alias textRole: combo.textRole
+    property alias valueRole: combo.valueRole
     property alias labelText: label.text
     property alias infoUrl: label.push
     property alias helpText: helpLabel.text

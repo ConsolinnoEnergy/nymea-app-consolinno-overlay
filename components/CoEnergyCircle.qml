@@ -1,7 +1,7 @@
-import QtQuick 2.0
-import QtQuick.Layouts 1.2
-import QtQuick.Controls.impl 2.2
-import QtGraphicalEffects 1.15
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls.impl
+import Qt5Compat.GraphicalEffects
 import Nymea 1.0
 import NymeaApp.Utils 1.0
 
@@ -11,7 +11,7 @@ Item {
     property alias icon: icon.name
     property alias label: labelText.text
     property double power: 0
-    property color circleColor: "transparent"
+    property color circleColor: Style.colors.components_Dashboard_Detail_Energy_circle_border
     property bool idle: Math.round(power) === 0
 
     implicitHeight: background.implicitHeight
@@ -80,6 +80,7 @@ Item {
 
             ColumnLayout {
                 anchors.centerIn: parent
+                width: parent.width - 50
                 spacing: 0
 
                 ColorIcon {
@@ -97,7 +98,8 @@ Item {
 
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    maximumLineCount: 1
+                    maximumLineCount: 2
+                    wrapMode: Text.WordWrap
                     elide: Text.ElideRight
                     font: Style.newParagraphFontBold
                     color: Style.colors.components_Dashboard_Info_card_title

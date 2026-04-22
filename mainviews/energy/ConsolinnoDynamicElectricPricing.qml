@@ -198,7 +198,7 @@ Item {
                 anchors.fill: parent
 
                 backgroundColor: "transparent"
-                margins.left: 0
+                margins.left: Style.margins
                 margins.right: 0
                 margins.top: 0
                 margins.bottom: Style.smallIconSize + Style.margins

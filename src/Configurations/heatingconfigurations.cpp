@@ -24,6 +24,12 @@ QVariant HeatingConfigurations::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->optimizationEnabled();
     case RoleHeatMeterThingId:
         return m_list.at(index.row())->heatMeterThingId();
+    case RolePvSurplusThreshold:
+        return m_list.at(index.row())->pvSurplusThreshold();
+    case RoleDurationMinAfterTurnOn:
+        return m_list.at(index.row())->durationMinAfterTurnOn();
+    case RoleDurationMaxTotal:
+        return m_list.at(index.row())->durationMaxTotal();
     }
     return QVariant();
 }
@@ -34,6 +40,9 @@ QHash<int, QByteArray> HeatingConfigurations::roleNames() const
     roles.insert(RoleHeatPumpThingId, "heatPumpThingId");
     roles.insert(RoleOptimizationEnabled, "optimizationEnabled");
     roles.insert(RoleHeatMeterThingId, "heatMeterThingId");
+    roles.insert(RolePvSurplusThreshold, "pvSurplusThreshold");
+    roles.insert(RoleDurationMinAfterTurnOn, "durationMinAfterTurnOn");
+    roles.insert(RoleDurationMaxTotal, "durationMaxTotal");
     return roles;
 }
 
@@ -72,6 +81,21 @@ void HeatingConfigurations::addConfiguration(HeatingConfiguration *heatingConfig
     connect(heatingConfiguration, &HeatingConfiguration::heatMeterThingIdChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(heatingConfiguration));
         emit dataChanged(idx, idx, {RoleHeatMeterThingId});
+    });
+
+    connect(heatingConfiguration, &HeatingConfiguration::pvSurplusThresholdChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(heatingConfiguration));
+        emit dataChanged(idx, idx, {RolePvSurplusThreshold});
+    });
+
+    connect(heatingConfiguration, &HeatingConfiguration::durationMinAfterTurnOnChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(heatingConfiguration));
+        emit dataChanged(idx, idx, {RoleDurationMinAfterTurnOn});
+    });
+
+    connect(heatingConfiguration, &HeatingConfiguration::durationMaxTotalChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(heatingConfiguration));
+        emit dataChanged(idx, idx, {RoleDurationMaxTotal});
     });
 
     endInsertRows();

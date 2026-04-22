@@ -1,9 +1,10 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "qrc:/ui/mainviews/energy/"
-import "qrc:/ui/components/"
 import Nymea 1.0
+
+import "../components"
+import "energy"
 
 MainViewBase {
     id: root

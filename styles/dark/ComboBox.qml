@@ -34,12 +34,12 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.15
-import QtQuick.Window 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Controls.impl 2.15
-import QtQuick.Templates 2.15 as T
-import QtGraphicalEffects 1.15
+import QtQuick
+import QtQuick.Window
+import QtQuick.Controls
+import QtQuick.Controls.impl
+import QtQuick.Templates as T
+import Qt5Compat.GraphicalEffects
 import Nymea 1.0
 
 T.ComboBox {
@@ -59,8 +59,11 @@ T.ComboBox {
     font: Style.newParagraphFont
 
     delegate: ItemDelegate {
+        required property var model
+        required property int index
+
         width: ListView.view.width
-        text: control.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : model[control.textRole]) : modelData
+        text: control.textRole ? model[control.textRole] : model
         font: Style.newParagraphFont
         highlighted: control.highlightedIndex === index
         hoverEnabled: control.hoverEnabled
@@ -76,10 +79,10 @@ T.ComboBox {
         x: control.mirrored ? control.padding + 16 : control.width - width - control.padding - 16
         y: control.topPadding + (control.availableHeight - height) / 2
         color: Style.colors.brand_Basic_Icon
-        width: 13
-        height: 8
+        width: 24
+        height: 24
         defaultColor: "#353637"
-        source: "qrc:/qt-project.org/imports/QtQuick/Controls.2/images/drop-indicator.png"
+        source: "qrc:/icons/keyboard_arrow_down.svg"
         opacity: enabled ? 1 : 0.3
     }
 

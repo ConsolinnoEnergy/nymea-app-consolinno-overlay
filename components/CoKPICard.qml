@@ -1,6 +1,6 @@
-import QtQuick 2.0
-import QtQuick.Layouts 1.15
-import QtGraphicalEffects 1.15
+import QtQuick
+import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
 import Nymea 1.0
 
 import "../components"
@@ -60,7 +60,10 @@ Item {
 
     ColumnLayout {
         id: layout
-        anchors.centerIn: parent
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: Math.min(implicitWidth, parent.width)
         spacing: 0
 
         RowLayout {
@@ -94,11 +97,11 @@ Item {
 
         LabelWithInfo {
             id: label
-            Layout.fillWidth: true
+            Layout.fillWidth: false // overwrite LabelWithInfo default
             Layout.margins: Style.extraSmallMargins
             font: Style.newParagraphFont
             fontColor: Style.colors.typography_Basic_Default
-
+            width: Math.min(naturalWidth, root.width - 2 * Style.extraSmallMargins)
         }
     }
 }

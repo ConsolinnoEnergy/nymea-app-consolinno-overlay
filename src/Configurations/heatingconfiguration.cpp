@@ -117,3 +117,45 @@ void HeatingConfiguration::setFloorHeatingArea(const double &floorHeatingArea)
 {
     m_floorHeatingArea = floorHeatingArea;
 }
+
+double HeatingConfiguration::pvSurplusThreshold() const
+{
+    return m_pvSurplusThreshold;
+}
+
+void HeatingConfiguration::setPvSurplusThreshold(double pvSurplusThreshold)
+{
+    if (m_pvSurplusThreshold == pvSurplusThreshold)
+        return;
+
+    m_pvSurplusThreshold = pvSurplusThreshold;
+    emit pvSurplusThresholdChanged(m_pvSurplusThreshold);
+}
+
+int HeatingConfiguration::durationMinAfterTurnOn() const
+{
+    return m_durationMinAfterTurnOn;
+}
+
+void HeatingConfiguration::setDurationMinAfterTurnOn(int durationMinAfterTurnOn)
+{
+    if (m_durationMinAfterTurnOn == durationMinAfterTurnOn)
+        return;
+
+    m_durationMinAfterTurnOn = durationMinAfterTurnOn;
+    emit durationMinAfterTurnOnChanged(m_durationMinAfterTurnOn);
+}
+
+double HeatingConfiguration::durationMaxTotal() const
+{
+    return m_durationMaxTotal;
+}
+
+void HeatingConfiguration::setDurationMaxTotal(double durationMaxTotal)
+{
+    if (m_durationMaxTotal == durationMaxTotal)
+        return;
+
+    m_durationMaxTotal = durationMaxTotal;
+    emit durationMaxTotalChanged(m_durationMaxTotal);
+}
