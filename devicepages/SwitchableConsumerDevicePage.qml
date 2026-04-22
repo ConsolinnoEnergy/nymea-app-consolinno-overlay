@@ -212,7 +212,7 @@ GenericConfigPage {
                         CoInputField {
                             id: minPVSurplusPower
                             Layout.fillWidth: true
-                            compactTextField: true
+                            compact: true
                             labelText: qsTr("Minimum power")
                             helpText: qsTr("Minimum PV surplus power required for activation.")
                             unit: "W"

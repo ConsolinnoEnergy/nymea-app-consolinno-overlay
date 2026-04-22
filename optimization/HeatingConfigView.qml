@@ -332,7 +332,7 @@ GenericConfigPage {
                             id: minPVSurplusPower
                             Layout.fillWidth: true
                             visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
-                            compactTextField: true
+                            compact: true
                             labelText: qsTr("Minimum power")
                             helpText: qsTr("Minimum PV surplus power required for activation.")
                             unit: "W"

@@ -74,7 +74,7 @@ Page {
                     Layout.fillWidth: true
                     visible: !thing.thingClass.interfaces.includes("controllablebattery")
                     labelText: qsTr("Maximal electrical power")
-                    compactTextField: true
+                    compact: true
                     unit: qsTr("kW")
                     feedbackText: qsTr("The value is outside the valid range.")
                     textField.text: (+batteryConfiguration.maxElectricalPower).toLocaleString()
