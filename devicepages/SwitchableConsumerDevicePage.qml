@@ -216,7 +216,7 @@ GenericConfigPage {
                             labelText: qsTr("Minimum power")
                             helpText: qsTr("Minimum PV surplus power required for activation.")
                             unit: "W"
-                            text: consumerConfig.pvSurplusThreshold
+                            text: root.consumerConfig ? root.consumerConfig.pvSurplusThreshold : ""
                             feedbackText: qsTr("Value must not be below %1 W.").arg(minPVSurplusPowerValidator.bottom)
                             textField.validator: IntValidator  {
                                 id: minPVSurplusPowerValidator
