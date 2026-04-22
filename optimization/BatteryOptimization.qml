@@ -154,15 +154,14 @@ Page {
                     blockBatteryOnGridConsumption &= ~BatteryConfiguration.EvCharger;
                 }
 
-                let inputText = maxElectricalPower.text;
-                inputText.includes(",") === true ? inputText = inputText.replace(",", ".") : inputText;
+                let parsedMaxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text)
 
                 hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId,
                                                     {
                                                         controllableLocalSystem: gridSupportControl.checked,
                                                         avoidZeroFeedInEnabled: zeroCompensationControl.checked,
                                                         blockBatteryOnGridConsumption: blockBatteryOnGridConsumption,
-                                                        maxElectricalPower: parseFloat(inputText)
+                                                        maxElectricalPower: parsedMaxElectricalPower
                                                     });
                 if (directionID !== 1) {
                     pageStack.pop();

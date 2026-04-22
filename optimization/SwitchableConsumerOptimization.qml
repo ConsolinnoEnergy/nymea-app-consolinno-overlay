@@ -117,13 +117,12 @@ Page {
             enabled: inputValid
             text: qsTr("Apply changes")
             onClicked: {
-                let inputText = maxElectricalPower.text
-                inputText.includes(",") === true ? inputText = inputText.replace(",", ".") : inputText
+                let parsedMaxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text)
                 if (savebutton.inputValid) {
                     d.pendingCallId = hemsManager.setSwitchableConsumerConfiguration(
                         switchableConsumerConfiguration.switchableConsumerThingId,
                         {
-                            "maxElectricalPower": parseFloat(inputText),
+                            "maxElectricalPower": parsedMaxElectricalPower,
                             "controllableLocalSystem": controllSwitch.checked
                         }
                     )
