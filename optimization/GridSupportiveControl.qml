@@ -585,7 +585,7 @@ StackView {
                                     delegate: CoCard {
                                         Layout.fillWidth: true
                                         property var param: discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id)
-                                        property string paramValue: isNaN(param) ? param.value : ""
+                                        property string paramValue: param ? param.value : ""
                                         text: paramValue !== "" ? paramValue : "—"
                                         labelText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
                                         helpText: model.displayName
