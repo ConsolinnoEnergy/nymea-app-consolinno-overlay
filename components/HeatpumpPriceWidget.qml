@@ -140,7 +140,6 @@ Item {
                          currentValue = DynPricingUtils.relPrice2AbsPrice(-value, dpThing);
                          currentRelativeValue = value;
                          if (heatingConfiguration.priceThreshold !== currentValue)
-                         root.enableSave();
 
                          barSeries.clearValues();
                          barSeries.addValues(dpThing.stateByName("totalCostSeries").value,

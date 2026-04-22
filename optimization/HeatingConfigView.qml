@@ -52,6 +52,15 @@ GenericConfigPage {
         newConfig.priceThreshold = -heatpumpPriceWidget.currentRelativeValue;
         newConfig.optimizationMode = optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).enumname;
         newConfig.relativePriceEnabled = true;
+        if (minPVSurplusPower.visible) {
+            newConfig.pvSurplusThreshold = parseInt(minPVSurplusPower.text);
+        }
+        if (minRuntimeStepper.visible) {
+            newConfig.durationMinAfterTurnOn = minRuntimeStepper.value * 15;
+        }
+        if (maxTotalRuntimeStepper.visible) {
+            newConfig.durationMaxTotal = maxTotalRuntimeStepper.value * 15;
+        }
         // Null UUID means: no meter selected → pass empty string,
         // so C++ omits the field from the RPC request (backend rejects null UUID).
         // Qt serialises QUuid with braces, e.g. "{00000000-0000-0000-0000-000000000000}",
@@ -64,10 +73,6 @@ GenericConfigPage {
         }
         console.info("Saving new heating configuration: " + JSON.stringify(newConfig));
         d.pendingCallId = hemsManager.setHeatingConfiguration(thing.id, newConfig);
-    }
-
-    function enableSave() {
-        saveButton.enabled = true;
     }
 
     function translateNymeaHeatpumpValues(something) {
@@ -91,7 +96,7 @@ GenericConfigPage {
     Connections {
         target: engine.thingManager
         onThingStateChanged: (thingId, stateTypeId, value) => {
-                                 if (thingId === dynamicPrice.get(0).id) {
+                                 if (dynamicPrice.count > 0 && thingId === dynamicPrice.get(0).id) {
                                      updatePrice();
                                  }
                              }
@@ -242,11 +247,7 @@ GenericConfigPage {
 
                             onCurrentIndexChanged: {
                                 console.info(root.heatingconfig.optimizationMode);
-                                if (currentIndex >= 0 &&
-                                        comboBox.model.get(currentIndex).value !== root.heatingconfig.optimizationMode) {
-                                    console.debug("Optimization mode changed to:", comboBox.model.get(currentIndex).enumname);
-                                    enableSave();
-                                }
+                                console.debug("Optimization mode changed to:", currentIndex >= 0 ? comboBox.model.get(currentIndex).enumname : "none");
                             }
 
                             Component.onCompleted: {
@@ -294,7 +295,7 @@ GenericConfigPage {
                 }
 
                 CoFrostyCard {
-                    id: pvPrioGroup
+                    id: pvSurplusGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("PV Surplus") // #TODO wording, quotation marks from design?
@@ -304,9 +305,16 @@ GenericConfigPage {
                               optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).enumname === "OptimizationModePVSurplus")
 
                     ColumnLayout {
+                        id: pvSurplusLayout
                         anchors.left: parent.left
                         anchors.right: parent.right
                         spacing: Style.smallMargins
+
+                        Component.onCompleted: {
+                            if (!root.heatingconfig) return
+                            maxTotalRuntimeStepper.value = Math.round(root.heatingconfig.durationMaxTotal / 15)
+                            minRuntimeStepper.value = Math.round(root.heatingconfig.durationMinAfterTurnOn / 15)
+                        }
 
                         CoCard {
                             id: pvPrioCard
@@ -317,6 +325,74 @@ GenericConfigPage {
 
                             onClicked: {
                                 pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"));
+                            }
+                        }
+
+                        CoInputField {
+                            id: minPVSurplusPower
+                            Layout.fillWidth: true
+                            visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
+                            compactTextField: true
+                            labelText: qsTr("Minimum power")
+                            helpText: qsTr("Minimum PV surplus power required for activation.")
+                            unit: "W"
+                            text: heatingconfig ? heatingconfig.pvSurplusThreshold : ""
+                            feedbackText: qsTr("Value must not be below %1 W.").arg(minPVSurplusPowerValidator.bottom)
+                            textField.validator: IntValidator {
+                                id: minPVSurplusPowerValidator
+                                bottom: 100
+                            }
+                        }
+
+                        CoInputStepper {
+                            id: minRuntimeStepper
+                            Layout.fillWidth: true
+                            visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
+                            labelText: qsTr("Minimum runtime")
+                            helpText: qsTr("Runs at least this long after activation.")
+                            unit: qsTr("h")
+                            compact: true
+                            from: 0
+                            to: maxTotalRuntimeStepper.value
+                            stepSize: 1
+                            feedbackText: qsTr("Value must be between 0 and %1 h.").arg(NymeaUtils.floatToLocaleString(maxTotalRuntimeStepper.value / 4, 2))
+                            spinbox.textFromValue: function(value, locale) {
+                                return NymeaUtils.floatToLocaleString(value / 4, 2);
+                            }
+                            spinbox.valueFromText: function(text, locale) {
+                                return Math.round(Number.fromLocaleString(Qt.locale(), text) * 4);
+                            }
+                            spinbox.validator: DoubleValidator {
+                                bottom: 0
+                                top: maxTotalRuntimeStepper.value / 4
+                                decimals: 2
+                                notation: DoubleValidator.StandardNotation
+                            }
+                        }
+
+                        CoInputStepper {
+                            id: maxTotalRuntimeStepper
+                            Layout.fillWidth: true
+                            visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
+                            labelText: qsTr("Maximum runtime")
+                            helpText: qsTr("Limits the daily runtime and automatically switches the device off.")
+                            unit: qsTr("h")
+                            compact: true
+                            from: minRuntimeStepper.value
+                            to: 96 // 24 h * 4 quarter-hours
+                            stepSize: 1
+                            feedbackText: qsTr("Value must be between %1 and 24 h.").arg(NymeaUtils.floatToLocaleString(minRuntimeStepper.value / 4, 2))
+                            spinbox.textFromValue: function(value, locale) {
+                                return NymeaUtils.floatToLocaleString(value / 4, 2);
+                            }
+                            spinbox.valueFromText: function(text, locale) {
+                                return Math.round(Number.fromLocaleString(Qt.locale(), text) * 4);
+                            }
+                            spinbox.validator: DoubleValidator {
+                                bottom: minRuntimeStepper.value / 4
+                                top: 24
+                                decimals: 2
+                                notation: DoubleValidator.StandardNotation
                             }
                         }
                     }
@@ -351,10 +427,34 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
                     text: qsTr("Apply changes")
-                    enabled: false
+                    enabled: {
+                        if (!root.heatingconfig) { return false; }
+                        if (minPVSurplusPower.visible && !minPVSurplusPower.acceptableInput) { return false; }
+                        if (minRuntimeStepper.visible && !minRuntimeStepper.acceptableInput) { return false; }
+                        if (maxTotalRuntimeStepper.visible && !maxTotalRuntimeStepper.acceptableInput) { return false; }
+
+                        if (optimizationModeDropdown.currentIndex >= 0 &&
+                                filteredModel.get(optimizationModeDropdown.currentIndex).value !== root.heatingconfig.optimizationMode) { return true; }
+                        if (minPVSurplusPower.visible &&
+                                parseInt(minPVSurplusPower.text) !== root.heatingconfig.pvSurplusThreshold) {
+                            return true;
+                        }
+                        if (minRuntimeStepper.visible &&
+                                minRuntimeStepper.value * 15 !== root.heatingconfig.durationMinAfterTurnOn) {
+                            return true;
+                        }
+                        if (maxTotalRuntimeStepper.visible &&
+                                maxTotalRuntimeStepper.value * 15 !== root.heatingconfig.durationMaxTotal) {
+                            return true;
+                        }
+                        if (heatpumpPriceWidget.visible &&
+                                -heatpumpPriceWidget.currentRelativeValue !== root.heatingconfig.priceThreshold) {
+                            return true;
+                        }
+                        return false;
+                    }
                     onClicked: {
                         saveSettings();
-                        saveButton.enabled = false;
                     }
                 }
             }
