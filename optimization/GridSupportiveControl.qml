@@ -857,7 +857,7 @@ StackView {
                             property string paramValue: discoveryThingParams.params.getParam(paramType.id).value
                             text: paramValue
                             labelText: qsTr("This SKI is required by the network operator.")
-                            helpText: "Local Subject Key Identifier (SKI)"
+                            helpText: qsTr("Local Subject Key Identifier (SKI)")
                             iconRight: Qt.resolvedUrl("/icons/edit-copy.svg")
                             iconRightColor: Style.colors.brand_Basic_Accent
                             interactive: true
