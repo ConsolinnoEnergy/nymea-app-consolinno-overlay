@@ -141,6 +141,8 @@
         <file>Configuration.qml</file>
         <file>wizards/ConnectionWizard.qml</file>
         <file>wizards/ConsolinnoWizardPageBase.qml</file>
+        <file>wizards/SetupWizardBase.qml</file>
+        <file>wizards/SetupEEBUSWizard.qml</file>
         <file>images/intro-bg-graphic.svg</file>
         <file>wizards/SetupEVChargerWizard.qml</file>
         <file>wizards/WizardComplete.qml</file>
@@ -162,6 +164,7 @@
         <file>info/MaximumAllowedChargingLimit.qml</file>
         <file>info/InfoTextInterface.qml</file>
         <file>optimization/HeatingConfigView.qml</file>
+        <file>optimization/HeatingDetailView.qml</file>
         <file>components/VerticalDivider.qml</file>
         <file>info/EnergyManagerInfo.qml</file>
         <file>components/ConsolinnoItemDelegate.qml</file>

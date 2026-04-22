@@ -22,7 +22,24 @@ GenericConfigPage {
     readonly property State sgReadyModeState: thing.stateByName("sgReadyMode")
 
     title: root.thing.name
-    headerOptionsVisible: false
+    headerOptionsVisible: true
+    headerOptionsModel: heatingMenuModel
+
+    ListModel {
+        id: heatingMenuModel
+
+        ListElement {
+            icon: "/icons/info.svg"
+            text: "Details"
+            page: "../optimization/HeatingDetailView.qml"
+        }
+
+        ListElement {
+            icon: "/icons/logs.svg"
+            text: "Logs"
+            page: "../devicepages/DeviceLogPage.qml"
+        }
+    }
 
     function updatePrice() {
         if (dynamicPrice.count === 0) return;

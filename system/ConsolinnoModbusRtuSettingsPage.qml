@@ -30,7 +30,6 @@
 
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
 import "../components"
@@ -39,296 +38,272 @@ import Nymea 1.0
 Page {
     id: root
     property bool settingsWizard: true
-    signal done(bool skip, bool abort);
+    signal done(bool skip, bool abort, bool back)
 
     header: NymeaHeader {
         text: qsTr("Modbus-RTU-Interfaces")
         backButtonVisible: true
-        onBackPressed: pageStack.pop()
+        onBackPressed: root.done(false, false, true)
+    }
 
-        HeaderButton {
-            imageSource: "/icons/add.svg"
-            text: qsTr("Add Modbus RTU master")
-            onClicked: pageStack.push(Qt.resolvedUrl("ConsolinnoModbusRtuAddMasterPage.qml"), {
-                                          modbusRtuManager: modbusRtuManager,
-                                          serialPortBaudrateModel: serialPortBaudrateModel,
-                                          serialPortParityModel: serialPortParityModel,
-                                          serialPortDataBitsModel: serialPortDataBitsModel,
-                                          serialPortStopBitsModel: serialPortStopBitsModel })
-            enabled: modbusRtuManager.supported
+    ModbusRtuManager {
+        id: modbusRtuManager
+        engine: _engine
+
+        function handleModbusError(error) {
+            var props = {};
+            switch (error) {
+            case "ModbusRtuErrorNoError":
+                return true;
+            case "ModbusRtuErrorNotAvailable":
+                props.text = qsTr("The serial port is not available any more.");
+                break;
+            case "ModbusRtuErrorNotSupported":
+                props.text = qsTr("Modbus is not supported on this platform.");
+                break;
+            case "ModbusRtuErrorHardwareNotFound":
+                props.text = qsTr("The Modbus RTU hardware could not be found.");
+                break;
+            case "ModbusRtuErrorUuidNotFound":
+                props.text = qsTr("The selected Modbus RTU master does not exist any more.");
+                break;
+            case "ModbusRtuErrorConnectionFailed":
+                props.text = qsTr("Unable to connect to the Modbus RTU master.\n\nMaybe the hardware is already in use.");
+                break;
+            case "ModbusRtuInvalidTimeoutValue":
+                props.text = qsTr("The specified timeout value is not valid.\n\nUse a timeout value greater or equal to 10 ms.");
+                break;
+            default:
+                props.errorCode = error;
+            }
+            var comp = Qt.createComponent("../components/ErrorDialog.qml")
+            var popup = comp.createObject(app, props)
+            popup.open();
+
+            return false;
+        }
+    }
+
+    ListModel {
+        id: serialPortBaudrateModel
+        ListElement { value: 2400; }
+        ListElement { value: 4800; }
+        ListElement { value: 9600; }
+        ListElement { value: 14400; }
+        ListElement { value: 19200; }
+        ListElement { value: 38400; }
+        ListElement { value: 57600; }
+        ListElement { value: 115200; }
+        ListElement { value: 128000; }
+        ListElement { value: 230400; }
+        ListElement { value: 256000; }
+
+        function getText(baudrate) {
+            for (var index = 0; index < serialPortBaudrateModel.count; index++) {
+                if (serialPortBaudrateModel.get(index).value === baudrate) {
+                    return serialPortBaudrateModel.get(index).value
+                }
+            }
+
+            return qsTr("Unknown baud rate")
+        }
+    }
+
+    ListModel {
+        id: serialPortParityModel
+        ListElement { value: SerialPort.SerialPortParityNoParity; text: qsTr("No parity") }
+        ListElement { value: SerialPort.SerialPortParityEvenParity; text: qsTr("Even parity") }
+        ListElement { value: SerialPort.SerialPortParityOddParity; text: qsTr("Odd parity") }
+        ListElement { value: SerialPort.SerialPortParitySpaceParity; text: qsTr("Space parity") }
+        ListElement { value: SerialPort.SerialPortParityMarkParity; text: qsTr("Mark parity") }
+
+        function getText(parity) {
+            for (var index = 0; index < serialPortParityModel.count; index++) {
+                if (serialPortParityModel.get(index).value === parity) {
+                    return serialPortParityModel.get(index).text
+                }
+            }
+
+            return qsTr("Unknown parity")
+        }
+    }
+
+    ListModel {
+        id: serialPortDataBitsModel
+        ListElement { value: SerialPort.SerialPortDataBitsData5; text: qsTr("5 data bits") }
+        ListElement { value: SerialPort.SerialPortDataBitsData6; text: qsTr("6 data bits") }
+        ListElement { value: SerialPort.SerialPortDataBitsData7; text: qsTr("7 data bits") }
+        ListElement { value: SerialPort.SerialPortDataBitsData8; text: qsTr("8 data bits") }
+
+        function getText(dataBits) {
+            for (var index = 0; index < serialPortDataBitsModel.count; index++) {
+                if (serialPortDataBitsModel.get(index).value === dataBits) {
+                    return serialPortDataBitsModel.get(index).text
+                }
+            }
+
+            return qsTr("Unknown data bits")
+        }
+    }
+
+    ListModel {
+        id: serialPortStopBitsModel
+        ListElement { value: SerialPort.SerialPortStopBitsOneStop; text: qsTr("One stop bit") }
+        ListElement { value: SerialPort.SerialPortStopBitsOneAndHalfStop; text: qsTr("One and a half stop bits") }
+        ListElement { value: SerialPort.SerialPortStopBitsTwoStop; text: qsTr("Two stop bits") }
+
+        function getText(stopBits) {
+            for (var index = 0; index < serialPortStopBitsModel.count; index++) {
+                if (serialPortStopBitsModel.get(index).value === stopBits) {
+                    return serialPortStopBitsModel.get(index).text
+                }
+            }
+
+            return qsTr("Unknown stop bits")
         }
     }
 
     ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
-        Layout.preferredWidth: root.width
-        ModbusRtuManager {
-            id: modbusRtuManager
-            engine: _engine
+        anchors.fill: parent
+        anchors.topMargin: Style.margins
+        spacing: Style.margins
 
-            function handleModbusError(error) {
-                var props = {};
-                switch (error) {
-                case "ModbusRtuErrorNoError":
-                    return true;
-                case "ModbusRtuErrorNotAvailable":
-                    props.text = qsTr("The serial port is not available any more.");
-                    break;
-                case "ModbusRtuErrorNotSupported":
-                    props.text = qsTr("Modbus is not supported on this platform.");
-                    break;
-                case "ModbusRtuErrorHardwareNotFound":
-                    props.text = qsTr("The Modbus RTU hardware could not be found.");
-                    break;
-                case "ModbusRtuErrorUuidNotFound":
-                    props.text = qsTr("The selected Modbus RTU master does not exist any more.");
-                    break;
-                case "ModbusRtuErrorConnectionFailed":
-                    props.text = qsTr("Unable to connect to the Modbus RTU master.\n\nMaybe the hardware is already in use.");
-                    break;
-                case "ModbusRtuInvalidTimeoutValue":
-                    props.text = qsTr("The specified timeout value is not valid.\n\nUse a timeout value greater or equal to 10 ms.");
-                    break;
-                default:
-                    props.errorCode = error;
-                }
-                var comp = Qt.createComponent("../components/ErrorDialog.qml")
-                var popup = comp.createObject(app, props)
-                popup.open();
-
-                return false;
-            }
-        }
-
-        ListModel {
-            id: serialPortBaudrateModel
-            ListElement { value: 2400; }
-            ListElement { value: 4800; }
-            ListElement { value: 9600; }
-            ListElement { value: 14400; }
-            ListElement { value: 19200; }
-            ListElement { value: 38400; }
-            ListElement { value: 57600; }
-            ListElement { value: 115200; }
-            ListElement { value: 128000; }
-            ListElement { value: 230400; }
-            ListElement { value: 256000; }
-
-            function getText(baudrate) {
-                for (var index = 0; index < serialPortBaudrateModel.count; index++) {
-                    if (serialPortBaudrateModel.get(index).value === baudrate) {
-                        return serialPortBaudrateModel.get(index).value
-                    }
-                }
-
-                return qsTr("Unknown baud rate")
-            }
-        }
-
-        ListModel {
-            id: serialPortParityModel
-            ListElement { value: SerialPort.SerialPortParityNoParity; text: qsTr("No parity") }
-            ListElement { value: SerialPort.SerialPortParityEvenParity; text: qsTr("Even parity") }
-            ListElement { value: SerialPort.SerialPortParityOddParity; text: qsTr("Odd parity") }
-            ListElement { value: SerialPort.SerialPortParitySpaceParity; text: qsTr("Space parity") }
-            ListElement { value: SerialPort.SerialPortParityMarkParity; text: qsTr("Mark parity") }
-
-            function getText(parity) {
-                for (var index = 0; index < serialPortParityModel.count; index++) {
-                    if (serialPortParityModel.get(index).value === parity) {
-                        return serialPortParityModel.get(index).text
-                    }
-                }
-
-                return qsTr("Unknown parity")
-            }
-        }
-
-        ListModel {
-            id: serialPortDataBitsModel
-            ListElement { value: SerialPort.SerialPortDataBitsData5; text: qsTr("5 data bits") }
-            ListElement { value: SerialPort.SerialPortDataBitsData6; text: qsTr("6 data bits") }
-            ListElement { value: SerialPort.SerialPortDataBitsData7; text: qsTr("7 data bits") }
-            ListElement { value: SerialPort.SerialPortDataBitsData8; text: qsTr("8 data bits") }
-
-            function getText(dataBits) {
-                for (var index = 0; index < serialPortDataBitsModel.count; index++) {
-                    if (serialPortDataBitsModel.get(index).value === dataBits) {
-                        return serialPortDataBitsModel.get(index).text
-                    }
-                }
-
-                return qsTr("Unknown data bits")
-            }
-        }
-
-        ListModel {
-            id: serialPortStopBitsModel
-            ListElement { value: SerialPort.SerialPortStopBitsOneStop; text: qsTr("One stop bit") }
-            ListElement { value: SerialPort.SerialPortStopBitsOneAndHalfStop; text: qsTr("One and a half stop bits") }
-            ListElement { value: SerialPort.SerialPortStopBitsTwoStop; text: qsTr("Two stop bits") }
-
-            function getText(stopBits) {
-                for (var index = 0; index < serialPortStopBitsModel.count; index++) {
-                    if (serialPortStopBitsModel.get(index).value === stopBits) {
-                        return serialPortStopBitsModel.get(index).text
-                    }
-                }
-
-                return qsTr("Unknown stop bits")
-            }
-        }
-
-        ColumnLayout {
-            Layout.preferredWidth: root.width
-            Layout.fillHeight: true
-
-            Label {
-                Layout.topMargin: 20
-                Layout.leftMargin: Style.margins
-                Layout.rightMargin: Style.margins
-                Layout.fillWidth: true
-                text: qsTr("Note: If you intend to connect a device via <b>Modbus-RTU</b>, please verify the Modbus interface settings to ensure they are compatible with the connected device. If you wish to use a different interface, please add another one.")
-                wrapMode: Text.WordWrap
-                horizontalAlignment: Text.AlignLeft
-            }
-
-            Label {
-                Layout.topMargin: 10
-                Layout.leftMargin: Style.margins
-                Layout.rightMargin: Style.margins + 20
-                wrapMode: Text.WordWrap
-                Layout.alignment: Qt.AlignRight
-                horizontalAlignment: Text.AlignLeft
-                text: qsTr("Available interfaces")
-            }
-
-            VerticalDivider
-            {
-                Layout.preferredWidth: root.width
-                dividerColor: Material.accent
-            }
-
-            Flickable {
-                id: modBusFlickable
-                clip: true
-                height: parent.height
-                Layout.preferredWidth: root.width
-                Layout.rightMargin: Style.margins
-
-                contentHeight: repeaterName.implicitHeight
-                contentWidth: root.width
-
-
-                Layout.alignment: Qt.AlignHCenter
-                Layout.preferredHeight: app.height/3
-                flickableDirection: Flickable.VerticalFlick
-
-                ColumnLayout {
-                    id: repeaterName
-                    Layout.preferredWidth: app.width
-                    Layout.fillHeight: true
-
-                    Repeater {
-                        enabled: modbusRtuManager.supported
-                        model: modbusRtuManager.modbusRtuMasters
-                        delegate: NymeaSwipeDelegate {
-                            Layout.preferredWidth: app.width
-                            iconName: "/icons/modbus.svg"
-                            text: repeaterName.getName(model.serialPort) + " " + model.baudrate
-                            subText: model.connected ? qsTr("Connected") : qsTr("Disconnected")
-                            onClicked: pageStack.push(modbusDetailsComponent, { modbusRtuManager: modbusRtuManager, modbusRtuMaster: modbusRtuManager.modbusRtuMasters.get(index) })
-                        }
-                    }
-
-
-                    Label {
-                        Layout.preferredWidth: parent.width
-                        Layout.topMargin: 10;
-                        wrapMode: Text.WordWrap
-                        text: qsTr("Modbus-RTU is not supported on this platform.")
-                        visible: !modbusRtuManager.supported
-                    }
-
-                    Label {
-                        Layout.preferredWidth: parent.width
-                        Layout.topMargin: 10;
-                        wrapMode: Text.WordWrap
-                        text: qsTr("No devices discovered") //Keine Geräte entdeckt
-                        visible: modbusRtuManager.modbusRtuMasters.count === 0
-                    }
-
-                    function getName(name){
-
-                        if(name.includes("/dev/ttymxc3")){
-                            return qsTr("RJ45 connector")
-                        }else if(name.includes("/dev/ttymxc5")){
-                            return qsTr("14-pin connector")
-                        }else{
-                            return name;
-                        }
-                    }
-
-                }
-
-            }
-
-            VerticalDivider
-            {
-                Layout.preferredWidth: root.width
-                dividerColor: Material.accent
-            }
-
-        }
-
-        Item {
-            Layout.fillHeight: true
+        CoNotification {
+            id: modbusRtuNote
             Layout.fillWidth: true
+            Layout.leftMargin: Style.margins
+            Layout.rightMargin: Style.margins
+            type: CoNotification.Type.Neutral
+            title: qsTr("Note")
+            message: qsTr("If you intend to connect a device via <b>Modbus-RTU</b>, please verify the Modbus interface settings to ensure they are compatible with the connected device. If you wish to use a different interface, please add another one.")
         }
 
-        ColumnLayout {
-            Layout.preferredWidth: parent.width
-            spacing: 0
-            visible: settingsWizard
-            Layout.bottomMargin: 25
-            Layout.alignment: Qt.AlignHCenter
+        Flickable {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.leftMargin: Style.margins
+            Layout.rightMargin: Style.margins
+            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
+            clip: true
 
-            Button {
-                id: btnCancel
-                text: qsTr("cancel")
-                Layout.alignment: Qt.AlignHCenter
-                Layout.preferredWidth: 200
-                onClicked: root.done(false, true, false)
-            }
+            ColumnLayout {
+                id: layout
+                anchors.fill: parent
+                anchors.topMargin: Style.margins
+                anchors.bottomMargin: Style.margins
+                spacing: Style.margins
 
-            Button {
-                id: nextStepButton
-                text: qsTr("Next step")
-                Layout.preferredWidth: 200
-                Layout.alignment: Qt.AlignHCenter
+                CoFrostyCard {
+                    id: modbusInterfacesGroup
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("Available interfaces")
 
-                Image{
-                    id: headerImage
-                    anchors.right : nextStepButton.right
-                    anchors.verticalCenter:  nextStepButton.verticalCenter
-                    anchors.rightMargin: 5
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
 
-                    sourceSize.width: 18
-                    sourceSize.height: 18
-                    source: "/icons/next.svg"
+                        Repeater {
+                            id: modbusRtuMastersRepeater
+                            enabled: modbusRtuManager.supported
+                            model: modbusRtuManager.modbusRtuMasters
 
-                    layer{
-                        enabled: true
-                        effect: ColorOverlay{
-                            color: Style.consolinnoHighlightForeground
+                            function getName(name) {
+                                if (name.includes("/dev/ttymxc3")) {
+                                    return qsTr("RJ45 connector");
+                                } else if (name.includes("/dev/ttymxc5")) {
+                                    return qsTr("14-pin connector");
+                                } else {
+                                    return name;
+                                }
+                            }
+
+                            delegate: CoCard {
+                                Layout.fillWidth: true
+                                text: modbusRtuMastersRepeater.getName(model.serialPort) + " " + model.baudrate
+                                iconLeft: "/icons/modbus.svg"
+                                helpText: model.connected ? qsTr("Connected") : qsTr("Disconnected")
+                                showChildrenIndicator: true
+                                onClicked: {
+                                    pageStack.push(modbusDetailsComponent,
+                                                   {
+                                                       modbusRtuManager: modbusRtuManager,
+                                                       modbusRtuMaster: modbusRtuManager.modbusRtuMasters.get(index)
+                                                   });
+                                }
+                            }
+                        }
+
+                        CoCard {
+                            id: modbusNotSupportedCard
+                            Layout.fillWidth: true
+                            text: qsTr("Modbus-RTU is not supported on this platform.")
+                            visible: !modbusRtuManager.supported
+                            interactive: false
+                        }
+
+                        CoCard {
+                            id: noModbusDevicesCard
+                            Layout.fillWidth: true
+                            text: qsTr("No devices discovered") //Keine Geräte entdeckt
+                            visible: modbusRtuManager.modbusRtuMasters.count === 0
+                            interactive: false
                         }
                     }
                 }
 
-                onClicked: root.done(true, false, false)
+                Button {
+                    id: addModbusRtuMasterButton
+                    Layout.alignment: Qt.AlignCenter
+                    text: "+"
+                    font.pixelSize: 32
+                    topPadding: 6
+                    leftPadding: 6
+                    rightPadding: 6
+                    bottomPadding: 6
+                    width: height
+                    implicitWidth: implicitHeight
+                    enabled: modbusRtuManager.supported
+
+                    onClicked: {
+                        pageStack.push(Qt.resolvedUrl("ConsolinnoModbusRtuAddMasterPage.qml"),
+                                       {
+                                           modbusRtuManager: modbusRtuManager,
+                                           serialPortBaudrateModel: serialPortBaudrateModel,
+                                           serialPortParityModel: serialPortParityModel,
+                                           serialPortDataBitsModel: serialPortDataBitsModel,
+                                           serialPortStopBitsModel: serialPortStopBitsModel
+                                       });
+                    }
+                }
+
             }
         }
 
+        Button {
+            id: nextButton
+            Layout.fillWidth: true
+            Layout.leftMargin: Style.margins
+            Layout.rightMargin: Style.margins
+            text: qsTr("Next")
+            onClicked: {
+                root.done(true, false, false);
+            }
+        }
+
+        Button {
+            id: cancelButton
+            text: qsTr("Cancel")
+            Layout.fillWidth: true
+            Layout.leftMargin: Style.margins
+            Layout.rightMargin: Style.margins
+            Layout.bottomMargin: Style.margins
+            secondary: true
+            onClicked: {
+                root.done(false, true, false);
+            }
+        }
     }
 
     Component {
@@ -352,8 +327,11 @@ Page {
                     text: qsTr("Remove Modbus RTU Interface")
                     enabled: modbusRtuManager.supported
                     onClicked: {
-                        var dialog = removeModbusMasterDialogComponent.createObject(app, {modbusRtuMaster: root.modbusRtuMaster})
-                        dialog.open()
+                        var dialog = removeModbusMasterDialogComponent.createObject(app,
+                                                                                    {
+                                                                                        modbusRtuMaster: root.modbusRtuMaster
+                                                                                    });
+                        dialog.open();
                     }
                 }
             }
@@ -405,124 +383,113 @@ Page {
                 }
             }
 
-            function getName(name){
-
-                if(name.includes("/dev/ttymxc3")){
+            function getName(name) {
+                if (name.includes("/dev/ttymxc3")) {
                     return qsTr("RJ45 connector")
-                }else if(name.includes("/dev/ttymxc5")){
+                } else if (name.includes("/dev/ttymxc5")) {
                     return qsTr("14-pin connector")
-                }else{
+                } else {
                     return name;
                 }
             }
 
-            SettingsPageSectionHeader {
-                text: qsTr("Information")
-            }
-
-//            RowLayout {
-//                Layout.fillWidth: true
-
-//                Led {
-//                    Layout.preferredHeight: Style.iconSize
-//                    Layout.preferredWidth: Style.iconSize
-//                    state: modbusRtuMaster ? (modbusRtuMaster.connected ? "on" : "red") : "red"
-//                }
-
-//                Label {
-//                    Layout.fillWidth: true
-//                    text: modbusRtuMaster ? (modbusRtuMaster.connected ? qsTr("Connected") : qsTr("Disconnected")) : qsTr("Disconnected")
-//                }
-//            }
-
-            NymeaSwipeDelegate {
+            CoFrostyCard {
+                id: infoGroup
                 Layout.fillWidth: true
-                text: qsTr("Connection status")
-                subText: modbusRtuMaster && modbusRtuMaster.connected ? qsTr("Connected") : qsTr("Disconnected")
-                progressive: false
-                prominentSubText: false
-            }
+                Layout.topMargin: Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                contentTopMargin: Style.smallMargins
+                headerText: qsTr("Information")
 
-            NymeaSwipeDelegate {
-                Layout.fillWidth: true
-                text: qsTr("UUID")
-                subText: modbusRtuMaster ? modbusRtuMaster.modbusUuid : ""
-                progressive: false
-                prominentSubText: false
-            }
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
 
-            NymeaSwipeDelegate {
-                Layout.fillWidth: true
-                text: qsTr("Path")
-                subText: modbusRtuMaster ? root.getName(modbusRtuMaster.serialPort) : ""
-                progressive: false
-                prominentSubText: false
-            }
+                    CoCard {
+                        Layout.fillWidth: true
+                        helpText: qsTr("Connection status")
+                        text: modbusRtuMaster && modbusRtuMaster.connected ? qsTr("Connected") : qsTr("Disconnected")
+                        interactive: false
+                    }
 
-            NymeaSwipeDelegate {
-                Layout.fillWidth: true
-                text: qsTr("Baud rate")
-                subText: modbusRtuMaster ? serialPortBaudrateModel.getText(modbusRtuMaster.baudrate) : ""
-                progressive: false
-                prominentSubText: false
-            }
+                    CoCard {
+                        Layout.fillWidth: true
+                        helpText: qsTr("UUID")
+                        text: modbusRtuMaster ? modbusRtuMaster.modbusUuid : ""
+                        interactive: false
+                    }
 
-            NymeaSwipeDelegate {
-                Layout.fillWidth: true
-                text: qsTr("Parity")
-                subText: modbusRtuMaster ? serialPortParityModel.getText(modbusRtuMaster.parity) : ""
-                progressive: false
-                prominentSubText: false
-            }
+                    CoCard {
+                        Layout.fillWidth: true
+                        helpText: qsTr("Path")
+                        text: modbusRtuMaster ? root.getName(modbusRtuMaster.serialPort) : ""
+                        interactive: false
+                    }
 
-            NymeaSwipeDelegate {
-                Layout.fillWidth: true
-                text: qsTr("Data bits")
-                subText: modbusRtuMaster ? serialPortDataBitsModel.getText(modbusRtuMaster.dataBits) : ""
-                progressive: false
-                prominentSubText: false
-            }
+                    CoCard {
+                        Layout.fillWidth: true
+                        helpText: qsTr("Baud rate")
+                        text: modbusRtuMaster ? serialPortBaudrateModel.getText(modbusRtuMaster.baudrate) : ""
+                        interactive: false
+                    }
 
-            NymeaSwipeDelegate {
-                Layout.fillWidth: true
-                text: qsTr("Stop bits")
-                subText: modbusRtuMaster ? serialPortStopBitsModel.getText(modbusRtuMaster.stopBits) : ""
-                progressive: false
-                prominentSubText: false
-            }
+                    CoCard {
+                        Layout.fillWidth: true
+                        helpText: qsTr("Parity")
+                        text: modbusRtuMaster ? serialPortParityModel.getText(modbusRtuMaster.parity) : ""
+                        interactive: false
+                    }
 
-            NymeaSwipeDelegate {
-                Layout.fillWidth: true
-                text: qsTr("Request retries")
-                subText: modbusRtuMaster ? modbusRtuMaster.numberOfRetries : ""
-                progressive: false
-                prominentSubText: false
-            }
+                    CoCard {
+                        Layout.fillWidth: true
+                        helpText: qsTr("Data bits")
+                        text: modbusRtuMaster ? serialPortDataBitsModel.getText(modbusRtuMaster.dataBits) : ""
+                        interactive: false
+                    }
 
-            NymeaSwipeDelegate {
-                Layout.fillWidth: true
-                text: qsTr("Request timeout [ms]")
-                subText: modbusRtuMaster ? modbusRtuMaster.timeout + " ms" : ""
-                progressive: false
-                prominentSubText: false
+                    CoCard {
+                        Layout.fillWidth: true
+                        helpText: qsTr("Stop bits")
+                        text: modbusRtuMaster ? serialPortStopBitsModel.getText(modbusRtuMaster.stopBits) : ""
+                        interactive: false
+                    }
+
+                    CoCard {
+                        Layout.fillWidth: true
+                        helpText: qsTr("Request retries")
+                        text: modbusRtuMaster ? modbusRtuMaster.numberOfRetries : ""
+                        interactive: false
+                    }
+
+                    CoCard {
+                        Layout.fillWidth: true
+                        helpText: qsTr("Request timeout [ms]")
+                        text: modbusRtuMaster ? modbusRtuMaster.timeout + " ms" : ""
+                        interactive: false
+                    }
+                }
             }
 
             Button {
                 id: reconfigureButton
                 Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
+                Layout.margins: Style.margins
                 text: qsTr("Reconfigure")
                 enabled: !root.busy
-                onClicked: pageStack.push(Qt.resolvedUrl("ConsolinnoModbusRtuReconfigureMasterPage.qml"), {
-                                              modbusRtuManager: modbusRtuManager,
-                                              modbusRtuMaster: root.modbusRtuMaster,
-                                              serialPortPath: modbusRtuMaster.serialPort,
-                                              serialPortBaudrateModel: serialPortBaudrateModel,
-                                              serialPortParityModel: serialPortParityModel,
-                                              serialPortDataBitsModel: serialPortDataBitsModel,
-                                              serialPortStopBitsModel: serialPortStopBitsModel
-                                          })
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("ConsolinnoModbusRtuReconfigureMasterPage.qml"),
+                                   {
+                                       modbusRtuManager: modbusRtuManager,
+                                       modbusRtuMaster: root.modbusRtuMaster,
+                                       serialPortPath: modbusRtuMaster.serialPort,
+                                       serialPortBaudrateModel: serialPortBaudrateModel,
+                                       serialPortParityModel: serialPortParityModel,
+                                       serialPortDataBitsModel: serialPortDataBitsModel,
+                                       serialPortStopBitsModel: serialPortStopBitsModel
+                                   });
+                }
             }
         }
     }

@@ -2,7 +2,7 @@ import QtQuick
 import Qt5Compat.GraphicalEffects
 import QtQuick.Layouts
 import QtQuick.Controls
-import "qrc:/ui/components"
+import "../components"
 import Nymea 1.0
 
 import "../delegates"
@@ -95,51 +95,56 @@ Page {
         }
     }
 
-
-
     ColumnLayout {
-        anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
-        width: Math.min(parent.width - Style.margins * 2, 300)
+        anchors.fill: parent
+        anchors.margins: Style.margins
         spacing: Style.margins
 
-        ColumnLayout {
-            Layout.topMargin: Style.margins
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Please select your model:")
-                wrapMode: Text.WordWrap
-            }
+        CoFrostyCard {
+            Layout.fillWidth: true
+            contentTopMargin: 8
+            headerText: qsTr("Add energy meter")
 
-            ComboBox {
-                id: thingClassComboBox
-                Layout.fillWidth: true
-                textRole: "displayName"
-                valueRole: "id"
-                model: ThingClassesProxy {
-                    engine: _engine
-                    filterInterface: "energymeter"
-                    includeProvidedInterfaces: true
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: 0
+
+                CoComboBox {
+                    id: thingClassComboBox
+                    Layout.fillWidth: true
+                    labelText: qsTr("Please select your model:")
+                    textRole: "displayName"
+                    valueRole: "id"
+                    model: ThingClassesProxy {
+                        engine: _engine
+                        filterInterface: "energymeter"
+                        includeProvidedInterfaces: true
+                    }
+                }
+
+                Button {
+                    Layout.fillWidth: true
+                    text: qsTr("Add")
+                    onClicked: {
+                        internalPageStack.push(creatingMethodDecider,
+                                               { thingClassId: thingClassComboBox.currentValue });
+                    }
                 }
             }
         }
 
-        ColumnLayout {
-            spacing: 0
-            Layout.alignment: Qt.AlignHCenter
+        Item {
+            id: spacer
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+        }
 
-            Button {
-                text: qsTr("cancel")
-                Layout.preferredWidth: 200
-                Layout.alignment: Qt.AlignHCenter
-                onClicked: root.done(false, true)
-            }
-            Button {
-                text: qsTr("add")
-                Layout.preferredWidth: 200
-                Layout.alignment: Qt.AlignHCenter
-                onClicked: internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue})
-
-            }
+        Button {
+            Layout.fillWidth: true
+            text: qsTr("Cancel")
+            secondary: true
+            onClicked: root.done(false, true)
         }
     }
 
@@ -158,12 +163,9 @@ Page {
             property var thingClass: engine.thingManager.thingClasses.getThingClass(thingClassId)
             property var thing: null
 
-
             Component.onCompleted: {
-
                 // if discovery and user. Always Discovery
                 if (thingClass.createMethods.indexOf("CreateMethodDiscovery") !== -1) {
-
                     if (thingClass["discoveryParamTypes"].count > 0) {
                         // ThingDiscovery with discoveryParams
                         pageStack.push(discoveryParamsPage, {thingClass: thingClass})
@@ -175,15 +177,8 @@ Page {
                 }// not supported yet
                 else if (thingClass.createMethods.indexOf("CreateMethodUser") !== -1) {
                     pageStack.push(paramsPage, {thingClass: thingClass})
-
                 }
-
             }
-
-
-
-
-
         }
     }
 
@@ -198,36 +193,48 @@ Page {
             id: discoveryParamsView
             title: qsTr("Discover %1").arg(thingClass.displayName)
 
-            SettingsPageSectionHeader {
-                text: qsTr("Discovery options")
-            }
-
-            Repeater {
-                id: paramRepeater
-                model: thingClass ? thingClass.discoveryParamTypes : null
-                delegate: ParamDelegate {
-                    Layout.fillWidth: true
-                    paramType: thingClass.discoveryParamTypes.get(index)
-                }
-            }
-
-            Button {
+            CoFrostyCard {
                 Layout.fillWidth: true
-                Layout.margins: app.margins
-                text: "Next"
-                onClicked: {
-                    var paramTypes = thingClass.discoveryParamTypes;
-                    d.discoveryParams = [];
-                    for (var i = 0; i < paramTypes.count; i++) {
-                        var param = {};
-                        param["paramTypeId"] = paramTypes.get(i).id;
-                        param["value"] = paramRepeater.itemAt(i).value
-                        d.discoveryParams.push(param);
+                Layout.topMargin: Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                contentTopMargin: Style.margins
+                headerText: qsTr("Discovery options")
+
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    Repeater {
+                        id: paramRepeater
+                        model: thingClass ? thingClass.discoveryParamTypes : null
+                        delegate: ParamDelegate {
+                            Layout.fillWidth: true
+                            paramType: thingClass.discoveryParamTypes.get(index)
+                        }
                     }
-                    discovery.discoverThings(thingClass.id, d.discoveryParams)
-                    pageStack.push(discoveryPage, {thingClass: thingClass})
+
+                    Button {
+                        Layout.fillWidth: true
+                        Layout.topMargin: Style.margins
+                        text: qsTr("Next")
+                        onClicked: {
+                            var paramTypes = thingClass.discoveryParamTypes;
+                            d.discoveryParams = [];
+                            for (var i = 0; i < paramTypes.count; i++) {
+                                var param = {};
+                                param["paramTypeId"] = paramTypes.get(i).id;
+                                param["value"] = paramRepeater.itemAt(i).value;
+                                d.discoveryParams.push(param);
+                            }
+                            discovery.discoverThings(thingClass.id, d.discoveryParams);
+                            pageStack.push(discoveryPage, { thingClass: thingClass });
+                        }
+                    }
                 }
             }
+
         }
     }
 
@@ -245,47 +252,43 @@ Page {
                 text: qsTr("Discover %1").arg(thingClass.displayName)
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
-
             }
 
-
-
-            SettingsPageSectionHeader {
-                text: qsTr("The following devices were found:")
+            CoFrostyCard {
+                Layout.fillWidth: true
+                Layout.topMargin: Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                contentTopMargin: Style.margins
+                headerText: qsTr("The following devices were found:")
                 visible: !discovery.busy && discoveryProxy.count > 0
-            }
 
-            Repeater {
-                model: ThingDiscoveryProxy {
-                    id: discoveryProxy
-                    thingDiscovery: discovery
-                    showAlreadyAdded: thing !== null
-                    showNew: thing === null
-                }
-                delegate: NymeaItemDelegate {
-                    Layout.fillWidth: true
-                    text: model.name
-                    subText: model.description
-                    iconName: Qt.resolvedUrl("/icons/electric_meter.svg")
-                    progressive: false
-                    Image {
-                        id: iconEvCharger
-                        height: 24
-                        width: 24
-                        source: iconEv.iconName
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.left: parent.left
-                        anchors.leftMargin: 16
-                    }
-                    ColorOverlay {
-                        anchors.fill: iconEvCharger
-                        source: iconEvCharger
-                        color: Style.consolinnoMedium
-                    }
-                    onClicked: {
-                        d.thingDescriptor = discoveryProxy.get(index);
-                        d.thingName = model.name;
-                        pageStack.push(paramsPage,{thingClass: thingClass, thing: thing})
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    Repeater {
+                        model: ThingDiscoveryProxy {
+                            id: discoveryProxy
+                            thingDiscovery: discovery
+                            showAlreadyAdded: thing !== null
+                            showNew: thing === null
+                        }
+
+                        delegate: CoCard {
+                            Layout.fillWidth: true
+                            text: model.name
+                            helpText: model.description
+                            iconLeft: Qt.resolvedUrl("/icons/electric_meter.svg")
+                            showChildrenIndicator: true
+
+                            onClicked: {
+                                d.thingDescriptor = discoveryProxy.get(index);
+                                d.thingName = model.name;
+                                pageStack.push(paramsPage, { thingClass: thingClass, thing: thing });
+                            }
+                        }
                     }
                 }
             }
@@ -297,6 +300,7 @@ Page {
                 visible: !discovery.busy && discoveryProxy.count === 0
                 spacing: app.margins
                 Layout.preferredHeight: discoveryView.height - discoveryView.header.height - retryButton.height - app.margins * 3
+
                 Label {
                     text: qsTr("Too bad...")
                     font.pixelSize: app.largeFont
@@ -304,6 +308,7 @@ Page {
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     horizontalAlignment: Text.AlignHCenter
                 }
+
                 Label {
                     text: qsTr("No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to 'Search again'.")
                     Layout.fillWidth: true
@@ -312,12 +317,15 @@ Page {
                     horizontalAlignment: Text.AlignHCenter
                 }
             }
+
             Button {
                 id: retryButton
                 Layout.fillWidth: true
-                Layout.margins: app.margins
+                Layout.margins: Style.margins
                 text: qsTr("Search again")
-                onClicked: discovery.discoverThings(thingClass.id, d.discoveryParams)
+                onClicked: {
+                    discovery.discoverThings(thingClass.id, d.discoveryParams);
+                }
                 visible: !discovery.busy
             }
         }
@@ -331,89 +339,99 @@ Page {
             property Thing thing
             property ThingClass thingClass
 
-
             title: thing ? qsTr("Reconfigure %1").arg(thing.name) : qsTr("Set up %1").arg(thingClass.displayName)
 
-            SettingsPageSectionHeader {
-                text: qsTr("Name the thing:")
-            }
-
-            TextField {
-                id: nameTextField
-                text: (d.thingName ? d.thingName : thingClass.displayName)
-                      + (thingClass.id.toString().match(/\{?f0dd4c03-0aca-42cc-8f34-9902457b05de\}?/) ? " (" + PlatformHelper.machineHostname + ")" : "")
+            CoFrostyCard {
+                id: nameGroup
                 Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
+                Layout.topMargin: Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                contentTopMargin: Style.smallMargins
+                headerText: qsTr("Name")
+
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    CoInputField {
+                        id: nameTextField
+                        Layout.fillWidth: true
+                        text: (d.thingName ?
+                                   d.thingName :
+                                   thingClass.displayName)
+                              + (thingClass.id.toString().match(/\{?f0dd4c03-0aca-42cc-8f34-9902457b05de\}?/) ?
+                                     " (" + PlatformHelper.machineHostname + ")" :
+                                     "")
+                        labelText: qsTr("Please change name if necessary")
+                    }
+                }
             }
 
-
-            Label{
-                id: nameExplain
-                text: qsTr("Please change name if necessary.")
-                Layout.alignment: Qt.AlignTop
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                verticalAlignment: Text.AlignTop
-                Layout.topMargin: 0
-                color: Style.accentColor
-                font.pixelSize: 12
-            }
-
-            SettingsPageSectionHeader {
-                text: qsTr("Thing parameters")
+            CoFrostyCard {
+                id: paramsGroup
+                Layout.fillWidth: true
+                Layout.topMargin: Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                contentTopMargin: Style.smallMargins
+                headerText: qsTr("Thing parameters")
                 visible: paramRepeater.count > 0
-            }
 
-            Repeater {
-                id: paramRepeater
-                model: engine.jsonRpcClient.ensureServerVersion("1.12") || d.thingDescriptor == null ?  thingClass.paramTypes : null
-                delegate: ParamDelegate {
-                    Layout.fillWidth: true
-                    enabled: !model.readOnly
-                    paramType: thingClass.paramTypes.get(index)
-                    value: {
-                        // Discovery, use params from discovered descriptor
-                        if (d.thingDescriptor && d.thingDescriptor.params.getParam(paramType.id)) {
-                            return d.thingDescriptor.params.getParam(paramType.id).value
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    Repeater {
+                        id: paramRepeater
+                        model: engine.jsonRpcClient.ensureServerVersion("1.12") || d.thingDescriptor == null ?
+                                   thingClass.paramTypes :
+                                   null
+                        delegate: ParamDelegate {
+                            Layout.fillWidth: true
+                            enabled: !model.readOnly
+                            paramType: thingClass.paramTypes.get(index)
+                            value: {
+                                // Discovery, use params from discovered descriptor
+                                if (d.thingDescriptor && d.thingDescriptor.params.getParam(paramType.id)) {
+                                    return d.thingDescriptor.params.getParam(paramType.id).value
+                                }
+
+                                // Manual setup, use default value from thing class
+                                return thingClass.paramTypes.get(index).defaultValue
+                            }
                         }
-
-                        // Manual setup, use default value from thing class
-                        return thingClass.paramTypes.get(index).defaultValue
                     }
                 }
             }
 
             Button {
                 Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                Layout.topMargin: Style.margins
 
                 text: "OK"
                 onClicked: {
-                    var params = []
+                    var params = [];
                     for (var i = 0; i < paramRepeater.count; i++) {
-                        var param = {}
-                        var paramType = paramRepeater.itemAt(i).paramType
+                        var param = {};
+                        var paramType = paramRepeater.itemAt(i).paramType;
                         if (!paramType.readOnly) {
-                            param.paramTypeId = paramType.id
-                            param.value = paramRepeater.itemAt(i).value
-                            print("adding param", param.paramTypeId, param.value)
-                            params.push(param)
+                            param.paramTypeId = paramType.id;
+                            param.value = paramRepeater.itemAt(i).value;
+                            print("adding param", param.paramTypeId, param.value);
+                            params.push(param);
                         }
                     }
-
-                    d.params = params
-                    d.name = nameTextField.text
+                    d.params = params;
+                    d.name = nameTextField.text;
                     d.pairThing(thingClass, thing);
-
-
                 }
             }
-
         }
-
-
     }
 
     BusyOverlay {
@@ -459,7 +477,6 @@ Page {
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
-
                 Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
@@ -469,7 +486,6 @@ Page {
                         anchors.centerIn: parent
                     }
                 }
-
 
                 ColumnLayout {
                     Layout.fillWidth: true
@@ -509,15 +525,12 @@ Page {
                     text: qsTr("An unexpected error happened during the setup. Please verify the energy meter is installed correctly and try again.")
                     visible: setupEnergyMeterPage.thingError != Thing.ThingErrorNoError
                 }
-                ColumnLayout{
-                    spacing: 0
-                    Layout.alignment: Qt.AlignHCenter
 
-                    Button {
-                        Layout.alignment: Qt.AlignHCenter
-                        text: qsTr("Next")
-                        Layout.preferredWidth: 200
-                        onClicked: root.done(false, false)
+                Button {
+                    Layout.fillWidth: true
+                    text: qsTr("Next")
+                    onClicked: {
+                        root.done(false, false);
                     }
                 }
             }

@@ -49,37 +49,58 @@ SettingsPageBase {
         onBackPressed: pageStack.pop()
     }
 
-    SettingsPageSectionHeader {
-        text: qsTr("Serial ports")
-    }
-
-    Label {
+    CoFrostyCard {
+        id: serialPortsGroup
         Layout.fillWidth: true
-        Layout.topMargin: app.margins
-        Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-        wrapMode: Text.WordWrap
-        text: modbusRtuManager.serialPorts.count !== 0 ? qsTr("Select a serial port.") : qsTr("There are no serial ports available.") + "\n\n" + qsTr("Please make sure the Modbus RTU interface is connected to the system.")
-    }
+        Layout.topMargin: Style.margins
+        Layout.leftMargin: Style.margins
+        Layout.rightMargin: Style.margins
+        contentTopMargin: Style.smallMargins
+        headerText: qsTr("Serial ports")
 
-    Repeater {
-        id: repeaterModBusRtu
-        model: modbusRtuManager.serialPorts
-        delegate: NymeaSwipeDelegate {
-            Layout.fillWidth: true
-            iconName: "/icons/stock_usb.svg"
-            text:  model.description + (model.manufacturer === "" ? "" : " - " + model.manufacturer)
-            subText: repeaterModBusRtu.getName(model.systemLocation) + (model.serialNumber === "" ? "" : " - " + model.serialNumber)
-            onClicked: pageStack.push(configureNewModbusRtuMasterPage, { modbusRtuManager: modbusRtuManager, serialPort: modbusRtuManager.serialPorts.get(index) })
-            visible: Configuration.branding === "consolinno" ? ((model.systemLocation === "/dev/ttymxc3") || (model.systemLocation === "/dev/ttymxc5")) : true
-        }
+        ColumnLayout {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            spacing: 0
 
-        function getName(name){
-            if(name.includes("/dev/ttymxc3")){
-                return qsTr("RJ45 connector")
-            }else if(name.includes("/dev/ttymxc5")){
-                return qsTr("14-pin connector")
-            }else{
-                return name;
+            CoCard {
+                Layout.fillWidth: true
+                interactive: false
+                text: modbusRtuManager.serialPorts.count !== 0 ?
+                          qsTr("Select a serial port.") :
+                          qsTr("There are no serial ports available.") + "\n\n" + qsTr("Please make sure the Modbus RTU interface is connected to the system.")
+            }
+
+            Repeater {
+                id: repeaterModBusRtu
+                model: modbusRtuManager.serialPorts
+                delegate: CoCard {
+                    Layout.fillWidth: true
+                    iconLeft: Qt.resolvedUrl("/icons/stock_usb.svg") // #TODO replace
+                    showChildrenIndicator: true
+                    helpText:  model.description + (model.manufacturer === "" ? "" : " - " + model.manufacturer)
+                    text: repeaterModBusRtu.getName(model.systemLocation) + (model.serialNumber === "" ? "" : " - " + model.serialNumber)
+                    visible: Configuration.branding === "consolinno" ?
+                                 ((model.systemLocation === "/dev/ttymxc3") || (model.systemLocation === "/dev/ttymxc5")) :
+                                 true
+                    onClicked: {
+                        pageStack.push(configureNewModbusRtuMasterPage,
+                                       {
+                                           modbusRtuManager: modbusRtuManager,
+                                           serialPort: modbusRtuManager.serialPorts.get(index)
+                                       });
+                    }
+                }
+
+                function getName(name) {
+                    if (name.includes("/dev/ttymxc3")) {
+                        return qsTr("RJ45 connector");
+                    } else if (name.includes("/dev/ttymxc5")) {
+                        return qsTr("14-pin connector");
+                    } else {
+                        return name;
+                    }
+                }
             }
         }
     }
@@ -122,168 +143,149 @@ SettingsPageBase {
                 }
             }
 
-
-            SettingsPageSectionHeader {
-                text: qsTr("Serial port")
-            }
-
-            NymeaSwipeDelegate {
+            CoFrostyCard {
+                id: serialPortGroup
                 Layout.fillWidth: true
-                text: qsTr("Path")
-                subText: repeaterModBusRtu.getName(serialPort.systemLocation)
-                progressive: false
-                prominentSubText: false
-            }
+                Layout.topMargin: Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                contentTopMargin: Style.smallMargins
+                headerText: qsTr("Serial port")
 
-            NymeaSwipeDelegate {
-                Layout.fillWidth: true
-                text: qsTr("Description")
-                subText: serialPort.description
-                progressive: false
-                prominentSubText: false
-            }
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
 
-            NymeaSwipeDelegate {
-                Layout.fillWidth: true
-                text: qsTr("Manufacturer")
-                subText: serialPort.manufacturer
-                progressive: false
-                prominentSubText: false
-                visible: serialPort.manufacturer !== ""
-            }
+                    CoCard {
+                        Layout.fillWidth: true
+                        helpText: qsTr("Path")
+                        text: repeaterModBusRtu.getName(serialPort.systemLocation)
+                        interactive: false
+                    }
 
-            NymeaSwipeDelegate {
-                Layout.fillWidth: true
-                text: qsTr("Serialnumber")
-                subText: serialPort.serialNumber
-                progressive: false
-                prominentSubText: false
-                visible: serialPort.serialNumber !== ""
-            }
+                    CoCard {
+                        Layout.fillWidth: true
+                        helpText: qsTr("Description")
+                        text: serialPort.description.length > 0 ? serialPort.description : qsTr("Unknown")
+                        interactive: false
+                    }
 
-            SettingsPageSectionHeader {
-                text: qsTr("Configuration")
-            }
+                    CoCard {
+                        Layout.fillWidth: true
+                        helpText: qsTr("Manufacturer")
+                        text: serialPort.manufacturer
+                        visible: serialPort.manufacturer !== ""
+                        interactive: false
+                    }
 
-            RowLayout {
-                Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-                Label {
-                    text: qsTr("Baud rate")
-                    Layout.fillWidth: true
-                }
-
-                ComboBox {
-                    id: baudRateComboBox
-                    Layout.minimumWidth: 250
-                    textRole: "value"
-                    enabled: !root.busy
-                    onActivated: console.log("Selected baud rate", currentText, model.get(currentIndex).value)
-                    model: serialPortBaudrateModel
-                }
-            }
-
-            RowLayout {
-                Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-
-                Label {
-                    text: qsTr("Parity")
-                    Layout.fillWidth: true
-                }
-
-                ComboBox {
-                    id: parityComboBox
-                    textRole: "text"
-                    enabled: !root.busy
-                    Layout.minimumWidth: 250
-                    onActivated: console.log("Selected parity", currentText,  model.get(currentIndex).value)
-                    model: serialPortParityModel
-                }
-            }
-
-            RowLayout {
-                Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-
-                Label {
-                    text: qsTr("Data bits")
-                    Layout.fillWidth: true
-                }
-
-                ComboBox {
-                    id: dataBitsComboBox
-                    textRole: "text"
-                    enabled: !root.busy
-                    Layout.minimumWidth: 250
-                    onActivated: console.log("Selected data bits", currentText,  model.get(currentIndex).value)
-                    model: serialPortDataBitsModel
-                    Component.onCompleted: {
-                        currentIndex = 3
+                    CoCard {
+                        Layout.fillWidth: true
+                        helpText: qsTr("Serialnumber")
+                        text: serialPort.serialNumber
+                        visible: serialPort.serialNumber !== ""
+                        interactive: false
                     }
                 }
             }
 
-            RowLayout {
-                Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
+            CoFrostyCard {
+                id: configurationGroup
+                Layout.fillWidth: true
+                Layout.topMargin: Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                contentTopMargin: Style.smallMargins
+                headerText: qsTr("Configuration")
 
-                Label {
-                    text: qsTr("Stop bits")
-                    Layout.fillWidth: true
-                }
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
 
-                ComboBox {
-                    id: stopBitsComboBox
-                    textRole: "text"
-                    enabled: !root.busy
-                    Layout.minimumWidth: 250
-                    onActivated: console.log("Selected stop bits", currentText,  model.get(currentIndex).value)
-                    model: serialPortStopBitsModel
-                }
-            }
+                    CoComboBox {
+                        id: baudRateComboBox
+                        Layout.fillWidth: true
+                        labelText: qsTr("Baud rate")
+                        enabled: !root.busy
+                        model: serialPortBaudrateModel
+                        textRole: "value"
+                    }
 
-            RowLayout {
-                Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
+                    CoComboBox {
+                        id: parityComboBox
+                        Layout.fillWidth: true
+                        labelText: qsTr("Parity")
+                        enabled: !root.busy
+                        model: serialPortParityModel
+                        textRole: "text"
+                    }
 
-                Label {
-                    text: qsTr("Request retries")
-                    Layout.fillWidth: true
-                }
-                TextField {
-                    id: numberOfRetriesText
-                    inputMethodHints: Qt.ImhDigitsOnly
-                    text: "3"
-                    validator: IntValidator { bottom: 0; top: 100 }
-                }
-            }
+                    CoComboBox {
+                        id: dataBitsComboBox
+                        Layout.fillWidth: true
+                        labelText: qsTr("Data bits")
+                        enabled: !root.busy
+                        textRole: "text"
+                        model: serialPortDataBitsModel
+                        Component.onCompleted: {
+                            currentIndex = 3
+                        }
+                    }
 
-            RowLayout {
-                Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
+                    CoComboBox {
+                        id: stopBitsComboBox
+                        Layout.fillWidth: true
+                        labelText: qsTr("Stop bits")
+                        enabled: !root.busy
+                        model: serialPortStopBitsModel
+                        textRole: "text"
+                    }
 
-                Label {
-                    text: qsTr("Request timeout [ms]")
-                    Layout.fillWidth: true
-                }
-                TextField {
-                    id: timeoutText
-                    inputMethodHints: Qt.ImhDigitsOnly
-                    text: "100"
-                    validator: IntValidator { bottom: 10; top: 100000 }
+                    CoInputField {
+                        id: numberOfRetriesText
+                        Layout.fillWidth: true
+                        compactTextField: true
+                        labelText: qsTr("Request retries")
+                        text: "3"
+                        textField.validator: IntValidator { bottom: 0; top: 100 }
+                        textField.inputMethodHints: Qt.ImhDigitsOnly
+                    }
+
+                    CoInputField {
+                        id: timeoutText
+                        Layout.fillWidth: true
+                        compactTextField: true
+                        labelText: qsTr("Request timeout")
+                        text: "100"
+                        unit: qsTr("ms")
+                        textField.inputMethodHints: Qt.ImhDigitsOnly
+                        textField.validator: IntValidator { bottom: 10; top: 100000 }
+                    }
                 }
             }
 
             Button {
                 Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                Layout.topMargin: Style.margins
                 text: qsTr("Add")
                 enabled: !root.busy
                 onClicked: {
-                    var baudrate = serialPortBaudrateModel.get(baudRateComboBox.currentIndex).value
-                    var parity = serialPortParityModel.get(parityComboBox.currentIndex).value
-                    var dataBits = serialPortDataBitsModel.get(dataBitsComboBox.currentIndex).value
-                    var stopBits = serialPortStopBitsModel.get(stopBitsComboBox.currentIndex).value
-                    var numberOfRetries = numberOfRetriesText.text
-                    var timeout = timeoutText.text
-
-                    d.addModbusRtuMaster(serialPort.systemLocation, baudrate, parity, dataBits, stopBits, numberOfRetries, timeout)
+                    var baudrate = serialPortBaudrateModel.get(baudRateComboBox.currentIndex).value;
+                    var parity = serialPortParityModel.get(parityComboBox.currentIndex).value;
+                    var dataBits = serialPortDataBitsModel.get(dataBitsComboBox.currentIndex).value;
+                    var stopBits = serialPortStopBitsModel.get(stopBitsComboBox.currentIndex).value;
+                    var numberOfRetries = numberOfRetriesText.text;
+                    var timeout = timeoutText.text;
+                    d.addModbusRtuMaster(serialPort.systemLocation,
+                                         baudrate,
+                                         parity,
+                                         dataBits,
+                                         stopBits,
+                                         numberOfRetries,
+                                         timeout);
                 }
             }
         }

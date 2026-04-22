@@ -8,7 +8,8 @@ Item {
     enum Type {
         Information,
         Warning,
-        Danger
+        Danger,
+        Neutral
     }
 
     enum ActionType {
@@ -32,27 +33,31 @@ Item {
 
     function accentColor() {
         if (root.type === CoNotification.Type.Information) {
-            return Style.colors.system_Success_Accent
+            return Style.colors.system_Success_Accent;
         } else if (root.type === CoNotification.Type.Warning) {
-            return Style.colors.system_Warning_Accent
+            return Style.colors.system_Warning_Accent;
         } else if (root.type === CoNotification.Type.Danger) {
-            return Style.colors.system_Danger_Accent
+            return Style.colors.system_Danger_Accent;
+        } else if (root.type === CoNotification.Type.Neutral) {
+            return Style.colors.system_Neutral_Accent;
         } else {
             console.warn("CoNotification: unknown type:", root.type);
-            return Style.colors.system_Warning_Accent
+            return Style.colors.system_Neutral_Accent;
         }
     }
 
     function backgroundColor() {
         if (root.type === CoNotification.Type.Information) {
-            return Style.colors.system_Success_Background
+            return Style.colors.system_Success_Background;
         } else if (root.type === CoNotification.Type.Warning) {
-            return Style.colors.system_Warning_Background
+            return Style.colors.system_Warning_Background;
         } else if (root.type === CoNotification.Type.Danger) {
-            return Style.colors.system_Danger_Background
+            return Style.colors.system_Danger_Background;
+        } else if (root.type === CoNotification.Type.Neutral) {
+            return Style.colors.system_Neutral_Background;
         } else {
             console.warn("CoNotification: unknown type:", root.type);
-            return Style.colors.system_Warning_Background
+            return Style.colors.system_Neutral_Background;
         }
     }
 
@@ -89,14 +94,16 @@ Item {
                 color: root.accentColor()
                 name: {
                     if (root.type === CoNotification.Type.Information) {
-                        return Qt.resolvedUrl("qrc:/icons/check.svg")
+                        return Qt.resolvedUrl("qrc:/icons/check.svg");
                     } else if (root.type === CoNotification.Type.Warning) {
-                        return Qt.resolvedUrl("qrc:/icons/error.svg")
+                        return Qt.resolvedUrl("qrc:/icons/error.svg");
                     } else if (root.type === CoNotification.Type.Danger) {
-                        return Qt.resolvedUrl("qrc:/icons/warning.svg")
+                        return Qt.resolvedUrl("qrc:/icons/warning.svg");
+                    } else if (root.type === CoNotification.Type.Neutral) {
+                        return Qt.resolvedUrl("qrc:/icons/info.svg");
                     } else {
                         console.warn("CoNotification: unknown type:", root.type);
-                        return Qt.resolvedUrl("qrc:/icons/error.svg")
+                        return Qt.resolvedUrl("qrc:/icons/info.svg");
                     }
                 }
             }
