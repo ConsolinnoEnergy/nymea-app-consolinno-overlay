@@ -1121,7 +1121,7 @@ void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurati
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
     configuration->setPvSurplusThreshold(configurationMap.value("pvSurplusThreshold").toDouble());
-    configuration->setDurationMinAfterTurnOn(configurationMap.value("durationMinAfterTurnOn").toDouble());
+    configuration->setDurationMinAfterTurnOn(configurationMap.value("durationMinAfterTurnOn").toInt());
     configuration->setDurationMaxTotal(configurationMap.value("durationMaxTotal").toDouble());
 
     if (newConfiguration) {
