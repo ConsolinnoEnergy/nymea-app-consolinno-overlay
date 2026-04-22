@@ -31,6 +31,24 @@ Page {
         // Incremented on every model modification so that bindings depending on
         // model order (which ListModel doesn't track reactively) are re-evaluated.
         property int modelRevision: 0
+        property var firstBattery: {
+            for (var i = 0; i < hemsManager.emsConfiguration.pvSurplusPriolist.length; i++) {
+                var thing = engine.thingManager.things.getThing(hemsManager.emsConfiguration.pvSurplusPriolist[i]);
+                if (thing && thing.thingClass.interfaces.indexOf("battery") >= 0) {
+                    return thing;
+                }
+            }
+            return null;
+        }
+        property bool hasBattery: firstBattery !== null
+        property int batteryTargetSoc: {
+            if (!firstBattery) return 0;
+            var config = hemsManager.batteryConfigurations.getBatteryConfiguration(firstBattery.id);
+            if (config && config.targetSocPvSurplus.length > 0) {
+                return config.targetSocPvSurplus[0];
+            }
+            return 0;
+        }
     }
 
     // #TODO the following 2 functions were copied from CoDashboardView.qml -> move to common utils file
@@ -166,7 +184,10 @@ Page {
                             font: Style.newParagraphFont
                             color: Style.colors.typography_Basic_Default
                             // #TODO wording
-                            text: qsTr("The following devices are configured for surplus PV power. Sort them by priority using drag and drop. The battery automatically moves to the last position when its SoC reaches XY%.")
+                            text: qsTr("The following devices are configured for surplus PV power. Sort them by priority using drag and drop.") +
+                                       (d.hasBattery ?
+                                           " " + qsTr("The battery automatically moves to the last position when its SoC reaches %1%.").arg(d.batteryTargetSoc) :
+                                           "")
                         }
 
                         ListView {
