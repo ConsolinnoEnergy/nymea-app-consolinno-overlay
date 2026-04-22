@@ -622,11 +622,10 @@ StackView {
 
                         for (var i = 0; i < thingClass.paramTypes.count; i++) {
                             var param = {};
-                            param["paramTypeId"] = thingClass.paramTypes.get(i).id;
-                            param["value"] =
-                                    isNaN(discoveryThingParams.params.getParam(thingClass.paramTypes.get(i).id)) ?
-                                        discoveryThingParams.params.getParam(thingClass.paramTypes.get(i).id).value :
-                                        "";
+                            var paramTypeId = thingClass.paramTypes.get(i).id;
+                            var discoveryParam = discoveryThingParams.params.getParam(paramTypeId);
+                            param["paramTypeId"] = paramTypeId;
+                            param["value"] = discoveryParam ? discoveryParam.value : "";
                             d.params.push(param);
                         }
 
