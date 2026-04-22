@@ -81,6 +81,7 @@ Item {
                 wrapMode: Text.WordWrap
                 font: Style.newParagraphFont
                 fontColor: Style.colors.typography_Basic_Default
+                clip: true
             }
 
             Text {
