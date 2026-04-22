@@ -154,15 +154,16 @@ Page {
                     blockBatteryOnGridConsumption &= ~BatteryConfiguration.EvCharger;
                 }
 
-                let parsedMaxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text)
+                let config = {
+                    controllableLocalSystem: gridSupportControl.checked,
+                    avoidZeroFeedInEnabled: zeroCompensationControl.checked,
+                    blockBatteryOnGridConsumption: blockBatteryOnGridConsumption
+                };
+                if (maxElectricalPower.visible) {
+                    config.maxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text);
+                }
 
-                hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId,
-                                                    {
-                                                        controllableLocalSystem: gridSupportControl.checked,
-                                                        avoidZeroFeedInEnabled: zeroCompensationControl.checked,
-                                                        blockBatteryOnGridConsumption: blockBatteryOnGridConsumption,
-                                                        maxElectricalPower: parsedMaxElectricalPower
-                                                    });
+                hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, config);
                 if (directionID !== 1) {
                     pageStack.pop();
                 }
