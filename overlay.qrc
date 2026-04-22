@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>styles/light/Style.qml</file>
         <file>styles/light/Button.qml</file>
+        <file>styles/light/CheckBox.qml</file>
         <file>styles/light/logo.svg</file>
         <file>styles/light/logo-wide.svg</file>
         <file>styles/light/Dialog.qml</file>
@@ -24,6 +25,7 @@
         <file>styles/dark/Page.qml</file>
         <file>styles/dark/qmldir</file>
         <file>styles/dark/Style.qml</file>
+        <file>styles/dark/CheckBox.qml</file>
         <file>styles/dark/Slider.qml</file>
         <file>styles/dark/Switch.qml</file>
         <file>styles/dark/ComboBox.qml</file>

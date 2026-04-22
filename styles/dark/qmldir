@@ -1,5 +1,6 @@
 module dark
 Button 1.0 Button.qml
+CheckBox 1.0 CheckBox.qml
 ComboBox 1.0 ComboBox.qml
 Dialog 1.0 Dialog.qml
 Page 1.0 Page.qml
