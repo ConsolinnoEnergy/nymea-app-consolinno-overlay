@@ -11,7 +11,6 @@ StackView {
     id: root
     initialItem: setUpStart
 
-    // #TODO which properties can be removed?
     property int directionID: 0
     property Thing gridSupportThing: gridSupport.get(0)
     property Thing eeBusThing: eebusThing.get(0)
