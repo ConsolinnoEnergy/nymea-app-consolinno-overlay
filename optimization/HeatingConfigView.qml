@@ -96,7 +96,7 @@ GenericConfigPage {
     Connections {
         target: engine.thingManager
         onThingStateChanged: (thingId, stateTypeId, value) => {
-                                 if (thingId === dynamicPrice.get(0).id) {
+                                 if (dynamicPrice.count > 0 && thingId === dynamicPrice.get(0).id) {
                                      updatePrice();
                                  }
                              }
