@@ -174,7 +174,7 @@ ItemDelegate {
             to: root.paramType.maxValue
             value: root.param.value
             property int decimals: root.paramType.type.toLocaleLowerCase() === "double" ? 1 : 0
-            valueText: Types.toUiValue(root.param.value, root.paramType.unit).toFixed(slider.decimals) + Types.toUiUnit(root.paramType.unit)
+            valueText: Types.toUiValue(root.param.value, root.paramType.unit).toFixed(decimals) + Types.toUiUnit(root.paramType.unit)
 
             Component.onCompleted: {
                 if (root.param.value === undefined) {
