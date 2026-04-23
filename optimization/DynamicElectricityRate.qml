@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import Qt5Compat.GraphicalEffects
 
 import Nymea 1.0
@@ -19,12 +18,13 @@ StackView {
 
     property string name
     property bool newTariff: false
-    property Thing dynElectricThing : thing.get(0)
+    property Thing dynElectricThing : dynElectricThings.get(0)
     property int directionID: 0
+
     signal done(bool skip, bool abort, bool back);
 
     ThingsProxy {
-        id: thing
+        id: dynElectricThings
         engine: _engine
         shownInterfaces: ["dynamicelectricitypricing"]
     }
@@ -35,6 +35,15 @@ StackView {
         includeProvidedInterfaces: true
         groupByInterface: true
         filterInterface: "dynamicelectricitypricing"
+    }
+
+    Connections {
+        target: engine.thingManager
+        onThingAdded: function(thing) {
+            if (thing.thingClass.interfaces.includes("dynamicelectricitypricing")) {
+                root.dynElectricThing = thing;
+            }
+        }
     }
 
     Component {
@@ -52,197 +61,110 @@ StackView {
             }
 
             ColumnLayout {
-                anchors {top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right;}
-                spacing: 0
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
 
-                ColumnLayout {
-                    spacing: 0
+                CoFrostyCard {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 0
-
-                    Label {
-                        Layout.fillWidth: true
-                        text: qsTr("Submitted Rate")
-                        wrapMode: Text.WordWrap
-                        Layout.alignment: Qt.AlignRight
-                        Layout.rightMargin: app.margins
-                        horizontalAlignment: Text.AlignRight
-                    }
-                }
-
-                VerticalDivider
-                {
-                    Layout.fillWidth: true
-                    dividerColor: Material.accent
-                }
-
-                Flickable {
-                    id: flickableContainer
-                    clip: true
-
-
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
+                    contentTopMargin: Style.margins
+                    headerText: qsTr("Submitted rate")
 
                     ColumnLayout {
-                        id: column
-                        Layout.topMargin: 0
-                        width: parent.width
+                        anchors.left: parent.left
+                        anchors.right: parent.right
                         spacing: 0
 
                         Repeater {
-                            id: dynamicRateRepeater
-                            model: ThingsProxy {
-                                id: erProxy
-                                engine: _engine
-                                shownInterfaces: ["dynamicelectricitypricing"]
-                            }
-                            delegate: ConsolinnoThingDelegate {
-                                implicitHeight: 50
+                            model: dynElectricThings
+
+                            delegate: CoCard {
                                 Layout.fillWidth: true
-                                iconName: Qt.resolvedUrl("/icons/euro.svg")
+                                iconLeft: Qt.resolvedUrl("/icons/euro.svg")
                                 text: model.name
-                                progressive: true
-                                canDelete: true
+                                showChildrenIndicator: thing !== null
+                                deletable: thing !== null
+                                interactive: thing !== null
                                 property int pageStackPopsAfterConfigure: 1
+                                property Thing thing: dynElectricThings.get(index)
 
                                 Component.onCompleted: {
-                                    if (root.startView === "configure") {
-                                        pageStackPopsAfterConfigure = 2
-                                        Qt.callLater(onClicked)
+                                    if (root.startView === "configure" && index === 0) {
+                                        pageStackPopsAfterConfigure = 2;
+                                        Qt.callLater(onClicked);
                                     }
                                 }
 
                                 onClicked: {
-                                    if(erProxy.get(0).thingClass.setupMethod !== 4){
+                                    if(thing.thingClass.setupMethod !== 4){
                                         var isEpexDayAheadThing =
-                                                dynElectricThing.thingClassId.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}";
+                                                thing.thingClassId.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}";
                                         var pageUrl = isEpexDayAheadThing ?
                                                     "qrc:///ui/thingconfiguration/EpexDayAheadSetup.qml" :
                                                     "qrc:///ui/thingconfiguration/SetupWizard.qml";
                                         var page = pageStack.push(Qt.resolvedUrl(pageUrl),
-                                                                  {thing: dynElectricThing});
+                                                                  { thing: thing });
                                         page.done.connect(function() {
                                             for (var i = 0; i < pageStackPopsAfterConfigure; i++) {
                                                 pageStack.pop();
                                             }
-                                        })
+                                        });
                                         page.aborted.connect(function() {
                                             for (var i = 0; i < pageStackPopsAfterConfigure; i++) {
                                                 pageStack.pop();
                                             }
-                                        })
+                                        });
                                     }
                                 }
                                 onDeleteClicked: {
-                                    var popup = removeDialogComponent.createObject(root, {thing: erProxy.get(0)})
-                                    popup.open()
-                                }
-                            }
-                        }
-                    }
-                }
-
-                Rectangle{
-                    Layout.preferredHeight: parent.height / 3
-                    Layout.fillWidth: true
-                    visible: erProxy.count === 0
-                    color: Material.background
-                    Text {
-                        text: qsTr("There is no rate set up yet")
-                        color: Material.foreground
-                        anchors.fill: parent
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignHCenter
-                    }
-                }
-
-                VerticalDivider
-                {
-                    Layout.fillWidth: true
-                    dividerColor: Material.accent
-                    visible: thing.count >= 1 ? false : true
-                }
-
-                ColumnLayout {
-                    Layout.topMargin: Style.margins
-                    visible: (root.newTariff && thing.count === 0 )
-                    Label {
-                        Layout.fillWidth: true
-                        Layout.leftMargin: Style.margins
-                        Layout.rightMargin: Style.margins
-                        text: qsTr("Add Rate: ")
-                        wrapMode: Text.WordWrap
-                    }
-
-                    ComboBox {
-                        id: energyRateComboBox
-                        Layout.fillWidth: true
-                        Layout.leftMargin: Style.margins
-                        Layout.rightMargin: Style.margins
-                        textRole: "displayName"
-                        valueRole: "id"
-                        model: ThingClassesProxy {
-                            id: currentThing
-                            engine: _engine
-                            filterInterface: "dynamicelectricitypricing"
-                            includeProvidedInterfaces: true
-                        }
-                    }
-                }
-
-                ColumnLayout {
-                    spacing: 0
-                    Layout.alignment: Qt.AlignHCenter
-                    visible: thing.count >= 1 ? false : true
-
-                    Button {
-                        id: addButton
-                        text: qsTr("Add Rate")
-                        Layout.fillWidth: true
-                        Layout.leftMargin: Style.margins
-                        Layout.rightMargin: Style.margins
-                        Layout.alignment: Qt.AlignHCenter
-                        property ThingClass thingClass: thingClassesProxy.get(energyRateComboBox.currentIndex)
-
-                        Connections {
-                            target: engine.thingManager
-                            onThingAdded: function(thing){
-                                if (thing.thingClass.interfaces.includes("dynamicelectricitypricing")) {
-                                    root.dynElectricThing = thing
+                                    var popup = removeDialogComponent.createObject(root, { thing: thing });
+                                    popup.open();
                                 }
                             }
                         }
 
-                        onClicked: {
-                            if(!root.newTariff) {
-                              root.newTariff = true;
-                              addButton.text = qsTr("Next");
-                              return;
-                            }
-
-                            var isEpexDayAheadThing =
-                                    thingClass.id.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}";
-                            var pageUrl = isEpexDayAheadThing ?
-                                        "qrc:///ui/thingconfiguration/EpexDayAheadSetup.qml" :
-                                        "qrc:///ui/thingconfiguration/SetupWizard.qml";
-                            var page = pageStack.push(Qt.resolvedUrl(pageUrl), {thingClass: thingClass});
-                            page.done.connect(function() {
-                                pageStack.pop();
-                            })
-                            page.aborted.connect(function() {
-                                pageStack.pop();
-                            })
+                        CoCard {
+                            Layout.fillWidth: true
+                            visible: dynElectricThings.count === 0
+                            text: qsTr("There is no rate set up yet.")
                         }
-                    }
 
-                    ConsolinnoSetUpButton {
-                        Layout.leftMargin: Style.margins
-                        Layout.rightMargin: Style.margins
-                        text: qsTr("Cancel")
-                        backgroundColor: "transparent"
-                        onClicked: {
-                            pageStack.pop()
+                        CoComboBox {
+                            id: energyRateComboBox
+                            Layout.fillWidth: true
+                            labelText: qsTr("Add Rate")
+                            visible: dynElectricThings.count === 0
+                            textRole: "displayName"
+                            valueRole: "id"
+                            model: ThingClassesProxy {
+                                id: currentThing
+                                engine: _engine
+                                filterInterface: "dynamicelectricitypricing"
+                                includeProvidedInterfaces: true
+                            }
+                        }
+
+                        Button {
+                            id: addButton
+                            Layout.fillWidth: true
+                            visible: dynElectricThings.count === 0
+                            text: qsTr("Add")
+                            property ThingClass thingClass: thingClassesProxy.get(energyRateComboBox.currentIndex)
+
+                            onClicked: {
+                                var isEpexDayAheadThing =
+                                        thingClass.id.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}";
+                                var pageUrl = isEpexDayAheadThing ?
+                                            "qrc:///ui/thingconfiguration/EpexDayAheadSetup.qml" :
+                                            "qrc:///ui/thingconfiguration/SetupWizard.qml";
+                                var page = pageStack.push(Qt.resolvedUrl(pageUrl), { thingClass: thingClass });
+                                page.done.connect(function() {
+                                    pageStack.pop();
+                                });
+                                page.aborted.connect(function() {
+                                    pageStack.pop();
+                                });
+                            }
                         }
                     }
                 }
@@ -266,7 +188,7 @@ StackView {
             property Thing thing: null
 
             onAccepted: {
-                engine.thingManager.removeThing(thing.id)
+                engine.thingManager.removeThing(thing.id);
             }
         }
     }
