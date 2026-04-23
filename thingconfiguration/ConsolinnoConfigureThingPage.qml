@@ -213,8 +213,6 @@ SettingsPageBase {
                             property string thingId: root.thing.id.toString().replace(/[{}]/g, "")
                             text: thingId
                             labelText: qsTr("ID")
-                            iconRight: index === 0 ? "/icons/edit-copy.svg" : ""
-                            iconRightColor: Style.colors.brand_Basic_Accent
                             onClicked: {
                                 PlatformHelper.toClipBoard(thingId);
                                 ToolTip.show(qsTr("ID copied to clipboard"), 1000);
