@@ -131,8 +131,10 @@ ItemDelegate {
                 switch (root.paramType.type.toLowerCase()) {
                     case "int":
                         valueText = Math.round(root.param.value);
+                        break;
                     case "double":
                         valueText = NymeaUtils.floatToLocaleString(root.param.value);
+                        break;
                 }
                 const unitText = Types.toUiUnit(root.paramType.unit);
                 return unitText === "" ?
