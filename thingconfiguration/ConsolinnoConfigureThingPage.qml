@@ -187,6 +187,7 @@ SettingsPageBase {
                     id: informationGroup
                     Layout.fillWidth: true
                     headerText: qsTr("Information")
+                    contentTopMargin: Style.smallMargins
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -236,6 +237,7 @@ SettingsPageBase {
                     id: parametersGroup
                     Layout.fillWidth: true
                     headerText: qsTr("Parameters")
+                    contentTopMargin: Style.smallMargins
                     visible: root.thing.params.count > 0
 
                     ColumnLayout {
@@ -245,7 +247,7 @@ SettingsPageBase {
 
                         Repeater {
                             model: root.thing.params
-                            delegate: ParamDelegate {
+                            delegate: CoParamDelegate {
                                 Layout.fillWidth: true
                                 paramType: root.thing.thingClass.paramTypes.getParamType(model.id)
                                 param: root.thing.params.get(index)
@@ -271,6 +273,7 @@ SettingsPageBase {
                     id: ioConnectionsGroup
                     Layout.fillWidth: true
                     headerText: qsTr("Input/Output Connections")
+                    contentTopMargin: Style.smallMargins
                     visible: ioModel.count > 0
 
                     StateTypesProxy {
@@ -341,6 +344,7 @@ SettingsPageBase {
                     id: settingsGroup
                     Layout.fillWidth: true
                     headerText: qsTr("Settings")
+                    contentTopMargin: Style.smallMargins
                     visible: root.thing.thingClass.settingsTypes.count > 0
 
                     ColumnLayout {
@@ -351,7 +355,7 @@ SettingsPageBase {
                         Repeater {
                             id: settingsRepeater
                             model: root.thing.settings
-                            delegate: ParamDelegate {
+                            delegate: CoParamDelegate {
                                 Layout.fillWidth: true
                                 paramType: root.thing.thingClass.settingsTypes.getParamType(model.id)
                                 value: root.thing.settings.get(index).value
