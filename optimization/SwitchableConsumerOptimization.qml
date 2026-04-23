@@ -8,13 +8,13 @@ import "../delegates"
 Page {
     id: root
 
-    property HeatingElementConfiguration heatingElementConfiguration
-    property Thing heatRodThing
+    property SwitchableConsumerConfiguration switchableConsumerConfiguration
+    property Thing switchableConsumerThing
     property int directionID: 0
     signal done()
 
     header: NymeaHeader {
-        text: qsTr("Heating")
+        text: switchableConsumerThing.name
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
@@ -26,17 +26,17 @@ Page {
 
     Connections {
         target: hemsManager
-        onSetHeatingElementConfigurationReply: function(commandId, error) {
+        onSetSwitchableConsumerConfigurationReply: function(commandId, error) {
 
             if (commandId === d.pendingCallId) {
                 d.pendingCallId = -1
-                let props = "";
+                let props = {}
                 switch (error) {
                 case "HemsErrorNoError":
                     return
                 case "HemsErrorInvalidParameter":
                     footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
-                    break
+                    return
                 case "HemsErrorInvalidThing":
                     props.text = qsTr("Could not save configuration. The thing is not valid.")
                     break
@@ -44,7 +44,7 @@ Page {
                     props.errorCode = error
                 }
                 var comp = Qt.createComponent("../components/ErrorDialog.qml")
-                var popup = comp.createObject(app, {props})
+                var popup = comp.createObject(app, props)
                 popup.open()
             }
         }
@@ -58,7 +58,7 @@ Page {
         CoFrostyCard {
             Layout.fillWidth: true
             contentTopMargin: Style.smallMargins
-            headerText: heatRodThing.name
+            headerText: switchableConsumerThing.name
 
             ColumnLayout {
                 anchors.left: parent.left
@@ -75,7 +75,7 @@ Page {
                     compact: true
                     unit: qsTr("kW")
                     feedbackText: qsTr("The value is outside the valid range.")
-                    textField.text: (+heatingElementConfiguration.maxElectricalPower).toLocaleString()
+                    textField.text: (+switchableConsumerConfiguration.maxElectricalPower).toLocaleString()
                     textField.maximumLength: 10
                     textField.validator: DoubleValidator { bottom: 0.5 }
                 }
@@ -85,11 +85,9 @@ Page {
                     Layout.fillWidth: true
                     text: qsTr("Grid-supportive-control")
                     helpText: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
-                    visible: heatRodThing.thingClass.interfaces.includes("controllableconsumer") ||
-                             heatRodThing.thingClass.interfaces.includes("heatingrod")
 
                     Component.onCompleted: {
-                        checked = heatingElementConfiguration.controllableLocalSystem
+                        checked = switchableConsumerConfiguration.controllableLocalSystem;
                     }
                 }
             }
@@ -119,14 +117,15 @@ Page {
             enabled: inputValid
             text: qsTr("Apply changes")
             onClicked: {
-                let inputText = maxElectricalPower.text
-                inputText.includes(",") === true ? inputText = inputText.replace(",", ".") : inputText
+                let parsedMaxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text)
                 if (savebutton.inputValid) {
-                    d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, {
-                        "maxElectricalPower": parseFloat(inputText),
-                        "optimizationEnabled": heatingElementConfiguration ? heatingElementConfiguration.optimizationEnabled : true,
-                        "controllableLocalSystem": controllSwitch.checked
-                    })
+                    d.pendingCallId = hemsManager.setSwitchableConsumerConfiguration(
+                        switchableConsumerConfiguration.switchableConsumerThingId,
+                        {
+                            "maxElectricalPower": parsedMaxElectricalPower,
+                            "controllableLocalSystem": controllSwitch.checked
+                        }
+                    )
                     if (directionID !== 1) {
                         pageStack.pop()
                     }

@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>styles/light/Style.qml</file>
         <file>styles/light/Button.qml</file>
+        <file>styles/light/CheckBox.qml</file>
         <file>styles/light/logo.svg</file>
         <file>styles/light/logo-wide.svg</file>
         <file>styles/light/Dialog.qml</file>
@@ -24,6 +25,7 @@
         <file>styles/dark/Page.qml</file>
         <file>styles/dark/qmldir</file>
         <file>styles/dark/Style.qml</file>
+        <file>styles/dark/CheckBox.qml</file>
         <file>styles/dark/Slider.qml</file>
         <file>styles/dark/Switch.qml</file>
         <file>styles/dark/ComboBox.qml</file>
@@ -201,9 +203,11 @@
         <file>wizards/SetupHeatingElementWizard.qml</file>
         <file>devicepages/HeatingElementDevicePage.qml</file>
         <file>devicepages/SimpleConsumerDevicePage.qml</file>
+        <file>devicepages/SwitchableConsumerDevicePage.qml</file>
         <file>devicepages/RootMeterDevicePage.qml</file>
         <file>devicepages/InverterDevicePage.qml</file>
         <file>optimization/HeatingElementOptimization.qml</file>
+        <file>optimization/SwitchableConsumerOptimization.qml</file>
         <file>optimization/DynamicElectricityRate.qml</file>
         <file>mainviews/energy/ConsolinnoDynamicElectricPricing.qml</file>
         <file>mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml</file>

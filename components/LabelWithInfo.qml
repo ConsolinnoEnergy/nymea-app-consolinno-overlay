@@ -20,6 +20,7 @@ Row {
         font: Style.newParagraphFontBold
         color: Style.colors.components_Forms_Fields_Field_label
         wrapMode: Text.Wrap
+        elide: Text.ElideRight
         width: Math.min(implicitWidth,
                         parent.width - (infoButton.visible ? infoButton.width + parent.spacing : 0))
     }

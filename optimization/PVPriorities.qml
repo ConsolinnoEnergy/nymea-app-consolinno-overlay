@@ -31,6 +31,24 @@ Page {
         // Incremented on every model modification so that bindings depending on
         // model order (which ListModel doesn't track reactively) are re-evaluated.
         property int modelRevision: 0
+        property var firstBattery: {
+            for (var i = 0; i < hemsManager.emsConfiguration.pvSurplusPriolist.length; i++) {
+                var thing = engine.thingManager.things.getThing(hemsManager.emsConfiguration.pvSurplusPriolist[i]);
+                if (thing && thing.thingClass.interfaces.indexOf("battery") >= 0) {
+                    return thing;
+                }
+            }
+            return null;
+        }
+        property bool hasBattery: firstBattery !== null
+        property int batteryTargetSoc: {
+            if (!firstBattery) return 0;
+            var config = hemsManager.batteryConfigurations.getBatteryConfiguration(firstBattery.id);
+            if (config && config.targetSocPvSurplus.length > 0) {
+                return config.targetSocPvSurplus[0];
+            }
+            return 0;
+        }
     }
 
     // #TODO the following 2 functions were copied from CoDashboardView.qml -> move to common utils file
@@ -66,7 +84,7 @@ Page {
             let config = hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id);
             return config ? config.optimizationMode === HeatingConfiguration.OptimizationModePVSurplus : false;
         }
-        if (ifaces.indexOf("controllablebattery") >= 0) {
+        if (ifaces.indexOf("battery") >= 0) {
             return true;
         }
         if (ifaces.indexOf("evcharger") >= 0) {
@@ -137,115 +155,125 @@ Page {
         anchors.fill: parent
         anchors.margins: Style.margins
 
-        CoFrostyCard {
+        Flickable {
             Layout.fillWidth: true
-            contentTopMargin: Style.smallMargins
-            headerText: qsTr("Device Prioritization") // #TODO wording
+            Layout.fillHeight: true
+            contentHeight: flickableContent.implicitHeight
+            clip: true
 
             ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: Style.margins
-                anchors.rightMargin: Style.margins
-                spacing: Style.smallMargins
+                id: flickableContent
+                width: parent.width
 
-                Text {
+                CoFrostyCard {
                     Layout.fillWidth: true
-                    verticalAlignment: Text.AlignVCenter
-                    wrapMode: Text.WordWrap
-                    font: Style.newParagraphFont
-                    color: Style.colors.typography_Basic_Default
-                    // #TODO wording
-                    text: qsTr("The following devices are configured for surplus PV power. Sort them by priority using drag and drop. The battery automatically moves to the last position when its SoC reaches XY%.")
-                }
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("Device Prioritization") // #TODO wording
 
-                ListView {
-                    id: priorityListView
-                    Layout.fillWidth: true
-                    height: contentHeight
-                    implicitHeight: contentHeight
-                    model: prioListModel
-                    clip: true
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.leftMargin: Style.margins
+                        anchors.rightMargin: Style.margins
+                        spacing: Style.smallMargins
 
-                    property bool dragging: draggingIndex >= 0
-                    property int draggingIndex: -1
+                        Text {
+                            Layout.fillWidth: true
+                            verticalAlignment: Text.AlignVCenter
+                            wrapMode: Text.WordWrap
+                            font: Style.newParagraphFont
+                            color: Style.colors.typography_Basic_Default
+                            // #TODO wording
+                            text: qsTr("The following devices are configured for surplus PV power. Sort them by priority using drag and drop.") +
+                                       (d.hasBattery ?
+                                           " " + qsTr("The battery automatically moves to the last position when its SoC reaches %1%.").arg(d.batteryTargetSoc) :
+                                           "")
+                        }
 
-                    moveDisplaced: Transition { NumberAnimation { properties: "y" } }
+                        ListView {
+                            id: priorityListView
+                            Layout.fillWidth: true
+                            height: contentHeight
+                            implicitHeight: contentHeight
+                            model: prioListModel
+                            clip: true
 
-                    delegate: CoSortableCard {
-                        width: priorityListView.width
-                        text: model.name
-                        iconLeft: model.icon
-                        visible: index !== priorityListView.draggingIndex
-                        card.opacity: model.optimizationEnabled ? 1 : 0.3
-                    }
+                            property bool dragging: draggingIndex >= 0
+                            property int draggingIndex: -1
 
-                    MouseArea {
-                        id: dndArea
-                        anchors.fill: parent
-                        propagateComposedEvents: true
-                        preventStealing: priorityListView.dragging
-                        property int dragOffset: 0
+                            moveDisplaced: Transition { NumberAnimation { properties: "y" } }
 
-                        onPressed: (mouse) => {
-                            var mouseYInList = priorityListView.contentItem.mapFromItem(dndArea, mouseX, mouseY).y;
-                            var item = priorityListView.itemAt(mouseX, mouseYInList);
-                            if (!item || mouseX < item.dragHandleStartX) {
-                                mouse.accepted = false;
-                                return;
+                            delegate: CoSortableCard {
+                                width: priorityListView.width
+                                text: model.name
+                                iconLeft: model.icon
+                                visible: index !== priorityListView.draggingIndex
+                                card.opacity: model.optimizationEnabled ? 1 : 0.3
                             }
-                            priorityListView.draggingIndex = priorityListView.indexAt(mouseX, mouseYInList);
-                            dndItem.text = prioListModel.get(priorityListView.draggingIndex).name;
-                            dndItem.iconLeft = prioListModel.get(priorityListView.draggingIndex).icon;
-                            dndArea.dragOffset = priorityListView.mapToItem(item, mouseX, mouseY).y;
-                        }
 
-                        onMouseYChanged: {
-                            if (!priorityListView.dragging) { return; }
-                            var mouseYInList = priorityListView.contentItem.mapFromItem(dndArea, mouseX, mouseY).y;
-                            var indexUnderMouse = priorityListView.indexAt(mouseX, mouseYInList - dndArea.dragOffset / 2);
-                            if (indexUnderMouse < 0) { return; }
-                            indexUnderMouse = Math.min(Math.max(0, indexUnderMouse), priorityListView.count - 1);
-                            if (priorityListView.draggingIndex !== indexUnderMouse) {
-                                prioListModel.move(priorityListView.draggingIndex, indexUnderMouse, 1);
-                                priorityListView.draggingIndex = indexUnderMouse;
+                            MouseArea {
+                                id: dndArea
+                                anchors.fill: parent
+                                propagateComposedEvents: true
+                                preventStealing: priorityListView.dragging
+                                property int dragOffset: 0
+
+                                onPressed: (mouse) => {
+                                    var mouseYInList = priorityListView.contentItem.mapFromItem(dndArea, mouseX, mouseY).y;
+                                    var item = priorityListView.itemAt(mouseX, mouseYInList);
+                                    if (!item || mouseX < item.dragHandleStartX) {
+                                        mouse.accepted = false;
+                                        return;
+                                    }
+                                    priorityListView.draggingIndex = priorityListView.indexAt(mouseX, mouseYInList);
+                                    dndItem.text = prioListModel.get(priorityListView.draggingIndex).name;
+                                    dndItem.iconLeft = prioListModel.get(priorityListView.draggingIndex).icon;
+                                    dndArea.dragOffset = priorityListView.mapToItem(item, mouseX, mouseY).y;
+                                }
+
+                                onMouseYChanged: {
+                                    if (!priorityListView.dragging) { return; }
+                                    var mouseYInList = priorityListView.contentItem.mapFromItem(dndArea, mouseX, mouseY).y;
+                                    var indexUnderMouse = priorityListView.indexAt(mouseX, mouseYInList - dndArea.dragOffset / 2);
+                                    if (indexUnderMouse < 0) { return; }
+                                    indexUnderMouse = Math.min(Math.max(0, indexUnderMouse), priorityListView.count - 1);
+                                    if (priorityListView.draggingIndex !== indexUnderMouse) {
+                                        prioListModel.move(priorityListView.draggingIndex, indexUnderMouse, 1);
+                                        priorityListView.draggingIndex = indexUnderMouse;
+                                    }
+                                }
+
+                                onReleased: {
+                                    priorityListView.draggingIndex = -1;
+                                    d.modelRevision++;
+                                }
+                            }
+
+                            CoSortableCard {
+                                id: dndItem
+                                visible: priorityListView.dragging
+                                dragging: true
+                                y: dndArea.mouseY - dndArea.dragOffset
+                                width: priorityListView.width
                             }
                         }
 
-                        onReleased: {
-                            priorityListView.draggingIndex = -1;
-                            d.modelRevision++;
+                        Button {
+                            id: restoreDefaultListButton
+                            // Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignHCenter
+                            visible: hemsManager.emsConfiguration.defaultPvSurplusPriolist.length === hemsManager.emsConfiguration.pvSurplusPriolist.length
+                            text: qsTr("Restore default order")
+                            iconRight: Qt.resolvedUrl("qrc:/icons/undo.svg")
+                            secondary: true
+
+                            onClicked: {
+                                populateFromPrioList(hemsManager.emsConfiguration.defaultPvSurplusPriolist);
+                            }
                         }
-                    }
-
-                    CoSortableCard {
-                        id: dndItem
-                        visible: priorityListView.dragging
-                        dragging: true
-                        y: dndArea.mouseY - dndArea.dragOffset
-                        width: priorityListView.width
-                    }
-                }
-
-                Button {
-                    id: restoreDefaultListButton
-                    // Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignHCenter
-                    visible: hemsManager.emsConfiguration.defaultPvSurplusPriolist.length === hemsManager.emsConfiguration.pvSurplusPriolist.length
-                    text: qsTr("Restore default order")
-                    iconRight: Qt.resolvedUrl("qrc:/icons/undo.svg")
-                    secondary: true
-
-                    onClicked: {
-                        populateFromPrioList(hemsManager.emsConfiguration.defaultPvSurplusPriolist);
                     }
                 }
             }
-        }
-
-        Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
         }
 
         Button {

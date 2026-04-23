@@ -207,7 +207,7 @@ SettingsPageBase {
             CoInputField {
                 id: numberOfRetriesText
                 Layout.fillWidth: true
-                compactTextField: true
+                compact: true
                 labelText: qsTr("Request retries")
                 text: "3"
                 textField.validator: IntValidator { bottom: 0; top: 100 }
@@ -220,7 +220,7 @@ SettingsPageBase {
             CoInputField {
                 id: timeoutText
                 Layout.fillWidth: true
-                compactTextField: true
+                compact: true
                 labelText: qsTr("Request timeout")
                 text: "100"
                 unit: qsTr("ms")

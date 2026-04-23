@@ -43,7 +43,13 @@ Page {
     header: NymeaHeader {
         text: qsTr("Modbus-RTU-Interfaces")
         backButtonVisible: true
-        onBackPressed: root.done(false, false, true)
+        onBackPressed: {
+            if (root.settingsWizard) {
+                root.done(false, false, true);
+            } else {
+                pageStack.pop();
+            }
+        }
     }
 
     ModbusRtuManager {
@@ -287,6 +293,7 @@ Page {
             Layout.leftMargin: Style.margins
             Layout.rightMargin: Style.margins
             text: qsTr("Next")
+            visible: root.settingsWizard
             onClicked: {
                 root.done(true, false, false);
             }
@@ -300,6 +307,7 @@ Page {
             Layout.rightMargin: Style.margins
             Layout.bottomMargin: Style.margins
             secondary: true
+            visible: root.settingsWizard
             onClicked: {
                 root.done(false, true, false);
             }

@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
 import QtCore
@@ -13,21 +12,18 @@ StackView {
     initialItem: setUpStart
 
     property int directionID: 0
-    property bool setupFinishedRelay: false
     property Thing gridSupportThing: gridSupport.get(0)
     property Thing eeBusThing: eebusThing.get(0)
-    property double powerLimit: gridSupportThing.stateByName("lpcValue").value
+    property double powerLimitLPC: gridSupportThing.stateByName("lpcValue").value
     property double powerLimitLPP: gridSupportThing.stateByName("lppValue").value
     property string powerLimitSource: gridSupportThing.settings.get(0).value
 
     property bool eebusState: eeBusThing ? eeBusThing.stateByName("connected").value : false
-    property string colorsEEBUS: (!eebusSettings.connected && !eebusSettings.everConnected) ? "#F7B772" : eebusState == true ? "#BDD786" : "#F37B8E"
-    property string textEEBUS: (!eebusSettings.connected && !eebusSettings.everConnected) ? qsTr("Confirmation by network operator pending.") : eebusState == true ? qsTr("connected") : qsTr("not connected")
 
-    property bool currentState: gridSupportThing.stateByName("isLpcActive").value
+    property bool currentStateLPC: gridSupportThing.stateByName("isLpcActive").value
     property bool currentStateLPP: gridSupportThing.stateByName("isLppActive").value
     property string contentPlimLPP: currentStateLPP === true ? qsTr("The feed-in is <b>limited temporarily</b> to <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimitLPP)) : ""
-    property string contentPlim: currentState === true ? qsTr("Due to a control order from the network operator, the total power of controllable devices is <b>temporarily limited</b> to <b>%1 kW.</b> If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.").arg(convertToKw(powerLimit)) : ""
+    property string contentPlim: currentStateLPC === true ? qsTr("Due to a control order from the network operator, the total power of controllable devices is <b>temporarily limited</b> to <b>%1 kW.</b> If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.").arg(convertToKw(powerLimitLPC)) : ""
 
 
     Settings {
@@ -97,12 +93,10 @@ StackView {
         engine.thingManager.setThingSettings(gridSupportThing.id, params);
     }
 
-    //start set-up
     Component {
         id: setUpStart
 
         Page {
-
             header: NymeaHeader {
                 text: qsTr("Grid-supportive control")
                 backButtonVisible: true
@@ -115,93 +109,79 @@ StackView {
             }
 
             ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                spacing: app.margins
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
 
-                ColumnLayout {
-                    Layout.topMargin: app.margins
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    spacing: app.margins
-
-                    Button {
-                        id: setUpButton
-                        Layout.fillWidth: true
-                        Layout.bottomMargin: -6
-                        Layout.topMargin: -6
-                        text: qsTr("Grid-supportive control setup")
-                        implicitHeight: 50
-                        onClicked: {
-                            pageStack.push(selectComponent)
-                        }
-                    }
-
-                    CoNotification {
-                        Layout.fillWidth: true
-                        visible: currentStateLPP === true && powerLimitSource !== "none"
-                        type: CoNotification.Type.Warning
-                        title: qsTr("Feed-in curtailment")
-                        message: contentPlimLPP
-                    }
-
-                    CoNotification {
-                        Layout.fillWidth: true
-                        visible: currentState === true && powerLimitSource !== "none"
-                        type: CoNotification.Type.Warning
-                        title: qsTr("Grid-supportive control")
-                        message: contentPlim
-                    }
+                CoNotification {
+                    Layout.fillWidth: true
+                    visible: currentStateLPP === true && powerLimitSource !== "none"
+                    type: CoNotification.Type.Warning
+                    title: qsTr("Feed-in curtailment")
+                    message: contentPlimLPP
                 }
 
-                ColumnLayout {
-                    visible: (powerLimitSource === "eebus" && eebusThing.count > 0) || powerLimitSource === "relais" ? true : false
+                CoNotification {
+                    Layout.fillWidth: true
+                    visible: currentStateLPC === true && powerLimitSource !== "none"
+                    type: CoNotification.Type.Warning
+                    title: qsTr("Grid-supportive control")
+                    message: contentPlim
+                }
 
-                    RowLayout {
-                        Layout.alignment: Qt.AlignRight
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
-                        Layout.fillWidth: true
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.margins
+                    headerText: qsTr("Control type")
 
-                        Label {
-                            horizontalAlignment: Text.AlignRight
-                            verticalAlignment: Text.AlignRight
-                            text: qsTr("Control type")
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        CoCard {
+                            id: startRelaisCard
+                            Layout.fillWidth: true
+                            visible: powerLimitSource === "relais"
+                            text: qsTr("Relais")
+                            showChildrenIndicator: true
+                            onClicked: {
+                                pageStack.push(relaisSetUpFinish);
+                            }
                         }
-                    }
 
-                    VerticalDivider{
-                        Layout.fillWidth: true
-                        dividerColor: Material.accent
-                    }
-
-                    ConsolinnoItemDelegate {
-                        visible: powerLimitSource === "relais"
-                        implicitHeight: 50
-                        Layout.fillWidth: true
-                        text: "Relais"
-                        iconName: "../images/relais.svg"
-                        onClicked: {
-                            pageStack.push(relaisSetUpFinish);
+                        CoCard {
+                            id: startEebusCard
+                            Layout.fillWidth: true
+                            visible: (powerLimitSource === "eebus" && eebusThing.count > 0)
+                            text: qsTr("EEBUS control box")
+                            showChildrenIndicator: true
+                            onClicked: {
+                                pageStack.push(eebusView);
+                            }
                         }
-                    }
 
-                    ConsolinnoItemDelegate {
-                        visible: (powerLimitSource === "eebus" && eebusThing.count > 0)
-                        implicitHeight: 50
-                        Layout.fillWidth: true
-                        text: qsTr("EEBUS control box")
-                        iconName: "../images/eebus.svg"
-                        onClicked: {
-                            pageStack.push(eebusView);
+                        CoCard {
+                            Layout.fillWidth: true
+                            visible: !startRelaisCard.visible && !startEebusCard.visible
+                            text: "—"
+                            interactive: false
                         }
                     }
                 }
 
                 Item {
+                    Layout.fillWidth: true
                     Layout.fillHeight: true
+                }
+
+                Button {
+                    id: setUpButton
+                    Layout.fillWidth: true
+                    text: qsTr("Grid-supportive control setup")
+                    onClicked: {
+                        pageStack.push(selectComponent)
+                    }
                 }
             }
         }
@@ -219,91 +199,55 @@ StackView {
             }
 
             ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.topMargin: app.margins
-                spacing: 8
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
 
-                ListModel{
-                    id: myListModel
-                    ListElement{name: qsTr("Relais"); description: qsTr("")}
-                    ListElement{name: qsTr("EEBUS control box"); description: qsTr("Must be in same network.")}
-                }
-
-                ButtonGroup {
-                   id: buttonGroup
-                }
-
-                Repeater {
-                    id: repeater
-                    model: myListModel
-                    ConsolinnoRadioDelegate {
-                       text: name
-                       implicitHeight: 50
-                       description: model.description
-                       value: index
-                       size: 20
-                       ButtonGroup.group: buttonGroup
-                       onCheckedChanged: {
-                           if(checked){
-                               nextButton.enabled = true
-                           }
-                       }
-                    }
-                }
-
-                VerticalDivider{
+                CoFrostyCard {
                     Layout.fillWidth: true
-                    Layout.topMargin: app.margins - 12
-                    Layout.bottomMargin: app.margins - 12
-                    dividerColor: Material.accent
-                }
+                    contentTopMargin: Style.margins
+                    headerText: qsTr("Control type")
 
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
 
-                    Button {
-                        id: nextButton
-                        enabled: false
-                        Layout.fillWidth: true
-                        text: qsTr("Next")
-
-                        onClicked: {
-                            if(buttonGroup.checkedButton.value === 0){
+                        CoCard {
+                            Layout.fillWidth: true
+                            text: qsTr("Relais")
+                            showChildrenIndicator: true
+                            onClicked: {
                                 pageStack.push(relaisSetUp)
-                            }else{
-                                discovery.discoverThings(thingClassesProxy.get(0).id)
-                                pageStack.push(eebusViewSelect, {thingClass: thingClassesProxy.get(0)})
                             }
                         }
-                    }
 
-                    ConsolinnoSetUpButton {
-                        text: qsTr("Cancel")
-                        backgroundColor: "transparent"
-                        onClicked: {
-                            pageStack.pop()
+                        CoCard {
+                            Layout.fillWidth: true
+                            text: qsTr("EEBUS control box")
+                            labelText: qsTr("Must be in same network.")
+                            showChildrenIndicator: true
+                            onClicked: {
+                                discovery.discoverThings(thingClassesProxy.get(0).id);
+                                pageStack.push(eebusViewSelect,
+                                               { thingClass: thingClassesProxy.get(0) });
+                            }
                         }
                     }
                 }
 
                 Item {
-                    Layout.fillHeight: true
                     Layout.fillWidth: true
+                    Layout.fillHeight: true
                 }
             }
         }
     }
 
-    //relais set-up
     Component {
         id: relaisSetUp
 
         Page {
-
             header: NymeaHeader {
                 text: qsTr("Grid-supportive control setup – Relais")
                 backButtonVisible: true
@@ -311,97 +255,70 @@ StackView {
             }
 
             ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                spacing: 8
-                RowLayout {
-                    Layout.topMargin: app.margins
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Label {
-                        Layout.fillWidth: true
-                        textFormat: Text.RichText
-                        font.pointSize: 15
-                        font.bold: true
-                        wrapMode: Text.WordWrap
-                        text: qsTr("Connect device")
-                    }
-                }
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
 
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.alignment: Qt.AlignHCenter
-                    spacing: 0
-                    Label {
-                        Layout.fillWidth: true
-                        wrapMode: Text.WordWrap
-                        text: qsTr("Please connect the control box or the ripple control receiver as described in our manual.")
-                    }
-                }
-
-                VerticalDivider {
-                    Layout.topMargin: app.margins - 12
-                    Layout.bottomMargin: app.margins - 12
+                CoNotification {
                     Layout.fillWidth: true
-                    dividerColor: Material.accent
+                    visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
+                    type: CoNotification.Type.Danger
+                    title: qsTr("Attention")
+                    message: qsTr("Existing setup will be overwritten.")
                 }
 
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.margins
+                    headerText: qsTr("Connect device")
 
-                    CoNotification {
-                        Layout.fillWidth: true
-                        visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
-                        type: CoNotification.Type.Danger
-                        title: qsTr("Attention")
-                        message: qsTr("Existing setup will be overwritten.")
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        CoCard {
+                            Layout.fillWidth: true
+                            text: qsTr("Please connect the control box or the ripple control receiver as described in our manual.")
+                            interactive: false
+                        }
                     }
                 }
 
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
+                Item {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                }
 
-                    Button {
-                        id: completeSetupButton
-                        Layout.fillWidth: true
-                        text: qsTr("Complete setup")
+                Button {
+                    Layout.fillWidth: true
+                    text: qsTr("Complete setup")
 
-                        onClicked: {        
-                            root.setGridSupportSettings("relais");
-                            pageStack.pop()
-                            pageStack.pop()
-                        }
+                    onClicked: {
+                        root.setGridSupportSettings("relais");
+                        pageStack.pop();
+                        pageStack.pop();
                     }
+                }
 
-                    ConsolinnoSetUpButton {
-                        text: qsTr("Cancel")
-                        backgroundColor: "transparent"
-                        onClicked: {
-                            pageStack.pop()
-                            pageStack.pop()
-                        }
-                    }
+                Button {
+                    Layout.fillWidth: true
+                    text: qsTr("Cancel")
+                    secondary: true
 
-                    Item {
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
+                    onClicked: {
+                        pageStack.pop();
+                        pageStack.pop();
                     }
                 }
             }
         }
     }
 
-    //relais set-up finished view
     Component {
         id: relaisSetUpFinish
 
         Page {
-
             header: ConsolinnoHeader {
                 text: qsTr("Grid-supportive control – Relais")
                 backButtonVisible: true
@@ -426,13 +343,11 @@ StackView {
 
             Menu {
                 id: menu
-
-                x:root.width - width
+                x: root.width - width - Style.margins
                 modal: true
 
                 Repeater {
                     id: menuListRepeater
-
                     model: menuListModel
 
                     Item {
@@ -471,10 +386,10 @@ StackView {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                if(index === 0){
+                                if (index === 0) {
                                     root.setGridSupportSettings("none");
-                                    pageStack.pop()
-                                }else if(index === 1){
+                                    pageStack.pop();
+                                } else if (index === 1) {
                                     pageStack.push(relaisSetUp);
                                 }
                                 menu.close();
@@ -485,41 +400,33 @@ StackView {
             }
 
             ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                spacing: 8
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
 
-                RowLayout {
-                    Layout.topMargin: app.margins
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Label {
-                        Layout.fillWidth: true
-                        textFormat: Text.RichText
-                        font.pointSize: 15
-                        font.bold: true
-                        wrapMode: Text.WordWrap
-                        text: qsTr("Connect device")
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.margins
+                    headerText: qsTr("The relais are configured as follows")
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        Image {
+                            Layout.fillWidth: true
+                            Layout.margins: Style.margins
+                            source: "../images/relais_screen.png"
+                            fillMode: Image.PreserveAspectFit
+                            Layout.preferredHeight: width > 0 ? (implicitHeight / implicitWidth) * width : implicitHeight
+                        }
                     }
                 }
 
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.alignment: Qt.AlignHCenter
-                    spacing: 0
-                    Label {
-                        Layout.fillWidth: true
-                        wrapMode: Text.WordWrap
-                        text: qsTr("Please connect the control box or the ripple control receiver as described in our manual.")
-                    }
-
-                    Item {
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                    }
+                Item {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
                 }
             }
         }
@@ -529,7 +436,6 @@ StackView {
         id: eebusViewSelect
 
         Page {
-
             header: NymeaHeader {
                 text: qsTr("Grid-supportive control setup – EEBUS")
                 backButtonVisible: true
@@ -538,105 +444,90 @@ StackView {
 
             property var thingClass
 
-
             ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                Layout.topMargin: 0
-                spacing: 8
-
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.bottomMargin: 8
-
-                    Label {
-                        Layout.fillWidth: true
-                        Layout.topMargin: 5
-                        Layout.bottomMargin: 0
-                        textFormat: Text.RichText
-                        font.pointSize: 15
-                        font.bold: true
-                        wrapMode: Text.WordWrap
-                        text: qsTr("The following EEBUS devices were found:")
-                    }
-                }
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
 
                 Flickable {
-                    id: flick
-                    clip: true
-                    contentWidth: parent.width
-                    contentHeight: column.implicitHeight
-
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    Layout.minimumHeight: 230
+                    contentHeight: eebusDiscoveryContent.implicitHeight
+                    clip: true
 
                     ColumnLayout {
-                        id: column
-                        Layout.topMargin: 0
+                        id: eebusDiscoveryContent
                         width: parent.width
-                        Layout.minimumHeight: 230
-                        spacing: 5
+                        spacing: Style.margins
 
-                        Repeater {
-                            id: eebuRepeater
-                            model: ThingDiscoveryProxy {
-                                id: eebusDiscovery
-                                thingDiscovery: discovery
-                            }
-                            delegate: ConsolinnoItemDelegate {
-                                implicitHeight: 50
-                                Layout.fillWidth: true
-                                iconName: "/icons/connections/network-wired.svg"
-                                text: model.name
-                                subText: model.description
-                                progressive: true
-                                onClicked: {
-                                    pageStack.push(eebusSetup, {thingClass: thingClassesProxy.get(0), discoveryThingParams: eebusDiscovery.get(index)});
+                        CoFrostyCard {
+                            Layout.fillWidth: true
+                            contentTopMargin: Style.margins
+                            headerText: qsTr("The following EEBUS devices were found")
+
+                            ColumnLayout {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                spacing: 0
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    text: qsTr("No EEBUS device was found in the network. Please make sure the device is powered on and connected to the same network.")
+                                    visible: !discovery.busy && eebusRepeater.model.count === 0
+                                    interactive: false
+                                }
+
+                                Repeater {
+                                    id: eebusRepeater
+
+                                    model: ThingDiscoveryProxy {
+                                        id: eebusDiscovery
+                                        thingDiscovery: discovery
+                                    }
+
+                                    delegate: CoCard {
+                                        Layout.fillWidth: true
+                                        iconLeft: "/icons/connections/network-wired.svg"
+                                        text: model.name
+                                        labelText: model.description
+                                        showChildrenIndicator: true
+                                        onClicked: {
+                                            pageStack.push(eebusSetup,
+                                                           {
+                                                               thingClass: thingClassesProxy.get(0),
+                                                               discoveryThingParams: eebusDiscovery.get(index)
+                                                           });
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
 
-                Item {
-                    Layout.fillHeight: true
+                Button {
                     Layout.fillWidth: true
-                }
+                    text: qsTr("Search again")
 
-                VerticalDivider {
-                    Layout.topMargin: app.margins - 12
-                    Layout.bottomMargin: app.margins - 12
-                    Layout.fillWidth: true
-                    dividerColor: Material.accent
-                }
-
-                ColumnLayout {
-                    Layout.topMargin: app.margins - 12
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-
-                    Button {
-                        id: completeSetupButton
-                        Layout.fillWidth: true
-                        text: qsTr("Search again")
-                        onClicked: {
-                            discovery.discoverThings(thingClassesProxy.get(0).id)
-                        }
-                    }
-
-                    ConsolinnoSetUpButton {
-                        text: qsTr("Cancel")
-                        backgroundColor: "transparent"
-                        onClicked: {
-                            pageStack.pop()
-                            pageStack.pop()
-                        }
+                    onClicked: {
+                        discovery.discoverThings(thingClassesProxy.get(0).id);
                     }
                 }
+
+                Button {
+                    Layout.fillWidth: true
+                    text: qsTr("Cancel")
+                    secondary: true
+                    onClicked: {
+                        pageStack.pop();
+                        pageStack.pop();
+                    }
+                }
+            }
+
+            BusyOverlay {
+                shown: discovery.busy
+                text: qsTr("Searching for devices...")
             }
         }
     }
@@ -645,7 +536,6 @@ StackView {
         id: eebusSetup
 
         Page {
-
             property ThingClass thingClass
             property var discoveryThingParams
 
@@ -656,139 +546,109 @@ StackView {
             }
 
             ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                Layout.topMargin: 0
-                spacing: 8
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
 
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.bottomMargin: 8
-                    Label {
-                        Layout.topMargin: 5
-                        textFormat: Text.RichText
-                        font.pointSize: 15
-                        font.bold: true
-                        wrapMode: Text.WordWrap
-                        text: qsTr("Parameter")
-                    }
+                CoNotification {
+                    Layout.fillWidth: true
+                    visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
+                    type: CoNotification.Type.Danger
+                    title: qsTr("Attention")
+                    message: qsTr("Existing setup will be overwritten.")
                 }
 
                 Flickable {
-                    id: flick
-                    clip: true
-                    contentWidth: parent.width
-                    contentHeight: column.implicitHeight
-
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    implicitHeight: 8
-                    ColumnLayout {
-                        id: column
-                        width: parent.width
-                        spacing: 5
-                        Repeater {
-                            model: thingClass.paramTypes
-                            delegate: ConsolinnoItemDelegate {
-                                id: thingParams
-                                implicitHeight: 50
-                                property var paramType: thingClass.paramTypes.get(index)
-                                property string paramValue: isNaN(discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id)) ? discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id).value : ""
-                                Layout.fillWidth: true
-                                text: paramValue !== "" ? paramValue : ""
-                                subText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
-                                tertiaryText: model.displayName
-                                secondaryIconName: index === 0 ? "/icons/edit-copy.svg" : ""
-                                secondaryIconColor: Material.accentColor
-                                secondaryIconSize: 24
-                                progressive: false
-                                secondaryIconClickable: true
-                                onSecondaryIconClicked: {
-                                    PlatformHelper.toClipBoard(paramValue)
-                                    ToolTip.show(qsTr("SKI copied to clipboard"), 500);
+                    contentHeight: eebusParameterContent.implicitHeight
+                    clip: true
 
+                    ColumnLayout {
+                        id: eebusParameterContent
+                        width: parent.width
+                        spacing: Style.margins
+
+                        CoFrostyCard {
+                            Layout.fillWidth: true
+                            contentTopMargin: Style.margins
+                            headerText: qsTr("Parameter")
+
+                            ColumnLayout {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                spacing: 0
+
+                                Repeater {
+                                    model: thingClass.paramTypes
+
+                                    delegate: CoCard {
+                                        Layout.fillWidth: true
+                                        property var param: discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id)
+                                        property string paramValue: param ? param.value : ""
+                                        text: paramValue !== "" ? paramValue : "—"
+                                        labelText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
+                                        helpText: model.displayName
+                                        iconRight: index === 0 ? "/icons/edit-copy.svg" : ""
+                                        iconRightColor: Style.colors.brand_Basic_Accent
+                                        interactive: index === 0
+                                        onClicked: {
+                                            PlatformHelper.toClipBoard(paramValue);
+                                            ToolTip.show(qsTr("SKI copied to clipboard"), 500);
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
 
-                VerticalDivider {
+                CheckBox {
+                    id: deviceConnected
                     Layout.fillWidth: true
-                    Layout.topMargin: app.margins - 12
-                    Layout.bottomMargin: app.margins - 12
-                    dividerColor: Material.accent
+                    text: qsTr("Establish a connection with this device.")
                 }
 
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-
-                    CoNotification {
-                        Layout.fillWidth: true
-                        visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
-                        type: CoNotification.Type.Danger
-                        title: qsTr("Attention")
-                        message: qsTr("Existing setup will be overwritten.")
-                    }
-
-                    ConsolinnoCheckbox {
-                        id: deviceConnected
-                        text: qsTr("Establish a connection with this device.")
-                        Layout.alignment: Qt.AlignLeft
-                    }
-                }
-
-                ColumnLayout {
-                    Layout.fillHeight: true
+                Button {
+                    id: eebusSetUpComplete
                     Layout.fillWidth: true
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
+                    enabled: deviceConnected.checked
+                    text: qsTr("Complete setup")
 
-
-                    Button {
-                        id: eebusSetUpComplete
-                        Layout.fillWidth: true
-                        enabled: deviceConnected.checked
-                        text: qsTr("Complete setup")
-
-                        onClicked: {
-                            if(eebusThing.count > 0){
-                               engine.thingManager.removeThing(eeBusThing.id)
-                            }
-
-                            for(var i = 0; i < thingClass.paramTypes.count; i++){
-                                var param = {}
-                                param["paramTypeId"] = thingClass.paramTypes.get(i).id
-                                param["value"] = isNaN(discoveryThingParams.params.getParam(thingClass.paramTypes.get(i).id)) ? discoveryThingParams.params.getParam(thingClass.paramTypes.get(i).id).value : ""
-                                d.params.push(param)
-                            }
-
-                            engine.thingManager.addThing(thingClass.id, thingClass.name, d.params);
-                            root.setGridSupportSettings("eebus");
-                            pageStack.push(eebusViewStatus, { thingClass: thingClass, discoveryThingParams: discoveryThingParams });
+                    onClicked: {
+                        if (eebusThing.count > 0) {
+                            engine.thingManager.removeThing(eeBusThing.id);
                         }
-                    }
 
-                    ConsolinnoSetUpButton {
-                        text: qsTr("Cancel")
-                        backgroundColor: "transparent"
-                        onClicked: {
-                            pageStack.pop()
-                            pageStack.pop()
-                            pageStack.pop()
+                        for (var i = 0; i < thingClass.paramTypes.count; i++) {
+                            var param = {};
+                            var paramTypeId = thingClass.paramTypes.get(i).id;
+                            var discoveryParam = discoveryThingParams.params.getParam(paramTypeId);
+                            param["paramTypeId"] = paramTypeId;
+                            param["value"] = discoveryParam ? discoveryParam.value : "";
+                            d.params.push(param);
                         }
+
+                        engine.thingManager.addThing(thingClass.id, thingClass.name, d.params);
+                        root.setGridSupportSettings("eebus");
+                        pageStack.push(eebusViewStatus,
+                                       {
+                                           thingClass: thingClass,
+                                           discoveryThingParams: discoveryThingParams
+                                       });
                     }
                 }
 
-                Item {
-                    Layout.fillHeight: true
+                Button {
+                    text: qsTr("Cancel")
                     Layout.fillWidth: true
+                    secondary: true
+                    onClicked: {
+                        pageStack.pop();
+                        pageStack.pop();
+                        pageStack.pop();
+                    }
                 }
-
             }
         }
     }
@@ -798,17 +658,16 @@ StackView {
         id: eebusView
 
         Page {
-
             header: ConsolinnoHeader {
                 text: qsTr("Grid-supportive control – EEBUS")
                 backButtonVisible: true
                 menuOptionsButtonVisible: true
                 onBackPressed: pageStack.pop()
-                onMenuOptionsPressed: menu.open()
+                onMenuOptionsPressed: eebusViewMenu.open()
             }
 
             ListModel {
-                id: menuListModel
+                id: eebusViewMenuListModel
 
                 ListElement {
                     icon: "/icons/delete.svg"
@@ -822,15 +681,13 @@ StackView {
             }
 
             Menu {
-                id: menu
-
-                x:root.width - width
+                id: eebusViewMenu
+                x: root.width - width - Style.margins
                 modal: true
 
                 Repeater {
-                    id: menuListRepeater
-
-                    model: menuListModel
+                    id: eebusViewMenuListRepeater
+                    model: eebusViewMenuListModel
 
                     Item {
                         width: ListView.view.width
@@ -868,16 +725,15 @@ StackView {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                if(index === 0){
-                                    engine.thingManager.removeThing(eeBusThing.id)
+                                if (index === 0) {
+                                    engine.thingManager.removeThing(eeBusThing.id);
                                     root.setGridSupportSettings("none");
-                                    pageStack.pop()
-                                }else if(index === 1){
-                                    discovery.discoverThings(thingClassesProxy.get(0).id)
-                                    pageStack.push(eebusViewSelect, {thingClass: thingClassesProxy.get(0)})
+                                    pageStack.pop();
+                                } else if (index === 1) {
+                                    discovery.discoverThings(thingClassesProxy.get(0).id);
+                                    pageStack.push(eebusViewSelect, { thingClass: thingClassesProxy.get(0) });
                                 }
-
-                                menu.close();
+                                eebusViewMenu.close();
                             }
                         }
                     }
@@ -885,129 +741,92 @@ StackView {
             }
 
             ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                Layout.topMargin: 0
-                spacing: 8
-
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.bottomMargin: 8
-                    Label {
-                        Layout.topMargin: 5
-                        textFormat: Text.RichText
-                        font.pointSize: 15
-                        font.bold: true
-                        wrapMode: Text.WordWrap
-                        text: qsTr("Parameter")
-
-                    }
-                }
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
 
                 Flickable {
-                    id: flick
-                    clip: true
-                    contentWidth: parent.width
-                    contentHeight: column.implicitHeight
-
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    implicitHeight: 2
+                    contentHeight: eebusViewContent.implicitHeight
+                    clip: true
+
                     ColumnLayout {
-                        id: column
+                        id: eebusViewContent
                         width: parent.width
-                        spacing: 5
-                        Repeater {
-                            model: eeBusThing.thingClass.paramTypes
-                            delegate: ConsolinnoItemDelegate {
-                                id: thingParams
-                                implicitHeight: 50
-                                property var paramType: eeBusThing.thingClass.paramTypes.get(index)
-                                property string paramValue: isNaN(eeBusThing.params.getParam(eeBusThing.thingClass.paramTypes.get(index).id)) ? eeBusThing.params.getParam(eeBusThing.thingClass.paramTypes.get(index).id).value : ""
-                                Layout.fillWidth: true
-                                text: paramValue !== "" ? paramValue : ""
-                                subText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
-                                tertiaryText: model.displayName
-                                secondaryIconName: index === 0 ? "/icons/edit-copy.svg" : ""
-                                secondaryIconColor: Material.accentColor
-                                secondaryIconSize: 24
-                                progressive: false
-                                secondaryIconClickable: true
-                                onSecondaryIconClicked: {
-                                    PlatformHelper.toClipBoard(paramValue)
-                                    ToolTip.show(qsTr("SKI copied to clipboard"), 500);
+                        spacing: Style.margins
+
+                        CoFrostyCard {
+                            Layout.fillWidth: true
+                            contentTopMargin: Style.margins
+                            headerText: qsTr("Parameter")
+
+                            ColumnLayout {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                spacing: 0
+
+                                Repeater {
+                                    model: eeBusThing.thingClass.paramTypes
+                                    delegate: CoCard {
+                                        Layout.fillWidth: true
+                                        property var paramType: eeBusThing.thingClass.paramTypes.get(index)
+                                        property var param: eeBusThing.params.getParam(paramType.id)
+                                        property string paramValue: param ? param.value : ""
+                                        text: paramValue !== "" ? paramValue : "—"
+                                        labelText: model.displayName
+                                        helpText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
+                                        iconRight: index === 0 ? "/icons/edit-copy.svg" : ""
+                                        iconRightColor: Style.colors.brand_Basic_Accent
+                                        interactive: index === 0
+                                        onClicked: {
+                                            if (index === 0) {
+                                                PlatformHelper.toClipBoard(paramValue);
+                                                ToolTip.show(qsTr("SKI copied to clipboard"), 500);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        CoFrostyCard {
+                            Layout.fillWidth: true
+                            contentTopMargin: Style.margins
+                            headerText: qsTr("Status")
+                            visible: eebusThing.count > 0
+
+                            ColumnLayout {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                spacing: 0
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    text: (!eebusSettings.connected && !eebusSettings.everConnected) ?
+                                              qsTr("Confirmation by network operator pending") :
+                                              eebusState == true ?
+                                                  qsTr("Connected") :
+                                                  qsTr("Not connected")
+                                    interactive: false
+                                    status: (!eebusSettings.connected && !eebusSettings.everConnected) ?
+                                                CoCard.StatusType.Warning :
+                                                eebusState == true ?
+                                                    CoCard.StatusType.Success :
+                                                    CoCard.StatusType.Danger
                                 }
                             }
                         }
                     }
                 }
-
-                VerticalDivider {
-                    Layout.fillWidth: true
-                    Layout.topMargin: app.margins - 12
-                    Layout.bottomMargin: app.margins - 12
-                    dividerColor: Material.accent
-                }
-
-                RowLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.topMargin: 16
-                    visible: eebusThing.count > 0
-
-                    Label {
-                        Layout.fillWidth: true
-                        Layout.bottomMargin: 0
-                        textFormat: Text.RichText
-                        font.pointSize: 15
-                        font.bold: true
-                        wrapMode: Text.WordWrap
-                        text: qsTr("Status")
-                    }
-                }
-
-                //Status
-                RowLayout {
-                    Layout.topMargin: 16
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.bottomMargin: 20
-                    visible: eebusThing.count > 0
-                    spacing: 15
-                    Rectangle {
-                        width: 19
-                        height: 19
-                        color: colorsEEBUS
-                        border.color: colorsEEBUS
-                        radius: 12
-                    }
-
-                    Label {
-                        Layout.fillWidth: true
-                        text: textEEBUS
-                        font.pointSize: 12
-                        wrapMode: Text.WordWrap
-                    }
-                }
-
-                Item {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                }
-
             }
         }
-
     }
 
     Component {
         id: eebusViewStatus
 
         Page {
-
             property ThingClass thingClass
             property var discoveryThingParams
 
@@ -1018,108 +837,82 @@ StackView {
             }
 
             ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                Layout.topMargin: 0
-                spacing: 8
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
 
-                RowLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.topMargin: 16
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.margins
+                    headerText: qsTr("Control box")
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        CoCard {
+                            Layout.fillWidth: true
+                            property var paramType: thingClass.paramTypes.get(0)
+                            property string paramValue: discoveryThingParams.params.getParam(paramType.id).value
+                            text: paramValue
+                            labelText: qsTr("This SKI is required by the network operator.")
+                            helpText: qsTr("Local Subject Key Identifier (SKI)")
+                            iconRight: Qt.resolvedUrl("/icons/edit-copy.svg")
+                            iconRightColor: Style.colors.brand_Basic_Accent
+                            interactive: true
+                            onClicked: {
+                                PlatformHelper.toClipBoard(paramValue);
+                                ToolTip.show(qsTr("SKI copied to clipboard"), 500);
+                            }
+                        }
+                    }
+                }
+
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.margins
+                    headerText: qsTr("Status")
                     visible: eebusThing.count > 0
 
-                    Label {
-                        Layout.fillWidth: true
-                        Layout.bottomMargin: 0
-                        textFormat: Text.RichText
-                        font.pointSize: 15
-                        font.bold: true
-                        wrapMode: Text.WordWrap
-                        text: qsTr("Status")
-                    }
-                }
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
 
-                //Status
-                RowLayout {
-                    Layout.topMargin: 16
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.bottomMargin: 8
-                    visible: eebusThing.count > 0
-                    spacing: 15
-                    Rectangle {
-                        width: 19
-                        height: 19
-                        color: colorsEEBUS
-                        border.color: colorsEEBUS
-                        radius: 12
-                    }
-
-                    Label {
-                        Layout.fillWidth: true
-                        text: textEEBUS
-                        font.pointSize: 12
-                        wrapMode: Text.WordWrap
-                    }
-                }
-
-                VerticalDivider {
-                    Layout.fillWidth: true
-                    Layout.topMargin: app.margins - 12
-                    Layout.bottomMargin: app.margins - 12
-                    dividerColor: Material.accent
-                }
-
-                ConsolinnoItemDelegate {
-                    implicitHeight: 50
-                    property var paramType: thingClass.paramTypes.get(0)
-                    property string paramValue: discoveryThingParams.params.getParam(paramType.id).value
-                    Layout.fillWidth: true
-                    text: paramValue
-                    subText: qsTr("This SKI is required by the network operator.")
-                    tertiaryText: "Local Subject Key Identifier (SKI)"
-                    secondaryIconName: "/icons/edit-copy.svg"
-                    secondaryIconColor: Material.accentColor
-                    secondaryIconSize: 24
-                    progressive: false
-                    secondaryIconClickable: true
-                    onSecondaryIconClicked: {
-                        PlatformHelper.toClipBoard(paramValue)
-                        ToolTip.show(qsTr("SKI copied to clipboard"), 500);
-                    }
-                }
-
-                VerticalDivider {
-                    Layout.fillWidth: true
-                    Layout.topMargin: app.margins - 12
-                    Layout.bottomMargin: app.margins - 12
-                    dividerColor: Material.accent
-                }
-
-                ColumnLayout {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-
-                    Button {
-                        id: eebusBackToView
-                        Layout.fillWidth: true
-                        text: qsTr("Back to overview")
-
-                        onClicked: {
-                            pageStack.pop()
-                            pageStack.pop()
-                            pageStack.pop()
-                            pageStack.pop()
+                        CoCard {
+                            Layout.fillWidth: true
+                            text: (!eebusSettings.connected && !eebusSettings.everConnected) ?
+                                      qsTr("Confirmation by network operator pending") :
+                                      eebusState == true ?
+                                          qsTr("Connected") :
+                                          qsTr("Not connected")
+                            interactive: false
+                            status: (!eebusSettings.connected && !eebusSettings.everConnected) ?
+                                        CoCard.StatusType.Warning :
+                                        eebusState == true ?
+                                            CoCard.StatusType.Success :
+                                            CoCard.StatusType.Danger
                         }
                     }
                 }
 
                 Item {
-                    Layout.fillHeight: true
                     Layout.fillWidth: true
+                    Layout.fillHeight: true
+                }
+
+                Button {
+                    id: eebusBackToView
+                    Layout.fillWidth: true
+                    text: qsTr("Back to overview")
+
+                    onClicked: {
+                        pageStack.pop();
+                        pageStack.pop();
+                        pageStack.pop();
+                        pageStack.pop();
+                    }
                 }
             }
         }

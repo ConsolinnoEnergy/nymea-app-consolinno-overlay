@@ -95,6 +95,7 @@ T.SpinBox {
 
     background: Rectangle {
         implicitWidth: 140
+        implicitHeight: 45
 
         radius: Style.cornerRadius + 2
         color: (control.hovered &&

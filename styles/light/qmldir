@@ -1,5 +1,6 @@
 module light
 Button 1.0 Button.qml
+CheckBox 1.0 CheckBox.qml
 ComboBox 1.0 ComboBox.qml
 Dialog 1.0 Dialog.qml
 RadioButton 1.0 RadioButton.qml

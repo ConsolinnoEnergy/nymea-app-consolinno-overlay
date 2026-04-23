@@ -68,6 +68,20 @@ Page {
                 anchors.rightMargin: Style.margins
                 spacing: 0
 
+                CoInputField {
+                    id: maxElectricalPower
+                    property bool maxElectricalPowerValid: !visible || textField.acceptableInput
+                    Layout.fillWidth: true
+                    visible: !thing.thingClass.interfaces.includes("controllablebattery")
+                    labelText: qsTr("Maximal electrical power")
+                    compact: true
+                    unit: qsTr("kW")
+                    feedbackText: qsTr("The value is outside the valid range.")
+                    textField.text: (+batteryConfiguration.maxElectricalPower).toLocaleString()
+                    textField.maximumLength: 10
+                    textField.validator: DoubleValidator { bottom: 0.5 }
+                }
+
                 CoSwitch {
                     id: gridSupportControl
                     Layout.fillWidth: true
@@ -130,6 +144,7 @@ Page {
             id: savebutton
 
             Layout.fillWidth: true
+            enabled: maxElectricalPower.maxElectricalPowerValid
             text: qsTr("Apply changes")
             onClicked: {
                 var blockBatteryOnGridConsumption = batteryConfiguration.blockBatteryOnGridConsumption;
@@ -139,11 +154,16 @@ Page {
                     blockBatteryOnGridConsumption &= ~BatteryConfiguration.EvCharger;
                 }
 
-                hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId,
-                                                    { controllableLocalSystem: gridSupportControl.checked,
-                                                        avoidZeroFeedInEnabled: zeroCompensationControl.checked,
-                                                        blockBatteryOnGridConsumption: blockBatteryOnGridConsumption
-                                                    });
+                let config = {
+                    controllableLocalSystem: gridSupportControl.checked,
+                    avoidZeroFeedInEnabled: zeroCompensationControl.checked,
+                    blockBatteryOnGridConsumption: blockBatteryOnGridConsumption
+                };
+                if (maxElectricalPower.visible) {
+                    config.maxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text);
+                }
+
+                hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, config);
                 if (directionID !== 1) {
                     pageStack.pop();
                 }

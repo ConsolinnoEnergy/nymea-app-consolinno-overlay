@@ -45,22 +45,49 @@ Page {
         var page = pageStack.push(Qt.resolvedUrl("SetupWizard.qml"), {thingClass: thingClass});
         page.done.connect(function() {
             var thingPage = "";
-            if(thingClass.interfaces.includes("heatpump")){
-                thingPage = pageStack.push("../optimization/HeatingOptimization.qml", { heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatPumpThing: thingDevice, directionID: 1})
-                navigateBack(thingPage)
-            }else if(thingClass.interfaces.includes("evcharger")){
-                thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", { chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thingDevice.id), thing: thingDevice, directionID: 1})
-                navigateBack(thingPage)
-            }else if(thingClass.interfaces.includes("heatingrod")){
-                thingPage = pageStack.push("../optimization/HeatingElementOptimization.qml", { heatingConfiguration:  hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id), heatRodThing: thingDevice, directionID: 1})
-                navigateBack(thingPage)
-            }else if(thingClass.interfaces.includes("solarinverter")){
-                thingPage = pageStack.push("../optimization/PVOptimization.qml", { pvConfiguration:  hemsManager.pvConfigurations.getPvConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
-                navigateBack(thingPage)
-            }else if(thingClass.interfaces.includes("energystorage")){
-                thingPage = pageStack.push("../optimization/BatteryOptimization.qml", { batteryConfiguration:  hemsManager.batteryConfigurations.getBatteryConfiguration(thingDevice.id), thing: thingDevice, directionID: 1} )
-                navigateBack(thingPage)
-            }else{
+            if (thingClass.interfaces.includes("heatpump")) {
+                thingPage = pageStack.push("../optimization/HeatingOptimization.qml", {
+                    heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id),
+                    heatPumpThing: thingDevice,
+                    directionID: 1
+                });
+                navigateBack(thingPage);
+            } else if (thingClass.interfaces.includes("evcharger")) {
+                thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", {
+                    chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thingDevice.id),
+                    thing: thingDevice,
+                    directionID: 1
+                });
+                navigateBack(thingPage);
+            } else if (thingClass.interfaces.includes("heatingrod")) {
+                thingPage = pageStack.push("../optimization/HeatingElementOptimization.qml", {
+                    heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id),
+                    heatRodThing: thingDevice,
+                    directionID: 1
+                });
+                navigateBack(thingPage);
+            } else if (thingClass.interfaces.includes("solarinverter")) {
+                thingPage = pageStack.push("../optimization/PVOptimization.qml", {
+                    pvConfiguration: hemsManager.pvConfigurations.getPvConfiguration(thingDevice.id),
+                    thing: thingDevice,
+                    directionID: 1
+                });
+                navigateBack(thingPage);
+            } else if (thingClass.interfaces.includes("energystorage")) {
+                thingPage = pageStack.push("../optimization/BatteryOptimization.qml", {
+                    batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thingDevice.id),
+                    thing: thingDevice,
+                    directionID: 1
+                });
+                navigateBack(thingPage);
+            } else if (thingClass.interfaces.includes("powersocket")) {
+                thingPage = pageStack.push("../optimization/SwitchableConsumerOptimization.qml", {
+                    switchableConsumerConfiguration: hemsManager.switchableConsumerConfigurations.getSwitchableConsumerConfiguration(thingDevice.id),
+                    switchableConsumerThing: thingDevice,
+                    directionID: 1
+                });
+                navigateBack(thingPage);
+            } else {
                 pageStack.pop(root);
             }
         })

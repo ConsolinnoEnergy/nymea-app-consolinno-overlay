@@ -16,7 +16,7 @@ Item {
     property alias unit: unitLabel.text
     property alias feedbackText: notification.text
     property alias showLabel: labelLayout.visible
-    property bool compactTextField: false
+    property bool compact: false
 
     implicitHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
     implicitWidth: layout.implicitWidth + layout.anchors.leftMargin + layout.anchors.rightMargin
@@ -56,7 +56,7 @@ Item {
             TextField {
                 id: textinput
                 Layout.fillWidth: true
-                Layout.preferredWidth: root.compactTextField ? 0 : -1
+                Layout.preferredWidth: root.compact ? 0 : -1
                 Layout.leftMargin: -4
                 Layout.topMargin: 4
                 Layout.bottomMargin: 4
@@ -64,12 +64,12 @@ Item {
 
             Text {
                 id: unitLabel
-                Layout.fillWidth: root.compactTextField
-                Layout.preferredWidth: root.compactTextField ? 0 : -1
+                Layout.fillWidth: root.compact
+                Layout.preferredWidth: root.compact ? 0 : -1
                 font: Style.newParagraphFont
                 color: Style.colors.typography_Basic_Default
                 text: ""
-                visible: root.compactTextField ? true : text !== ""
+                visible: root.compact ? true : text !== ""
                 opacity: root.enabled ? 1 : Style.numbers.components_Disabled_opacity
             }
         }
