@@ -12,6 +12,8 @@ Item {
     property alias infoUrl: label.push
     property alias helpText: helpLabel.text
 
+    signal clicked()
+
     implicitHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
     implicitWidth: layout.implicitWidth + layout.anchors.leftMargin + layout.anchors.rightMargin
 
@@ -63,6 +65,9 @@ Item {
         Switch {
             id: toggle
             Layout.alignment: Qt.AlignCenter
+            onClicked: {
+                root.clicked();
+            }
         }
     }
 }
