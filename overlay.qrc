@@ -251,6 +251,7 @@
         <file>components/ConsolinnoCheckbox.qml</file>
         <file>system/ConsolinnoConnectionInterfacesPage.qml</file>
         <file>thingconfiguration/ConsolinnoConfigureThingPage.qml</file>
+        <file>thingconfiguration/ConsolinnoThingClassDetailsPage.qml</file>
         <file>devicepages/ConsolinnoDeviceLogPage.qml</file>
         <file>thingconfiguration/EpexDayAheadSetup.qml</file>
         <file>utils/DynPricingUtils.js</file>

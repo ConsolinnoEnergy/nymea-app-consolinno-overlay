@@ -226,7 +226,7 @@ SettingsPageBase {
                             labelText: qsTr("View the type definition for this thing")
                             showChildrenIndicator: true
                             onClicked: {
-                                pageStack.push(Qt.resolvedUrl("ThingClassDetailsPage.qml"), { thing: root.thing })
+                                pageStack.push(Qt.resolvedUrl("ConsolinnoThingClassDetailsPage.qml"), { thing: root.thing })
                             }
                         }
                     }
