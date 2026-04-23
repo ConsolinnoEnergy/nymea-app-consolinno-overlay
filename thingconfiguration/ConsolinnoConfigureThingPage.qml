@@ -43,6 +43,17 @@ SettingsPageBase {
     property var stateTypes: []
     busy: d.pendingCommand != -1
 
+    readonly property bool isEpexDayAheadThing: root.thing.thingClassId.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}"
+
+    QtObject {
+        id: epexState
+        property bool variableGridFees: {
+            if (!root.isEpexDayAheadThing) return false;
+            var param = root.thing.params.getParam("c39d158c-d9a4-40f2-8d6d-746eca80f9ec");
+            return param ? param.value : false;
+        }
+    }
+
     header: NymeaHeader {
         text: root.thing.name
         onBackPressed: pageStack.pop()
@@ -239,6 +250,18 @@ SettingsPageBase {
                                 paramType: root.thing.thingClass.paramTypes.getParamType(model.id)
                                 param: root.thing.params.get(index)
                                 writable: false
+                                visible: {
+                                    if (!root.isEpexDayAheadThing) return true;
+                                    var paramId = model.id.toString();
+                                    if (paramId === "{f4b1b3b2-4c1c-4b1a-8f1a-9c2b2a1a1b1b}") {
+                                        // "Grid operator" parameter - show when variable grid fees enabled
+                                        return epexState.variableGridFees;
+                                    } else if (paramId === "{9d80154a-4205-47cb-a69f-d151a836639b}") {
+                                        // "Added grid fee" parameter - show when variable grid fees disabled
+                                        return !epexState.variableGridFees;
+                                    }
+                                    return true;
+                                }
                             }
                         }
                     }
