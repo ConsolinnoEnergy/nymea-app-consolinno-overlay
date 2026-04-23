@@ -231,6 +231,12 @@ ItemDelegate {
                 if (root.value === undefined) {
                     root.value = value
                 }
+                if (root.paramType.minValue !== undefined && root.paramType.minValue < -1000000) {
+                    console.warn("CoParamDelegate: minValue", root.paramType.minValue, "for param", root.paramType.name, "is outside the supported range of -1000000")
+                }
+                if (root.paramType.maxValue !== undefined && root.paramType.maxValue > 1000000) {
+                    console.warn("CoParamDelegate: maxValue", root.paramType.maxValue, "for param", root.paramType.name, "is outside the supported range of 1000000")
+                }
             }
 
             onValueModified: (value) => root.param.value = value
