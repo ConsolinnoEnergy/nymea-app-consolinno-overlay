@@ -175,11 +175,11 @@ Page {
                                 anchors.right: parent.right
                                 spacing: 0
 
-                                TextField {
+                                CoInputField {
                                     id: nameTextField
                                     text: root.thingClass.displayName
+                                    labelText: qsTr("Please change name if necessary")
                                     Layout.fillWidth: true
-                                    Layout.margins: Style.margins
                                 }
                             }
                         }

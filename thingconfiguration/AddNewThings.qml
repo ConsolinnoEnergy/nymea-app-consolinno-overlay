@@ -42,7 +42,7 @@ Page {
     }
 
     function startWizard(thingClass) {
-        var page = pageStack.push(Qt.resolvedUrl("SetupWizard.qml"), {thingClass: thingClass});
+        var page = pageStack.push(Qt.resolvedUrl("ConsolinnoSetupWizard.qml"), {thingClass: thingClass});
         page.done.connect(function() {
             var thingPage = "";
             if (thingClass.interfaces.includes("heatpump")) {

@@ -135,7 +135,7 @@ Item {
                 font: Style.newParagraphFont
                 color: Style.colors.typography_Basic_Default
                 text: ""
-                visible: text !== ""
+                visible: root.compact || text !== ""
                 opacity: root.enabled ? 1 : Style.numbers.components_Disabled_opacity
             }
         }
