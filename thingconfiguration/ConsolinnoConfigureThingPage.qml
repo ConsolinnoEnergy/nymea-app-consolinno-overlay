@@ -201,7 +201,7 @@ SettingsPageBase {
 
     Repeater {
         model: root.thing.params
-        delegate: ConsolinnoParamDelegate {
+        delegate: ParamDelegate {
             Layout.fillWidth: true
             paramType: root.thing.thingClass.paramTypes.getParamType(model.id)
             param: root.thing.params.get(index)
@@ -278,7 +278,7 @@ SettingsPageBase {
     Repeater {
         id: settingsRepeater
         model: root.thing.settings
-        delegate: ConsolinnoParamDelegate {
+        delegate: ParamDelegate {
             Layout.fillWidth: true
             paramType: root.thing.thingClass.settingsTypes.getParamType(model.id)
             value: root.thing.settings.get(index).value
