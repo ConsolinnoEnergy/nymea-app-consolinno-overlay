@@ -18,7 +18,7 @@ StackView {
 
     property string name
     property bool newTariff: false
-    property Thing dynElectricThing : dynElectricThings.get(0)
+    property Thing dynElectricThing : dynElectricThings.count > 0 ? dynElectricThings.get(0) : null
     property int directionID: 0
 
     signal done(bool skip, bool abort, bool back);
