@@ -143,22 +143,24 @@ T.ComboBox {
     }
 
     popup: T.Popup {
+        id: thePopup
         x: 4
         y: 4
         width: control.width - 8
-        height: Math.min(contentItem.implicitHeight, control.Window.height - topMargin - bottomMargin)
+        height: Math.min(contentItem.implicitHeight + topPadding + bottomPadding, control.Window.height - topMargin - bottomMargin)
         topMargin: 6
         bottomMargin: 6
+        padding: 1
 
         Item {
             id: roundedRectMask
-            width: parent.width
-            height: parent.height
+            width: thePopup.availableWidth
+            height: thePopup.availableHeight
             layer.enabled: true
             opacity: 0
             Rectangle {
                 anchors.fill: parent
-                radius: Style.cornerRadius
+                radius: Style.cornerRadius - 1
             }
         }
 
