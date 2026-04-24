@@ -17,6 +17,7 @@ StackView {
     initialItem: setUpComponent
 
     property int directionID: 0
+    readonly property string epexDayAheadThingClassId: "{678dd2a6-b162-4bfb-98cc-47f225f9008c}"
 
     signal done(bool skip, bool abort, bool back);
 
@@ -79,7 +80,7 @@ StackView {
                                 onClicked: {
                                     if (supportsSetup) {
                                         var isEpexDayAheadThing =
-                                                thing.thingClassId.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}";
+                                                thing.thingClassId.toString() === root.epexDayAheadThingClassId;
                                         var pageUrl = isEpexDayAheadThing ?
                                                     "qrc:///ui/thingconfiguration/EpexDayAheadSetup.qml" :
                                                     "qrc:///ui/thingconfiguration/ConsolinnoSetupWizard.qml";
@@ -137,7 +138,7 @@ StackView {
 
                             onClicked: {
                                 var isEpexDayAheadThing =
-                                        thingClass.id.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}";
+                                        thingClass.id.toString() === root.epexDayAheadThingClassId;
                                 var pageUrl = isEpexDayAheadThing ?
                                             "qrc:///ui/thingconfiguration/EpexDayAheadSetup.qml" :
                                             "qrc:///ui/thingconfiguration/ConsolinnoSetupWizard.qml";
