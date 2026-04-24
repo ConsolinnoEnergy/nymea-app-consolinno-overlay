@@ -28,14 +28,6 @@ StackView {
         shownInterfaces: ["dynamicelectricitypricing"]
     }
 
-    ThingClassesProxy {
-        id: thingClassesProxy
-        engine: _engine
-        includeProvidedInterfaces: true
-        groupByInterface: true
-        filterInterface: "dynamicelectricitypricing"
-    }
-
     Component {
         id: setUpComponent
         Page {
@@ -139,8 +131,11 @@ StackView {
                             id: addButton
                             Layout.fillWidth: true
                             visible: dynElectricThings.count === 0
+                            enabled: thingClass !== null
                             text: qsTr("Add")
-                            property ThingClass thingClass: thingClassesProxy.get(energyRateComboBox.currentIndex)
+                            property ThingClass thingClass: energyRateComboBox.currentIndex >= 0 ?
+                                                                currentThing.get(energyRateComboBox.currentIndex) :
+                                                                null
 
                             onClicked: {
                                 var isEpexDayAheadThing =
