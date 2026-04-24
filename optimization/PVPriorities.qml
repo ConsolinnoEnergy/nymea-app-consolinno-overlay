@@ -228,6 +228,7 @@ Page {
                                     priorityListView.draggingIndex = priorityListView.indexAt(mouseX, mouseYInList);
                                     dndItem.text = prioListModel.get(priorityListView.draggingIndex).name;
                                     dndItem.iconLeft = prioListModel.get(priorityListView.draggingIndex).icon;
+                                    dndItem.card.opacity = prioListModel.get(priorityListView.draggingIndex).optimizationEnabled ? 1 : 0.3;
                                     dndArea.dragOffset = priorityListView.mapToItem(item, mouseX, mouseY).y;
                                 }
 
