@@ -13,6 +13,11 @@ Page {
         onBackPressed: pageStack.pop()
     }
 
+    HemsManager {
+        id: hemsManager
+        engine: _engine
+    }
+
     Flickable {
         anchors.fill: parent
         contentHeight: layout.implicitHeight + app.margins
@@ -181,6 +186,17 @@ Page {
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
                                  && Configuration.apiSettingsEnabled
                         onClicked: pageStack.push(Qt.resolvedUrl("system/ConsolinnoConnectionInterfacesPage.qml"))
+                    }
+
+                    CoCard {
+                        Layout.fillWidth: true
+                        iconLeft: "/icons/cloud.svg"
+                        text: qsTr("Consolinno cloud services")
+                        helpText: qsTr("Manage cloud connection and data sharing preferences.")
+                        showChildrenIndicator: true
+                        visible: hemsManager.cloudConfigurationSupported
+                        onClicked: pageStack.push(Qt.resolvedUrl("optimization/CloudServicesPage.qml"),
+                                                  { "hemsManager": hemsManager })
                     }
 
                     CoCard {
