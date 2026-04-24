@@ -79,7 +79,7 @@ StackView {
                                 }
 
                                 onClicked: {
-                                    if(thing.thingClass.setupMethod !== 4){
+                                    if (supportsSetup) {
                                         var isEpexDayAheadThing =
                                                 thing.thingClassId.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}";
                                         var pageUrl = isEpexDayAheadThing ?
