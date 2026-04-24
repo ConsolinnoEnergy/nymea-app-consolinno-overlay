@@ -140,7 +140,7 @@ StackView {
                                         thingClass.id.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}";
                                 var pageUrl = isEpexDayAheadThing ?
                                             "qrc:///ui/thingconfiguration/EpexDayAheadSetup.qml" :
-                                            "qrc:///ui/thingconfiguration/SetupWizard.qml";
+                                            "qrc:///ui/thingconfiguration/ConsolinnoSetupWizard.qml";
                                 var page = pageStack.push(Qt.resolvedUrl(pageUrl), { thingClass: thingClass });
                                 page.done.connect(function() {
                                     pageStack.pop();
