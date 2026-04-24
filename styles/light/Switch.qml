@@ -66,7 +66,9 @@ T.Switch {
                             Style.colors.components_Forms_Toggle_Track_active :
                             Style.colors.components_Forms_Toggle_Toggle_disabled;
             } else {
-                if (control.pressed) {
+                if (!control.enabled) {
+                    return "transparent";
+                } else if (control.pressed) {
                     return Style.colors.typography_States_Pressed;
                 } else if (control.hovered) {
                     return Style.colors.typography_States_Hover;
