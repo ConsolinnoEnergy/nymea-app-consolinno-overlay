@@ -261,9 +261,7 @@ Page {
 
                         Button {
                             id: restoreDefaultListButton
-                            // Layout.fillWidth: true
                             Layout.alignment: Qt.AlignHCenter
-                            visible: hemsManager.emsConfiguration.defaultPvSurplusPriolist.length === hemsManager.emsConfiguration.pvSurplusPriolist.length
                             text: qsTr("Restore default order")
                             iconRight: Qt.resolvedUrl("qrc:/icons/undo.svg")
                             secondary: true
