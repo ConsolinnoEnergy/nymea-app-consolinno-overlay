@@ -209,7 +209,9 @@ Page {
                                 text: model.name
                                 iconLeft: model.icon
                                 visible: index !== priorityListView.draggingIndex
-                                card.opacity: (model.optimizationEnabled || model.thingId === root.alwaysEnabledThingId) ? 1 : 0.3
+                                card.opacity: (model.optimizationEnabled ||
+                                               (root.alwaysEnabledThingId !== "" &&
+                                                model.thingId === root.alwaysEnabledThingId)) ? 1 : 0.3
                             }
 
                             MouseArea {
@@ -229,7 +231,9 @@ Page {
                                     priorityListView.draggingIndex = priorityListView.indexAt(mouseX, mouseYInList);
                                     dndItem.text = prioListModel.get(priorityListView.draggingIndex).name;
                                     dndItem.iconLeft = prioListModel.get(priorityListView.draggingIndex).icon;
-                                    dndItem.card.opacity = (prioListModel.get(priorityListView.draggingIndex).optimizationEnabled || prioListModel.get(priorityListView.draggingIndex).thingId === root.alwaysEnabledThingId) ? 1 : 0.3;
+                                    dndItem.card.opacity = (prioListModel.get(priorityListView.draggingIndex).optimizationEnabled ||
+                                                            (root.alwaysEnabledThingId !== "" &&
+                                                             prioListModel.get(priorityListView.draggingIndex).thingId === root.alwaysEnabledThingId)) ? 1 : 0.3;
                                     dndArea.dragOffset = priorityListView.mapToItem(item, mouseX, mouseY).y;
                                 }
 
