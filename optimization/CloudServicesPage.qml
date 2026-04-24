@@ -9,7 +9,6 @@ import "../components"
 Page {
     id: root
 
-    property HemsManager hemsManager
     property CloudConfiguration cloudConfiguration: hemsManager.cloudConfiguration
 
     header: NymeaHeader {

@@ -13,11 +13,6 @@ Page {
         onBackPressed: pageStack.pop()
     }
 
-    HemsManager {
-        id: hemsManager
-        engine: _engine
-    }
-
     Flickable {
         anchors.fill: parent
         contentHeight: layout.implicitHeight + app.margins
@@ -195,8 +190,7 @@ Page {
                         helpText: qsTr("Manage cloud connection and data sharing preferences.")
                         showChildrenIndicator: true
                         visible: hemsManager.cloudConfigurationSupported
-                        onClicked: pageStack.push(Qt.resolvedUrl("optimization/CloudServicesPage.qml"),
-                                                  { "hemsManager": hemsManager })
+                        onClicked: pageStack.push(Qt.resolvedUrl("optimization/CloudServicesPage.qml"))
                     }
 
                     CoCard {
