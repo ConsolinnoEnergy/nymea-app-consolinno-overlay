@@ -9,6 +9,7 @@ import "../delegates"
 Page {
     id: root
     property int directionID: 0
+    property string alwaysEnabledThingId: ""
 
     // #TODO needed here? i.e. should this screen be included in the setup assistant?
     signal done(bool skip, bool abort, bool back)
@@ -208,7 +209,9 @@ Page {
                                 text: model.name
                                 iconLeft: model.icon
                                 visible: index !== priorityListView.draggingIndex
-                                card.opacity: model.optimizationEnabled ? 1 : 0.3
+                                card.opacity: (model.optimizationEnabled ||
+                                               (root.alwaysEnabledThingId !== "" &&
+                                                model.thingId === root.alwaysEnabledThingId)) ? 1 : 0.3
                             }
 
                             MouseArea {
@@ -228,6 +231,9 @@ Page {
                                     priorityListView.draggingIndex = priorityListView.indexAt(mouseX, mouseYInList);
                                     dndItem.text = prioListModel.get(priorityListView.draggingIndex).name;
                                     dndItem.iconLeft = prioListModel.get(priorityListView.draggingIndex).icon;
+                                    dndItem.card.opacity = (prioListModel.get(priorityListView.draggingIndex).optimizationEnabled ||
+                                                            (root.alwaysEnabledThingId !== "" &&
+                                                             prioListModel.get(priorityListView.draggingIndex).thingId === root.alwaysEnabledThingId)) ? 1 : 0.3;
                                     dndArea.dragOffset = priorityListView.mapToItem(item, mouseX, mouseY).y;
                                 }
 
@@ -260,9 +266,7 @@ Page {
 
                         Button {
                             id: restoreDefaultListButton
-                            // Layout.fillWidth: true
                             Layout.alignment: Qt.AlignHCenter
-                            visible: hemsManager.emsConfiguration.defaultPvSurplusPriolist.length === hemsManager.emsConfiguration.pvSurplusPriolist.length
                             text: qsTr("Restore default order")
                             iconRight: Qt.resolvedUrl("qrc:/icons/undo.svg")
                             secondary: true

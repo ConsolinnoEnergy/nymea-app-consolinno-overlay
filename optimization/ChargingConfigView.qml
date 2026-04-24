@@ -1049,7 +1049,8 @@ GenericConfigPage {
                                 visible: isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing])
 
                                 onClicked: {
-                                    pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"));
+                                    pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"),
+                                                   { alwaysEnabledThingId: root.thing.id.toString() });
                                 }
                             }
 
