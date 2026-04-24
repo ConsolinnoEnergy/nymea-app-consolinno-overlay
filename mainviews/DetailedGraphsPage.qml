@@ -51,7 +51,6 @@ MainViewBase {
         anchors.margins: app.margins / 2
         contentHeight: energyGrid.childrenRect.height
         visible: !engine.thingManager.fetchingData && engine.jsonRpcClient.experiences.hasOwnProperty("Energy")
-        topMargin: 0
 
         // GridLayout directly in a flickable causes problems at initialisation
         Item {
@@ -66,6 +65,12 @@ MainViewBase {
                 columns: Math.max(1, rawColumns - (rawColumns % 2))
                 rowSpacing: 0
                 columnSpacing: 0
+
+                Item {
+                    height: root.topMargin
+                    Layout.fillWidth: true
+                    Layout.columnSpan: energyGrid.columns
+                }
 
                 ConsolinnoDynamicElectricPricingHistory {
                     Layout.fillWidth: true
