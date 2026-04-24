@@ -65,7 +65,7 @@ StackView {
                                 text: model.name
                                 property Thing thing: dynElectricThings.get(index)
                                 showChildrenIndicator: true
-                                deletable: thing !== null
+                                deletable: true
                                 interactive: true
                                 property int pageStackPopsAfterConfigure: 1
 
