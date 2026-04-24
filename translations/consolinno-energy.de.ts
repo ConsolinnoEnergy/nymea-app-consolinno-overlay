@@ -19,14 +19,6 @@
         <translation>Auto hinzufügen</translation>
     </message>
     <message>
-        <source>Name the thing:</source>
-        <translation>Name:</translation>
-    </message>
-    <message>
-        <source>Capacity: </source>
-        <translation>Kapazität</translation>
-    </message>
-    <message>
         <source>Minimum charging current</source>
         <translation>Minimaler Ladestrom</translation>
     </message>
@@ -74,36 +66,59 @@
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
+    <message>
+        <source>Setup car</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Name</translation>
+    </message>
+    <message>
+        <source>Capacity</source>
+        <translation type="unfinished">Kapazität</translation>
+    </message>
 </context>
 <context>
     <name>AddNewThings</name>
     <message>
-        <source>Vendor</source>
-        <translation>Hersteller</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation>Alle</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>Typ</translation>
-    </message>
-    <message>
-        <source>Looking for something else?</source>
-        <translation>Suchen Sie nach etwas anderem?</translation>
-    </message>
-    <message>
-        <source>Try to install more plugins.</source>
-        <translation>Versuchen Sie, mehr Plugins zu installieren.</translation>
-    </message>
-    <message>
-        <source>Install plugins</source>
-        <translation>Plugins installieren</translation>
-    </message>
-    <message>
         <source>Set up new device</source>
         <translation>Gerät hinzufügen</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AnonymizedUsageDataInfo</name>
+    <message>
+        <source>Anonymized Usage Data</source>
+        <translation>Anonymisierte Nutzungsdaten</translation>
+    </message>
+    <message>
+        <source>What are anonymized usage data?</source>
+        <translation>Was sind anonymisierte Nutzungsdaten?</translation>
+    </message>
+    <message>
+        <source>With this release, fully anonymized usage data is transmitted to Consolinno. This data does not contain any personal information and does not allow any conclusions to be drawn about individual persons or locations. All identifying characteristics are irrevocably removed before transmission.</source>
+        <translation>Mit dieser Freigabe werden vollständig anonymisierte Nutzungsdaten an Consolinno übertragen. Diese Daten enthalten keine personenbezogenen Informationen und lassen keine Rückschlüsse auf einzelne Personen oder Standorte zu. Alle identifizierenden Merkmale werden vor der Übertragung unwiderruflich entfernt.</translation>
+    </message>
+    <message>
+        <source>What is this data used for?</source>
+        <translation>Wofür werden diese Daten verwendet?</translation>
+    </message>
+    <message>
+        <source>The anonymized data is used exclusively for research purposes as well as for the improvement of products and services. They help to further develop optimization algorithms, improve system stability and design new functions to meet demand. Your data thus makes a valuable contribution to the further development of the energy transition.</source>
+        <translation>Die anonymisierten Daten werden ausschließlich für Forschungszwecke sowie zur Verbesserung von Produkten und Dienstleistungen verwendet. Sie helfen dabei, Optimierungsalgorithmen weiterzuentwickeln, die Systemstabilität zu verbessern und neue Funktionen bedarfsgerecht zu gestalten. Ihre Daten leisten so einen wertvollen Beitrag zur Weiterentwicklung der Energiewende.</translation>
+    </message>
+    <message>
+        <source>Will my data be shared with third parties?</source>
+        <translation>Werden meine Daten an Dritte weitergegeben?</translation>
+    </message>
+    <message>
+        <source>No. The anonymized usage data is not sold to third parties or used for advertising purposes. You can revoke this release at any time. For more information, please visit www.consolinno.de/hems-datenschutz.</source>
+        <translation>Nein. Die anonymisierten Nutzungsdaten werden nicht an Dritte verkauft oder zu Werbezwecken verwendet. Sie können diese Freigabe jederzeit widerrufen. Weitere Informationen finden Sie unter www.consolinno.de/hems-datenschutz.</translation>
     </message>
 </context>
 <context>
@@ -113,20 +128,20 @@
         <translation>Autorisierung</translation>
     </message>
     <message>
-        <source>next</source>
-        <translation>weiter</translation>
-    </message>
-    <message>
-        <source>cancel</source>
-        <translation>abbrechen</translation>
-    </message>
-    <message>
         <source>To comission devices with the %1, you must be authorized. Otherwise the warranty expires.</source>
         <translation>Nur Personen mit ausreichenden Fachkenntnissen sollten Geräte in Betrieb nehmen. Andernfalls kann es zu einer Beeinträchtigung der Funktionsweise des %1 führen.</translation>
     </message>
     <message>
         <source>I am authorized to operate the %1</source>
         <translation>Ich bin berechtigt, %1 zu bedienen</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -167,24 +182,8 @@
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <source>Charging Plan</source>
-        <translation>Ladeplan</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
-    </message>
-    <message>
         <source>State of Charge</source>
         <translation>Ladezustand</translation>
-    </message>
-    <message>
-        <source>Current price</source>
-        <translation>Aktueller Preis</translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation>Status</translation>
     </message>
     <message>
         <source>Charging</source>
@@ -199,20 +198,12 @@
         <translation>Leerlauf</translation>
     </message>
     <message>
-        <source>Power</source>
-        <translation>Leistung</translation>
-    </message>
-    <message>
         <source>Charging from grid</source>
         <translation>Beladen aus dem Netz</translation>
     </message>
     <message>
         <source>Activate instant charging</source>
         <translation>Sofortladen aktivieren</translation>
-    </message>
-    <message>
-        <source>If the zero-compensation avoidance is active, immediate battery charging is not possible.</source>
-        <translation>Wenn Nullvergütung vermieden aktiv ist, dann ist kein Sofortladen der Batterie möglich.</translation>
     </message>
     <message>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
@@ -254,12 +245,33 @@
         <source>&quot;Block discharging&quot; price limit</source>
         <translation>Preisgrenze „Entladen sperren“</translation>
     </message>
-</context>
-<context>
-    <name>BatteryConfigurationView</name>
     <message>
-        <source>Battery</source>
-        <translation>Batterie</translation>
+        <source> %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV device prioritization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Priority</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Priority applies up to state of charge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Above this state of charge, the battery is always considered last</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging plan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -288,10 +300,6 @@
         <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
-    </message>
-    <message>
         <source>Avoid zero compensation</source>
         <translation>Nullvergütung vermeiden</translation>
     </message>
@@ -302,6 +310,26 @@
     <message>
         <source>Block EV charging from the battery</source>
         <translation>Fahrzeug nicht aus Batterie laden</translation>
+    </message>
+    <message>
+        <source>Battery</source>
+        <translation type="unfinished">Batterie</translation>
+    </message>
+    <message>
+        <source>Maximal electrical power</source>
+        <translation type="unfinished">Maximale elektrische Leistung</translation>
+    </message>
+    <message>
+        <source>kW</source>
+        <translation type="unfinished">kW</translation>
+    </message>
+    <message>
+        <source>The value is outside the valid range.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -315,32 +343,52 @@
         <translation>Ungültiges Stromlimit.</translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
+        <source>25 A</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Per phase: 25 A</source>
-        <translation>Pro Phase: 25 A</translation>
+        <source>35 A</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Per phase: 35 A</source>
-        <translation>Pro Phase: 35 A</translation>
+        <source>40 A</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Per phase: 40 A</source>
-        <translation>Pro Phase: 40 A</translation>
+        <source>50 A</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Per phase: 50 A</source>
-        <translation>Pro Phase: 50 A</translation>
+        <source>63 A</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Per phase: 63 A</source>
-        <translation>Pro Phase: 63 A</translation>
+        <source>User defined</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Per phase A:</source>
-        <translation>Pro Phase A:</translation>
+        <source>Blackout protection per phase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the maximum current that this installation can safely handle.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User defined current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value between 16 and 100 A.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The value is outside the valid range.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -376,14 +424,6 @@
 <context>
     <name>CarInventory</name>
     <message>
-        <source>Add new car</source>
-        <translation>Auto hinzufügen</translation>
-    </message>
-    <message>
-        <source>edit</source>
-        <translation>bearbeiten</translation>
-    </message>
-    <message>
         <source>Thing reconfigured!</source>
         <translation>&quot;Thing&quot; neu eingerichtet!</translation>
     </message>
@@ -396,14 +436,6 @@
         <translation>OK</translation>
     </message>
     <message>
-        <source>Name: </source>
-        <translation>Name: </translation>
-    </message>
-    <message>
-        <source>Battery capacity</source>
-        <translation>Batteriekapazität</translation>
-    </message>
-    <message>
         <source>Minimum charging current</source>
         <translation>Minimaler Ladestrom</translation>
     </message>
@@ -412,16 +444,32 @@
         <translation>Maximales Ladelimit</translation>
     </message>
     <message>
-        <source>delete</source>
-        <translation>Löschen</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
-    </message>
-    <message>
         <source>List of Cars</source>
         <translation>Fahrzeugliste</translation>
+    </message>
+    <message>
+        <source>Electric vehicles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Setup car</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Name</translation>
+    </message>
+    <message>
+        <source>Capacity</source>
+        <translation type="unfinished">Kapazität</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Löschen</translation>
     </message>
 </context>
 <context>
@@ -429,22 +477,6 @@
     <message>
         <source>no car selected</source>
         <translation>kein Auto ausgewählt</translation>
-    </message>
-    <message>
-        <source>Car plugged in:</source>
-        <translation>Auto eingesteckt</translation>
-    </message>
-    <message>
-        <source>No car is connected at the moment. Please connect a car.</source>
-        <translation>Im Moment ist kein Auto angesteckt. Bitte stecken Sie ein Auto an.</translation>
-    </message>
-    <message>
-        <source>Charging configuration</source>
-        <translation>Ladeeinstellungen</translation>
-    </message>
-    <message>
-        <source>Charging mode: </source>
-        <translation>Lademodus: </translation>
     </message>
     <message>
         <source>PV only</source>
@@ -467,36 +499,8 @@
         <translation>Unterbrochen</translation>
     </message>
     <message>
-        <source>Configure Charging</source>
-        <translation>Lademodus einstellen</translation>
-    </message>
-    <message>
-        <source>Electric car:</source>
-        <translation>Ausgewähltes Auto:</translation>
-    </message>
-    <message>
-        <source>Battery level: </source>
-        <translation>Batteriestand: </translation>
-    </message>
-    <message>
-        <source>Target charge %1%</source>
-        <translation>Ladeziel %1%</translation>
-    </message>
-    <message>
-        <source>Ending time: </source>
-        <translation>Zielzeit: </translation>
-    </message>
-    <message>
         <source>In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time</source>
         <translation>Ladevorgang in der vorgegeben Zeit nicht möglich, verringern sie das Ladeziel oder verlängern sie die Zeitvorgabe.</translation>
-    </message>
-    <message>
-        <source>please select a car</source>
-        <translation>bitte wählen Sie ein Auto aus</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
     </message>
     <message>
         <source>Select/Add Car</source>
@@ -619,26 +623,6 @@
         <translation>Preisgrenze</translation>
     </message>
     <message>
-        <source>Pausing: </source>
-        <translation>Pausieren: </translation>
-    </message>
-    <message>
-        <source>Price limit: </source>
-        <translation>Preisgrenze: </translation>
-    </message>
-    <message>
-        <source>average price: </source>
-        <translation>Durchschnittspreis: </translation>
-    </message>
-    <message>
-        <source>-</source>
-        <translation>-</translation>
-    </message>
-    <message>
-        <source>+</source>
-        <translation>+</translation>
-    </message>
-    <message>
         <source>Pausing</source>
         <translation>Pausieren</translation>
     </message>
@@ -667,24 +651,8 @@
         <translation>Preisgrenze unterschritten</translation>
     </message>
     <message>
-        <source>Cancel &amp; reconfigure charging mode</source>
-        <translation>Lademodus abbrechen &amp; ändern</translation>
-    </message>
-    <message>
-        <source>Low solar avalaibility:</source>
-        <translation>Bei wenig Solarstrom:</translation>
-    </message>
-    <message>
-        <source>Currently corresponds to a electricity price of %1 ct/kWh.</source>
-        <translation>Entspricht aktuell einem Strompreis von %1 ct/kWh.</translation>
-    </message>
-    <message>
         <source>Low solar availability</source>
         <translation>Bei wenig Solarstrom</translation>
-    </message>
-    <message>
-        <source>pausing</source>
-        <translation>pausieren</translation>
     </message>
     <message>
         <source>Time controlled</source>
@@ -719,10 +687,6 @@
         <translation>Sonntag</translation>
     </message>
     <message>
-        <source>Number of phases:</source>
-        <translation>Phasenanzahl:</translation>
-    </message>
-    <message>
         <source>Phase setting could not be applied</source>
         <translation>Phasenanzahl konnte nicht übernommen werden</translation>
     </message>
@@ -734,12 +698,65 @@
         <source>Phase count</source>
         <translation>Phasenanzahl</translation>
     </message>
-</context>
-<context>
-    <name>ChargingConfigurationView</name>
     <message>
-        <source>Charging</source>
-        <translation>Laden</translation>
+        <source>Vehicle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Car plugged in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Car not plugged in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selected car</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If the price limit is exceeded, PV surplus power is used according to device priority.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Priority</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of phases</source>
+        <translation type="unfinished">Phasenanzahl beim Laden</translation>
+    </message>
+    <message>
+        <source>Low solar avalaibility</source>
+        <translation type="unfinished">Bei wenig Solarstrom</translation>
+    </message>
+    <message>
+        <source>Charging plan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current price</source>
+        <translation type="unfinished">Aktueller Preis</translation>
+    </message>
+    <message>
+        <source>&quot;Charging&quot; price limit</source>
+        <translation type="unfinished">Preisgrenze „Laden“</translation>
+    </message>
+    <message>
+        <source>Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.</source>
+        <translation type="unfinished">Abweichung vom 48-h-Durchschnitt (in %) bei der geladen wird. Entspricht aktuell %1 ct/kWh.</translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -798,33 +815,6 @@
     </message>
 </context>
 <context>
-    <name>ChargingOptimization</name>
-    <message>
-        <source>Charging optimization</source>
-        <translation>Ladeoptimierung</translation>
-    </message>
-    <message>
-        <source>Reenable chargepoint:</source>
-        <translation>Wiedereinschalten des Ladepunkts:</translation>
-    </message>
-    <message>
-        <source>P value:</source>
-        <translation>P-wert</translation>
-    </message>
-    <message>
-        <source>I value:</source>
-        <translation>I-wert</translation>
-    </message>
-    <message>
-        <source>D value:</source>
-        <translation>D-wert</translation>
-    </message>
-    <message>
-        <source>Setpoint:</source>
-        <translation>Sollwert:</translation>
-    </message>
-</context>
-<context>
     <name>ChargingPhaseSwitchingInfo</name>
     <message>
         <source>Number of phases</source>
@@ -861,6 +851,96 @@
     <message>
         <source>Charges the vehicle more slowly</source>
         <translation>Lädt das Fahrzeug langsamer</translation>
+    </message>
+</context>
+<context>
+    <name>CloudServicesActivateInfo</name>
+    <message>
+        <source>Activate Cloud Services</source>
+        <translation>Cloud-Dienste aktivieren</translation>
+    </message>
+    <message>
+        <source>What does this setting mean?</source>
+        <translation>Was bedeutet diese Einstellung?</translation>
+    </message>
+    <message>
+        <source>This setting enables exclusively the connection to the system&apos;s authorized cloud services. Through these, functions such as data synchronization, secure remote access, and system updates are provided. The system only connects to the manufacturer&apos;s explicitly designated services – not to external or arbitrary cloud providers.</source>
+        <translation>Diese Einstellung aktiviert ausschließlich die Verbindung zu den autorisierten Cloud-Diensten des Systems. Darüber werden Funktionen wie Datensynchronisation, sicherer Fernzugriff und System-Updates bereitgestellt. Das System verbindet sich nur mit den vom Hersteller explizit festgelegten Diensten – nicht mit externen oder beliebigen Cloud-Anbietern.</translation>
+    </message>
+    <message>
+        <source>Which data is transmitted?</source>
+        <translation>Welche Daten werden übertragen?</translation>
+    </message>
+    <message>
+        <source>The connection enables basic communication between the system and the Consolinno servers. Which data categories are specifically shared is determined by the individual release settings below. No additional data is transmitted without your explicit consent.</source>
+        <translation>Die Verbindung ermöglicht eine grundlegende Kommunikation zwischen dem System und den Consolinno-Servern. Welche Datenkategorien konkret geteilt werden, bestimmen die individuellen Freigabe-Einstellungen weiter unten. Ohne Ihre ausdrückliche Zustimmung werden keine zusätzlichen Daten übertragen.</translation>
+    </message>
+    <message>
+        <source>Can I deactivate the connection at any time?</source>
+        <translation>Kann ich die Verbindung jederzeit deaktivieren?</translation>
+    </message>
+    <message>
+        <source>Yes. You can deactivate the cloud connection at any time. The system will then continue to operate entirely in local mode. Some functions that require an active cloud connection will not be available in this case.</source>
+        <translation>Ja. Sie können die Cloud-Verbindung jederzeit deaktivieren. Das System arbeitet dann vollständig im lokalen Betrieb weiter. Einige Funktionen, die eine aktive Cloud-Verbindung erfordern, stehen in diesem Fall nicht zur Verfügung.</translation>
+    </message>
+</context>
+<context>
+    <name>CloudServicesPage</name>
+    <message>
+        <source>Consolinno Cloud Services</source>
+        <translation>Consolinno Cloud-Dienste</translation>
+    </message>
+    <message>
+        <source>Connection</source>
+        <translation>Verbindung</translation>
+    </message>
+    <message>
+        <source>Connected</source>
+        <translation>Verbunden</translation>
+    </message>
+    <message>
+        <source>Not connected</source>
+        <translation>Nicht verbunden</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
+        <source>Consent</source>
+        <translation>Einwilligung</translation>
+    </message>
+    <message>
+        <source>Activate Consolinno Cloud Services</source>
+        <translation>Consolinno Cloud-Dienste aktivieren</translation>
+    </message>
+    <message>
+        <source>Activates the connection to our cloud services. Only the selected release categories will be shared.</source>
+        <translation>Aktiviert die Verbindung zu unseren Cloud-Diensten. Nur die ausgewählten Freigabe-Kategorien werden geteilt.</translation>
+    </message>
+    <message>
+        <source>More about data processing and privacy</source>
+        <translation>Mehr über Datenschutz und Datenverarbeitung</translation>
+    </message>
+    <message>
+        <source>Release categories</source>
+        <translation>Freigabe-Kategorien</translation>
+    </message>
+    <message>
+        <source>Energy Monitoring</source>
+        <translation>Energie-Monitoring</translation>
+    </message>
+    <message>
+        <source>Shares consumption and production data for accurate energy analysis.</source>
+        <translation>Teilt Verbrauchs- und Produktionsdaten für präzise Energieanalysen.</translation>
+    </message>
+    <message>
+        <source>Anonymized usage data</source>
+        <translation>Anonymisierte Nutzungsdaten</translation>
+    </message>
+    <message>
+        <source>Shares fully anonymized data for research and product improvement.</source>
+        <translation>Teilt vollständig anonymisierte Daten für Forschung und Produktverbesserung.</translation>
     </message>
 </context>
 <context>
@@ -1459,6 +1539,41 @@
     </message>
 </context>
 <context>
+    <name>ConsolinnoDynamicElectricPricing</name>
+    <message>
+        <source>Consumers history</source>
+        <translation type="unfinished">Verbraucherhistorie</translation>
+    </message>
+    <message>
+        <source>Hours</source>
+        <translation type="unfinished">Stunden</translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation type="unfinished">Tage</translation>
+    </message>
+    <message>
+        <source>Weeks</source>
+        <translation type="unfinished">Wochen</translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation type="unfinished">Monate</translation>
+    </message>
+    <message>
+        <source>No data available</source>
+        <translation type="unfinished">Keine Daten verfügbar</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Unbekannt</translation>
+    </message>
+    <message>
+        <source>Total</source>
+        <translation type="unfinished">Gesamt</translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoDynamicElectricPricingHistory</name>
     <message>
         <source>today</source>
@@ -1828,12 +1943,20 @@ Abgaben: %4 %2</translation>
         <translation>Anfrageversuche</translation>
     </message>
     <message>
-        <source>Request timeout [ms]</source>
-        <translation>Versuchsdauer [ms]</translation>
-    </message>
-    <message>
         <source>Add</source>
         <translation>Hinzufügen</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Unbekannt</translation>
+    </message>
+    <message>
+        <source>Request timeout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ms</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1903,12 +2026,20 @@ Abgaben: %4 %2</translation>
         <translation>Anfrageversuche</translation>
     </message>
     <message>
-        <source>Request timeout [ms]</source>
-        <translation>Versuchsdauer [ms]</translation>
-    </message>
-    <message>
         <source>Apply</source>
         <translation>Anwenden</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished">Informationen</translation>
+    </message>
+    <message>
+        <source>Request timeout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ms</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1916,10 +2047,6 @@ Abgaben: %4 %2</translation>
     <message>
         <source>Modbus-RTU-Interfaces</source>
         <translation>Modbus RTU-Schnittstelle</translation>
-    </message>
-    <message>
-        <source>Add Modbus RTU master</source>
-        <translation>Modbus RTU Master hinzufügen</translation>
     </message>
     <message>
         <source>The serial port is not available any more.</source>
@@ -2018,10 +2145,6 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Unbekannte Stopbits</translation>
     </message>
     <message>
-        <source>Note: If you intend to connect a device via &lt;b&gt;Modbus-RTU&lt;/b&gt;, please verify the Modbus interface settings to ensure they are compatible with the connected device. If you wish to use a different interface, please add another one.</source>
-        <translation>Hinweis: Falls Sie ein Gerät über &lt;b&gt;Modbus-RTU&lt;/b&gt; anschließen wollen, überprüfen Sie bitte die Einstellungen der Modbus-Schnittstelle (diese müssen zum angeschlossenen Gerät passen). Falls Sie eine andere Schnittstelle verwenden wollen, fügen Sie eine weitere hinzu.</translation>
-    </message>
-    <message>
         <source>Connected</source>
         <translation>Verbunden</translation>
     </message>
@@ -2106,16 +2229,24 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Neu einrichten</translation>
     </message>
     <message>
-        <source>cancel</source>
-        <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>Next step</source>
-        <translation>Nächster Schritt</translation>
-    </message>
-    <message>
         <source>Available interfaces</source>
         <translation>Verfügbare Schnittstellen</translation>
+    </message>
+    <message>
+        <source>Note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you intend to connect a device via &lt;b&gt;Modbus-RTU&lt;/b&gt;, please verify the Modbus interface settings to ensure they are compatible with the connected device. If you wish to use a different interface, please add another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -2446,13 +2577,6 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     <message>
         <source> </source>
         <translation> ein</translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoParamDelegate</name>
-    <message>
-        <source>Type to search</source>
-        <translation>Zum Suchen eingeben</translation>
     </message>
 </context>
 <context>
@@ -2920,12 +3044,178 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <source>Configure the system’s network connection.</source>
         <translation>Richte das Netzwerk dieses Systems ein.</translation>
     </message>
+    <message>
+        <source>Consolinno cloud services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage cloud connection and data sharing preferences.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoSetupWizard</name>
+    <message>
+        <source>Discover %1</source>
+        <translation type="unfinished">%1 einrichten</translation>
+    </message>
+    <message>
+        <source>Discovery options</source>
+        <translation type="unfinished">Suchparameter</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
+    </message>
+    <message>
+        <source>Add thing manually</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nymea found the following things</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching for things...</source>
+        <translation type="unfinished">Suche Geräte</translation>
+    </message>
+    <message>
+        <source>Too bad...</source>
+        <translation type="unfinished">Schade!</translation>
+    </message>
+    <message>
+        <source>No things of this kind could be found...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search again</source>
+        <translation type="unfinished">Erneut suchen</translation>
+    </message>
+    <message>
+        <source>Reconfigure %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation type="unfinished">%1 einrichten</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Name</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation type="unfinished">Gerät parameter</translation>
+    </message>
+    <message>
+        <source>Reset values to default</source>
+        <translation type="unfinished">Werte auf Standard zurücksetzen</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Login required</source>
+        <translation type="unfinished">Anmeldung erforderlich</translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished">Benutzername</translation>
+    </message>
+    <message>
+        <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing reconfigured!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing added!</source>
+        <translation type="unfinished">Thing hinzugefügt!</translation>
+    </message>
+    <message>
+        <source>Uh oh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All done. You can now start using %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Something went wrong setting up this thing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoSwipeDelegate</name>
     <message>
         <source>Delete</source>
         <translation>Löschen</translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoThingClassDetailsPage</name>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">Typ</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Name</translation>
+    </message>
+    <message>
+        <source>ID</source>
+        <translation type="unfinished">ID</translation>
+    </message>
+    <message>
+        <source>ID copied to clipboard</source>
+        <translation type="unfinished">ID in die Zwischenablage kopiert</translation>
+    </message>
+    <message>
+        <source>Interfaces</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parameters</source>
+        <translation type="unfinished">Parameter</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished">Einstellungen</translation>
+    </message>
+    <message>
+        <source>Events</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>States</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actions</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3216,28 +3506,8 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Dynamischer Stromtarif</translation>
     </message>
     <message>
-        <source>Submitted Rate</source>
-        <translation>Eingerichteter Tarif</translation>
-    </message>
-    <message>
-        <source>There is no rate set up yet</source>
-        <translation>Es sind noch keine Tarife angelegt</translation>
-    </message>
-    <message>
-        <source>Add Rate: </source>
-        <translation>Tarif hinzufügen: </translation>
-    </message>
-    <message>
         <source>Add Rate</source>
         <translation>Neuen Tarif hinzufügen</translation>
-    </message>
-    <message>
-        <source>Next</source>
-        <translation>Weiter</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Remove thing?</source>
@@ -3246,6 +3516,18 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     <message>
         <source>Are you sure you want to remove %1 and all associated settings?</source>
         <translation>Bist Du sicher, dass %1 und alle zugehörigen Einstellungen entfernt werden sollen?</translation>
+    </message>
+    <message>
+        <source>Submitted rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is no rate set up yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation type="unfinished">Hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -3281,6 +3563,37 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     <message>
         <source>The operating mode indicates the control of the heat pump:</source>
         <translation>Der Betriebszustand zeigt die Steuerung der Wärmepumpe an:</translation>
+    </message>
+</context>
+<context>
+    <name>EnergyMonitoringInfo</name>
+    <message>
+        <source>Energy Monitoring</source>
+        <translation>Energie-Monitoring</translation>
+    </message>
+    <message>
+        <source>What data is shared with Energy Monitoring?</source>
+        <translation>Welche Daten werden beim Energie-Monitoring geteilt?</translation>
+    </message>
+    <message>
+        <source>With this release, consumption and production data from your energy system is transmitted to the Consolinno Cloud. This includes, for example, measured values for solar production, grid consumption, feed-in, and the consumption of connected devices. This data forms the basis for precise energy analysis and enables continuous optimization of the system.</source>
+        <translation>Mit dieser Freigabe werden Verbrauchs- und Produktionsdaten Ihres Energiesystems an die Consolinno Cloud übertragen. Dazu gehören beispielsweise Messwerte für Solarproduktion, Netzbezug, Einspeisung sowie den Verbrauch angeschlossener Geräte. Diese Daten bilden die Grundlage für präzise Energieanalysen und ermöglichen eine kontinuierliche Optimierung des Systems.</translation>
+    </message>
+    <message>
+        <source>What is the benefit for me?</source>
+        <translation>Welchen Nutzen habe ich davon?</translation>
+    </message>
+    <message>
+        <source>The transmitted data enables detailed analysis of your energy flows, long-term trend analysis, and improved control and optimization of your system. You benefit from well-founded recommendations for maximizing self-consumption and reducing costs.</source>
+        <translation>Die übertragenen Daten ermöglichen eine detaillierte Analyse Ihrer Energieflüsse, langfristige Trendanalysen sowie eine verbesserte Steuerung und Optimierung Ihres Systems. Sie profitieren von fundierten Empfehlungen zur Maximierung des Eigenverbrauchs und zur Kostenreduktion.</translation>
+    </message>
+    <message>
+        <source>Is personal data transmitted?</source>
+        <translation>Werden personenbezogene Daten übertragen?</translation>
+    </message>
+    <message>
+        <source>The transmitted energy data is assigned to your system. You can revoke this release at any time. For more information on data protection, please visit www.consolinno.de/hems-datenschutz.</source>
+        <translation>Die übertragenen Energiedaten werden Ihrem System zugeordnet. Sie können diese Freigabe jederzeit widerrufen. Weitere Informationen zum Datenschutz finden Sie unter www.consolinno.de/hems-datenschutz.</translation>
     </message>
 </context>
 <context>
@@ -3322,10 +3635,6 @@ Would you like to continue anyway?</source>
 Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
-        <source>Name:</source>
-        <translation>Name:</translation>
-    </message>
-    <message>
         <source>Parameters</source>
         <translation>Parameter</translation>
     </message>
@@ -3345,13 +3654,17 @@ Möchten Sie trotzdem fortfahren?</translation>
         <source>Retry</source>
         <translation>Erneut versuchen</translation>
     </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Name</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EvChargerOptimization</name>
-    <message>
-        <source>Wallbox configuration</source>
-        <translation>Wallbox Konfiguration</translation>
-    </message>
     <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
@@ -3361,16 +3674,20 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
-    </message>
-    <message>
-        <source>Grid-supportive control</source>
-        <translation>Netzdienlichkeit</translation>
-    </message>
-    <message>
         <source>If the device must be controlled according to §14a, then this setting must be enabled.</source>
         <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
+    </message>
+    <message>
+        <source>Charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive-control</source>
+        <translation type="unfinished">Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3394,85 +3711,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>OK</source>
         <translation type="unfinished">OK</translation>
-    </message>
-</context>
-<context>
-    <name>GenericSmartDeviceMeterPage</name>
-    <message>
-        <source>Idle</source>
-        <translation>Leerlauf</translation>
-    </message>
-    <message>
-        <source>Charging</source>
-        <translation>Laden</translation>
-    </message>
-    <message>
-        <source>Discharging</source>
-        <translation>Entladen</translation>
-    </message>
-    <message>
-        <source>Producing</source>
-        <translation>Erzeugend</translation>
-    </message>
-    <message>
-        <source>Consuming</source>
-        <translation>Verbrauchend</translation>
-    </message>
-    <message>
-        <source>Returning</source>
-        <translation>Einspeisend</translation>
-    </message>
-    <message>
-        <source>Obtaining</source>
-        <translation>Beziehend</translation>
-    </message>
-    <message>
-        <source>Total Consumption: %1 kWh</source>
-        <translation>Gesamtverbrauch: %1 kWh</translation>
-    </message>
-    <message>
-        <source>Total Production: %1 kWh</source>
-        <translation>Gesamtproduktion: %1 kWh</translation>
-    </message>
-    <message>
-        <source>Total Acquisition: %1 kWh</source>
-        <translation>Gesamter Netzbezug: %1 kWh</translation>
-    </message>
-    <message>
-        <source>Total Return: %1 kWh</source>
-        <translation>Gesamte Netzeinspeisung: %1 kWh</translation>
-    </message>
-    <message>
-        <source>At the current rate, the battery will be fully charged at %1.</source>
-        <translation>Bei der aktuellen Rate wird die Batterie um %1 vollständig geladen sein.</translation>
-    </message>
-    <message>
-        <source>At the current rate, the battery will last until %1.</source>
-        <translation>Bei der aktuellen Rate wird die Batterie bis %1 halten.</translation>
-    </message>
-    <message>
-        <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
-        <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
-    </message>
-    <message>
-        <source>Avoid zero compensation active</source>
-        <translation>Nullvergütung vermeiden aktiv</translation>
-    </message>
-    <message>
-        <source>Feed-in curtailment</source>
-        <translation>Einspeiseabregelung</translation>
-    </message>
-    <message>
-        <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
-        <translation>Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend begrenzt&lt;/b&gt; auf &lt;b&gt;%1 kW.&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <source>Grid-supportive control</source>
-        <translation>Netzdienlichkeit</translation>
-    </message>
-    <message>
-        <source>Due to a control order from the network operator, the total power of controllable devices is &lt;b&gt;temporarily limited&lt;/b&gt; to &lt;b&gt;%1 kW.&lt;/b&gt; If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.</source>
-        <translation>Wegen eines Steuerbefehls des Netzbetreibers ist die Gesamtleistung steuerbarer Geräte &lt;b&gt;vorübergehend&lt;/b&gt; auf &lt;b&gt;%1&#x202f;kW begrenzt.&lt;/b&gt; Sollten Sie z.&#x202f;B. Ihr E-Auto derzeit laden, erfolgt der Ladevorgang ggf. nicht mit gewohnter Leistung.</translation>
     </message>
 </context>
 <context>
@@ -3501,24 +3739,12 @@ Möchten Sie trotzdem fortfahren?</translation>
 <context>
     <name>GridSupportiveControl</name>
     <message>
-        <source>not connected</source>
-        <translation>nicht verbunden</translation>
-    </message>
-    <message>
-        <source>connected</source>
-        <translation>verbunden</translation>
-    </message>
-    <message>
         <source>Control type</source>
         <translation>Steuerungsart</translation>
     </message>
     <message>
         <source></source>
         <translation></translation>
-    </message>
-    <message>
-        <source>Next</source>
-        <translation>Weiter</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -3535,10 +3761,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>Reconfigure</source>
         <translation>Neu konfigurieren</translation>
-    </message>
-    <message>
-        <source>The following EEBUS devices were found:</source>
-        <translation>Folgende EEBUS-Geräte wurden gefunden:</translation>
     </message>
     <message>
         <source>Search again</source>
@@ -3593,10 +3815,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>EEBUS Steuerbox</translation>
     </message>
     <message>
-        <source>Confirmation by network operator pending.</source>
-        <translation>Bestätigung durch Netzbetreiber ausstehend.</translation>
-    </message>
-    <message>
         <source>Relais</source>
         <translation>Relais</translation>
     </message>
@@ -3636,21 +3854,45 @@ Möchten Sie trotzdem fortfahren?</translation>
         <source>Due to a control order from the network operator, the total power of controllable devices is &lt;b&gt;temporarily limited&lt;/b&gt; to &lt;b&gt;%1 kW.&lt;/b&gt; If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.</source>
         <translation>Wegen eines Steuerbefehls des Netzbetreibers ist die Gesamtleistung steuerbarer Geräte &lt;b&gt;vorübergehend&lt;/b&gt; auf &lt;b&gt;%1&#x202f;kW begrenzt.&lt;/b&gt; Sollten Sie z.&#x202f;B. Ihr E-Auto derzeit laden, erfolgt der Ladevorgang ggf. nicht mit gewohnter Leistung.</translation>
     </message>
+    <message>
+        <source>The relais are configured as follows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following EEBUS devices were found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No EEBUS device was found in the network. Please make sure the device is powered on and connected to the same network.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching for devices...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirmation by network operator pending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connected</source>
+        <translation type="unfinished">Verbunden</translation>
+    </message>
+    <message>
+        <source>Not connected</source>
+        <translation type="unfinished">Nicht verbunden</translation>
+    </message>
+    <message>
+        <source>Control box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local Subject Key Identifier (SKI)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HeatingConfigView</name>
-    <message>
-        <source>Outdoor temperature</source>
-        <translation>Außentemperatur</translation>
-    </message>
-    <message>
-        <source>Return temperature</source>
-        <translation>Rücklauftemperatur</translation>
-    </message>
-    <message>
-        <source>Flow temperature</source>
-        <translation>Vorlauftemperatur</translation>
-    </message>
     <message>
         <source>Off</source>
         <translation>Aus</translation>
@@ -3668,48 +3910,12 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Hoch</translation>
     </message>
     <message>
-        <source>Current consumption</source>
-        <translation>Aktuelle Leistungsaufnahme</translation>
-    </message>
-    <message>
-        <source>Total thermal energy generated</source>
-        <translation>Gesamte erzeugte therm. Energie</translation>
-    </message>
-    <message>
-        <source>Energymanager</source>
-        <translation>Energiemanager</translation>
-    </message>
-    <message>
         <source>Forwarded Solar Surplus</source>
         <translation>Übermittelter PV-Überschuss</translation>
     </message>
     <message>
         <source>Operating mode</source>
         <translation>Betriebsmodus</translation>
-    </message>
-    <message>
-        <source>Heatpump condition</source>
-        <translation>Zustand Wärmepumpe</translation>
-    </message>
-    <message>
-        <source>Heating circuit</source>
-        <translation>Heizkreis</translation>
-    </message>
-    <message>
-        <source>Current COP</source>
-        <translation>Aktueller COP</translation>
-    </message>
-    <message>
-        <source>Average COP</source>
-        <translation>Durchschnittlicher COP</translation>
-    </message>
-    <message>
-        <source>Domestic hot water temperature</source>
-        <translation>Brauchwassertemperatur</translation>
-    </message>
-    <message>
-        <source>Absorbed elec. energy</source>
-        <translation>Aufgenommene el. Energie</translation>
     </message>
     <message>
         <source>Optimization</source>
@@ -3724,58 +3930,206 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Dynamischer Tarif</translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
-    </message>
-    <message>
         <source>Status</source>
         <translation>Status</translation>
     </message>
+    <message>
+        <source>Could not save configuration. One of the parameters is invalid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Could not save configuration. The thing is not valid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Current power consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> kW</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Priority</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum power</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum PV surplus power required for activation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value must not be below %1 W.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum runtime</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Runs at least this long after activation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>h</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value must be between 0 and %1 h.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum runtime</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limits the daily runtime and automatically switches the device off.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value must be between %1 and 24 h.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dynamic pricing</source>
+        <translation type="unfinished">Dynamischer Tarif</translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
-    <name>HeatingConfigurationView</name>
+    <name>HeatingDetailView</name>
     <message>
-        <source>Heating</source>
-        <translation>Heizen</translation>
+        <source>Generator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heating circuit 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heating circuit 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heating circuit 3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hot water</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Buffer</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>HeatingElementDevicePage</name>
     <message>
-        <source>Current Temperature</source>
-        <translation>Aktuelle Temperatur</translation>
-    </message>
-    <message>
-        <source>Current Consumption</source>
-        <translation>Momentaner Verbrauch</translation>
-    </message>
-    <message>
-        <source>Total Consumption</source>
-        <translation>Insgesamter Verbrauch</translation>
-    </message>
-    <message>
-        <source>Target Temperature</source>
-        <translation>Zieltemperatur</translation>
-    </message>
-    <message>
-        <source>Minimal Temperature</source>
-        <translation>Minimale Temperatur</translation>
-    </message>
-    <message>
-        <source>Power Setpoint Active</source>
-        <translation>Leistungsvorgabe aktiv</translation>
-    </message>
-    <message>
         <source>Power Setpoint</source>
         <translation>Leistungsvorgabe</translation>
+    </message>
+    <message>
+        <source>Could not save configuration. One of the parameters is invalid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Could not save configuration. The thing is not valid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+    </message>
+    <message>
+        <source>No control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV surplus</source>
+        <translation type="unfinished">PV-Überschuss</translation>
+    </message>
+    <message>
+        <source>Consuming</source>
+        <translation type="unfinished">Verbrauchend</translation>
+    </message>
+    <message>
+        <source>Idle</source>
+        <translation type="unfinished">Leerlauf</translation>
+    </message>
+    <message>
+        <source>Current temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> °C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation type="unfinished">Status</translation>
+    </message>
+    <message>
+        <source>Active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inactive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Power Setpoint Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operating mode</source>
+        <translation type="unfinished">Betriebsmodus</translation>
+    </message>
+    <message>
+        <source>PV Surplus</source>
+        <translation type="unfinished">PV-Überschuss</translation>
+    </message>
+    <message>
+        <source>Priority</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>HeatingElementOptimization</name>
-    <message>
-        <source>Heating Element Configuration</source>
-        <translation>Heizstabkonfiguration</translation>
-    </message>
     <message>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
@@ -3785,24 +4139,8 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>kW</translation>
     </message>
     <message>
-        <source>Operating mode (Solar Only)</source>
-        <translation>Betriebsmodus (nur Solar)</translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation>Ok</translation>
-    </message>
-    <message>
-        <source>The heater is operated only with solar power. If a wallbox is connected to the system, and a charging process is started, charging is prioritized.</source>
-        <translation>Der Heizstab wird nur mit Solarstrom betrieben. Falls eine Wallbox im System vorhanden ist, und ein Ladevorgang gestartet wird, wird das Laden priorisiert.</translation>
-    </message>
-    <message>
         <source>Maximal electrical power</source>
         <translation>Maximale elektrische Leistung</translation>
-    </message>
-    <message>
-        <source>The heating element is not controlled by the %1.</source>
-        <translation>Der Heizstab wird durch das %1 nicht gesteuert.</translation>
     </message>
     <message>
         <source>Grid-supportive-control</source>
@@ -3816,13 +4154,21 @@ Möchten Sie trotzdem fortfahren?</translation>
         <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
         <translation>Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
     </message>
+    <message>
+        <source>Heating</source>
+        <translation type="unfinished">Heizen</translation>
+    </message>
+    <message>
+        <source>The value is outside the valid range.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HeatingOptimization</name>
-    <message>
-        <source>Heating configuration</source>
-        <translation>Heizungseinstellung</translation>
-    </message>
     <message>
         <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
@@ -3838,10 +4184,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>kW</source>
         <translation>kW</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
     </message>
     <message>
         <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
@@ -3862,6 +4204,18 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>Electricity meter</source>
         <translation>Stromzähler</translation>
+    </message>
+    <message>
+        <source>Heating</source>
+        <translation type="unfinished">Heizen</translation>
+    </message>
+    <message>
+        <source>The value is outside the valid range.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3967,44 +4321,71 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Um bei Fragen oder Problemen für den Kunden erreichbar zu sein, tragen Sie hier Ihre Kontaktdaten ein. Die Daten werden nur an die App des Kunden gesendet.</translation>
     </message>
     <message>
-        <source>Name: </source>
-        <translation>Name: </translation>
-    </message>
-    <message>
-        <source>Workplace: </source>
-        <translation>Gewerbe: </translation>
-    </message>
-    <message>
         <source>Company</source>
         <translation>Gewerbe</translation>
-    </message>
-    <message>
-        <source>E-mail: </source>
-        <translation>E-mail: </translation>
     </message>
     <message>
         <source>Example@mail.com</source>
         <translation>Example@mail.com</translation>
     </message>
     <message>
-        <source>Phone number: </source>
-        <translation>Telefonnummer</translation>
-    </message>
-    <message>
         <source>+1 </source>
         <translation>+49 </translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
     </message>
     <message>
         <source>Skip</source>
         <translation>überspringen</translation>
     </message>
     <message>
-        <source>First name Last name</source>
-        <translation>Vor- und Nachname</translation>
+        <source>Contact (optional)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Name</translation>
+    </message>
+    <message>
+        <source>Workplace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E-mail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Phone number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
+    </message>
+</context>
+<context>
+    <name>InverterDevicePage</name>
+    <message>
+        <source>Feed-in curtailment</source>
+        <translation type="unfinished">Einspeiseabregelung</translation>
+    </message>
+    <message>
+        <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
+        <translation type="unfinished">Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend begrenzt&lt;/b&gt; auf &lt;b&gt;%1 kW.&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Producing</source>
+        <translation type="unfinished">Erzeugend</translation>
+    </message>
+    <message>
+        <source>Idle</source>
+        <translation type="unfinished">Leerlauf</translation>
+    </message>
+    <message>
+        <source>Total production</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> kWh</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4083,10 +4464,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Heizen</translation>
     </message>
     <message>
-        <source>Pv</source>
-        <translation>PV</translation>
-    </message>
-    <message>
         <source>No optimizations available</source>
         <translation>Keine Optimierungen verfügbar</translation>
     </message>
@@ -4106,12 +4483,21 @@ Möchten Sie trotzdem fortfahren?</translation>
         <source>Battery</source>
         <translation>Batterie</translation>
     </message>
-</context>
-<context>
-    <name>PVConfigurationView</name>
+    <message>
+        <source>System</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV device priorization</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <source>PV</source>
-        <translation>PV</translation>
+        <translation type="unfinished">PV</translation>
+    </message>
+    <message>
+        <source>Switchable consumers</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4147,10 +4533,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>kW</source>
         <translation>kW</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Speichern</translation>
     </message>
     <message>
         <source>PV configuration</source>
@@ -4195,6 +4577,49 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>If the device must be controlled in accordance with § 9, this setting must be enabled.</source>
         <translation>Sofern das Gerät in Übereinstimmung mit § 9 kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
+    </message>
+    <message>
+        <source>°</source>
+        <translation type="unfinished">°</translation>
+    </message>
+    <message>
+        <source>The value must be between 30 and 60.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The value is outside the valid range.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PVPriorities</name>
+    <message>
+        <source>PV Device Prioritization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device Prioritization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following devices are configured for surplus PV power. Sort them by priority using drag and drop.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The battery automatically moves to the last position when its SoC reaches %1%.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore default order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4247,6 +4672,45 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
 </context>
 <context>
+    <name>RootMeterDevicePage</name>
+    <message>
+        <source>Grid</source>
+        <translation type="unfinished">Netz</translation>
+    </message>
+    <message>
+        <source>Grid-supportive control</source>
+        <translation type="unfinished">Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>Due to a control order from the network operator, the total power of controllable devices is &lt;b&gt;temporarily limited&lt;/b&gt; to &lt;b&gt;%1 kW.&lt;/b&gt; If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.</source>
+        <translation type="unfinished">Wegen eines Steuerbefehls des Netzbetreibers ist die Gesamtleistung steuerbarer Geräte &lt;b&gt;vorübergehend&lt;/b&gt; auf &lt;b&gt;%1&#x202f;kW begrenzt.&lt;/b&gt; Sollten Sie z.&#x202f;B. Ihr E-Auto derzeit laden, erfolgt der Ladevorgang ggf. nicht mit gewohnter Leistung.</translation>
+    </message>
+    <message>
+        <source>Consuming</source>
+        <translation type="unfinished">Verbrauchend</translation>
+    </message>
+    <message>
+        <source>Producing</source>
+        <translation type="unfinished">Erzeugend</translation>
+    </message>
+    <message>
+        <source>Idle</source>
+        <translation type="unfinished">Leerlauf</translation>
+    </message>
+    <message>
+        <source>Total grid consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total grid feed-in</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>S:</name>
     <message>
         <source></source>
@@ -4270,15 +4734,90 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
 </context>
 <context>
+    <name>SetupEEBUSWizard</name>
+    <message>
+        <source>EEBUS Devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configured EEBUS Devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No EEBUS devices configured yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add EEBUS Device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search in network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Weiter</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
+    </message>
+    <message>
+        <source>Discover EEBUS Devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following devices were found:</source>
+        <translation type="unfinished">Folgende Geräte wurden gefunden:</translation>
+    </message>
+    <message>
+        <source>Searching for devices...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Too bad...</source>
+        <translation type="unfinished">Schade!</translation>
+    </message>
+    <message>
+        <source>No EEBUS device was found in the network. Please make sure the device is powered on and connected to the same network.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search again</source>
+        <translation type="unfinished">Erneut suchen</translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation type="unfinished">%1 einrichten</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Name</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary.</source>
+        <translation type="unfinished">Wenn notwendig, bitte den Namen ändern.</translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation type="unfinished">Gerät parameter</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>The EEBUS device has been successfully set up:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while setting up the EEBUS device. Please try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SetupEVChargerWizard</name>
-    <message>
-        <source>cancel</source>
-        <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>An unexpected error happened during the setup. Please verify the chargingpoint or wallbox is installed correctly and try again.</source>
-        <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Ladepunkt oder Wallbox überprüfen und erneut versuchen.</translation>
-    </message>
     <message>
         <source>Setup wallbox</source>
         <translation>Wallbox einrichten</translation>
@@ -4288,96 +4827,24 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Bis jetzt ist keine Wallbox eingerichtet.</translation>
     </message>
     <message>
-        <source>add</source>
-        <translation>hinzufügen</translation>
-    </message>
-    <message>
-        <source>Wallbox</source>
-        <translation>Wallbox</translation>
-    </message>
-    <message>
-        <source>The following charging point or wallbox has been found and set up:</source>
-        <translation>Die folgende Wallbox wurde gefunden:</translation>
-    </message>
-    <message>
         <source>Add wallboxes:</source>
         <translation>Füge Wallboxen hinzu:</translation>
-    </message>
-    <message>
-        <source>Next step</source>
-        <translation>Nächster Schritt</translation>
-    </message>
-    <message>
-        <source>Next</source>
-        <translation>Weiter</translation>
-    </message>
-    <message>
-        <source>Discover %1</source>
-        <translation>%1 einrichten</translation>
-    </message>
-    <message>
-        <source>Discovery options</source>
-        <translation>Suchparameter</translation>
-    </message>
-    <message>
-        <source>Searching for things...</source>
-        <translation>Suche Geräte</translation>
-    </message>
-    <message>
-        <source>Too bad...</source>
-        <translation>Schade!</translation>
-    </message>
-    <message>
-        <source>Search again</source>
-        <translation>Erneut suchen</translation>
-    </message>
-    <message>
-        <source>Reconfigure %1</source>
-        <translation>Konfiguriere %1</translation>
-    </message>
-    <message>
-        <source>Set up %1</source>
-        <translation>%1 einrichten</translation>
-    </message>
-    <message>
-        <source>Name the thing:</source>
-        <translation>Name:</translation>
-    </message>
-    <message>
-        <source>Thing parameters</source>
-        <translation>Gerät parameter</translation>
-    </message>
-    <message>
-        <source>The following devices were found:</source>
-        <translation>Folgende Geräte wurden gefunden:</translation>
-    </message>
-    <message>
-        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
-        <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
     <message>
         <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
         <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant.</translation>
     </message>
     <message>
-        <source>EEBUS Wallbox</source>
-        <translation>EEBUS Wallbox</translation>
-    </message>
-    <message>
-        <source>EvCharger set-up</source>
-        <translation type="unfinished">EV-Ladestation Einrichtung</translation>
-    </message>
-    <message>
-        <source>The following EEBUS devices were found:</source>
-        <translation>Folgende EEBUS-Geräte wurden gefunden:</translation>
-    </message>
-    <message>
-        <source>Please change name if necessary.</source>
-        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
-    </message>
-    <message>
         <source>Integrated wallbox</source>
         <translation type="unfinished">Eingerichtete Wallboxen</translation>
+    </message>
+    <message>
+        <source>The following wallbox has been found and set up:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An unexpected error happened during the setup. Please verify the wallbox is installed correctly and try again.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4387,20 +4854,12 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Bitte Modell auswählen:</translation>
     </message>
     <message>
-        <source>cancel</source>
-        <translation>abbrechen</translation>
-    </message>
-    <message>
         <source>An unexpected error happened during the setup. Please verify the energy meter is installed correctly and try again.</source>
         <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Stromzähler überprüfen und erneut versuchen.</translation>
     </message>
     <message>
         <source>Setup energy meter</source>
         <translation>Stromzähler einrichten</translation>
-    </message>
-    <message>
-        <source>add</source>
-        <translation>hinzufügen</translation>
     </message>
     <message>
         <source>The following energy meter has been found and set up:</source>
@@ -4439,10 +4898,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>%1 einrichten</translation>
     </message>
     <message>
-        <source>Name the thing:</source>
-        <translation>Name:</translation>
-    </message>
-    <message>
         <source>Thing parameters</source>
         <translation>Gerät parameter</translation>
     </message>
@@ -4455,16 +4910,28 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
     <message>
-        <source>Please change name if necessary.</source>
-        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
+        <source>Add energy meter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation type="unfinished">Hinzufügen</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Name</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SetupHeatPumpWizard</name>
-    <message>
-        <source>cancel</source>
-        <translation>abbrechen</translation>
-    </message>
     <message>
         <source>An unexpected error happened during the setup. Please verify the heat pump is installed correctly and try again.</source>
         <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte überprüfen ob die Wärmepumpe korrekt installiert ist und erneut versuchen.</translation>
@@ -4478,20 +4945,8 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Eingerichtete Wärmepumpen</translation>
     </message>
     <message>
-        <source>add</source>
-        <translation>hinzufügen</translation>
-    </message>
-    <message>
         <source>The following heat pump has been found and set up:</source>
         <translation>Die folgende Wärmepumpe wurde gefunden und eingerichtet</translation>
-    </message>
-    <message>
-        <source>Next step</source>
-        <translation>Nächster Schritt</translation>
-    </message>
-    <message>
-        <source>Next</source>
-        <translation>Weiter</translation>
     </message>
     <message>
         <source>There is no heat pump set up yet.</source>
@@ -4502,72 +4957,8 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Füge Wärmepumpen hinzu: </translation>
     </message>
     <message>
-        <source>Heat pump</source>
-        <translation>Wärmepumpe</translation>
-    </message>
-    <message>
-        <source>Discover %1</source>
-        <translation>%1 einrichten</translation>
-    </message>
-    <message>
-        <source>Discovery options</source>
-        <translation>Suchparameter</translation>
-    </message>
-    <message>
-        <source>Searching for things...</source>
-        <translation>Suche Geräte</translation>
-    </message>
-    <message>
-        <source>Too bad...</source>
-        <translation>Schade!</translation>
-    </message>
-    <message>
-        <source>Search again</source>
-        <translation>Erneut suchen</translation>
-    </message>
-    <message>
-        <source>Reconfigure %1</source>
-        <translation>Konfiguriere %1</translation>
-    </message>
-    <message>
-        <source>Set up %1</source>
-        <translation>%1 einrichten</translation>
-    </message>
-    <message>
-        <source>Name the thing:</source>
-        <translation>Name:</translation>
-    </message>
-    <message>
-        <source>Thing parameters</source>
-        <translation>Gerät parameter</translation>
-    </message>
-    <message>
-        <source>The following devices were found:</source>
-        <translation>Folgende Geräte wurden gefunden:</translation>
-    </message>
-    <message>
-        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
-        <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
-    </message>
-    <message>
         <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
         <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant.</translation>
-    </message>
-    <message>
-        <source>EEBUS heat pump</source>
-        <translation>EEBUS Wärmepumpe</translation>
-    </message>
-    <message>
-        <source>Heatpump set-up</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The following EEBUS devices were found:</source>
-        <translation>Folgende EEBUS-Geräte wurden gefunden:</translation>
-    </message>
-    <message>
-        <source>Please change name if necessary.</source>
-        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
 </context>
 <context>
@@ -4589,74 +4980,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Füge Heizstab hinzu: </translation>
     </message>
     <message>
-        <source>cancel</source>
-        <translation>abbrechen</translation>
-    </message>
-    <message>
-        <source>add</source>
-        <translation>hinzufügen</translation>
-    </message>
-    <message>
-        <source>Next step</source>
-        <translation>Nächster Schritt</translation>
-    </message>
-    <message>
-        <source>Discover %1</source>
-        <translation>%1 einrichten</translation>
-    </message>
-    <message>
-        <source>Discovery options</source>
-        <translation>Suchparameter</translation>
-    </message>
-    <message>
-        <source>Next</source>
-        <translation>Weiter</translation>
-    </message>
-    <message>
-        <source>The following devices were found:</source>
-        <translation>Folgende Geräte wurden gefunden:</translation>
-    </message>
-    <message>
-        <source>Searching for things...</source>
-        <translation>Suche Geräte</translation>
-    </message>
-    <message>
-        <source>Too bad...</source>
-        <translation>Schade!</translation>
-    </message>
-    <message>
-        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
-        <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
-    </message>
-    <message>
-        <source>Search again</source>
-        <translation>Erneut suchen</translation>
-    </message>
-    <message>
-        <source>Reconfigure %1</source>
-        <translation>Konfiguriere %1</translation>
-    </message>
-    <message>
-        <source>Set up %1</source>
-        <translation>%1 einrichten</translation>
-    </message>
-    <message>
-        <source>Name the thing:</source>
-        <translation>Name:</translation>
-    </message>
-    <message>
-        <source>Thing parameters</source>
-        <translation>Gerät parameter</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>Set up Heating Element</source>
-        <translation>Heizstab Konfiguration</translation>
-    </message>
-    <message>
         <source>The following heating element has been found and set up:</source>
         <translation>Der folgende Heizstab wurde gefunden und eingerichtet:</translation>
     </message>
@@ -4665,24 +4988,12 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Während der Einrichtung ist ein unerwarteter Fehler aufgetreten. Bitte überprüfen Sie, ob der Heizstab korrekt installiert ist, und versuchen Sie es erneut.</translation>
     </message>
     <message>
-        <source>Please change name if necessary.</source>
-        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
-    </message>
-    <message>
         <source>At the moment, %1 can only control one heating element.</source>
         <translation>Derzeit kann %1 nur einen Heizstab steuern.</translation>
     </message>
 </context>
 <context>
     <name>SetupSolarInverterWizard</name>
-    <message>
-        <source>Solar inverter</source>
-        <translation>Solarwechselrichter</translation>
-    </message>
-    <message>
-        <source>cancel</source>
-        <translation>abbrechen</translation>
-    </message>
     <message>
         <source>An unexpected error happened during the setup. Please verify the solar inverter is installed correctly and try again.</source>
         <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Solarwechselrichter überprüfen und erneut versuchen.</translation>
@@ -4696,10 +5007,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Bis jetzt ist kein Wechselrichter eingerichtet</translation>
     </message>
     <message>
-        <source>add</source>
-        <translation>hinzufügen</translation>
-    </message>
-    <message>
         <source>The following solar inverter has been found and set up:</source>
         <translation>Der folgende Wechselrichter wurde gefunden und eingerichtet:</translation>
     </message>
@@ -4708,96 +5015,296 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Füge Wechselrichter hinzu: </translation>
     </message>
     <message>
-        <source>Next step</source>
-        <translation>Nächster Schritt</translation>
+        <source>Integrated solar inverter</source>
+        <translation type="unfinished">Eingerichtete Wechselrichter</translation>
+    </message>
+</context>
+<context>
+    <name>SetupWizardBase</name>
+    <message>
+        <source>Please select your model:</source>
+        <translation type="unfinished">Bitte Modell auswählen:</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation type="unfinished">Hinzufügen</translation>
     </message>
     <message>
         <source>Next</source>
-        <translation>Weiter</translation>
+        <translation type="unfinished">Weiter</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
     </message>
     <message>
         <source>Discover %1</source>
-        <translation>%1 einrichten</translation>
+        <translation type="unfinished">%1 einrichten</translation>
     </message>
     <message>
         <source>Discovery options</source>
-        <translation>Suchparameter</translation>
-    </message>
-    <message>
-        <source>Searching for things...</source>
-        <translation>Suche Geräte</translation>
-    </message>
-    <message>
-        <source>Too bad...</source>
-        <translation>Schade!</translation>
-    </message>
-    <message>
-        <source>Search again</source>
-        <translation>Erneut suchen</translation>
-    </message>
-    <message>
-        <source>Reconfigure %1</source>
-        <translation>Konfiguriere %1</translation>
-    </message>
-    <message>
-        <source>Set up %1</source>
-        <translation>%1 einrichten</translation>
-    </message>
-    <message>
-        <source>Name the thing:</source>
-        <translation>Name:</translation>
-    </message>
-    <message>
-        <source>Thing parameters</source>
-        <translation>Gerät parameter</translation>
+        <translation type="unfinished">Suchparameter</translation>
     </message>
     <message>
         <source>The following devices were found:</source>
-        <translation>Folgende Geräte wurden gefunden:</translation>
+        <translation type="unfinished">Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <source>Login required</source>
-        <translation>Anmeldung erforderlich</translation>
+        <source>Searching for things...</source>
+        <translation type="unfinished">Suche Geräte</translation>
     </message>
     <message>
-        <source>Username</source>
-        <translation>Benutzername</translation>
-    </message>
-    <message>
-        <source>Thing reconfigured!</source>
-        <translation>Thing wurde neu konfiguriert!</translation>
-    </message>
-    <message>
-        <source>Thing added!</source>
-        <translation>Thing hinzugefügt!</translation>
-    </message>
-    <message>
-        <source>Uh oh</source>
-        <translation>Uh oh</translation>
-    </message>
-    <message>
-        <source>All done. You can now start using %1.</source>
-        <translation>Sie können nun %1 benutzen.</translation>
-    </message>
-    <message>
-        <source>Something went wrong setting up this thing...</source>
-        <translation>Etwas ist schiefgelaufen...</translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation>OK</translation>
+        <source>Too bad...</source>
+        <translation type="unfinished">Schade!</translation>
     </message>
     <message>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
-        <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
+        <translation type="unfinished">Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
     <message>
-        <source>Please change name if necessary.</source>
-        <translation>Wenn notwendig, bitte den Namen ändern.</translation>
+        <source>Search again</source>
+        <translation type="unfinished">Erneut suchen</translation>
     </message>
     <message>
-        <source>Integrated solar inverter</source>
-        <translation type="unfinished">Eingerichtete Wechselrichter</translation>
+        <source>Reconfigure %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set up %1</source>
+        <translation type="unfinished">%1 einrichten</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Name</translation>
+    </message>
+    <message>
+        <source>Please change name if necessary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thing parameters</source>
+        <translation type="unfinished">Gerät parameter</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Login required</source>
+        <translation type="unfinished">Anmeldung erforderlich</translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished">Benutzername</translation>
+    </message>
+    <message>
+        <source>Thing added!</source>
+        <translation type="unfinished">Thing hinzugefügt!</translation>
+    </message>
+    <message>
+        <source>Uh oh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All done. You can now start using %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Something went wrong setting up this thing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OAuth Authentication</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please complete authentication in your browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SimpleConsumerDevicePage</name>
+    <message>
+        <source>Consuming</source>
+        <translation type="unfinished">Verbrauchend</translation>
+    </message>
+    <message>
+        <source>Idle</source>
+        <translation type="unfinished">Leerlauf</translation>
+    </message>
+    <message>
+        <source>Total consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SwitchableConsumerDevicePage</name>
+    <message>
+        <source>Could not save configuration. One of the parameters is invalid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Could not save configuration. The thing is not valid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Always on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation type="unfinished">Aus</translation>
+    </message>
+    <message>
+        <source>No control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV surplus</source>
+        <translation type="unfinished">PV-Überschuss</translation>
+    </message>
+    <message>
+        <source>Consuming</source>
+        <translation type="unfinished">Verbrauchend</translation>
+    </message>
+    <message>
+        <source>Idle</source>
+        <translation type="unfinished">Leerlauf</translation>
+    </message>
+    <message>
+        <source>Total consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation type="unfinished">Status</translation>
+    </message>
+    <message>
+        <source>Connected</source>
+        <translation type="unfinished">Verbunden</translation>
+    </message>
+    <message>
+        <source>Not connected</source>
+        <translation type="unfinished">Nicht verbunden</translation>
+    </message>
+    <message>
+        <source>Switch state consumer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operating mode</source>
+        <translation type="unfinished">Betriebsmodus</translation>
+    </message>
+    <message>
+        <source>PV Surplus</source>
+        <translation type="unfinished">PV-Überschuss</translation>
+    </message>
+    <message>
+        <source>Priority</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum power</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum PV surplus power required for activation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value must not be below %1 W.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum runtime</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Runs at least this long after activation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>h</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value must be between 0 and %1 h.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum runtime</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limits the daily runtime and automatically switches the device off.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value must be between %1 and 24 h.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SwitchableConsumerOptimization</name>
+    <message>
+        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
+        <translation type="unfinished">Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
+    </message>
+    <message>
+        <source>Could not save configuration. The thing is not valid.</source>
+        <translation type="unfinished">Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
+    </message>
+    <message>
+        <source>Maximal electrical power</source>
+        <translation type="unfinished">Maximale elektrische Leistung</translation>
+    </message>
+    <message>
+        <source>kW</source>
+        <translation type="unfinished">kW</translation>
+    </message>
+    <message>
+        <source>The value is outside the valid range.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid-supportive-control</source>
+        <translation type="unfinished">Netzdienlichkeit</translation>
+    </message>
+    <message>
+        <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
+        <translation type="unfinished">Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4882,20 +5389,16 @@ Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 
 <context>
     <name>WizardComplete</name>
     <message>
-        <source>Congratulations!</source>
-        <translation>Gratulation!</translation>
-    </message>
-    <message>
-        <source>to the Dashboard</source>
-        <translation>zum Dashboard</translation>
-    </message>
-    <message>
         <source>Installed Devices</source>
         <translation>Installierte Geräte</translation>
     </message>
     <message>
         <source>Your %1 is now configured. The following devices are set up:</source>
         <translation>Ihre %1 ist jetzt konfiguriert. Die folgenden Geräte sind eingerichtet:</translation>
+    </message>
+    <message>
+        <source>To the Dashboard</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
