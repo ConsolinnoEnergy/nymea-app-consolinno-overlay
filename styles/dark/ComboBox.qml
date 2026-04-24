@@ -102,7 +102,7 @@ T.ComboBox {
         selectByMouse: control.selectTextByMouse
 
         font: control.font
-        color: control.editable ? control.palette.text : control.palette.buttonText
+        color: Style.colors.components_Forms_Fields_Field_user_input
         selectionColor: control.palette.highlight
         selectedTextColor: control.palette.highlightedText
         verticalAlignment: Text.AlignVCenter
@@ -155,7 +155,7 @@ T.ComboBox {
             width: parent.width
             height: parent.height
             layer.enabled: true
-            visible: false
+            opacity: 0
             Rectangle {
                 anchors.fill: parent
                 radius: Style.cornerRadius
