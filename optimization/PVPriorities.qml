@@ -9,6 +9,7 @@ import "../delegates"
 Page {
     id: root
     property int directionID: 0
+    property string alwaysEnabledThingId: ""
 
     // #TODO needed here? i.e. should this screen be included in the setup assistant?
     signal done(bool skip, bool abort, bool back)
@@ -208,7 +209,7 @@ Page {
                                 text: model.name
                                 iconLeft: model.icon
                                 visible: index !== priorityListView.draggingIndex
-                                card.opacity: model.optimizationEnabled ? 1 : 0.3
+                                card.opacity: (model.optimizationEnabled || model.thingId === root.alwaysEnabledThingId) ? 1 : 0.3
                             }
 
                             MouseArea {
@@ -228,7 +229,7 @@ Page {
                                     priorityListView.draggingIndex = priorityListView.indexAt(mouseX, mouseYInList);
                                     dndItem.text = prioListModel.get(priorityListView.draggingIndex).name;
                                     dndItem.iconLeft = prioListModel.get(priorityListView.draggingIndex).icon;
-                                    dndItem.card.opacity = prioListModel.get(priorityListView.draggingIndex).optimizationEnabled ? 1 : 0.3;
+                                    dndItem.card.opacity = (prioListModel.get(priorityListView.draggingIndex).optimizationEnabled || prioListModel.get(priorityListView.draggingIndex).thingId === root.alwaysEnabledThingId) ? 1 : 0.3;
                                     dndArea.dragOffset = priorityListView.mapToItem(item, mouseX, mouseY).y;
                                 }
 
