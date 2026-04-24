@@ -19,6 +19,8 @@ Item {
     property alias feedbackText: notification.text
     property alias showLabel: labelLayout.visible
 
+    signal moved()
+
     implicitHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
     implicitWidth: layout.implicitWidth + layout.anchors.leftMargin + layout.anchors.rightMargin
 
@@ -64,6 +66,10 @@ Item {
         Slider {
             id: slider
             Layout.fillWidth: true
+
+            onMoved: {
+                root.moved();
+            }
         }
 
         CoFieldNotification {

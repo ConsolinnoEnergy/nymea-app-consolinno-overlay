@@ -43,6 +43,17 @@ SettingsPageBase {
     property var stateTypes: []
     busy: d.pendingCommand != -1
 
+    readonly property bool isEpexDayAheadThing: root.thing.thingClassId.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}"
+
+    QtObject {
+        id: epexState
+        property bool variableGridFees: {
+            if (!root.isEpexDayAheadThing) return false;
+            var param = root.thing.params.getParam("c39d158c-d9a4-40f2-8d6d-746eca80f9ec");
+            return param ? param.value : false;
+        }
+    }
+
     header: NymeaHeader {
         text: root.thing.name
         onBackPressed: pageStack.pop()
@@ -114,7 +125,7 @@ SettingsPageBase {
         function reconfigureThing() {
             var isEpexDayAheadThing =
                     root.thing.thingClassId.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}";
-            var pageUrl = isEpexDayAheadThing ? "EpexDayAheadSetup.qml" : "SetupWizard.qml";
+            var pageUrl = isEpexDayAheadThing ? "EpexDayAheadSetup.qml" : "ConsolinnoSetupWizard.qml";
             var configPage = pageStack.push(Qt.resolvedUrl(pageUrl), {thing: root.thing})
             configPage.done.connect(function() {pageStack.pop(root)})
             configPage.aborted.connect(function() {pageStack.pop(root)})
@@ -154,172 +165,244 @@ SettingsPageBase {
         property int pendingCommand: -1
     }
 
-    SettingsPageSectionHeader {
-        text: qsTr("Information")
-    }
-
-    ConsolinnoItemDelegate {
+    ColumnLayout {
         Layout.fillWidth: true
-        text: engine.thingManager.vendors.getVendor(root.thing.thingClass.vendorId).displayName
-        subText: qsTr("Vendor")
-        prominentSubText: false
-        progressive: false
-    }
-    ConsolinnoItemDelegate {
-        Layout.fillWidth: true
-        text: root.thing.thingClass.displayName
-        subText: qsTr("Type")
-        prominentSubText: false
-        progressive: false
-    }
+        Layout.fillHeight: true
+        Layout.margins: Style.margins
+        spacing: Style.margins
 
-    ConsolinnoItemDelegate {
-        Layout.fillWidth: true
-        text: root.thing.id.toString().replace(/[{}]/g, "")
-        subText: qsTr("ID")
-        prominentSubText: false
-        progressive: false
-        onClicked: {
-            PlatformHelper.toClipBoard(root.thing.id.toString().replace(/[{}]/g, ""));
-            ToolTip.show(qsTr("ID copied to clipboard"), 1000);
-        }
-    }
-
-    ConsolinnoItemDelegate {
-        Layout.fillWidth: true
-        text: qsTr("Thing class")
-        subText: qsTr("View the type definition for this thing")
-        onClicked: {
-            pageStack.push(Qt.resolvedUrl("ThingClassDetailsPage.qml"), {thing: root.thing})
-        }
-    }
-
-    SettingsPageSectionHeader {
-        text: qsTr("Parameters")
-        visible: root.thing.params.count > 0
-    }
-
-    Repeater {
-        model: root.thing.params
-        delegate: ConsolinnoParamDelegate {
+        Flickable {
             Layout.fillWidth: true
-            paramType: root.thing.thingClass.paramTypes.getParamType(model.id)
-            param: root.thing.params.get(index)
-            writable: false
-        }
-    }
+            Layout.fillHeight: true
+            Layout.preferredHeight: contentHeight
+            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
+            clip: true
 
-    SettingsPageSectionHeader {
-        text: qsTr("Input/Output Connections")
-        visible: ioModel.count > 0
-    }
+            ColumnLayout {
+                id: layout
+                anchors.fill: parent
+                spacing: Style.margins
 
-    StateTypesProxy {
-        id: ioModel
-        stateTypes: root.thing.thingClass.stateTypes
-        digitalInputs: true
-        digitalOutputs: true
-        analogInputs: true
-        analogOutputs: true
-    }
-    Repeater {
-        model: ioModel
-        delegate: NymeaSwipeDelegate {
-            Layout.fillWidth: true
+                CoFrostyCard {
+                    id: informationGroup
+                    Layout.fillWidth: true
+                    headerText: qsTr("Information")
+                    contentTopMargin: Style.smallMargins
 
-            iconName: "/icons/io-connections.svg"
-            text: model.displayName
-            subText: {
-                if (ioStateType.ioType == Types.IOTypeDigitalInput || ioStateType.ioType == Types.IOTypeAnalogInput) {
-                    if (inputConnectionWatcher.ioConnection) {
-                        return "%1: %2".arg(inputConnectionWatcher.outputThing.name).arg(inputConnectionWatcher.outputStateType.displayName)
-                    }
-                } else {
-                    if (outputConnectionWatcher.ioConnection) {
-                        return "%1: %2".arg(outputConnectionWatcher.inputThing.name).arg(outputConnectionWatcher.inputStateType.displayName)
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        CoCard {
+                            Layout.fillWidth: true
+                            text: engine.thingManager.vendors.getVendor(root.thing.thingClass.vendorId).displayName
+                            labelText: qsTr("Vendor")
+                            interactive: false
+                        }
+
+                        CoCard {
+                            Layout.fillWidth: true
+                            text: root.thing.thingClass.displayName
+                            labelText: qsTr("Type")
+                            interactive: false
+                        }
+
+                        CoCard {
+                            Layout.fillWidth: true
+                            property string thingId: root.thing.id.toString().replace(/[{}]/g, "")
+                            text: thingId
+                            labelText: qsTr("ID")
+                            onClicked: {
+                                PlatformHelper.toClipBoard(thingId);
+                                ToolTip.show(qsTr("ID copied to clipboard"), 1000);
+                            }
+                        }
+
+                        CoCard {
+                            Layout.fillWidth: true
+                            text: qsTr("Thing class")
+                            labelText: qsTr("View the type definition for this thing")
+                            showChildrenIndicator: true
+                            onClicked: {
+                                pageStack.push(Qt.resolvedUrl("ConsolinnoThingClassDetailsPage.qml"), { thing: root.thing })
+                            }
+                        }
                     }
                 }
-                return qsTr("Not connected")
-            }
+
+                CoFrostyCard {
+                    id: parametersGroup
+                    Layout.fillWidth: true
+                    headerText: qsTr("Parameters")
+                    contentTopMargin: Style.smallMargins
+                    visible: root.thing.params.count > 0
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        Repeater {
+                            model: root.thing.params
+                            delegate: CoParamDelegate {
+                                Layout.fillWidth: true
+                                paramType: root.thing.thingClass.paramTypes.getParamType(model.id)
+                                param: root.thing.params.get(index)
+                                writable: false
+                                visible: {
+                                    if (!root.isEpexDayAheadThing) return true;
+                                    var paramId = model.id.toString();
+                                    if (paramId === "{f4b1b3b2-4c1c-4b1a-8f1a-9c2b2a1a1b1b}") {
+                                        // "Grid operator" parameter - show when variable grid fees enabled
+                                        return epexState.variableGridFees;
+                                    } else if (paramId === "{9d80154a-4205-47cb-a69f-d151a836639b}") {
+                                        // "Added grid fee" parameter - show when variable grid fees disabled
+                                        return !epexState.variableGridFees;
+                                    }
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                CoFrostyCard {
+                    id: ioConnectionsGroup
+                    Layout.fillWidth: true
+                    headerText: qsTr("Input/Output Connections")
+                    contentTopMargin: Style.smallMargins
+                    visible: ioModel.count > 0
+
+                    StateTypesProxy {
+                        id: ioModel
+                        stateTypes: root.thing.thingClass.stateTypes
+                        digitalInputs: true
+                        digitalOutputs: true
+                        analogInputs: true
+                        analogOutputs: true
+                    }
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        Repeater {
+                            model: ioModel
+                            delegate: CoCard {
+                                Layout.fillWidth: true
+
+                                iconLeft: "/icons/io-connections.svg"
+                                text: model.displayName
+                                showChildrenIndicator: true
+                                labelText: {
+                                    if (ioStateType.ioType == Types.IOTypeDigitalInput || ioStateType.ioType == Types.IOTypeAnalogInput) {
+                                        if (inputConnectionWatcher.ioConnection) {
+                                            return "%1: %2".arg(inputConnectionWatcher.outputThing.name).arg(inputConnectionWatcher.outputStateType.displayName)
+                                        }
+                                    } else {
+                                        if (outputConnectionWatcher.ioConnection) {
+                                            return "%1: %2".arg(outputConnectionWatcher.inputThing.name).arg(outputConnectionWatcher.inputStateType.displayName)
+                                        }
+                                    }
+                                    return qsTr("Not connected")
+                                }
 
 
-            property StateType ioStateType: ioModel.get(index)
+                                property StateType ioStateType: ioModel.get(index)
 
-            IOInputConnectionWatcher {
-                id: inputConnectionWatcher
-                ioConnections: engine.thingManager.ioConnections
-                inputThingId: root.thing.id
-                inputStateTypeId: ioStateType.id
-                property Thing outputThing: ioConnection ? engine.thingManager.things.getThing(ioConnection.outputThingId) : null
-                property StateType outputStateType: ioConnection ? outputThing.thingClass.stateTypes.getStateType(ioConnection.outputStateTypeId) : null
+                                IOInputConnectionWatcher {
+                                    id: inputConnectionWatcher
+                                    ioConnections: engine.thingManager.ioConnections
+                                    inputThingId: root.thing.id
+                                    inputStateTypeId: ioStateType.id
+                                    property Thing outputThing: ioConnection ? engine.thingManager.things.getThing(ioConnection.outputThingId) : null
+                                    property StateType outputStateType: ioConnection ? outputThing.thingClass.stateTypes.getStateType(ioConnection.outputStateTypeId) : null
+                                }
+                                IOOutputConnectionWatcher {
+                                    id: outputConnectionWatcher
+                                    ioConnections: engine.thingManager.ioConnections
+                                    outputThingId: root.thing.id
+                                    outputStateTypeId: ioStateType.id
+                                    property Thing inputThing: ioConnection ? engine.thingManager.things.getThing(ioConnection.inputThingId) : null
+                                    property StateType inputStateType: ioConnection ? inputThing.thingClass.stateTypes.getStateType(ioConnection.inputStateTypeId) : null
+                                }
+
+                                onClicked: {
+                                    var popup = ioConnectionsDialogComponent.createObject(app, {ioStateType: ioStateType, inputWatcher: inputConnectionWatcher, outputWatcher: outputConnectionWatcher})
+                                    popup.open()
+                                }
+                            }
+                        }
+                    }
+                }
+
+                CoFrostyCard {
+                    id: settingsGroup
+                    Layout.fillWidth: true
+                    headerText: qsTr("Settings")
+                    contentTopMargin: Style.smallMargins
+                    visible: root.thing.thingClass.settingsTypes.count > 0
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        Repeater {
+                            id: settingsRepeater
+                            model: root.thing.settings
+                            delegate: CoParamDelegate {
+                                Layout.fillWidth: true
+                                paramType: root.thing.thingClass.settingsTypes.getParamType(model.id)
+                                value: root.thing.settings.get(index).value
+                                writable: true
+                                property bool dirty: root.thing.settings.get(index).value !== value
+                                onDirtyChanged: settingsRepeater.checkDirty()
+                            }
+                            function checkDirty() {
+                                for (var i = 0; i < settingsRepeater.count; i++) {
+                                    if (settingsRepeater.itemAt(i).dirty) {
+                                        dirty = true;
+                                        return;
+                                    }
+                                }
+                                dirty = false;
+                            }
+                            property bool dirty: false
+                        }
+                    }
+                }
             }
-            IOOutputConnectionWatcher {
-                id: outputConnectionWatcher
-                ioConnections: engine.thingManager.ioConnections
-                outputThingId: root.thing.id
-                outputStateTypeId: ioStateType.id
-                property Thing inputThing: ioConnection ? engine.thingManager.things.getThing(ioConnection.inputThingId) : null
-                property StateType inputStateType: ioConnection ? inputThing.thingClass.stateTypes.getStateType(ioConnection.inputStateTypeId) : null
-            }
+        }
+
+        Button {
+            Layout.fillWidth: true
+            text: qsTr("Apply")
+            enabled: settingsRepeater.dirty
+            visible: settingsRepeater.count > 0
 
             onClicked: {
-                var popup = ioConnectionsDialogComponent.createObject(app, {ioStateType: ioStateType, inputWatcher: inputConnectionWatcher, outputWatcher: outputConnectionWatcher})
-                popup.open()
-            }
-        }
-    }
-
-
-    SettingsPageSectionHeader {
-        text: qsTr("Settings")
-        visible: root.thing.thingClass.settingsTypes.count > 0
-    }
-
-    Repeater {
-        id: settingsRepeater
-        model: root.thing.settings
-        delegate: ConsolinnoParamDelegate {
-            Layout.fillWidth: true
-            paramType: root.thing.thingClass.settingsTypes.getParamType(model.id)
-            value: root.thing.settings.get(index).value
-            writable: true
-            property bool dirty: root.thing.settings.get(index).value !== value
-            onDirtyChanged: settingsRepeater.checkDirty()
-        }
-        function checkDirty() {
-            for (var i = 0; i < settingsRepeater.count; i++) {
-                if (settingsRepeater.itemAt(i).dirty) {
-                    dirty = true;
-                    return;
+                var params = []
+                for (var i = 0; i < settingsRepeater.count; i++) {
+                    if (!settingsRepeater.itemAt(i).dirty) {
+                        continue;
+                    }
+                    var setting = {}
+                    setting["paramTypeId"] = settingsRepeater.itemAt(i).param.paramTypeId
+                    setting["value"] = settingsRepeater.itemAt(i).param.value
+                    params.push(setting)
                 }
-            }
-            dirty = false;
-        }
-        property bool dirty: false
-    }
-    Button {
-        Layout.fillWidth: true
-        Layout.leftMargin: app.margins
-        Layout.rightMargin: app.margins
-        text: qsTr("Apply")
-        enabled: settingsRepeater.dirty
-        visible: settingsRepeater.count > 0
 
-        onClicked: {
-            var params = []
-            for (var i = 0; i < settingsRepeater.count; i++) {
-                if (!settingsRepeater.itemAt(i).dirty) {
-                    continue;
-                }
-                var setting = {}
-                setting["paramTypeId"] = settingsRepeater.itemAt(i).param.paramTypeId
-                setting["value"] = settingsRepeater.itemAt(i).param.value
-                params.push(setting)
+                engine.thingManager.setThingSettings(root.thing.id, params);
             }
-
-            engine.thingManager.setThingSettings(root.thing.id, params);
         }
     }
+
+
+
+
 
     Component {
         id: errorDialog
