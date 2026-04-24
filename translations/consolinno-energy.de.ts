@@ -3046,11 +3046,11 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     </message>
     <message>
         <source>Consolinno cloud services</source>
-        <translation type="unfinished"></translation>
+        <translation>Consolinno Cloud-Dienste</translation>
     </message>
     <message>
         <source>Manage cloud connection and data sharing preferences.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloud-Verbindung und Datenfreigabe-Einstellungen verwalten.</translation>
     </message>
 </context>
 <context>
