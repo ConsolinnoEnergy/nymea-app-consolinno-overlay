@@ -64,10 +64,9 @@ StackView {
                                 iconLeft: Qt.resolvedUrl("/icons/euro.svg")
                                 text: model.name
                                 property Thing thing: dynElectricThings.get(index)
-                                property bool supportsSetup: thing !== null && thing.thingClass !== null && thing.thingClass.setupMethod !== 4
-                                showChildrenIndicator: supportsSetup
+                                showChildrenIndicator: true
                                 deletable: thing !== null
-                                interactive: supportsSetup
+                                interactive: true
                                 property int pageStackPopsAfterConfigure: 1
 
                                 Component.onCompleted: {
@@ -78,25 +77,23 @@ StackView {
                                 }
 
                                 onClicked: {
-                                    if (supportsSetup) {
-                                        var isEpexDayAheadThing =
-                                                thing.thingClassId.toString() === root.epexDayAheadThingClassId;
-                                        var pageUrl = isEpexDayAheadThing ?
-                                                    "qrc:///ui/thingconfiguration/EpexDayAheadSetup.qml" :
-                                                    "qrc:///ui/thingconfiguration/ConsolinnoSetupWizard.qml";
-                                        var page = pageStack.push(Qt.resolvedUrl(pageUrl),
-                                                                  { thing: thing });
-                                        page.done.connect(function() {
-                                            for (var i = 0; i < pageStackPopsAfterConfigure; i++) {
-                                                pageStack.pop();
-                                            }
-                                        });
-                                        page.aborted.connect(function() {
-                                            for (var i = 0; i < pageStackPopsAfterConfigure; i++) {
-                                                pageStack.pop();
-                                            }
-                                        });
-                                    }
+                                    var isEpexDayAheadThing =
+                                            thing.thingClassId.toString() === root.epexDayAheadThingClassId;
+                                    var pageUrl = isEpexDayAheadThing ?
+                                                "qrc:///ui/thingconfiguration/EpexDayAheadSetup.qml" :
+                                                "qrc:///ui/thingconfiguration/ConsolinnoSetupWizard.qml";
+                                    var page = pageStack.push(Qt.resolvedUrl(pageUrl),
+                                                              { thing: thing });
+                                    page.done.connect(function() {
+                                        for (var i = 0; i < pageStackPopsAfterConfigure; i++) {
+                                            pageStack.pop();
+                                        }
+                                    });
+                                    page.aborted.connect(function() {
+                                        for (var i = 0; i < pageStackPopsAfterConfigure; i++) {
+                                            pageStack.pop();
+                                        }
+                                    });
                                 }
                                 onDeleteClicked: {
                                     var popup = removeDialogComponent.createObject(root, { thing: thing });
