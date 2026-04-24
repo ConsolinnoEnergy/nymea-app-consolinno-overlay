@@ -16,8 +16,6 @@ StackView {
 
     initialItem: setUpComponent
 
-    property string name
-    property bool newTariff: false
     property int directionID: 0
 
     signal done(bool skip, bool abort, bool back);
