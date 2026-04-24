@@ -72,11 +72,12 @@ StackView {
                                 Layout.fillWidth: true
                                 iconLeft: Qt.resolvedUrl("/icons/euro.svg")
                                 text: model.name
-                                showChildrenIndicator: thing !== null
-                                deletable: thing !== null
-                                interactive: thing !== null
-                                property int pageStackPopsAfterConfigure: 1
                                 property Thing thing: dynElectricThings.get(index)
+                                property bool supportsSetup: thing !== null && thing.thingClass !== null && thing.thingClass.setupMethod !== 4
+                                showChildrenIndicator: supportsSetup
+                                deletable: thing !== null
+                                interactive: supportsSetup
+                                property int pageStackPopsAfterConfigure: 1
 
                                 Component.onCompleted: {
                                     if (root.startView === "configure" && index === 0) {
