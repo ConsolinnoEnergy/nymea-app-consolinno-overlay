@@ -67,6 +67,8 @@
         <file>icons/chevron_backward.svg</file>
         <file>icons/chevron_forward.svg</file>
         <file>icons/close.svg</file>
+        <file>icons/cloud.svg</file>
+        <file>icons/cookie.svg</file>
         <file>icons/co2.svg</file>
         <file>icons/code_blocks.svg</file>
         <file>icons/dashboard_2_edit.svg</file>
@@ -282,5 +284,9 @@
         <file>components/CoSortableCard.qml</file>
         <file>optimization/PVPriorities.qml</file>
         <file>components/CoCardWithRadioButton.qml</file>
+        <file>optimization/CloudServicesPage.qml</file>
+        <file>info/CloudServicesActivateInfo.qml</file>
+        <file>info/EnergyMonitoringInfo.qml</file>
+        <file>info/AnonymizedUsageDataInfo.qml</file>
     </qresource>
 </RCC>

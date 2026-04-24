@@ -185,6 +185,16 @@ Page {
 
                     CoCard {
                         Layout.fillWidth: true
+                        iconLeft: "/icons/cloud.svg"
+                        text: qsTr("Consolinno cloud services")
+                        helpText: qsTr("Manage cloud connection and data sharing preferences.")
+                        showChildrenIndicator: true
+                        visible: hemsManager.cloudConfigurationSupported
+                        onClicked: pageStack.push(Qt.resolvedUrl("optimization/CloudServicesPage.qml"))
+                    }
+
+                    CoCard {
+                        Layout.fillWidth: true
                         iconLeft: "/icons/flowchart.svg"
                         text: qsTr("Modbus RTU")
                         helpText: qsTr("Configure Modbus RTU master interfaces.")
