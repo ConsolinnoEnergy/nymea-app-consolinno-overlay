@@ -63,7 +63,7 @@ T.ComboBox {
         required property int index
 
         width: ListView.view.width
-        text: control.textRole ? model[control.textRole] : model
+        text: model[control.textRole]
         font: Style.newParagraphFont
         highlighted: control.highlightedIndex === index
         hoverEnabled: control.hoverEnabled
