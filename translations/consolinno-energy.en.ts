@@ -262,15 +262,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Above this state of charge, the battery is always considered last</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Charging plan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Above this state of charge, the battery is always considered last</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3055,10 +3055,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nymea found the following things</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Searching for things...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3148,6 +3144,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nymea found the following things</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4578,14 +4578,6 @@ Would you like to continue anyway?</source>
 <context>
     <name>PVPriorities</name>
     <message>
-        <source>PV Device Prioritization</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Device Prioritization</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The following devices are configured for surplus PV power. Sort them by priority using drag and drop.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4599,6 +4591,14 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV Device Prioritization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device Prioritization</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
