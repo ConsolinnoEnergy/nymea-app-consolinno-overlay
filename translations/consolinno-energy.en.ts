@@ -4203,6 +4203,29 @@ Would you like to continue anyway?</source>
     </message>
 </context>
 <context>
+    <name>HeatingRodOperatingModeInfo</name>
+    <message>
+        <source>Operating mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV surplus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heating element is operated using solar power only. PV surplus is allocated to devices according to your selected priority.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The heating element is not controlled by the %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>HeatpumpOptimizationInfo</name>
     <message>
         <source>Optimization</source>

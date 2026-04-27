@@ -4223,6 +4223,29 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
 </context>
 <context>
+    <name>HeatingRodOperatingModeInfo</name>
+    <message>
+        <source>Operating mode</source>
+        <translation>Betriebsmodus</translation>
+    </message>
+    <message>
+        <source>PV surplus</source>
+        <translation>PV-Überschuss</translation>
+    </message>
+    <message>
+        <source>The heating element is operated using solar power only. PV surplus is allocated to devices according to your selected priority.</source>
+        <translation>Der Heizstab wird nur mit Solarstrom betrieben. PV-Überschuss wird Geräten nach deiner gewählten Priorität zugewiesen.</translation>
+    </message>
+    <message>
+        <source>No control</source>
+        <translation>Keine Steuerung</translation>
+    </message>
+    <message>
+        <source>The heating element is not controlled by the %1.</source>
+        <translation>Der Heizstab wird nicht vom %1 gesteuert.</translation>
+    </message>
+</context>
+<context>
     <name>HeatpumpOptimizationInfo</name>
     <message>
         <source>Optimization</source>
@@ -4254,7 +4277,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
         <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the &quot;increased&quot; operating state. PV surplus is allocated to devices according to your selected priority.</source>
-        <translation>Die Wärmepumpe wird so gesteuert, dass der vorhandene PV-Überschuss optimal ausgenutzt wird. Beträgt der PV-Überschuss für 15 Minuten mehr als 50 % der Nennleistung der Wärmepumpe, wird der Wärmepumpe der Betriebszustand „erhöht" vorgegeben. PV-Überschuss wird Geräten nach deiner gewählten Priorität zugewiesen.</translation>
+        <translation>Die Wärmepumpe wird so gesteuert, dass der vorhandene PV-Überschuss optimal ausgenutzt wird. Beträgt der PV-Überschuss für 15 Minuten mehr als 50 % der Nennleistung der Wärmepumpe, wird der Wärmepumpe der Betriebszustand „erhöht&quot; vorgegeben. PV-Überschuss wird Geräten nach deiner gewählten Priorität zugewiesen.</translation>
     </message>
     <message>
         <source>Please note</source>
