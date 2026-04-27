@@ -4241,10 +4241,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Die Wärmepumpe wird nicht optimiert.</translation>
     </message>
     <message>
-        <source>Please note:</source>
-        <translation>Bitte beachten:</translation>
-    </message>
-    <message>
         <source>The operating state is implemented by the heat pump depending on the respective temperature conditions.</source>
         <translation>Der Betriebszustand wird abhängig von den jeweiligen Temperaturgegebenheiten von der Wärmepumpe umgesetzt.</translation>
     </message>
@@ -4257,8 +4253,12 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Der Wärmepumpe wird der Befehl zum erhöhten Betrieb gegeben, wenn der Preis unterhalb der definierten Preisgrenze liegt. Wird die Preisgrenze verändert, kann es bis zu 15 Minuten dauern, bis die Änderungen wirksam werden.</translation>
     </message>
     <message>
-        <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the &quot;increased&quot; operating state.</source>
-        <translation>Die Wärmepumpe wird so gesteuert, dass der vorhandene PV-Überschuss optimal ausgenutzt wird. Beträgt der PV-Überschuss für 15 Minuten mehr als 50&#x202f;% der Nennleistung der Wärmepumpe, wird der Wärmepumpe der Betriebszustand „erhöht“ vorgegeben.</translation>
+        <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the &quot;increased&quot; operating state. PV surplus is allocated to devices according to your selected priority.</source>
+        <translation>Die Wärmepumpe wird so gesteuert, dass der vorhandene PV-Überschuss optimal ausgenutzt wird. Beträgt der PV-Überschuss für 15 Minuten mehr als 50 % der Nennleistung der Wärmepumpe, wird der Wärmepumpe der Betriebszustand „erhöht" vorgegeben. PV-Überschuss wird Geräten nach deiner gewählten Priorität zugewiesen.</translation>
+    </message>
+    <message>
+        <source>Please note</source>
+        <translation>Bitte beachten</translation>
     </message>
 </context>
 <context>
