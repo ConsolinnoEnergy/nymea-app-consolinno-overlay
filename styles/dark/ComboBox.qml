@@ -63,7 +63,7 @@ T.ComboBox {
         required property int index
 
         width: ListView.view.width
-        text: control.textRole ? model[control.textRole] : model
+        text: model[control.textRole]
         font: Style.newParagraphFont
         highlighted: control.highlightedIndex === index
         hoverEnabled: control.hoverEnabled
@@ -102,7 +102,7 @@ T.ComboBox {
         selectByMouse: control.selectTextByMouse
 
         font: control.font
-        color: control.editable ? control.palette.text : control.palette.buttonText
+        color: Style.colors.components_Forms_Fields_Field_user_input
         selectionColor: control.palette.highlight
         selectedTextColor: control.palette.highlightedText
         verticalAlignment: Text.AlignVCenter
@@ -143,22 +143,24 @@ T.ComboBox {
     }
 
     popup: T.Popup {
+        id: thePopup
         x: 4
         y: 4
         width: control.width - 8
-        height: Math.min(contentItem.implicitHeight, control.Window.height - topMargin - bottomMargin)
+        height: Math.min(contentItem.implicitHeight + topPadding + bottomPadding, control.Window.height - topMargin - bottomMargin)
         topMargin: 6
         bottomMargin: 6
+        padding: 1
 
         Item {
             id: roundedRectMask
-            width: parent.width
-            height: parent.height
+            width: thePopup.availableWidth
+            height: thePopup.availableHeight
             layer.enabled: true
-            visible: false
+            opacity: 0
             Rectangle {
                 anchors.fill: parent
-                radius: Style.cornerRadius
+                radius: Style.cornerRadius - 1
             }
         }
 

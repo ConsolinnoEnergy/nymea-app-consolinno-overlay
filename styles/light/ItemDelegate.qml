@@ -5,6 +5,7 @@
 import QtQuick
 import QtQuick.Controls.impl
 import QtQuick.Templates as T
+import Nymea 1.0
 
 T.ItemDelegate {
     id: control
@@ -37,7 +38,7 @@ T.ItemDelegate {
     background: Rectangle {
         implicitWidth: 100
         implicitHeight: 40
-        visible: control.down || control.highlighted || control.visualFocus
-        color: "transparent"
+        visible: control.down || control.highlighted || control.visualFocus || control.hovered
+        color: Style.colors.typography_Background_Selection
     }
 }
