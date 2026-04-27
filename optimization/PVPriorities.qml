@@ -15,7 +15,7 @@ Page {
     signal done(bool skip, bool abort, bool back)
 
     header: NymeaHeader {
-        text: qsTr("PV Device Prioritization") // #TODO wording
+        text: qsTr("System")
         backButtonVisible: true
         onBackPressed:{
             if (directionID == 0) {
@@ -169,7 +169,7 @@ Page {
                 CoFrostyCard {
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("Device Prioritization") // #TODO wording
+                    headerText: qsTr("PV device prioritization") // #TODO wording
 
                     ColumnLayout {
                         anchors.left: parent.left

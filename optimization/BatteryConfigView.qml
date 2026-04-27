@@ -236,7 +236,7 @@ GenericConfigPage {
                             to: 100
                             stepSize: 1
                             labelText: qsTr("Priority applies up to state of charge") // #TODO wording
-                            helpText: qsTr("Above this state of charge, the battery is always considered last") // #TODO wording
+                            helpText: qsTr("Above this state of charge, the battery is always considered last.") // #TODO wording
                             value: batteryConfiguration.targetSocPvSurplus.length > 0 ? batteryConfiguration.targetSocPvSurplus[0] : 80
                             valueText: Math.round(value) + " %"
                             onValueChanged: enableSave(this)

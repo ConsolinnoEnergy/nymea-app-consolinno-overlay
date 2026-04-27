@@ -287,7 +287,7 @@ Page {
                 Layout.leftMargin: Style.margins
                 Layout.rightMargin: Style.margins
                 contentTopMargin: Style.smallMargins
-                headerText: qsTr("Nymea found the following things")
+                headerText: qsTr("The following devices were found:")
                 visible: !discovery.busy && discoveryProxy.count > 0
 
                 ColumnLayout {
