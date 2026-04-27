@@ -91,6 +91,37 @@
     </message>
 </context>
 <context>
+    <name>AnonymizedUsageDataInfo</name>
+    <message>
+        <source>Anonymized Usage Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>What are anonymized usage data?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>With this release, fully anonymized usage data is transmitted to Consolinno. This data does not contain any personal information and does not allow any conclusions to be drawn about individual persons or locations. All identifying characteristics are irrevocably removed before transmission.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>What is this data used for?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The anonymized data is used exclusively for research purposes as well as for the improvement of products and services. They help to further develop optimization algorithms, improve system stability and design new functions to meet demand. Your data thus makes a valuable contribution to the further development of the energy transition.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Will my data be shared with third parties?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No. The anonymized usage data is not sold to third parties or used for advertising purposes. You can revoke this release at any time. For more information, please visit www.consolinno.de/hems-datenschutz.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AuthorisationView</name>
     <message>
         <source>Authorisation page</source>
@@ -819,6 +850,96 @@
     </message>
     <message>
         <source>Charges the vehicle more slowly</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CloudServicesActivateInfo</name>
+    <message>
+        <source>Activate Cloud Services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>What does this setting mean?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This setting enables exclusively the connection to the system&apos;s authorized cloud services. Through these, functions such as data synchronization, secure remote access, and system updates are provided. The system only connects to the manufacturer&apos;s explicitly designated services – not to external or arbitrary cloud providers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Which data is transmitted?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The connection enables basic communication between the system and the Consolinno servers. Which data categories are specifically shared is determined by the individual release settings below. No additional data is transmitted without your explicit consent.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can I deactivate the connection at any time?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes. You can deactivate the cloud connection at any time. The system will then continue to operate entirely in local mode. Some functions that require an active cloud connection will not be available in this case.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CloudServicesPage</name>
+    <message>
+        <source>Consolinno Cloud Services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate Consolinno Cloud Services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activates the connection to our cloud services. Only the selected release categories will be shared.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>More about data processing and privacy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Release categories</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Energy Monitoring</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shares consumption and production data for accurate energy analysis.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anonymized usage data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shares fully anonymized data for research and product improvement.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2906,6 +3027,14 @@ Use a timeout value greater or equal to 10 ms.</source>
         <source>Configure the system’s network connection.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Consolinno cloud services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage cloud connection and data sharing preferences.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoSetupWizard</name>
@@ -3415,6 +3544,37 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>The operating mode indicates the control of the heat pump:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EnergyMonitoringInfo</name>
+    <message>
+        <source>Energy Monitoring</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>What data is shared with Energy Monitoring?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>With this release, consumption and production data from your energy system is transmitted to the Consolinno Cloud. This includes, for example, measured values for solar production, grid consumption, feed-in, and the consumption of connected devices. This data forms the basis for precise energy analysis and enables continuous optimization of the system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>What is the benefit for me?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The transmitted data enables detailed analysis of your energy flows, long-term trend analysis, and improved control and optimization of your system. You benefit from well-founded recommendations for maximizing self-consumption and reducing costs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Is personal data transmitted?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The transmitted energy data is assigned to your system. You can revoke this release at any time. For more information on data protection, please visit www.consolinno.de/hems-datenschutz.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -91,6 +91,37 @@
     </message>
 </context>
 <context>
+    <name>AnonymizedUsageDataInfo</name>
+    <message>
+        <source>Anonymized Usage Data</source>
+        <translation>Anonymisierte Nutzungsdaten</translation>
+    </message>
+    <message>
+        <source>What are anonymized usage data?</source>
+        <translation>Was sind anonymisierte Nutzungsdaten?</translation>
+    </message>
+    <message>
+        <source>With this release, fully anonymized usage data is transmitted to Consolinno. This data does not contain any personal information and does not allow any conclusions to be drawn about individual persons or locations. All identifying characteristics are irrevocably removed before transmission.</source>
+        <translation>Mit dieser Freigabe werden vollständig anonymisierte Nutzungsdaten an Consolinno übertragen. Diese Daten enthalten keine personenbezogenen Informationen und lassen keine Rückschlüsse auf einzelne Personen oder Standorte zu. Alle identifizierenden Merkmale werden vor der Übertragung unwiderruflich entfernt.</translation>
+    </message>
+    <message>
+        <source>What is this data used for?</source>
+        <translation>Wofür werden diese Daten verwendet?</translation>
+    </message>
+    <message>
+        <source>The anonymized data is used exclusively for research purposes as well as for the improvement of products and services. They help to further develop optimization algorithms, improve system stability and design new functions to meet demand. Your data thus makes a valuable contribution to the further development of the energy transition.</source>
+        <translation>Die anonymisierten Daten werden ausschließlich für Forschungszwecke sowie zur Verbesserung von Produkten und Dienstleistungen verwendet. Sie helfen dabei, Optimierungsalgorithmen weiterzuentwickeln, die Systemstabilität zu verbessern und neue Funktionen bedarfsgerecht zu gestalten. Ihre Daten leisten so einen wertvollen Beitrag zur Weiterentwicklung der Energiewende.</translation>
+    </message>
+    <message>
+        <source>Will my data be shared with third parties?</source>
+        <translation>Werden meine Daten an Dritte weitergegeben?</translation>
+    </message>
+    <message>
+        <source>No. The anonymized usage data is not sold to third parties or used for advertising purposes. You can revoke this release at any time. For more information, please visit www.consolinno.de/hems-datenschutz.</source>
+        <translation>Nein. Die anonymisierten Nutzungsdaten werden nicht an Dritte verkauft oder zu Werbezwecken verwendet. Sie können diese Freigabe jederzeit widerrufen. Weitere Informationen finden Sie unter www.consolinno.de/hems-datenschutz.</translation>
+    </message>
+</context>
+<context>
     <name>AuthorisationView</name>
     <message>
         <source>Authorisation page</source>
@@ -820,6 +851,96 @@
     <message>
         <source>Charges the vehicle more slowly</source>
         <translation>Lädt das Fahrzeug langsamer</translation>
+    </message>
+</context>
+<context>
+    <name>CloudServicesActivateInfo</name>
+    <message>
+        <source>Activate Cloud Services</source>
+        <translation>Cloud-Dienste aktivieren</translation>
+    </message>
+    <message>
+        <source>What does this setting mean?</source>
+        <translation>Was bedeutet diese Einstellung?</translation>
+    </message>
+    <message>
+        <source>This setting enables exclusively the connection to the system&apos;s authorized cloud services. Through these, functions such as data synchronization, secure remote access, and system updates are provided. The system only connects to the manufacturer&apos;s explicitly designated services – not to external or arbitrary cloud providers.</source>
+        <translation>Diese Einstellung aktiviert ausschließlich die Verbindung zu den autorisierten Cloud-Diensten des Systems. Darüber werden Funktionen wie Datensynchronisation, sicherer Fernzugriff und System-Updates bereitgestellt. Das System verbindet sich nur mit den vom Hersteller explizit festgelegten Diensten – nicht mit externen oder beliebigen Cloud-Anbietern.</translation>
+    </message>
+    <message>
+        <source>Which data is transmitted?</source>
+        <translation>Welche Daten werden übertragen?</translation>
+    </message>
+    <message>
+        <source>The connection enables basic communication between the system and the Consolinno servers. Which data categories are specifically shared is determined by the individual release settings below. No additional data is transmitted without your explicit consent.</source>
+        <translation>Die Verbindung ermöglicht eine grundlegende Kommunikation zwischen dem System und den Consolinno-Servern. Welche Datenkategorien konkret geteilt werden, bestimmen die individuellen Freigabe-Einstellungen weiter unten. Ohne Ihre ausdrückliche Zustimmung werden keine zusätzlichen Daten übertragen.</translation>
+    </message>
+    <message>
+        <source>Can I deactivate the connection at any time?</source>
+        <translation>Kann ich die Verbindung jederzeit deaktivieren?</translation>
+    </message>
+    <message>
+        <source>Yes. You can deactivate the cloud connection at any time. The system will then continue to operate entirely in local mode. Some functions that require an active cloud connection will not be available in this case.</source>
+        <translation>Ja. Sie können die Cloud-Verbindung jederzeit deaktivieren. Das System arbeitet dann vollständig im lokalen Betrieb weiter. Einige Funktionen, die eine aktive Cloud-Verbindung erfordern, stehen in diesem Fall nicht zur Verfügung.</translation>
+    </message>
+</context>
+<context>
+    <name>CloudServicesPage</name>
+    <message>
+        <source>Consolinno Cloud Services</source>
+        <translation>Consolinno Cloud-Dienste</translation>
+    </message>
+    <message>
+        <source>Connection</source>
+        <translation>Verbindung</translation>
+    </message>
+    <message>
+        <source>Connected</source>
+        <translation>Verbunden</translation>
+    </message>
+    <message>
+        <source>Not connected</source>
+        <translation>Nicht verbunden</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
+        <source>Consent</source>
+        <translation>Einwilligung</translation>
+    </message>
+    <message>
+        <source>Activate Consolinno Cloud Services</source>
+        <translation>Consolinno Cloud-Dienste aktivieren</translation>
+    </message>
+    <message>
+        <source>Activates the connection to our cloud services. Only the selected release categories will be shared.</source>
+        <translation>Aktiviert die Verbindung zu unseren Cloud-Diensten. Nur die ausgewählten Freigabe-Kategorien werden geteilt.</translation>
+    </message>
+    <message>
+        <source>More about data processing and privacy</source>
+        <translation>Mehr über Datenschutz und Datenverarbeitung</translation>
+    </message>
+    <message>
+        <source>Release categories</source>
+        <translation>Freigabe-Kategorien</translation>
+    </message>
+    <message>
+        <source>Energy Monitoring</source>
+        <translation>Energie-Monitoring</translation>
+    </message>
+    <message>
+        <source>Shares consumption and production data for accurate energy analysis.</source>
+        <translation>Teilt Verbrauchs- und Produktionsdaten für präzise Energieanalysen.</translation>
+    </message>
+    <message>
+        <source>Anonymized usage data</source>
+        <translation>Anonymisierte Nutzungsdaten</translation>
+    </message>
+    <message>
+        <source>Shares fully anonymized data for research and product improvement.</source>
+        <translation>Teilt vollständig anonymisierte Daten für Forschung und Produktverbesserung.</translation>
     </message>
 </context>
 <context>
@@ -2923,6 +3044,14 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <source>Configure the system’s network connection.</source>
         <translation>Richte das Netzwerk dieses Systems ein.</translation>
     </message>
+    <message>
+        <source>Consolinno cloud services</source>
+        <translation>Consolinno Cloud-Dienste</translation>
+    </message>
+    <message>
+        <source>Manage cloud connection and data sharing preferences.</source>
+        <translation>Cloud-Verbindung und Datenfreigabe-Einstellungen verwalten.</translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoSetupWizard</name>
@@ -3434,6 +3563,37 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     <message>
         <source>The operating mode indicates the control of the heat pump:</source>
         <translation>Der Betriebszustand zeigt die Steuerung der Wärmepumpe an:</translation>
+    </message>
+</context>
+<context>
+    <name>EnergyMonitoringInfo</name>
+    <message>
+        <source>Energy Monitoring</source>
+        <translation>Energie-Monitoring</translation>
+    </message>
+    <message>
+        <source>What data is shared with Energy Monitoring?</source>
+        <translation>Welche Daten werden beim Energie-Monitoring geteilt?</translation>
+    </message>
+    <message>
+        <source>With this release, consumption and production data from your energy system is transmitted to the Consolinno Cloud. This includes, for example, measured values for solar production, grid consumption, feed-in, and the consumption of connected devices. This data forms the basis for precise energy analysis and enables continuous optimization of the system.</source>
+        <translation>Mit dieser Freigabe werden Verbrauchs- und Produktionsdaten Ihres Energiesystems an die Consolinno Cloud übertragen. Dazu gehören beispielsweise Messwerte für Solarproduktion, Netzbezug, Einspeisung sowie den Verbrauch angeschlossener Geräte. Diese Daten bilden die Grundlage für präzise Energieanalysen und ermöglichen eine kontinuierliche Optimierung des Systems.</translation>
+    </message>
+    <message>
+        <source>What is the benefit for me?</source>
+        <translation>Welchen Nutzen habe ich davon?</translation>
+    </message>
+    <message>
+        <source>The transmitted data enables detailed analysis of your energy flows, long-term trend analysis, and improved control and optimization of your system. You benefit from well-founded recommendations for maximizing self-consumption and reducing costs.</source>
+        <translation>Die übertragenen Daten ermöglichen eine detaillierte Analyse Ihrer Energieflüsse, langfristige Trendanalysen sowie eine verbesserte Steuerung und Optimierung Ihres Systems. Sie profitieren von fundierten Empfehlungen zur Maximierung des Eigenverbrauchs und zur Kostenreduktion.</translation>
+    </message>
+    <message>
+        <source>Is personal data transmitted?</source>
+        <translation>Werden personenbezogene Daten übertragen?</translation>
+    </message>
+    <message>
+        <source>The transmitted energy data is assigned to your system. You can revoke this release at any time. For more information on data protection, please visit www.consolinno.de/hems-datenschutz.</source>
+        <translation>Die übertragenen Energiedaten werden Ihrem System zugeordnet. Sie können diese Freigabe jederzeit widerrufen. Weitere Informationen zum Datenschutz finden Sie unter www.consolinno.de/hems-datenschutz.</translation>
     </message>
 </context>
 <context>

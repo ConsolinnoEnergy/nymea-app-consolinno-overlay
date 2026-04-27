@@ -1,0 +1,87 @@
+import QtQuick
+import QtQuick.Controls
+import QtQml
+import Nymea 1.0
+import QtQuick.Layouts
+
+import "../components"
+import "../delegates"
+
+Page {
+    id: root
+    property var stack
+    header: ConsolinnoHeader {
+        id: header
+        text: qsTr("Anonymized Usage Data")
+        backButtonVisible: true
+        onBackPressed: stack.pop()
+        show_Image: true
+    }
+
+    InfoTextInterface {
+        anchors.fill: parent
+        body: ColumnLayout {
+            Layout.fillWidth: true
+
+            Label {
+                Layout.fillWidth: true
+                Layout.preferredWidth: app.width
+                Layout.topMargin: 8
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
+                wrapMode: Text.WordWrap
+                font.bold: true
+                text: qsTr("What are anonymized usage data?")
+            }
+
+            Label {
+                Layout.fillWidth: true
+                Layout.preferredWidth: app.width
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
+                wrapMode: Text.WordWrap
+                text: qsTr("With this release, fully anonymized usage data is transmitted to Consolinno. This data does not contain any personal information and does not allow any conclusions to be drawn about individual persons or locations. All identifying characteristics are irrevocably removed before transmission.")
+            }
+
+            Label {
+                Layout.fillWidth: true
+                Layout.preferredWidth: app.width
+                Layout.topMargin: 16
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
+                wrapMode: Text.WordWrap
+                font.bold: true
+                text: qsTr("What is this data used for?")
+            }
+
+            Label {
+                Layout.fillWidth: true
+                Layout.preferredWidth: app.width
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
+                wrapMode: Text.WordWrap
+                text: qsTr("The anonymized data is used exclusively for research purposes as well as for the improvement of products and services. They help to further develop optimization algorithms, improve system stability and design new functions to meet demand. Your data thus makes a valuable contribution to the further development of the energy transition.")
+            }
+
+            Label {
+                Layout.fillWidth: true
+                Layout.preferredWidth: app.width
+                Layout.topMargin: 16
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
+                wrapMode: Text.WordWrap
+                font.bold: true
+                text: qsTr("Will my data be shared with third parties?")
+            }
+
+            Label {
+                Layout.fillWidth: true
+                Layout.preferredWidth: app.width
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
+                wrapMode: Text.WordWrap
+                text: qsTr("No. The anonymized usage data is not sold to third parties or used for advertising purposes. You can revoke this release at any time. For more information, please visit www.consolinno.de/hems-datenschutz.")
+            }
+        }
+    }
+}

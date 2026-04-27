@@ -18,6 +18,7 @@
 #include "Configurations/conemsstate.h"
 #include "Configurations/emsconfiguration.h"
 #include "Configurations/switchableconsumerconfigurations.h"
+#include "Configurations/cloudconfiguration.h"
 
 
 
@@ -42,6 +43,8 @@ class HemsManager : public QObject
     Q_PROPERTY(HeatingElementConfigurations *heatingElementConfigurations READ heatingElementConfigurations CONSTANT)
     Q_PROPERTY(EmsConfiguration *emsConfiguration READ emsConfiguration CONSTANT)
     Q_PROPERTY(SwitchableConsumerConfigurations *switchableConsumerConfigurations READ switchableConsumerConfigurations CONSTANT)
+    Q_PROPERTY(CloudConfiguration *cloudConfiguration READ cloudConfiguration CONSTANT)
+    Q_PROPERTY(bool cloudConfigurationSupported READ cloudConfigurationSupported NOTIFY cloudConfigurationSupportedChanged)
 
 public:
     enum HemsUseCase {
@@ -87,6 +90,8 @@ public:
     BatteryConfigurations *batteryConfigurations() const;
     EmsConfiguration *emsConfiguration() const;
     SwitchableConsumerConfigurations *switchableConsumerConfigurations() const;
+    CloudConfiguration *cloudConfiguration() const;
+    bool cloudConfigurationSupported() const;
 
     // write and read
     Q_INVOKABLE int setPvConfiguration(const QUuid &pvThingId, const QVariantMap &data);
@@ -99,6 +104,7 @@ public:
 
     Q_INVOKABLE int setBatteryConfiguration(const QUuid &batteryThingId, const QVariantMap &data);
     Q_INVOKABLE int setSwitchableConsumerConfiguration(const QUuid &switchableConsumerThingId, const QVariantMap &data);
+    Q_INVOKABLE int setCloudConfiguration(const QVariantMap &data);
 
     // read only
     Q_INVOKABLE int setChargingSessionConfiguration(const QUuid carThingId, const QUuid evChargerThingid, const QString started_at, const QString finished_at, const float initial_battery_energy, const int duration, const float energy_charged, const float energy_battery, const int battery_level, const QUuid sessionId, const int state, const int timestamp);
@@ -142,8 +148,11 @@ signals:
     void setDynamicElectricPricingConfigurationReply(int commandId, const QString &error);
     void setBatteryConfigurationReply(int commandId, const QString &error);
     void setSwitchableConsumerConfigurationReply(int commandId, const QString &error);
+    void setCloudConfigurationReply(int commandId, const QString &error);
 
     void factoryResetReply(int commandId, const QString &error);
+
+    void cloudConfigurationSupportedChanged(bool supported);
 
     void setPVSurplusPriolistReply(int commandId, const QString &error);
 
@@ -165,6 +174,7 @@ private slots:
     Q_INVOKABLE void getBatteryConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getEmsConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getSwitchableConsumerConfigurationsResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void getCloudConfigurationResponse(int commandId, const QVariantMap &data);
 
     Q_INVOKABLE void setHousholdPhaseLimitResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setPvConfigurationResponse(int commandId, const QVariantMap &data);
@@ -179,6 +189,7 @@ private slots:
     Q_INVOKABLE void setBatteryConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setEmsConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setSwitchableConsumerConfigurationResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void setCloudConfigurationResponse(int commandId, const QVariantMap &data);
 
     Q_INVOKABLE void factoryResetResponse(int commandId, const QVariantMap &data);
 
@@ -203,6 +214,8 @@ private:
     BatteryConfigurations *m_batteryConfigurations = nullptr;
     EmsConfiguration *m_emsConfiguration = nullptr;
     SwitchableConsumerConfigurations *m_switchableConsumerConfigurations = nullptr;
+    CloudConfiguration *m_cloudConfiguration = nullptr;
+    bool m_cloudConfigurationSupported = false;
 
     void initJsonRpcCommunication();
 

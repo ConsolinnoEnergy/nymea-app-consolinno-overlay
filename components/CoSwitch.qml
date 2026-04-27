@@ -13,6 +13,7 @@ Item {
     property alias helpText: helpLabel.text
 
     signal clicked()
+    signal toggled()
 
     implicitHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
     implicitWidth: layout.implicitWidth + layout.anchors.leftMargin + layout.anchors.rightMargin
@@ -20,11 +21,17 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: mouseArea.pressed || toggle.down ?
-                   Style.colors.typography_States_Pressed :
-                       mouseArea.containsMouse || toggle.hovered ?
-                           Style.colors.typography_States_Hover :
-                           "transparent"
+        color: {
+            if (!root.enabled) {
+                return "transparent";
+            } else if (mouseArea.pressed || toggle.down) {
+                return Style.colors.typography_States_Pressed;
+            } else if (mouseArea.containsMouse || toggle.hovered) {
+                return Style.colors.typography_States_Hover;
+            } else {
+                return "transparent";
+            }
+        }
     }
 
     MouseArea {
@@ -67,6 +74,9 @@ Item {
             Layout.alignment: Qt.AlignCenter
             onClicked: {
                 root.clicked();
+            }
+            onToggled: {
+                root.toggled()
             }
         }
     }

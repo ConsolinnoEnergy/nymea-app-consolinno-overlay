@@ -22,6 +22,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
     m_userConfigurations = new UserConfigurations(this);
     m_emsConfiguration = new EmsConfiguration(this);
     m_switchableConsumerConfigurations = new SwitchableConsumerConfigurations(this);
+    m_cloudConfiguration = new CloudConfiguration(this);
 }
 
 HemsManager::~HemsManager()
@@ -738,6 +739,20 @@ void HemsManager::notificationReceived(const QVariantMap &data)
     } else if (notification == "Hems.EmsConfigurationChanged") {
         qCDebug(dcHems()) << "EMS configuration changed";
         updateEmsConfiguration(params.value("emsConfiguration").toMap());
+    } else if (notification == "Hems.CloudConfigurationChanged") {
+        qCDebug(dcHems()) << "Cloud configuration changed";
+        QVariantMap configMap = params.value("cloudConfiguration").toMap();
+        m_cloudConfiguration->setCloudEnabled(configMap.value("cloudConnectionEnabled").toBool());
+        m_cloudConfiguration->setEnergyMonitoringEnabled(configMap.value("energyMonitoringEnabled").toBool());
+        m_cloudConfiguration->setResearchDataEnabled(configMap.value("researchDataEnabled").toBool());
+        // TODO(ESEMS-2936): The MQTT connection state is assumed to be published as
+        // cloudConfiguration.mqttConnected in:
+        //   - Hems.GetCloudConfiguration response
+        //   - Hems.CloudConfigurationChanged notification
+        // This needs to be implemented in nymea-energy-plugin-consolinno by forwarding
+        // the Leaflet MQTT connector state as a bool field `mqttConnected` in the
+        // `cloudConfiguration` object.
+        m_cloudConfiguration->setMqttConnected(configMap.value("mqttConnected").toBool());
     }
 
 
@@ -955,6 +970,71 @@ void HemsManager::setEmsConfigurationResponse(int commandId, const QVariantMap &
     emit setPVSurplusPriolistReply(commandId, data.value("hemsError").toString());
 }
 
+CloudConfiguration *HemsManager::cloudConfiguration() const
+{
+    return m_cloudConfiguration;
+}
+
+bool HemsManager::cloudConfigurationSupported() const
+{
+    return m_cloudConfigurationSupported;
+}
+
+int HemsManager::setCloudConfiguration(const QVariantMap &data)
+{
+    QVariantMap cloudConfig;
+    cloudConfig.insert("cloudConnectionEnabled", data.contains("cloudEnabled") ? data.value("cloudEnabled") : m_cloudConfiguration->cloudEnabled());
+    cloudConfig.insert("energyMonitoringEnabled", data.contains("energyMonitoringEnabled") ? data.value("energyMonitoringEnabled") : m_cloudConfiguration->energyMonitoringEnabled());
+    cloudConfig.insert("researchDataEnabled", data.contains("researchDataEnabled") ? data.value("researchDataEnabled") : m_cloudConfiguration->researchDataEnabled());
+
+    QVariantMap params;
+    params.insert("cloudConfiguration", cloudConfig);
+
+    m_cloudConfiguration->setCloudEnabled(cloudConfig.value("cloudConnectionEnabled").toBool());
+    m_cloudConfiguration->setEnergyMonitoringEnabled(cloudConfig.value("energyMonitoringEnabled").toBool());
+    m_cloudConfiguration->setResearchDataEnabled(cloudConfig.value("researchDataEnabled").toBool());
+
+    qCDebug(dcHems()) << "Set cloud configuration" << params;
+    return m_engine->jsonRpcClient()->sendCommand("Hems.SetCloudConfiguration", params, this, "setCloudConfigurationResponse");
+}
+
+void HemsManager::getCloudConfigurationResponse(int commandId, const QVariantMap &data)
+{
+    Q_UNUSED(commandId);
+    qCDebug(dcHems()) << "Cloud configuration" << data;
+
+    // Silent fail: if the daemon does not support GetCloudConfiguration,
+    // the response will not contain "cloudConfiguration". In that case we
+    // leave m_cloudConfigurationSupported = false so the UI hides the menu entry.
+    if (!data.contains("cloudConfiguration")) {
+        qCWarning(dcHems()) << "Hems.GetCloudConfiguration not supported by this daemon - hiding cloud preferences menu.";
+        return;
+    }
+
+    if (!m_cloudConfigurationSupported) {
+        m_cloudConfigurationSupported = true;
+        emit cloudConfigurationSupportedChanged(m_cloudConfigurationSupported);
+    }
+
+    QVariantMap configMap = data.value("cloudConfiguration").toMap();
+    m_cloudConfiguration->setCloudEnabled(configMap.value("cloudConnectionEnabled").toBool());
+    m_cloudConfiguration->setEnergyMonitoringEnabled(configMap.value("energyMonitoringEnabled").toBool());
+    m_cloudConfiguration->setResearchDataEnabled(configMap.value("researchDataEnabled").toBool());
+    // TODO(ESEMS-2936): Once nymea-energy-plugin-consolinno adds the `mqttConnected` field
+    // to the Hems.GetCloudConfiguration response in nymea-energy-plugin-consolinno.
+    // The Leaflet MQTT connector's connection state should be forwarded here (and in
+    // the Hems.CloudConfigurationChanged notification handler in
+    // nymea-energy-plugin-consolinno/consolinnojsonhandler.cpp) as a bool field
+    // `mqttConnected` inside `cloudConfiguration`.
+    m_cloudConfiguration->setMqttConnected(configMap.value("mqttConnected").toBool());
+}
+
+void HemsManager::setCloudConfigurationResponse(int commandId, const QVariantMap &data)
+{
+    qCDebug(dcHems()) << "Set cloud configuration response" << data.value("hemsError").toString();
+    emit setCloudConfigurationReply(commandId, data.value("hemsError").toString());
+}
+
 void HemsManager::initJsonRpcCommunication()
 {
     qCDebug(dcHems()) << "initJsonRpcCommunication:"
@@ -1036,6 +1116,10 @@ void HemsManager::initJsonRpcCommunication()
                                            QVariantMap(),
                                            this,
                                            "getHeatingElementConfigurationsResponse");
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetCloudConfiguration",
+                                           QVariantMap(),
+                                           this,
+                                           "getCloudConfigurationResponse");
 }
 
 void HemsManager::setPvConfigurationResponse(int commandId, const QVariantMap &data)
