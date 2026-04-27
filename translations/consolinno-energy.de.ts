@@ -766,30 +766,6 @@
         <translation>Lademodus</translation>
     </message>
     <message>
-        <source>Charging Mode</source>
-        <translation>Lademodus</translation>
-    </message>
-    <message>
-        <source>In charging mode, you set how the energy manager should charge the vehicle.</source>
-        <translation>Im Lademodus stellen Sie ein, wie das Fahrzeug geladen werden soll.</translation>
-    </message>
-    <message>
-        <source>Next Trip</source>
-        <translation>Nächste Fahrt</translation>
-    </message>
-    <message>
-        <source>The charging mode is used to ensure a certain charge level until a departure time, while scheduling the charging to use as much of your own electricity as possible. If the own solar power is not sufficient to reach the charging target, the grid supply (or grid supply times) is scheduled accordingly. The charging plan depends on a forecast of the solar production, which, like every forecast, is always affected by inaccuracies. Therefore, please note that deviations from the forecast may occur, i.e. it may happen that less is charged than solar power is currently available, since less solar power was predicted, or conversely, grid draw may occur if less solar power is available than the forecast assumed.</source>
-        <translation>Der Lademodus dient dazu, einen bestimmten Ladestand bis zu einem Abfahrtszeitpunkt sicherzustellen und das Laden dabei so zu planen, dass möglichst viel eigener Strom verbraucht wird. Falls der eigene Solarstrom nicht ausreichen sollte, um das Ladeziel zu erreichen, wird entsprechend Netzbezug (bzw. Netzbezugszeiten) eingeplant. Der Ladeplan basiert auf einer Prognose der Solarproduktion, die wie jede Vorhersage stets mit Ungenauigkeit behaftet ist. Beachten Sie deshalb, dass es zu Abweichungen von der Prognose kommen kann, d.h. es kann vorkommen, dass weniger geladen wird, als aktuell Solarstrom zur Verfügung steht, da weniger Solarstrom vorhergesagt war. Umgekehrt kann es zu Netzbezug kommen, wenn weniger Solarstrom zur Verfügung steht, als die Prognose angenommen hat.</translation>
-    </message>
-    <message>
-        <source>Solar Power Only</source>
-        <translation>Nur Solarstrom</translation>
-    </message>
-    <message>
-        <source>The vehicle will be charged with solar power only. You can specify what should happen if there is not enough solar power available for charging. Charging can be paused or continued with minimal power from the grid. The default setting is pausing. If your car does not automatically continue charging after pausing when its solar power is available again, then the option &lt;font color=&quot;#87BD26&quot;&gt;Charge with minimum power&lt;/font&gt; is useful. Note that the charging current will not regulate down until there is 60 seconds too less solar power available and vice versa will not regulate up until there is 60 seconds more solar power available.</source>
-        <translation>Das Fahrzeug wird nur mit Solarstrom geladen. Sie können angeben, was passieren soll, wenn nicht ausreichend Solarstrom zum Laden zur Verfügung steht. Der Ladevorgang kann pausieren oder mit minimalem Strom aus dem Netz fortgesetzt werden. Standardmäßig ist pausieren eingestellt. Sollte ihr Auto, nach dem Pausieren nicht automatisch das Laden fortsetzen, sobald wieder eigener Strom verfügbar ist, dann ist die Option „Laden mit minimaler Leistung“ sinnvoll. Beachten Sie, dass der Ladestrom erst heruntergeregelt wird, wenn 60 Sekunden zu wenig Solarstrom zur Verfügung steht und umgekehrt erst hochregelt, wenn 60 Sekunden mehr Leistung vorhanden ist.</translation>
-    </message>
-    <message>
         <source>Always charge</source>
         <translation>Immer laden</translation>
     </message>
@@ -810,8 +786,36 @@
         <translation>Im Lademodus dynamischer Tarif wird mit maximalem Ladestrom geladen, sobald der Preis unter die eingestellte Preisgrenze fällt. In Zeiten in denen nicht geladen wird, weil die Preisgrenze überschritten ist, wird geladen, falls PV-Überschuss vorhanden ist. Wenn die Preisgrenze verändert wird, ist diese Grenze beim nächsten Anstecken vorausgewählt.</translation>
     </message>
     <message>
-        <source>The charging modes &lt;font color=&quot;%1&quot;&gt;Solar power only&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;Always charging&lt;/font&gt; and &lt;font color=&quot;%1&quot;&gt;Dynamic pricing&lt;/font&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;font color=&quot;%1&quot;&gt;Next trip&lt;/font&gt;, you must select a charging mode again when you plug in.</source>
-        <translation>Die Lademodi &lt;font color=&quot;%1&quot;&gt;„Nur Solarstrom“&lt;/font&gt;, &lt;font color=&quot;%1&quot;&gt;„Immer Laden“&lt;/font&gt; sowie &lt;font color=&quot;%1&quot;&gt;„Dynamischer Tarif“&lt;/font&gt; bleiben nachdem Abstecken weiterhin ausgewählt. Das heißt, wenn Sie wieder anstecken, ist der letzte gewählte Modus aktiv. Wenn Sie mit &lt;font color=&quot;%1&quot;&gt;„Nächster Fahrt“&lt;/font&gt; geladen haben, dann müssen Sie bei Anstecken wieder einen Lademodus wählen.</translation>
+        <source>In charging mode, you set how the energy manager should charge the vehicle. PV surplus is allocated to devices according to your selected priority.</source>
+        <translation>Im Lademodus stellst du ein, wie das Fahrzeug geladen werden soll. PV-Überschuss wird Geräten nach deiner gewählten Priorität zugewiesen.</translation>
+    </message>
+    <message>
+        <source>Solar power only</source>
+        <translation>Nur Solarstrom</translation>
+    </message>
+    <message>
+        <source>The vehicle will be charged with solar power only. You can specify what should happen if there is not enough solar power available for charging. Charging can be paused or continued with minimum power from the grid. The default setting is pausing. If your car does not automatically continue charging after pausing when solar power is available again, then the option &lt;b&gt;Charge with minimum power&lt;/b&gt; is useful. Note that the car/charger does not react immediately; when 60 seconds too little solar power is available than predicted, charging will not regulate down until there is 60 seconds more solar power available.</source>
+        <translation>Das Fahrzeug wird nur mit Solarstrom geladen. Du kannst angeben, was passieren soll, wenn nicht ausreichend Solarstrom zum Laden zur Verfügung steht. Der Ladevorgang kann pausieren oder mit minimalem Strom aus dem Netz fortgesetzt werden. Standardmäßig ist pausieren eingestellt. Sollte dein Auto nach dem Pausieren nicht automatisch das Laden fortsetzen, sobald wieder eigener Strom verfügbar ist, dann ist die Option &lt;b&gt;Laden mit minimaler Leistung&lt;/b&gt; sinnvoll. Beachte, dass der Ladestrom erst heruntergeregelt wird, wenn 60 Sekunden zu wenig Solarstrom zur Verfügung steht und umgekehrt erst hochregelt, wenn 60 Sekunden mehr Leistung vorhanden ist.</translation>
+    </message>
+    <message>
+        <source>Next trip</source>
+        <translation>Nächste Fahrt</translation>
+    </message>
+    <message>
+        <source>The charging mode is used to ensure a certain charge level until a departure time, while scheduling the charging to use as much of your own electricity as possible. If the own solar power is not sufficient to reach the charging target, the grid supply for grid supply is scheduled accordingly. The charging plan depends on a forecast of the solar production, which, like every forecast, is always affected by inaccuracies. Therefore, please note that deviations from the forecast may occur; i.e. it may happen that less is charged then solar power was predicted, or conversely, grid draw may occur if less solar power is available than the forecast assumed.</source>
+        <translation>Der Lademodus dient dazu, einen bestimmten Ladestand bis zu einem Abfahrtszeitpunkt sicherzustellen und das Laden dabei so zu planen, dass möglichst viel eigener Strom verbraucht wird. Falls der eigene Solarstrom nicht ausreichen sollte, um das Ladeziel zu erreichen, wird entsprechend Netzbezug (bzw. Netzbezugszeiten) eingeplant. Der Ladeplan basiert auf einer Prognose der Solarproduktion, die wie jede Vorhersage stets mit Ungenauigkeit behaftet ist. Beachte deshalb, dass es zu Abweichungen von der Prognose kommen kann, d. h. es kann vorkommen, dass weniger geladen wird, als aktuell Solarstrom zur Verfügung steht, da weniger Solarstrom vorhergesagt war. Umgekehrt kann es zu Netzbezug kommen, wenn weniger Solarstrom zur Verfügung steht, als die Prognose angenommen hat.</translation>
+    </message>
+    <message>
+        <source>Time controlled</source>
+        <translation>Zeitgesteuertes Laden</translation>
+    </message>
+    <message>
+        <source>In this mode, your wallbox only charges within a defined time window. This means that you can define exactly one time slot per weekday. This lets you target charging to off-peak or bonus periods of your electricity tariff (e.g. overnight). Outside the time window, charging is paused. This mode requires that your wallbox supports pausing an ongoing charging session.</source>
+        <translation>In diesem Modus lädt deine Wallbox nur innerhalb eines festgelegten Zeitfensters. Für jeden Wochentag ist genau ein Slot möglich. So kannst du Ladezeiten gezielt in Spar- bzw. Bonuszeiträume deines Stromtarifs legen (z.B. nachts). Außerhalb des Zeitfensters wird der Ladevorgang pausiert. Voraussetzung ist, dass deine Wallbox das Pausieren eines Ladevorgangs unterstützt.</translation>
+    </message>
+    <message>
+        <source>The charging modes &lt;b&gt;Solar power only&lt;/b&gt;, &lt;b&gt;Always charging&lt;/b&gt;, &lt;b&gt;Dynamic pricing&lt;/b&gt; and &lt;b&gt;Time controlled&lt;/b&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;b&gt;Next trip&lt;/b&gt;, you must select a charging mode again when you plug in.</source>
+        <translation>Die Lademodi &lt;b&gt;Nur Solarstrom&lt;/b&gt;, &lt;b&gt;Immer Laden&lt;/b&gt;, &lt;b&gt;Dynamischer Tarif&lt;/b&gt; sowie &lt;b&gt;Zeitgesteuertes Laden&lt;/b&gt; bleiben nach dem Abstecken weiterhin ausgewählt. Das heißt, wenn du wieder ansteckst, ist der letzte gewählte Modus aktiv. Wenn du mit &lt;b&gt;Nächster Fahrt&lt;/b&gt; geladen hast, dann musst du beim Anstecken wieder einen Lademodus wählen.</translation>
     </message>
 </context>
 <context>
