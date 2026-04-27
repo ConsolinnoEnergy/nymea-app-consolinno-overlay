@@ -324,7 +324,7 @@ GenericConfigPage {
                             showChildrenIndicator: true
 
                             onClicked: {
-                                pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"));
+                                pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"), { alwaysEnabledThingId: root.thing.id.toString() });
                             }
                         }
 

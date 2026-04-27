@@ -270,8 +270,8 @@
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <source>Above this state of charge, the battery is always considered last</source>
-        <translation type="unfinished"></translation>
+        <source>Above this state of charge, the battery is always considered last.</source>
+        <translation>Oberhalb dieses Ladezustands wird die Batterie immer zuletzt berücksichtigt.</translation>
     </message>
 </context>
 <context>
@@ -3164,8 +3164,8 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Ok</translation>
     </message>
     <message>
-        <source>Nymea found the following things</source>
-        <translation type="unfinished"></translation>
+        <source>The following devices were found:</source>
+        <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
 </context>
 <context>
@@ -4614,12 +4614,12 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <source>PV Device Prioritization</source>
-        <translation type="unfinished"></translation>
+        <source>System</source>
+        <translation>System</translation>
     </message>
     <message>
-        <source>Device Prioritization</source>
-        <translation type="unfinished"></translation>
+        <source>PV device prioritization</source>
+        <translation>PV-Gerätepriorisierung</translation>
     </message>
 </context>
 <context>

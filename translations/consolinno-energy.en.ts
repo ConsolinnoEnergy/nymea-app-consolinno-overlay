@@ -270,7 +270,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Above this state of charge, the battery is always considered last</source>
+        <source>Above this state of charge, the battery is always considered last.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3147,7 +3147,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nymea found the following things</source>
+        <source>The following devices were found:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4594,11 +4594,11 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PV Device Prioritization</source>
+        <source>System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Device Prioritization</source>
+        <source>PV device prioritization</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
