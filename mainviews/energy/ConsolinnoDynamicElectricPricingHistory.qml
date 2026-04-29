@@ -35,7 +35,7 @@ Item {
         currentPrice = thing.stateByName("currentTotalCost").value
         averagePrice = thing.stateByName("averageTotalCost").value.toFixed(2);
         consumptionSeries.insertEntry(thing)
-        valueAxis.adjustMax((Math.ceil(lowestPrice)),highestPrice);
+        valueAxis.adjustMax(lowestPrice, highestPrice);
         currentValueTimer.restartTimer();
     }
 
@@ -190,15 +190,27 @@ Item {
                     titleVisible: false
                     shadesVisible: false
 
-                    function adjustMax(minPrice,maxPrice) {
-                        // force yaxis steps to multiples of 5
-                        let step = Math.ceil(maxPrice / 4);
-                        const rest = step % 5;
-                        if(rest !== 0) {
-                            step += 5 - rest;
+                    function adjustMax(minPrice, maxPrice) {
+                        if (typeof minPrice !== "number" || typeof maxPrice !== "number") {
+                            return;
                         }
 
-                        max = step * 4;
+                        if (minPrice === maxPrice) {
+                            min = 0;
+                            max = 1;
+                        }
+
+                        // Round min down and max up to nearest multiple of 5
+                        min = Math.floor(minPrice / 5) * 5;
+                        max = Math.ceil(maxPrice / 5) * 5;
+
+                        // Ensure there's enough span for the ticks (avoid too-small ranges)
+                        if (max - min < 20) {
+                            while (max - min < 20) {
+                                max += 5;
+                                min -= 5;
+                            }
+                        }
                     }
                 }
 
