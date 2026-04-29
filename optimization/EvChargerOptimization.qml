@@ -10,7 +10,6 @@ Page {
     id: root
     property Thing thing
     property ChargingOptimizationConfiguration chargingOptimizationConfiguration: hemsManager.chargingOptimizationConfigurations.getChargingOptimizationConfiguration(thing.id)
-    property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
     property int directionID: 0
     signal done()
 
@@ -103,7 +102,7 @@ Page {
             Layout.fillWidth: true
             text: qsTr("Apply changes")
             onClicked: {
-                    hemsManager.setChargingOptimizationConfiguration(chargingConfiguration.evChargerThingId,
+                    hemsManager.setChargingOptimizationConfiguration(chargingOptimizationConfiguration.evChargerThingId,
                                                                      {
                                                                          controllableLocalSystem: gridSupportControl.checked
                                                                      });
