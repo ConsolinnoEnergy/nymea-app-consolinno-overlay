@@ -5300,6 +5300,45 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
 </context>
 <context>
+    <name>SwitchableConsumerOperatingModeInfo</name>
+    <message>
+        <source>Operating mode</source>
+        <translation>Betriebsmodus</translation>
+    </message>
+    <message>
+        <source>PV surplus</source>
+        <translation>PV-Überschuss</translation>
+    </message>
+    <message>
+        <source>The consumer is operated using solar power only. PV surplus is allocated to devices according to your selected priority.</source>
+        <translation>Der Verbraucher wird nur mit Solarstrom betrieben. PV‑Überschuss wird Geräten nach deiner gewählten Priorität zugewiesen.</translation>
+    </message>
+    <message>
+        <source>Always on</source>
+        <translation>Immer an</translation>
+    </message>
+    <message>
+        <source>The consumer is permanently switched on.</source>
+        <translation>Der Verbraucher ist dauerhaft eingeschaltet.</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>Aus</translation>
+    </message>
+    <message>
+        <source>The consumer is permanently switched off.</source>
+        <translation>Der Verbraucher ist dauerhaft ausgeschaltet.</translation>
+    </message>
+    <message>
+        <source>No control</source>
+        <translation>Keine Steuerung</translation>
+    </message>
+    <message>
+        <source>The consumer is not controlled by the %1.</source>
+        <translation>Der Verbraucher wird nicht vom %1 gesteuert.</translation>
+    </message>
+</context>
+<context>
     <name>SwitchableConsumerOptimization</name>
     <message>
         <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>

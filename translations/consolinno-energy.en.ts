@@ -5279,6 +5279,45 @@ Would you like to continue anyway?</source>
     </message>
 </context>
 <context>
+    <name>SwitchableConsumerOperatingModeInfo</name>
+    <message>
+        <source>Operating mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV surplus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The consumer is operated using solar power only. PV surplus is allocated to devices according to your selected priority.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The consumer is permanently switched on.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The consumer is permanently switched off.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The consumer is not controlled by the %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SwitchableConsumerOptimization</name>
     <message>
         <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
