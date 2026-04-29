@@ -4,7 +4,6 @@ import QtQml
 import Nymea 1.0
 import QtQuick.Layouts
 
-
 import "../components"
 import "../delegates"
 
@@ -12,21 +11,21 @@ Page {
     property var stack
     header: ConsolinnoHeader {
         id: header
-        text: qsTr("Optimization")
+        text: qsTr("Operating mode")
         backButtonVisible: true
         onBackPressed: stack.pop()
         show_Image: true
     }
 
-    InfoTextInterface{
+    InfoTextInterface {
         anchors.fill: parent
         body: ColumnLayout {
             Layout.fillWidth: true
 
             Label {
                 Layout.fillWidth: true
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 Layout.topMargin: Style.smallMargins + 10
@@ -36,39 +35,39 @@ Page {
 
             Label {
                 Layout.fillWidth: true
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 Layout.topMargin: Style.smallMargins
-                text: qsTr("The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the \"increased\" operating state. PV surplus is allocated to devices according to your selected priority.")
+                text: qsTr("The consumer is operated using solar power only. PV surplus is allocated to devices according to your selected priority.")
             }
 
             Label {
                 Layout.fillWidth: true
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 Layout.topMargin: Style.smallMargins + 10
                 font.bold: true
-                text: qsTr("Dynamic pricing")
+                text: qsTr("Always on")
             }
 
             Label {
                 Layout.fillWidth: true
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 Layout.topMargin: Style.smallMargins
-                text: qsTr("The heat pump is given the command to increase operation if the price is below the defined price limit. If the price limit is changed, it can take up to 15 minutes for the changes to take effect.")
+                text: qsTr("The consumer is permanently switched on.")
             }
 
             Label {
                 Layout.fillWidth: true
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 Layout.topMargin: Style.smallMargins + 10
@@ -78,33 +77,33 @@ Page {
 
             Label {
                 Layout.fillWidth: true
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 Layout.topMargin: Style.smallMargins
-                text: qsTr("The heat pump is not optimized.")
+                text: qsTr("The consumer is permanently switched off.")
             }
 
             Label {
                 Layout.fillWidth: true
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
-                Layout.topMargin: Style.smallMargins + 20
+                Layout.topMargin: Style.smallMargins + 10
                 font.bold: true
-                text: qsTr("Please note")
+                text: qsTr("No control")
             }
 
             Label {
                 Layout.fillWidth: true
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 Layout.topMargin: Style.smallMargins
-                text: qsTr("The operating state is implemented by the heat pump depending on the respective temperature conditions.")
+                text: qsTr("The consumer is not controlled by the %1.").arg(Configuration.deviceName)
             }
         }
     }

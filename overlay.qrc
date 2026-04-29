@@ -234,6 +234,8 @@
         <file>info/AvoidZeroCompensationInfo.qml</file>
         <file>info/BlockEVChargingFromBatteryInfo.qml</file>
         <file>info/HeatpumpOptimizationInfo.qml</file>
+        <file>info/HeatingRodOperatingModeInfo.qml</file>
+        <file>info/SwitchableConsumerOperatingModeInfo.qml</file>
         <file>components/ConsolinnoThingDelegate.qml</file>
         <file>components/ConsolinnoColorIcon.qml</file>
         <file>components/ConsolinnoSwipeDelegate.qml</file>

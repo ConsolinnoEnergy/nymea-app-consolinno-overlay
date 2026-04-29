@@ -165,7 +165,7 @@ GenericConfigPage {
                             id: optimizationModeCombobox
                             Layout.fillWidth: true
                             labelText: qsTr("Operating mode") // #TODO wording
-                            // #TODO infoUrl:
+                            infoUrl: "SwitchableConsumerOperatingModeInfo.qml"
                             model: optimizationModesModel
                             textRole: "name"
                             valueRole: "value"
