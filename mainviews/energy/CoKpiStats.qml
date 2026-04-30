@@ -308,6 +308,36 @@ StatsBase {
                 anchors.bottomMargin: chartView.height - chartView.plotArea.height - chartView.plotArea.y
 
                 hoverEnabled: true
+                preventStealing: dragging
+                propagateComposedEvents: true
+
+                property int startMouseX: 0
+                property int startStartOffset: 0
+                property bool dragging: false
+
+                onPressed: {
+                    startMouseX = mouseX
+                    startStartOffset = d.startOffset
+                }
+
+                onReleased: {
+                    dragging = false
+                }
+
+                onMouseXChanged: {
+                    if (!pressed) return
+                    if (Math.abs(startMouseX - mouseX) < 10) return
+                    dragging = true
+                    var barWidth = mouseArea.width / d.config.count
+                    var barDelta = Math.round((startMouseX - mouseX) / barWidth)
+                    d.startOffset = Math.min(0, startStartOffset + barDelta)
+                }
+
+                onWheel: function(wheel) {
+                    var delta = wheel.angleDelta.y !== 0 ? wheel.angleDelta.y : -wheel.pixelDelta.x
+                    var barDelta = delta > 0 ? -1 : 1
+                    d.startOffset = Math.min(0, d.startOffset + barDelta)
+                }
 
                 onDoubleClicked: {
                     var idx = Math.ceil(mouseArea.mouseX * d.config.count / mouseArea.width) - 1
@@ -327,7 +357,7 @@ StatsBase {
                     property int idx: visible ? Math.min(d.config.count -1, Math.max(0, Math.ceil(mouseArea.mouseX * d.config.count / mouseArea.width) - 1)) : 0
                     property date timestamp: root.calculateTimestamp(d.config.startTime(), d.config.sampleRate, d.startOffset + idx)
 
-                    visible: mouseArea.containsMouse
+                    visible: mouseArea.containsMouse && !mouseArea.dragging
 
                     property int chartWidth: chartView.plotArea.width
                     property int barWidth: chartWidth / categoryAxis.count
