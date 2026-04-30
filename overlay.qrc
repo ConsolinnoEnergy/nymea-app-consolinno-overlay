@@ -292,5 +292,6 @@
         <file>info/CloudServicesActivateInfo.qml</file>
         <file>info/EnergyMonitoringInfo.qml</file>
         <file>info/AnonymizedUsageDataInfo.qml</file>
+        <file>components/CoOverlay.qml</file>
     </qresource>
 </RCC>
