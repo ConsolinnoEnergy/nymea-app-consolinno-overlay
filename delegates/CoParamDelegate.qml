@@ -77,7 +77,9 @@ ItemDelegate {
                         return null;
                     }
                 case "double":
-                    if (root.paramType.allowedValues.length > 0) {
+                    if (root.paramType.allowedValues.length > 20) {
+                        return chooserComponent;
+                    } else if (root.paramType.allowedValues.length > 0) {
                         return comboBoxComponent;
                     } else if (root.paramType.minValue !== undefined && root.paramType.maxValue !== undefined
                                && (root.paramType.maxValue - root.paramType.minValue <= 100)) {
@@ -87,10 +89,13 @@ ItemDelegate {
                     }
                 case "string":
                 case "qstring":
-                    if (root.paramType.allowedValues.length > 0) {
+                    if (root.paramType.allowedValues.length > 20) {
+                        return chooserComponent;
+                    } else if (root.paramType.allowedValues.length > 0) {
                         return comboBoxComponent;
+                    } else {
+                        return textFieldComponent;
                     }
-                    return textFieldComponent;
                 case "color":
                 case "qcolor":
                     return colorPreviewComponent;
@@ -144,6 +149,75 @@ ItemDelegate {
     }
 
     Component {
+        id: chooserComponent
+
+        CoCard {
+            Layout.fillWidth: true
+            labelText: root.paramType.displayName
+            showChildrenIndicator: true
+            text: {
+                let valueText = root.param.value;
+                switch (root.paramType.type.toLowerCase()) {
+                    case "int":
+                        valueText = Math.round(root.param.value);
+                        break;
+                    case "double":
+                        valueText = NymeaUtils.floatToLocaleString(root.param.value);
+                        break;
+                }
+                const unitText = Types.toUiUnit(root.paramType.unit);
+                return unitText === "" ?
+                            valueText :
+                            valueText + " " + unitText;
+            }
+
+            onClicked: {
+                chooserPopup.open();
+            }
+
+            CoOverlay {
+                id: chooserPopup
+                title: qsTr("Choose %1").arg(root.paramType.displayName)
+
+                ColumnLayout {
+                    anchors.fill: parent
+                    anchors.margins: 0
+                    spacing: 0
+
+                    CoInputField {
+                        id: filterInput
+                        Layout.fillWidth: true
+                        labelText: qsTr("Filter %1").arg(root.paramType.displayName)
+                    }
+
+                    CoFrostyCard {
+                        id: selectionGroup
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.margins: Style.margins
+                        contentTopMargin: 8
+                        headerText: root.paramType.displayName
+
+                        ListView {
+                            id: selectionView
+                            anchors.right: parent.right
+                            anchors.left: parent.left
+                            model: root.paramType.allowedValues
+                            implicitHeight: selectionGroup.height - 50
+                            clip: true
+
+                            delegate: CoCard {
+                                width: parent ? parent.width : 0
+                                text: modelData
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    Component {
         id: boolComponent
 
         CoSwitch {
@@ -157,7 +231,7 @@ ItemDelegate {
                 }
             }
 
-            onClicked: {
+            onCheckedChanged: {
                 root.param.value = checked;
             }
         }
