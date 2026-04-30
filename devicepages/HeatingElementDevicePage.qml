@@ -86,6 +86,8 @@ GenericConfigPage {
                     CoKPICard {
                         id: temperatureCard
                         Layout.fillWidth: true
+                        Layout.preferredWidth: 1
+                        Layout.preferredHeight: Math.max(implicitHeight, totalConsumptionCard.implicitHeight)
                         icon: Qt.resolvedUrl("qrc:/icons/device_thermostat.svg")
                         labelText: qsTr("Current temperature") // #TODO wording
                         valueText: (root.currentTemperature ? NymeaUtils.floatToLocaleString((+root.currentTemperature.value), 1) : "-") + qsTr(" °C")
@@ -94,6 +96,8 @@ GenericConfigPage {
                     CoKPICard {
                         id: totalConsumptionCard
                         Layout.fillWidth: true
+                        Layout.preferredWidth: 1
+                        Layout.preferredHeight: Math.max(implicitHeight, temperatureCard.implicitHeight)
                         icon: Qt.resolvedUrl("qrc:/icons/functions.svg")
                         labelText: qsTr("Total consumption") // #TODO wording
                         // #TODO use decimal places when value is small?

@@ -13,8 +13,8 @@ Item {
     property alias labelText: label.text
     property alias infoUrl: label.push
 
-    implicitHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
-    implicitWidth: layout.implicitWidth + layout.anchors.leftMargin + layout.anchors.rightMargin
+    implicitHeight: valueLayout.implicitHeight + label.implicitHeight + 2 * Style.extraSmallMargins
+    implicitWidth: 100
 
     Rectangle {
         id: background
@@ -30,7 +30,7 @@ Item {
     Rectangle {
         id: backgroundLabel
         anchors.fill: parent
-        anchors.topMargin: valueLayout.height + layout.spacing
+        anchors.topMargin: valueLayout.height
         color: Style.colors.typography_Background_Accent_secondary
 
         layer.enabled: true
@@ -57,51 +57,48 @@ Item {
         sourceRect: Qt.rect(0, roundedRectMask.height / 2, roundedRectMask.width, roundedRectMask.height / 2)
     }
 
-
-    ColumnLayout {
-        id: layout
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
+    RowLayout {
+        id: valueLayout
         anchors.horizontalCenter: parent.horizontalCenter
-        width: Math.min(implicitWidth, parent.width)
-        spacing: 0
+        anchors.top: parent.top
+        height: icon.size + 2 * Style.extraSmallMargins
+        spacing: Style.extraSmallMargins
 
-        RowLayout {
-            id: valueLayout
-            Layout.fillWidth: true
+        ColorIcon {
+            id: icon
             Layout.alignment: Qt.AlignCenter
-            spacing: Style.extraSmallMargins
-
-            ColorIcon {
-                id: icon
-                Layout.alignment: Qt.AlignCenter
-                Layout.leftMargin: visible ? Style.extraSmallMargins : 0
-                Layout.topMargin: Style.extraSmallMargins
-                Layout.bottomMargin: Style.extraSmallMargins
-                size: 24
-                color: Style.colors.brand_Basic_Icon
-                visible: typeof name === "string" && name !== ""
-            }
-
-            Text {
-                id: value
-                Layout.alignment: Qt.AlignCenter
-                Layout.rightMargin: Style.extraSmallMargins
-                Layout.leftMargin: icon.visible ? 0 : Style.extraSmallMargins
-                Layout.topMargin: Style.extraSmallMargins
-                Layout.bottomMargin: Style.extraSmallMargins
-                font: Style.newH3Font
-                color: Style.colors.typography_Basic_Default
-            }
+            Layout.leftMargin: visible ? Style.extraSmallMargins : 0
+            Layout.topMargin: Style.extraSmallMargins
+            Layout.bottomMargin: Style.extraSmallMargins
+            size: 24
+            color: Style.colors.brand_Basic_Icon
+            visible: typeof name === "string" && name !== ""
         }
 
-        LabelWithInfo {
-            id: label
-            Layout.fillWidth: false // overwrite LabelWithInfo default
-            Layout.margins: Style.extraSmallMargins
-            font: Style.newParagraphFont
-            fontColor: Style.colors.typography_Basic_Default
-            width: Math.min(naturalWidth, root.width - 2 * Style.extraSmallMargins)
+        Text {
+            id: value
+            Layout.alignment: Qt.AlignCenter
+            Layout.rightMargin: Style.extraSmallMargins
+            Layout.leftMargin: icon.visible ? 0 : Style.extraSmallMargins
+            Layout.topMargin: Style.extraSmallMargins
+            Layout.bottomMargin: Style.extraSmallMargins
+            font: Style.newH3Font
+            color: Style.colors.typography_Basic_Default
         }
+    }
+
+    LabelWithInfo {
+        id: label
+
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: valueLayout.bottom
+        width: Math.min(naturalWidth, root.width - 2 * Style.extraSmallMargins)
+        height: root.height - valueLayout.height
+
+        Layout.fillWidth: false // overwrite LabelWithInfo default
+        font: Style.newParagraphFont
+        fontColor: Style.colors.typography_Basic_Default
+        textLabel.horizontalAlignment: Text.AlignHCenter
+        textLabel.verticalAlignment: Text.AlignVCenter
     }
 }
