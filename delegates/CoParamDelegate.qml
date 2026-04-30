@@ -155,29 +155,28 @@ ItemDelegate {
             Layout.fillWidth: true
             labelText: root.paramType.displayName
             showChildrenIndicator: true
-            text: {
-                let valueText = root.param.value;
-                switch (root.paramType.type.toLowerCase()) {
-                    case "int":
-                        valueText = Math.round(root.param.value);
-                        break;
-                    case "double":
-                        valueText = NymeaUtils.floatToLocaleString(root.param.value);
-                        break;
-                }
-                const unitText = Types.toUiUnit(root.paramType.unit);
-                return unitText === "" ?
-                            valueText :
-                            valueText + " " + unitText;
-            }
+            text: root.param.value
 
             onClicked: {
                 chooserPopup.open();
             }
 
+            Connections {
+                target: chooserPopup
+                onAccepted: {
+                    root.param.value = chooserPopup.selection;
+                }
+            }
+
             CoOverlay {
                 id: chooserPopup
                 title: qsTr("Choose %1").arg(root.paramType.displayName)
+                property string selection: ""
+
+                onAboutToShow: {
+                    filterInput.textField.clear();
+                    filterInput.textField.forceActiveFocus();
+                }
 
                 ColumnLayout {
                     anchors.fill: parent
@@ -202,13 +201,21 @@ ItemDelegate {
                             id: selectionView
                             anchors.right: parent.right
                             anchors.left: parent.left
-                            model: root.paramType.allowedValues
+                            property var baseModel: root.paramType.allowedValues
+                            model: filterInput.text.length > 0 ?
+                                       baseModel.filter(v => v.toLowerCase().includes(filterInput.text.toLowerCase())) :
+                                       baseModel
                             implicitHeight: selectionGroup.height - 50
                             clip: true
 
                             delegate: CoCard {
                                 width: parent ? parent.width : 0
                                 text: modelData
+
+                                onClicked: {
+                                    chooserPopup.selection = text;
+                                    chooserPopup.accept();
+                                }
                             }
                         }
                     }
