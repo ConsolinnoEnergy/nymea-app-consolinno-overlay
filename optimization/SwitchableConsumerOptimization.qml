@@ -8,13 +8,13 @@ import "../delegates"
 Page {
     id: root
 
-    property SwitchableConsumerConfiguration switchableConsumerConfiguration
-    property Thing switchableConsumerThing
+    property SwitchConfiguration switchConfiguration
+    property Thing switchThing
     property int directionID: 0
     signal done()
 
     header: NymeaHeader {
-        text: switchableConsumerThing.name
+        text: switchThing.name
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
@@ -26,7 +26,7 @@ Page {
 
     Connections {
         target: hemsManager
-        onSetSwitchableConsumerConfigurationReply: function(commandId, error) {
+        onSetSwitchConfigurationReply: function(commandId, error) {
 
             if (commandId === d.pendingCallId) {
                 d.pendingCallId = -1
@@ -58,7 +58,7 @@ Page {
         CoFrostyCard {
             Layout.fillWidth: true
             contentTopMargin: Style.smallMargins
-            headerText: switchableConsumerThing.name
+            headerText: switchThing.name
 
             ColumnLayout {
                 anchors.left: parent.left
@@ -75,7 +75,7 @@ Page {
                     compact: true
                     unit: qsTr("kW")
                     feedbackText: qsTr("The value is outside the valid range.")
-                    textField.text: (+switchableConsumerConfiguration.maxElectricalPower).toLocaleString()
+                    textField.text: (+switchConfiguration.maxElectricalPower).toLocaleString()
                     textField.maximumLength: 10
                     textField.validator: DoubleValidator { bottom: 0.5 }
                 }
@@ -87,7 +87,7 @@ Page {
                     helpText: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
 
                     Component.onCompleted: {
-                        checked = switchableConsumerConfiguration.controllableLocalSystem;
+                        checked = switchConfiguration.controllableLocalSystem;
                     }
                 }
             }
@@ -119,8 +119,8 @@ Page {
             onClicked: {
                 let parsedMaxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text)
                 if (savebutton.inputValid) {
-                    d.pendingCallId = hemsManager.setSwitchableConsumerConfiguration(
-                        switchableConsumerConfiguration.switchableConsumerThingId,
+                    d.pendingCallId = hemsManager.setSwitchConfiguration(
+                        switchConfiguration.switchThingId,
                         {
                             "maxElectricalPower": parsedMaxElectricalPower,
                             "controllableLocalSystem": controllSwitch.checked

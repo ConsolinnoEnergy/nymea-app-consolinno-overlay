@@ -243,20 +243,20 @@ Page {
 
                     Repeater {
                         id: switchableConsumerRepeater
-                        model: hemsManager.switchableConsumerConfigurations
+                        model: hemsManager.switchConfigurations
                         delegate: CoCard {
-                            property SwitchableConsumerConfiguration switchableConsumerConfiguration:
-                                hemsManager.switchableConsumerConfigurations.getSwitchableConsumerConfiguration(model.switchableConsumerThingId)
-                            property Thing switchableConsumerThing:
-                                engine.thingManager.things.getThing(model.switchableConsumerThingId)
+                            property SwitchConfiguration switchConfiguration:
+                                hemsManager.switchConfigurations.getSwitchConfiguration(model.switchThingId)
+                            property Thing switchThing:
+                                engine.thingManager.things.getThing(model.switchThingId)
                             Layout.fillWidth: true
-                            text: switchableConsumerThing.name
-                            iconLeft: app.interfacesToIcon(switchableConsumerThing.thingClass.interfaces)
+                            text: switchThing.name
+                            iconLeft: app.interfacesToIcon(switchThing.thingClass.interfaces)
                             showChildrenIndicator: true
                             onClicked: pageStack.push(Qt.resolvedUrl("../optimization/SwitchableConsumerOptimization.qml"),
                                                       {
-                                                          switchableConsumerConfiguration: switchableConsumerConfiguration,
-                                                          switchableConsumerThing: switchableConsumerThing
+                                                          switchConfiguration: switchConfiguration,
+                                                          switchThing: switchThing
                                                       })
                         }
                     }

@@ -29,7 +29,7 @@ void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
     qmlRegisterUncreatableType<BatteryConfiguration>(uri, versionMajor, versionMinor, "BatteryConfiguration", "Get it from HemsManager");
     qmlRegisterUncreatableType<BatteryConfigurations>(uri, versionMajor, versionMinor, "BatteryConfigurations", "Get it from HemsManager");
     qmlRegisterUncreatableType<EmsConfiguration>(uri, versionMajor, versionMinor, "EmsConfiguration", "Get it from HemsManager");
-    qmlRegisterUncreatableType<SwitchableConsumerConfiguration>(uri, versionMajor, versionMinor, "SwitchableConsumerConfiguration", "Get it from HemsManager");
-    qmlRegisterUncreatableType<SwitchableConsumerConfigurations>(uri, versionMajor, versionMinor, "SwitchableConsumerConfigurations", "Get it from HemsManager");
+    qmlRegisterUncreatableType<SwitchConfiguration>(uri, versionMajor, versionMinor, "SwitchConfiguration", "Get it from HemsManager");
+    qmlRegisterUncreatableType<SwitchConfigurations>(uri, versionMajor, versionMinor, "SwitchConfigurations", "Get it from HemsManager");
     qmlRegisterUncreatableType<CloudConfiguration>(uri, versionMajor, versionMinor, "CloudConfiguration", "Get it from HemsManager");
 }
