@@ -7,6 +7,8 @@ import Nymea 1.0
 Dialog {
     id: root
 
+    property bool hasAcceptButton: true
+
     modal: true
     closePolicy: Popup.NoAutoClose
 
@@ -79,6 +81,16 @@ Dialog {
                 id: acceptButton
                 icon.source: Qt.resolvedUrl("/icons/check.svg")
                 onClicked: root.accept()
+                visible: root.hasAcceptButton
+            }
+
+            // Needed to keep the header aligned centered when acceptButton is not visible.
+            // Has the same size as accept button would have if visible.
+            Item {
+                id: spacer
+                width: 48
+                height: 48
+                visible: !root.hasAcceptButton
             }
         }
     }
