@@ -77,7 +77,9 @@ ItemDelegate {
                         return null;
                     }
                 case "double":
-                    if (root.paramType.allowedValues.length > 0) {
+                    if (root.paramType.allowedValues.length > 20) {
+                        return chooserComponent;
+                    } else if (root.paramType.allowedValues.length > 0) {
                         return comboBoxComponent;
                     } else if (root.paramType.minValue !== undefined && root.paramType.maxValue !== undefined
                                && (root.paramType.maxValue - root.paramType.minValue <= 100)) {
@@ -87,10 +89,13 @@ ItemDelegate {
                     }
                 case "string":
                 case "qstring":
-                    if (root.paramType.allowedValues.length > 0) {
+                    if (root.paramType.allowedValues.length > 20) {
+                        return chooserComponent;
+                    } else if (root.paramType.allowedValues.length > 0) {
                         return comboBoxComponent;
+                    } else {
+                        return textFieldComponent;
                     }
-                    return textFieldComponent;
                 case "color":
                 case "qcolor":
                     return colorPreviewComponent;
@@ -144,6 +149,85 @@ ItemDelegate {
     }
 
     Component {
+        id: chooserComponent
+
+        CoCard {
+            Layout.fillWidth: true
+            labelText: root.paramType.displayName
+            showChildrenIndicator: true
+            text: root.param.value
+
+            onClicked: {
+                chooserPopup.open();
+            }
+
+            Connections {
+                target: chooserPopup
+                onAccepted: {
+                    root.param.value = chooserPopup.selection;
+                }
+            }
+
+            CoOverlay {
+                id: chooserPopup
+                title: qsTr("Choose %1").arg(root.paramType.displayName)
+                hasAcceptButton: false
+
+                property string selection: ""
+
+                onAboutToShow: {
+                    filterInput.textField.clear();
+                    filterInput.textField.forceActiveFocus();
+                }
+
+                ColumnLayout {
+                    anchors.fill: parent
+                    anchors.margins: 0
+                    spacing: 0
+
+                    CoInputField {
+                        id: filterInput
+                        Layout.fillWidth: true
+                        labelText: qsTr("Filter %1").arg(root.paramType.displayName)
+                    }
+
+                    CoFrostyCard {
+                        id: selectionGroup
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.margins: Style.margins
+                        contentTopMargin: 8
+                        headerText: root.paramType.displayName
+
+                        ListView {
+                            id: selectionView
+                            anchors.right: parent.right
+                            anchors.left: parent.left
+                            property var baseModel: root.paramType.allowedValues
+                            model: filterInput.text.length > 0 ?
+                                       baseModel.filter(v => v.toLowerCase().includes(filterInput.text.toLowerCase())) :
+                                       baseModel
+                            implicitHeight: selectionGroup.height - 50
+                            clip: true
+
+                            delegate: CoCard {
+                                width: parent ? parent.width : 0
+                                text: modelData
+                                showChildrenIndicator: true
+
+                                onClicked: {
+                                    chooserPopup.selection = text;
+                                    chooserPopup.accept();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    Component {
         id: boolComponent
 
         CoSwitch {
@@ -157,7 +241,7 @@ ItemDelegate {
                 }
             }
 
-            onClicked: {
+            onCheckedChanged: {
                 root.param.value = checked;
             }
         }
