@@ -1,10 +1,13 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
 import Nymea 1.0
 
 Dialog {
     id: root
+
+    property bool hasAcceptButton: true
 
     modal: true
     closePolicy: Popup.NoAutoClose
@@ -24,7 +27,7 @@ Dialog {
         NumberAnimation {
             property: "y"
             from: parent.height
-            to: 50
+            to: 0 // #TODO is 0 good or do we need an offset?
             duration: 300
             easing.type: Easing.OutCubic
         }
@@ -33,7 +36,7 @@ Dialog {
     exit: Transition {
         NumberAnimation {
             property: "y"
-            from: 50
+            from: 0 // #TODO is 0 good or do we need an offset?
             to: parent.height
             duration: 300
             easing.type: Easing.InCubic
@@ -41,9 +44,15 @@ Dialog {
     }
 
     header: Rectangle {
+        id: headerRect
         Layout.fillWidth: true
         color: Style.colors.menu_Header_Footer_Background
         implicitHeight: headerLayout.implicitHeight
+
+        layer.enabled: true
+        layer.effect: OpacityMask {
+            maskSource: headerMaskSource
+        }
 
         RowLayout {
             id: headerLayout
@@ -72,6 +81,16 @@ Dialog {
                 id: acceptButton
                 icon.source: Qt.resolvedUrl("/icons/check.svg")
                 onClicked: root.accept()
+                visible: root.hasAcceptButton
+            }
+
+            // Needed to keep the header aligned centered when acceptButton is not visible.
+            // Has the same size as accept button would have if visible.
+            Item {
+                id: spacer
+                width: 48
+                height: 48
+                visible: !root.hasAcceptButton
             }
         }
     }
@@ -79,5 +98,23 @@ Dialog {
     background: Rectangle {
         id: bg
         radius: 24
+    }
+
+    Item {
+        id: headerRoundedMask
+        width: headerRect.width
+        height: headerRect.height * 2
+        layer.enabled: true
+        visible: false
+        Rectangle {
+            anchors.fill: parent
+            radius: bg.radius
+        }
+    }
+
+    ShaderEffectSource {
+        id: headerMaskSource
+        sourceItem: headerRoundedMask
+        sourceRect: Qt.rect(0, 0, headerRoundedMask.width, headerRoundedMask.height / 2)
     }
 }
