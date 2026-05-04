@@ -25,7 +25,7 @@ Dialog {
         NumberAnimation {
             property: "y"
             from: parent.height
-            to: 50
+            to: 0 // #TODO is 0 good or do we need an offset?
             duration: 300
             easing.type: Easing.OutCubic
         }
@@ -34,7 +34,7 @@ Dialog {
     exit: Transition {
         NumberAnimation {
             property: "y"
-            from: 50
+            from: 0 // #TODO is 0 good or do we need an offset?
             to: parent.height
             duration: 300
             easing.type: Easing.InCubic
