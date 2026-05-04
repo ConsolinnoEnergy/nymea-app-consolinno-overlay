@@ -808,7 +808,7 @@ void HemsManager::getBatteryConfigurationResponse(int commandId, const QVariantM
 void HemsManager::getSwitchConfigurationsResponse(int commandId, const QVariantMap &data)
 {
     Q_UNUSED(commandId);
-    qCDebug(dcHems()) << "Switchable consumer configurations" << data;
+    qCDebug(dcHems()) << "Switch configurations" << data;
     foreach (const QVariant &configurationVariant, data.value("switchConfigurations").toList()) {
         addOrUpdateSwitchConfiguration(configurationVariant.toMap());
     }
