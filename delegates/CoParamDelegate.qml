@@ -171,6 +171,8 @@ ItemDelegate {
             CoOverlay {
                 id: chooserPopup
                 title: qsTr("Choose %1").arg(root.paramType.displayName)
+                hasAcceptButton: false
+
                 property string selection: ""
 
                 onAboutToShow: {
@@ -211,6 +213,7 @@ ItemDelegate {
                             delegate: CoCard {
                                 width: parent ? parent.width : 0
                                 text: modelData
+                                showChildrenIndicator: true
 
                                 onClicked: {
                                     chooserPopup.selection = text;
