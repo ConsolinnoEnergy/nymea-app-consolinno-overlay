@@ -11,7 +11,7 @@ Dialog {
 
     parent: Overlay.overlay
     x: 0
-    y: 50 // #TODO use 0?
+    y: 0 // #TODO is 0 good or do we need an offset?
     width: parent.width
     height: parent.height - y + bg.radius
 
