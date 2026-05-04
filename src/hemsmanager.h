@@ -17,7 +17,7 @@
 #include "Configurations/batteryconfigurations.h"
 #include "Configurations/conemsstate.h"
 #include "Configurations/emsconfiguration.h"
-#include "Configurations/switchableconsumerconfigurations.h"
+#include "Configurations/switchconfigurations.h"
 #include "Configurations/cloudconfiguration.h"
 
 
@@ -42,7 +42,7 @@ class HemsManager : public QObject
     Q_PROPERTY(UserConfigurations *userConfigurations READ userConfigurations CONSTANT)
     Q_PROPERTY(HeatingElementConfigurations *heatingElementConfigurations READ heatingElementConfigurations CONSTANT)
     Q_PROPERTY(EmsConfiguration *emsConfiguration READ emsConfiguration CONSTANT)
-    Q_PROPERTY(SwitchableConsumerConfigurations *switchableConsumerConfigurations READ switchableConsumerConfigurations CONSTANT)
+    Q_PROPERTY(SwitchConfigurations *switchConfigurations READ switchConfigurations CONSTANT)
     Q_PROPERTY(CloudConfiguration *cloudConfiguration READ cloudConfiguration CONSTANT)
     Q_PROPERTY(bool cloudConfigurationSupported READ cloudConfigurationSupported NOTIFY cloudConfigurationSupportedChanged)
 
@@ -58,6 +58,8 @@ public:
         HemsUseCaseHeatingRod = 0x20,
         HemsUseCaseAll = 0xff,
         HemsUseCaseAvoidZeroCompensation = 0x100,
+        HemsUseCaseWashingMachine = 0x80,
+        HemsUseCaseSwitch = 0x200,
     };
 
     Q_ENUM(HemsUseCase)
@@ -89,7 +91,7 @@ public:
     DynamicElectricPricingConfigurations *dynamicElectricPricingConfigurations() const;
     BatteryConfigurations *batteryConfigurations() const;
     EmsConfiguration *emsConfiguration() const;
-    SwitchableConsumerConfigurations *switchableConsumerConfigurations() const;
+    SwitchConfigurations *switchConfigurations() const;
     CloudConfiguration *cloudConfiguration() const;
     bool cloudConfigurationSupported() const;
 
@@ -103,7 +105,7 @@ public:
     Q_INVOKABLE int setDynamicElectricPricingConfiguration(const QUuid &electricThingId, const QVariantMap &data);
 
     Q_INVOKABLE int setBatteryConfiguration(const QUuid &batteryThingId, const QVariantMap &data);
-    Q_INVOKABLE int setSwitchableConsumerConfiguration(const QUuid &switchableConsumerThingId, const QVariantMap &data);
+    Q_INVOKABLE int setSwitchConfiguration(const QUuid &switchThingId, const QVariantMap &data);
     Q_INVOKABLE int setCloudConfiguration(const QVariantMap &data);
 
     // read only
@@ -133,7 +135,7 @@ signals:
     void heatingElementConfigurationChanged(HeatingElementConfiguration *configuration);
     void dynamicElectricPricingConfigurationChanged(DynamicElectricPricingConfiguration *configuration);
     void batteryConfigurationChanged(BatteryConfiguration *configuration);
-    void switchableConsumerConfigurationChanged(SwitchableConsumerConfiguration *configuration);
+    void switchConfigurationChanged(SwitchConfiguration *configuration);
 
     void setHousholdPhaseLimitReply(int commandId, const QString &error);
 
@@ -147,7 +149,7 @@ signals:
     void setHeatingElementConfigurationReply(int commandId, const QString &error);
     void setDynamicElectricPricingConfigurationReply(int commandId, const QString &error);
     void setBatteryConfigurationReply(int commandId, const QString &error);
-    void setSwitchableConsumerConfigurationReply(int commandId, const QString &error);
+    void setSwitchConfigurationReply(int commandId, const QString &error);
     void setCloudConfigurationReply(int commandId, const QString &error);
 
     void factoryResetReply(int commandId, const QString &error);
@@ -173,7 +175,7 @@ private slots:
     Q_INVOKABLE void getDynamicElectricPricingConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getBatteryConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getEmsConfigurationResponse(int commandId, const QVariantMap &data);
-    Q_INVOKABLE void getSwitchableConsumerConfigurationsResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void getSwitchConfigurationsResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getCloudConfigurationResponse(int commandId, const QVariantMap &data);
 
     Q_INVOKABLE void setHousholdPhaseLimitResponse(int commandId, const QVariantMap &data);
@@ -188,7 +190,7 @@ private slots:
     Q_INVOKABLE void setDynamicElectricPricingConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setBatteryConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setEmsConfigurationResponse(int commandId, const QVariantMap &data);
-    Q_INVOKABLE void setSwitchableConsumerConfigurationResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void setSwitchConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setCloudConfigurationResponse(int commandId, const QVariantMap &data);
 
     Q_INVOKABLE void factoryResetResponse(int commandId, const QVariantMap &data);
@@ -213,7 +215,7 @@ private:
     DynamicElectricPricingConfigurations *m_dynamicElectricPricingConfigurations = nullptr;
     BatteryConfigurations *m_batteryConfigurations = nullptr;
     EmsConfiguration *m_emsConfiguration = nullptr;
-    SwitchableConsumerConfigurations *m_switchableConsumerConfigurations = nullptr;
+    SwitchConfigurations *m_switchConfigurations = nullptr;
     CloudConfiguration *m_cloudConfiguration = nullptr;
     bool m_cloudConfigurationSupported = false;
 
@@ -230,7 +232,7 @@ private:
     void addOrUpdateDynamicElectricPricingConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateBatteryConfiguration(const QVariantMap &configurationMap);
     void updateEmsConfiguration(const QVariantMap &configurationMap);
-    void addOrUpdateSwitchableConsumerConfiguration(const QVariantMap &configurationMap);
+    void addOrUpdateSwitchConfiguration(const QVariantMap &configurationMap);
 
     void updateAvailableUsecases(const QStringList &useCasesList);
     HemsManager::HemsUseCases unpackUseCases(const QStringList &useCasesList);

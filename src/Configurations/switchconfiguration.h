@@ -1,15 +1,15 @@
-#ifndef SWITCHABLECONSUMERCONFIGURATION_H
-#define SWITCHABLECONSUMERCONFIGURATION_H
+#ifndef SWITCHCONFIGURATION_H
+#define SWITCHCONFIGURATION_H
 
 #include <QDebug>
 #include <QObject>
 #include <QUuid>
 
-class SwitchableConsumerConfiguration : public QObject
+class SwitchConfiguration : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QUuid switchableConsumerThingId READ switchableConsumerThingId CONSTANT)
-    Q_PROPERTY(SwitchableConsumerConfiguration::OptimizationMode optimizationMode READ optimizationMode WRITE setOptimizationMode NOTIFY optimizationModeChanged)
+    Q_PROPERTY(QUuid switchThingId READ switchThingId CONSTANT)
+    Q_PROPERTY(SwitchConfiguration::OptimizationMode optimizationMode READ optimizationMode WRITE setOptimizationMode NOTIFY optimizationModeChanged)
     Q_PROPERTY(double maxElectricalPower READ maxElectricalPower WRITE setMaxElectricalPower NOTIFY maxElectricalPowerChanged)
     Q_PROPERTY(double pvSurplusThreshold READ pvSurplusThreshold WRITE setPvSurplusThreshold NOTIFY pvSurplusThresholdChanged)
     Q_PROPERTY(double durationMinAfterTurnOn READ durationMinAfterTurnOn WRITE setDurationMinAfterTurnOn NOTIFY durationMinAfterTurnOnChanged)
@@ -25,10 +25,10 @@ public:
     };
     Q_ENUM(OptimizationMode)
 
-    explicit SwitchableConsumerConfiguration(QObject *parent = nullptr);
+    explicit SwitchConfiguration(QObject *parent = nullptr);
 
-    QUuid switchableConsumerThingId() const;
-    void setSwitchableConsumerThingId(const QUuid &switchableConsumerThingId);
+    QUuid switchThingId() const;
+    void setSwitchThingId(const QUuid &switchThingId);
 
     OptimizationMode optimizationMode() const;
     void setOptimizationMode(OptimizationMode optimizationMode);
@@ -57,7 +57,7 @@ signals:
     void controllableLocalSystemChanged(bool controllableLocalSystem);
 
 private:
-    QUuid m_switchableConsumerThingId;
+    QUuid m_switchThingId;
     OptimizationMode m_optimizationMode = OptimizationModeNoControl;
     double m_maxElectricalPower = 0.0;
     double m_pvSurplusThreshold = 500.0;
@@ -66,4 +66,4 @@ private:
     bool m_controllableLocalSystem = false;
 };
 
-#endif // SWITCHABLECONSUMERCONFIGURATION_H
+#endif // SWITCHCONFIGURATION_H

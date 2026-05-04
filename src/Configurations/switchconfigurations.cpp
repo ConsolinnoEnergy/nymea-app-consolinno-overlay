@@ -1,21 +1,21 @@
-#include "switchableconsumerconfigurations.h"
+#include "switchconfigurations.h"
 
-SwitchableConsumerConfigurations::SwitchableConsumerConfigurations(QObject *parent) :
+SwitchConfigurations::SwitchConfigurations(QObject *parent) :
     QAbstractListModel(parent)
 {
 }
 
-int SwitchableConsumerConfigurations::rowCount(const QModelIndex &parent) const
+int SwitchConfigurations::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
     return m_list.count();
 }
 
-QVariant SwitchableConsumerConfigurations::data(const QModelIndex &index, int role) const
+QVariant SwitchConfigurations::data(const QModelIndex &index, int role) const
 {
     switch (role) {
-    case RoleSwitchableConsumerThingId:
-        return m_list.at(index.row())->switchableConsumerThingId();
+    case RoleSwitchThingId:
+        return m_list.at(index.row())->switchThingId();
     case RoleOptimizationMode:
         return m_list.at(index.row())->optimizationMode();
     case RoleMaxElectricalPower:
@@ -33,10 +33,10 @@ QVariant SwitchableConsumerConfigurations::data(const QModelIndex &index, int ro
     return QVariant();
 }
 
-QHash<int, QByteArray> SwitchableConsumerConfigurations::roleNames() const
+QHash<int, QByteArray> SwitchConfigurations::roleNames() const
 {
     QHash<int, QByteArray> roles;
-    roles.insert(RoleSwitchableConsumerThingId, "switchableConsumerThingId");
+    roles.insert(RoleSwitchThingId, "switchThingId");
     roles.insert(RoleOptimizationMode, "optimizationMode");
     roles.insert(RoleMaxElectricalPower, "maxElectricalPower");
     roles.insert(RolePvSurplusThreshold, "pvSurplusThreshold");
@@ -46,17 +46,17 @@ QHash<int, QByteArray> SwitchableConsumerConfigurations::roleNames() const
     return roles;
 }
 
-SwitchableConsumerConfiguration *SwitchableConsumerConfigurations::getSwitchableConsumerConfiguration(const QUuid &switchableConsumerThingId) const
+SwitchConfiguration *SwitchConfigurations::getSwitchConfiguration(const QUuid &switchThingId) const
 {
-    foreach (SwitchableConsumerConfiguration *config, m_list) {
-        if (config->switchableConsumerThingId() == switchableConsumerThingId) {
+    foreach (SwitchConfiguration *config, m_list) {
+        if (config->switchThingId() == switchThingId) {
             return config;
         }
     }
     return nullptr;
 }
 
-SwitchableConsumerConfiguration *SwitchableConsumerConfigurations::get(int index) const
+SwitchConfiguration *SwitchConfigurations::get(int index) const
 {
     if (index < 0 || index >= m_list.count())
         return nullptr;
@@ -64,39 +64,39 @@ SwitchableConsumerConfiguration *SwitchableConsumerConfigurations::get(int index
     return m_list.at(index);
 }
 
-void SwitchableConsumerConfigurations::addConfiguration(SwitchableConsumerConfiguration *configuration)
+void SwitchConfigurations::addConfiguration(SwitchConfiguration *configuration)
 {
     configuration->setParent(this);
 
     beginInsertRows(QModelIndex(), m_list.count(), m_list.count());
     m_list.append(configuration);
 
-    connect(configuration, &SwitchableConsumerConfiguration::optimizationModeChanged, this, [=]() {
+    connect(configuration, &SwitchConfiguration::optimizationModeChanged, this, [=]() {
         QModelIndex idx = index(m_list.indexOf(configuration));
         emit dataChanged(idx, idx, {RoleOptimizationMode});
     });
 
-    connect(configuration, &SwitchableConsumerConfiguration::maxElectricalPowerChanged, this, [=]() {
+    connect(configuration, &SwitchConfiguration::maxElectricalPowerChanged, this, [=]() {
         QModelIndex idx = index(m_list.indexOf(configuration));
         emit dataChanged(idx, idx, {RoleMaxElectricalPower});
     });
 
-    connect(configuration, &SwitchableConsumerConfiguration::pvSurplusThresholdChanged, this, [=]() {
+    connect(configuration, &SwitchConfiguration::pvSurplusThresholdChanged, this, [=]() {
         QModelIndex idx = index(m_list.indexOf(configuration));
         emit dataChanged(idx, idx, {RolePvSurplusThreshold});
     });
 
-    connect(configuration, &SwitchableConsumerConfiguration::durationMinAfterTurnOnChanged, this, [=]() {
+    connect(configuration, &SwitchConfiguration::durationMinAfterTurnOnChanged, this, [=]() {
         QModelIndex idx = index(m_list.indexOf(configuration));
         emit dataChanged(idx, idx, {RoleDurationMinAfterTurnOn});
     });
 
-    connect(configuration, &SwitchableConsumerConfiguration::durationMaxTotalChanged, this, [=]() {
+    connect(configuration, &SwitchConfiguration::durationMaxTotalChanged, this, [=]() {
         QModelIndex idx = index(m_list.indexOf(configuration));
         emit dataChanged(idx, idx, {RoleDurationMaxTotal});
     });
 
-    connect(configuration, &SwitchableConsumerConfiguration::controllableLocalSystemChanged, this, [=]() {
+    connect(configuration, &SwitchConfiguration::controllableLocalSystemChanged, this, [=]() {
         QModelIndex idx = index(m_list.indexOf(configuration));
         emit dataChanged(idx, idx, {RoleControllableLocalSystem});
     });
@@ -106,10 +106,10 @@ void SwitchableConsumerConfigurations::addConfiguration(SwitchableConsumerConfig
     emit countChanged();
 }
 
-void SwitchableConsumerConfigurations::removeConfiguration(const QUuid &switchableConsumerThingId)
+void SwitchConfigurations::removeConfiguration(const QUuid &switchThingId)
 {
     for (int i = 0; i < m_list.count(); i++) {
-        if (m_list.at(i)->switchableConsumerThingId() == switchableConsumerThingId) {
+        if (m_list.at(i)->switchThingId() == switchThingId) {
             beginRemoveRows(QModelIndex(), i, i);
             m_list.takeAt(i)->deleteLater();
             endRemoveRows();

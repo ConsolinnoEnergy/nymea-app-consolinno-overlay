@@ -21,7 +21,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
     m_conEMSState = new ConEMSState();
     m_userConfigurations = new UserConfigurations(this);
     m_emsConfiguration = new EmsConfiguration(this);
-    m_switchableConsumerConfigurations = new SwitchableConsumerConfigurations(this);
+    m_switchConfigurations = new SwitchConfigurations(this);
     m_cloudConfiguration = new CloudConfiguration(this);
 }
 
@@ -133,9 +133,9 @@ EmsConfiguration *HemsManager::emsConfiguration() const
     return m_emsConfiguration;
 }
 
-SwitchableConsumerConfigurations *HemsManager::switchableConsumerConfigurations() const
+SwitchConfigurations *HemsManager::switchConfigurations() const
 {
-    return m_switchableConsumerConfigurations;
+    return m_switchConfigurations;
 }
 
 ConEMSState *HemsManager::conEMSState() const
@@ -600,21 +600,21 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetBatteryConfiguration", params, this, "setBatteryConfigurationResponse");
 }
 
-int HemsManager::setSwitchableConsumerConfiguration(const QUuid &switchableConsumerThingId, const QVariantMap &data)
+int HemsManager::setSwitchConfiguration(const QUuid &switchThingId, const QVariantMap &data)
 {
-    SwitchableConsumerConfiguration *configuration = m_switchableConsumerConfigurations->getSwitchableConsumerConfiguration(switchableConsumerThingId);
+    SwitchConfiguration *configuration = m_switchConfigurations->getSwitchConfiguration(switchThingId);
     if (!configuration) {
-        qCDebug(dcHems()) << "Adding a dummy SwitchableConsumer config" << switchableConsumerThingId;
+        qCDebug(dcHems()) << "Adding a dummy Switch config" << switchThingId;
         QVariantMap dummyConfig;
-        dummyConfig.insert("switchableConsumerThingId", switchableConsumerThingId);
-        dummyConfig.insert("optimizationMode", SwitchableConsumerConfiguration::OptimizationModeNoControl);
+        dummyConfig.insert("switchThingId", switchThingId);
+        dummyConfig.insert("optimizationMode", SwitchConfiguration::OptimizationModeNoControl);
         dummyConfig.insert("maxElectricalPower", 0.0);
         dummyConfig.insert("pvSurplusThreshold", 500.0);
         dummyConfig.insert("durationMinAfterTurnOn", 15.0);
         dummyConfig.insert("durationMaxTotal", 240.0);
         dummyConfig.insert("controllableLocalSystem", false);
-        addOrUpdateSwitchableConsumerConfiguration(dummyConfig);
-        configuration = m_switchableConsumerConfigurations->getSwitchableConsumerConfiguration(switchableConsumerThingId);
+        addOrUpdateSwitchConfiguration(dummyConfig);
+        configuration = m_switchConfigurations->getSwitchConfiguration(switchThingId);
     }
 
     // Build config map from MetaObject, overriding with caller-supplied values.
@@ -633,8 +633,8 @@ int HemsManager::setSwitchableConsumerConfiguration(const QUuid &switchableConsu
     }
 
     QVariantMap params;
-    params.insert("switchableConsumerConfiguration", config);
-    return m_engine->jsonRpcClient()->sendCommand("Hems.SetSwitchableConsumerConfiguration", params, this, "setSwitchableConsumerConfigurationResponse");
+    params.insert("switchConfiguration", config);
+    return m_engine->jsonRpcClient()->sendCommand("Hems.SetSwitchConfiguration", params, this, "setSwitchConfigurationResponse");
 }
 
 // notification Handling -> atm mostly for added, removed, changed
@@ -729,13 +729,13 @@ void HemsManager::notificationReceived(const QVariantMap &data)
         m_heatingElementConfigurations->removeConfiguration(params.value("heatingRodThingId").toUuid());
     } else if (notification == "Hems.HeatingRodConfigurationChanged") {
         addOrUpdateHeatingElementConfiguration(params.value("heatingRodConfiguration").toMap());
-    } else if (notification == "Hems.SwitchableConsumerConfigurationAdded") {
-        addOrUpdateSwitchableConsumerConfiguration(params.value("switchableConsumerConfiguration").toMap());
-    } else if (notification == "Hems.SwitchableConsumerConfigurationRemoved") {
-        qCDebug(dcHems()) << "SwitchableConsumer configuration removed" << params.value("switchableConsumerThingId").toUuid();
-        m_switchableConsumerConfigurations->removeConfiguration(params.value("switchableConsumerThingId").toUuid());
-    } else if (notification == "Hems.SwitchableConsumerConfigurationChanged") {
-        addOrUpdateSwitchableConsumerConfiguration(params.value("switchableConsumerConfiguration").toMap());
+    } else if (notification == "Hems.SwitchConfigurationAdded") {
+        addOrUpdateSwitchConfiguration(params.value("switchConfiguration").toMap());
+    } else if (notification == "Hems.SwitchConfigurationRemoved") {
+        qCDebug(dcHems()) << "Switch configuration removed" << params.value("switchThingId").toUuid();
+        m_switchConfigurations->removeConfiguration(params.value("switchThingId").toUuid());
+    } else if (notification == "Hems.SwitchConfigurationChanged") {
+        addOrUpdateSwitchConfiguration(params.value("switchConfiguration").toMap());
     } else if (notification == "Hems.EmsConfigurationChanged") {
         qCDebug(dcHems()) << "EMS configuration changed";
         updateEmsConfiguration(params.value("emsConfiguration").toMap());
@@ -805,12 +805,12 @@ void HemsManager::getBatteryConfigurationResponse(int commandId, const QVariantM
     }
 }
 
-void HemsManager::getSwitchableConsumerConfigurationsResponse(int commandId, const QVariantMap &data)
+void HemsManager::getSwitchConfigurationsResponse(int commandId, const QVariantMap &data)
 {
     Q_UNUSED(commandId);
-    qCDebug(dcHems()) << "Switchable consumer configurations" << data;
-    foreach (const QVariant &configurationVariant, data.value("switchableConsumerConfigurations").toList()) {
-        addOrUpdateSwitchableConsumerConfiguration(configurationVariant.toMap());
+    qCDebug(dcHems()) << "Switch configurations" << data;
+    foreach (const QVariant &configurationVariant, data.value("switchConfigurations").toList()) {
+        addOrUpdateSwitchConfiguration(configurationVariant.toMap());
     }
 }
 
@@ -920,10 +920,10 @@ void HemsManager::setBatteryConfigurationResponse(int commandId, const QVariantM
     emit setBatteryConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
-void HemsManager::setSwitchableConsumerConfigurationResponse(int commandId, const QVariantMap &data)
+void HemsManager::setSwitchConfigurationResponse(int commandId, const QVariantMap &data)
 {
-    qCDebug(dcHems()) << "Set switchable consumer configuration response" << data.value("hemsError").toString();
-    emit setSwitchableConsumerConfigurationReply(commandId, data.value("hemsError").toString());
+    qCDebug(dcHems()) << "Set switch configuration response" << data.value("hemsError").toString();
+    emit setSwitchConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
 int HemsManager::factoryReset()
@@ -1108,10 +1108,10 @@ void HemsManager::initJsonRpcCommunication()
                                            QVariantMap(),
                                            this,
                                            "getEmsConfigurationResponse");
-    m_engine->jsonRpcClient()->sendCommand("Hems.GetSwitchableConsumerConfigurations",
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetSwitchConfigurations",
                                            QVariantMap(),
                                            this,
-                                           "getSwitchableConsumerConfigurationsResponse");
+                                           "getSwitchConfigurationsResponse");
     m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingRodConfigurations",
                                            QVariantMap(),
                                            this,
@@ -1451,22 +1451,22 @@ void HemsManager::addOrUpdateHeatingElementConfiguration(const QVariantMap &conf
      }
 }
 
-void HemsManager::addOrUpdateSwitchableConsumerConfiguration(const QVariantMap &configurationMap)
+void HemsManager::addOrUpdateSwitchConfiguration(const QVariantMap &configurationMap)
 {
-    QUuid switchableConsumerUuid = configurationMap.value("switchableConsumerThingId").toUuid();
-    SwitchableConsumerConfiguration *configuration = m_switchableConsumerConfigurations->getSwitchableConsumerConfiguration(switchableConsumerUuid);
+    QUuid switchUuid = configurationMap.value("switchThingId").toUuid();
+    SwitchConfiguration *configuration = m_switchConfigurations->getSwitchConfiguration(switchUuid);
     bool newConfiguration = false;
     if (!configuration) {
         newConfiguration = true;
-        configuration = new SwitchableConsumerConfiguration(this);
-        configuration->setSwitchableConsumerThingId(switchableConsumerUuid);
+        configuration = new SwitchConfiguration(this);
+        configuration->setSwitchThingId(switchUuid);
     }
 
     QString modeString = configurationMap.value("optimizationMode").toString();
-    const QMetaObject metaObj = SwitchableConsumerConfiguration::staticMetaObject;
+    const QMetaObject metaObj = SwitchConfiguration::staticMetaObject;
     QMetaEnum modeEnum = metaObj.enumerator(metaObj.indexOfEnumerator("OptimizationMode"));
     int mode = modeEnum.keyToValue(modeString.toUtf8().constData());
-    configuration->setOptimizationMode(static_cast<SwitchableConsumerConfiguration::OptimizationMode>(mode));
+    configuration->setOptimizationMode(static_cast<SwitchConfiguration::OptimizationMode>(mode));
 
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
     configuration->setPvSurplusThreshold(configurationMap.value("pvSurplusThreshold").toDouble());
@@ -1475,11 +1475,11 @@ void HemsManager::addOrUpdateSwitchableConsumerConfiguration(const QVariantMap &
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 
     if (newConfiguration) {
-        qCDebug(dcHems()) << "SwitchableConsumer configuration added" << switchableConsumerUuid;
-        m_switchableConsumerConfigurations->addConfiguration(configuration);
+        qCDebug(dcHems()) << "Switch configuration added" << switchUuid;
+        m_switchConfigurations->addConfiguration(configuration);
     } else {
-        qCDebug(dcHems()) << "SwitchableConsumer configuration changed" << switchableConsumerUuid;
-        emit switchableConsumerConfigurationChanged(configuration);
+        qCDebug(dcHems()) << "Switch configuration changed" << switchUuid;
+        emit switchConfigurationChanged(configuration);
     }
 }
 

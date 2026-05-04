@@ -9,7 +9,7 @@ GenericConfigPage {
     id: root
 
     property Thing thing: null
-    property SwitchableConsumerConfiguration consumerConfig: hemsManager.switchableConsumerConfigurations.getSwitchableConsumerConfiguration(thing.id)
+    property SwitchConfiguration consumerConfig: hemsManager.switchConfigurations.getSwitchConfiguration(thing.id)
     readonly property State connectedState: root.thing.stateByName("connected")
     readonly property State powerState: root.thing.stateByName("power")
     readonly property State currentConsumptionState: root.thing.stateByName("currentPower")
@@ -25,7 +25,7 @@ GenericConfigPage {
 
     Connections {
         target: hemsManager
-        onSetSwitchableConsumerConfigurationReply: function(commandId, error) {
+        onSetSwitchConfigurationReply: function(commandId, error) {
             if (commandId === d.pendingCallId) {
                 d.pendingCallId = -1;
                 let props = {};
@@ -51,13 +51,13 @@ GenericConfigPage {
     ListModel {
         id: optimizationModesModel
         // #TODO wordings
-        ListElement{ name: qsTr("Always on"); value: 1 }   // SwitchableConsumerConfiguration.OptimizationModeManualOn
-        ListElement{ name: qsTr("Off"); value: 2 }          // SwitchableConsumerConfiguration.OptimizationModeManualOff
-        ListElement{ name: qsTr("No control"); value: 3 }   // SwitchableConsumerConfiguration.OptimizationModeNoControl
+        ListElement{ name: qsTr("Always on"); value: 1 }   // SwitchConfiguration.OptimizationModeManualOn
+        ListElement{ name: qsTr("Off"); value: 2 }          // SwitchConfiguration.OptimizationModeManualOff
+        ListElement{ name: qsTr("No control"); value: 3 }   // SwitchConfiguration.OptimizationModeNoControl
 
         Component.onCompleted: {
             if (hemsManager.availableUseCases & HemsManager.HemsUseCasePv) {
-                insert(2, { name: qsTr("PV surplus"), value: 0 }); // SwitchableConsumerConfiguration.OptimizationModePvSurplus
+                insert(2, { name: qsTr("PV surplus"), value: 0 }); // SwitchConfiguration.OptimizationModePvSurplus
             }
             if (!root.consumerConfig) {
                 optimizationModeCombobox.currentIndex = 0;
@@ -178,7 +178,7 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("PV Surplus") // #TODO wording, quotation marks from design?
-                    visible: optimizationModeCombobox.currentValue === 0 // SwitchableConsumerConfiguration.OptimizationModePvSurplus
+                    visible: optimizationModeCombobox.currentValue === 0 // SwitchConfiguration.OptimizationModePvSurplus
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -292,8 +292,8 @@ GenericConfigPage {
                     }
 
                     onClicked: {
-                        d.pendingCallId = hemsManager.setSwitchableConsumerConfiguration(
-                            root.consumerConfig.switchableConsumerThingId,
+                        d.pendingCallId = hemsManager.setSwitchConfiguration(
+                            root.consumerConfig.switchThingId,
                             {
                                 optimizationMode: optimizationModeCombobox.currentValue,
                                 durationMinAfterTurnOn: minRuntimeStepper.value * 15,

@@ -18,7 +18,6 @@ public:
     explicit EmsConfiguration(QObject *parent = nullptr);
 
     // Priority list for PV surplus distribution
-    // Suggested default order: HeatPump, SwitchableConsumer, Battery, WallBox, HeatingRod
     QList<QUuid> pvSurplusPriolist() const;
     void setPvSurplusPriolist(const QList<QUuid> &pvSurplusPriolist);
 
@@ -27,7 +26,6 @@ public:
     void setDefaultPvSurplusPriolist(const QList<QUuid> &defaultPvSurplusPriolist);
 
     // Priority list for load limiting / curtailment
-    // Suggested default order: Battery, HeatingRod, HeatPump, ChargePoint
     QList<QUuid> limitPriolist() const;
     void setLimitPriolist(const QList<QUuid> &limitPriolist);
 

@@ -82,8 +82,8 @@ Page {
                 navigateBack(thingPage);
             } else if (thingClass.interfaces.includes("powersocket")) {
                 thingPage = pageStack.push("../optimization/SwitchableConsumerOptimization.qml", {
-                    switchableConsumerConfiguration: hemsManager.switchableConsumerConfigurations.getSwitchableConsumerConfiguration(thingDevice.id),
-                    switchableConsumerThing: thingDevice,
+                    switchConfiguration: hemsManager.switchConfigurations.getSwitchConfiguration(thingDevice.id),
+                    switchThing: thingDevice,
                     directionID: 1
                 });
                 navigateBack(thingPage);
