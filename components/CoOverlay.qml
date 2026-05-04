@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
 import Nymea 1.0
 
 Dialog {
@@ -41,9 +42,15 @@ Dialog {
     }
 
     header: Rectangle {
+        id: headerRect
         Layout.fillWidth: true
         color: Style.colors.menu_Header_Footer_Background
         implicitHeight: headerLayout.implicitHeight
+
+        layer.enabled: true
+        layer.effect: OpacityMask {
+            maskSource: headerMaskSource
+        }
 
         RowLayout {
             id: headerLayout
@@ -79,5 +86,23 @@ Dialog {
     background: Rectangle {
         id: bg
         radius: 24
+    }
+
+    Item {
+        id: headerRoundedMask
+        width: headerRect.width
+        height: headerRect.height * 2
+        layer.enabled: true
+        visible: false
+        Rectangle {
+            anchors.fill: parent
+            radius: bg.radius
+        }
+    }
+
+    ShaderEffectSource {
+        id: headerMaskSource
+        sourceItem: headerRoundedMask
+        sourceRect: Qt.rect(0, 0, headerRoundedMask.width, headerRoundedMask.height / 2)
     }
 }
