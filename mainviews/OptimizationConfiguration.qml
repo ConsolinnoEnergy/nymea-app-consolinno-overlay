@@ -234,7 +234,9 @@ Page {
                 Layout.fillWidth: true
                 contentTopMargin: 8
                 headerText: qsTr("Switchable consumers")
-                visible: switchableConsumerRepeater.count > 0 || settings.showHiddenOptions
+                visible: ((hemsManager.availableUseCases & HemsManager.HemsUseSwitch) != 0 ||
+                          settings.showHiddenOptions) &&
+                         switchableConsumerRepeater.count > 0
 
                 ColumnLayout {
                     anchors.left: parent.left
