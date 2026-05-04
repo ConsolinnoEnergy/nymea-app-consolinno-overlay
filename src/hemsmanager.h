@@ -58,6 +58,8 @@ public:
         HemsUseCaseHeatingRod = 0x20,
         HemsUseCaseAll = 0xff,
         HemsUseCaseAvoidZeroCompensation = 0x100,
+        HemsUseCaseWashingMachine = 0x80,
+        HemsUseCaseSwitch = 0x200,
     };
 
     Q_ENUM(HemsUseCase)
