@@ -24,8 +24,15 @@ StatsBase {
     Connections {
         target: kpiProvider
         onKpiBarResult: function(barIndex, selfSufficiency, selfConsumption) {
-            autarkySet.replace(barIndex, selfSufficiency)
-            selfConsumptionSet.replace(barIndex, selfConsumption)
+            // Cache result by absolute bar offset
+            var absOffset = d._fetchStartOffset + barIndex
+            d.kpiCache[absOffset] = { ss: selfSufficiency, sc: selfConsumption }
+            // Update the visible bar if it falls within the current display window
+            var visIdx = absOffset - d.startOffset
+            if (visIdx >= 0 && visIdx < d.config.count) {
+                autarkySet.replace(visIdx, selfSufficiency)
+                selfConsumptionSet.replace(visIdx, selfConsumption)
+            }
         }
     }
 
@@ -49,15 +56,22 @@ StatsBase {
 
         property bool loading: kpiProvider.fetchingKpiSeries
 
+        // Cache for preloaded KPI values: key = absolute bar offset, value = {ss, sc}
+        property var kpiCache: ({})
+        // Absolute offset of the first bar in the most recent fetchKpis() call
+        property int _fetchStartOffset: 0
+
         onConfigChanged: {
             valueAxis.max = 100
+            d.kpiCache = ({})  // Invalidate cache when time resolution changes
             if (root.visible) {
                 fetchKpis()
             }
         }
         onStartOffsetChanged: {
             if (root.visible) {
-                fetchKpis()
+                refreshFromCache()  // Show cached/zeroed bars immediately (no stale data)
+                fetchKpis()         // Load new preload window in background
             }
         }
 
@@ -69,14 +83,27 @@ StatsBase {
             }
         }
 
-        function fetchKpis() {
-            var periods = []
+        // Fill visible bars from cache; show 0 for any uncached position.
+        function refreshFromCache() {
             for (var i = 0; i < d.config.count; i++) {
-                var toTimestamp = root.calculateTimestamp(d.config.startTime(), d.config.sampleRate, d.startOffset + i + 1)
+                var cached = d.kpiCache[d.startOffset + i]
+                autarkySet.replace(i,         cached !== undefined ? cached.ss : 0)
+                selfConsumptionSet.replace(i, cached !== undefined ? cached.sc : 0)
+            }
+        }
+
+        // Fetch KPI data for the visible window plus one full scroll width on each side.
+        function fetchKpis() {
+            if (!root.visible) return
+            // Preload: 1 window left + visible + 1 window right = 3 × count bars
+            d._fetchStartOffset = d.startOffset - d.config.count
+            var periods = []
+            for (var i = 0; i < d.config.count * 3; i++) {
+                var toTimestamp   = root.calculateTimestamp(d.config.startTime(), d.config.sampleRate, d._fetchStartOffset + i + 1)
                 var fromTimestamp = root.calculateTimestamp(toTimestamp, d.config.sampleRate, -1)
                 periods.push({
                     from: Math.floor(fromTimestamp.getTime() / 1000),
-                    to: Math.floor(toTimestamp.getTime() / 1000)
+                    to:   Math.floor(toTimestamp.getTime()   / 1000)
                 })
             }
             kpiProvider.fetchKpiSeries(periods)
@@ -308,6 +335,36 @@ StatsBase {
                 anchors.bottomMargin: chartView.height - chartView.plotArea.height - chartView.plotArea.y
 
                 hoverEnabled: true
+                preventStealing: dragging
+                propagateComposedEvents: true
+
+                property int startMouseX: 0
+                property int startStartOffset: 0
+                property bool dragging: false
+
+                onPressed: {
+                    startMouseX = mouseX
+                    startStartOffset = d.startOffset
+                }
+
+                onReleased: {
+                    dragging = false
+                }
+
+                onMouseXChanged: {
+                    if (!pressed) return
+                    if (Math.abs(startMouseX - mouseX) < 10) return
+                    dragging = true
+                    var barWidth = mouseArea.width / d.config.count
+                    var barDelta = Math.round((startMouseX - mouseX) / barWidth)
+                    d.startOffset = Math.min(0, startStartOffset + barDelta)
+                }
+
+                onWheel: function(wheel) {
+                    var delta = wheel.angleDelta.y !== 0 ? wheel.angleDelta.y : -wheel.pixelDelta.x
+                    var barDelta = delta > 0 ? -1 : 1
+                    d.startOffset = Math.min(0, d.startOffset + barDelta)
+                }
 
                 onDoubleClicked: {
                     var idx = Math.ceil(mouseArea.mouseX * d.config.count / mouseArea.width) - 1
@@ -327,7 +384,7 @@ StatsBase {
                     property int idx: visible ? Math.min(d.config.count -1, Math.max(0, Math.ceil(mouseArea.mouseX * d.config.count / mouseArea.width) - 1)) : 0
                     property date timestamp: root.calculateTimestamp(d.config.startTime(), d.config.sampleRate, d.startOffset + idx)
 
-                    visible: mouseArea.containsMouse
+                    visible: mouseArea.containsMouse && !mouseArea.dragging
 
                     property int chartWidth: chartView.plotArea.width
                     property int barWidth: chartWidth / categoryAxis.count
