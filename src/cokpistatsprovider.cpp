@@ -28,8 +28,19 @@ bool CoKpiStatsProvider::fetchingKpiSeries() const
 
 void CoKpiStatsProvider::fetchKpiSeries(const QVariantList &periods)
 {
-    if (!m_engine || !m_engine->jsonRpcClient() || !m_engine->jsonRpcClient()->authenticated()) {
-        qCWarning(dcCoKpiStatsProvider()) << "Cannot fetch KPI series: no engine or not authenticated";
+    if (!m_engine || !m_engine->jsonRpcClient()) {
+        qCWarning(dcCoKpiStatsProvider()) << "Cannot fetch KPI series: no engine or JSON-RPC client";
+        return;
+    }
+
+    // On no-auth servers (e.g. demo servers) authenticated() stays false forever because
+    // the JsonRpcClient only sets m_authenticated inside the "if (authenticationRequired)"
+    // branch of helloReply(). We must therefore also allow fetching when the server does
+    // not require authentication at all.
+    const bool ready = m_engine->jsonRpcClient()->authenticated()
+                     || !m_engine->jsonRpcClient()->authenticationRequired();
+    if (!ready) {
+        qCWarning(dcCoKpiStatsProvider()) << "Cannot fetch KPI series: auth required but not yet authenticated";
         return;
     }
 
