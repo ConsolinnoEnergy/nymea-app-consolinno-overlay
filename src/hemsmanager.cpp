@@ -922,7 +922,7 @@ void HemsManager::setBatteryConfigurationResponse(int commandId, const QVariantM
 
 void HemsManager::setSwitchConfigurationResponse(int commandId, const QVariantMap &data)
 {
-    qCDebug(dcHems()) << "Set switchable consumer configuration response" << data.value("hemsError").toString();
+    qCDebug(dcHems()) << "Set switch configuration response" << data.value("hemsError").toString();
     emit setSwitchConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
