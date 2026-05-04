@@ -259,17 +259,10 @@ Page {
                     }
                 }
 
-                Button {
+                RoundButton {
                     id: addModbusRtuMasterButton
                     Layout.alignment: Qt.AlignCenter
-                    text: "+"
-                    font.pixelSize: 32
-                    topPadding: 6
-                    leftPadding: 6
-                    rightPadding: 6
-                    bottomPadding: 6
-                    width: height
-                    implicitWidth: implicitHeight
+                    icon.source: Qt.resolvedUrl("/icons/add.svg")
                     enabled: modbusRtuManager.supported
 
                     onClicked: {

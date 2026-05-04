@@ -9,6 +9,7 @@ Row {
     property alias font: label.font
     property alias fontColor: label.color
     property alias wrapMode: label.wrapMode
+    property alias textLabel: label
     readonly property real naturalWidth: label.implicitWidth + (infoButton.visible ? spacing + infoButton.width : 0)
 
     Layout.fillWidth: true

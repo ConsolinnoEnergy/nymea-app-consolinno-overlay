@@ -164,6 +164,10 @@ GenericConfigPage {
                     CoKPICard {
                         id: totalConsumptionCard
                         Layout.fillWidth: true
+                        Layout.preferredWidth: 1
+                        Layout.preferredHeight: pvSurplusPowerCard.visible ?
+                                                    Math.max(implicitHeight, pvSurplusPowerCard.implicitHeight) :
+                                                    implicitHeight
                         visible: root.totalConsumptionState !== null
                         icon: Qt.resolvedUrl("qrc:/icons/electric_bolt.svg")
                         labelText: qsTr("Total consumption") // #TODO wording
@@ -174,6 +178,10 @@ GenericConfigPage {
                     CoKPICard {
                         id: pvSurplusPowerCard
                         Layout.fillWidth: true
+                        Layout.preferredWidth: 1
+                        Layout.preferredHeight: totalConsumptionCard.visible ?
+                                                    Math.max(implicitHeight, totalConsumptionCard.implicitHeight) :
+                                                    implicitHeight
                         visible: root.pvSurplusPowerState !== null
                         icon: Qt.resolvedUrl("qrc:/icons/solar_power.svg")
                         labelText: qsTr("Forwarded Solar Surplus")
