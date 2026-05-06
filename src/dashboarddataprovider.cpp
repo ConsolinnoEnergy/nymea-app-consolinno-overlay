@@ -58,23 +58,10 @@ void DashboardDataProvider::setEngine(Engine *engine)
     setupBatteriesStats();
     setupConsumersStats();
 
-    // Fetch KPIs when connection is ready.
-    // Three cases must be handled:
-    //
-    // 1. setEngine() is called while already connected & ready (e.g. dashboard opened
-    //    after the handshake/auth is already done): fetch immediately.
-    // 2. No-auth server: handshakeReceived fires → authenticated() stays false but
-    //    authenticationRequired() is false → fetchEnergyKPIs() will pass the guard.
-    // 3. Auth-required server: authenticatedChanged fires once the token login succeeds.
     if (m_engine && m_engine->jsonRpcClient()) {
-        connect(m_engine->jsonRpcClient(), &JsonRpcClient::handshakeReceived,
+        connect(m_engine->jsonRpcClient(), &JsonRpcClient::connectedChanged,
                 this, &DashboardDataProvider::fetchEnergyKPIs);
-        connect(m_engine->jsonRpcClient(), &JsonRpcClient::authenticatedChanged,
-                this, &DashboardDataProvider::fetchEnergyKPIs);
-
-        // Case 1: already ready right now
         fetchEnergyKPIs();
-
         m_kpiRefreshTimer.start();
     }
 }
@@ -667,14 +654,8 @@ void DashboardDataProvider::fetchEnergyKPIs()
         return;
     }
 
-    // On no-auth servers (e.g. demo servers) authenticated() stays false forever because
-    // the JsonRpcClient only sets m_authenticated inside the "if (authenticationRequired)"
-    // branch of helloReply(). We must therefore also allow fetching when the server does
-    // not require authentication at all.
-    const bool ready = m_engine->jsonRpcClient()->authenticated()
-                     || !m_engine->jsonRpcClient()->authenticationRequired();
-    if (!ready) {
-        qCDebug(dcDashboardDataProvider()) << "Cannot fetch Energy KPIs: auth required but not yet authenticated.";
+    if (!m_engine->jsonRpcClient()->connected()) {
+        qCDebug(dcDashboardDataProvider()) << "Cannot fetch Energy KPIs: not connected.";
         return;
     }
 
