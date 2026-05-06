@@ -394,7 +394,8 @@ MainViewBase {
                                 ctx.setLineDash([0.001, 2]);
                                 ctx.lineCap = "round";
 
-                                if (dataProvider.flowSolarToBattery !== 0 &&
+                                const powerThreshold = 30;
+                                if (Math.abs(dataProvider.flowSolarToBattery) > powerThreshold &&
                                         liveStatusPVCard.visible &&
                                         liveStatusBatteryCard.visible) {
                                     const startX = liveStatusPVCard.x + liveStatusPVCard.width / 2;
@@ -403,7 +404,7 @@ MainViewBase {
                                     const endY = liveStatusBatteryCard.y + 10;
                                     drawLine(ctx, startX, startY, endX, endY, dataProvider.flowSolarToBattery);
                                 }
-                                if (dataProvider.flowSolarToConsumers !== 0 &&
+                                if (Math.abs(dataProvider.flowSolarToConsumers) > powerThreshold &&
                                         liveStatusPVCard.visible) {
                                     const startX = liveStatusPVCard.x + liveStatusPVCard.width - 10;
                                     const startY = liveStatusPVCard.y + liveStatusPVCard.height - 10;
@@ -411,7 +412,7 @@ MainViewBase {
                                     const endY = liveStatusConsumptionCard.y + 10;
                                     drawLine(ctx, startX, startY, endX, endY, dataProvider.flowSolarToConsumers);
                                 }
-                                if (dataProvider.flowSolarToGrid !== 0 &&
+                                if (Math.abs(dataProvider.flowSolarToGrid) > powerThreshold &&
                                         liveStatusPVCard.visible) {
                                     const startX = liveStatusPVCard.x + liveStatusPVCard.width - 10;
                                     const startY = liveStatusPVCard.y + liveStatusPVCard.height /2;
@@ -419,7 +420,7 @@ MainViewBase {
                                     const endY = liveStatusGridCard.y + liveStatusGridCard.height / 2;
                                     drawLine(ctx, startX, startY, endX, endY, dataProvider.flowSolarToGrid);
                                 }
-                                if (dataProvider.flowBatteryToConsumers !== 0 &&
+                                if (Math.abs(dataProvider.flowBatteryToConsumers) > powerThreshold &&
                                         liveStatusBatteryCard.visible) {
                                     const startX = liveStatusBatteryCard.x + liveStatusBatteryCard.width - 10;
                                     const startY = liveStatusBatteryCard.y + liveStatusBatteryCard.height / 2;
@@ -427,7 +428,7 @@ MainViewBase {
                                     const endY = liveStatusConsumptionCard.y + liveStatusConsumptionCard.height / 2;
                                     drawLine(ctx, startX, startY, endX, endY, dataProvider.flowBatteryToConsumers);
                                 }
-                                if (dataProvider.flowGridToBattery !== 0 &&
+                                if (Math.abs(dataProvider.flowGridToBattery) > powerThreshold &&
                                         liveStatusBatteryCard.visible) {
                                     const startX = liveStatusGridCard.x + 10;
                                     const startY = liveStatusGridCard.y + liveStatusGridCard.height - 10;
@@ -435,7 +436,7 @@ MainViewBase {
                                     const endY = liveStatusBatteryCard.y + 10;
                                     drawLine(ctx, startX, startY, endX, endY, dataProvider.flowGridToBattery);
                                 }
-                                if (dataProvider.flowGridToConsumers !== 0) {
+                                if (Math.abs(dataProvider.flowGridToConsumers ) > powerThreshold) {
                                     const startX = liveStatusGridCard.x + liveStatusGridCard.width / 2;
                                     const startY = liveStatusGridCard.y + liveStatusGridCard.height - 10;
                                     const endX = liveStatusConsumptionCard.x + liveStatusConsumptionCard.width / 2;
@@ -497,13 +498,14 @@ MainViewBase {
                                 }
                             }
 
-                            CoPowerThingInfoCard {
+                            CoInfoCard {
                                 id: liveStatusGridCard
                                 Layout.fillWidth: true
                                 Layout.row: 0
                                 Layout.column: 2
                                 text: qsTr("Grid")
-                                thing: rootMeter
+                                value: Math.abs(dataProvider.currentPowerRootMeter)
+                                unit: "W"
                                 compactLayout: true
                                 showWarningIndicator: lpcActive
                                 icon: Qt.resolvedUrl("/icons/input_circle.svg")
