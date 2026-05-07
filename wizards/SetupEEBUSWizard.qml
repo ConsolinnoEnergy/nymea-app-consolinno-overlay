@@ -63,10 +63,15 @@ Page {
 
             var thingId = thing.id.toString();
             var matchesPendingGateway = d.pendingGatewayThingId !== "" && thing.parentId.toString() === d.pendingGatewayThingId;
-            var isNewThing = d.knownEebusChildThingIds.indexOf(thingId) === -1;
-
-            if (!matchesPendingGateway && !isNewThing) {
-                continue;
+            if (d.pendingGatewayThingId !== "") {
+                if (!matchesPendingGateway) {
+                    continue;
+                }
+            } else {
+                var isNewThing = d.knownEebusChildThingIds.indexOf(thingId) === -1;
+                if (!isNewThing) {
+                    continue;
+                }
             }
 
             if (root.deviceTypeForThing(thing) !== "") {
@@ -234,7 +239,7 @@ Page {
                 return;
             }
 
-            if (thing.parentId.toString() !== d.pendingGatewayThingId && root.eebusChildThingClassIds.indexOf(thing.thingClassId.toString()) === -1) {
+            if (thing.parentId.toString() !== d.pendingGatewayThingId || root.eebusChildThingClassIds.indexOf(thing.thingClassId.toString()) === -1) {
                 return;
             }
 
