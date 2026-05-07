@@ -436,7 +436,7 @@ MainViewBase {
                                     const endY = liveStatusBatteryCard.y + 10;
                                     drawLine(ctx, startX, startY, endX, endY, dataProvider.flowGridToBattery);
                                 }
-                                if (Math.abs(dataProvider.flowGridToConsumers ) > powerThreshold) {
+                                if (Math.abs(dataProvider.flowGridToConsumers) > powerThreshold) {
                                     const startX = liveStatusGridCard.x + liveStatusGridCard.width / 2;
                                     const startY = liveStatusGridCard.y + liveStatusGridCard.height - 10;
                                     const endX = liveStatusConsumptionCard.x + liveStatusConsumptionCard.width / 2;
