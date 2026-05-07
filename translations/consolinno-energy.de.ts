@@ -1137,6 +1137,17 @@
     </message>
 </context>
 <context>
+    <name>CoParamDelegate</name>
+    <message>
+        <source>Choose %1</source>
+        <translation>%1 auswählen</translation>
+    </message>
+    <message>
+        <source>Filter %1</source>
+        <translation>%1 durchsuchen</translation>
+    </message>
+</context>
+<context>
     <name>ConEMSState</name>
     <message>
         <source>ConEMS State</source>
@@ -4841,6 +4852,18 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>An error occurred while setting up the EEBUS device. Please try again.</source>
         <translation>Beim Einrichten des EEBUS-Geräts ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.</translation>
+    </message>
+    <message>
+        <source>At the moment, %1 can only control one EV charger. The newly added EEBUS device has been removed again. Support for multiple EV chargers is planned for future releases.</source>
+        <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Das neu hinzugefügte EEBUS-Gerät wurde wieder entfernt. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant.</translation>
+    </message>
+    <message>
+        <source>At the moment, %1 can only control one heatpump. The newly added EEBUS device has been removed again. Support for multiple heatpumps is planned for future releases.</source>
+        <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Das neu hinzugefügte EEBUS-Gerät wurde wieder entfernt. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant.</translation>
+    </message>
+    <message>
+        <source>%1 The newly added EEBUS device could not be removed automatically.</source>
+        <translation>%1 Das neu hinzugefügte EEBUS-Gerät konnte nicht automatisch entfernt werden.</translation>
     </message>
 </context>
 <context>
