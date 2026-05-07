@@ -98,6 +98,7 @@ Dialog {
     background: Rectangle {
         id: bg
         radius: 24
+        color: Style.colors.typography_Background_Default
     }
 
     Item {
