@@ -536,7 +536,7 @@ double DashboardDataProvider::stateValueDouble(Thing *thing, const QString &stat
     if (!isConnected(thing)) { return 0.; }
     const auto state = thing->stateByName(stateName);
     if (!state) {
-        qCCritical(dcDashboardDataProvider())
+        qCWarning(dcDashboardDataProvider())
         << "Thing"
         << thing->name()
         << "does not have a"
