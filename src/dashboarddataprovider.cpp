@@ -140,12 +140,12 @@ int DashboardDataProvider::flowBatteryToConsumers() const
 void DashboardDataProvider::updateConsumptions()
 {
     const auto currentPowerTotalConsumption =
-            m_currentPowerRootMeter -
-            m_currentPowerProduction -
-            m_currentPowerBatteries;
+        m_currentPowerRootMeter -
+        m_currentPowerProduction -
+        m_currentPowerBatteries;
     const auto currentPowerUnallocatedConsumption =
-            currentPowerTotalConsumption -
-            m_currentPowerAllocatedConsumption;
+        currentPowerTotalConsumption -
+        m_currentPowerAllocatedConsumption;
     if (m_currentPowerUnallocatedConsumption != currentPowerUnallocatedConsumption) {
         m_currentPowerUnallocatedConsumption = currentPowerUnallocatedConsumption;
         qCInfo(dcDashboardDataProvider()) << "Unmetered consumption:" << m_currentPowerUnallocatedConsumption;
@@ -357,8 +357,8 @@ void DashboardDataProvider::getEnergyKPIsResponse(int commandId, const QVariantM
     // Check for error in response
     if (data.contains("error") || data.contains("energyError")) {
         qCWarning(dcDashboardDataProvider()) << "Energy KPIs request failed:"
-                                              << data.value("error").toString()
-                                              << data.value("energyError").toString();
+                                             << data.value("error").toString()
+                                             << data.value("energyError").toString();
         return;
     }
 
@@ -496,7 +496,7 @@ void DashboardDataProvider::updatePowerConsumptionValues()
 }
 
 void DashboardDataProvider::updateTotalBatteryLevel(const QList<double> &capacities,
-                                                       const QList<double> &levels)
+                                                    const QList<double> &levels)
 {
     if (capacities.isEmpty() || levels.isEmpty()) { return; }
 
@@ -537,11 +537,11 @@ double DashboardDataProvider::stateValueDouble(Thing *thing, const QString &stat
     const auto state = thing->stateByName(stateName);
     if (!state) {
         qCCritical(dcDashboardDataProvider())
-            << "Thing"
-            << thing->name()
-            << "does not have a"
-            << stateName
-            << "state!";
+        << "Thing"
+        << thing->name()
+        << "does not have a"
+        << stateName
+        << "state!";
         return 0.;
     }
     auto conversionOk = true;
@@ -564,9 +564,9 @@ bool DashboardDataProvider::isConnected(Thing *thing) const
     const auto connectedState = thing->stateByName("connected");
     if (!connectedState) {
         qCDebug(dcDashboardDataProvider())
-            << "Thing"
-            << thing->name()
-            << "does not have a \"connected\" state";
+        << "Thing"
+        << thing->name()
+        << "does not have a \"connected\" state";
         // We can't tell. Assume connected.
         return true;
     }
@@ -578,16 +578,26 @@ bool DashboardDataProvider::isConnected(Thing *thing) const
 void DashboardDataProvider::resetValues()
 {
     qCInfo(dcDashboardDataProvider()) << "Resetting power and energy flow values";
-    m_currentPowerRootMeter = 0;
-    emit currentPowerRootMeterChanged(m_currentPowerRootMeter);
-    m_currentPowerProduction = 0;
-    emit currentPowerProductionChanged(m_currentPowerProduction);
-    m_currentPowerBatteries = 0;
-    emit currentPowerBatteriesChanged(m_currentPowerBatteries);
-    m_totalBatteryLevel = 0.;
-    emit totalBatteryLevelChanged(m_totalBatteryLevel);
-    m_currentPowerAllocatedConsumption = 0;
-    emit currentPowerAllocatedConsumptionChanged(m_currentPowerAllocatedConsumption);
+    if (m_currentPowerRootMeter != 0) {
+        m_currentPowerRootMeter = 0;
+        emit currentPowerRootMeterChanged(m_currentPowerRootMeter);
+    }
+    if (m_currentPowerProduction != 0) {
+        m_currentPowerProduction = 0;
+        emit currentPowerProductionChanged(m_currentPowerProduction);
+    }
+    if (m_currentPowerBatteries != 0) {
+        m_currentPowerBatteries = 0;
+        emit currentPowerBatteriesChanged(m_currentPowerBatteries);
+    }
+    if (m_totalBatteryLevel != 0.) {
+        m_totalBatteryLevel = 0.;
+        emit totalBatteryLevelChanged(m_totalBatteryLevel);
+    }
+    if (m_currentPowerAllocatedConsumption != 0) {
+        m_currentPowerAllocatedConsumption = 0;
+        emit currentPowerAllocatedConsumptionChanged(m_currentPowerAllocatedConsumption);
+    }
     // Will reset other power values and energy flow values to 0.
     updateConsumptions();
     updateEnergyFlow();
