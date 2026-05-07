@@ -514,7 +514,7 @@ MainViewBase {
                                     pageStack.push(
                                                 "/ui/devicepages/RootMeterDevicePage.qml",
                                                 {
-                                                    "thing": thing,
+                                                    "thing": root.rootMeter,
                                                     "gridSupport": gridSupport
                                                 });
                                 }
