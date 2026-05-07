@@ -108,6 +108,65 @@ Page {
         }
     }
 
+    function successThingFor(thing) {
+        if (root.deviceTypeForThing(thing) !== "") {
+            return thing;
+        }
+
+        if (!thing) {
+            return null;
+        }
+
+        for (var i = 0; i < eebusChildThingsProxy.count; i++) {
+            var childThing = eebusChildThingsProxy.get(i);
+            if (!childThing || childThing.parentId.toString() !== thing.id.toString()) {
+                continue;
+            }
+
+            if (root.deviceTypeForThing(childThing) !== "") {
+                return childThing;
+            }
+        }
+
+        return thing;
+    }
+
+    function openOptimizationPage(thing) {
+        var successThing = root.successThingFor(thing);
+        var optimizationPage = null;
+
+        switch (root.deviceTypeForThing(successThing)) {
+        case "evcharger":
+            optimizationPage = pageStack.push("../optimization/EvChargerOptimization.qml", {
+                thing: successThing,
+                chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(successThing.id),
+                directionID: 1
+            });
+            break;
+        case "heatpump":
+            optimizationPage = pageStack.push("../optimization/HeatingOptimization.qml", {
+                heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(successThing.id),
+                heatPumpThing: successThing,
+                directionID: 1
+            });
+            break;
+        case "solarinverter":
+            optimizationPage = pageStack.push("../optimization/PVOptimization.qml", {
+                pvConfiguration: hemsManager.pvConfigurations.getPvConfiguration(successThing.id),
+                thing: successThing,
+                directionID: 1
+            });
+            break;
+        default:
+            pageStack.pop(root);
+            return;
+        }
+
+        optimizationPage.done.connect(function() {
+            pageStack.pop(root);
+        });
+    }
+
     signal done(bool skip, bool abort, bool back)
 
     header: NymeaHeader {
@@ -634,8 +693,11 @@ Page {
                         Layout.preferredWidth: 200
                         text: qsTr("OK")
                         onClicked: {
-                            // Pop back to the main EEBUS setup page
-                            pageStack.pop(root);
+                            if (setupResultPage.thingError == Thing.ThingErrorNoError) {
+                                root.openOptimizationPage(thing);
+                            } else {
+                                pageStack.pop(root);
+                            }
                         }
                     }
                 }
