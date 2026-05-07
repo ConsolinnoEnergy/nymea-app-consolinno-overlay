@@ -139,7 +139,6 @@ Page {
         case "evcharger":
             optimizationPage = pageStack.push("../optimization/EvChargerOptimization.qml", {
                 thing: successThing,
-                chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(successThing.id),
                 directionID: 1
             });
             break;
