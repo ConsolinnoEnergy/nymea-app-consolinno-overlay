@@ -4854,16 +4854,20 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Beim Einrichten des EEBUS-Geräts ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.</translation>
     </message>
     <message>
-        <source>At the moment, %1 can only control one EV charger. The newly added EEBUS device has been removed again. Support for multiple EV chargers is planned for future releases.</source>
-        <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Das neu hinzugefügte EEBUS-Gerät wurde wieder entfernt. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant.</translation>
+        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
+        <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant.</translation>
     </message>
     <message>
-        <source>At the moment, %1 can only control one heatpump. The newly added EEBUS device has been removed again. Support for multiple heatpumps is planned for future releases.</source>
-        <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Das neu hinzugefügte EEBUS-Gerät wurde wieder entfernt. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant.</translation>
+        <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases.</source>
+        <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant.</translation>
     </message>
     <message>
-        <source>%1 The newly added EEBUS device could not be removed automatically.</source>
-        <translation>%1 Das neu hinzugefügte EEBUS-Gerät konnte nicht automatisch entfernt werden.</translation>
+        <source>%1 The newly added EEBUS device has been removed again.</source>
+        <translation>%1 Das neu hinzugefügte EEBUS-Gerät wurde wieder entfernt.</translation>
+    </message>
+    <message>
+        <source>%1 The newly added EEBUS device could not be removed automatically. Please remove it manually.</source>
+        <translation>%1 Das neu hinzugefügte EEBUS-Gerät konnte nicht automatisch entfernt werden. Bitte entfernen Sie es manuell.</translation>
     </message>
 </context>
 <context>

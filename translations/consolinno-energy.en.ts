@@ -4833,15 +4833,19 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>At the moment, %1 can only control one EV charger. The newly added EEBUS device has been removed again. Support for multiple EV chargers is planned for future releases.</source>
+        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>At the moment, %1 can only control one heatpump. The newly added EEBUS device has been removed again. Support for multiple heatpumps is planned for future releases.</source>
+        <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 The newly added EEBUS device could not be removed automatically.</source>
+        <source>%1 The newly added EEBUS device has been removed again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 The newly added EEBUS device could not be removed automatically. Please remove it manually.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

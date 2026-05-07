@@ -19,8 +19,8 @@ Page {
         "7c29d23d-d98b-46fd-b941-39a585159fbe",  // EEBus Inverter
         "f84f7c28-04cc-4da5-8564-402a9361b136"   // EEBus GridGuard
     ]
-    readonly property string evChargerLimitExceededText: qsTr("At the moment, %1 can only control one EV charger. The newly added EEBUS device has been removed again. Support for multiple EV chargers is planned for future releases.").arg(Configuration.deviceName)
-    readonly property string heatPumpLimitExceededText: qsTr("At the moment, %1 can only control one heatpump. The newly added EEBUS device has been removed again. Support for multiple heatpumps is planned for future releases.").arg(Configuration.deviceName)
+    readonly property string evChargerLimitExceededText: qsTr("At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.").arg(Configuration.deviceName)
+    readonly property string heatPumpLimitExceededText: qsTr("At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases.").arg(Configuration.deviceName)
 
     function currentEebusChildThingIds() {
         var thingIds = [];
@@ -106,6 +106,14 @@ Page {
         default:
             return "";
         }
+    }
+
+    function limitExceededResultText(baseText, removalSucceeded) {
+        if (removalSucceeded) {
+            return qsTr("%1 The newly added EEBUS device has been removed again.").arg(baseText);
+        }
+
+        return qsTr("%1 The newly added EEBUS device could not be removed automatically. Please remove it manually.").arg(baseText);
     }
 
     signal done(bool skip, bool abort, bool back)
@@ -254,14 +262,14 @@ Page {
             busyOverlay.shown = false;
 
             if (thingError === Thing.ThingErrorNoError) {
-                d.showSetupResult(Thing.ThingErrorSetupFailed, null, d.pendingLimitExceededMessage);
+                d.showSetupResult(Thing.ThingErrorSetupFailed, null, root.limitExceededResultText(d.pendingLimitExceededMessage, true));
                 return;
             }
 
             d.showSetupResult(
                 Thing.ThingErrorSetupFailed,
                 null,
-                qsTr("%1 The newly added EEBUS device could not be removed automatically.").arg(d.pendingLimitExceededMessage)
+                root.limitExceededResultText(d.pendingLimitExceededMessage, false)
             );
         }
     }
