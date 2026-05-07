@@ -508,7 +508,13 @@ void DashboardDataProvider::updateTotalBatteryLevel(const QList<double> &capacit
             totalBatteryCapacity += capacities[i];
             totalBatteryLevel += capacities[i] * levels[i];
         }
-        totalBatteryLevel /= totalBatteryCapacity;
+
+        if (totalBatteryCapacity > 0.) {
+            totalBatteryLevel /= totalBatteryCapacity;
+        } else {
+            qCCritical(dcDashboardDataProvider()) << "Invalid total battery capacity:" << totalBatteryCapacity;
+            totalBatteryLevel = 0.;
+        }
     } else {
         qCCritical(dcDashboardDataProvider()) << "Got different numbers of battery capacities and levels!";
         totalBatteryLevel = 0.;
