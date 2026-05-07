@@ -123,6 +123,11 @@ Page {
                 continue;
             }
 
+            // Only consider children added during this setup session
+            if (d.knownEebusChildThingIds.indexOf(childThing.id.toString()) !== -1) {
+                continue;
+            }
+
             if (root.deviceTypeForThing(childThing) !== "") {
                 return childThing;
             }
