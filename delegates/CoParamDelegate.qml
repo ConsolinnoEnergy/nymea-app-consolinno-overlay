@@ -204,8 +204,8 @@ ItemDelegate {
                             anchors.right: parent.right
                             anchors.left: parent.left
                             property var baseModel: root.paramType.allowedValues
-                            model: filterInput.text.length > 0 ?
-                                       baseModel.filter(v => v.toLowerCase().includes(filterInput.text.toLowerCase())) :
+                            model: filterInput.textField.displayText.length > 0 ?
+                                       baseModel.filter(v => v.toLowerCase().includes(filterInput.textField.displayText.toLowerCase())) :
                                        baseModel
                             implicitHeight: selectionGroup.height - 50
                             clip: true

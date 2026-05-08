@@ -84,23 +84,6 @@ signals:
     void flowBatteryToConsumersChanged(int flowBatteryToConsumers);
 
 private:
-    void updateRootMeterCurrentPower(State *currentPowerState);
-
-    void setupPowerProductionStats();
-    void updateCurrentPowerProduction();
-    void updateProducerCurrentPower(Thing *producer, State *currentPowerState);
-
-    void setupBatteriesStats();
-    void updateCurrentPowerBatteries();
-    void updateBatteryCurrentPower(Thing *battery, State *currentPowerState);
-    void updateTotalBatteryLevel();
-    void updateBatteryCapacity(Thing *battery, State *capacityState);
-    void updateBatteryLevel(Thing *battery, State *batteryLevelState);
-
-    void setupConsumersStats();
-    void updateCurrentPowerConsumption();
-    void updateConsumerCurrentPower(Thing *consumer, State *currentPowerState);
-
     void updateConsumptions();
     void updateEnergyFlow();
 
@@ -108,28 +91,37 @@ private:
 
     Q_INVOKABLE void getEnergyKPIsResponse(int commandId, const QVariantMap &data);
 
+    void updateEnergyValues();
+    bool canUpdateEnergyFlow() const;
+    void updateRootMeterValues();
+    void updatePowerProductionValues();
+    void updateBatteryValues();
+    void updatePowerConsumptionValues();
+    void updateTotalBatteryLevel(const QList<double> &capacities,
+                                 const QList<double> &levels);
+
+    bool isHidden(Thing *thing) const;
+    double stateValueDouble(Thing *thing, const QString &stateName) const;
+    bool isConnected(Thing *thing) const;
+
+    void resetValues();
+
 private:
     QPointer<Engine> m_engine = nullptr;
 
+    QTimer m_energyFlowRefreshTimer;
+
     QPointer<Thing> m_rootMeter = nullptr;
-    QUuid m_rootMeterId;
     int m_currentPowerRootMeter = 0;
-    QMetaObject::Connection m_currentPowerRootMeterConn;
 
     QPointer<ThingsProxy> m_producerThingsProxy = nullptr;
-    QHash<Thing *, double> m_producerCurrentPowers;
     int m_currentPowerProduction = 0;
 
     QPointer<ThingsProxy> m_batteryThingsProxy = nullptr;
-    QHash<Thing *, double> m_batteryCurrentPowers;
     int m_currentPowerBatteries = 0;
-    QHash<Thing *, double> m_batteryCapacities;
-    double m_totalBatteryCapacity = 0.;
-    QHash<Thing *, double> m_batteryLevels;
     double m_totalBatteryLevel = 0.;
 
     QPointer<ThingsProxy> m_consumerThingsProxy = nullptr;
-    QHash<Thing *, double> m_consumerCurrentPowers;
     int m_currentPowerAllocatedConsumption = 0;
     int m_currentPowerUnallocatedConsumption = 0;
     int m_currentPowerTotalConsumption = 0;
