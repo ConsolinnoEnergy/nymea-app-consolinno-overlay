@@ -208,7 +208,7 @@ Page {
     // up to 4 s for the child; if nothing arrives we pop back to the list.
     Timer {
         id: eebusChildWaitTimer
-        interval: 4000
+        interval: 10000
         repeat: false
         // Stored so the timer can disconnect them on timeout
         property var storedChildHandler: null

@@ -131,7 +131,7 @@ Page {
     // After 4 s we stop waiting and show the result with the gateway thing itself.
     Timer {
         id: noChildFallbackTimer
-        interval: 4000
+        interval: 10000
         repeat: false
         onTriggered: {
             d.disconnectGuard();
