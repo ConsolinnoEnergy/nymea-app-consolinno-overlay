@@ -138,6 +138,15 @@ Page {
         }
     }
 
+    function eebusDeviceTypeForThing(thing) {
+        if (!thing || !thing.thingClass) return "";
+        var ifaces = thing.thingClass.interfaces;
+        if (ifaces.indexOf("evcharger") !== -1) return "evcharger";
+        if (["heatpump", "smartgridheatpump", "simpleheatpump", "pvsurplusheatpump"].some(function(i) { return ifaces.indexOf(i) !== -1; })) return "heatpump";
+        if (ifaces.indexOf("solarinverter") !== -1) return "solarinverter";
+        return "";
+    }
+
     function openEebusOptimizationPage(thing) {
         var thingPage = null;
         switch (root.eebusDeviceTypeForThing(thing)) {
