@@ -287,6 +287,16 @@ Page {
         shownThingClassIds: root.eebusChildThingClassIds
     }
 
+    // When the ConsolinnoSetupWizard completes for an EEBUS gateway, the server
+    // creates the EEBUS child thing (Wallbox, Wärmepumpe, …) asynchronously.
+    // The child may therefore arrive either before or after page.done fires:
+    //
+    //  • Fast path:  onThingAdded fires while eebusState.active is true → handle it there.
+    //  • Slow path:  the child is not yet present when page.done fires →
+    //               start this timer and poll every 200 ms (up to 4 s / 20 retries).
+    //
+    // Both paths funnel into handleNewEebusChild(), which sets eebusState.active = false
+    // so it runs exactly once per setup attempt.
     Timer {
         id: eebusChildPollTimer
         interval: 200
