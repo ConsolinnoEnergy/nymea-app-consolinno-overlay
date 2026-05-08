@@ -1180,14 +1180,6 @@
         <translation>Einrichtung starten</translation>
     </message>
     <message>
-        <source>next</source>
-        <translation>weiter</translation>
-    </message>
-    <message>
-        <source>cancel</source>
-        <translation>abbrechen</translation>
-    </message>
-    <message>
         <source>Manual connection</source>
         <translation>Manuelle Verbindung</translation>
     </message>
@@ -1290,6 +1282,10 @@
     <message>
         <source>Privacy Policy and License Agreement HEMS&lt;br/&gt;(as of 11/2024)</source>
         <translation>Datenschutzerklärung HEMS&lt;br/&gt;(Stand 11/2024)</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>

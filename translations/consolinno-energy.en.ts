@@ -1171,14 +1171,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>next</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Manual connection</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1280,6 +1272,10 @@
     </message>
     <message>
         <source>Privacy Policy and License Agreement HEMS&lt;br/&gt;(as of 11/2024)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

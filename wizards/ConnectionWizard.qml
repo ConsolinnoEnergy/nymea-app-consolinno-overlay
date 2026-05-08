@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import 'qrc:/ui/components'
 import Nymea 1.0
 
@@ -55,10 +54,9 @@ ConsolinnoWizardPageBase {
 
             Button {
                 Layout.alignment: Qt.AlignHCenter
-                text: readCheckbox.checked ? qsTr('next') : qsTr('cancel')
+                text: readCheckbox.checked ? qsTr("Next") : qsTr("Cancel")
                 Layout.preferredWidth: 200
                 highlighted: readCheckbox.checked
-                Material.accent: Style.buttonColor
 
 
                 onClicked: {
@@ -225,10 +223,9 @@ ConsolinnoWizardPageBase {
 
                 Button {
                     Layout.alignment: Qt.AlignHCenter
-                    text: policyCheckbox.checked && accountCheckbox.checked ? qsTr('next') : qsTr('cancel')
+                    text: policyCheckbox.checked && accountCheckbox.checked ? qsTr("Next") : qsTr("Cancel")
                     Layout.preferredWidth: 200
                     highlighted: policyCheckbox.checked && accountCheckbox.checked
-                    Material.accent: Style.buttonColor
 
                     onClicked: {
                         if (policyCheckbox.checked && accountCheckbox.checked) {
@@ -282,7 +279,7 @@ ConsolinnoWizardPageBase {
 
                 Button {
                     Layout.alignment: Qt.AlignHCenter
-                    text: qsTr('next')
+                    text: qsTr("Next")
                     Layout.preferredWidth: 200
 
                     onClicked: {
@@ -514,7 +511,7 @@ ConsolinnoWizardPageBase {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.top: manualConnectionDetailsGridLayout.bottom
                     anchors.topMargin: Style.margins
-                    text: qsTr('Next')
+                    text: qsTr("Next")
                     onClicked: {
                         var rpcUrl
                         var hostAddress
