@@ -65,7 +65,7 @@ T.Switch {
             if (control.checked) {
                 return control.enabled ?
                             Style.colors.components_Forms_Toggle_Track_active :
-                            Style.colors.components_Forms_Toggle_Toggle_disabled;
+                            Style.colors.components_Forms_Toggle_Thumb_active_disabled;
             } else {
                 if (!control.enabled) {
                     return "transparent";
