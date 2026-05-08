@@ -165,6 +165,7 @@ Page {
 
         onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
             if (thingError !== Thing.ThingErrorNoError) {
+                d.disconnectGuard();
                 busyOverlay.shown = false;
                 var thing = engine.thingManager.things.getThing(thingId);
                 d.showSetupResult(thingError, thing, displayMessage);
