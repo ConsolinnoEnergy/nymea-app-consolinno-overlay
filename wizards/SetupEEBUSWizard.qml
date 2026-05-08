@@ -19,9 +19,6 @@ Page {
         "7c29d23d-d98b-46fd-b941-39a585159fbe",  // EEBus Inverter
         "f84f7c28-04cc-4da5-8564-402a9361b136"   // EEBus GridGuard
     ]
-    readonly property string evChargerLimitExceededText: qsTr("At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.").arg(Configuration.deviceName)
-    readonly property string heatPumpLimitExceededText: qsTr("At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases.").arg(Configuration.deviceName)
-
     function currentEebusChildThingIds() {
         var thingIds = [];
         for (var i = 0; i < eebusChildThingsProxy.count; i++) {
@@ -86,23 +83,18 @@ Page {
         return fallbackThing;
     }
 
-    function isDeviceLimitExceeded(thing) {
+    // Returns the limit-exceeded message if adding this thing violates a device-count limit,
+    // or an empty string if no limit applies / is not exceeded.
+    function limitExceededMessageForThing(thing) {
         switch (root.deviceTypeForThing(thing)) {
         case "evcharger":
-            return evChargerThingsProxy.count > 1;
+            return evChargerThingsProxy.count > 1
+                ? qsTr("At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.").arg(Configuration.deviceName)
+                : "";
         case "heatpump":
-            return heatPumpThingsProxy.count > 1;
-        default:
-            return false;
-        }
-    }
-
-    function limitExceededTextForThing(thing) {
-        switch (root.deviceTypeForThing(thing)) {
-        case "evcharger":
-            return root.evChargerLimitExceededText;
-        case "heatpump":
-            return root.heatPumpLimitExceededText;
+            return heatPumpThingsProxy.count > 1
+                ? qsTr("At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases.").arg(Configuration.deviceName)
+                : "";
         default:
             return "";
         }
@@ -222,12 +214,13 @@ Page {
             pendingThingTimer.stop();
             pendingThingTimer.retryCount = 0;
 
-            if (!root.isDeviceLimitExceeded(thing)) {
+            var limitMessage = root.limitExceededMessageForThing(thing);
+            if (limitMessage === "") {
                 d.showSetupResult(Thing.ThingErrorNoError, thing, d.pendingAddMessage);
                 return true;
             }
 
-            d.pendingLimitExceededMessage = root.limitExceededTextForThing(thing);
+            d.pendingLimitExceededMessage = limitMessage;
             busyOverlay.shown = true;
             d.pendingRemoveCommandId = engine.thingManager.removeThing(thing.isChild ? thing.parentId : thing.id);
             return true;
@@ -323,17 +316,7 @@ Page {
             }
 
             busyOverlay.shown = false;
-
-            if (thingError === Thing.ThingErrorNoError) {
-                d.showSetupResult(Thing.ThingErrorSetupFailed, null, root.limitExceededResultText(d.pendingLimitExceededMessage, true));
-                return;
-            }
-
-            d.showSetupResult(
-                Thing.ThingErrorSetupFailed,
-                null,
-                root.limitExceededResultText(d.pendingLimitExceededMessage, false)
-            );
+            d.showSetupResult(Thing.ThingErrorSetupFailed, null, root.limitExceededResultText(d.pendingLimitExceededMessage, thingError === Thing.ThingErrorNoError));
         }
     }
 
