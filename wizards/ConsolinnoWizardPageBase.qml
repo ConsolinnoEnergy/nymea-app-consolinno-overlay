@@ -30,6 +30,7 @@ Page {
         text: root.headerLabel
         visible: root.headerVisible
         backButtonVisible: root.headerBackButtonVisible
+        wrapMode: Text.WordWrap
         onBackPressed:{
             pageStack.pop()
         }
