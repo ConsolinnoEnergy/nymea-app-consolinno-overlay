@@ -1851,6 +1851,12 @@ GenericConfigPage {
                                     var gridConsumptionOption = gridConsumptionloadingmod.currentValue;
                                     mode = mode + gridConsumptionOption;
                                 }
+                                if(isAnyOfModesSelected([time_controlled])) {
+                                    // When using time controlled charging, charging should be paused outside
+                                    // of the charging time slots. We need to add 200 (which is "Pause charging";
+                                    // 0 would be "Charge with minimum current"). Cf. gridConsumptionloadingmod
+                                    mode = mode + 200;
+                                }
                                 return mode;
                             }
                         }
