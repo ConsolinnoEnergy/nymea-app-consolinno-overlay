@@ -47,19 +47,35 @@ Page {
         // For EEBUS: the gateway creates its child thing asynchronously on the server.
         // EebusLimitGuard always listens for thingAdded and handles limit enforcement
         // globally. We connect to its signals here to capture the child (or limit-hit
-        // event) and then navigate accordingly when page.done fires.
+        // event) before and after page.done fires.
         var lastEebusChild = null;
         var eebusLimitHit = false;
+        var pageDoneFired = false;
+
+        function stopEebusWait() {
+            eebusChildWaitTimer.storedChildHandler = null;
+            eebusChildWaitTimer.storedLimitHandler = null;
+            eebusChildWaitTimer.stop();
+            eebusChildWaitOverlay.shown = false;
+        }
+
         if (thingClass.id.toString() === root.eebusGatewayThingClassId) {
             var childHandler = function(thing) {
                 eebusLimitGuard.eebusChildThingAdded.disconnect(childHandler);
                 eebusLimitGuard.eebusLimitExceeded.disconnect(limitHandler);
                 lastEebusChild = thing;
+                if (pageDoneFired) {
+                    // page.done already fired and we were waiting — navigate now
+                    stopEebusWait();
+                    openEebusOptimizationPage(thing);
+                }
+                // else: page.done will read lastEebusChild and navigate
             };
             var limitHandler = function() {
                 eebusLimitGuard.eebusChildThingAdded.disconnect(childHandler);
                 eebusLimitGuard.eebusLimitExceeded.disconnect(limitHandler);
                 eebusLimitHit = true;
+                stopEebusWait();
                 pageStack.pop(root);
             };
             eebusLimitGuard.eebusChildThingAdded.connect(childHandler);
@@ -69,11 +85,20 @@ Page {
         var page = pageStack.push(Qt.resolvedUrl("ConsolinnoSetupWizard.qml"), {thingClass: thingClass});
         page.done.connect(function() {
             if (thingClass.id.toString() === root.eebusGatewayThingClassId) {
-                // Disconnect guard handlers in all cases — they may still be
-                // connected if no child arrived before page.done fired.
-                eebusLimitGuard.eebusChildThingAdded.disconnect(childHandler);
-                eebusLimitGuard.eebusLimitExceeded.disconnect(limitHandler);
-                if (!eebusLimitHit) openEebusOptimizationPage(lastEebusChild);
+                if (eebusLimitHit) return; // limitHandler already popped and cleaned up
+                pageDoneFired = true;
+                if (lastEebusChild !== null) {
+                    // Child already arrived before page.done — disconnect and navigate
+                    eebusLimitGuard.eebusChildThingAdded.disconnect(childHandler);
+                    eebusLimitGuard.eebusLimitExceeded.disconnect(limitHandler);
+                    openEebusOptimizationPage(lastEebusChild);
+                } else {
+                    // Child not yet here — show overlay and wait up to 4 s
+                    eebusChildWaitOverlay.shown = true;
+                    eebusChildWaitTimer.storedChildHandler = childHandler;
+                    eebusChildWaitTimer.storedLimitHandler = limitHandler;
+                    eebusChildWaitTimer.start();
+                }
                 return;
             }
             var thingPage = "";
@@ -127,6 +152,7 @@ Page {
             if (thingClass.id.toString() === root.eebusGatewayThingClassId) {
                 eebusLimitGuard.eebusChildThingAdded.disconnect(childHandler);
                 eebusLimitGuard.eebusLimitExceeded.disconnect(limitHandler);
+                stopEebusWait();
             }
             pageStack.pop();
         })
@@ -175,6 +201,30 @@ Page {
             return;
         }
         thingPage.done.connect(function() { pageStack.pop(root); });
+    }
+
+    // Timer and overlay used when page.done fires for an EEBUS gateway before
+    // the child thing has arrived. We keep the guard handlers connected and wait
+    // up to 4 s for the child; if nothing arrives we pop back to the list.
+    Timer {
+        id: eebusChildWaitTimer
+        interval: 4000
+        repeat: false
+        // Stored so the timer can disconnect them on timeout
+        property var storedChildHandler: null
+        property var storedLimitHandler: null
+        onTriggered: {
+            if (storedChildHandler) { eebusLimitGuard.eebusChildThingAdded.disconnect(storedChildHandler); storedChildHandler = null; }
+            if (storedLimitHandler) { eebusLimitGuard.eebusLimitExceeded.disconnect(storedLimitHandler); storedLimitHandler = null; }
+            eebusChildWaitOverlay.shown = false;
+            pageStack.pop(root);
+        }
+    }
+
+    BusyOverlay {
+        id: eebusChildWaitOverlay
+        parent: Overlay.overlay
+        anchors.fill: parent
     }
 
     QtObject {
