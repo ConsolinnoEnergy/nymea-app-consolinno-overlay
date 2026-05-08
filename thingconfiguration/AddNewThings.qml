@@ -69,6 +69,10 @@ Page {
         var page = pageStack.push(Qt.resolvedUrl("ConsolinnoSetupWizard.qml"), {thingClass: thingClass});
         page.done.connect(function() {
             if (thingClass.id.toString() === root.eebusGatewayThingClassId) {
+                // Disconnect guard handlers in all cases — they may still be
+                // connected if no child arrived before page.done fired.
+                eebusLimitGuard.eebusChildThingAdded.disconnect(childHandler);
+                eebusLimitGuard.eebusLimitExceeded.disconnect(limitHandler);
                 if (!eebusLimitHit) openEebusOptimizationPage(lastEebusChild);
                 return;
             }
@@ -120,6 +124,10 @@ Page {
             }
         })
         page.aborted.connect(function() {
+            if (thingClass.id.toString() === root.eebusGatewayThingClassId) {
+                eebusLimitGuard.eebusChildThingAdded.disconnect(childHandler);
+                eebusLimitGuard.eebusLimitExceeded.disconnect(limitHandler);
+            }
             pageStack.pop();
         })
 

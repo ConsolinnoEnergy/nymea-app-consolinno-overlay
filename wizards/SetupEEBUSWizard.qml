@@ -103,6 +103,7 @@ Page {
         function disconnectGuard() {
             if (_childHandler) { eebusLimitGuard.eebusChildThingAdded.disconnect(_childHandler); _childHandler = null; }
             if (_limitHandler) { eebusLimitGuard.eebusLimitExceeded.disconnect(_limitHandler); _limitHandler = null; }
+            noChildFallbackTimer.stop();
         }
 
         function onGuardChildAdded(thing) {
@@ -123,6 +124,22 @@ Page {
             pageStack.push(setupResultComponent, {thingError: thingError, thing: thing, message: message});
         }
 
+    }
+
+    // Fallback timer for the case where the gateway was added successfully but
+    // the server never creates a child thing (e.g. no EEBUS device has paired yet).
+    // After 4 s we stop waiting and show the result with the gateway thing itself.
+    Timer {
+        id: noChildFallbackTimer
+        interval: 4000
+        repeat: false
+        onTriggered: {
+            d.disconnectGuard();
+            var gatewayThing = d.pendingGatewayThingId !== ""
+                ? engine.thingManager.things.getThing(d.pendingGatewayThingId)
+                : null;
+            d.showSetupResult(Thing.ThingErrorNoError, gatewayThing, d.pendingAddMessage);
+        }
     }
 
     ThingDiscovery {
@@ -155,7 +172,9 @@ Page {
 
             d.pendingGatewayThingId = thingId.toString();
             d.pendingAddMessage = displayMessage;
-            // EebusLimitGuard's thingAdded listener will pick up the child and call back via guard signals
+            // EebusLimitGuard's thingAdded listener will pick up the child and call back via guard signals.
+            // noChildFallbackTimer handles the case where the gateway produces no child things.
+            noChildFallbackTimer.start();
         }
     }
 
