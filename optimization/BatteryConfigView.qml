@@ -299,11 +299,11 @@ GenericConfigPage {
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("Charging plan") // #TODO wording
                     visible: tariffControlledChargingToggle.checked
+                    enabled: !chargeOnceToggle.checked
 
                     ColumnLayout {
                         anchors.left: parent.left
                         anchors.right: parent.right
-                        enabled: !chargeOnceToggle.checked
 
                         CoSlider {
                             id: chargingThresholdSlider
