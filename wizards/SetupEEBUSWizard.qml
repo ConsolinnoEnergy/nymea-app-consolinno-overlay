@@ -19,16 +19,6 @@ Page {
         "7c29d23d-d98b-46fd-b941-39a585159fbe",  // EEBus Inverter
         "f84f7c28-04cc-4da5-8564-402a9361b136"   // EEBus GridGuard
     ]
-    function currentEebusChildThingIds() {
-        var thingIds = [];
-        for (var i = 0; i < eebusChildThingsProxy.count; i++) {
-            var thing = eebusChildThingsProxy.get(i);
-            if (thing) {
-                thingIds.push(thing.id.toString());
-            }
-        }
-        return thingIds;
-    }
 
     function deviceTypeForThing(thing) {
         if (!thing || !thing.thingClass) {
@@ -49,107 +39,27 @@ Page {
         return "";
     }
 
-    function findNewEebusChildThing() {
-        var fallbackThing = null;
-
-        for (var i = 0; i < eebusChildThingsProxy.count; i++) {
-            var thing = eebusChildThingsProxy.get(i);
-            if (!thing) {
-                continue;
-            }
-
-            var thingId = thing.id.toString();
-            var matchesPendingGateway = d.pendingGatewayThingId !== "" && thing.parentId.toString() === d.pendingGatewayThingId;
-            if (d.pendingGatewayThingId !== "") {
-                if (!matchesPendingGateway) {
-                    continue;
-                }
-            } else {
-                var isNewThing = d.knownEebusChildThingIds.indexOf(thingId) === -1;
-                if (!isNewThing) {
-                    continue;
-                }
-            }
-
-            if (root.deviceTypeForThing(thing) !== "") {
-                return thing;
-            }
-
-            if (!fallbackThing) {
-                fallbackThing = thing;
-            }
-        }
-
-        return fallbackThing;
-    }
-
-    // Returns the limit-exceeded message if adding this thing violates a device-count limit,
-    // or an empty string if no limit applies / is not exceeded.
-    function limitExceededMessageForThing(thing) {
-        switch (root.deviceTypeForThing(thing)) {
-        case "evcharger":
-            return evChargerThingsProxy.count > 1
-                ? qsTr("At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.").arg(Configuration.deviceName)
-                : "";
-        case "heatpump":
-            return heatPumpThingsProxy.count > 1
-                ? qsTr("At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases.").arg(Configuration.deviceName)
-                : "";
-        default:
-            return "";
-        }
-    }
-
-    function successThingFor(thing) {
-        if (root.deviceTypeForThing(thing) !== "") {
-            return thing;
-        }
-
-        if (!thing) {
-            return null;
-        }
-
-        for (var i = 0; i < eebusChildThingsProxy.count; i++) {
-            var childThing = eebusChildThingsProxy.get(i);
-            if (!childThing || childThing.parentId.toString() !== thing.id.toString()) {
-                continue;
-            }
-
-            // Only consider children added during this setup session
-            if (d.knownEebusChildThingIds.indexOf(childThing.id.toString()) !== -1) {
-                continue;
-            }
-
-            if (root.deviceTypeForThing(childThing) !== "") {
-                return childThing;
-            }
-        }
-
-        return thing;
-    }
-
     function openOptimizationPage(thing) {
-        var successThing = root.successThingFor(thing);
         var optimizationPage = null;
 
-        switch (root.deviceTypeForThing(successThing)) {
+        switch (root.deviceTypeForThing(thing)) {
         case "evcharger":
             optimizationPage = pageStack.push("../optimization/EvChargerOptimization.qml", {
-                thing: successThing,
+                thing: thing,
                 directionID: 1
             });
             break;
         case "heatpump":
             optimizationPage = pageStack.push("../optimization/HeatingOptimization.qml", {
-                heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(successThing.id),
-                heatPumpThing: successThing,
+                heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id),
+                heatPumpThing: thing,
                 directionID: 1
             });
             break;
         case "solarinverter":
             optimizationPage = pageStack.push("../optimization/PVOptimization.qml", {
-                pvConfiguration: hemsManager.pvConfigurations.getPvConfiguration(successThing.id),
-                thing: successThing,
+                pvConfiguration: hemsManager.pvConfigurations.getPvConfiguration(thing.id),
+                thing: thing,
                 directionID: 1
             });
             break;
@@ -161,14 +71,6 @@ Page {
         optimizationPage.done.connect(function() {
             pageStack.pop(root);
         });
-    }
-
-    function limitExceededResultText(baseText, removalSucceeded) {
-        if (removalSucceeded) {
-            return qsTr("%1 The newly added EEBUS device has been removed again.").arg(baseText);
-        }
-
-        return qsTr("%1 The newly added EEBUS device could not be removed automatically. Please remove it manually.").arg(baseText);
     }
 
     signal done(bool skip, bool abort, bool back)
@@ -186,45 +88,41 @@ Page {
         property string thingName: ""
         property var params: []
         property string name: ""
-        property var knownEebusChildThingIds: []
         property string pendingGatewayThingId: ""
         property string pendingAddMessage: ""
-        property string pendingLimitExceededMessage: ""
-        property int pendingRemoveCommandId: -1
+        property var _childHandler: null
+        property var _limitHandler: null
 
-        function resetPendingSetup() {
-            pendingThingTimer.stop();
-            pendingThingTimer.retryCount = 0;
-            d.pendingGatewayThingId = "";
-            d.pendingAddMessage = "";
-            d.pendingLimitExceededMessage = "";
-            d.pendingRemoveCommandId = -1;
+        function connectGuard() {
+            _childHandler = function(thing) { d.onGuardChildAdded(thing); };
+            _limitHandler = function() { d.onGuardLimitExceeded(); };
+            eebusLimitGuard.eebusChildThingAdded.connect(_childHandler);
+            eebusLimitGuard.eebusLimitExceeded.connect(_limitHandler);
+        }
+
+        function disconnectGuard() {
+            if (_childHandler) { eebusLimitGuard.eebusChildThingAdded.disconnect(_childHandler); _childHandler = null; }
+            if (_limitHandler) { eebusLimitGuard.eebusLimitExceeded.disconnect(_limitHandler); _limitHandler = null; }
+        }
+
+        function onGuardChildAdded(thing) {
+            if (thing.parentId.toString() !== pendingGatewayThingId) return;
+            disconnectGuard();
+            busyOverlay.shown = false;
+            showSetupResult(Thing.ThingErrorNoError, thing, pendingAddMessage);
+        }
+
+        function onGuardLimitExceeded() {
+            disconnectGuard();
+            busyOverlay.shown = false;
+            pageStack.pop(root);
         }
 
         function showSetupResult(thingError, thing, message) {
-            d.resetPendingSetup();
+            pendingGatewayThingId = "";
             pageStack.push(setupResultComponent, {thingError: thingError, thing: thing, message: message});
         }
 
-        function handleAddedEebusThing(thing) {
-            if (!thing || d.pendingRemoveCommandId !== -1) {
-                return false;
-            }
-
-            pendingThingTimer.stop();
-            pendingThingTimer.retryCount = 0;
-
-            var limitMessage = root.limitExceededMessageForThing(thing);
-            if (limitMessage === "") {
-                d.showSetupResult(Thing.ThingErrorNoError, thing, d.pendingAddMessage);
-                return true;
-            }
-
-            d.pendingLimitExceededMessage = limitMessage;
-            busyOverlay.shown = true;
-            d.pendingRemoveCommandId = engine.thingManager.removeThing(thing.isChild ? thing.parentId : thing.id);
-            return true;
-        }
     }
 
     ThingDiscovery {
@@ -239,53 +137,9 @@ Page {
         shownThingClassIds: root.eebusChildThingClassIds
     }
 
-    ThingsProxy {
-        id: evChargerThingsProxy
-        engine: _engine
-        shownInterfaces: ["evcharger"]
-    }
-
-    ThingsProxy {
-        id: heatPumpThingsProxy
-        engine: _engine
-        shownInterfaces: ["heatpump", "smartgridheatpump", "simpleheatpump", "pvsurplusheatpump"]
-    }
-
     StackView {
         id: internalPageStack
         anchors.fill: parent
-    }
-
-    // When a gateway is successfully added (onAddThingReply), the server creates
-    // the EEBUS child thing (Wallbox, Wärmepumpe, …) asynchronously. The child
-    // may therefore arrive either before or after onAddThingReply fires:
-    //
-    //  • Fast path:  onThingAdded fires while we are still waiting → handle it there.
-    //  • Slow path:  the child is not yet present when onAddThingReply fires →
-    //               start this timer and poll every 200 ms (up to 4 s / 20 retries).
-    //
-    // Both paths funnel into handleAddedEebusThing(), which is guarded so it
-    // runs exactly once per setup attempt.
-    Timer {
-        id: pendingThingTimer
-        interval: 200
-        repeat: true
-        running: false
-
-        property int retryCount: 0
-
-        onTriggered: {
-            var newThing = root.findNewEebusChildThing();
-            if (d.handleAddedEebusThing(newThing)) {
-                return;
-            }
-
-            retryCount += 1;
-            if (retryCount >= 20) {
-                var gatewayThing = d.pendingGatewayThingId !== "" ? engine.thingManager.things.getThing(d.pendingGatewayThingId) : null;
-                d.showSetupResult(Thing.ThingErrorNoError, gatewayThing, d.pendingAddMessage);
-            }
-        }
     }
 
     Connections {
@@ -301,32 +155,7 @@ Page {
 
             d.pendingGatewayThingId = thingId.toString();
             d.pendingAddMessage = displayMessage;
-
-            if (!d.handleAddedEebusThing(root.findNewEebusChildThing())) {
-                pendingThingTimer.retryCount = 0;
-                pendingThingTimer.start();
-            }
-        }
-
-        onThingAdded: function(thing) {
-            if (d.pendingGatewayThingId === "" || !thing) {
-                return;
-            }
-
-            if (thing.parentId.toString() !== d.pendingGatewayThingId || root.eebusChildThingClassIds.indexOf(thing.thingClassId.toString()) === -1) {
-                return;
-            }
-
-            d.handleAddedEebusThing(root.findNewEebusChildThing());
-        }
-
-        onRemoveThingReply: function(commandId, thingError, ruleIds) {
-            if (commandId !== d.pendingRemoveCommandId) {
-                return;
-            }
-
-            busyOverlay.shown = false;
-            d.showSetupResult(Thing.ThingErrorSetupFailed, null, root.limitExceededResultText(d.pendingLimitExceededMessage, thingError === Thing.ThingErrorNoError));
+            // EebusLimitGuard's thingAdded listener will pick up the child and call back via guard signals
         }
     }
 
@@ -612,8 +441,7 @@ Page {
                     }
                     d.params = params;
                     d.name = nameTextField.text;
-                    d.resetPendingSetup();
-                    d.knownEebusChildThingIds = root.currentEebusChildThingIds();
+                    d.connectGuard();
 
                     if (d.thingDescriptor) {
                         engine.thingManager.addDiscoveredThing(thingClass.id, d.thingDescriptor.id, d.name, params);

@@ -261,6 +261,7 @@
         <file>thingconfiguration/ConsolinnoConfigureThingPage.qml</file>
         <file>thingconfiguration/ConsolinnoSetupWizard.qml</file>
         <file>thingconfiguration/ConsolinnoThingClassDetailsPage.qml</file>
+        <file>thingconfiguration/EebusLimitGuard.qml</file>
         <file>delegates/CoParamDelegate.qml</file>
         <file>devicepages/ConsolinnoDeviceLogPage.qml</file>
         <file>thingconfiguration/EpexDayAheadSetup.qml</file>

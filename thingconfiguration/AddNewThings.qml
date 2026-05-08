@@ -14,12 +14,6 @@ Page {
     property Thing thingDevice
 
     readonly property string eebusGatewayThingClassId: "d7448dd7-cafc-4ef7-9169-09ea657f755c"
-    readonly property var eebusChildThingClassIds: [
-        "15e6bb51-ef91-4668-9f6f-a43413d4ee4b",  // EEBus Wallbox (EVSE)
-        "a6273bc4-6ee4-4b76-ba20-edb3c054f158",  // EEBus Heatpump
-        "7c29d23d-d98b-46fd-b941-39a585159fbe",  // EEBus Inverter
-        "f84f7c28-04cc-4da5-8564-402a9361b136"   // EEBus GridGuard
-    ]
 
     function refreshAllDelegates() {
         for (let i = 0; i < baseInterfaceRepeater.count; ++i) {
@@ -50,20 +44,32 @@ Page {
     }
 
     function startWizard(thingClass) {
+        // For EEBUS: the gateway creates its child thing asynchronously on the server.
+        // EebusLimitGuard always listens for thingAdded and handles limit enforcement
+        // globally. We connect to its signals here to capture the child (or limit-hit
+        // event) and then navigate accordingly when page.done fires.
+        var lastEebusChild = null;
+        var eebusLimitHit = false;
         if (thingClass.id.toString() === root.eebusGatewayThingClassId) {
-            eebusState.knownChildIds = root.currentEebusChildThingIds();
+            var childHandler = function(thing) {
+                eebusLimitGuard.eebusChildThingAdded.disconnect(childHandler);
+                eebusLimitGuard.eebusLimitExceeded.disconnect(limitHandler);
+                lastEebusChild = thing;
+            };
+            var limitHandler = function() {
+                eebusLimitGuard.eebusChildThingAdded.disconnect(childHandler);
+                eebusLimitGuard.eebusLimitExceeded.disconnect(limitHandler);
+                eebusLimitHit = true;
+                pageStack.pop(root);
+            };
+            eebusLimitGuard.eebusChildThingAdded.connect(childHandler);
+            eebusLimitGuard.eebusLimitExceeded.connect(limitHandler);
         }
+
         var page = pageStack.push(Qt.resolvedUrl("ConsolinnoSetupWizard.qml"), {thingClass: thingClass});
         page.done.connect(function() {
             if (thingClass.id.toString() === root.eebusGatewayThingClassId) {
-                eebusState.active = true;
-                var child = root.findNewEebusChildThing();
-                if (child) {
-                    root.handleNewEebusChild(child);
-                } else {
-                    eebusChildPollTimer.retryCount = 0;
-                    eebusChildPollTimer.start();
-                }
+                if (!eebusLimitHit) openEebusOptimizationPage(lastEebusChild);
                 return;
             }
             var thingPage = "";
@@ -124,64 +130,6 @@ Page {
         }
     }
 
-    function eebusDeviceTypeForThing(thing) {
-        if (!thing || !thing.thingClass) return "";
-        var ifaces = thing.thingClass.interfaces;
-        if (ifaces.indexOf("evcharger") !== -1) return "evcharger";
-        if (["heatpump", "smartgridheatpump", "simpleheatpump", "pvsurplusheatpump"].some(i => ifaces.indexOf(i) !== -1)) return "heatpump";
-        if (ifaces.indexOf("solarinverter") !== -1) return "solarinverter";
-        return "";
-    }
-
-    // Returns a non-empty limit-exceeded message when adding this thing violates a device-count limit.
-    function eebusLimitExceededMessageForThing(thing) {
-        switch (root.eebusDeviceTypeForThing(thing)) {
-        case "evcharger":
-            return evCharger.count > 1
-                ? qsTr("At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.").arg(Configuration.deviceName)
-                : "";
-        case "heatpump":
-            return heatPumpAll.count > 1
-                ? qsTr("At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases.").arg(Configuration.deviceName)
-                : "";
-        default:
-            return "";
-        }
-    }
-
-    function currentEebusChildThingIds() {
-        var ids = [];
-        for (var i = 0; i < eebusChildThingsProxy.count; i++) {
-            var t = eebusChildThingsProxy.get(i);
-            if (t) ids.push(t.id.toString());
-        }
-        return ids;
-    }
-
-    function findNewEebusChildThing() {
-        for (var i = 0; i < eebusChildThingsProxy.count; i++) {
-            var t = eebusChildThingsProxy.get(i);
-            if (!t || eebusState.knownChildIds.indexOf(t.id.toString()) !== -1) continue;
-            if (root.eebusDeviceTypeForThing(t) !== "") return t;
-        }
-        return null;
-    }
-
-    function handleNewEebusChild(thing) {
-        if (!eebusState.active) return;
-        eebusState.active = false;
-        eebusChildPollTimer.stop();
-
-        var limitMsg = root.eebusLimitExceededMessageForThing(thing);
-        if (limitMsg === "") {
-            openEebusOptimizationPage(thing);
-            return;
-        }
-
-        eebusState.pendingLimitMessage = limitMsg;
-        eebusState.pendingRemoveCommandId = engine.thingManager.removeThing(thing.isChild ? thing.parentId : thing.id);
-    }
-
     function openEebusOptimizationPage(thing) {
         var thingPage = null;
         switch (root.eebusDeviceTypeForThing(thing)) {
@@ -215,14 +163,6 @@ Page {
     QtObject {
         id: d
         property var baseInterfacesWithThingClasses: ({})
-    }
-
-    QtObject {
-        id: eebusState
-        property bool active: false
-        property var knownChildIds: []
-        property int pendingRemoveCommandId: -1
-        property string pendingLimitMessage: ""
     }
 
     ThingClassesProxy {
@@ -273,86 +213,6 @@ Page {
         id: heatingRod
         engine: _engine
         shownInterfaces: ["heatingrod"]
-    }
-
-    ThingsProxy {
-        id: heatPumpAll
-        engine: _engine
-        shownInterfaces: ["heatpump", "smartgridheatpump", "simpleheatpump", "pvsurplusheatpump"]
-    }
-
-    ThingsProxy {
-        id: eebusChildThingsProxy
-        engine: _engine
-        shownThingClassIds: root.eebusChildThingClassIds
-    }
-
-    // When the ConsolinnoSetupWizard completes for an EEBUS gateway, the server
-    // creates the EEBUS child thing (Wallbox, Wärmepumpe, …) asynchronously.
-    // The child may therefore arrive either before or after page.done fires:
-    //
-    //  • Fast path:  onThingAdded fires while eebusState.active is true → handle it there.
-    //  • Slow path:  the child is not yet present when page.done fires →
-    //               start this timer and poll every 200 ms (up to 4 s / 20 retries).
-    //
-    // Both paths funnel into handleNewEebusChild(), which sets eebusState.active = false
-    // so it runs exactly once per setup attempt.
-    Timer {
-        id: eebusChildPollTimer
-        interval: 200
-        repeat: true
-        property int retryCount: 0
-        onTriggered: {
-            retryCount++;
-            var child = root.findNewEebusChildThing();
-            if (child || retryCount >= 20) {
-                stop();
-                retryCount = 0;
-                if (child) {
-                    root.handleNewEebusChild(child);
-                } else {
-                    eebusState.active = false;
-                    pageStack.pop(root);
-                }
-            }
-        }
-    }
-
-    Connections {
-        target: engine.thingManager
-
-        onThingAdded: function(thing) {
-            if (!eebusState.active || !thing) return;
-            if (root.eebusChildThingClassIds.indexOf(thing.thingClassId.toString()) === -1) return;
-            if (eebusState.knownChildIds.indexOf(thing.id.toString()) !== -1) return;
-            if (root.eebusDeviceTypeForThing(thing) === "") return;
-            root.handleNewEebusChild(thing);
-        }
-
-        onRemoveThingReply: function(commandId, thingError, ruleIds) {
-            if (commandId !== eebusState.pendingRemoveCommandId) return;
-            eebusState.pendingRemoveCommandId = -1;
-            var succeeded = thingError === Thing.ThingErrorNoError;
-            eebusLimitDialog.text = succeeded
-                ? qsTr("%1 The newly added EEBUS device has been removed again.").arg(eebusState.pendingLimitMessage)
-                : qsTr("%1 The newly added EEBUS device could not be removed automatically. Please remove it manually.").arg(eebusState.pendingLimitMessage);
-            eebusLimitDialog.open();
-        }
-    }
-
-    Dialog {
-        id: eebusLimitDialog
-        property string text: ""
-        anchors.centerIn: Overlay.overlay
-        modal: true
-        standardButtons: Dialog.Ok
-        onClosed: pageStack.pop(root)
-
-        Label {
-            width: Math.min(300, root.width - Style.margins * 4)
-            text: eebusLimitDialog.text
-            wrapMode: Text.WordWrap
-        }
     }
 
     ThingClassesProxy {
