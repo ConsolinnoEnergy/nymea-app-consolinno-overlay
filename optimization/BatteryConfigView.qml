@@ -261,6 +261,7 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: qsTr("Tariff-controlled charging")
                             visible: dynamicPrice.count >= 1
+                            infoUrl: "TariffGuidedChargingInfo.qml"
 
                             Component.onCompleted: {
                                 checked = root.batteryConfiguration.optimizationEnabled;
@@ -280,6 +281,7 @@ GenericConfigPage {
                             enabled: !root.isZeroCompensation
                             // #TODO show helpText when not enabled to explain why?
                             visible: tariffControlledChargingToggle.checked
+                            infoUrl: "ActivateInstantChargingInfo.qml"
 
                             Component.onCompleted: {
                                 checked = root.batteryConfiguration.chargeOnce;
