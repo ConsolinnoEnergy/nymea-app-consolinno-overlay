@@ -66,6 +66,8 @@ Frame {
             color: Style.colors.typography_Headlines_H2
             font: Style.newH2Font
             opacity: root.enabled ? 1 : Style.numbers.components_Disabled_opacity
+            wrapMode: Text.WordWrap
+            elide: Text.ElideRight
         }
 
         Item {
