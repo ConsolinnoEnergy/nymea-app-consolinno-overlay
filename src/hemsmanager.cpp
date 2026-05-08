@@ -46,7 +46,7 @@ void HemsManager::setEngine(Engine *engine)
     if (m_engine) {
         qCritical() << "Already have an engine:" << m_engine;
         m_engine->jsonRpcClient()->unregisterNotificationHandler(this);
-        disconnect(m_engine->jsonRpcClient(), &JsonRpcClient::authenticatedChanged,
+        disconnect(m_engine->jsonRpcClient(), &JsonRpcClient::connectedChanged,
                    this, &HemsManager::initJsonRpcCommunication);
     }
 

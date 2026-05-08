@@ -41,7 +41,7 @@ StatsBase {
     // the stats page has never been opened, so we must guard every fetch with
     // root.visible to avoid "No such method" errors at startup.
     onVisibleChanged: {
-        if (root.visible && _engine && _engine.jsonRpcClient && _engine.jsonRpcClient.authenticated) {
+        if (root.visible && _engine && _engine.jsonRpcClient && _engine.jsonRpcClient.connected) {
             d.fetchKpis()
         }
     }
@@ -142,8 +142,8 @@ StatsBase {
 
         Connections {
             target: _engine ? _engine.jsonRpcClient : null
-            onAuthenticatedChanged: {
-                if (root.visible && _engine && _engine.jsonRpcClient && _engine.jsonRpcClient.authenticated) {
+            onConnectedChanged: {
+                if (root.visible && _engine && _engine.jsonRpcClient && _engine.jsonRpcClient.connected) {
                     d.fetchKpis()
                 }
             }

@@ -51,9 +51,10 @@ void DashboardDataProvider::setEngine(Engine *engine)
     m_batteryThingsProxy->setEngine(m_engine);
     m_consumerThingsProxy->setEngine(m_engine);
 
-    // Fetch KPIs periodically via timer (initial fetch delayed to allow connection to stabilize)
     if (m_engine && m_engine->jsonRpcClient()) {
-        QTimer::singleShot(5000, this, &DashboardDataProvider::fetchEnergyKPIs);
+        connect(m_engine->jsonRpcClient(), &JsonRpcClient::connectedChanged,
+                this, &DashboardDataProvider::fetchEnergyKPIs);
+        fetchEnergyKPIs();
         m_kpiRefreshTimer.start();
     }
 }
@@ -331,8 +332,8 @@ void DashboardDataProvider::fetchEnergyKPIs()
         return;
     }
 
-    if (!m_engine->jsonRpcClient()->authenticated()) {
-        qCDebug(dcDashboardDataProvider()) << "Cannot fetch Energy KPIs: not authenticated.";
+    if (!m_engine->jsonRpcClient()->connected()) {
+        qCDebug(dcDashboardDataProvider()) << "Cannot fetch Energy KPIs: not connected.";
         return;
     }
 
@@ -612,4 +613,3 @@ void DashboardDataProvider::resetValues()
     updateConsumptions();
     updateEnergyFlow();
 }
-
