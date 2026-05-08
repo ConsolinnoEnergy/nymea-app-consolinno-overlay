@@ -40,16 +40,9 @@ StatsBase {
     // CoKpiStats is instantiated eagerly (inside a GridLayout/Flickable) even when
     // the stats page has never been opened, so we must guard every fetch with
     // root.visible to avoid "No such method" errors at startup.
-    //
-    // NOTE: On no-auth servers (e.g. demo) authenticated stays false forever because
-    // JsonRpcClient only sets m_authenticated inside the "if (authenticationRequired)"
-    // branch. We therefore fall through to the !authenticationRequired check.
     onVisibleChanged: {
-        if (root.visible && _engine && _engine.jsonRpcClient) {
-            var ready = _engine.jsonRpcClient.authenticated || !_engine.jsonRpcClient.authenticationRequired
-            if (ready) {
-                d.fetchKpis()
-            }
+        if (root.visible && _engine && _engine.jsonRpcClient && _engine.jsonRpcClient.connected) {
+            d.fetchKpis()
         }
     }
 
@@ -149,17 +142,8 @@ StatsBase {
 
         Connections {
             target: _engine ? _engine.jsonRpcClient : null
-            // handshakeReceived fires for ALL server types after the JSONRPC handshake,
-            // including no-auth servers where authenticated stays false forever.
-            onHandshakeReceived: {
-                if (root.visible && _engine && _engine.jsonRpcClient
-                        && !_engine.jsonRpcClient.authenticationRequired) {
-                    d.fetchKpis()
-                }
-            }
-            // authenticatedChanged covers auth-required servers once the token login completes.
-            onAuthenticatedChanged: {
-                if (root.visible && _engine && _engine.jsonRpcClient && _engine.jsonRpcClient.authenticated) {
+            onConnectedChanged: {
+                if (root.visible && _engine && _engine.jsonRpcClient && _engine.jsonRpcClient.connected) {
                     d.fetchKpis()
                 }
             }
