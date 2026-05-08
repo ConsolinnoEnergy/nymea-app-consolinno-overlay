@@ -178,7 +178,7 @@ ConsolinnoWizardPageBase {
             onBack: pageStack.pop()
 
             content: ColumnLayout {
-                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins; right: parent.right; left: parent.left }
+                anchors { top: parent.top; bottom: parent.bottom; topMargin: Style.bigMargins; right: parent.right; left: parent.left }
                 width: Math.min(parent.width, 450)
 
                 ScrollView {
