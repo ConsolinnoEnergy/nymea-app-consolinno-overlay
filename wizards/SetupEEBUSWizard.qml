@@ -477,6 +477,11 @@ Page {
 
     BusyOverlay {
         id: busyOverlay
+        // Use the global overlay as parent so this spinner renders above all
+        // StackView pages, including discoveryPage and paramsPage which are
+        // pushed onto the same pageStack as SetupEEBUSWizard itself.
+        parent: Overlay.overlay
+        anchors.fill: parent
     }
 
     // Component: Setup result page
