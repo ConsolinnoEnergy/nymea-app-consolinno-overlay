@@ -11,7 +11,6 @@ ChartView {
     property double currentPrice: 0
     property double highestValue: 0
     property double lowestValue: 0
-    property double averageTotalCost: 0
     property var hoursNow: 0
     property var startTime: 0
     property var endTime: 0
@@ -101,8 +100,6 @@ ChartView {
             root.pricesArr[ts].end = todayMidnightTs;
         }
         priceLimitUp.append(todayMidnightTs + 6e+06, currentPrice);
-        averageSeries.append(firstTimestamp.getTime(), averageTotalCost);
-        averageSeries.append(lastTimestamp.getTime() + 3.6e+06, averageTotalCost);
         priceLimitLow.append(todayMidnightTs + 6e+06, currentPrice);
         priceLimitUpperUp.append(todayMidnightTs + 6e+06, upperPriceLimit);
         barToDraw.append(todayMidnightTs + 6e+06, lastObjectValue);
@@ -119,7 +116,6 @@ ChartView {
         priceLimitUp.clear();
         priceLimitUpperUp.clear();
         priceLimitLow.clear();
-        averageSeries.clear();
     }
 
     legend.visible: false
@@ -307,15 +303,6 @@ ChartView {
             id: pricingOutOfLimit
         }
 
-    }
-
-    LineSeries {
-        id: averageSeries
-
-        axisX: dateTimeAxis
-        axisY: valueAxis
-        color: Style.epexBarCurrentTime
-        style: Qt.DashLine
     }
 
     AreaSeries {
