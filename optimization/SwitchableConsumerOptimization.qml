@@ -63,8 +63,6 @@ Page {
             ColumnLayout {
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.leftMargin: Style.margins
-                anchors.rightMargin: Style.margins
                 spacing: 0
 
                 CoInputField {

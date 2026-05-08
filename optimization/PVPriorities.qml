@@ -174,12 +174,12 @@ Page {
                     ColumnLayout {
                         anchors.left: parent.left
                         anchors.right: parent.right
-                        anchors.leftMargin: Style.margins
-                        anchors.rightMargin: Style.margins
                         spacing: Style.smallMargins
 
                         Text {
                             Layout.fillWidth: true
+                            Layout.leftMargin: Style.margins
+                            Layout.rightMargin: Style.margins
                             verticalAlignment: Text.AlignVCenter
                             wrapMode: Text.WordWrap
                             font: Style.newParagraphFont
