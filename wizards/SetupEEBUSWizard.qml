@@ -135,6 +135,7 @@ Page {
         repeat: false
         onTriggered: {
             d.disconnectGuard();
+            busyOverlay.shown = false;
             var gatewayThing = d.pendingGatewayThingId !== ""
                 ? engine.thingManager.things.getThing(d.pendingGatewayThingId)
                 : null;
@@ -163,17 +164,17 @@ Page {
         target: engine.thingManager
 
         onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
-            busyOverlay.shown = false;
             if (thingError !== Thing.ThingErrorNoError) {
+                busyOverlay.shown = false;
                 var thing = engine.thingManager.things.getThing(thingId);
                 d.showSetupResult(thingError, thing, displayMessage);
                 return;
             }
 
+            // Keep busyOverlay shown while waiting for the EEBUS child thing.
+            // It will be hidden by the guard callback or noChildFallbackTimer.
             d.pendingGatewayThingId = thingId.toString();
             d.pendingAddMessage = displayMessage;
-            // EebusLimitGuard's thingAdded listener will pick up the child and call back via guard signals.
-            // noChildFallbackTimer handles the case where the gateway produces no child things.
             noChildFallbackTimer.start();
         }
     }
