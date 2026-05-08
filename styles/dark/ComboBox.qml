@@ -64,11 +64,12 @@ T.ComboBox {
         required property int index
 
         width: ListView.view.width
+        height: control.height - 10
         text: model[control.textRole]
         font: Style.newParagraphFont
         highlighted: control.highlightedIndex === index
         hoverEnabled: control.hoverEnabled
-        leftPadding: 12
+        leftPadding: 11
         palette.text: Style.colors.components_Forms_Fields_Field_user_input
         palette.highlightedText: Style.colors.components_Forms_Fields_Field_user_input
         palette.highlight: Style.colors.typography_Background_Selection
@@ -118,7 +119,7 @@ T.ComboBox {
 
     background: Rectangle {
         implicitWidth: 140
-        implicitHeight: 56
+        implicitHeight: 45
 
         color: control.pressed ?
                    Style.colors.typography_States_Hover_pressed_outline :
