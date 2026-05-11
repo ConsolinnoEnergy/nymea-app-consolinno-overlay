@@ -93,7 +93,7 @@ Page {
                     eebusLimitGuard.eebusLimitExceeded.disconnect(limitHandler);
                     openEebusOptimizationPage(lastEebusChild);
                 } else {
-                    // Child not yet here — show overlay and wait up to 4 s
+                    // Child not yet here — show overlay and wait
                     eebusChildWaitOverlay.shown = true;
                     eebusChildWaitTimer.storedChildHandler = childHandler;
                     eebusChildWaitTimer.storedLimitHandler = limitHandler;
