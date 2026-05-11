@@ -130,7 +130,6 @@ Page {
             "gridsupport",
             "epexdatasource"
         ]
-        // #TODO add dynamicelectricitypricing?
     }
 
 
