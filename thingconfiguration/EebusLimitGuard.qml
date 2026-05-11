@@ -31,10 +31,10 @@ Item {
 
     // EEBUS child thing class IDs (auto-created as children of the gateway)
     readonly property var eebusChildThingClassIds: [
-        "15e6bb51-ef91-4668-9f6f-a43413d4ee4b",  // EEBus Wallbox (EVSE)
-        "a6273bc4-6ee4-4b76-ba20-edb3c054f158",  // EEBus Heatpump
-        "7c29d23d-d98b-46fd-b941-39a585159fbe",  // EEBus Inverter
-        "f84f7c28-04cc-4da5-8564-402a9361b136"   // EEBus GridGuard
+        "{15e6bb51-ef91-4668-9f6f-a43413d4ee4b}",  // EEBus Wallbox (EVSE)
+        "{a6273bc4-6ee4-4b76-ba20-edb3c054f158}",  // EEBus Heatpump
+        "{7c29d23d-d98b-46fd-b941-39a585159fbe}",  // EEBus Inverter
+        "{f84f7c28-04cc-4da5-8564-402a9361b136}"   // EEBus GridGuard
     ]
 
     function deviceTypeForThing(thing) {
@@ -114,12 +114,13 @@ Item {
         property string messageText: ""
         parent: Overlay.overlay
         anchors.centerIn: parent
+        margins: Style.margins
         modal: true
         standardButtons: Dialog.Ok
         onClosed: root.eebusLimitExceeded()
 
         Label {
-            width: Math.min(300, root.Window.width - Style.margins * 4)
+            anchors.fill: parent
             text: limitDialog.messageText
             wrapMode: Text.WordWrap
         }
