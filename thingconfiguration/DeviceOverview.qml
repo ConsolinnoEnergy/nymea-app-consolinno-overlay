@@ -28,7 +28,6 @@ Page {
     QtObject {
         id: d
         property var thingToRemove: null
-        property var baseInterfacesWithThingClasses: ({})
     }
 
     Connections {
@@ -66,24 +65,72 @@ Page {
         }
     }
 
-    ThingClassesProxy {
-        id: thingClassesProxy
+    ThingsProxy {
+        id: producerThings
         engine: _engine
-        includeProvidedInterfaces: true
-        groupByInterface: true
+        shownInterfaces: ["smartmeterproducer"]
     }
 
-    Component.onCompleted: {
-        let map = {};
-        for (let i = 0; i < thingClassesProxy.count; ++i) {
-            const item = thingClassesProxy.get(i);
-            const baseInterface = item.baseInterface;
-            if (!map[baseInterface]) {
-                map[baseInterface] = [];
-            }
-            map[baseInterface].push(item.id);
-        }
-        d.baseInterfacesWithThingClasses = map;
+    ThingsProxy {
+        id: batteryThings
+        engine: _engine
+        shownInterfaces: ["energystorage"]
+    }
+
+    ThingsProxy {
+        id: heatingThings
+        engine: _engine
+        shownInterfaces: ["heatpump", "heatingrod"]
+    }
+
+    ThingsProxy {
+        id: evChargerThings
+        engine: _engine
+        shownInterfaces: ["evcharger"]
+    }
+
+    ThingsProxy {
+        id: electricVehicleThings
+        engine: _engine
+        shownInterfaces: ["electricvehicle"]
+    }
+
+    ThingsProxy {
+        id: otherConsumerThings
+        engine: _engine
+        shownInterfaces: ["smartmeterconsumer"]
+        hiddenInterfaces: ["heatpump", "heatingrod", "evcharger"]
+    }
+
+    ThingsProxy {
+        id: energyMeterThings
+        engine: _engine
+        shownInterfaces: ["energymeter"]
+    }
+
+    ThingsProxy {
+        id: gatewayThings
+        engine: _engine
+        shownInterfaces: ["gateway"]
+    }
+
+    ThingsProxy {
+        id: uncategorizedThings
+        engine: _engine
+        hiddenInterfaces: [
+            "smartmeterproducer",
+            "energystorage",
+            "heatpump",
+            "heatingrod",
+            "evcharger",
+            "electricvehicle",
+            "smartmeterconsumer",
+            "energymeter",
+            "gateway",
+            "gridsupport",
+            "epexdatasource"
+        ]
+        // #TODO add dynamicelectricitypricing?
     }
 
 
@@ -103,54 +150,360 @@ Page {
                 anchors.fill: parent
                 spacing: Style.margins
 
-                Repeater {
-                    id: baseInterfaceRepeater
-                    model: Object.keys(d.baseInterfacesWithThingClasses)
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    contentTopMargin: 8
+                    headerText: qsTr("PV")
+                    visible: producerThings.count > 0
 
-                    delegate: CoFrostyCard {
-                        Layout.fillWidth: true
-                        contentTopMargin: 8
-                        headerText: app.interfaceToString(modelData)
-                        visible: thingsProxy.count > 0
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
 
-                        ThingsProxy {
-                            id: thingsProxy
-                            engine: _engine
-                            hideTagId: "hiddenInDeviceView"
-                            hiddenInterfaces: ["gridsupport", "epexdatasource"]
-                            shownThingClassIds: d.baseInterfacesWithThingClasses[modelData]
+                        Repeater {
+                            model: producerThings
+                            delegate: CoCard {
+                                property var thing: producerThings.getThing(model.id)
+
+                                Layout.fillWidth: true
+                                text: thing.name
+                                // #TODO use same stuff as in CoDashboardView.qml to get battery icons right
+                                iconLeft: app.interfacesToIcon(thing.thingClass.interfaces)
+                                showChildrenIndicator: true
+
+                                // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
+                                // This check might be wrong for thingClasses with multiple create methods...
+                                deletable: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
+
+                                onClicked: {
+                                    pageStack.push(Qt.resolvedUrl("ConsolinnoConfigureThingPage.qml"),
+                                                   { thing: thing });
+                                }
+
+                                onDeleteClicked: {
+                                    d.thingToRemove = thing;
+                                    engine.thingManager.removeThing(d.thingToRemove.id);
+                                }
+                            }
                         }
+                    }
+                }
 
-                        ColumnLayout {
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-                            spacing: 0
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    contentTopMargin: 8
+                    headerText: qsTr("Batteries")
+                    visible: batteryThings.count > 0
 
-                            Repeater {
-                                id: thingsRepeater
-                                model: thingsProxy
-                                delegate: CoCard {
-                                    property var thing: thingsProxy.getThing(model.id)
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
 
-                                    Layout.fillWidth: true
-                                    text: thing.name
-                                    // #TODO use same stuff as in CoDashboardView.qml to get battery icons right
-                                    iconLeft: app.interfacesToIcon(thing.thingClass.interfaces)
-                                    showChildrenIndicator: true
+                        Repeater {
+                            model: batteryThings
+                            delegate: CoCard {
+                                property var thing: batteryThings.getThing(model.id)
 
-                                    // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
-                                    // This check might be wrong for thingClasses with multiple create methods...
-                                    deletable: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
+                                Layout.fillWidth: true
+                                text: thing.name
+                                // #TODO use same stuff as in CoDashboardView.qml to get battery icons right
+                                iconLeft: app.interfacesToIcon(thing.thingClass.interfaces)
+                                showChildrenIndicator: true
 
-                                    onClicked: {
-                                        pageStack.push(Qt.resolvedUrl("ConsolinnoConfigureThingPage.qml"),
-                                                       { thing: thing });
-                                    }
+                                // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
+                                // This check might be wrong for thingClasses with multiple create methods...
+                                deletable: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
 
-                                    onDeleteClicked: {
-                                        d.thingToRemove = thing;
-                                        engine.thingManager.removeThing(d.thingToRemove.id);
-                                    }
+                                onClicked: {
+                                    pageStack.push(Qt.resolvedUrl("ConsolinnoConfigureThingPage.qml"),
+                                                   { thing: thing });
+                                }
+
+                                onDeleteClicked: {
+                                    d.thingToRemove = thing;
+                                    engine.thingManager.removeThing(d.thingToRemove.id);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    contentTopMargin: 8
+                    headerText: qsTr("Heating")
+                    visible: heatingThings.count > 0
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        Repeater {
+                            model: heatingThings
+                            delegate: CoCard {
+                                property var thing: heatingThings.getThing(model.id)
+
+                                Layout.fillWidth: true
+                                text: thing.name
+                                // #TODO use same stuff as in CoDashboardView.qml to get battery icons right
+                                iconLeft: app.interfacesToIcon(thing.thingClass.interfaces)
+                                showChildrenIndicator: true
+
+                                // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
+                                // This check might be wrong for thingClasses with multiple create methods...
+                                deletable: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
+
+                                onClicked: {
+                                    pageStack.push(Qt.resolvedUrl("ConsolinnoConfigureThingPage.qml"),
+                                                   { thing: thing });
+                                }
+
+                                onDeleteClicked: {
+                                    d.thingToRemove = thing;
+                                    engine.thingManager.removeThing(d.thingToRemove.id);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    contentTopMargin: 8
+                    headerText: qsTr("EV chargers")
+                    visible: evChargerThings.count > 0
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        Repeater {
+                            model: evChargerThings
+                            delegate: CoCard {
+                                property var thing: evChargerThings.getThing(model.id)
+
+                                Layout.fillWidth: true
+                                text: thing.name
+                                // #TODO use same stuff as in CoDashboardView.qml to get battery icons right
+                                iconLeft: app.interfacesToIcon(thing.thingClass.interfaces)
+                                showChildrenIndicator: true
+
+                                // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
+                                // This check might be wrong for thingClasses with multiple create methods...
+                                deletable: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
+
+                                onClicked: {
+                                    pageStack.push(Qt.resolvedUrl("ConsolinnoConfigureThingPage.qml"),
+                                                   { thing: thing });
+                                }
+
+                                onDeleteClicked: {
+                                    d.thingToRemove = thing;
+                                    engine.thingManager.removeThing(d.thingToRemove.id);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    contentTopMargin: 8
+                    headerText: qsTr("Electric vehicles")
+                    visible: electricVehicleThings.count > 0
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        Repeater {
+                            model: electricVehicleThings
+                            delegate: CoCard {
+                                property var thing: electricVehicleThings.getThing(model.id)
+
+                                Layout.fillWidth: true
+                                text: thing.name
+                                // #TODO use same stuff as in CoDashboardView.qml to get battery icons right
+                                iconLeft: app.interfacesToIcon(thing.thingClass.interfaces)
+                                showChildrenIndicator: true
+
+                                // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
+                                // This check might be wrong for thingClasses with multiple create methods...
+                                deletable: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
+
+                                onClicked: {
+                                    pageStack.push(Qt.resolvedUrl("ConsolinnoConfigureThingPage.qml"),
+                                                   { thing: thing });
+                                }
+
+                                onDeleteClicked: {
+                                    d.thingToRemove = thing;
+                                    engine.thingManager.removeThing(d.thingToRemove.id);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    contentTopMargin: 8
+                    headerText: qsTr("Consumers")
+                    visible: otherConsumerThings.count > 0
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        Repeater {
+                            model: otherConsumerThings
+                            delegate: CoCard {
+                                property var thing: otherConsumerThings.getThing(model.id)
+
+                                Layout.fillWidth: true
+                                text: thing.name
+                                // #TODO use same stuff as in CoDashboardView.qml to get battery icons right
+                                iconLeft: app.interfacesToIcon(thing.thingClass.interfaces)
+                                showChildrenIndicator: true
+
+                                // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
+                                // This check might be wrong for thingClasses with multiple create methods...
+                                deletable: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
+
+                                onClicked: {
+                                    pageStack.push(Qt.resolvedUrl("ConsolinnoConfigureThingPage.qml"),
+                                                   { thing: thing });
+                                }
+
+                                onDeleteClicked: {
+                                    d.thingToRemove = thing;
+                                    engine.thingManager.removeThing(d.thingToRemove.id);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    contentTopMargin: 8
+                    headerText: qsTr("Energy meters")
+                    visible: energyMeterThings.count > 0
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        Repeater {
+                            model: energyMeterThings
+                            delegate: CoCard {
+                                property var thing: energyMeterThings.getThing(model.id)
+
+                                Layout.fillWidth: true
+                                text: thing.name
+                                // #TODO use same stuff as in CoDashboardView.qml to get battery icons right
+                                iconLeft: app.interfacesToIcon(thing.thingClass.interfaces)
+                                showChildrenIndicator: true
+
+                                // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
+                                // This check might be wrong for thingClasses with multiple create methods...
+                                deletable: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
+
+                                onClicked: {
+                                    pageStack.push(Qt.resolvedUrl("ConsolinnoConfigureThingPage.qml"),
+                                                   { thing: thing });
+                                }
+
+                                onDeleteClicked: {
+                                    d.thingToRemove = thing;
+                                    engine.thingManager.removeThing(d.thingToRemove.id);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    contentTopMargin: 8
+                    headerText: qsTr("Gateways")
+                    visible: gatewayThings.count > 0
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        Repeater {
+                            model: gatewayThings
+                            delegate: CoCard {
+                                property var thing: gatewayThings.getThing(model.id)
+
+                                Layout.fillWidth: true
+                                text: thing.name
+                                // #TODO use same stuff as in CoDashboardView.qml to get battery icons right
+                                iconLeft: app.interfacesToIcon(thing.thingClass.interfaces)
+                                showChildrenIndicator: true
+
+                                // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
+                                // This check might be wrong for thingClasses with multiple create methods...
+                                deletable: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
+
+                                onClicked: {
+                                    pageStack.push(Qt.resolvedUrl("ConsolinnoConfigureThingPage.qml"),
+                                                   { thing: thing });
+                                }
+
+                                onDeleteClicked: {
+                                    d.thingToRemove = thing;
+                                    engine.thingManager.removeThing(d.thingToRemove.id);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    contentTopMargin: 8
+                    headerText: qsTr("Uncategorized")
+                    visible: uncategorizedThings.count > 0
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        Repeater {
+                            model: uncategorizedThings
+                            delegate: CoCard {
+                                property var thing: uncategorizedThings.getThing(model.id)
+
+                                Layout.fillWidth: true
+                                text: thing.name
+                                // #TODO use same stuff as in CoDashboardView.qml to get battery icons right
+                                iconLeft: app.interfacesToIcon(thing.thingClass.interfaces)
+                                showChildrenIndicator: true
+
+                                // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
+                                // This check might be wrong for thingClasses with multiple create methods...
+                                deletable: !thing.isChild || thing.thingClass.createMethods.indexOf("CreateMethodAuto") < 0
+
+                                onClicked: {
+                                    pageStack.push(Qt.resolvedUrl("ConsolinnoConfigureThingPage.qml"),
+                                                   { thing: thing });
+                                }
+
+                                onDeleteClicked: {
+                                    d.thingToRemove = thing;
+                                    engine.thingManager.removeThing(d.thingToRemove.id);
                                 }
                             }
                         }
