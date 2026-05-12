@@ -253,11 +253,8 @@ SettingsPageBase {
                 }
 
                 var wiredNetworkDevice = networkManager.wiredNetworkDevices.getWiredNetworkDevice(model.interface);
-                if (wiredNetworkDevice.state === NetworkDevice.NetworkDeviceStateDisconnected) {
-                    pageStack.push(createWiredConnectionPageComponent, {wiredNetworkDevice: wiredNetworkDevice})
-                } else {
-                    pageStack.push(currentEthernetConnectionPageComponent, {wiredNetworkDevice: wiredNetworkDevice})
-                }
+                console.debug("Clicked wired network device", wiredNetworkDevice.interface, wiredNetworkDevice.state)
+                pageStack.push(currentEthernetConnectionPageComponent, {wiredNetworkDevice: wiredNetworkDevice})
             }
         }
     }
@@ -513,6 +510,7 @@ SettingsPageBase {
                 }
 
                 RowLayout {
+                    Layout.fillWidth: true
                     TextField {
                         id: ipTextField
                         maximumLength: 32
@@ -592,6 +590,7 @@ SettingsPageBase {
         }
     }
 
+
     Component {
         id: authPageComponent
         SettingsPageBase {
@@ -638,7 +637,6 @@ SettingsPageBase {
                     pageStack.pop(root);
                 }
             }
-
         }
     }
 
@@ -650,37 +648,164 @@ SettingsPageBase {
 
             property WiredNetworkDevice wiredNetworkDevice: null
 
-            SettingsPageSectionHeader {
-                text: qsTr("Connected to")
+            ColumnLayout {
+                SettingsPageSectionHeader {
+                    text: qsTr("Connected to")
+                }
+
+                NymeaItemDelegate {
+                    Layout.fillWidth: true
+                    text: qsTr("IPv4 Address")
+                    subText: currentEthernetConnectionPage.wiredNetworkDevice.ipv4Addresses.join(", ")
+                    progressive: false
+                }
+                NymeaItemDelegate {
+                    Layout.fillWidth: true
+                    text: qsTr("IPv6 Address")
+                    subText: currentEthernetConnectionPage.wiredNetworkDevice.ipv6Addresses.join(", ")
+                    visible: subText.length > 0
+                    progressive: false
+                }
+                NymeaItemDelegate {
+                    Layout.fillWidth: true
+                    text: qsTr("MAC Address")
+                    subText: currentEthernetConnectionPage.wiredNetworkDevice.macAddress
+                    progressive: false
+                }
+
             }
 
-            NymeaItemDelegate {
-                Layout.fillWidth: true
-                text: qsTr("IPv4 Address")
-                subText: currentEthernetConnectionPage.wiredNetworkDevice.ipv4Addresses.join(", ")
-                progressive: false
-            }
-            NymeaItemDelegate {
-                Layout.fillWidth: true
-                text: qsTr("IPv6 Address")
-                subText: currentEthernetConnectionPage.wiredNetworkDevice.ipv6Addresses.join(", ")
-                visible: subText.length > 0
-                progressive: false
-            }
-            NymeaItemDelegate {
-                Layout.fillWidth: true
-                text: qsTr("MAC Address")
-                subText: currentEthernetConnectionPage.wiredNetworkDevice.macAddress
-                progressive: false
-            }
+            ColumnLayout {
+                visible: currentEthernetConnectionPage.wiredNetworkDevice.interface === "eth1"
+                SettingsPageSectionHeader {
+                    text: qsTr("Change IP configuration")
+                }
 
-            Button {
-                Layout.fillWidth: true
-                Layout.margins: app.margins
-                text: qsTr("Disconnect")
-                onClicked: {
-                    d.pendingCallId = networkManager.disconnectInterface(currentEthernetConnectionPage.wiredNetworkDevice.interface)
-                    pageStack.pop(root);
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    spacing: 0
+
+                    RadioButton {
+                        id: dhcpServerRadioButton
+                        Layout.fillWidth: true
+                        text: qsTr("Default (DHCP server)")
+                    }
+                    RadioButton {
+                        id: manualClientRadioButton
+                        Layout.fillWidth: true
+                        text: qsTr("Manual settings")
+                    }
+                }
+
+                SettingsPageSectionHeader {
+                    text: qsTr("Address settings")
+                    visible: manualClientRadioButton.checked
+                }
+
+                GridLayout {
+                    Layout.fillWidth: true
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    columns: 2
+                    visible: manualClientRadioButton.checked
+
+
+                    Label {
+                        text: qsTr("IP Address")
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+
+                        TextField {
+                            id: ipTextField
+                            maximumLength: 15
+                            Layout.fillWidth: true
+                            horizontalAlignment: Text.AlignRight
+                            validator: RegularExpressionValidator {
+                                regularExpression:  /^((?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\.){0,3}(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$/
+                            }
+                        }
+
+                        Label {
+                            text: "/"
+                        }
+                        TextField {
+                            id: prefixTextField
+
+                            property int maxChars: 2
+                            maximumLength: maxChars
+
+                            FontMetrics {
+                                id: fontMetrics
+                                font: prefixTextField.font
+                            }
+
+                            
+                            Layout.preferredWidth: fontMetrics.advanceWidth("W".repeat(maxChars)) + leftPadding + rightPadding  // using "W" as it is the widest character, 
+                                                                                                                                // so this ensures that the text field 
+                                                                                                                                // is wide enough for the maximum number of characters
+                            text: "24"
+                            Layout.fillWidth: false
+                            validator: IntValidator {
+                                bottom: 8
+                                top: 32
+                            }
+                        }
+                    }
+
+                    // Label {
+                    //     text: qsTr("Gateway")
+                    // }
+
+                    // TextField {
+                    //     id: defaultGwTextField
+                    //     maximumLength: 32
+                    //     Layout.fillWidth: true
+                    //     validator: RegularExpressionValidator {
+                    //         regularExpression:  /^((?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\.){0,3}(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$/
+                    //     }
+                    // }
+
+                    // Label {
+                    //     text: qsTr("DNS")
+                    // }
+
+                    // TextField {
+                    //     id: dnsTextField
+                    //     maximumLength: 32
+                    //     Layout.fillWidth: true
+                    //     validator: RegularExpressionValidator {
+                    //         regularExpression:  /^((?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\.){0,3}(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$/
+                    //     }
+                    // }
+                }
+
+                Button {
+                    Layout.fillWidth: true
+                    Layout.margins: app.margins
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    text: qsTr("Write settings")
+                    enabled: {
+                        if (dhcpClientRadioButton.checked || dhcpServerRadioButton.checked) {
+                            return true;
+                        }
+                        return ipTextField.acceptableInput && prefixTextField.acceptableInput
+                    }
+
+                    onClicked: {
+                        if (manualClientRadioButton.checked) {
+                            d.pendingCallId = networkManager.enableEth1StaticIp(ipTextField.text, prefixTextField.text)
+                        } else if (dhcpServerRadioButton.checked) {
+                            d.pendingCallId = networkManager.disableEth1StaticIp()
+                        }
+
+                        pageStack.pop(root);
+                    }
+
                 }
             }
         }
