@@ -5479,7 +5479,7 @@ Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 
     </message>
     <message>
         <source>Your %1 is now configured. The following devices are set up:</source>
-        <translation>Ihre %1 ist jetzt konfiguriert. Die folgenden Geräte sind eingerichtet:</translation>
+        <translation type="unfinished">Ihr %1 ist jetzt konfiguriert. Die folgenden Geräte sind eingerichtet:</translation>
     </message>
     <message>
         <source>To the Dashboard</source>
