@@ -925,7 +925,7 @@
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;p&gt;Version 2.0.5&lt;/p&gt;
+        <translation>&lt;p&gt;Version 2.0.8&lt;/p&gt;
 &lt;h4&gt;Redesign&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Die App wird moderner: Schrittweise wird das neue Design der App sichtbar&lt;/li&gt;
