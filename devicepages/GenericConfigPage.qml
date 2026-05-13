@@ -54,8 +54,8 @@ Item {
     Menu {
         id: menu
 
-        x:root.width - width
-        y: 56 // #TODO adjust to header height
+        x: root.width - width - Style.margins
+        y: 56
         modal: true
 
         Repeater {

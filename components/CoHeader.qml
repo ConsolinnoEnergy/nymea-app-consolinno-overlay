@@ -5,7 +5,7 @@ import Nymea
 
 Item {
     id: root
-    implicitHeight: layout.implicitHeight + bottomBorder.implicitHeight
+    implicitHeight: layout.implicitHeight + bottomBorder.implicitHeight + 2 * Style.mediumMargins
     property alias text: headline.text
     property alias subText: subHeadline.text
     property alias backButtonVisible: backButton.visible
@@ -26,12 +26,19 @@ Item {
 
     RowLayout {
         id: layout
-        anchors { left: parent.left; top: parent.top; right: parent.right }
+        spacing: Style.margins
+        anchors {
+            left: parent.left
+            top: parent.top
+            right: parent.right
+            topMargin: Style.mediumMargins
+            leftMargin: Style.smallMargins
+            rightMargin: Style.margins
+        }
 
         RoundButton {
             id: backButton
             icon.source: "qrc:/icons/arrow_back_ios_new.svg"
-            icon.color: Style.colors.brand_Basic_Icon
             secondary: true
             onClicked: root.backPressed();
         }
@@ -73,7 +80,6 @@ Item {
         RoundButton {
             id: menuButton
             icon.source: "qrc:/icons/menu.svg"
-            icon.color: Style.colors.brand_Basic_Icon
             visible: false
             secondary: true
             onClicked: root.menuPressed();
@@ -86,6 +92,7 @@ Item {
             right: parent.right
             left: parent.left
             top: layout.bottom
+            topMargin: Style.mediumMargins
         }
         height: 1
         color: Style.colors.menu_Header_Footer_Border
