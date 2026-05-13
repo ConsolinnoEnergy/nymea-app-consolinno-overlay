@@ -95,6 +95,11 @@ Page {
             // simple_pv_excess (3000–3999) and dyn_pricing (4000–4999) modes.
             return config.optimizationMode >= 2000 && config.optimizationMode < 5000;
         }
+        if (ifaces.indexOf("powersocket") >= 0) {
+            let config = hemsManager.switchConfigurations.getSwitchConfiguration(thing.id);
+            return config ? config.optimizationMode === SwitchConfiguration.OptimizationModePvSurplus : false;
+        }
+
         return false;
     }
 
