@@ -74,7 +74,13 @@ Page {
         id: paramsPage
 
         SettingsPageBase {
+            id: addCarPage
             title: qsTr("Add new car")
+            header: CoHeader {
+                text: addCarPage.title
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
 
             ColumnLayout {
                 Layout.fillWidth: true

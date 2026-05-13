@@ -334,6 +334,11 @@ Page {
             property ThingClass thingClass
 
             title: qsTr("Discover %1").arg(thingClass.displayName)
+            header: CoHeader {
+                text: discoveryParamsView.title
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
 
             CoFrostyCard {
                 Layout.fillWidth: true
@@ -483,6 +488,11 @@ Page {
             property ThingClass thingClass
 
             title: thing ? qsTr("Reconfigure %1").arg(thing.name) : qsTr("Set up %1").arg(thingClass.displayName)
+            header: CoHeader {
+                text: paramsView.title
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
 
             CoFrostyCard {
                 id: nameGroup
@@ -673,6 +683,11 @@ Page {
             property string setupMethod
 
             title: qsTr("Reconfigure %1").arg(d.thingName)
+            header: CoHeader {
+                text: pairingPage.title
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
 
             CoFrostyCard {
                 Layout.fillWidth: true

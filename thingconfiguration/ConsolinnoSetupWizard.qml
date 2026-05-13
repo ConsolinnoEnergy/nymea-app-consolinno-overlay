@@ -372,6 +372,11 @@ Page {
         SettingsPageBase {
             id: paramsView
             title: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
+            header: CoHeader {
+                text: paramsView.title
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
 
             CoFrostyCard {
                 id: nameGroup
@@ -510,6 +515,11 @@ Page {
         SettingsPageBase {
             id: pairingPage
             title: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
+            header: CoHeader {
+                text: pairingPage.title
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
             property alias text: textLabel.text
             property string setupMethod
 

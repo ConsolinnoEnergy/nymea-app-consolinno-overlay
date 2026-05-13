@@ -228,8 +228,14 @@ Page{
         id: carData
 
         SettingsPageBase {
+            id: thingDetailPage
             property var thing
             title: thing ? thing.name : ""
+            header: CoHeader {
+                text: thingDetailPage.title
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
 
             ColumnLayout {
                 Layout.fillWidth: true

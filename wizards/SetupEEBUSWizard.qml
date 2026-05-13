@@ -540,6 +540,11 @@ Page {
             property ThingClass thingClass
 
             title: qsTr("Set up %1").arg(thingClass ? thingClass.displayName : "")
+            header: CoHeader {
+                text: paramsView.title
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
 
             CoFrostyCard {
                 id: nameGroup
