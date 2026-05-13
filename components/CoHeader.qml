@@ -47,7 +47,7 @@ Item {
             id: labelLayout
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.maximumWidth: layout.width - backButton.width - (menuButton.visible ? menuButton.width : 0)
+            Layout.maximumWidth: layout.width - (backButton.visible ? backButton.width : 0) - (menuButton.visible ? menuButton.width : 0)
             spacing: 0
 
             Label {
