@@ -16,7 +16,7 @@ Page{
     signal done(var selectedCar)
     signal back()
 
-    header: NymeaHeader {
+    header: CoHeader {
         id: header
         text: qsTr("List of Cars")
         backButtonVisible: true
@@ -182,7 +182,7 @@ Page{
         Page {
             id: resultsView
             property var thing
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Reconfigure " + thing.name)
                 onBackPressed: pageStack.pop()
             }
@@ -228,8 +228,14 @@ Page{
         id: carData
 
         SettingsPageBase {
+            id: thingDetailPage
             property var thing
             title: thing ? thing.name : ""
+            header: CoHeader {
+                text: thingDetailPage.title
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
 
             ColumnLayout {
                 Layout.fillWidth: true

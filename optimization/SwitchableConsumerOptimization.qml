@@ -13,7 +13,7 @@ Page {
     property int directionID: 0
     signal done()
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: switchThing.name
         backButtonVisible: true
         onBackPressed: pageStack.pop()

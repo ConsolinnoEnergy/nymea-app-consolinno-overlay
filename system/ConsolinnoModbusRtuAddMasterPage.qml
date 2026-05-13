@@ -43,7 +43,7 @@ SettingsPageBase {
     property ListModel serialPortDataBitsModel
     property ListModel serialPortStopBitsModel
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Add a new Modbus RTU master")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
@@ -115,7 +115,7 @@ SettingsPageBase {
             property SerialPort serialPort
             busy: d.pendingCommandId != -1
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Configure Modbus RTU master")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()

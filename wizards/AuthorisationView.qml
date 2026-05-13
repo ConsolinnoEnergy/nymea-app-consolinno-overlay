@@ -13,7 +13,7 @@ Page {
 
     property real directionID: 0
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Authorisation page")
         backButtonVisible: true
         onBackPressed: root.done(true, false)

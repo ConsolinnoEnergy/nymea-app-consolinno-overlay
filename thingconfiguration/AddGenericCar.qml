@@ -74,7 +74,13 @@ Page {
         id: paramsPage
 
         SettingsPageBase {
+            id: addCarPage
             title: qsTr("Add new car")
+            header: CoHeader {
+                text: addCarPage.title
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
 
             ColumnLayout {
                 Layout.fillWidth: true
@@ -181,7 +187,7 @@ Page {
 
         Page {
             id: resultsView
-            header: NymeaHeader {
+            header: CoHeader {
                 text: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Add generic car")
                 onBackPressed: pageStack.pop()
             }

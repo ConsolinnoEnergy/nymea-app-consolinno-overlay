@@ -10,9 +10,9 @@ Item {
     id: root
 
     property alias content: content.data
-    property alias title: titleText.text
+    property alias title: header.text
     property alias headerOptionsModel: menuListRepeater.model
-    property alias headerOptionsVisible: headerOptionsButton.enabled
+    property alias headerOptionsVisible: header.menuButtonVisible
 
     ListModel {
         id: menuListModel
@@ -35,60 +35,13 @@ Item {
         Layout.alignment: Qt.AlignHCenter
         spacing: 0
 
-        Item {
+        CoHeader {
+            id: header
             Layout.fillWidth: true
-            Layout.preferredHeight: 56
+            menuButtonVisible: true
 
-            // Außencontainer: keine Layout-Steuerung, daher anchors hier ok
-            Item {
-                anchors.fill: parent
-                anchors.leftMargin: 16
-                anchors.rightMargin: 16
-
-                RowLayout {
-                    id: rowContainer
-                    anchors.fill: parent
-                    spacing: 0
-
-                    HeaderButton {
-                        id: backButton
-                        objectName: "backButton"
-                        imageSource: "/icons/arrow_back_ios_new.svg"
-                        onClicked: pageStack.pop()
-                    }
-
-                    Label {
-                        id: titleText
-                        Layout.fillWidth: true
-                        font: Style.newH3Font
-                        horizontalAlignment: Text.AlignHCenter
-                        elide: Text.ElideRight
-                        maximumLineCount: 1
-                        wrapMode: Text.NoWrap
-                    }
-
-                    Item {
-                        id: headerOptionsButton
-                        Layout.preferredWidth: 48
-                        Layout.minimumWidth: 48
-                        Layout.maximumWidth: 48
-                        Layout.fillHeight: true
-
-                        Image {
-                            width: 24
-                            height: 24
-                            anchors.centerIn: parent
-                            source: "/icons/menu.svg"
-                            visible: parent.enabled
-                        }
-                        MouseArea {
-                            anchors.fill: parent
-                            enabled: parent.enabled
-                            onClicked: menu.open()
-                        }
-                    }
-                }
-            }
+            onBackPressed: pageStack.pop();
+            onMenuPressed: menu.open();
         }
 
         Item {
@@ -101,7 +54,7 @@ Item {
     Menu {
         id: menu
 
-        x:root.width - width
+        x: root.width - width - Style.margins
         y: 56
         modal: true
 

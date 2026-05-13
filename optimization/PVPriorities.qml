@@ -14,7 +14,7 @@ Page {
     // #TODO needed here? i.e. should this screen be included in the setup assistant?
     signal done(bool skip, bool abort, bool back)
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("System")
         backButtonVisible: true
         onBackPressed:{

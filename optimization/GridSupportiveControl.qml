@@ -97,7 +97,7 @@ StackView {
         id: setUpStart
 
         Page {
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Grid-supportive control")
                 backButtonVisible: true
                 onBackPressed:{
@@ -192,7 +192,7 @@ StackView {
         id: selectComponent
 
         Page {
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Grid-supportive control setup")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
@@ -248,7 +248,7 @@ StackView {
         id: relaisSetUp
 
         Page {
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Grid-supportive control setup – Relais")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
@@ -436,7 +436,7 @@ StackView {
         id: eebusViewSelect
 
         Page {
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Grid-supportive control setup – EEBUS")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
@@ -539,7 +539,7 @@ StackView {
             property ThingClass thingClass
             property var discoveryThingParams
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Grid-supportive control setup – EEBUS")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
@@ -830,7 +830,7 @@ StackView {
             property ThingClass thingClass
             property var discoveryThingParams
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Grid-supportive control setup – EEBUS")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()

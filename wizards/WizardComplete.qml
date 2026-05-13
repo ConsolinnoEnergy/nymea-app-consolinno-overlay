@@ -9,7 +9,7 @@ Page {
 
     signal done(bool skip, bool abort)
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Installed Devices")
         backButtonVisible: true
         onBackPressed: pageStack.pop()

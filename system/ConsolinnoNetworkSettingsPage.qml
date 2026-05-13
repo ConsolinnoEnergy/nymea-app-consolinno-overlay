@@ -8,6 +8,11 @@ SettingsPageBase {
     id: root
     title: qsTr("Network settings")
     busy: networkManager.loading || d.pendingCallId !== -1
+    header: CoHeader {
+        text: root.title
+        backButtonVisible: true
+        onBackPressed: pageStack.pop()
+    }
 
     NetworkManager {
         id: networkManager

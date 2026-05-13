@@ -11,7 +11,7 @@ Page {
     id: root
     signal startWizard()
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Device Overview")
         onBackPressed: {
             if (hemsManager.availableUseCases === 0){

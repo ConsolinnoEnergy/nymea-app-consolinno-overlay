@@ -6,7 +6,7 @@ import "../components"
 
 Page {
     id: root
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("App Settings")
         backButtonVisible: true
         onBackPressed: pageStack.pop()

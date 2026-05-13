@@ -26,7 +26,7 @@ Page {
         refreshAllDelegates();
     }
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Set up new device")
         onBackPressed: {
             pageStack.pop();

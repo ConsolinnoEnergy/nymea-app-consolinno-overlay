@@ -139,6 +139,11 @@ Page {
             title: root.thing ?
                        qsTr("Reconfigure %1").arg(root.thing.name) :
                        qsTr("Set up %1").arg(root.thingClass.displayName)
+            header: CoHeader {
+                text: paramsView.title
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
 
             QtObject {
                 id: paramd
@@ -344,7 +349,7 @@ Please note that the actual final price may be higher.\
 
         Page {
             id: resultsView
-            header: NymeaHeader {
+            header: CoHeader {
                 text: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
                 onBackPressed: pageStack.pop()
             }

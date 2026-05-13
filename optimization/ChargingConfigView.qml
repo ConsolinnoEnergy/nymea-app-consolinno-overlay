@@ -860,7 +860,7 @@ GenericConfigPage {
                 restoreSchedule();
             }
 
-            header: NymeaHeader {
+            header: CoHeader {
                 id: header
                 text: qsTr("Configure charging mode")
                 backButtonVisible: true

@@ -26,7 +26,7 @@ Page {
     signal extraButtonPressed();
     signal done(bool skip, bool abort);
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: root.headerLabel
         visible: root.headerVisible
         backButtonVisible: root.headerBackButtonVisible
