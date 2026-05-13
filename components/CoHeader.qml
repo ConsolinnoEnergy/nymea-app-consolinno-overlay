@@ -5,7 +5,7 @@ import Nymea
 
 Item {
     id: root
-    implicitHeight: layout.implicitHeight + bottomBorder.implicitHeight + 2 * Style.mediumMargins
+    implicitHeight: layout.implicitHeight + bottomBorder.height + 2 * Style.mediumMargins
     property alias text: headline.text
     property alias subText: subHeadline.text
     property alias backButtonVisible: backButton.visible
