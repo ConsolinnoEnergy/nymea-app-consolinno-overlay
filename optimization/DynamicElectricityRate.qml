@@ -31,7 +31,7 @@ StackView {
         id: setUpComponent
         Page {
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Dynamic electricity tariff")
                 backButtonVisible: true
                 onBackPressed: {

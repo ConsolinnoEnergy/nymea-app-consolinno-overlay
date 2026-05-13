@@ -19,7 +19,7 @@ SettingsPageBase {
 
     busy: d.pendingCommandId != -1
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Reconfigure Modbus RTU master")
         backButtonVisible: true
         onBackPressed: pageStack.pop()

@@ -215,6 +215,12 @@ Page {
             id: discoveryParamsView
             title: qsTr("Discover %1").arg(root.thingClass.displayName)
 
+            header: CoHeader {
+                text: qsTr("Discover %1").arg(root.thingClass.displayName)
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
+
             CoFrostyCard {
                 Layout.fillWidth: true
                 Layout.topMargin: Style.margins
@@ -266,15 +272,16 @@ Page {
         SettingsPageBase {
             id: discoveryView
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Discover %1").arg(root.thingClass.displayName)
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
 
-                HeaderButton {
-                    imageSource: "qrc:/icons/configure.svg"
+                RoundButton {
+                    icon.source: "qrc:/icons/configure.svg"
                     visible: root.thingClass.createMethods.indexOf("CreateMethodUser") >= 0
                     text: qsTr("Add thing manually")
+                    secondary: true
                     onClicked: internalPageStack.push(paramsPage)
                 }
             }
@@ -564,7 +571,7 @@ Page {
         Page {
             id: oAuthPage
             property string oAuthUrl
-            header: NymeaHeader {
+            header: CoHeader {
                 text: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
                 onBackPressed: pageStack.pop()
             }
@@ -651,7 +658,7 @@ Page {
 
         Page {
             id: resultsView
-            header: NymeaHeader {
+            header: CoHeader {
                 text: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
                 onBackPressed: pageStack.pop()
             }

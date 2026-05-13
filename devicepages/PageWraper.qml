@@ -15,7 +15,7 @@ Page {
         return areaNameSplit[1];
     }
 
-    header: NymeaHeader {
+    header: CoHeader {
         backButtonVisible: true
         text: "%1 %2".arg(thing.name).arg(marketArea)
         onBackPressed: {

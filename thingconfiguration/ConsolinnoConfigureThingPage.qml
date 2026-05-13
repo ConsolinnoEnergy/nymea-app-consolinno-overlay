@@ -54,14 +54,11 @@ SettingsPageBase {
         }
     }
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: root.thing.name
+        menuButtonVisible: true
         onBackPressed: pageStack.pop()
-
-        HeaderButton {
-            imageSource: "/icons/menu.svg"
-            onClicked: deviceMenu.open()
-        }
+        onMenuPressed: deviceMenu.open()
     }
 
     CoNotification {
@@ -95,8 +92,9 @@ SettingsPageBase {
 
     Menu {
         id: deviceMenu
-        width: implicitWidth + app.margins
-        x: parent.width - width
+        width: implicitWidth
+        x: parent.width - width - Style.margins
+        y: -Style.margins
 
         Component.onCompleted: {
             deviceMenu.addItem(menuEntryComponent.createObject(deviceMenu, {text: qsTr("Rename"), iconSource: "/icons/edit.svg", functionName: "renameThing"}))

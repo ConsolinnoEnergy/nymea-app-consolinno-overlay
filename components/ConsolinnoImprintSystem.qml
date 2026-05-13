@@ -234,7 +234,7 @@ Item {
         id: licensesPageComponent
         Page {
             id: licensesPage
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Additional software licenses")
                 onBackPressed: pageStack.pop()
             }
@@ -264,7 +264,7 @@ Item {
         id: licenseTextComponent
         Page {
             id: licenseTextPage
-            header: NymeaHeader {
+            header: CoHeader {
                 text: parent.license
                 onBackPressed: pageStack.pop()
             }

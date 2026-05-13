@@ -12,7 +12,7 @@ Page {
 
     signal done(bool skip, bool abort);
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Setup energy meter")
         onBackPressed: pageStack.pop()
     }
@@ -248,7 +248,7 @@ Page {
             property ThingClass thingClass
             property Thing thing
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Discover %1").arg(thingClass.displayName)
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
@@ -445,7 +445,7 @@ Page {
         Page {
             id: setupEnergyMeterPage
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Setup energy meter")
                 onBackPressed: pageStack.pop()
             }

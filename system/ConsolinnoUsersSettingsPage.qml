@@ -260,12 +260,13 @@ SettingsPageBase {
         SettingsPageBase {
             id: manageUsersPage
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Users")
                 onBackPressed: pageStack.pop()
 
-                HeaderButton {
-                    imageSource: Qt.resolvedUrl("/icons/add.svg")
+                RoundButton {
+                    icon.source: Qt.resolvedUrl("/icons/add.svg")
+                    secondary: true
                     onClicked: {
                         var page = pageStack.push(addUserComponent)
                         page.done.connect(function(){

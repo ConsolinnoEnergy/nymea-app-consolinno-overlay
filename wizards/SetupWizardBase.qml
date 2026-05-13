@@ -32,7 +32,7 @@ Page {
     signal done(bool skip, bool abort, bool back)
     signal countChanged()
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: root.headerTitle
         backButtonVisible: true
         onBackPressed: root.done(false, false, true)
@@ -389,7 +389,7 @@ Page {
             property ThingClass thingClass
             property Thing thing
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Discover %1").arg(thingClass.displayName)
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
@@ -591,7 +591,7 @@ Page {
             property Thing thing: null
             property string message: ""
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: root.headerTitle
                 backButtonVisible: false
             }
@@ -736,7 +736,7 @@ Page {
             readonly property bool success: thingError === Thing.ThingErrorNoError
             readonly property Thing thing: engine.thingManager.things.getThing(thingId)
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Reconfigure %1").arg(d.thingName)
                 onBackPressed: pageStack.pop()
             }
@@ -804,7 +804,7 @@ Page {
         Page {
             property string oAuthUrl
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("OAuth Authentication")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()

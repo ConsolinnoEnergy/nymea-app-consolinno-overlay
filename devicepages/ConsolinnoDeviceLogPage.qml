@@ -45,15 +45,16 @@ Page {
     property alias device: root.thing
     property var filterTypeIds: []
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("History for %1").arg(root.thing.name)
         onBackPressed: pageStack.pop()
 
-        HeaderButton {
-            imageSource: "/icons/filters.svg"
-            color: logsModelNg.filterEnabled ? Style.accentColor : Style.iconColor
+        RoundButton {
+            icon.source: "/icons/filters.svg"
+            icon.color: logsModelNg.filterEnabled ? Style.accentColor : Style.iconColor
             onClicked: logsModelNg.filterEnabled = !logsModelNg.filterEnabled
             visible: root.filterTypeIds.length === 0
+            secondary: true
         }
     }
 

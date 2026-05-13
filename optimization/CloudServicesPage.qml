@@ -10,7 +10,7 @@ Page {
 
     property CloudConfiguration cloudConfiguration: hemsManager.cloudConfiguration
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Consolinno Cloud Services")
         backButtonVisible: true
         onBackPressed: pageStack.pop()

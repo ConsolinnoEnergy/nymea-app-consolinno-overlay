@@ -16,7 +16,7 @@ Page{
     signal done(var selectedCar)
     signal back()
 
-    header: NymeaHeader {
+    header: CoHeader {
         id: header
         text: qsTr("List of Cars")
         backButtonVisible: true
@@ -182,7 +182,7 @@ Page{
         Page {
             id: resultsView
             property var thing
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Reconfigure " + thing.name)
                 onBackPressed: pageStack.pop()
             }
