@@ -353,7 +353,7 @@ MainViewBase {
                         type: CoNotification.Type.Information
                         actionType: CoNotification.ActionType.Dismissable
                         title: qsTr("The app has been updated.")
-                        message: qsTr('CHANGENOTIFICATION_PLACEHOLDER')
+                        message: qsTr('CHANGENOTIFICATION_PLACEHOLDER').arg(appVersion)
                         messageTextFormat: Text.RichText
 
                         onDismiss: {
