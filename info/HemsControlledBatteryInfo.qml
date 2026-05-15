@@ -1,0 +1,45 @@
+import QtQuick
+import QtQuick.Controls
+import QtQml
+import Nymea 1.0
+import QtQuick.Layouts
+import "../components"
+import "../delegates"
+
+Page {
+    property var stack
+    header: ConsolinnoHeader {
+        id: header
+        show_Image: true
+        text: qsTr("HEMS-controlled battery")
+        backButtonVisible: true
+        onBackPressed: stack.pop()
+    }
+    InfoTextInterface {
+        anchors.fill: parent
+        body: ColumnLayout {
+            Layout.fillWidth: true
+            id: bodyItem
+
+            Label {
+                Layout.fillWidth: true
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
+                Layout.topMargin: 10
+                wrapMode: Text.WordWrap
+                Layout.preferredWidth: app.width
+                text: qsTr("When the \"HEMS-controlled battery\" toggle is activated, the HEMS controls the charging and discharging of the battery up to the defined minimum and maximum state of charge (SoC).")
+            }
+
+            Label {
+                Layout.fillWidth: true
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
+                Layout.topMargin: 10
+                wrapMode: Text.WordWrap
+                Layout.preferredWidth: app.width
+                text: qsTr("The SoC tapering range describes the range before reaching the maximum or minimum state of charge, from which the charging or discharging power is reduced in order to protect the battery.")
+            }
+        }
+    }
+}

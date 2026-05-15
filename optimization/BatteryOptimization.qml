@@ -119,6 +119,75 @@ Page {
                         checked = (batteryConfiguration.blockBatteryOnGridConsumption & BatteryConfiguration.EvCharger);
                     }
                 }
+
+                CoSwitch {
+                    id: hemsControlledBattery
+                    Layout.fillWidth: true
+                    text: qsTr("HEMS-controlled battery")
+                    infoUrl: "HemsControlledBatteryInfo.qml"
+                    visible: true // thing.thingClass.interfaces.includes("fullymanagedbattery") // #TODO and use cases?
+
+                    Component.onCompleted: {
+                        // #TODO set from config
+                    }
+                }
+
+                CoSlider {
+                    id: maxSoc
+                    Layout.fillWidth: true
+                    visible: hemsControlledBattery.visible && hemsControlledBattery.checked
+                    labelText: qsTr("Maximum SoC")
+                    valueText: value + " %"
+                    stepSize: 1
+                    from: 0
+                    to: 100
+
+                    Component.onCompleted: {
+                        // #TODO set from config
+                    }
+
+                    onValueChanged: {
+                        if (minSoc.value > value) {
+                            minSoc.value = value;
+                        }
+                    }
+                }
+
+                CoSlider {
+                    id: minSoc
+                    Layout.fillWidth: true
+                    visible: hemsControlledBattery.visible && hemsControlledBattery.checked
+                    labelText: qsTr("Minimum SoC")
+                    valueText: value + " %"
+                    stepSize: 1
+                    from: 0
+                    to: 100
+
+                    Component.onCompleted: {
+                        // #TODO set from config
+                    }
+
+                    onValueChanged: {
+                        if (maxSoc.value < value) {
+                            maxSoc.value = value;
+                        }
+                    }
+                }
+
+                CoSlider {
+                    id: socTaperingRange
+                    Layout.fillWidth: true
+                    visible: hemsControlledBattery.visible && hemsControlledBattery.checked
+                    labelText: qsTr("SoC tapering range")
+                    valueText: value + " %"
+                    stepSize: 1
+                    from: 0
+                    to: 100
+
+                    Component.onCompleted: {
+                        // #TODO set from config
+                    }
+                }
             }
         }
 
@@ -153,6 +222,7 @@ Page {
                     blockBatteryOnGridConsumption &= ~BatteryConfiguration.EvCharger;
                 }
 
+                // #TODO add values for F071
                 let config = {
                     controllableLocalSystem: gridSupportControl.checked,
                     avoidZeroFeedInEnabled: zeroCompensationControl.checked,

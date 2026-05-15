@@ -331,6 +331,22 @@
         <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>HEMS-controlled battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum SoC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum SoC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SoC tapering range</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BlackoutProtectionView</name>
@@ -4306,6 +4322,21 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>If there is a problem with the %1 itself, then contact %2 Service.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HemsControlledBatteryInfo</name>
+    <message>
+        <source>HEMS-controlled battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The SoC tapering range describes the range before reaching the maximum or minimum state of charge, from which the charging or discharging power is reduced in order to protect the battery.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When the &quot;HEMS-controlled battery&quot; toggle is activated, the HEMS controls the charging and discharging of the battery up to the defined minimum and maximum state of charge (SoC).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

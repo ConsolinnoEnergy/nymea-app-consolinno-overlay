@@ -331,6 +331,22 @@
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
+    <message>
+        <source>HEMS-controlled battery</source>
+        <translation>HEMS-gesteuerte Batterie</translation>
+    </message>
+    <message>
+        <source>Maximum SoC</source>
+        <translation>Maximaler SoC</translation>
+    </message>
+    <message>
+        <source>Minimum SoC</source>
+        <translation>Minimaler SoC</translation>
+    </message>
+    <message>
+        <source>SoC tapering range</source>
+        <translation>SoC-Tapering-Bereich</translation>
+    </message>
 </context>
 <context>
     <name>BlackoutProtectionView</name>
@@ -4330,6 +4346,21 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
 </context>
 <context>
+    <name>HemsControlledBatteryInfo</name>
+    <message>
+        <source>HEMS-controlled battery</source>
+        <translation>HEMS-gesteuerte Batterie</translation>
+    </message>
+    <message>
+        <source>The SoC tapering range describes the range before reaching the maximum or minimum state of charge, from which the charging or discharging power is reduced in order to protect the battery.</source>
+        <translation>Der SoC-Tapering-Bereich beschreibt den Bereich vor dem Erreichen des maximalen oder minimalen Ladezustands, ab dem die Lade- oder Entladeleistung gedrosselt wird, um die Batterie zu schonen.</translation>
+    </message>
+    <message>
+        <source>When the &quot;HEMS-controlled battery&quot; toggle is activated, the HEMS controls the charging and discharging of the battery up to the defined minimum and maximum state of charge (SoC).</source>
+        <translation>Wenn der Toggle „HEMS-gesteuerte Batterie“ aktiviert wird, steuert das HEMS die Ladung und Entladung der Batterie bis zu den angegebenen minimalen und maximalen Ladezuständen (SoC).</translation>
+    </message>
+</context>
+<context>
     <name>InfoTextInterface</name>
     <message>
         <source>Summary:</source>
@@ -5479,7 +5510,7 @@ Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 
     </message>
     <message>
         <source>Your %1 is now configured. The following devices are set up:</source>
-        <translation type="unfinished">Ihr %1 ist jetzt konfiguriert. Die folgenden Geräte sind eingerichtet:</translation>
+        <translation>Ihr %1 ist jetzt konfiguriert. Die folgenden Geräte sind eingerichtet:</translation>
     </message>
     <message>
         <source>To the Dashboard</source>
