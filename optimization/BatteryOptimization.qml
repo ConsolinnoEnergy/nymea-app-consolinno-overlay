@@ -181,8 +181,8 @@ Page {
                     labelText: qsTr("SoC tapering range")
                     valueText: value + " %"
                     stepSize: 1
-                    from: 0
-                    to: 100
+                    from: 2
+                    to: 10
 
                     Component.onCompleted: {
                         // #TODO set from config
