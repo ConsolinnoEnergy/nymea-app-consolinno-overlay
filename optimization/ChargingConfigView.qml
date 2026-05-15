@@ -332,7 +332,7 @@ GenericConfigPage {
             contentHeight: contentColumn.implicitHeight +
                            contentColumn.anchors.topMargin +
                            contentColumn.anchors.bottomMargin +
-                           (header ? header.height : 0)
+                           (header ? header.height : 0) + 58
 
             ColumnLayout {
                 id: contentColumn

@@ -49,6 +49,8 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
         }
+
+        Item { Layout.fillWidth: true; height: 58 }
     }
 
     Menu {
