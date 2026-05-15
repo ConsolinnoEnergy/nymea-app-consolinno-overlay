@@ -5,15 +5,14 @@ import NymeaApp.Utils 1.0
 import Nymea 1.0
 import "components"
 
-Page {
+MainViewBase {
     id: root
-    header: CoHeader {
-        text: qsTr("Settings")
-        backButtonVisible: true
-        onBackPressed: pageStack.pop()
-    }
+
+    contentY: flickable.contentY + topMargin
+    headerButtons: []
 
     Flickable {
+        id: flickable
         anchors.fill: parent
         contentHeight: layout.implicitHeight + app.margins
         clip: true
@@ -24,7 +23,7 @@ Page {
                 left: parent.left;
                 top: parent.top;
                 right: parent.right;
-                topMargin: Style.smallMargins
+                topMargin: root.topMargin + Style.smallMargins
                 bottomMargin: Style.smallMargins
                 leftMargin: Style.margins
                 rightMargin: Style.margins
