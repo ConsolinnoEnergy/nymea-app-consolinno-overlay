@@ -14,7 +14,7 @@ MainViewBase {
     Flickable {
         id: flickable
         anchors.fill: parent
-        contentHeight: layout.implicitHeight + app.margins
+        contentHeight: root.topMargin + Style.smallMargins + layout.implicitHeight
         clip: true
 
         ColumnLayout {
@@ -325,6 +325,11 @@ MainViewBase {
                         onClicked: pageStack.push(Qt.resolvedUrl("system/DeveloperTools.qml"))
                     }
                 }
+            }
+
+            Item {
+                Layout.fillWidth: true
+                height: root.bottomMargin
             }
         }
     }
