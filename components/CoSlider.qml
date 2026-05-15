@@ -18,6 +18,7 @@ Item {
     property alias helpText: helpLabel.text
     property alias feedbackText: notification.text
     property alias showLabel: labelLayout.visible
+    property real valueTextWidth: 50
 
     signal moved()
 
@@ -57,7 +58,9 @@ Item {
 
             Text {
                 id: valueLabel
+                Layout.preferredWidth: root.valueTextWidth
                 Layout.alignment: Qt.AlignRight | Qt.AlignBottom
+                horizontalAlignment: Text.AlignRight
                 font: Style.newParagraphFont
                 color: Style.colors.typography_Basic_Default
             }
