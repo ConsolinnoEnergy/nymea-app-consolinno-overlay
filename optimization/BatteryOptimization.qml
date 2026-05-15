@@ -139,17 +139,11 @@ Page {
                     labelText: qsTr("Maximum SoC")
                     valueText: value + " %"
                     stepSize: 1
-                    from: 0
-                    to: 100
+                    from: 60
+                    to: 95
 
                     Component.onCompleted: {
                         // #TODO set from config
-                    }
-
-                    onValueChanged: {
-                        if (minSoc.value > value) {
-                            minSoc.value = value;
-                        }
                     }
                 }
 
@@ -160,17 +154,11 @@ Page {
                     labelText: qsTr("Minimum SoC")
                     valueText: value + " %"
                     stepSize: 1
-                    from: 0
-                    to: 100
+                    from: 5
+                    to: 40
 
                     Component.onCompleted: {
                         // #TODO set from config
-                    }
-
-                    onValueChanged: {
-                        if (maxSoc.value < value) {
-                            maxSoc.value = value;
-                        }
                     }
                 }
 
