@@ -16,7 +16,13 @@ Page {
     header: CoHeader {
         text: qsTr("Authorisation page")
         backButtonVisible: true
-        onBackPressed: root.done(true, false)
+        onBackPressed: {
+            if (directionID == 0) {
+                root.done(true, false);  // abort=true, accepted=false
+            } else {
+                pageStack.pop();
+            }
+        }
     }
 
     ColumnLayout {
@@ -69,7 +75,11 @@ Page {
             text: qsTr("Cancel")
             flat: true
             onClicked: {
-                root.done(true, false);  // abort=true, accepted=false
+                if (directionID == 0) {
+                    root.done(true, false);  // abort=true, accepted=false
+                } else {
+                    pageStack.pop();
+                }
             }
         }
     }
