@@ -181,7 +181,7 @@ GenericConfigPage {
                 CoEnergyCircle {
                     id: energyCircle
                     Layout.fillWidth: true
-                    power: root.currentPowerState ? root.currentPowerState.value : 0
+                    power: root.currentPowerState ? Math.abs(root.currentPowerState.value) : 0
                     icon: root.batteryLevelState ?
                               batteryIconByLevel(root.batteryLevelState.value) :
                               app.interfacesToIcon(root.thing.thingClass.interfaces)

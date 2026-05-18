@@ -12,6 +12,13 @@ Item {
                     "-";
     }
 
-    function powerDisplayValue() {
+    function powerDisplayValue(powerValue) {
+        return Math.abs(powerValue) >= 1000 ?
+                    NymeaUtils.floatToLocaleString(powerValue / 1000, 2) :
+                    NymeaUtils.floatToLocaleString(powerValue, 0);
+    }
+
+    function powerDisplayUnit(powerValue) {
+        return Math.abs(powerValue) >= 1000 ? "kW" : "W";
     }
 }

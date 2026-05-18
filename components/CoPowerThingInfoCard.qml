@@ -6,6 +6,8 @@ CoInfoCard {
     readonly property State currentPowerState: thing ? thing.stateByName("currentPower") : null
     readonly property double currentPower: currentPowerState ? Number(currentPowerState.value) : 0
     text: thing.name
-    value: currentPowerState ? Math.abs(currentPower).toFixed(0) : "-" // #TODO do we want the absolute value here?
-    unit: "W" // #TODO convert large values to kW?
+    value: currentPowerState ?
+               UiUtils.powerDisplayValue(Math.abs(currentPower)) :
+               "-"
+    unit: currentPowerState ? UiUtils.powerDisplayUnit(currentPower) : "W"
 }

@@ -125,7 +125,7 @@ Item {
                     Text {
                         id: valueText
                         verticalAlignment: Text.AlignVCenter
-                        text: NymeaUtils.floatToLocaleString(root.power, 0)
+                        text: UiUtils.powerDisplayValue(root.power)
                         font: Style.newH2Font
                         color: Style.colors.components_Dashboard_Info_card_value
                     }
@@ -133,7 +133,7 @@ Item {
                     Text {
                         id: unitText
                         verticalAlignment: Text.AlignVCenter
-                        text: qsTr("W") // #TODO show large values as "kW"?
+                        text: UiUtils.powerDisplayUnit(root.power)
                         font: Style.newParagraphFontBold
                         color: Style.colors.components_Dashboard_Info_card_value
                     }
