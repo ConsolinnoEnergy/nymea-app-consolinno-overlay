@@ -249,7 +249,8 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("Charging from grid") // #TODO wording
-                    visible: thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
+                    visible: thing.thingClass.interfaces.indexOf("controllablebattery") >= 0 &&
+                             dynamicPrice.count >= 1
 
                     ColumnLayout {
                         anchors.left: parent.left
