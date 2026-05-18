@@ -67,7 +67,7 @@ Page {
         Button {
             Layout.fillWidth: true
             text: qsTr("Cancel")
-            secondary: true
+            flat: true
             onClicked: {
                 root.done(true, false);  // abort=true, accepted=false
             }

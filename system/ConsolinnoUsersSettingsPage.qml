@@ -266,7 +266,7 @@ SettingsPageBase {
 
                 RoundButton {
                     icon.source: Qt.resolvedUrl("/icons/add.svg")
-                    secondary: true
+                    flat: true
                     onClicked: {
                         var page = pageStack.push(addUserComponent)
                         page.done.connect(function(){

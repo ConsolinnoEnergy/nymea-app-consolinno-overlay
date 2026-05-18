@@ -281,7 +281,7 @@ Page {
                     icon.source: "qrc:/icons/configure.svg"
                     visible: root.thingClass.createMethods.indexOf("CreateMethodUser") >= 0
                     text: qsTr("Add thing manually")
-                    secondary: true
+                    flat: true
                     onClicked: internalPageStack.push(paramsPage)
                 }
             }
@@ -470,8 +470,7 @@ Page {
                 Layout.leftMargin: Style.margins
                 Layout.rightMargin: Style.margins
                 Layout.topMargin: Style.bigMargins
-
-                secondary: true
+                flat: true
                 text: qsTr("Reset values to default")
                 onClicked: {
                     var model = paramRepeater.model

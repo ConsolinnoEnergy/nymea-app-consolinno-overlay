@@ -304,7 +304,7 @@ StackView {
                 Button {
                     Layout.fillWidth: true
                     text: qsTr("Cancel")
-                    secondary: true
+                    flat: true
 
                     onClicked: {
                         pageStack.pop();
@@ -518,7 +518,7 @@ StackView {
                 Button {
                     Layout.fillWidth: true
                     text: qsTr("Cancel")
-                    secondary: true
+                    flat: true
                     onClicked: {
                         pageStack.pop();
                         pageStack.pop();
@@ -643,7 +643,7 @@ StackView {
                 Button {
                     text: qsTr("Cancel")
                     Layout.fillWidth: true
-                    secondary: true
+                    flat: true
                     onClicked: {
                         pageStack.pop();
                         pageStack.pop();

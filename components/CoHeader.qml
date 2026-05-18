@@ -39,7 +39,7 @@ Item {
         RoundButton {
             id: backButton
             icon.source: "qrc:/icons/arrow_back_ios_new.svg"
-            secondary: true
+            flat: true
             onClicked: root.backPressed();
         }
 
@@ -81,7 +81,7 @@ Item {
             id: menuButton
             icon.source: "qrc:/icons/menu.svg"
             visible: false
-            secondary: true
+            flat: true
             onClicked: root.menuPressed();
         }
     }

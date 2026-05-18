@@ -143,7 +143,7 @@ Page {
         Button {
             Layout.fillWidth: true
             text: qsTr("Cancel")
-            secondary: true
+            flat: true
             onClicked: root.done(false, true)
         }
     }

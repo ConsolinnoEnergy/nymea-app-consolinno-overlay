@@ -109,7 +109,7 @@ Page{
         Button {
             Layout.fillWidth: true
             text: qsTr("Skip")
-            secondary: true
+            flat: true
             onClicked:{
                 root.done(false, true, false);
             }
