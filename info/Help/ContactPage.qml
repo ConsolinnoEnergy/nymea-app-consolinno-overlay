@@ -12,12 +12,11 @@ import "../../delegates"
 
 Page {
 
-    header: ConsolinnoHeader {
+    header: CoHeader {
         id: header
         text: qsTr("Contact")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
-        show_Image: false
 
     }
 
