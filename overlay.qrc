@@ -155,7 +155,6 @@
         <file>wizards/SetupEVChargerWizard.qml</file>
         <file>wizards/WizardComplete.qml</file>
         <file>wizards/SetupEnergyMeterWizard.qml</file>
-        <file>components/ConsolinnoButton.qml</file>
         <file>wizards/SetupSolarInverterWizard.qml</file>
         <file>wizards/SetupHeatPumpWizard.qml</file>
         <file>optimization/BlackoutProtectionView.qml</file>
@@ -204,7 +203,6 @@
         <file>thingconfiguration/ConEMSState.qml</file>
         <file>devicepages/GenericConfigPage.qml</file>
         <file>devicepages/GenericDeviceHistoryPage.qml</file>
-        <file>components/ConsolinnoPVTextField.qml</file>
         <file>wizards/SetupHeatingElementWizard.qml</file>
         <file>devicepages/HeatingElementDevicePage.qml</file>
         <file>devicepages/SimpleConsumerDevicePage.qml</file>
@@ -237,7 +235,6 @@
         <file>info/HeatpumpOptimizationInfo.qml</file>
         <file>info/HeatingRodOperatingModeInfo.qml</file>
         <file>info/SwitchableConsumerOperatingModeInfo.qml</file>
-        <file>components/ConsolinnoThingDelegate.qml</file>
         <file>components/ConsolinnoColorIcon.qml</file>
         <file>components/ConsolinnoSwipeDelegate.qml</file>
         <file>components/CustomBarSeries.qml</file>
@@ -250,8 +247,6 @@
         <file>images/avoidZeroCompansation.svg</file>
         <file>system/ConsolinnoModbusRtuReconfigureMasterPage.qml</file>
         <file>components/ImageSVGHelper.qml</file>
-        <file>components/ConsolinnoSetUpButton.qml</file>
-        <file>components/ConsolinnoRadioDelegate.qml</file>
         <file>images/relais_screen.png</file>
         <file>images/eebus.svg</file>
         <file>images/relais.svg</file>
