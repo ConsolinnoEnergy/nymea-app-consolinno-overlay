@@ -264,6 +264,7 @@
         <file>devicepages/ConsolinnoDeviceLogPage.qml</file>
         <file>thingconfiguration/EpexDayAheadSetup.qml</file>
         <file>utils/DynPricingUtils.js</file>
+        <file>utils/UiUtils.qml</file>
         <file>mainviews/CoDashboardView.qml</file>
         <file>mainviews/UnconfiguredHemsView.qml</file>
         <file>components/CoFrostyCard.qml</file>

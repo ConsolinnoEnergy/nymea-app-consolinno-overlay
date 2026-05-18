@@ -100,8 +100,7 @@ GenericConfigPage {
                         Layout.preferredHeight: Math.max(implicitHeight, temperatureCard.implicitHeight)
                         icon: Qt.resolvedUrl("qrc:/icons/functions.svg")
                         labelText: qsTr("Total consumption") // #TODO wording
-                        // #TODO use decimal places when value is small?
-                        valueText: (root.totalConsumption ? NymeaUtils.floatToLocaleString((+root.totalConsumption.value), 0) : "-") + qsTr(" kWh")
+                        valueText: UiUtils.energyDisplayValue(root.totalConsumption) + " kWh"
                     }
                 }
 
