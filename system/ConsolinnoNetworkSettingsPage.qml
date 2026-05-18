@@ -20,6 +20,8 @@ SettingsPageBase {
         onCreateWiredAutoConnectionReply: handleReply(id, status)
         onCreateWiredManualConnectionReply: handleReply(id, status)
         onCreateWiredSharedConnectionReply: handleReply(id, status)
+        onEnableEth1StaticIpReply: handleReply(id, status)
+        onDisableEth1StaticIpReply: handleReply(id, status)
 
         function handleReply(id, status) {
             if (id === d.pendingCallId) {
@@ -799,6 +801,7 @@ SettingsPageBase {
                     onClicked: {
                         if (manualClientRadioButton.checked) {
                             d.pendingCallId = networkManager.enableEth1StaticIp(ipTextField.text, prefixTextField.text)
+                            console.debug("pendingCallId", d.pendingCallId)
                         } else if (dhcpServerRadioButton.checked) {
                             d.pendingCallId = networkManager.disableEth1StaticIp()
                         }
