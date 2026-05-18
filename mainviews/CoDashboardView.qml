@@ -381,7 +381,8 @@ MainViewBase {
                                 loops: Animation.Infinite
                                 from: 2
                                 to: 0
-                                running: flowCanvas.visible && Qt.application.state === Qt.ApplicationActive
+                                readonly property bool isMobile: Qt.platform.os === "android" || Qt.platform.os === "ios"
+                                running: flowCanvas.visible && (!isMobile || Qt.application.state === Qt.ApplicationActive)
                             }
                             onLineAnimationProgressChanged: requestPaint()
 
