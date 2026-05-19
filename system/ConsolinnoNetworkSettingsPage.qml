@@ -400,11 +400,13 @@ SettingsPageBase {
 
                     ConsolinnoRadioDelegate {
                         id: dhcpServerRadioButton
+                        size: 26
                         text: qsTr("DHCP server")
                         description: qsTr("Default")
                     }
                     ConsolinnoRadioDelegate {
                         id: manualClientRadioButton
+                        size: 26
                         text: qsTr("Static")
                     }
                 }
