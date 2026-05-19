@@ -38,8 +38,6 @@ import "../delegates"
 SettingsPageBase {
     id: root
     property Thing thing: null
-    readonly property State batteryCriticalState: root.thing.stateByName("batteryCritical")
-    readonly property State connectedState: root.thing.stateByName("connected")
     property var stateTypes: []
     busy: d.pendingCommand != -1
 
@@ -54,14 +52,11 @@ SettingsPageBase {
         }
     }
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: root.thing.name
+        menuButtonVisible: true
         onBackPressed: pageStack.pop()
-
-        HeaderButton {
-            imageSource: "/icons/menu.svg"
-            onClicked: deviceMenu.open()
-        }
+        onMenuPressed: deviceMenu.open()
     }
 
     CoNotification {
@@ -69,18 +64,19 @@ SettingsPageBase {
         Layout.rightMargin: Style.margins
         Layout.leftMargin: Style.margins
         Layout.fillWidth: true
-        visible: isNaN(connectedState) && connectedState.value === false ? true : isNaN(batteryCriticalState) && batteryCriticalState.value === true ? true : false
+
+        readonly property State connectedState: root.thing ? root.thing.stateByName("connected") : null
+
+        visible: connectedState ? connectedState.value === false : false
         type: CoNotification.Type.Warning
 
-        title: isNaN(connectedState) && connectedState.value === false ? qsTr("Thing is not connected!") : isNaN(batteryCriticalState) && batteryCriticalState.value === true ? qsTr("Thing runs out of battery!") : ""
+        title: qsTr("Thing is not connected!")
         message: qsTr("Further information in <u>Protocol.</u>")
         clickable: true
         onClicked: {
-            let paramsThing = root.thing;
-            let paramState = isNaN(connectedState) && connectedState.value === false ? ["signalStrength", "connected"]  : isNaN(batteryCriticalState) && batteryCriticalState.value === true ? ["batteryLevel", "batteryCritical"] : [];
             let pageUrl = "../devicepages/ConsolinnoDeviceLogPage.qml";
-            let signalStateType = paramsThing.thingClass.stateTypes.findByName(paramState[0]);
-            let connectedStateType = paramsThing.thingClass.stateTypes.findByName(paramState[1]);
+            let signalStateType = root.thing.thingClass.stateTypes.findByName("signalStrength");
+            let connectedStateType = root.thing.thingClass.stateTypes.findByName("connected");
             let stateTypes = [];
             if (signalStateType) {
                 stateTypes.push(signalStateType.id);
@@ -88,15 +84,16 @@ SettingsPageBase {
             if (connectedStateType) {
                 stateTypes.push(connectedStateType.id);
             }
-            pageStack.push(pageUrl, {thing: paramsThing, filterTypeIds: stateTypes});
+            pageStack.push(pageUrl, { thing: root.thing, filterTypeIds: stateTypes });
         }
 
     }
 
     Menu {
         id: deviceMenu
-        width: implicitWidth + app.margins
-        x: parent.width - width
+        width: implicitWidth
+        x: parent.width - width - Style.margins
+        y: -Style.margins
 
         Component.onCompleted: {
             deviceMenu.addItem(menuEntryComponent.createObject(deviceMenu, {text: qsTr("Rename"), iconSource: "/icons/edit.svg", functionName: "renameThing"}))
@@ -358,6 +355,8 @@ SettingsPageBase {
                                 paramType: root.thing.thingClass.settingsTypes.getParamType(model.id)
                                 value: root.thing.settings.get(index).value
                                 writable: true
+                                // Hide electric vehicle's phase count setting.
+                                visible: paramType.id.toString() !== "{6ee1534a-f2c7-4819-8cd5-728dc63a31ba}"
                                 property bool dirty: root.thing.settings.get(index).value !== value
                                 onDirtyChanged: settingsRepeater.checkDirty()
                             }

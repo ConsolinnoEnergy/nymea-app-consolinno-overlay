@@ -181,7 +181,7 @@ Page {
 
     signal done(bool skip, bool abort, bool back)
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("EEBUS Devices")
         backButtonVisible: true
         onBackPressed: root.done(false, false, true)
@@ -433,7 +433,7 @@ Page {
         Button {
             Layout.fillWidth: true
             text: qsTr("Cancel")
-            secondary: true
+            flat: true
             onClicked: root.done(false, true, false)
         }
     }
@@ -447,7 +447,7 @@ Page {
 
             property ThingClass thingClass
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Discover EEBUS Devices")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
@@ -540,6 +540,11 @@ Page {
             property ThingClass thingClass
 
             title: qsTr("Set up %1").arg(thingClass ? thingClass.displayName : "")
+            header: CoHeader {
+                text: paramsView.title
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
 
             CoFrostyCard {
                 id: nameGroup
@@ -648,7 +653,7 @@ Page {
             property Thing thing: null
             property string message: ""
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("EEBUS Devices")
                 backButtonVisible: false
             }

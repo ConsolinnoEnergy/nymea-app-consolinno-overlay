@@ -78,8 +78,7 @@ GenericConfigPage {
                         Layout.preferredHeight: Math.max(implicitHeight, totalFeedInCard.implicitHeight)
                         icon: Qt.resolvedUrl("qrc:/icons/output_circle.svg")
                         labelText: qsTr("Total grid consumption") // #TODO wording
-                        // #TODO use decimal places when value is small?
-                        valueText: (root.totalConsumption ? NymeaUtils.floatToLocaleString((+root.totalConsumption.value), 0) : "-") + qsTr(" kWh")
+                        valueText: UiUtils.energyDisplayValue(root.totalConsumption) + " kWh"
                     }
 
                     CoKPICard {
@@ -89,8 +88,7 @@ GenericConfigPage {
                         Layout.preferredHeight: Math.max(implicitHeight, totalConsumptionCard.implicitHeight)
                         icon: Qt.resolvedUrl("qrc:/icons/input_circle.svg")
                         labelText: qsTr("Total grid feed-in") // #TODO wording
-                        // #TODO use decimal places when value is small?
-                        valueText: (root.totalFeedIn ? NymeaUtils.floatToLocaleString((+root.totalFeedIn.value), 0) : "-") + qsTr(" kWh")
+                        valueText: UiUtils.energyDisplayValue(root.totalFeedIn) + " kWh"
                     }
                 }
             }

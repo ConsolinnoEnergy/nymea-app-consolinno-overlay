@@ -9,7 +9,7 @@ Page {
 
     signal done(bool skip, bool abort)
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Installed Devices")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
@@ -24,34 +24,46 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: true
             clip: true
-            contentHeight: installedThingsLayout.implicitHeight + installedThingsLayout.anchors.topMargin + installedThingsLayout.anchors.bottomMargin
+            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
 
-            CoFrostyCard {
-                id: installedDevicesCard
+            ColumnLayout {
+                id: layout
                 anchors.fill: parent
-                anchors.topMargin: Style.margins
-                anchors.bottomMargin: Style.margins
-                contentTopMargin: 8
-                headerText: qsTr("Installed Devices")
 
-                ColumnLayout {
-                    id: installedThingsLayout
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    spacing: 0
+                CoFrostyCard {
+                    id: installedDevicesCard
+                    Layout.fillWidth: true
+                    contentTopMargin: 8
+                    headerText: qsTr("Installed Devices")
 
-                    CoCard {
-                        Layout.fillWidth: true
-                        text: qsTr("Your %1 is now configured. The following devices are set up:").arg(Configuration.deviceName)
-                    }
+                    ColumnLayout {
+                        id: installedThingsLayout
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
 
-                    Repeater {
-                        id: installedThingsRepeater
-                        model: engine.thingManager.things
-                        delegate: CoCard {
+                        CoCard {
                             Layout.fillWidth: true
-                            text: model.name
-                            iconLeft: app.interfacesToIcon(model.interfaces)
+                            text: qsTr("Your %1 is now configured. The following devices are set up:").arg(Configuration.deviceName)
+                            interactive: false
+                        }
+
+                        ThingsProxy {
+                            id: thingsProxy
+                            engine: _engine
+                            hideTagId: "hiddenInDeviceView"
+                            hiddenInterfaces: ["gridsupport", "epexdatasource"]
+                        }
+
+                        Repeater {
+                            id: installedThingsRepeater
+                            model: thingsProxy
+                            delegate: CoCard {
+                                Layout.fillWidth: true
+                                text: model.name
+                                iconLeft: app.interfacesToIcon(model.interfaces)
+                                interactive: false
+                            }
                         }
                     }
                 }

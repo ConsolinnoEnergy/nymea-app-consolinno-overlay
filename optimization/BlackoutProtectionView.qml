@@ -11,8 +11,8 @@ Page {
 
     signal done(bool skip, bool abort, bool back)
 
-    header: NymeaHeader {
-        text: qsTr("Blackout protection")
+    header: CoHeader {
+        text: qsTr("System")
         backButtonVisible: true
         onBackPressed:{
             if (directionID == 0) {

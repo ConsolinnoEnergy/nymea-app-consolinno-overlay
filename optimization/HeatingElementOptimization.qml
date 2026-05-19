@@ -13,7 +13,7 @@ Page {
     property int directionID: 0
     signal done()
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Heating")
         backButtonVisible: true
         onBackPressed: pageStack.pop()

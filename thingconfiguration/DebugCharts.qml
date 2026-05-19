@@ -39,7 +39,7 @@ Page {
         }
     }
 
-    header: ConsolinnoHeader {
+    header: CoHeader {
         id: header
         text: qsTr("Debug Charts")
         onBackPressed: pageStack.pop()

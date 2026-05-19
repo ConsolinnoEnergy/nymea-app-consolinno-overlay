@@ -171,8 +171,7 @@ GenericConfigPage {
                         visible: root.totalConsumptionState !== null
                         icon: Qt.resolvedUrl("qrc:/icons/electric_bolt.svg")
                         labelText: qsTr("Total consumption") // #TODO wording
-                        // #TODO use decimal places when value is small?
-                        valueText: (root.totalConsumptionState ? NymeaUtils.floatToLocaleString((+root.totalConsumptionState.value), 0) : "-") + qsTr(" kWh")
+                        valueText: UiUtils.energyDisplayValue(root.totalConsumptionState) + " kWh"
                     }
 
                     CoKPICard {

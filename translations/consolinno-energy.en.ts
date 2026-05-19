@@ -390,6 +390,10 @@
         <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>System</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BlockEVChargingFromBatteryInfo</name>
@@ -1001,7 +1005,7 @@
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation>&lt;style&gt;ul { -qt-list-indent: 1; margin-left: -30px; }&lt;/style&gt;
-&lt;p&gt;Version 2.0.5&lt;/p&gt;
+&lt;p&gt;Version %1&lt;/p&gt;
 &lt;h4&gt;Redesign&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;The app is becoming more modern: the new design will be rolled out step by step&lt;/li&gt;
@@ -1074,13 +1078,6 @@
     </message>
     <message>
         <source>Unallocated consumption</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>CoEnergyCircle</name>
-    <message>
-        <source>W</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1314,10 +1311,6 @@
     <name>ConsolinnoConfigureThingPage</name>
     <message>
         <source>Thing is not connected!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Thing runs out of battery!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3798,10 +3791,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Grid-supportive control – EEBUS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>EEBUS control box</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3815,10 +3804,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Please connect the control box or the ripple control receiver as described in our manual.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid-supportive control – Relais</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3881,6 +3866,10 @@ Would you like to continue anyway?</source>
         <source>Local Subject Key Identifier (SKI)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>EEBUS</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HeatingConfigView</name>
@@ -3938,10 +3927,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Total consumption</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> kWh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4072,10 +4057,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Total consumption</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> kWh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4397,10 +4378,6 @@ Would you like to continue anyway?</source>
         <source>Total production</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source> kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ManualPage</name>
@@ -4712,10 +4689,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Total grid consumption</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> kWh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5173,10 +5146,6 @@ Would you like to continue anyway?</source>
         <source>Total consumption</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source> kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SwitchableConsumerDevicePage</name>
@@ -5214,10 +5183,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Total consumption</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> kWh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5372,6 +5337,10 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switchable consumers</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

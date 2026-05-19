@@ -14,7 +14,7 @@ Page {
     // #TODO needed here? i.e. should this screen be included in the setup assistant?
     signal done(bool skip, bool abort, bool back)
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("System")
         backButtonVisible: true
         onBackPressed:{
@@ -95,6 +95,11 @@ Page {
             // simple_pv_excess (3000–3999) and dyn_pricing (4000–4999) modes.
             return config.optimizationMode >= 2000 && config.optimizationMode < 5000;
         }
+        if (ifaces.indexOf("powersocket") >= 0) {
+            let config = hemsManager.switchConfigurations.getSwitchConfiguration(thing.id);
+            return config ? config.optimizationMode === SwitchConfiguration.OptimizationModePvSurplus : false;
+        }
+
         return false;
     }
 
@@ -269,7 +274,7 @@ Page {
                             Layout.alignment: Qt.AlignHCenter
                             text: qsTr("Restore default order")
                             iconRight: Qt.resolvedUrl("qrc:/icons/undo.svg")
-                            secondary: true
+                            flat: true
 
                             onClicked: {
                                 populateFromPrioList(hemsManager.emsConfiguration.defaultPvSurplusPriolist);

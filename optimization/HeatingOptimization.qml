@@ -37,7 +37,7 @@ Page {
         heatMeterCombo.comboBox.currentIndex = 0;
     }
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Heating")
         backButtonVisible: directionID === 1 ? false : true
         onBackPressed: pageStack.pop()

@@ -181,7 +181,7 @@ GenericConfigPage {
                 CoEnergyCircle {
                     id: energyCircle
                     Layout.fillWidth: true
-                    power: root.currentPowerState ? root.currentPowerState.value : 0
+                    power: root.currentPowerState ? Math.abs(root.currentPowerState.value) : 0
                     icon: root.batteryLevelState ?
                               batteryIconByLevel(root.batteryLevelState.value) :
                               app.interfacesToIcon(root.thing.thingClass.interfaces)
@@ -249,7 +249,8 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("Charging from grid") // #TODO wording
-                    visible: thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
+                    visible: thing.thingClass.interfaces.indexOf("controllablebattery") >= 0 &&
+                             dynamicPrice.count >= 1
 
                     ColumnLayout {
                         anchors.left: parent.left

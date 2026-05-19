@@ -244,7 +244,7 @@ Item {
         id: licensesPageComponent
         Page {
             id: licensesPage
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Common Licenses")
                 onBackPressed: pageStack.pop()
             }
@@ -273,7 +273,7 @@ Item {
         id: softwarelibsPageComponent
         Page {
             id: licensesPage
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Software and Libraries")
                 onBackPressed: pageStack.pop()
             }
@@ -303,7 +303,7 @@ Item {
         id: licenseTextComponent
         Page {
             id: licenseTextPage
-            header: NymeaHeader {
+            header: CoHeader {
                 text: parent.licenseFull
                 onBackPressed: pageStack.pop()
             }
