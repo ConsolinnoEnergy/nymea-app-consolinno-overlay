@@ -20,6 +20,9 @@ class BatteryConfiguration : public QObject
     Q_PROPERTY(int blockBatteryOnGridConsumption READ blockBatteryOnGridConsumption WRITE setBlockBatteryOnGridConsumption NOTIFY blockBatteryOnGridConsumptionChanged)
     Q_PROPERTY(float maxElectricalPower READ maxElectricalPower WRITE setMaxElectricalPower NOTIFY maxElectricalPowerChanged)
     Q_PROPERTY(QList<int> targetSocPvSurplus READ targetSocPvSurplus WRITE setTargetSocPvSurplus NOTIFY targetSocPvSurplusChanged)
+    Q_PROPERTY(int maxSoC READ maxSoC WRITE setMaxSoC NOTIFY maxSoCChanged)
+    Q_PROPERTY(int minSoC READ minSoC WRITE setMinSoC NOTIFY minSoCChanged)
+    Q_PROPERTY(int taperSoC READ taperSoC WRITE setTaperSoC NOTIFY taperSoCChanged)
 
 public:
 
@@ -79,6 +82,15 @@ public:
     QList<int> targetSocPvSurplus() const;
     void setTargetSocPvSurplus(const QList<int> &targetSocPvSurplus);
 
+    int maxSoC() const;
+    void setMaxSoC(int maxSoC);
+
+    int minSoC() const;
+    void setMinSoC(int minSoC);
+
+    int taperSoC() const;
+    void setTaperSoC(int taperSoC);
+
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void priceThresholdChanged(float priceThreshold);
@@ -91,6 +103,9 @@ signals:
     void blockBatteryOnGridConsumptionChanged(int blockBatteryOnGridConsumption);
     void maxElectricalPowerChanged(float maxElectricalPower);
     void targetSocPvSurplusChanged(const QList<int> &targetSocPvSurplus);
+    void maxSoCChanged(int maxSoC);
+    void minSoCChanged(int minSoC);
+    void taperSoCChanged(int taperSoC);
 
 private:
     QUuid m_batteryThingId;
@@ -105,6 +120,9 @@ private:
     int m_blockBatteryOnGridConsumption = EvCharger;
     float m_maxElectricalPower = 0.0;
     QList<int> m_targetSocPvSurplus = {80};
+    int m_maxSoC = 95;  // %
+    int m_minSoC = 5;   // %
+    int m_taperSoC = 5; // %
 };
 
 #endif // BATTERYCONFIGURATION_H

@@ -155,3 +155,45 @@ void BatteryConfiguration::setTargetSocPvSurplus(const QList<int> &targetSocPvSu
     m_targetSocPvSurplus = targetSocPvSurplus;
     emit targetSocPvSurplusChanged(m_targetSocPvSurplus);
 }
+
+int BatteryConfiguration::maxSoC() const
+{
+    return m_maxSoC;
+}
+
+void BatteryConfiguration::setMaxSoC(int maxSoC)
+{
+    if (m_maxSoC == maxSoC)
+        return;
+
+    m_maxSoC = maxSoC;
+    emit maxSoCChanged(m_maxSoC);
+}
+
+int BatteryConfiguration::minSoC() const
+{
+    return m_minSoC;
+}
+
+void BatteryConfiguration::setMinSoC(int minSoC)
+{
+    if (m_minSoC == minSoC)
+        return;
+
+    m_minSoC = minSoC;
+    emit minSoCChanged(m_minSoC);
+}
+
+int BatteryConfiguration::taperSoC() const
+{
+    return m_taperSoC;
+}
+
+void BatteryConfiguration::setTaperSoC(int taperSoC)
+{
+    if (m_taperSoC == taperSoC)
+        return;
+
+    m_taperSoC = taperSoC;
+    emit taperSoCChanged(m_taperSoC);
+}

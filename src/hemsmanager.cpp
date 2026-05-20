@@ -1273,6 +1273,10 @@ void HemsManager::addOrUpdateBatteryConfiguration(const QVariantMap &configurati
     }
     configuration->setTargetSocPvSurplus(targetSocPvSurplus);
 
+    configuration->setMaxSoC(configurationMap.value("maxSoC", 95).toInt());
+    configuration->setMinSoC(configurationMap.value("minSoC", 5).toInt());
+    configuration->setTaperSoC(configurationMap.value("taperSoC", 5).toInt());
+
     if (newConfiguration) {
         qCDebug(dcHems()) << "Battery configuration added" << configuration->batteryThingId();
         m_batteryConfigurations->addConfiguration(configuration);

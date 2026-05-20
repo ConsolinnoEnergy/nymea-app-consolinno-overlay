@@ -23,7 +23,10 @@ public:
         RoleAvoidZeroFeedInActive,
         RoleBlockBatteryOnGridConsumption,
         RoleMaxElectricalPower,
-        RoleTargetSocPvSurplus
+        RoleTargetSocPvSurplus,
+        RoleMaxSoC,
+        RoleMinSoC,
+        RoleTaperSoC
     };
     Q_ENUM(Role);
     explicit BatteryConfigurations(QObject *parent = nullptr);
