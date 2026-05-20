@@ -198,16 +198,16 @@ void BatteryConfiguration::setTaperSoC(int taperSoC)
     emit taperSoCChanged(m_taperSoC);
 }
 
-bool BatteryConfiguration::fullyManageableBattery() const
+bool BatteryConfiguration::fullymanagableBattery() const
 {
-    return m_fullyManageableBattery;
+    return m_fullymanagableBattery;
 }
 
-void BatteryConfiguration::setFullyManageableBattery(bool fullyManageableBattery)
+void BatteryConfiguration::setFullymanagableBattery(bool fullymanagableBattery)
 {
-    if (m_fullyManageableBattery == fullyManageableBattery)
+    if (m_fullymanagableBattery == fullymanagableBattery)
         return;
 
-    m_fullyManageableBattery = fullyManageableBattery;
-    emit fullyManageableBatteryChanged(m_fullyManageableBattery);
+    m_fullymanagableBattery = fullymanagableBattery;
+    emit fullymanagableBatteryChanged(m_fullymanagableBattery);
 }

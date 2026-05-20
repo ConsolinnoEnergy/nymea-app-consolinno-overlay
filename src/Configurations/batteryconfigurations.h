@@ -27,7 +27,7 @@ public:
         RoleMaxSoC,
         RoleMinSoC,
         RoleTaperSoC,
-        RoleFullyManageableBattery
+        RoleFullymanagableBattery
     };
     Q_ENUM(Role);
     explicit BatteryConfigurations(QObject *parent = nullptr);

@@ -46,8 +46,8 @@ QVariant BatteryConfigurations::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->minSoC();
     case RoleTaperSoC:
         return m_list.at(index.row())->taperSoC();
-    case RoleFullyManageableBattery:
-        return m_list.at(index.row())->fullyManageableBattery();
+    case RoleFullymanagableBattery:
+        return m_list.at(index.row())->fullymanagableBattery();
     }    return QVariant();
 }
 
@@ -69,7 +69,7 @@ QHash<int, QByteArray> BatteryConfigurations::roleNames() const
     roles.insert(RoleMaxSoC, "maxSoC");
     roles.insert(RoleMinSoC, "minSoC");
     roles.insert(RoleTaperSoC, "taperSoC");
-    roles.insert(RoleFullyManageableBattery, "fullyManageableBattery");
+    roles.insert(RoleFullymanagableBattery, "fullymanagableBattery");
     return roles;
 }
 
@@ -170,9 +170,9 @@ void BatteryConfigurations::addConfiguration(BatteryConfiguration *batteryConfig
         emit dataChanged(idx, idx, {RoleTaperSoC});
     });
 
-    connect(batteryConfiguration, &BatteryConfiguration::fullyManageableBatteryChanged, this, [=]() {
+    connect(batteryConfiguration, &BatteryConfiguration::fullymanagableBatteryChanged, this, [=]() {
         QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
-        emit dataChanged(idx, idx, {RoleFullyManageableBattery});
+        emit dataChanged(idx, idx, {RoleFullymanagableBattery});
     });
 
     endInsertRows();
