@@ -12,7 +12,7 @@ Page {
     signal done(bool skip, bool abort, bool back)
 
     header: CoHeader {
-        text: qsTr("Blackout protection")
+        text: qsTr("System")
         backButtonVisible: true
         onBackPressed:{
             if (directionID == 0) {

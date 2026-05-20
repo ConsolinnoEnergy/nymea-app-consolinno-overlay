@@ -56,7 +56,7 @@ Page {
         }
     }
 
-    header: ConsolinnoHeader {
+    header: CoHeader {
         id: header
         text: qsTr("ConEMS State")
         onBackPressed: pageStack.pop()

@@ -84,12 +84,6 @@ MainViewBase {
         return batteryConfig.avoidZeroFeedInActive && batteryConfig.avoidZeroFeedInEnabled;
     }
 
-    function adjustAlpha(color, alphaFactor) {
-        let newColor = color;
-        newColor.a *= alphaFactor;
-        return newColor;
-    }
-
     EnergyManager {
         id: energyManager
         engine: _engine
@@ -381,7 +375,8 @@ MainViewBase {
                                 loops: Animation.Infinite
                                 from: 2
                                 to: 0
-                                running: flowCanvas.visible && Qt.application.state === Qt.ApplicationActive
+                                readonly property bool isMobile: Qt.platform.os === "android" || Qt.platform.os === "ios"
+                                running: flowCanvas.visible && (!isMobile || Qt.application.state === Qt.ApplicationActive)
                             }
                             onLineAnimationProgressChanged: requestPaint()
 
@@ -487,8 +482,8 @@ MainViewBase {
                                 Layout.column: 0
                                 visible: producerThings.count > 0
                                 text: qsTr("Solar")
-                                value: Math.abs(dataProvider.currentPowerProduction)
-                                unit: "W"
+                                value: UiUtils.powerDisplayValue(Math.abs(dataProvider.currentPowerProduction))
+                                unit: UiUtils.powerDisplayUnit(dataProvider.currentPowerProduction)
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/solar_power.svg")
                                 showWarningIndicator: anyInverterLppActive
@@ -504,8 +499,8 @@ MainViewBase {
                                 Layout.row: 0
                                 Layout.column: 2
                                 text: qsTr("Grid")
-                                value: Math.abs(dataProvider.currentPowerRootMeter)
-                                unit: "W"
+                                value: UiUtils.powerDisplayValue(Math.abs(dataProvider.currentPowerRootMeter))
+                                unit: UiUtils.powerDisplayUnit(dataProvider.currentPowerRootMeter)
                                 compactLayout: true
                                 showWarningIndicator: lpcActive
                                 icon: Qt.resolvedUrl("/icons/input_circle.svg")
@@ -527,8 +522,8 @@ MainViewBase {
                                 Layout.column: 0
                                 visible: batteryThings.count > 0
                                 text: qsTr("Battery")
-                                value: Math.abs(dataProvider.currentPowerBatteries)
-                                unit: "W"
+                                value: UiUtils.powerDisplayValue(Math.abs(dataProvider.currentPowerBatteries))
+                                unit: UiUtils.powerDisplayUnit(dataProvider.currentPowerBatteries)
                                 compactLayout: true
                                 showWarningIndicator: anyAvoidZeroCompensationActive
                                 icon: batteryIconByLevel(dataProvider.totalBatteryLevel)
@@ -544,8 +539,8 @@ MainViewBase {
                                 Layout.row: 2
                                 Layout.column: 2
                                 text: qsTr("Consumption")
-                                value: Math.abs(dataProvider.currentPowerTotalConsumption)
-                                unit: "W"
+                                value: UiUtils.powerDisplayValue(Math.abs(dataProvider.currentPowerTotalConsumption))
+                                unit: UiUtils.powerDisplayUnit(dataProvider.currentPowerTotalConsumption)
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/electric_bolt.svg")
                                 onClicked: {
@@ -829,8 +824,8 @@ MainViewBase {
                                 CoInfoCard {
                                     Layout.fillWidth: true
                                     text: qsTr("Unallocated consumption")
-                                    value: Math.abs(dataProvider.currentPowerUnallocatedConsumption)
-                                    unit: "W"
+                                    value: UiUtils.powerDisplayValue(Math.abs(dataProvider.currentPowerUnallocatedConsumption))
+                                    unit: UiUtils.powerDisplayUnit(dataProvider.currentPowerUnallocatedConsumption)
                                     icon: Qt.resolvedUrl("qrc:/icons/interests.svg")
                                     clickable: false
                                 }

@@ -29,6 +29,7 @@ Page{
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: Style.margins
+        spacing: Style.margins
 
         Flickable {
             Layout.fillHeight: true
@@ -109,7 +110,7 @@ Page{
         Button {
             Layout.fillWidth: true
             text: qsTr("Skip")
-            secondary: true
+            flat: true
             onClicked:{
                 root.done(false, true, false);
             }

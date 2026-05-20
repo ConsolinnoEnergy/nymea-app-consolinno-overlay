@@ -274,7 +274,7 @@ Page {
 
             Button {
                 Layout.fillWidth: true
-                secondary: true
+                flat: true
                 text: qsTr("Remove entry")
                 onClicked: {
                     root.entryRemoved()

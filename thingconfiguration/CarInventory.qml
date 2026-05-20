@@ -299,7 +299,7 @@ Page{
                 Button {
                     Layout.fillWidth: true
                     text: qsTr("Delete")
-                    secondary: true
+                    flat: true
 
                     onClicked: {
                         engine.thingManager.removeThing(thing.id);

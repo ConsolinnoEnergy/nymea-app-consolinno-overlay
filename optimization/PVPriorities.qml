@@ -274,7 +274,7 @@ Page {
                             Layout.alignment: Qt.AlignHCenter
                             text: qsTr("Restore default order")
                             iconRight: Qt.resolvedUrl("qrc:/icons/undo.svg")
-                            secondary: true
+                            flat: true
 
                             onClicked: {
                                 populateFromPrioList(hemsManager.emsConfiguration.defaultPvSurplusPriolist);

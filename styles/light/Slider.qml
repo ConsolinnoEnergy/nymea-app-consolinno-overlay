@@ -56,11 +56,14 @@ T.Slider {
         implicitWidth: 30
         implicitHeight: 30
         radius: width / 2
-        color: control.pressed ?
-                   Style.colors.components_Forms_Slider_Thumb_pressed_accent :
-                   control.hovered ?
-                       Style.colors.components_Forms_Slider_Thumb_hover_accent :
-                       "transparent"
+        color: {
+            if (!control.enabled) return "transparent";
+            return control.pressed ?
+                        Style.colors.components_Forms_Slider_Thumb_pressed_accent :
+                        control.hovered ?
+                            Style.colors.components_Forms_Slider_Thumb_hover_accent :
+                            "transparent";
+        }
 
         Rectangle {
             property int ringWidth: control.pressed ? 5 : 7

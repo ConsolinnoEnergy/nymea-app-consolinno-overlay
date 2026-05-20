@@ -304,7 +304,7 @@ StackView {
                 Button {
                     Layout.fillWidth: true
                     text: qsTr("Cancel")
-                    secondary: true
+                    flat: true
 
                     onClicked: {
                         pageStack.pop();
@@ -319,12 +319,13 @@ StackView {
         id: relaisSetUpFinish
 
         Page {
-            header: ConsolinnoHeader {
-                text: qsTr("Grid-supportive control – Relais")
+            header: CoHeader {
+                text: qsTr("Grid-supportive control")
+                subText: qsTr("Relais")
                 backButtonVisible: true
-                menuOptionsButtonVisible: true
+                menuButtonVisible: true
                 onBackPressed: pageStack.pop()
-                onMenuOptionsPressed: menu.open()
+                onMenuPressed: menu.open()
             }
 
             ListModel {
@@ -517,7 +518,7 @@ StackView {
                 Button {
                     Layout.fillWidth: true
                     text: qsTr("Cancel")
-                    secondary: true
+                    flat: true
                     onClicked: {
                         pageStack.pop();
                         pageStack.pop();
@@ -642,7 +643,7 @@ StackView {
                 Button {
                     text: qsTr("Cancel")
                     Layout.fillWidth: true
-                    secondary: true
+                    flat: true
                     onClicked: {
                         pageStack.pop();
                         pageStack.pop();
@@ -658,12 +659,13 @@ StackView {
         id: eebusView
 
         Page {
-            header: ConsolinnoHeader {
-                text: qsTr("Grid-supportive control – EEBUS")
+            header: CoHeader {
+                text: qsTr("Grid-supportive control")
+                subText: qsTr("EEBUS")
                 backButtonVisible: true
-                menuOptionsButtonVisible: true
+                menuButtonVisible: true
                 onBackPressed: pageStack.pop()
-                onMenuOptionsPressed: eebusViewMenu.open()
+                onMenuPressed: eebusViewMenu.open()
             }
 
             ListModel {

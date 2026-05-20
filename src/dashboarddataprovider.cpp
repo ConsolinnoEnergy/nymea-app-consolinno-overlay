@@ -581,7 +581,7 @@ bool DashboardDataProvider::isConnected(Thing *thing) const
     if (connected) {
         qCDebug(dcDashboardDataProvider()) << "Thing" << thing->name() << " is connected";
     } else {
-        qCWarning(dcDashboardDataProvider()) << "Thing" << thing->name() << "is not connected!";
+        qCInfo(dcDashboardDataProvider()) << "Thing" << thing->name() << "is not connected!";
     }
     return connected;
 }

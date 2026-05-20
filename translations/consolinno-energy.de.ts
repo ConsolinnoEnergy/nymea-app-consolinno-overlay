@@ -406,6 +406,10 @@
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
+    <message>
+        <source>System</source>
+        <translation>System</translation>
+    </message>
 </context>
 <context>
     <name>BlockEVChargingFromBatteryInfo</name>
@@ -1100,13 +1104,6 @@
     <message>
         <source>Unallocated consumption</source>
         <translation>Verbrauch ohne Zuordnung</translation>
-    </message>
-</context>
-<context>
-    <name>CoEnergyCircle</name>
-    <message>
-        <source>W</source>
-        <translation></translation>
     </message>
 </context>
 <context>
@@ -3830,10 +3827,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Netzdienlichkeit einrichten – EEBUS</translation>
     </message>
     <message>
-        <source>Grid-supportive control – EEBUS</source>
-        <translation>Netzdienlichkeit – EEBUS</translation>
-    </message>
-    <message>
         <source>EEBUS control box</source>
         <translation>EEBUS Steuerbox</translation>
     </message>
@@ -3848,10 +3841,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>Please connect the control box or the ripple control receiver as described in our manual.</source>
         <translation>Bitte schließen Sie die Steuerbox bzw. den Rundsteuerempfänger gemäß unserer Anleitung an.</translation>
-    </message>
-    <message>
-        <source>Grid-supportive control – Relais</source>
-        <translation>Netzdienlichkeit – Relais</translation>
     </message>
     <message>
         <source>Grid-supportive control setup – Relais</source>
@@ -3913,6 +3902,10 @@ Möchten Sie trotzdem fortfahren?</translation>
         <source>Local Subject Key Identifier (SKI)</source>
         <translation>Local Subject Key Identifier (SKI)</translation>
     </message>
+    <message>
+        <source>EEBUS</source>
+        <translation>EEBUS</translation>
+    </message>
 </context>
 <context>
     <name>HeatingConfigView</name>
@@ -3971,10 +3964,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>Total consumption</source>
         <translation>Aufgenommene elektrische Energie</translation>
-    </message>
-    <message>
-        <source> kWh</source>
-        <translation></translation>
     </message>
     <message>
         <source> kW</source>
@@ -4105,10 +4094,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>Total consumption</source>
         <translation>Gesamtverbrauch</translation>
-    </message>
-    <message>
-        <source> kWh</source>
-        <translation></translation>
     </message>
     <message>
         <source>Status</source>
@@ -4444,10 +4429,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <source>Total production</source>
         <translation>Gesamtproduktion</translation>
     </message>
-    <message>
-        <source> kWh</source>
-        <translation></translation>
-    </message>
 </context>
 <context>
     <name>ManualPage</name>
@@ -4761,10 +4742,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Total grid consumption</source>
         <translation>Gesamter Netzbezug</translation>
-    </message>
-    <message>
-        <source> kWh</source>
-        <translation></translation>
     </message>
     <message>
         <source>Total grid feed-in</source>
@@ -5221,10 +5198,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <source>Total consumption</source>
         <translation>Gesamtverbrauch</translation>
     </message>
-    <message>
-        <source> kWh</source>
-        <translation></translation>
-    </message>
 </context>
 <context>
     <name>SwitchableConsumerDevicePage</name>
@@ -5263,10 +5236,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Total consumption</source>
         <translation>Gesamtverbrauch</translation>
-    </message>
-    <message>
-        <source> kWh</source>
-        <translation> kWh</translation>
     </message>
     <message>
         <source>Status</source>
@@ -5421,6 +5390,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
+    </message>
+    <message>
+        <source>Switchable consumers</source>
+        <translation>Schaltbare Verbraucher</translation>
     </message>
 </context>
 <context>
