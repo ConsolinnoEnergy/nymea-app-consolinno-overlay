@@ -411,32 +411,24 @@ SettingsPageBase {
                     anchors.right: parent.right
                     spacing: 0
 
-                    ColumnLayout {
+                    CoInputField {
+                        id: ipTextField
                         Layout.fillWidth: true
-                        Layout.leftMargin: Style.margins
-                        Layout.rightMargin: Style.margins
-                        Layout.topMargin: Style.smallMargins
-                        Layout.bottomMargin: Style.smallMargins
-
-                        CoInputField {
-                            id: ipTextField
-                            Layout.fillWidth: true
-                            labelText: qsTr("IP Address")
-                            textField.validator: RegularExpressionValidator {
-                                regularExpression: /^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])$/
-                            }
+                        labelText: qsTr("IP Address")
+                        textField.validator: RegularExpressionValidator {
+                            regularExpression: /^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])$/
                         }
+                    }
 
-                        CoInputField {
-                            id: prefixTextField
-                            Layout.fillWidth: true
-                            labelText: qsTr("Prefix length")
-                            compact: true
-                            text: "24"
-                            textField.validator: IntValidator {
-                                bottom: 8
-                                top: 32
-                            }
+                    CoInputField {
+                        id: prefixTextField
+                        Layout.fillWidth: true
+                        labelText: qsTr("Prefix length")
+                        compact: true
+                        text: "24"
+                        textField.validator: IntValidator {
+                            bottom: 8
+                            top: 32
                         }
                     }
                 }
