@@ -53,6 +53,7 @@ Page {
                             engine: _engine
                             hideTagId: "hiddenInDeviceView"
                             hiddenInterfaces: ["gridsupport", "epexdatasource"]
+                            hiddenThingClassIds: ["7a597210-8f7e-4667-8cf7-82ccdc23c313"] // Device claiming plugin
                         }
 
                         Repeater {
