@@ -29,6 +29,7 @@ Page{
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: Style.margins
+        spacing: Style.margins
 
         Flickable {
             Layout.fillHeight: true
